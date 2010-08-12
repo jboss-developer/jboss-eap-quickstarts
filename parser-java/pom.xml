@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>org.jboss.seam.sidekick</groupId>
+      <artifactId>sidekick-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
+
+   <artifactId>sidekick-parser-java</artifactId>
+   
+   <packaging>jar</packaging>
+   <name>Seam Sidekick Parser - Java</name>
+
+   <dependencies>
+      <!-- Eclipse Java Development Tools (JDT) parser and its (many) required 
+         libraries -->
+      <dependency>
+         <groupId>org.eclipse.equinox</groupId>
+         <artifactId>common</artifactId>
+         <version>3.3.0-v20070426</version>
+      </dependency>
+      <dependency>
+         <groupId>org.eclipse.jdt</groupId>
+         <artifactId>core</artifactId>
+         <version>3.3.0-v_771</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.eclipse.core.runtime.compatibility</groupId>
+               <artifactId>auth</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>org.eclipse.equinox</groupId>
+               <artifactId>app</artifactId>
+            </exclusion>
+            <!-- <exclusion> <groupId>org.eclipse</groupId> <artifactId>text</artifactId> 
+               </exclusion> -->
+            <exclusion>
+               <groupId>org.eclipse.core</groupId>
+               <artifactId>filesystem</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+   </dependencies>
+
+</project>

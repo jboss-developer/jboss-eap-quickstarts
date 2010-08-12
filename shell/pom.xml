@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>org.jboss.seam.sidekick</groupId>
+      <artifactId>sidekick-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
+
+   <artifactId>sidekick-shell</artifactId>
+
+   <packaging>jar</packaging>
+   <name>Seam Sidekick Shell</name>
+
+   <dependencies>
+      <!-- CDI Dependencies -->
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-parser-java</artifactId>
+         <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-shell-plugin-api</artifactId>
+         <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-se</artifactId>
+         <version>1.0.1-Final</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-extensions</artifactId>
+         <version>1.0.0.Alpha2</version>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>1.5.10</version>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-simple</artifactId>
+         <version>1.5.10</version>
+      </dependency>
+
+      <!-- Shell Libraries -->
+      <dependency>
+         <groupId>org.sonatype.jline</groupId>
+         <artifactId>jline</artifactId>
+         <version>2.3</version>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1.1</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <mainClass>org.jboss.encore.shell.Main</mainClass>
+               <!--
+                  <arguments> <argument>argument1</argument> </arguments> 
+                  <systemProperties> <systemProperty> <key>myproperty</key> <value>myvalue</value> 
+                  </systemProperty> </systemProperties>
+                -->
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+</project>
