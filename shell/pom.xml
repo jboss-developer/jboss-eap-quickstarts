@@ -19,40 +19,34 @@
       <dependency>
          <groupId>org.jboss.seam.sidekick</groupId>
          <artifactId>sidekick-parser-java</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
       </dependency>
+
       <dependency>
          <groupId>org.jboss.seam.sidekick</groupId>
          <artifactId>sidekick-shell-plugin-api</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-se</artifactId>
-         <version>1.0.1-Final</version>
       </dependency>
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-extensions</artifactId>
-         <version>1.0.0.Alpha2</version>
       </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
-         <version>1.5.10</version>
       </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-simple</artifactId>
-         <version>1.5.10</version>
       </dependency>
 
       <!-- Shell Libraries -->
       <dependency>
          <groupId>org.sonatype.jline</groupId>
          <artifactId>jline</artifactId>
-         <version>2.3</version>
       </dependency>
    </dependencies>
 
@@ -71,11 +65,6 @@
             </executions>
             <configuration>
                <mainClass>org.jboss.encore.shell.Main</mainClass>
-               <!--
-                  <arguments> <argument>argument1</argument> </arguments> 
-                  <systemProperties> <systemProperty> <key>myproperty</key> <value>myvalue</value> 
-                  </systemProperty> </systemProperties>
-                -->
             </configuration>
          </plugin>
       </plugins>

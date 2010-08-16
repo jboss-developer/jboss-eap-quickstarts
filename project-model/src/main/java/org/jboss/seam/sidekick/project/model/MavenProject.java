@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
+
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
@@ -42,13 +45,42 @@ public class MavenProject extends AbstractProject
 {
    private File projectRoot = null;
 
+   public MavenProject()
+   {
+      this(getCurrentWorkingDir());
+      File originalRoot = projectRoot.getAbsoluteFile();
+      File pom = new File(projectRoot + "/pom.xml");
+      while (!pom.exists())
+      {
+         projectRoot = projectRoot.getParentFile();
+         pom = new File(projectRoot + "/pom.xml");
+      }
+
+      if (!pom.exists())
+      {
+         projectRoot = originalRoot;
+         throw new ProjectModelException("Could not locate pom.xml in this directory or any parent directories of: " + originalRoot);
+      }
+      verify();
+   }
+
+   private void verify()
+   {
+      this.getPOM();
+   }
+
    public MavenProject(File directory)
    {
       if (!directory.isDirectory())
       {
          throw new ProjectModelException("Cannot load project from directory that does not exist.");
       }
-      projectRoot = directory;
+      projectRoot = directory.getAbsoluteFile();
+   }
+
+   public MavenProject(String path)
+   {
+      this(new File(path));
    }
 
    @Override
@@ -132,5 +164,26 @@ public class MavenProject extends AbstractProject
          }
       }
       return file;
+   }
+
+   /*
+    * Producers
+    */
+   private static File getCurrentWorkingDir()
+   {
+      return new File("").getAbsoluteFile();
+   }
+
+   @Produces
+   @LocatedAt
+   public static MavenProject getCurrentDirectoryProject(InjectionPoint ip)
+   {
+      String path = ip.getAnnotated().getAnnotation(LocatedAt.class).value();
+      if ("".equals(path))
+      {
+         path = ip.getMember().getName();
+      }
+      MavenProject result = new MavenProject(path);
+      return result;
    }
 }

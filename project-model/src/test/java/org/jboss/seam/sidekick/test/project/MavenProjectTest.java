@@ -23,30 +23,63 @@
 package org.jboss.seam.sidekick.test.project;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.eclipse.core.internal.resources.Project;
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.parser.java.JavaParser;
+import org.jboss.seam.sidekick.project.model.LocatedAt;
 import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@RunWith(Arquillian.class)
 public class MavenProjectTest
 {
+   @Deployment
+   public static JavaArchive createTestArchive()
+   {
+      return ShrinkWrap.create(JavaArchive.class, "test.jar")
+            .addPackages(true, Project.class.getPackage())
+            .addClass(MavenProject.class)
+            .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+   }
+
    private static final String PKG = MavenProjectTest.class.getSimpleName().toLowerCase();
    private static File tempFolder;
    private static MavenProject project;
+
+   @Inject
+   private MavenProject thisProject;
+
+   @Inject
+   @LocatedAt("../")
+   private MavenProject parentProject;
+
+   @Inject
+   @LocatedAt("/tmp")
+   private MavenProject unknownProject;
 
    @BeforeClass
    public static void before() throws IOException
@@ -102,5 +135,26 @@ public class MavenProjectTest
       MavenXpp3Reader reader = new MavenXpp3Reader();
       Model result = reader.read(new FileInputStream(file));
       assertEquals(pom.getArtifactId(), result.getArtifactId());
+   }
+
+   @Test
+   public void testInjectedProjectIsCurrentProject() throws Exception
+   {
+      Model pom = thisProject.getPOM();
+      assertEquals("sidekick-project-model", pom.getArtifactId());
+   }
+
+   @Test
+   public void testInjectedAbsoluteParentProjectIsParentProject() throws Exception
+   {
+      Model pom = parentProject.getPOM();
+      assertEquals("sidekick-parent", pom.getArtifactId());
+   }
+
+   @Test
+   public void testInjectedAbsoluteUnknownProjectCannotInstantiate() throws Exception
+   {
+      Model pom = unknownProject.getPOM();
+      assertNull(pom.getArtifactId());
    }
 }

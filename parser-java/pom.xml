@@ -10,13 +10,17 @@
    </parent>
 
    <artifactId>sidekick-parser-java</artifactId>
-   
+
    <packaging>jar</packaging>
    <name>Seam Sidekick Parser - Java</name>
 
    <dependencies>
       <!-- Eclipse Java Development Tools (JDT) parser and its (many) required 
          libraries -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+      </dependency>
       <dependency>
          <groupId>org.eclipse.equinox</groupId>
          <artifactId>common</artifactId>

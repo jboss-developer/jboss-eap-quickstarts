@@ -18,12 +18,10 @@
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-se</artifactId>
-         <version>1.0.1-Final</version>
       </dependency>
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-extensions</artifactId>
-         <version>1.0.0.Alpha2</version>
       </dependency>
    </dependencies>
 </project>
