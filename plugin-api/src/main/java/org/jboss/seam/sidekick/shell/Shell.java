@@ -19,29 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+package org.jboss.seam.sidekick.shell;
 
 /**
- * Defines a @{@link Command} as the plugin default. It will be run if no other
- * command matches the input line.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
-@Retention(RUNTIME)
-@Documented
-public @interface Default
+public interface Shell
 {
+
+   /**
+    * Clear the console.
+    */
+   void clear();
+
+   /**
+    * Prompt for user input, and return as a String.
+    */
+   String prompt();
+
+   /**
+    * Prompt for user input, first printing the given line, then return user
+    * input return as a String.
+    */
+   String prompt(String prompt);
+
+   /**
+    * Write output to the console.
+    */
+   void write(String output);
 
 }

@@ -25,8 +25,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Default;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
@@ -40,8 +39,7 @@ public class ClearPlugin implements Plugin
    @Inject
    Shell shell;
 
-   @Default
-   @Command
+   @DefaultCommand
    public void run()
    {
       shell.clear();

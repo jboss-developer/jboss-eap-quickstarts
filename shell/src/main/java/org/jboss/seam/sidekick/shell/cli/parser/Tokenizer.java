@@ -19,49 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.jboss.seam.sidekick.shell.cli.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedList;
 import java.util.Queue;
-
-import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
-import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * Parses named varargs options such as:
- * <p>
- * <code>[command] {--option foo bar baz}</code>
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class NamedValueVarargsOptionParser implements CommandParser
+public class Tokenizer
 {
-
-   @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Queue<String> tokenize(final String line)
    {
-      String currentToken = tokens.peek();
-      if (currentToken.startsWith("--"))
+      Queue<String> tokens = new LinkedList<String>();
+
+      // -------------------------------(0-(1------)---(2---))----------
+      Matcher matcher = Pattern.compile("\"([^\"]*?)\"|(\\S+)").matcher(line);
+      while (matcher.find())
       {
-         currentToken = currentToken.substring(2);
-         OptionMetadata option = command.getNamedOption(currentToken);
-         if (option.isVarargs())
+         if (matcher.group(1) != null)
          {
-            tokens.remove();
-            List<String> args = new ArrayList<String>();
-            while (!tokens.peek().startsWith("--"))
-            {
-               args.add(tokens.remove());
-            }
-            valueMap.put(option, args.toArray()); // add the value, should we
-                                                  // return this as a tuple
-                                                  // instead?
+            tokens.add(matcher.group(1));
+         }
+         else
+         {
+            tokens.add(matcher.group());
          }
       }
-   }
 
+      return tokens;
+   }
 }

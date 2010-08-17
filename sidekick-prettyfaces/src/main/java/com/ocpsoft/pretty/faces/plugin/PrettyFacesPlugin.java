@@ -19,13 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.io.File;
+package com.ocpsoft.pretty.faces.plugin;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
@@ -33,18 +33,30 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("pwd")
-@Help("Prints the current directory.")
-public class PwdPlugin implements Plugin
+@Named("prettyfaces")
+@Help("Manages the OcpSoft PrettyFaces Plugin and Configuration")
+public class PrettyFacesPlugin implements Plugin
 {
-   @Inject
-   Shell shell;
 
-   @DefaultCommand
-   public void run()
+   @Inject
+   private Shell shell;
+
+   @Inject
+   private MavenProject project;
+
+   @DefaultCommand(help = "displays the status of the plugin")
+   public void status()
    {
-      String currentDir = new File("").getAbsolutePath();
-      shell.write(currentDir);
+      if (project.hasDependency("com.ocpsoft", "prettyfaces-jsf(1?2)"))
+      {
+         shell.write("Status: INSTALLED");
+      }
+      else
+      {
+         shell.write("Status: NOT-INSTALLED");
+      }
    }
+
 }

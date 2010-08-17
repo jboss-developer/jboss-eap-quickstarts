@@ -21,30 +21,32 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.io.File;
-
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
+ * Implements a {@link Plugin} that fires the shell {@link Shutdown#NORMAL}
+ * event.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("pwd")
-@Help("Prints the current directory.")
-public class PwdPlugin implements Plugin
+@Named("exit")
+@Help("Exits the shell.")
+public class ExitShellPlugin implements Plugin
 {
    @Inject
-   Shell shell;
+   private Event<Shutdown> shutdown;
 
    @DefaultCommand
-   public void run()
+   public void exit()
    {
-      String currentDir = new File("").getAbsolutePath();
-      shell.write(currentDir);
+      shutdown.fire(Shutdown.NORMAL);
    }
 }

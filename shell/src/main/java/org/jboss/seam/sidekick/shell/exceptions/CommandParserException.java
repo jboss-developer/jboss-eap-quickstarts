@@ -19,32 +19,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.io.File;
+package org.jboss.seam.sidekick.shell.exceptions;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("pwd")
-@Help("Prints the current directory.")
-public class PwdPlugin implements Plugin
+public class CommandParserException extends CommandException
 {
-   @Inject
-   Shell shell;
+   private static final long serialVersionUID = -6497472768450068197L;
 
-   @DefaultCommand
-   public void run()
+   public CommandParserException(CommandMetadata command, Throwable e)
    {
-      String currentDir = new File("").getAbsolutePath();
-      shell.write(currentDir);
+      super(command, e);
    }
+
+   public CommandParserException(CommandMetadata command, String message, Throwable e)
+   {
+      super(command, message, e);
+   }
+
+   public CommandParserException(CommandMetadata command, String message)
+   {
+      super(command, message);
+   }
+
 }

@@ -16,6 +16,7 @@
       <module>project-model</module>
       <module>plugin-api</module>
       <module>shell</module>
+      <module>sidekick-prettyfaces</module>
    </modules>
 
    <properties>

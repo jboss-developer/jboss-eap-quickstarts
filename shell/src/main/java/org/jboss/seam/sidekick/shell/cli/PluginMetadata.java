@@ -56,6 +56,11 @@ public class PluginMetadata
       return result;
    }
 
+   public boolean hasCommand(String name)
+   {
+      return getCommand(name) != null;
+   }
+
    public boolean hasDefaultCommand()
    {
       return getDefaultCommand() != null;
@@ -73,6 +78,12 @@ public class PluginMetadata
          }
       }
       return result;
+   }
+
+   @Override
+   public String toString()
+   {
+      return "PluginMetadata [name=" + name + ", type=" + type + ", commands=" + commands + "]";
    }
 
    public String getName()
@@ -103,12 +114,6 @@ public class PluginMetadata
    public void setCommands(final List<CommandMetadata> commands)
    {
       this.commands = commands;
-   }
-
-   @Override
-   public String toString()
-   {
-      return "PluginMetadata [name=" + name + ", type=" + type + ", commands=" + commands + "]";
    }
 
    public String getHelp()

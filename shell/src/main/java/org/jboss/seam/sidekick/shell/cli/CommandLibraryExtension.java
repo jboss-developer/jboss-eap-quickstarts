@@ -35,7 +35,7 @@ import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Named;
 
 import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Default;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
@@ -75,16 +75,16 @@ public class CommandLibraryExtension implements Extension
             pluginMeta.setHelp(Annotations.getAnnotation(plugin, Help.class).value());
          }
 
-         List<CommandMetadata> commands = getPluginCommands(pluginMeta, plugin);
-         pluginMeta.setCommands(commands);
+         processPluginCommands(pluginMeta, plugin);
 
          plugins.put(name, pluginMeta);
       }
    }
 
-   private List<CommandMetadata> getPluginCommands(final PluginMetadata pluginMeta, final Class<?> plugin)
+   private List<CommandMetadata> processPluginCommands(final PluginMetadata pluginMeta, final Class<?> plugin)
    {
       List<CommandMetadata> results = new ArrayList<CommandMetadata>();
+      pluginMeta.setCommands(results);
 
       for (Method m : plugin.getMethods())
       {
@@ -96,23 +96,41 @@ public class CommandLibraryExtension implements Extension
             commandMeta.setHelp(command.help());
             commandMeta.setParent(pluginMeta);
 
-            if (Annotations.isAnnotationPresent(m, Default.class))
+            // This works because @DefaultCommand is annotated by @Command
+            if (Annotations.isAnnotationPresent(m, DefaultCommand.class))
             {
+               if (pluginMeta.hasDefaultCommand())
+               {
+                  throw new IllegalStateException("Plugins may only have one @"
+                        + DefaultCommand.class.getSimpleName()
+                        + ", but [" + pluginMeta.getType() + "] has more than one.");
+               }
+
                commandMeta.setDefault(true);
+
+               // favor help text from this annotation over others
+               DefaultCommand def = Annotations.getAnnotation(m, DefaultCommand.class);
+               if ((def.help() != null) && !def.help().trim().isEmpty())
+               {
+                  commandMeta.setHelp(def.help());
+               }
+            }
+
+            // fall back to the pluginMetadata for help text
+            if ((commandMeta.getHelp() == null) || commandMeta.getHelp().trim().isEmpty())
+            {
+               commandMeta.setHelp(pluginMeta.getHelp());
             }
 
             // Default commands are invoked via the name of the plug-in, not by
             // plug-in + command
-            if (!commandMeta.isDefault())
+            if (command.value().length == 0)
             {
-               if (command.value().length == 0)
-               {
-                  commandMeta.setNames(m.getName().toLowerCase());
-               }
-               else
-               {
-                  commandMeta.setNames(command.value());
-               }
+               commandMeta.setNames(m.getName().toLowerCase());
+            }
+            else
+            {
+               commandMeta.setNames(command.value());
             }
 
             Class<?>[] parameterTypes = m.getParameterTypes();

@@ -24,8 +24,7 @@ package org.jboss.seam.sidekick.shell.cli.builtin;
 import javax.inject.Inject;
 
 import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Default;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
@@ -39,15 +38,24 @@ public class Echo implements Plugin
    @Inject
    Shell shell;
 
-   @Default
-   @Command(help = "This is a demo command")
-   public void run(@Option(help = "The text to be echoed") final String text)
+   @DefaultCommand
+   public void run(@Option(help = "The text to be echoed") final String... tokens)
    {
-      String input = text;
+      String input = null;
+      if (tokens != null)
+      {
+         input = "";
+         for (String token : tokens)
+         {
+            input = input + " " + token;
+         }
+         input = input.trim();
+      }
+
       if (input == null)
       {
          input = shell.prompt();
       }
-      shell.write("Echo plugin says: \"" + input + "\"");
+      shell.write(input);
    }
 }

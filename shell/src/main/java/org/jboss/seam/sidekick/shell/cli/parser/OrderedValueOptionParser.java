@@ -26,6 +26,7 @@ import java.util.Queue;
 
 import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
 import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
+import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -38,15 +39,25 @@ public class OrderedValueOptionParser implements CommandParser
    public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
             final Queue<String> tokens)
    {
-      String currentToken = tokens.peek();
-      if (!currentToken.startsWith("--"))
+      int numberOrderedParams = getNumberOrderedParamsIn(valueMap);
+      try
       {
-         OptionMetadata option = command.getOrderedOptionByIndex(getNumberOrderedParamsIn(valueMap));
-         if (!option.isVarargs())
+         String currentToken = tokens.peek();
+         if (!currentToken.startsWith("--"))
          {
-            valueMap.put(option, currentToken); // add the value, should we return this as a tuple instead?
-            tokens.remove();
+            OptionMetadata option = command.getOrderedOptionByIndex(numberOrderedParams);
+            if (!option.isVarargs())
+            {
+               valueMap.put(option, currentToken); // add the value, should we
+                                                   // return this as a tuple
+                                                   // instead?
+               tokens.remove();
+            }
          }
+      }
+      catch (IllegalArgumentException e)
+      {
+         throw new CommandParserException(command, "The command " + command.getNames() + " takes [" + numberOrderedParams + "] argument(s).");
       }
    }
 

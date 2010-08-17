@@ -19,36 +19,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
+package org.jboss.seam.sidekick.shell.exceptions;
 
-import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Default;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
 
 /**
- * Implements a {@link Plugin} that fires the shell {@link Shutdown#NORMAL}
- * event.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Named("exit")
-@Help("Exits the shell.")
-public class ExitShell implements Plugin
+public class CommandException extends RuntimeException
 {
-   @Inject
-   private Event<Shutdown> shutdown;
+   private static final long serialVersionUID = 8113296404786359776L;
+   private CommandMetadata command = null;
 
-   @Default
-   @Command
-   public void exit()
+   public CommandException(CommandMetadata command, Throwable e)
    {
-      shutdown.fire(Shutdown.NORMAL);
+      super(e);
+      this.command = command;
+   }
+
+   public CommandException(CommandMetadata command, String message)
+   {
+      super(message);
+      this.command = command;
+   }
+
+   public CommandException(CommandMetadata command, String message, Throwable e)
+   {
+      super(message, e);
+      this.command = command;
+   }
+
+   public CommandMetadata getCommand()
+   {
+      return command;
    }
 }

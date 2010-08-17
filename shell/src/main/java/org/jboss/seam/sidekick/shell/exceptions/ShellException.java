@@ -19,32 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.io.File;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+package org.jboss.seam.sidekick.shell.exceptions;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("pwd")
-@Help("Prints the current directory.")
-public class PwdPlugin implements Plugin
+public class ShellException extends RuntimeException
 {
-   @Inject
-   Shell shell;
+   private static final long serialVersionUID = 5266075954460779189L;
 
-   @DefaultCommand
-   public void run()
+   public ShellException()
    {
-      String currentDir = new File("").getAbsolutePath();
-      shell.write(currentDir);
+      super();
    }
+
+   public ShellException(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
+
+   public ShellException(String message)
+   {
+      super(message);
+   }
+
+   public ShellException(Throwable cause)
+   {
+      super(cause);
+   }
+
 }

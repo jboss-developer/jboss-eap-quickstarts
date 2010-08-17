@@ -19,32 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
+package org.jboss.seam.sidekick.shell.plugins.plugins;
 
-import java.io.File;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
+ * Defines a @{@link Command} as the plugin default. It will be run if no other
+ * command matches the input line.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("pwd")
-@Help("Prints the current directory.")
-public class PwdPlugin implements Plugin
+@Command("default")
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Retention(RUNTIME)
+@Documented
+public @interface DefaultCommand
 {
-   @Inject
-   Shell shell;
-
-   @DefaultCommand
-   public void run()
-   {
-      String currentDir = new File("").getAbsolutePath();
-      shell.write(currentDir);
-   }
+   /**
+    * Help text for the default command.
+    */
+   String help() default "";
 }

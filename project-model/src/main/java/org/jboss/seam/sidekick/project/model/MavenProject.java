@@ -25,12 +25,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.Typed;
 import javax.enterprise.inject.spi.InjectionPoint;
 
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
@@ -41,6 +46,7 @@ import org.jboss.seam.sidekick.project.ProjectModelException;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Typed()
 public class MavenProject extends AbstractProject
 {
    private File projectRoot = null;
@@ -64,11 +70,6 @@ public class MavenProject extends AbstractProject
       verify();
    }
 
-   private void verify()
-   {
-      this.getPOM();
-   }
-
    public MavenProject(File directory)
    {
       if (!directory.isDirectory())
@@ -78,9 +79,43 @@ public class MavenProject extends AbstractProject
       projectRoot = directory.getAbsoluteFile();
    }
 
-   public MavenProject(String path)
+   private void verify()
    {
-      this(new File(path));
+      this.getPOM();
+   }
+
+   @Produces
+   @Default
+   @LocatedAt
+   public static MavenProject getCurrentDirectoryProject(InjectionPoint ip)
+   {
+      String path = null;
+      if (ip.getAnnotated().getAnnotation(LocatedAt.class) != null)
+      {
+         path = ip.getAnnotated().getAnnotation(LocatedAt.class).value();
+      }
+      else
+      {
+         Set<Annotation> qualifiers = ip.getQualifiers();
+         for (Annotation annotation : qualifiers)
+         {
+            if (annotation instanceof LocatedAt)
+            {
+               path = ((LocatedAt) annotation).value();
+            }
+         }
+      }
+
+      MavenProject result;
+      if (path == null)
+      {
+         result = new MavenProject();
+      }
+      else
+      {
+         result = new MavenProject(new File(path));
+      }
+      return result;
    }
 
    @Override
@@ -174,16 +209,29 @@ public class MavenProject extends AbstractProject
       return new File("").getAbsoluteFile();
    }
 
-   @Produces
-   @LocatedAt
-   public static MavenProject getCurrentDirectoryProject(InjectionPoint ip)
+   /**
+    * Using the given groupId and artifactId patterns, scan the POM and
+    * determine if the project has a dependency that matches.
+    * 
+    * @param groupId A regular expression to filter the groupId
+    * @param artifactId A regular expression to filter the artifactId
+    * @return True if the artifact can be located in the POM, false if
+    *         otherwise.
+    */
+   public boolean hasDependency(String groupId, String artifactId)
    {
-      String path = ip.getAnnotated().getAnnotation(LocatedAt.class).value();
-      if ("".equals(path))
+      for (Dependency dep : getPOM().getDependencies())
       {
-         path = ip.getMember().getName();
+         String aid = dep.getArtifactId();
+         String gid = dep.getGroupId();
+         if ((aid != null) && aid.matches(artifactId))
+         {
+            if ((gid != null) && gid.matches(groupId))
+            {
+               return true;
+            }
+         }
       }
-      MavenProject result = new MavenProject(path);
-      return result;
+      return false;
    }
 }

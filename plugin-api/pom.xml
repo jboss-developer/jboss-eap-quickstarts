@@ -15,6 +15,12 @@
    <packaging>jar</packaging>
 
    <dependencies>
+   
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-project-model</artifactId>
+      </dependency>
+   
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-se</artifactId>

@@ -25,9 +25,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
+import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
+import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Default;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
@@ -45,17 +47,58 @@ public class HelpPlugin implements Plugin
    @Inject
    Shell shell;
 
-   @Default
-   @Command(help = "Get help about specific commands")
-   public void help(@Option("test") final String test, @Option final String... commands)
+   @DefaultCommand
+   public void help(@Option("test") final String test, @Option final String... tokens)
    {
-      if ((commands == null) || (commands.length == 0))
+      if ((tokens == null) || (tokens.length == 0))
       {
-         shell.write("Welcome to Encore!");
+         shell.write("Welcome to Seam Sidekick!");
+         // TODO put a nice picture here
       }
       else
       {
-         shell.write("[" + commands[0] + "] " + registry.getPlugins().get(commands[0]).getHelp());
+         String pluginName = tokens[0];
+         PluginMetadata plugin = registry.getPlugins().get(pluginName);
+         if (tokens.length >= 1)
+         {
+            shell.write("");
+            shell.write("[" + plugin.getName() + "] " + plugin.getHelp());
+
+            if (plugin.getCommands().size() > 0)
+            {
+               shell.write("");
+               shell.write("Commands:");
+               for (CommandMetadata command : plugin.getCommands())
+               {
+                  shell.write(command.getNames() + " " + command.getHelp());
+               }
+            }
+         }
+
+         if (tokens.length >= 2)
+         {
+            String commandName = tokens[1];
+            if (plugin.hasCommand(commandName))
+            {
+               CommandMetadata command = plugin.getCommand(commandName);
+               shell.write("Command: " + command.getNames());
+               if (command.getOptions().size() > 0)
+               {
+                  shell.write("");
+                  shell.write("Command options");
+                  for (OptionMetadata option : command.getOptions())
+                  {
+                     shell.write("[" + option.getIndex() + "] [" + option.getName() + "] " + option.getHelp());
+                  }
+               }
+            }
+            else
+            {
+               shell.write("Unknown command [" + commandName + "]");
+            }
+         }
+         shell.write("");
       }
+
    }
 }

@@ -28,6 +28,7 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
+import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
@@ -48,33 +49,33 @@ public class Execution
    {
       if (command != null)
       {
-         try
+         Class<? extends Plugin> pluginType = command.getParent().getType();
+         Set<Bean<?>> beans = manager.getBeans(pluginType);
+         Bean<? extends Object> bean = manager.resolve(beans);
+
+         Plugin plugin = null;
+         if (bean != null)
          {
-            Class<? extends Plugin> pluginType = command.getParent().getType();
-            Set<Bean<?>> beans = manager.getBeans(pluginType);
-            Bean<? extends Object> bean = manager.resolve(beans);
-
-            Plugin plugin = null;
-            if (bean != null)
+            CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager.createCreationalContext(bean);
+            if (context != null)
             {
-               CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager.createCreationalContext(bean);
-               if (context != null)
-               {
-                  plugin = (Plugin) manager.getReference(bean, pluginType, context);
+               plugin = (Plugin) manager.getReference(bean, pluginType, context);
 
+               try
+               {
                   command.getMethod().invoke(plugin, parameterArray);
                }
+               catch (Exception e)
+               {
+                  throw new CommandExecutionException(command, e);
+               }
             }
-
-         }
-         catch (Exception e)
-         {
-            System.err.println("I don't understand what you meant.");
          }
       }
       else
       {
-         System.err.println("I don't understand what you meant.");
+         // TODO it would be nice if this delegated to the system shell
+         throw new CommandExecutionException(command, "No such command: " + originalStatement);
       }
    }
 

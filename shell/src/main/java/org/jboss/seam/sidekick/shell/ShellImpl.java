@@ -33,6 +33,7 @@ import jline.console.completer.Completer;
 
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
+import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
@@ -44,9 +45,9 @@ import org.slf4j.Logger;
  * 
  */
 @Singleton
-public class Shell
+public class ShellImpl implements Shell
 {
-   private final String prompt = "encore> ";
+   private final String prompt = "sidekick> ";
 
    @Inject
    @Parameters
@@ -66,7 +67,7 @@ public class Shell
    void init(@Observes final Startup event) throws Exception
    {
       System.out.println("Startup");
-      log.info("Encore Shell - Starting up.");
+      log.info("Seam Sidekick Shell - Starting up.");
 
       reader = new ConsoleReader();
       reader.setHistoryEnabled(true);
@@ -112,12 +113,16 @@ public class Shell
          }
          catch (Exception e)
          {
-            System.err.println("Error executing command: " + execution.getOriginalStatement() + " : " + e.getMessage());
+            write(e.getMessage());
          }
+      }
+      catch (CommandParserException e)
+      {
+         write(e.getMessage());
       }
       catch (Exception e)
       {
-         System.err.println("Error parsing input: " + e.getMessage());
+         e.printStackTrace();
       }
    }
 
@@ -129,9 +134,10 @@ public class Shell
    /**
     * Prompt the user for input, using {@link message} as the prompt text.
     */
+   @Override
    public String prompt(final String message)
    {
-      System.out.print(message);
+      write(message);
       try
       {
          String currentPrompt = reader.getPrompt();
@@ -151,16 +157,19 @@ public class Shell
    /**
     * Write the given {@link line} to the console output.
     */
+   @Override
    public void write(final String line)
    {
       System.out.println(line);
    }
 
+   @Override
    public String prompt()
    {
       return prompt("");
    }
 
+   @Override
    public void clear()
    {
       try

@@ -22,11 +22,8 @@
 package org.jboss.seam.sidekick.shell.cli;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -39,6 +36,7 @@ import org.jboss.seam.sidekick.shell.cli.parser.NamedValueVarargsOptionParser;
 import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueOptionParser;
 import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueVarargsOptionParser;
 import org.jboss.seam.sidekick.shell.cli.parser.ParseErrorParser;
+import org.jboss.seam.sidekick.shell.cli.parser.Tokenizer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -52,9 +50,12 @@ public class ExecutionParser
    @Inject
    private Instance<Execution> executionInstance;
 
+   @Inject
+   private Tokenizer tokenizer;
+
    public Execution parse(final String line)
    {
-      Queue<String> tokens = tokenize(line);
+      Queue<String> tokens = tokenizer.tokenize(line);
       Map<String, PluginMetadata> plugins = registry.getPlugins();
       Execution execution = executionInstance.get();
       execution.setOriginalStatement(line);
@@ -103,27 +104,6 @@ public class ExecutionParser
       }
 
       return execution;
-   }
-
-   private Queue<String> tokenize(final String line)
-   {
-      Queue<String> tokens = new LinkedList<String>();
-
-      // -------------------------------(0-(1------)---(2---))----------
-      Matcher matcher = Pattern.compile("\"([^\"]*?)\"|(\\S+)").matcher(line);
-      while (matcher.find())
-      {
-         if (matcher.group(1) != null)
-         {
-            tokens.add(matcher.group(1));
-         }
-         else
-         {
-            tokens.add(matcher.group());
-         }
-      }
-
-      return tokens;
    }
 
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)

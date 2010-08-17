@@ -28,6 +28,10 @@ import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
 import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
 
 /**
+ * Parses named boolean options such as:
+ * <p>
+ * <code>[command] {--toggle}</code>
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
@@ -57,7 +61,8 @@ public class NamedBooleanOptionParser implements CommandParser
                   tokens.remove(); // increment the chain of tokens
                }
             }
-            valueMap.put(option, value); // add the value, should we return this as a tuple instead?
+            valueMap.put(option, value); // add the value, should we return this
+                                         // as a tuple instead?
          }
       }
    }
