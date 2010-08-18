@@ -45,11 +45,6 @@
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
       </dependency>
-      <dependency>
-         <groupId>org.jboss.arquillian</groupId>
-         <artifactId>arquillian-junit</artifactId>
-         <scope>test</scope>
-      </dependency>
    </dependencies>
 
 </project>

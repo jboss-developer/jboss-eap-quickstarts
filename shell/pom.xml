@@ -18,16 +18,6 @@
       <!-- CDI Dependencies -->
       <dependency>
          <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-parser-java</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-prettyfaces</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
          <artifactId>sidekick-shell-plugin-api</artifactId>
       </dependency>
 

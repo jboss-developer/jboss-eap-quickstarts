@@ -1,0 +1,99 @@
+<assembly
+   xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+   <formats>
+      <format>zip</format>
+   </formats>
+
+   <baseDirectory>${project.build.finalName}-${project.version}</baseDirectory>
+
+   <!-- Add distribution files -->
+   <fileSets>
+      <fileSet>
+         <directory>src/main/assembly</directory>
+         <outputDirectory>.</outputDirectory>
+         <includes>
+            <include>bin/*</include>
+            <include>readme.txt</include>
+            <include>licence.txt</include>
+         </includes>
+      </fileSet>
+   </fileSets>
+
+   <dependencySets>
+      <!-- Add necessary binaries -->
+      <dependencySet>
+         <outputDirectory>lib</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.sidekick.*</include>
+         </includes>
+         <excludes>
+            <exclude>org.jboss.seam.sidekick.*:*:*:javadoc</exclude>
+            <exclude>org.jboss.seam.sidekick.*:*:*:sources</exclude>
+         </excludes>
+         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      <!-- Add necessary dependencies -->
+      <dependencySet>
+         <outputDirectory>lib</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <useTransitiveDependencies>true</useTransitiveDependencies>
+         <excludes>
+            <exclude>org.jboss.seam.sidekick:*:*:javadoc</exclude>
+            <exclude>org.jboss.seam.sidekick:*:*:sources</exclude>
+         </excludes>
+         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      
+      <!-- Add necessary javadoc jars -->
+      <dependencySet>
+         <outputDirectory>doc/javadoc</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.sidekick:*:*:javadoc</include>
+         </includes>
+         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      <!-- Add necessary sources jars -->
+      <dependencySet>
+         <outputDirectory>sources</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.sidekick:*:*:sources</include>
+         </includes>
+         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      
+      
+      <!-- Pull in the example projects 
+      <dependencySet>
+         <outputDirectory>examples</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.faces:seam-faces-examples-short-ly</include>
+            <include>org.jboss.seam.xml:seam-xml-examples-princess-rescue</include>
+            <include>org.jboss.seam.remoting:seam-remoting-model-example</include>
+            <include>org.jboss.seam.remoting:seam-remoting-helloworld-example</include>
+         </includes>
+      </dependencySet>
+      -->
+      <dependencySet>
+         <outputDirectory>doc/reference</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.sidekick:sidekick-reference-guide</include>
+         </includes>
+         <unpackOptions>
+            <excludes>
+               <exclude>META-INF/</exclude>
+            </excludes>
+         </unpackOptions>
+      </dependencySet> 
+   </dependencySets>
+
+</assembly>

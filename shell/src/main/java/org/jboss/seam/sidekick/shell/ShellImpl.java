@@ -33,7 +33,7 @@ import jline.console.completer.Completer;
 
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
-import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
+import org.jboss.seam.sidekick.shell.exceptions.CommandException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
@@ -107,16 +107,9 @@ public class ShellImpl implements Shell
       try
       {
          execution = parser.parse(line);
-         try
-         {
-            execution.perform();
-         }
-         catch (Exception e)
-         {
-            write(e.getMessage());
-         }
+         execution.perform();
       }
-      catch (CommandParserException e)
+      catch (CommandException e)
       {
          write(e.getMessage());
       }
