@@ -27,11 +27,6 @@
          <version>3.3.0-v20070426</version>
       </dependency>
       <dependency>
-         <groupId>org.eclipse.core</groupId>
-         <artifactId>filesystem</artifactId>
-         <version>1.0.0-v20060603</version>
-      </dependency>
-      <dependency>
          <groupId>org.eclipse.jdt</groupId>
          <artifactId>core</artifactId>
          <version>3.3.0-v_771</version>
@@ -44,11 +39,20 @@
                <groupId>org.eclipse.equinox</groupId>
                <artifactId>app</artifactId>
             </exclusion>
-            <!-- <exclusion> <groupId>org.eclipse</groupId> <artifactId>text</artifactId> 
-               </exclusion> -->
             <exclusion>
                <groupId>org.eclipse.core</groupId>
                <artifactId>filesystem</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <groupId>org.eclipse.core</groupId>
+         <artifactId>filesystem</artifactId>
+         <version>1.0.0-v20060603</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.eclipse.core</groupId>
+               <artifactId>runtime</artifactId>
             </exclusion>
          </exclusions>
       </dependency>
