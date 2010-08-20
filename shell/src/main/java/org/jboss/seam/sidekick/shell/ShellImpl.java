@@ -111,7 +111,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandException e)
       {
-         write(e.getMessage());
+         e.printStackTrace();
       }
       catch (Exception e)
       {

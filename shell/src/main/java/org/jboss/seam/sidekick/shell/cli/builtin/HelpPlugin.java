@@ -59,43 +59,50 @@ public class HelpPlugin implements Plugin
       {
          String pluginName = tokens[0];
          PluginMetadata plugin = registry.getPlugins().get(pluginName);
-         if (tokens.length >= 1)
+         if (plugin != null)
          {
-            shell.write("");
-            shell.write("[" + plugin.getName() + "] " + plugin.getHelp());
-
-            if (plugin.getCommands().size() > 0)
+            if (tokens.length >= 1)
             {
                shell.write("");
-               shell.write("Commands:");
-               for (CommandMetadata command : plugin.getCommands())
-               {
-                  shell.write(command.getNames() + " " + command.getHelp());
-               }
-            }
-         }
+               shell.write("[" + plugin.getName() + "] " + plugin.getHelp());
 
-         if (tokens.length >= 2)
-         {
-            String commandName = tokens[1];
-            if (plugin.hasCommand(commandName))
-            {
-               CommandMetadata command = plugin.getCommand(commandName);
-               shell.write("Command: " + command.getNames());
-               if (command.getOptions().size() > 0)
+               if (plugin.getCommands().size() > 0)
                {
                   shell.write("");
-                  shell.write("Command options");
-                  for (OptionMetadata option : command.getOptions())
+                  shell.write("Commands:");
+                  for (CommandMetadata command : plugin.getCommands())
                   {
-                     shell.write("[" + option.getIndex() + "] [" + option.getName() + "] " + option.getHelp());
+                     shell.write(command.getNames() + " " + command.getHelp());
                   }
                }
             }
-            else
+
+            if (tokens.length >= 2)
             {
-               shell.write("Unknown command [" + commandName + "]");
+               String commandName = tokens[1];
+               if (plugin.hasCommand(commandName))
+               {
+                  CommandMetadata command = plugin.getCommand(commandName);
+                  shell.write("Command: " + command.getNames());
+                  if (command.getOptions().size() > 0)
+                  {
+                     shell.write("");
+                     shell.write("Command options");
+                     for (OptionMetadata option : command.getOptions())
+                     {
+                        shell.write("[" + option.getIndex() + "] [" + option.getName() + "] " + option.getHelp());
+                     }
+                  }
+               }
+               else
+               {
+                  shell.write("Unknown command [" + commandName + "]");
+               }
             }
+         }
+         else
+         {
+            shell.write("I couldn't find a help topic for: " + tokens[0]);
          }
          shell.write("");
       }

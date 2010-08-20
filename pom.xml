@@ -15,7 +15,7 @@
 
    <name>Seam Sidekick Framework</name>
    <description>Simplified project bootstrapping, incremental
-		enhancement framework, and plugins	</description>
+      enhancement framework, and plugins	</description>
 
    <modules>
       <module>parser-java</module>
@@ -26,13 +26,14 @@
 
    <properties>
       <arquillian.version>1.0.0.Alpha3</arquillian.version>
+      <cal10n.version>0.7.2</cal10n.version>
       <cdi.version>1.0-SP1</cdi.version>
       <jline.version>2.3</jline.version>
       <junit.version>4.8.1</junit.version>
       <maven.version>3.0-beta-1</maven.version>
       <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
       <shrinkwrap.descriptors.version>1.0.0-SNAPSHOT</shrinkwrap.descriptors.version>
-      <slf4j.version>1.5.10</slf4j.version>
+      <slf4j.version>1.6.1</slf4j.version>
       <weld.version>1.0.1-Final</weld.version>
       <weldx.version>1.0.0.Alpha2</weldx.version>
    </properties>
@@ -120,6 +121,7 @@
             <version>${jline.version}</version>
          </dependency>
 
+         <!-- SLF4J Deps -->
          <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -130,6 +132,12 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
          </dependency>
+         <dependency>
+            <groupId>ch.qos.cal10n</groupId>
+            <artifactId>cal10n-api</artifactId>
+            <version>${cal10n.version}</version>
+         </dependency>
+         <!-- END SLF4J Deps -->
 
       </dependencies>
    </dependencyManagement>
@@ -167,6 +175,11 @@
          <artifactId>slf4j-simple</artifactId>
          <scope>test</scope>
       </dependency>
+      <dependency>
+         <groupId>ch.qos.cal10n</groupId>
+         <artifactId>cal10n-api</artifactId>
+         <scope>test</scope>
+      </dependency>
       <!-- END Arquillian Deps -->
    </dependencies>
 
@@ -183,7 +196,8 @@
       <repository>
          <id>jboss-public-repository-group</id>
          <name>JBoss Public Maven Repository Group</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+         <url>https://repository.jboss.org/nexus/content/groups/public/
+         </url>
          <layout>default</layout>
       </repository>
    </repositories>
