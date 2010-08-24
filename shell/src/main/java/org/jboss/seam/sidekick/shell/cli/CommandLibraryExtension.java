@@ -62,8 +62,6 @@ public class CommandLibraryExtension implements Extension
       Class<? extends Plugin> plugin = (Class<? extends Plugin>) bean.getBeanClass();
       if (Plugin.class.isAssignableFrom(plugin))
       {
-         System.out.println("\t> " + plugin);
-
          String name = getPluginName(plugin);
 
          PluginMetadata pluginMeta = new PluginMetadata();
@@ -102,8 +100,8 @@ public class CommandLibraryExtension implements Extension
                if (pluginMeta.hasDefaultCommand())
                {
                   throw new IllegalStateException("Plugins may only have one @"
-                        + DefaultCommand.class.getSimpleName()
-                        + ", but [" + pluginMeta.getType() + "] has more than one.");
+                           + DefaultCommand.class.getSimpleName()
+                           + ", but [" + pluginMeta.getType() + "] has more than one.");
                }
 
                commandMeta.setDefault(true);

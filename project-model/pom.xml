@@ -19,12 +19,12 @@
          <groupId>org.jboss.seam.sidekick</groupId>
          <artifactId>sidekick-parser-java</artifactId>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.shrinkwrap</groupId>
          <artifactId>shrinkwrap-api</artifactId>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.shrinkwrap</groupId>
          <artifactId>shrinkwrap-descriptors</artifactId>
@@ -35,11 +35,21 @@
          <groupId>org.apache.maven</groupId>
          <artifactId>maven-model</artifactId>
       </dependency>
-      
+      <dependency>
+         <groupId>org.apache.maven</groupId>
+         <artifactId>maven-core</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven</groupId>
+         <artifactId>maven-compat</artifactId>
+      </dependency>
+
+
       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
       </dependency>
+      
       
       <dependency>
          <groupId>junit</groupId>

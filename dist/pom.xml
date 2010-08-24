@@ -9,7 +9,7 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>dist</artifactId>
+   <artifactId>sidekick-dist</artifactId>
    <name>Seam Sidekick Distribution</name>
    <packaging>jar</packaging>
 

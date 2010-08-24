@@ -1,0 +1,98 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc., and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package org.jboss.seam.sidekick.shell.cli.builtin;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.apache.maven.model.Dependency;
+import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
+import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
+import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+
+/**
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ */
+@Named("status")
+@Help("Check the current project configuration and display the specified plugin's installed status.")
+public class StatusPlugin implements Plugin
+{
+   @Inject
+   private PluginRegistry registry;
+
+   @Inject
+   private Shell shell;
+
+   @Inject
+   private MavenProject project;
+
+   @DefaultCommand
+   public void status(@Option(help = "The name of the plugin.") final String pluginName)
+   {
+      PluginMetadata meta = registry.getPlugins().get(pluginName);
+      if (meta != null)
+      {
+         Plugin plugin = registry.instanceOf(meta);
+         if (plugin instanceof MavenPlugin)
+         {
+            MavenPlugin installable = (MavenPlugin) plugin;
+            if (isInstalledInProject(installable))
+            {
+               shell.write("Status: INSTALLED");
+            }
+            else
+            {
+               shell.write("Status: NOT-INSTALLED (you may run \"install " + pluginName + "\" to install this plugin.");
+            }
+         }
+         else
+         {
+            shell.write("The plugin [" + pluginName
+                     + "] is not an installable plugin.");
+         }
+      }
+      else
+      {
+         shell.write("Could not find a plugin with the name: " + pluginName + "; are you sure that's the correct name?");
+      }
+
+   }
+
+   private boolean isInstalledInProject(final MavenPlugin installable)
+   {
+      for (Dependency d : installable.getDependencies())
+      {
+         if (!project.hasDependency(d))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
+
+}

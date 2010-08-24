@@ -24,8 +24,13 @@ package org.jboss.seam.sidekick.shell.cli;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
  * Stores the current registry of all installed & loaded plugins.
@@ -40,6 +45,9 @@ public class PluginRegistry
 
    @Inject
    private CommandLibraryExtension library;
+
+   @Inject
+   private BeanManager manager;
 
    @PostConstruct
    public void init()
@@ -61,6 +69,27 @@ public class PluginRegistry
    public String toString()
    {
       return "PluginRegistry [plugins=" + plugins + "]";
+   }
+
+   public Plugin instanceOf(final PluginMetadata meta)
+   {
+      return getContextualInstance(manager, meta.getType());
+   }
+
+   @SuppressWarnings("unchecked")
+   public static <T> T getContextualInstance(final BeanManager manager, final Class<T> type)
+   {
+      T result = null;
+      Bean<T> bean = (Bean<T>) manager.resolve(manager.getBeans(type));
+      if (bean != null)
+      {
+         CreationalContext<T> context = manager.createCreationalContext(bean);
+         if (context != null)
+         {
+            result = (T) manager.getReference(bean, type, context);
+         }
+      }
+      return result;
    }
 
 }

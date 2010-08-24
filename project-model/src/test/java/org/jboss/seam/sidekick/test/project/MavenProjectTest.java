@@ -41,6 +41,7 @@ import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.jboss.seam.sidekick.project.model.LocatedAt;
 import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
@@ -61,9 +62,10 @@ public class MavenProjectTest
    public static JavaArchive createTestArchive()
    {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addPackages(true, Project.class.getPackage())
-            .addClass(MavenProject.class)
-            .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+               .addPackages(true, Project.class.getPackage())
+               .addClass(MavenProject.class)
+               .addClass(DependencyBuilder.class)
+               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
    }
 
    private static final String PKG = MavenProjectTest.class.getSimpleName().toLowerCase();
@@ -74,12 +76,15 @@ public class MavenProjectTest
    private MavenProject thisProject;
 
    @Inject
-   @LocatedAt("../")
-   private MavenProject parentProject;
+   @LocatedAt("src/test/resources/test-pom")
+   private MavenProject testProject;
 
    @Inject
    @LocatedAt("/tmp")
    private MavenProject unknownProject;
+
+   @Inject
+   private DependencyBuilder dependencyBuilder;
 
    @BeforeClass
    public static void before() throws IOException
@@ -138,6 +143,13 @@ public class MavenProjectTest
    }
 
    @Test
+   public void testHasDependency() throws Exception
+   {
+      assertTrue(testProject.hasDependency(dependencyBuilder.setGroupId("com.ocpsoft")
+               .setArtifactId("prettyfaces-jsf2").setVersion("3.0.2-SNAPSHOT").build()));
+   }
+
+   @Test
    public void testInjectedProjectIsCurrentProject() throws Exception
    {
       Model pom = thisProject.getPOM();
@@ -145,10 +157,10 @@ public class MavenProjectTest
    }
 
    @Test
-   public void testInjectedAbsoluteParentProjectIsParentProject() throws Exception
+   public void testInjectedAbsoluteProjectIsResolvedCorrectly() throws Exception
    {
-      Model pom = parentProject.getPOM();
-      assertEquals("sidekick-parent", pom.getArtifactId());
+      Model pom = testProject.getPOM();
+      assertEquals("socialpm", pom.getArtifactId());
    }
 
    @Test

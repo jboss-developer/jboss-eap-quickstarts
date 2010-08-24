@@ -25,15 +25,19 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.Completer;
 
+import org.jboss.seam.sidekick.project.ProjectModelException;
+import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
 import org.jboss.seam.sidekick.shell.exceptions.CommandException;
+import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
@@ -47,7 +51,7 @@ import org.slf4j.Logger;
 @Singleton
 public class ShellImpl implements Shell
 {
-   private final String prompt = "sidekick> ";
+   private String prompt = "sidekick> ";
 
    @Inject
    @Parameters
@@ -64,10 +68,31 @@ public class ShellImpl implements Shell
    private ConsoleReader reader;
    private boolean exitRequested = false;
 
-   void init(@Observes final Startup event) throws Exception
+   private boolean verbose = false;
+
+   void init(@Observes final Startup event, final Instance<MavenProject> projectInstance) throws Exception
    {
-      System.out.println("Startup");
       log.info("Seam Sidekick Shell - Starting up.");
+
+      System.out.println("                                    _          _ _ ");
+      System.out.println("     ___  ___  __ _ _ __ ___    ___| |__   ___| | |");
+      System.out.println("    / __|/ _ \\/ _` | '_ ` _ \\  / __| '_ \\ / _ \\ | |   \\\\");
+      System.out.println("    \\__ \\  __/ (_| | | | | | | \\__ \\ | | |  __/ | |   //");
+      System.out.println("    |___/\\___|\\__,_|_| |_| |_| |___/_| |_|\\___|_|_|");
+      System.out.println("");
+
+      try
+      {
+         MavenProject currentProject = projectInstance.get();
+         if (currentProject.exists())
+         {
+            prompt = currentProject.getPOM().getArtifactId() + "> ";
+         }
+      }
+      catch (ProjectModelException e)
+      {
+         log.warn("No active projects were detected in this directory. Shell is booting standalone.");
+      }
 
       reader = new ConsoleReader();
       reader.setHistoryEnabled(true);
@@ -76,8 +101,9 @@ public class ShellImpl implements Shell
 
       if (parameters.contains("--verbose"))
       {
-         // TODO set verbose mode
+         verbose = true;
       }
+
    }
 
    void doShell(@Observes final AcceptUserInput event)
@@ -108,6 +134,14 @@ public class ShellImpl implements Shell
       {
          execution = parser.parse(line);
          execution.perform();
+      }
+      catch (CommandExecutionException e)
+      {
+         write(e.getMessage());
+         if (true)
+         {
+            e.printStackTrace();
+         }
       }
       catch (CommandException e)
       {

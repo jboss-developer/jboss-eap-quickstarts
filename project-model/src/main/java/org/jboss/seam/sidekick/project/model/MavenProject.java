@@ -35,59 +35,163 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.Typed;
 import javax.enterprise.inject.spi.InjectionPoint;
 
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
+import org.apache.maven.artifact.repository.MavenArtifactRepository;
+import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
+import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.project.ProjectBuildingResult;
+import org.codehaus.plexus.DefaultPlexusContainer;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Typed()
 public class MavenProject extends AbstractProject
 {
    private File projectRoot = null;
 
+   private final ProjectBuildingRequest request = new DefaultProjectBuildingRequest();
+   private DefaultPlexusContainer container = null;
+   private ProjectBuilder builder = null;
+
    public MavenProject()
    {
-      this(getCurrentWorkingDir());
-      File originalRoot = projectRoot.getAbsoluteFile();
-      File pom = new File(projectRoot + "/pom.xml");
-      while (!pom.exists())
-      {
-         projectRoot = projectRoot.getParentFile();
-         pom = new File(projectRoot + "/pom.xml");
-      }
-
-      if (!pom.exists())
-      {
-         projectRoot = originalRoot;
-         throw new ProjectModelException("Could not locate pom.xml in this directory or any parent directories of: " + originalRoot);
-      }
-      verify();
+      this(findProjectDir());
    }
 
-   public MavenProject(File directory)
+   public MavenProject(final File directory)
    {
       if (!directory.isDirectory())
       {
-         throw new ProjectModelException("Cannot load project from directory that does not exist.");
+         throw new ProjectModelException("Cannot load project because the directory [" + directory.getAbsolutePath()
+                  + "] does not exist.");
       }
+
       projectRoot = directory.getAbsoluteFile();
+      init();
    }
 
-   private void verify()
+   private void init()
    {
-      this.getPOM();
+      try
+      {
+         container = new DefaultPlexusContainer();
+         container.setLoggerManager(new ConsoleLoggerManager("DEBUG"));
+
+         builder = container.lookup(ProjectBuilder.class);
+
+         String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
+
+         System.out.println("*** Using local Maven repository at: " + localRepository);
+
+         request.setLocalRepository(new MavenArtifactRepository(
+                  "local", new File(localRepository).toURI().toURL().toString(),
+                  container.lookup(ArtifactRepositoryLayout.class),
+                  new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                           ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
+                  new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                           ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
+         request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
+
+         request.setProcessPlugins(true);
+         request.setResolveDependencies(true);
+         request.setOffline(true);
+      }
+      catch (Exception e)
+      {
+         throw new ProjectModelException("Could not initialize maven project located in: " + getProjectRoot(), e);
+      }
+   }
+
+   private File getUserHomeDir()
+   {
+      return new File(System.getProperty("user.home")).getAbsoluteFile();
+   }
+
+   public void addDependency(final Dependency dep)
+   {
+      if (!hasDependency(dep))
+      {
+         Model pom = getPOM();
+         List<Dependency> dependencies = pom.getDependencies();
+         dependencies.add(dep);
+         setPOM(pom);
+      }
+   }
+
+   public boolean hasDependency(final Dependency dep)
+   {
+      try
+      {
+         ProjectBuildingResult result = builder.build(getPOMFile(), request);
+         List<Dependency> dependencies = result.getProject().getDependencies();
+
+         for (Dependency dependency : dependencies)
+         {
+            if (areEquivalent(dependency, dep))
+            {
+               return true;
+            }
+         }
+         return false;
+      }
+      catch (ProjectBuildingException e)
+      {
+         throw new ProjectModelException(e);
+      }
+   }
+
+   public void removeDependency(final Dependency dep)
+   {
+      Model pom = getPOM();
+      List<Dependency> dependencies = pom.getDependencies();
+
+      List<Dependency> toBeRemoved = new ArrayList<Dependency>();
+      for (Dependency dependency : dependencies)
+      {
+         if (areEquivalent(dependency, dep))
+         {
+            toBeRemoved.add(dependency);
+         }
+      }
+      dependencies.removeAll(toBeRemoved);
+      setPOM(pom);
+   }
+
+   @SuppressWarnings("unchecked")
+   private boolean areEquivalent(final Dependency left, final Dependency right)
+   {
+      boolean result = false;
+      if (left.getGroupId().equals(right.getGroupId()) && left.getArtifactId().equals(right.getArtifactId()))
+      {
+         ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
+         ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
+
+         if (lversion.compareTo(rversion) == 0)
+         {
+            result = true;
+         }
+      }
+      return result;
    }
 
    @Produces
    @Default
    @LocatedAt
-   public static MavenProject getCurrentDirectoryProject(InjectionPoint ip)
+   public static MavenProject getCurrentDirectoryProject(final InjectionPoint ip)
    {
       String path = null;
       if (ip.getAnnotated().getAnnotation(LocatedAt.class) != null)
@@ -166,7 +270,7 @@ public class MavenProject extends AbstractProject
       }
    }
 
-   public void setPOM(Model pom)
+   public void setPOM(final Model pom)
    {
       try
       {
@@ -202,36 +306,34 @@ public class MavenProject extends AbstractProject
    }
 
    /*
-    * Producers
+    * Helpers
     */
    private static File getCurrentWorkingDir()
    {
       return new File("").getAbsoluteFile();
    }
 
-   /**
-    * Using the given groupId and artifactId patterns, scan the POM and
-    * determine if the project has a dependency that matches.
-    * 
-    * @param groupId A regular expression to filter the groupId
-    * @param artifactId A regular expression to filter the artifactId
-    * @return True if the artifact can be located in the POM, false if
-    *         otherwise.
-    */
-   public boolean hasDependency(String groupId, String artifactId)
+   private static File findProjectDir()
    {
-      for (Dependency dep : getPOM().getDependencies())
+      File root = getCurrentWorkingDir();
+      File pom = new File(root + "/pom.xml");
+      while (!pom.exists() && (root.getParentFile() != null))
       {
-         String aid = dep.getArtifactId();
-         String gid = dep.getGroupId();
-         if ((aid != null) && aid.matches(artifactId))
-         {
-            if ((gid != null) && gid.matches(groupId))
-            {
-               return true;
-            }
-         }
+         root = root.getParentFile();
+         pom = new File(root + "/pom.xml");
       }
-      return false;
+
+      if (!pom.exists())
+      {
+         root = new File("");
+      }
+
+      return root;
    }
+
+   public boolean exists()
+   {
+      return getPOMFile().exists();
+   }
+
 }
