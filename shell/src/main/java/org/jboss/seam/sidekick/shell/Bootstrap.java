@@ -21,24 +21,29 @@
  */
 package org.jboss.seam.sidekick.shell;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
+import org.jboss.weld.environment.se.events.ContainerInitialized;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class Main
+@Singleton
+public class Bootstrap
 {
-   public static void main(final String[] args)
+   @Inject
+   private BeanManager manager;
+
+   public void startup(@Observes final ContainerInitialized event)
    {
-      Weld weld = new Weld();
-      WeldContainer container = weld.initialize();
-      container.event().fire(new Startup());
-      container.event().fire(new AcceptUserInput());
-      weld.shutdown();
+      manager.fireEvent(new Startup());
+      manager.fireEvent(new AcceptUserInput());
    }
 
 }

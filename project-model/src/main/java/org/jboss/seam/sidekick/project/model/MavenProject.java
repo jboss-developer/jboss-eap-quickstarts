@@ -25,15 +25,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.Typed;
-import javax.enterprise.inject.spi.InjectionPoint;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
@@ -70,6 +65,11 @@ public class MavenProject extends AbstractProject
    public MavenProject()
    {
       this(findProjectDir());
+   }
+
+   public MavenProject(final String directoryPath)
+   {
+      this(new File(directoryPath));
    }
 
    public MavenProject(final File directory)
@@ -184,40 +184,6 @@ public class MavenProject extends AbstractProject
          {
             result = true;
          }
-      }
-      return result;
-   }
-
-   @Produces
-   @Default
-   @LocatedAt
-   public static MavenProject getCurrentDirectoryProject(final InjectionPoint ip)
-   {
-      String path = null;
-      if (ip.getAnnotated().getAnnotation(LocatedAt.class) != null)
-      {
-         path = ip.getAnnotated().getAnnotation(LocatedAt.class).value();
-      }
-      else
-      {
-         Set<Annotation> qualifiers = ip.getQualifiers();
-         for (Annotation annotation : qualifiers)
-         {
-            if (annotation instanceof LocatedAt)
-            {
-               path = ((LocatedAt) annotation).value();
-            }
-         }
-      }
-
-      MavenProject result;
-      if (path == null)
-      {
-         result = new MavenProject();
-      }
-      else
-      {
-         result = new MavenProject(new File(path));
       }
       return result;
    }

@@ -1,57 +1,66 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>sidekick-parent</artifactId>
-    <groupId>org.jboss.seam.sidekick</groupId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>sidekick-shell</artifactId>
-  <name>Seam Sidekick Shell</name>
-  <dependencies>
-    <dependency>
+<project
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <modelVersion>4.0.0</modelVersion>
+   
+   <parent>
+      <artifactId>sidekick-parent</artifactId>
       <groupId>org.jboss.seam.sidekick</groupId>
-      <artifactId>sidekick-shell-plugin-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-se</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-extensions</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.sonatype.jline</groupId>
-      <artifactId>jline</artifactId>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.1.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>java</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <mainClass>org.jboss.seam.sidekick.shell.Main</mainClass>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+      <version>1.0.0-SNAPSHOT</version>
+   </parent>
+   
+   <artifactId>sidekick-shell</artifactId>
+   
+   <name>Seam Sidekick Shell</name>
+   
+   <dependencies>
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-shell-plugin-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-se</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-extensions</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-log4j12</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>log4j</groupId>
+         <artifactId>log4j</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.sonatype.jline</groupId>
+         <artifactId>jline</artifactId>
+      </dependency>
+   </dependencies>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1.1</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
 </project>

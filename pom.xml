@@ -161,6 +161,11 @@
    <dependencies>
       <!-- Arquillian Deps -->
       <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
          <groupId>org.jboss.arquillian</groupId>
          <artifactId>arquillian-junit</artifactId>
          <scope>test</scope>

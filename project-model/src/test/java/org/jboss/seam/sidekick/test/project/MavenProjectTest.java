@@ -39,7 +39,6 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.parser.java.JavaParser;
-import org.jboss.seam.sidekick.project.model.LocatedAt;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -72,16 +71,11 @@ public class MavenProjectTest
    private static File tempFolder;
    private static MavenProject project;
 
-   @Inject
-   private MavenProject thisProject;
+   private final MavenProject thisProject = new MavenProject();
 
-   @Inject
-   @LocatedAt("src/test/resources/test-pom")
-   private MavenProject testProject;
+   private final MavenProject testProject = new MavenProject("src/test/resources/test-pom");
 
-   @Inject
-   @LocatedAt("/tmp")
-   private MavenProject unknownProject;
+   private final MavenProject unknownProject = new MavenProject(new File("/tmp"));
 
    @Inject
    private DependencyBuilder dependencyBuilder;

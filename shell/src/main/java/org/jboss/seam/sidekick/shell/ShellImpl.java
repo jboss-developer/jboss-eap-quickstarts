@@ -21,11 +21,14 @@
  */
 package org.jboss.seam.sidekick.shell;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -58,7 +61,7 @@ public class ShellImpl implements Shell
    private List<String> parameters;
 
    @Inject
-   Logger log;
+   private Logger log;
 
    @Inject
    private Completer completer;
@@ -68,11 +71,18 @@ public class ShellImpl implements Shell
    private ConsoleReader reader;
    private boolean exitRequested = false;
 
+   private MavenProject currentProject;
+
    private boolean verbose = false;
 
-   void init(@Observes final Startup event, final Instance<MavenProject> projectInstance) throws Exception
+   void init(@Observes final Startup event) throws Exception
    {
       log.info("Seam Sidekick Shell - Starting up.");
+
+      if (parameters.contains("--verbose"))
+      {
+         verbose = true;
+      }
 
       System.out.println("                                    _          _ _ ");
       System.out.println("     ___  ___  __ _ _ __ ___    ___| |__   ___| | |");
@@ -81,9 +91,37 @@ public class ShellImpl implements Shell
       System.out.println("    |___/\\___|\\__,_|_| |_| |_| |___/_| |_|\\___|_|_|");
       System.out.println("");
 
+      initProject();
+
+      reader = new ConsoleReader();
+      reader.setHistoryEnabled(true);
+      reader.setPrompt(prompt);
+      reader.addCompleter(completer);
+
+   }
+
+   private void initProject()
+   {
+      writeVerbose(parameters.toString());
+
+      String projectPath = "";
+      if ((parameters != null) && !parameters.isEmpty())
+      {
+         String path = parameters.get(0);
+
+         writeVerbose("Path is: " + path);
+
+         if (new File(path).exists())
+         {
+            projectPath = path;
+         }
+      }
+
+      writeVerbose("Using project path: " + projectPath);
+
       try
       {
-         MavenProject currentProject = projectInstance.get();
+         MavenProject currentProject = new MavenProject(new File(projectPath));
          if (currentProject.exists())
          {
             prompt = currentProject.getPOM().getArtifactId() + "> ";
@@ -91,19 +129,15 @@ public class ShellImpl implements Shell
       }
       catch (ProjectModelException e)
       {
-         log.warn("No active projects were detected in this directory. Shell is booting standalone.");
+         log.warn("No active projects were detected in the directory [" + projectPath + "]; booting standalone.");
       }
+   }
 
-      reader = new ConsoleReader();
-      reader.setHistoryEnabled(true);
-      reader.setPrompt(prompt);
-      reader.addCompleter(completer);
-
-      if (parameters.contains("--verbose"))
-      {
-         verbose = true;
-      }
-
+   @Produces
+   @Default
+   public MavenProject getCurrentDirectoryProject(final InjectionPoint ip)
+   {
+      return currentProject;
    }
 
    void doShell(@Observes final AcceptUserInput event)
@@ -138,7 +172,7 @@ public class ShellImpl implements Shell
       catch (CommandExecutionException e)
       {
          write(e.getMessage());
-         if (true)
+         if (verbose)
          {
             e.printStackTrace();
          }
@@ -181,13 +215,19 @@ public class ShellImpl implements Shell
       }
    }
 
-   /**
-    * Write the given {@link line} to the console output.
-    */
    @Override
    public void write(final String line)
    {
       System.out.println(line);
+   }
+
+   @Override
+   public void writeVerbose(final String line)
+   {
+      if (verbose)
+      {
+         System.out.println(line);
+      }
    }
 
    @Override
@@ -210,5 +250,10 @@ public class ShellImpl implements Shell
       {
          throw new RuntimeException(e);
       }
+   }
+
+   public boolean isVerbose()
+   {
+      return verbose;
    }
 }

@@ -30,6 +30,11 @@ public interface Shell
 {
 
    /**
+    * Return true if this shell is currently running in verbose mode.
+    */
+   public boolean isVerbose();
+
+   /**
     * Clear the console.
     */
    void clear();
@@ -40,8 +45,7 @@ public interface Shell
    String prompt();
 
    /**
-    * Prompt for user input, first printing the given line, then return user
-    * input return as a String.
+    * Prompt for user input, first printing the given line, then return user input return as a String.
     */
    String prompt(String prompt);
 
@@ -50,4 +54,8 @@ public interface Shell
     */
    void write(String output);
 
+   /**
+    * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
+    */
+   void writeVerbose(String output);
 }
