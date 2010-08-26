@@ -28,6 +28,13 @@ package org.jboss.seam.sidekick.shell;
  */
 public interface Shell
 {
+   /**
+    * Return true if this shell is currently running in pretend mode.
+    * <p>
+    * Modifications to files made while running in pretend mode are made in a temporary directory, and the output is
+    * produced as a Diff that can then be applied to the project.
+    */
+   public boolean isPretend();
 
    /**
     * Return true if this shell is currently running in verbose mode.
@@ -45,9 +52,23 @@ public interface Shell
    String prompt();
 
    /**
-    * Prompt for user input, first printing the given line, then return user input return as a String.
+    * Prompt for user input, first printing the given line, then return user input as a String.
     */
    String prompt(String prompt);
+
+   /**
+    * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
+    * value returned will default to <code>true</code> if an empty or whitespace-only user input is read.
+    */
+   boolean promptBoolean(String string);
+
+   /**
+    * 
+    * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean.
+    * 
+    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    */
+   boolean promptBoolean(String message, boolean defaultIfEmpty);
 
    /**
     * Write output to the console.
@@ -58,4 +79,5 @@ public interface Shell
     * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
     */
    void writeVerbose(String output);
+
 }

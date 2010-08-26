@@ -25,17 +25,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.Completer;
 
-import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
@@ -69,73 +68,93 @@ public class ShellImpl implements Shell
    private ExecutionParser parser;
 
    private ConsoleReader reader;
-   private boolean exitRequested = false;
 
    private MavenProject currentProject;
 
    private boolean verbose = false;
+   private boolean pretend = false;
+   private boolean exitRequested = false;
+
+   @Inject
+   private Event<Shutdown> shutdown;
 
    void init(@Observes final Startup event) throws Exception
    {
       log.info("Seam Sidekick Shell - Starting up.");
 
+      setReader(new ConsoleReader());
+      initParameters();
+      printWelcomeBanner();
+      initProject();
+
+   }
+
+   private void initParameters()
+   {
       if (parameters.contains("--verbose"))
       {
          verbose = true;
       }
+      if (parameters.contains("--pretend"))
+      {
+         pretend = true;
+      }
+   }
 
+   private void printWelcomeBanner()
+   {
       System.out.println("                                    _          _ _ ");
       System.out.println("     ___  ___  __ _ _ __ ___    ___| |__   ___| | |");
       System.out.println("    / __|/ _ \\/ _` | '_ ` _ \\  / __| '_ \\ / _ \\ | |   \\\\");
       System.out.println("    \\__ \\  __/ (_| | | | | | | \\__ \\ | | |  __/ | |   //");
       System.out.println("    |___/\\___|\\__,_|_| |_| |_| |___/_| |_|\\___|_|_|");
       System.out.println("");
-
-      initProject();
-
-      reader = new ConsoleReader();
-      reader.setHistoryEnabled(true);
-      reader.setPrompt(prompt);
-      reader.addCompleter(completer);
-
    }
 
    private void initProject()
    {
-      writeVerbose(parameters.toString());
+      writeVerbose("Parameters: " + parameters);
 
       String projectPath = "";
       if ((parameters != null) && !parameters.isEmpty())
       {
-         String path = parameters.get(0);
-
-         writeVerbose("Path is: " + path);
-
-         if (new File(path).exists())
+         for (String path : parameters)
          {
-            projectPath = path;
+            if ((path != null) && !path.startsWith("--") && !path.startsWith("-"))
+            {
+               projectPath = path;
+               break;
+            }
          }
       }
 
       writeVerbose("Using project path: " + projectPath);
 
-      try
+      File targetDirectory = new File(projectPath);
+      if (targetDirectory.exists())
       {
-         MavenProject currentProject = new MavenProject(new File(projectPath));
+         currentProject = new MavenProject(new File(projectPath));
          if (currentProject.exists())
          {
             prompt = currentProject.getPOM().getArtifactId() + "> ";
+            reader.setPrompt(prompt);
          }
       }
-      catch (ProjectModelException e)
+      else
       {
-         log.warn("No active projects were detected in the directory [" + projectPath + "]; booting standalone.");
+         write("The directory [" + targetDirectory.getAbsolutePath() + "] does not exist. Exiting...");
+         shutdown.fire(Shutdown.ERROR);
       }
+   }
+
+   void teardown(@Observes final Shutdown event)
+   {
+      exitRequested = true;
    }
 
    @Produces
    @Default
-   public MavenProject getCurrentDirectoryProject(final InjectionPoint ip)
+   public MavenProject getCurrentProject()
    {
       return currentProject;
    }
@@ -187,11 +206,6 @@ public class ShellImpl implements Shell
       }
    }
 
-   void teardown(@Observes final Shutdown event)
-   {
-      exitRequested = true;
-   }
-
    /**
     * Prompt the user for input, using {@link message} as the prompt text.
     */
@@ -213,6 +227,49 @@ public class ShellImpl implements Shell
       {
          throw new IllegalStateException("Shell input stream failure", e);
       }
+   }
+
+   @Override
+   public boolean promptBoolean(final String message)
+   {
+      return promptBoolean(message, true);
+   }
+
+   @Override
+   public boolean promptBoolean(final String message, final boolean defaultIfEmpty)
+   {
+      String query = "[Y/n]";
+      if (!defaultIfEmpty)
+      {
+         query = "[y/N]";
+      }
+
+      String input = "";
+      do
+      {
+         input = prompt(message + " " + query);
+         if (input != null)
+         {
+            input = input.trim();
+         }
+      }
+      while ((input != null) && !input.matches("(?i)^((y(es?)?)|(no?))?$"));
+
+      boolean result = defaultIfEmpty;
+      if (input == null)
+      {
+         // do nothing
+      }
+      else if (input.matches("(?i)(no?)"))
+      {
+         result = false;
+      }
+      else if (input.matches("(?i)(y(es?)?)"))
+      {
+         result = true;
+      }
+
+      return result;
    }
 
    @Override
@@ -252,8 +309,36 @@ public class ShellImpl implements Shell
       }
    }
 
+   @Override
    public boolean isVerbose()
    {
       return verbose;
+   }
+
+   @Override
+   public boolean isPretend()
+   {
+      return pretend;
+   }
+
+   /**
+    * Set the parameters as if they had been received from the command line.
+    */
+   public void setParameters(final List<String> parameters)
+   {
+      this.parameters = parameters;
+   }
+
+   public void setReader(final ConsoleReader reader)
+   {
+      this.reader = reader;
+      this.reader.setHistoryEnabled(true);
+      this.reader.setPrompt(prompt);
+      this.reader.addCompleter(completer);
+   }
+
+   public ConsoleReader getReader()
+   {
+      return reader;
    }
 }

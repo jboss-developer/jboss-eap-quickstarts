@@ -22,21 +22,34 @@
 
 package org.jboss.seam.sidekick.shell.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+
+import jline.console.ConsoleReader;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.seam.sidekick.shell.ShellImpl;
+import org.jboss.seam.sidekick.shell.plugins.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,6 +74,12 @@ public class ShellImplTest
    private static File tempFolder;
    private static MavenProject project;
 
+   @Inject
+   private ShellImpl shell;
+
+   @Inject
+   private BeanManager manager;
+
    @BeforeClass
    public static void before() throws IOException
    {
@@ -68,6 +87,23 @@ public class ShellImplTest
       tempFolder.delete();
       tempFolder.mkdirs();
       project = new MavenProject(tempFolder);
+   }
+
+   @Before
+   public void beforeTest()
+   {
+      List<String> parameters = new ArrayList<String>();
+      parameters.add("--verbose");
+      parameters.add("--pretend");
+      shell.setParameters(parameters);
+
+      manager.fireEvent(new Startup(), new Annotation[] {});
+   }
+
+   @After
+   public void afterTest() throws IOException
+   {
+      shell.setReader(new ConsoleReader());
    }
 
    @AfterClass
@@ -80,8 +116,41 @@ public class ShellImplTest
    }
 
    @Test
-   public void testStub() throws Exception
+   public void testPromptBoolean() throws Exception
    {
+      shell.setReader(new ConsoleReader(new StringInputStream("y\n"), new PrintWriter(System.out)));
+      assertTrue(shell.promptBoolean("Would you like cake?"));
 
+      shell.setReader(new ConsoleReader(new StringInputStream("ye\n"), new PrintWriter(System.out)));
+      assertTrue(shell.promptBoolean("Would you like cake?"));
+
+      shell.setReader(new ConsoleReader(new StringInputStream("yes\n"), new PrintWriter(System.out)));
+      assertTrue(shell.promptBoolean("Would you like cake?"));
+
+      shell.setReader(new ConsoleReader(new StringInputStream("n\n"), new PrintWriter(System.out)));
+      assertFalse(shell.promptBoolean("Would you like cake?"));
+
+      shell.setReader(new ConsoleReader(new StringInputStream("no\n"), new PrintWriter(System.out)));
+      assertFalse(shell.promptBoolean("Would you like cake?"));
+   }
+
+   @Test
+   public void testPromptBooleanDefaultsToYes() throws Exception
+   {
+      shell.setReader(new ConsoleReader(new StringInputStream(""), new PrintWriter(System.out)));
+      assertTrue(shell.promptBoolean("Would you like cake?"));
+   }
+
+   @Test
+   public void testPromptBooleanLoopsIfBadInput() throws Exception
+   {
+      shell.setReader(new ConsoleReader(new StringInputStream("asdfdsf\n \n"), new PrintWriter(System.out)));
+      assertFalse(shell.promptBoolean("Would you like cake?", false));
+
+      shell.setReader(new ConsoleReader(new StringInputStream("asdfdsf\n n\n"), new PrintWriter(System.out)));
+      assertFalse(shell.promptBoolean("Would you like cake?", false));
+
+      shell.setReader(new ConsoleReader(new StringInputStream("asdfdsf\n y\n"), new PrintWriter(System.out)));
+      assertTrue(shell.promptBoolean("Would you like cake?", false));
    }
 }

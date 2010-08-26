@@ -54,33 +54,41 @@ public class StatusPlugin implements Plugin
    @DefaultCommand
    public void status(@Option(help = "The name of the plugin.") final String pluginName)
    {
-      PluginMetadata meta = registry.getPlugins().get(pluginName);
-      if (meta != null)
+      if ((pluginName == null) || pluginName.isEmpty())
       {
-         Plugin plugin = registry.instanceOf(meta);
-         if (plugin instanceof MavenPlugin)
+         shell.write("Currently operating on the project located in: " + project.getProjectRoot());
+      }
+      else
+      {
+         PluginMetadata meta = registry.getPlugins().get(pluginName);
+         if (meta != null)
          {
-            MavenPlugin installable = (MavenPlugin) plugin;
-            if (isInstalledInProject(installable))
+            Plugin plugin = registry.instanceOf(meta);
+            if (plugin instanceof MavenPlugin)
             {
-               shell.write("Status: INSTALLED");
+               MavenPlugin installable = (MavenPlugin) plugin;
+               if (isInstalledInProject(installable))
+               {
+                  shell.write("Status: INSTALLED");
+               }
+               else
+               {
+                  shell.write("Status: NOT-INSTALLED (you may run \"install " + pluginName
+                           + "\" to install this plugin.");
+               }
             }
             else
             {
-               shell.write("Status: NOT-INSTALLED (you may run \"install " + pluginName + "\" to install this plugin.");
+               shell.write("The plugin [" + pluginName
+                        + "] is not an installable plugin.");
             }
          }
          else
          {
-            shell.write("The plugin [" + pluginName
-                     + "] is not an installable plugin.");
+            shell.write("Could not find a plugin with the name: " + pluginName
+                     + "; are you sure that's the correct name?");
          }
       }
-      else
-      {
-         shell.write("Could not find a plugin with the name: " + pluginName + "; are you sure that's the correct name?");
-      }
-
    }
 
    private boolean isInstalledInProject(final MavenPlugin installable)
