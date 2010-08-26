@@ -69,7 +69,7 @@ public class MavenProject extends AbstractProject
 
    public MavenProject(final String directoryPath)
    {
-      this(new File(directoryPath));
+      this(new File(directoryPath).getAbsoluteFile());
    }
 
    public MavenProject(final File directory)
