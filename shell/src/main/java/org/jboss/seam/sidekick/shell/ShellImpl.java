@@ -128,12 +128,12 @@ public class ShellImpl implements Shell
          }
       }
 
-      writeVerbose("Using project path: " + projectPath);
+      File targetDirectory = new File(projectPath).getAbsoluteFile();
+      writeVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
 
-      File targetDirectory = new File(projectPath);
       if (targetDirectory.exists())
       {
-         currentProject = new MavenProject(new File(projectPath));
+         currentProject = new MavenProject(targetDirectory);
          if (currentProject.exists())
          {
             prompt = currentProject.getPOM().getArtifactId() + "> ";
