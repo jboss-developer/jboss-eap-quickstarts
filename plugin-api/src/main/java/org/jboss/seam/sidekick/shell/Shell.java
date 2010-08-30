@@ -75,6 +75,12 @@ public interface Shell
     */
    void write(String output);
 
+   void print(String output);
+
+   void println(String output);
+
+   void println();
+
    /**
     * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
     */

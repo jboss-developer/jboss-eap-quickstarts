@@ -9,7 +9,7 @@ public class MockAnnotatedClass
 {
    private String field;
    
-   public MockClassFile()
+   public MockAnnotatedClass()
    {
    }
 }

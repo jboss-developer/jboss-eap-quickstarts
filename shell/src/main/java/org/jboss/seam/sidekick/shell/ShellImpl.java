@@ -64,6 +64,7 @@ public class ShellImpl implements Shell
 
    @Inject
    private Completer completer;
+
    @Inject
    private ExecutionParser parser;
 
@@ -115,6 +116,8 @@ public class ShellImpl implements Shell
    {
       writeVerbose("Parameters: " + parameters);
 
+      reader.setEchoCharacter(new Character((char) 0));
+      
       String projectPath = "";
       if ((parameters != null) && !parameters.isEmpty())
       {
@@ -207,7 +210,7 @@ public class ShellImpl implements Shell
    }
 
    /**
-    * Prompt the user for input, using {@link message} as the prompt text.
+    * Prompt the user for input, using {@param message} as the prompt text.
     */
    @Override
    public String prompt(final String message)
@@ -285,6 +288,25 @@ public class ShellImpl implements Shell
       {
          System.out.println(line);
       }
+   }
+
+
+   @Override
+   public void print(String output)
+   {
+      System.out.print(output);
+   }
+
+   @Override
+   public void println(String output)
+   {
+      System.out.println(output);
+   }
+
+   @Override
+   public void println()
+   {
+      System.out.println();
    }
 
    @Override

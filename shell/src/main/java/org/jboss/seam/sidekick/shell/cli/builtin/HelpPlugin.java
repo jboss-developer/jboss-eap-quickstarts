@@ -48,7 +48,7 @@ public class HelpPlugin implements Plugin
    Shell shell;
 
    @DefaultCommand
-   public void help(@Option("test") final String test, @Option final String... tokens)
+   public void help(@Option final String... tokens)
    {
       if ((tokens == null) || (tokens.length == 0))
       {
