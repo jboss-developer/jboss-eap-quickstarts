@@ -47,7 +47,7 @@ public class PluginMetadata
       List<CommandMetadata> commands = this.getCommands();
       for (CommandMetadata commandMetadata : commands)
       {
-         if (commandMetadata.getNames().contains(name))
+         if (commandMetadata.getName().equals(name))
          {
             result = commandMetadata;
          }

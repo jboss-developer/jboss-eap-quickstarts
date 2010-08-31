@@ -19,27 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.parser;
+package org.jboss.seam.sidekick.shell.test.cli;
 
-import java.util.Map;
-import java.util.Queue;
-
-import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
-import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
+import org.jboss.seam.sidekick.shell.cli.CommandLibraryExtension;
+import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ParseErrorParser implements CommandParser
+public class CommandLibraryExtensionTest
 {
+   CommandLibraryExtension library = new CommandLibraryExtension();
 
-   @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   @Test
+   public void testParsePlugin() throws Exception
    {
-      String token = tokens.peek();
-      throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());
+      PluginMetadata plugin = library.getMetadataFor(MockNamedPlugin.class);
    }
-
 }

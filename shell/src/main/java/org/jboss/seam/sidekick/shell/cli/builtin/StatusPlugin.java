@@ -56,7 +56,7 @@ public class StatusPlugin implements Plugin
    {
       if ((pluginName == null) || pluginName.isEmpty())
       {
-         shell.write("Currently operating on the project located in: " + project.getProjectRoot());
+         shell.println("Currently operating on the project located in: " + project.getProjectRoot());
       }
       else
       {
@@ -69,23 +69,23 @@ public class StatusPlugin implements Plugin
                MavenPlugin installable = (MavenPlugin) plugin;
                if (isInstalledInProject(installable))
                {
-                  shell.write("Status: INSTALLED");
+                  shell.println("Status: INSTALLED");
                }
                else
                {
-                  shell.write("Status: NOT-INSTALLED (you may run \"install " + pluginName
+                  shell.println("Status: NOT-INSTALLED (you may run \"install " + pluginName
                            + "\" to install this plugin.");
                }
             }
             else
             {
-               shell.write("The plugin [" + pluginName
+               shell.println("The plugin [" + pluginName
                         + "] is not an installable plugin.");
             }
          }
          else
          {
-            shell.write("Could not find a plugin with the name: " + pluginName
+            shell.println("Could not find a plugin with the name: " + pluginName
                      + "; are you sure that's the correct name?");
          }
       }

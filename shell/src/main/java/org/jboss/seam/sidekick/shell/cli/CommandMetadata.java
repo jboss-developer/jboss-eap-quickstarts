@@ -23,7 +23,6 @@ package org.jboss.seam.sidekick.shell.cli;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,7 +35,7 @@ public class CommandMetadata
    private Method method;
    private boolean isDefault;
 
-   private String[] names = {};
+   private String name;
    private String help;
    private List<OptionMetadata> options = new ArrayList<OptionMetadata>();
 
@@ -89,14 +88,14 @@ public class CommandMetadata
       this.isDefault = isDefault;
    }
 
-   public List<String> getNames()
+   public String getName()
    {
-      return Arrays.asList(names);
+      return name;
    }
 
-   public void setNames(final String... names)
+   public void setName(final String name)
    {
-      this.names = names;
+      this.name = name;
    }
 
    public List<OptionMetadata> getOptions()
@@ -127,11 +126,7 @@ public class CommandMetadata
    @Override
    public String toString()
    {
-      if ((names != null) && (names.length > 0))
-      {
-         return names[0];
-      }
-      return "unnamed-command";
+      return name;
    }
 
    public PluginMetadata getParent()

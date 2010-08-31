@@ -50,7 +50,7 @@ public @interface Command
    /**
     * One or more names for this command.
     */
-   String[] value() default {};
+   String value() default "";
 
    /**
     * Help text for this command.

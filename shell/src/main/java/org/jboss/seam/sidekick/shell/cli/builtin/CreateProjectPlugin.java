@@ -51,6 +51,6 @@ public class CreateProjectPlugin implements Plugin
    @DefaultCommand
    public void create(@Option(required = true, help = "The name of the new project") final String name)
    {
-      shell.write("Creating project: " + name);
+      shell.println("Creating project: " + name);
    }
 }

@@ -54,11 +54,11 @@ public class VerbosePlugin implements Plugin
 
       if (shell.isVerbose())
       {
-         shell.write("Shell IS running in verbose mode.");
+         shell.println("Shell IS running in verbose mode.");
       }
       else
       {
-         shell.write("Shell is NOT running in verbose mode.");
+         shell.println("Shell is NOT running in verbose mode.");
       }
    }
 }

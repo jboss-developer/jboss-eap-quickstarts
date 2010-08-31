@@ -59,24 +59,31 @@ public class CommandLibraryExtension implements Extension
    {
       Bean<?> bean = event.getBean();
 
-      Class<? extends Plugin> plugin = (Class<? extends Plugin>) bean.getBeanClass();
-      if (Plugin.class.isAssignableFrom(plugin))
+      Class<?> clazz = bean.getBeanClass();
+
+      if (Plugin.class.isAssignableFrom(clazz))
       {
-         String name = getPluginName(plugin);
-
-         PluginMetadata pluginMeta = new PluginMetadata();
-         pluginMeta.setName(name);
-         pluginMeta.setType(plugin);
-
-         if (Annotations.isAnnotationPresent(plugin, Help.class))
-         {
-            pluginMeta.setHelp(Annotations.getAnnotation(plugin, Help.class).value());
-         }
-
-         processPluginCommands(pluginMeta, plugin);
-
-         plugins.put(name, pluginMeta);
+         PluginMetadata pluginMeta = getMetadataFor((Class<? extends Plugin>) clazz);
+         plugins.put(pluginMeta.getName(), pluginMeta);
       }
+   }
+
+   public PluginMetadata getMetadataFor(final Class<? extends Plugin> plugin)
+   {
+      String name = getPluginName(plugin);
+
+      PluginMetadata pluginMeta = new PluginMetadata();
+      pluginMeta.setName(name);
+      pluginMeta.setType(plugin);
+
+      if (Annotations.isAnnotationPresent(plugin, Help.class))
+      {
+         pluginMeta.setHelp(Annotations.getAnnotation(plugin, Help.class).value());
+      }
+
+      processPluginCommands(pluginMeta, plugin);
+
+      return pluginMeta;
    }
 
    private List<CommandMetadata> processPluginCommands(final PluginMetadata pluginMeta, final Class<?> plugin)
@@ -84,18 +91,29 @@ public class CommandLibraryExtension implements Extension
       List<CommandMetadata> results = new ArrayList<CommandMetadata>();
       pluginMeta.setCommands(results);
 
-      for (Method m : plugin.getMethods())
+      for (Method method : plugin.getMethods())
       {
-         if (Annotations.isAnnotationPresent(m, Command.class))
+         if (Annotations.isAnnotationPresent(method, Command.class))
          {
-            Command command = Annotations.getAnnotation(m, Command.class);
+            Command command = Annotations.getAnnotation(method, Command.class);
             CommandMetadata commandMeta = new CommandMetadata();
-            commandMeta.setMethod(m);
+            commandMeta.setMethod(method);
             commandMeta.setHelp(command.help());
             commandMeta.setParent(pluginMeta);
 
+            // Default commands are invoked via the name of the plug-in, not by
+            // plug-in + command
+            if (command.value() == "")
+            {
+               commandMeta.setName(method.getName().trim().toLowerCase());
+            }
+            else
+            {
+               commandMeta.setName(command.value());
+            }
+
             // This works because @DefaultCommand is annotated by @Command
-            if (Annotations.isAnnotationPresent(m, DefaultCommand.class))
+            if (Annotations.isAnnotationPresent(method, DefaultCommand.class))
             {
                if (pluginMeta.hasDefaultCommand())
                {
@@ -105,9 +123,10 @@ public class CommandLibraryExtension implements Extension
                }
 
                commandMeta.setDefault(true);
+               commandMeta.setName(pluginMeta.getName());
 
                // favor help text from this annotation over others
-               DefaultCommand def = Annotations.getAnnotation(m, DefaultCommand.class);
+               DefaultCommand def = Annotations.getAnnotation(method, DefaultCommand.class);
                if ((def.help() != null) && !def.help().trim().isEmpty())
                {
                   commandMeta.setHelp(def.help());
@@ -120,19 +139,8 @@ public class CommandLibraryExtension implements Extension
                commandMeta.setHelp(pluginMeta.getHelp());
             }
 
-            // Default commands are invoked via the name of the plug-in, not by
-            // plug-in + command
-            if (command.value().length == 0)
-            {
-               commandMeta.setNames(m.getName().toLowerCase());
-            }
-            else
-            {
-               commandMeta.setNames(command.value());
-            }
-
-            Class<?>[] parameterTypes = m.getParameterTypes();
-            Annotation[][] parameterAnnotations = m.getParameterAnnotations();
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
             int i = 0;
             for (Class<?> clazz : parameterTypes)

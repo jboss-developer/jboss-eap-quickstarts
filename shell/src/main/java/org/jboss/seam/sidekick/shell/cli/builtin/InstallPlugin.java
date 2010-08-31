@@ -39,7 +39,7 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("install")
-@Help("Displays help text for specified plugins & commands.")
+@Help("Installs a plugin into a project.")
 public class InstallPlugin implements Plugin
 {
    @Inject
@@ -68,13 +68,14 @@ public class InstallPlugin implements Plugin
          }
          else
          {
-            shell.write("The plugin [" + pluginName
+            shell.println("The plugin [" + pluginName
                      + "] cannot be installed into your project because it is not an installable plugin.");
          }
       }
       else
       {
-         shell.write("Could not find a plugin with the name: " + pluginName + "; are you sure that's the correct name?");
+         shell.println("Could not find a plugin with the name: " + pluginName
+                  + "; are you sure that's the correct name?");
       }
    }
 

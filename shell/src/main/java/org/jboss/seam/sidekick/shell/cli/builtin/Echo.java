@@ -56,6 +56,6 @@ public class Echo implements Plugin
       {
          input = shell.prompt();
       }
-      shell.write(input);
+      shell.println(input);
    }
 }

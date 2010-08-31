@@ -59,7 +59,7 @@ public interface Shell
    /**
     * Prompt for user input, first printing the given line, then return user input as a String.
     */
-   String prompt(String prompt);
+   String prompt(String message);
 
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
@@ -68,7 +68,6 @@ public interface Shell
    boolean promptBoolean(String string);
 
    /**
-    * 
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean.
     * 
     * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
@@ -76,19 +75,23 @@ public interface Shell
    boolean promptBoolean(String message, boolean defaultIfEmpty);
 
    /**
-    * Write output to the console.
+    * Print output to the console.
     */
-   void write(String output);
-
    void print(String output);
 
+   /**
+    * Print output to the console, followed by the newline character.
+    */
    void println(String output);
 
+   /**
+    * Print a blank line to the console.
+    */
    void println();
 
    /**
     * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
     */
-   void writeVerbose(String output);
+   void printlnVerbose(String output);
 
 }
