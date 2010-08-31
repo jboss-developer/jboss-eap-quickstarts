@@ -56,7 +56,7 @@ public class PluginMetadata
       return result;
    }
 
-   public boolean hasCommand(String name)
+   public boolean hasCommand(final String name)
    {
       return getCommand(name) != null;
    }
@@ -83,7 +83,7 @@ public class PluginMetadata
    @Override
    public String toString()
    {
-      return "PluginMetadata [name=" + name + ", type=" + type + ", commands=" + commands + "]";
+      return name;
    }
 
    public String getName()

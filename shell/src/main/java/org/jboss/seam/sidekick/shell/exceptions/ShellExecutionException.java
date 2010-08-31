@@ -22,37 +22,31 @@
 
 package org.jboss.seam.sidekick.shell.exceptions;
 
-import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandException extends RuntimeException
+public class ShellExecutionException extends ShellException
 {
    private static final long serialVersionUID = 8113296404786359776L;
-   private CommandMetadata command = null;
 
-   public CommandException(CommandMetadata command, Throwable e)
+   public ShellExecutionException()
    {
-      super(e);
-      this.command = command;
+      super();
    }
 
-   public CommandException(CommandMetadata command, String message)
+   public ShellExecutionException(final String message, final Throwable cause)
+   {
+      super(message, cause);
+   }
+
+   public ShellExecutionException(final String message)
    {
       super(message);
-      this.command = command;
    }
 
-   public CommandException(CommandMetadata command, String message, Throwable e)
+   public ShellExecutionException(final Throwable cause)
    {
-      super(message, e);
-      this.command = command;
-   }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
+      super(cause);
    }
 }

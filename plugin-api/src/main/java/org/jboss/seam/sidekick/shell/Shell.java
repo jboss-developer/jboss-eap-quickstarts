@@ -42,6 +42,11 @@ public interface Shell
    public boolean isVerbose();
 
    /**
+    * Toggle verbose mode.
+    */
+   void setVerbose(boolean verbose);
+
+   /**
     * Clear the console.
     */
    void clear();

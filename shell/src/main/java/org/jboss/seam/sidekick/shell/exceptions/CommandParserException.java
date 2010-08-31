@@ -28,23 +28,32 @@ import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandParserException extends CommandException
+public class CommandParserException extends ShellParserException
 {
-   private static final long serialVersionUID = -6497472768450068197L;
+   private static final long serialVersionUID = -6474891123733228235L;
+   private final CommandMetadata command;
 
-   public CommandParserException(CommandMetadata command, Throwable e)
+   public CommandParserException(final CommandMetadata command, final String message)
    {
-      super(command, e);
+      super(message);
+      this.command = command;
    }
 
-   public CommandParserException(CommandMetadata command, String message, Throwable e)
+   public CommandParserException(final CommandMetadata command, final Throwable e)
    {
-      super(command, message, e);
+      super(e);
+      this.command = command;
    }
 
-   public CommandParserException(CommandMetadata command, String message)
+   public CommandParserException(final CommandMetadata command, final String message, final Throwable e)
    {
-      super(command, message);
+      super(message, e);
+      this.command = command;
+   }
+
+   public CommandMetadata getCommand()
+   {
+      return command;
    }
 
 }

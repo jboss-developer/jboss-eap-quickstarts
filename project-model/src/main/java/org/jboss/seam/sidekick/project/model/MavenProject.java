@@ -64,15 +64,30 @@ public class MavenProject extends AbstractProject
 
    public MavenProject()
    {
-      this(findProjectDir());
+      this(findProjectDir(), false);
+   }
+
+   public MavenProject(final boolean create)
+   {
+      this(findProjectDir(), create);
    }
 
    public MavenProject(final String directoryPath)
    {
-      this(new File(directoryPath).getAbsoluteFile());
+      this(new File(directoryPath).getAbsoluteFile(), false);
+   }
+
+   public MavenProject(final String directoryPath, final boolean create)
+   {
+      this(new File(directoryPath).getAbsoluteFile(), create);
    }
 
    public MavenProject(final File directory)
+   {
+      this(directory, false);
+   }
+
+   public MavenProject(final File directory, final boolean create)
    {
       if (!directory.isDirectory())
       {
@@ -81,21 +96,35 @@ public class MavenProject extends AbstractProject
       }
 
       projectRoot = directory.getAbsoluteFile();
-      init();
+      init(create);
    }
 
-   private void init()
+   private void init(final boolean create)
    {
       try
       {
+         if (create)
+         {
+            Model pom = getPOM();
+            pom.setGroupId("org.jboss.seam");
+            pom.setArtifactId("scaffolding");
+            pom.setVersion("1.0.0-SNAPSHOT");
+            pom.setPomFile(getPOMFile());
+            pom.setModelVersion("4.0.0");
+            setPOM(pom);
+         }
+         else if (!exists())
+         {
+            throw new ProjectModelException("No POM file found at [" + getPOMFile().getAbsolutePath() + "]");
+         }
+
          container = new DefaultPlexusContainer();
          container.setLoggerManager(new ConsoleLoggerManager("DEBUG"));
 
          builder = container.lookup(ProjectBuilder.class);
 
+         // TODO this needs to be configurable via the project/.sidekick file.
          String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
-
-         System.out.println("*** Using local Maven repository at: " + localRepository);
 
          request.setLocalRepository(new MavenArtifactRepository(
                   "local", new File(localRepository).toURI().toURL().toString(),
@@ -109,6 +138,7 @@ public class MavenProject extends AbstractProject
          request.setProcessPlugins(true);
          request.setResolveDependencies(true);
          request.setOffline(true);
+
       }
       catch (Exception e)
       {
@@ -200,7 +230,18 @@ public class MavenProject extends AbstractProject
    @Override
    public File getDefaultSourceFolder()
    {
-      return new File(getProjectRoot().getAbsolutePath() + "/src/main/java");
+      try
+      {
+         ProjectBuildingResult result = builder.build(getPOMFile(), request);
+         String directory = result.getProject().getBuild().getSourceDirectory();
+         return new File(directory).getAbsoluteFile();
+      }
+      catch (ProjectBuildingException e)
+      {
+         throw new ProjectModelException(e);
+      }
+
+      // return new File(getProjectRoot().getAbsolutePath() + "/src/main/java");
    }
 
    @Override
@@ -214,7 +255,6 @@ public class MavenProject extends AbstractProject
       try
       {
          Model result = new Model();
-         result.setPomFile(getPOMFile());
 
          MavenXpp3Reader reader = new MavenXpp3Reader();
          FileInputStream stream = new FileInputStream(getPOMFile());
@@ -224,6 +264,7 @@ public class MavenProject extends AbstractProject
          }
          stream.close();
 
+         result.setPomFile(getPOMFile());
          return result;
       }
       catch (IOException e)

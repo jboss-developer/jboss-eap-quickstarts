@@ -95,8 +95,7 @@ public class OptionMetadata
    @Override
    public String toString()
    {
-      return "OptionMetadata [type=" + type + ", name=" + name + ", index=" + index + ", help=" + help + ", required="
-               + required + "]";
+      return name;
    }
 
    public CommandMetadata getParent()
