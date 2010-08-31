@@ -38,8 +38,10 @@ import jline.console.completer.Completer;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
-import org.jboss.seam.sidekick.shell.exceptions.CommandException;
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
+import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
@@ -190,19 +192,47 @@ public class ShellImpl implements Shell
       }
       catch (CommandExecutionException e)
       {
+         write("[" + e.getCommand() + "] " + e.getMessage());
+         if (verbose)
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (CommandParserException e)
+      {
+         write("[" + e.getCommand() + "] " + e.getMessage());
+         if (verbose)
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (PluginExecutionException e)
+      {
+         write("[" + e.getPlugin() + "] " + e.getMessage());
+         if (verbose)
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (ShellExecutionException e)
+      {
          write(e.getMessage());
          if (verbose)
          {
             e.printStackTrace();
          }
       }
-      catch (CommandException e)
-      {
-         e.printStackTrace();
-      }
       catch (Exception e)
       {
-         e.printStackTrace();
+         if (!verbose)
+         {
+            write("Exception encountered: " + e.getMessage() + " (type \"verbose true\" to enable stack traces)");
+         }
+         if (verbose)
+         {
+            write("Exception encountered: (type \"verbose false\" to disable stack traces)");
+            e.printStackTrace();
+         }
       }
    }
 
@@ -313,6 +343,12 @@ public class ShellImpl implements Shell
    public boolean isVerbose()
    {
       return verbose;
+   }
+
+   @Override
+   public void setVerbose(final boolean verbose)
+   {
+      this.verbose = verbose;
    }
 
    @Override

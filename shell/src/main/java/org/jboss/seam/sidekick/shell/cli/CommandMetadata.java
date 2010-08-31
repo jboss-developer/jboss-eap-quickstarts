@@ -84,7 +84,7 @@ public class CommandMetadata
       return isDefault;
    }
 
-   public void setDefault(boolean isDefault)
+   public void setDefault(final boolean isDefault)
    {
       this.isDefault = isDefault;
    }
@@ -127,7 +127,11 @@ public class CommandMetadata
    @Override
    public String toString()
    {
-      return "CommandMetadata [method=" + method + ", names=" + Arrays.toString(names) + ", help=" + help + ", options=" + options + "]";
+      if ((names != null) && (names.length > 0))
+      {
+         return names[0];
+      }
+      return "unnamed-command";
    }
 
    public PluginMetadata getParent()

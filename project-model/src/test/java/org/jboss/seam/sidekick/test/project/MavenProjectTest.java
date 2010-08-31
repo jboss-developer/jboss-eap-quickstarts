@@ -86,7 +86,7 @@ public class MavenProjectTest
       tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      project = new MavenProject(tempFolder);
+      project = new MavenProject(tempFolder, true);
    }
 
    @AfterClass
@@ -96,6 +96,12 @@ public class MavenProjectTest
       {
          assertTrue(project.delete(tempFolder));
       }
+   }
+
+   @Test
+   public void testCreateDefault() throws Exception
+   {
+      assertTrue(project.exists());
    }
 
    @Test
@@ -125,7 +131,7 @@ public class MavenProjectTest
    {
       Model pom = project.getPOM();
       pom.setGroupId("org.jboss.seam");
-      pom.setArtifactId("seam-scaffolding");
+      pom.setArtifactId("scaffolding");
       pom.setVersion("X-SNAPSHOT");
       project.setPOM(pom);
       File file = pom.getPomFile();

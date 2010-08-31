@@ -19,42 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.util.ArrayList;
-import java.util.List;
+package org.jboss.seam.sidekick.shell.exceptions;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("demo-plugin")
-@Help("A very basic installable plugin")
-public class DemoPlugin implements MavenPlugin
+public class PluginExecutionException extends ShellExecutionException
 {
-   @Inject
-   private DependencyBuilder builder;
+   private static final long serialVersionUID = -6474891123733228235L;
+   private final PluginMetadata plugin;
 
-   @Command(value = "do-something", help = "a basic do-nothing kind of command")
-   public void doSomething()
+   public PluginExecutionException(final PluginMetadata plugin, final String message)
    {
+      super(message);
+      this.plugin = plugin;
    }
 
-   @Override
-   public List<Dependency> getDependencies()
+   public PluginExecutionException(final PluginMetadata plugin, final Throwable e)
    {
-      List<Dependency> result = new ArrayList<Dependency>();
-
-      result.add(builder.setGroupId("com.demo").setArtifactId("demo-library").setVersion("1.0.0").build());
-
-      return result;
+      super(e);
+      this.plugin = plugin;
    }
+
+   public PluginExecutionException(final PluginMetadata plugin, final String message, final Throwable e)
+   {
+      super(message, e);
+      this.plugin = plugin;
+   }
+
+   public PluginMetadata getPlugin()
+   {
+      return plugin;
+   }
+
 }

@@ -21,40 +21,36 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
+import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("demo-plugin")
-@Help("A very basic installable plugin")
-public class DemoPlugin implements MavenPlugin
+@Named("create-project")
+@Help("Create a new project in an empty directory.")
+public class CreateProjectPlugin implements Plugin
 {
    @Inject
-   private DependencyBuilder builder;
+   private PluginRegistry registry;
 
-   @Command(value = "do-something", help = "a basic do-nothing kind of command")
-   public void doSomething()
+   @Inject
+   private Shell shell;
+
+   @Inject
+   private MavenProject project;
+
+   @DefaultCommand
+   public void create(@Option(required = true, help = "The name of the new project") final String name)
    {
-   }
-
-   @Override
-   public List<Dependency> getDependencies()
-   {
-      List<Dependency> result = new ArrayList<Dependency>();
-
-      result.add(builder.setGroupId("com.demo").setArtifactId("demo-library").setVersion("1.0.0").build());
-
-      return result;
+      shell.write("Creating project: " + name);
    }
 }

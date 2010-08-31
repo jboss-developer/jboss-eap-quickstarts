@@ -21,40 +21,44 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
+import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("demo-plugin")
-@Help("A very basic installable plugin")
-public class DemoPlugin implements MavenPlugin
+@Named("verbose")
+@Help("Display or toggle the current verbose mode.")
+public class VerbosePlugin implements Plugin
 {
    @Inject
-   private DependencyBuilder builder;
+   Shell shell;
 
-   @Command(value = "do-something", help = "a basic do-nothing kind of command")
-   public void doSomething()
+   @DefaultCommand
+   public void execute(@Option(required = false, help = "Toggle verbose mode [on/off]") final String verbose)
    {
-   }
+      if ("on".equalsIgnoreCase(verbose))
+      {
+         shell.setVerbose(true);
+      }
+      else if ("off".equalsIgnoreCase(verbose))
+      {
+         shell.setVerbose(false);
+      }
 
-   @Override
-   public List<Dependency> getDependencies()
-   {
-      List<Dependency> result = new ArrayList<Dependency>();
-
-      result.add(builder.setGroupId("com.demo").setArtifactId("demo-library").setVersion("1.0.0").build());
-
-      return result;
+      if (shell.isVerbose())
+      {
+         shell.write("Shell IS running in verbose mode.");
+      }
+      else
+      {
+         shell.write("Shell is NOT running in verbose mode.");
+      }
    }
 }

@@ -37,6 +37,8 @@ import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueOptionParser;
 import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueVarargsOptionParser;
 import org.jboss.seam.sidekick.shell.cli.parser.ParseErrorParser;
 import org.jboss.seam.sidekick.shell.cli.parser.Tokenizer;
+import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
+import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -98,7 +100,8 @@ public class ExecutionParser
             }
             else
             {
-               throw new IllegalStateException("Missing command for plugin: " + plugin.getName());
+               throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
+                        + "], available commands: " + plugin.getCommands());
             }
          }
       }
@@ -122,7 +125,15 @@ public class ExecutionParser
          Object value = valueMap.get(option);
          if (option.isRequired() && (value == null))
          {
-            throw new IllegalStateException("Command is missing required option: " + option);
+            if (option.isNamed())
+            {
+               throw new CommandParserException(command, "Missing required argument: --" + option.getName() + "="
+                        + option.getHelp());
+            }
+            else
+            {
+               throw new CommandParserException(command, "Missing required argument: " + option.getHelp());
+            }
          }
 
          parameters[option.getIndex()] = value;

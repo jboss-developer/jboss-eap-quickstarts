@@ -19,42 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
+package org.jboss.seam.sidekick.shell.exceptions;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("demo-plugin")
-@Help("A very basic installable plugin")
-public class DemoPlugin implements MavenPlugin
+public class ShellParserException extends ShellException
 {
-   @Inject
-   private DependencyBuilder builder;
+   private static final long serialVersionUID = -6497472768450068197L;
 
-   @Command(value = "do-something", help = "a basic do-nothing kind of command")
-   public void doSomething()
+   public ShellParserException()
    {
+      super();
    }
 
-   @Override
-   public List<Dependency> getDependencies()
+   public ShellParserException(final String message, final Throwable cause)
    {
-      List<Dependency> result = new ArrayList<Dependency>();
+      super(message, cause);
+   }
 
-      result.add(builder.setGroupId("com.demo").setArtifactId("demo-library").setVersion("1.0.0").build());
+   public ShellParserException(final String message)
+   {
+      super(message);
+   }
 
-      return result;
+   public ShellParserException(final Throwable cause)
+   {
+      super(cause);
    }
 }
