@@ -156,6 +156,7 @@ public class CommandLibraryExtension implements Extension
                      Option opt = (Option) a;
                      option.setParent(commandMeta);
                      option.setName(opt.value());
+                     option.setDescription(opt.description());
                      option.setHelp(opt.help());
                      option.setRequired(opt.required());
                   }

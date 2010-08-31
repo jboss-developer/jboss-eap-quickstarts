@@ -30,6 +30,7 @@ public class OptionMetadata
    private CommandMetadata parent;
    private Class<?> type;
    private String name;
+   private String description;
    private int index;
    private String help;
    private boolean required;
@@ -60,6 +61,16 @@ public class OptionMetadata
    public void setName(final String name)
    {
       this.name = name;
+   }
+
+   public String getDescription()
+   {
+      return description;
+   }
+
+   public void setDescription(String description)
+   {
+      this.description = description;
    }
 
    public int getIndex()

@@ -21,9 +21,6 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
@@ -31,6 +28,10 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -52,5 +53,20 @@ public class CreateProjectPlugin implements Plugin
    public void create(@Option(required = true, help = "The name of the new project") final String name)
    {
       shell.println("Creating project: " + name);
+
+      File file = new File(".");
+
+      do
+      {
+         if (!file.exists()) {
+            if (shell.promptBoolean("Create project directory [Y/N] ")) {
+               file.mkdirs();
+               break;
+            }
+         }
+
+         file = new File(shell.prompt("Project directory [" + file.getAbsolutePath() + "]: "));
+      }
+      while (!file.exists());
    }
 }

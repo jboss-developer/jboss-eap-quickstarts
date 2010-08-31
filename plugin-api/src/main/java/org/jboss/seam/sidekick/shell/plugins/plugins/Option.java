@@ -48,6 +48,9 @@ public @interface Option
     */
    String value() default "";
 
+
+   String description() default "";
+
    /**
     * Specify whether or not this option is required.
     */
