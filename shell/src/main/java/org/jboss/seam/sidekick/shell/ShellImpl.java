@@ -116,8 +116,6 @@ public class ShellImpl implements Shell
    {
       writeVerbose("Parameters: " + parameters);
 
-      reader.setEchoCharacter(new Character((char) 0));
-      
       String projectPath = "";
       if ((parameters != null) && !parameters.isEmpty())
       {
@@ -167,6 +165,7 @@ public class ShellImpl implements Shell
       String line;
       try
       {
+         // main program loop
          while ((exitRequested != true) && ((line = reader.readLine()) != null))
          {
             if ("".equals(line))
@@ -185,7 +184,7 @@ public class ShellImpl implements Shell
 
    private void execute(final String line)
    {
-      Execution execution = null;
+      Execution execution;
       try
       {
          execution = parser.parse(line);
