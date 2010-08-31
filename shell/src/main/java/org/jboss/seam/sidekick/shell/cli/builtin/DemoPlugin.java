@@ -32,6 +32,7 @@ import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -44,8 +45,10 @@ public class DemoPlugin implements MavenPlugin
    private DependencyBuilder builder;
 
    @Command(value = "do-something", help = "a basic do-nothing kind of command")
-   public void doSomething()
+   public void doSomething(@Option(required = true, description = "count") int count)
    {
+      for (int i = 0; i < count; i++)
+         System.out.println(i + "!");
    }
 
    @Override
