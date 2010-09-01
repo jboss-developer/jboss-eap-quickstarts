@@ -21,42 +21,43 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.cli.parser.*;
+import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.sidekick.shell.util.ShellUtils;
+import org.mvel2.util.ParseTools;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-
-import org.jboss.seam.sidekick.shell.cli.parser.CommandParser;
-import org.jboss.seam.sidekick.shell.cli.parser.CompositeCommandParser;
-import org.jboss.seam.sidekick.shell.cli.parser.NamedBooleanOptionParser;
-import org.jboss.seam.sidekick.shell.cli.parser.NamedValueOptionParser;
-import org.jboss.seam.sidekick.shell.cli.parser.NamedValueVarargsOptionParser;
-import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueOptionParser;
-import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueVarargsOptionParser;
-import org.jboss.seam.sidekick.shell.cli.parser.ParseErrorParser;
-import org.jboss.seam.sidekick.shell.cli.parser.Tokenizer;
-import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
-import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class ExecutionParser
 {
-   @Inject
-   private PluginRegistry registry;
+   private final PluginRegistry registry;
+   private final Instance<Execution> executionInstance;
+   private final Tokenizer tokenizer;
+   private final Shell shell;
 
    @Inject
-   private Instance<Execution> executionInstance;
+   public ExecutionParser(PluginRegistry registry, Instance<Execution> executionInstance,
+                          Tokenizer tokenizer, Shell shell)
+   {
+      this.registry = registry;
+      this.executionInstance = executionInstance;
+      this.tokenizer = tokenizer;
+      this.shell = shell;
+   }
 
-   @Inject
-   private Tokenizer tokenizer;
 
    public Execution parse(final String line)
    {
       Queue<String> tokens = tokenizer.tokenize(line);
+
       Map<String, PluginMetadata> plugins = registry.getPlugins();
       Execution execution = executionInstance.get();
       execution.setOriginalStatement(line);
@@ -65,7 +66,6 @@ public class ExecutionParser
       if (tokens.size() > 0)
       {
          String first = tokens.remove();
-
          PluginMetadata plugin = plugins.get(first);
 
          if (plugin != null)
@@ -73,13 +73,10 @@ public class ExecutionParser
             if (tokens.size() > 0)
             {
                String second = tokens.peek();
-               if (command == null)
+               command = plugin.getCommand(second);
+               if (command != null)
                {
-                  command = plugin.getCommand(second);
-                  if (command != null)
-                  {
-                     tokens.remove();
-                  }
+                  tokens.remove();
                }
             }
 
@@ -90,7 +87,6 @@ public class ExecutionParser
 
             if (command != null)
             {
-
                execution.setCommand(command);
 
                // parse parameters and set order / nulls for command invocation
@@ -100,8 +96,8 @@ public class ExecutionParser
             }
             else
             {
-               throw new PluginExecutionException(plugin, "Plugin requires a command [" + plugin.getName()
-                        + "], available commands: " + plugin.getCommands());
+               throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
+                     + "], available commands: " + plugin.getCommands());
             }
          }
       }
@@ -114,8 +110,8 @@ public class ExecutionParser
       Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
 
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
       commandParser.parse(command, valueMap, tokens);
 
@@ -125,16 +121,14 @@ public class ExecutionParser
          Object value = valueMap.get(option);
          if (option.isRequired() && (value == null))
          {
-            if (option.isNamed())
+
+            if (isBooleanOption(option))
             {
-               throw new CommandParserException(command, "Command is missing required argument: --" + option.getName()
-                        + "="
-                        + option.getHelp());
+               value = shell.promptBoolean(ShellUtils.getOptionDescriptor(option) + ": ");
             }
             else
             {
-               throw new CommandParserException(command, "Command is missing required argument: "
-                        + option.getDescription());
+               value = shell.prompt(ShellUtils.getOptionDescriptor(option) + ":");
             }
          }
 
@@ -142,5 +136,10 @@ public class ExecutionParser
       }
 
       return parameters;
+   }
+
+   private static boolean isBooleanOption(OptionMetadata option)
+   {
+      return ParseTools.unboxPrimitive(option.getType()) == boolean.class;
    }
 }

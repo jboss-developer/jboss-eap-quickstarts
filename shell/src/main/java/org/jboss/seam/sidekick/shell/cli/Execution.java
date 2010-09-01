@@ -29,10 +29,6 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
-import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
-import org.mvel2.DataConversion;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -49,7 +45,7 @@ public class Execution
    public void perform()
    {
       if (command != null)
-      {
+      {                                                                       
          Class<? extends Plugin> pluginType = command.getParent().getType();
          Set<Bean<?>> beans = manager.getBeans(pluginType);
          Bean<?> bean = manager.resolve(beans);
@@ -72,17 +68,15 @@ public class Execution
             }
             catch (Exception e)
             {
-               throw new CommandExecutionException(command, "command option '"
-                        + command.getOrderedOptionByIndex(i).getDescription()
-                        + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
+               throw new CommandExecutionException(command, "command option '" + command.getOrderedOptionByIndex(i).getDescription()
+                     + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
             }
          }
 
          Plugin plugin;
          if (bean != null)
          {
-            CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager
-                     .createCreationalContext(bean);
+            CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager.createCreationalContext(bean);
             if (context != null)
             {
                plugin = (Plugin) manager.getReference(bean, pluginType, context);
