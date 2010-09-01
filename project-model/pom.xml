@@ -44,7 +44,6 @@
             <artifactId>maven-compat</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>

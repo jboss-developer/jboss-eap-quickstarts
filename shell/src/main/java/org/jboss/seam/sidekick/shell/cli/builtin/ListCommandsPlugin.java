@@ -20,13 +20,17 @@ import javax.inject.Named;
 @Help("Lists executable shell commands")
 public class ListCommandsPlugin implements Plugin
 {
-   @Inject
-   PluginRegistry registry;
+   final PluginRegistry registry;
+   final Shell shell;
 
    @Inject
-   Shell shell;
+   public ListCommandsPlugin(PluginRegistry registry, Shell shell)
+   {
+      this.registry = registry;
+      this.shell = shell;
+   }
 
-   @DefaultCommand                                                                                 
+   @DefaultCommand
    public void listCommands()
    {
       for (PluginMetadata pluginMetaData : registry.getPlugins().values())

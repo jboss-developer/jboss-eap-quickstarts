@@ -48,12 +48,13 @@ public class Execution
    public void perform()
    {
       if (command != null)
-      {
+      {                                                                       
          Class<? extends Plugin> pluginType = command.getParent().getType();
          Set<Bean<?>> beans = manager.getBeans(pluginType);
          Bean<?> bean = manager.resolve(beans);
 
          Method method = command.getMethod();
+         
          Class[] parmTypes = method.getParameterTypes();
          Object[] paramStaging = new Object[parameterArray.length];
 
@@ -74,7 +75,6 @@ public class Execution
                      + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
             }
          }
-
 
          Plugin plugin;
          if (bean != null)
