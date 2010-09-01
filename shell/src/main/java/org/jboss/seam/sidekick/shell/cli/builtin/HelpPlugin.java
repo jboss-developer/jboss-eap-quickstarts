@@ -52,8 +52,9 @@ public class HelpPlugin implements Plugin
    {
       if ((tokens == null) || (tokens.length == 0))
       {
-         shell.write("Welcome to Seam Sidekick!");
-         // TODO put a nice picture here
+         shell.println("");
+         shell.println("Welcome to Seam Sidekick! Type \"help {plugin} {command}\" to learn more about what this shell can do.");
+         shell.println("");
       }
       else
       {
@@ -61,21 +62,7 @@ public class HelpPlugin implements Plugin
          PluginMetadata plugin = registry.getPlugins().get(pluginName);
          if (plugin != null)
          {
-            if (tokens.length >= 1)
-            {
-               shell.write("");
-               shell.write("[" + plugin.getName() + "] " + plugin.getHelp());
-
-               if (plugin.getCommands().size() > 0)
-               {
-                  shell.write("");
-                  shell.write("Commands:");
-                  for (CommandMetadata command : plugin.getCommands())
-                  {
-                     shell.write(command.getNames() + " " + command.getHelp());
-                  }
-               }
-            }
+            writePluginHelp(plugin);
 
             if (tokens.length >= 2)
             {
@@ -83,29 +70,95 @@ public class HelpPlugin implements Plugin
                if (plugin.hasCommand(commandName))
                {
                   CommandMetadata command = plugin.getCommand(commandName);
-                  shell.write("Command: " + command.getNames());
-                  if (command.getOptions().size() > 0)
-                  {
-                     shell.write("");
-                     shell.write("Command options");
-                     for (OptionMetadata option : command.getOptions())
-                     {
-                        shell.write("[" + option.getIndex() + "] [" + option.getName() + "] " + option.getHelp());
-                     }
-                  }
+                  writeCommandHelp(command);
                }
                else
                {
-                  shell.write("Unknown command [" + commandName + "]");
+                  shell.println("Unknown command [" + commandName + "]");
+               }
+            }
+            else if (tokens.length >= 1)
+            {
+               if (plugin.getCommands().size() > 0)
+               {
+                  shell.println("");
+                  shell.println("Commands:");
+                  for (CommandMetadata command : plugin.getCommands())
+                  {
+                     writeCommandHelp(command);
+                  }
                }
             }
          }
          else
          {
-            shell.write("I couldn't find a help topic for: " + tokens[0]);
+            shell.println("I couldn't find a help topic for: " + tokens[0]);
          }
-         shell.write("");
+         shell.println("");
       }
 
+   }
+
+   private void writePluginHelp(final PluginMetadata plugin)
+   {
+      shell.println("[" + plugin.getName() + "] " + plugin.getHelp());
+   }
+
+   private void writeCommandHelp(final CommandMetadata command)
+   {
+      if (command.isDefault())
+      {
+         shell.print("[default] " + command.getName() + " ");
+         writeCommandUsage(command);
+         shell.println(" - " + command.getHelp());
+      }
+      else
+      {
+         shell.print(command.getName() + " ");
+         writeCommandUsage(command);
+         shell.println(" - " + command.getHelp());
+      }
+      shell.println();
+   }
+
+   private void writeCommandUsage(final CommandMetadata command)
+   {
+      for (OptionMetadata option : command.getOptions())
+      {
+         if (option.isRequired())
+         {
+            shell.print("[");
+         }
+         else
+         {
+            shell.print("{");
+         }
+
+         if (option.isBoolean())
+         {
+            shell.print("--" + option.getName());
+         }
+         else if (option.isNamed())
+         {
+            shell.print("--" + option.getName() + "=[...]");
+         }
+         else if (option.isVarargs())
+         {
+            shell.print("value value ... values");
+         }
+         else
+         {
+            shell.print("value");
+         }
+
+         if (option.isRequired())
+         {
+            shell.print("]");
+         }
+         else
+         {
+            shell.print("}");
+         }
+      }
    }
 }

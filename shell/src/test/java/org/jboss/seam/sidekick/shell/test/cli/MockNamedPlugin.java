@@ -19,54 +19,61 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
+package org.jboss.seam.sidekick.shell.test.cli;
 
-import org.jboss.seam.sidekick.project.model.MavenProject;
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
+import javax.inject.Named;
+
+import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("create-project")
-@Help("Create a new project in an empty directory.")
-public class CreateProjectPlugin implements Plugin
+@Named("mnp")
+public class MockNamedPlugin implements Plugin
 {
-   @Inject
-   private PluginRegistry registry;
-
-   @Inject
-   private Shell shell;
-
-   @Inject
-   private MavenProject project;
-
-   @DefaultCommand
-   public void create(@Option(required = true, help = "The name of the new project") final String name)
+   @Command(help = "A mock run command")
+   public void run()
    {
-      shell.println("Creating project: " + name);
 
-      File file = new File(".");
+   }
 
-      do
-      {
-         if (!file.exists()) {
-            if (shell.promptBoolean("Create project directory [Y/N] ")) {
-               file.mkdirs();
-               break;
-            }
-         }
+   @Command
+   public void helpless()
+   {
 
-         file = new File(shell.prompt("Project directory [" + file.getAbsolutePath() + "]: "));
-      }
-      while (!file.exists());
+   }
+
+   @DefaultCommand(help = "This is a mock default command")
+   public void defaultCommand(@Option final String option)
+   {
+
+   }
+
+   @Command
+   public void normal(@Option(description = "THE OPTION") final String option)
+   {
+
+   }
+
+   @Command("named")
+   public void named(@Option(value = "named", defaultValue = "true") final String option)
+   {
+
+   }
+
+   @Command
+   public void multiOption(@Option("named") final String option,
+            @Option(value = "foo") final boolean foo)
+   {
+
+   }
+
+   public void notCommand()
+   {
+
    }
 }

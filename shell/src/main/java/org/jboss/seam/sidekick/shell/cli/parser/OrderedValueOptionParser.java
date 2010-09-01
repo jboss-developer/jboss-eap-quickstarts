@@ -57,7 +57,7 @@ public class OrderedValueOptionParser implements CommandParser
       }
       catch (IllegalArgumentException e)
       {
-         throw new CommandParserException(command, "The command " + command.getNames() + " takes ["
+         throw new CommandParserException(command, "The command " + command.getName() + " takes ["
                   + numberOrderedParams + "] argument(s).");
       }
    }

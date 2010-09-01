@@ -63,25 +63,26 @@ public class UninstallPlugin implements Plugin
             MavenPlugin removable = (MavenPlugin) plugin;
             if (isInstalledInProject(removable))
             {
-               shell.write("Removing plugin [" + pluginName + "] from project: " + project.getPOM().getArtifactId());
+               shell.println("Removing plugin [" + pluginName + "] from project: " + project.getPOM().getArtifactId());
                remove(removable);
             }
             else
             {
-               shell.write("The plugin [" + pluginName
+               shell.println("The plugin [" + pluginName
                         + "] cannot be removed from your project because it is not installed.");
             }
          }
          else
          {
-            shell.write("The plugin [" + pluginName
+            shell.println("The plugin [" + pluginName
                      + "] is not installed and cannot be removed; it is not an installable plugin.");
 
          }
       }
       else
       {
-         shell.write("Could not find a plugin with the name: " + pluginName + "; are you sure that's the correct name?");
+         shell.println("Could not find a plugin with the name: " + pluginName
+                  + "; are you sure that's the correct name?");
       }
    }
 

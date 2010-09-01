@@ -21,16 +21,13 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
-import org.mvel2.DataConversion;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-import java.lang.reflect.Method;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -54,8 +51,8 @@ public class Execution
          Bean<?> bean = manager.resolve(beans);
 
          Method method = command.getMethod();
-         
-         Class[] parmTypes = method.getParameterTypes();
+
+         Class<?>[] parmTypes = method.getParameterTypes();
          Object[] paramStaging = new Object[parameterArray.length];
 
          for (int i = 0; i < parmTypes.length; i++)

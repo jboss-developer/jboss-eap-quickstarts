@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+ * JBoss, Home of Professional Open Sourci
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -116,7 +116,7 @@ public class ShellImpl implements Shell
 
    private void initProject()
    {
-      writeVerbose("Parameters: " + parameters);
+      printlnVerbose("Parameters: " + parameters);
 
       String projectPath = "";
       if ((parameters != null) && !parameters.isEmpty())
@@ -132,7 +132,7 @@ public class ShellImpl implements Shell
       }
 
       File targetDirectory = new File(projectPath).getAbsoluteFile();
-      writeVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
+      printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
 
       if (targetDirectory.exists())
       {
@@ -145,7 +145,7 @@ public class ShellImpl implements Shell
       }
       else
       {
-         write("The directory [" + targetDirectory.getAbsolutePath() + "] does not exist. Exiting...");
+         println("The directory [" + targetDirectory.getAbsolutePath() + "] does not exist. Exiting...");
          shutdown.fire(Shutdown.ERROR);
       }
    }
@@ -194,7 +194,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandExecutionException e)
       {
-         write("[" + e.getCommand() + "] " + e.getMessage());
+         println("[" + e.getCommand() + "] " + e.getMessage());
          if (verbose)
          {
             e.printStackTrace();
@@ -202,7 +202,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandParserException e)
       {
-         write("[" + e.getCommand() + "] " + e.getMessage());
+         println("[" + e.getCommand() + "] " + e.getMessage());
          if (verbose)
          {
             e.printStackTrace();
@@ -210,7 +210,7 @@ public class ShellImpl implements Shell
       }
       catch (PluginExecutionException e)
       {
-         write("[" + e.getPlugin() + "] " + e.getMessage());
+         println("[" + e.getPlugin() + "] " + e.getMessage());
          if (verbose)
          {
             e.printStackTrace();
@@ -218,7 +218,7 @@ public class ShellImpl implements Shell
       }
       catch (ShellExecutionException e)
       {
-         write(e.getMessage());
+         println(e.getMessage());
          if (verbose)
          {
             e.printStackTrace();
@@ -228,23 +228,25 @@ public class ShellImpl implements Shell
       {
          if (!verbose)
          {
-            write("Exception encountered: " + e.getMessage() + " (type \"verbose true\" to enable stack traces)");
+            println("Exception encountered: " + e.getMessage() + " (type \"verbose on\" to enable stack traces)");
          }
          if (verbose)
          {
-            write("Exception encountered: (type \"verbose false\" to disable stack traces)");
+            println("Exception encountered: (type \"verbose false\" to disable stack traces)");
             e.printStackTrace();
          }
       }
    }
 
    /**
-    * Prompt the user for input, using {@param message} as the prompt text.
+    * Prompt the user for input, using
+    * 
+    * @param message as the prompt text.
     */
    @Override
    public String prompt(final String message)
    {
-      write(message);
+      println(message);
       try
       {
          String currentPrompt = reader.getPrompt();
@@ -305,13 +307,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void write(final String line)
-   {
-      System.out.println(line);
-   }
-
-   @Override
-   public void writeVerbose(final String line)
+   public void printlnVerbose(final String line)
    {
       if (verbose)
       {
@@ -319,15 +315,14 @@ public class ShellImpl implements Shell
       }
    }
 
-
    @Override
-   public void print(String output)
+   public void print(final String output)
    {
       System.out.print(output);
    }
 
    @Override
-   public void println(String output)
+   public void println(final String output)
    {
       System.out.println(output);
    }

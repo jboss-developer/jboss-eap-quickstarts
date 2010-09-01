@@ -21,7 +21,6 @@
  */
 package org.jboss.seam.sidekick.shell.cli.parser;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Queue;
 
@@ -40,8 +39,7 @@ public class ParseErrorParser implements CommandParser
             final Queue<String> tokens)
    {
       String token = tokens.peek();
-      String commandNames = Arrays.deepToString(command.getNames().toArray());
-      throw new IllegalStateException("Error parsing token [" + token + "] for command: " + commandNames);
+      throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());
    }
 
 }

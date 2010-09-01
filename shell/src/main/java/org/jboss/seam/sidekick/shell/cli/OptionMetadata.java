@@ -29,11 +29,13 @@ public class OptionMetadata
 {
    private CommandMetadata parent;
    private Class<?> type;
-   private String name;
-   private String description;
    private int index;
-   private String help;
-   private boolean required;
+
+   private String name = "";
+   private String defaultValue = "";
+   private String description = "";
+   private String help = "";
+   private boolean required = false;
 
    /**
     * Return whether this option is to be mapped via name or via parameter order.
@@ -68,7 +70,7 @@ public class OptionMetadata
       return description;
    }
 
-   public void setDescription(String description)
+   public void setDescription(final String description)
    {
       this.description = description;
    }
@@ -127,6 +129,21 @@ public class OptionMetadata
    public boolean isVarargs()
    {
       return getType().isArray();
+   }
+
+   public String getDefaultValue()
+   {
+      return defaultValue;
+   }
+
+   public void setDefaultValue(final String defaultValue)
+   {
+      this.defaultValue = defaultValue;
+   }
+
+   public boolean hasDefaultValue()
+   {
+      return (defaultValue != null) && !"".equals(defaultValue);
    }
 
 }

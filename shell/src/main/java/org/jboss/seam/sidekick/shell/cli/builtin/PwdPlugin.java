@@ -45,6 +45,6 @@ public class PwdPlugin implements Plugin
    public void run()
    {
       String currentDir = new File("").getAbsolutePath();
-      shell.write(currentDir);
+      shell.println(currentDir);
    }
 }
