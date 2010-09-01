@@ -246,7 +246,7 @@ public class ShellImpl implements Shell
    @Override
    public String prompt(final String message)
    {
-      println(message);
+      print(message);
       try
       {
          String currentPrompt = reader.getPrompt();
