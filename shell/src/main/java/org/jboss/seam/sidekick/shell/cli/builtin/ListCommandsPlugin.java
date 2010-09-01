@@ -1,5 +1,8 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
@@ -8,13 +11,8 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 /**
- * User: christopherbrock
- * Date: 30-Aug-2010
- * Time: 6:31:57 PM
+ * User: christopherbrock Date: 30-Aug-2010 Time: 6:31:57 PM
  */
 @Named("list-commands")
 @Help("Lists executable shell commands")
@@ -24,7 +22,7 @@ public class ListCommandsPlugin implements Plugin
    final Shell shell;
 
    @Inject
-   public ListCommandsPlugin(PluginRegistry registry, Shell shell)
+   public ListCommandsPlugin(final PluginRegistry registry, final Shell shell)
    {
       this.registry = registry;
       this.shell = shell;
@@ -37,11 +35,8 @@ public class ListCommandsPlugin implements Plugin
       {
          for (CommandMetadata commandMetadata : pluginMetaData.getCommands())
          {
-            for (String commandName : commandMetadata.getNames())
-            {
-               shell.print(commandName);
-               shell.print("  ");
-            }
+            shell.print(commandMetadata.getName());
+            shell.print("  ");
          }
       }
       shell.println();
