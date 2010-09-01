@@ -122,13 +122,21 @@ public class ExecutionParser
          if (option.isRequired() && (value == null))
          {
 
-            if (isBooleanOption(option))
+            while (value == null)
             {
-               value = shell.promptBoolean(ShellUtils.getOptionDescriptor(option) + ": ");
-            }
-            else
-            {
-               value = shell.prompt(ShellUtils.getOptionDescriptor(option) + ":");
+               if (isBooleanOption(option))
+               {
+                  value = shell.promptBoolean(ShellUtils.getOptionDescriptor(option) + ": ");
+               }
+               else
+               {
+                  value = shell.prompt(ShellUtils.getOptionDescriptor(option) + ":");
+               }
+               if (String.valueOf(value).trim().length() == 0)
+               {
+                  shell.println("The option is required to execute this command.");
+                  value = null;
+               }
             }
          }
 
