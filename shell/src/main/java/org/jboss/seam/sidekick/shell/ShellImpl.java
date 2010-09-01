@@ -59,6 +59,10 @@ public class ShellImpl implements Shell
 {
    private String prompt = "sidekick> ";
 
+   private class InvalidInput
+   {
+   }
+
    @Inject
    @Parameters
    private List<String> parameters;
@@ -278,22 +282,54 @@ public class ShellImpl implements Shell
    @SuppressWarnings("unchecked")
    public <T> T prompt(final String message, final Class<T> clazz)
    {
+      Object result = null;
       Object input = "";
       do
       {
          input = prompt(message);
          try
          {
-            input = DataConversion.convert(input, clazz);
+            result = DataConversion.convert(input, clazz);
          }
          catch (Exception e)
          {
-            input = null;
+            result = new InvalidInput();
          }
       }
-      while (input == null);
+      while ((result instanceof InvalidInput));
 
-      return (T) input;
+      return (T) result;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T prompt(final String message, final Class<T> clazz, final T defaultIfEmpty)
+   {
+      Object result = null;
+      String input = "";
+      do
+      {
+         input = prompt(message);
+         if ((input == null) || "".equals(input.trim()))
+         {
+            result = defaultIfEmpty;
+         }
+         else
+         {
+            input = input.trim();
+            try
+            {
+               result = DataConversion.convert(input, clazz);
+            }
+            catch (Exception e)
+            {
+               result = new InvalidInput();
+            }
+         }
+      }
+      while ((result instanceof InvalidInput));
+
+      return (T) result;
    }
 
    @Override
@@ -311,7 +347,7 @@ public class ShellImpl implements Shell
          query = "[y/N]";
       }
 
-      return prompt(message + " " + query, Boolean.class);
+      return prompt(message + " " + query, Boolean.class, defaultIfEmpty);
    }
 
    @Override

@@ -58,6 +58,8 @@ public interface Shell
 
    /**
     * Prompt for user input, first printing the given line, then return user input as a String.
+    * <p>
+    * <b>Warning:</b> Prompting for a type to which conversion cannot occur will cause an infinite prompt loop.
     */
    String prompt(String message);
 
@@ -98,5 +100,12 @@ public interface Shell
     * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
     */
    void printlnVerbose(String output);
+
+   /**
+    * Prompt for user input, first printing the given line, then returning user input as a converted value.
+    * 
+    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    */
+   <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
 
 }
