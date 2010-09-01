@@ -45,6 +45,7 @@ import org.jboss.seam.sidekick.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
+import org.jboss.seam.sidekick.shell.util.BooleanConverter;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.DataConversion;
 import org.slf4j.Logger;
@@ -86,11 +87,14 @@ public class ShellImpl implements Shell
    {
       log.info("Seam Sidekick Shell - Starting up.");
 
+      BooleanConverter booleanConverter = new BooleanConverter();
+      DataConversion.addConversionHandler(boolean.class, booleanConverter);
+      DataConversion.addConversionHandler(Boolean.class, booleanConverter);
+
       setReader(new ConsoleReader());
       initParameters();
       printWelcomeBanner();
       initProject();
-
    }
 
    private void initParameters()
