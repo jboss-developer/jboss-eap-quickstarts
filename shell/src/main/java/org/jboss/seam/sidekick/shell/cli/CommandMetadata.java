@@ -33,10 +33,10 @@ public class CommandMetadata
 {
    private PluginMetadata parent;
    private Method method;
-   private boolean isDefault;
+   private boolean isDefault = false;
 
-   private String name;
-   private String help;
+   private String name = "";
+   private String help = "";
    private List<OptionMetadata> options = new ArrayList<OptionMetadata>();
 
    public OptionMetadata getNamedOption(final String name) throws IllegalArgumentException

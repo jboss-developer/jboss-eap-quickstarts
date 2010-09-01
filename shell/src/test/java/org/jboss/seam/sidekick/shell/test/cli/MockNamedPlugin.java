@@ -23,6 +23,7 @@ package org.jboss.seam.sidekick.shell.test.cli;
 
 import javax.inject.Named;
 
+import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
@@ -34,8 +35,44 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 @Named("mnp")
 public class MockNamedPlugin implements Plugin
 {
-   @DefaultCommand(help = "This is a mock command")
-   public void command(@Option final String option)
+   @Command(help = "A mock run command")
+   public void run()
+   {
+
+   }
+
+   @Command
+   public void helpless()
+   {
+
+   }
+
+   @DefaultCommand(help = "This is a mock default command")
+   public void defaultCommand(@Option final String option)
+   {
+
+   }
+
+   @Command
+   public void normal(@Option(description = "THE OPTION") final String option)
+   {
+
+   }
+
+   @Command("named")
+   public void named(@Option(value = "named", defaultValue = "true") final String option)
+   {
+
+   }
+
+   @Command
+   public void multiOption(@Option("named") final String option,
+            @Option(value = "foo") final boolean foo)
+   {
+
+   }
+
+   public void notCommand()
    {
 
    }

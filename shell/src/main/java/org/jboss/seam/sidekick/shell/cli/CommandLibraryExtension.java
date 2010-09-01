@@ -80,6 +80,10 @@ public class CommandLibraryExtension implements Extension
       {
          pluginMeta.setHelp(Annotations.getAnnotation(plugin, Help.class).value());
       }
+      else
+      {
+         pluginMeta.setHelp("");
+      }
 
       processPluginCommands(pluginMeta, plugin);
 
@@ -103,7 +107,7 @@ public class CommandLibraryExtension implements Extension
 
             // Default commands are invoked via the name of the plug-in, not by
             // plug-in + command
-            if (command.value() == "")
+            if ("".equals(command.value()))
             {
                commandMeta.setName(method.getName().trim().toLowerCase());
             }
@@ -145,23 +149,24 @@ public class CommandLibraryExtension implements Extension
             int i = 0;
             for (Class<?> clazz : parameterTypes)
             {
-               OptionMetadata option = new OptionMetadata();
-               option.setType(clazz);
-               option.setIndex(i);
+               OptionMetadata optionMeta = new OptionMetadata();
+               optionMeta.setType(clazz);
+               optionMeta.setIndex(i);
 
-               for (Annotation a : parameterAnnotations[i])
+               for (Annotation annotation : parameterAnnotations[i])
                {
-                  if (a instanceof Option)
+                  if (annotation instanceof Option)
                   {
-                     Option opt = (Option) a;
-                     option.setParent(commandMeta);
-                     option.setName(opt.value());
-                     option.setDescription(opt.description());
-                     option.setHelp(opt.help());
-                     option.setRequired(opt.required());
+                     Option option = (Option) annotation;
+                     optionMeta.setParent(commandMeta);
+                     optionMeta.setName(option.value());
+                     optionMeta.setDescription(option.description());
+                     optionMeta.setDefaultValue(option.defaultValue());
+                     optionMeta.setHelp(option.help());
+                     optionMeta.setRequired(option.required());
                   }
                }
-               commandMeta.addOption(option);
+               commandMeta.addOption(optionMeta);
                i++;
             }
 

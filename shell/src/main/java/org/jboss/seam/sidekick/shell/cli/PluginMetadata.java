@@ -32,8 +32,8 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
  */
 public class PluginMetadata
 {
-   private String help;
-   private String name;
+   private String help = "";
+   private String name = "";
    private Class<? extends Plugin> type;
    private List<CommandMetadata> commands = new ArrayList<CommandMetadata>();
 

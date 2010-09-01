@@ -21,16 +21,17 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
-import org.mvel2.DataConversion;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-import java.lang.reflect.Method;
-import java.util.Set;
+
+import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.mvel2.DataConversion;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -54,7 +55,8 @@ public class Execution
          Bean<?> bean = manager.resolve(beans);
 
          Method method = command.getMethod();
-         Class[] parmTypes = method.getParameterTypes();
+
+         Class<?>[] parmTypes = method.getParameterTypes();
          Object[] paramStaging = new Object[parameterArray.length];
 
          for (int i = 0; i < parmTypes.length; i++)
@@ -70,16 +72,17 @@ public class Execution
             }
             catch (Exception e)
             {
-               throw new CommandExecutionException(command, "command option '" + command.getOrderedOptionByIndex(i).getDescription()
-                     + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
+               throw new CommandExecutionException(command, "command option '"
+                        + command.getOrderedOptionByIndex(i).getDescription()
+                        + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
             }
          }
-
 
          Plugin plugin;
          if (bean != null)
          {
-            CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager.createCreationalContext(bean);
+            CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager
+                     .createCreationalContext(bean);
             if (context != null)
             {
                plugin = (Plugin) manager.getReference(bean, pluginType, context);

@@ -21,8 +21,17 @@
  */
 package org.jboss.seam.sidekick.shell.test.cli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.jboss.seam.sidekick.shell.cli.CommandLibraryExtension;
+import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
+import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
+import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 import org.junit.Test;
 
 /**
@@ -32,10 +41,76 @@ import org.junit.Test;
 public class CommandLibraryExtensionTest
 {
    CommandLibraryExtension library = new CommandLibraryExtension();
+   private final PluginMetadata plugin = library.getMetadataFor(MockNamedPlugin.class);
 
    @Test
-   public void testParsePlugin() throws Exception
+   public void testParsePluginWithoutHelp() throws Exception
    {
-      PluginMetadata plugin = library.getMetadataFor(MockNamedPlugin.class);
+      assertEquals("mnp", plugin.getName());
+      assertEquals("", plugin.getHelp());
+
+      assertTrue(Plugin.class.isAssignableFrom(plugin.getType()));
+   }
+
+   @Test
+   public void testParsePluginWithDefaultAndNormalCommands() throws Exception
+   {
+      assertEquals(6, plugin.getCommands().size());
+      assertTrue(plugin.hasDefaultCommand());
+      assertNotNull(plugin.getDefaultCommand());
+
+      assertTrue(Plugin.class.isAssignableFrom(plugin.getType()));
+   }
+
+   @Test
+   public void testParseDefaultCommand() throws Exception
+   {
+      CommandMetadata defaultCommand = plugin.getDefaultCommand();
+
+      assertEquals(plugin.getName(), defaultCommand.getName());
+      assertEquals("This is a mock default command", defaultCommand.getHelp());
+   }
+
+   @Test
+   public void testParseNormalCommand() throws Exception
+   {
+      CommandMetadata normal = plugin.getCommand("normal");
+
+      assertEquals("normal", normal.getName());
+      assertEquals("", normal.getHelp());
+   }
+
+   @Test
+   public void testParseHelplessCommand() throws Exception
+   {
+      CommandMetadata normal = plugin.getCommand("helpless");
+      assertEquals("helpless", normal.getName());
+      assertEquals("", normal.getHelp());
+   }
+
+   @Test
+   public void testParseOptions() throws Exception
+   {
+      CommandMetadata command = plugin.getCommand("normal");
+
+      List<OptionMetadata> options = command.getOptions();
+
+      assertEquals(1, options.size());
+      assertEquals("", options.get(0).getName());
+      assertEquals("THE OPTION", options.get(0).getDescription());
+   }
+
+   @Test
+   public void testParseNamedOption() throws Exception
+   {
+      CommandMetadata command = plugin.getCommand("named");
+
+      List<OptionMetadata> options = command.getOptions();
+      OptionMetadata option = options.get(0);
+
+      assertEquals(1, options.size());
+      assertEquals("named", option.getName());
+      assertEquals("", option.getDescription());
+      assertEquals("true", option.getDefaultValue());
    }
 }

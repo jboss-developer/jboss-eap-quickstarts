@@ -21,15 +21,24 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import org.jboss.seam.sidekick.shell.cli.parser.*;
-import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
-import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.jboss.seam.sidekick.shell.cli.parser.CommandParser;
+import org.jboss.seam.sidekick.shell.cli.parser.CompositeCommandParser;
+import org.jboss.seam.sidekick.shell.cli.parser.NamedBooleanOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.NamedValueOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueVarargsOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.ParseErrorParser;
+import org.jboss.seam.sidekick.shell.cli.parser.Tokenizer;
+import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
+import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -79,7 +88,6 @@ public class ExecutionParser
                command = plugin.getDefaultCommand();
             }
 
-
             if (command != null)
             {
 
@@ -92,8 +100,8 @@ public class ExecutionParser
             }
             else
             {
-               throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                     + "], available commands: " + plugin.getCommands());
+               throw new PluginExecutionException(plugin, "Plugin requires a command [" + plugin.getName()
+                        + "], available commands: " + plugin.getCommands());
             }
          }
       }
@@ -106,8 +114,8 @@ public class ExecutionParser
       Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
 
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
       commandParser.parse(command, valueMap, tokens);
 
@@ -119,12 +127,14 @@ public class ExecutionParser
          {
             if (option.isNamed())
             {
-               throw new CommandParserException(command, "Missing required argument: --" + option.getName() + "="
-                     + option.getHelp());
+               throw new CommandParserException(command, "Command is missing required argument: --" + option.getName()
+                        + "="
+                        + option.getHelp());
             }
             else
             {
-               throw new CommandParserException(command, "Missing required argument: " + option.getHelp());
+               throw new CommandParserException(command, "Command is missing required argument: "
+                        + option.getDescription());
             }
          }
 
