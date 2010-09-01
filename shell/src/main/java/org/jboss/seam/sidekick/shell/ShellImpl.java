@@ -46,6 +46,7 @@ import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
 import org.jboss.weld.environment.se.bindings.Parameters;
+import org.mvel2.DataConversion;
 import org.slf4j.Logger;
 
 /**
@@ -264,6 +265,34 @@ public class ShellImpl implements Shell
    }
 
    @Override
+   public String prompt()
+   {
+      return prompt("");
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T prompt(final String message, final Class<T> clazz)
+   {
+      Object input = "";
+      do
+      {
+         input = prompt(message);
+         try
+         {
+            input = DataConversion.convert(input, clazz);
+         }
+         catch (Exception e)
+         {
+            input = null;
+         }
+      }
+      while (input == null);
+
+      return (T) input;
+   }
+
+   @Override
    public boolean promptBoolean(final String message)
    {
       return promptBoolean(message, true);
@@ -278,32 +307,7 @@ public class ShellImpl implements Shell
          query = "[y/N]";
       }
 
-      String input = "";
-      do
-      {
-         input = prompt(message + " " + query);
-         if (input != null)
-         {
-            input = input.trim();
-         }
-      }
-      while ((input != null) && !input.matches("(?i)^((y(es?)?)|(no?))?$"));
-
-      boolean result = defaultIfEmpty;
-      if (input == null)
-      {
-         // do nothing
-      }
-      else if (input.matches("(?i)(no?)"))
-      {
-         result = false;
-      }
-      else if (input.matches("(?i)(y(es?)?)"))
-      {
-         result = true;
-      }
-
-      return result;
+      return prompt(message + " " + query, Boolean.class);
    }
 
    @Override
@@ -331,12 +335,6 @@ public class ShellImpl implements Shell
    public void println()
    {
       System.out.println();
-   }
-
-   @Override
-   public String prompt()
-   {
-      return prompt("");
    }
 
    @Override

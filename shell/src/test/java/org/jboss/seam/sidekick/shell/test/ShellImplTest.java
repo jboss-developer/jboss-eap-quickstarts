@@ -121,9 +121,6 @@ public class ShellImplTest
       shell.setReader(new ConsoleReader(new StringInputStream("y\n"), new PrintWriter(System.out)));
       assertTrue(shell.promptBoolean("Would you like cake?"));
 
-      shell.setReader(new ConsoleReader(new StringInputStream("ye\n"), new PrintWriter(System.out)));
-      assertTrue(shell.promptBoolean("Would you like cake?"));
-
       shell.setReader(new ConsoleReader(new StringInputStream("yes\n"), new PrintWriter(System.out)));
       assertTrue(shell.promptBoolean("Would you like cake?"));
 

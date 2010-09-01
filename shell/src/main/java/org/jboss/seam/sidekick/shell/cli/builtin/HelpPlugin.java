@@ -140,15 +140,15 @@ public class HelpPlugin implements Plugin
          }
          else if (option.isNamed())
          {
-            shell.print("--" + option.getName() + "=[...]");
+            shell.print("--" + option.getName() + "=...");
          }
          else if (option.isVarargs())
          {
-            shell.print("value value ... values");
+            shell.print(option.getDescription() + " ...");
          }
          else
          {
-            shell.print("value");
+            shell.print(option.getDescription());
          }
 
          if (option.isRequired())

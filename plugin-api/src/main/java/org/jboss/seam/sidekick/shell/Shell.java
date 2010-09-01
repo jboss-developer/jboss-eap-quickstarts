@@ -62,6 +62,11 @@ public interface Shell
    String prompt(String message);
 
    /**
+    * Prompt for user input, first printing the given line, then return user input cast to the type provided.
+    */
+   <T> T prompt(String message, Class<T> clazz);
+
+   /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
     * value returned will default to <code>true</code> if an empty or whitespace-only user input is read.
     */
