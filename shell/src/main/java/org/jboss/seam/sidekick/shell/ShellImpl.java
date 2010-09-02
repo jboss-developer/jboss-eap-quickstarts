@@ -295,7 +295,7 @@ public class ShellImpl implements Shell
 
    public class ScriptContext
    {
-      public void cmd(String cmd)
+      public void shell(String cmd)
       {
          execute(cmd);
       }
