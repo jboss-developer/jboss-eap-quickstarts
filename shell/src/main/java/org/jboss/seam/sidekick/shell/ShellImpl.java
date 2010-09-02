@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -255,10 +256,11 @@ public class ShellImpl implements Shell
       }
    }
 
+   private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
+
    private String execScript(String script)
    {
       String[] tokens = script.split("\\s");
-
 
       try
       {
@@ -279,7 +281,10 @@ public class ShellImpl implements Shell
       }
       catch (Exception e)
       {
-         if (tokens.length == 1)
+         if (!validCommand.matcher(tokens[0]).matches()) {
+            println("error executing command:\n" + e.getMessage()); 
+         }
+         else if (tokens.length == 1)
          {
             println(tokens[0] + ": command or property not found.");
          }
