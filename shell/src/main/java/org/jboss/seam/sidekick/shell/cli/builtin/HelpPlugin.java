@@ -41,11 +41,15 @@ import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 @Help("Displays help text for specified plugins & commands.")
 public class HelpPlugin implements Plugin
 {
-   @Inject
    PluginRegistry registry;
+   Shell shell;
 
    @Inject
-   Shell shell;
+   public HelpPlugin(PluginRegistry registry, Shell shell)
+   {
+      this.registry = registry;
+      this.shell = shell;
+   }
 
    @DefaultCommand
    public void help(@Option final String... tokens)

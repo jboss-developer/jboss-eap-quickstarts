@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.shell.cli;
 
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 import org.mvel2.DataConversion;
 
@@ -105,7 +106,7 @@ public class Execution
       else
       {
          // TODO it would be nice if this delegated to the system shell
-         throw new CommandExecutionException(command, "No such command: " + originalStatement);
+         throw new NoSuchCommandException(command, "No such command: " + originalStatement);
       }
    }
 

@@ -21,9 +21,21 @@
  */
 package org.jboss.seam.sidekick.shell;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import jline.console.ConsoleReader;
+import jline.console.completer.Completer;
+import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.shell.cli.Execution;
+import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
+import org.jboss.seam.sidekick.shell.exceptions.*;
+import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
+import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
+import org.jboss.seam.sidekick.shell.plugins.events.Startup;
+import org.jboss.seam.sidekick.shell.util.BooleanConverter;
+import org.jboss.weld.environment.se.bindings.Parameters;
+import org.mvel2.DataConversion;
+import org.mvel2.MVEL;
+import org.mvel2.PropertyAccessException;
+import org.slf4j.Logger;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -31,28 +43,14 @@ import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import jline.console.ConsoleReader;
-import jline.console.completer.Completer;
-
-import org.jboss.seam.sidekick.project.model.MavenProject;
-import org.jboss.seam.sidekick.shell.cli.Execution;
-import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
-import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
-import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.sidekick.shell.exceptions.ShellExecutionException;
-import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
-import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
-import org.jboss.seam.sidekick.shell.plugins.events.Startup;
-import org.jboss.seam.sidekick.shell.util.BooleanConverter;
-import org.jboss.weld.environment.se.bindings.Parameters;
-import org.mvel2.DataConversion;
-import org.slf4j.Logger;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 public class ShellImpl implements Shell
@@ -73,7 +71,6 @@ public class ShellImpl implements Shell
    private ExecutionParser parser;
 
    private ConsoleReader reader;
-
    private MavenProject currentProject;
 
    private boolean verbose = false;
@@ -82,6 +79,9 @@ public class ShellImpl implements Shell
 
    @Inject
    private Event<Shutdown> shutdown;
+
+   private Map<String, Object> properties = new HashMap<String, Object>();
+
 
    void init(@Observes final Startup event) throws Exception
    {
@@ -189,13 +189,21 @@ public class ShellImpl implements Shell
       }
    }
 
-   private void execute(final String line)
+   public void execute(final String line)
    {
       Execution execution;
       try
       {
          execution = parser.parse(line);
          execution.perform();
+      }
+      catch (NoSuchCommandException e)
+      {
+         String s = execScript(line);
+         if (s.length() != 0)
+         {
+            println(s);
+         }
       }
       catch (CommandExecutionException e)
       {
@@ -235,7 +243,7 @@ public class ShellImpl implements Shell
          {
             println("Exception encountered: " + e.getMessage() + " (type \"verbose on\" to enable stack traces)");
          }
-         if (verbose)
+         else
          {
             println("Exception encountered: (type \"verbose false\" to disable stack traces)");
             e.printStackTrace();
@@ -243,9 +251,59 @@ public class ShellImpl implements Shell
       }
    }
 
+   private String execScript(String script)
+   {
+      String[] tokens = script.split("\\s");
+
+
+      try
+      {
+         Object retVal = MVEL.eval(script, new ScriptContext(), properties);
+         if (retVal != null)
+         {
+            return String.valueOf(retVal);
+         }
+      }
+      catch (PropertyAccessException e)
+      {
+         println(tokens[0] + ": command or property not found.");
+
+         if (verbose)
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (Exception e)
+      {
+         if (tokens.length == 1)
+         {
+            println(tokens[0] + ": command or property not found.");
+         }
+         else
+         {
+            println(tokens[0] + ": error executing statement: " + e.getMessage());
+         }
+         
+         if (verbose)
+         {
+            e.printStackTrace();
+         }
+      }
+
+      return "";
+   }
+
+   public class ScriptContext
+   {
+      public void cmd(String cmd)
+      {
+         execute(cmd);
+      }
+   }
+
    /**
     * Prompt the user for input, using
-    * 
+    *
     * @param message as the prompt text.
     */
    @Override
@@ -397,5 +455,23 @@ public class ShellImpl implements Shell
    public ConsoleReader getReader()
    {
       return reader;
+   }
+
+   @Override
+   public void setProperty(String name, Object value)
+   {
+      properties.put(name, value);
+   }
+
+   @Override
+   public Object getProperty(String name)
+   {
+      return properties.get(name);
+   }
+
+   @Override
+   public Map<String, Object> getProperties()
+   {
+      return properties;
    }
 }

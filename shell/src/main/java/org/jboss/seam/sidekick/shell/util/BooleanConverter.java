@@ -42,11 +42,10 @@ public class BooleanConverter implements ConversionHandler
    {
       public Object convert(Object o)
       {
-         String s = ((String) o).toLowerCase();
-
+         final String s = ((String) o).toLowerCase();
          if (TRUE.contains(s)) return true;
          else if (FALSE.contains(s)) return false;
-         throw new IllegalArgumentException("not a valid boolean: " + s);
+         throw new IllegalArgumentException("not a valid boolean: '" + s + "'");
       }
    };
 

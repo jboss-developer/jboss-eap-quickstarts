@@ -22,6 +22,8 @@
 
 package org.jboss.seam.sidekick.shell;
 
+import java.util.Map;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -62,6 +64,12 @@ public interface Shell
    String prompt(String message);
 
    /**
+    * Execute a shell command.
+    * @param command
+    */
+   void execute(String command);
+
+   /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
     * value returned will default to <code>true</code> if an empty or whitespace-only user input is read.
     */
@@ -93,5 +101,11 @@ public interface Shell
     * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
     */
    void printlnVerbose(String output);
+
+   void setProperty(String name, Object value);
+
+   Map<String, Object> getProperties();
+
+   Object getProperty(String name);
 
 }
