@@ -45,6 +45,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -178,7 +180,7 @@ public class ShellImpl implements Shell
       try
       {
          // main program loop
-         while ((exitRequested != true) && ((line = reader.readLine()) != null))
+         while ((!exitRequested) && ((line = reader.readLine()) != null))
          {
             if ("".equals(line))
             {
@@ -308,6 +310,11 @@ public class ShellImpl implements Shell
       {
          execute(cmd);
       }
+
+      public String time() {
+         return new SimpleDateFormat("hh:mm").format(new Date());
+      }
+
    }
 
    /**
