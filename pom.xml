@@ -18,6 +18,7 @@
       enhancement framework, and plugins	</description>
 
    <modules>
+      <module>event-bus</module>
       <module>parser-java</module>
       <module>project-model</module>
       <module>plugin-api</module>
