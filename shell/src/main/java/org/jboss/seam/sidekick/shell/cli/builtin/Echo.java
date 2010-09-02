@@ -23,6 +23,7 @@ package org.jboss.seam.sidekick.shell.cli.builtin;
 
 import javax.inject.Inject;
 
+import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;

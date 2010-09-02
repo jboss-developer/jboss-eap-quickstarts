@@ -1,5 +1,6 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
+import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;

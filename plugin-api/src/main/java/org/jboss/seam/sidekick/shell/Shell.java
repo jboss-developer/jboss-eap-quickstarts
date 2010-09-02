@@ -49,7 +49,7 @@ public interface Shell
 
    /**
     * Clear the console.
-    *
+    */
    void clear();
 
    /**

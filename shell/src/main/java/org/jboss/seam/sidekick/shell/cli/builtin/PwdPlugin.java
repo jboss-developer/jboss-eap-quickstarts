@@ -26,6 +26,7 @@ import java.io.File;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
