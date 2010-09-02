@@ -26,13 +26,12 @@ import java.util.Map;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface Shell
 {
    /**
     * Return true if this shell is currently running in pretend mode.
-    * <p>
+    * <p/>
     * Modifications to files made while running in pretend mode are made in a temporary directory, and the output is
     * produced as a Diff that can then be applied to the project.
     */
@@ -50,7 +49,7 @@ public interface Shell
 
    /**
     * Clear the console.
-    */
+    *
    void clear();
 
    /**
@@ -65,9 +64,16 @@ public interface Shell
 
    /**
     * Execute a shell command.
+    *
     * @param command
     */
    void execute(String command);
+
+   /**
+    * Prompt for user input, first printing the given line, then return user input cast to the type provided.
+    */
+   <T> T prompt(String message, Class<T> clazz);
+
 
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
@@ -77,7 +83,7 @@ public interface Shell
 
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean.
-    * 
+    *
     * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
     */
    boolean promptBoolean(String message, boolean defaultIfEmpty);
@@ -102,10 +108,33 @@ public interface Shell
     */
    void printlnVerbose(String output);
 
+   /**
+    * Set a property in the shell context.
+    * @param name
+    * @param value
+    */
    void setProperty(String name, Object value);
 
+   /**
+    * Get a map of properties for the current shell context.
+    * @return
+    */
    Map<String, Object> getProperties();
 
+
+   /**
+    * Get a named property for the shell context
+    * @param name
+    * @return
+    */
    Object getProperty(String name);
+
+   /**
+    * Prompt for user input, first printing the given line, then returning user input as a converted value.
+    *
+    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    */
+   <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
+
 
 }

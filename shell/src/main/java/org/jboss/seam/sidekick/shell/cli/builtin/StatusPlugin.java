@@ -26,7 +26,6 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
 import org.jboss.seam.sidekick.project.model.MavenProject;
-import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;

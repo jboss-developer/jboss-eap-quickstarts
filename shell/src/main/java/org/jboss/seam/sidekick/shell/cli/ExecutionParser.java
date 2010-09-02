@@ -21,7 +21,6 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.parser.*;
 import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.sidekick.shell.util.ShellUtils;
