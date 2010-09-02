@@ -23,11 +23,11 @@ package org.jboss.seam.sidekick.shell;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.Completer;
-import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
 import org.jboss.seam.sidekick.shell.exceptions.*;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
+import org.jboss.seam.sidekick.shell.plugins.events.PostStartup;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
 import org.jboss.seam.sidekick.shell.util.BooleanConverter;
@@ -39,11 +39,8 @@ import org.slf4j.Logger;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,11 +55,11 @@ import java.util.regex.Pattern;
 @Singleton
 public class ShellImpl implements Shell
 {
-   private String prompt = "sidekick> ";
-
    private class InvalidInput
    {
    }
+
+   private static final String PROP_PROMPT = "$PROMPT";
 
    @Inject
    @Parameters
@@ -78,17 +75,15 @@ public class ShellImpl implements Shell
    private ExecutionParser parser;
 
    private ConsoleReader reader;
-   private MavenProject currentProject;
 
    private boolean verbose = false;
    private boolean pretend = false;
    private boolean exitRequested = false;
 
    @Inject
-   private Event<Shutdown> shutdown;
+   private Event<PostStartup> postStartup;
 
-   private Map<String, Object> properties = new HashMap<String, Object>();
-
+   private final Map<String, Object> properties = new HashMap<String, Object>();
 
    void init(@Observes final Startup event) throws Exception
    {
@@ -101,7 +96,8 @@ public class ShellImpl implements Shell
       setReader(new ConsoleReader());
       initParameters();
       printWelcomeBanner();
-      initProject();
+
+      postStartup.fire(new PostStartup());
    }
 
    private void initParameters()
@@ -126,68 +122,25 @@ public class ShellImpl implements Shell
       System.out.println("");
    }
 
-   private void initProject()
-   {
-      printlnVerbose("Parameters: " + parameters);
-
-      String projectPath = "";
-      if ((parameters != null) && !parameters.isEmpty())
-      {
-         for (String path : parameters)
-         {
-            if ((path != null) && !path.startsWith("--") && !path.startsWith("-"))
-            {
-               projectPath = path;
-               break;
-            }
-         }
-      }
-
-      File targetDirectory = new File(projectPath).getAbsoluteFile();
-      printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
-
-      if (targetDirectory.exists())
-      {
-         currentProject = new MavenProject(targetDirectory);
-         if (currentProject.exists())
-         {
-            prompt = currentProject.getPOM().getArtifactId() + "> ";
-            reader.setPrompt(prompt);
-         }
-      }
-      else
-      {
-         println("The directory [" + targetDirectory.getAbsolutePath() + "] does not exist. Exiting...");
-         shutdown.fire(Shutdown.ERROR);
-      }
-   }
-
    void teardown(@Observes final Shutdown event)
    {
       exitRequested = true;
    }
 
-   @Produces
-   @Default
-   public MavenProject getCurrentProject()
-   {
-      return currentProject;
-   }
-
    void doShell(@Observes final AcceptUserInput event)
    {
-      String line;
+      String line = "";
       try
       {
          // main program loop
-         while ((!exitRequested) && ((line = reader.readLine()) != null))
+         print(getPrompt());
+         while ((exitRequested != true) && ((line = reader.readLine()) != null))
          {
-            if ("".equals(line))
+            if (!"".equals(line))
             {
-               continue;
+               execute(line);
             }
-
-            execute(line);
+            print(getPrompt());
          }
       }
       catch (IOException e)
@@ -260,7 +213,7 @@ public class ShellImpl implements Shell
 
    private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
 
-   private String execScript(String script)
+   private String execScript(final String script)
    {
       String[] tokens = script.split("\\s");
 
@@ -283,8 +236,9 @@ public class ShellImpl implements Shell
       }
       catch (Exception e)
       {
-         if (!validCommand.matcher(tokens[0]).matches()) {
-            println("error executing command:\n" + e.getMessage()); 
+         if (!validCommand.matcher(tokens[0]).matches())
+         {
+            println("error executing command:\n" + e.getMessage());
          }
          else if (tokens.length == 1)
          {
@@ -294,7 +248,7 @@ public class ShellImpl implements Shell
          {
             println(tokens[0] + ": error executing statement: " + e.getMessage());
          }
-         
+
          if (verbose)
          {
             e.printStackTrace();
@@ -306,12 +260,13 @@ public class ShellImpl implements Shell
 
    public class ScriptContext
    {
-      public void shell(String cmd)
+      public void shell(final String cmd)
       {
          execute(cmd);
       }
 
-      public String time() {
+      public String time()
+      {
          return new SimpleDateFormat("hh:mm").format(new Date());
       }
 
@@ -328,11 +283,8 @@ public class ShellImpl implements Shell
       print(message);
       try
       {
-         String currentPrompt = reader.getPrompt();
-         reader.setPrompt(" ");
          reader.removeCompleter(completer);
          String line = reader.readLine();
-         reader.setPrompt(currentPrompt);
          reader.addCompleter(completer);
          return line;
       }
@@ -452,10 +404,7 @@ public class ShellImpl implements Shell
    {
       try
       {
-         String currentPrompt = reader.getPrompt();
-         reader.setPrompt("");
          reader.clearScreen();
-         reader.setPrompt(currentPrompt);
       }
       catch (IOException e)
       {
@@ -493,7 +442,7 @@ public class ShellImpl implements Shell
    {
       this.reader = reader;
       this.reader.setHistoryEnabled(true);
-      this.reader.setPrompt(prompt);
+      this.reader.setPrompt("");
       this.reader.addCompleter(completer);
    }
 
@@ -503,13 +452,13 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void setProperty(String name, Object value)
+   public void setProperty(final String name, final Object value)
    {
       properties.put(name, value);
    }
 
    @Override
-   public Object getProperty(String name)
+   public Object getProperty(final String name)
    {
       return properties.get(name);
    }
@@ -518,5 +467,17 @@ public class ShellImpl implements Shell
    public Map<String, Object> getProperties()
    {
       return properties;
+   }
+
+   @Override
+   public void setPrompt(final String prompt)
+   {
+      setProperty(PROP_PROMPT, prompt);
+   }
+
+   @Override
+   public String getPrompt()
+   {
+      return (String) getProperty(PROP_PROMPT);
    }
 }

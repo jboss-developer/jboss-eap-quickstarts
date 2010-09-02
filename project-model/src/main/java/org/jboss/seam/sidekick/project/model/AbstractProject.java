@@ -43,7 +43,8 @@ public abstract class AbstractProject implements Project
    @Inject
    Event<JavaFileCreated> event;
 
-   private File createJavaFile(File sourceFolder, final String classPackage, final String className, final char[] data)
+   private File createJavaFile(final File sourceFolder, final String classPackage, final String className,
+            final char[] data)
    {
       BufferedWriter writer = null;
       try
@@ -77,19 +78,20 @@ public abstract class AbstractProject implements Project
       }
    }
 
-   private File createJavaFile(final String classPackage, final String className, String data)
+   private File createJavaFile(final String classPackage, final String className, final String data)
    {
       return createJavaFile(getDefaultSourceFolder(), classPackage, className, data.toCharArray());
    }
 
    @Override
-   public File createJavaFile(JavaClass clazz)
+   public File createJavaFile(final JavaClass clazz)
    {
+      // event.fire(clazz);
       return createJavaFile(clazz.getPackage(), clazz.getName(), clazz.toString());
    }
 
    @Override
-   public boolean delete(File file)
+   public boolean delete(final File file)
    {
       if (file.isDirectory())
       {
