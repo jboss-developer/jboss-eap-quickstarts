@@ -64,7 +64,7 @@ public interface Shell
 
    /**
     * Execute a shell command.
-    *
+    * 
     * @param command
     */
    void execute(String command);
@@ -74,7 +74,6 @@ public interface Shell
     */
    <T> T prompt(String message, Class<T> clazz);
 
-
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
     * value returned will default to <code>true</code> if an empty or whitespace-only user input is read.
@@ -83,7 +82,7 @@ public interface Shell
 
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean.
-    *
+    * 
     * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
     */
    boolean promptBoolean(String message, boolean defaultIfEmpty);
@@ -110,6 +109,7 @@ public interface Shell
 
    /**
     * Set a property in the shell context.
+    * 
     * @param name
     * @param value
     */
@@ -117,13 +117,14 @@ public interface Shell
 
    /**
     * Get a map of properties for the current shell context.
+    * 
     * @return
     */
    Map<String, Object> getProperties();
 
-
    /**
     * Get a named property for the shell context
+    * 
     * @param name
     * @return
     */
@@ -131,10 +132,19 @@ public interface Shell
 
    /**
     * Prompt for user input, first printing the given line, then returning user input as a converted value.
-    *
+    * 
     * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
     */
    <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
 
+   /**
+    * Set the current shell prompt.
+    */
+   public void setPrompt(String string);
+
+   /**
+    * Return the current shell prompt;
+    */
+   String getPrompt();
 
 }
