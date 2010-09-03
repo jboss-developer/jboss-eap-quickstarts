@@ -317,7 +317,7 @@ public class ObserverCaptureExtension implements Extension
          List<BusManaged> value = entry.getValue();
          if (key.isAssignableFrom(class1))
          {
-            result = value;
+            result.addAll(value);
          }
       }
       return result;
