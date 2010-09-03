@@ -21,27 +21,11 @@
  */
 package org.jboss.seam.sidekick.shell;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import jline.console.ConsoleReader;
 import jline.console.completer.Completer;
-
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
-import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
-import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
-import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.sidekick.shell.exceptions.ShellExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.*;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.PostStartup;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
@@ -52,6 +36,18 @@ import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
 import org.slf4j.Logger;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -268,11 +264,17 @@ public class ShellImpl implements Shell
       {
          execute(cmd);
       }
+
+      public String time()
+      {
+         return new SimpleDateFormat("hh:mm").format(new Date());
+      }
+
    }
 
    /**
     * Prompt the user for input, using
-    * 
+    *
     * @param message as the prompt text.
     */
    @Override
