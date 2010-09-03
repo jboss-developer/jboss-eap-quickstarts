@@ -7,6 +7,7 @@
       <artifactId>sidekick-parent</artifactId>
       <groupId>org.jboss.seam.sidekick</groupId>
       <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
    </parent>
    
    <artifactId>sidekick-shell</artifactId>
