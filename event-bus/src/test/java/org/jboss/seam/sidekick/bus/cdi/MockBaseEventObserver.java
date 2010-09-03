@@ -34,11 +34,17 @@ import org.jboss.seam.sidekick.bus.event.BaseEvent;
 public class MockBaseEventObserver
 {
    private boolean observedRemoved = false;
+   private boolean observedRemoved2 = false;
    private boolean observedNormal = false;
 
    public void removedObserver(@Observes final BaseEvent event)
    {
       observedRemoved = true;
+   }
+
+   public void removedObserver2(@Observes final BaseEvent event)
+   {
+      observedRemoved2 = true;
    }
 
    public void activeObserver(@Observes final MockNormalEvent event)
@@ -64,6 +70,16 @@ public class MockBaseEventObserver
    public void setObservedNormal(final boolean observedNormal)
    {
       this.observedNormal = observedNormal;
+   }
+
+   public boolean hasObservedRemoved2()
+   {
+      return observedRemoved2;
+   }
+
+   public void setObservedRemoved2(final boolean observedRemoved2)
+   {
+      this.observedRemoved2 = observedRemoved2;
    }
 
 }

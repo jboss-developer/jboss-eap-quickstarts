@@ -37,6 +37,7 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -69,6 +70,14 @@ public class ObserverCaptureExtensionTest
    @Inject
    private ObserverCaptureExtension oce;
 
+   @Before
+   public void reset()
+   {
+      observer.setObservedNormal(false);
+      observer.setObservedRemoved(false);
+      observer.setObservedRemoved2(false);
+   }
+
    @Test
    public void testRemovedObserversDoNotObserve() throws Exception
    {
@@ -82,9 +91,21 @@ public class ObserverCaptureExtensionTest
    {
       assertFalse(observer.hasObservedRemoved());
       List<BusManaged> qualifiers = oce.getEventQualifiers(event.getClass());
-      BusManaged busManaged = qualifiers.get(0);
+      BusManaged busManaged = qualifiers.get(1);
       manager.fireEvent(event, new Annotation[] { busManaged });
       assertTrue(observer.hasObservedRemoved());
+   }
+
+   @Test
+   public void testRemovedObserversInvokeUniquelyViaQualifiedEvent() throws Exception
+   {
+      assertFalse(observer.hasObservedRemoved());
+      List<BusManaged> qualifiers = oce.getEventQualifiers(event.getClass());
+      BusManaged busManaged = qualifiers.get(1);
+      manager.fireEvent(event, new Annotation[] { busManaged });
+      assertTrue(observer.hasObservedRemoved());
+
+      assertFalse(observer.hasObservedRemoved2());
    }
 
    @Test
