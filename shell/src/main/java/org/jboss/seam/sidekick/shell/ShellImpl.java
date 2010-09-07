@@ -298,11 +298,12 @@ public class ShellImpl implements Shell
 
    }
 
-   /**
-    * Prompt the user for input, using
-    * 
-    * @param message as the prompt text.
-    */
+   @Override
+   public String prompt()
+   {
+      return prompt("");
+   }
+
    @Override
    public String prompt(final String message)
    {
@@ -321,9 +322,15 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public String prompt()
+   public String promptRegex(String message, String regex)
    {
-      return prompt("");
+      String input = "";
+      do
+      {
+         input = prompt(message);
+      }
+      while (!input.matches(regex));
+      return input;
    }
 
    @Override

@@ -21,17 +21,26 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.cli.parser.*;
-import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.sidekick.shell.util.ShellUtils;
-import org.mvel2.util.ParseTools;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.cli.parser.CommandParser;
+import org.jboss.seam.sidekick.shell.cli.parser.CompositeCommandParser;
+import org.jboss.seam.sidekick.shell.cli.parser.NamedBooleanOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.NamedValueOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.OrderedValueVarargsOptionParser;
+import org.jboss.seam.sidekick.shell.cli.parser.ParseErrorParser;
+import org.jboss.seam.sidekick.shell.cli.parser.Tokenizer;
+import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.sidekick.shell.util.ShellUtils;
+import org.mvel2.util.ParseTools;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -52,7 +61,6 @@ public class ExecutionParser
       this.tokenizer = tokenizer;
       this.shell = shell;
    }
-
 
    public Execution parse(final String line)
    {
@@ -130,7 +138,7 @@ public class ExecutionParser
                }
                else
                {
-                  value = shell.prompt(ShellUtils.getOptionDescriptor(option) + ":");
+                  value = shell.prompt(ShellUtils.getOptionDescriptor(option) + ": ");
                }
                if (String.valueOf(value).trim().length() == 0)
                {

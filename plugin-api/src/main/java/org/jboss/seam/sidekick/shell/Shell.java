@@ -98,6 +98,16 @@ public interface Shell
 
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then
+    * returning user input as a String. The prompt will repeat until input
+    * matching the regular expression is entered.
+    * 
+    * @param message The prompt message to display until valid input is entered
+    * @param regex The regular expression to which valid input must be matched
+    */
+   public String promptRegex(String message, String regex);
+
+   /**
+    * Prompt for boolean user input (Y/n), first printing the given line, then
     * returning user input as a boolean.
     * 
     * @param defaultIfEmpty The value to be returned when an empty or

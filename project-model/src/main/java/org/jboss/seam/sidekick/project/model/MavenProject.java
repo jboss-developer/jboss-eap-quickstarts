@@ -119,7 +119,7 @@ public class MavenProject extends AbstractProject
          }
 
          container = new DefaultPlexusContainer();
-         container.setLoggerManager(new ConsoleLoggerManager("DEBUG"));
+         container.setLoggerManager(new ConsoleLoggerManager("ERROR"));
 
          builder = container.lookup(ProjectBuilder.class);
 

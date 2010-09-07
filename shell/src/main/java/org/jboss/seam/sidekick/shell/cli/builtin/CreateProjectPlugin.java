@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.model.Model;
+import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
@@ -52,8 +53,6 @@ public class CreateProjectPlugin implements Plugin
    @DefaultCommand
    public void create(@Option(description = "The name of the new project", required = true) final String name)
    {
-      shell.println("Creating project: " + name);
-
       File cwd = shell.getCurrentDirectory();
 
       File dir = new File(cwd.getAbsolutePath() + "/" + name);
@@ -96,10 +95,26 @@ public class CreateProjectPlugin implements Plugin
       MavenProject project = new MavenProject(dir, true);
       Model pom = project.getPOM();
       pom.setArtifactId(name);
+
+      String groupId = shell.promptRegex("Please enter your base package [e.g: \"com.example.project\"] ", "(?i)([a-z]+.?)+");
+      pom.setGroupId(groupId);
+
       project.setPOM(pom);
 
       cp.setCurrentProject(project);
       shell.setCurrentDirectory(dir);
+
+      for (File folder : project.getSourceFolders())
+      {
+         folder.mkdirs();
+      }
+
+      project.createJavaFile(JavaParser.createClass()
+            .setPackage(groupId)
+            .setName("HelloWorld")
+            .addMethod("public void String sayHello() {}")
+            .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name + ".\");")
+            .applyChanges());
 
       shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
    }
