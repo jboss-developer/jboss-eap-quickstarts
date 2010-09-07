@@ -105,7 +105,7 @@ public class MavenProject extends AbstractProject
       {
          if (create)
          {
-            Model pom = getPOM();
+            Model pom = createPOM();
             pom.setGroupId("org.jboss.seam");
             pom.setArtifactId("scaffolding");
             pom.setVersion("1.0.0-SNAPSHOT");
@@ -146,9 +146,9 @@ public class MavenProject extends AbstractProject
       }
    }
 
-   private File getUserHomeDir()
+   public boolean exists()
    {
-      return new File(System.getProperty("user.home")).getAbsoluteFile();
+      return getPOMFile().exists();
    }
 
    public void addDependency(final Dependency dep)
@@ -201,29 +201,12 @@ public class MavenProject extends AbstractProject
       setPOM(pom);
    }
 
-   @SuppressWarnings("unchecked")
-   private boolean areEquivalent(final Dependency left, final Dependency right)
-   {
-      boolean result = false;
-      if (left.getGroupId().equals(right.getGroupId()) && left.getArtifactId().equals(right.getArtifactId()))
-      {
-         ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
-         ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
-
-         if (lversion.compareTo(rversion) == 0)
-         {
-            result = true;
-         }
-      }
-      return result;
-   }
-
    @Override
    public List<File> getSourceFolders()
    {
       List<File> result = new ArrayList<File>();
       result.add(getDefaultSourceFolder());
-      result.add(new File(getProjectRoot().getAbsolutePath() + "/src/test/java"));
+      result.add(getTestSourceFolder());
       return result;
    }
 
@@ -240,8 +223,21 @@ public class MavenProject extends AbstractProject
       {
          throw new ProjectModelException(e);
       }
+   }
 
-      // return new File(getProjectRoot().getAbsolutePath() + "/src/main/java");
+   @Override
+   public File getTestSourceFolder()
+   {
+      try
+      {
+         ProjectBuildingResult result = builder.build(getPOMFile(), request);
+         String directory = result.getProject().getBuild().getTestSourceDirectory();
+         return new File(directory).getAbsoluteFile();
+      }
+      catch (ProjectBuildingException e)
+      {
+         throw new ProjectModelException(e);
+      }
    }
 
    @Override
@@ -292,32 +288,40 @@ public class MavenProject extends AbstractProject
       }
    }
 
-   private File getPOMFile()
-   {
-      File file = new File(getProjectRoot() + "/pom.xml");
-      if (!file.exists())
-      {
-         try
-         {
-            if (!file.createNewFile())
-            {
-               throw new ProjectModelException("Could not create POM file because it already exists: " + file);
-            }
-         }
-         catch (IOException e)
-         {
-            throw new ProjectModelException("Could not create POM file: " + file, e);
-         }
-      }
-      return file;
-   }
-
    /*
     * Helpers
     */
    private static File getCurrentWorkingDir()
    {
       return new File("").getAbsoluteFile();
+   }
+
+   private Model createPOM()
+   {
+      File pomFile = getPOMFile();
+      if (!pomFile.exists())
+      {
+         try
+         {
+            pomFile.createNewFile();
+         }
+         catch (IOException e)
+         {
+            throw new ProjectModelException("Could not create POM: " + pomFile.getAbsolutePath(), e);
+         }
+      }
+      return getPOM();
+   }
+
+   private File getPOMFile()
+   {
+      File file = new File(getProjectRoot() + "/pom.xml");
+      return file;
+   }
+
+   private File getUserHomeDir()
+   {
+      return new File(System.getProperty("user.home")).getAbsoluteFile();
    }
 
    private static File findProjectDir()
@@ -338,9 +342,21 @@ public class MavenProject extends AbstractProject
       return root;
    }
 
-   public boolean exists()
+   @SuppressWarnings("unchecked")
+   private boolean areEquivalent(final Dependency left, final Dependency right)
    {
-      return getPOMFile().exists();
+      boolean result = false;
+      if (left.getGroupId().equals(right.getGroupId()) && left.getArtifactId().equals(right.getArtifactId()))
+      {
+         ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
+         ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
+
+         if (lversion.compareTo(rversion) == 0)
+         {
+            result = true;
+         }
+      }
+      return result;
    }
 
 }

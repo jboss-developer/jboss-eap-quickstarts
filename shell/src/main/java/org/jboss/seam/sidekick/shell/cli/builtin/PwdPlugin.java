@@ -21,8 +21,6 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import java.io.File;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -44,7 +42,7 @@ public class PwdPlugin implements Plugin
    @DefaultCommand
    public void run()
    {
-      String currentDir = new File("").getAbsolutePath();
+      String currentDir = shell.getCurrentDirectory().getAbsolutePath();
       shell.println(currentDir);
    }
 }

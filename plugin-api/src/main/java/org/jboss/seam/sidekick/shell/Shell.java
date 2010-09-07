@@ -22,6 +22,7 @@
 
 package org.jboss.seam.sidekick.shell;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -30,10 +31,22 @@ import java.util.Map;
 public interface Shell
 {
    /**
+    * Return the current working directory of the shell. (This value may change
+    * through execution of plugins or other operations.)
+    */
+   public File getCurrentDirectory();
+
+   /**
+    * Set the current working directory of the shell.
+    */
+   void setCurrentDirectory(File directory);
+
+   /**
     * Return true if this shell is currently running in pretend mode.
     * <p/>
-    * Modifications to files made while running in pretend mode are made in a temporary directory, and the output is
-    * produced as a Diff that can then be applied to the project.
+    * Modifications to files made while running in pretend mode are made in a
+    * temporary directory, and the output is produced as a Diff that can then be
+    * applied to the project.
     */
    public boolean isPretend();
 
@@ -58,7 +71,8 @@ public interface Shell
    String prompt();
 
    /**
-    * Prompt for user input, first printing the given line, then return user input as a String.
+    * Prompt for user input, first printing the given line, then return user
+    * input as a String.
     */
    String prompt(String message);
 
@@ -70,20 +84,24 @@ public interface Shell
    void execute(String command);
 
    /**
-    * Prompt for user input, first printing the given line, then return user input cast to the type provided.
+    * Prompt for user input, first printing the given line, then return user
+    * input cast to the type provided.
     */
    <T> T prompt(String message, Class<T> clazz);
 
    /**
-    * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean. The
-    * value returned will default to <code>true</code> if an empty or whitespace-only user input is read.
+    * Prompt for boolean user input (Y/n), first printing the given line, then
+    * returning user input as a boolean. The value returned will default to
+    * <code>true</code> if an empty or whitespace-only user input is read.
     */
    boolean promptBoolean(String string);
 
    /**
-    * Prompt for boolean user input (Y/n), first printing the given line, then returning user input as a boolean.
+    * Prompt for boolean user input (Y/n), first printing the given line, then
+    * returning user input as a boolean.
     * 
-    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
     */
    boolean promptBoolean(String message, boolean defaultIfEmpty);
 
@@ -103,7 +121,8 @@ public interface Shell
    void println();
 
    /**
-    * Write output to the console, only if {@link #isVerbose()}<code> == true</code>.
+    * Write output to the console, only if {@link #isVerbose()}
+    * <code> == true</code>.
     */
    void printlnVerbose(String output);
 
@@ -131,9 +150,11 @@ public interface Shell
    Object getProperty(String name);
 
    /**
-    * Prompt for user input, first printing the given line, then returning user input as a converted value.
+    * Prompt for user input, first printing the given line, then returning user
+    * input as a converted value.
     * 
-    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
     */
    <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
 

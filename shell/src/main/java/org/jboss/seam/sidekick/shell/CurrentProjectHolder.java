@@ -19,28 +19,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.project;
 
-import java.io.File;
-import java.util.List;
+package org.jboss.seam.sidekick.shell;
 
-import org.jboss.seam.sidekick.parser.java.JavaClass;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
+
+import org.jboss.seam.sidekick.project.model.MavenProject;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Project
+@Singleton
+public class CurrentProjectHolder
 {
-   public File getProjectRoot();
+   private MavenProject currentProject;
 
-   public List<File> getSourceFolders();
+   @Produces
+   @Default
+   @Dependent
+   public MavenProject getCurrentProject()
+   {
+      return currentProject;
+   }
 
-   public File getTestSourceFolder();
+   public void setCurrentProject(MavenProject currentProject)
+   {
+      this.currentProject = currentProject;
+   }
 
-   public File getDefaultSourceFolder();
-
-   public File createJavaFile(JavaClass clazz);
-
-   public boolean delete(File file);
 }

@@ -25,11 +25,11 @@ import java.io.File;
 import java.util.List;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.events.PostStartup;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
@@ -43,52 +43,42 @@ import org.jboss.weld.environment.se.bindings.Parameters;
 public class InitProjectPlugin implements Plugin
 {
    @Inject
-   Shell shell;
+   private Shell shell;
+
+   @Inject
+   private CurrentProjectHolder cp;
 
    @Inject
    @Parameters
    private List<String> parameters;
 
-   private MavenProject currentProject;
-
    public void initProject(@Observes final PostStartup event)
    {
       shell.printlnVerbose("Parameters: " + parameters);
 
-      String projectPath = "";
-      if ((parameters != null) && !parameters.isEmpty())
-      {
-         for (String path : parameters)
-         {
-            if ((path != null) && !path.startsWith("--") && !path.startsWith("-"))
-            {
-               projectPath = path;
-               break;
-            }
-         }
-      }
-
-      File targetDirectory = new File(projectPath).getAbsoluteFile();
+      File targetDirectory = shell.getCurrentDirectory();
       shell.printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
 
+      shell.setPrompt("sidekick> ");
       if (targetDirectory.exists())
       {
-         currentProject = new MavenProject(targetDirectory);
-         if (currentProject.exists())
+         try
          {
-            shell.setPrompt(currentProject.getPOM().getArtifactId() + "> ");
+            MavenProject currentProject = new MavenProject(targetDirectory);
+            if (currentProject.exists())
+            {
+               shell.setPrompt(currentProject.getPOM().getArtifactId() + "> ");
+            }
+            cp.setCurrentProject(currentProject);
+         }
+         catch (ProjectModelException e)
+         {
+            shell.println("**WARNING** The directory [" + targetDirectory.getAbsolutePath() + "] does not contain a project.");
          }
       }
       else
       {
          shell.println("**WARNING** The directory [" + targetDirectory.getAbsolutePath() + "] does not exist...");
       }
-   }
-
-   @Produces
-   @Default
-   public MavenProject getCurrentProject()
-   {
-      return currentProject;
    }
 }

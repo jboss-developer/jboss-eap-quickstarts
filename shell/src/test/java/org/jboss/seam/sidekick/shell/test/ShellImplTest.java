@@ -86,7 +86,7 @@ public class ShellImplTest
       tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      project = new MavenProject(tempFolder);
+      project = new MavenProject(tempFolder, true);
    }
 
    @Before

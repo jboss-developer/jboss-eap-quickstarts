@@ -21,17 +21,17 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
+import java.io.File;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -40,9 +40,6 @@ import java.io.File;
 @Help("Create a new project in an empty directory.")
 public class CreateProjectPlugin implements Plugin
 {
-   @Inject
-   private PluginRegistry registry;
-
    @Inject
    private Shell shell;
 
@@ -54,19 +51,16 @@ public class CreateProjectPlugin implements Plugin
    {
       shell.println("Creating project: " + name);
 
-      File file = new File(".");
+      File dir = shell.getCurrentDirectory();
 
-      do
+      if (!dir.exists())
       {
-         if (!file.exists()) {
-            if (shell.promptBoolean("Create project directory [Y/N] ")) {
-               file.mkdirs();
-               break;
-            }
+         if (shell.promptBoolean("Create project directory: \"" + dir.getAbsolutePath() + "\" [Y/n] "))
+         {
+            dir.mkdirs();
          }
-
-         file = new File(shell.prompt("Project directory [" + file.getAbsolutePath() + "]: "));
       }
-      while (!file.exists());
+
+      dir = new File(shell.prompt("Project directory [" + dir.getAbsolutePath() + "]: "));
    }
 }

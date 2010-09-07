@@ -21,11 +21,30 @@
  */
 package org.jboss.seam.sidekick.shell;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import jline.console.ConsoleReader;
 import jline.console.completer.Completer;
+
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
-import org.jboss.seam.sidekick.shell.exceptions.*;
+import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
+import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.PostStartup;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
@@ -37,18 +56,6 @@ import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
 import org.slf4j.Logger;
 
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -59,7 +66,10 @@ public class ShellImpl implements Shell
    {
    }
 
+   private static final String PROP_CWD = "$CWD";
    private static final String PROP_PROMPT = "$PROMPT";
+
+   private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
 
    @Inject
    @Parameters
@@ -106,10 +116,27 @@ public class ShellImpl implements Shell
       {
          verbose = true;
       }
+
       if (parameters.contains("--pretend"))
       {
          pretend = true;
       }
+
+      String projectPath = "";
+      if ((parameters != null) && !parameters.isEmpty())
+      {
+         for (String path : parameters)
+         {
+            if ((path != null) && !path.startsWith("--") && !path.startsWith("-"))
+            {
+               projectPath = path;
+               break;
+            }
+         }
+      }
+
+      File targetDirectory = new File(projectPath).getAbsoluteFile();
+      setCurrentDirectory(targetDirectory);
    }
 
    private void printWelcomeBanner()
@@ -149,6 +176,7 @@ public class ShellImpl implements Shell
       }
    }
 
+   @Override
    public void execute(final String line)
    {
       Execution execution;
@@ -211,8 +239,6 @@ public class ShellImpl implements Shell
       }
    }
 
-   private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
-
    private String execScript(final String script)
    {
       String[] tokens = script.split("\\s");
@@ -274,7 +300,7 @@ public class ShellImpl implements Shell
 
    /**
     * Prompt the user for input, using
-    *
+    * 
     * @param message as the prompt text.
     */
    @Override
@@ -479,5 +505,17 @@ public class ShellImpl implements Shell
    public String getPrompt()
    {
       return (String) getProperty(PROP_PROMPT);
+   }
+
+   @Override
+   public File getCurrentDirectory()
+   {
+      return new File((String) getProperty(PROP_CWD));
+   }
+
+   @Override
+   public void setCurrentDirectory(File directory)
+   {
+      setProperty(PROP_CWD, directory.getAbsolutePath());
    }
 }

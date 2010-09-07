@@ -23,7 +23,7 @@
 package org.jboss.seam.sidekick.test.project;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -32,6 +32,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.eclipse.core.internal.resources.Project;
@@ -39,6 +40,7 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.parser.java.JavaParser;
+import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -69,13 +71,11 @@ public class MavenProjectTest
 
    private static final String PKG = MavenProjectTest.class.getSimpleName().toLowerCase();
    private static File tempFolder;
-   private static MavenProject project;
+   private static MavenProject tempProject;
 
    private final MavenProject thisProject = new MavenProject();
 
    private final MavenProject testProject = new MavenProject("src/test/resources/test-pom");
-
-   private final MavenProject unknownProject = new MavenProject(new File("/tmp"));
 
    @Inject
    private DependencyBuilder dependencyBuilder;
@@ -86,7 +86,9 @@ public class MavenProjectTest
       tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      project = new MavenProject(tempFolder, true);
+      File pom = new File(tempFolder.getAbsolutePath() + "/pom.xml");
+      pom.createNewFile();
+      tempProject = new MavenProject(tempFolder, true);
    }
 
    @AfterClass
@@ -94,20 +96,26 @@ public class MavenProjectTest
    {
       if (tempFolder.exists())
       {
-         assertTrue(project.delete(tempFolder));
+         assertTrue(tempProject.delete(tempFolder));
       }
    }
 
    @Test
    public void testCreateDefault() throws Exception
    {
-      assertTrue(project.exists());
+      assertTrue(tempProject.exists());
    }
 
    @Test
    public void testGetDefaultSourceDir() throws Exception
    {
-      assertEquals(new File(project.getProjectRoot() + "/src/main/java/"), project.getDefaultSourceFolder());
+      assertEquals(new File(tempProject.getProjectRoot() + "/src/main/java/"), tempProject.getDefaultSourceFolder());
+   }
+
+   @Test
+   public void testGetTestSourceDir() throws Exception
+   {
+      assertEquals(new File(tempProject.getProjectRoot() + "/src/test/java/"), tempProject.getTestSourceFolder());
    }
 
    @Test
@@ -116,24 +124,24 @@ public class MavenProjectTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
       clazz.applyChanges();
-      File file = project.createJavaFile(clazz);
+      File file = tempProject.createJavaFile(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass result = JavaParser.parse(file);
       assertEquals(name, result.getName());
       assertEquals(PKG, result.getPackage());
-      assertTrue(project.delete(file));
+      assertTrue(tempProject.delete(file));
       assertEquals(clazz, result);
    }
 
    @Test
    public void testCreatePOM() throws Exception
    {
-      Model pom = project.getPOM();
+      Model pom = tempProject.getPOM();
       pom.setGroupId("org.jboss.seam");
       pom.setArtifactId("scaffolding");
       pom.setVersion("X-SNAPSHOT");
-      project.setPOM(pom);
+      tempProject.setPOM(pom);
       File file = pom.getPomFile();
       assertTrue(file.exists());
 
@@ -150,23 +158,58 @@ public class MavenProjectTest
    }
 
    @Test
-   public void testInjectedProjectIsCurrentProject() throws Exception
+   public void testAddDependency() throws Exception
+   {
+      Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
+            .setArtifactId("test-dependency").setVersion("1.0.0.Final").build();
+
+      assertFalse(tempProject.hasDependency(dependency));
+      tempProject.addDependency(dependency);
+      assertTrue(tempProject.hasDependency(dependency));
+   }
+
+   @Test
+   public void testRemoveDependency() throws Exception
+   {
+      Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
+            .setArtifactId("test-dependency").setVersion("1.0.1.Final").build();
+
+      assertFalse(tempProject.hasDependency(dependency));
+      tempProject.addDependency(dependency);
+      assertTrue(tempProject.hasDependency(dependency));
+      tempProject.removeDependency(dependency);
+      assertFalse(tempProject.hasDependency(dependency));
+   }
+
+   @Test
+   public void testProjectIsCurrentProject() throws Exception
    {
       Model pom = thisProject.getPOM();
       assertEquals("sidekick-project-model", pom.getArtifactId());
    }
 
    @Test
-   public void testInjectedAbsoluteProjectIsResolvedCorrectly() throws Exception
+   public void testAbsoluteProjectIsResolvedCorrectly() throws Exception
    {
       Model pom = testProject.getPOM();
       assertEquals("socialpm", pom.getArtifactId());
    }
 
-   @Test
-   public void testInjectedAbsoluteUnknownProjectCannotInstantiate() throws Exception
+   @Test(expected = ProjectModelException.class)
+   public void testAbsoluteUnknownProjectCannotInstantiate() throws Exception
    {
-      Model pom = unknownProject.getPOM();
-      assertNull(pom.getArtifactId());
+      File temp = File.createTempFile(PKG, null);
+      temp.delete();
+      temp.mkdirs();
+      new MavenProject(temp); // boom
+   }
+
+   @Test
+   public void testAbsoluteUnknownProjectInstantiatesWithCreateTrue() throws Exception
+   {
+      File temp = File.createTempFile(PKG, null);
+      temp.delete();
+      temp.mkdirs();
+      new MavenProject(temp, true); // no boom
    }
 }
