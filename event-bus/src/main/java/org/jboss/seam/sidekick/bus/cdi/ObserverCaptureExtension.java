@@ -48,6 +48,7 @@ import org.jboss.seam.sidekick.bus.event.BaseEvent;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ObserverCaptureExtension implements Extension
 {
    private final Map<Class<?>, List<BusManaged>> eventQualifierMap = new HashMap<Class<?>, List<BusManaged>>();
@@ -56,12 +57,12 @@ public class ObserverCaptureExtension implements Extension
    {
       AnnotatedType<Object> originalType = event.getAnnotatedType();
       AnnotatedType<Object> newType = originalType;
-      List<AnnotatedMethod<Object>> obsoleteMethods = new ArrayList<AnnotatedMethod<Object>>();
-      List<AnnotatedMethod<Object>> replacementMethods = new ArrayList<AnnotatedMethod<Object>>();
+      List<AnnotatedMethod> obsoleteMethods = new ArrayList<AnnotatedMethod>();
+      List<AnnotatedMethod> replacementMethods = new ArrayList<AnnotatedMethod>();
 
-      for (AnnotatedMethod<Object> method : originalType.getMethods())
+      for (AnnotatedMethod<?> method : originalType.getMethods())
       {
-         for (AnnotatedParameter<Object> param : method.getParameters())
+         for (AnnotatedParameter<?> param : method.getParameters())
          {
             if (param.isAnnotationPresent(Observes.class))
             {
@@ -80,56 +81,65 @@ public class ObserverCaptureExtension implements Extension
       event.setAnnotatedType(newType);
    }
 
-   private AnnotatedType<Object> removeMethodsFromType(final AnnotatedType<Object> type,
-            final List<AnnotatedMethod<Object>> targetedMethods)
+   private AnnotatedType<Object> removeMethodsFromType(final AnnotatedType type,
+            final List<AnnotatedMethod> targetedMethods)
    {
 
-      final Set<AnnotatedMethod<? super Object>> methods = new HashSet<AnnotatedMethod<? super Object>>();
+      final Set<AnnotatedMethod> methods = new HashSet<AnnotatedMethod>();
       methods.addAll(type.getMethods());
       methods.removeAll(targetedMethods);
 
-      return new AnnotatedType<Object>()
+      return new AnnotatedType()
       {
-         public Class<Object> getJavaClass()
+         @Override
+         public Class getJavaClass()
          {
             return type.getJavaClass();
          }
 
-         public Set<AnnotatedConstructor<Object>> getConstructors()
+         @Override
+         public Set<AnnotatedConstructor> getConstructors()
          {
             return type.getConstructors();
          }
 
-         public Set<AnnotatedMethod<? super Object>> getMethods()
+         @Override
+         public Set<AnnotatedMethod> getMethods()
          {
             return methods;
          }
 
-         public Set<AnnotatedField<? super Object>> getFields()
+         @Override
+         public Set<AnnotatedField> getFields()
          {
             return type.getFields();
          }
 
+         @Override
          public Type getBaseType()
          {
             return type.getBaseType();
          }
 
+         @Override
          public Set<Type> getTypeClosure()
          {
             return type.getTypeClosure();
          }
 
+         @Override
          public <T extends Annotation> T getAnnotation(final Class<T> annotationType)
          {
             return type.getAnnotation(annotationType);
          }
 
+         @Override
          public Set<Annotation> getAnnotations()
          {
             return type.getAnnotations();
          }
 
+         @Override
          public boolean isAnnotationPresent(final Class<? extends Annotation> annotationType)
          {
             return type.isAnnotationPresent(annotationType);
@@ -137,25 +147,25 @@ public class ObserverCaptureExtension implements Extension
       };
    }
 
-   private AnnotatedType<Object> addReplacementMethodsToType(final AnnotatedType<Object> newType,
-            final List<AnnotatedMethod<Object>> replacementMethods)
+   private AnnotatedType<Object> addReplacementMethodsToType(final AnnotatedType newType,
+            final List<AnnotatedMethod> replacementMethods)
    {
       newType.getMethods().addAll(replacementMethods);
       return newType;
    }
 
    private AnnotatedMethod<Object> qualifyObservedEvent(
-            final AnnotatedMethod<Object> method, final AnnotatedParameter<Object> param)
+            final AnnotatedMethod method, final AnnotatedParameter param)
    {
-      final List<AnnotatedParameter<Object>> parameters = new ArrayList<AnnotatedParameter<Object>>();
+      final List<AnnotatedParameter> parameters = new ArrayList<AnnotatedParameter>();
       parameters.addAll(method.getParameters());
       parameters.remove(param);
       parameters.add(addUniqueQualifier(method, param, method.toString()));
 
-      return new AnnotatedMethod<Object>()
+      return new AnnotatedMethod()
       {
          @Override
-         public List<AnnotatedParameter<Object>> getParameters()
+         public List<AnnotatedParameter> getParameters()
          {
             return parameters;
          }
@@ -210,8 +220,8 @@ public class ObserverCaptureExtension implements Extension
       };
    }
 
-   private AnnotatedParameter<Object> addUniqueQualifier(final AnnotatedMethod<Object> method,
-            final AnnotatedParameter<Object> param, final String identifier)
+   private AnnotatedParameter addUniqueQualifier(final AnnotatedMethod method,
+            final AnnotatedParameter param, final String identifier)
    {
       final BusManaged qualifier = new BusManaged()
       {
@@ -237,7 +247,6 @@ public class ObserverCaptureExtension implements Extension
       return new AnnotatedParameter<Object>()
       {
          @Override
-         @SuppressWarnings("unchecked")
          public <T extends Annotation> T getAnnotation(final Class<T> clazz)
          {
             if (BusManaged.class.isAssignableFrom(clazz))
@@ -289,8 +298,8 @@ public class ObserverCaptureExtension implements Extension
       };
    }
 
-   private void addQualifierToMap(final AnnotatedMethod<Object> annotatedMethod,
-            final AnnotatedParameter<Object> param, final BusManaged qualifier)
+   private void addQualifierToMap(final AnnotatedMethod annotatedMethod,
+            final AnnotatedParameter param, final BusManaged qualifier)
    {
       Method method = annotatedMethod.getJavaMember();
       Class<?> clazz = method.getParameterTypes()[param.getPosition()];

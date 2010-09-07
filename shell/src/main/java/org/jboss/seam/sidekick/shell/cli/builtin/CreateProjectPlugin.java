@@ -47,9 +47,6 @@ public class CreateProjectPlugin implements Plugin
    private Shell shell;
 
    @Inject
-   private MavenProject project;
-
-   @Inject
    private CurrentProjectHolder cp;
 
    @DefaultCommand
