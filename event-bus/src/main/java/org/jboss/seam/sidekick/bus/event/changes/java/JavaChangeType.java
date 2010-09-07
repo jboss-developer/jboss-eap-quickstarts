@@ -30,18 +30,6 @@ import org.jboss.seam.sidekick.bus.event.changes.java.types.JavaChangeMethod;
  */
 public enum JavaChangeType
 {
-   Field {
-      public JavaChangeField getChange(JavaChange change)
-      {
-         return (JavaChangeField) change.getChangeType();
-      }},
-
-   Method {
-      public JavaChangeMethod getChange(JavaChange change)
-      {
-         return (JavaChangeMethod) change.getChangeType();
-      }};
-
-
-    public abstract JavaChangeEvent getChange(JavaChange change);
+   Field,
+   Method;
 }
