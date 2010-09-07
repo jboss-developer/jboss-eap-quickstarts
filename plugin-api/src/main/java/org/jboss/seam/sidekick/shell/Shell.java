@@ -159,7 +159,12 @@ public interface Shell
    <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
 
    /**
-    * Set the current shell prompt.
+    * Reset the shell prompt to default.
+    */
+   public void setDefaultPrompt();
+
+   /**
+    * Set the current shell prompt, followed by '> '.
     */
    public void setPrompt(String string);
 

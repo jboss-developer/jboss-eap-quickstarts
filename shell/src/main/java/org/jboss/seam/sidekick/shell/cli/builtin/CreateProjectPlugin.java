@@ -26,7 +26,10 @@ import java.io.File;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.maven.model.Model;
+import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
@@ -46,21 +49,74 @@ public class CreateProjectPlugin implements Plugin
    @Inject
    private MavenProject project;
 
+   @Inject
+   private CurrentProjectHolder cp;
+
    @DefaultCommand
-   public void create(@Option(required = true, help = "The name of the new project") final String name)
+   public void create(@Option(description = "The name of the new project", required = true) final String name)
    {
       shell.println("Creating project: " + name);
 
-      File dir = shell.getCurrentDirectory();
+      File cwd = shell.getCurrentDirectory();
 
-      if (!dir.exists())
+      File dir = new File(cwd.getAbsolutePath() + "/" + name);
+      if (!containsProject(dir) && shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory? "))
       {
-         if (shell.promptBoolean("Create project directory: \"" + dir.getAbsolutePath() + "\" [Y/n] "))
+         dir.mkdirs();
+      }
+      else
+      {
+         if (containsProject(dir))
          {
-            dir.mkdirs();
+            shell.println("***ERROR*** That directory already contains a project; please use a different folder.");
          }
+
+         File newDir = cwd;
+         do
+         {
+            shell.println();
+            shell.println("What would you like to call the project folder? ");
+            if (!containsProject(newDir))
+            {
+               shell.print("[Press ENTER to use the current directory: " + cwd + "] ");
+            }
+            String folder = shell.prompt("");
+            newDir = new File(cwd.getAbsolutePath() + "/" + folder);
+            if (containsProject(newDir))
+            {
+               newDir = null;
+            }
+            else if (!newDir.exists())
+            {
+               newDir.mkdirs();
+            }
+         }
+         while (newDir == null);
+
+         dir = newDir;
       }
 
-      dir = new File(shell.prompt("Project directory [" + dir.getAbsolutePath() + "]: "));
+      MavenProject project = new MavenProject(dir, true);
+      Model pom = project.getPOM();
+      pom.setArtifactId(name);
+      project.setPOM(pom);
+
+      cp.setCurrentProject(project);
+      shell.setCurrentDirectory(dir);
+
+      shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
+   }
+
+   private boolean containsProject(File newDir)
+   {
+      try
+      {
+         new MavenProject(newDir);
+         return true;
+      }
+      catch (ProjectModelException e)
+      {
+         return false;
+      }
    }
 }

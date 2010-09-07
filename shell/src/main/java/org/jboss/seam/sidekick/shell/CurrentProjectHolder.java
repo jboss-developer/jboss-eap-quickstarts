@@ -25,6 +25,7 @@ package org.jboss.seam.sidekick.shell;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.sidekick.project.model.MavenProject;
@@ -38,6 +39,9 @@ public class CurrentProjectHolder
 {
    private MavenProject currentProject;
 
+   @Inject
+   private Shell shell;
+
    @Produces
    @Default
    @Dependent
@@ -49,6 +53,14 @@ public class CurrentProjectHolder
    public void setCurrentProject(MavenProject currentProject)
    {
       this.currentProject = currentProject;
+      if (currentProject != null)
+      {
+         shell.setPrompt(currentProject.getPOM().getArtifactId());
+      }
+      else
+      {
+         shell.setDefaultPrompt();
+      }
    }
 
 }

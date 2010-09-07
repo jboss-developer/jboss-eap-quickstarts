@@ -62,32 +62,32 @@ public class MavenProject extends AbstractProject
    private DefaultPlexusContainer container = null;
    private ProjectBuilder builder = null;
 
-   public MavenProject()
+   public MavenProject() throws ProjectModelException
    {
       this(findProjectDir(), false);
    }
 
-   public MavenProject(final boolean create)
+   public MavenProject(final boolean create) throws ProjectModelException
    {
       this(findProjectDir(), create);
    }
 
-   public MavenProject(final String directoryPath)
+   public MavenProject(final String directoryPath) throws ProjectModelException
    {
       this(new File(directoryPath).getAbsoluteFile(), false);
    }
 
-   public MavenProject(final String directoryPath, final boolean create)
+   public MavenProject(final String directoryPath, final boolean create) throws ProjectModelException
    {
       this(new File(directoryPath).getAbsoluteFile(), create);
    }
 
-   public MavenProject(final File directory)
+   public MavenProject(final File directory) throws ProjectModelException
    {
       this(directory, false);
    }
 
-   public MavenProject(final File directory, final boolean create)
+   public MavenProject(final File directory, final boolean create) throws ProjectModelException
    {
       if (!directory.isDirectory())
       {

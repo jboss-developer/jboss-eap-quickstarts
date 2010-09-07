@@ -496,9 +496,15 @@ public class ShellImpl implements Shell
    }
 
    @Override
+   public void setDefaultPrompt()
+   {
+      setPrompt("sidekick");
+   }
+
+   @Override
    public void setPrompt(final String prompt)
    {
-      setProperty(PROP_PROMPT, prompt);
+      setProperty(PROP_PROMPT, prompt + "> ");
    }
 
    @Override

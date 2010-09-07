@@ -59,16 +59,12 @@ public class InitProjectPlugin implements Plugin
       File targetDirectory = shell.getCurrentDirectory();
       shell.printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
 
-      shell.setPrompt("sidekick> ");
+      shell.setDefaultPrompt();
       if (targetDirectory.exists())
       {
          try
          {
             MavenProject currentProject = new MavenProject(targetDirectory);
-            if (currentProject.exists())
-            {
-               shell.setPrompt(currentProject.getPOM().getArtifactId() + "> ");
-            }
             cp.setCurrentProject(currentProject);
          }
          catch (ProjectModelException e)
