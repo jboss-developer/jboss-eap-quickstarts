@@ -33,57 +33,50 @@ import org.jboss.seam.sidekick.parser.java.JavaClass;
 public interface Project
 {
    /**
-    * Get the {@link File} representing the root directory of this
-    * {@link Project}
+    * Get the {@link File} representing the root directory of this {@link Project}
     */
    public File getProjectRoot();
 
    /**
-    * Get a list of {@link File}s representing the directories this project uses
-    * to contain {@link Project} non-source documents (such as configuration
-    * files.)
+    * Get a list of {@link File}s representing the directories this project uses to contain {@link Project} non-source
+    * documents (such as configuration files.)
     */
    public List<File> getResourceFolders();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to
-    * store package-able, non-source documents (such as configuration files.)
+    * Get the {@link File} representing the folder this {@link Project} uses to store package-able, non-source documents
+    * (such as configuration files.)
     */
    public File getResourceFolder();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to
-    * store test-scoped non-source documents (such as configuration files.)
-    * Files in this directory will never be packaged or deployed except when
-    * running Unit Tests.
+    * Get the {@link File} representing the folder this {@link Project} uses to store test-scoped non-source documents
+    * (such as configuration files.) Files in this directory will never be packaged or deployed except when running Unit
+    * Tests.
     */
    public File getTestResourceFolder();
 
    /**
-    * Get a list of {@link File}s representing the directories this project uses
-    * to contain {@link Project} source documents (such as .java files.)
+    * Get a list of {@link File}s representing the directories this project uses to contain {@link Project} source
+    * documents (such as .java files.)
     */
    public List<File> getSourceFolders();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to
-    * store package-able source documents (such as .java files.)
+    * Get the {@link File} representing the folder this {@link Project} uses to store package-able source documents
+    * (such as .java files.)
     */
    public File getSourceFolder();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to
-    * store test-scoped source documents (such as .java files.) Files in this
-    * directory will never be packaged or deployed except when running Unit
-    * Tests.
+    * Get the {@link File} representing the folder this {@link Project} uses to store test-scoped source documents (such
+    * as .java files.) Files in this directory will never be packaged or deployed except when running Unit Tests.
     */
    public File getTestSourceFolder();
 
    /**
-    * Create a Java file in the primary source directory:
-    * {@link #getSourceFolder()} - use information in the given
-    * {@link JavaClass} to determine the appropriate package; packages will be
-    * created if necessary.
+    * Create a Java file in the primary source directory: {@link #getSourceFolder()} - use information in the given
+    * {@link JavaClass} to determine the appropriate package; packages will be created if necessary.
     * 
     * @param clazz The java class to create
     */
@@ -97,8 +90,18 @@ public interface Project
    /**
     * TODO As more of these files come into being, move into a separate class
     * <p>
-    * At the given path/filename relative to the project resources directory:
-    * {@link #getResourceFolder()} - create a file containing the given bytes.
+    * At the given path/filename relative to the project resources directory: {@link #getResourceFolder()} - create a
+    * file containing the given bytes.
+    * 
+    * @return a handle to the {@link File} that was created.
     */
-   void createResource(char[] bytes, String relativeFilename);
+   File createResource(char[] bytes, String relativeFilename);
+
+   /**
+    * At the given path/filename relative to the project test resources directory: {@link #getTestResourceFolder()} -
+    * create a file containing the given bytes.
+    * 
+    * @return a handle to the {@link File} that was created.
+    */
+   File createTestResource(char[] bytes, String relativeFilename);
 }

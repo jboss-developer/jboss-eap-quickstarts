@@ -84,7 +84,7 @@ public abstract class AbstractProject implements Project
    }
 
    @Override
-   public void createResource(char[] bytes, String relativePath)
+   public File createResource(final char[] bytes, final String relativePath)
    {
 
       String path = getResourceFolder().getAbsolutePath();
@@ -95,12 +95,28 @@ public abstract class AbstractProject implements Project
 
       File file = new File(path);
       writeFile(file, bytes);
+      return file;
+   }
+
+   @Override
+   public File createTestResource(final char[] bytes, final String relativePath)
+   {
+
+      String path = getTestResourceFolder().getAbsolutePath();
+      if ((relativePath != null) && !relativePath.trim().isEmpty())
+      {
+         path = path + "/" + relativePath;
+      }
+
+      File file = new File(path);
+      writeFile(file, bytes);
+      return file;
    }
 
    /*
     * Utility methods
     */
-   private File writeFile(File file, final char[] data)
+   private void writeFile(final File file, final char[] data)
    {
       BufferedWriter writer = null;
       try
@@ -120,7 +136,6 @@ public abstract class AbstractProject implements Project
          writer = new BufferedWriter(new FileWriter(file));
          writer.write(data);
          writer.close();
-         return file;
       }
       catch (IOException e)
       {
