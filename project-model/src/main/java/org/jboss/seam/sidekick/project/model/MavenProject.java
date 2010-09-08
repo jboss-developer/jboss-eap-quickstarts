@@ -255,6 +255,7 @@ public class MavenProject extends AbstractProject
    {
       List<File> result = new ArrayList<File>();
       result.add(getResourceFolder());
+      result.add(getTestResourceFolder());
       return result;
    }
 
