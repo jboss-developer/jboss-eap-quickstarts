@@ -291,7 +291,7 @@ public class ObserverCaptureExtension implements Extension
          }
 
          @Override
-         public int getPosition()
+         public int getPosition()                                          
          {
             return param.getPosition();
          }
