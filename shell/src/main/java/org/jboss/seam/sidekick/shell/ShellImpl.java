@@ -95,6 +95,9 @@ public class ShellImpl implements Shell
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
 
+   @Inject
+   private CurrentProjectHolder cph;
+
    void init(@Observes final Startup event) throws Exception
    {
       log.info("Seam Sidekick Shell - Starting up.");
@@ -505,19 +508,25 @@ public class ShellImpl implements Shell
    @Override
    public void setDefaultPrompt()
    {
-      setPrompt("sidekick");
+      setPrompt("");
    }
 
    @Override
    public void setPrompt(final String prompt)
    {
-      setProperty(PROP_PROMPT, prompt + "> ");
+      setProperty(PROP_PROMPT, prompt);
    }
 
    @Override
    public String getPrompt()
    {
-      return (String) getProperty(PROP_PROMPT);
+      String suffix = "[no project]";
+      if (cph.getCurrentProject() != null)
+      {
+         suffix = "[" + cph.getCurrentProject().getPOM().getArtifactId() + "]";
+      }
+      String path = getCurrentDirectory().getAbsolutePath();
+      return (String) getProperty(PROP_PROMPT) + suffix + " " + path + " $ ";
    }
 
    @Override

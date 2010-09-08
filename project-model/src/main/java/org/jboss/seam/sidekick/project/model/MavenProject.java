@@ -151,6 +151,9 @@ public class MavenProject extends AbstractProject
       return getPOMFile().exists();
    }
 
+   /*
+    * POM manipulation methods
+    */
    public void addDependency(final Dependency dep)
    {
       if (!hasDependency(dep))
@@ -201,51 +204,6 @@ public class MavenProject extends AbstractProject
       setPOM(pom);
    }
 
-   @Override
-   public List<File> getSourceFolders()
-   {
-      List<File> result = new ArrayList<File>();
-      result.add(getDefaultSourceFolder());
-      result.add(getTestSourceFolder());
-      return result;
-   }
-
-   @Override
-   public File getDefaultSourceFolder()
-   {
-      try
-      {
-         ProjectBuildingResult result = builder.build(getPOMFile(), request);
-         String directory = result.getProject().getBuild().getSourceDirectory();
-         return new File(directory).getAbsoluteFile();
-      }
-      catch (ProjectBuildingException e)
-      {
-         throw new ProjectModelException(e);
-      }
-   }
-
-   @Override
-   public File getTestSourceFolder()
-   {
-      try
-      {
-         ProjectBuildingResult result = builder.build(getPOMFile(), request);
-         String directory = result.getProject().getBuild().getTestSourceDirectory();
-         return new File(directory).getAbsoluteFile();
-      }
-      catch (ProjectBuildingException e)
-      {
-         throw new ProjectModelException(e);
-      }
-   }
-
-   @Override
-   public File getProjectRoot()
-   {
-      return projectRoot;
-   }
-
    public Model getPOM()
    {
       try
@@ -286,6 +244,77 @@ public class MavenProject extends AbstractProject
       {
          throw new ProjectModelException("Could not write POM file: " + getPOMFile(), e);
       }
+   }
+
+   /*
+    * File handle methods
+    */
+
+   @Override
+   public List<File> getResourceFolders()
+   {
+      List<File> result = new ArrayList<File>();
+      result.add(getResourceFolder());
+      return result;
+   }
+
+   @Override
+   public File getResourceFolder()
+   {
+      // TODO maven should resolve this
+      return new File(getProjectRoot().getAbsolutePath() + "/src/main/resources");
+   }
+
+   @Override
+   public File getTestResourceFolder()
+   {
+      // TODO maven should resolve this
+      return new File(getProjectRoot().getAbsolutePath() + "/src/test/resources");
+   }
+
+   @Override
+   public List<File> getSourceFolders()
+   {
+      List<File> result = new ArrayList<File>();
+      result.add(getSourceFolder());
+      result.add(getTestSourceFolder());
+      return result;
+   }
+
+   @Override
+   public File getSourceFolder()
+   {
+      try
+      {
+         ProjectBuildingResult result = builder.build(getPOMFile(), request);
+         String directory = result.getProject().getBuild().getSourceDirectory();
+         return new File(directory).getAbsoluteFile();
+      }
+      catch (ProjectBuildingException e)
+      {
+         throw new ProjectModelException(e);
+      }
+   }
+
+   @Override
+   public File getTestSourceFolder()
+   {
+      try
+      {
+         ProjectBuildingResult result = builder.build(getPOMFile(), request);
+         String directory = result.getProject().getBuild().getTestSourceDirectory();
+         return new File(directory).getAbsoluteFile();
+      }
+      catch (ProjectBuildingException e)
+      {
+         throw new ProjectModelException(e);
+      }
+   }
+
+   @Override
+   public File getProjectRoot()
+   {
+      return projectRoot;
    }
 
    /*

@@ -109,7 +109,7 @@ public class MavenProjectTest
    @Test
    public void testGetDefaultSourceDir() throws Exception
    {
-      assertEquals(new File(tempProject.getProjectRoot() + "/src/main/java/"), tempProject.getDefaultSourceFolder());
+      assertEquals(new File(tempProject.getProjectRoot() + "/src/main/java/"), tempProject.getSourceFolder());
    }
 
    @Test

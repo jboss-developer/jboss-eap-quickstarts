@@ -125,4 +125,9 @@ public class PluginMetadata
    {
       this.help = help;
    }
+
+   public boolean hasCommands()
+   {
+      return (commands != null) && (commands.size() > 0);
+   }
 }

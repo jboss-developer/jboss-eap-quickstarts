@@ -21,82 +21,90 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
-import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
+import org.jboss.seam.sidekick.shell.plugins.events.InitProject;
 import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("install")
-@Help("Installs a plugin into a project.")
-public class InstallPlugin implements Plugin
+@Named("cd")
+@Help("Prints the current directory.")
+public class ChangeDirectoryPlugin implements Plugin
 {
-   @Inject
-   private PluginRegistry registry;
+   Shell shell;
+   private final Event<InitProject> init;
 
    @Inject
-   private Shell shell;
-
-   @Inject
-   private MavenProject project;
+   public ChangeDirectoryPlugin(Shell shell, Event<InitProject> init)
+   {
+      this.shell = shell;
+      this.init = init;
+   }
 
    @DefaultCommand
-   public void install(@Option(required = true,
-         description = "The plugin to install") final String pluginName)
+   public void run(@Option(defaultValue = "") final String path)
    {
-      PluginMetadata meta = registry.getPlugins().get(pluginName);
-      if (meta != null)
+      String target = path.trim();
+      File cwd = shell.getCurrentDirectory();
+
+      while (target.startsWith(".."))
       {
-         Plugin plugin = registry.instanceOf(meta);
-         if (plugin instanceof MavenPlugin)
+         target = target.replaceFirst("\\.\\." + File.separatorChar + "?", "");
+         if (cwd.getParentFile() != null)
          {
-            MavenPlugin installable = (MavenPlugin) plugin;
-            if (!isInstalledInProject(installable))
-            {
-               install(installable);
-            }
+            cwd = cwd.getParentFile();
          }
          else
          {
-            shell.println("The plugin [" + pluginName
-                     + "] cannot be installed into your project because it is not an installable plugin.");
+            break;
          }
       }
-      else
-      {
-         shell.println("Could not find a plugin with the name: " + pluginName
-                  + "; are you sure that's the correct name?");
-      }
-   }
 
-   private boolean isInstalledInProject(final MavenPlugin installable)
-   {
-      for (Dependency d : installable.getDependencies())
+      while (target.startsWith("."))
       {
-         if (!project.hasDependency(d))
+         target = target.replaceFirst("\\." + File.separatorChar + "?", "");
+      }
+
+      if (!target.isEmpty())
+      {
+         List<File> attempts = new ArrayList<File>();
+         attempts.add(new File(cwd.getAbsolutePath() + File.separatorChar + target).getAbsoluteFile());
+         attempts.add(new File(target).getAbsoluteFile());
+
+         boolean found = false;
+
+         for (File file : attempts)
          {
-            return false;
+            if (file.exists() && file.isDirectory())
+            {
+               cwd = file;
+               found = true;
+               break;
+            }
+         }
+
+         if (!found)
+         {
+            shell.println(path + ": Not a directory");
          }
       }
-      return true;
-   }
 
-   private void install(final MavenPlugin plugin)
-   {
-      for (Dependency dep : plugin.getDependencies())
+      if (!cwd.equals(shell.getCurrentDirectory()))
       {
-         project.addDependency(dep);
+         shell.setCurrentDirectory(cwd.getAbsoluteFile());
+         init.fire(new InitProject());
       }
    }
 }

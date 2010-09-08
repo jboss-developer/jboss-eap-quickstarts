@@ -82,29 +82,33 @@ public class CreateProjectPlugin implements Plugin
             {
                newDir = null;
             }
-            else if (!newDir.exists())
-            {
-               newDir.mkdirs();
-            }
          }
          while (newDir == null);
 
          dir = newDir;
       }
 
+      String groupId = shell.promptRegex("Please enter your base package [e.g: \"com.example.project\"] ", "(?i)([a-z]+.?)+");
+
+      if (!dir.exists())
+      {
+         dir.mkdirs();
+      }
+
       MavenProject project = new MavenProject(dir, true);
       Model pom = project.getPOM();
       pom.setArtifactId(name);
 
-      String groupId = shell.promptRegex("Please enter your base package [e.g: \"com.example.project\"] ", "(?i)([a-z]+.?)+");
       pom.setGroupId(groupId);
 
       project.setPOM(pom);
 
-      cp.setCurrentProject(project);
-      shell.setCurrentDirectory(dir);
-
       for (File folder : project.getSourceFolders())
+      {
+         folder.mkdirs();
+      }
+
+      for (File folder : project.getResourceFolders())
       {
          folder.mkdirs();
       }
@@ -115,6 +119,14 @@ public class CreateProjectPlugin implements Plugin
             .addMethod("public void String sayHello() {}")
             .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name + ".\");")
             .applyChanges());
+
+      // project.createResource("<beans/>".toCharArray(), "META-INF/beans.xml");
+
+      /*
+       * Only change the environment after success!
+       */
+      cp.setCurrentProject(project);
+      shell.setCurrentDirectory(dir);
 
       shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
    }

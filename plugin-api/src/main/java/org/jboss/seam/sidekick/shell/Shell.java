@@ -34,7 +34,7 @@ public interface Shell
     * Return the current working directory of the shell. (This value may change
     * through execution of plugins or other operations.)
     */
-   public File getCurrentDirectory();
+   File getCurrentDirectory();
 
    /**
     * Set the current working directory of the shell.
@@ -48,12 +48,12 @@ public interface Shell
     * temporary directory, and the output is produced as a Diff that can then be
     * applied to the project.
     */
-   public boolean isPretend();
+   boolean isPretend();
 
    /**
     * Return true if this shell is currently running in verbose mode.
     */
-   public boolean isVerbose();
+   boolean isVerbose();
 
    /**
     * Toggle verbose mode.
@@ -104,7 +104,7 @@ public interface Shell
     * @param message The prompt message to display until valid input is entered
     * @param regex The regular expression to which valid input must be matched
     */
-   public String promptRegex(String message, String regex);
+   String promptRegex(String message, String regex);
 
    /**
     * Prompt for boolean user input (Y/n), first printing the given line, then
@@ -171,12 +171,12 @@ public interface Shell
    /**
     * Reset the shell prompt to default.
     */
-   public void setDefaultPrompt();
+   void setDefaultPrompt();
 
    /**
     * Set the current shell prompt, followed by '> '.
     */
-   public void setPrompt(String string);
+   void setPrompt(String string);
 
    /**
     * Return the current shell prompt;

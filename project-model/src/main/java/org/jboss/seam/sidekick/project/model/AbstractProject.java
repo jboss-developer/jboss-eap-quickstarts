@@ -46,13 +46,65 @@ public abstract class AbstractProject implements Project
    private File createJavaFile(final File sourceFolder, final String classPackage, final String className,
             final char[] data)
    {
+      String pkg = getSourceFolder() + File.separator + classPackage.replaceAll("\\.", File.separator);
+      File file = new File(pkg + File.separator + className + ".java");
+
+      writeFile(file, data);
+      // TODO event.fire(Created new Java file);
+
+      return file;
+   }
+
+   private File createJavaFile(final String classPackage, final String className, final String data)
+   {
+      return createJavaFile(getSourceFolder(), classPackage, className, data.toCharArray());
+   }
+
+   @Override
+   public File createJavaFile(final JavaClass clazz)
+   {
+      return createJavaFile(clazz.getPackage(), clazz.getName(), clazz.toString());
+   }
+
+   @Override
+   public boolean delete(final File file)
+   {
+      // TODO event.fire(File deleted)
+      if (file.isDirectory())
+      {
+         for (File c : file.listFiles())
+         {
+            if (!delete(c))
+            {
+               throw new ProjectModelException("Could not delete file or folder: " + file);
+            }
+         }
+      }
+      return file.delete();
+   }
+
+   @Override
+   public void createResource(char[] bytes, String relativePath)
+   {
+
+      String path = getResourceFolder().getAbsolutePath();
+      if ((relativePath != null) && !relativePath.trim().isEmpty())
+      {
+         path = path + "/" + relativePath;
+      }
+
+      File file = new File(path);
+      writeFile(file, bytes);
+   }
+
+   /*
+    * Utility methods
+    */
+   private File writeFile(File file, final char[] data)
+   {
       BufferedWriter writer = null;
       try
       {
-         String pkg = getDefaultSourceFolder() + File.separator + classPackage.replaceAll("\\.", File.separator);
-
-         File file = new File(pkg + File.separator + className + ".java");
-
          if (!file.mkdirs())
          {
             throw new IOException("Failed to create required directory structure for file: " + file);
@@ -68,42 +120,12 @@ public abstract class AbstractProject implements Project
          writer = new BufferedWriter(new FileWriter(file));
          writer.write(data);
          writer.close();
-
-         // event.fire(new JavaFileCreated(file));
          return file;
       }
       catch (IOException e)
       {
          throw new ProjectModelException(e);
       }
-   }
-
-   private File createJavaFile(final String classPackage, final String className, final String data)
-   {
-      return createJavaFile(getDefaultSourceFolder(), classPackage, className, data.toCharArray());
-   }
-
-   @Override
-   public File createJavaFile(final JavaClass clazz)
-   {
-      // event.fire(clazz);
-      return createJavaFile(clazz.getPackage(), clazz.getName(), clazz.toString());
-   }
-
-   @Override
-   public boolean delete(final File file)
-   {
-      if (file.isDirectory())
-      {
-         for (File c : file.listFiles())
-         {
-            if (!delete(c))
-            {
-               throw new ProjectModelException("Could not delete file or folder: " + file);
-            }
-         }
-      }
-      return file.delete();
    }
 
 }

@@ -22,8 +22,8 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
 import java.io.File;
-import java.util.List;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -31,10 +31,10 @@ import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
 import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.plugins.events.InitProject;
 import org.jboss.seam.sidekick.shell.plugins.events.PostStartup;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
-import org.jboss.weld.environment.se.bindings.Parameters;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -42,20 +42,25 @@ import org.jboss.weld.environment.se.bindings.Parameters;
 @Help("Responsible for initializing and maintaining the current active project.")
 public class InitProjectPlugin implements Plugin
 {
-   @Inject
-   private Shell shell;
+   private final Shell shell;
+   private final CurrentProjectHolder cp;
+   private final Event<InitProject> init;
 
    @Inject
-   private CurrentProjectHolder cp;
-
-   @Inject
-   @Parameters
-   private List<String> parameters;
-
-   public void initProject(@Observes final PostStartup event)
+   public InitProjectPlugin(Shell shell, CurrentProjectHolder currentProjectHolder, Event<InitProject> init)
    {
-      shell.printlnVerbose("Parameters: " + parameters);
+      this.shell = shell;
+      this.cp = currentProjectHolder;
+      this.init = init;
+   }
 
+   public void postStartupTrigger(@Observes final PostStartup event)
+   {
+      init.fire(new InitProject());
+   }
+
+   public void doInit(@Observes InitProject event)
+   {
       File targetDirectory = shell.getCurrentDirectory();
       shell.printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
 
@@ -69,12 +74,15 @@ public class InitProjectPlugin implements Plugin
          }
          catch (ProjectModelException e)
          {
-            shell.println("**WARNING** The directory [" + targetDirectory.getAbsolutePath() + "] does not contain a project.");
+            cp.setCurrentProject(null);
+            // shell.println("**WARNING** The directory [" +
+            // targetDirectory.getAbsolutePath() +
+            // "] does not contain a project.");
          }
       }
       else
       {
-         shell.println("**WARNING** The directory [" + targetDirectory.getAbsolutePath() + "] does not exist...");
+         shell.println("**ERROR** The directory [" + targetDirectory.getAbsolutePath() + "] does not exist...");
       }
    }
 }

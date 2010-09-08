@@ -20,35 +20,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
-import org.jboss.seam.sidekick.project.model.MavenProject;
+package org.jboss.seam.sidekick.shell.plugins.events;
 
 /**
+ * An event representing the initialization of the project in the current
+ * working directory.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public class InitProject
 {
-   private MavenProject currentProject;
-
-   @Produces
-   @Default
-   @Dependent
-   public MavenProject getCurrentProject()
-   {
-      return currentProject;
-   }
-
-   public void setCurrentProject(MavenProject currentProject)
-   {
-      this.currentProject = currentProject;
-   }
 
 }

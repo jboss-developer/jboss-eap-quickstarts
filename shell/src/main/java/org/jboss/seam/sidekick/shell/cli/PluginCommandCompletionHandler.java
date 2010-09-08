@@ -49,10 +49,13 @@ public class PluginCommandCompletionHandler implements Completer
          String token = tokens[0];
          for (Entry<String, PluginMetadata> p : plugins.entrySet())
          {
-            String pluginName = p.getValue().getName();
-            if (isPotentialMatch(pluginName, token))
+            if (p.getValue().hasCommands())
             {
-               candidates.add(pluginName);
+               String pluginName = p.getValue().getName();
+               if (isPotentialMatch(pluginName, token))
+               {
+                  candidates.add(pluginName);
+               }
             }
          }
       }
