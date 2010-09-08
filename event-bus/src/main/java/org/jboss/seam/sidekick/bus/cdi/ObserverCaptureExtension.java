@@ -25,6 +25,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +43,7 @@ import javax.enterprise.inject.spi.AnnotatedParameter;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
+import javax.inject.Singleton;
 
 import org.jboss.seam.sidekick.bus.event.BaseEvent;
 
@@ -48,10 +51,12 @@ import org.jboss.seam.sidekick.bus.event.BaseEvent;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Singleton
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class ObserverCaptureExtension implements Extension
 {
    private final Map<Class<?>, List<BusManaged>> eventQualifierMap = new HashMap<Class<?>, List<BusManaged>>();
+   private int rollingIdentifier = 0;
 
    public void scan(@Observes final ProcessAnnotatedType<Object> event)
    {
@@ -60,7 +65,7 @@ public class ObserverCaptureExtension implements Extension
       List<AnnotatedMethod> obsoleteMethods = new ArrayList<AnnotatedMethod>();
       List<AnnotatedMethod> replacementMethods = new ArrayList<AnnotatedMethod>();
 
-      for (AnnotatedMethod<?> method : originalType.getMethods())
+      for (AnnotatedMethod<?> method : getOrderedMethods(originalType))
       {
          for (AnnotatedParameter<?> param : method.getParameters())
          {
@@ -79,6 +84,27 @@ public class ObserverCaptureExtension implements Extension
       newType = addReplacementMethodsToType(newType, replacementMethods);
 
       event.setAnnotatedType(newType);
+   }
+
+   private List<AnnotatedMethod<? super Object>> getOrderedMethods(AnnotatedType<Object> originalType)
+   {
+      Set<AnnotatedMethod<? super Object>> methods = originalType.getMethods();
+
+      List<AnnotatedMethod<? super Object>> result = new ArrayList<AnnotatedMethod<? super Object>>();
+      result.addAll(methods);
+
+      Collections.sort(result, new Comparator<Object>()
+      {
+         @Override
+         public int compare(Object left, Object right)
+         {
+            String lid = ((AnnotatedMethod<? super Object>) left).getJavaMember().toGenericString();
+            String rid = ((AnnotatedMethod<? super Object>) right).getJavaMember().toGenericString();
+            return lid.compareTo(rid);
+         }
+      });
+
+      return result;
    }
 
    private AnnotatedType<Object> removeMethodsFromType(final AnnotatedType type,
@@ -158,9 +184,10 @@ public class ObserverCaptureExtension implements Extension
             final AnnotatedMethod method, final AnnotatedParameter param)
    {
       final List<AnnotatedParameter> parameters = new ArrayList<AnnotatedParameter>();
+
       parameters.addAll(method.getParameters());
       parameters.remove(param);
-      parameters.add(addUniqueQualifier(method, param, method.toString()));
+      parameters.add(addUniqueQualifier(method, param));
 
       return new AnnotatedMethod()
       {
@@ -221,8 +248,10 @@ public class ObserverCaptureExtension implements Extension
    }
 
    private AnnotatedParameter addUniqueQualifier(final AnnotatedMethod method,
-            final AnnotatedParameter param, final String identifier)
+            final AnnotatedParameter param)
    {
+      final String identifier = String.valueOf(rollingIdentifier++);
+      final String methodName = method.getJavaMember().getName();
       final BusManaged qualifier = new BusManaged()
       {
          @Override
@@ -235,6 +264,12 @@ public class ObserverCaptureExtension implements Extension
          public String value()
          {
             return identifier;
+         }
+
+         @Override
+         public String method()
+         {
+            return methodName;
          }
       };
 
@@ -312,23 +347,32 @@ public class ObserverCaptureExtension implements Extension
       eventQualifierMap.put(clazz, qualifiers);
    }
 
-   public Map<Class<?>, List<BusManaged>> getEventQualifierMap()
-   {
-      return eventQualifierMap;
-   }
-
-   public List<BusManaged> getEventQualifiers(final Class<? extends BaseEvent> class1)
+   /**
+    * Return a list containing instances of {@link BusManaged} annotations
+    * corresponding to the given event type.
+    */
+   public List<BusManaged> getEventQualifiers(final Class<? extends BaseEvent> clazz)
    {
       List<BusManaged> result = new ArrayList<BusManaged>();
       for (Entry<Class<?>, List<BusManaged>> entry : eventQualifierMap.entrySet())
       {
          Class<?> key = entry.getKey();
          List<BusManaged> value = entry.getValue();
-         if (key.isAssignableFrom(class1))
+         if (key.isAssignableFrom(clazz))
          {
             result.addAll(value);
          }
       }
       return result;
+   }
+
+   /**
+    * Return the entire map of Event Types and their corresponding lists of
+    * {@link BusManaged} annotation instances. This map can be used to implement
+    * a strategy for custom firing of events.
+    */
+   public Map<Class<?>, List<BusManaged>> getEventQualifierMap()
+   {
+      return eventQualifierMap;
    }
 }

@@ -91,7 +91,7 @@ public class ObserverCaptureExtensionTest
    {
       assertFalse(observer.hasObservedRemoved());
       List<BusManaged> qualifiers = oce.getEventQualifiers(event.getClass());
-      BusManaged busManaged = qualifiers.get(1);
+      BusManaged busManaged = qualifiers.get(0);
       manager.fireEvent(event, new Annotation[] { busManaged });
       assertTrue(observer.hasObservedRemoved());
    }
@@ -101,7 +101,7 @@ public class ObserverCaptureExtensionTest
    {
       assertFalse(observer.hasObservedRemoved());
       List<BusManaged> qualifiers = oce.getEventQualifiers(event.getClass());
-      BusManaged busManaged = qualifiers.get(1);
+      BusManaged busManaged = qualifiers.get(0);
       manager.fireEvent(event, new Annotation[] { busManaged });
       assertTrue(observer.hasObservedRemoved());
 

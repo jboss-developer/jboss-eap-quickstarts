@@ -37,12 +37,12 @@ public class MockBaseEventObserver
    private boolean observedRemoved2 = false;
    private boolean observedNormal = false;
 
-   public void removedObserver(@Observes final BaseEvent event)
+   public void managedObserver(@Observes final BaseEvent event)
    {
       observedRemoved = true;
    }
 
-   public void removedObserver2(@Observes final BaseEvent event)
+   public void managedObserver2(@Observes final BaseEvent event)
    {
       observedRemoved2 = true;
    }

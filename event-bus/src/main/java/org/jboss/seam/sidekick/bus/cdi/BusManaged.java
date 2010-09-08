@@ -44,4 +44,6 @@ import javax.inject.Qualifier;
 public @interface BusManaged
 {
    String value() default "";
+
+   String method();
 }
