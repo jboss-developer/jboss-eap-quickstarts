@@ -22,8 +22,12 @@
 
 package org.jboss.seam.sidekick.shell.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -82,5 +86,23 @@ public class ShellImplTest extends AbstractShellTest
       assertFalse(getShell().promptBoolean("Would you like cake?", false));
 
       queueInputLines("asdfdsf\n y\n");
+   }
+
+   @Test
+   public void testPromptChoiceList() throws Exception
+   {
+      List<String> choices = Arrays.asList("blue", "green", "red", "yellow");
+
+      queueInputLines("foo", "2");
+      String choice = getShell().promptChoice("What is your favorite color?", choices);
+      assertEquals(choices.get(1), choice);
+   }
+
+   @Test
+   public void testExecuteCommand() throws Exception
+   {
+      assertFalse(getShell().isVerbose());
+      getShell().execute("verbose on");
+      assertTrue(getShell().isVerbose());
    }
 }
