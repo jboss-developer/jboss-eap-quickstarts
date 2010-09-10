@@ -23,8 +23,6 @@
 package org.jboss.seam.sidekick.shell;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -233,9 +231,5 @@ public interface Shell
     * Return the current shell prompt;
     */
    String getPrompt();
-
-   void setInputStream(InputStream is);
-
-   void setOutputStream(OutputStream os);
 
 }
