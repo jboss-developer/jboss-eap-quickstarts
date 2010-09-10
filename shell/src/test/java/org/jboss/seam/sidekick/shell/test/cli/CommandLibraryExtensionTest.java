@@ -31,7 +31,7 @@ import org.jboss.seam.sidekick.shell.cli.CommandLibraryExtension;
 import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
 import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.junit.Test;
 
 /**

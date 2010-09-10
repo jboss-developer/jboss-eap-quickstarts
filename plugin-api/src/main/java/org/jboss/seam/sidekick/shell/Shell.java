@@ -23,6 +23,9 @@
 package org.jboss.seam.sidekick.shell;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,6 +69,13 @@ public interface Shell
    void clear();
 
    /**
+    * Execute a shell command.
+    * 
+    * @param command
+    */
+   void execute(String command);
+
+   /**
     * Prompt for user input, and return as a String.
     */
    String prompt();
@@ -77,27 +87,77 @@ public interface Shell
    String prompt(String message);
 
    /**
-    * Execute a shell command.
-    * 
-    * @param command
-    */
-   void execute(String command);
-
-   /**
-    * Prompt for user input, first printing the given line, then return user
+    * Prompt for user input, first printing the given message, then return user
     * input cast to the type provided.
     */
    <T> T prompt(String message, Class<T> clazz);
 
    /**
-    * Prompt for boolean user input (Y/n), first printing the given line, then
-    * returning user input as a boolean. The value returned will default to
+    * Prompt for boolean user input (Y/n), first printing the given message,
+    * then returning user input as a boolean. The value returned will default to
     * <code>true</code> if an empty or whitespace-only user input is read.
     */
    boolean promptBoolean(String string);
 
    /**
-    * Prompt for boolean user input (Y/n), first printing the given line, then
+    * Prompt for boolean user input (Y/n), first printing the given message,
+    * then returning user input as a boolean.
+    * 
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
+    */
+   boolean promptBoolean(String message, boolean defaultIfEmpty);
+
+   /**
+    * Prompt for user input, first printing the given message, followed by an
+    * enumerated list of options (printing the String value of each item in the
+    * list.) Loop until the user enters a number corresponding to one of the
+    * options, then return the value of that option from the list.
+    * 
+    * @param <T> The type of the objects contained in the list
+    * @param message The prompt message to display until valid input is entered
+    * @param options The list of selection options
+    * @return the selected option
+    */
+   <T> T promptChoice(String message, T... options);
+
+   /**
+    * Prompt for user input, first printing the given message, followed by an
+    * enumerated list of options (printing the String value of each item in the
+    * list.) Loop until the user enters a number corresponding to one of the
+    * options, then return the value of that option from the list.
+    * 
+    * @param <T> The type of the objects contained in the list
+    * @param message The prompt message to display until valid input is entered
+    * @param options The list of selection options
+    * @return the selected option
+    */
+   <T> T promptChoice(String message, List<T> options);
+
+   /**
+    * Prompt for user input, first printing the given message, followed by a
+    * keyed list of options. Loop until the user enters a key corresponding to
+    * one of the options, then return the value of that option from the map.
+    * 
+    * @param <T> The type of the objects contained in the map
+    * @param message The prompt message to display until valid input is entered
+    * @param options The map of selection options
+    * @return the selected option
+    */
+   <T> T promptChoice(String message, Map<String, T> options);
+
+   /**
+    * Prompt for user input (Y/n), first printing the given message, then
+    * returning user input as a String. The prompt will repeat until input
+    * matching the prompt type is entered.
+    * 
+    * @param message The prompt message to display until valid input is entered
+    * @param type The prompt type to which valid input must be matched
+    */
+   String promptCommon(String message, PromptType type);
+
+   /**
+    * Prompt for user input (Y/n), first printing the given message, then
     * returning user input as a String. The prompt will repeat until input
     * matching the regular expression is entered.
     * 
@@ -105,15 +165,6 @@ public interface Shell
     * @param regex The regular expression to which valid input must be matched
     */
    String promptRegex(String message, String regex);
-
-   /**
-    * Prompt for boolean user input (Y/n), first printing the given line, then
-    * returning user input as a boolean.
-    * 
-    * @param defaultIfEmpty The value to be returned when an empty or
-    *           whitespace-only user input is read.
-    */
-   boolean promptBoolean(String message, boolean defaultIfEmpty);
 
    /**
     * Print output to the console.
@@ -182,5 +233,9 @@ public interface Shell
     * Return the current shell prompt;
     */
    String getPrompt();
+
+   void setInputStream(InputStream is);
+
+   void setOutputStream(OutputStream os);
 
 }

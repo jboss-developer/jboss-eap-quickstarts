@@ -19,8 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
+package org.jboss.seam.sidekick.shell.plugins;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -29,18 +32,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Describes help text for a plug-in.
+ * Defines a @{@link Command} as the plugin default. It will be run if no other
+ * command matches the input line.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Target({ TYPE })
+@Command("default")
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface Help
+public @interface DefaultCommand
 {
    /**
-    * The help text.
+    * Help text for the default command.
     */
-   String value();
+   String help() default "";
 }

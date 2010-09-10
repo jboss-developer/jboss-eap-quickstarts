@@ -23,7 +23,7 @@ package org.jboss.seam.sidekick.shell.cli;
 
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.mvel2.DataConversion;
 
 import java.lang.reflect.Method;
@@ -35,7 +35,6 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
 import org.mvel2.DataConversion;
 
 /**

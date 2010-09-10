@@ -23,10 +23,10 @@ package org.jboss.seam.sidekick.shell.test.cli;
 
 import javax.inject.Named;
 
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.Command;
+import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

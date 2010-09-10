@@ -19,22 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
 
-import java.util.List;
-
-import org.apache.maven.model.Dependency;
+package org.jboss.seam.sidekick.shell;
 
 /**
- * A plugin that depends on Apache Maven for dependency management and resolution.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface MavenPlugin extends InstallablePlugin
+public class InvalidInput
 {
-   /**
-    * Get a list of the Maven dependencies required by this plugin.
-    */
-   public List<Dependency> getDependencies();
+   public static final InvalidInput INSTANCE = new InvalidInput();
+
+   private InvalidInput()
+   {
+   }
 }

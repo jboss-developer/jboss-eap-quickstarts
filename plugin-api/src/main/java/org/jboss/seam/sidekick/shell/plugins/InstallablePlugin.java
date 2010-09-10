@@ -19,46 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.Plugin;
+package org.jboss.seam.sidekick.shell.plugins;
 
 /**
+ * A plugin that can be installed and removed from a working project.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("verbose")
-@Help("Display or toggle the current verbose mode.")
-public class VerbosePlugin implements Plugin
+public interface InstallablePlugin extends Plugin
 {
-   @Inject
-   Shell shell;
-
-   @DefaultCommand
-   public void execute(@Option(required = false, help = "Toggle verbose mode [on/off]") final String verbose)
-   {
-      if ("on".equalsIgnoreCase(verbose))
-      {
-         shell.setVerbose(true);
-      }
-      else if ("off".equalsIgnoreCase(verbose))
-      {
-         shell.setVerbose(false);
-      }
-
-      if (shell.isVerbose())
-      {
-         shell.println("Shell IS running in verbose mode.");
-      }
-      else
-      {
-         shell.println("Shell is NOT running in verbose mode.");
-      }
-   }
 }

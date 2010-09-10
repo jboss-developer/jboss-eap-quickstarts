@@ -24,7 +24,7 @@ package org.jboss.seam.sidekick.shell.cli;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

@@ -19,19 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
+package org.jboss.seam.sidekick.shell.plugins;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
 
 /**
- * A custom {@link Plugin} must implement this interface in order to be detected and installed at framework boot-time.
- * In order to create plugin shell-commands, one must create a method annotated with @{@link Command}. Any command
- * method parameters to be provided as input through the shell must be individually annotated with the @{@link Option}
- * annotation; other (non-annotated) command parameters are ignored.
+ * Represents a single command to be run on a Shell.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Plugin
+@Inherited
+@Qualifier
+@Documented
+@Retention(RUNTIME)
+@Target({ METHOD, PARAMETER, TYPE, FIELD })
+public @interface Command
 {
+   /**
+    * One or more names for this command.
+    */
+   String value() default "";
 
+   /**
+    * Help text for this command.
+    */
+   String help() default "";
 }

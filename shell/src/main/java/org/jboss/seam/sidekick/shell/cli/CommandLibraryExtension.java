@@ -34,11 +34,11 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Named;
 
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.Command;
+import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.Help;
+import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.jboss.seam.sidekick.shell.util.Annotations;
 
 /**

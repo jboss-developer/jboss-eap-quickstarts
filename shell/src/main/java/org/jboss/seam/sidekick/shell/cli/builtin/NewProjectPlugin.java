@@ -31,18 +31,19 @@ import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
+import org.jboss.seam.sidekick.shell.PromptType;
 import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.Help;
+import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("create-project")
+@Named("new-project")
 @Help("Create a new project in an empty directory.")
-public class CreateProjectPlugin implements Plugin
+public class NewProjectPlugin implements Plugin
 {
    @Inject
    private Shell shell;
@@ -56,11 +57,7 @@ public class CreateProjectPlugin implements Plugin
       File cwd = shell.getCurrentDirectory();
 
       File dir = new File(cwd.getAbsolutePath() + "/" + name);
-      if (!containsProject(dir) && shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory? "))
-      {
-         dir.mkdirs();
-      }
-      else
+      if (containsProject(dir) || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
       {
          if (containsProject(dir))
          {
@@ -71,9 +68,10 @@ public class CreateProjectPlugin implements Plugin
          do
          {
             shell.println();
-            shell.println("What would you like to call the project folder? ");
+            shell.print("What would you like to call the project folder? ");
             if (!containsProject(newDir))
             {
+               shell.println();
                shell.print("[Press ENTER to use the current directory: " + cwd + "] ");
             }
             String folder = shell.prompt("");
@@ -88,7 +86,7 @@ public class CreateProjectPlugin implements Plugin
          dir = newDir;
       }
 
-      String groupId = shell.promptRegex("Please enter your base package [e.g: \"com.example.project\"] ", "(?i)([a-z]+.?)+");
+      String groupId = shell.promptCommon("Please enter your base package [e.g: \"com.example.project\"] ", PromptType.JAVA_PACKAGE);
 
       if (!dir.exists())
       {
@@ -98,8 +96,8 @@ public class CreateProjectPlugin implements Plugin
       MavenProject project = new MavenProject(dir, true);
       Model pom = project.getPOM();
       pom.setArtifactId(name);
-
       pom.setGroupId(groupId);
+      pom.setPackaging("jar");
 
       project.setPOM(pom);
 

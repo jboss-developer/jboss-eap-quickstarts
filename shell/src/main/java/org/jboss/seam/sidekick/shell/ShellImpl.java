@@ -24,10 +24,13 @@ package org.jboss.seam.sidekick.shell;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import javax.enterprise.event.Event;
@@ -62,13 +65,10 @@ import org.slf4j.Logger;
 @Singleton
 public class ShellImpl implements Shell
 {
-   private class InvalidInput
-   {
-   }
 
    private static final String PROP_CWD = "$CWD";
    private static final String PROP_PROMPT = "$PROMPT";
-
+   private final Map<String, Object> properties = new HashMap<String, Object>();
    private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
 
    @Inject
@@ -84,19 +84,17 @@ public class ShellImpl implements Shell
    @Inject
    private ExecutionParser parser;
 
+   @Inject
+   private Event<PostStartup> postStartup;
+
+   @Inject
+   private CurrentProjectHolder cph;
+
    private ConsoleReader reader;
 
    private boolean verbose = false;
    private boolean pretend = false;
    private boolean exitRequested = false;
-
-   @Inject
-   private Event<PostStartup> postStartup;
-
-   private final Map<String, Object> properties = new HashMap<String, Object>();
-
-   @Inject
-   private CurrentProjectHolder cph;
 
    void init(@Observes final Startup event) throws Exception
    {
@@ -298,116 +296,11 @@ public class ShellImpl implements Shell
       {
          return new SimpleDateFormat("hh:mm").format(new Date());
       }
-
    }
 
-   @Override
-   public String prompt()
-   {
-      return prompt("");
-   }
-
-   @Override
-   public String prompt(final String message)
-   {
-      print(message);
-      try
-      {
-         reader.removeCompleter(completer);
-         String line = reader.readLine();
-         reader.addCompleter(completer);
-         return line;
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException("Shell input stream failure", e);
-      }
-   }
-
-   @Override
-   public String promptRegex(String message, String regex)
-   {
-      String input = "";
-      do
-      {
-         input = prompt(message);
-      }
-      while (!input.matches(regex));
-      return input;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T> T prompt(final String message, final Class<T> clazz)
-   {
-      Object result = null;
-      Object input = "";
-      do
-      {
-         input = prompt(message);
-         try
-         {
-            result = DataConversion.convert(input, clazz);
-         }
-         catch (Exception e)
-         {
-            result = new InvalidInput();
-         }
-      }
-      while ((result instanceof InvalidInput));
-
-      return (T) result;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T> T prompt(final String message, final Class<T> clazz, final T defaultIfEmpty)
-   {
-      Object result = null;
-      String input = "";
-      do
-      {
-         input = prompt(message);
-         if ((input == null) || "".equals(input.trim()))
-         {
-            result = defaultIfEmpty;
-         }
-         else
-         {
-            input = input.trim();
-            try
-            {
-               result = DataConversion.convert(input, clazz);
-            }
-            catch (Exception e)
-            {
-               result = new InvalidInput();
-            }
-         }
-      }
-      while ((result instanceof InvalidInput));
-
-      return (T) result;
-   }
-
-   @Override
-   public boolean promptBoolean(final String message)
-   {
-      return promptBoolean(message, true);
-   }
-
-   @Override
-   public boolean promptBoolean(final String message, final boolean defaultIfEmpty)
-   {
-      String query = "[Y/n]";
-      if (!defaultIfEmpty)
-      {
-         query = "[y/N]";
-      }
-
-      return prompt(message + " " + query, Boolean.class, defaultIfEmpty);
-   }
-
+   /*
+    * Shell Print Methods
+    */
    @Override
    public void printlnVerbose(final String line)
    {
@@ -482,11 +375,6 @@ public class ShellImpl implements Shell
       this.reader.addCompleter(completer);
    }
 
-   public ConsoleReader getReader()
-   {
-      return reader;
-   }
-
    @Override
    public void setProperty(final String name, final Object value)
    {
@@ -539,5 +427,191 @@ public class ShellImpl implements Shell
    public void setCurrentDirectory(File directory)
    {
       setProperty(PROP_CWD, directory.getAbsolutePath());
+   }
+
+   /*
+    * Shell Prompts
+    */
+   @Override
+   public String prompt()
+   {
+      return prompt("");
+   }
+
+   @Override
+   public String prompt(final String message)
+   {
+      print(message);
+      try
+      {
+         reader.removeCompleter(completer);
+         String line = reader.readLine();
+         reader.addCompleter(completer);
+         return line;
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException("Shell input stream failure", e);
+      }
+   }
+
+   @Override
+   public String promptRegex(String message, String regex)
+   {
+      String input = "";
+      do
+      {
+         input = prompt(message);
+      }
+      while (!input.matches(regex));
+      return input;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T prompt(final String message, final Class<T> clazz)
+   {
+      Object result = null;
+      Object input = "";
+      do
+      {
+         input = prompt(message);
+         try
+         {
+            result = DataConversion.convert(input, clazz);
+         }
+         catch (Exception e)
+         {
+            result = InvalidInput.INSTANCE;
+         }
+      }
+      while ((result instanceof InvalidInput));
+
+      return (T) result;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T prompt(final String message, final Class<T> clazz, final T defaultIfEmpty)
+   {
+      Object result = null;
+      String input = "";
+      do
+      {
+         input = prompt(message);
+         if ((input == null) || "".equals(input.trim()))
+         {
+            result = defaultIfEmpty;
+         }
+         else
+         {
+            input = input.trim();
+            try
+            {
+               result = DataConversion.convert(input, clazz);
+            }
+            catch (Exception e)
+            {
+               result = InvalidInput.INSTANCE;
+            }
+         }
+      }
+      while ((result instanceof InvalidInput));
+
+      return (T) result;
+   }
+
+   @Override
+   public boolean promptBoolean(final String message)
+   {
+      return promptBoolean(message, true);
+   }
+
+   @Override
+   public boolean promptBoolean(final String message, final boolean defaultIfEmpty)
+   {
+      String query = " [Y/n] ";
+      if (!defaultIfEmpty)
+      {
+         query = " [y/N] ";
+      }
+
+      return prompt(message + query, Boolean.class, defaultIfEmpty);
+   }
+
+   @Override
+   public <T> T promptChoice(String message, T... options)
+   {
+      return promptChoice(message, Arrays.asList(options));
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T promptChoice(String message, List<T> options)
+   {
+      if (options == null)
+      {
+         throw new IllegalArgumentException("promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+      }
+
+      int count = 1;
+      println(message);
+
+      Object result = InvalidInput.INSTANCE;
+
+      while (result instanceof InvalidInput)
+      {
+         println();
+         for (T entry : options)
+         {
+            println("  " + count + " - [" + entry + "]");
+            count++;
+         }
+         println();
+         int input = prompt("Choose an option by typing the number of the selection: ", Integer.class) - 1;
+         if (input < options.size())
+         {
+            result = options.get(input);
+         }
+         else
+         {
+            println("Invalid selection, please try again.");
+         }
+      }
+      return (T) result;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T promptChoice(String message, Map<String, T> options)
+   {
+      int count = 1;
+      println(message);
+      List<Entry<String, T>> entries = new ArrayList<Map.Entry<String, T>>();
+      entries.addAll(options.entrySet());
+
+      Object result = InvalidInput.INSTANCE;
+      while (result instanceof InvalidInput)
+      {
+         println();
+         for (Entry<String, T> entry : entries)
+         {
+            println("  " + count + " - [" + entry.getKey() + "]");
+            count++;
+         }
+         println();
+         String input = prompt("Choose an option by typing the name or number of the selection: ");
+         if (options.containsKey(input))
+         {
+            result = options.get(input);
+         }
+      }
+      return (T) result;
+   }
+
+   @Override
+   public String promptCommon(String message, PromptType type)
+   {
+      return promptRegex(message, type.getPattern());
    }
 }

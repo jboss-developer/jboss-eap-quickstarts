@@ -25,32 +25,9 @@ package org.jboss.seam.sidekick.shell.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-
-import jline.console.ConsoleReader;
-
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.sidekick.project.model.MavenProject;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.ShellImpl;
-import org.jboss.seam.sidekick.shell.plugins.events.Startup;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -59,95 +36,46 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class ShellImplTest
+public class ShellImplTest extends AbstractShellTest
 {
    @Deployment
-   public static JavaArchive createTestArchive()
+   public static JavaArchive extendDeployment()
    {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar")
-               .addPackages(true, ShellImpl.class.getPackage())
-               .addClass(DependencyBuilder.class)
-               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
-   }
-
-   private static final String PKG = ShellImplTest.class.getSimpleName().toLowerCase();
-   private static File tempFolder;
-   private static MavenProject project;
-
-   @Inject
-   private ShellImpl shell;
-
-   @Inject
-   private BeanManager manager;
-
-   @BeforeClass
-   public static void before() throws IOException
-   {
-      tempFolder = File.createTempFile(PKG, null);
-      tempFolder.delete();
-      tempFolder.mkdirs();
-      project = new MavenProject(tempFolder, true);
-   }
-
-   @Before
-   public void beforeTest()
-   {
-      List<String> parameters = new ArrayList<String>();
-      parameters.add("--verbose");
-      parameters.add("--pretend");
-      shell.setParameters(parameters);
-
-      manager.fireEvent(new Startup(), new Annotation[] {});
-   }
-
-   @After
-   public void afterTest() throws IOException
-   {
-      shell.setReader(new ConsoleReader());
-   }
-
-   @AfterClass
-   public static void after()
-   {
-      if (tempFolder.exists())
-      {
-         assertTrue(project.delete(tempFolder));
-      }
+      return getDeployment();
    }
 
    @Test
    public void testPromptBoolean() throws Exception
    {
-      shell.setReader(new ConsoleReader(new StringInputStream("y\n"), new PrintWriter(System.out)));
-      assertTrue(shell.promptBoolean("Would you like cake?"));
+      queueInputLines("y");
+      assertTrue(getShell().promptBoolean("Would you like cake?"));
 
-      shell.setReader(new ConsoleReader(new StringInputStream("yes\n"), new PrintWriter(System.out)));
-      assertTrue(shell.promptBoolean("Would you like cake?"));
+      queueInputLines("yes");
+      assertTrue(getShell().promptBoolean("Would you like cake?"));
 
-      shell.setReader(new ConsoleReader(new StringInputStream("n\n"), new PrintWriter(System.out)));
-      assertFalse(shell.promptBoolean("Would you like cake?"));
+      queueInputLines("n");
+      assertFalse(getShell().promptBoolean("Would you like cake?"));
 
-      shell.setReader(new ConsoleReader(new StringInputStream("no\n"), new PrintWriter(System.out)));
-      assertFalse(shell.promptBoolean("Would you like cake?"));
+      queueInputLines("no");
+      assertFalse(getShell().promptBoolean("Would you like cake?"));
    }
 
    @Test
    public void testPromptBooleanDefaultsToYes() throws Exception
    {
-      shell.setReader(new ConsoleReader(new StringInputStream(""), new PrintWriter(System.out)));
-      assertTrue(shell.promptBoolean("Would you like cake?"));
+      queueInputLines("");
+      assertTrue(getShell().promptBoolean("Would you like cake?"));
    }
 
    @Test
    public void testPromptBooleanLoopsIfBadInput() throws Exception
    {
-      shell.setReader(new ConsoleReader(new StringInputStream("asdfdsf\n \n"), new PrintWriter(System.out)));
-      assertFalse(shell.promptBoolean("Would you like cake?", false));
+      queueInputLines("asdfdsf\n \n");
+      assertFalse(getShell().promptBoolean("Would you like cake?", false));
 
-      shell.setReader(new ConsoleReader(new StringInputStream("asdfdsf\n n\n"), new PrintWriter(System.out)));
-      assertFalse(shell.promptBoolean("Would you like cake?", false));
+      queueInputLines("asdfdsf\n n\n");
+      assertFalse(getShell().promptBoolean("Would you like cake?", false));
 
-      shell.setReader(new ConsoleReader(new StringInputStream("asdfdsf\n y\n"), new PrintWriter(System.out)));
-      assertTrue(shell.promptBoolean("Would you like cake?", false));
+      queueInputLines("asdfdsf\n y\n");
    }
 }

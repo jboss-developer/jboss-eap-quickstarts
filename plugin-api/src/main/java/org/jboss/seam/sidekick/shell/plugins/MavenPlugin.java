@@ -19,14 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
+package org.jboss.seam.sidekick.shell.plugins;
+
+import java.util.List;
+
+import org.apache.maven.model.Dependency;
 
 /**
- * A plugin that can be installed and removed from a working project.
+ * A plugin that depends on Apache Maven for dependency management and
+ * resolution.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface InstallablePlugin extends Plugin
+public interface MavenPlugin extends InstallablePlugin
 {
+   /**
+    * Get a list of the Maven dependencies required by this plugin.
+    */
+   public List<Dependency> getDependencies();
+
+   /**
+    * Get a list of the Maven POM packaging types this plugin is compatible
+    * with; at least one of these types must be used in order for this plugin to
+    * function. Returning an empty list signals that this plugin is compatible
+    * with all packaging types.
+    */
+   public List<PackagingType> getCompatiblePackagingTypes();
 }

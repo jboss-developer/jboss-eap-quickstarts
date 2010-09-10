@@ -19,50 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
+package org.jboss.seam.sidekick.shell.plugins;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.inject.Qualifier;
-
 /**
- * A command option.
+ * Describes help text for a plug-in.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Qualifier
-@Target({ METHOD, PARAMETER })
+@Target({ TYPE })
 @Retention(RUNTIME)
 @Documented
-public @interface Option
+public @interface Help
 {
    /**
-    * The name of this option.
+    * The help text.
     */
-   String value() default "";
-
-
-   String description() default "";
-
-   /**
-    * Specify whether or not this option is required.
-    */
-   boolean required() default false;
-
-   /**
-    * The default value for this option, if not provided in user input.
-    */
-   String defaultValue() default "";
-
-   /**
-    * Help text for this option.
-    */
-   String help() default "";
+   String value();
 }

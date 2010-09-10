@@ -21,19 +21,23 @@
  */
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
 import org.jboss.seam.sidekick.project.model.MavenProject;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
-import org.jboss.seam.sidekick.shell.plugins.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Plugin;
+import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.Help;
+import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.PackagingType;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -64,8 +68,35 @@ public class InstallPlugin implements Plugin
             MavenPlugin installable = (MavenPlugin) plugin;
             if (!isInstalledInProject(installable))
             {
-               install(installable);
+               List<PackagingType> types = installable.getCompatiblePackagingTypes();
+               if (!types.contains(new PackagingType(project.getPOM().getPackaging())))
+               {
+                  String packaging = project.getPOM().getPackaging();
+                  if (shell.promptBoolean("The [" + meta.getName()
+                        + "] plugin requires one of the following packaging types: "
+                        + types + ", but is currently ["
+                        + packaging + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+                  {
+                     PackagingType type = shell.promptChoice("Select a new packaging type:", types);
+                     Model pom = project.getPOM();
+                     pom.setPackaging(type.getType());
+                     project.setPOM(pom);
+                     shell.println("Packaging updated to [" + type + "]");
+                  }
+                  else
+                  {
+                     abort();
+                     return;
+                  }
+
+               }
+
+               for (Dependency dep : installable.getDependencies())
+               {
+                  project.addDependency(dep);
+               }
             }
+            shell.println("Installation completed successfully.");
          }
          else
          {
@@ -92,11 +123,8 @@ public class InstallPlugin implements Plugin
       return true;
    }
 
-   private void install(final MavenPlugin plugin)
+   private void abort()
    {
-      for (Dependency dep : plugin.getDependencies())
-      {
-         project.addDependency(dep);
-      }
+      shell.println("Installation cancelled!");
    }
 }

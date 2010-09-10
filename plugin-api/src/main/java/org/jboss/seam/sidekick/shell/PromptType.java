@@ -19,41 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.plugins.plugins;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import javax.inject.Qualifier;
+package org.jboss.seam.sidekick.shell;
 
 /**
- * Represents a single command to be run on a Shell.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Inherited
-@Qualifier
-@Documented
-@Retention(RUNTIME)
-@Target({ METHOD, PARAMETER, TYPE, FIELD })
-public @interface Command
+public enum PromptType
 {
-   /**
-    * One or more names for this command.
-    */
-   String value() default "";
+   JAVA_PACKAGE("(?i)([a-z]+\\.?)+");
 
-   /**
-    * Help text for this command.
-    */
-   String help() default "";
+   private final String pattern;
+
+   private PromptType(String pattern)
+   {
+      this.pattern = pattern;
+   }
+
+   public String getPattern()
+   {
+      return pattern;
+   }
 }

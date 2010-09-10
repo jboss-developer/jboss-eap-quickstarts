@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,26 +30,29 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
 import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.plugins.MavenPlugin;
-import org.jboss.seam.sidekick.shell.plugins.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.Command;
+import org.jboss.seam.sidekick.shell.plugins.Help;
+import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.PackagingType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("demo-plugin")
+@Named("demoplugin")
 @Help("A very basic installable plugin")
 public class DemoPlugin implements MavenPlugin
 {
    @Inject
    private DependencyBuilder builder;
 
-   @Command(value = "do-something", help = "a basic do-nothing kind of command")
+   @Command(value = "count", help = "a basic do-nothing kind of command")
    public void doSomething(@Option(required = true, description = "count") int count)
    {
       for (int i = 0; i < count; i++)
+      {
          System.out.println(i + "!");
+      }
    }
 
    @Override
@@ -59,5 +63,13 @@ public class DemoPlugin implements MavenPlugin
       result.add(builder.setGroupId("com.demo").setArtifactId("demo-library").setVersion("1.0.0").build());
 
       return result;
+   }
+
+   @Override
+   public List<PackagingType> getCompatiblePackagingTypes()
+   {
+      return Arrays.asList(
+            new PackagingType("jar"),
+            new PackagingType("war"));
    }
 }

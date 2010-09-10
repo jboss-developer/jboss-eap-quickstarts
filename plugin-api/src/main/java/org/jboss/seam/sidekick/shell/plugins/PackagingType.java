@@ -19,46 +19,78 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.Plugin;
+package org.jboss.seam.sidekick.shell.plugins;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("verbose")
-@Help("Display or toggle the current verbose mode.")
-public class VerbosePlugin implements Plugin
+public class PackagingType
 {
-   @Inject
-   Shell shell;
+   private String type;
 
-   @DefaultCommand
-   public void execute(@Option(required = false, help = "Toggle verbose mode [on/off]") final String verbose)
+   public PackagingType(String type)
    {
-      if ("on".equalsIgnoreCase(verbose))
-      {
-         shell.setVerbose(true);
-      }
-      else if ("off".equalsIgnoreCase(verbose))
-      {
-         shell.setVerbose(false);
-      }
+      setType(type);
+   }
 
-      if (shell.isVerbose())
+   public String getType()
+   {
+      return type;
+   }
+
+   public void setType(String type)
+   {
+      if (type != null)
       {
-         shell.println("Shell IS running in verbose mode.");
+         type = type.trim().toLowerCase();
       }
-      else
+      this.type = type;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((type == null) ? 0 : type.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
       {
-         shell.println("Shell is NOT running in verbose mode.");
+         return true;
       }
+      if (obj == null)
+      {
+         return false;
+      }
+      if (getClass() != obj.getClass())
+      {
+         return false;
+      }
+      PackagingType other = (PackagingType) obj;
+      if (type == null)
+      {
+         if (other.type != null)
+         {
+            return false;
+         }
+      }
+      else if (!type.equals(other.type))
+      {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public String toString()
+   {
+      return type;
    }
 }

@@ -19,46 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.cli.builtin;
+package org.jboss.seam.sidekick.shell.plugins;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
-import org.jboss.seam.sidekick.shell.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
+ * A custom {@link Plugin} must implement this interface in order to be detected and installed at framework boot-time.
+ * In order to create plugin shell-commands, one must create a method annotated with @{@link Command}. Any command
+ * method parameters to be provided as input through the shell must be individually annotated with the @{@link Option}
+ * annotation; other (non-annotated) command parameters are ignored.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("verbose")
-@Help("Display or toggle the current verbose mode.")
-public class VerbosePlugin implements Plugin
+public interface Plugin
 {
-   @Inject
-   Shell shell;
 
-   @DefaultCommand
-   public void execute(@Option(required = false, help = "Toggle verbose mode [on/off]") final String verbose)
-   {
-      if ("on".equalsIgnoreCase(verbose))
-      {
-         shell.setVerbose(true);
-      }
-      else if ("off".equalsIgnoreCase(verbose))
-      {
-         shell.setVerbose(false);
-      }
-
-      if (shell.isVerbose())
-      {
-         shell.println("Shell IS running in verbose mode.");
-      }
-      else
-      {
-         shell.println("Shell is NOT running in verbose mode.");
-      }
-   }
 }
