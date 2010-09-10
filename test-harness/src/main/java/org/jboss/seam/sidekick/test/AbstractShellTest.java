@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell.test;
+package org.jboss.seam.sidekick.test;
 
 import static org.junit.Assert.assertTrue;
 
@@ -28,21 +28,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
-import jline.console.ConsoleReader;
-
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.sidekick.project.model.MavenProject;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.ShellImpl;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -63,9 +57,8 @@ public abstract class AbstractShellTest
    public static JavaArchive getDeployment()
    {
 
-      JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar");
-      archive.addPackages(true, ShellImpl.class.getPackage())
-             .addClass(DependencyBuilder.class)
+      JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
+             .addPackages(true, AbstractShellTest.class.getPackage())
              .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
@@ -101,17 +94,14 @@ public abstract class AbstractShellTest
       tempFolder.mkdirs();
       project = new MavenProject(tempFolder, true);
 
-      List<String> parameters = new ArrayList<String>();
-      parameters.add("--verbose");
-      parameters.add("--pretend");
-      parameters.add(tempFolder.getAbsolutePath());
-      ((ShellImpl) getShell()).setParameters(parameters);
+      shell.setCurrentDirectory(tempFolder.getAbsoluteFile());
 
       beanManager.fireEvent(new Startup(), new Annotation[] {});
 
       inputQueue = new LinkedList<String>();
       QueuedInputStream is = new QueuedInputStream(inputQueue);
-      ((ShellImpl) getShell()).setReader(new ConsoleReader(is, new PrintWriter(System.out)));
+      shell.setInputStream(is);
+      shell.setOutputWriter(new PrintWriter(System.out));
    }
 
    @After

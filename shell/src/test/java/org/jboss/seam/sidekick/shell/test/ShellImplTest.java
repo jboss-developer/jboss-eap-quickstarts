@@ -27,6 +27,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
+import org.jboss.seam.sidekick.shell.ShellImpl;
+import org.jboss.seam.sidekick.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +44,9 @@ public class ShellImplTest extends AbstractShellTest
    @Deployment
    public static JavaArchive extendDeployment()
    {
-      return getDeployment();
+      return getDeployment().addClass(ShellImpl.class)
+            .addPackages(true, ShellImpl.class.getPackage())
+            .addClass(DependencyBuilder.class);
    }
 
    @Test

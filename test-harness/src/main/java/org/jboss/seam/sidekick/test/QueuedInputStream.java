@@ -1,4 +1,4 @@
-package org.jboss.seam.sidekick.shell.test;
+package org.jboss.seam.sidekick.test;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;

@@ -20,6 +20,12 @@
          <artifactId>sidekick-shell-plugin-api</artifactId>
       </dependency>
       <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-test-harness</artifactId>
+         <scope>test</scope>
+      </dependency>
+      
+      <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-se</artifactId>
       </dependency>

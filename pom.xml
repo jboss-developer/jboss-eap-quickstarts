@@ -22,6 +22,7 @@
       <module>parser-java</module>
       <module>project-model</module>
       <module>plugin-api</module>
+      <module>test-harness</module>
       <module>shell</module>
    </modules>
 
@@ -68,6 +69,11 @@
          <dependency>
             <groupId>org.jboss.seam.sidekick</groupId>
             <artifactId>sidekick-shell-plugin-api</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.sidekick</groupId>
+            <artifactId>sidekick-test-harness</artifactId>
             <version>${project.version}</version>
          </dependency>
 

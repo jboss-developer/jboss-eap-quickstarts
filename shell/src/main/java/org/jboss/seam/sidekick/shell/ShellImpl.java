@@ -23,6 +23,9 @@ package org.jboss.seam.sidekick.shell;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,6 +99,9 @@ public class ShellImpl implements Shell
    private boolean pretend = false;
    private boolean exitRequested = false;
 
+   private InputStream inputStream;
+   private Writer outputWriter;
+
    void init(@Observes final Startup event) throws Exception
    {
       log.info("Seam Sidekick Shell - Starting up.");
@@ -104,11 +110,27 @@ public class ShellImpl implements Shell
       DataConversion.addConversionHandler(boolean.class, booleanConverter);
       DataConversion.addConversionHandler(Boolean.class, booleanConverter);
 
-      setReader(new ConsoleReader());
+      initStreams();
       initParameters();
       printWelcomeBanner();
 
       postStartup.fire(new PostStartup());
+   }
+
+   private void initStreams() throws IOException
+   {
+      if (inputStream == null)
+      {
+         inputStream = System.in;
+      }
+      if (outputWriter == null)
+      {
+         outputWriter = new PrintWriter(System.out);
+      }
+      this.reader = new ConsoleReader(inputStream, outputWriter);
+      this.reader.setHistoryEnabled(true);
+      this.reader.setPrompt("");
+      this.reader.addCompleter(completer);
    }
 
    private void initParameters()
@@ -359,20 +381,18 @@ public class ShellImpl implements Shell
       return pretend;
    }
 
-   /**
-    * Set the parameters as if they had been received from the command line.
-    */
-   public void setParameters(final List<String> parameters)
+   @Override
+   public void setInputStream(InputStream is) throws IOException
    {
-      this.parameters = parameters;
+      this.inputStream = is;
+      initStreams();
    }
 
-   public void setReader(final ConsoleReader reader)
+   @Override
+   public void setOutputWriter(Writer os) throws IOException
    {
-      this.reader = reader;
-      this.reader.setHistoryEnabled(true);
-      this.reader.setPrompt("");
-      this.reader.addCompleter(completer);
+      this.outputWriter = os;
+      initStreams();
    }
 
    @Override

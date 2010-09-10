@@ -23,6 +23,9 @@
 package org.jboss.seam.sidekick.shell;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -232,4 +235,13 @@ public interface Shell
     */
    String getPrompt();
 
+   /**
+    * Set the stream from which the shell should read input.
+    */
+   void setInputStream(InputStream inputStream) throws IOException;
+
+   /**
+    * Set the writer to which the shell should print output.
+    */
+   void setOutputWriter(Writer writer) throws IOException;
 }

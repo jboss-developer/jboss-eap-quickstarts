@@ -1,4 +1,4 @@
-package org.jboss.seam.sidekick.shell.test;
+package org.jboss.seam.sidekick.test;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
