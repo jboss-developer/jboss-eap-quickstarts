@@ -28,6 +28,7 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.jboss.seam.sidekick.project.PackagingType;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.shell.Shell;
@@ -37,7 +38,6 @@ import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
 import org.jboss.seam.sidekick.shell.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.PackagingType;
 import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**

@@ -65,4 +65,5 @@ public interface MavenFacet extends Facet
     * Remove the given {@link Dependency} from this facet's {@link Project}. See also: {@link DependencyBuilder}.
     */
    public void removeDependency(Dependency dependency);
+
 }

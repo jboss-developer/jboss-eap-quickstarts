@@ -24,6 +24,8 @@ package org.jboss.seam.sidekick.project;
 import java.io.File;
 import java.util.List;
 
+import org.jboss.seam.sidekick.project.facets.FacetNotFoundException;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -36,9 +38,10 @@ public interface Project
    public boolean hasFacet(Class<? extends Facet> type);
 
    /**
-    * Return the instance of the requested {@link Facet} type, or null if no {@link Facet} of that type is registered.
+    * Return the instance of the requested {@link Facet} type, or throw a {@link FacetNotFoundException} if no
+    * {@link Facet} of that type is registered.
     */
-   public <F extends Facet> F getFacet(Class<F> type);
+   public <F extends Facet> F getFacet(Class<F> type) throws FacetNotFoundException;
 
    /**
     * Return a list of the currently installed {@link Facet}s. Return an empty list if no facets of that type were

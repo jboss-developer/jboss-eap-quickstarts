@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell.plugins;
+package org.jboss.seam.sidekick.project;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -28,9 +28,16 @@ package org.jboss.seam.sidekick.shell.plugins;
  */
 public class PackagingType
 {
+   // TODO there needs to be some kind of hierarchy of PackagingTypes, enforced via a nice friendly resolution
+   // algorithm.
+   public static final PackagingType NONE = new PackagingType("");
+   public static final PackagingType BASIC = new PackagingType("pom");
+   public static final PackagingType JAR = new PackagingType("jar");
+   public static final PackagingType WAR = new PackagingType("war");
+
    private String type;
 
-   public PackagingType(String type)
+   public PackagingType(final String type)
    {
       setType(type);
    }
@@ -59,7 +66,7 @@ public class PackagingType
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {

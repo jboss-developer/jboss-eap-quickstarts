@@ -65,8 +65,27 @@ public class ProjectFactory
       for (Class<? extends Facet> type : facetTypes)
       {
          Facet facet = facetFactory.getFacet(type);
-         facet.init(project).install();
+         installSingleFacet(project, facet);
       }
+   }
+
+   private void installSingleFacet(final Project project, final Facet facet)
+   {
+      Set<Class<? extends Facet>> dependencies = facet.getDependencies();
+
+      if (dependencies != null)
+      {
+         for (Class<? extends Facet> dep : dependencies)
+         {
+            if (!project.hasFacet(dep))
+            {
+               Facet depFacet = facetFactory.getFacet(dep);
+               installSingleFacet(project, depFacet);
+            }
+         }
+      }
+
+      facet.init(project).install();
    }
 
    public Project findProject(final File startingPath)
