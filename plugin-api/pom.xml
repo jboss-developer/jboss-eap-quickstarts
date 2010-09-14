@@ -10,7 +10,6 @@
    </parent>
 
    <artifactId>sidekick-shell-plugin-api</artifactId>
-   
    <name>Seam Sidekick Shell Plugin API</name>
    <packaging>jar</packaging>
 

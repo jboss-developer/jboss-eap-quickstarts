@@ -27,8 +27,9 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
-import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.services.ProjectFactory;
 import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.Help;
@@ -45,13 +46,16 @@ public class InitProjectPlugin implements Plugin
    private final Shell shell;
    private final CurrentProjectHolder cp;
    private final Event<InitProject> init;
+   private final ProjectFactory projectFactory;
 
    @Inject
-   public InitProjectPlugin(Shell shell, CurrentProjectHolder currentProjectHolder, Event<InitProject> init)
+   public InitProjectPlugin(final Shell shell, final CurrentProjectHolder currentProjectHolder,
+            final Event<InitProject> init, final ProjectFactory projectFactory)
    {
       this.shell = shell;
       this.cp = currentProjectHolder;
       this.init = init;
+      this.projectFactory = projectFactory;
    }
 
    public void postStartupTrigger(@Observes final PostStartup event)
@@ -59,7 +63,7 @@ public class InitProjectPlugin implements Plugin
       init.fire(new InitProject());
    }
 
-   public void doInit(@Observes InitProject event)
+   public void doInit(@Observes final InitProject event)
    {
       File targetDirectory = shell.getCurrentDirectory();
       shell.printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
@@ -69,7 +73,7 @@ public class InitProjectPlugin implements Plugin
       {
          try
          {
-            MavenProject currentProject = new MavenProject(targetDirectory);
+            Project currentProject = projectFactory.findProject(targetDirectory);
             cp.setCurrentProject(currentProject);
          }
          catch (ProjectModelException e)

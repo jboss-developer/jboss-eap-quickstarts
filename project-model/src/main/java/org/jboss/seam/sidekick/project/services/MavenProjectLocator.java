@@ -19,36 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.services;
 
-package org.jboss.seam.sidekick.shell;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import java.io.File;
 
 import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.facets.impl.MavenFacetImpl;
+import org.jboss.seam.sidekick.project.model.ProjectImpl;
 
 /**
+ * Locate a Maven project starting in the current directory, and progressing up the chain of parent directories until a
+ * project is found, or the root directory is found. If a project is found, return the {@link File} referring to the
+ * directory containing that project, or return null if no projects were found.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public class MavenProjectLocator implements ProjectLocator
 {
-   private Project currentProject;
-
-   @Produces
-   @Default
-   @Dependent
-   public Project getCurrentProject()
+   @Override
+   public Project findProject(final File startingDirectory)
    {
-      return currentProject;
-   }
+      File root = startingDirectory.getAbsoluteFile();
+      File pom = new File(root + "/pom.xml");
+      while (!pom.exists() && (root.getParentFile() != null))
+      {
+         root = root.getParentFile();
+         pom = new File(root + "/pom.xml");
+      }
 
-   public void setCurrentProject(final Project currentProject)
-   {
-      this.currentProject = currentProject;
-   }
+      Project result = null;
+      if (pom.exists())
+      {
+         result = new ProjectImpl(startingDirectory);
+         result.registerFacet(new MavenFacetImpl().init(result));
+      }
 
+      return result;
+   }
 }

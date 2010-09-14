@@ -28,8 +28,12 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Model;
 import org.jboss.seam.sidekick.parser.java.JavaParser;
+import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
-import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
+import org.jboss.seam.sidekick.project.facets.MavenFacet;
+import org.jboss.seam.sidekick.project.facets.ResourceFacet;
+import org.jboss.seam.sidekick.project.services.ProjectFactory;
 import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
 import org.jboss.seam.sidekick.shell.PromptType;
 import org.jboss.seam.sidekick.shell.Shell;
@@ -50,6 +54,9 @@ public class NewProjectPlugin implements Plugin
 
    @Inject
    private CurrentProjectHolder cp;
+
+   @Inject
+   private ProjectFactory projectFactory;
 
    @DefaultCommand
    public void create(@Option(description = "The name of the new project", required = true) final String name)
@@ -86,37 +93,30 @@ public class NewProjectPlugin implements Plugin
          dir = newDir;
       }
 
-      String groupId = shell.promptCommon("Please enter your base package [e.g: \"com.example.project\"] ", PromptType.JAVA_PACKAGE);
+      String groupId = shell.promptCommon("Please enter your base package [e.g: \"com.example.project\"] ",
+               PromptType.JAVA_PACKAGE);
 
       if (!dir.exists())
       {
          dir.mkdirs();
       }
 
-      MavenProject project = new MavenProject(dir, true);
-      Model pom = project.getPOM();
+      Project project = projectFactory.createProject(dir, MavenFacet.class, JavaSourceFacet.class, ResourceFacet.class);
+      Model pom = project.getFacet(MavenFacet.class).getPOM();
       pom.setArtifactId(name);
       pom.setGroupId(groupId);
       pom.setPackaging("jar");
 
-      project.setPOM(pom);
+      project.getFacet(MavenFacet.class).setPOM(pom);
 
-      for (File folder : project.getSourceFolders())
-      {
-         folder.mkdirs();
-      }
-
-      for (File folder : project.getResourceFolders())
-      {
-         folder.mkdirs();
-      }
-
-      project.createJavaFile(JavaParser.createClass()
-            .setPackage(groupId)
-            .setName("HelloWorld")
-            .addMethod("public void String sayHello() {}")
-            .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name + ".\");")
-            .applyChanges());
+      project.getFacet(JavaSourceFacet.class).createJavaFile(JavaParser
+               .createClass()
+               .setPackage(groupId)
+               .setName("HelloWorld")
+               .addMethod("public void String sayHello() {}")
+               .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name
+                        + ".\");")
+               .applyChanges());
 
       // project.createResource("<beans/>".toCharArray(), "META-INF/beans.xml");
 
@@ -129,11 +129,11 @@ public class NewProjectPlugin implements Plugin
       shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
    }
 
-   private boolean containsProject(File newDir)
+   private boolean containsProject(final File newDir)
    {
       try
       {
-         new MavenProject(newDir);
+         projectFactory.findProject(newDir);
          return true;
       }
       catch (ProjectModelException e)

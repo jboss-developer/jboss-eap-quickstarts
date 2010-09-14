@@ -11,7 +11,7 @@
    </parent>
    
    <artifactId>sidekick-shell</artifactId>
-   
+   <packaging>jar</packaging>
    <name>Seam Sidekick Shell</name>
    
    <dependencies>

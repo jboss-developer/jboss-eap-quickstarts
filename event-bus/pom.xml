@@ -10,9 +10,8 @@
    </parent>
 
    <artifactId>sidekick-event-bus</artifactId>
-
-   <name>Seam Sidekick Targeted Event Bus</name>
    <packaging>jar</packaging>
+   <name>Seam Sidekick Targeted Event Bus</name>
 
    <dependencies>
       <dependency>

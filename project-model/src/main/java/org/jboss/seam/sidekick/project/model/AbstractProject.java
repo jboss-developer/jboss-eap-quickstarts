@@ -25,14 +25,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.jboss.seam.sidekick.parser.java.JavaClass;
+import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.events.JavaFileCreated;
+import org.jboss.seam.sidekick.project.facets.FacetNotFoundException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -43,28 +46,7 @@ public abstract class AbstractProject implements Project
    @Inject
    Event<JavaFileCreated> event;
 
-   private File createJavaFile(final File sourceFolder, final String classPackage, final String className,
-            final char[] data)
-   {
-      String pkg = getSourceFolder() + File.separator + classPackage.replaceAll("\\.", File.separator);
-      File file = new File(pkg + File.separator + className + ".java");
-
-      writeFile(file, data);
-      // TODO event.fire(Created new Java file);
-
-      return file;
-   }
-
-   private File createJavaFile(final String classPackage, final String className, final String data)
-   {
-      return createJavaFile(getSourceFolder(), classPackage, className, data.toCharArray());
-   }
-
-   @Override
-   public File createJavaFile(final JavaClass clazz)
-   {
-      return createJavaFile(clazz.getPackage(), clazz.getName(), clazz.toString());
-   }
+   private final List<Facet> installedFacets = new ArrayList<Facet>();
 
    @Override
    public boolean delete(final File file)
@@ -84,39 +66,7 @@ public abstract class AbstractProject implements Project
    }
 
    @Override
-   public File createResource(final char[] bytes, final String relativePath)
-   {
-
-      String path = getResourceFolder().getAbsolutePath();
-      if ((relativePath != null) && !relativePath.trim().isEmpty())
-      {
-         path = path + "/" + relativePath;
-      }
-
-      File file = new File(path);
-      writeFile(file, bytes);
-      return file;
-   }
-
-   @Override
-   public File createTestResource(final char[] bytes, final String relativePath)
-   {
-
-      String path = getTestResourceFolder().getAbsolutePath();
-      if ((relativePath != null) && !relativePath.trim().isEmpty())
-      {
-         path = path + "/" + relativePath;
-      }
-
-      File file = new File(path);
-      writeFile(file, bytes);
-      return file;
-   }
-
-   /*
-    * Utility methods
-    */
-   private void writeFile(final File file, final char[] data)
+   public void writeFile(final char[] data, final File file)
    {
       BufferedWriter writer = null;
       try
@@ -143,4 +93,70 @@ public abstract class AbstractProject implements Project
       }
    }
 
+   @Override
+   public boolean hasFacet(final Class<? extends Facet> type)
+   {
+      try
+      {
+         getFacet(type);
+         return true;
+      }
+      catch (FacetNotFoundException e)
+      {
+         return false;
+      }
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <F extends Facet> F getFacet(final Class<F> type)
+   {
+      Facet result = null;
+      for (Facet facet : installedFacets)
+      {
+         if ((facet != null) && type.isAssignableFrom(facet.getClass()))
+         {
+            result = facet;
+         }
+      }
+      if (result == null)
+      {
+         throw new FacetNotFoundException("The requested facet of type [" + type.getName()
+                  + "] was not found. The facet is not installed.");
+      }
+      return (F) result;
+   }
+
+   @Override
+   public List<Facet> getFacets()
+   {
+      return installedFacets;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <F extends Facet> List<F> getFacets(final Class<F> type)
+   {
+      List<F> result = new ArrayList<F>();
+
+      for (Facet facet : installedFacets)
+      {
+         if ((facet != null) && facet.getClass().isAssignableFrom(type))
+         {
+            result.add((F) facet);
+         }
+      }
+
+      return result;
+   }
+
+   @Override
+   public void registerFacet(final Facet facet)
+   {
+      if (facet == null)
+      {
+         throw new IllegalArgumentException("Attempted to register 'null' as a Facet; Facets cannot be null.");
+      }
+      installedFacets.add(facet);
+   }
 }

@@ -31,24 +31,30 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.eclipse.core.internal.resources.Project;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.parser.java.JavaParser;
+import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
-import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
+import org.jboss.seam.sidekick.project.facets.MavenFacet;
+import org.jboss.seam.sidekick.project.facets.ResourceFacet;
+import org.jboss.seam.sidekick.project.facets.WebResourceFacet;
 import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
+import org.jboss.seam.sidekick.project.services.FacetFactory;
+import org.jboss.seam.sidekick.project.services.ProjectFactory;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -56,43 +62,61 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Singleton
 @RunWith(Arquillian.class)
-public class MavenProjectTest
+public class MavenFacetsTest
 {
    @Deployment
    public static JavaArchive createTestArchive()
    {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
                .addPackages(true, Project.class.getPackage())
-               .addClass(MavenProject.class)
-               .addClass(DependencyBuilder.class)
-               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+               .addClass(FacetFactory.class)
+               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"))
+               .addManifestResource("META-INF/services/javax.enterprise.inject.spi.Extension")
+               .addManifestResource("META-INF/services/org.jboss.seam.sidekick.project.Facet")
+               .addManifestResource("META-INF/services/org.jboss.seam.sidekick.project.services.ProjectLocator");
    }
 
-   private static final String PKG = MavenProjectTest.class.getSimpleName().toLowerCase();
+   private static final String PKG = MavenFacetsTest.class.getSimpleName().toLowerCase();
    private static File tempFolder;
-   private static MavenProject tempProject;
 
-   private final MavenProject thisProject = new MavenProject();
+   @Inject
+   private ProjectFactory projectFactory;
 
-   private final MavenProject testProject = new MavenProject("src/test/resources/test-pom");
+   private static Project tempProject;
+   private static Project thisProject;
+   private static Project testProject;
 
    @Inject
    private DependencyBuilder dependencyBuilder;
 
-   @BeforeClass
-   public static void before() throws IOException
+   @Before
+   @SuppressWarnings("unchecked")
+   public void postConstruct() throws IOException
    {
-      tempFolder = File.createTempFile(PKG, null);
-      tempFolder.delete();
-      tempFolder.mkdirs();
-      File pom = new File(tempFolder.getAbsolutePath() + "/pom.xml");
-      pom.createNewFile();
-      tempProject = new MavenProject(tempFolder, true);
+      if (thisProject == null)
+      {
+         thisProject = projectFactory.findProject(new File(""));
+      }
+      if (testProject == null)
+      {
+         testProject = projectFactory.findProject(new File("src/test/resources/test-pom"));
+      }
+
+      if (tempProject == null)
+      {
+         tempFolder = File.createTempFile(PKG, null);
+         tempFolder.delete();
+         tempFolder.mkdirs();
+
+         tempProject = projectFactory.createProject(tempFolder, MavenFacet.class, JavaSourceFacet.class,
+                  ResourceFacet.class, WebResourceFacet.class);
+      }
    }
 
    @AfterClass
-   public static void after()
+   public static void preDestroy()
    {
       if (tempFolder.exists())
       {
@@ -109,13 +133,15 @@ public class MavenProjectTest
    @Test
    public void testGetDefaultSourceDir() throws Exception
    {
-      assertEquals(new File(tempProject.getProjectRoot() + "/src/main/java/"), tempProject.getSourceFolder());
+      assertEquals(new File(tempProject.getProjectRoot() + "/src/main/java/"),
+               tempProject.getFacet(JavaSourceFacet.class).getSourceFolder());
    }
 
    @Test
    public void testGetTestSourceDir() throws Exception
    {
-      assertEquals(new File(tempProject.getProjectRoot() + "/src/test/java/"), tempProject.getTestSourceFolder());
+      assertEquals(new File(tempProject.getProjectRoot() + "/src/test/java/"),
+               tempProject.getFacet(JavaSourceFacet.class).getTestSourceFolder());
    }
 
    @Test
@@ -124,7 +150,7 @@ public class MavenProjectTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
       clazz.applyChanges();
-      File file = tempProject.createJavaFile(clazz);
+      File file = tempProject.getFacet(JavaSourceFacet.class).createJavaFile(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass result = JavaParser.parse(file);
@@ -137,11 +163,11 @@ public class MavenProjectTest
    @Test
    public void testCreatePOM() throws Exception
    {
-      Model pom = tempProject.getPOM();
+      Model pom = tempProject.getFacet(MavenFacet.class).getPOM();
       pom.setGroupId("org.jboss.seam");
       pom.setArtifactId("scaffolding");
       pom.setVersion("X-SNAPSHOT");
-      tempProject.setPOM(pom);
+      tempProject.getFacet(MavenFacet.class).setPOM(pom);
       File file = pom.getPomFile();
       assertTrue(file.exists());
 
@@ -153,7 +179,7 @@ public class MavenProjectTest
    @Test
    public void testHasDependency() throws Exception
    {
-      assertTrue(testProject.hasDependency(dependencyBuilder.setGroupId("com.ocpsoft")
+      assertTrue(testProject.getFacet(MavenFacet.class).hasDependency(dependencyBuilder.setGroupId("com.ocpsoft")
                .setArtifactId("prettyfaces-jsf2").setVersion("3.0.2-SNAPSHOT").build()));
    }
 
@@ -161,37 +187,37 @@ public class MavenProjectTest
    public void testAddDependency() throws Exception
    {
       Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
-            .setArtifactId("test-dependency").setVersion("1.0.0.Final").build();
+               .setArtifactId("test-dependency").setVersion("1.0.0.Final").build();
 
-      assertFalse(tempProject.hasDependency(dependency));
-      tempProject.addDependency(dependency);
-      assertTrue(tempProject.hasDependency(dependency));
+      assertFalse(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
+      tempProject.getFacet(MavenFacet.class).addDependency(dependency);
+      assertTrue(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
    }
 
    @Test
    public void testRemoveDependency() throws Exception
    {
       Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
-            .setArtifactId("test-dependency").setVersion("1.0.1.Final").build();
+               .setArtifactId("test-dependency").setVersion("1.0.1.Final").build();
 
-      assertFalse(tempProject.hasDependency(dependency));
-      tempProject.addDependency(dependency);
-      assertTrue(tempProject.hasDependency(dependency));
-      tempProject.removeDependency(dependency);
-      assertFalse(tempProject.hasDependency(dependency));
+      assertFalse(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
+      tempProject.getFacet(MavenFacet.class).addDependency(dependency);
+      assertTrue(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
+      tempProject.getFacet(MavenFacet.class).removeDependency(dependency);
+      assertFalse(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
    }
 
    @Test
    public void testProjectIsCurrentProject() throws Exception
    {
-      Model pom = thisProject.getPOM();
+      Model pom = thisProject.getFacet(MavenFacet.class).getPOM();
       assertEquals("sidekick-project-model", pom.getArtifactId());
    }
 
    @Test
    public void testAbsoluteProjectIsResolvedCorrectly() throws Exception
    {
-      Model pom = testProject.getPOM();
+      Model pom = testProject.getFacet(MavenFacet.class).getPOM();
       assertEquals("socialpm", pom.getArtifactId());
    }
 
@@ -201,15 +227,16 @@ public class MavenProjectTest
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      new MavenProject(temp); // boom
+      projectFactory.findProject(temp); // boom
    }
 
    @Test
+   @SuppressWarnings("unchecked")
    public void testAbsoluteUnknownProjectInstantiatesWithCreateTrue() throws Exception
    {
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      new MavenProject(temp, true); // no boom
+      projectFactory.createProject(temp, MavenFacet.class, JavaSourceFacet.class); // no boom
    }
 }

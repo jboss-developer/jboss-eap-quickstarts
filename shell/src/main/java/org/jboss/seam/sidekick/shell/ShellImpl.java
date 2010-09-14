@@ -44,6 +44,7 @@ import javax.inject.Singleton;
 import jline.console.ConsoleReader;
 import jline.console.completer.Completer;
 
+import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.shell.cli.Execution;
 import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
@@ -382,14 +383,14 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void setInputStream(InputStream is) throws IOException
+   public void setInputStream(final InputStream is) throws IOException
    {
       this.inputStream = is;
       initStreams();
    }
 
    @Override
-   public void setOutputWriter(Writer os) throws IOException
+   public void setOutputWriter(final Writer os) throws IOException
    {
       this.outputWriter = os;
       initStreams();
@@ -428,10 +429,11 @@ public class ShellImpl implements Shell
    @Override
    public String getPrompt()
    {
+      // TODO this needs to be refactored
       String suffix = "[no project]";
       if (cph.getCurrentProject() != null)
       {
-         suffix = "[" + cph.getCurrentProject().getPOM().getArtifactId() + "]";
+         suffix = "[" + cph.getCurrentProject().getFacet(MavenFacet.class).getPOM().getArtifactId() + "]";
       }
       String path = getCurrentDirectory().getAbsolutePath();
       return (String) getProperty(PROP_PROMPT) + suffix + " " + path + " $ ";
@@ -444,7 +446,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void setCurrentDirectory(File directory)
+   public void setCurrentDirectory(final File directory)
    {
       setProperty(PROP_CWD, directory.getAbsolutePath());
    }
@@ -476,7 +478,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public String promptRegex(String message, String regex)
+   public String promptRegex(final String message, final String regex)
    {
       String input = "";
       do
@@ -560,18 +562,19 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public <T> T promptChoice(String message, T... options)
+   public <T> T promptChoice(final String message, final T... options)
    {
       return promptChoice(message, Arrays.asList(options));
    }
 
    @Override
    @SuppressWarnings("unchecked")
-   public <T> T promptChoice(String message, List<T> options)
+   public <T> T promptChoice(final String message, final List<T> options)
    {
       if (options == null)
       {
-         throw new IllegalArgumentException("promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+         throw new IllegalArgumentException(
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -603,7 +606,7 @@ public class ShellImpl implements Shell
 
    @Override
    @SuppressWarnings("unchecked")
-   public <T> T promptChoice(String message, Map<String, T> options)
+   public <T> T promptChoice(final String message, final Map<String, T> options)
    {
       int count = 1;
       println(message);
@@ -630,7 +633,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public String promptCommon(String message, PromptType type)
+   public String promptCommon(final String message, final PromptType type)
    {
       return promptRegex(message, type.getPattern());
    }

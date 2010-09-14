@@ -19,36 +19,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.model;
 
-package org.jboss.seam.sidekick.shell;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
-import org.jboss.seam.sidekick.project.Project;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public class ProjectImpl extends AbstractProject
 {
-   private Project currentProject;
+   private File projectRoot = null;
 
-   @Produces
-   @Default
-   @Dependent
-   public Project getCurrentProject()
+   public ProjectImpl(final File rootDirectory)
    {
-      return currentProject;
+      projectRoot = rootDirectory;
    }
 
-   public void setCurrentProject(final Project currentProject)
+   @Override
+   public File getProjectRoot()
    {
-      this.currentProject = currentProject;
+      return projectRoot;
    }
 
+   @Override
+   public boolean exists()
+   {
+      return projectRoot != null;
+   }
 }

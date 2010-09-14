@@ -28,7 +28,8 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
-import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
@@ -53,11 +54,11 @@ public class InstallPlugin implements Plugin
    private Shell shell;
 
    @Inject
-   private MavenProject project;
+   private Project project;
 
    @DefaultCommand
    public void install(@Option(required = true,
-         description = "The plugin to install") final String pluginName)
+            description = "The plugin to install") final String pluginName)
    {
       PluginMetadata meta = registry.getPlugins().get(pluginName);
       if (meta != null)
@@ -69,18 +70,22 @@ public class InstallPlugin implements Plugin
             if (!isInstalledInProject(installable))
             {
                List<PackagingType> types = installable.getCompatiblePackagingTypes();
-               if (!types.contains(new PackagingType(project.getPOM().getPackaging())))
+               MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+               if (!types.contains(new PackagingType(mavenFacet.getPOM().getPackaging())))
                {
-                  String packaging = project.getPOM().getPackaging();
-                  if (shell.promptBoolean("The [" + meta.getName()
-                        + "] plugin requires one of the following packaging types: "
-                        + types + ", but is currently ["
-                        + packaging + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+                  String packaging = mavenFacet.getPOM().getPackaging();
+                  if (shell.promptBoolean("The ["
+                           + meta.getName()
+                           + "] plugin requires one of the following packaging types: "
+                           + types
+                           + ", but is currently ["
+                           + packaging
+                           + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
                   {
                      PackagingType type = shell.promptChoice("Select a new packaging type:", types);
-                     Model pom = project.getPOM();
+                     Model pom = mavenFacet.getPOM();
                      pom.setPackaging(type.getType());
-                     project.setPOM(pom);
+                     mavenFacet.setPOM(pom);
                      shell.println("Packaging updated to [" + type + "]");
                   }
                   else
@@ -93,7 +98,7 @@ public class InstallPlugin implements Plugin
 
                for (Dependency dep : installable.getDependencies())
                {
-                  project.addDependency(dep);
+                  mavenFacet.addDependency(dep);
                }
             }
             shell.println("Installation completed successfully.");
@@ -115,7 +120,8 @@ public class InstallPlugin implements Plugin
    {
       for (Dependency d : installable.getDependencies())
       {
-         if (!project.hasDependency(d))
+         MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+         if (!mavenFacet.hasDependency(d))
          {
             return false;
          }

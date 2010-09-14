@@ -1,54 +1,55 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.jboss.seam.sidekick</groupId>
-        <artifactId>sidekick-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+   <parent>
+      <groupId>org.jboss.seam.sidekick</groupId>
+      <artifactId>sidekick-parent</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
 
-    <artifactId>sidekick-project-model</artifactId>
+   <artifactId>sidekick-project-model</artifactId>
+   <packaging>jar</packaging>
+   <name>Seam Sidekick Project Model APIs</name>
 
-    <packaging>jar</packaging>
-    <name>Seam Sidekick Project Model APIs</name>
+   <dependencies>
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-parser-java</artifactId>
+      </dependency>
+      
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-extensions</artifactId>
+      </dependency>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jboss.seam.sidekick</groupId>
-            <artifactId>sidekick-parser-java</artifactId>
-        </dependency>
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-descriptors</artifactId>
+         <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven</groupId>
+         <artifactId>maven-model</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven</groupId>
+         <artifactId>maven-core</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven</groupId>
+         <artifactId>maven-compat</artifactId>
+      </dependency>
 
-        <dependency>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-descriptors</artifactId>
-            <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-compat</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-        </dependency>
-
-    </dependencies>
+   </dependencies>
 
 </project>

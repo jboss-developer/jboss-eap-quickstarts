@@ -10,7 +10,6 @@
    </parent>
 
    <artifactId>sidekick-parser-java</artifactId>
-
    <packaging>jar</packaging>
    <name>Seam Sidekick Parser - Java</name>
 

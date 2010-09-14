@@ -19,36 +19,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.facets;
 
-package org.jboss.seam.sidekick.shell;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
-import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.ProjectModelException;
 
 /**
+ * An exception representing the state where a project facet was requested, but was not available.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public class FacetNotFoundException extends ProjectModelException
 {
-   private Project currentProject;
+   private static final long serialVersionUID = 633736084707564318L;
 
-   @Produces
-   @Default
-   @Dependent
-   public Project getCurrentProject()
+   public FacetNotFoundException()
    {
-      return currentProject;
    }
 
-   public void setCurrentProject(final Project currentProject)
+   public FacetNotFoundException(final String message)
    {
-      this.currentProject = currentProject;
+      super(message);
+   }
+
+   public FacetNotFoundException(final Throwable e)
+   {
+      super(e);
+   }
+
+   public FacetNotFoundException(final String message, final Throwable e)
+   {
+      super(message, e);
    }
 
 }

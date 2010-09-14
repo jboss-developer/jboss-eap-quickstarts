@@ -19,36 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.services;
 
-package org.jboss.seam.sidekick.shell;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import java.io.File;
 
 import org.jboss.seam.sidekick.project.Project;
 
 /**
+ * Locates project root directories.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public interface ProjectLocator
 {
-   private Project currentProject;
-
-   @Produces
-   @Default
-   @Dependent
-   public Project getCurrentProject()
-   {
-      return currentProject;
-   }
-
-   public void setCurrentProject(final Project currentProject)
-   {
-      this.currentProject = currentProject;
-   }
-
+   /**
+    * Attempt to locate a project root directory in the given folder or its hierarchy by using a strategy implemented by
+    * this method. Return the project, if found, or return null otherwise.
+    */
+   public Project findProject(File startingDirectory);
 }

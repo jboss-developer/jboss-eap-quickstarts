@@ -8,6 +8,7 @@
    </parent>
 
    <artifactId>sidekick-test-harness</artifactId>
+   <packaging>jar</packaging>
    <name>Seam Sidekick Test Harness</name>
 
    <dependencies>

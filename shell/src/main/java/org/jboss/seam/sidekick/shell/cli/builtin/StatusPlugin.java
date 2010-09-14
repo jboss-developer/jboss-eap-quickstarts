@@ -25,7 +25,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
@@ -49,7 +50,7 @@ public class StatusPlugin implements Plugin
    private Shell shell;
 
    @Inject
-   private MavenProject project;
+   private Project project;
 
    @DefaultCommand
    public void status(@Option(help = "The name of the plugin.") final String pluginName)
@@ -95,7 +96,7 @@ public class StatusPlugin implements Plugin
    {
       for (Dependency d : installable.getDependencies())
       {
-         if (!project.hasDependency(d))
+         if (!project.getFacet(MavenFacet.class).hasDependency(d))
          {
             return false;
          }

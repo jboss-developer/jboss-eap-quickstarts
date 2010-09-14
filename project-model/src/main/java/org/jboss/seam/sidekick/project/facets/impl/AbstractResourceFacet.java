@@ -19,36 +19,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.facets.impl;
 
-package org.jboss.seam.sidekick.shell;
+import java.io.File;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
-import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.facets.ResourceFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public abstract class AbstractResourceFacet implements ResourceFacet
 {
-   private Project currentProject;
-
-   @Produces
-   @Default
-   @Dependent
-   public Project getCurrentProject()
+   @Override
+   public File createResource(final char[] bytes, final String relativeFilename)
    {
-      return currentProject;
+      File file = new File(getResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
    }
 
-   public void setCurrentProject(final Project currentProject)
+   @Override
+   public File createTestResource(final char[] bytes, final String relativeFilename)
    {
-      this.currentProject = currentProject;
+      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
    }
 
 }

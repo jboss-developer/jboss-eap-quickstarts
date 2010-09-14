@@ -24,8 +24,6 @@ package org.jboss.seam.sidekick.project;
 import java.io.File;
 import java.util.List;
 
-import org.jboss.seam.sidekick.parser.java.JavaClass;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -33,54 +31,35 @@ import org.jboss.seam.sidekick.parser.java.JavaClass;
 public interface Project
 {
    /**
+    * Return true if this project has a facet of the given type; return false otherwise.
+    */
+   public boolean hasFacet(Class<? extends Facet> type);
+
+   /**
+    * Return the instance of the requested {@link Facet} type, or null if no {@link Facet} of that type is registered.
+    */
+   public <F extends Facet> F getFacet(Class<F> type);
+
+   /**
+    * Return a list of the currently installed {@link Facet}s. Return an empty list if no facets of that type were
+    * found.
+    */
+   public List<Facet> getFacets();
+
+   /**
+    * Return a list of the currently installed {@link Facet}s matching the given type.
+    */
+   public <F extends Facet> List<F> getFacets(Class<F> type);
+
+   /**
+    * Add the given {@link Facet} to this {@link Project}'s internal collection of installed facets.
+    */
+   public void registerFacet(Facet facet);
+
+   /**
     * Get the {@link File} representing the root directory of this {@link Project}
     */
    public File getProjectRoot();
-
-   /**
-    * Get a list of {@link File}s representing the directories this project uses to contain {@link Project} non-source
-    * documents (such as configuration files.)
-    */
-   public List<File> getResourceFolders();
-
-   /**
-    * Get the {@link File} representing the folder this {@link Project} uses to store package-able, non-source documents
-    * (such as configuration files.)
-    */
-   public File getResourceFolder();
-
-   /**
-    * Get the {@link File} representing the folder this {@link Project} uses to store test-scoped non-source documents
-    * (such as configuration files.) Files in this directory will never be packaged or deployed except when running Unit
-    * Tests.
-    */
-   public File getTestResourceFolder();
-
-   /**
-    * Get a list of {@link File}s representing the directories this project uses to contain {@link Project} source
-    * documents (such as .java files.)
-    */
-   public List<File> getSourceFolders();
-
-   /**
-    * Get the {@link File} representing the folder this {@link Project} uses to store package-able source documents
-    * (such as .java files.)
-    */
-   public File getSourceFolder();
-
-   /**
-    * Get the {@link File} representing the folder this {@link Project} uses to store test-scoped source documents (such
-    * as .java files.) Files in this directory will never be packaged or deployed except when running Unit Tests.
-    */
-   public File getTestSourceFolder();
-
-   /**
-    * Create a Java file in the primary source directory: {@link #getSourceFolder()} - use information in the given
-    * {@link JavaClass} to determine the appropriate package; packages will be created if necessary.
-    * 
-    * @param clazz The java class to create
-    */
-   public File createJavaFile(JavaClass clazz);
 
    /**
     * Delete the given {@link File}
@@ -88,20 +67,12 @@ public interface Project
    public boolean delete(File file);
 
    /**
-    * TODO As more of these files come into being, move into a separate class
-    * <p>
-    * At the given path/filename relative to the project resources directory: {@link #getResourceFolder()} - create a
-    * file containing the given bytes.
-    * 
-    * @return a handle to the {@link File} that was created.
+    * Create the requested {@link File} and write the given data to it.
     */
-   File createResource(char[] bytes, String relativeFilename);
+   public void writeFile(char[] data, File file);
 
    /**
-    * At the given path/filename relative to the project test resources directory: {@link #getTestResourceFolder()} -
-    * create a file containing the given bytes.
-    * 
-    * @return a handle to the {@link File} that was created.
+    * Return true if this project's file-system has been created and initialized; otherwise, return false.
     */
-   File createTestResource(char[] bytes, String relativeFilename);
+   public boolean exists();
 }

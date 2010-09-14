@@ -19,36 +19,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.facets.impl;
 
-package org.jboss.seam.sidekick.shell;
+import java.io.File;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
-import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.parser.java.JavaClass;
+import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Singleton
-public class CurrentProjectHolder
+public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
 {
-   private Project currentProject;
-
-   @Produces
-   @Default
-   @Dependent
-   public Project getCurrentProject()
+   private File createJavaFile(final File sourceFolder, final String classPackage, final String className,
+            final char[] data)
    {
-      return currentProject;
+      String path = sourceFolder.getAbsolutePath() + File.separator + classPackage.replaceAll("\\.", File.separator);
+      File file = new File(path + File.separator + className + ".java");
+
+      getProject().writeFile(data, file);
+      // TODO event.fire(Created new Java file);
+      return file;
    }
 
-   public void setCurrentProject(final Project currentProject)
+   @Override
+   public File createJavaFile(final JavaClass clazz)
    {
-      this.currentProject = currentProject;
+      return createJavaFile(getSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
    }
 
+   @Override
+   public File createTestJavaFile(final JavaClass clazz)
+   {
+      return createJavaFile(getTestSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
+   }
 }

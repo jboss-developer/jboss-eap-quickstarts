@@ -35,7 +35,9 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.seam.sidekick.project.model.MavenProject;
+import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.model.ProjectImpl;
+import org.jboss.seam.sidekick.project.services.ProjectFactory;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -58,8 +60,9 @@ public abstract class AbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-             .addPackages(true, AbstractShellTest.class.getPackage())
-             .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+               .addPackages(true, AbstractShellTest.class.getPackage())
+               .addClass(ProjectFactory.class)
+               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
    }
@@ -74,7 +77,7 @@ public abstract class AbstractShellTest
 
    private static final String PKG = AbstractShellTest.class.getSimpleName().toLowerCase();
    private static File tempFolder;
-   private static MavenProject project;
+   private static Project project;
 
    @BeforeClass
    public static void before() throws IOException
@@ -92,7 +95,7 @@ public abstract class AbstractShellTest
       tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      project = new MavenProject(tempFolder, true);
+      project = new ProjectImpl(tempFolder);
 
       shell.setCurrentDirectory(tempFolder.getAbsoluteFile());
 
@@ -113,7 +116,7 @@ public abstract class AbstractShellTest
       }
    }
 
-   protected void queueInputLines(String... inputs)
+   protected void queueInputLines(final String... inputs)
    {
       for (String input : inputs)
       {
