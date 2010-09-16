@@ -101,4 +101,10 @@ public class MavenWebFacet extends AbstractWebResourceFacet
       result.add(PackagingFacet.class);
       return result;
    }
+
+   @Override
+   public File getWebResource(final String relativePath)
+   {
+      return new File(getWebRootDirectory() + File.separator + relativePath);
+   }
 }

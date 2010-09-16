@@ -193,6 +193,7 @@ public class ShellImpl implements Shell
             }
             print(getPrompt());
          }
+         println();
       }
       catch (IOException e)
       {

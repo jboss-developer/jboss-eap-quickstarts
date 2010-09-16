@@ -41,13 +41,13 @@ import org.jboss.seam.sidekick.shell.plugins.Option;
  */
 @Named("demoplugin")
 @Help("A very basic installable plugin")
-public class DemoPlugin implements MavenPlugin
+public class DemoPlugin extends MavenPlugin
 {
    @Inject
    private DependencyBuilder builder;
 
    @Command(value = "count", help = "a basic do-nothing kind of command")
-   public void doSomething(@Option(required = true, description = "count") int count)
+   public void doSomething(@Option(required = true, description = "count") final int count)
    {
       for (int i = 0; i < count; i++)
       {
@@ -69,7 +69,7 @@ public class DemoPlugin implements MavenPlugin
    public List<PackagingType> getCompatiblePackagingTypes()
    {
       return Arrays.asList(
-            new PackagingType("jar"),
-            new PackagingType("war"));
+               new PackagingType("jar"),
+               new PackagingType("war"));
    }
 }

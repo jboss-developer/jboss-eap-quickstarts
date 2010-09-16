@@ -23,7 +23,7 @@ package org.jboss.seam.sidekick.test.grammar.java;
 
 import java.io.InputStream;
 
-import org.jboss.seam.sidekick.parser.java.JavaParser;
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.Method;
 import org.jboss.seam.sidekick.test.grammar.java.common.AnnotationTest;
 

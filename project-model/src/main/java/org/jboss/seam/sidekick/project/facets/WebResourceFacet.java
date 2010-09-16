@@ -54,4 +54,6 @@ public interface WebResourceFacet extends Facet
     * @return a handle to the {@link File} that was created.
     */
    File createWebResource(char[] bytes, String relativeFilename);
+
+   File getWebResource(String relativePath);
 }

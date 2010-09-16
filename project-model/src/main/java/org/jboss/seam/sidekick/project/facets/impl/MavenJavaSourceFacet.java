@@ -22,12 +22,15 @@
 package org.jboss.seam.sidekick.project.facets.impl;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.project.ProjectBuildingResult;
+import org.jboss.seam.sidekick.parser.JavaParser;
+import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
@@ -106,5 +109,29 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
       result.add(MavenFacet.class);
       return result;
+   }
+
+   @Override
+   public File getSourceFile(final String relativePath)
+   {
+      return new File(getSourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
+
+   @Override
+   public File getTestSourceFile(final String relativePath)
+   {
+      return new File(getTestSourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
+
+   @Override
+   public JavaClass getJavaClass(final String relativePath) throws FileNotFoundException
+   {
+      return JavaParser.parse(getSourceFile(relativePath));
+   }
+
+   @Override
+   public JavaClass getTestJavaClass(final String relativePath) throws FileNotFoundException
+   {
+      return JavaParser.parse(getTestSourceFile(relativePath));
    }
 }

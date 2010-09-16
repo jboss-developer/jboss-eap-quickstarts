@@ -26,9 +26,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.Field;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
-import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.junit.Before;
 import org.junit.Test;
 

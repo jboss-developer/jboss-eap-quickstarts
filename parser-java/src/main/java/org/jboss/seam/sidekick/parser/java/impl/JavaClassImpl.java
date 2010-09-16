@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -45,6 +46,7 @@ import org.jboss.seam.sidekick.parser.java.Field;
 import org.jboss.seam.sidekick.parser.java.Import;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.parser.java.Method;
+import org.jboss.seam.sidekick.parser.java.SyntaxError;
 import org.jboss.seam.sidekick.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.sidekick.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.sidekick.parser.java.ast.ModifierAccessor;
@@ -64,14 +66,11 @@ public class JavaClassImpl implements JavaClass
    private final ModifierAccessor ma = new ModifierAccessor();
 
    /**
-    * Parses and process the java source code as a compilation unit and the
-    * result it abstract syntax tree (AST) representation and this action uses
-    * the third edition of java Language Specification.
+    * Parses and process the java source code as a compilation unit and the result it abstract syntax tree (AST)
+    * representation and this action uses the third edition of java Language Specification.
     * 
-    * @param source - the java source to be parsed (i.e. the char[] contains
-    *           Java source).
-    * @return CompilationUnit Abstract syntax tree representation of a java
-    *         source file.
+    * @param source - the java source to be parsed (i.e. the char[] contains Java source).
+    * @return CompilationUnit Abstract syntax tree representation of a java source file.
     */
    public JavaClassImpl(final InputStream inputStream)
    {
@@ -110,6 +109,7 @@ public class JavaClassImpl implements JavaClass
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       unit = (CompilationUnit) parser.createAST(null);
       unit.recordModifications();
+
    }
 
    /*
@@ -123,7 +123,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public Annotation addAnnotation(Class<?> clazz)
+   public Annotation addAnnotation(final Class<?> clazz)
    {
       return util.addAnnotation(this, getTypeDeclaration(), clazz);
    }
@@ -141,7 +141,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass removeAnnotation(Annotation annotation)
+   public JavaClass removeAnnotation(final Annotation annotation)
    {
       return util.removeAnnotation(this, getTypeDeclaration(), annotation);
    }
@@ -186,7 +186,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass removeImport(String name)
+   public JavaClass removeImport(final String name)
    {
       for (Import i : getImports())
       {
@@ -200,13 +200,13 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass removeImport(Class<?> clazz)
+   public JavaClass removeImport(final Class<?> clazz)
    {
       return removeImport(clazz.getName());
    }
 
    @Override
-   public JavaClass removeImport(Import imprt)
+   public JavaClass removeImport(final Import imprt)
    {
       Object internal = imprt.getInternal();
       if (unit.imports().contains(internal))
@@ -245,7 +245,7 @@ public class JavaClassImpl implements JavaClass
 
    @Override
    @SuppressWarnings("unchecked")
-   public Field addField(String declaration)
+   public Field addField(final String declaration)
    {
       Field field = new FieldImpl(this, declaration);
       getTypeDeclaration().bodyDeclarations().add(field.getInternal());
@@ -266,7 +266,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass removeField(Field field)
+   public JavaClass removeField(final Field field)
    {
       getTypeDeclaration().bodyDeclarations().remove(field.getInternal());
       return this;
@@ -331,7 +331,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass setName(String name)
+   public JavaClass setName(final String name)
    {
       getTypeDeclaration().setName(unit.getAST().newSimpleName(name));
       updateConstructorNames();
@@ -369,7 +369,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass setPackage(String name)
+   public JavaClass setPackage(final String name)
    {
       if (unit.getPackage() == null)
       {
@@ -461,7 +461,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass setAbstract(boolean abstrct)
+   public JavaClass setAbstract(final boolean abstrct)
    {
       if (abstrct)
       {
@@ -520,7 +520,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {
@@ -539,6 +539,28 @@ public class JavaClassImpl implements JavaClass
          return false;
       }
       return true;
+   }
+
+   @Override
+   public List<SyntaxError> getSyntaxErrors()
+   {
+      List<SyntaxError> result = new ArrayList<SyntaxError>();
+
+      IProblem[] problems = unit.getProblems();
+      if (problems != null)
+      {
+         for (IProblem problem : problems)
+         {
+            result.add(new SyntaxErrorImpl(this, problem));
+         }
+      }
+      return result;
+   }
+
+   @Override
+   public boolean hasSyntaxErrors()
+   {
+      return !getSyntaxErrors().isEmpty();
    }
 
 }

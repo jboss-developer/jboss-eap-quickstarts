@@ -24,27 +24,53 @@ package org.jboss.seam.sidekick.shell.plugins;
 import java.util.List;
 
 import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.project.PackagingType;
+import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.facets.MavenFacet;
 
 /**
- * A plugin that depends on Apache Maven for dependency management and
- * resolution.
+ * A plugin that depends on Apache Maven for dependency management and resolution.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface MavenPlugin extends InstallablePlugin
+public abstract class MavenPlugin implements InstallablePlugin
 {
    /**
     * Get a list of the Maven dependencies required by this plugin.
     */
-   public List<Dependency> getDependencies();
+   public abstract List<Dependency> getDependencies();
 
-   /**
-    * Get a list of the Maven POM packaging types this plugin is compatible
-    * with; at least one of these types must be used in order for this plugin to
-    * function. Returning an empty list signals that this plugin is compatible
-    * with all packaging types.
-    */
-   public List<PackagingType> getCompatiblePackagingTypes();
+   @Override
+   public boolean isInstalled(final Project project)
+   {
+      for (Dependency d : getDependencies())
+      {
+         MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+         if (!mavenFacet.hasDependency(d))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   @Override
+   public void install(final Project project)
+   {
+      for (Dependency dep : getDependencies())
+      {
+         MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+         mavenFacet.addDependency(dep);
+      }
+   }
+
+   @Override
+   public void remove(final Project project)
+   {
+      // TODO this needs to be smarter, and not remove dependencies that are depended on by other plugins.
+      for (Dependency d : getDependencies())
+      {
+         project.getFacet(MavenFacet.class).removeDependency(d);
+      }
+   }
 }

@@ -21,6 +21,11 @@
  */
 package org.jboss.seam.sidekick.shell.plugins;
 
+import java.util.List;
+
+import org.jboss.seam.sidekick.project.PackagingType;
+import org.jboss.seam.sidekick.project.Project;
+
 /**
  * A plugin that can be installed and removed from a working project.
  * 
@@ -29,4 +34,26 @@ package org.jboss.seam.sidekick.shell.plugins;
  */
 public interface InstallablePlugin extends Plugin
 {
+   /**
+    * Get a list of the {@link PackagingType}s this {@link Plugin} is compatible with; at least one of these types must
+    * be used in order for this {@link Plugin} to function. Returning an empty list signals that this plugin is
+    * compatible with all {@link PackagingType} options.
+    */
+   public List<PackagingType> getCompatiblePackagingTypes();
+
+   /**
+    * Ask this plugin to determine whether or not it has been installed in the given {@link Project}. Return true if the
+    * plugin is already installed, return false if not.
+    */
+   boolean isInstalled(Project project);
+
+   /**
+    * Ask this plugin to perform necessary operations for installation in the given {@link Project}.
+    */
+   void install(Project project);
+
+   /**
+    * Ask this plugin to perform necessary operations to safely remove itself from the given {@link Project}
+    */
+   void remove(Project project);
 }

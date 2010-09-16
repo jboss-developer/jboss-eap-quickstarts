@@ -24,15 +24,13 @@ package org.jboss.seam.sidekick.shell.cli.builtin;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
 import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.InstallablePlugin;
 import org.jboss.seam.sidekick.shell.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
@@ -59,14 +57,21 @@ public class UninstallPlugin implements Plugin
       if (meta != null)
       {
          Plugin plugin = registry.instanceOf(meta);
-         if (plugin instanceof MavenPlugin)
+         if (plugin instanceof InstallablePlugin)
          {
-            MavenPlugin removable = (MavenPlugin) plugin;
-            if (isInstalledInProject(removable))
+            InstallablePlugin removable = (InstallablePlugin) plugin;
+            if (removable.isInstalled(project))
             {
-               shell.println("Removing plugin [" + pluginName + "] from project: "
-                        + project.getFacet(MavenFacet.class).getPOM().getArtifactId());
-               remove(removable);
+               removable.remove(project);
+
+               if (!removable.isInstalled(project))
+               {
+                  shell.println("Removal completed successfully...");
+               }
+               else
+               {
+                  shell.println("Errors occurred during removal! Please check your project; there might be a mess...");
+               }
             }
             else
             {
@@ -87,26 +92,4 @@ public class UninstallPlugin implements Plugin
                   + "; are you sure that's the correct name?");
       }
    }
-
-   private void remove(final MavenPlugin plugin)
-   {
-      // TODO this needs to be smarter, and not remove dependencies that are depended on by other plugins.
-      for (Dependency d : plugin.getDependencies())
-      {
-         project.getFacet(MavenFacet.class).removeDependency(d);
-      }
-   }
-
-   private boolean isInstalledInProject(final MavenPlugin installable)
-   {
-      for (Dependency d : installable.getDependencies())
-      {
-         if (!project.getFacet(MavenFacet.class).hasDependency(d))
-         {
-            return false;
-         }
-      }
-      return true;
-   }
-
 }

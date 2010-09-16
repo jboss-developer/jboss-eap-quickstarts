@@ -32,10 +32,10 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.Annotation;
 import org.jboss.seam.sidekick.parser.java.AnnotationTarget;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
-import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.jboss.seam.sidekick.parser.java.ValuePair;
 import org.jboss.seam.sidekick.parser.java.util.Strings;
 

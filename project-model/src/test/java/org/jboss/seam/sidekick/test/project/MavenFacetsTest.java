@@ -38,8 +38,8 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
-import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
@@ -150,7 +150,7 @@ public class MavenFacetsTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
       clazz.applyChanges();
-      File file = tempProject.getFacet(JavaSourceFacet.class).createJavaFile(clazz);
+      File file = tempProject.getFacet(JavaSourceFacet.class).createJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass result = JavaParser.parse(file);

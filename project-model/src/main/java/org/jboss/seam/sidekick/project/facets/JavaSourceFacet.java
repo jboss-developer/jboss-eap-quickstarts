@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.project.facets;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.jboss.seam.sidekick.parser.java.JavaClass;
@@ -53,12 +54,26 @@ public interface JavaSourceFacet extends Facet
    public File getTestSourceFolder();
 
    /**
+    * Return the {@link File} at the given path relative to {@link #getSourceFolder()}. The {@link File} object is
+    * returned regardless of whether the target actually exists. To determine if the file exists, you should call
+    * {@link File#exists()} on the return value of this method.
+    */
+   public File getSourceFile(String relativePath);
+
+   /**
+    * Return the {@link File} at the given path relative to {@link #getTestSourceFolder()}. The {@link File} object is
+    * returned regardless of whether the target actually exists. To determine if the file exists, you should call
+    * {@link File#exists()} on the return value of this method.
+    */
+   public File getTestSourceFile(String relativePath);
+
+   /**
     * Create a Java file in the primary source directory: {@link #getSourceFolder()} - use information in the given
     * {@link JavaClass} to determine the appropriate package; packages will be created if necessary.
     * 
     * @param clazz The java class to create
     */
-   public File createJavaFile(JavaClass clazz);
+   public File createJavaClass(JavaClass clazz);
 
    /**
     * Create a Java file in the primary test source directory: {@link #getTestSourceFolder()} - use information in the
@@ -66,5 +81,20 @@ public interface JavaSourceFacet extends Facet
     * 
     * @param clazz The java class to create
     */
-   public File createTestJavaFile(JavaClass clazz);
+   public File createTestJavaClass(JavaClass clazz);
+
+   /**
+    * Return the {@link JavaClass} at the given path relative to {@link #getSourceFolder()}.
+    * 
+    * @param relativePath The file or package path of the target Java source file.
+    * @throws FileNotFoundException if the target file does not exist
+    */
+   public JavaClass getJavaClass(String relativePath) throws FileNotFoundException;
+
+   /**
+    * Return the {@link JavaClass} at the given path relative to {@link #getTestSourceFolder()}.
+    * 
+    * @param relativePath The file or package path of the target Java source file.
+    */
+   public JavaClass getTestJavaClass(String relativePath) throws FileNotFoundException;
 }

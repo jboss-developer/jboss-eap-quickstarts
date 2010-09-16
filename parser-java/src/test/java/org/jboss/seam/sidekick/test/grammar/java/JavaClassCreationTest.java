@@ -24,8 +24,8 @@ package org.jboss.seam.sidekick.test.grammar.java;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
-import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

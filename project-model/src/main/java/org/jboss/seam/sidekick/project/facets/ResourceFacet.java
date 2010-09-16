@@ -69,4 +69,18 @@ public interface ResourceFacet extends Facet
     * @return a handle to the {@link File} that was created.
     */
    File createTestResource(char[] bytes, String relativeFilename);
+
+   /**
+    * Return the {@link File} at the given path relative to {@link #getResourceFolder()}. The {@link File} object is
+    * returned regardless of whether the target actually exists. To determine if the file exists, you should call
+    * {@link File#exists()} on the return value of this method.
+    */
+   public File getResource(String relativePath);
+
+   /**
+    * Attempt to locate a {@link File} at the given path relative to {@link #getTestResourceFolder()}. The {@link File}
+    * object is returned regardless of whether the target actually exists. To determine if the file exists, you should
+    * call {@link File#exists()} on the return value of this method.
+    */
+   public File getTestResource(String relativePath);
 }

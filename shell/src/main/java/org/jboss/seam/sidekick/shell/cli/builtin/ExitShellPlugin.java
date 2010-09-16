@@ -31,8 +31,7 @@ import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 
 /**
- * Implements a {@link Plugin} that fires the shell {@link Shutdown#NORMAL}
- * event.
+ * Implements a {@link Plugin} that fires the shell {@link Shutdown#NORMAL} event.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 

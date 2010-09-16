@@ -44,13 +44,13 @@ public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
    }
 
    @Override
-   public File createJavaFile(final JavaClass clazz)
+   public File createJavaClass(final JavaClass clazz)
    {
       return createJavaFile(getSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
    }
 
    @Override
-   public File createTestJavaFile(final JavaClass clazz)
+   public File createTestJavaClass(final JavaClass clazz)
    {
       return createJavaFile(getTestSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
    }

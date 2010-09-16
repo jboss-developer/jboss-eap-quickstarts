@@ -31,9 +31,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.Import;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
-import org.jboss.seam.sidekick.parser.java.JavaParser;
 import org.jboss.seam.sidekick.parser.java.Method;
 import org.junit.Before;
 import org.junit.Test;

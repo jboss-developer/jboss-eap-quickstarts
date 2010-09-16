@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.model.Model;
-import org.jboss.seam.sidekick.parser.java.JavaParser;
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
@@ -109,7 +109,7 @@ public class NewProjectPlugin implements Plugin
 
       project.getFacet(MavenFacet.class).setPOM(pom);
 
-      project.getFacet(JavaSourceFacet.class).createJavaFile(JavaParser
+      project.getFacet(JavaSourceFacet.class).createJavaClass(JavaParser
                .createClass()
                .setPackage(groupId)
                .setName("HelloWorld")

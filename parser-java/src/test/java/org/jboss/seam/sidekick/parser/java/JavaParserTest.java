@@ -22,6 +22,9 @@
 
 package org.jboss.seam.sidekick.parser.java;
 
+import static org.junit.Assert.assertTrue;
+
+import org.jboss.seam.sidekick.parser.JavaParser;
 import org.junit.Test;
 
 /**
@@ -30,11 +33,10 @@ import org.junit.Test;
  */
 public class JavaParserTest
 {
-   @Test(expected = Exception.class)
-   public void testExceptionThrownWhenBadFileParsed() throws Exception
+   @Test
+   public void testSyntaxErrorsPresentWhenBadFileParsed() throws Exception
    {
-      // TODO this needs to throw an exception, I think...
       JavaClass clazz = JavaParser.parse("asdfa$%(*&#$%sdfdsf");
-      throw new Exception();
+      assertTrue(clazz.hasSyntaxErrors());
    }
 }

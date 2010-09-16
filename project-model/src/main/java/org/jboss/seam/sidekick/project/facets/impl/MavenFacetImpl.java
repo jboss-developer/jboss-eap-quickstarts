@@ -53,6 +53,8 @@ import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
+import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
+import org.sonatype.aether.util.DefaultRepositorySystemSession;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -78,7 +80,9 @@ public class MavenFacetImpl implements MavenFacet
             }
 
             container = new DefaultPlexusContainer();
-            container.setLoggerManager(new ConsoleLoggerManager("ERROR"));
+            ConsoleLoggerManager loggerManager = new ConsoleLoggerManager();
+            loggerManager.setThreshold("ERROR");
+            container.setLoggerManager(loggerManager);
 
             builder = container.lookup(ProjectBuilder.class);
 
@@ -94,10 +98,13 @@ public class MavenFacetImpl implements MavenFacet
                               ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
             request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
 
+            DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
+            repositorySession.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepository));
+            repositorySession.setOffline(true);
+
+            request.setRepositorySession(repositorySession);
             request.setProcessPlugins(true);
             request.setResolveDependencies(true);
-            request.setOffline(true);
-
          }
          catch (Exception e)
          {

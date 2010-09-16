@@ -31,60 +31,70 @@ import java.util.List;
 public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<JavaClass>, AnnotationTarget<JavaClass>
 {
    /*
-    * Annotation modifiers
+    * Compilation apis
     */
-   public abstract Import addImport(final String className);
+   public List<SyntaxError> getSyntaxErrors();
 
-   public abstract Import addImport(final Class<?> type);
+   public boolean hasSyntaxErrors();
 
-   public abstract JavaClass addImports(final Class<?>... types);
+   /*
+    * Package modifiers
+    */
+   public String getPackage();
 
-   public abstract JavaClass addImports(final String... types);
+   public JavaClass setPackage(String name);
 
-   public abstract JavaClass removeImport(String name);
+   public JavaClass setDefaultPackage();
 
-   public abstract JavaClass removeImport(Class<?> clazz);
+   public boolean isDefaultPackage();
 
-   public abstract JavaClass removeImport(Import imprt);
+   /*
+    * Import modifiers
+    */
+   public Import addImport(final String className);
 
-   public abstract List<Import> getImports();
+   public Import addImport(final Class<?> type);
+
+   public JavaClass addImports(final Class<?>... types);
+
+   public JavaClass addImports(final String... types);
+
+   public JavaClass removeImport(String name);
+
+   public JavaClass removeImport(Class<?> clazz);
+
+   public JavaClass removeImport(Import imprt);
+
+   public List<Import> getImports();
 
    /*
     * Fields & Methods
     */
 
-   public abstract Field addField();
+   public Field addField();
 
-   public abstract Field addField(final String field);
+   public Field addField(final String field);
 
-   public abstract List<Field> getFields();
+   public List<Field> getFields();
 
-   public abstract JavaClass removeField(final Field method);
+   public JavaClass removeField(final Field method);
 
-   public abstract Method addMethod();
+   public Method addMethod();
 
-   public abstract Method addMethod(final String method);
+   public Method addMethod(final String method);
 
-   public abstract List<Method> getMethods();
+   public List<Method> getMethods();
 
-   public abstract JavaClass removeMethod(final Method method);
+   public JavaClass removeMethod(final Method method);
 
-   public abstract String getName();
+   public String getName();
 
-   public abstract JavaClass setName(String name);
-
-   public abstract String getPackage();
-
-   public abstract JavaClass setPackage(String name);
-
-   public abstract JavaClass setDefaultPackage();
-
-   public abstract boolean isDefaultPackage();
+   public JavaClass setName(String name);
 
    @Override
-   public abstract int hashCode();
+   public int hashCode();
 
    @Override
-   public abstract boolean equals(final Object obj);
+   public boolean equals(final Object obj);
 
 }

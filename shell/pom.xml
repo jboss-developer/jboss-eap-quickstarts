@@ -21,6 +21,10 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-scaffolding</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
          <artifactId>sidekick-test-harness</artifactId>
          <scope>test</scope>
       </dependency>

@@ -102,4 +102,16 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
       result.add(MavenFacet.class);
       return result;
    }
+
+   @Override
+   public File getResource(final String relativePath)
+   {
+      return new File(getResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
+
+   @Override
+   public File getTestResource(final String relativePath)
+   {
+      return new File(getTestResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
 }

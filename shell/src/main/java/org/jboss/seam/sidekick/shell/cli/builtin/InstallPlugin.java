@@ -26,17 +26,15 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
 import org.jboss.seam.sidekick.project.PackagingType;
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.facets.MavenFacet;
+import org.jboss.seam.sidekick.project.facets.PackagingFacet;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
 import org.jboss.seam.sidekick.shell.cli.PluginRegistry;
 import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.Help;
-import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
+import org.jboss.seam.sidekick.shell.plugins.InstallablePlugin;
 import org.jboss.seam.sidekick.shell.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
@@ -64,16 +62,15 @@ public class InstallPlugin implements Plugin
       if (meta != null)
       {
          Plugin plugin = registry.instanceOf(meta);
-         if (plugin instanceof MavenPlugin)
+         if (plugin instanceof InstallablePlugin)
          {
-            MavenPlugin installable = (MavenPlugin) plugin;
-            if (!isInstalledInProject(installable))
+            InstallablePlugin installable = (InstallablePlugin) plugin;
+            if (!installable.isInstalled(project))
             {
                List<PackagingType> types = installable.getCompatiblePackagingTypes();
-               MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-               if (!types.contains(new PackagingType(mavenFacet.getPOM().getPackaging())))
+               PackagingType packaging = project.getFacet(PackagingFacet.class).getPackagingType();
+               if (!types.contains(packaging))
                {
-                  String packaging = mavenFacet.getPOM().getPackaging();
                   if (shell.promptBoolean("The ["
                            + meta.getName()
                            + "] plugin requires one of the following packaging types: "
@@ -83,9 +80,7 @@ public class InstallPlugin implements Plugin
                            + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
                   {
                      PackagingType type = shell.promptChoice("Select a new packaging type:", types);
-                     Model pom = mavenFacet.getPOM();
-                     pom.setPackaging(type.getType());
-                     mavenFacet.setPOM(pom);
+                     project.getFacet(PackagingFacet.class).setPackagingType(type);
                      shell.println("Packaging updated to [" + type + "]");
                   }
                   else
@@ -96,12 +91,17 @@ public class InstallPlugin implements Plugin
 
                }
 
-               for (Dependency dep : installable.getDependencies())
-               {
-                  mavenFacet.addDependency(dep);
-               }
+               installable.install(project);
             }
-            shell.println("Installation completed successfully.");
+
+            if (installable.isInstalled(project))
+            {
+               shell.println("Installation completed successfully.");
+            }
+            else
+            {
+               shell.println("Installation failed! Please check your project; there may be a mess!");
+            }
          }
          else
          {
@@ -114,19 +114,6 @@ public class InstallPlugin implements Plugin
          shell.println("Could not find a plugin with the name: " + pluginName
                   + "; are you sure that's the correct name?");
       }
-   }
-
-   private boolean isInstalledInProject(final MavenPlugin installable)
-   {
-      for (Dependency d : installable.getDependencies())
-      {
-         MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-         if (!mavenFacet.hasDependency(d))
-         {
-            return false;
-         }
-      }
-      return true;
    }
 
    private void abort()
