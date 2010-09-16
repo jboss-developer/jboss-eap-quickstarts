@@ -23,6 +23,7 @@
       <module>project-model</module>
       <module>plugin-api</module>
       <module>test-harness</module>
+      <module>sidekick-scaffolding</module>
       <module>shell</module>
    </modules>
 
@@ -33,7 +34,7 @@
       <jline.version>2.3</jline.version>
       <junit.version>4.8.1</junit.version>
       <log4j.version>1.2.16</log4j.version>
-      <maven.version>3.0-beta-2</maven.version>
+      <maven.version>3.0-RC1</maven.version>
       <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
       <shrinkwrap.descriptors.version>1.0.0-SNAPSHOT</shrinkwrap.descriptors.version>
       <slf4j.version>1.5.10</slf4j.version>
@@ -69,6 +70,11 @@
          <dependency>
             <groupId>org.jboss.seam.sidekick</groupId>
             <artifactId>sidekick-shell-plugin-api</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.sidekick</groupId>
+            <artifactId>sidekick-scaffolding</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>
@@ -129,6 +135,11 @@
          <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-compat</artifactId>
+            <version>${maven.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-aether-provider</artifactId>
             <version>${maven.version}</version>
          </dependency>
 
