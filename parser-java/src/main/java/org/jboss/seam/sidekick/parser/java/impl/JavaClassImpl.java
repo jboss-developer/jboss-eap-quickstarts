@@ -125,7 +125,11 @@ public class JavaClassImpl implements JavaClass
    @Override
    public Annotation addAnnotation(final Class<?> clazz)
    {
-      return util.addAnnotation(this, getTypeDeclaration(), clazz);
+      if (!this.hasImport(clazz))
+      {
+         this.addImport(clazz);
+      }
+      return util.addAnnotation(this, getTypeDeclaration(), clazz.getSimpleName());
    }
 
    @Override
@@ -154,9 +158,30 @@ public class JavaClassImpl implements JavaClass
    @SuppressWarnings("unchecked")
    public Import addImport(final String className)
    {
-      Import imprt = new ImportImpl(this).setName(className);
-      unit.imports().add(imprt.getInternal());
+      Import imprt = null;
+      if (!hasImport(className))
+      {
+         imprt = new ImportImpl(this).setName(className);
+         unit.imports().add(imprt.getInternal());
+      }
+      else
+      {
+         imprt = getImport(className);
+      }
       return imprt;
+   }
+
+   private Import getImport(final String className)
+   {
+      List<Import> imports = getImports();
+      for (Import imprt : imports)
+      {
+         if (imprt.getName().equals(className))
+         {
+            return imprt;
+         }
+      }
+      return null;
    }
 
    @Override
@@ -183,6 +208,18 @@ public class JavaClassImpl implements JavaClass
          addImport(type);
       }
       return this;
+   }
+
+   @Override
+   public boolean hasImport(final Class<?> type)
+   {
+      return hasImport(type.getName());
+   }
+
+   @Override
+   public boolean hasImport(final String type)
+   {
+      return getImport(type) != null;
    }
 
    @Override

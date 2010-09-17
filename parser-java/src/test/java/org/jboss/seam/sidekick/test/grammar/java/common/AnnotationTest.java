@@ -39,7 +39,7 @@ public abstract class AnnotationTest
 {
    private AnnotationTarget<?> target;
 
-   public void setTarget(AnnotationTarget<?> target)
+   public void setTarget(final AnnotationTarget<?> target)
    {
       this.target = target;
    }
@@ -85,9 +85,9 @@ public abstract class AnnotationTest
       target.addAnnotation(Test.class);
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
-      assertEquals(Test.class.getName(), annotations.get(annotations.size() - 1).getName());
+      assertEquals(Test.class.getSimpleName(), annotations.get(annotations.size() - 1).getName());
       target.applyChanges();
-      assertTrue(target.toString().contains("@" + Test.class.getName()));
+      assertTrue(target.toString().contains("@" + Test.class.getSimpleName()));
    }
 
    @Test
@@ -110,10 +110,10 @@ public abstract class AnnotationTest
       target.addAnnotation(Test.class);
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 2, annotations.size());
-      assertEquals(Test.class.getName(), annotations.get(annotations.size() - 1).getName());
-      assertEquals(Test.class.getName(), annotations.get(annotations.size() - 2).getName());
+      assertEquals(Test.class.getSimpleName(), annotations.get(annotations.size() - 1).getName());
+      assertEquals(Test.class.getSimpleName(), annotations.get(annotations.size() - 2).getName());
       target.applyChanges();
-      String pattern = "@" + Test.class.getName() + " " + "@" + Test.class.getName();
+      String pattern = "@" + Test.class.getSimpleName() + " " + "@" + Test.class.getSimpleName();
       assertTrue(target.toString().contains(pattern));
    }
 
@@ -135,7 +135,7 @@ public abstract class AnnotationTest
       assertEquals(size + 1, annotations.size());
 
       Annotation annotation = annotations.get(annotations.size() - 1);
-      assertEquals(Test.class.getName(), annotation.getName());
+      assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertEquals("435", annotation.getLiteralValue());
    }
 
@@ -144,14 +144,15 @@ public abstract class AnnotationTest
    {
       int size = target.getAnnotations().size();
 
-      target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class").setLiteralValue("foo", "bar");
+      target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class")
+               .setLiteralValue("foo", "bar");
       target.applyChanges();
 
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
 
       Annotation annotation = annotations.get(annotations.size() - 1);
-      assertEquals(Test.class.getName(), annotation.getName());
+      assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertEquals(null, annotation.getLiteralValue());
       assertEquals("RuntimeException.class", annotation.getLiteralValue("expected"));
       assertEquals("bar", annotation.getLiteralValue("foo"));

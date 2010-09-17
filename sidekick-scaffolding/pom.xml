@@ -17,6 +17,16 @@
       <hibernate.search.version>3.2.1.Final</hibernate.search.version>
    </properties>
 
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>${jboss-javaee6-spec.version}</version>
+            <type>pom</type>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
 
    <dependencies>
       <dependency>
@@ -27,11 +37,10 @@
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.spec</groupId>
-         <artifactId>jboss-javaee-6.0</artifactId>
-         <version>${jboss-javaee6-spec.version}</version>
-         <type>pom</type>
-         <scope>provided</scope>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-entitymanager</artifactId>
+         <version>3.4.0.GA</version>
       </dependency>
+
    </dependencies>
 </project>

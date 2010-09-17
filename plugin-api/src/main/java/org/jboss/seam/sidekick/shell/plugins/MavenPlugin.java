@@ -33,6 +33,7 @@ import org.jboss.seam.sidekick.project.facets.MavenFacet;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@RequiresFacet(MavenFacet.class)
 public abstract class MavenPlugin implements InstallablePlugin
 {
    /**
@@ -54,6 +55,9 @@ public abstract class MavenPlugin implements InstallablePlugin
       return true;
    }
 
+   /**
+    * Get the list of required dependencies and install them into the {@link Project}
+    */
    @Override
    public void install(final Project project)
    {

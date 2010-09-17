@@ -39,24 +39,24 @@ public class AnnotationAccessor
 {
 
    @SuppressWarnings("unchecked")
-   public Annotation addAnnotation(AnnotationTarget<?> target, BodyDeclaration body)
+   public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body)
    {
       Annotation annotation = new AnnotationImpl(target);
       body.modifiers().add(annotation.getInternal());
       return annotation;
    }
 
-   public Annotation addAnnotation(AnnotationTarget<?> target, BodyDeclaration body, Class<?> clazz)
+   public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body, final Class<?> clazz)
    {
       return addAnnotation(target, body, clazz.getName());
    }
 
-   public Annotation addAnnotation(AnnotationTarget<?> target, BodyDeclaration body, final String className)
+   public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body, final String className)
    {
       return addAnnotation(target, body).setName(className);
    }
 
-   public List<Annotation> getAnnotations(AnnotationTarget<?> target, BodyDeclaration body)
+   public List<Annotation> getAnnotations(final AnnotationTarget<?> target, final BodyDeclaration body)
    {
       List<Annotation> result = new ArrayList<Annotation>();
 
@@ -73,7 +73,8 @@ public class AnnotationAccessor
       return Collections.unmodifiableList(result);
    }
 
-   public <T extends AnnotationTarget<?>> T removeAnnotation(T target, BodyDeclaration body, Annotation annotation)
+   public <T extends AnnotationTarget<?>> T removeAnnotation(final T target, final BodyDeclaration body,
+            final Annotation annotation)
    {
       List<?> modifiers = body.modifiers();
       for (Object object : modifiers)

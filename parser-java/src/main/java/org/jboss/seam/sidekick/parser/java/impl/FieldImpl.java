@@ -59,13 +59,13 @@ public class FieldImpl implements Field
       ast = ((ASTNode) parent.getInternal()).getAST();
    }
 
-   public FieldImpl(JavaClass parent)
+   public FieldImpl(final JavaClass parent)
    {
       init(parent);
       this.field = ast.newFieldDeclaration(ast.newVariableDeclarationFragment());
    }
 
-   public FieldImpl(JavaClass parent, String declaration)
+   public FieldImpl(final JavaClass parent, final String declaration)
    {
       init(parent);
 
@@ -77,7 +77,7 @@ public class FieldImpl implements Field
       this.field = subtree;
    }
 
-   public FieldImpl(JavaClass parent, Object internal)
+   public FieldImpl(final JavaClass parent, final Object internal)
    {
       init(parent);
       this.field = (FieldDeclaration) internal;
@@ -105,9 +105,13 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Annotation addAnnotation(Class<?> clazz)
+   public Annotation addAnnotation(final Class<?> clazz)
    {
-      return util.addAnnotation(this, field, clazz);
+      if (!parent.hasImport(clazz))
+      {
+         parent.addImport(clazz);
+      }
+      return util.addAnnotation(this, field, clazz.getSimpleName());
    }
 
    @Override
@@ -123,7 +127,7 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Field removeAnnotation(Annotation annotation)
+   public Field removeAnnotation(final Annotation annotation)
    {
       return util.removeAnnotation(this, field, annotation);
    }
@@ -210,7 +214,7 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Field setName(String name)
+   public Field setName(final String name)
    {
       for (Object f : field.fragments())
       {
@@ -232,13 +236,13 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Field setType(Class<?> clazz)
+   public Field setType(final Class<?> clazz)
    {
       return setType(clazz.getSimpleName());
    }
 
    @Override
-   public Field setType(String type)
+   public Field setType(final String type)
    {
       Name name = ast.newName(Strings.tokenizeClassName(type));
       SimpleType st = ast.newSimpleType(name);
@@ -284,7 +288,7 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Field setLiteralInitializer(String value)
+   public Field setLiteralInitializer(final String value)
    {
       String stub = "public class Stub { private Field stub = " + value + " }";
       JavaClass temp = JavaParser.parse(stub);
@@ -305,12 +309,12 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Field setStringInitializer(String value)
+   public Field setStringInitializer(final String value)
    {
       return setLiteralInitializer(Strings.enquote(value));
    }
 
-   private VariableDeclarationFragment getFragment(FieldDeclaration field)
+   private VariableDeclarationFragment getFragment(final FieldDeclaration field)
    {
       VariableDeclarationFragment result = null;
       for (Object f : field.fragments())
@@ -334,7 +338,7 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {

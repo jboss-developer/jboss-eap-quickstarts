@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.sidekick.project.facets.impl;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,11 +29,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.project.ProjectBuildingResult;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
+import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
 
@@ -98,6 +105,51 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
          {
             folder.mkdirs();
          }
+
+         // FIXME WOW this needs to be simplified somehow...
+         MavenFacet maven = project.getFacet(MavenFacet.class);
+         Model pom = maven.getPOM();
+         Build build = pom.getBuild();
+         if (build == null)
+         {
+            build = new Build();
+         }
+         List<Plugin> plugins = build.getPlugins();
+         Plugin javaSourcePlugin = null;
+         for (Plugin plugin : plugins)
+         {
+            if ("org.apache.maven.plugins".equals(plugin.getGroupId())
+                     && "maven-compiler-plugin".equals(plugin.getArtifactId()))
+            {
+               javaSourcePlugin = plugin;
+            }
+         }
+
+         if (javaSourcePlugin == null)
+         {
+            javaSourcePlugin = new Plugin();
+            javaSourcePlugin.setGroupId("org.apache.maven.plugins");
+            javaSourcePlugin.setArtifactId("maven-compiler-plugin");
+
+            try
+            {
+               Xpp3Dom dom = Xpp3DomBuilder.build(
+                        new ByteArrayInputStream(
+                                 "<configuration><source>1.6</source><target>1.6</target></configuration>".getBytes()),
+                        "UTF-8");
+
+               javaSourcePlugin.setConfiguration(dom);
+            }
+            catch (Exception e)
+            {
+               throw new ProjectModelException(e);
+            }
+         }
+
+         build.addPlugin(javaSourcePlugin);
+         pom.setBuild(build);
+         maven.setPOM(pom);
+
       }
       project.registerFacet(this);
       return this;

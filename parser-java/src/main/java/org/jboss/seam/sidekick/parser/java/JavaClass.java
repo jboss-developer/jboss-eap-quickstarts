@@ -59,9 +59,13 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
 
    public JavaClass addImports(final String... types);
 
+   boolean hasImport(Class<?> type);
+
+   boolean hasImport(String type);
+
    public JavaClass removeImport(String name);
 
-   public JavaClass removeImport(Class<?> clazz);
+   public JavaClass removeImport(Class<?> type);
 
    public JavaClass removeImport(Import imprt);
 
@@ -90,11 +94,5 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    public String getName();
 
    public JavaClass setName(String name);
-
-   @Override
-   public int hashCode();
-
-   @Override
-   public boolean equals(final Object obj);
 
 }

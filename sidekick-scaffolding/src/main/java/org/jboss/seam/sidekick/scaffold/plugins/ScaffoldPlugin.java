@@ -42,21 +42,23 @@ import org.jboss.seam.sidekick.shell.plugins.Command;
 import org.jboss.seam.sidekick.shell.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
 import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 @Named("scaffold")
+@RequiresFacet(ScaffoldingFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
-public class Scaffold extends MavenPlugin
+public class ScaffoldPlugin extends MavenPlugin
 {
    private final Project project;
    private final Shell shell;
    private final FacetFactory factory;
 
    @Inject
-   public Scaffold(final Project project, final Shell shell, final FacetFactory factory)
+   public ScaffoldPlugin(final Project project, final Shell shell, final FacetFactory factory)
    {
       this.project = project;
       this.shell = shell;

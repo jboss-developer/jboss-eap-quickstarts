@@ -94,9 +94,13 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Annotation addAnnotation(Class<?> clazz)
+   public Annotation addAnnotation(final Class<?> clazz)
    {
-      return util.addAnnotation(this, method, clazz);
+      if (!parent.hasImport(clazz))
+      {
+         parent.addImport(clazz);
+      }
+      return util.addAnnotation(this, method, clazz.getSimpleName());
    }
 
    @Override
@@ -112,7 +116,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method removeAnnotation(Annotation annotation)
+   public Method removeAnnotation(final Annotation annotation)
    {
       return util.removeAnnotation(this, method, annotation);
    }
@@ -215,7 +219,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setAbstract(boolean abstrct)
+   public Method setAbstract(final boolean abstrct)
    {
       if (abstrct)
       {
@@ -343,7 +347,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {
