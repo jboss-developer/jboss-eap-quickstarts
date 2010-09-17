@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.project.services;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +33,6 @@ import javax.inject.Singleton;
 
 import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.model.ProjectImpl;
 import org.jboss.weld.extensions.util.service.ServiceLoader;
 
@@ -53,42 +53,7 @@ public class ProjectFactory
       this.facetFactory = facetFactory;
    }
 
-   public Project createProject(final File targetDir, final Class<? extends Facet>... facetTypes)
-   {
-      Project project = new ProjectImpl(targetDir);
-      installFacets(project, facetTypes);
-      return project;
-   }
-
-   private void installFacets(final Project project, final Class<? extends Facet>... facetTypes)
-   {
-      for (Class<? extends Facet> type : facetTypes)
-      {
-         Facet facet = facetFactory.getFacet(type);
-         installSingleFacet(project, facet);
-      }
-   }
-
-   private void installSingleFacet(final Project project, final Facet facet)
-   {
-      Set<Class<? extends Facet>> dependencies = facet.getDependencies();
-
-      if (dependencies != null)
-      {
-         for (Class<? extends Facet> dep : dependencies)
-         {
-            if (!project.hasFacet(dep))
-            {
-               Facet depFacet = facetFactory.getFacet(dep);
-               installSingleFacet(project, depFacet);
-            }
-         }
-      }
-
-      facet.init(project).install();
-   }
-
-   public Project findProject(final File startingPath)
+   public Project findProject(final File startingPath) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
@@ -99,12 +64,42 @@ public class ProjectFactory
 
       if (project == null)
       {
-         throw new ProjectModelException("Could not locate project in folder or any of its parents: ["
+         throw new FileNotFoundException("Could not locate project in folder or any of its parents: ["
                   + startingPath.getAbsolutePath() + "]");
       }
       registerFacets(project);
+      return project;
+   }
+
+   public Project createProject(final File targetDir, final Class<? extends Facet>... facetTypes)
+   {
+      Project project = new ProjectImpl(targetDir);
+
+      for (Class<? extends Facet> type : facetTypes)
+      {
+         installSingleFacet(project, type);
+      }
 
       return project;
+   }
+
+   private void installSingleFacet(final Project project, final Class<? extends Facet> type)
+   {
+      Facet facet = facetFactory.getFacet(type);
+
+      Set<Class<? extends Facet>> dependencies = facet.getDependencies();
+      if (dependencies != null)
+      {
+         for (Class<? extends Facet> dep : dependencies)
+         {
+            if (!project.hasFacet(dep))
+            {
+               installSingleFacet(project, dep);
+            }
+         }
+      }
+
+      project.installFacet(facet);
    }
 
    private void registerFacets(final Project project)
@@ -123,7 +118,6 @@ public class ProjectFactory
    private void registerSingleFacet(final Project project, final Facet facet)
    {
       Set<Class<? extends Facet>> dependencies = facet.getDependencies();
-
       if (dependencies != null)
       {
          for (Class<? extends Facet> dep : dependencies)
@@ -136,11 +130,7 @@ public class ProjectFactory
          }
       }
 
-      facet.init(project);
-      if (facet.isInstalled() && !project.hasFacet(facet.getClass()))
-      {
-         project.registerFacet(facet);
-      }
+      project.registerFacet(facet);
    }
 
    private void loadServices()

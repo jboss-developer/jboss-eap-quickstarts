@@ -491,6 +491,28 @@ public class ShellImpl implements Shell
    }
 
    @Override
+   public String promptRegex(final String message, final String pattern, final String defaultIfEmpty)
+   {
+      if (!defaultIfEmpty.matches(pattern))
+      {
+         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
+                  + pattern + "]");
+      }
+
+      String input = "";
+      do
+      {
+         input = prompt(message + " [" + defaultIfEmpty + "]");
+         if ("".equals(input.trim()))
+         {
+            input = defaultIfEmpty;
+         }
+      }
+      while (!input.matches(pattern));
+      return input;
+   }
+
+   @Override
    @SuppressWarnings("unchecked")
    public <T> T prompt(final String message, final Class<T> clazz)
    {
@@ -637,5 +659,11 @@ public class ShellImpl implements Shell
    public String promptCommon(final String message, final PromptType type)
    {
       return promptRegex(message, type.getPattern());
+   }
+
+   @Override
+   public String promptCommon(final String message, final PromptType type, final String defaultIfEmpty)
+   {
+      return promptRegex(message, type.getPattern(), defaultIfEmpty);
    }
 }

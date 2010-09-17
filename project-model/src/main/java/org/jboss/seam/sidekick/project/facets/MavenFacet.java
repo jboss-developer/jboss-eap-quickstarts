@@ -25,7 +25,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.jboss.seam.sidekick.project.Facet;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
+import org.jboss.seam.sidekick.project.util.DependencyBuilder;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

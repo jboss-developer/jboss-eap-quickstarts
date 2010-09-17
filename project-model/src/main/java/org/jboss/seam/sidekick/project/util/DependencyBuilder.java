@@ -19,30 +19,49 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.project.util;
 
-package org.jboss.seam.sidekick.shell;
-
-import org.jboss.seam.sidekick.shell.util.Patterns;
+import org.apache.maven.model.Dependency;
 
 /**
+ * Convenience builder to create Dependency objects.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public enum PromptType
+public class DependencyBuilder
 {
+   private final Dependency dep = new Dependency();
 
-   JAVA_PACKAGE("(?i)([a-z]+\\.?)+"), JAVA_VARIABLE_NAME("(!?" + Patterns.JAVA_KEYWORDS + ")[A-Za-z0-9$_]+");
-
-   private final String pattern;
-
-   private PromptType(final String pattern)
+   /**
+    * Obtain a new {@link DependencyBuilder} instance.
+    */
+   public static DependencyBuilder create()
    {
-      this.pattern = pattern;
+      return new DependencyBuilder();
    }
 
-   public String getPattern()
+   public DependencyBuilder setGroupId(final String groupId)
    {
-      return pattern;
+      dep.setGroupId(groupId);
+      return this;
+   }
+
+   public DependencyBuilder setArtifactId(final String artifactId)
+   {
+      dep.setArtifactId(artifactId);
+      return this;
+   }
+
+   public DependencyBuilder setVersion(final String version)
+   {
+      dep.setVersion(version);
+      return this;
+   }
+
+   public Dependency build()
+   {
+      return dep.clone();
    }
 
 }

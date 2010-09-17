@@ -49,19 +49,6 @@ public class FacetFactory implements Extension
 
    private final Set<Bean<?>> facetTypes = new HashSet<Bean<?>>();
 
-   // @Inject
-   // public FacetFactory(final BeanManager manager)
-   // {
-   // this.manager = manager;
-   // }
-
-   //
-   // @PostConstruct
-   // public void loadFacetTypes()
-   // {
-   // facetTypes = manager.getBeans(Facet.class, new Annotation[] {});
-   // }
-
    public void scan(@Observes final ProcessBean<?> event, final BeanManager manager)
    {
       this.manager = manager;

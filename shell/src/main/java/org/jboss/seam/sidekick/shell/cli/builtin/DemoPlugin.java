@@ -30,7 +30,7 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Dependency;
 import org.jboss.seam.sidekick.project.PackagingType;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
+import org.jboss.seam.sidekick.project.util.DependencyBuilder;
 import org.jboss.seam.sidekick.shell.plugins.Command;
 import org.jboss.seam.sidekick.shell.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;

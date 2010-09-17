@@ -31,7 +31,7 @@ import java.util.List;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
+import org.jboss.seam.sidekick.project.util.DependencyBuilder;
 import org.jboss.seam.sidekick.shell.ShellImpl;
 import org.jboss.seam.sidekick.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

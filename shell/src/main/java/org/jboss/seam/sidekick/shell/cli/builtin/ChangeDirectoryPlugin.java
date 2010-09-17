@@ -40,21 +40,21 @@ import org.jboss.seam.sidekick.shell.plugins.events.InitProject;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("cd")
-@Help("Prints the current directory.")
+@Help("Change the current directory")
 public class ChangeDirectoryPlugin implements Plugin
 {
    Shell shell;
    private final Event<InitProject> init;
 
    @Inject
-   public ChangeDirectoryPlugin(Shell shell, Event<InitProject> init)
+   public ChangeDirectoryPlugin(final Shell shell, final Event<InitProject> init)
    {
       this.shell = shell;
       this.init = init;
    }
 
    @DefaultCommand
-   public void run(@Option(defaultValue = "") final String path)
+   public void run(@Option(defaultValue = "", description = "The new directory") final String path)
    {
       String target = path.trim();
       File cwd = shell.getCurrentDirectory();

@@ -55,9 +55,15 @@ public interface Project
    public <F extends Facet> List<F> getFacets(Class<F> type);
 
    /**
+    * Install and register the given {@link Facet}. If the facet is already installed, register it instead (See
+    * {@link #registerFacet(Facet)}.
+    */
+   public Project installFacet(Facet facet);
+
+   /**
     * Add the given {@link Facet} to this {@link Project}'s internal collection of installed facets.
     */
-   public void registerFacet(Facet facet);
+   public Project registerFacet(Facet facet);
 
    /**
     * Get the {@link File} representing the root directory of this {@link Project}

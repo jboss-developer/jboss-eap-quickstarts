@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -41,14 +42,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.project.facets.ResourceFacet;
 import org.jboss.seam.sidekick.project.facets.WebResourceFacet;
-import org.jboss.seam.sidekick.project.model.maven.DependencyBuilder;
 import org.jboss.seam.sidekick.project.services.FacetFactory;
 import org.jboss.seam.sidekick.project.services.ProjectFactory;
+import org.jboss.seam.sidekick.project.util.DependencyBuilder;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
@@ -221,7 +221,7 @@ public class MavenFacetsTest
       assertEquals("socialpm", pom.getArtifactId());
    }
 
-   @Test(expected = ProjectModelException.class)
+   @Test(expected = FileNotFoundException.class)
    public void testAbsoluteUnknownProjectCannotInstantiate() throws Exception
    {
       File temp = File.createTempFile(PKG, null);

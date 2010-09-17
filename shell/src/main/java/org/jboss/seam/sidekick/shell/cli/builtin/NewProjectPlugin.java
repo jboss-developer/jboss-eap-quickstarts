@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,7 +30,6 @@ import javax.inject.Named;
 import org.apache.maven.model.Model;
 import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.project.facets.ResourceFacet;
@@ -136,7 +136,7 @@ public class NewProjectPlugin implements Plugin
          projectFactory.findProject(newDir);
          return true;
       }
-      catch (ProjectModelException e)
+      catch (FileNotFoundException e)
       {
          return false;
       }

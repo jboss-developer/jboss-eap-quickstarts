@@ -134,4 +134,17 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    {
       return JavaParser.parse(getTestSourceFile(relativePath));
    }
+
+   @Override
+   public String getBasePackage()
+   {
+      return project.getFacet(MavenFacet.class).getPOM().getGroupId();
+   }
+
+   @Override
+   public File getBasePackageFile()
+   {
+      String base = getBasePackage().replaceAll("\\.", File.separator);
+      return new File(getSourceFolder().getAbsolutePath() + File.separator + base).getAbsoluteFile();
+   }
 }

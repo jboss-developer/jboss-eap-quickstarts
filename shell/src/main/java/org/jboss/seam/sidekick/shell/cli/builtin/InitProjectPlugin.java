@@ -22,13 +22,13 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.services.ProjectFactory;
 import org.jboss.seam.sidekick.shell.CurrentProjectHolder;
 import org.jboss.seam.sidekick.shell.Shell;
@@ -76,12 +76,9 @@ public class InitProjectPlugin implements Plugin
             Project currentProject = projectFactory.findProject(targetDirectory);
             cp.setCurrentProject(currentProject);
          }
-         catch (ProjectModelException e)
+         catch (FileNotFoundException e)
          {
             cp.setCurrentProject(null);
-            // shell.println("**WARNING** The directory [" +
-            // targetDirectory.getAbsolutePath() +
-            // "] does not contain a project.");
          }
       }
       else

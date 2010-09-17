@@ -97,4 +97,15 @@ public interface JavaSourceFacet extends Facet
     * @param relativePath The file or package path of the target Java source file.
     */
    public JavaClass getTestJavaClass(String relativePath) throws FileNotFoundException;
+
+   /**
+    * Return the base Java {@link Package} for this project, returned as a {@link String}
+    */
+   public String getBasePackage();
+
+   /**
+    * Return the base Java {@link Package} for this project, returned as a directory {@link File}
+    */
+   public File getBasePackageFile();
+
 }

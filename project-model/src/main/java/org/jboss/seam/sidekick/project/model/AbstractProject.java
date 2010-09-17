@@ -28,13 +28,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-
 import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
-import org.jboss.seam.sidekick.project.events.JavaFileCreated;
 import org.jboss.seam.sidekick.project.facets.FacetNotFoundException;
 
 /**
@@ -43,9 +39,6 @@ import org.jboss.seam.sidekick.project.facets.FacetNotFoundException;
  */
 public abstract class AbstractProject implements Project
 {
-   @Inject
-   Event<JavaFileCreated> event;
-
    private final List<Facet> installedFacets = new ArrayList<Facet>();
 
    @Override
@@ -151,12 +144,34 @@ public abstract class AbstractProject implements Project
    }
 
    @Override
-   public void registerFacet(final Facet facet)
+   public Project registerFacet(final Facet facet)
    {
       if (facet == null)
       {
          throw new IllegalArgumentException("Attempted to register 'null' as a Facet; Facets cannot be null.");
       }
-      installedFacets.add(facet);
+
+      facet.init(this);
+      if (facet.isInstalled() && !hasFacet(facet.getClass()))
+      {
+         installedFacets.add(facet);
+      }
+      return this;
+   }
+
+   @Override
+   public Project installFacet(final Facet facet)
+   {
+      facet.init(this);
+      if (!facet.isInstalled())
+      {
+         facet.install();
+         installedFacets.add(facet);
+      }
+      else if (!hasFacet(facet.getClass()))
+      {
+         registerFacet(facet);
+      }
+      return this;
    }
 }

@@ -19,41 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.project.model.maven;
-
-import org.apache.maven.model.Dependency;
+package org.jboss.seam.sidekick.shell.util;
 
 /**
- * Convenience builder to create Dependency objects.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class DependencyBuilder
+public interface Patterns
 {
-   private final Dependency dep = new Dependency();
-
-   public DependencyBuilder setGroupId(final String groupId)
-   {
-      dep.setGroupId(groupId);
-      return this;
-   }
-
-   public DependencyBuilder setArtifactId(final String artifactId)
-   {
-      dep.setArtifactId(artifactId);
-      return this;
-   }
-
-   public DependencyBuilder setVersion(final String version)
-   {
-      dep.setVersion(version);
-      return this;
-   }
-
-   public Dependency build()
-   {
-      return dep.clone();
-   }
-
+   /**
+    * A group of terms that are illegal to use as Java identifiers. For example: "(if|package|public...while)" and so
+    * on.
+    */
+   public static final String JAVA_KEYWORDS = "(abstract|" +
+            "continue|" + "for|" + "new|" + "switch|" + "assert|" + "default|" +
+            "if|" + "package|" + "synchronized|" + "boolean|" + "do|" + "goto|" +
+            "private|" + "this|" + "break|" + "double|" + "implements|" + "protected|" +
+            "throw|" + "byte|" + "else|" + "import|" + "public|" + "throws|" +
+            "case|" + "enum|" + "instanceof|" + "return|" + "transient|" + "catch|" +
+            "extends|" + "int|" + "short|" + "try|" + "char|" + "final|" +
+            "interface|" + "static|" + "void|" + "class|" + "finally|" + "long|" +
+            "strictfp|" + "volatile|" + "const|" + "float|" + "native|" + "super|" +
+            "while)";
 }
