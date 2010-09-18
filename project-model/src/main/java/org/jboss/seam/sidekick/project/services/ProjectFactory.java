@@ -80,6 +80,8 @@ public class ProjectFactory
          installSingleFacet(project, type);
       }
 
+      registerFacets(project);
+
       return project;
    }
 

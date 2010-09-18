@@ -67,6 +67,7 @@ public class MavenFacetImpl implements MavenFacet
    private ProjectBuilder builder = null;
 
    private Project project;
+   private ProjectBuildingResult buildingResult;
 
    private void bootstrapMaven()
    {
@@ -128,7 +129,10 @@ public class MavenFacetImpl implements MavenFacet
       bootstrapMaven();
       try
       {
-         ProjectBuildingResult buildingResult = builder.build(getPOMFile(), request);
+         if (this.buildingResult == null)
+         {
+            buildingResult = builder.build(getPOMFile(), request);
+         }
          return buildingResult;
       }
       catch (ProjectBuildingException e)
@@ -148,6 +152,12 @@ public class MavenFacetImpl implements MavenFacet
          dependencies.add(dep);
          setPOM(pom);
       }
+      invalidateBuildingResult();
+   }
+
+   private void invalidateBuildingResult()
+   {
+      this.buildingResult = null;
    }
 
    @Override
@@ -183,6 +193,7 @@ public class MavenFacetImpl implements MavenFacet
       }
       dependencies.removeAll(toBeRemoved);
       setPOM(pom);
+      invalidateBuildingResult();
    }
 
    public Model getPOM()
