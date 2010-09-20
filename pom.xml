@@ -23,8 +23,8 @@
       <module>project-model</module>
       <module>plugin-api</module>
       <module>test-harness</module>
-      <module>sidekick-scaffolding</module>
       <module>shell</module>
+      <module>sidekick-scaffolding</module>
    </modules>
 
    <properties>

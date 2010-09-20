@@ -23,13 +23,13 @@
 package org.jboss.seam.sidekick.parser.java;
 
 import org.jboss.seam.sidekick.parser.Internal;
-import org.jboss.seam.sidekick.parser.Mutable;
+import org.jboss.seam.sidekick.parser.Origin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Import extends Internal, Mutable<JavaClass>
+public interface Import extends Internal, Origin<JavaClass>
 {
    public String getName();
 

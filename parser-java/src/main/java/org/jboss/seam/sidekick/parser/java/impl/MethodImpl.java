@@ -332,9 +332,9 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public JavaClass applyChanges()
+   public JavaClass getOrigin()
    {
-      return parent.applyChanges();
+      return parent.getOrigin();
    }
 
    @Override

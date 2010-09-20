@@ -22,19 +22,16 @@
 package org.jboss.seam.sidekick.parser;
 
 /**
- * Represents an object that queues changes before making final modifications to
- * a resource.
+ * Represents an object that has a root ancestor that should be made accessible
+ * to its clients.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Mutable<T>
+public interface Origin<T>
 {
    /**
-    * Apply all changes made to this or other objects to which this may belong.
-    * (Apply all pending changes in the object graph.)
-    * 
-    * @return the instance of the updated root object.
+    * @return the instance of the root ancestor.
     */
-   T applyChanges();
+   T getOrigin();
 }

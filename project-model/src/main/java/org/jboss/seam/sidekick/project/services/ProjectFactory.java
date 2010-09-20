@@ -128,6 +128,10 @@ public class ProjectFactory
             {
                Facet depFacet = facetFactory.getFacet(dep);
                registerSingleFacet(project, depFacet);
+               if (!project.hasFacet(dep))
+               {
+                  return;
+               }
             }
          }
       }

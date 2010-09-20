@@ -54,15 +54,11 @@ public class JavaClassTest
    }
 
    @Test
-   public void testApplyChangesRequiredForModification() throws Exception
+   public void testApplyChangesNotRequiredForModification() throws Exception
    {
       assertEquals("MockClass", javaClass.getName());
       javaClass.setName("Telephone");
       assertEquals("Telephone", javaClass.getName());
-      assertFalse(javaClass.toString().contains("Telephone"));
-      assertTrue(javaClass.toString().contains("MockClass"));
-
-      javaClass.applyChanges();
       assertTrue(javaClass.toString().contains("Telephone"));
       assertFalse(javaClass.toString().contains("MockClass"));
    }
@@ -142,7 +138,7 @@ public class JavaClassTest
    public void testAddImportStatic() throws Exception
    {
       assertEquals(1, javaClass.getImports().size());
-      javaClass.addImport(List.class).setStatic(true).applyChanges();
+      javaClass.addImport(List.class).setStatic(true).getOrigin();
       assertEquals(2, javaClass.getImports().size());
       assertTrue(javaClass.getImports().get(1).isStatic());
    }
@@ -152,7 +148,7 @@ public class JavaClassTest
    {
       assertEquals(1, javaClass.getImports().size());
       assertFalse(javaClass.hasImport(List.class));
-      javaClass.addImport(List.class).applyChanges();
+      javaClass.addImport(List.class).getOrigin();
       assertEquals(2, javaClass.getImports().size());
       assertTrue(javaClass.hasImport(List.class));
    }
@@ -162,8 +158,8 @@ public class JavaClassTest
    {
       assertEquals(1, javaClass.getImports().size());
       assertFalse(javaClass.hasImport(List.class));
-      javaClass.addImport(List.class).applyChanges();
-      javaClass.addImport(List.class).applyChanges();
+      javaClass.addImport(List.class).getOrigin();
+      javaClass.addImport(List.class).getOrigin();
       assertEquals(2, javaClass.getImports().size());
       assertTrue(javaClass.hasImport(List.class));
    }
@@ -203,7 +199,7 @@ public class JavaClassTest
    @Test
    public void testAddMethod() throws Exception
    {
-      javaClass.addMethod().setName("testMethod").setReturnTypeVoid().setBody("").applyChanges();
+      javaClass.addMethod().setName("testMethod").setReturnTypeVoid().setBody("").getOrigin();
       List<Method> methods = javaClass.getMethods();
       assertEquals(3, methods.size());
       assertNull(methods.get(2).getReturnType());
@@ -213,7 +209,7 @@ public class JavaClassTest
    public void testAddMethodFromString() throws Exception
    {
       javaClass.addMethod("public URL rewriteURL(String pattern, String replacement) { return null; }")
-               .setPackagePrivate().applyChanges();
+               .setPackagePrivate().getOrigin();
       List<Method> methods = javaClass.getMethods();
       assertEquals(3, methods.size());
       assertEquals("URL", methods.get(2).getReturnType());
@@ -227,7 +223,7 @@ public class JavaClassTest
    public void testRemoveMethod() throws Exception
    {
       List<Method> methods = javaClass.getMethods();
-      javaClass.removeMethod(methods.get(0)).applyChanges();
+      javaClass.removeMethod(methods.get(0)).getOrigin();
       methods = javaClass.getMethods();
       assertEquals(1, methods.size());
    }
@@ -236,7 +232,7 @@ public class JavaClassTest
    public void testAddConstructor() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setProtected().setReturnType(String.class)
-               .setBody("System.out.println(\"I am a constructor!\");").applyChanges();
+               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
       Method method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertEquals(javaClass.getName(), method.getName());
@@ -251,7 +247,7 @@ public class JavaClassTest
    public void testAddConstructorIngoresReturnTypeAndName() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setPrivate().setReturnType(String.class)
-               .setBody("System.out.println(\"I am a constructor!\");").applyChanges();
+               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
       Method method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertTrue(method.isPrivate());

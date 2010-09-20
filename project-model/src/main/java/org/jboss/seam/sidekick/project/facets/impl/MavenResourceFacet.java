@@ -52,13 +52,13 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    @Override
    public File getResourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + "/src/main/resources");
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "resources");
    }
 
    @Override
    public File getTestResourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + "/src/test/resources");
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test" + File.separator + "resources");
    }
 
    @Override

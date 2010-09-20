@@ -32,7 +32,6 @@ import java.util.Set;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
-import org.apache.maven.project.ProjectBuildingResult;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.jboss.seam.sidekick.parser.JavaParser;
@@ -42,6 +41,7 @@ import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.ProjectModelException;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
+import org.jboss.seam.sidekick.project.util.Packages;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -63,17 +63,20 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public File getSourceFolder()
    {
-      ProjectBuildingResult result = project.getFacet(MavenFacet.class).getProjectBuildingResult();
-      String directory = result.getProject().getBuild().getSourceDirectory();
-      return new File(directory).getAbsoluteFile();
+      // ProjectBuildingResult result =
+      // project.getFacet(MavenFacet.class).getProjectBuildingResult();
+      // String directory = result.getProject().getBuild().getSourceDirectory();
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "java").getAbsoluteFile();
    }
 
    @Override
    public File getTestSourceFolder()
    {
-      ProjectBuildingResult result = project.getFacet(MavenFacet.class).getProjectBuildingResult();
-      String directory = result.getProject().getBuild().getTestSourceDirectory();
-      return new File(directory).getAbsoluteFile();
+      // ProjectBuildingResult result =
+      // project.getFacet(MavenFacet.class).getProjectBuildingResult();
+      // String directory =
+      // result.getProject().getBuild().getTestSourceDirectory();
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test" + File.separator + "java").getAbsoluteFile();
    }
 
    @Override
@@ -178,25 +181,39 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public JavaClass getJavaClass(final String relativePath) throws FileNotFoundException
    {
-      return JavaParser.parse(getSourceFile(relativePath));
+      try
+      {
+         return JavaParser.parse(getSourceFile(relativePath));
+      }
+      catch (FileNotFoundException e)
+      {
+         return getJavaClass(getBasePackageFile().getAbsolutePath() + File.separator + Packages.toFileSyntax(relativePath) + ".java");
+      }
    }
 
    @Override
    public JavaClass getTestJavaClass(final String relativePath) throws FileNotFoundException
    {
-      return JavaParser.parse(getTestSourceFile(relativePath));
+      try
+      {
+         return JavaParser.parse(getTestSourceFile(relativePath));
+      }
+      catch (FileNotFoundException e)
+      {
+         return getTestJavaClass(getBasePackageFile().getAbsolutePath() + File.separator + Packages.toFileSyntax(relativePath) + ".java");
+      }
    }
 
    @Override
    public String getBasePackage()
    {
-      return project.getFacet(MavenFacet.class).getPOM().getGroupId();
+      return project.getFacet(MavenFacet.class).getMavenProject().getGroupId();
    }
 
    @Override
    public File getBasePackageFile()
    {
-      String base = getBasePackage().replaceAll("\\.", File.separator);
+      String base = Packages.toFileSyntax(getBasePackage());
       return new File(getSourceFolder().getAbsolutePath() + File.separator + base).getAbsoluteFile();
    }
 }

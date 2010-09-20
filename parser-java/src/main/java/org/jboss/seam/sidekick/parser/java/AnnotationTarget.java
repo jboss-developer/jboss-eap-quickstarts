@@ -25,13 +25,13 @@ package org.jboss.seam.sidekick.parser.java;
 import java.util.List;
 
 import org.jboss.seam.sidekick.parser.Internal;
-import org.jboss.seam.sidekick.parser.Mutable;
+import org.jboss.seam.sidekick.parser.Origin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface AnnotationTarget<T> extends Internal, Mutable<JavaClass>
+public interface AnnotationTarget<T> extends Internal, Origin<JavaClass>
 {
    public abstract Annotation addAnnotation();
 

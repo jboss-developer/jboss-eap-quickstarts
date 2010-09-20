@@ -73,7 +73,7 @@ public class MavenPackagingFacet implements PackagingFacet
    public boolean isInstalled()
    {
       MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-      return mavenFacet.isInstalled();
+      return mavenFacet != null;
    }
 
    @Override

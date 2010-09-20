@@ -28,16 +28,19 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
+import org.jboss.seam.sidekick.BasePackageMarker;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.model.ProjectImpl;
-import org.jboss.seam.sidekick.project.services.ProjectFactory;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -60,8 +63,7 @@ public abstract class AbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-               .addPackages(true, AbstractShellTest.class.getPackage())
-               .addClass(ProjectFactory.class)
+               .addPackages(true, BasePackageMarker.class.getPackage())
                .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
@@ -75,9 +77,12 @@ public abstract class AbstractShellTest
 
    private Queue<String> inputQueue = new LinkedList<String>();
 
+   private final List<File> tempFolders = new ArrayList<File>();
+
    private static final String PKG = AbstractShellTest.class.getSimpleName().toLowerCase();
-   private static File tempFolder;
-   private static Project project;
+
+   @Inject
+   private Instance<Project> project;
 
    @BeforeClass
    public static void before() throws IOException
@@ -92,27 +97,47 @@ public abstract class AbstractShellTest
    @Before
    public void beforeTest() throws IOException
    {
-      tempFolder = File.createTempFile(PKG, null);
-      tempFolder.delete();
-      tempFolder.mkdirs();
-      project = new ProjectImpl(tempFolder);
+      File tempFolder = createTempFolder();
 
+      shell.setVerbose(true);
       shell.setCurrentDirectory(tempFolder.getAbsoluteFile());
-
       beanManager.fireEvent(new Startup(), new Annotation[] {});
 
+      resetInputQueue();
+      shell.setOutputWriter(new PrintWriter(System.out));
+   }
+
+   /**
+    * @throws IOException
+    */
+   protected File createTempFolder() throws IOException
+   {
+      File tempFolder = File.createTempFile(PKG, null);
+      tempFolder.delete();
+      tempFolder.mkdirs();
+      tempFolders.add(tempFolder);
+      return tempFolder;
+   }
+
+   /**
+    * Reset the shell input queue (called automatically before each test.)
+    */
+   protected void resetInputQueue() throws IOException
+   {
       inputQueue = new LinkedList<String>();
       QueuedInputStream is = new QueuedInputStream(inputQueue);
       shell.setInputStream(is);
-      shell.setOutputWriter(new PrintWriter(System.out));
    }
 
    @After
    public void afterTest() throws IOException
    {
-      if (tempFolder.exists())
+      for (File file : tempFolders)
       {
-         assertTrue(project.delete(tempFolder));
+         if (file.exists())
+         {
+            assertTrue(new ProjectImpl(file).delete(file));
+         }
       }
    }
 
@@ -132,6 +157,19 @@ public abstract class AbstractShellTest
    protected Shell getShell()
    {
       return shell;
+   }
+
+   protected Project getProject()
+   {
+      return project.get();
+   }
+
+   protected void initializeJavaProject() throws IOException
+   {
+      File folder = createTempFolder();
+      getShell().execute("cd " + folder.getAbsolutePath());
+      queueInputLines("", "com.test", "");
+      getShell().execute("new-project test");
    }
 
 }

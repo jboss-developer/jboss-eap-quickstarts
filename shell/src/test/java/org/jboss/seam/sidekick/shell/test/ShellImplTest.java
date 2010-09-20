@@ -101,8 +101,10 @@ public class ShellImplTest extends AbstractShellTest
    @Test
    public void testExecuteCommand() throws Exception
    {
-      assertFalse(getShell().isVerbose());
-      getShell().execute("verbose on");
+      getShell().setVerbose(true);
       assertTrue(getShell().isVerbose());
+      getShell().execute("verbose off");
+      assertFalse(getShell().isVerbose());
+      getShell().setVerbose(true);
    }
 }
