@@ -28,9 +28,11 @@ import org.jboss.seam.sidekick.project.facets.impl.MavenFacetImpl;
 import org.jboss.seam.sidekick.project.model.ProjectImpl;
 
 /**
- * Locate a Maven project starting in the current directory, and progressing up the chain of parent directories until a
- * project is found, or the root directory is found. If a project is found, return the {@link File} referring to the
- * directory containing that project, or return null if no projects were found.
+ * Locate a Maven project starting in the current directory, and progressing up
+ * the chain of parent directories until a project is found, or the root
+ * directory is found. If a project is found, return the {@link File} referring
+ * to the directory containing that project, or return null if no projects were
+ * found.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -38,23 +40,29 @@ import org.jboss.seam.sidekick.project.model.ProjectImpl;
 public class MavenProjectLocator implements ProjectLocator
 {
    @Override
-   public Project findProject(final File startingDirectory)
+   public Project findProjectRecursively(final File startingDirectory)
    {
       File root = startingDirectory.getAbsoluteFile();
-      File pom = new File(root + "/pom.xml");
-      while (!pom.exists() && (root.getParentFile() != null))
+      while ((findProject(root) == null) && (root.getParentFile() != null))
       {
          root = root.getParentFile();
-         pom = new File(root + "/pom.xml");
       }
+
+      Project result = findProject(root);
+      return result;
+   }
+
+   @Override
+   public Project findProject(File directory)
+   {
+      File pom = new File(directory.getAbsolutePath() + File.separator + "pom.xml");
 
       Project result = null;
       if (pom.exists())
       {
-         result = new ProjectImpl(startingDirectory);
+         result = new ProjectImpl(directory.getAbsoluteFile());
          result.registerFacet(new MavenFacetImpl().init(result));
       }
-
       return result;
    }
 }

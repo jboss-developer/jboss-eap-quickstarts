@@ -97,11 +97,11 @@ public class MavenFacetsTest
    {
       if (thisProject == null)
       {
-         thisProject = projectFactory.findProject(new File(""));
+         thisProject = projectFactory.findProjectRecursively(new File(""));
       }
       if (testProject == null)
       {
-         testProject = projectFactory.findProject(new File("src/test/resources/test-pom"));
+         testProject = projectFactory.findProjectRecursively(new File("src/test/resources/test-pom"));
       }
 
       if (tempProject == null)
@@ -227,7 +227,7 @@ public class MavenFacetsTest
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      projectFactory.findProject(temp); // boom
+      projectFactory.findProjectRecursively(temp); // boom
    }
 
    @Test

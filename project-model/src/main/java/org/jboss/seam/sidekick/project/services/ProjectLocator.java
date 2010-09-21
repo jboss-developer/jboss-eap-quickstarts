@@ -34,8 +34,15 @@ import org.jboss.seam.sidekick.project.Project;
 public interface ProjectLocator
 {
    /**
-    * Attempt to locate a project root directory in the given folder or its hierarchy by using a strategy implemented by
-    * this method. Return the project, if found, or return null otherwise.
+    * Attempt to locate a project root directory in the given folder or its
+    * hierarchy by using a strategy implemented by this method. If found, return
+    * the project; otherwise, return null;
     */
-   public Project findProject(File startingDirectory);
+   public Project findProjectRecursively(File startingDirectory);
+
+   /**
+    * Attempt to locate a project root directory in the given folder. If found,
+    * return the project; otherwise, return null;
+    */
+   public Project findProject(File directory);
 }

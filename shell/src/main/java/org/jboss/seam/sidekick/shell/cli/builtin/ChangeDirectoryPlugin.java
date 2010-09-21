@@ -43,6 +43,8 @@ import org.jboss.seam.sidekick.shell.plugins.events.InitProject;
 @Help("Change the current directory")
 public class ChangeDirectoryPlugin implements Plugin
 {
+   private static final String HOME_ALIAS = "~";
+
    Shell shell;
    private final Event<InitProject> init;
 
@@ -58,6 +60,11 @@ public class ChangeDirectoryPlugin implements Plugin
    {
       String target = path.trim();
       File cwd = shell.getCurrentDirectory();
+
+      if (target.startsWith(HOME_ALIAS))
+      {
+         target = target.replaceFirst(HOME_ALIAS, System.getProperty("user.home"));
+      }
 
       while (target.startsWith(".."))
       {
