@@ -43,10 +43,6 @@ public class CurrentProjectHolder
    @Dependent
    public Project getCurrentProject()
    {
-      if (currentProject == null)
-      {
-         throw new IllegalStateException("No active project.");
-      }
       return currentProject;
    }
 

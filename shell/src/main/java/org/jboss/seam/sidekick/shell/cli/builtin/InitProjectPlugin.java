@@ -73,7 +73,7 @@ public class InitProjectPlugin implements Plugin
       {
          try
          {
-            Project currentProject = projectFactory.findProject(targetDirectory);
+            Project currentProject = projectFactory.findProjectRecursively(targetDirectory);
             cp.setCurrentProject(currentProject);
          }
          catch (FileNotFoundException e)

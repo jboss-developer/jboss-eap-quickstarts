@@ -72,16 +72,8 @@ public class ScaffoldPlugin extends MavenPlugin
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       String entityPackage = shell.promptCommon(
-               "Type the package in which you'd like to create this @Entity, or enter for default:",
+               "In which package you'd like to create this @Entity, or enter for default:",
                PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
-
-      // shell.println("Please enter any number of ")
-      // String input = "";
-      // do
-      // {
-      // input = shell.promptCommon("", PromptType.JAVA_VARIABLE_NAME);
-      // }
-      // while (!input.trim().isEmpty());
 
       java.createJavaClass(JavaParser.createClass()
                .setPackage(entityPackage)
@@ -91,6 +83,13 @@ public class ScaffoldPlugin extends MavenPlugin
                .getOrigin());
 
       shell.println("Created @Entity [" + entityName + "]");
+   }
+
+   @Command(value = "new-field", help = "Add a field to an existing @Entity class")
+   public void newField(@Option(required = true, description = "The @Entity name") final String entityName)
+   {
+      ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
    }
 
    @Override

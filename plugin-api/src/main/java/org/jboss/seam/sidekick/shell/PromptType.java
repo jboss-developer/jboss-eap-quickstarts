@@ -31,7 +31,7 @@ import org.jboss.seam.sidekick.shell.util.Patterns;
 public enum PromptType
 {
 
-   JAVA_PACKAGE("(?i)([a-z]+\\.?)+"), JAVA_VARIABLE_NAME("(!?" + Patterns.JAVA_KEYWORDS + ")[A-Za-z0-9$_]+");
+   JAVA_PACKAGE("(?i)([a-z0-9_]+\\.?)+[a-z0-9_]"), JAVA_VARIABLE_NAME("(!?" + Patterns.JAVA_KEYWORDS + ")[A-Za-z0-9$_]+");
 
    private final String pattern;
 

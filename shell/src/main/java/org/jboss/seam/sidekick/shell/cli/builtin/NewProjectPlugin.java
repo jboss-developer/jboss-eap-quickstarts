@@ -22,7 +22,6 @@
 package org.jboss.seam.sidekick.shell.cli.builtin;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -63,12 +62,12 @@ public class NewProjectPlugin implements Plugin
    {
       File cwd = shell.getCurrentDirectory();
 
-      File dir = new File(cwd.getAbsolutePath() + "/" + name);
-      if (containsProject(dir) || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
+      File dir = new File(cwd.getAbsolutePath() + File.separator + name);
+      if (projectFactory.containsProject(dir) || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
       {
-         if (containsProject(dir))
+         if (projectFactory.containsProject(dir))
          {
-            shell.println("***ERROR*** That directory already contains a project; please use a different folder.");
+            shell.println("***ERROR*** [" + dir.getAbsolutePath() + "] already contains a project; please use a different folder.");
          }
 
          File newDir = cwd;
@@ -76,14 +75,14 @@ public class NewProjectPlugin implements Plugin
          {
             shell.println();
             shell.print("What would you like to call the project folder? ");
-            if (!containsProject(newDir))
+            if (!projectFactory.containsProject(newDir))
             {
                shell.println();
                shell.print("[Press ENTER to use the current directory: " + cwd + "] ");
             }
             String folder = shell.prompt("");
-            newDir = new File(cwd.getAbsolutePath() + "/" + folder);
-            if (containsProject(newDir))
+            newDir = new File(cwd.getAbsolutePath() + File.separator + folder);
+            if (projectFactory.containsProject(newDir))
             {
                newDir = null;
             }
@@ -127,18 +126,5 @@ public class NewProjectPlugin implements Plugin
       shell.setCurrentDirectory(dir);
 
       shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
-   }
-
-   private boolean containsProject(final File newDir)
-   {
-      try
-      {
-         projectFactory.findProject(newDir);
-         return true;
-      }
-      catch (FileNotFoundException e)
-      {
-         return false;
-      }
    }
 }

@@ -19,6 +19,11 @@
          <artifactId>sidekick-shell</artifactId>
          <version>${project.version}</version>
       </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-scaffolding</artifactId>
+         <version>${project.version}</version>
+      </dependency>
    </dependencies>
 
    <build>
@@ -27,6 +32,21 @@
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1.1</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
+            </configuration>
          </plugin>
       </plugins>
    </build>

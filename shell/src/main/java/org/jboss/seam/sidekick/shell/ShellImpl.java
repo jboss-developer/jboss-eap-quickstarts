@@ -160,7 +160,7 @@ public class ShellImpl implements Shell
       }
 
       File targetDirectory = null;
-      if ((projectPath == null) && (getCurrentDirectory() != null))
+      if (projectPath == null)
       {
          targetDirectory = getCurrentDirectory();
       }
@@ -451,7 +451,12 @@ public class ShellImpl implements Shell
    @Override
    public File getCurrentDirectory()
    {
-      return new File((String) getProperty(PROP_CWD));
+      String cwd = (String) getProperty(PROP_CWD);
+      if (cwd == null)
+      {
+         cwd = "";
+      }
+      return new File(cwd);
    }
 
    @Override

@@ -53,13 +53,18 @@ public class ProjectFactory
       this.facetFactory = facetFactory;
    }
 
-   public Project findProject(final File startingPath) throws FileNotFoundException
+   public Project findProjectRecursively(final File startingPath) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         project = locator.findProject(startingPath.getAbsoluteFile());
+         project = locator.findProjectRecursively(startingPath.getAbsoluteFile());
+
+         if (project != null)
+         {
+            break;
+         }
       }
 
       if (project == null)
@@ -156,5 +161,44 @@ public class ProjectFactory
          loadServices();
       }
       return locators;
+   }
+
+   /**
+    * An exception-safe method of determining whether a directory contains a
+    * project.
+    */
+   public boolean containsProject(File dir)
+   {
+      try
+      {
+         findProject(dir);
+         return true;
+      }
+      catch (FileNotFoundException e)
+      {
+         return false;
+      }
+   }
+
+   public Project findProject(File path) throws FileNotFoundException
+   {
+      Project project = null;
+      List<ProjectLocator> locators = getLocators();
+      for (ProjectLocator locator : locators)
+      {
+         project = locator.findProject(path.getAbsoluteFile());
+         if (project != null)
+         {
+            break;
+         }
+      }
+
+      if (project == null)
+      {
+         throw new FileNotFoundException("Could not locate project in folder or any of its parents: ["
+                  + path.getAbsolutePath() + "]");
+      }
+      registerFacets(project);
+      return project;
    }
 }
