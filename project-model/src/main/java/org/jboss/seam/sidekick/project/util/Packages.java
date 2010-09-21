@@ -20,23 +20,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.parser.java;
+package org.jboss.seam.sidekick.project.util;
 
-import org.jboss.seam.sidekick.parser.Internal;
-import org.jboss.seam.sidekick.parser.Origin;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Import extends Internal, Origin<JavaClass>
+public class Packages
 {
-   public String getName();
 
-   public Import setName(final String name);
-
-   public boolean isStatic();
-
-   public Import setStatic(final boolean value);
+   /**
+    * Convert a package name to file directory syntax.
+    * <p>
+    * Example: "com.example.package" becomes "com/example/package", using the
+    * directory separators correct for the underlying operation system.
+    */
+   public static String toFileSyntax(String packg)
+   {
+      return packg.replaceAll("\\.", File.separator);
+   }
 
 }

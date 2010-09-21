@@ -25,7 +25,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -36,6 +38,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.util.Util;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
@@ -66,11 +69,14 @@ public class JavaClassImpl implements JavaClass
    private final ModifierAccessor ma = new ModifierAccessor();
 
    /**
-    * Parses and process the java source code as a compilation unit and the result it abstract syntax tree (AST)
-    * representation and this action uses the third edition of java Language Specification.
+    * Parses and process the java source code as a compilation unit and the
+    * result it abstract syntax tree (AST) representation and this action uses
+    * the third edition of java Language Specification.
     * 
-    * @param source - the java source to be parsed (i.e. the char[] contains Java source).
-    * @return CompilationUnit Abstract syntax tree representation of a java source file.
+    * @param source - the java source to be parsed (i.e. the char[] contains
+    *           Java source).
+    * @return CompilationUnit Abstract syntax tree representation of a java
+    *         source file.
     */
    public JavaClassImpl(final InputStream inputStream)
    {
@@ -100,11 +106,17 @@ public class JavaClassImpl implements JavaClass
       this("public class JavaClass { }");
    }
 
+   @SuppressWarnings({ "unchecked", "rawtypes" })
    private void init(final char[] source)
    {
       document = new Document(new String(source));
       ASTParser parser = ASTParser.newParser(AST.JLS3);
+
       parser.setSource(document.get().toCharArray());
+      Map options = JavaCore.getOptions();
+      options.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_1_5);
+      parser.setCompilerOptions(options);
+
       parser.setResolveBindings(true);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       unit = (CompilationUnit) parser.createAST(null);
@@ -518,7 +530,7 @@ public class JavaClassImpl implements JavaClass
    @Override
    public String toString()
    {
-      return document.get();
+      return unit.toString();
    }
 
    @Override
@@ -528,7 +540,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public JavaClass applyChanges()
+   public JavaClass getOrigin()
    {
       try
       {

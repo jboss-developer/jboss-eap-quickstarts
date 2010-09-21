@@ -34,53 +34,58 @@ import org.jboss.seam.sidekick.project.Project;
 public interface ResourceFacet extends Facet
 {
    /**
-    * Get a list of {@link File}s representing the directories this project uses to contain {@link Project} non-source
-    * documents (such as configuration files.)
+    * Get a list of {@link File}s representing the directories this project uses
+    * to contain {@link Project} non-source documents (such as configuration
+    * files.)
     */
    public List<File> getResourceFolders();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to store package-able, non-source documents
-    * (such as configuration files.)
+    * Get the {@link File} representing the folder this {@link Project} uses to
+    * store package-able, non-source documents (such as configuration files.)
     */
    public File getResourceFolder();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to store test-scoped non-source documents
-    * (such as configuration files.) Files in this directory will never be packaged or deployed except when running Unit
-    * Tests.
+    * Get the {@link File} representing the folder this {@link Project} uses to
+    * store test-scoped non-source documents (such as configuration files.)
+    * Files in this directory will never be packaged or deployed except when
+    * running Unit Tests.
     */
    public File getTestResourceFolder();
 
    /**
-    * TODO As more of these files come into being, move into a separate class
-    * <p>
-    * At the given path/filename relative to the project resources directory: {@link #getResourceFolder()} - create a
-    * file containing the given bytes.
+    * At the given path/filename relative to the project resources directory:
+    * {@link #getResourceFolder()} - create a file containing the given bytes.
     * 
     * @return a handle to the {@link File} that was created.
     */
    File createResource(char[] bytes, String relativeFilename);
 
    /**
-    * At the given path/filename relative to the project test resources directory: {@link #getTestResourceFolder()} -
-    * create a file containing the given bytes.
+    * At the given path/filename relative to the project test resources
+    * directory: {@link #getTestResourceFolder()} - create a file containing the
+    * given bytes.
     * 
     * @return a handle to the {@link File} that was created.
     */
    File createTestResource(char[] bytes, String relativeFilename);
 
    /**
-    * Return the {@link File} at the given path relative to {@link #getResourceFolder()}. The {@link File} object is
-    * returned regardless of whether the target actually exists. To determine if the file exists, you should call
-    * {@link File#exists()} on the return value of this method.
+    * Return the {@link File} at the given path relative to
+    * {@link #getResourceFolder()}. The {@link File} object is returned
+    * regardless of whether the target actually exists. To determine if the file
+    * exists, you should call {@link File#exists()} on the return value of this
+    * method.
     */
    public File getResource(String relativePath);
 
    /**
-    * Attempt to locate a {@link File} at the given path relative to {@link #getTestResourceFolder()}. The {@link File}
-    * object is returned regardless of whether the target actually exists. To determine if the file exists, you should
-    * call {@link File#exists()} on the return value of this method.
+    * Attempt to locate a {@link File} at the given path relative to
+    * {@link #getTestResourceFolder()}. The {@link File} object is returned
+    * regardless of whether the target actually exists. To determine if the file
+    * exists, you should call {@link File#exists()} on the return value of this
+    * method.
     */
    public File getTestResource(String relativePath);
 }

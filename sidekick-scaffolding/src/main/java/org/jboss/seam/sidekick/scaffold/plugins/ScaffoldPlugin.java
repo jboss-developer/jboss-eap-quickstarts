@@ -88,7 +88,7 @@ public class ScaffoldPlugin extends MavenPlugin
                .setName(entityName)
                .setPublic()
                .addAnnotation(Entity.class)
-               .applyChanges());
+               .getOrigin());
 
       shell.println("Created @Entity [" + entityName + "]");
    }
@@ -103,9 +103,9 @@ public class ScaffoldPlugin extends MavenPlugin
    public List<Dependency> getDependencies()
    {
       return Arrays.asList(DependencyBuilder.create()
-               .setGroupId("org.jboss.spec")
-               .setArtifactId("jboss-javaee-6.0")
-               .setVersion("1.0.0.Beta4").build());
+               .setGroupId("org.hibernate")
+               .setArtifactId("hibernate-entitymanager")
+               .setVersion("3.4.0.GA").build());
    }
 
    @Override

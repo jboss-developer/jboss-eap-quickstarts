@@ -62,7 +62,7 @@ public class FieldTest
    {
       assertEquals("field", field.getName());
       field.setName("newName");
-      field.applyChanges();
+      field.getOrigin();
       assertTrue(field.toString().contains("newName;"));
       assertEquals("newName", field.getName());
    }
@@ -72,7 +72,7 @@ public class FieldTest
    {
       assertEquals("field", field.getName());
       field.setType(FieldTest.class);
-      field.applyChanges();
+      field.getOrigin();
       assertTrue(field.toString().contains("FieldTest"));
       assertEquals(FieldTest.class.getSimpleName(), field.getType());
    }
@@ -82,7 +82,7 @@ public class FieldTest
    {
       assertEquals("field", field.getName());
       field.setType("FooBarType");
-      field.applyChanges();
+      field.getOrigin();
       assertTrue(field.toString().contains("FooBarType"));
       assertEquals("FooBarType", field.getType());
    }
@@ -92,7 +92,7 @@ public class FieldTest
    {
       javaClass.addField("public Boolean flag = false;");
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
-      fld.applyChanges();
+      fld.getOrigin();
 
       assertTrue(fld.toString().contains("Boolean"));
       assertEquals("Boolean", fld.getType());
@@ -105,7 +105,7 @@ public class FieldTest
    {
       javaClass.addField("public int flag;").setLiteralInitializer("1234").setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
-      fld.applyChanges();
+      fld.getOrigin();
 
       assertEquals("int", fld.getType());
       assertEquals("flag", fld.getName());
@@ -119,7 +119,7 @@ public class FieldTest
    {
       javaClass.addField("public String flag;").setStringInitializer("american");
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
-      fld.applyChanges();
+      fld.getOrigin();
 
       assertEquals("String", fld.getType());
       assertEquals("flag", fld.getName());
@@ -133,7 +133,7 @@ public class FieldTest
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american").setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
-      fld.applyChanges();
+      fld.getOrigin();
 
       assertEquals(String.class.getName(), fld.getType());
       assertEquals("flag", fld.getName());

@@ -12,22 +12,6 @@
    <packaging>jar</packaging>
    <name>Seam Sidekick Scaffolding Plugins</name>
 
-   <properties>
-      <jboss-javaee6-spec.version>1.0.0.Beta4</jboss-javaee6-spec.version>
-      <hibernate.search.version>3.2.1.Final</hibernate.search.version>
-   </properties>
-
-   <dependencyManagement>
-      <dependencies>
-         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>${jboss-javaee6-spec.version}</version>
-            <type>pom</type>
-         </dependency>
-      </dependencies>
-   </dependencyManagement>
-
    <dependencies>
       <dependency>
          <groupId>org.jboss.seam.sidekick</groupId>
@@ -35,11 +19,22 @@
          <version>1.0.0-SNAPSHOT</version>
          <scope>compile</scope>
       </dependency>
-
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-entitymanager</artifactId>
          <version>3.4.0.GA</version>
+      </dependency>
+      
+      <!-- Test Dependencies -->
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-test-harness</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.sidekick</groupId>
+         <artifactId>sidekick-shell</artifactId>
+         <scope>test</scope>
       </dependency>
 
    </dependencies>

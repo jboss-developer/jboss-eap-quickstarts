@@ -118,10 +118,10 @@ public class MavenFacetsTest
    @AfterClass
    public static void preDestroy()
    {
-      if (tempFolder.exists())
-      {
-         assertTrue(tempProject.delete(tempFolder));
-      }
+      // if (tempFolder.exists())
+      // {
+      // assertTrue(tempProject.delete(tempFolder));
+      // }
    }
 
    @Test
@@ -149,7 +149,7 @@ public class MavenFacetsTest
    {
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      clazz.applyChanges();
+      clazz.getOrigin();
       File file = tempProject.getFacet(JavaSourceFacet.class).createJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
@@ -237,6 +237,7 @@ public class MavenFacetsTest
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      projectFactory.createProject(temp, MavenFacet.class, JavaSourceFacet.class); // no boom
+      projectFactory.createProject(temp, MavenFacet.class, JavaSourceFacet.class); // no
+                                                                                   // boom
    }
 }

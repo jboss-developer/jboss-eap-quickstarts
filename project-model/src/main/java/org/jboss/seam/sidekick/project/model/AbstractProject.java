@@ -151,6 +151,17 @@ public abstract class AbstractProject implements Project
          throw new IllegalArgumentException("Attempted to register 'null' as a Facet; Facets cannot be null.");
       }
 
+      if (facet.getDependencies() != null)
+      {
+         for (Class<? extends Facet> type : facet.getDependencies())
+         {
+            if (!hasFacet(type))
+            {
+               throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: [" + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
+            }
+         }
+      }
+
       facet.init(this);
       if (facet.isInstalled() && !hasFacet(facet.getClass()))
       {

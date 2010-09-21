@@ -25,17 +25,19 @@ import java.io.File;
 
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
+import org.jboss.seam.sidekick.project.util.Packages;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
 {
+   // TODO the impl part of the project model API needs to be split into a
+   // separate package so that plugin authors see a clean API
    private File createJavaFile(final File sourceFolder, final String classPackage, final String className,
             final char[] data)
    {
-      String path = sourceFolder.getAbsolutePath() + File.separator + classPackage.replaceAll("\\.", File.separator);
+      String path = sourceFolder.getAbsolutePath() + File.separator + Packages.toFileSyntax(classPackage);
       File file = new File(path + File.separator + className + ".java");
 
       getProject().writeFile(data, file);

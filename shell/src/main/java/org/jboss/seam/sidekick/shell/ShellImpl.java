@@ -146,7 +146,7 @@ public class ShellImpl implements Shell
          pretend = true;
       }
 
-      String projectPath = "";
+      String projectPath = null;
       if ((parameters != null) && !parameters.isEmpty())
       {
          for (String path : parameters)
@@ -159,7 +159,15 @@ public class ShellImpl implements Shell
          }
       }
 
-      File targetDirectory = new File(projectPath).getAbsoluteFile();
+      File targetDirectory = null;
+      if ((projectPath == null) && (getCurrentDirectory() != null))
+      {
+         targetDirectory = getCurrentDirectory();
+      }
+      else
+      {
+         targetDirectory = new File(projectPath).getAbsoluteFile();
+      }
       setCurrentDirectory(targetDirectory);
    }
 

@@ -19,22 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.parser;
+
+package org.jboss.seam.sidekick;
 
 /**
- * Represents an object that queues changes before making final modifications to
- * a resource.
+ * Used to get Arquillian/Shrinkwrap to pull in all necessary shell impl
+ * classes.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Mutable<T>
+public interface BasePackageMarker
 {
-   /**
-    * Apply all changes made to this or other objects to which this may belong.
-    * (Apply all pending changes in the object graph.)
-    * 
-    * @return the instance of the updated root object.
-    */
-   T applyChanges();
+
 }

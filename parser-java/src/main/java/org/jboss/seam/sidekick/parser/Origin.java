@@ -19,24 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.sidekick.parser.java;
-
-import org.jboss.seam.sidekick.parser.Internal;
-import org.jboss.seam.sidekick.parser.Origin;
+package org.jboss.seam.sidekick.parser;
 
 /**
+ * Represents an object that has a root ancestor that should be made accessible
+ * to its clients.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Import extends Internal, Origin<JavaClass>
+public interface Origin<T>
 {
-   public String getName();
-
-   public Import setName(final String name);
-
-   public boolean isStatic();
-
-   public Import setStatic(final boolean value);
-
+   /**
+    * @return the instance of the root ancestor.
+    */
+   T getOrigin();
 }

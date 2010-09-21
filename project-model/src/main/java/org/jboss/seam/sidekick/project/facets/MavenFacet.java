@@ -23,8 +23,10 @@ package org.jboss.seam.sidekick.project.facets;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.jboss.seam.sidekick.project.Facet;
+import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.util.DependencyBuilder;
 
 /**
@@ -46,24 +48,34 @@ public interface MavenFacet extends Facet
    /**
     * Ask Maven to process this project's POM and return the resulting metadata.
     * <p>
-    * <b>**Warning!**</b> Calling this method has serious performance implications! Avoid whenever possible!
+    * <b>**Warning!**</b> Calling this method has serious performance
+    * implications! Avoid whenever possible!
     */
    public ProjectBuildingResult getProjectBuildingResult();
 
    /**
-    * Return true if this {@link Project} contains a dependency matching the given {@link Dependency}; return false
-    * otherwise. See also: {@link DependencyBuilder}.
+    * Return true if this {@link Project} contains a dependency matching the
+    * given {@link Dependency}; return false otherwise. See also:
+    * {@link DependencyBuilder}.
     */
    public boolean hasDependency(Dependency dependency);
 
    /**
-    * Add the given {@link Dependency} to this facet's {@link Project}. See also: {@link DependencyBuilder}.
+    * Add the given {@link Dependency} to this facet's {@link Project}. See
+    * also: {@link DependencyBuilder}.
     */
    public void addDependency(Dependency dependency);
 
    /**
-    * Remove the given {@link Dependency} from this facet's {@link Project}. See also: {@link DependencyBuilder}.
+    * Remove the given {@link Dependency} from this facet's {@link Project}. See
+    * also: {@link DependencyBuilder}.
     */
    public void removeDependency(Dependency dependency);
+
+   /**
+    * Return the fully-resolved POM/{@link MavenProject} for this Maven enabled
+    * {@link Project}
+    */
+   public MavenProject getMavenProject();
 
 }

@@ -23,8 +23,8 @@
       <module>project-model</module>
       <module>plugin-api</module>
       <module>test-harness</module>
-      <module>sidekick-scaffolding</module>
       <module>shell</module>
+      <module>sidekick-scaffolding</module>
    </modules>
 
    <properties>
@@ -243,9 +243,12 @@
    <repositories>
       <repository>
          <id>jboss-public-repository-group</id>
-         <name>JBoss Public Maven Repository Group</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public/
-         </url>
+         <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+         <layout>default</layout>
+      </repository>
+      <repository>
+         <id>maven-3-repository</id>
+         <url>https://repository.apache.org/content/repositories/maven-030/</url>
          <layout>default</layout>
       </repository>
    </repositories>

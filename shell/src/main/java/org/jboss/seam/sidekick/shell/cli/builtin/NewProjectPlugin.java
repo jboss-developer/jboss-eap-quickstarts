@@ -116,7 +116,7 @@ public class NewProjectPlugin implements Plugin
                .addMethod("public void String sayHello() {}")
                .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name
                         + ".\");")
-               .applyChanges());
+               .getOrigin());
 
       // project.createResource("<beans/>".toCharArray(), "META-INF/beans.xml");
 

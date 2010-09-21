@@ -44,7 +44,7 @@ public class MavenWebFacet extends AbstractWebResourceFacet
    @Override
    public File getWebRootDirectory()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + "/src/main/webapp");
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp");
    }
 
    @Override

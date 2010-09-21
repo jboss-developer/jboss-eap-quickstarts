@@ -84,9 +84,9 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public JavaClass applyChanges()
+   public JavaClass getOrigin()
    {
-      return parent.applyChanges();
+      return parent.getOrigin();
    }
 
    @Override

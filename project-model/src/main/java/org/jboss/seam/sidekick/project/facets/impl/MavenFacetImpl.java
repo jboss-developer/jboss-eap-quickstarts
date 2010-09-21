@@ -42,6 +42,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingRequest;
@@ -87,7 +88,8 @@ public class MavenFacetImpl implements MavenFacet
 
             builder = container.lookup(ProjectBuilder.class);
 
-            // TODO this needs to be configurable via the project/.sidekick file.
+            // TODO this needs to be configurable via the project/.sidekick
+            // file.
             String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
 
             request.setLocalRepository(new MavenArtifactRepository(
@@ -126,6 +128,7 @@ public class MavenFacetImpl implements MavenFacet
    @Override
    public ProjectBuildingResult getProjectBuildingResult()
    {
+      // FIXME This method is SLOW: about 2-5 seconds/call (needs optimization!)
       bootstrapMaven();
       try
       {
@@ -141,6 +144,11 @@ public class MavenFacetImpl implements MavenFacet
       }
    }
 
+   private void invalidateBuildingResult()
+   {
+      this.buildingResult = null;
+   }
+
    @Override
    public void addDependency(final Dependency dep)
    {
@@ -153,11 +161,6 @@ public class MavenFacetImpl implements MavenFacet
          setPOM(pom);
       }
       invalidateBuildingResult();
-   }
-
-   private void invalidateBuildingResult()
-   {
-      this.buildingResult = null;
    }
 
    @Override
@@ -196,6 +199,7 @@ public class MavenFacetImpl implements MavenFacet
       invalidateBuildingResult();
    }
 
+   @Override
    public Model getPOM()
    {
       try
@@ -223,6 +227,7 @@ public class MavenFacetImpl implements MavenFacet
       }
    }
 
+   @Override
    public void setPOM(final Model pom)
    {
       try
@@ -236,6 +241,7 @@ public class MavenFacetImpl implements MavenFacet
       {
          throw new ProjectModelException("Could not write POM file: " + getPOMFile(), e);
       }
+      invalidateBuildingResult();
    }
 
    private Model createPOM()
@@ -322,5 +328,11 @@ public class MavenFacetImpl implements MavenFacet
    public Set<Class<? extends Facet>> getDependencies()
    {
       return null;
+   }
+
+   @Override
+   public MavenProject getMavenProject()
+   {
+      return getProjectBuildingResult().getProject();
    }
 }
