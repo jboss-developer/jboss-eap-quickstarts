@@ -164,6 +164,7 @@ public class CommandLibraryExtension implements Extension
                      optionMeta.setDefaultValue(option.defaultValue());
                      optionMeta.setHelp(option.help());
                      optionMeta.setRequired(option.required());
+                     optionMeta.setPromptType(option.type());
                   }
                }
                commandMeta.addOption(optionMeta);

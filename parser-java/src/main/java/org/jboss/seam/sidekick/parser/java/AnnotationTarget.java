@@ -35,11 +35,15 @@ public interface AnnotationTarget<T> extends Internal, Origin<JavaClass>
 {
    public abstract Annotation addAnnotation();
 
-   public abstract Annotation addAnnotation(Class<?> clazz);
+   public abstract Annotation addAnnotation(Class<? extends java.lang.annotation.Annotation> type);
 
    public abstract Annotation addAnnotation(final String className);
 
    public abstract List<Annotation> getAnnotations();
+
+   public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type);
+
+   public boolean hasAnnotation(final String type);
 
    public abstract T removeAnnotation(Annotation annotation);
 }

@@ -22,9 +22,18 @@
 package org.jboss.seam.sidekick.scaffold;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Entity;
+
+import org.jboss.seam.sidekick.parser.JavaParser;
+import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
@@ -37,6 +46,24 @@ import org.jboss.seam.sidekick.project.facets.WebResourceFacet;
 public class ScaffoldingFacet implements Facet
 {
    private Project project;
+
+   private final FilenameFilter entityFileFIlter = new FilenameFilter()
+   {
+      @Override
+      public boolean accept(File dir, String name)
+      {
+         return name.endsWith(".java");
+      }
+   };
+
+   private final FileFilter directoryFilter = new FileFilter()
+   {
+      @Override
+      public boolean accept(File file)
+      {
+         return file.isDirectory();
+      }
+   };;
 
    @Override
    public Set<Class<? extends Facet>> getDependencies()
@@ -90,5 +117,41 @@ public class ScaffoldingFacet implements Facet
    public boolean isInstalled()
    {
       return getEntityPackageFile().exists();
+   }
+
+   public List<JavaClass> getAllEntities()
+   {
+      File packageFile = getEntityPackageFile();
+      return findEntitiesInFolder(packageFile);
+   }
+
+   private List<JavaClass> findEntitiesInFolder(File packageFile)
+   {
+      List<JavaClass> result = new ArrayList<JavaClass>();
+      if (packageFile.exists())
+      {
+         for (File source : packageFile.listFiles(entityFileFIlter))
+         {
+            try
+            {
+               JavaClass javaClass = JavaParser.parse(source);
+               if (javaClass.hasAnnotation(Entity.class))
+               {
+                  result.add(javaClass);
+               }
+            }
+            catch (FileNotFoundException e)
+            {
+               // Meh, oh well.
+            }
+         }
+
+         for (File source : packageFile.listFiles(directoryFilter))
+         {
+            List<JavaClass> subResults = findEntitiesInFolder(source);
+            result.addAll(subResults);
+         }
+      }
+      return result;
    }
 }

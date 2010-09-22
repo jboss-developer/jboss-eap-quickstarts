@@ -31,6 +31,8 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
+import org.jboss.seam.sidekick.shell.PromptType;
+
 /**
  * A command option.
  * 
@@ -48,7 +50,6 @@ public @interface Option
     */
    String value() default "";
 
-
    String description() default "";
 
    /**
@@ -65,4 +66,15 @@ public @interface Option
     * Help text for this option.
     */
    String help() default "";
+
+   /**
+    * The prompt type to use when validating user input. This should be used
+    * carefully!
+    * <p>
+    * <b>**WARNING**</b> Since specifying a {@link PromptType} restricts user
+    * input, you need to make sure that the option type is compatible with this
+    * input, or exceptions may occur. (String or Object are your safest
+    * choices.)
+    */
+   PromptType type() default PromptType.ANY;
 }

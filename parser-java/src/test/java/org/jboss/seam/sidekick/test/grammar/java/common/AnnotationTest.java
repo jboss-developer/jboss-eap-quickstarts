@@ -72,21 +72,20 @@ public abstract class AnnotationTest
    public void testAddAnnotation() throws Exception
    {
       int size = target.getAnnotations().size();
-      target.addAnnotation().setName("RequestScoped");
+      Annotation annotation = target.addAnnotation().setName("RequestScoped");
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
-      assertEquals("RequestScoped", annotations.get(annotations.size() - 1).getName());
+      assertEquals("RequestScoped", annotation.getName());
    }
 
    @Test
    public void testAddAnnotationByClass() throws Exception
    {
       int size = target.getAnnotations().size();
-      target.addAnnotation(Test.class);
+      Annotation annotation = target.addAnnotation(Test.class);
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
-      assertEquals(Test.class.getSimpleName(), annotations.get(annotations.size() - 1).getName());
-      target.getOrigin();
+      assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertTrue(target.toString().contains("@" + Test.class.getSimpleName()));
    }
 
@@ -94,11 +93,10 @@ public abstract class AnnotationTest
    public void testAddAnnotationByName() throws Exception
    {
       int size = target.getAnnotations().size();
-      target.addAnnotation("RequestScoped");
+      Annotation annotation = target.addAnnotation("RequestScoped");
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
-      assertEquals("RequestScoped", annotations.get(annotations.size() - 1).getName());
-      target.getOrigin();
+      assertEquals("RequestScoped", annotation.getName());
       assertTrue(target.toString().contains("@RequestScoped"));
    }
 
@@ -106,13 +104,12 @@ public abstract class AnnotationTest
    public void testCanAddAnnotationDuplicate() throws Exception
    {
       int size = target.getAnnotations().size();
-      target.addAnnotation(Test.class);
-      target.addAnnotation(Test.class);
+      Annotation anno1 = target.addAnnotation(Test.class);
+      Annotation anno2 = target.addAnnotation(Test.class);
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 2, annotations.size());
-      assertEquals(Test.class.getSimpleName(), annotations.get(annotations.size() - 1).getName());
-      assertEquals(Test.class.getSimpleName(), annotations.get(annotations.size() - 2).getName());
-      target.getOrigin();
+      assertEquals(Test.class.getSimpleName(), anno1.getName());
+      assertEquals(Test.class.getSimpleName(), anno2.getName());
       String pattern = "@" + Test.class.getSimpleName() + " " + "@" + Test.class.getSimpleName();
       assertTrue(target.toString().contains(pattern));
    }
@@ -129,7 +126,6 @@ public abstract class AnnotationTest
       int size = target.getAnnotations().size();
 
       target.addAnnotation(Test.class).setLiteralValue("435");
-      target.getOrigin();
 
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
@@ -146,7 +142,6 @@ public abstract class AnnotationTest
 
       target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class")
                .setLiteralValue("foo", "bar");
-      target.getOrigin();
 
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
@@ -162,7 +157,6 @@ public abstract class AnnotationTest
    public void testAddValueConvertsToNormalAnnotation() throws Exception
    {
       target.addAnnotation(Test.class).setLiteralValue("RuntimeException.class");
-      target.getOrigin();
       Annotation annotation = target.getAnnotations().get(target.getAnnotations().size() - 1);
 
       assertEquals("RuntimeException.class", annotation.getLiteralValue());
@@ -205,10 +199,32 @@ public abstract class AnnotationTest
    }
 
    @Test
+   public void testHasAnnotationClassType() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertTrue(target.hasAnnotation(Test.class));
+   }
+
+   @Test
+   public void testHasAnnotationStringType() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertTrue(target.hasAnnotation("Test"));
+      assertTrue(target.hasAnnotation(Test.class.getName()));
+   }
+
+   @Test
+   public void testHasAnnotationStringTypeSimple() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertTrue(target.hasAnnotation("Test"));
+      assertTrue(target.hasAnnotation(Test.class.getSimpleName()));
+   }
+
+   @Test
    public void testRemoveAllValues() throws Exception
    {
       target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class");
-      target.getOrigin();
 
       List<Annotation> annotations = target.getAnnotations();
       Annotation annotation = annotations.get(annotations.size() - 1);

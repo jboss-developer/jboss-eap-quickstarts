@@ -64,7 +64,7 @@ public class ScaffoldTest extends AbstractShellTest
 
       String entityName = "Goofy";
       queueInputLines("");
-      getShell().execute("scaffold new-entity " + entityName);
+      getShell().execute("new-entity " + entityName);
 
       Project project = getProject();
       String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
@@ -72,5 +72,7 @@ public class ScaffoldTest extends AbstractShellTest
       JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
       List<SyntaxError> syntaxErrors = javaClass.getSyntaxErrors();
       assertFalse(javaClass.hasSyntaxErrors());
+
+      getShell().execute("new-field int intField");
    }
 }

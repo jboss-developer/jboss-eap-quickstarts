@@ -78,6 +78,26 @@ public class FieldTest
    }
 
    @Test
+   public void testSetTypeStringIntPrimitive() throws Exception
+   {
+      assertEquals("field", field.getName());
+      field.setType("int");
+      field.getOrigin();
+      assertTrue(field.toString().contains("int"));
+      assertEquals("int", field.getType());
+   }
+
+   @Test
+   public void testSetTypeClassIntPrimitive() throws Exception
+   {
+      assertEquals("field", field.getName());
+      field.setType(int.class.getName());
+      field.getOrigin();
+      assertTrue(field.toString().contains("int"));
+      assertEquals("int", field.getType());
+   }
+
+   @Test
    public void testSetTypeString() throws Exception
    {
       assertEquals("field", field.getName());

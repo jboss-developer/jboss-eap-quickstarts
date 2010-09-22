@@ -62,27 +62,54 @@ public abstract class AbstractProject implements Project
    public void writeFile(final char[] data, final File file)
    {
       BufferedWriter writer = null;
+      File tempFile = null;
       try
       {
-         if (!file.mkdirs())
+         if (!file.exists())
          {
-            throw new IOException("Failed to create required directory structure for file: " + file);
+            if (!file.mkdirs())
+            {
+               throw new IOException("Failed to create required directory structure for file: " + file);
+            }
+
+            file.delete();
+            if (!file.createNewFile())
+            {
+               throw new IOException("Failed to create file: " + file);
+            }
+         }
+         else
+         {
+            tempFile = File.createTempFile(AbstractProject.class.getName(), null);
+            File origin = file.getAbsoluteFile();
+            if (!origin.renameTo(tempFile))
+            {
+               throw new IOException("Failed to update file because a temporary file could not be created: " + file);
+            }
          }
 
          file.delete();
 
-         if (!file.createNewFile())
-         {
-            throw new IOException("Failed to create file because it already exists: " + file);
-         }
-
          writer = new BufferedWriter(new FileWriter(file));
          writer.write(data);
          writer.close();
+
       }
       catch (IOException e)
       {
+         if ((tempFile != null) && !file.exists())
+         {
+            tempFile.renameTo(file);
+         }
+
          throw new ProjectModelException(e);
+      }
+      finally
+      {
+         if (tempFile != null)
+         {
+            tempFile.delete();
+         }
       }
    }
 

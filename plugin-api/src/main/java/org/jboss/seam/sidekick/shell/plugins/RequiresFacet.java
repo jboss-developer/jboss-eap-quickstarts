@@ -25,9 +25,9 @@ import org.jboss.seam.sidekick.project.Facet;
 import org.jboss.seam.sidekick.shell.Shell;
 
 /**
- * Informs the {@link Shell} that the annotated {@link Plugin} requires the given facet. This plugin and its commands
- * will not show up in the list of available commands until the required facet is installed and registered in the
- * project. (See also: {@link RequiredFacets})
+ * Informs the {@link Shell} that the annotated {@link Plugin} requires the
+ * given facet before it or its commands will be available on the {@link Shell}
+ * CLI.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 

@@ -26,70 +26,34 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.Entity;
+import javax.inject.Singleton;
 
 import org.apache.maven.model.Dependency;
-import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.project.PackagingType;
 import org.jboss.seam.sidekick.project.Project;
-import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 import org.jboss.seam.sidekick.project.services.FacetFactory;
 import org.jboss.seam.sidekick.project.util.DependencyBuilder;
 import org.jboss.seam.sidekick.scaffold.ScaffoldingFacet;
-import org.jboss.seam.sidekick.shell.PromptType;
-import org.jboss.seam.sidekick.shell.Shell;
-import org.jboss.seam.sidekick.shell.plugins.Command;
 import org.jboss.seam.sidekick.shell.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
-import org.jboss.seam.sidekick.shell.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Singleton
 @Named("scaffold")
 @RequiresFacet(ScaffoldingFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class ScaffoldPlugin extends MavenPlugin
 {
-   private final Project project;
-   private final Shell shell;
    private final FacetFactory factory;
 
    @Inject
-   public ScaffoldPlugin(final Project project, final Shell shell, final FacetFactory factory)
+   public ScaffoldPlugin(final FacetFactory factory)
    {
-      this.project = project;
-      this.shell = shell;
       this.factory = factory;
-   }
-
-   @Command(value = "new-entity", help = "Create a new scaffold @Entity, and trigger view-generation")
-   public void newEntity(@Option(required = true, description = "The @Entity name") final String entityName)
-   {
-      ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      String entityPackage = shell.promptCommon(
-               "In which package you'd like to create this @Entity, or enter for default:",
-               PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
-
-      java.createJavaClass(JavaParser.createClass()
-               .setPackage(entityPackage)
-               .setName(entityName)
-               .setPublic()
-               .addAnnotation(Entity.class)
-               .getOrigin());
-
-      shell.println("Created @Entity [" + entityName + "]");
-   }
-
-   @Command(value = "new-field", help = "Add a field to an existing @Entity class")
-   public void newField(@Option(required = true, description = "The @Entity name") final String entityName)
-   {
-      ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
    }
 
    @Override

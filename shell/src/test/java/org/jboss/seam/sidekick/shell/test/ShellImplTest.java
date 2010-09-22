@@ -29,12 +29,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.sidekick.project.util.DependencyBuilder;
-import org.jboss.seam.sidekick.shell.ShellImpl;
 import org.jboss.seam.sidekick.test.AbstractShellTest;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -45,14 +41,6 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ShellImplTest extends AbstractShellTest
 {
-   @Deployment
-   public static JavaArchive extendDeployment()
-   {
-      return getDeployment().addClass(ShellImpl.class)
-            .addPackages(true, ShellImpl.class.getPackage())
-            .addClass(DependencyBuilder.class);
-   }
-
    @Test
    public void testPromptBoolean() throws Exception
    {
@@ -94,7 +82,17 @@ public class ShellImplTest extends AbstractShellTest
       List<String> choices = Arrays.asList("blue", "green", "red", "yellow");
 
       queueInputLines("foo", "2");
-      String choice = getShell().promptChoice("What is your favorite color?", choices);
+      int choice = getShell().promptChoice("What is your favorite color?", choices);
+      assertEquals(1, choice);
+   }
+
+   @Test
+   public void testPromptChoiceListTyped() throws Exception
+   {
+      List<String> choices = Arrays.asList("blue", "green", "red", "yellow");
+
+      queueInputLines("foo", "2");
+      String choice = getShell().promptChoiceTyped("What is your favorite color?", choices);
       assertEquals(choices.get(1), choice);
    }
 

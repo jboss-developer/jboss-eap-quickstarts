@@ -34,7 +34,7 @@ public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
 {
    // TODO the impl part of the project model API needs to be split into a
    // separate package so that plugin authors see a clean API
-   private File createJavaFile(final File sourceFolder, final String classPackage, final String className,
+   private File saveJavaFile(final File sourceFolder, final String classPackage, final String className,
             final char[] data)
    {
       String path = sourceFolder.getAbsolutePath() + File.separator + Packages.toFileSyntax(classPackage);
@@ -46,14 +46,14 @@ public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
    }
 
    @Override
-   public File createJavaClass(final JavaClass clazz)
+   public File saveJavaClass(final JavaClass clazz)
    {
-      return createJavaFile(getSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
+      return saveJavaFile(getSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
    }
 
    @Override
-   public File createTestJavaClass(final JavaClass clazz)
+   public File saveTestJavaClass(final JavaClass clazz)
    {
-      return createJavaFile(getTestSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
+      return saveJavaFile(getTestSourceFolder(), clazz.getPackage(), clazz.getName(), clazz.toString().toCharArray());
    }
 }

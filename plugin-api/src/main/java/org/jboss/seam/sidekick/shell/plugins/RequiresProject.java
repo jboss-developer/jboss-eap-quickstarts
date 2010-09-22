@@ -20,30 +20,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell;
+package org.jboss.seam.sidekick.shell.plugins;
 
-import org.jboss.seam.sidekick.shell.util.Patterns;
+import org.jboss.seam.sidekick.project.Project;
 
 /**
+ * An annotation signaling that the annotated {@link Plugin} requires an active
+ * {@link Project} before it will be available on the {@link Shell} CLI.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public enum PromptType
+// TODO implement handling strategy for this annotation metadata
+public @interface RequiresProject
 {
-   ANY(".*"),
-   JAVA_PACKAGE("(?i)([a-z0-9_]+\\.?)+[a-z0-9_]"),
-   JAVA_VARIABLE_NAME("(!?" + Patterns.JAVA_KEYWORDS + ")[A-Za-z0-9$_]+");
-
-   private final String pattern;
-
-   private PromptType(final String pattern)
-   {
-      this.pattern = pattern;
-   }
-
-   public String getPattern()
-   {
-      return pattern;
-   }
 
 }

@@ -30,7 +30,9 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.Name;
-import org.eclipse.jdt.core.dom.SimpleType;
+import org.eclipse.jdt.core.dom.PrimitiveType;
+import org.eclipse.jdt.core.dom.PrimitiveType.Code;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.jboss.seam.sidekick.parser.JavaParser;
 import org.jboss.seam.sidekick.parser.java.Annotation;
@@ -105,7 +107,7 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Annotation addAnnotation(final Class<?> clazz)
+   public Annotation addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
       if (!parent.hasImport(clazz))
       {
@@ -124,6 +126,18 @@ public class FieldImpl implements Field
    public List<Annotation> getAnnotations()
    {
       return util.getAnnotations(this, field);
+   }
+
+   @Override
+   public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return util.hasAnnotation(this, field, type.getName());
+   }
+
+   @Override
+   public boolean hasAnnotation(final String type)
+   {
+      return util.hasAnnotation(this, field, type);
    }
 
    @Override
@@ -242,11 +256,22 @@ public class FieldImpl implements Field
    }
 
    @Override
-   public Field setType(final String type)
+   public Field setType(final String typeName)
    {
-      Name name = ast.newName(Strings.tokenizeClassName(type));
-      SimpleType st = ast.newSimpleType(name);
-      field.setType(st);
+      Code primitive = PrimitiveType.toCode(typeName);
+
+      Type type = null;
+      if (primitive != null)
+      {
+         type = ast.newPrimitiveType(primitive);
+      }
+      else
+      {
+         String[] className = Strings.tokenizeClassName(typeName);
+         Name name = ast.newName(className);
+         type = ast.newSimpleType(name);
+      }
+      field.setType(type);
       return this;
    }
 

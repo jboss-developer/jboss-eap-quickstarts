@@ -21,11 +21,6 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
-import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
-import org.jboss.seam.sidekick.shell.plugins.Plugin;
-import org.mvel2.DataConversion;
-
 import java.lang.reflect.Method;
 import java.util.Set;
 
@@ -35,7 +30,10 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.mvel2.DataConversion;
+import org.mvel2.util.ParseTools;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -73,6 +71,10 @@ public class Execution
             try
             {
                paramStaging[i] = DataConversion.convert(parameterArray[i], parmTypes[i]);
+               if (isBooleanOption(parmTypes[i]) && (null == paramStaging[i]))
+               {
+                  paramStaging[i] = false;
+               }
             }
             catch (Exception e)
             {
@@ -107,6 +109,11 @@ public class Execution
          // TODO it would be nice if this delegated to the system shell
          throw new NoSuchCommandException(command, "No such command: " + originalStatement);
       }
+   }
+
+   private static boolean isBooleanOption(Class<?> type)
+   {
+      return ParseTools.unboxPrimitive(type) == boolean.class;
    }
 
    public CommandMetadata getCommand()

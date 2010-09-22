@@ -79,14 +79,17 @@ public class QueuedInputStream extends InputStream
    {
       try
       {
-         if (((current == null) || (current.available() <= 0)) && !inputQueue.isEmpty())
+         if ((current == null) || (current.available() <= 0))
          {
-            byte[] bytes = inputQueue.remove().getBytes();
-            current = new BufferedInputStream(new ByteArrayInputStream(bytes));
-         }
-         else
-         {
-            new BufferedInputStream(new ByteArrayInputStream(new byte[] {}));
+            if (!inputQueue.isEmpty())
+            {
+               byte[] bytes = inputQueue.remove().getBytes();
+               current = new BufferedInputStream(new ByteArrayInputStream(bytes));
+            }
+            else
+            {
+               throw new IllegalStateException("End of stream: No more queued input.");
+            }
          }
       }
       catch (IOException e)

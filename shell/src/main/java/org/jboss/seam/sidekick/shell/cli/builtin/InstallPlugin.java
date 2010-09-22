@@ -79,7 +79,7 @@ public class InstallPlugin implements Plugin
                            + packaging
                            + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
                   {
-                     PackagingType type = shell.promptChoice("Select a new packaging type:", types);
+                     PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
                      project.getFacet(PackagingFacet.class).setPackagingType(type);
                      shell.println("Packaging updated to [" + type + "]");
                   }

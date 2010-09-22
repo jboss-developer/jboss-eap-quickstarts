@@ -20,30 +20,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell;
-
-import org.jboss.seam.sidekick.shell.util.Patterns;
+package org.jboss.seam.sidekick.parser.java.util;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public enum PromptType
+public class TypesNames
 {
-   ANY(".*"),
-   JAVA_PACKAGE("(?i)([a-z0-9_]+\\.?)+[a-z0-9_]"),
-   JAVA_VARIABLE_NAME("(!?" + Patterns.JAVA_KEYWORDS + ")[A-Za-z0-9$_]+");
-
-   private final String pattern;
-
-   private PromptType(final String pattern)
+   public static boolean areEquivalent(String type, String annotationType)
    {
-      this.pattern = pattern;
+      String shortType = type.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
+      if (shortType.equals(annotationType) ||
+            type.equals(annotationType))
+      {
+         return true;
+      }
+      return false;
    }
-
-   public String getPattern()
-   {
-      return pattern;
-   }
-
 }

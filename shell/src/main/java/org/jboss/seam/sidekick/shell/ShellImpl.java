@@ -598,14 +598,56 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public <T> T promptChoice(final String message, final T... options)
+   public int promptChoice(final String message, final Object... options)
    {
       return promptChoice(message, Arrays.asList(options));
    }
 
    @Override
+   public int promptChoice(final String message, final List<?> options)
+   {
+      if (options == null)
+      {
+         throw new IllegalArgumentException(
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+      }
+
+      int count = 1;
+      println(message);
+
+      Object result = InvalidInput.INSTANCE;
+
+      while (result instanceof InvalidInput)
+      {
+         println();
+         for (Object entry : options)
+         {
+            println("  " + count + " - [" + entry + "]");
+            count++;
+         }
+         println();
+         int input = prompt("Choose an option by typing the number of the selection: ", Integer.class) - 1;
+         if (input < options.size())
+         {
+            return input;
+         }
+         else
+         {
+            println("Invalid selection, please try again.");
+         }
+      }
+      return -1;
+   }
+
+   @Override
+   public <T> T promptChoiceTyped(final String message, final T... options)
+   {
+      return promptChoiceTyped(message, Arrays.asList(options));
+   }
+
+   @Override
    @SuppressWarnings("unchecked")
-   public <T> T promptChoice(final String message, final List<T> options)
+   public <T> T promptChoiceTyped(final String message, final List<T> options)
    {
       if (options == null)
       {

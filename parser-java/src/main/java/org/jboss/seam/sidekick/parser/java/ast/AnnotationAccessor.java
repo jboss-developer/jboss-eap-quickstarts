@@ -30,6 +30,7 @@ import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.jboss.seam.sidekick.parser.java.Annotation;
 import org.jboss.seam.sidekick.parser.java.AnnotationTarget;
 import org.jboss.seam.sidekick.parser.java.impl.AnnotationImpl;
+import org.jboss.seam.sidekick.parser.java.util.TypesNames;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -42,7 +43,7 @@ public class AnnotationAccessor
    public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body)
    {
       Annotation annotation = new AnnotationImpl(target);
-      body.modifiers().add(annotation.getInternal());
+      body.modifiers().add(0, annotation.getInternal());
       return annotation;
    }
 
@@ -86,5 +87,23 @@ public class AnnotationAccessor
          }
       }
       return target;
+   }
+
+   public <T extends AnnotationTarget<?>> boolean hasAnnotation(final T target, final BodyDeclaration body, String type)
+   {
+      List<?> modifiers = body.modifiers();
+      for (Object object : modifiers)
+      {
+         if (object instanceof org.eclipse.jdt.core.dom.Annotation)
+         {
+            Annotation annotation = new AnnotationImpl(target, object);
+            String annotationType = annotation.getName();
+            if (TypesNames.areEquivalent(type, annotationType))
+            {
+               return true;
+            }
+         }
+      }
+      return false;
    }
 }

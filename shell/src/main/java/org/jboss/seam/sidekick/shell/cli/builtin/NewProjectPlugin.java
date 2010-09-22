@@ -108,7 +108,7 @@ public class NewProjectPlugin implements Plugin
 
       project.getFacet(MavenFacet.class).setPOM(pom);
 
-      project.getFacet(JavaSourceFacet.class).createJavaClass(JavaParser
+      project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
                .createClass()
                .setPackage(groupId)
                .setName("HelloWorld")

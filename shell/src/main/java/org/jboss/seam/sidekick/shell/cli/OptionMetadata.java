@@ -21,6 +21,8 @@
  */
 package org.jboss.seam.sidekick.shell.cli;
 
+import org.jboss.seam.sidekick.shell.PromptType;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -36,9 +38,11 @@ public class OptionMetadata
    private String description = "";
    private String help = "";
    private boolean required = false;
+   private PromptType promptType;
 
    /**
-    * Return whether this option is to be mapped via name or via parameter order.
+    * Return whether this option is to be mapped via name or via parameter
+    * order.
     */
    public boolean isNamed()
    {
@@ -144,6 +148,16 @@ public class OptionMetadata
    public boolean hasDefaultValue()
    {
       return (defaultValue != null) && !"".equals(defaultValue);
+   }
+
+   public PromptType getPromptType()
+   {
+      return promptType;
+   }
+
+   public void setPromptType(PromptType type)
+   {
+      this.promptType = type;
    }
 
 }

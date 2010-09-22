@@ -135,7 +135,7 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
-   public Annotation addAnnotation(final Class<?> clazz)
+   public Annotation addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
       if (!this.hasImport(clazz))
       {
@@ -154,6 +154,18 @@ public class JavaClassImpl implements JavaClass
    public List<Annotation> getAnnotations()
    {
       return util.getAnnotations(this, getTypeDeclaration());
+   }
+
+   @Override
+   public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return util.hasAnnotation(this, getTypeDeclaration(), type.getName());
+   }
+
+   @Override
+   public boolean hasAnnotation(final String type)
+   {
+      return util.hasAnnotation(this, getTypeDeclaration(), type);
    }
 
    @Override
