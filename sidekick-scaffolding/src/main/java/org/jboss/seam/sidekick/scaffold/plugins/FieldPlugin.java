@@ -87,6 +87,9 @@ public class FieldPlugin implements Plugin
       shell.println("Added field to " + entity.getQualifiedName() + ": " + field);
    }
 
+   /*
+    * Helpers
+    */
    private void findEntity(final String entityName) throws FileNotFoundException
    {
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
