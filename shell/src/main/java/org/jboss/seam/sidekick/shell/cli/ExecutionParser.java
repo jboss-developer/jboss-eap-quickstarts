@@ -28,6 +28,7 @@ import java.util.Queue;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
+import org.jboss.seam.sidekick.shell.PromptType;
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.cli.parser.CommandParser;
 import org.jboss.seam.sidekick.shell.cli.parser.CompositeCommandParser;
@@ -127,19 +128,32 @@ public class ExecutionParser
       for (OptionMetadata option : command.getOptions())
       {
          Object value = valueMap.get(option);
-         if (option.isRequired() && (value == null))
+         PromptType promptType = option.getPromptType();
+         String optionDescriptor = ShellUtils.getOptionDescriptor(option) + ": ";
+         if ((value != null) && !value.toString().matches(promptType.getPattern()))
          {
-
+            // make sure the current option value is OK
+            shell.println("Could not parse [" + value + "]... please try again...");
+            value = shell.promptCommon(optionDescriptor, promptType);
+         }
+         else if (option.isRequired() && (value == null))
+         {
             while (value == null)
             {
                if (isBooleanOption(option))
                {
-                  value = shell.promptBoolean(ShellUtils.getOptionDescriptor(option) + ": ");
+                  value = shell.promptBoolean(optionDescriptor);
+               }
+               else if (!PromptType.ANY.equals(promptType))
+               {
+                  // make sure an omitted required option value is OK
+                  value = shell.promptCommon(optionDescriptor, promptType);
                }
                else
                {
-                  value = shell.prompt(ShellUtils.getOptionDescriptor(option) + ": ");
+                  value = shell.prompt(optionDescriptor);
                }
+
                if (String.valueOf(value).trim().length() == 0)
                {
                   shell.println("The option is required to execute this command.");

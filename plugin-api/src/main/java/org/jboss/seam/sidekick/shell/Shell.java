@@ -35,8 +35,8 @@ import java.util.Map;
 public interface Shell
 {
    /**
-    * Return the current working directory of the shell. (This value may change through execution of plugins or other
-    * operations.)
+    * Return the current working directory of the shell. (This value may change
+    * through execution of plugins or other operations.)
     */
    File getCurrentDirectory();
 
@@ -48,8 +48,9 @@ public interface Shell
    /**
     * Return true if this shell is currently running in pretend mode.
     * <p/>
-    * Modifications to files made while running in pretend mode are made in a temporary directory, and the output is
-    * produced as a Diff that can then be applied to the project.
+    * Modifications to files made while running in pretend mode are made in a
+    * temporary directory, and the output is produced as a Diff that can then be
+    * applied to the project.
     */
    boolean isPretend();
 
@@ -81,55 +82,89 @@ public interface Shell
    String prompt();
 
    /**
-    * Prompt for user input, first printing the given line, then return user input as a String.
+    * Prompt for user input, first printing the given line, then return user
+    * input as a String.
     */
    String prompt(String message);
 
    /**
-    * Prompt for user input, first printing the given message, then return user input cast to the type provided.
+    * Prompt for user input, first printing the given message, then return user
+    * input cast to the type provided.
     */
    <T> T prompt(String message, Class<T> clazz);
 
    /**
-    * Prompt for boolean user input (Y/n), first printing the given message, then returning user input as a boolean. The
-    * value returned will default to <code>true</code> if an empty or whitespace-only user input is read.
+    * Prompt for boolean user input (Y/n), first printing the given message,
+    * then returning user input as a boolean. The value returned will default to
+    * <code>true</code> if an empty or whitespace-only user input is read.
     */
    boolean promptBoolean(String string);
 
    /**
-    * Prompt for boolean user input (Y/n), first printing the given message, then returning user input as a boolean.
+    * Prompt for boolean user input (Y/n), first printing the given message,
+    * then returning user input as a boolean.
     * 
-    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
     */
    boolean promptBoolean(String message, boolean defaultIfEmpty);
 
    /**
-    * Prompt for user input, first printing the given message, followed by an enumerated list of options (printing the
-    * String value of each item in the list.) Loop until the user enters a number corresponding to one of the options,
-    * then return the value of that option from the list.
+    * Prompt for user input, first printing the given message, followed by an
+    * enumerated list of options (printing the String value of each item in the
+    * list.) Loop until the user enters a number corresponding to one of the
+    * options, then return the index of that option from the list.
+    * 
+    * @param <T> The type of the objects contained in the list
+    * @param message The prompt message to display until valid input is entered
+    * @param options The list of selection options
+    * @return the index of selected option
+    */
+   int promptChoice(String message, Object... options);
+
+   /**
+    * Prompt for user input, first printing the given message, followed by an
+    * enumerated list of options (printing the String value of each item in the
+    * list.) Loop until the user enters a number corresponding to one of the
+    * options, then return the index of that option from the list.
+    * 
+    * @param <T> The type of the objects contained in the list
+    * @param message The prompt message to display until valid input is entered
+    * @param options The list of selection options
+    * @return the index of the selected option
+    */
+   int promptChoice(String message, List<?> options);
+
+   /**
+    * Prompt for user input, first printing the given message, followed by an
+    * enumerated list of options (printing the String value of each item in the
+    * list.) Loop until the user enters a number corresponding to one of the
+    * options, then return that option from the list.
     * 
     * @param <T> The type of the objects contained in the list
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the selected option
     */
-   <T> T promptChoice(String message, T... options);
+   <T> T promptChoiceTyped(String message, List<T> options);
 
    /**
-    * Prompt for user input, first printing the given message, followed by an enumerated list of options (printing the
-    * String value of each item in the list.) Loop until the user enters a number corresponding to one of the options,
-    * then return the value of that option from the list.
+    * Prompt for user input, first printing the given message, followed by an
+    * enumerated list of options (printing the String value of each item in the
+    * list.) Loop until the user enters a number corresponding to one of the
+    * options, then return that option from the list.
     * 
     * @param <T> The type of the objects contained in the list
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the selected option
     */
-   <T> T promptChoice(String message, List<T> options);
+   <T> T promptChoiceTyped(String message, T... options);
 
    /**
-    * Prompt for user input, first printing the given message, followed by a keyed list of options. Loop until the user
-    * enters a key corresponding to one of the options, then return the value of that option from the map.
+    * Prompt for user input, first printing the given message, followed by a
+    * keyed list of options. Loop until the user enters a key corresponding to
+    * one of the options, then return the value of that option from the map.
     * 
     * @param <T> The type of the objects contained in the map
     * @param message The prompt message to display until valid input is entered
@@ -139,8 +174,9 @@ public interface Shell
    <T> T promptChoice(String message, Map<String, T> options);
 
    /**
-    * Prompt for user input (Y/n), first printing the given message, then returning user input as a String. The prompt
-    * will repeat until input matching the prompt type is entered.
+    * Prompt for user input (Y/n), first printing the given message, then
+    * returning user input as a String. The prompt will repeat until input
+    * matching the prompt type is entered.
     * 
     * @param message The prompt message to display until valid input is entered
     * @param type The prompt type to which valid input must be matched
@@ -148,17 +184,20 @@ public interface Shell
    String promptCommon(String message, PromptType type);
 
    /**
-    * Same as {@link #promptCommon(String, PromptType)}, but will default to a given value if user input is empty.
+    * Same as {@link #promptCommon(String, PromptType)}, but will default to a
+    * given value if user input is empty.
     * 
     * @param message The prompt message to display until valid input is entered
     * @param type The prompt type to which valid input must be matched
-    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
     */
    String promptCommon(String message, PromptType type, String defaultIfEmpty);
 
    /**
-    * Prompt for user input (Y/n), first printing the given message, then returning user input as a String. The prompt
-    * will repeat until input matching the regular expression is entered.
+    * Prompt for user input (Y/n), first printing the given message, then
+    * returning user input as a String. The prompt will repeat until input
+    * matching the regular expression is entered.
     * 
     * @param message The prompt message to display until valid input is entered
     * @param regex The regular expression to which valid input must be matched
@@ -166,19 +205,23 @@ public interface Shell
    String promptRegex(String message, String regex);
 
    /**
-    * Same as {@link #promptRegex(String, String)}, but will default to a given value if user input is empty.
+    * Same as {@link #promptRegex(String, String)}, but will default to a given
+    * value if user input is empty.
     * 
     * @param message The prompt message to display until valid input is entered
     * @param regex The regular expression to which valid input must be matched
-    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
     */
    String promptRegex(String message, String pattern, String defaultIfEmpty);
 
    /**
-    * Prompt for user input, first printing the given line, then returning user input as a converted value.
+    * Prompt for user input, first printing the given line, then returning user
+    * input as a converted value.
     * 
     * @param clazz The type to which the value will be converted, if possible.
-    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
     */
    <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
 
@@ -198,7 +241,8 @@ public interface Shell
    void println();
 
    /**
-    * Write output to the console, only if {@link #isVerbose()} <code> == true</code>.
+    * Write output to the console, only if {@link #isVerbose()}
+    * <code> == true</code>.
     */
    void printlnVerbose(String output);
 

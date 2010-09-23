@@ -94,7 +94,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Annotation addAnnotation(final Class<?> clazz)
+   public Annotation addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
       if (!parent.hasImport(clazz))
       {
@@ -113,6 +113,18 @@ public class MethodImpl implements Method
    public List<Annotation> getAnnotations()
    {
       return util.getAnnotations(this, method);
+   }
+
+   @Override
+   public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return util.hasAnnotation(this, method, type.getName());
+   }
+
+   @Override
+   public boolean hasAnnotation(final String type)
+   {
+      return util.hasAnnotation(this, method, type);
    }
 
    @Override

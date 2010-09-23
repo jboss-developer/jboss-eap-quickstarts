@@ -150,7 +150,7 @@ public class MavenFacetsTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
       clazz.getOrigin();
-      File file = tempProject.getFacet(JavaSourceFacet.class).createJavaClass(clazz);
+      File file = tempProject.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass result = JavaParser.parse(file);

@@ -77,7 +77,16 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
 
    public Field addField();
 
-   public Field addField(final String field);
+   /**
+    * Add a field using the given {@link String} as the declaration, for
+    * example:
+    * <p>
+    * <code>javaClass.addField("private String newField;");</code>
+    * 
+    * @param declaration
+    * @return
+    */
+   public Field addField(final String declaration);
 
    public List<Field> getFields();
 
@@ -94,5 +103,4 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    public String getName();
 
    public JavaClass setName(String name);
-
 }

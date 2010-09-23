@@ -62,6 +62,7 @@ public class ModifierAccessor
       body.modifiers().add(body.getAST().newModifier(keyword));
    }
 
+   @SuppressWarnings("unchecked")
    public void removeModifier(BodyDeclaration body, ModifierKeyword keyword)
    {
       List<Modifier> modifiers = getModifiers(body);

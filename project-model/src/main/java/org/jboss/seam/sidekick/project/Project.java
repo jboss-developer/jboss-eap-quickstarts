@@ -33,40 +33,45 @@ import org.jboss.seam.sidekick.project.facets.FacetNotFoundException;
 public interface Project
 {
    /**
-    * Return true if this project has a facet of the given type; return false otherwise.
+    * Return true if this project has a facet of the given type; return false
+    * otherwise.
     */
    public boolean hasFacet(Class<? extends Facet> type);
 
    /**
-    * Return the instance of the requested {@link Facet} type, or throw a {@link FacetNotFoundException} if no
-    * {@link Facet} of that type is registered.
+    * Return the instance of the requested {@link Facet} type, or throw a
+    * {@link FacetNotFoundException} if no {@link Facet} of that type is
+    * registered.
     */
    public <F extends Facet> F getFacet(Class<F> type) throws FacetNotFoundException;
 
    /**
-    * Return a list of the currently installed {@link Facet}s. Return an empty list if no facets of that type were
-    * found.
+    * Return a list of the currently installed {@link Facet}s. Return an empty
+    * list if no facets of that type were found.
     */
    public List<Facet> getFacets();
 
    /**
-    * Return a list of the currently installed {@link Facet}s matching the given type.
+    * Return a list of the currently installed {@link Facet}s matching the given
+    * type.
     */
    public <F extends Facet> List<F> getFacets(Class<F> type);
 
    /**
-    * Install and register the given {@link Facet}. If the facet is already installed, register it instead (See
-    * {@link #registerFacet(Facet)}.
+    * Install and register the given {@link Facet}. If the facet is already
+    * installed, register it instead (See {@link #registerFacet(Facet)}.
     */
    public Project installFacet(Facet facet);
 
    /**
-    * Add the given {@link Facet} to this {@link Project}'s internal collection of installed facets.
+    * Add the given {@link Facet} to this {@link Project}'s internal collection
+    * of installed facets.
     */
    public Project registerFacet(Facet facet);
 
    /**
-    * Get the {@link File} representing the root directory of this {@link Project}
+    * Get the {@link File} representing the root directory of this
+    * {@link Project}
     */
    public File getProjectRoot();
 
@@ -76,12 +81,14 @@ public interface Project
    public boolean delete(File file);
 
    /**
-    * Create the requested {@link File} and write the given data to it.
+    * Create the requested {@link File} if it does not exist and write the given
+    * data to it.
     */
    public void writeFile(char[] data, File file);
 
    /**
-    * Return true if this project's file-system has been created and initialized; otherwise, return false.
+    * Return true if this project's file-system has been created and
+    * initialized; otherwise, return false.
     */
    public boolean exists();
 }
