@@ -67,7 +67,7 @@ public class FieldPlugin implements Plugin
       this.entity = entity;
    }
 
-   @Command(value = "int", help = "Add a int field to an existing @Entity class")
+   @Command(value = "int", help = "Add an int field to an existing @Entity class")
    public void newField(
          @Option(required = true,
                description = "The field name",
@@ -76,7 +76,6 @@ public class FieldPlugin implements Plugin
                required = false,
                description = "The @Entity name") final String entityName) throws FileNotFoundException
    {
-      ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       findEntity(entityName);
