@@ -28,10 +28,10 @@ package org.jboss.seam.sidekick.shell.util;
 public interface Patterns
 {
    /**
-    * A group of terms that are illegal to use as Java identifiers. For example: "(if|package|public...while)" and so
-    * on.
+    * A group of terms that are illegal to use as Java identifiers. For example:
+    * "(if|package|public...while)" and so on.
     */
-   public static final String JAVA_KEYWORDS = "(abstract|" +
+   public static final String JAVA_KEYWORDS = "abstract|" +
             "continue|" + "for|" + "new|" + "switch|" + "assert|" + "default|" +
             "if|" + "package|" + "synchronized|" + "boolean|" + "do|" + "goto|" +
             "private|" + "this|" + "break|" + "double|" + "implements|" + "protected|" +
@@ -40,5 +40,5 @@ public interface Patterns
             "extends|" + "int|" + "short|" + "try|" + "char|" + "final|" +
             "interface|" + "static|" + "void|" + "class|" + "finally|" + "long|" +
             "strictfp|" + "volatile|" + "const|" + "float|" + "native|" + "super|" +
-            "while)";
+            "while";
 }

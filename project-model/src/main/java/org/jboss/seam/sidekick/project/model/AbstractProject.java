@@ -137,6 +137,7 @@ public abstract class AbstractProject implements Project
          if ((facet != null) && type.isAssignableFrom(facet.getClass()))
          {
             result = facet;
+            break;
          }
       }
       if (result == null)

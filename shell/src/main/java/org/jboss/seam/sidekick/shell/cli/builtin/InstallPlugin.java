@@ -71,22 +71,44 @@ public class InstallPlugin implements Plugin
                PackagingType packaging = project.getFacet(PackagingFacet.class).getPackagingType();
                if (!types.contains(packaging))
                {
-                  if (shell.promptBoolean("The ["
-                           + meta.getName()
-                           + "] plugin requires one of the following packaging types: "
-                           + types
-                           + ", but is currently ["
-                           + packaging
-                           + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+                  if (types.size() == 1)
                   {
-                     PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
-                     project.getFacet(PackagingFacet.class).setPackagingType(type);
-                     shell.println("Packaging updated to [" + type + "]");
+                     if (shell.promptBoolean("The ["
+                              + meta.getName()
+                              + "] plugin requires the following packaging type: "
+                              + types
+                              + ", but is currently ["
+                              + packaging
+                              + "], would you like to change the packaging to " + types + "? (Note: this could break other plugins in your project.)"))
+                     {
+                        project.getFacet(PackagingFacet.class).setPackagingType(types.get(0));
+                        shell.println("Packaging updated to " + types + "");
+                     }
+                     else
+                     {
+                        abort();
+                        return;
+                     }
                   }
-                  else
+                  else if (types.size() > 1)
                   {
-                     abort();
-                     return;
+                     if (shell.promptBoolean("The ["
+                              + meta.getName()
+                              + "] plugin requires one of the following packaging types: "
+                              + types
+                              + ", but is currently ["
+                              + packaging
+                              + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+                     {
+                        PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
+                        project.getFacet(PackagingFacet.class).setPackagingType(type);
+                        shell.println("Packaging updated to [" + type + "]");
+                     }
+                     else
+                     {
+                        abort();
+                        return;
+                     }
                   }
 
                }

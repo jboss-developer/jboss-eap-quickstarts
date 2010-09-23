@@ -23,13 +23,15 @@ package org.jboss.seam.sidekick.scaffold.test;
  */
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.io.FileNotFoundException;
+
+import javax.persistence.Entity;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
-import org.jboss.seam.sidekick.parser.java.SyntaxError;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
 import org.jboss.seam.sidekick.project.util.Packages;
@@ -57,22 +59,57 @@ public class ScaffoldTest extends AbstractShellTest
    @Test
    public void testNewEntity() throws Exception
    {
-      initializeJavaProject();
+      Project project = initializeJavaProject();
 
-      queueInputLines("", "1");
+      queueInputLines("y");
       getShell().execute("install scaffold");
 
       String entityName = "Goofy";
       queueInputLines("");
       getShell().execute("new-entity " + entityName);
 
-      Project project = getProject();
       String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
       JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
-      List<SyntaxError> syntaxErrors = javaClass.getSyntaxErrors();
+
       assertFalse(javaClass.hasSyntaxErrors());
 
-      getShell().execute("new-field int intField");
+      getShell().execute("new-field int gamesPlayed");
+      getShell().execute("new-field int achievementsEarned");
+
+      queueInputLines("gamesWon");
+      getShell().execute("new-field int int");
+
+      queueInputLines("gamesLost");
+      getShell().execute("new-field int #$%#");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertTrue(javaClass.hasField("achievementsEarned"));
+      assertTrue(javaClass.hasField("gamesWon"));
+      assertTrue(javaClass.hasField("gamesLost"));
+
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test(expected = FileNotFoundException.class)
+   public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
+   {
+      Project project = initializeJavaProject();
+
+      queueInputLines("y");
+      getShell().execute("install scaffold");
+
+      String entityName = "Goofy";
+
+      queueInputLines(entityName);
+      getShell().execute("new-field int gamesPlayed");
+
+      String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
+      String path = Packages.toFileSyntax(pkg) + ".java";
+
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+      JavaClass javaClass = java.getJavaClass(path);
    }
 }
