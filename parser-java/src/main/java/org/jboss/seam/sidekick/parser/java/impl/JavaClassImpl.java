@@ -624,4 +624,29 @@ public class JavaClassImpl implements JavaClass
       return !getSyntaxErrors().isEmpty();
    }
 
+   @Override
+   public String getQualifiedName()
+   {
+      String packg = getPackage();
+      String name = getName();
+      if ((packg != null) && !packg.isEmpty())
+      {
+         return packg + "." + name;
+      }
+      return name;
+   }
+
+   @Override
+   public boolean hasField(String name)
+   {
+      for (Field field : getFields())
+      {
+         if (field.getName().equals(name))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
 }

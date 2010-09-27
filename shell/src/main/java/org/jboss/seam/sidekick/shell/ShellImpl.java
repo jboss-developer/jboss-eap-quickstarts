@@ -42,11 +42,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import jline.console.ConsoleReader;
+import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
-import org.jboss.seam.sidekick.shell.cli.Execution;
-import org.jboss.seam.sidekick.shell.cli.ExecutionParser;
+import org.jboss.seam.sidekick.shell.command.Execution;
+import org.jboss.seam.sidekick.shell.command.ExecutionParser;
+import org.jboss.seam.sidekick.shell.completer.CommandCompleterAdaptor;
+import org.jboss.seam.sidekick.shell.completer.FileOptionCompleter;
+import org.jboss.seam.sidekick.shell.completer.PluginCommandCompletionHandler;
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
 import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
@@ -83,9 +87,6 @@ public class ShellImpl implements Shell
    private Logger log;
 
    @Inject
-   private Completer completer;
-
-   @Inject
    private ExecutionParser parser;
 
    @Inject
@@ -95,6 +96,7 @@ public class ShellImpl implements Shell
    private CurrentProjectHolder cph;
 
    private ConsoleReader reader;
+   private Completer completer;
 
    private boolean verbose = false;
    private boolean pretend = false;
@@ -103,7 +105,7 @@ public class ShellImpl implements Shell
    private InputStream inputStream;
    private Writer outputWriter;
 
-   void init(@Observes final Startup event) throws Exception
+   void init(@Observes final Startup event, final PluginCommandCompletionHandler pluginCompleter) throws Exception
    {
       log.info("Seam Sidekick Shell - Starting up.");
 
@@ -112,10 +114,21 @@ public class ShellImpl implements Shell
       DataConversion.addConversionHandler(Boolean.class, booleanConverter);
 
       initStreams();
+      initCompleters(pluginCompleter);
       initParameters();
       printWelcomeBanner();
 
       postStartup.fire(new PostStartup());
+   }
+
+   private void initCompleters(final PluginCommandCompletionHandler pluginCompleter)
+   {
+      List<Completer> completers = new ArrayList<Completer>();
+      completers.add(new FileOptionCompleter(this));
+      completers.add(new CommandCompleterAdaptor(pluginCompleter));
+
+      completer = new AggregateCompleter(completers);
+      this.reader.addCompleter(completer);
    }
 
    private void initStreams() throws IOException
@@ -131,7 +144,6 @@ public class ShellImpl implements Shell
       this.reader = new ConsoleReader(inputStream, outputWriter);
       this.reader.setHistoryEnabled(true);
       this.reader.setPrompt("");
-      this.reader.addCompleter(completer);
    }
 
    private void initParameters()
@@ -481,8 +493,10 @@ public class ShellImpl implements Shell
       try
       {
          reader.removeCompleter(completer);
+         reader.setHistoryEnabled(false);
          String line = reader.readLine();
          reader.addCompleter(completer);
+         reader.setHistoryEnabled(true);
          return line;
       }
       catch (IOException e)

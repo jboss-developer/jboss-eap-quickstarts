@@ -27,8 +27,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.persistence.Column;
 
+import org.jboss.seam.sidekick.parser.java.Field;
 import org.jboss.seam.sidekick.parser.java.JavaClass;
 import org.jboss.seam.sidekick.project.Project;
 import org.jboss.seam.sidekick.project.facets.JavaSourceFacet;
@@ -47,6 +49,7 @@ import org.jboss.seam.sidekick.shell.plugins.RequiresProject;
  * 
  */
 @Named("new-field")
+@Singleton
 @RequiresProject
 @RequiresFacet(ScaffoldingFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
@@ -64,25 +67,29 @@ public class FieldPlugin implements Plugin
       this.entity = entity;
    }
 
-   @Command(value = "int", help = "Add a int field to an existing @Entity class")
+   @Command(value = "int", help = "Add an int field to an existing @Entity class")
    public void newField(
          @Option(required = true,
-               help = "The field name",
+               description = "The field name",
                type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
          @Option(value = "entity",
                required = false,
                description = "The @Entity name") final String entityName) throws FileNotFoundException
    {
-      ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       findEntity(entityName);
 
-      entity.addField().setName(fieldName).setPrivate().setType(int.class.getName()).addAnnotation(Column.class);
+      Field field = entity.addField();
+      field.setName(fieldName).setPrivate().setType(int.class.getName()).addAnnotation(Column.class);
 
       java.saveJavaClass(entity);
+      shell.println("Added field to " + entity.getQualifiedName() + ": " + field);
    }
 
+   /*
+    * Helpers
+    */
    private void findEntity(final String entityName) throws FileNotFoundException
    {
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
@@ -115,7 +122,11 @@ public class FieldPlugin implements Plugin
          entityNames.add(fullName);
       }
 
-      int index = shell.promptChoice("Which entity would you like to modify?", entityNames);
-      return entities.get(index);
+      if (!entityNames.isEmpty())
+      {
+         int index = shell.promptChoice("Which entity would you like to modify?", entityNames);
+         return entities.get(index);
+      }
+      return null;
    }
 }

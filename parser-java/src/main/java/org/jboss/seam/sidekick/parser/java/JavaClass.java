@@ -90,6 +90,8 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
 
    public List<Field> getFields();
 
+   public boolean hasField(String string);
+
    public JavaClass removeField(final Field method);
 
    public Method addMethod();
@@ -103,4 +105,6 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    public String getName();
 
    public JavaClass setName(String name);
+
+   public String getQualifiedName();
 }

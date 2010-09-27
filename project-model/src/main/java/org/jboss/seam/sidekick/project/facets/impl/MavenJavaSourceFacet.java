@@ -169,7 +169,8 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public File getSourceFile(final String relativePath)
    {
-      return new File(getSourceFolder() + File.separator + relativePath).getAbsoluteFile();
+      File target = new File(getSourceFolder() + File.separator + relativePath).getAbsoluteFile();
+      return target;
    }
 
    @Override
@@ -181,27 +182,15 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public JavaClass getJavaClass(final String relativePath) throws FileNotFoundException
    {
-      try
-      {
-         return JavaParser.parse(getSourceFile(relativePath));
-      }
-      catch (FileNotFoundException e)
-      {
-         return getJavaClass(getBasePackageFile().getAbsolutePath() + File.separator + Packages.toFileSyntax(relativePath) + ".java");
-      }
+      File target = getSourceFile(relativePath);
+      return JavaParser.parse(target);
    }
 
    @Override
    public JavaClass getTestJavaClass(final String relativePath) throws FileNotFoundException
    {
-      try
-      {
-         return JavaParser.parse(getTestSourceFile(relativePath));
-      }
-      catch (FileNotFoundException e)
-      {
-         return getTestJavaClass(getBasePackageFile().getAbsolutePath() + File.separator + Packages.toFileSyntax(relativePath) + ".java");
-      }
+      File target = getTestSourceFile(relativePath);
+      return JavaParser.parse(target);
    }
 
    @Override

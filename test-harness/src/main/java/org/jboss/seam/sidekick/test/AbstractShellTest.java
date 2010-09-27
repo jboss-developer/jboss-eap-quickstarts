@@ -164,12 +164,13 @@ public abstract class AbstractShellTest
       return project.get();
    }
 
-   protected void initializeJavaProject() throws IOException
+   protected Project initializeJavaProject() throws IOException
    {
       File folder = createTempFolder();
       getShell().execute("cd " + folder.getAbsolutePath());
       queueInputLines("", "com.test", "");
       getShell().execute("new-project test");
+      return getProject();
    }
 
 }

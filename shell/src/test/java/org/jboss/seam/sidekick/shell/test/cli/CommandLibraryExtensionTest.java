@@ -27,10 +27,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.jboss.seam.sidekick.shell.cli.CommandLibraryExtension;
-import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
-import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
-import org.jboss.seam.sidekick.shell.cli.PluginMetadata;
+import org.jboss.seam.sidekick.shell.command.CommandLibraryExtension;
+import org.jboss.seam.sidekick.shell.command.CommandMetadata;
+import org.jboss.seam.sidekick.shell.command.OptionMetadata;
+import org.jboss.seam.sidekick.shell.command.PluginMetadata;
 import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.junit.Test;
 

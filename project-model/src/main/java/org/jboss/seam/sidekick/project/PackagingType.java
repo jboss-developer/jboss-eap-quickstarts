@@ -30,16 +30,24 @@ public class PackagingType
 {
    // TODO there needs to be some kind of hierarchy of PackagingTypes, enforced via a nice friendly resolution
    // algorithm.
-   public static final PackagingType NONE = new PackagingType("");
-   public static final PackagingType BASIC = new PackagingType("pom");
-   public static final PackagingType JAR = new PackagingType("jar");
-   public static final PackagingType WAR = new PackagingType("war");
+   public static final PackagingType NONE = new PackagingType("", "None");
+   public static final PackagingType BASIC = new PackagingType("pom", "Basic Project");
+   public static final PackagingType JAR = new PackagingType("jar", "Java Application");
+   public static final PackagingType WAR = new PackagingType("war", "Java Web Application");
 
    private String type;
+   private String description;
 
    public PackagingType(final String type)
    {
+      this.type = type;
+      this.description = "";
+   }
+
+   public PackagingType(final String type, final String description)
+   {
       setType(type);
+      setDescription(description);
    }
 
    public String getType()
@@ -99,5 +107,15 @@ public class PackagingType
    public String toString()
    {
       return type;
+   }
+
+   public String getDescription()
+   {
+      return description;
+   }
+
+   public void setDescription(final String description)
+   {
+      this.description = description;
    }
 }

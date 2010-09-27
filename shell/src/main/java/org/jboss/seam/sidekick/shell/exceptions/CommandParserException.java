@@ -22,7 +22,7 @@
 
 package org.jboss.seam.sidekick.shell.exceptions;
 
-import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
+import org.jboss.seam.sidekick.shell.command.CommandMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
