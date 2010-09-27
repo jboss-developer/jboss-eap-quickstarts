@@ -20,40 +20,37 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell.exceptions;
+package org.jboss.seam.sidekick.shell.command.parser;
 
-import org.jboss.seam.sidekick.shell.command.CommandMetadata;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandExecutionException extends ShellExecutionException
+public class Tokenizer
 {
-   private static final long serialVersionUID = -6474891123733228235L;
-   private final CommandMetadata command;
-
-   public CommandExecutionException(final CommandMetadata command, final String message)
+   public Queue<String> tokenize(final String line)
    {
-      super(message);
-      this.command = command;
-   }
+      Queue<String> tokens = new LinkedList<String>();
 
-   public CommandExecutionException(final CommandMetadata command, final Throwable e)
-   {
-      super(e);
-      this.command = command;
-   }
+      // -------------------------------(0-(1------)---(2---))----------
+      Matcher matcher = Pattern.compile("\"([^\"]*?)\"|(\\S+)").matcher(line);
+      while (matcher.find())
+      {
+         if (matcher.group(1) != null)
+         {
+            tokens.add(matcher.group(1));
+         }
+         else
+         {
+            tokens.add(matcher.group());
+         }
+      }
 
-   public CommandExecutionException(final CommandMetadata command, final String message, final Throwable e)
-   {
-      super(message, e);
-      this.command = command;
+      return tokens;
    }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
-   }
-
 }

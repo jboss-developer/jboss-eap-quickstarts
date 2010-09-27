@@ -1,6 +1,6 @@
 package org.jboss.seam.sidekick.shell.util;
 
-import org.jboss.seam.sidekick.shell.cli.OptionMetadata;
+import org.jboss.seam.sidekick.shell.command.OptionMetadata;
 import org.mvel2.util.ParseTools;
 import org.mvel2.util.StringAppender;
 

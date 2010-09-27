@@ -19,41 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.shell.completer;
 
-package org.jboss.seam.sidekick.shell.exceptions;
+import java.util.List;
 
-import org.jboss.seam.sidekick.shell.command.CommandMetadata;
+import jline.console.completer.Completer;
 
 /**
+ * Adapts the shell's {@link CommandCompleter} to JLine's {@link Completer}
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandExecutionException extends ShellExecutionException
+public class CommandCompleterAdaptor implements Completer
 {
-   private static final long serialVersionUID = -6474891123733228235L;
-   private final CommandMetadata command;
+   private final CommandCompleter completer;
 
-   public CommandExecutionException(final CommandMetadata command, final String message)
+   public CommandCompleterAdaptor(final CommandCompleter completer)
    {
-      super(message);
-      this.command = command;
+      this.completer = completer;
    }
 
-   public CommandExecutionException(final CommandMetadata command, final Throwable e)
+   @Override
+   public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      super(e);
-      this.command = command;
-   }
-
-   public CommandExecutionException(final CommandMetadata command, final String message, final Throwable e)
-   {
-      super(message, e);
-      this.command = command;
-   }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
+      return completer.complete(buffer, cursor, candidates);
    }
 
 }

@@ -1,6 +1,6 @@
 package org.jboss.seam.sidekick.shell.exceptions;
 
-import org.jboss.seam.sidekick.shell.cli.CommandMetadata;
+import org.jboss.seam.sidekick.shell.command.CommandMetadata;
 
 /**
  * User: christopherbrock

@@ -19,41 +19,45 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.shell.completer;
 
-package org.jboss.seam.sidekick.shell.exceptions;
+import java.io.File;
+import java.util.List;
 
-import org.jboss.seam.sidekick.shell.command.CommandMetadata;
+import javax.inject.Inject;
+
+import jline.console.completer.FileNameCompleter;
+
+import org.jboss.seam.sidekick.shell.Shell;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandExecutionException extends ShellExecutionException
+public class FileOptionCompleter extends FileNameCompleter
 {
-   private static final long serialVersionUID = -6474891123733228235L;
-   private final CommandMetadata command;
+   private final Shell shell;
 
-   public CommandExecutionException(final CommandMetadata command, final String message)
+   @Inject
+   public FileOptionCompleter(final Shell shell)
    {
-      super(message);
-      this.command = command;
+      this.shell = shell;
    }
 
-   public CommandExecutionException(final CommandMetadata command, final Throwable e)
+   @Override
+   public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      super(e);
-      this.command = command;
+      String[] tokens = buffer.substring(0, cursor).split("\\s+");
+      if (cursor < buffer.length() - 1)
+      {
+
+      }
+      return super.complete(buffer, cursor, candidates);
    }
 
-   public CommandExecutionException(final CommandMetadata command, final String message, final Throwable e)
+   @Override
+   protected File getUserDir()
    {
-      super(message, e);
-      this.command = command;
+      return shell.getCurrentDirectory();
    }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
-   }
-
 }

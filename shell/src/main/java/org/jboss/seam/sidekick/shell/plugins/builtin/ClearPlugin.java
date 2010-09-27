@@ -19,41 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.shell.plugins.builtin;
 
-package org.jboss.seam.sidekick.shell.exceptions;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.jboss.seam.sidekick.shell.command.CommandMetadata;
+import org.jboss.seam.sidekick.shell.Shell;
+import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.Help;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public class CommandExecutionException extends ShellExecutionException
+@Named("clear")
+@Help("Clears the console output.")
+public class ClearPlugin implements Plugin
 {
-   private static final long serialVersionUID = -6474891123733228235L;
-   private final CommandMetadata command;
+   @Inject
+   Shell shell;
 
-   public CommandExecutionException(final CommandMetadata command, final String message)
+   @DefaultCommand
+   public void run()
    {
-      super(message);
-      this.command = command;
+      shell.clear();
    }
-
-   public CommandExecutionException(final CommandMetadata command, final Throwable e)
-   {
-      super(e);
-      this.command = command;
-   }
-
-   public CommandExecutionException(final CommandMetadata command, final String message, final Throwable e)
-   {
-      super(message, e);
-      this.command = command;
-   }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
-   }
-
 }

@@ -19,41 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.sidekick.shell.command.parser;
 
-package org.jboss.seam.sidekick.shell.exceptions;
+import java.util.Map;
+import java.util.Queue;
 
 import org.jboss.seam.sidekick.shell.command.CommandMetadata;
+import org.jboss.seam.sidekick.shell.command.OptionMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandExecutionException extends ShellExecutionException
+public interface CommandParser
 {
-   private static final long serialVersionUID = -6474891123733228235L;
-   private final CommandMetadata command;
-
-   public CommandExecutionException(final CommandMetadata command, final String message)
-   {
-      super(message);
-      this.command = command;
-   }
-
-   public CommandExecutionException(final CommandMetadata command, final Throwable e)
-   {
-      super(e);
-      this.command = command;
-   }
-
-   public CommandExecutionException(final CommandMetadata command, final String message, final Throwable e)
-   {
-      super(message, e);
-      this.command = command;
-   }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
-   }
-
+   public void parse(CommandMetadata command, Map<OptionMetadata, Object> valueMap, Queue<String> tokens);
 }
