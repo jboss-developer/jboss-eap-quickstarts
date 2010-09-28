@@ -19,17 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.completer;
+package org.jboss.seam.sidekick.shell.test.completer;
 
-import java.util.List;
+import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
+import org.jboss.seam.sidekick.shell.plugins.Option;
+import org.jboss.seam.sidekick.shell.plugins.Plugin;
 
 /**
- * Defines the interface for interacting with the Shell command completion functionality.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface CommandCompleter
+public class MockCompleterPlugin2 implements Plugin
 {
-   public int complete(final String buffer, final int cursor, final List<CharSequence> candidates);
+   @DefaultCommand
+   public void command1(@Option(description = "Option One", required = true) final int number,
+            @Option(required = false) final String optional)
+   {
+
+   }
 }

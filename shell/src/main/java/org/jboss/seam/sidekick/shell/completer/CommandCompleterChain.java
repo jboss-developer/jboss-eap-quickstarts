@@ -35,7 +35,7 @@ public class CommandCompleterChain implements Completer
 
    public CommandCompleterChain()
    {
-      completers.add(new PluginCommandCompletionHandler());
+      completers.add(new PluginCommandCompleter());
    }
 
    @Override

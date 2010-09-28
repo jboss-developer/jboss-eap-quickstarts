@@ -28,7 +28,7 @@ import static org.junit.Assert.assertNull;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.sidekick.shell.test.cli.MockOptionTestPlugin;
+import org.jboss.seam.sidekick.shell.test.command.MockOptionTestPlugin;
 import org.jboss.seam.sidekick.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;

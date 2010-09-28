@@ -50,7 +50,7 @@ import org.jboss.seam.sidekick.shell.command.Execution;
 import org.jboss.seam.sidekick.shell.command.ExecutionParser;
 import org.jboss.seam.sidekick.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.sidekick.shell.completer.FileOptionCompleter;
-import org.jboss.seam.sidekick.shell.completer.PluginCommandCompletionHandler;
+import org.jboss.seam.sidekick.shell.completer.PluginCommandCompleter;
 import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
 import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
@@ -105,7 +105,7 @@ public class ShellImpl implements Shell
    private InputStream inputStream;
    private Writer outputWriter;
 
-   void init(@Observes final Startup event, final PluginCommandCompletionHandler pluginCompleter) throws Exception
+   void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
       log.info("Seam Sidekick Shell - Starting up.");
 
@@ -121,7 +121,7 @@ public class ShellImpl implements Shell
       postStartup.fire(new PostStartup());
    }
 
-   private void initCompleters(final PluginCommandCompletionHandler pluginCompleter)
+   private void initCompleters(final PluginCommandCompleter pluginCompleter)
    {
       List<Completer> completers = new ArrayList<Completer>();
       completers.add(new FileOptionCompleter(this));
