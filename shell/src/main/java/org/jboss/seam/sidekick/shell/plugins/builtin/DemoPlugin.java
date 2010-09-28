@@ -46,8 +46,16 @@ public class DemoPlugin extends MavenPlugin
    @Inject
    private DependencyBuilder builder;
 
+   // @DefaultCommand
+   // public void deDefault(@Option(required = true) final int value)
+   // {
+   // // TODO test for conflicts between default commands w/arguments and other
+   // // commands
+   // }
+
    @Command(value = "count", help = "a basic do-nothing kind of command")
-   public void doSomething(@Option(required = true, description = "count") final int count)
+   public void doSomething(@Option(required = true, description = "count") final int count,
+         @Option(value = "enableOption") boolean flag)
    {
       for (int i = 0; i < count; i++)
       {

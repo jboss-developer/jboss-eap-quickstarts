@@ -21,6 +21,8 @@
  */
 package org.jboss.seam.sidekick.shell.test.completer;
 
+import javax.inject.Singleton;
+
 import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
 import org.jboss.seam.sidekick.shell.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.Plugin;
@@ -29,12 +31,20 @@ import org.jboss.seam.sidekick.shell.plugins.Plugin;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Singleton
 public class MockCompleterPlugin2 implements Plugin
 {
+   private boolean command1Invoked = false;
+
    @DefaultCommand
    public void command1(@Option(description = "Option One", required = true) final int number,
             @Option(required = false) final String optional)
    {
+      command1Invoked = true;
+   }
 
+   public boolean isCommand1Invoked()
+   {
+      return command1Invoked;
    }
 }

@@ -28,6 +28,9 @@ import org.jboss.seam.sidekick.shell.command.CommandMetadata;
 import org.jboss.seam.sidekick.shell.command.OptionMetadata;
 
 /**
+ * Used at the end of the {@link CommandParser} chain to signal with an
+ * {@link IllegalStateException} that an invalid token was encountered.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
@@ -35,8 +38,7 @@ public class ParseErrorParser implements CommandParser
 {
 
    @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
    {
       String token = tokens.peek();
       throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());

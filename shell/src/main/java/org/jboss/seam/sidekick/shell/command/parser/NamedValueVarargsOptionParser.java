@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.shell.command.parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -41,9 +42,9 @@ public class NamedValueVarargsOptionParser implements CommandParser
 {
 
    @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
    {
+      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (currentToken.startsWith("--"))
       {
@@ -62,6 +63,7 @@ public class NamedValueVarargsOptionParser implements CommandParser
                                                   // instead?
          }
       }
+      return valueMap;
    }
 
 }

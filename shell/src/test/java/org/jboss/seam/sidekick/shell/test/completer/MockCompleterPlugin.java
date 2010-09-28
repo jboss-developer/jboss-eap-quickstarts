@@ -31,17 +31,30 @@ import org.jboss.seam.sidekick.shell.plugins.Plugin;
  */
 public class MockCompleterPlugin implements Plugin
 {
+   private boolean command1Invoked = false;
+   private boolean command2Invoked = false;
+
    @Command("command1")
    public void command1(@Option(description = "Option One", required = true) final int number,
             @Option(required = false) final String optional)
    {
-
+      command1Invoked = true;
    }
 
    @Command("command2")
    public void command2(@Option(value = "option", description = "Option Two", required = true) final int number,
             @Option(required = false) final String optional)
    {
+      command2Invoked = true;
+   }
 
+   public boolean isCommand1Invoked()
+   {
+      return command1Invoked;
+   }
+
+   public boolean isCommand2Invoked()
+   {
+      return command2Invoked;
    }
 }

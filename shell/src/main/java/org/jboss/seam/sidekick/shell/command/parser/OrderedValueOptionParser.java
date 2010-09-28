@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.sidekick.shell.command.parser;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -36,9 +37,9 @@ public class OrderedValueOptionParser implements CommandParser
 {
 
    @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
    {
+      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       int numberOrderedParams = getNumberOrderedParamsIn(valueMap);
       try
       {
@@ -60,6 +61,7 @@ public class OrderedValueOptionParser implements CommandParser
          throw new CommandParserException(command, "The command " + command.getName() + " takes ["
                   + numberOrderedParams + "] argument(s).");
       }
+      return valueMap;
    }
 
    /**

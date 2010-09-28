@@ -33,5 +33,12 @@ import org.jboss.seam.sidekick.shell.command.OptionMetadata;
  */
 public interface CommandParser
 {
-   public void parse(CommandMetadata command, Map<OptionMetadata, Object> valueMap, Queue<String> tokens);
+   /**
+    * Assuming the given {@link CommandMetadata} has already been determined,
+    * use the remaining tokens to parse as many tokens as possible from the
+    * given {@link Queue}.
+    * 
+    * @return a map of options mapped to their given values.
+    */
+   public Map<OptionMetadata, Object> parse(CommandMetadata command, Queue<String> tokens);
 }

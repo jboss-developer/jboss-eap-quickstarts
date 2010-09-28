@@ -57,7 +57,9 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       int index = completer.complete("", 0, candidates);
-      assertEquals(0, index);
+      assertEquals(-1, index);
+      assertTrue(candidates.contains("mockcompleterplugin "));
+      assertTrue(candidates.contains("mockcompleterplugin2 "));
    }
 
    @Test
@@ -70,35 +72,53 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    }
 
    @Test
+   public void testFullPluginCompletionAddsSpace() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin2";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(0, index);
+      assertTrue(candidates.contains("mockcompleterplugin2 "));
+   }
+
+   @Test
    public void testDefaultCommandCompletion() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
-      completer.complete("mockcompleterplugin2 ", 0, candidates);
-      assertTrue(candidates.contains("mockcompleterplugin2 "));
+      String input = "mockcompleterplugin2 ";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(input.length(), index);
+      assertTrue(candidates.contains(""));
    }
 
    @Test
    public void testCommandCompletion() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
-      completer.complete("mockcompleterplugin ", 0, candidates);
-      assertTrue(candidates.contains("mockcompleterplugin command1 "));
+      String input = "mockcompleterplugin ";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(input.length(), index);
+      assertTrue(candidates.contains("command1 "));
    }
 
    @Test
    public void testPartialCommandCompletion() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
-      completer.complete("mockcompleterplugin comm", 0, candidates);
-      assertTrue(candidates.contains("mockcompleterplugin command1 "));
-      assertTrue(candidates.contains("mockcompleterplugin command2 "));
+      String input = "mockcompleterplugin comm";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(input.indexOf("comm"), index);
+      assertTrue(candidates.contains("command1 "));
+      assertTrue(candidates.contains("command2 "));
    }
 
    @Test
    public void testRequiredNamedOptionCompletion() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
-      completer.complete("mockcompleterplugin command2 ", 0, candidates);
-      assertTrue(candidates.contains("mockcompleterplugin command2 --option "));
+      String input = "mockcompleterplugin command2 ";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(input.length(), index);
+      assertTrue(candidates.contains("--option "));
    }
 }

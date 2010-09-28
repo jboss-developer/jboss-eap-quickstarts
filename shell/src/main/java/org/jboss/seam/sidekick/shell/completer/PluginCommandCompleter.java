@@ -22,14 +22,10 @@
 package org.jboss.seam.sidekick.shell.completer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -38,6 +34,14 @@ import org.jboss.seam.sidekick.shell.command.CommandMetadata;
 import org.jboss.seam.sidekick.shell.command.OptionMetadata;
 import org.jboss.seam.sidekick.shell.command.PluginMetadata;
 import org.jboss.seam.sidekick.shell.command.PluginRegistry;
+import org.jboss.seam.sidekick.shell.command.parser.CommandParser;
+import org.jboss.seam.sidekick.shell.command.parser.CompositeCommandParser;
+import org.jboss.seam.sidekick.shell.command.parser.NamedBooleanOptionParser;
+import org.jboss.seam.sidekick.shell.command.parser.NamedValueOptionParser;
+import org.jboss.seam.sidekick.shell.command.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.sidekick.shell.command.parser.OrderedValueOptionParser;
+import org.jboss.seam.sidekick.shell.command.parser.OrderedValueVarargsOptionParser;
+import org.jboss.seam.sidekick.shell.command.parser.Tokenizer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -45,7 +49,12 @@ import org.jboss.seam.sidekick.shell.command.PluginRegistry;
  */
 public class PluginCommandCompleter implements CommandCompleter
 {
-   private static final String PLUGIN_CHARS = "[a-zA-Z0-9-_]";
+   private final CommandParser commandParser = new CompositeCommandParser(
+         new NamedBooleanOptionParser(),
+         new NamedValueOptionParser(),
+         new NamedValueVarargsOptionParser(),
+         new OrderedValueOptionParser(),
+         new OrderedValueVarargsOptionParser());
 
    @Inject
    private PluginRegistry registry;
@@ -56,55 +65,185 @@ public class PluginCommandCompleter implements CommandCompleter
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      // TODO this needs to work for default commands
-      List<PluginMetadata> plugins = getPluginCandidates(buffer);
-      for (PluginMetadata pluginMetadata : plugins)
+      int index = -1;
+      Queue<String> tokens = new Tokenizer().tokenize(buffer);
+      boolean finalTokenComplete = buffer.matches("^.*\\s+$");
+      if (!tokens.isEmpty())
       {
-         candidates.add(convertPlugin(pluginMetadata));
-      }
+         String pluginName = tokens.remove();
+         PluginMetadata plugin = registry.getPluginMetadata(pluginName);
 
-      if (plugins.isEmpty())
-      {
-         List<CommandMetadata> commands = getCommandCandidates(buffer);
-         for (CommandMetadata commandMetadata : commands)
+         if (plugin != null)
          {
-            candidates.add(convertCommand(commandMetadata));
-         }
-
-         if (commands.isEmpty())
-         {
-            List<OptionMetadata> options = getOptionCandidates(buffer);
-            for (OptionMetadata optionMetadata : options)
+            // found plugin
+            if (tokens.isEmpty())
             {
-               candidates.add(convertOption(optionMetadata));
+               // there's only a plugin so far
+               if (finalTokenComplete)
+               {
+                  // they chose this command, start at the end for command
+                  // completion
+                  index = buffer.length();
+                  if (plugin.hasCommands())
+                  {
+                     List<String> commandCandidates = getCommandCandidates(plugin, tokens);
+                     candidates.addAll(commandCandidates);
+                  }
+                  else
+                  {
+                     // this plugin has no commands -- bad input
+                  }
+               }
+               else
+               {
+                  // they haven't yet chosen a plugin, start at the beginning
+                  index = 0;
+                  List<String> pluginCandidates = getPluginCandidates(registry, pluginName);
+                  candidates.addAll(pluginCandidates);
+               }
+            }
+            else
+            {
+               // we have a plugin, there are options or a command to be parsed
+               index = buffer.length();
+               if (tokens.size() > 1)
+               {
+                  // there must be a command, or a string of arguments for the
+                  // default command
+                  String peek = tokens.peek();
+                  if (plugin.hasCommand(peek))
+                  {
+                     // TODO this should probably be tokenComplete`?` sensitive
+                     // complete the command, remove the last token
+                     String command = tokens.remove();
+                     List<String> optionCandidates = getOptionCandidates(plugin.getCommand(command), tokens);
+                     candidates.addAll(optionCandidates);
+                  }
+                  else if (plugin.hasDefaultCommand())
+                  {
+                     CommandMetadata defaultCommand = plugin.getDefaultCommand();
+                     if (defaultCommand.hasOptions())
+                     {
+                        List<String> optionCandidates = getOptionCandidates(defaultCommand, tokens);
+                        candidates.addAll(optionCandidates);
+                     }
+                     else
+                     {
+                        // bad input, not a command and default command does not
+                        // take options
+                        // TODO remove the bad input and complete to a shorter
+                        // string??? :)
+                     }
+                  }
+                  else
+                  {
+                     // bad input, not a command and there is no default command
+                  }
+               }
+               else
+               {
+                  // just one more token, it's either a command or an argument
+                  // for the default command
+                  String peek = tokens.peek();
+                  if (plugin.hasCommand(peek))
+                  {
+                     // complete the command, remove the last token
+                     String command = tokens.remove();
+                     List<String> optionCandidates = getOptionCandidates(plugin.getCommand(command), tokens);
+                     candidates.addAll(optionCandidates);
+                  }
+                  else if (couldBeCommand(plugin, peek))
+                  {
+                     index = buffer.indexOf(peek);
+                     List<String> commandCandidates = getCommandCandidates(plugin, tokens);
+                     candidates.addAll(commandCandidates);
+                  }
+                  else if (plugin.hasDefaultCommand())
+                  {
+                     CommandMetadata defaultCommand = plugin.getDefaultCommand();
+                     if (defaultCommand.hasOptions())
+                     {
+                        List<String> optionCandidates = getOptionCandidates(defaultCommand, tokens);
+                        candidates.addAll(optionCandidates);
+                     }
+                     else
+                     {
+                        // bad input, not a command and default command does not
+                        // take options
+                     }
+                  }
+               }
+            }
+         }
+         else
+         {
+            // no plugin found
+            index = 0;
+            if (tokens.isEmpty())
+            {
+               List<String> pluginCandidates = getPluginCandidates(registry, pluginName);
+               candidates.addAll(pluginCandidates);
+               // TODO add file completion candidates
+            }
+            else
+            {
+               // bad input, must always begin with a plugin
+               // try to add file completion
             }
          }
       }
+      else
+      {
+         List<String> pluginCandidates = getPluginCandidates(registry, "");
+         candidates.addAll(pluginCandidates);
+      }
 
-      return 0;
+      // System.out.println();
+      // System.out.println("Candidates " + candidates + ", index=" + index +
+      // ", bufferSize=" + buffer.length() + ", cursor=" + cursor);
+
+      return index;
    }
 
-   private List<PluginMetadata> getPluginCandidates(final String buffer)
+   /**
+    * Add option completions for the given command, with or without argument
+    * tokens
+    */
+   private List<String> getOptionCandidates(CommandMetadata command, Queue<String> tokens)
+   {
+      ArrayList<String> results = new ArrayList<String>();
+
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
+
+      List<OptionMetadata> options = command.getOptions();
+      for (OptionMetadata option : options)
+      {
+         if (option.isNamed() && !valueMap.containsKey(option))
+         {
+            results.add("--" + option.getName() + " ");
+         }
+      }
+
+      return results;
+   }
+
+   /**
+    * Add plugin completions for the given word
+    */
+   private List<String> getPluginCandidates(PluginRegistry registry, String pluginBase)
    {
       Map<String, PluginMetadata> plugins = registry.getPlugins();
-      List<PluginMetadata> results = new ArrayList<PluginMetadata>();
 
-      Matcher partialMatcher = Pattern.compile("^\\s*(" + PLUGIN_CHARS + "+)$").matcher(buffer);
-
-      if (partialMatcher.find())
+      List<String> results = new ArrayList<String>();
+      for (Entry<String, PluginMetadata> p : plugins.entrySet())
       {
-         String pluginToken = partialMatcher.group(1);
-
-         for (Entry<String, PluginMetadata> p : plugins.entrySet())
+         PluginMetadata pluginMeta = p.getValue();
+         if (pluginMeta.hasCommands())
          {
-            PluginMetadata pluginMeta = p.getValue();
-            if (pluginMeta.hasCommands())
+            String pluginName = pluginMeta.getName();
+            if (isPotentialMatch(pluginName, pluginBase))
             {
-               String pluginName = pluginMeta.getName();
-               if (isPotentialMatch(pluginName, pluginToken))
-               {
-                  results.add(pluginMeta);
-               }
+               results.add(pluginName + " ");
             }
          }
       }
@@ -112,42 +251,37 @@ public class PluginCommandCompleter implements CommandCompleter
       return results;
    }
 
-   private List<CommandMetadata> getCommandCandidates(final String buffer)
+   /**
+    * Add command completions for the given plugin, with or without tokens
+    */
+   private List<String> getCommandCandidates(PluginMetadata plugin, Queue<String> tokens)
    {
-      List<CommandMetadata> results = new ArrayList<CommandMetadata>();
-
-      Matcher matcher = Pattern.compile("^\\s*(" + PLUGIN_CHARS + "+)\\s+(.*)$").matcher(buffer);
-      Queue<String> tokens = new LinkedList<String>();
-      tokens.addAll(Arrays.asList(buffer.split("\\s+")));
-      if (!tokens.isEmpty())
+      List<String> results = new ArrayList<String>();
+      if (plugin.hasCommands())
       {
-         String plugin = tokens.remove();
-         PluginMetadata pluginMeta = registry.getPluginMetadata(plugin);
-
-         if (pluginMeta != null)
+         List<CommandMetadata> commands = plugin.getCommands();
+         if (tokens.isEmpty())
          {
-            if (buffer.contains(pluginMeta.getName()))
+            for (CommandMetadata command : commands)
             {
-               if (tokens.isEmpty())
+               if (command.isDefault())
                {
-                  for (CommandMetadata commandMeta : pluginMeta.getCommands())
-                  {
-                     if (!commandMeta.isDefault())
-                     {
-                        results.add(commandMeta);
-                     }
-                  }
+                  results.add("");
                }
-               else if (tokens.size() == 1)
+               else
                {
-                  String command = tokens.remove();
-                  for (CommandMetadata commandMeta : pluginMeta.getCommands())
-                  {
-                     if (commandMeta.getName().startsWith(command))
-                     {
-                        results.add(commandMeta);
-                     }
-                  }
+                  results.add(command.getName() + " ");
+               }
+            }
+         }
+         else
+         {
+            String pluginBase = tokens.remove();
+            for (CommandMetadata command : commands)
+            {
+               if (!command.isDefault() && isPotentialMatch(command.getName(), pluginBase))
+               {
+                  results.add(command.getName() + " ");
                }
             }
          }
@@ -155,81 +289,27 @@ public class PluginCommandCompleter implements CommandCompleter
       return results;
    }
 
-   private List<OptionMetadata> getOptionCandidates(final String buffer)
+   private boolean isPotentialMatch(final String full, final String partial)
    {
-      List<OptionMetadata> results = new ArrayList<OptionMetadata>();
+      return full.matches("(?i)" + partial + ".*");
+   }
 
-      Queue<String> tokens = new LinkedList<String>();
-      tokens.addAll(Arrays.asList(buffer.split("\\s+")));
-      if (!tokens.isEmpty())
+   /**
+    * Return true if the given string could begin command, return false if not.
+    */
+   private boolean couldBeCommand(PluginMetadata plugin, String potentialCommand)
+   {
+      List<CommandMetadata> commands = plugin.getCommands();
+      if ((commands != null) && !commands.isEmpty())
       {
-         String plugin = tokens.remove();
-         List<PluginMetadata> pluginCandidates = getPluginCandidates(plugin);
-         if (pluginCandidates.size() == 1)
+         for (CommandMetadata commandMetadata : commands)
          {
-            PluginMetadata pluginMetadata = pluginCandidates.get(0);
-
-            if (!tokens.isEmpty())
+            if (!commandMetadata.isDefault() && isPotentialMatch(commandMetadata.getName(), potentialCommand))
             {
-               String command = tokens.remove();
-               List<CommandMetadata> commandCandidates = getCommandCandidates(plugin + " " + command);
-               if (commandCandidates.size() == 1)
-               {
-                  CommandMetadata commandMetadata = commandCandidates.get(0);
-
-                  if (tokens.isEmpty())
-                  {
-                     // TODO we have a selected plugin and command, pick something random and required?
-                     for (OptionMetadata optionMetadata : commandMetadata.getOptions())
-                     {
-                        if (optionMetadata.isNamed())
-                        {
-                           results.add(optionMetadata);
-                        }
-                     }
-                  }
-                  else if (tokens.size() == 1)
-                  {
-                     String option = tokens.remove();
-                     for (OptionMetadata optionMetadata : commandMetadata.getOptions())
-                     {
-                        if (optionMetadata.isNamed() && optionMetadata.getName().startsWith(option))
-                        {
-                           results.add(optionMetadata);
-                        }
-                     }
-                  }
-               }
+               return true;
             }
          }
       }
-      return results;
-   }
-
-   private CharSequence convertOption(final OptionMetadata optionMetadata)
-   {
-      String result = convertCommand(optionMetadata.getParent());
-
-      if (optionMetadata.isNamed())
-      {
-         result += "--" + optionMetadata.getName() + " ";
-      }
-
-      return result;
-   }
-
-   private String convertCommand(final CommandMetadata commandMetadata)
-   {
-      return convertPlugin(commandMetadata.getPluginMetadata()) + commandMetadata.getName() + " ";
-   }
-
-   private String convertPlugin(final PluginMetadata pluginMetadata)
-   {
-      return pluginMetadata.getName() + " ";
-   }
-
-   private boolean isPotentialMatch(final String name, final String token)
-   {
-      return name.matches("(?i)" + token + ".*");
+      return false;
    }
 }
