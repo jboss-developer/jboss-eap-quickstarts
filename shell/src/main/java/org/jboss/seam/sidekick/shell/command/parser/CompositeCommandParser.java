@@ -23,6 +23,7 @@ package org.jboss.seam.sidekick.shell.command.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -44,9 +45,10 @@ public class CompositeCommandParser implements CommandParser
    }
 
    @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
    {
+      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
+
       boolean complete = false;
       while (!complete)
       {
@@ -60,7 +62,8 @@ public class CompositeCommandParser implements CommandParser
             }
 
             int size = tokens.size();
-            parser.parse(command, valueMap, tokens);
+            Map<OptionMetadata, Object> partial = parser.parse(command, tokens);
+            valueMap.putAll(partial);
 
             if (size > tokens.size())
             {
@@ -74,6 +77,7 @@ public class CompositeCommandParser implements CommandParser
             break;
          }
       }
+      return valueMap;
    }
 
 }

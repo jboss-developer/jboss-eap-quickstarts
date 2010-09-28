@@ -21,7 +21,6 @@
  */
 package org.jboss.seam.sidekick.shell.command;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -72,14 +71,14 @@ public class ExecutionParser
       execution.setOriginalStatement(line);
       CommandMetadata command = null;
 
-      if (tokens.size() > 0)
+      if (!tokens.isEmpty())
       {
          String first = tokens.remove();
          PluginMetadata plugin = plugins.get(first);
 
          if (plugin != null)
          {
-            if (tokens.size() > 0)
+            if (!tokens.isEmpty())
             {
                String second = tokens.peek();
                command = plugin.getCommand(second);
@@ -116,13 +115,11 @@ public class ExecutionParser
 
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
-
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
             new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
             new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
-      commandParser.parse(command, valueMap, tokens);
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
 
       Object[] parameters = new Object[command.getOptions().size()];
       for (OptionMetadata option : command.getOptions())

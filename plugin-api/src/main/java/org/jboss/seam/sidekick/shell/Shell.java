@@ -293,4 +293,12 @@ public interface Shell
     * Set the writer to which the shell should print output.
     */
    void setOutputWriter(Writer writer) throws IOException;
+
+   /**
+    * Ask the current {@link InputStream} for data.
+    * 
+    * @return any read data as a string, or null if none available.
+    * @throws IOException on error
+    */
+   String readLine() throws IOException;
 }

@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.shell.command.parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -37,9 +38,9 @@ public class OrderedValueVarargsOptionParser implements CommandParser
 {
 
    @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
    {
+      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (!currentToken.startsWith("--"))
       {
@@ -51,10 +52,14 @@ public class OrderedValueVarargsOptionParser implements CommandParser
             {
                args.add(tokens.remove());
             }
-            valueMap.put(option, args.toArray(new String[0])); // add the value, should we return this as a tuple
+            valueMap.put(option, args.toArray(new String[0])); // add the value,
+                                                               // should we
+                                                               // return this as
+                                                               // a tuple
                                                                // instead?
          }
       }
+      return valueMap;
    }
 
    /**

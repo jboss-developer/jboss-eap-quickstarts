@@ -100,6 +100,10 @@ public class CommandMetadata
 
    public List<OptionMetadata> getOptions()
    {
+      if (options == null)
+      {
+         options = new ArrayList<OptionMetadata>();
+      }
       return options;
    }
 
@@ -137,5 +141,10 @@ public class CommandMetadata
    public void setParent(final PluginMetadata parent)
    {
       this.parent = parent;
+   }
+
+   public boolean hasOptions()
+   {
+      return !getOptions().isEmpty();
    }
 }

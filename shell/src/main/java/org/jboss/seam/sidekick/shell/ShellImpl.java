@@ -205,7 +205,7 @@ public class ShellImpl implements Shell
       {
          // main program loop
          print(getPrompt());
-         while ((exitRequested != true) && ((line = reader.readLine()) != null))
+         while ((exitRequested != true) && ((line = readLine()) != null))
          {
             if (!"".equals(line))
             {
@@ -219,6 +219,12 @@ public class ShellImpl implements Shell
       {
          throw new IllegalStateException("Shell input stream failure", e);
       }
+   }
+
+   @Override
+   public String readLine() throws IOException
+   {
+      return reader.readLine();
    }
 
    @Override
@@ -494,7 +500,7 @@ public class ShellImpl implements Shell
       {
          reader.removeCompleter(completer);
          reader.setHistoryEnabled(false);
-         String line = reader.readLine();
+         String line = readLine();
          reader.addCompleter(completer);
          reader.setHistoryEnabled(true);
          return line;

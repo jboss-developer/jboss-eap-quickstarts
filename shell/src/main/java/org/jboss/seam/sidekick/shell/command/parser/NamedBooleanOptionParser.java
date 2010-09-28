@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.sidekick.shell.command.parser;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -39,9 +40,9 @@ public class NamedBooleanOptionParser implements CommandParser
 {
 
    @Override
-   public void parse(final CommandMetadata command, final Map<OptionMetadata, Object> valueMap,
-            final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
    {
+      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (currentToken.startsWith("--"))
       {
@@ -65,6 +66,7 @@ public class NamedBooleanOptionParser implements CommandParser
                                          // as a tuple instead?
          }
       }
+      return valueMap;
    }
 
 }
