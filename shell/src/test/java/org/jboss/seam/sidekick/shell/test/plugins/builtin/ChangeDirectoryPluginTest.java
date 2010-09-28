@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.sidekick.shell.test.cli.builtin;
+package org.jboss.seam.sidekick.shell.test.plugins.builtin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;

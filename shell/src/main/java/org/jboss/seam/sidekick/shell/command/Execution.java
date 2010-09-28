@@ -52,7 +52,7 @@ public class Execution
    {
       if (command != null)
       {
-         Class<? extends Plugin> pluginType = command.getParent().getType();
+         Class<? extends Plugin> pluginType = command.getPluginMetadata().getType();
          Set<Bean<?>> beans = manager.getBeans(pluginType);
          Bean<?> bean = manager.resolve(beans);
 

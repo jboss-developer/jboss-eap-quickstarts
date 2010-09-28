@@ -95,4 +95,14 @@ public class PluginRegistry
       return result;
    }
 
+   /**
+    * Get {@link PluginMetadata} for the plugin with the given name.
+    * 
+    * @return the metadata, or null if no plugin with given name exists.
+    */
+   public PluginMetadata getPluginMetadata(final String plugin)
+   {
+      return plugins.get(plugin);
+   }
+
 }

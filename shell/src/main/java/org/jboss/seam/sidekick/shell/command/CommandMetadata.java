@@ -129,7 +129,7 @@ public class CommandMetadata
       return name;
    }
 
-   public PluginMetadata getParent()
+   public PluginMetadata getPluginMetadata()
    {
       return parent;
    }
