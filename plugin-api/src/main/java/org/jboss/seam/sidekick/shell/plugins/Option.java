@@ -48,7 +48,7 @@ public @interface Option
    /**
     * The name of this option.
     */
-   String value() default "";
+   String name() default "";
 
    String description() default "";
 

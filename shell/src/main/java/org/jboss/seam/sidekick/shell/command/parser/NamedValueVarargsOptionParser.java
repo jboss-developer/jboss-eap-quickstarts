@@ -49,18 +49,21 @@ public class NamedValueVarargsOptionParser implements CommandParser
       if (currentToken.startsWith("--"))
       {
          currentToken = currentToken.substring(2);
-         OptionMetadata option = command.getNamedOption(currentToken);
-         if (option.isVarargs())
+         if (command.hasOption(currentToken))
          {
-            tokens.remove();
-            List<String> args = new ArrayList<String>();
-            while (!tokens.peek().startsWith("--"))
+            OptionMetadata option = command.getNamedOption(currentToken);
+            if (option.isVarargs())
             {
-               args.add(tokens.remove());
+               tokens.remove();
+               List<String> args = new ArrayList<String>();
+               while (!tokens.peek().startsWith("--"))
+               {
+                  args.add(tokens.remove());
+               }
+               valueMap.put(option, args.toArray()); // add the value, should we
+                                                     // return this as a tuple
+                                                     // instead?
             }
-            valueMap.put(option, args.toArray()); // add the value, should we
-                                                  // return this as a tuple
-                                                  // instead?
          }
       }
       return valueMap;

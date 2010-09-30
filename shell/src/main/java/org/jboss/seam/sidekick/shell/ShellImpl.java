@@ -48,6 +48,9 @@ import jline.console.completer.Completer;
 import org.jboss.seam.sidekick.project.facets.MavenFacet;
 import org.jboss.seam.sidekick.shell.command.Execution;
 import org.jboss.seam.sidekick.shell.command.ExecutionParser;
+import org.jboss.seam.sidekick.shell.command.convert.BooleanConverter;
+import org.jboss.seam.sidekick.shell.command.convert.FileConverter;
+import org.jboss.seam.sidekick.shell.completer.CommandCompleter;
 import org.jboss.seam.sidekick.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.sidekick.shell.completer.FileOptionCompleter;
 import org.jboss.seam.sidekick.shell.completer.PluginCommandCompleter;
@@ -55,12 +58,13 @@ import org.jboss.seam.sidekick.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.sidekick.shell.exceptions.CommandParserException;
 import org.jboss.seam.sidekick.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.sidekick.shell.exceptions.ShellException;
 import org.jboss.seam.sidekick.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.sidekick.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.sidekick.shell.plugins.events.PostStartup;
 import org.jboss.seam.sidekick.shell.plugins.events.Shutdown;
 import org.jboss.seam.sidekick.shell.plugins.events.Startup;
-import org.jboss.seam.sidekick.shell.util.BooleanConverter;
+import org.jboss.seam.sidekick.shell.util.Files;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
@@ -73,7 +77,6 @@ import org.slf4j.Logger;
 @Singleton
 public class ShellImpl implements Shell
 {
-
    private static final String PROP_CWD = "$CWD";
    private static final String PROP_PROMPT = "$PROMPT";
    private final Map<String, Object> properties = new HashMap<String, Object>();
@@ -112,6 +115,7 @@ public class ShellImpl implements Shell
       BooleanConverter booleanConverter = new BooleanConverter();
       DataConversion.addConversionHandler(boolean.class, booleanConverter);
       DataConversion.addConversionHandler(Boolean.class, booleanConverter);
+      DataConversion.addConversionHandler(File.class, new FileConverter());
 
       initStreams();
       initCompleters(pluginCompleter);
@@ -124,8 +128,8 @@ public class ShellImpl implements Shell
    private void initCompleters(final PluginCommandCompleter pluginCompleter)
    {
       List<Completer> completers = new ArrayList<Completer>();
-      completers.add(new FileOptionCompleter(this));
       completers.add(new CommandCompleterAdaptor(pluginCompleter));
+      completers.add(new FileOptionCompleter(this));
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);
@@ -143,7 +147,6 @@ public class ShellImpl implements Shell
       }
       this.reader = new ConsoleReader(inputStream, outputWriter);
       this.reader.setHistoryEnabled(true);
-      this.reader.setPrompt("");
    }
 
    private void initParameters()
@@ -185,11 +188,12 @@ public class ShellImpl implements Shell
 
    private void printWelcomeBanner()
    {
-      System.out.println("                                    _          _ _ ");
-      System.out.println("     ___  ___  __ _ _ __ ___    ___| |__   ___| | |");
-      System.out.println("    / __|/ _ \\/ _` | '_ ` _ \\  / __| '_ \\ / _ \\ | |   \\\\");
-      System.out.println("    \\__ \\  __/ (_| | | | | | | \\__ \\ | | |  __/ | |   //");
-      System.out.println("    |___/\\___|\\__,_|_| |_| |_| |___/_| |_|\\___|_|_|");
+      System.out.println("   ____                          _____                    ");
+      System.out.println("  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ ");
+      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  \\\\");
+      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  //");
+      System.out.println("  |____/ \\___|\\__,_|_| |_| |_|  |_|  \\___/|_|  \\__, |\\___| ");
+      System.out.println("                                                |___/      ");
       System.out.println("");
    }
 
@@ -203,15 +207,14 @@ public class ShellImpl implements Shell
       String line = "";
       try
       {
-         // main program loop
-         print(getPrompt());
+         reader.setPrompt(getPrompt());
          while ((exitRequested != true) && ((line = readLine()) != null))
          {
             if (!"".equals(line))
             {
                execute(line);
             }
-            print(getPrompt());
+            reader.setPrompt(getPrompt());
          }
          println();
       }
@@ -460,10 +463,11 @@ public class ShellImpl implements Shell
       String suffix = "[no project]";
       if (cph.getCurrentProject() != null)
       {
+         // FIXME eventually, this cannot reference the MavenFacet directly.
          suffix = "[" + cph.getCurrentProject().getFacet(MavenFacet.class).getPOM().getArtifactId() + "]";
       }
       String path = getCurrentDirectory().getAbsolutePath();
-      return (String) getProperty(PROP_PROMPT) + suffix + " " + path + " $ ";
+      return suffix + " " + path + " $ ";
    }
 
    @Override
@@ -480,7 +484,14 @@ public class ShellImpl implements Shell
    @Override
    public void setCurrentDirectory(final File directory)
    {
-      setProperty(PROP_CWD, directory.getAbsolutePath());
+      try
+      {
+         setProperty(PROP_CWD, directory.getCanonicalPath());
+      }
+      catch (IOException e)
+      {
+         throw new ShellException(e);
+      }
    }
 
    /*
@@ -495,14 +506,33 @@ public class ShellImpl implements Shell
    @Override
    public String prompt(final String message)
    {
-      print(message);
+      return promptWithCompleter(message, (Completer) null);
+   }
+
+   private String promptWithCompleter(final String message, final CommandCompleter completer)
+   {
+      Completer tempCompleter = new CommandCompleterAdaptor(completer);
+      return promptWithCompleter(message, tempCompleter);
+   }
+
+   private String promptWithCompleter(String message, final Completer tempCompleter)
+   {
+      if (!message.isEmpty() && message.matches("^.*\\S$"))
+      {
+         message = message + " ";
+      }
+
       try
       {
-         reader.removeCompleter(completer);
+         reader.removeCompleter(this.completer);
+         reader.addCompleter(tempCompleter);
          reader.setHistoryEnabled(false);
+         reader.setPrompt(message);
          String line = readLine();
-         reader.addCompleter(completer);
+         reader.removeCompleter(tempCompleter);
+         reader.addCompleter(this.completer);
          reader.setHistoryEnabled(true);
+         reader.setPrompt("");
          return line;
       }
       catch (IOException e)
@@ -740,5 +770,45 @@ public class ShellImpl implements Shell
    public String promptCommon(final String message, final PromptType type, final String defaultIfEmpty)
    {
       return promptRegex(message, type.getPattern(), defaultIfEmpty);
+   }
+
+   @Override
+   public File promptFile(String message)
+   {
+      String path = "";
+      while ((path == null) || path.trim().isEmpty())
+      {
+         path = promptWithCompleter(message, new FileOptionCompleter(this));
+      }
+
+      try
+      {
+         path = Files.canonicalize(path);
+         return new File(path).getCanonicalFile();
+      }
+      catch (IOException e)
+      {
+         throw new ShellException(e);
+      }
+   }
+
+   @Override
+   public File promptFile(String message, File defaultIfEmpty)
+   {
+      File result = defaultIfEmpty;
+      String path = promptWithCompleter(message, new FileOptionCompleter(this));
+      if (!"".equals(path) && (path != null) && !path.trim().isEmpty())
+      {
+         try
+         {
+            path = Files.canonicalize(path);
+            result = new File(path).getCanonicalFile();
+         }
+         catch (IOException e)
+         {
+            throw new ShellException(e);
+         }
+      }
+      return result;
    }
 }

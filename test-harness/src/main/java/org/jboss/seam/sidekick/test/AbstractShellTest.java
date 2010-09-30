@@ -168,8 +168,8 @@ public abstract class AbstractShellTest
    {
       File folder = createTempFolder();
       getShell().execute("cd " + folder.getAbsolutePath());
-      queueInputLines("", "com.test", "");
-      getShell().execute("new-project test");
+      queueInputLines("", "");
+      getShell().execute("new-project --named test --topLevelPackage com.test");
       return getProject();
    }
 

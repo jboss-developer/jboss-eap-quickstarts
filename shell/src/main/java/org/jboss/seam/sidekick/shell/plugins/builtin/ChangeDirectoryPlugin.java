@@ -22,12 +22,14 @@
 package org.jboss.seam.sidekick.shell.plugins.builtin;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.plugins.DefaultCommand;
@@ -35,18 +37,20 @@ import org.jboss.seam.sidekick.shell.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.Option;
 import org.jboss.seam.sidekick.shell.plugins.Plugin;
 import org.jboss.seam.sidekick.shell.plugins.events.InitProject;
+import org.jboss.seam.sidekick.shell.util.Files;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("cd")
 @Help("Change the current directory")
+@Singleton
 public class ChangeDirectoryPlugin implements Plugin
 {
-   private static final String HOME_ALIAS = "~";
-
-   Shell shell;
+   private final Shell shell;
    private final Event<InitProject> init;
+
+   private File lastDirectory = null;
 
    @Inject
    public ChangeDirectoryPlugin(final Shell shell, final Event<InitProject> init)
@@ -56,14 +60,24 @@ public class ChangeDirectoryPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(defaultValue = "", description = "The new directory") final String path)
+   public void run(@Option(defaultValue = "~",
+         description = "The new directory") final File path) throws IOException
    {
-      String target = path.trim();
-      File cwd = shell.getCurrentDirectory();
+      String target = path.getPath();
 
-      if (target.startsWith(HOME_ALIAS))
+      File cwd = shell.getCurrentDirectory();
+      target = Files.canonicalize(target);
+
+      if ("-".equals(target))
       {
-         target = target.replaceFirst(HOME_ALIAS, System.getProperty("user.home"));
+         if (lastDirectory != null)
+         {
+            target = lastDirectory.getAbsolutePath();
+         }
+         else
+         {
+            target = "";
+         }
       }
 
       while (target.startsWith(".."))
@@ -96,7 +110,7 @@ public class ChangeDirectoryPlugin implements Plugin
          {
             if (file.exists() && file.isDirectory())
             {
-               cwd = file;
+               cwd = file.getCanonicalFile();
                found = true;
                break;
             }
@@ -110,6 +124,7 @@ public class ChangeDirectoryPlugin implements Plugin
 
       if (!cwd.equals(shell.getCurrentDirectory()))
       {
+         lastDirectory = shell.getCurrentDirectory();
          shell.setCurrentDirectory(cwd.getAbsoluteFile());
          init.fire(new InitProject());
       }

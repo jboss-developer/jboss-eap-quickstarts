@@ -57,7 +57,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       int index = completer.complete("", 0, candidates);
-      assertEquals(-1, index);
+      assertEquals(0, index);
       assertTrue(candidates.contains("mockcompleterplugin "));
       assertTrue(candidates.contains("mockcompleterplugin2 "));
    }

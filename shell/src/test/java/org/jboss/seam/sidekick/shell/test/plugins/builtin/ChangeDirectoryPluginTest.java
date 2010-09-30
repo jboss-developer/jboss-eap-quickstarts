@@ -83,6 +83,21 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
    }
 
    @Test
+   public void testReturnToLastDirectory() throws Exception
+   {
+      Shell shell = getShell();
+      shell.execute("cd ~");
+
+      File base = shell.getCurrentDirectory();
+
+      shell.execute("cd ../");
+      shell.execute("cd -");
+
+      File newDir = shell.getCurrentDirectory();
+      assertEquals(base, newDir);
+   }
+
+   @Test
    public void testAbsolutePath() throws Exception
    {
       Shell shell = getShell();

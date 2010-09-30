@@ -159,7 +159,7 @@ public class CommandLibraryExtension implements Extension
                   {
                      Option option = (Option) annotation;
                      optionMeta.setParent(commandMeta);
-                     optionMeta.setName(option.value());
+                     optionMeta.setName(option.name());
                      optionMeta.setDescription(option.description());
                      optionMeta.setDefaultValue(option.defaultValue());
                      optionMeta.setHelp(option.help());

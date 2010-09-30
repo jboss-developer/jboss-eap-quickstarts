@@ -19,42 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.sidekick.shell.test.completer;
 
-import org.jboss.seam.sidekick.shell.plugins.Command;
-import org.jboss.seam.sidekick.shell.plugins.Option;
-import org.jboss.seam.sidekick.shell.plugins.Plugin;
+package org.jboss.seam.sidekick.shell.util;
+
+import org.mvel2.util.ParseTools;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class MockCompleterPlugin implements Plugin
+public class Types
 {
-   private boolean command1Invoked = false;
-   private boolean command2Invoked = false;
-
-   @Command("command1")
-   public void command1(@Option(description = "Option One", required = true) final int number,
-            @Option(required = false) final String optional)
+   public static String getTypeDescriptor(Class<?> type)
    {
-      command1Invoked = true;
-   }
-
-   @Command("command2")
-   public void command2(@Option(name = "option", description = "Option Two", required = true) final int number,
-            @Option(required = false) final String optional)
-   {
-      command2Invoked = true;
-   }
-
-   public boolean isCommand1Invoked()
-   {
-      return command1Invoked;
-   }
-
-   public boolean isCommand2Invoked()
-   {
-      return command2Invoked;
+      if (Number.class.isAssignableFrom(ParseTools.boxPrimitive(type)))
+      {
+         return "numeric";
+      }
+      else
+      {
+         return type.getCanonicalName();
+      }
    }
 }

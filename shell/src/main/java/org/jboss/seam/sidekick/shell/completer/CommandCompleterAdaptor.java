@@ -31,7 +31,7 @@ import jline.console.completer.Completer;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandCompleterAdaptor implements Completer
+public class CommandCompleterAdaptor implements Completer, CommandCompleter
 {
    private final CommandCompleter completer;
 
@@ -43,7 +43,11 @@ public class CommandCompleterAdaptor implements Completer
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      return completer.complete(buffer, cursor, candidates);
+      if (completer != null)
+      {
+         return completer.complete(buffer, cursor, candidates);
+      }
+      return -1;
    }
 
 }

@@ -42,7 +42,7 @@ public class MockOptionTestPlugin implements Plugin
    public Boolean booleanOptionOmitted = null;
 
    @Command("suppliedOption")
-   public void suppliedOption(@Option(value = "package",
+   public void suppliedOption(@Option(name = "package",
          description = "Your java package",
          type = PromptType.JAVA_PACKAGE) final String option)
    {
@@ -50,7 +50,7 @@ public class MockOptionTestPlugin implements Plugin
    }
 
    @Command("requiredOption")
-   public void requiredOption(@Option(value = "package",
+   public void requiredOption(@Option(name = "package",
          required = true,
          description = "Your java package",
          type = PromptType.JAVA_PACKAGE) final String option)

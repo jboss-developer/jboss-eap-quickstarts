@@ -249,14 +249,7 @@ public class MavenFacetImpl implements MavenFacet
       File pomFile = getPOMFile();
       if (!pomFile.exists())
       {
-         try
-         {
-            pomFile.createNewFile();
-         }
-         catch (IOException e)
-         {
-            throw new ProjectModelException("Could not create POM: " + pomFile.getAbsolutePath(), e);
-         }
+         project.writeFile(new char[] {}, pomFile);
       }
       Model pom = getPOM();
       pom.setGroupId("org.jboss.seam");
@@ -270,7 +263,7 @@ public class MavenFacetImpl implements MavenFacet
 
    private File getPOMFile()
    {
-      File file = new File(project.getProjectRoot() + "/pom.xml");
+      File file = new File(project.getProjectRoot() + File.separator + "pom.xml");
       return file;
    }
 

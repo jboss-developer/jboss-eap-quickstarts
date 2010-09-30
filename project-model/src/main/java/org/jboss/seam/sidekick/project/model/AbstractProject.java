@@ -94,6 +94,9 @@ public abstract class AbstractProject implements Project
          writer.write(data);
          writer.close();
 
+         // FIXME need a way for these classes to access a writer
+         System.out.println("Wrote " + file.getCanonicalPath());
+
       }
       catch (IOException e)
       {

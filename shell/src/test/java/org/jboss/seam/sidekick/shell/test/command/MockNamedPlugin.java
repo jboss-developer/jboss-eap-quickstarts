@@ -60,14 +60,14 @@ public class MockNamedPlugin implements Plugin
    }
 
    @Command("named")
-   public void named(@Option(value = "named", defaultValue = "true") final String option)
+   public void named(@Option(name = "named", defaultValue = "true") final String option)
    {
 
    }
 
    @Command
-   public void multiOption(@Option("named") final String option,
-            @Option(value = "foo") final boolean foo)
+   public void multiOption(@Option(name = "named") final String option,
+            @Option(name = "foo") final boolean foo)
    {
 
    }

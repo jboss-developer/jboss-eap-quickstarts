@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.sidekick.shell.command;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Queue;
 
@@ -39,7 +40,6 @@ import org.jboss.seam.sidekick.shell.command.parser.OrderedValueVarargsOptionPar
 import org.jboss.seam.sidekick.shell.command.parser.ParseErrorParser;
 import org.jboss.seam.sidekick.shell.command.parser.Tokenizer;
 import org.jboss.seam.sidekick.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.sidekick.shell.util.ShellUtils;
 import org.mvel2.util.ParseTools;
 
 /**
@@ -126,20 +126,27 @@ public class ExecutionParser
       {
          Object value = valueMap.get(option);
          PromptType promptType = option.getPromptType();
-         String optionDescriptor = ShellUtils.getOptionDescriptor(option) + ": ";
+         String defaultValue = option.getDefaultValue();
+         Class<?> optionType = option.getBoxedType();
+         String optionDescriptor = option.getOptionDescriptor() + ": ";
+
          if ((value != null) && !value.toString().matches(promptType.getPattern()))
          {
             // make sure the current option value is OK
             shell.println("Could not parse [" + value + "]... please try again...");
             value = shell.promptCommon(optionDescriptor, promptType);
          }
-         else if (option.isRequired() && (value == null))
+         else if (option.isRequired() && (value == null) && (!option.hasDefaultValue()))
          {
             while (value == null)
             {
                if (isBooleanOption(option))
                {
                   value = shell.promptBoolean(optionDescriptor);
+               }
+               else if (isFileOption(optionType))
+               {
+                  value = shell.promptFile(optionDescriptor);
                }
                else if (!PromptType.ANY.equals(promptType))
                {
@@ -158,11 +165,20 @@ public class ExecutionParser
                }
             }
          }
+         else if ((value == null) && (option.hasDefaultValue()))
+         {
+            value = defaultValue;
+         }
 
          parameters[option.getIndex()] = value;
       }
 
       return parameters;
+   }
+
+   public boolean isFileOption(Class<?> optionType)
+   {
+      return File.class.isAssignableFrom(optionType);
    }
 
    private static boolean isBooleanOption(OptionMetadata option)

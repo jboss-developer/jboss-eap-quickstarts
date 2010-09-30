@@ -47,23 +47,27 @@ public class NamedValueOptionParser implements CommandParser
       if (currentToken.startsWith("--"))
       {
          currentToken = currentToken.substring(2);
-         OptionMetadata option = command.getNamedOption(currentToken);
-         tokens.remove();
-
-         if (!option.isBoolean())
+         if (command.hasOption(currentToken))
          {
-            String value = null;
-            if (!tokens.isEmpty())
+            OptionMetadata option = command.getNamedOption(currentToken);
+            tokens.remove();
+
+            if (!option.isBoolean())
             {
-               String nextToken = tokens.peek();
-               if (!nextToken.startsWith("--"))
+               String value = null;
+               if (!tokens.isEmpty())
                {
-                  value = nextToken;
-                  tokens.remove(); // increment the chain of tokens
+                  String nextToken = tokens.peek();
+                  if (!nextToken.startsWith("--"))
+                  {
+                     value = nextToken;
+                     tokens.remove(); // increment the chain of tokens
+                  }
                }
+               valueMap.put(option, value); // add the value, should we return
+                                            // this
+                                            // as a tuple instead?
             }
-            valueMap.put(option, value); // add the value, should we return this
-                                         // as a tuple instead?
          }
       }
       return valueMap;

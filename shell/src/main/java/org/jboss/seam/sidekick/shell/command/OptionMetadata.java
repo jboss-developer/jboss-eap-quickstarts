@@ -22,6 +22,9 @@
 package org.jboss.seam.sidekick.shell.command;
 
 import org.jboss.seam.sidekick.shell.PromptType;
+import org.jboss.seam.sidekick.shell.util.Types;
+import org.mvel2.util.ParseTools;
+import org.mvel2.util.StringAppender;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,12 +44,40 @@ public class OptionMetadata
    private PromptType promptType;
 
    /**
+    * Get an informational string describing this Option
+    */
+   public String getOptionDescriptor()
+   {
+      StringAppender appender = new StringAppender("[");
+      if (isNamed())
+      {
+         appender.append(name).append("=");
+      }
+
+      if (getDescription().equals(""))
+      {
+         appender.append("ARG").append(" (").append(Types.getTypeDescriptor(type)).append(")");
+      }
+      else
+      {
+         appender.append(description).append(" (").append(Types.getTypeDescriptor(type)).append(")");
+      }
+
+      return appender.append(']').toString();
+   }
+
+   /**
     * Return whether this option is to be mapped via name or via parameter
     * order.
     */
    public boolean isNamed()
    {
       return (name != null) && !"".equals(name);
+   }
+
+   public Class<?> getBoxedType()
+   {
+      return ParseTools.boxPrimitive(getType());
    }
 
    public Class<?> getType()

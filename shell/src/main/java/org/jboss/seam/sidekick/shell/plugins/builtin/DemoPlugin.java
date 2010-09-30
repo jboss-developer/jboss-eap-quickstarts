@@ -55,7 +55,7 @@ public class DemoPlugin extends MavenPlugin
 
    @Command(value = "count", help = "a basic do-nothing kind of command")
    public void doSomething(@Option(required = true, description = "count") final int count,
-         @Option(value = "enableOption") boolean flag)
+         @Option(name = "enableOption") boolean flag)
    {
       for (int i = 0; i < count; i++)
       {

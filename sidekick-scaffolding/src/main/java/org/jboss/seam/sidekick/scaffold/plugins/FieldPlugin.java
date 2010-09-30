@@ -72,7 +72,7 @@ public class FieldPlugin implements Plugin
          @Option(required = true,
                description = "The field name",
                type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(value = "entity",
+         @Option(name = "entity",
                required = false,
                description = "The @Entity name") final String entityName) throws FileNotFoundException
    {

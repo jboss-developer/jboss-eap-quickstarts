@@ -147,4 +147,16 @@ public class CommandMetadata
    {
       return !getOptions().isEmpty();
    }
+
+   public boolean hasOption(String name)
+   {
+      for (OptionMetadata option : options)
+      {
+         if (option.isNamed() && option.getName().equals(name))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
 }

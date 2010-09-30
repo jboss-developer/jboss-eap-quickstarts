@@ -22,6 +22,7 @@
 package org.jboss.seam.sidekick.shell.plugins.builtin;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -58,7 +59,18 @@ public class NewProjectPlugin implements Plugin
    private ProjectFactory projectFactory;
 
    @DefaultCommand
-   public void create(@Option(description = "The name of the new project", required = true) final String name)
+   public void create(
+         @Option(name = "named",
+               description = "The name of the new project",
+               required = true) final String name,
+         @Option(name = "topLevelPackage",
+               description = "The top level package for your Java source files [e.g: \"com.example.project\"] ",
+               required = true,
+               type = PromptType.JAVA_PACKAGE) String groupId,
+         @Option(name = "projectFolder",
+               description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
+               required = false) File projectFolder
+         ) throws IOException
    {
       File cwd = shell.getCurrentDirectory();
 
@@ -74,14 +86,14 @@ public class NewProjectPlugin implements Plugin
          do
          {
             shell.println();
-            shell.print("What would you like to call the project folder? ");
-            if (!projectFactory.containsProject(newDir))
+            if (!projectFactory.containsProject(cwd))
             {
-               shell.println();
-               shell.print("[Press ENTER to use the current directory: " + cwd + "] ");
+               newDir = shell.promptFile("Where would you like to create the project? [Press ENTER to use the current directory: " + cwd + "]", shell.getCurrentDirectory());
             }
-            String folder = shell.prompt("");
-            newDir = new File(cwd.getAbsolutePath() + File.separator + folder);
+            else
+            {
+               newDir = shell.promptFile("Where would you like to create the project?");
+            }
             if (projectFactory.containsProject(newDir))
             {
                newDir = null;
@@ -89,11 +101,8 @@ public class NewProjectPlugin implements Plugin
          }
          while (newDir == null);
 
-         dir = newDir;
+         dir = newDir.getCanonicalFile();
       }
-
-      String groupId = shell.promptCommon("Please enter your base package [e.g: \"com.example.project\"] ",
-               PromptType.JAVA_PACKAGE);
 
       if (!dir.exists())
       {
@@ -117,7 +126,7 @@ public class NewProjectPlugin implements Plugin
                         + ".\");")
                .getOrigin());
 
-      // project.createResource("<beans/>".toCharArray(), "META-INF/beans.xml");
+      project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 
       /*
        * Only change the environment after success!

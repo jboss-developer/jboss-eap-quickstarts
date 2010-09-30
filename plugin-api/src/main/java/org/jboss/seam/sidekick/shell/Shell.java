@@ -174,14 +174,34 @@ public interface Shell
    <T> T promptChoice(String message, Map<String, T> options);
 
    /**
-    * Prompt for user input (Y/n), first printing the given message, then
-    * returning user input as a String. The prompt will repeat until input
-    * matching the prompt type is entered.
+    * Prompt for user input, first printing the given message, then returning
+    * user input as a String. The prompt will repeat until input matching the
+    * prompt type is entered.
     * 
     * @param message The prompt message to display until valid input is entered
     * @param type The prompt type to which valid input must be matched
     */
    String promptCommon(String message, PromptType type);
+
+   /**
+    * Prompt for user input in the form of a file path, first printing the given
+    * message, then returning user input as a File. The prompt will repeat until
+    * input matching the prompt type is entered.
+    * 
+    * @param message The prompt message to display until valid input is entered
+    */
+   File promptFile(String message);
+
+   /**
+    * Prompt for user input in the form of a file path, first printing the given
+    * message, then returning user input as a File. The prompt will repeat until
+    * input matching the prompt type is entered.
+    * 
+    * @param message The prompt message to display until valid input is entered
+    * @param defaultIfEmpty The value to be returned when an empty or
+    *           whitespace-only user input is read.
+    */
+   File promptFile(String message, File defaultIfEmpty);
 
    /**
     * Same as {@link #promptCommon(String, PromptType)}, but will default to a

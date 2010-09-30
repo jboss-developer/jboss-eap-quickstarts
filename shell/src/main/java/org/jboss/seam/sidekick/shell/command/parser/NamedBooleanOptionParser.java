@@ -47,23 +47,27 @@ public class NamedBooleanOptionParser implements CommandParser
       if (currentToken.startsWith("--"))
       {
          currentToken = currentToken.substring(2);
-         OptionMetadata option = command.getNamedOption(currentToken);
-
-         if (option.isBoolean())
+         if (command.hasOption(currentToken))
          {
-            tokens.remove();
-            String value = "true";
-            if (!tokens.isEmpty())
+            OptionMetadata option = command.getNamedOption(currentToken);
+
+            if (option.isBoolean())
             {
-               String nextToken = tokens.peek();
-               if (nextToken.matches("true|false"))
+               tokens.remove();
+               String value = "true";
+               if (!tokens.isEmpty())
                {
-                  value = nextToken;
-                  tokens.remove(); // increment the chain of tokens
+                  String nextToken = tokens.peek();
+                  if (nextToken.matches("true|false"))
+                  {
+                     value = nextToken;
+                     tokens.remove(); // increment the chain of tokens
+                  }
                }
+               valueMap.put(option, value); // add the value, should we return
+                                            // this
+                                            // as a tuple instead?
             }
-            valueMap.put(option, value); // add the value, should we return this
-                                         // as a tuple instead?
          }
       }
       return valueMap;

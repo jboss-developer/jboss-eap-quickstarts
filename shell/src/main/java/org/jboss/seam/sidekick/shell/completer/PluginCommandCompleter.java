@@ -21,13 +21,17 @@
  */
 package org.jboss.seam.sidekick.shell.completer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.jboss.seam.sidekick.shell.Shell;
 import org.jboss.seam.sidekick.shell.command.CommandMetadata;
@@ -47,6 +51,7 @@ import org.jboss.seam.sidekick.shell.command.parser.Tokenizer;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Singleton
 public class PluginCommandCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
@@ -62,12 +67,17 @@ public class PluginCommandCompleter implements CommandCompleter
    @Inject
    private Shell shell;
 
+   private String currentBuffer = "";
+   private String lastBuffer = "";
+   private boolean finalTokenComplete = false;
+   private int index = -1;
+
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      int index = -1;
+      currentBuffer = buffer;
       Queue<String> tokens = new Tokenizer().tokenize(buffer);
-      boolean finalTokenComplete = buffer.matches("^.*\\s+$");
+      finalTokenComplete = buffer.matches("^.*\\s+$");
       if (!tokens.isEmpty())
       {
          String pluginName = tokens.remove();
@@ -194,37 +204,13 @@ public class PluginCommandCompleter implements CommandCompleter
       }
       else
       {
+         index = 0;
          List<String> pluginCandidates = getPluginCandidates(registry, "");
          candidates.addAll(pluginCandidates);
       }
 
-      // System.out.println();
-      // System.out.println("Candidates " + candidates + ", index=" + index +
-      // ", bufferSize=" + buffer.length() + ", cursor=" + cursor);
-
+      lastBuffer = buffer;
       return index;
-   }
-
-   /**
-    * Add option completions for the given command, with or without argument
-    * tokens
-    */
-   private List<String> getOptionCandidates(CommandMetadata command, Queue<String> tokens)
-   {
-      ArrayList<String> results = new ArrayList<String>();
-
-      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
-
-      List<OptionMetadata> options = command.getOptions();
-      for (OptionMetadata option : options)
-      {
-         if (option.isNamed() && !valueMap.containsKey(option))
-         {
-            results.add("--" + option.getName() + " ");
-         }
-      }
-
-      return results;
    }
 
    /**
@@ -266,7 +252,15 @@ public class PluginCommandCompleter implements CommandCompleter
             {
                if (command.isDefault())
                {
-                  results.add("");
+                  if ((commands.size() == 1) || currentBuffer.matches(lastBuffer + "\\s+"))
+                  {
+                     List<String> optionCandidates = getOptionCandidates(command, tokens);
+                     results.addAll(optionCandidates);
+                  }
+                  else
+                  {
+                     results.add("");
+                  }
                }
                else
                {
@@ -286,6 +280,137 @@ public class PluginCommandCompleter implements CommandCompleter
             }
          }
       }
+      return results;
+   }
+
+   /**
+    * Add option completions for the given command, with or without argument
+    * tokens
+    */
+   private List<String> getOptionCandidates(CommandMetadata command, Queue<String> tokens)
+   {
+      ArrayList<String> results = new ArrayList<String>();
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
+      List<OptionMetadata> options = command.getOptions();
+
+      // TODO determine which option came last, if it had a value, if the value
+      // can be hinted
+
+      // suggest when we have a named param and no value
+      for (OptionMetadata option : options)
+      {
+         if (tokens.size() == 1)
+         {
+            String potentialOption = tokens.peek();
+            if (potentialOption.startsWith("--"))
+            {
+               potentialOption = potentialOption.substring(2);
+            }
+
+            if (option.getName().startsWith(potentialOption))
+            {
+               results.add("--" + option + " ");
+               index = index - tokens.peek().length();
+            }
+         }
+         else
+         {
+            if (valueMap.containsKey(option))
+            {
+               String value = (String) valueMap.get(option);
+               if (value == null)
+               {
+                  value = "";
+               }
+               if (!option.isNamed())
+               {
+                  Matcher matcher = Pattern.compile("^.*" + value + "$").matcher(currentBuffer);
+                  if (matcher.find())
+                  {
+                     if (File.class.isAssignableFrom(option.getBoxedType()))
+                     {
+                        FileOptionCompleter completer = new FileOptionCompleter(shell);
+                        List<CharSequence> completions = new ArrayList<CharSequence>();
+                        int offset = completer.complete(value, 0, completions);
+                        index = index - value.length();
+                        for (CharSequence charSequence : completions)
+                        {
+                           results.add(value.substring(0, offset) + String.valueOf(charSequence));
+                        }
+                     }
+                  }
+               }
+
+               if (!option.isBoolean() && option.isNamed())
+               {
+                  Matcher matcher = Pattern.compile("^.*--" + option.getName() + "\\s*(\\S*)$").matcher(currentBuffer);
+                  if (matcher.find())
+                  {
+                     if ((value != null) && !"".equals(value))
+                     {
+                        if (File.class.isAssignableFrom(option.getBoxedType()))
+                        {
+                           FileOptionCompleter completer = new FileOptionCompleter(shell);
+                           List<CharSequence> completions = new ArrayList<CharSequence>();
+                           int offset = completer.complete(value, 0, completions);
+                           index = index - value.length();
+                           for (CharSequence charSequence : completions)
+                           {
+                              results.add(value.substring(0, offset) + String.valueOf(charSequence));
+                           }
+                        }
+                     }
+
+                     results.add("");
+                     break;
+                  }
+               }
+               else
+               {
+                  // ignore this, we can't deal with it if they forgot the
+                  // value,
+                  // executionparser will fix it for them
+               }
+            }
+
+            if (!valueMap.containsKey(option) && option.isRequired())
+            {
+               if (option.isNamed())
+               {
+                  String prefix = "";
+                  if (!finalTokenComplete)
+                  {
+                     prefix = " ";
+                  }
+                  results.add(prefix + "--" + option.getName() + " ");
+               }
+               else
+               {
+                  results.add("");
+               }
+               break;
+            }
+
+            if (!option.isRequired() && currentBuffer.equals(lastBuffer))
+            {
+               if (option.isNamed())
+               {
+                  String prefix = "";
+                  if (!finalTokenComplete)
+                  {
+                     prefix = " ";
+                  }
+                  results.add(prefix + "--" + option.getName() + " ");
+               }
+               else
+               {
+                  results.add("");
+               }
+               break;
+            }
+         }
+      }
+
       return results;
    }
 
