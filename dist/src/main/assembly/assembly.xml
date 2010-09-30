@@ -28,11 +28,11 @@
          <outputDirectory>lib</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam.sidekick.*</include>
+            <include>org.jboss.seam.forge.*</include>
          </includes>
          <excludes>
-            <exclude>org.jboss.seam.sidekick.*:*:*:javadoc</exclude>
-            <exclude>org.jboss.seam.sidekick.*:*:*:sources</exclude>
+            <exclude>org.jboss.seam.forge.*:*:*:javadoc</exclude>
+            <exclude>org.jboss.seam.forge.*:*:*:sources</exclude>
          </excludes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -42,8 +42,8 @@
          <useProjectArtifact>false</useProjectArtifact>
          <useTransitiveDependencies>true</useTransitiveDependencies>
          <excludes>
-            <exclude>org.jboss.seam.sidekick:*:*:javadoc</exclude>
-            <exclude>org.jboss.seam.sidekick:*:*:sources</exclude>
+            <exclude>org.jboss.seam.forge:*:*:javadoc</exclude>
+            <exclude>org.jboss.seam.forge:*:*:sources</exclude>
          </excludes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -53,7 +53,7 @@
          <outputDirectory>doc/javadoc</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam.sidekick:*:*:javadoc</include>
+            <include>org.jboss.seam.forge:*:*:javadoc</include>
          </includes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -62,7 +62,7 @@
          <outputDirectory>sources</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam.sidekick:*:*:sources</include>
+            <include>org.jboss.seam.forge:*:*:sources</include>
          </includes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -86,7 +86,7 @@
          <unpack>true</unpack>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam.sidekick:sidekick-reference-guide</include>
+            <include>org.jboss.seam.forge:forge-reference-guide</include>
          </includes>
          <unpackOptions>
             <excludes>

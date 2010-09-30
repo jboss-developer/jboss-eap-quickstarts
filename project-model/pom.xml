@@ -3,20 +3,20 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <groupId>org.jboss.seam.sidekick</groupId>
-      <artifactId>sidekick-parent</artifactId>
+      <groupId>org.jboss.seam.forge</groupId>
+      <artifactId>forge-parent</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>sidekick-project-model</artifactId>
+   <artifactId>forge-project-model</artifactId>
    <packaging>jar</packaging>
-   <name>Seam Sidekick Project Model APIs</name>
+   <name>Seam Forge - Project Model API</name>
 
    <dependencies>
       <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-parser-java</artifactId>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-parser-java</artifactId>
       </dependency>
 
       <dependency>

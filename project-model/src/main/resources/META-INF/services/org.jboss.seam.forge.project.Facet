@@ -1,0 +1,4 @@
+org.jboss.seam.forge.project.facets.impl.MavenFacetImpl
+org.jboss.seam.forge.project.facets.impl.MavenJavaSourceFacet
+org.jboss.seam.forge.project.facets.impl.MavenResourceFacet
+org.jboss.seam.forge.project.facets.impl.MavenWebFacet

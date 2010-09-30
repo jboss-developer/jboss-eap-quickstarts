@@ -4,24 +4,24 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <artifactId>sidekick-parent</artifactId>
-      <groupId>org.jboss.seam.sidekick</groupId>
+      <artifactId>forge-parent</artifactId>
+      <groupId>org.jboss.seam.forge</groupId>
       <version>1.0.0-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>sidekick-shell</artifactId>
+   <artifactId>forge-shell</artifactId>
    <packaging>jar</packaging>
-   <name>Seam Sidekick Shell</name>
+   <name>Seam Forge - Shell</name>
 
    <dependencies>
       <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-shell-plugin-api</artifactId>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-shell-api</artifactId>
       </dependency>
       <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-test-harness</artifactId>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-test-harness</artifactId>
          <scope>test</scope>
       </dependency>
 

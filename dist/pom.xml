@@ -3,31 +3,31 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <artifactId>sidekick-parent</artifactId>
-      <groupId>org.jboss.seam.sidekick</groupId>
-      <version>1.0.0-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
+      <artifactId>forge-parent</artifactId>
+      <groupId>org.jboss.seam.forge</groupId>
+      <version> 1.0.0-SNAPSHOT </version>
+      <relativePath> ../pom.xml </relativePath>
    </parent>
 
-   <artifactId>sidekick-dist</artifactId>
-   <name>Seam Sidekick Distribution</name>
-   <packaging>jar</packaging>
+   <artifactId>forge-distribution</artifactId>
+   <name> Seam Forge - Distribution </name>
+   <packaging> jar </packaging>
 
    <dependencies>
       <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-shell</artifactId>
+         <groupId> org.jboss.seam.forge </groupId>
+         <artifactId> forge-shell </artifactId>
          <version>${project.version}</version>
       </dependency>
       <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-scaffolding</artifactId>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-scaffolding</artifactId>
          <version>${project.version}</version>
       </dependency>
    </dependencies>
 
    <build>
-      <finalName>sidekick</finalName>
+      <finalName>forge</finalName>
       <plugins>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
