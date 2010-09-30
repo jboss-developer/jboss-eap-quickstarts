@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.sidekick.scaffold.plugins;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import org.apache.maven.model.Dependency;
 import org.jboss.seam.sidekick.project.PackagingType;
 import org.jboss.seam.sidekick.project.Project;
@@ -38,9 +31,14 @@ import org.jboss.seam.sidekick.shell.plugins.Help;
 import org.jboss.seam.sidekick.shell.plugins.MavenPlugin;
 import org.jboss.seam.sidekick.shell.plugins.RequiresFacet;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 @Named("scaffold")

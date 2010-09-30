@@ -63,7 +63,7 @@ public class ScaffoldingFacet implements Facet
       {
          return file.isDirectory();
       }
-   };;
+   };
 
    @Override
    public Set<Class<? extends Facet>> getDependencies()
@@ -126,7 +126,7 @@ public class ScaffoldingFacet implements Facet
    }
 
    private List<JavaClass> findEntitiesInFolder(File packageFile)
-   {
+   {                        
       List<JavaClass> result = new ArrayList<JavaClass>();
       if (packageFile.exists())
       {

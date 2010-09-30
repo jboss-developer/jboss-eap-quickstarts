@@ -22,14 +22,11 @@
 
 package org.jboss.seam.sidekick.bus.event.changes.java;
 
-import org.jboss.seam.sidekick.bus.event.changes.java.types.JavaChangeField;
-import org.jboss.seam.sidekick.bus.event.changes.java.types.JavaChangeMethod;
-
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
 public enum JavaChangeType
 {
    Field,
-   Method;
+   Method
 }
