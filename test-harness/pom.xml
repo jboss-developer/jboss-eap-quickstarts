@@ -2,19 +2,19 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <parent>
-      <artifactId>sidekick-parent</artifactId>
-      <groupId>org.jboss.seam.sidekick</groupId>
+      <artifactId>forge-parent</artifactId>
+      <groupId>org.jboss.seam.forge</groupId>
       <version>1.0.0-SNAPSHOT</version>
    </parent>
 
-   <artifactId>sidekick-test-harness</artifactId>
+   <artifactId>forge-test-harness</artifactId>
    <packaging>jar</packaging>
-   <name>Seam Sidekick Test Harness</name>
+   <name>Seam Forge - Test Harness</name>
 
    <dependencies>
       <dependency>
-         <groupId>org.jboss.seam.sidekick</groupId>
-         <artifactId>sidekick-shell-plugin-api</artifactId>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-shell-api</artifactId>
          <scope>provided</scope>
       </dependency>
       
