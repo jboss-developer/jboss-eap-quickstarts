@@ -93,6 +93,43 @@ public class ScaffoldTest extends AbstractShellTest
       assertFalse(javaClass.hasSyntaxErrors());
    }
 
+   @Test
+   public void testNewStringField() throws Exception
+   {
+      Project project = initializeJavaProject();
+
+      queueInputLines("y");
+      getShell().execute("install scaffold");
+
+      String entityName = "Goofy";
+      queueInputLines("");
+      getShell().execute("new-entity " + entityName);
+
+      String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
+      String path = Packages.toFileSyntax(pkg) + ".java";
+      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+
+      assertFalse(javaClass.hasSyntaxErrors());
+
+      getShell().execute("new-field int gamesPlayed");
+      getShell().execute("new-field int achievementsEarned");
+
+      queueInputLines("gamesWon");
+      getShell().execute("new-field int int");
+
+      queueInputLines("gamesLost");
+      getShell().execute("new-field int #$%#");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertTrue(javaClass.hasField("achievementsEarned"));
+      assertTrue(javaClass.hasField("gamesWon"));
+      assertTrue(javaClass.hasField("gamesLost"));
+
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
    @Test(expected = FileNotFoundException.class)
    public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
    {
