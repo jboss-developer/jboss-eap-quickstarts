@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -55,20 +56,20 @@ import org.jboss.seam.forge.shell.plugins.RequiresProject;
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class FieldPlugin implements Plugin
 {
-   private final Project project;
+   private final Instance<Project> projectInstance;
    private final Shell shell;
-   private JavaClass entity;
+   private final Instance<JavaClass> entityInstance;
 
    @Inject
-   public FieldPlugin(final Project project, final Shell shell, final @LastEntity JavaClass entity)
+   public FieldPlugin(final Instance<Project> project, final Shell shell, final @LastEntity Instance<JavaClass> entity)
    {
-      this.project = project;
+      this.projectInstance = project;
       this.shell = shell;
-      this.entity = entity;
+      this.entityInstance = entity;
    }
 
    @Command(value = "int", help = "Add an int field to an existing @Entity class")
-   public void newField(
+   public void newIntField(
          @Option(required = true,
                description = "The field name",
                type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -76,37 +77,82 @@ public class FieldPlugin implements Plugin
                required = false,
                description = "The @Entity name") final String entityName) throws FileNotFoundException
    {
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+      addField(entityName, fieldName, int.class);
+   }
 
-      findEntity(entityName);
-
-      Field field = entity.addField();
-      field.setName(fieldName).setPrivate().setType(int.class.getName()).addAnnotation(Column.class);
-
-      java.saveJavaClass(entity);
-      shell.println("Added field to " + entity.getQualifiedName() + ": " + field);
+   @Command(value = "string", help = "Add a String field to an existing @Entity class")
+   public void newLongField(
+         @Option(required = true,
+               description = "The field name",
+               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+         @Option(name = "entity",
+               required = false,
+               description = "The @Entity name") final String entityName) throws FileNotFoundException
+   {
+      addField(entityName, fieldName, String.class);
    }
 
    /*
     * Helpers
     */
-   private void findEntity(final String entityName) throws FileNotFoundException
+   private void addField(final String entityName, final String fieldName, Class<?> fieldType)
    {
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         JavaClass javaClass = findEntity(entityName);
+         Field field = javaClass.addField();
+         field.setName(fieldName).setPrivate().setType(fieldType).addAnnotation(Column.class);
+         java.saveJavaClass(javaClass);
+         shell.println("Added field to " + javaClass.getQualifiedName() + ": " + field);
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   public Project getCurrentProject()
+   {
+      return projectInstance.get();
+   }
+
+   private JavaClass findEntity(final String entityName) throws FileNotFoundException
+   {
+      JavaClass result = null;
+
+      Project project = getCurrentProject();
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       if (entityName != null)
       {
-         entity = java.getJavaClass(scaffold.getEntityPackage() + "." + entityName);
+         result = java.getJavaClass(scaffold.getEntityPackage() + "." + entityName);
       }
-      else if (entity == null)
+
+      if (result == null)
       {
-         entity = promptForEntity();
+         result = entityInstance.get();
       }
+
+      if (result == null)
+      {
+         result = promptForEntity();
+      }
+
+      if (result == null)
+      {
+         throw new FileNotFoundException("Could not locate JavaClass on which to operate.");
+      }
+
+      return result;
    }
 
    private JavaClass promptForEntity()
    {
+      Project project = getCurrentProject();
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       List<JavaClass> entities = scaffold.getAllEntities();
       List<String> entityNames = new ArrayList<String>();

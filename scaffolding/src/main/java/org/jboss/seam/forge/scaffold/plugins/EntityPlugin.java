@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.scaffold.plugins;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,14 +54,16 @@ import org.jboss.seam.forge.shell.plugins.RequiresProject;
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class EntityPlugin implements Plugin
 {
-   private final Project project;
+   private final Instance<Project> projectInstance;
+
    private final Shell shell;
    private JavaClass lastEntity;
+   private Project lastProject;
 
    @Inject
-   public EntityPlugin(final Project project, final Shell shell)
+   public EntityPlugin(final Instance<Project> projectInstance, final Shell shell)
    {
-      this.project = project;
+      this.projectInstance = projectInstance;
       this.shell = shell;
    }
 
@@ -69,6 +72,11 @@ public class EntityPlugin implements Plugin
    @LastEntity
    JavaClass getLastEntity()
    {
+      // TODO this needs to be replaced once Mike's contextuals are working.
+      if (projectInstance.get() != this.lastProject)
+      {
+         lastEntity = null;
+      }
       return lastEntity;
    }
 
@@ -80,6 +88,7 @@ public class EntityPlugin implements Plugin
                description = "Trigger scaffolding generation for this @Entity",
                defaultValue = "false") final boolean buildScaffold)
    {
+      Project project = projectInstance.get();
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
@@ -94,7 +103,9 @@ public class EntityPlugin implements Plugin
                .addAnnotation(Entity.class)
                .getOrigin();
       java.saveJavaClass(javaClass);
+
       this.lastEntity = javaClass;
+      this.lastProject = project;
 
       shell.println("Created @Entity [" + entityName + "]");
    }

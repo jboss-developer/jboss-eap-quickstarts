@@ -105,6 +105,16 @@ public interface JavaSourceFacet extends Facet
    public JavaClass getJavaClass(String relativePath) throws FileNotFoundException;
 
    /**
+    * Attempt to locate and re-parse the given {@link JavaClass} from its
+    * location on disk, relative to {@link #getSourceFolder()}. The given
+    * instance will not be modified, and a new instance will be returned.
+    * 
+    * @param javaClass The {@link JavaClass} to re-parse.
+    * @throws FileNotFoundException if the target file does not exist
+    */
+   public JavaClass getJavaClass(JavaClass javaClass) throws FileNotFoundException;
+
+   /**
     * Return the {@link JavaClass} at the given path relative to
     * {@link #getTestSourceFolder()}.
     * 
@@ -112,6 +122,16 @@ public interface JavaSourceFacet extends Facet
     *           file.
     */
    public JavaClass getTestJavaClass(String relativePath) throws FileNotFoundException;
+
+   /**
+    * Attempt to locate and re-parse the given {@link JavaClass} from its
+    * location on disk, relative to {@link #getTestSourceFolder()}. The given
+    * instance will not be modified, and a new instance will be returned.
+    * 
+    * @param javaClass The {@link JavaClass} to re-parse.
+    * @throws FileNotFoundException if the target file does not exist
+    */
+   public JavaClass getTestJavaClass(JavaClass javaClass) throws FileNotFoundException;
 
    /**
     * Return the base Java {@link Package} for this project, returned as a
