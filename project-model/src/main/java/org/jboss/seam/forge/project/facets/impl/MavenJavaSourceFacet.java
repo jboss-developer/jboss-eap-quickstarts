@@ -205,4 +205,20 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       String base = Packages.toFileSyntax(getBasePackage());
       return new File(getSourceFolder().getAbsolutePath() + File.separator + base).getAbsoluteFile();
    }
+
+   @Override
+   public JavaClass getJavaClass(JavaClass javaClass) throws FileNotFoundException
+   {
+      String pkg = javaClass.getPackage() + "." + javaClass.getName();
+      String path = Packages.toFileSyntax(pkg) + ".java";
+      return JavaParser.parse(getSourceFile(path));
+   }
+
+   @Override
+   public JavaClass getTestJavaClass(JavaClass javaClass) throws FileNotFoundException
+   {
+      String pkg = javaClass.getPackage() + "." + javaClass.getName();
+      String path = Packages.toFileSyntax(pkg) + ".java";
+      return JavaParser.parse(getTestSourceFile(path));
+   }
 }

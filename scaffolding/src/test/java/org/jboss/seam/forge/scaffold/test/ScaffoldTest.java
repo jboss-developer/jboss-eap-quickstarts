@@ -24,6 +24,7 @@ package org.jboss.seam.forge.scaffold.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
 
@@ -60,19 +61,8 @@ public class ScaffoldTest extends AbstractShellTest
    public void testNewEntity() throws Exception
    {
       Project project = initializeJavaProject();
-
-      queueInputLines("y");
-      getShell().execute("install scaffold");
-
-      String entityName = "Goofy";
-      queueInputLines("");
-      getShell().execute("new-entity " + entityName);
-
-      String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
-      String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
-
-      assertFalse(javaClass.hasSyntaxErrors());
+      installScaffold();
+      JavaClass javaClass = generateEntity(project);
 
       getShell().execute("new-field int gamesPlayed");
       getShell().execute("new-field int achievementsEarned");
@@ -83,7 +73,7 @@ public class ScaffoldTest extends AbstractShellTest
       queueInputLines("gamesLost");
       getShell().execute("new-field int #$%#");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasField("gamesPlayed"));
       assertTrue(javaClass.hasField("achievementsEarned"));
@@ -97,10 +87,22 @@ public class ScaffoldTest extends AbstractShellTest
    public void testNewStringField() throws Exception
    {
       Project project = initializeJavaProject();
+      installScaffold();
+      JavaClass javaClass = generateEntity(project);
 
-      queueInputLines("y");
-      getShell().execute("install scaffold");
+      getShell().execute("new-field int gamesPlayed");
 
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   /*
+    * Helpers
+    */
+   private JavaClass generateEntity(Project project) throws FileNotFoundException
+   {
       String entityName = "Goofy";
       queueInputLines("");
       getShell().execute("new-entity " + entityName);
@@ -110,24 +112,7 @@ public class ScaffoldTest extends AbstractShellTest
       JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
 
       assertFalse(javaClass.hasSyntaxErrors());
-
-      getShell().execute("new-field int gamesPlayed");
-      getShell().execute("new-field int achievementsEarned");
-
-      queueInputLines("gamesWon");
-      getShell().execute("new-field int int");
-
-      queueInputLines("gamesLost");
-      getShell().execute("new-field int #$%#");
-
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
-      assertTrue(javaClass.hasAnnotation(Entity.class));
-      assertTrue(javaClass.hasField("gamesPlayed"));
-      assertTrue(javaClass.hasField("achievementsEarned"));
-      assertTrue(javaClass.hasField("gamesWon"));
-      assertTrue(javaClass.hasField("gamesLost"));
-
-      assertFalse(javaClass.hasSyntaxErrors());
+      return javaClass;
    }
 
    @Test(expected = FileNotFoundException.class)
@@ -135,8 +120,7 @@ public class ScaffoldTest extends AbstractShellTest
    {
       Project project = initializeJavaProject();
 
-      queueInputLines("y");
-      getShell().execute("install scaffold");
+      installScaffold();
 
       String entityName = "Goofy";
 
@@ -147,6 +131,14 @@ public class ScaffoldTest extends AbstractShellTest
       String path = Packages.toFileSyntax(pkg) + ".java";
 
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-      JavaClass javaClass = java.getJavaClass(path);
+
+      java.getJavaClass(path); // exception here or die
+      fail();
+   }
+
+   private void installScaffold()
+   {
+      queueInputLines("y");
+      getShell().execute("install scaffold");
    }
 }

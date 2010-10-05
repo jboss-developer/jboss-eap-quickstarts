@@ -37,23 +37,15 @@ import javax.inject.Singleton;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenFacet;
-import org.jboss.seam.forge.project.facets.ResourceFacet;
-import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.util.DependencyBuilder;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.AfterClass;
+import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,27 +56,13 @@ import org.junit.runner.RunWith;
  */
 @Singleton
 @RunWith(Arquillian.class)
-public class MavenFacetsTest
+public class MavenFacetsTest extends ProjectModelTest
 {
-   @Deployment
-   public static JavaArchive createTestArchive()
-   {
-      return ShrinkWrap.create(JavaArchive.class, "test.jar")
-               .addPackages(true, Project.class.getPackage())
-               .addClass(FacetFactory.class)
-               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"))
-               .addManifestResource("META-INF/services/javax.enterprise.inject.spi.Extension")
-               .addManifestResource("META-INF/services/org.jboss.seam.forge.project.Facet")
-               .addManifestResource("META-INF/services/org.jboss.seam.forge.project.services.ProjectLocator");
-   }
-
    private static final String PKG = MavenFacetsTest.class.getSimpleName().toLowerCase();
-   private static File tempFolder;
 
    @Inject
    private ProjectFactory projectFactory;
 
-   private static Project tempProject;
    private static Project thisProject;
    private static Project testProject;
 
@@ -92,7 +70,7 @@ public class MavenFacetsTest
    private DependencyBuilder dependencyBuilder;
 
    @Before
-   @SuppressWarnings("unchecked")
+   @Override
    public void postConstruct() throws IOException
    {
       if (thisProject == null)
@@ -103,45 +81,26 @@ public class MavenFacetsTest
       {
          testProject = projectFactory.findProjectRecursively(new File("src/test/resources/test-pom"));
       }
-
-      if (tempProject == null)
-      {
-         tempFolder = File.createTempFile(PKG, null);
-         tempFolder.delete();
-         tempFolder.mkdirs();
-
-         tempProject = projectFactory.createProject(tempFolder, MavenFacet.class, JavaSourceFacet.class,
-                  ResourceFacet.class, WebResourceFacet.class);
-      }
-   }
-
-   @AfterClass
-   public static void preDestroy()
-   {
-      // if (tempFolder.exists())
-      // {
-      // assertTrue(tempProject.delete(tempFolder));
-      // }
    }
 
    @Test
    public void testCreateDefault() throws Exception
    {
-      assertTrue(tempProject.exists());
+      assertTrue(getProject().exists());
    }
 
    @Test
    public void testGetDefaultSourceDir() throws Exception
    {
-      assertEquals(new File(tempProject.getProjectRoot() + "/src/main/java/"),
-               tempProject.getFacet(JavaSourceFacet.class).getSourceFolder());
+      assertEquals(new File(getProject().getProjectRoot() + "/src/main/java/"),
+            getProject().getFacet(JavaSourceFacet.class).getSourceFolder());
    }
 
    @Test
    public void testGetTestSourceDir() throws Exception
    {
-      assertEquals(new File(tempProject.getProjectRoot() + "/src/test/java/"),
-               tempProject.getFacet(JavaSourceFacet.class).getTestSourceFolder());
+      assertEquals(new File(getProject().getProjectRoot() + "/src/test/java/"),
+            getProject().getFacet(JavaSourceFacet.class).getTestSourceFolder());
    }
 
    @Test
@@ -150,24 +109,24 @@ public class MavenFacetsTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
       clazz.getOrigin();
-      File file = tempProject.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      File file = getProject().getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass result = JavaParser.parse(file);
       assertEquals(name, result.getName());
       assertEquals(PKG, result.getPackage());
-      assertTrue(tempProject.delete(file));
+      assertTrue(getProject().delete(file));
       assertEquals(clazz, result);
    }
 
    @Test
    public void testCreatePOM() throws Exception
    {
-      Model pom = tempProject.getFacet(MavenFacet.class).getPOM();
+      Model pom = getProject().getFacet(MavenFacet.class).getPOM();
       pom.setGroupId("org.jboss.seam");
       pom.setArtifactId("scaffolding");
       pom.setVersion("X-SNAPSHOT");
-      tempProject.getFacet(MavenFacet.class).setPOM(pom);
+      getProject().getFacet(MavenFacet.class).setPOM(pom);
       File file = pom.getPomFile();
       assertTrue(file.exists());
 
@@ -189,9 +148,9 @@ public class MavenFacetsTest
       Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
                .setArtifactId("test-dependency").setVersion("1.0.0.Final").build();
 
-      assertFalse(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
-      tempProject.getFacet(MavenFacet.class).addDependency(dependency);
-      assertTrue(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
+      assertFalse(getProject().getFacet(MavenFacet.class).hasDependency(dependency));
+      getProject().getFacet(MavenFacet.class).addDependency(dependency);
+      assertTrue(getProject().getFacet(MavenFacet.class).hasDependency(dependency));
    }
 
    @Test
@@ -200,11 +159,11 @@ public class MavenFacetsTest
       Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
                .setArtifactId("test-dependency").setVersion("1.0.1.Final").build();
 
-      assertFalse(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
-      tempProject.getFacet(MavenFacet.class).addDependency(dependency);
-      assertTrue(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
-      tempProject.getFacet(MavenFacet.class).removeDependency(dependency);
-      assertFalse(tempProject.getFacet(MavenFacet.class).hasDependency(dependency));
+      assertFalse(getProject().getFacet(MavenFacet.class).hasDependency(dependency));
+      getProject().getFacet(MavenFacet.class).addDependency(dependency);
+      assertTrue(getProject().getFacet(MavenFacet.class).hasDependency(dependency));
+      getProject().getFacet(MavenFacet.class).removeDependency(dependency);
+      assertFalse(getProject().getFacet(MavenFacet.class).hasDependency(dependency));
    }
 
    @Test
