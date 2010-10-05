@@ -45,9 +45,8 @@ import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenFacet;
-import org.jboss.seam.forge.shell.PromptType;
-import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
@@ -100,6 +99,9 @@ public class ShellImpl implements Shell
    @Inject
    private CurrentProjectHolder cph;
 
+   private Resource currentResource;
+
+
    private ConsoleReader reader;
    private Completer completer;
 
@@ -112,7 +114,7 @@ public class ShellImpl implements Shell
 
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
-      log.info("Seam Forgeell - Starting up.");
+      log.info("Seam Forge Shell - Starting up.");
 
       BooleanConverter booleanConverter = new BooleanConverter();
       DataConversion.addConversionHandler(boolean.class, booleanConverter);
@@ -489,6 +491,7 @@ public class ShellImpl implements Shell
       try
       {
          setProperty(PROP_CWD, directory.getCanonicalPath());
+         
       }
       catch (IOException e)
       {
@@ -496,9 +499,22 @@ public class ShellImpl implements Shell
       }
    }
 
+   @Override
+   public Resource getCurrentResource()
+   {
+      return currentResource;
+   }
+
+   @Override
+   public void setCurrentResource(File file)
+   {
+      currentResource = this.cph.getResourceFactory().getResourceFrom(file);
+   }
+
+
    /*
-    * Shell Prompts
-    */
+   * Shell Prompts
+   */
    @Override
    public String prompt()
    {

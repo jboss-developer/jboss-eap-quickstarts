@@ -28,6 +28,8 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -37,6 +39,8 @@ import org.jboss.seam.forge.project.Project;
 public class CurrentProjectHolder
 {
    private Project currentProject;
+   private Resource currentResource;
+   private ResourceFactory factory;
 
    @Produces
    @Default
@@ -48,7 +52,21 @@ public class CurrentProjectHolder
 
    public void setCurrentProject(final Project currentProject)
    {
+      if (factory == null) {
+         throw new RuntimeException("ResourceFactory not supplied");
+      }
+
+      this.currentResource = factory.getResourceFrom(currentProject.getProjectRoot());
       this.currentProject = currentProject;
    }
 
+   public ResourceFactory getResourceFactory()
+   {
+      return factory;
+   }
+
+   public void setResourceFactory(ResourceFactory factory)
+   {
+      this.factory = factory;
+   }
 }

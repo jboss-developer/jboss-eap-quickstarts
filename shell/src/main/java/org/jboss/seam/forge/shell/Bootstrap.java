@@ -23,6 +23,7 @@ package org.jboss.seam.forge.shell;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -45,5 +46,6 @@ public class Bootstrap
       manager.fireEvent(new Startup());
       manager.fireEvent(new AcceptUserInput());
    }
+
 
 }

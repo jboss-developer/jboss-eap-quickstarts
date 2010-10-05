@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.ProjectFactory;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.CurrentProjectHolder;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -46,6 +47,7 @@ public class InitProjectPlugin implements Plugin
    private final Shell shell;
    private final CurrentProjectHolder cp;
    private final Event<InitProject> init;
+
    private final ProjectFactory projectFactory;
 
    @Inject
@@ -71,6 +73,8 @@ public class InitProjectPlugin implements Plugin
       shell.setDefaultPrompt();
       if (targetDirectory.exists())
       {
+         cp.setResourceFactory(projectFactory.getResourceFactory());
+
          try
          {
             Project currentProject = projectFactory.findProjectRecursively(targetDirectory);

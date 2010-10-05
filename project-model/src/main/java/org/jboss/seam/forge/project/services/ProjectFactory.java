@@ -45,12 +45,14 @@ import org.jboss.weld.extensions.util.service.ServiceLoader;
 public class ProjectFactory
 {
    private final FacetFactory facetFactory;
+   private final ResourceFactory resourceFactory;
    private List<ProjectLocator> locators = null;
 
    @Inject
-   public ProjectFactory(final FacetFactory facetFactory)
+   public ProjectFactory(final FacetFactory facetFactory, final ResourceFactory resourceFactory)
    {
       this.facetFactory = facetFactory;
+      this.resourceFactory = resourceFactory;
    }
 
    public Project findProjectRecursively(final File startingPath) throws FileNotFoundException
@@ -200,5 +202,10 @@ public class ProjectFactory
       }
       registerFacets(project);
       return project;
+   }
+
+   public ResourceFactory getResourceFactory()
+   {
+      return resourceFactory;
    }
 }
