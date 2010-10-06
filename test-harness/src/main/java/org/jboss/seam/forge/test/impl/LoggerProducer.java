@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.test;
+package org.jboss.seam.forge.test.impl;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
