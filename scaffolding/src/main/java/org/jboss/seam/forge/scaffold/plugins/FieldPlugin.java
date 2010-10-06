@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.scaffold.plugins;
 
 import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.persistence.Column;
+import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -70,43 +72,19 @@ public class FieldPlugin implements Plugin
 
    @Command(value = "int", help = "Add an int field to an existing @Entity class")
    public void newIntField(
-         @Option(required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "entity",
-               required = false,
-               description = "The @Entity name") final String entityName) throws FileNotFoundException
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName)
    {
-      addField(entityName, fieldName, int.class);
-   }
-
-   @Command(value = "string", help = "Add a String field to an existing @Entity class")
-   public void newLongField(
-         @Option(required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "entity",
-               required = false,
-               description = "The @Entity name") final String entityName) throws FileNotFoundException
-   {
-      addField(entityName, fieldName, String.class);
-   }
-
-   /*
-    * Helpers
-    */
-   private void addField(final String entityName, final String fieldName, Class<?> fieldType)
-   {
-      Project project = getCurrentProject();
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
       try
       {
-         JavaClass javaClass = findEntity(entityName);
-         Field field = javaClass.addField();
-         field.setName(fieldName).setPrivate().setType(fieldType).addAnnotation(Column.class);
-         java.saveJavaClass(javaClass);
-         shell.println("Added field to " + javaClass.getQualifiedName() + ": " + field);
+         JavaClass entity = findEntity(entityName);
+         addField(entity, fieldName, int.class, Column.class);
       }
       catch (FileNotFoundException e)
       {
@@ -114,12 +92,99 @@ public class FieldPlugin implements Plugin
       }
    }
 
+   @Command(value = "string", help = "Add a String field to an existing @Entity class")
+   public void newLongField(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName)
+   {
+      try
+      {
+         JavaClass entity = findEntity(entityName);
+         addField(entity, fieldName, String.class, Column.class);
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   @Command(value = "reference", help = "Add a One-to-one relationship field to an existing @Entity class")
+   public void newOneToOneRelationship(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity type to which this field is a relationship",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "addToClass",
+                     required = false,
+                     description = "The @Entity to which this field will be added",
+                     type = PromptType.JAVA_CLASS) final String targetEntity,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+   {
+
+      try
+      {
+         JavaClass field = findEntity(fieldType);
+         JavaClass entity = findEntity(targetEntity);
+         addField(entity, fieldName, field, OneToOne.class);
+         if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
+         {
+            addField(field, inverseFieldName, entity, OneToOne.class);
+         }
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+
+   }
+
+   /*
+    * Helpers
+    */
+   private void addField(final JavaClass targetEntity, final String fieldName, final JavaClass fieldType,
+            final Class<? extends Annotation> annotation)
+   {
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      Field field = targetEntity.addField();
+      field.setName(fieldName).setPrivate().setType(fieldType.getName()).addAnnotation(annotation);
+      targetEntity.addImport(fieldType.getQualifiedName());
+      java.saveJavaClass(targetEntity);
+      shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
+   }
+
+   private void addField(final JavaClass targetEntity, final String fieldName, final Class<?> fieldType,
+            final Class<? extends Annotation> annotation)
+   {
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      Field field = targetEntity.addField();
+      field.setName(fieldName).setPrivate().setType(fieldType).addAnnotation(annotation);
+      java.saveJavaClass(targetEntity);
+      shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
+   }
+
    public Project getCurrentProject()
    {
       return projectInstance.get();
    }
 
-   private JavaClass findEntity(final String entityName) throws FileNotFoundException
+   private JavaClass findEntity(final String entity) throws FileNotFoundException
    {
       JavaClass result = null;
 
@@ -127,9 +192,13 @@ public class FieldPlugin implements Plugin
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
-      if (entityName != null)
+      if (entity != null)
       {
-         result = java.getJavaClass(scaffold.getEntityPackage() + "." + entityName);
+         result = java.getJavaClass(entity);
+         if (result == null)
+         {
+            result = java.getJavaClass(scaffold.getEntityPackage() + "." + entity);
+         }
       }
 
       if (result == null)

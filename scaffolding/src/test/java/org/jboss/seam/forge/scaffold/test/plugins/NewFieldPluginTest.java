@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.scaffold.test;
+package org.jboss.seam.forge.scaffold.test.plugins;
 
 /*
  * JBoss, Home of Professional Open Source
@@ -28,14 +28,14 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.scaffold.ScaffoldingFacet;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
+import org.jboss.seam.forge.scaffold.test.plugins.util.AbstractScaffoldTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class EntityPluginTest extends SingletonAbstractShellTest
+public class NewFieldPluginTest extends AbstractScaffoldTest
 {
    @Before
    @Override
@@ -61,22 +61,48 @@ public class EntityPluginTest extends SingletonAbstractShellTest
    }
 
    @Test
-   public void testNewEntity() throws Exception
+   public void testNewStringField() throws Exception
    {
       Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
 
-      String entityName = "Goofy";
-      queueInputLines("");
-      getShell().execute("new-entity " + entityName);
+      getShell().execute("new-field int --fieldName gamesPlayed");
 
-      String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
-      String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
-
-      assertFalse(javaClass.hasSyntaxErrors());
       javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
       assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasField("gamesPlayed"));
       assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test
+   public void testNewOneToOneRelationship() throws Exception
+   {
+      Project project = getProject();
+      JavaClass field = generateEntity(project);
+      JavaClass entity = generateEntity(project);
+
+      getShell().execute(
+               "new-field reference --fieldName right --fieldType ~.domain." + field.getName()
+                        + " --inverseFieldName left");
+
+      entity = project.getFacet(JavaSourceFacet.class).getJavaClass(entity);
+
+      assertTrue(entity.hasAnnotation(Entity.class));
+      assertTrue(entity.hasField("right"));
+      assertTrue(entity.getField("right").getType().equals(field.getName()));
+      assertTrue(entity.getField("right").hasAnnotation(OneToOne.class));
+      assertTrue(entity.hasImport(field.getQualifiedName()));
+      assertTrue(entity.hasImport(OneToOne.class));
+      assertFalse(entity.hasSyntaxErrors());
+
+      field = project.getFacet(JavaSourceFacet.class).getJavaClass(field);
+
+      assertTrue(field.hasField("left"));
+      assertTrue(field.getField("left").getType().equals(entity.getName()));
+      assertTrue(field.getField("left").hasAnnotation(OneToOne.class));
+      assertTrue(field.hasImport(entity.getQualifiedName()));
+      assertTrue(field.hasImport(OneToOne.class));
+      assertFalse(field.hasSyntaxErrors());
    }
 
 }

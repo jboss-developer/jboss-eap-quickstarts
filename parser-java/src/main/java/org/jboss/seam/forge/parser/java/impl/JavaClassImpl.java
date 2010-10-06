@@ -69,14 +69,11 @@ public class JavaClassImpl implements JavaClass
    private final ModifierAccessor ma = new ModifierAccessor();
 
    /**
-    * Parses and process the java source code as a compilation unit and the
-    * result it abstract syntax tree (AST) representation and this action uses
-    * the third edition of java Language Specification.
+    * Parses and process the java source code as a compilation unit and the result it abstract syntax tree (AST)
+    * representation and this action uses the third edition of java Language Specification.
     * 
-    * @param source - the java source to be parsed (i.e. the char[] contains
-    *           Java source).
-    * @return CompilationUnit Abstract syntax tree representation of a java
-    *         source file.
+    * @param source - the java source to be parsed (i.e. the char[] contains Java source).
+    * @return CompilationUnit Abstract syntax tree representation of a java source file.
     */
    public JavaClassImpl(final InputStream inputStream)
    {
@@ -324,6 +321,32 @@ public class JavaClassImpl implements JavaClass
       }
 
       return Collections.unmodifiableList(result);
+   }
+
+   @Override
+   public Field getField(final String name)
+   {
+      for (Field field : getFields())
+      {
+         if (field.getName().equals(name))
+         {
+            return field;
+         }
+      }
+      return null;
+   }
+
+   @Override
+   public boolean hasField(final String name)
+   {
+      for (Field field : getFields())
+      {
+         if (field.getName().equals(name))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    @Override
@@ -634,19 +657,6 @@ public class JavaClassImpl implements JavaClass
          return packg + "." + name;
       }
       return name;
-   }
-
-   @Override
-   public boolean hasField(String name)
-   {
-      for (Field field : getFields())
-      {
-         if (field.getName().equals(name))
-         {
-            return true;
-         }
-      }
-      return false;
    }
 
 }

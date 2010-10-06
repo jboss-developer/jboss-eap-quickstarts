@@ -64,9 +64,8 @@ public class NamedBooleanOptionParser implements CommandParser
                      tokens.remove(); // increment the chain of tokens
                   }
                }
-               valueMap.put(option, value); // add the value, should we return
-                                            // this
-                                            // as a tuple instead?
+
+               valueMap.put(option, value);
             }
          }
       }

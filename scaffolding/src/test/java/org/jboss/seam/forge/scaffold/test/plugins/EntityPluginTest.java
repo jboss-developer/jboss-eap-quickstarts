@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.scaffold.test;
+package org.jboss.seam.forge.scaffold.test.plugins;
 
 /*
  * JBoss, Home of Professional Open Source
@@ -22,18 +22,18 @@ package org.jboss.seam.forge.scaffold.test;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.persistence.Entity;
 
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.scaffold.ScaffoldingFacet;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
-import org.junit.Before;
+import org.jboss.seam.forge.scaffold.test.plugins.util.AbstractScaffoldTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,41 +42,47 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class NewFieldPluginNegativeTest extends SingletonAbstractShellTest
+public class EntityPluginTest extends AbstractScaffoldTest
 {
-   @Before
-   @Override
-   public void beforeTest() throws IOException
-   {
-      super.beforeTest();
-      initializeJavaProject();
-      if ((getProject() != null) && !getProject().hasFacet(ScaffoldingFacet.class))
-      {
-         installScaffold();
-      }
-   }
 
-   @Test(expected = FileNotFoundException.class)
-   public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
+   @Test
+   public void testNewEntity() throws Exception
    {
       Project project = getProject();
-      String entityName = "Goofy";
 
-      queueInputLines(entityName);
-      getShell().execute("new-field int gamesPlayed");
+      String entityName = "Goofy";
+      queueInputLines("");
+      getShell().execute("new-entity " + entityName);
 
       String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
+      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
 
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      java.getJavaClass(path); // exception here or die
-      fail();
+      assertFalse(javaClass.hasSyntaxErrors());
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertFalse(javaClass.hasSyntaxErrors());
    }
 
-   private void installScaffold()
+   @Test
+   public void testNewEntityCorrectsInvalidInput() throws Exception
    {
-      queueInputLines("y");
-      getShell().execute("install scaffold");
+      Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
+
+      queueInputLines("gamesWon");
+      getShell().execute("new-field int --fieldName int");
+
+      queueInputLines("gamesLost");
+      getShell().execute("new-field int --fieldName #$%#");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasImport(Entity.class));
+      assertTrue(javaClass.hasField("gamesWon"));
+      assertTrue(javaClass.hasField("gamesLost"));
+
+      assertFalse(javaClass.hasSyntaxErrors());
    }
+
 }

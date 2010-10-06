@@ -66,7 +66,8 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       // ProjectBuildingResult result =
       // project.getFacet(MavenFacet.class).getProjectBuildingResult();
       // String directory = result.getProject().getBuild().getSourceDirectory();
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "java").getAbsoluteFile();
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
+               + File.separator + "java").getAbsoluteFile();
    }
 
    @Override
@@ -76,7 +77,8 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       // project.getFacet(MavenFacet.class).getProjectBuildingResult();
       // String directory =
       // result.getProject().getBuild().getTestSourceDirectory();
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test" + File.separator + "java").getAbsoluteFile();
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
+               + File.separator + "java").getAbsoluteFile();
    }
 
    @Override
@@ -183,6 +185,16 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    public JavaClass getJavaClass(final String relativePath) throws FileNotFoundException
    {
       File target = getSourceFile(relativePath);
+
+      if (!target.exists())
+      {
+         File secondary = getSourceFile(Packages.toFileSyntax(relativePath) + ".java");
+         if (secondary.exists())
+         {
+            target = secondary;
+         }
+      }
+
       return JavaParser.parse(target);
    }
 
@@ -190,6 +202,16 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    public JavaClass getTestJavaClass(final String relativePath) throws FileNotFoundException
    {
       File target = getTestSourceFile(relativePath);
+
+      if (!target.exists())
+      {
+         File secondary = getTestSourceFile(Packages.toFileSyntax(relativePath) + ".java");
+         if (secondary.exists())
+         {
+            target = secondary;
+         }
+      }
+
       return JavaParser.parse(target);
    }
 
@@ -207,7 +229,7 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    }
 
    @Override
-   public JavaClass getJavaClass(JavaClass javaClass) throws FileNotFoundException
+   public JavaClass getJavaClass(final JavaClass javaClass) throws FileNotFoundException
    {
       String pkg = javaClass.getPackage() + "." + javaClass.getName();
       String path = Packages.toFileSyntax(pkg) + ".java";
@@ -215,7 +237,7 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    }
 
    @Override
-   public JavaClass getTestJavaClass(JavaClass javaClass) throws FileNotFoundException
+   public JavaClass getTestJavaClass(final JavaClass javaClass) throws FileNotFoundException
    {
       String pkg = javaClass.getPackage() + "." + javaClass.getName();
       String path = Packages.toFileSyntax(pkg) + ".java";
