@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -68,7 +68,7 @@ public class ImportImpl implements Import
    @Override
    public Import setName(final String name)
    {
-      imprt.setName(ast.newName(Strings.tokenizeClassName(name)));
+      imprt.setName(ast.newName(Types.tokenizeClassName(name)));
       return this;
    }
 
@@ -107,7 +107,7 @@ public class ImportImpl implements Import
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {

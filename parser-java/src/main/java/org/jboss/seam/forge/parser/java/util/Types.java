@@ -26,16 +26,40 @@ package org.jboss.seam.forge.parser.java.util;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class TypesNames
+public class Types
 {
-   public static boolean areEquivalent(String type, String annotationType)
+   public static boolean areEquivalent(final String type, final String annotationType)
    {
       String shortType = type.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
       if (shortType.equals(annotationType) ||
-            type.equals(annotationType))
+               type.equals(annotationType))
       {
          return true;
       }
       return false;
+   }
+
+   public static String toSimpleName(final String fieldType)
+   {
+      String result = fieldType;
+      if (result != null)
+      {
+         String[] tokens = tokenizeClassName(result);
+         if (tokens != null)
+         {
+            result = tokens[tokens.length - 1];
+         }
+      }
+      return result;
+   }
+
+   public static String[] tokenizeClassName(final String className)
+   {
+      String[] result = null;
+      if (className != null)
+      {
+         result = className.split("\\.");
+      }
+      return result;
    }
 }

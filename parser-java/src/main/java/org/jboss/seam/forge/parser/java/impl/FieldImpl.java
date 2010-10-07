@@ -41,6 +41,7 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -267,7 +268,7 @@ public class FieldImpl implements Field
       }
       else
       {
-         String[] className = Strings.tokenizeClassName(typeName);
+         String[] className = Types.tokenizeClassName(typeName);
          Name name = ast.newName(className);
          type = ast.newSimpleType(name);
       }

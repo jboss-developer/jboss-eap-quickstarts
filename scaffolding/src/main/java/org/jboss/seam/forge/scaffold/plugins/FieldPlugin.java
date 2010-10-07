@@ -35,6 +35,7 @@ import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.util.Types;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.scaffold.ScaffoldingFacet;
@@ -68,6 +69,66 @@ public class FieldPlugin implements Plugin
       this.projectInstance = project;
       this.shell = shell;
       this.entityInstance = entity;
+   }
+
+   @Command(value = "custom", help = "Add a custom field to an existing @Entity class")
+   public void newCustomField(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "type",
+                     required = true,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The qualified Class to be used as this field's type") final String type,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName)
+   {
+      try
+      {
+         JavaClass entity = findEntity(entityName);
+         addField(entity, fieldName, type, Column.class);
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   @Command(value = "boolean", help = "Add a boolean field to an existing @Entity class")
+   public void newBooleanField(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName,
+            @Option(name = "primitive",
+                     required = false,
+                     defaultValue = "true",
+                     description = "Marks this field to be created as a primitive.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
+   {
+      try
+      {
+         JavaClass entity = findEntity(entityName);
+         if (primitive)
+         {
+            addField(entity, fieldName, boolean.class, Column.class);
+         }
+         else
+         {
+            addField(entity, fieldName, Boolean.class, Column.class);
+         }
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
    }
 
    @Command(value = "int", help = "Add an int field to an existing @Entity class")
@@ -240,6 +301,19 @@ public class FieldPlugin implements Plugin
       Field field = targetEntity.addField();
       field.setName(fieldName).setPrivate().setType(fieldType.getName()).addAnnotation(annotation);
       targetEntity.addImport(fieldType.getQualifiedName());
+      java.saveJavaClass(targetEntity);
+      shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
+   }
+
+   private void addField(final JavaClass targetEntity, final String fieldName, final String fieldType,
+            final Class<Column> annotation)
+   {
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      Field field = targetEntity.addField();
+      field.setName(fieldName).setPrivate().setType(Types.toSimpleName(fieldType)).addAnnotation(annotation);
+      targetEntity.addImport(fieldType);
       java.saveJavaClass(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }

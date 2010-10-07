@@ -63,6 +63,39 @@ public class NewFieldPluginTest extends AbstractScaffoldTest
    }
 
    @Test
+   public void testNewBoolean() throws Exception
+   {
+      Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
+
+      getShell().execute("new-field boolean --fieldName gamesPlayed --primitive false");
+      getShell().execute("new-field boolean --fieldName gamesWon");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertFalse(javaClass.getField("gamesPlayed").isPrimitive());
+      assertEquals("Boolean", javaClass.getField("gamesPlayed").getType());
+      assertTrue(javaClass.hasField("gamesWon"));
+      assertTrue(javaClass.getField("gamesWon").isPrimitive());
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test
+   public void testNewCustomField() throws Exception
+   {
+      Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
+
+      getShell().execute("new-field custom --fieldName gamesPlayed --type org.jboss.CustomType");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertEquals("CustomType", javaClass.getField("gamesPlayed").getType());
+      assertTrue(javaClass.hasImport("org.jboss.CustomType"));
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test
    public void testNewIntFieldObject() throws Exception
    {
       Project project = getProject();
