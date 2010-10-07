@@ -1,7 +1,8 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
-import org.jboss.seam.forge.project.FileResource;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
+@ResourceHandles("*.java")
 public class JavaResource extends FileResource
 {
    public JavaResource(File file)

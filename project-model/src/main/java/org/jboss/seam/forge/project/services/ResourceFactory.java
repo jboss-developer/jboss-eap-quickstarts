@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 @Singleton
 public class ResourceFactory implements Extension
 {
-
    private BeanManager manager;
 
    private List<ResourceGenerator> resourceGenerators = new ArrayList<ResourceGenerator>();
@@ -47,6 +46,8 @@ public class ResourceFactory implements Extension
       Bean<?> bean = event.getBean();
       Class<?> clazz = bean.getBeanClass();
 
+      System.out.println("Class: " + clazz.getName());
+
       if (Resource.class.isAssignableFrom(clazz) && clazz.isAnnotationPresent(ResourceHandles.class))
       {
          for (String pspec : clazz.getAnnotation(ResourceHandles.class).value())
@@ -58,10 +59,9 @@ public class ResourceFactory implements Extension
             resourceGenerators.add(new ResourceGenerator(p, rInst));
          }
       }
-
    }
 
-   public Resource getResourceFrom(final File file)
+   public Resource<File> getResourceFrom(final File file)
    {
       /**
        * Special case for directories required.
@@ -70,21 +70,20 @@ public class ResourceFactory implements Extension
          return new DirectoryResource(file);
       }
 
-
       final String name = file.getName();
 
       synchronized (this)
       {
          if (lastTypeLoaded.matches(name))
          {
-            return lastTypeLoaded.getResource().createFrom(file);
+            return lastTypeLoaded.getResource(File.class).createFrom(file);
          }
 
          for (ResourceGenerator gen : resourceGenerators)
          {
             if (gen.matches(name))
             {
-               return (lastTypeLoaded = gen).getResource().createFrom(file);
+               return (lastTypeLoaded = gen).getResource(File.class).createFrom(file);
             }
          }
       }
@@ -112,16 +111,15 @@ public class ResourceFactory implements Extension
          return pattern.matcher(name).matches();
       }
 
-      public Resource getResource()
+      @SuppressWarnings({"unchecked"})
+      public <T> Resource<T> getResource(Class<T> type)
       {
          return resource;
       }
    }
 
-
    private static String pathspecToRegEx(String pathSpec)
    {
       return "^" + pathSpec.replaceAll("\\*", "\\.\\*").replaceAll("\\?", "\\.") + "$";
    }
-
 }
