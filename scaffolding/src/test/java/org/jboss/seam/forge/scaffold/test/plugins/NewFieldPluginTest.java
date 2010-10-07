@@ -22,10 +22,12 @@ package org.jboss.seam.forge.scaffold.test.plugins;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -61,7 +63,24 @@ public class NewFieldPluginTest extends AbstractScaffoldTest
    }
 
    @Test
-   public void testNewStringField() throws Exception
+   public void testNewIntFieldObject() throws Exception
+   {
+      Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
+
+      getShell().execute("new-field int --fieldName gamesPlayed --primitive false");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertFalse(javaClass.getField("gamesPlayed").isPrimitive());
+      assertEquals("Integer", javaClass.getField("gamesPlayed").getType());
+      assertFalse(javaClass.hasImport(Integer.class));
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test
+   public void testNewIntFieldPrimitive() throws Exception
    {
       Project project = getProject();
       JavaClass javaClass = generateEntity(project);
@@ -71,6 +90,40 @@ public class NewFieldPluginTest extends AbstractScaffoldTest
       javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasField("gamesPlayed"));
+      assertTrue(javaClass.getField("gamesPlayed").isPrimitive());
+      assertEquals("int", javaClass.getField("gamesPlayed").getType());
+      assertFalse(javaClass.hasImport(int.class));
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test
+   public void testNewNumberField() throws Exception
+   {
+      Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
+
+      getShell().execute("new-field number --fieldName gamesPlayed --type java.math.BigDecimal");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasField("gamesPlayed"));
+      assertFalse(javaClass.getField("gamesPlayed").isPrimitive());
+      assertEquals("BigDecimal", javaClass.getField("gamesPlayed").getType());
+      assertTrue(javaClass.hasImport(BigDecimal.class));
+      assertFalse(javaClass.hasSyntaxErrors());
+   }
+
+   @Test
+   public void testNewNumberFieldNotAddedIfClassNotValid() throws Exception
+   {
+      Project project = getProject();
+      JavaClass javaClass = generateEntity(project);
+
+      getShell().execute("new-field number --fieldName gamesPlayed --type org.jboss.NotANumber");
+
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      assertEquals(0, javaClass.getFields().size());
+      assertFalse(javaClass.hasImport("org.jboss.NotANumber"));
       assertFalse(javaClass.hasSyntaxErrors());
    }
 

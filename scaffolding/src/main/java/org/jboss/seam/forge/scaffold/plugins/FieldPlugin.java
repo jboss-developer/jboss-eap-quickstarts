@@ -79,16 +79,93 @@ public class FieldPlugin implements Plugin
             @Option(name = "addToClass",
                      required = false,
                      type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName,
+            @Option(name = "primitive",
+                     required = false,
+                     defaultValue = "true",
+                     description = "Marks this field to be created as a primitive.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
+   {
+      try
+      {
+         JavaClass entity = findEntity(entityName);
+         if (primitive)
+         {
+            addField(entity, fieldName, int.class, Column.class);
+         }
+         else
+         {
+            addField(entity, fieldName, Integer.class, Column.class);
+         }
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   @Command(value = "long", help = "Add a long field to an existing @Entity class")
+   public void newLongField(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName,
+            @Option(name = "primitive",
+                     required = false,
+                     defaultValue = "true",
+                     description = "Marks this field to be created as a primitive.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
+   {
+      try
+      {
+         JavaClass entity = findEntity(entityName);
+         if (primitive)
+         {
+            addField(entity, fieldName, long.class, Column.class);
+         }
+         else
+         {
+            addField(entity, fieldName, Long.class, Column.class);
+         }
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   @Command(value = "number", help = "Add a number field to an existing @Entity class")
+   public void newNumberField(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "type",
+                     required = true,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The qualified Class to be used as this field's type") final String type,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
                      description = "The @Entity to which this field will be added") final String entityName)
    {
       try
       {
          JavaClass entity = findEntity(entityName);
-         addField(entity, fieldName, int.class, Column.class);
+         addField(entity, fieldName, Class.forName(type), Column.class);
       }
       catch (FileNotFoundException e)
       {
          shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+      catch (ClassNotFoundException e)
+      {
+         shell.println("Sorry, I don't think [" + type
+                  + "] is a valid Java number type. Try something in the 'java.lang.* or java.math*' packages.");
       }
    }
 
@@ -130,7 +207,7 @@ public class FieldPlugin implements Plugin
                      type = PromptType.JAVA_CLASS) final String targetEntity,
             @Option(name = "inverseFieldName",
                      required = false,
-                     description = "The field name",
+                     description = "Create an inverse relationship, using this value as the name of the inverse field.",
                      type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
 
@@ -175,6 +252,10 @@ public class FieldPlugin implements Plugin
 
       Field field = targetEntity.addField();
       field.setName(fieldName).setPrivate().setType(fieldType).addAnnotation(annotation);
+      if (!fieldType.getName().startsWith("java.lang.") && !fieldType.isPrimitive())
+      {
+         targetEntity.addImport(fieldType);
+      }
       java.saveJavaClass(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }

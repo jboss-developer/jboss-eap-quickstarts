@@ -22,7 +22,6 @@
 
 package org.jboss.seam.forge.parser.java;
 
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -46,4 +45,6 @@ public interface Field extends VisibilityScoped<Field>, AnnotationTarget<Field>
    Field setLiteralInitializer(String value);
 
    Field setStringInitializer(String value);
+
+   boolean isPrimitive();
 }

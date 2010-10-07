@@ -387,4 +387,16 @@ public class FieldImpl implements Field
       return true;
    }
 
+   @Override
+   public boolean isPrimitive()
+   {
+      boolean result = false;
+      Type type = field.getType();
+      if (type != null)
+      {
+         result = type.isPrimitiveType();
+      }
+      return result;
+   }
+
 }
