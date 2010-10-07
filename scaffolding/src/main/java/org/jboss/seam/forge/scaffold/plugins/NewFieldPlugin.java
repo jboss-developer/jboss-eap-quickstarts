@@ -57,14 +57,14 @@ import org.jboss.seam.forge.shell.plugins.RequiresProject;
 @RequiresProject
 @RequiresFacet(ScaffoldingFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
-public class FieldPlugin implements Plugin
+public class NewFieldPlugin implements Plugin
 {
    private final Instance<Project> projectInstance;
    private final Shell shell;
    private final Instance<JavaClass> entityInstance;
 
    @Inject
-   public FieldPlugin(final Instance<Project> project, final Shell shell, final @LastEntity Instance<JavaClass> entity)
+   public NewFieldPlugin(final Instance<Project> project, final Shell shell, final @LastEntity Instance<JavaClass> entity)
    {
       this.projectInstance = project;
       this.shell = shell;

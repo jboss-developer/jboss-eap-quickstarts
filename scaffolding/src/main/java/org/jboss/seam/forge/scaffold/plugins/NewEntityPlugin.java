@@ -52,7 +52,7 @@ import org.jboss.seam.forge.shell.plugins.RequiresProject;
 @RequiresProject
 @RequiresFacet(ScaffoldingFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
-public class EntityPlugin implements Plugin
+public class NewEntityPlugin implements Plugin
 {
    private final Instance<Project> projectInstance;
 
@@ -61,7 +61,7 @@ public class EntityPlugin implements Plugin
    private Project lastProject;
 
    @Inject
-   public EntityPlugin(final Instance<Project> projectInstance, final Shell shell)
+   public NewEntityPlugin(final Instance<Project> projectInstance, final Shell shell)
    {
       this.projectInstance = projectInstance;
       this.shell = shell;
