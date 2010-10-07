@@ -82,12 +82,11 @@ public class NewEntityPlugin implements Plugin
 
    @DefaultCommand(help = "Create a JPA @Entity")
    public void newEntity(
-         @Option(required = true,
-               description = "The @Entity name") final String entityName,
-         @Option(required = false,
-               description = "Trigger scaffolding generation for this @Entity",
-               defaultValue = "false") final boolean buildScaffold)
+            @Option(required = true,
+                     name = "named",
+                     description = "The @Entity name") final String entityName)
    {
+      // TODO this should accept a qualified name as a parameter instead of prompting for the package later
       Project project = projectInstance.get();
       ScaffoldingFacet scaffold = project.getFacet(ScaffoldingFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -107,6 +106,6 @@ public class NewEntityPlugin implements Plugin
       this.lastEntity = javaClass;
       this.lastProject = project;
 
-      shell.println("Created @Entity [" + entityName + "]");
+      shell.println("Created @Entity [" + javaClass.getQualifiedName() + "]");
    }
 }

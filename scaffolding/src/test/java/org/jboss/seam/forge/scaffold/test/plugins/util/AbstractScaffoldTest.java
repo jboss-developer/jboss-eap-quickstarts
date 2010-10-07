@@ -59,7 +59,7 @@ public abstract class AbstractScaffoldTest extends SingletonAbstractShellTest
    {
       String entityName = "Goofy" + count++;
       queueInputLines("");
-      getShell().execute("new-entity " + entityName);
+      getShell().execute("new-entity --named " + entityName);
 
       String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
