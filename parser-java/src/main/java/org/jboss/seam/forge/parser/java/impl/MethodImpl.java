@@ -43,8 +43,8 @@ import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
  */
 public class MethodImpl implements Method
 {
-   private static AnnotationAccessor util = new AnnotationAccessor();
-   private final ModifierAccessor ma = new ModifierAccessor();
+   private static AnnotationAccessor annotations = new AnnotationAccessor();
+   private final ModifierAccessor modifiers = new ModifierAccessor();
 
    private JavaClass parent = null;
    private AST ast = null;
@@ -90,7 +90,7 @@ public class MethodImpl implements Method
    @Override
    public Annotation addAnnotation()
    {
-      return util.addAnnotation(this, method);
+      return annotations.addAnnotation(this, method);
    }
 
    @Override
@@ -100,37 +100,49 @@ public class MethodImpl implements Method
       {
          parent.addImport(clazz);
       }
-      return util.addAnnotation(this, method, clazz.getSimpleName());
+      return annotations.addAnnotation(this, method, clazz.getSimpleName());
    }
 
    @Override
    public Annotation addAnnotation(final String className)
    {
-      return util.addAnnotation(this, method, className);
+      return annotations.addAnnotation(this, method, className);
    }
 
    @Override
    public List<Annotation> getAnnotations()
    {
-      return util.getAnnotations(this, method);
+      return annotations.getAnnotations(this, method);
    }
 
    @Override
    public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
    {
-      return util.hasAnnotation(this, method, type.getName());
+      return annotations.hasAnnotation(this, method, type.getName());
    }
 
    @Override
    public boolean hasAnnotation(final String type)
    {
-      return util.hasAnnotation(this, method, type);
+      return annotations.hasAnnotation(this, method, type);
    }
 
    @Override
    public Method removeAnnotation(final Annotation annotation)
    {
-      return util.removeAnnotation(this, method, annotation);
+      return annotations.removeAnnotation(this, method, annotation);
+   }
+
+   @Override
+   public Annotation getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return annotations.getAnnotation(parent, method, type);
+   }
+
+   @Override
+   public Annotation getAnnotation(final String type)
+   {
+      return annotations.getAnnotation(parent, method, type);
    }
 
    /*
@@ -227,7 +239,7 @@ public class MethodImpl implements Method
    @Override
    public boolean isAbstract()
    {
-      return ma.hasModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
    }
 
    @Override
@@ -235,11 +247,11 @@ public class MethodImpl implements Method
    {
       if (abstrct)
       {
-         ma.addModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
+         modifiers.addModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
       }
       else
       {
-         ma.removeModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
+         modifiers.removeModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
       }
       return this;
    }
@@ -247,7 +259,7 @@ public class MethodImpl implements Method
    @Override
    public Method setFinal()
    {
-      ma.addModifier(method, ModifierKeyword.FINAL_KEYWORD);
+      modifiers.addModifier(method, ModifierKeyword.FINAL_KEYWORD);
       return this;
    }
 
@@ -281,49 +293,49 @@ public class MethodImpl implements Method
    @Override
    public Method setPackagePrivate()
    {
-      ma.clearVisibility(method);
+      modifiers.clearVisibility(method);
       return this;
    }
 
    @Override
    public boolean isPublic()
    {
-      return ma.hasModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
    }
 
    @Override
    public Method setPublic()
    {
-      ma.clearVisibility(method);
-      ma.addModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
+      modifiers.clearVisibility(method);
+      modifiers.addModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isPrivate()
    {
-      return ma.hasModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
    }
 
    @Override
    public Method setPrivate()
    {
-      ma.clearVisibility(method);
-      ma.addModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
+      modifiers.clearVisibility(method);
+      modifiers.addModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isProtected()
    {
-      return ma.hasModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
    }
 
    @Override
    public Method setProtected()
    {
-      ma.clearVisibility(method);
-      ma.addModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
+      modifiers.clearVisibility(method);
+      modifiers.addModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
       return this;
    }
 

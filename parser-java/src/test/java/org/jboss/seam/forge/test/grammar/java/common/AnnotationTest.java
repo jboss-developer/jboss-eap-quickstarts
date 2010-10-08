@@ -23,6 +23,7 @@ package org.jboss.seam.forge.test.grammar.java.common;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -215,6 +216,29 @@ public abstract class AnnotationTest
 
    @Test
    public void testHasAnnotationStringTypeSimple() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertNotNull(target.getAnnotation("Test"));
+      assertNotNull(target.getAnnotation(Test.class.getSimpleName()));
+   }
+
+   @Test
+   public void testGetAnnotationClassType() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertNotNull(target.getAnnotation(Test.class));
+   }
+
+   @Test
+   public void testGetAnnotationStringType() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertNotNull(target.getAnnotation("org.junit.Test"));
+      assertNotNull(target.getAnnotation(Test.class.getName()));
+   }
+
+   @Test
+   public void testGetAnnotationStringTypeSimple() throws Exception
    {
       target.addAnnotation(Test.class);
       assertTrue(target.hasAnnotation("Test"));

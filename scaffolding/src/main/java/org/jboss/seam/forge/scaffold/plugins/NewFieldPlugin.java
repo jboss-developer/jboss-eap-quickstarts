@@ -24,13 +24,16 @@ package org.jboss.seam.forge.scaffold.plugins;
 import java.io.FileNotFoundException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.persistence.Column;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
@@ -64,7 +67,8 @@ public class NewFieldPlugin implements Plugin
    private final Instance<JavaClass> entityInstance;
 
    @Inject
-   public NewFieldPlugin(final Instance<Project> project, final Shell shell, final @LastEntity Instance<JavaClass> entity)
+   public NewFieldPlugin(final Instance<Project> project, final Shell shell,
+            final @LastEntity Instance<JavaClass> entity)
    {
       this.projectInstance = project;
       this.shell = shell;
@@ -89,7 +93,7 @@ public class NewFieldPlugin implements Plugin
       try
       {
          JavaClass entity = findEntity(entityName);
-         addField(entity, fieldName, type, Column.class);
+         addFieldTo(entity, type, fieldName, Column.class);
       }
       catch (FileNotFoundException e)
       {
@@ -118,11 +122,11 @@ public class NewFieldPlugin implements Plugin
          JavaClass entity = findEntity(entityName);
          if (primitive)
          {
-            addField(entity, fieldName, boolean.class, Column.class);
+            addFieldTo(entity, boolean.class, fieldName, Column.class);
          }
          else
          {
-            addField(entity, fieldName, Boolean.class, Column.class);
+            addFieldTo(entity, Boolean.class, fieldName, Column.class);
          }
       }
       catch (FileNotFoundException e)
@@ -152,11 +156,11 @@ public class NewFieldPlugin implements Plugin
          JavaClass entity = findEntity(entityName);
          if (primitive)
          {
-            addField(entity, fieldName, int.class, Column.class);
+            addFieldTo(entity, int.class, fieldName, Column.class);
          }
          else
          {
-            addField(entity, fieldName, Integer.class, Column.class);
+            addFieldTo(entity, Integer.class, fieldName, Column.class);
          }
       }
       catch (FileNotFoundException e)
@@ -186,11 +190,11 @@ public class NewFieldPlugin implements Plugin
          JavaClass entity = findEntity(entityName);
          if (primitive)
          {
-            addField(entity, fieldName, long.class, Column.class);
+            addFieldTo(entity, long.class, fieldName, Column.class);
          }
          else
          {
-            addField(entity, fieldName, Long.class, Column.class);
+            addFieldTo(entity, Long.class, fieldName, Column.class);
          }
       }
       catch (FileNotFoundException e)
@@ -217,7 +221,7 @@ public class NewFieldPlugin implements Plugin
       try
       {
          JavaClass entity = findEntity(entityName);
-         addField(entity, fieldName, Class.forName(type), Column.class);
+         addFieldTo(entity, Class.forName(type), fieldName, Column.class);
       }
       catch (FileNotFoundException e)
       {
@@ -244,7 +248,7 @@ public class NewFieldPlugin implements Plugin
       try
       {
          JavaClass entity = findEntity(entityName);
-         addField(entity, fieldName, String.class, Column.class);
+         addFieldTo(entity, String.class, fieldName, Column.class);
       }
       catch (FileNotFoundException e)
       {
@@ -252,7 +256,7 @@ public class NewFieldPlugin implements Plugin
       }
    }
 
-   @Command(value = "reference", help = "Add a One-to-one relationship field to an existing @Entity class")
+   @Command(value = "oneToOne", help = "Add a One-to-one relationship field to an existing @Entity class")
    public void newOneToOneRelationship(
             @Option(name = "fieldName",
                      required = true,
@@ -268,7 +272,7 @@ public class NewFieldPlugin implements Plugin
                      type = PromptType.JAVA_CLASS) final String targetEntity,
             @Option(name = "inverseFieldName",
                      required = false,
-                     description = "Create an inverse relationship, using this value as the name of the inverse field.",
+                     description = "Create a bi-directional relationship, using this value as the name of the inverse field.",
                      type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
 
@@ -276,11 +280,68 @@ public class NewFieldPlugin implements Plugin
       {
          JavaClass field = findEntity(fieldType);
          JavaClass entity = findEntity(targetEntity);
-         addField(entity, fieldName, field, OneToOne.class);
+         addFieldTo(entity, field, fieldName, OneToOne.class);
          if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
          {
-            addField(field, inverseFieldName, entity, OneToOne.class);
+            addFieldTo(field, entity, inverseFieldName, OneToOne.class);
          }
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   @Command(value = "manyToMany", help = "Add a many-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
+   public void newManyToManyRelationship(
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity type to which this field is a relationship",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "addToClass",
+                     required = false,
+                     description = "The @Entity to which this field will be added",
+                     type = PromptType.JAVA_CLASS) final String targetEntity,
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+   {
+
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         JavaClass entity = findEntity(targetEntity);
+         JavaClass otherEntity = findEntity(fieldType);
+
+         entity.addImport(Set.class);
+         entity.addImport(HashSet.class);
+         entity.addImport(otherEntity.getQualifiedName());
+         Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
+                  + otherEntity.getName() + ">();");
+         org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(ManyToMany.class);
+         String type = field.getType();
+
+         if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
+         {
+            annotation.setStringValue("mappedBy", inverseFieldName);
+
+            otherEntity.addImport(Set.class);
+            otherEntity.addImport(HashSet.class);
+            otherEntity.addImport(entity.getQualifiedName());
+            otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
+                              + "= new HashSet<" + entity.getName() + ">();")
+                     .addAnnotation(ManyToMany.class).setStringValue("mappedBy", fieldName);
+
+            java.saveJavaClass(otherEntity);
+         }
+         java.saveJavaClass(entity);
       }
       catch (FileNotFoundException e)
       {
@@ -292,20 +353,20 @@ public class NewFieldPlugin implements Plugin
    /*
     * Helpers
     */
-   private void addField(final JavaClass targetEntity, final String fieldName, final JavaClass fieldType,
+   private void addFieldTo(final JavaClass targetEntity, final JavaClass fieldEntity, final String fieldName,
             final Class<? extends Annotation> annotation)
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field field = targetEntity.addField();
-      field.setName(fieldName).setPrivate().setType(fieldType.getName()).addAnnotation(annotation);
-      targetEntity.addImport(fieldType.getQualifiedName());
+      field.setName(fieldName).setPrivate().setType(fieldEntity.getName()).addAnnotation(annotation);
+      targetEntity.addImport(fieldEntity.getQualifiedName());
       java.saveJavaClass(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }
 
-   private void addField(final JavaClass targetEntity, final String fieldName, final String fieldType,
+   private void addFieldTo(final JavaClass targetEntity, final String fieldType, final String fieldName,
             final Class<Column> annotation)
    {
       Project project = getCurrentProject();
@@ -318,7 +379,7 @@ public class NewFieldPlugin implements Plugin
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }
 
-   private void addField(final JavaClass targetEntity, final String fieldName, final Class<?> fieldType,
+   private void addFieldTo(final JavaClass targetEntity, final Class<?> fieldType, final String fieldName,
             final Class<? extends Annotation> annotation)
    {
       Project project = getCurrentProject();
