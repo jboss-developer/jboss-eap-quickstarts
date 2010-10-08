@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
 import org.jboss.seam.forge.parser.java.impl.AnnotationImpl;
-import org.jboss.seam.forge.parser.java.util.TypesNames;
+import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -98,7 +98,7 @@ public class AnnotationAccessor
          {
             Annotation annotation = new AnnotationImpl(target, object);
             String annotationType = annotation.getName();
-            if (TypesNames.areEquivalent(type, annotationType))
+            if (Types.areEquivalent(type, annotationType))
             {
                return true;
             }

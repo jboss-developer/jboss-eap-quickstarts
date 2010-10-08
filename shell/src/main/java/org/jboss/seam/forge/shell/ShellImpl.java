@@ -49,9 +49,9 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenFacet;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
+import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
 import org.jboss.seam.forge.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
@@ -100,7 +100,10 @@ public class ShellImpl implements Shell
    private CurrentProjectHolder cph;
 
    private Resource currentResource;
-
+   
+   
+   @Inject
+   private PromptTypeConverter promptTypeConverter;
 
    private ConsoleReader reader;
    private Completer completer;
@@ -491,7 +494,8 @@ public class ShellImpl implements Shell
       try
       {
          setProperty(PROP_CWD, directory.getCanonicalPath());
-         
+
+         //todo: this API needs to be unified
       }
       catch (IOException e)
       {
@@ -502,6 +506,9 @@ public class ShellImpl implements Shell
    @Override
    public Resource getCurrentResource()
    {
+      if (currentResource == null) currentResource = this.cph.getResourceFactory()
+            .getResourceFrom(getCurrentDirectory());
+      
       return currentResource;
    }
 
@@ -525,12 +532,6 @@ public class ShellImpl implements Shell
    public String prompt(final String message)
    {
       return promptWithCompleter(message, (Completer) null);
-   }
-
-   private String promptWithCompleter(final String message, final CommandCompleter completer)
-   {
-      Completer tempCompleter = new CommandCompleterAdaptor(completer);
-      return promptWithCompleter(message, tempCompleter);
    }
 
    private String promptWithCompleter(String message, final Completer tempCompleter)
@@ -781,17 +782,21 @@ public class ShellImpl implements Shell
    @Override
    public String promptCommon(final String message, final PromptType type)
    {
-      return promptRegex(message, type.getPattern());
+      String result = promptRegex(message, type.getPattern());
+      result = promptTypeConverter.convert(type, result);
+      return result;
    }
 
    @Override
    public String promptCommon(final String message, final PromptType type, final String defaultIfEmpty)
    {
-      return promptRegex(message, type.getPattern(), defaultIfEmpty);
+      String result = promptRegex(message, type.getPattern(), defaultIfEmpty);
+      result = promptTypeConverter.convert(type, result);
+      return result;
    }
 
    @Override
-   public File promptFile(String message)
+   public File promptFile(final String message)
    {
       String path = "";
       while ((path == null) || path.trim().isEmpty())
@@ -811,7 +816,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public File promptFile(String message, File defaultIfEmpty)
+   public File promptFile(final String message, final File defaultIfEmpty)
    {
       File result = defaultIfEmpty;
       String path = promptWithCompleter(message, new FileOptionCompleter(this));

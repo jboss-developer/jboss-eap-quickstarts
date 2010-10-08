@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DirectoryResource extends FileResource
 {
-   private volatile List<Resource> listCache;
+   private volatile List<Resource<?>> listCache;
 
    public DirectoryResource(File file)
    {
@@ -22,11 +22,11 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
-   public synchronized List<Resource> listResources(ResourceFactory factory)
+   public synchronized List<Resource<?>> listResources(ResourceFactory factory)
    {
       if (listCache == null)
       {
-         listCache = new LinkedList<Resource>();
+         listCache = new LinkedList<Resource<?>>();
 
          for (File f : file.listFiles())
          {
@@ -38,7 +38,7 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
-   public Resource createFrom(File file)
+   public DirectoryResource createFrom(File file)
    {
       if (!file.isDirectory())
       {
@@ -46,5 +46,11 @@ public class DirectoryResource extends FileResource
       }
 
       return new DirectoryResource(file);
+   }
+
+   @Override
+   public String toString()
+   {
+      return file.getName() + "/";
    }
 }

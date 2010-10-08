@@ -51,15 +51,18 @@ public class ExecutionParser
    private final Instance<Execution> executionInstance;
    private final Tokenizer tokenizer;
    private final Shell shell;
+   private final PromptTypeConverter promptTypeConverter;
 
    @Inject
-   public ExecutionParser(PluginRegistry registry, Instance<Execution> executionInstance,
-                          Tokenizer tokenizer, Shell shell)
+   public ExecutionParser(final PluginRegistry registry, final Instance<Execution> executionInstance,
+                          final Tokenizer tokenizer, final Shell shell,
+            final PromptTypeConverter promptTypeConverter)
    {
       this.registry = registry;
       this.executionInstance = executionInstance;
       this.tokenizer = tokenizer;
       this.shell = shell;
+      this.promptTypeConverter = promptTypeConverter;
    }
 
    public Execution parse(final String line)
@@ -105,7 +108,7 @@ public class ExecutionParser
             else
             {
                throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                     + "], available commands: " + plugin.getCommands());
+                        + "], available commands: " + plugin.getCommands());
             }
          }
       }
@@ -116,8 +119,8 @@ public class ExecutionParser
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
       Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
 
@@ -125,10 +128,14 @@ public class ExecutionParser
       for (OptionMetadata option : command.getOptions())
       {
          Object value = valueMap.get(option);
+
          PromptType promptType = option.getPromptType();
          String defaultValue = option.getDefaultValue();
          Class<?> optionType = option.getBoxedType();
          String optionDescriptor = option.getOptionDescriptor() + ": ";
+
+         // TODO Is this really where we want to do PromptType conversion?
+         value = doPromptTypeConversions(value, promptType);
 
          if ((value != null) && !value.toString().matches(promptType.getPattern()))
          {
@@ -148,7 +155,7 @@ public class ExecutionParser
                {
                   value = shell.promptFile(optionDescriptor);
                }
-               else if (!PromptType.ANY.equals(promptType))
+               else if (promptType != null)
                {
                   // make sure an omitted required option value is OK
                   value = shell.promptCommon(optionDescriptor, promptType);
@@ -176,12 +183,33 @@ public class ExecutionParser
       return parameters;
    }
 
-   public boolean isFileOption(Class<?> optionType)
+   private Object doPromptTypeConversions(Object value, final PromptType promptType)
+   {
+      if ((value != null) && value.getClass().isArray())
+      {
+         Object[] values = (Object[]) value;
+         if (values != null)
+         {
+            for (int i = 0; i < values.length; i++)
+            {
+               values[i] = promptTypeConverter.convert(promptType, (String) values[i]);
+            }
+         }
+         value = values;
+      }
+      else
+      {
+         value = promptTypeConverter.convert(promptType, (String) value);
+      }
+      return value;
+   }
+
+   public boolean isFileOption(final Class<?> optionType)
    {
       return File.class.isAssignableFrom(optionType);
    }
 
-   private static boolean isBooleanOption(OptionMetadata option)
+   private static boolean isBooleanOption(final OptionMetadata option)
    {
       return ParseTools.unboxPrimitive(option.getType()) == boolean.class;
    }

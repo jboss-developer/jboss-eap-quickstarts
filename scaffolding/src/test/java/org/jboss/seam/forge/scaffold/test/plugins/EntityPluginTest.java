@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.scaffold.test;
+package org.jboss.seam.forge.scaffold.test.plugins;
 
 /*
  * JBoss, Home of Professional Open Source
@@ -25,9 +25,6 @@ package org.jboss.seam.forge.scaffold.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.persistence.Entity;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,8 +33,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.scaffold.ScaffoldingFacet;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
-import org.junit.Before;
+import org.jboss.seam.forge.scaffold.test.plugins.util.AbstractScaffoldTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,37 +42,25 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class NewFieldPluginTest extends SingletonAbstractShellTest
+public class EntityPluginTest extends AbstractScaffoldTest
 {
-   private int count = 0;
-
-   @Before
-   @Override
-   public void beforeTest() throws IOException
-   {
-      super.beforeTest();
-      initializeJavaProject();
-      if ((getProject() != null) && !getProject().hasFacet(ScaffoldingFacet.class))
-      {
-         queueInputLines("y");
-         getShell().execute("install scaffold");
-      }
-   }
 
    @Test
    public void testNewEntity() throws Exception
    {
       Project project = getProject();
-      JavaClass javaClass = generateEntity(project);
 
-      getShell().execute("new-field int gamesPlayed");
-      getShell().execute("new-field int achievementsEarned");
+      String entityName = "Goofy";
+      queueInputLines("");
+      getShell().execute("new-entity --named " + entityName);
 
+      String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
+      String path = Packages.toFileSyntax(pkg) + ".java";
+      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+
+      assertFalse(javaClass.hasSyntaxErrors());
       javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
       assertTrue(javaClass.hasAnnotation(Entity.class));
-      assertTrue(javaClass.hasField("gamesPlayed"));
-      assertTrue(javaClass.hasField("achievementsEarned"));
-
       assertFalse(javaClass.hasSyntaxErrors());
    }
 
@@ -87,48 +71,18 @@ public class NewFieldPluginTest extends SingletonAbstractShellTest
       JavaClass javaClass = generateEntity(project);
 
       queueInputLines("gamesWon");
-      getShell().execute("new-field int int");
+      getShell().execute("new-field int --fieldName int");
 
       queueInputLines("gamesLost");
-      getShell().execute("new-field int #$%#");
+      getShell().execute("new-field int --fieldName #$%#");
 
       javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
       assertTrue(javaClass.hasAnnotation(Entity.class));
+      assertTrue(javaClass.hasImport(Entity.class));
       assertTrue(javaClass.hasField("gamesWon"));
       assertTrue(javaClass.hasField("gamesLost"));
 
       assertFalse(javaClass.hasSyntaxErrors());
-   }
-
-   @Test
-   public void testNewStringField() throws Exception
-   {
-      Project project = getProject();
-      JavaClass javaClass = generateEntity(project);
-
-      getShell().execute("new-field int gamesPlayed");
-
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
-      assertTrue(javaClass.hasAnnotation(Entity.class));
-      assertTrue(javaClass.hasField("gamesPlayed"));
-      assertFalse(javaClass.hasSyntaxErrors());
-   }
-
-   /*
-    * Helpers
-    */
-   private JavaClass generateEntity(Project project) throws FileNotFoundException
-   {
-      String entityName = "Goofy" + count++;
-      queueInputLines("");
-      getShell().execute("new-entity " + entityName);
-
-      String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
-      String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
-
-      assertFalse(javaClass.hasSyntaxErrors());
-      return javaClass;
    }
 
 }

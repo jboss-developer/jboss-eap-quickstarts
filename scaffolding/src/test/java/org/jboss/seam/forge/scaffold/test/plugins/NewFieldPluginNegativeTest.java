@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.scaffold.test;
+package org.jboss.seam.forge.scaffold.test.plugins;
 
 /*
  * JBoss, Home of Professional Open Source
@@ -25,15 +25,13 @@ package org.jboss.seam.forge.scaffold.test;
 import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.scaffold.ScaffoldingFacet;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
-import org.junit.Before;
+import org.jboss.seam.forge.scaffold.test.plugins.util.AbstractScaffoldTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -42,19 +40,8 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class NewFieldPluginNegativeTest extends SingletonAbstractShellTest
+public class NewFieldPluginNegativeTest extends AbstractScaffoldTest
 {
-   @Before
-   @Override
-   public void beforeTest() throws IOException
-   {
-      super.beforeTest();
-      initializeJavaProject();
-      if ((getProject() != null) && !getProject().hasFacet(ScaffoldingFacet.class))
-      {
-         installScaffold();
-      }
-   }
 
    @Test(expected = FileNotFoundException.class)
    public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
@@ -63,7 +50,7 @@ public class NewFieldPluginNegativeTest extends SingletonAbstractShellTest
       String entityName = "Goofy";
 
       queueInputLines(entityName);
-      getShell().execute("new-field int gamesPlayed");
+      getShell().execute("new-field int --fieldName gamesPlayed");
 
       String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
@@ -72,11 +59,5 @@ public class NewFieldPluginNegativeTest extends SingletonAbstractShellTest
 
       java.getJavaClass(path); // exception here or die
       fail();
-   }
-
-   private void installScaffold()
-   {
-      queueInputLines("y");
-      getShell().execute("install scaffold");
    }
 }

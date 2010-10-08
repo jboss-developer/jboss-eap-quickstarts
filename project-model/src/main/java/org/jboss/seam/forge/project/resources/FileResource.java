@@ -36,18 +36,11 @@ public abstract class FileResource extends AbstractResource<File>
     *
     * @return An instance of {@link File}
     */
-   public File getFile()
+   public File getUnderlyingResourceObject()
    {
       return scratch ? file : scratchFile;
    }
 
-
-   /**
-    * Return a list of child resources of the current resource.
-    *
-    * @return A list of child resources.
-    */
-   public abstract List<Resource> listResources(ResourceFactory factory);
 
    /**
     * Create a new resource instance for the target file of the type that this current resource is.
@@ -55,7 +48,7 @@ public abstract class FileResource extends AbstractResource<File>
     * @param file The file to create the resource instance from.
     * @return A new resource.
     */
-   public abstract Resource createFrom(File file);
+   public abstract Resource<File> createFrom(File file);
 
    /**
     * Returns true if the underlying resource has been modified on the file system since it was initially loaded.
@@ -64,11 +57,11 @@ public abstract class FileResource extends AbstractResource<File>
     */
    public boolean isStale()
    {
-      return lastModification != getFile().lastModified();
+      return lastModification != getUnderlyingResourceObject().lastModified();
    }
 
    public void markUpToDate()
    {
-      lastModification = getFile().lastModified();
+      lastModification = getUnderlyingResourceObject().lastModified();
    }
 }

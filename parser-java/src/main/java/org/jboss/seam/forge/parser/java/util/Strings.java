@@ -30,7 +30,7 @@ package org.jboss.seam.forge.parser.java.util;
  */
 public class Strings
 {
-   public static String unquote(String value)
+   public static String unquote(final String value)
    {
       String result = null;
       if (value != null)
@@ -40,22 +40,12 @@ public class Strings
       return result;
    }
 
-   public static String enquote(String value)
+   public static String enquote(final String value)
    {
       String result = null;
       if (value != null)
       {
          result = "\"" + value + "\"";
-      }
-      return result;
-   }
-
-   public static String[] tokenizeClassName(final String className)
-   {
-      String[] result = null;
-      if (className != null)
-      {
-         result = className.split("\\.");
       }
       return result;
    }

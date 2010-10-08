@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.test.grammar.java;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
@@ -121,11 +122,21 @@ public class FieldTest
    }
 
    @Test
+   public void testIsPrimitive() throws Exception
+   {
+      Field objectField = javaClass.addField("public Boolean flag = false;");
+      Field primitiveField = javaClass.addField("public boolean flag = false;");
+
+      assertFalse(objectField.isPrimitive());
+      assertTrue(primitiveField.isPrimitive());
+
+   }
+
+   @Test
    public void testAddFieldInitializerLiteral() throws Exception
    {
       javaClass.addField("public int flag;").setLiteralInitializer("1234").setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
-      fld.getOrigin();
 
       assertEquals("int", fld.getType());
       assertEquals("flag", fld.getName());
@@ -151,7 +162,8 @@ public class FieldTest
    @Test
    public void testAddQualifiedFieldType() throws Exception
    {
-      javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american").setPrivate();
+      javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
+               .setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 

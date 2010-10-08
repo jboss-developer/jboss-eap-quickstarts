@@ -1,5 +1,3 @@
-package org.jboss.seam.forge.scaffold.test;
-
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
@@ -21,15 +19,13 @@ package org.jboss.seam.forge.scaffold.test;
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.scaffold.test.plugins.util;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.persistence.Entity;
-
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -37,16 +33,15 @@ import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.scaffold.ScaffoldingFacet;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@RunWith(Arquillian.class)
-public class EntityPluginTest extends SingletonAbstractShellTest
+public abstract class AbstractScaffoldTest extends SingletonAbstractShellTest
 {
+   private int count = 0;
+
    @Before
    @Override
    public void beforeTest() throws IOException
@@ -60,23 +55,17 @@ public class EntityPluginTest extends SingletonAbstractShellTest
       }
    }
 
-   @Test
-   public void testNewEntity() throws Exception
+   protected JavaClass generateEntity(final Project project) throws FileNotFoundException
    {
-      Project project = getProject();
-
-      String entityName = "Goofy";
+      String entityName = "Goofy" + count++;
       queueInputLines("");
-      getShell().execute("new-entity " + entityName);
+      getShell().execute("new-entity --named " + entityName);
 
       String pkg = project.getFacet(ScaffoldingFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
       JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
 
       assertFalse(javaClass.hasSyntaxErrors());
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
-      assertTrue(javaClass.hasAnnotation(Entity.class));
-      assertFalse(javaClass.hasSyntaxErrors());
+      return javaClass;
    }
-
 }

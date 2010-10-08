@@ -3,6 +3,7 @@ package org.jboss.seam.forge.project.services;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
@@ -46,8 +47,6 @@ public class ResourceFactory implements Extension
       Bean<?> bean = event.getBean();
       Class<?> clazz = bean.getBeanClass();
 
-      System.out.println("Class: " + clazz.getName());
-
       if (Resource.class.isAssignableFrom(clazz) && clazz.isAnnotationPresent(ResourceHandles.class))
       {
          for (String pspec : clazz.getAnnotation(ResourceHandles.class).value())
@@ -88,7 +87,7 @@ public class ResourceFactory implements Extension
          }
       }
 
-      return null;
+      return new UnknownFileResource(file);
    }
 
    static class ResourceGenerator

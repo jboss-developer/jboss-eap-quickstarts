@@ -23,8 +23,6 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -61,7 +59,7 @@ public class ChangeDirectoryPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(defaultValue = "~",
-         description = "The new directory") final File path) throws IOException
+            description = "The new directory") final File path) throws IOException
    {
       String target = path.getPath();
 
@@ -93,27 +91,24 @@ public class ChangeDirectoryPlugin implements Plugin
          }
       }
 
-      while (target.startsWith("."))
-      {
-         target = target.replaceFirst("\\." + File.separatorChar + "?", "");
-      }
-
       if (!target.isEmpty())
       {
-         List<File> attempts = new ArrayList<File>();
-         attempts.add(new File(cwd.getAbsolutePath() + File.separatorChar + target).getAbsoluteFile());
-         attempts.add(new File(target).getAbsoluteFile());
+         File file = null;
+         if (target.startsWith(File.separator))
+         {
+            file = new File(target).getAbsoluteFile();
+         }
+         else
+         {
+            file = new File(cwd.getAbsolutePath() + File.separatorChar + target).getAbsoluteFile();
+         }
 
          boolean found = false;
 
-         for (File file : attempts)
+         if (file.exists() && file.isDirectory())
          {
-            if (file.exists() && file.isDirectory())
-            {
-               cwd = file.getCanonicalFile();
-               found = true;
-               break;
-            }
+            cwd = file.getCanonicalFile();
+            found = true;
          }
 
          if (!found)
