@@ -26,10 +26,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.Parameter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -91,5 +93,12 @@ public class MethodTest
    {
       method.setAbstract(true);
       assertTrue(method.isAbstract());
+   }
+
+   @Test
+   public void testSetParameters() throws Exception
+   {
+      method.setParameters("final int foo, final String bar");
+      List<Parameter> parameters = method.getParameters();
    }
 }

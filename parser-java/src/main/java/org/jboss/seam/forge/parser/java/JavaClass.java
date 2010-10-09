@@ -89,6 +89,8 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
 
    public boolean hasField(String string);
 
+   public boolean hasField(Field field);
+
    public Field getField(String string);
 
    public List<Field> getFields();

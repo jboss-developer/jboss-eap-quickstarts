@@ -362,6 +362,12 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
+   public boolean hasField(final Field field)
+   {
+      return getFields().contains(field);
+   }
+
+   @Override
    public JavaClass removeField(final Field field)
    {
       getTypeDeclaration().bodyDeclarations().remove(field.getInternal());

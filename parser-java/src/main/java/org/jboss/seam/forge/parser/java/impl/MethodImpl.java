@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.AST;
@@ -29,13 +30,20 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
+import org.eclipse.jdt.core.dom.Name;
+import org.eclipse.jdt.core.dom.PrimitiveType;
+import org.eclipse.jdt.core.dom.PrimitiveType.Code;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
+import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -213,9 +221,24 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setReturnType(final String type)
+   public Method setReturnType(final String typeName)
    {
-      method.setReturnType2(ast.newSimpleType(ast.newSimpleName(type)));
+
+      Code primitive = PrimitiveType.toCode(typeName);
+
+      Type type = null;
+      if (primitive != null)
+      {
+         type = ast.newPrimitiveType(primitive);
+      }
+      else
+      {
+         String[] className = Types.tokenizeClassName(typeName);
+         Name name = ast.newName(className);
+         type = ast.newSimpleType(name);
+      }
+
+      method.setReturnType2(type);
       return this;
    }
 
@@ -278,6 +301,38 @@ public class MethodImpl implements Method
       }
       method.setName(ast.newSimpleName(name));
       return this;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public Method setParameters(final String parameters)
+   {
+      String stub = "public class Stub { public void method( " + parameters + " ) {} }";
+      JavaClass temp = JavaParser.parse(stub);
+      List<Method> methods = temp.getMethods();
+      List<VariableDeclaration> astParameters = ((MethodDeclaration) methods.get(0).getInternal()).parameters();
+
+      method.parameters().clear();
+      for (VariableDeclaration declaration : astParameters)
+      {
+         VariableDeclaration copy = (VariableDeclaration) ASTNode.copySubtree(method.getAST(), declaration);
+         method.parameters().add(copy);
+      }
+
+      return this;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public List<Parameter> getParameters()
+   {
+      List<Parameter> results = new ArrayList<Parameter>();
+      List<VariableDeclaration> parameters = method.parameters();
+      for (VariableDeclaration param : parameters)
+      {
+         results.add(new ParameterImpl(this, param));
+      }
+      return results;
    }
 
    /*

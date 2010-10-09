@@ -19,46 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jboss.seam.forge.parser.java.util;
 
+import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaClass;
+
 /**
- * String utilities.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class Strings
+public class Refactory
 {
-   /**
-    * Capitalize the given String: "input" -> "Input"
-    */
-   public static String capitalize(final String input)
+   public static void createGetterAndSetter(final JavaClass entity, final Field field)
    {
-      if ((input == null) || (input.length() == 0))
+      if (!entity.hasField(field))
       {
-         return input;
+         throw new IllegalArgumentException("Entity did not contain the given field [" + field + "]");
       }
-      return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
-   }
 
-   public static String unquote(final String value)
-   {
-      String result = null;
-      if (value != null)
-      {
-         result = value.toString().replaceAll("\"(.*)\"", "$1");
-      }
-      return result;
-   }
+      entity.getMethods();
 
-   public static String enquote(final String value)
-   {
-      String result = null;
-      if (value != null)
-      {
-         result = "\"" + value + "\"";
-      }
-      return result;
+      String fieldName = field.getName();
+      String methodNameSuffix = Strings.capitalize(fieldName);
+      entity.addMethod().setReturnType(field.getType()).setName("get" + methodNameSuffix).setPublic()
+               .setParameters("final " + field.getType() + fieldName).setBody("return this." + fieldName + ";");
+      entity.addMethod().setReturnTypeVoid().setName("set" + methodNameSuffix).setPublic()
+               .setParameters("final " + field.getType() + " " + fieldName)
+               .setBody("this." + fieldName + " = " + fieldName + ";");
    }
 }

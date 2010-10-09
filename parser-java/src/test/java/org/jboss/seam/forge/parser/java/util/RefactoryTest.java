@@ -19,46 +19,45 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jboss.seam.forge.parser.java.util;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Method;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
- * String utilities.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class Strings
+public class RefactoryTest
 {
-   /**
-    * Capitalize the given String: "input" -> "Input"
-    */
-   public static String capitalize(final String input)
+   JavaClass javaClass;
+
+   @Before
+   public void before()
    {
-      if ((input == null) || (input.length() == 0))
-      {
-         return input;
-      }
-      return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+      javaClass = JavaParser.parse("public class Foo { private int foo; }");
    }
 
-   public static String unquote(final String value)
+   @Test
+   public void testAddGettersAndSetters() throws Exception
    {
-      String result = null;
-      if (value != null)
-      {
-         result = value.toString().replaceAll("\"(.*)\"", "$1");
-      }
-      return result;
-   }
+      Field field = javaClass.getField("foo");
+      Refactory.createGetterAndSetter(javaClass, field);
 
-   public static String enquote(final String value)
-   {
-      String result = null;
-      if (value != null)
-      {
-         result = "\"" + value + "\"";
-      }
-      return result;
+      List<Method> methods = javaClass.getMethods();
+      Method getter = methods.get(0);
+      Method setter = methods.get(1);
+
+      assertEquals("getFoo", getter.getName());
+      assertEquals("setFoo", setter.getName());
+
    }
 }

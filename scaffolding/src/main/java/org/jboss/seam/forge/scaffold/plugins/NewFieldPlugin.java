@@ -38,6 +38,7 @@ import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.parser.java.util.Types;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -326,7 +327,7 @@ public class NewFieldPlugin implements Plugin
          Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
                   + otherEntity.getName() + ">();");
          org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(ManyToMany.class);
-         String type = field.getType();
+         Refactory.createGetterAndSetter(entity, field);
 
          if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
          {

@@ -19,46 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.parser.java;
 
-package org.jboss.seam.forge.parser.java.util;
+import org.jboss.seam.forge.parser.Internal;
+import org.jboss.seam.forge.parser.Origin;
 
 /**
- * String utilities.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class Strings
+public interface Parameter extends Internal, Origin<JavaClass>
 {
-   /**
-    * Capitalize the given String: "input" -> "Input"
-    */
-   public static String capitalize(final String input)
-   {
-      if ((input == null) || (input.length() == 0))
-      {
-         return input;
-      }
-      return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
-   }
-
-   public static String unquote(final String value)
-   {
-      String result = null;
-      if (value != null)
-      {
-         result = value.toString().replaceAll("\"(.*)\"", "$1");
-      }
-      return result;
-   }
-
-   public static String enquote(final String value)
-   {
-      String result = null;
-      if (value != null)
-      {
-         result = "\"" + value + "\"";
-      }
-      return result;
-   }
 }
