@@ -84,6 +84,11 @@ public abstract class SingletonAbstractShellTest
    @Before
    public void beforeTest() throws IOException
    {
+      if (shell == null)
+      {
+         throw new IllegalStateException("Failed to initialize Shell instance for test.");
+      }
+
       if (tempFolder == null)
       {
          shell.setVerbose(true);

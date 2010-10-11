@@ -21,10 +21,11 @@
       <module>event-bus</module>
       <module>parser-java</module>
       <module>project-model</module>
+      <module>project-model-tests</module>
       <module>shell-api</module>
       <module>test-harness</module>
       <module>shell</module>
-      <module>scaffolding</module>
+      <module>persistence-plugin</module>
    </modules>
 
    <properties>
@@ -74,7 +75,7 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.seam.forge</groupId>
-            <artifactId>forge-scaffolding</artifactId>
+            <artifactId>forge-persistence-plugin</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>

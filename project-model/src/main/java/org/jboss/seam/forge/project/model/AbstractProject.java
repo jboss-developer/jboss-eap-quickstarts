@@ -39,7 +39,7 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
  */
 public abstract class AbstractProject implements Project
 {
-   private final List<Facet> installedFacets = new ArrayList<Facet>();
+   private final List<Facet> facets = new ArrayList<Facet>();
 
    @Override
    public boolean delete(final File file)
@@ -135,7 +135,7 @@ public abstract class AbstractProject implements Project
    public <F extends Facet> F getFacet(final Class<F> type)
    {
       Facet result = null;
-      for (Facet facet : installedFacets)
+      for (Facet facet : facets)
       {
          if ((facet != null) && type.isAssignableFrom(facet.getClass()))
          {
@@ -154,7 +154,7 @@ public abstract class AbstractProject implements Project
    @Override
    public List<Facet> getFacets()
    {
-      return installedFacets;
+      return facets;
    }
 
    @Override
@@ -163,7 +163,7 @@ public abstract class AbstractProject implements Project
    {
       List<F> result = new ArrayList<F>();
 
-      for (Facet facet : installedFacets)
+      for (Facet facet : facets)
       {
          if ((facet != null) && facet.getClass().isAssignableFrom(type))
          {
@@ -196,7 +196,7 @@ public abstract class AbstractProject implements Project
       facet.init(this);
       if (facet.isInstalled() && !hasFacet(facet.getClass()))
       {
-         installedFacets.add(facet);
+         facets.add(facet);
       }
       return this;
    }
@@ -205,10 +205,10 @@ public abstract class AbstractProject implements Project
    public Project installFacet(final Facet facet)
    {
       facet.init(this);
-      if (!facet.isInstalled())
+      if (!facet.isInstalled() && !hasFacet(facet.getClass()))
       {
          facet.install();
-         installedFacets.add(facet);
+         facets.add(facet);
       }
       else if (!hasFacet(facet.getClass()))
       {

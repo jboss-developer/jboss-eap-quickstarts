@@ -63,7 +63,7 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
 @Typed()
 public class MavenFacetImpl implements MavenFacet
 {
-   private final ProjectBuildingRequest request = new DefaultProjectBuildingRequest();
+   private ProjectBuildingRequest request;
    private DefaultPlexusContainer container = null;
    private ProjectBuilder builder = null;
 
@@ -72,53 +72,57 @@ public class MavenFacetImpl implements MavenFacet
 
    private void bootstrapMaven()
    {
-      if (!initialized())
       {
-         try
+         if (!initialized())
          {
-            if (!isInstalled())
+            try
             {
-               throw new ProjectModelException("No POM file found at [" + getPOMFile().getAbsolutePath() + "]");
+               if (!isInstalled())
+               {
+                  throw new ProjectModelException("No POM file found at [" + getPOMFile().getAbsolutePath() + "]");
+               }
+
+               container = new DefaultPlexusContainer();
+               ConsoleLoggerManager loggerManager = new ConsoleLoggerManager();
+               loggerManager.setThreshold("ERROR");
+               container.setLoggerManager(loggerManager);
+
+               builder = container.lookup(ProjectBuilder.class);
+
+               // TODO this needs to be configurable via the project/.forge //
+               // file.
+               String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
+
+               request = new DefaultProjectBuildingRequest();
+               request.setLocalRepository(new MavenArtifactRepository(
+                        "local", new File(localRepository).toURI().toURL().toString(),
+                        container.lookup(ArtifactRepositoryLayout.class),
+                        new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                                 ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
+                        new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                                 ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
+               request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
+
+               DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
+               repositorySession.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepository));
+               repositorySession.setOffline(true);
+
+               request.setRepositorySession(repositorySession);
+               request.setProcessPlugins(true);
+               request.setResolveDependencies(true);
             }
-
-            container = new DefaultPlexusContainer();
-            ConsoleLoggerManager loggerManager = new ConsoleLoggerManager();
-            loggerManager.setThreshold("ERROR");
-            container.setLoggerManager(loggerManager);
-
-            builder = container.lookup(ProjectBuilder.class);
-
-            // TODO this needs to be configurable via the project/.forge          // file.
-            String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
-
-            request.setLocalRepository(new MavenArtifactRepository(
-                     "local", new File(localRepository).toURI().toURL().toString(),
-                     container.lookup(ArtifactRepositoryLayout.class),
-                     new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                              ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
-                     new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                              ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
-            request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
-
-            DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
-            repositorySession.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepository));
-            repositorySession.setOffline(true);
-
-            request.setRepositorySession(repositorySession);
-            request.setProcessPlugins(true);
-            request.setResolveDependencies(true);
-         }
-         catch (Exception e)
-         {
-            throw new ProjectModelException(
-                     "Could not initialize maven project located in: " + project.getProjectRoot(), e);
+            catch (Exception e)
+            {
+               throw new ProjectModelException(
+                        "Could not initialize maven project located in: " + project.getProjectRoot(), e);
+            }
          }
       }
    }
 
    private boolean initialized()
    {
-      return request == null;
+      return request != null;
    }
 
    /*

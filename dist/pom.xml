@@ -21,7 +21,7 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
-         <artifactId>forge-scaffolding</artifactId>
+         <artifactId>forge-persistence-plugin</artifactId>
          <version>${project.version}</version>
       </dependency>
    </dependencies>

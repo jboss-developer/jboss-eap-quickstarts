@@ -30,9 +30,6 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
-import org.eclipse.jdt.core.dom.Name;
-import org.eclipse.jdt.core.dom.PrimitiveType;
-import org.eclipse.jdt.core.dom.PrimitiveType.Code;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
@@ -43,7 +40,6 @@ import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
-import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -223,22 +219,14 @@ public class MethodImpl implements Method
    @Override
    public Method setReturnType(final String typeName)
    {
+      String stub = "public class Stub { public " + typeName + " method() {} }";
+      JavaClass temp = JavaParser.parse(stub);
+      List<Method> methods = temp.getMethods();
+      Type returnType = ((MethodDeclaration) methods.get(0).getInternal()).getReturnType2();
 
-      Code primitive = PrimitiveType.toCode(typeName);
+      returnType = (Type) ASTNode.copySubtree(method.getAST(), returnType);
+      method.setReturnType2(returnType);
 
-      Type type = null;
-      if (primitive != null)
-      {
-         type = ast.newPrimitiveType(primitive);
-      }
-      else
-      {
-         String[] className = Types.tokenizeClassName(typeName);
-         Name name = ast.newName(className);
-         type = ast.newSimpleType(name);
-      }
-
-      method.setReturnType2(type);
       return this;
    }
 
