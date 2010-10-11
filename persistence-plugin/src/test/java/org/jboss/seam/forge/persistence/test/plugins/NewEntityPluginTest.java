@@ -42,7 +42,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class EntityPluginTest extends AbstractJPATest
+public class NewEntityPluginTest extends AbstractJPATest
 {
 
    @Test
@@ -62,6 +62,9 @@ public class EntityPluginTest extends AbstractJPATest
       javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertFalse(javaClass.hasSyntaxErrors());
+
+      assertTrue(javaClass.hasField("id"));
+      assertTrue(javaClass.hasField("version"));
    }
 
    @Test

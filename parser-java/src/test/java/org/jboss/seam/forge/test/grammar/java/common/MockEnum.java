@@ -19,57 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.parser.java;
 
-import java.util.List;
-
-import org.jboss.seam.forge.parser.Internal;
-import org.jboss.seam.forge.parser.Origin;
+package org.jboss.seam.forge.test.grammar.java.common;
 
 /**
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Annotation extends Internal, Origin<JavaClass>
+public enum MockEnum
 {
-   boolean isSingleValue();
-
-   boolean isMarker();
-
-   boolean isNormal();
-
-   String getName();
-
-   <T extends Enum<T>> T getEnumValue(Class<T> type);
-
-   <T extends Enum<T>> T getEnumValue(Class<T> type, String name);
-
-   String getLiteralValue();
-
-   String getLiteralValue(String name);
-
-   List<ValuePair> getValues();
-
-   String getStringValue();
-
-   String getStringValue(String name);
-
-   Annotation removeValue(String name);
-
-   Annotation removeAllValues();
-
-   Annotation setName(String className);
-
-   Annotation setEnumValue(String name, Enum<?> value);
-
-   Annotation setEnumValue(Enum<?> value);
-
-   Annotation setLiteralValue(String value);
-
-   Annotation setLiteralValue(String name, String value);
-
-   Annotation setStringValue(String value);
-
-   Annotation setStringValue(String name, String value);
+   FOO, BAR
 }

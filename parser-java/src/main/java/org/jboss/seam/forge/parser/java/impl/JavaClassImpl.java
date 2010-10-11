@@ -69,11 +69,14 @@ public class JavaClassImpl implements JavaClass
    private CompilationUnit unit;
 
    /**
-    * Parses and process the java source code as a compilation unit and the result it abstract syntax tree (AST)
-    * representation and this action uses the third edition of java Language Specification.
+    * Parses and process the java source code as a compilation unit and the
+    * result it abstract syntax tree (AST) representation and this action uses
+    * the third edition of java Language Specification.
     * 
-    * @param source - the java source to be parsed (i.e. the char[] contains Java source).
-    * @return CompilationUnit Abstract syntax tree representation of a java source file.
+    * @param source - the java source to be parsed (i.e. the char[] contains
+    *           Java source).
+    * @return CompilationUnit Abstract syntax tree representation of a java
+    *         source file.
     */
    public JavaClassImpl(final InputStream inputStream)
    {
@@ -204,7 +207,8 @@ public class JavaClassImpl implements JavaClass
       return imprt;
    }
 
-   private Import getImport(final String className)
+   @Override
+   public Import getImport(final String className)
    {
       List<Import> imports = getImports();
       for (Import imprt : imports)
@@ -215,6 +219,12 @@ public class JavaClassImpl implements JavaClass
          }
       }
       return null;
+   }
+
+   @Override
+   public Import getImport(Class<?> type)
+   {
+      return getImport(type.getName());
    }
 
    @Override

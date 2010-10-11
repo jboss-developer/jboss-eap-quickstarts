@@ -34,6 +34,7 @@ import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.project.util.DependencyBuilder;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.MavenPlugin;
 import org.jboss.seam.forge.shell.plugins.RequiresFacet;
@@ -49,11 +50,13 @@ import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 public class PersistencePlugin extends MavenPlugin
 {
    private final FacetFactory factory;
+   private final Shell shell;
 
    @Inject
-   public PersistencePlugin(final FacetFactory factory)
+   public PersistencePlugin(final FacetFactory factory, final Shell shell)
    {
       this.factory = factory;
+      this.shell = shell;
    }
 
    @Override

@@ -27,10 +27,17 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Version;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -86,7 +93,8 @@ public class NewEntityPlugin implements Plugin
                      name = "named",
                      description = "The @Entity name") final String entityName)
    {
-      // TODO this should accept a qualified name as a parameter instead of prompting for the package later
+      // TODO this should accept a qualified name as a parameter instead of
+      // prompting for the package later
       Project project = projectInstance.get();
       PersistenceFacet scaffold = project.getFacet(PersistenceFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -101,6 +109,23 @@ public class NewEntityPlugin implements Plugin
                .setPublic()
                .addAnnotation(Entity.class)
                .getOrigin();
+
+      Field id = javaClass.addField("private long id = 0;");
+      id.addAnnotation(Id.class);
+      id.addAnnotation(GeneratedValue.class)
+            .setEnumValue("strategy", GenerationType.AUTO);
+      id.addAnnotation(Column.class)
+            .setStringValue("name", "id")
+            .setLiteralValue("updatable", "false")
+            .setLiteralValue("nullable", "false");
+
+      Field version = javaClass.addField("private int version = 0;");
+      version.addAnnotation(Version.class);
+      version.addAnnotation(Column.class).setStringValue("name", "version");
+
+      Refactory.createGetterAndSetter(javaClass, id);
+      Refactory.createGetterAndSetter(javaClass, version);
+
       java.saveJavaClass(javaClass);
 
       this.lastEntity = javaClass;

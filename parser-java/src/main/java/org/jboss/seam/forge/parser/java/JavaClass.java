@@ -63,6 +63,10 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
 
    boolean hasImport(String type);
 
+   public Import getImport(String literalValue);
+
+   public Import getImport(Class<?> type);
+
    public JavaClass removeImport(String name);
 
    public JavaClass removeImport(Class<?> type);
@@ -78,7 +82,8 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    public Field addField();
 
    /**
-    * Add a field using the given {@link String} as the declaration, for example:
+    * Add a field using the given {@link String} as the declaration, for
+    * example:
     * <p>
     * <code>javaClass.addField("private String newField;");</code>
     * 

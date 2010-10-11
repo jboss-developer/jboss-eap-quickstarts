@@ -135,4 +135,10 @@ public class ImportImpl implements Import
       }
       return true;
    }
+
+   @Override
+   public String toString()
+   {
+      return "Import [" + getName() + "]";
+   }
 }

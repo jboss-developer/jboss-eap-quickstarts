@@ -28,11 +28,11 @@ package org.jboss.seam.forge.parser.java.util;
  */
 public class Types
 {
-   public static boolean areEquivalent(final String type, final String annotationType)
+   public static boolean areEquivalent(final String longType, final String type)
    {
-      String shortType = type.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
-      if (shortType.equals(annotationType) ||
-               type.equals(annotationType))
+      String shortType = longType.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
+      if (shortType.equals(type) ||
+               longType.equals(type))
       {
          return true;
       }

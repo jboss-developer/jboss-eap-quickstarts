@@ -137,11 +137,12 @@ public class NewFieldPluginTest extends AbstractJPATest
    {
       Project project = getProject();
       JavaClass javaClass = generateEntity(project);
+      int originalSize = javaClass.getFields().size();
 
       getShell().execute("new-field number --fieldName gamesPlayed --type org.jboss.NotANumber");
 
       javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
-      assertEquals(0, javaClass.getFields().size());
+      assertEquals(originalSize, javaClass.getFields().size());
       assertFalse(javaClass.hasImport("org.jboss.NotANumber"));
       assertFalse(javaClass.hasSyntaxErrors());
    }

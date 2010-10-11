@@ -328,6 +328,65 @@ public class AnnotationImpl implements Annotation
    }
 
    @Override
+   public <T extends Enum<T>> T getEnumValue(Class<T> type)
+   {
+      String literalValue = getLiteralValue();
+      return convertLiteralToEnum(type, literalValue);
+   }
+
+   @Override
+   public <T extends Enum<T>> T getEnumValue(Class<T> type, String name)
+   {
+      String literalValue = getLiteralValue(name);
+      return convertLiteralToEnum(type, literalValue);
+   }
+
+   private <T extends Enum<T>> T convertLiteralToEnum(Class<T> type, String literalValue)
+   {
+      T[] constants = type.getEnumConstants();
+
+      for (T t : constants)
+      {
+         String[] tokens = literalValue.split("\\.");
+         if (tokens.length > 1)
+         {
+            literalValue = tokens[tokens.length - 1];
+         }
+
+         if (t.name().equals(literalValue))
+         {
+            return t;
+         }
+      }
+      return null;
+   }
+
+   @Override
+   public Annotation setEnumValue(String name, Enum<?> value)
+   {
+      JavaClass javaClass = getOrigin();
+      if (!javaClass.hasImport(value.getDeclaringClass()))
+      {
+         javaClass.addImport(value.getDeclaringClass());
+      }
+      return setLiteralValue(name, value.getDeclaringClass().getSimpleName() + "." + value.name());
+   }
+
+   @Override
+   public Annotation setEnumValue(Enum<?> value)
+   {
+      JavaClass javaClass = getOrigin();
+      if (!javaClass.hasImport(value.getDeclaringClass()))
+      {
+         javaClass.addImport(value.getDeclaringClass());
+      }
+      return setLiteralValue(value.getDeclaringClass().getSimpleName() + "." + value.name());
+   }
+
+   /*
+    * Shared interface methods.
+    */
+   @Override
    public JavaClass getOrigin()
    {
       return parent.getOrigin();
