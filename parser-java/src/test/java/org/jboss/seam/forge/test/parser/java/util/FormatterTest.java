@@ -19,41 +19,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
 
-import java.io.File;
+package org.jboss.seam.forge.test.parser.java.util;
 
+import static org.junit.Assert.assertNotSame;
+
+import java.io.InputStream;
+
+import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Formatter;
-import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.util.Packages;
+import org.jboss.seam.forge.test.grammar.java.FieldAnnotationTest;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
+public class FormatterTest
 {
-   // TODO the impl part of the project model API needs to be split into a
-   // separate package so that plugin authors see a clean API
-   private File saveJavaFile(final File sourceFolder, final JavaClass clazz)
-   {
-      String path = sourceFolder.getAbsolutePath() + File.separator + Packages.toFileSyntax(clazz.getPackage());
-      File file = new File(path + File.separator + clazz.getName() + ".java");
+   private static JavaClass javaClass;
 
-      getProject().writeFile(Formatter.format(clazz).toCharArray(), file);
-      // TODO event.fire(Created new Java file);
-      return file;
+   @BeforeClass
+   public static void resetTests()
+   {
+      InputStream stream = FieldAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockUnformattedClass.java");
+      javaClass = JavaParser.parse(stream);
    }
 
-   @Override
-   public File saveJavaClass(final JavaClass clazz)
+   @Test
+   public void testFormatSource() throws Exception
    {
-      return saveJavaFile(getSourceFolder(), clazz);
-   }
-
-   @Override
-   public File saveTestJavaClass(final JavaClass clazz)
-   {
-      return saveJavaFile(getTestSourceFolder(), clazz);
+      // TODO figure out some sort of way to test that this actually works
+      String result = Formatter.format(javaClass);
+      assertNotSame(result, javaClass.toString());
    }
 }
