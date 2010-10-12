@@ -62,18 +62,21 @@ import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
  */
 public class JavaClassImpl implements JavaClass
 {
-   private static AnnotationAccessor util = new AnnotationAccessor();
+   private static AnnotationAccessor annotations = new AnnotationAccessor();
+   private final ModifierAccessor modifiers = new ModifierAccessor();
 
    private Document document;
    private CompilationUnit unit;
-   private final ModifierAccessor ma = new ModifierAccessor();
 
    /**
-    * Parses and process the java source code as a compilation unit and the result it abstract syntax tree (AST)
-    * representation and this action uses the third edition of java Language Specification.
+    * Parses and process the java source code as a compilation unit and the
+    * result it abstract syntax tree (AST) representation and this action uses
+    * the third edition of java Language Specification.
     * 
-    * @param source - the java source to be parsed (i.e. the char[] contains Java source).
-    * @return CompilationUnit Abstract syntax tree representation of a java source file.
+    * @param source - the java source to be parsed (i.e. the char[] contains
+    *           Java source).
+    * @return CompilationUnit Abstract syntax tree representation of a java
+    *         source file.
     */
    public JavaClassImpl(final InputStream inputStream)
    {
@@ -128,7 +131,7 @@ public class JavaClassImpl implements JavaClass
    @Override
    public Annotation addAnnotation()
    {
-      return util.addAnnotation(this, getTypeDeclaration());
+      return annotations.addAnnotation(this, getTypeDeclaration());
    }
 
    @Override
@@ -138,37 +141,49 @@ public class JavaClassImpl implements JavaClass
       {
          this.addImport(clazz);
       }
-      return util.addAnnotation(this, getTypeDeclaration(), clazz.getSimpleName());
+      return annotations.addAnnotation(this, getTypeDeclaration(), clazz.getSimpleName());
    }
 
    @Override
    public Annotation addAnnotation(final String className)
    {
-      return util.addAnnotation(this, getTypeDeclaration(), className);
+      return annotations.addAnnotation(this, getTypeDeclaration(), className);
    }
 
    @Override
    public List<Annotation> getAnnotations()
    {
-      return util.getAnnotations(this, getTypeDeclaration());
+      return annotations.getAnnotations(this, getTypeDeclaration());
    }
 
    @Override
    public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
    {
-      return util.hasAnnotation(this, getTypeDeclaration(), type.getName());
+      return annotations.hasAnnotation(this, getTypeDeclaration(), type.getName());
    }
 
    @Override
    public boolean hasAnnotation(final String type)
    {
-      return util.hasAnnotation(this, getTypeDeclaration(), type);
+      return annotations.hasAnnotation(this, getTypeDeclaration(), type);
    }
 
    @Override
    public JavaClass removeAnnotation(final Annotation annotation)
    {
-      return util.removeAnnotation(this, getTypeDeclaration(), annotation);
+      return annotations.removeAnnotation(this, getTypeDeclaration(), annotation);
+   }
+
+   @Override
+   public Annotation getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return annotations.getAnnotation(this, getTypeDeclaration(), type);
+   }
+
+   @Override
+   public Annotation getAnnotation(final String type)
+   {
+      return annotations.getAnnotation(this, getTypeDeclaration(), type);
    }
 
    /*
@@ -192,7 +207,8 @@ public class JavaClassImpl implements JavaClass
       return imprt;
    }
 
-   private Import getImport(final String className)
+   @Override
+   public Import getImport(final String className)
    {
       List<Import> imports = getImports();
       for (Import imprt : imports)
@@ -203,6 +219,12 @@ public class JavaClassImpl implements JavaClass
          }
       }
       return null;
+   }
+
+   @Override
+   public Import getImport(Class<?> type)
+   {
+      return getImport(type.getName());
    }
 
    @Override
@@ -350,6 +372,12 @@ public class JavaClassImpl implements JavaClass
    }
 
    @Override
+   public boolean hasField(final Field field)
+   {
+      return getFields().contains(field);
+   }
+
+   @Override
    public JavaClass removeField(final Field field)
    {
       getTypeDeclaration().bodyDeclarations().remove(field.getInternal());
@@ -488,49 +516,49 @@ public class JavaClassImpl implements JavaClass
    @Override
    public JavaClass setPackagePrivate()
    {
-      ma.clearVisibility(getTypeDeclaration());
+      modifiers.clearVisibility(getTypeDeclaration());
       return this;
    }
 
    @Override
    public boolean isPublic()
    {
-      return ma.hasModifier(getTypeDeclaration(), ModifierKeyword.PUBLIC_KEYWORD);
+      return modifiers.hasModifier(getTypeDeclaration(), ModifierKeyword.PUBLIC_KEYWORD);
    }
 
    @Override
    public JavaClass setPublic()
    {
-      ma.clearVisibility(getTypeDeclaration());
-      ma.addModifier(getTypeDeclaration(), ModifierKeyword.PUBLIC_KEYWORD);
+      modifiers.clearVisibility(getTypeDeclaration());
+      modifiers.addModifier(getTypeDeclaration(), ModifierKeyword.PUBLIC_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isPrivate()
    {
-      return ma.hasModifier(getTypeDeclaration(), ModifierKeyword.PRIVATE_KEYWORD);
+      return modifiers.hasModifier(getTypeDeclaration(), ModifierKeyword.PRIVATE_KEYWORD);
    }
 
    @Override
    public JavaClass setPrivate()
    {
-      ma.clearVisibility(getTypeDeclaration());
-      ma.addModifier(getTypeDeclaration(), ModifierKeyword.PRIVATE_KEYWORD);
+      modifiers.clearVisibility(getTypeDeclaration());
+      modifiers.addModifier(getTypeDeclaration(), ModifierKeyword.PRIVATE_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isProtected()
    {
-      return ma.hasModifier(getTypeDeclaration(), ModifierKeyword.PROTECTED_KEYWORD);
+      return modifiers.hasModifier(getTypeDeclaration(), ModifierKeyword.PROTECTED_KEYWORD);
    }
 
    @Override
    public JavaClass setProtected()
    {
-      ma.clearVisibility(getTypeDeclaration());
-      ma.addModifier(getTypeDeclaration(), ModifierKeyword.PROTECTED_KEYWORD);
+      modifiers.clearVisibility(getTypeDeclaration());
+      modifiers.addModifier(getTypeDeclaration(), ModifierKeyword.PROTECTED_KEYWORD);
       return this;
    }
 
@@ -541,7 +569,7 @@ public class JavaClassImpl implements JavaClass
    @Override
    public boolean isAbstract()
    {
-      return ma.hasModifier(getTypeDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
+      return modifiers.hasModifier(getTypeDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
    }
 
    @Override
@@ -549,11 +577,11 @@ public class JavaClassImpl implements JavaClass
    {
       if (abstrct)
       {
-         ma.addModifier(getTypeDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
+         modifiers.addModifier(getTypeDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
       }
       else
       {
-         ma.removeModifier(getTypeDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
+         modifiers.removeModifier(getTypeDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
       }
       return this;
    }

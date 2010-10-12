@@ -41,6 +41,10 @@ public interface Annotation extends Internal, Origin<JavaClass>
 
    String getName();
 
+   <T extends Enum<T>> T getEnumValue(Class<T> type);
+
+   <T extends Enum<T>> T getEnumValue(Class<T> type, String name);
+
    String getLiteralValue();
 
    String getLiteralValue(String name);
@@ -56,6 +60,10 @@ public interface Annotation extends Internal, Origin<JavaClass>
    Annotation removeAllValues();
 
    Annotation setName(String className);
+
+   Annotation setEnumValue(String name, Enum<?> value);
+
+   Annotation setEnumValue(Enum<?> value);
 
    Annotation setLiteralValue(String value);
 

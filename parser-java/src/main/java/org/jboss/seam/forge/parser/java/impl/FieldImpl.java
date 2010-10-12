@@ -49,8 +49,8 @@ import org.jboss.seam.forge.parser.java.util.Types;
  */
 public class FieldImpl implements Field
 {
-   private static AnnotationAccessor util = new AnnotationAccessor();
-   private final ModifierAccessor ma = new ModifierAccessor();
+   private static AnnotationAccessor annotations = new AnnotationAccessor();
+   private final ModifierAccessor modifiers = new ModifierAccessor();
 
    private JavaClass parent;
    private AST ast;
@@ -104,7 +104,7 @@ public class FieldImpl implements Field
    @Override
    public Annotation addAnnotation()
    {
-      return util.addAnnotation(this, field);
+      return annotations.addAnnotation(this, field);
    }
 
    @Override
@@ -114,37 +114,49 @@ public class FieldImpl implements Field
       {
          parent.addImport(clazz);
       }
-      return util.addAnnotation(this, field, clazz.getSimpleName());
+      return annotations.addAnnotation(this, field, clazz.getSimpleName());
    }
 
    @Override
    public Annotation addAnnotation(final String className)
    {
-      return util.addAnnotation(this, field, className);
+      return annotations.addAnnotation(this, field, className);
    }
 
    @Override
    public List<Annotation> getAnnotations()
    {
-      return util.getAnnotations(this, field);
+      return annotations.getAnnotations(this, field);
    }
 
    @Override
    public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
    {
-      return util.hasAnnotation(this, field, type.getName());
+      return annotations.hasAnnotation(this, field, type.getName());
    }
 
    @Override
    public boolean hasAnnotation(final String type)
    {
-      return util.hasAnnotation(this, field, type);
+      return annotations.hasAnnotation(this, field, type);
+   }
+
+   @Override
+   public Annotation getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return annotations.getAnnotation(parent, field, type);
+   }
+
+   @Override
+   public Annotation getAnnotation(final String type)
+   {
+      return annotations.getAnnotation(parent, field, type);
    }
 
    @Override
    public Field removeAnnotation(final Annotation annotation)
    {
-      return util.removeAnnotation(this, field, annotation);
+      return annotations.removeAnnotation(this, field, annotation);
    }
 
    @Override
@@ -166,49 +178,49 @@ public class FieldImpl implements Field
    @Override
    public Field setPackagePrivate()
    {
-      ma.clearVisibility(field);
+      modifiers.clearVisibility(field);
       return this;
    }
 
    @Override
    public boolean isPublic()
    {
-      return ma.hasModifier(field, ModifierKeyword.PUBLIC_KEYWORD);
+      return modifiers.hasModifier(field, ModifierKeyword.PUBLIC_KEYWORD);
    }
 
    @Override
    public Field setPublic()
    {
-      ma.clearVisibility(field);
-      ma.addModifier(field, ModifierKeyword.PUBLIC_KEYWORD);
+      modifiers.clearVisibility(field);
+      modifiers.addModifier(field, ModifierKeyword.PUBLIC_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isPrivate()
    {
-      return ma.hasModifier(field, ModifierKeyword.PRIVATE_KEYWORD);
+      return modifiers.hasModifier(field, ModifierKeyword.PRIVATE_KEYWORD);
    }
 
    @Override
    public Field setPrivate()
    {
-      ma.clearVisibility(field);
-      ma.addModifier(field, ModifierKeyword.PRIVATE_KEYWORD);
+      modifiers.clearVisibility(field);
+      modifiers.addModifier(field, ModifierKeyword.PRIVATE_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isProtected()
    {
-      return ma.hasModifier(field, ModifierKeyword.PROTECTED_KEYWORD);
+      return modifiers.hasModifier(field, ModifierKeyword.PROTECTED_KEYWORD);
    }
 
    @Override
    public Field setProtected()
    {
-      ma.clearVisibility(field);
-      ma.addModifier(field, ModifierKeyword.PROTECTED_KEYWORD);
+      modifiers.clearVisibility(field);
+      modifiers.addModifier(field, ModifierKeyword.PROTECTED_KEYWORD);
       return this;
    }
 

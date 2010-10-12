@@ -89,7 +89,8 @@ public class AnnotationAccessor
       return target;
    }
 
-   public <T extends AnnotationTarget<?>> boolean hasAnnotation(final T target, final BodyDeclaration body, String type)
+   public <T extends AnnotationTarget<?>> boolean hasAnnotation(final T target, final BodyDeclaration body,
+            final String type)
    {
       List<?> modifiers = body.modifiers();
       for (Object object : modifiers)
@@ -105,5 +106,29 @@ public class AnnotationAccessor
          }
       }
       return false;
+   }
+
+   public Annotation getAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body,
+            final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      Annotation result = null;
+      if (type != null)
+      {
+         result = getAnnotation(target, body, type.getName());
+      }
+      return result;
+   }
+
+   public Annotation getAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body, final String type)
+   {
+      List<Annotation> annotations = getAnnotations(target, body);
+      for (Annotation annotation : annotations)
+      {
+         if (Types.areEquivalent(type, annotation.getName()))
+         {
+            return annotation;
+         }
+      }
+      return null;
    }
 }

@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.AST;
@@ -30,10 +31,13 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 
@@ -43,8 +47,8 @@ import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
  */
 public class MethodImpl implements Method
 {
-   private static AnnotationAccessor util = new AnnotationAccessor();
-   private final ModifierAccessor ma = new ModifierAccessor();
+   private static AnnotationAccessor annotations = new AnnotationAccessor();
+   private final ModifierAccessor modifiers = new ModifierAccessor();
 
    private JavaClass parent = null;
    private AST ast = null;
@@ -90,7 +94,7 @@ public class MethodImpl implements Method
    @Override
    public Annotation addAnnotation()
    {
-      return util.addAnnotation(this, method);
+      return annotations.addAnnotation(this, method);
    }
 
    @Override
@@ -100,37 +104,49 @@ public class MethodImpl implements Method
       {
          parent.addImport(clazz);
       }
-      return util.addAnnotation(this, method, clazz.getSimpleName());
+      return annotations.addAnnotation(this, method, clazz.getSimpleName());
    }
 
    @Override
    public Annotation addAnnotation(final String className)
    {
-      return util.addAnnotation(this, method, className);
+      return annotations.addAnnotation(this, method, className);
    }
 
    @Override
    public List<Annotation> getAnnotations()
    {
-      return util.getAnnotations(this, method);
+      return annotations.getAnnotations(this, method);
    }
 
    @Override
    public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
    {
-      return util.hasAnnotation(this, method, type.getName());
+      return annotations.hasAnnotation(this, method, type.getName());
    }
 
    @Override
    public boolean hasAnnotation(final String type)
    {
-      return util.hasAnnotation(this, method, type);
+      return annotations.hasAnnotation(this, method, type);
    }
 
    @Override
    public Method removeAnnotation(final Annotation annotation)
    {
-      return util.removeAnnotation(this, method, annotation);
+      return annotations.removeAnnotation(this, method, annotation);
+   }
+
+   @Override
+   public Annotation getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   {
+      return annotations.getAnnotation(parent, method, type);
+   }
+
+   @Override
+   public Annotation getAnnotation(final String type)
+   {
+      return annotations.getAnnotation(parent, method, type);
    }
 
    /*
@@ -201,9 +217,16 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setReturnType(final String type)
+   public Method setReturnType(final String typeName)
    {
-      method.setReturnType2(ast.newSimpleType(ast.newSimpleName(type)));
+      String stub = "public class Stub { public " + typeName + " method() {} }";
+      JavaClass temp = JavaParser.parse(stub);
+      List<Method> methods = temp.getMethods();
+      Type returnType = ((MethodDeclaration) methods.get(0).getInternal()).getReturnType2();
+
+      returnType = (Type) ASTNode.copySubtree(method.getAST(), returnType);
+      method.setReturnType2(returnType);
+
       return this;
    }
 
@@ -227,7 +250,7 @@ public class MethodImpl implements Method
    @Override
    public boolean isAbstract()
    {
-      return ma.hasModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
    }
 
    @Override
@@ -235,11 +258,11 @@ public class MethodImpl implements Method
    {
       if (abstrct)
       {
-         ma.addModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
+         modifiers.addModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
       }
       else
       {
-         ma.removeModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
+         modifiers.removeModifier(method, ModifierKeyword.ABSTRACT_KEYWORD);
       }
       return this;
    }
@@ -247,7 +270,7 @@ public class MethodImpl implements Method
    @Override
    public Method setFinal()
    {
-      ma.addModifier(method, ModifierKeyword.FINAL_KEYWORD);
+      modifiers.addModifier(method, ModifierKeyword.FINAL_KEYWORD);
       return this;
    }
 
@@ -268,6 +291,38 @@ public class MethodImpl implements Method
       return this;
    }
 
+   @Override
+   @SuppressWarnings("unchecked")
+   public Method setParameters(final String parameters)
+   {
+      String stub = "public class Stub { public void method( " + parameters + " ) {} }";
+      JavaClass temp = JavaParser.parse(stub);
+      List<Method> methods = temp.getMethods();
+      List<VariableDeclaration> astParameters = ((MethodDeclaration) methods.get(0).getInternal()).parameters();
+
+      method.parameters().clear();
+      for (VariableDeclaration declaration : astParameters)
+      {
+         VariableDeclaration copy = (VariableDeclaration) ASTNode.copySubtree(method.getAST(), declaration);
+         method.parameters().add(copy);
+      }
+
+      return this;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public List<Parameter> getParameters()
+   {
+      List<Parameter> results = new ArrayList<Parameter>();
+      List<VariableDeclaration> parameters = method.parameters();
+      for (VariableDeclaration param : parameters)
+      {
+         results.add(new ParameterImpl(this, param));
+      }
+      return results;
+   }
+
    /*
     * Visibility Modifiers
     */
@@ -281,49 +336,49 @@ public class MethodImpl implements Method
    @Override
    public Method setPackagePrivate()
    {
-      ma.clearVisibility(method);
+      modifiers.clearVisibility(method);
       return this;
    }
 
    @Override
    public boolean isPublic()
    {
-      return ma.hasModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
    }
 
    @Override
    public Method setPublic()
    {
-      ma.clearVisibility(method);
-      ma.addModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
+      modifiers.clearVisibility(method);
+      modifiers.addModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isPrivate()
    {
-      return ma.hasModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
    }
 
    @Override
    public Method setPrivate()
    {
-      ma.clearVisibility(method);
-      ma.addModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
+      modifiers.clearVisibility(method);
+      modifiers.addModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
       return this;
    }
 
    @Override
    public boolean isProtected()
    {
-      return ma.hasModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
+      return modifiers.hasModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
    }
 
    @Override
    public Method setProtected()
    {
-      ma.clearVisibility(method);
-      ma.addModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
+      modifiers.clearVisibility(method);
+      modifiers.addModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
       return this;
    }
 

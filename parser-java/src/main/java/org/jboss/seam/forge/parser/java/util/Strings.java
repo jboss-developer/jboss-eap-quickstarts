@@ -30,6 +30,18 @@ package org.jboss.seam.forge.parser.java.util;
  */
 public class Strings
 {
+   /**
+    * Capitalize the given String: "input" -> "Input"
+    */
+   public static String capitalize(final String input)
+   {
+      if ((input == null) || (input.length() == 0))
+      {
+         return input;
+      }
+      return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+   }
+
    public static String unquote(final String value)
    {
       String result = null;

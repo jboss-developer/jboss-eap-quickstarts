@@ -173,4 +173,18 @@ public class FieldTest
       assertEquals("american", fld.getStringInitializer());
       assertEquals("private java.lang.String flag=\"american\";", fld.toString().trim());
    }
+
+   @Test
+   public void testHasField() throws Exception
+   {
+      javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
+               .setPrivate();
+      Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+      assertTrue(javaClass.hasField(fld));
+
+      Field notFld = JavaParser.parse("public class Foo {}").addField("private int foobar;");
+      assertFalse(javaClass.hasField(notFld));
+
+   }
+
 }

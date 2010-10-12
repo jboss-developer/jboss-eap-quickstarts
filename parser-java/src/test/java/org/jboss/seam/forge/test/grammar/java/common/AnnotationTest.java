@@ -23,6 +23,7 @@ package org.jboss.seam.forge.test.grammar.java.common;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -39,7 +40,12 @@ public abstract class AnnotationTest
 {
    private AnnotationTarget<?> target;
 
-   public void setTarget(final AnnotationTarget<?> target)
+   protected AnnotationTarget<?> getTarget()
+   {
+      return target;
+   }
+
+   protected void setTarget(final AnnotationTarget<?> target)
    {
       this.target = target;
    }
@@ -56,7 +62,7 @@ public abstract class AnnotationTest
    public void testParseAnnotation() throws Exception
    {
       List<Annotation> annotations = target.getAnnotations();
-      assertEquals(3, annotations.size());
+      assertEquals(4, annotations.size());
       assertEquals("deprecation", annotations.get(1).getStringValue());
       assertEquals("deprecation", annotations.get(1).getStringValue("value"));
       assertEquals("value", annotations.get(1).getValues().get(0).getName());
@@ -118,6 +124,30 @@ public abstract class AnnotationTest
    public void testCannotAddAnnotationWithIllegalName() throws Exception
    {
       target.addAnnotation("sdf*(&#$%");
+   }
+
+   @Test
+   public void testAddEnumValue() throws Exception
+   {
+      target.addAnnotation(Test.class).setEnumValue(MockEnum.FOO);
+
+      List<Annotation> annotations = target.getAnnotations();
+
+      Annotation annotation = annotations.get(annotations.size() - 1);
+      MockEnum enumValue = annotation.getEnumValue(MockEnum.class);
+      assertEquals(MockEnum.FOO, enumValue);
+   }
+
+   @Test
+   public void testAddEnumNameValue() throws Exception
+   {
+      target.addAnnotation(Test.class).setEnumValue("name", MockEnum.BAR);
+
+      List<Annotation> annotations = target.getAnnotations();
+
+      Annotation annotation = annotations.get(annotations.size() - 1);
+      MockEnum enumValue = annotation.getEnumValue(MockEnum.class, "name");
+      assertEquals(MockEnum.BAR, enumValue);
    }
 
    @Test
@@ -215,6 +245,29 @@ public abstract class AnnotationTest
 
    @Test
    public void testHasAnnotationStringTypeSimple() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertNotNull(target.getAnnotation("Test"));
+      assertNotNull(target.getAnnotation(Test.class.getSimpleName()));
+   }
+
+   @Test
+   public void testGetAnnotationClassType() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertNotNull(target.getAnnotation(Test.class));
+   }
+
+   @Test
+   public void testGetAnnotationStringType() throws Exception
+   {
+      target.addAnnotation(Test.class);
+      assertNotNull(target.getAnnotation("org.junit.Test"));
+      assertNotNull(target.getAnnotation(Test.class.getName()));
+   }
+
+   @Test
+   public void testGetAnnotationStringTypeSimple() throws Exception
    {
       target.addAnnotation(Test.class);
       assertTrue(target.hasAnnotation("Test"));
