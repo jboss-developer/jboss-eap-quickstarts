@@ -24,13 +24,14 @@ package org.jboss.seam.forge.persistence;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,20 +48,35 @@ public class PersistenceFacetTest extends AbstractJPATest
       Shell shell = getShell();
       Project project = getProject();
 
-      PersistenceFacet scaffoldFacet = project.getFacet(PersistenceFacet.class);
-      assertNotNull(scaffoldFacet);
+      PersistenceFacet persistence = project.getFacet(PersistenceFacet.class);
+      assertNotNull(persistence);
 
       shell.execute("cd /");
-
       assertNull(getProject());
 
       shell.execute("cd - ");
+      assertNotNull(getProject());
 
       project = getProject();
       JavaSourceFacet javaSourceFacet = project.getFacet(JavaSourceFacet.class);
       assertNotNull(javaSourceFacet);
 
-      scaffoldFacet = project.getFacet(PersistenceFacet.class);
-      assertNotNull(scaffoldFacet);
+      persistence = project.getFacet(PersistenceFacet.class);
+      assertNotNull(persistence);
+   }
+
+   @Test
+   public void testCanWritePersistenceConfigFile() throws Exception
+   {
+      Shell shell = getShell();
+      Project project = getProject();
+
+      PersistenceFacet persistence = project.getFacet(PersistenceFacet.class);
+      assertNotNull(persistence);
+
+      PersistenceUnitDef unit = persistence.getPersistenceConfig().persistenceUnit("default");
+
+      String configString = unit.exportAsString();
+      assertTrue(configString.length() > 50);
    }
 }

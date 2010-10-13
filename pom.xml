@@ -37,10 +37,11 @@
       <log4j.version>1.2.16</log4j.version>
       <maven.version>3.0</maven.version>
       <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
-      <shrinkwrap.descriptors.version>1.0.0-SNAPSHOT</shrinkwrap.descriptors.version>
+      <shrinkwrap.descriptors.version>1.0.0-alpha-1-SNAPSHOT</shrinkwrap.descriptors.version>
       <slf4j.version>1.5.10</slf4j.version>
       <weld.version>1.0.1-Final</weld.version>
       <weldx.version>1.0.0.Alpha2</weldx.version>
+      <weld.bom.version>1.0.1-SP1</weld.bom.version>
    </properties>
 
    <dependencyManagement>
@@ -48,7 +49,7 @@
          <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core-bom</artifactId>
-            <version>1.0.1-SP1</version>
+            <version>${weld.bom.version}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -115,12 +116,12 @@
          <dependency>
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
-            <version>1.0.0-alpha-11</version>
+            <version>${shrinkwrap.version}</version>
          </dependency>
          <dependency>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-descriptors</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+            <artifactId>shrinkwrap-descriptors-api</artifactId>
+            <version>${shrinkwrap.descriptors.version}</version>
             <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
          </dependency>
          <dependency>

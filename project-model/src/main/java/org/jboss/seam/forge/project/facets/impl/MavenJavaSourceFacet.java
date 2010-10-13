@@ -63,9 +63,6 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public File getSourceFolder()
    {
-      // ProjectBuildingResult result =
-      // project.getFacet(MavenFacet.class).getProjectBuildingResult();
-      // String directory = result.getProject().getBuild().getSourceDirectory();
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
                + File.separator + "java").getAbsoluteFile();
    }
@@ -73,10 +70,6 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public File getTestSourceFolder()
    {
-      // ProjectBuildingResult result =
-      // project.getFacet(MavenFacet.class).getProjectBuildingResult();
-      // String directory =
-      // result.getProject().getBuild().getTestSourceDirectory();
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
                + File.separator + "java").getAbsoluteFile();
    }

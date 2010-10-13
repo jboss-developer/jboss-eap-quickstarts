@@ -37,6 +37,14 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -69,6 +77,7 @@ public class PersistenceFacet implements Facet
    {
       Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
       result.add(JavaSourceFacet.class);
+      result.add(ResourceFacet.class);
       return result;
    }
 
@@ -93,7 +102,28 @@ public class PersistenceFacet implements Facet
          File entityRoot = getEntityPackageFile();
          if (!entityRoot.exists())
          {
+            project.mkdirs(entityRoot);
             entityRoot.mkdirs();
+         }
+
+         File descriptor = getPersistenceConfigFile();
+         if (!descriptor.exists())
+         {
+            project.writeFile("", descriptor);
+
+            PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
+                  .persistenceUnit("default")
+                  .description("The Seam Forge default Persistence Unit")
+                  .transactionType(TransactionType.JTA)
+                  .provider(ProviderType.HIBERNATE)
+                  .jtaDataSource("java:/DefaultDS")
+                  .includeUnlistedClasses()
+                  .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
+                  .showSql()
+                  .formatSql()
+                  .property("hibernate.transaction.flush_before_completion", true);
+
+            project.writeFile(unit.exportAsString(), descriptor);
          }
       }
       project.registerFacet(this);
@@ -112,10 +142,23 @@ public class PersistenceFacet implements Facet
       return new File(sourceFacet.getBasePackageFile() + File.separator + "domain").getAbsoluteFile();
    }
 
+   public PersistenceDescriptor getPersistenceConfig()
+   {
+      DescriptorImporter<PersistenceDescriptor> importer = Descriptors.importAs(PersistenceDescriptor.class);
+      PersistenceDescriptor descriptor = importer.from(getPersistenceConfigFile());
+      return descriptor;
+   }
+
+   private File getPersistenceConfigFile()
+   {
+      ResourceFacet resources = project.getFacet(ResourceFacet.class);
+      return new File(resources.getResourceFolder() + File.separator + "META-INF" + File.separator + "persistence.xml");
+   }
+
    @Override
    public boolean isInstalled()
    {
-      return getEntityPackageFile().exists();
+      return getEntityPackageFile().exists() && getPersistenceConfigFile().exists();
    }
 
    public List<JavaClass> getAllEntities()

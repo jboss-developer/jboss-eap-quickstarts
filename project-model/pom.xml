@@ -27,16 +27,7 @@
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-extensions</artifactId>
       </dependency>
-
-      <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-api</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.shrinkwrap</groupId>
-         <artifactId>shrinkwrap-descriptors</artifactId>
-         <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
-      </dependency>
+      
       <dependency>
          <groupId>org.apache.maven</groupId>
          <artifactId>maven-model</artifactId>

@@ -59,6 +59,16 @@ public abstract class AbstractProject implements Project
    }
 
    @Override
+   public void writeFile(String string, File file)
+   {
+      if (string == null)
+      {
+         string = "";
+      }
+      writeFile(string.toCharArray(), file);
+   }
+
+   @Override
    public void writeFile(final char[] data, final File file)
    {
       BufferedWriter writer = null;
@@ -67,10 +77,7 @@ public abstract class AbstractProject implements Project
       {
          if (!file.exists())
          {
-            if (!file.mkdirs())
-            {
-               throw new IOException("Failed to create required directory structure for file: " + file);
-            }
+            mkdirs(file);
 
             file.delete();
             if (!file.createNewFile())
@@ -112,6 +119,19 @@ public abstract class AbstractProject implements Project
          if (tempFile != null)
          {
             tempFile.delete();
+         }
+      }
+   }
+
+   @Override
+   public void mkdirs(File file)
+   {
+      if (!file.exists())
+      {
+         if (!file.mkdirs())
+         {
+            throw new ProjectModelException(
+                  new IOException("Failed to create required directory structure for file: " + file));
          }
       }
    }
