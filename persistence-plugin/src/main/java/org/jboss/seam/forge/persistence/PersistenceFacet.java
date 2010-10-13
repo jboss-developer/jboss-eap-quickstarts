@@ -45,6 +45,9 @@ import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitD
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
+import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -106,7 +109,7 @@ public class PersistenceFacet implements Facet
             entityRoot.mkdirs();
          }
 
-         File descriptor = getPersistenceConfigFile();
+         File descriptor = getConfigFile();
          if (!descriptor.exists())
          {
             project.writeFile("", descriptor);
@@ -142,14 +145,23 @@ public class PersistenceFacet implements Facet
       return new File(sourceFacet.getBasePackageFile() + File.separator + "domain").getAbsoluteFile();
    }
 
-   public PersistenceDescriptor getPersistenceConfig()
+   @SuppressWarnings("unchecked")
+   public PersistenceModel getConfig()
    {
       DescriptorImporter<PersistenceDescriptor> importer = Descriptors.importAs(PersistenceDescriptor.class);
-      PersistenceDescriptor descriptor = importer.from(getPersistenceConfigFile());
-      return descriptor;
+      PersistenceDescriptor descriptor = importer.from(getConfigFile());
+      PersistenceModel model = ((SchemaDescriptorProvider<PersistenceModel>) descriptor).getSchemaModel();
+      return model;
    }
 
-   private File getPersistenceConfigFile()
+   public void saveConfig(PersistenceModel model)
+   {
+      PersistenceDescriptor descriptor = new PersistenceDescriptorImpl(model);
+      String output = descriptor.exportAsString();
+      project.writeFile(output, getConfigFile());
+   }
+
+   private File getConfigFile()
    {
       ResourceFacet resources = project.getFacet(ResourceFacet.class);
       return new File(resources.getResourceFolder() + File.separator + "META-INF" + File.separator + "persistence.xml");
@@ -158,7 +170,7 @@ public class PersistenceFacet implements Facet
    @Override
    public boolean isInstalled()
    {
-      return getEntityPackageFile().exists() && getPersistenceConfigFile().exists();
+      return getEntityPackageFile().exists() && getConfigFile().exists();
    }
 
    public List<JavaClass> getAllEntities()
