@@ -46,7 +46,7 @@ public class PersistenceFacet implements Facet
 {
    private Project project;
 
-   private final FilenameFilter entityFileFIlter = new FilenameFilter()
+   private final FilenameFilter entityFileFilter = new FilenameFilter()
    {
       @Override
       public boolean accept(File dir, String name)
@@ -129,7 +129,7 @@ public class PersistenceFacet implements Facet
       List<JavaClass> result = new ArrayList<JavaClass>();
       if (packageFile.exists())
       {
-         for (File source : packageFile.listFiles(entityFileFIlter))
+         for (File source : packageFile.listFiles(entityFileFilter))
          {
             try
             {
