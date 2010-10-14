@@ -522,7 +522,7 @@ public class ShellImpl implements Shell
    {
       if (cph.getResourceFactory() == null) return;
 
-      currentResource = this.cph.getResourceFactory().getResourceFrom(file);
+      currentResource = this.cph.getResourceFactory().getResourceFrom(file.getAbsoluteFile());
    }
 
    @Override

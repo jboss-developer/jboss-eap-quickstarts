@@ -34,5 +34,5 @@ public interface Resource<T>
 
    public T getUnderlyingResourceObject();
 
-   public Resource getChild(String name);
+   public Resource getChild(ResourceFactory factory, String name);
 }

@@ -1,5 +1,7 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -20,24 +22,26 @@ import java.io.File;
 public class PickupResource implements Plugin
 {
    private final Shell shell;
+   private final ResourceFactory resourceFactory;
 
    @Inject
-   public PickupResource(Shell shell)
+   public PickupResource(Shell shell, ResourceFactory factory)
    {
       this.shell = shell;
+      this.resourceFactory = factory;
    }
 
    @DefaultCommand
-   public void run(@Option(defaultValue = "~") final File path)
+   public void run(@Option final String path)
    {
-      shell.setCurrentResource(path);
+      shell.setCurrentResource(ResourceUtil.parsePathspec(resourceFactory, shell.getCurrentResource(), path));
 
       if (shell.getCurrentResource() == null)
       {
-         shell.println("No such resource: " + path.getAbsolutePath());
+         shell.println("No such resource: " + path);
          return;
       }
 
-      shell.println("Picked up type <" + shell.getCurrentResource().getClass().getSimpleName() + ">: " + path.getAbsolutePath());
+      shell.println("Picked up type <" + shell.getCurrentResource().getClass().getSimpleName() + ">: " + path);
    }
 }

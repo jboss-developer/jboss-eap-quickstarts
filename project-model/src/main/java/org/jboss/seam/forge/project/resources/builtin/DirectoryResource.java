@@ -14,6 +14,7 @@ import java.util.List;
 
 public class DirectoryResource extends FileResource
 {
+   private Resource parent;
    private volatile List<Resource<?>> listCache;
 
    public DirectoryResource(File file)
@@ -38,6 +39,12 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
+   public Resource getChild(ResourceFactory factory, String name)
+   {
+      return factory.getResourceFrom(new File(file.getAbsolutePath() + "/" + name));
+   }
+
+   @Override
    public DirectoryResource createFrom(File file)
    {
       if (!file.isDirectory())
@@ -51,7 +58,8 @@ public class DirectoryResource extends FileResource
    @Override
    public synchronized Resource getParent()
    {
-      if (parent == null) {
+      if (parent == null)
+      {
          File parentFile = file.getParentFile();
          if (parentFile == null) return null;
 

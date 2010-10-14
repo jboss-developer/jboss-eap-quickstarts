@@ -1,6 +1,7 @@
 package org.jboss.seam.forge.project.util;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.pathspec.PathspecParser;
 
 import java.io.File;
@@ -44,8 +45,8 @@ public class ResourceUtil
       return ctx;
    }
 
-   public static Resource<?> parsePathspec(final Resource<?> resource, final String pathspec) {
-     return new PathspecParser(resource, pathspec).parse();
+   public static Resource<?> parsePathspec(final ResourceFactory factory, final Resource<?> resource, final String pathspec) {
+     return new PathspecParser(factory, resource, pathspec).parse();
    }
 
    public static boolean isChildOf(final Resource<?> parent, final Resource<?> isChild) {

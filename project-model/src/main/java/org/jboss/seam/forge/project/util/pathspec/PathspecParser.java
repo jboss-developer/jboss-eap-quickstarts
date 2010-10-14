@@ -1,7 +1,9 @@
 package org.jboss.seam.forge.project.util.pathspec;
 
+import org.codehaus.plexus.util.cli.shell.Shell;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 import java.io.File;
 
@@ -10,11 +12,13 @@ public class PathspecParser
    private int cursor;
    private int length;
 
+   private ResourceFactory factory;
    private Resource<?> res;
    private String path;
 
-   public PathspecParser(Resource<?> res, String path)
+   public PathspecParser(ResourceFactory factory, Resource<?> res, String path)
    {
+      this.factory = factory;
       this.res = res;
 
       this.length = (
@@ -64,7 +68,7 @@ public class PathspecParser
             {
                if (res == r)
                {
-                  r = new DirectoryResource(new File(tk));
+                  r = factory.getResourceFrom(new File(tk));
                   cursor++;
                   continue;
                }
@@ -74,7 +78,7 @@ public class PathspecParser
                }
             }
 
-            Resource child = r.getChild(tk);
+            Resource child = r.getChild(factory, tk);
             if (child == null)
             {
                throw new RuntimeException("no such child: " + child);

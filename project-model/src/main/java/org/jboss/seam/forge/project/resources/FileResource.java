@@ -2,6 +2,7 @@ package org.jboss.seam.forge.project.resources;
 
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 import java.io.File;
@@ -13,8 +14,6 @@ import java.util.List;
 public abstract class FileResource extends AbstractResource<File>
 {
    protected boolean scratch;
-
-   protected Resource parent;
 
    protected File file;
    protected File scratchFile;
@@ -38,19 +37,32 @@ public abstract class FileResource extends AbstractResource<File>
     */
    public File getUnderlyingResourceObject()
    {
-      if (scratch) {
+      if (scratch)
+      {
          return scratchFile;
       }
-      else {
+      else
+      {
          return file;
       }
    }
 
-   @Override
-   public Resource getChild(String name)
+   /**
+    * Get the parent of the current resource. Returns null if the current resource is the project root.
+    *
+    * @return An instance of the resource parent.
+    */
+   public Resource getParent()
    {
-      return createFrom(new File(file.getAbsolutePath() + "/" + name));
+      return new DirectoryResource(file.getParentFile());
    }
+
+   @Override
+   public Resource getChild(ResourceFactory factory, String name)
+   {
+      throw new RuntimeException("this resource type can have no children");
+   }
+
 
    /**
     * Create a new resource instance for the target file of the type that this current resource is.

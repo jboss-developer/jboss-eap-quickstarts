@@ -28,13 +28,6 @@ public class JavaFieldResource extends ClassMemberResource<Field>
       this.field = field;
    }
 
-
-   @Override
-   public Resource getChild(String name)
-   {
-      throw new RuntimeException("not implemented");
-   }
-
    @Override
    public Resource<Field> createFrom(Field file)
    {

@@ -31,6 +31,7 @@ import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
@@ -50,11 +51,13 @@ public class ChangeDirectoryPlugin implements Plugin
 {
    private final Shell shell;
    private final Event<InitProject> init;
+   private final ResourceFactory resFactory;
 
    @Inject
-   public ChangeDirectoryPlugin(final Shell shell, final Event<InitProject> init)
+   public ChangeDirectoryPlugin(final Shell shell, final ResourceFactory resourceFactory, final Event<InitProject> init)
    {
       this.shell = shell;
+      this.resFactory = resourceFactory;
       this.init = init;
    }
 
@@ -70,7 +73,7 @@ public class ChangeDirectoryPlugin implements Plugin
 
       }
       else {
-         r = ResourceUtil.parsePathspec(curr, path);
+         r = ResourceUtil.parsePathspec(resFactory, curr, path);
       }
 
       if (r != null) {
