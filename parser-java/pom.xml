@@ -9,7 +9,7 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>forge-parser-java</artifactId>
+    <artifactId>forge-parser-java</artifactId>
    <packaging>jar</packaging>
    <name>Seam Forge - Parser/Java</name>
 

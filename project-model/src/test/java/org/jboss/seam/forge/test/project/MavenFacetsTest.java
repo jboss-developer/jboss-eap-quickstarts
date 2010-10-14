@@ -83,6 +83,10 @@ public class MavenFacetsTest extends ProjectModelTest
       }
    }
 
+   public Project getProject() {
+      return testProject;
+   }
+
    @Test
    public void testCreateDefault() throws Exception
    {
