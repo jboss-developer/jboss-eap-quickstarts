@@ -46,6 +46,8 @@ import org.jboss.seam.forge.shell.util.Files;
 @Help("Responsible for initializing and maintaining the current active project.")
 public class InitProjectPlugin implements Plugin
 {
+   // TODO this probably does not need to be a plugin, unless we allow
+   // re-initialization.
    private final Shell shell;
    private final CurrentProjectHolder cp;
    private final Event<InitProject> init;

@@ -87,8 +87,19 @@ public interface Project
    public void writeFile(char[] data, File file);
 
    /**
+    * Create the requested {@link File} if it does not exist and write the given
+    * data to it.
+    */
+   public void writeFile(String string, File file);
+
+   /**
     * Return true if this project's file-system has been created and
     * initialized; otherwise, return false.
     */
    public boolean exists();
+
+   /**
+    * Create all necessary parent directories for the given {@link File}.
+    */
+   public void mkdirs(File file);
 }

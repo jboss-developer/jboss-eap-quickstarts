@@ -39,7 +39,7 @@ public class Packages
     */
    public static String toFileSyntax(String packg)
    {
-      return packg.replaceAll("\\.", File.separator);
+      return packg.replace(".", File.separator);
    }
 
 }

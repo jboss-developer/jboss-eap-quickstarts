@@ -22,15 +22,17 @@
 
 package org.jboss.seam.forge.persistence;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,20 +49,40 @@ public class PersistenceFacetTest extends AbstractJPATest
       Shell shell = getShell();
       Project project = getProject();
 
-      PersistenceFacet scaffoldFacet = project.getFacet(PersistenceFacet.class);
-      assertNotNull(scaffoldFacet);
+      PersistenceFacet persistence = project.getFacet(PersistenceFacet.class);
+      assertNotNull(persistence);
 
       shell.execute("cd /");
-
       assertNull(getProject());
 
       shell.execute("cd - ");
+      assertNotNull(getProject());
 
       project = getProject();
       JavaSourceFacet javaSourceFacet = project.getFacet(JavaSourceFacet.class);
       assertNotNull(javaSourceFacet);
 
-      scaffoldFacet = project.getFacet(PersistenceFacet.class);
-      assertNotNull(scaffoldFacet);
+      persistence = project.getFacet(PersistenceFacet.class);
+      assertNotNull(persistence);
+   }
+
+   @Test
+   public void testCanWritePersistenceConfigFile() throws Exception
+   {
+      Project project = getProject();
+
+      PersistenceFacet persistence = project.getFacet(PersistenceFacet.class);
+      assertNotNull(persistence);
+
+      PersistenceModel model = persistence.getConfig();
+      PersistenceUnit unit = model.getPersistenceUnits().get(0);
+
+      assertEquals("default", unit.getName());
+      unit.setName("not-default");
+
+      persistence.saveConfig(model);
+
+      unit = model.getPersistenceUnits().get(0);
+      assertEquals("not-default", unit.getName());
    }
 }

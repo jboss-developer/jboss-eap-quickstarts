@@ -23,6 +23,16 @@
          <artifactId>hibernate-entitymanager</artifactId>
          <version>3.4.0.GA</version>
       </dependency>
+
+      <dependency>
+         <groupId>org.jboss.shrinkwrap</groupId>
+         <artifactId>shrinkwrap-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+         <artifactId>shrinkwrap-descriptors-api</artifactId>
+         <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
+      </dependency>
       
       <!-- Test Dependencies -->
       <dependency>
