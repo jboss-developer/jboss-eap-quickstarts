@@ -4,6 +4,7 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
@@ -13,24 +14,25 @@ import java.util.List;
  */
 public class UnknownFileResource extends FileResource
 {
-   public UnknownFileResource()
+   public UnknownFileResource(ResourceFactory factory)
    {
+      super(factory);
    }
 
-   public UnknownFileResource(File file)
+   public UnknownFileResource(ResourceFactory factory, File file)
    {
-      super(file);
+      super(factory, file);
    }
 
 
    @Override
    public UnknownFileResource createFrom(File file)
    {
-      return new UnknownFileResource(file);
+      return new UnknownFileResource(resourceFactory, file);
    }
 
    @Override
-   public List<Resource<?>> listResources(ResourceFactory factory)
+   public List<Resource<?>> listResources()
    {
       return Collections.emptyList();
    }

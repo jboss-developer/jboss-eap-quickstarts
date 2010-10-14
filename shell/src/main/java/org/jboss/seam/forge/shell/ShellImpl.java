@@ -102,7 +102,6 @@ public class ShellImpl implements Shell
 
    private Resource currentResource;
 
-
    @Inject
    private PromptTypeConverter promptTypeConverter;
 

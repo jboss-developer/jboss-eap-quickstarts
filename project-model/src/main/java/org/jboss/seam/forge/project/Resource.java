@@ -30,9 +30,9 @@ public interface Resource<T>
     *
     * @return A list of child resources.
     */
-   public List<Resource<?>> listResources(ResourceFactory factory);
+   public List<Resource<?>> listResources();
 
    public T getUnderlyingResourceObject();
 
-   public Resource getChild(ResourceFactory factory, String name);
+   public Resource getChild(String name);
 }

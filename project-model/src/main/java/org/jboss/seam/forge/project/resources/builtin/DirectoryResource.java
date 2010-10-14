@@ -4,6 +4,8 @@ import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,18 +14,25 @@ import java.util.List;
  * @author Mike Brock <cbrock@redhat.com>
  */
 
+@Singleton
 public class DirectoryResource extends FileResource
 {
    private Resource parent;
    private volatile List<Resource<?>> listCache;
 
-   public DirectoryResource(File file)
+   @Inject
+   public DirectoryResource(ResourceFactory factory)
    {
-      super(file);
+      super(factory);
+   }
+
+   public DirectoryResource(ResourceFactory factory, File file)
+   {
+      super(factory, file);
    }
 
    @Override
-   public synchronized List<Resource<?>> listResources(ResourceFactory factory)
+   public synchronized List<Resource<?>> listResources()
    {
       if (listCache == null)
       {
@@ -31,7 +40,7 @@ public class DirectoryResource extends FileResource
 
          for (File f : file.listFiles())
          {
-            listCache.add(factory.getResourceFrom(f));
+            listCache.add(resourceFactory.getResourceFrom(f));
          }
       }
 
@@ -39,9 +48,9 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
-   public Resource getChild(ResourceFactory factory, String name)
+   public Resource getChild(String name)
    {
-      return factory.getResourceFrom(new File(file.getAbsolutePath() + "/" + name));
+      return resourceFactory.getResourceFrom(new File(file.getAbsolutePath() + "/" + name));
    }
 
    @Override
@@ -52,7 +61,7 @@ public class DirectoryResource extends FileResource
          throw new RuntimeException("File reference is not a directory: " + file.getAbsolutePath());
       }
 
-      return new DirectoryResource(file);
+      return new DirectoryResource(resourceFactory, file);
    }
 
    @Override

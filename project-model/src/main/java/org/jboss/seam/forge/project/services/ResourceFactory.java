@@ -66,7 +66,7 @@ public class ResourceFactory implements Extension
        * Special case for directories required.
        */
       if (file.isDirectory()) {
-         return new DirectoryResource(file);
+         return new DirectoryResource(this, file);
       }
 
       final String name = file.getName();
@@ -87,7 +87,7 @@ public class ResourceFactory implements Extension
          }
       }
 
-      return new UnknownFileResource(file);
+      return new UnknownFileResource(this, file);
    }
 
    static class ResourceGenerator

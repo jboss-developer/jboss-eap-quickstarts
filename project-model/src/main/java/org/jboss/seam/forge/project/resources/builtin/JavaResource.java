@@ -10,6 +10,8 @@ import org.jboss.seam.forge.project.ResourceIOException;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collections;
@@ -19,22 +21,25 @@ import java.util.List;
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
+@Singleton
 @ResourceHandles("*.java")
 public class JavaResource extends FileResource
 {
    private volatile JavaClass javaClass;
 
-   public JavaResource()
+   @Inject
+   public JavaResource(ResourceFactory factory)
    {
+      super(factory);
    }
 
-   public JavaResource(File file)
+   public JavaResource(ResourceFactory factory, File file)
    {
-      super(file);
+      super(factory, file);
    }
 
    @Override
-   public synchronized List<Resource<?>> listResources(ResourceFactory factory)
+   public synchronized List<Resource<?>> listResources()
    {
       if (javaClass == null)
       {
@@ -64,7 +69,7 @@ public class JavaResource extends FileResource
    @Override
    public JavaResource createFrom(File file)
    {
-      return new JavaResource(file);
+      return new JavaResource(resourceFactory, file);
    }
 }
 

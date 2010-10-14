@@ -20,12 +20,14 @@ public abstract class FileResource extends AbstractResource<File>
 
    protected long lastModification;
 
-   protected FileResource()
+   protected FileResource(ResourceFactory factory)
    {
+      super(factory);
    }
 
-   protected FileResource(File file)
+   protected FileResource(ResourceFactory factory, File file)
    {
+      super(factory);
       this.file = file;
       this.lastModification = file.lastModified();
    }
@@ -54,11 +56,10 @@ public abstract class FileResource extends AbstractResource<File>
     */
    public Resource getParent()
    {
-      return new DirectoryResource(file.getParentFile());
+      return new DirectoryResource(resourceFactory, file.getParentFile());
    }
 
-   @Override
-   public Resource getChild(ResourceFactory factory, String name)
+   public Resource getChild(String name)
    {
       throw new RuntimeException("this resource type can have no children");
    }
