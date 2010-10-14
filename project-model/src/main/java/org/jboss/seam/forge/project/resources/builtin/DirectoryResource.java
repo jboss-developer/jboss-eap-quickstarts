@@ -49,8 +49,23 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
+   public synchronized Resource getParent()
+   {
+      if (parent == null) {
+         parent = createFrom(file.getParentFile());
+      }
+      return parent;
+   }
+
+   @Override
    public String toString()
    {
       return file.getName() + "/";
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      return obj instanceof DirectoryResource && ((DirectoryResource) obj).file.equals(file);
    }
 }

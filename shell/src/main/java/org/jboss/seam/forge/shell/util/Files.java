@@ -22,9 +22,10 @@
 
 package org.jboss.seam.forge.shell.util;
 
+import java.io.File;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class Files
 {
@@ -41,6 +42,11 @@ public class Files
       }
 
       return target;
+   }
+
+   public static File getWorkingDirectory()
+   {
+      return new File("").getAbsoluteFile();
    }
 
 }

@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.shell;
 
+import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 
 import java.io.File;
@@ -40,17 +41,20 @@ public interface Shell
     * Return the current working directory of the shell. (This value may change
     * through execution of plugins or other operations.)
     */
-   File getCurrentDirectory();
+    File getCurrentDirectory();
 
    /**
     * Set the current working directory of the shell.
     */
-   void setCurrentDirectory(File directory);
+//   void setCurrentDirectory(File directory);
 
 
    Resource getCurrentResource();
 
    void setCurrentResource(File file);
+
+   Project getCurrentProject();
+
 
    /**
     * Return true if this shell is currently running in pretend mode.

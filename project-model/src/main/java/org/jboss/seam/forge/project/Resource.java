@@ -33,4 +33,6 @@ public interface Resource<T>
    public List<Resource<?>> listResources(ResourceFactory factory);
 
    public T getUnderlyingResourceObject();
+
+   public Resource getChild(String name);
 }

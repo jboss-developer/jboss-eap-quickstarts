@@ -45,6 +45,7 @@ import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 
+import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenFacet;
 import org.jboss.seam.forge.shell.command.Execution;
@@ -100,8 +101,8 @@ public class ShellImpl implements Shell
    private CurrentProjectHolder cph;
 
    private Resource currentResource;
-   
-   
+
+
    @Inject
    private PromptTypeConverter promptTypeConverter;
 
@@ -181,16 +182,16 @@ public class ShellImpl implements Shell
          }
       }
 
-      File targetDirectory = null;
-      if (projectPath == null)
-      {
-         targetDirectory = getCurrentDirectory();
-      }
-      else
-      {
-         targetDirectory = new File(projectPath).getAbsoluteFile();
-      }
-      setCurrentDirectory(targetDirectory);
+//      File targetDirectory = null;
+//      if (projectPath == null)
+//      {
+//         targetDirectory = new File(".").getAbsoluteFile();
+//      }
+//      else
+//      {
+//         targetDirectory = new File(projectPath).getAbsoluteFile();
+//      }
+//      setCurrentResource(targetDirectory);
    }
 
    private void printWelcomeBanner()
@@ -227,7 +228,6 @@ public class ShellImpl implements Shell
       }
       catch (IOException e)
       {
-         throw new IllegalStateException("Shell input stream failure", e);
       }
    }
 
@@ -473,51 +473,68 @@ public class ShellImpl implements Shell
          // FIXME eventually, this cannot reference the MavenFacet directly.
          suffix = "[" + cph.getCurrentProject().getFacet(MavenFacet.class).getPOM().getArtifactId() + "]";
       }
-      String path = getCurrentDirectory().getAbsolutePath();
+      String path = getCurrentResource().toString();
       return suffix + " " + path + " $ ";
    }
 
    @Override
    public File getCurrentDirectory()
    {
-      String cwd = (String) getProperty(PROP_CWD);
-      if (cwd == null)
+      Resource r = getCurrentResource();
+      File curr = null;
+
+      do
       {
-         cwd = "";
+         if (r.getUnderlyingResourceObject() instanceof File)
+         {
+            curr = (File) r.getUnderlyingResourceObject();
+            if (!curr.isDirectory()) curr = curr.getParentFile();
+         }
+
+         r = r.getParent();
       }
-      return new File(cwd);
+      while (curr == null && r != null);
+
+      return curr;
    }
 
-   @Override
-   public void setCurrentDirectory(final File directory)
-   {
-      try
-      {
-         setProperty(PROP_CWD, directory.getCanonicalPath());
-
-         //todo: this API needs to be unified
-      }
-      catch (IOException e)
-      {
-         throw new ShellException(e);
-      }
-   }
+//   @Override
+//   public void setCurrentDirectory(final File directory)
+//   {
+//      try
+//      {
+//         setProperty(PROP_CWD, directory.getCanonicalPath());
+//
+//         //todo: this API needs to be unified
+//      }
+//      catch (IOException e)
+//      {
+//         throw new ShellException(e);
+//      }
+//   }
 
    @Override
    public Resource getCurrentResource()
    {
       if (currentResource == null) currentResource = this.cph.getResourceFactory()
-            .getResourceFrom(getCurrentDirectory());
-      
+            .getResourceFrom(Files.getWorkingDirectory());
+
       return currentResource;
    }
 
    @Override
    public void setCurrentResource(File file)
    {
+      if (cph.getResourceFactory() == null) return;
+
       currentResource = this.cph.getResourceFactory().getResourceFrom(file);
    }
 
+   @Override
+   public Project getCurrentProject()
+   {
+      return this.cph.getCurrentProject();
+   }
 
    /*
    * Shell Prompts
@@ -578,7 +595,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-                  + pattern + "]");
+               + pattern + "]");
       }
 
       String input = "";
@@ -678,7 +695,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -721,7 +738,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;

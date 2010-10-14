@@ -29,6 +29,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.CurrentProjectHolder;
@@ -37,6 +38,7 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
+import org.jboss.seam.forge.shell.util.Files;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -52,7 +54,7 @@ public class InitProjectPlugin implements Plugin
 
    @Inject
    public InitProjectPlugin(final Shell shell, final CurrentProjectHolder currentProjectHolder,
-            final Event<InitProject> init, final ProjectFactory projectFactory)
+                            final Event<InitProject> init, final ProjectFactory projectFactory)
    {
       this.shell = shell;
       this.cp = currentProjectHolder;
@@ -67,27 +69,27 @@ public class InitProjectPlugin implements Plugin
 
    public void doInit(@Observes final InitProject event)
    {
-      File targetDirectory = shell.getCurrentDirectory();
-      shell.printlnVerbose("Using project path: [" + targetDirectory.getAbsolutePath() + "]");
+      // bind the resource factory into the CurrentProjectHolder
+      cp.setResourceFactory(projectFactory.getResourceFactory());
 
-      shell.setDefaultPrompt();
-      if (targetDirectory.exists())
+      Project currentProject = shell.getCurrentProject();
+      if (currentProject != null)
       {
-         cp.setResourceFactory(projectFactory.getResourceFactory());
-
-         try
-         {
-            Project currentProject = projectFactory.findProjectRecursively(targetDirectory);
-            cp.setCurrentProject(currentProject);
-         }
-         catch (FileNotFoundException e)
-         {
-            cp.setCurrentProject(null);
-         }
+         shell.println("Current project: " + currentProject.getProjectRoot().getAbsolutePath());
       }
       else
       {
-         shell.println("**ERROR** The directory [" + targetDirectory.getAbsolutePath() + "] does not exist...");
+         try
+         {
+            currentProject = projectFactory.findProjectRecursively(Files.getWorkingDirectory());
+         }
+         catch (FileNotFoundException e)
+         {
+         }
+         cp.setCurrentProject(currentProject);
       }
+
+
+      shell.setDefaultPrompt();
    }
 }

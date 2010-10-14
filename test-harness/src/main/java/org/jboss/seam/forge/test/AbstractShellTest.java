@@ -100,7 +100,7 @@ public abstract class AbstractShellTest
       File tempFolder = createTempFolder();
 
       shell.setVerbose(true);
-      shell.setCurrentDirectory(tempFolder.getAbsoluteFile());
+      shell.setCurrentResource(tempFolder.getAbsoluteFile());
       beanManager.fireEvent(new Startup(), new Annotation[] {});
 
       resetInputQueue();

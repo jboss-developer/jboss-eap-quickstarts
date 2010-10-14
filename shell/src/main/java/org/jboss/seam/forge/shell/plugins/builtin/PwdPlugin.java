@@ -24,10 +24,13 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+
+import static org.jboss.seam.forge.project.util.ResourceUtil.getContextDirectory;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -42,7 +45,6 @@ public class PwdPlugin implements Plugin
    @DefaultCommand
    public void run()
    {
-      String currentDir = shell.getCurrentDirectory().getAbsolutePath();
-      shell.println(currentDir);
+      shell.println(getContextDirectory(shell.getCurrentResource()).getAbsolutePath());
    }
 }

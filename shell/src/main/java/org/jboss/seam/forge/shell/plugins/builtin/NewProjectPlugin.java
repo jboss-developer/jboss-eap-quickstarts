@@ -41,6 +41,7 @@ import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.Files;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -70,7 +71,7 @@ public class NewProjectPlugin implements Plugin
          @Option(name = "projectFolder",
                description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
                required = false) File projectFolder
-         ) throws IOException
+   ) throws IOException
    {
       File cwd = shell.getCurrentDirectory();
 
@@ -82,13 +83,34 @@ public class NewProjectPlugin implements Plugin
             shell.println("***ERROR*** [" + dir.getAbsolutePath() + "] already contains a project; please use a different folder.");
          }
 
+
+         File defaultDir;
+
+         if (shell.getCurrentResource() == null)
+         {
+            defaultDir = Files.getWorkingDirectory();
+         }
+         else if (shell.getCurrentResource().getUnderlyingResourceObject() instanceof File)
+         {
+            defaultDir = ((File) shell.getCurrentResource().getUnderlyingResourceObject());
+            if (!defaultDir.isDirectory())
+            {
+               defaultDir = defaultDir.getParentFile();
+            }
+         }
+         else
+         {
+            defaultDir = Files.getWorkingDirectory();
+         }
+
          File newDir = cwd;
          do
          {
             shell.println();
             if (!projectFactory.containsProject(cwd))
             {
-               newDir = shell.promptFile("Where would you like to create the project? [Press ENTER to use the current directory: " + cwd + "]", shell.getCurrentDirectory());
+               newDir = shell.promptFile("Where would you like to create the project? [Press ENTER to use the current directory: " + cwd + "]", defaultDir)
+               ;
             }
             else
             {
@@ -118,13 +140,13 @@ public class NewProjectPlugin implements Plugin
       project.getFacet(MavenFacet.class).setPOM(pom);
 
       project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
-               .createClass()
-               .setPackage(groupId)
-               .setName("HelloWorld")
-               .addMethod("public void String sayHello() {}")
-               .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name
-                        + ".\");")
-               .getOrigin());
+            .createClass()
+            .setPackage(groupId)
+            .setName("HelloWorld")
+            .addMethod("public void String sayHello() {}")
+            .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name
+                  + ".\");")
+            .getOrigin());
 
       project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 
@@ -132,7 +154,6 @@ public class NewProjectPlugin implements Plugin
        * Only change the environment after success!
        */
       cp.setCurrentProject(project);
-      shell.setCurrentDirectory(dir);
 
       shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
    }

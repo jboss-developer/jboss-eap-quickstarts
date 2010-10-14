@@ -38,6 +38,6 @@ public class PickupResource implements Plugin
          return;
       }
 
-      shell.println("Picked up type <" + shell.getCurrentResource().getClass() + ">: " + path.getAbsolutePath());
+      shell.println("Picked up type <" + shell.getCurrentResource().getClass().getSimpleName() + ">: " + path.getAbsolutePath());
    }
 }

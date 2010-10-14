@@ -33,6 +33,12 @@ public class JavaMethodResource extends ClassMemberResource<Method>
    }
 
    @Override
+   public Resource getChild(String name)
+   {
+      throw new RuntimeException("not implemented");
+   }
+
+   @Override
    public List<Resource<?>> listResources(ResourceFactory factory)
    {
       return Collections.emptyList();

@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -59,11 +60,11 @@ public class ChangeDirectoryPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(defaultValue = "~",
-            description = "The new directory") final File path) throws IOException
+            description = "The new directory", required = true) final File path) throws IOException
    {
       String target = path.getPath();
 
-      File cwd = shell.getCurrentDirectory();
+      Resource currentResource = shell.getCurrentResource();
       target = Files.canonicalize(target);
 
       if ("-".equals(target))
@@ -81,9 +82,9 @@ public class ChangeDirectoryPlugin implements Plugin
       while (target.startsWith(".."))
       {
          target = target.replaceFirst("\\.\\." + File.separatorChar + "?", "");
-         if (cwd.getParentFile() != null)
+         if (currentResource.getParent() != null)
          {
-            cwd = cwd.getParentFile();
+            currentResource = currentResource.getParent();
          }
          else
          {
@@ -91,37 +92,37 @@ public class ChangeDirectoryPlugin implements Plugin
          }
       }
 
-      if (!target.isEmpty())
-      {
-         File file = null;
-         if (target.startsWith(File.separator))
-         {
-            file = new File(target).getAbsoluteFile();
-         }
-         else
-         {
-            file = new File(cwd.getAbsolutePath() + File.separatorChar + target).getAbsoluteFile();
-         }
+//      if (!target.isEmpty())
+//      {
+//         File file = null;
+//         if (target.startsWith(File.separator))
+//         {
+//            file = new File(target).getAbsoluteFile();
+//         }
+//         else
+//         {
+//            file = new File(cwd.getAbsolutePath() + File.separatorChar + target).getAbsoluteFile();
+//         }
+//
+//         boolean found = false;
+//
+//         if (file.exists() && file.isDirectory())
+//         {
+//            cwd = file.getCanonicalFile();
+//            found = true;
+//         }
+//
+//         if (!found)
+//         {
+//            shell.println(path + ": Not a directory");
+//         }
+//      }
 
-         boolean found = false;
-
-         if (file.exists() && file.isDirectory())
-         {
-            cwd = file.getCanonicalFile();
-            found = true;
-         }
-
-         if (!found)
-         {
-            shell.println(path + ": Not a directory");
-         }
-      }
-
-      if (!cwd.equals(shell.getCurrentDirectory()))
-      {
-         lastDirectory = shell.getCurrentDirectory();
-         shell.setCurrentDirectory(cwd.getAbsoluteFile());
-         init.fire(new InitProject());
-      }
+//      if (!cwd.equals(shell.getCurrentDirectory()))
+//      {
+//         lastDirectory = shell.getCurrentDirectory();
+//         shell.setCurrentDirectory(cwd.getAbsoluteFile());
+//         init.fire(new InitProject());
+//      }
    }
 }

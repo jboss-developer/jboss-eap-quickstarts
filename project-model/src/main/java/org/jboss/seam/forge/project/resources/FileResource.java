@@ -38,9 +38,19 @@ public abstract class FileResource extends AbstractResource<File>
     */
    public File getUnderlyingResourceObject()
    {
-      return scratch ? file : scratchFile;
+      if (scratch) {
+         return scratchFile;
+      }
+      else {
+         return file;
+      }
    }
 
+   @Override
+   public Resource getChild(String name)
+   {
+      return createFrom(new File(file.getAbsolutePath() + "/" + name));
+   }
 
    /**
     * Create a new resource instance for the target file of the type that this current resource is.

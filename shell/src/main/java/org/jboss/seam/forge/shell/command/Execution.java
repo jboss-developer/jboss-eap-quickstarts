@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.shell.command;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Set;
 
@@ -29,8 +30,10 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.mvel2.DataConversion;
 import org.mvel2.util.ParseTools;
@@ -40,12 +43,20 @@ import org.mvel2.util.ParseTools;
  */
 public class Execution
 {
-   @Inject
-   private BeanManager manager;
+   private final BeanManager manager;
+   private final Shell shell;
+
 
    private CommandMetadata command;
    private Object[] parameterArray;
    private String originalStatement;
+
+   @Inject
+   public Execution(BeanManager manager, Shell shell)
+   {
+      this.manager = manager;
+      this.shell = shell;
+   }
 
    @SuppressWarnings("unchecked")
    public void perform()
@@ -59,12 +70,25 @@ public class Execution
          Method method = command.getMethod();
 
          Class<?>[] parmTypes = method.getParameterTypes();
+         Annotation[][] parmAnnotations = method.getParameterAnnotations();
          Object[] paramStaging = new Object[parameterArray.length];
 
          for (int i = 0; i < parmTypes.length; i++)
          {
             if (parameterArray[i] == null)
             {
+               Option option = getOptionMetadata(parmAnnotations[i]);
+               if (option != null)
+               {
+                  if (option.required())
+                  {
+                     shell.println(command.getName() + ": required parameter missing: " + option.description());
+                     shell.println(command.getHelp());
+                     return;
+                  }
+
+               }
+
                paramStaging[i] = null;
             }
 
@@ -75,12 +99,11 @@ public class Execution
                {
                   paramStaging[i] = false;
                }
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                throw new CommandExecutionException(command, "command option '"
-                        + command.getOrderedOptionByIndex(i).getDescription()
-                        + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
+                     + command.getOrderedOptionByIndex(i).getDescription()
+                     + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
             }
          }
 
@@ -88,7 +111,7 @@ public class Execution
          if (bean != null)
          {
             CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager
-                     .createCreationalContext(bean);
+                  .createCreationalContext(bean);
             if (context != null)
             {
                plugin = (Plugin) manager.getReference(bean, pluginType, context);
@@ -96,19 +119,30 @@ public class Execution
                try
                {
                   command.getMethod().invoke(plugin, paramStaging);
-               }
-               catch (Exception e)
+               } catch (Exception e)
                {
                   throw new CommandExecutionException(command, e);
                }
             }
          }
-      }
-      else
+      } else
       {
          // TODO it would be nice if this delegated to the system shell
          throw new NoSuchCommandException(command, "No such command: " + originalStatement);
       }
+   }
+
+   private static Option getOptionMetadata(Annotation[] annos)
+   {
+      for (Annotation a : annos)
+      {
+         if (a instanceof Option)
+         {
+            return (Option) a;
+         }
+      }
+
+      return null;
    }
 
    private static boolean isBooleanOption(Class<?> type)

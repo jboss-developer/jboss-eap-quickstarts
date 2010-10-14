@@ -38,6 +38,7 @@ import org.jboss.seam.forge.parser.java.impl.JavaClassImpl;
  */
 public abstract class JavaParser
 {
+
    /**
     * Parse the given character array into a new {@link JavaClass} instance.
     */

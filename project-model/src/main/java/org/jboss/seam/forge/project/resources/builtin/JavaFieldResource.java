@@ -30,6 +30,12 @@ public class JavaFieldResource extends ClassMemberResource<Field>
 
 
    @Override
+   public Resource getChild(String name)
+   {
+      throw new RuntimeException("not implemented");
+   }
+
+   @Override
    public Resource<Field> createFrom(Field file)
    {
       throw new RuntimeException("not implemented");

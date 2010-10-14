@@ -33,7 +33,6 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 public class CurrentProjectHolder
@@ -52,11 +51,16 @@ public class CurrentProjectHolder
 
    public void setCurrentProject(final Project currentProject)
    {
-      if (factory == null) {
+      if (factory == null)
+      {
          throw new RuntimeException("ResourceFactory not supplied");
       }
 
-      this.currentResource = factory.getResourceFrom(currentProject.getProjectRoot());
+      if (currentProject != null)
+      {
+         this.currentResource = factory.getResourceFrom(currentProject.getProjectRoot());
+      }
+
       this.currentProject = currentProject;
    }
 
