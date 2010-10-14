@@ -73,6 +73,8 @@ public class MavenFacetsTest extends ProjectModelTest
    @Override
    public void postConstruct() throws IOException
    {
+      super.postConstruct();
+
       if (thisProject == null)
       {
          thisProject = projectFactory.findProjectRecursively(new File(""));
@@ -81,10 +83,6 @@ public class MavenFacetsTest extends ProjectModelTest
       {
          testProject = projectFactory.findProjectRecursively(new File("src/test/resources/test-pom"));
       }
-   }
-
-   public Project getProject() {
-      return testProject;
    }
 
    @Test
