@@ -37,9 +37,12 @@ public class OptionMetadata
    private int index;
 
    private String name = "";
+   private String shortName = "";
    private String defaultValue = "";
    private String description = "";
    private String help = "";
+
+   private boolean flagOnly = false;
    private boolean required = false;
    private PromptType promptType;
 
@@ -98,6 +101,26 @@ public class OptionMetadata
    public void setName(final String name)
    {
       this.name = name;
+   }
+
+   public String getShortName()
+   {
+      return shortName;
+   }
+
+   public void setShortName(String shortName)
+   {
+      this.shortName = shortName;
+   }
+
+   public boolean isFlagOnly()
+   {
+      return flagOnly;
+   }
+
+   public void setFlagOnly(boolean flagOnly)
+   {
+      this.flagOnly = flagOnly;
    }
 
    public String getDescription()

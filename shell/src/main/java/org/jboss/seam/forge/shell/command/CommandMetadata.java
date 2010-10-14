@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class CommandMetadata
 {
@@ -43,7 +42,7 @@ public class CommandMetadata
    {
       for (OptionMetadata option : options)
       {
-         if (option.isNamed() && option.getName().equals(name))
+         if (option.isNamed() && (option.getName().equals(name) || option.getShortName().equals(name)))
          {
             return option;
          }
@@ -146,6 +145,18 @@ public class CommandMetadata
    public boolean hasOptions()
    {
       return !getOptions().isEmpty();
+   }
+
+   public boolean hasShortOption(String name)
+   {
+      for (OptionMetadata option : options)
+      {
+         if (option.isNamed() &&  option.getShortName().equals(name))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    public boolean hasOption(String name)

@@ -51,6 +51,8 @@ public interface Shell
 
    Resource getCurrentResource();
 
+   void setCurrentResource(Resource<?> resource);
+
    void setCurrentResource(File file);
 
    Project getCurrentProject();
@@ -324,6 +326,10 @@ public interface Shell
     * Set the writer to which the shell should print output.
     */
    void setOutputWriter(Writer writer) throws IOException;
+
+   int getHeight();
+
+   int getWidth();
 
    /**
     * Ask the current {@link InputStream} for data.

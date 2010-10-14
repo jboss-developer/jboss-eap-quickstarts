@@ -30,6 +30,8 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -49,8 +51,6 @@ public class ChangeDirectoryPlugin implements Plugin
    private final Shell shell;
    private final Event<InitProject> init;
 
-   private File lastDirectory = null;
-
    @Inject
    public ChangeDirectoryPlugin(final Shell shell, final Event<InitProject> init)
    {
@@ -59,70 +59,26 @@ public class ChangeDirectoryPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(defaultValue = "~",
-            description = "The new directory", required = true) final File path) throws IOException
+   public void run(@Option(description = "The new directory") final String path) throws IOException
    {
-      String target = path.getPath();
 
-      Resource currentResource = shell.getCurrentResource();
-      target = Files.canonicalize(target);
+      Resource<?> curr = shell.getCurrentResource();
+      Resource<?> r;
 
-      if ("-".equals(target))
-      {
-         if (lastDirectory != null)
-         {
-            target = lastDirectory.getAbsolutePath();
-         }
-         else
-         {
-            target = "";
-         }
+      if (path == null) {
+         r = new DirectoryResource(new File(System.getProperty("user.home")));
+
+      }
+      else {
+         r = ResourceUtil.parsePathspec(curr, path);
       }
 
-      while (target.startsWith(".."))
-      {
-         target = target.replaceFirst("\\.\\." + File.separatorChar + "?", "");
-         if (currentResource.getParent() != null)
-         {
-            currentResource = currentResource.getParent();
-         }
-         else
-         {
-            break;
+      if (r != null) {
+         shell.setCurrentResource(r);
+
+         if (!ResourceUtil.isChildOf(curr, r)) {
+            init.fire(new InitProject());
          }
       }
-
-//      if (!target.isEmpty())
-//      {
-//         File file = null;
-//         if (target.startsWith(File.separator))
-//         {
-//            file = new File(target).getAbsoluteFile();
-//         }
-//         else
-//         {
-//            file = new File(cwd.getAbsolutePath() + File.separatorChar + target).getAbsoluteFile();
-//         }
-//
-//         boolean found = false;
-//
-//         if (file.exists() && file.isDirectory())
-//         {
-//            cwd = file.getCanonicalFile();
-//            found = true;
-//         }
-//
-//         if (!found)
-//         {
-//            shell.println(path + ": Not a directory");
-//         }
-//      }
-
-//      if (!cwd.equals(shell.getCurrentDirectory()))
-//      {
-//         lastDirectory = shell.getCurrentDirectory();
-//         shell.setCurrentDirectory(cwd.getAbsoluteFile());
-//         init.fire(new InitProject());
-//      }
    }
 }

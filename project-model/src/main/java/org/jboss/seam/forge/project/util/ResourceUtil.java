@@ -48,4 +48,12 @@ public class ResourceUtil
      return new PathspecParser(resource, pathspec).parse();
    }
 
+   public static boolean isChildOf(final Resource<?> parent, final Resource<?> isChild) {
+      Resource<?> r = isChild;
+      while ((r = r.getParent()) != null) {
+         if (r.equals(parent)) return true;
+      }
+      return false;
+   }
+
 }

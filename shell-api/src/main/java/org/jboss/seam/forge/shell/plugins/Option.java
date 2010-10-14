@@ -50,7 +50,20 @@ public @interface Option
     */
    String name() default "";
 
+
+   /**
+    * An optional short version of the flag name.
+    * @return
+    */
+   String shortName() default "";
+
+
    String description() default "";
+
+   /**
+    * Sets whether or not the option is just a flag. Option must be a boolean in this case.
+    */
+   boolean flagOnly() default false;
 
    /**
     * Specify whether or not this option is required.

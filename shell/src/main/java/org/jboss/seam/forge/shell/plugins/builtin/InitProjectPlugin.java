@@ -75,7 +75,7 @@ public class InitProjectPlugin implements Plugin
       Project currentProject = shell.getCurrentProject();
       if (currentProject != null)
       {
-         shell.println("Current project: " + currentProject.getProjectRoot().getAbsolutePath());
+         shell.printlnVerbose("Current project: " + currentProject.getProjectRoot().getAbsolutePath());
       }
       else
       {

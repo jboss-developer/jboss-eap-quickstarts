@@ -75,23 +75,6 @@ public class Execution
 
          for (int i = 0; i < parmTypes.length; i++)
          {
-            if (parameterArray[i] == null)
-            {
-               Option option = getOptionMetadata(parmAnnotations[i]);
-               if (option != null)
-               {
-                  if (option.required())
-                  {
-                     shell.println(command.getName() + ": required parameter missing: " + option.description());
-                     shell.println(command.getHelp());
-                     return;
-                  }
-
-               }
-
-               paramStaging[i] = null;
-            }
-
             try
             {
                paramStaging[i] = DataConversion.convert(parameterArray[i], parmTypes[i]);

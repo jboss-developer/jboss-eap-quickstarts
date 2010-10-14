@@ -169,29 +169,17 @@ public class ShellImpl implements Shell
          pretend = true;
       }
 
-      String projectPath = null;
       if ((parameters != null) && !parameters.isEmpty())
       {
          for (String path : parameters)
          {
             if ((path != null) && !path.startsWith("--") && !path.startsWith("-"))
             {
-               projectPath = path;
+           //    projectPath = path;
                break;
             }
          }
       }
-
-//      File targetDirectory = null;
-//      if (projectPath == null)
-//      {
-//         targetDirectory = new File(".").getAbsoluteFile();
-//      }
-//      else
-//      {
-//         targetDirectory = new File(projectPath).getAbsoluteFile();
-//      }
-//      setCurrentResource(targetDirectory);
    }
 
    private void printWelcomeBanner()
@@ -522,6 +510,13 @@ public class ShellImpl implements Shell
       return currentResource;
    }
 
+
+   @Override
+   public void setCurrentResource(Resource<?> resource)
+   {
+      currentResource = resource;
+   }
+
    @Override
    public void setCurrentResource(File file)
    {
@@ -766,6 +761,18 @@ public class ShellImpl implements Shell
          }
       }
       return (T) result;
+   }
+
+   @Override
+   public int getHeight()
+   {
+      return reader.getTerminal().getHeight();
+   }
+
+   @Override
+   public int getWidth()
+   {
+      return reader.getTerminal().getWidth();
    }
 
    @Override

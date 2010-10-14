@@ -52,7 +52,10 @@ public class DirectoryResource extends FileResource
    public synchronized Resource getParent()
    {
       if (parent == null) {
-         parent = createFrom(file.getParentFile());
+         File parentFile = file.getParentFile();
+         if (parentFile == null) return null;
+
+         parent = createFrom(parentFile);
       }
       return parent;
    }

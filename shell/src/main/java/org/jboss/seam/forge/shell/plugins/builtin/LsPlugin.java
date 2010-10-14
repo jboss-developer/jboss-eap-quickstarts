@@ -37,10 +37,12 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock
  */
 @Named("ls")
 @Help("Prints the contents current directory.")
@@ -59,61 +61,57 @@ public class LsPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run()
+   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) boolean showAll)
    {
-
       Resource<?> resource = shell.getCurrentResource();
 
-      List<Resource<?>> childResources = resource.listResources(resourceFactory);
+      int width = shell.getWidth();
 
-      for (Resource r : childResources) {
-          shell.println(r.toString());
+      List<Resource<?>> childResources = resource.listResources(resourceFactory);
+      List<String> listData = new LinkedList<String>();
+
+      int maxLength = 0;
+
+      String el;
+      for (Resource r : childResources)
+      {
+         el = r.toString();
+
+         if (showAll || !el.startsWith(".")) listData.add(el);
+         if (el.length() > maxLength) maxLength = el.length();
       }
 
+      int cols = width / (maxLength + 4);
+      int colSize = width / cols;
 
-//      File currentDir = shell.getCurrentDirectory();
-//
-//      LinkedList<File> files = new LinkedList<File>(Arrays.asList(currentDir.listFiles()));
-//
-//      File parent = currentDir.getParentFile();
-//      if (parent != null)
-//      {
-//         files.addFirst(new File(".."));
-//      }
-//
-//      files.addFirst(new File("."));
-//
-//      shell.println("total " + files.size());
-//
-//      int longest = 0;
-//      for (File file : files)
-//      {
-//         int size = String.valueOf(file.length()).length();
-//         if (size > longest)
-//         {
-//            longest = size;
-//         }
-//      }
-//
-//      for (File file : files)
-//      {
-//         String path = file.getPath().replaceFirst(currentDir.getPath() + "/?", "");
-//
-//         String dir = file.isDirectory() ? "d" : "-";
-//         String read = file.canRead() ? "r" : "-";
-//         String write = file.canWrite() ? "w" : "-";
-//         String execute = file.canExecute() ? "x" : "-";
-//
-//         String size = String.valueOf(file.length());
-//         while (size.length() < longest + 1)
-//         {
-//            size += " ";
-//         }
-//
-//         String perms = read + write + execute;
-//         String lastModified = format.format(new Date(file.lastModified()));
-//
-//         shell.println(dir + perms + " " + size + " " + lastModified + " " + path);
-//      }
+      if (cols == 0)
+      {
+         colSize = width;
+         cols = 1;
+      }
+
+      int i = 0;
+      for (String s : listData)
+      {
+         shell.print(s);
+         shell.print(pad(colSize - s.length()));
+         if (++i == cols)
+         {
+            shell.println();
+            i = 0;
+         }
+      }
+      shell.println();
    }
+
+   private String pad(int amount)
+   {
+      char[] padding = new char[amount];
+      for (int i = 0; i < amount; i++)
+      {
+         padding[i] = ' ';
+      }
+      return new String(padding);
+   }
+
 }
