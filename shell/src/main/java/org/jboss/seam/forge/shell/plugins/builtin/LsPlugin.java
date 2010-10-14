@@ -77,8 +77,11 @@ public class LsPlugin implements Plugin
       {
          el = r.toString();
 
-         if (showAll || !el.startsWith(".")) listData.add(el);
-         if (el.length() > maxLength) maxLength = el.length();
+         if (showAll || !el.startsWith("."))
+         {
+            listData.add(el);
+            if (el.length() > maxLength) maxLength = el.length();
+         }
       }
 
       int cols = width / (maxLength + 4);
