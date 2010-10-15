@@ -31,9 +31,8 @@
       <dependency>
          <groupId>org.jboss.shrinkwrap.descriptors</groupId>
          <artifactId>shrinkwrap-descriptors-api</artifactId>
-         <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
       </dependency>
-      
+
       <!-- Test Dependencies -->
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
