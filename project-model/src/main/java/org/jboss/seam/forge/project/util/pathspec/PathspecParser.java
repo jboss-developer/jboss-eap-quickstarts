@@ -37,12 +37,12 @@ public class PathspecParser
 
          if (path.length() == 1)
          {
-            return new DirectoryResource(homeDir);
+            return new DirectoryResource(factory, homeDir);
          }
          else
          {
             path = path.substring(1);
-            r = new DirectoryResource(homeDir);
+            r = new DirectoryResource(factory, homeDir);
          }
       }
 
@@ -78,7 +78,7 @@ public class PathspecParser
                }
             }
 
-            Resource child = r.getChild(factory, tk);
+            Resource child = r.getChild(tk);
             if (child == null)
             {
                throw new RuntimeException("no such child: " + child);

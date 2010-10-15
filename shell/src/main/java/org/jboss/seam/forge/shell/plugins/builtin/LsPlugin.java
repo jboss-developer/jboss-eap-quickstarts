@@ -67,7 +67,7 @@ public class LsPlugin implements Plugin
 
       int width = shell.getWidth();
 
-      List<Resource<?>> childResources = resource.listResources(resourceFactory);
+      List<Resource<?>> childResources = resource.listResources();
       List<String> listData = new LinkedList<String>();
 
       int maxLength = 0;

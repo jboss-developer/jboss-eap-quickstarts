@@ -69,7 +69,7 @@ public class ChangeDirectoryPlugin implements Plugin
       Resource<?> r;
 
       if (path == null) {
-         r = new DirectoryResource(new File(System.getProperty("user.home")));
+         r = new DirectoryResource(resFactory, new File(System.getProperty("user.home")));
 
       }
       else {

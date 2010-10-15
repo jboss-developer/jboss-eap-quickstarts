@@ -35,7 +35,7 @@ public class JavaFieldResource extends ClassMemberResource<Field>
    }
 
    @Override
-   public List<Resource<?>> listResources(ResourceFactory factory)
+   public List<Resource<?>> listResources()
    {
       return Collections.emptyList();
    }

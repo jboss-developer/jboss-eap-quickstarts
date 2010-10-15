@@ -22,7 +22,7 @@ public abstract class ClassMemberResource<T> implements Resource<T>
    }
 
    @Override
-   public Resource getChild(ResourceFactory fac, String name)
+   public Resource getChild(String name)
    {
       throw new RuntimeException("not implemented");
    }
