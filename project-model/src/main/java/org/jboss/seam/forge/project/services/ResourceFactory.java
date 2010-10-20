@@ -1,9 +1,9 @@
 package org.jboss.seam.forge.project.services;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceHandles;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
@@ -12,10 +12,11 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Singleton;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceHandles;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -23,18 +24,16 @@ import java.util.regex.Pattern;
 @Singleton
 public class ResourceFactory implements Extension
 {
-   private BeanManager manager;
-
-   private List<ResourceGenerator> resourceGenerators = new ArrayList<ResourceGenerator>();
-                     ;/**
-    * Most directories will tend to contain the same type of file (such as .java, .jar, .xml, etc).  So
-    * we will remember the last resource type we tested against and always re-try on subsequent queries
-    * before doing a comprehensive match.
+   private final List<ResourceGenerator> resourceGenerators = new ArrayList<ResourceGenerator>();;
+   /**
+    * Most directories will tend to contain the same type of file (such as .java, .jar, .xml, etc). So we will remember
+    * the last resource type we tested against and always re-try on subsequent queries before doing a comprehensive
+    * match.
     */
    private volatile ResourceGenerator lastTypeLoaded = new ResourceGenerator()
    {
       @Override
-      public boolean matches(String name)
+      public boolean matches(final String name)
       {
          return false;
       }
@@ -42,8 +41,6 @@ public class ResourceFactory implements Extension
 
    public void scan(@Observes final ProcessBean<?> event, final BeanManager manager)
    {
-      this.manager = manager;
-
       Bean<?> bean = event.getBean();
       Class<?> clazz = bean.getBeanClass();
 
@@ -53,7 +50,7 @@ public class ResourceFactory implements Extension
          {
             Pattern p = Pattern.compile(pathspecToRegEx(pspec));
             CreationalContext<?> creationalCtx = manager.createCreationalContext(bean);
-            Resource rInst = (Resource) manager.getReference(bean, bean.getBeanClass(), creationalCtx);
+            Resource<?> rInst = (Resource<?>) manager.getReference(bean, bean.getBeanClass(), creationalCtx);
 
             resourceGenerators.add(new ResourceGenerator(p, rInst));
          }
@@ -65,7 +62,8 @@ public class ResourceFactory implements Extension
       /**
        * Special case for directories required.
        */
-      if (file.isDirectory()) {
+      if (file.isDirectory())
+      {
          return new DirectoryResource(this, file);
       }
 
@@ -93,31 +91,31 @@ public class ResourceFactory implements Extension
    static class ResourceGenerator
    {
       private Pattern pattern;
-      private Resource resource;
+      private Resource<?> resource;
 
       ResourceGenerator()
       {
       }
 
-      ResourceGenerator(Pattern pattern, Resource resource)
+      ResourceGenerator(final Pattern pattern, final Resource<?> resource)
       {
          this.pattern = pattern;
          this.resource = resource;
       }
 
-      public boolean matches(String name)
+      public boolean matches(final String name)
       {
          return pattern.matcher(name).matches();
       }
 
-      @SuppressWarnings({"unchecked"})
-      public <T> Resource<T> getResource(Class<T> type)
+      @SuppressWarnings({ "unchecked" })
+      public <T> Resource<T> getResource(final Class<T> type)
       {
-         return resource;
+         return (Resource<T>) resource;
       }
    }
 
-   private static String pathspecToRegEx(String pathSpec)
+   private static String pathspecToRegEx(final String pathSpec)
    {
       return "^" + pathSpec.replaceAll("\\*", "\\.\\*").replaceAll("\\?", "\\.") + "$";
    }

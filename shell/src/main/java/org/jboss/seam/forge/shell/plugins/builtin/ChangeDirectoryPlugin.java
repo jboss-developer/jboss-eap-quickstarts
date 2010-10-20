@@ -39,7 +39,6 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
-import org.jboss.seam.forge.shell.util.Files;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -52,6 +51,7 @@ public class ChangeDirectoryPlugin implements Plugin
    private final Shell shell;
    private final Event<InitProject> init;
    private final ResourceFactory resFactory;
+   private Resource<?> lastResource;
 
    @Inject
    public ChangeDirectoryPlugin(final Shell shell, final ResourceFactory resourceFactory, final Event<InitProject> init)
@@ -64,24 +64,31 @@ public class ChangeDirectoryPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(description = "The new directory") final String path) throws IOException
    {
-
       Resource<?> curr = shell.getCurrentResource();
       Resource<?> r;
 
-      if (path == null) {
-         r = new DirectoryResource(resFactory, new File(System.getProperty("user.home")));
-
+      if ("-".equals(path))
+      {
+         r = this.lastResource;
       }
-      else {
+      else if (path == null)
+      {
+         r = new DirectoryResource(resFactory, new File(System.getProperty("user.home")));
+      }
+      else
+      {
          r = ResourceUtil.parsePathspec(resFactory, curr, path);
       }
 
-      if (r != null) {
+      if (r != null)
+      {
          shell.setCurrentResource(r);
-
-         if (!ResourceUtil.isChildOf(curr, r)) {
-            init.fire(new InitProject());
+         if (curr != null)
+         {
+            this.lastResource = curr;
          }
+
+         init.fire(new InitProject());
       }
    }
 }

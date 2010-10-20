@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.shell.project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,33 +29,24 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.shell.CurrentProjectHolder;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
-import org.jboss.seam.forge.shell.util.Files;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Help("Responsible for initializing and maintaining the current active project.")
-public class InitProjectPlugin implements Plugin
+public class ProjectInitializer
 {
-   // TODO this probably does not need to be a plugin, unless we allow
-   // re-initialization.
    private final Shell shell;
-   private final CurrentProjectHolder cp;
+   private final ProjectContext cp;
    private final Event<InitProject> init;
 
    private final ProjectFactory projectFactory;
 
    @Inject
-   public InitProjectPlugin(final Shell shell, final CurrentProjectHolder currentProjectHolder,
+   public ProjectInitializer(final Shell shell, final ProjectContext currentProjectHolder,
                             final Event<InitProject> init, final ProjectFactory projectFactory)
    {
       this.shell = shell;
@@ -71,27 +62,24 @@ public class InitProjectPlugin implements Plugin
 
    public void doInit(@Observes final InitProject event)
    {
-      // bind the resource factory into the CurrentProjectHolder
-      cp.setResourceFactory(projectFactory.getResourceFactory());
+      File currentDirectory = shell.getCurrentDirectory();
+      Project currentProject;
 
-      Project currentProject = shell.getCurrentProject();
+      try
+      {
+         currentProject = projectFactory.findProjectRecursively(currentDirectory);
+      }
+      catch (FileNotFoundException e)
+      {
+         currentProject = null;
+      }
+
       if (currentProject != null)
       {
          shell.printlnVerbose("Current project: " + currentProject.getProjectRoot().getAbsolutePath());
       }
-      else
-      {
-         try
-         {
-            currentProject = projectFactory.findProjectRecursively(Files.getWorkingDirectory());
-         }
-         catch (FileNotFoundException e)
-         {
-         }
-         cp.setCurrentProject(currentProject);
-      }
 
-
+      cp.setCurrentProject(currentProject);
       shell.setDefaultPrompt();
    }
 }
