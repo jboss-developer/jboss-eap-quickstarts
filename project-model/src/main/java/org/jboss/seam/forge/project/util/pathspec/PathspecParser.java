@@ -61,12 +61,12 @@ public class PathspecParser
 
          default:
             if (read() == '.') continue;
-            cursor--;
+            boolean first = --cursor == 0;
             tk = capture();
 
             if (tk.startsWith("/"))
             {
-               if (res == r)
+               if (first)
                {
                   r = factory.getResourceFrom(new File(tk));
                   cursor++;

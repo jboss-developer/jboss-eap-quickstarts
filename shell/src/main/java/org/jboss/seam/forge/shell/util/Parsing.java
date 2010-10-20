@@ -1,7 +1,5 @@
 package org.jboss.seam.forge.shell.util;
 
-import org.mvel2.util.ParseTools;
-
 public abstract class Parsing
 {
    public static int firstWhitespace(String str)
@@ -14,7 +12,6 @@ public abstract class Parsing
          case '\t':
          case ' ':
             return i;
-
          }
 
       }
