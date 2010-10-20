@@ -26,7 +26,7 @@ public class ResourceFactory implements Extension
    private BeanManager manager;
 
    private List<ResourceGenerator> resourceGenerators = new ArrayList<ResourceGenerator>();
-                     ;/**
+   /**
     * Most directories will tend to contain the same type of file (such as .java, .jar, .xml, etc).  So
     * we will remember the last resource type we tested against and always re-try on subsequent queries
     * before doing a comprehensive match.
@@ -65,7 +65,8 @@ public class ResourceFactory implements Extension
       /**
        * Special case for directories required.
        */
-      if (file.isDirectory()) {
+      if (file.isDirectory())
+      {
          return new DirectoryResource(this, file);
       }
 

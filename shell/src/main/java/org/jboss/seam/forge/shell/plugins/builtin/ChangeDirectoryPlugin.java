@@ -68,18 +68,22 @@ public class ChangeDirectoryPlugin implements Plugin
       Resource<?> curr = shell.getCurrentResource();
       Resource<?> r;
 
-      if (path == null) {
+      if (path == null)
+      {
          r = new DirectoryResource(resFactory, new File(System.getProperty("user.home")));
 
       }
-      else {
+      else
+      {
          r = ResourceUtil.parsePathspec(resFactory, curr, path);
       }
 
-      if (r != null) {
+      if (r != null)
+      {
          shell.setCurrentResource(r);
 
-         if (!ResourceUtil.isChildOf(curr, r)) {
+         if (!ResourceUtil.isChildOf(curr, r))
+         {
             init.fire(new InitProject());
          }
       }

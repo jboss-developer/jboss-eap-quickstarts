@@ -67,11 +67,15 @@ import org.jboss.seam.forge.shell.plugins.events.PostStartup;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.seam.forge.shell.util.Files;
+import org.jboss.seam.forge.shell.util.Parsing;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
 import org.slf4j.Logger;
+
+import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
+import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -289,7 +293,7 @@ public class ShellImpl implements Shell
 
    private String execScript(final String script)
    {
-      String[] tokens = script.split("\\s");
+
 
       try
       {
@@ -301,7 +305,7 @@ public class ShellImpl implements Shell
       }
       catch (PropertyAccessException e)
       {
-         println(tokens[0] + ": command or property not found.");
+         println(firstToken(script) + ": command or property not found.");
 
          if (verbose)
          {
@@ -310,17 +314,17 @@ public class ShellImpl implements Shell
       }
       catch (Exception e)
       {
-         if (!validCommand.matcher(tokens[0]).matches())
+         if (!validCommand.matcher(firstToken(script)).matches())
          {
             println("error executing command:\n" + e.getMessage());
          }
-         else if (tokens.length == 1)
+         else if (firstWhitespace(script) != -1)
          {
-            println(tokens[0] + ": command or property not found.");
+            println(firstToken(script) + ": command or property not found.");
          }
          else
          {
-            println(tokens[0] + ": error executing statement: " + e.getMessage());
+            println(firstToken(script) + ": error executing statement: " + e.getMessage());
          }
 
          if (verbose)
