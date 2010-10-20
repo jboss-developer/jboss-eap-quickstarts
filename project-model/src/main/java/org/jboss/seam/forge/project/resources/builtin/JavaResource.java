@@ -1,22 +1,22 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceHandles;
-import org.jboss.seam.forge.project.ResourceIOException;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -28,12 +28,12 @@ public class JavaResource extends FileResource
    private volatile JavaClass javaClass;
 
    @Inject
-   public JavaResource(ResourceFactory factory)
+   public JavaResource(final ResourceFactory factory)
    {
       super(factory);
    }
 
-   public JavaResource(ResourceFactory factory, File file)
+   public JavaResource(final ResourceFactory factory, final File file)
    {
       super(factory, file);
    }
@@ -55,11 +55,13 @@ public class JavaResource extends FileResource
 
       List<Resource<?>> list = new LinkedList<Resource<?>>();
 
-      for (Field field : javaClass.getFields()) {
-         list.add(new JavaFieldResource(this, field)); 
+      for (Field field : javaClass.getFields())
+      {
+         list.add(new JavaFieldResource(this, field));
       }
 
-      for (Method method : javaClass.getMethods()) {
+      for (Method method : javaClass.getMethods())
+      {
          list.add(new JavaMethodResource(this, method));
       }
 
@@ -67,10 +69,14 @@ public class JavaResource extends FileResource
    }
 
    @Override
-   public JavaResource createFrom(File file)
+   public JavaResource createFrom(final File file)
    {
       return new JavaResource(resourceFactory, file);
    }
+
+   @Override
+   public String toString()
+   {
+      return javaClass.getName();
+   }
 }
-
-

@@ -55,7 +55,7 @@ public abstract class AbstractProject implements Project
             }
          }
       }
-      System.gc(); // try to get rid of any lingering file-handle references.
+      // System.gc(); // try to get rid of any lingering file-handle references.
       return file.delete();
    }
 
