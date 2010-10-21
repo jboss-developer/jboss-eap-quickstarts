@@ -13,16 +13,14 @@ public class PathspecParser
 
    private final ResourceFactory factory;
    private final Resource<?> res;
-   private String path;
+   private final String path;
 
    public PathspecParser(final ResourceFactory factory, final Resource<?> res, final String path)
    {
       this.factory = factory;
       this.res = res;
-
-      this.length = (
-               this.path = path
-               ).length();
+      this.path = path;
+      this.length = path.length();
    }
 
    public Resource<?> parse()
@@ -40,7 +38,7 @@ public class PathspecParser
          }
          else
          {
-            path = path.substring(1);
+            cursor++;
             r = new DirectoryResource(factory, homeDir);
          }
       }
@@ -115,7 +113,7 @@ public class PathspecParser
          cursor++;
       }
 
-      while ((cursor != length) && (path.charAt(cursor) != '/'))
+      while ((cursor < length) && (path.charAt(cursor) != '/'))
       {
          cursor++;
       }
