@@ -21,11 +21,6 @@
  */
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -49,19 +43,15 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 public class LsPlugin implements Plugin
 {
    private final Shell shell;
-   private final ResourceFactory resourceFactory;
-
-   private final DateFormat format = new SimpleDateFormat("MMM WW HH:mm");
 
    @Inject
-   public LsPlugin(ResourceFactory resourceFactory, Shell shell)
+   public LsPlugin(final Shell shell)
    {
-      this.resourceFactory = resourceFactory;
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) boolean showAll)
+   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll)
    {
       Resource<?> resource = shell.getCurrentResource();
 
@@ -73,14 +63,17 @@ public class LsPlugin implements Plugin
       int maxLength = 0;
 
       String el;
-      for (Resource r : childResources)
+      for (Resource<?> r : childResources)
       {
          el = r.toString();
 
          if (showAll || !el.startsWith("."))
          {
             listData.add(el);
-            if (el.length() > maxLength) maxLength = el.length();
+            if (el.length() > maxLength)
+            {
+               maxLength = el.length();
+            }
          }
       }
 
@@ -107,7 +100,7 @@ public class LsPlugin implements Plugin
       shell.println();
    }
 
-   private String pad(int amount)
+   private String pad(final int amount)
    {
       char[] padding = new char[amount];
       for (int i = 0; i < amount; i++)

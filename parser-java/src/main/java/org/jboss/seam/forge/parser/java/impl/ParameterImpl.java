@@ -54,4 +54,10 @@ public class ParameterImpl implements Parameter
       return method.getOrigin();
    }
 
+   @Override
+   public String toString()
+   {
+      return param.toString();
+   }
+
 }

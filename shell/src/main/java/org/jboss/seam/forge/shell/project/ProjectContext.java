@@ -59,26 +59,31 @@ public class ProjectContext
       return currentProject;
    }
 
-   public void setCurrentProject(final Project newProject)
+   public void setCurrentProject(final Project project)
    {
       if (((this.currentProject != null)
-               && (newProject != null)
-               && !this.currentProject.getProjectRoot().equals(newProject.getProjectRoot()))
-               || ((this.currentProject == null) && (newProject != null)))
+               && (project != null)
+               && !this.currentProject.getProjectRoot().equals(project.getProjectRoot()))
+               || ((this.currentProject == null) && (project != null)))
       {
-         this.resourceContext.setCurrent(factory.getResourceFrom(newProject.getProjectRoot()));
+         this.resourceContext.setCurrent(factory.getResourceFrom(project.getProjectRoot()));
       }
 
-      this.currentProject = newProject;
+      this.currentProject = project;
    }
 
-   public void setCurrentResource(final Resource<?> currentResource)
+   public void setCurrentResource(final Resource<?> resource)
    {
-      this.resourceContext.setCurrent(currentResource);
-      if (((currentProject != null)
-               && !ResourceUtil.isChildOf(
-                        factory.getResourceFrom(currentProject.getProjectRoot()),
-                        currentResource)) || (currentProject == null))
+      this.resourceContext.setCurrent(resource);
+      if (currentProject != null)
+      {
+         Resource<?> projectRoot = factory.getResourceFrom(currentProject.getProjectRoot());
+         if (!projectRoot.equals(resource) && !ResourceUtil.isChildOf(projectRoot, resource))
+         {
+            init.fire(new InitProject());
+         }
+      }
+      else
       {
          init.fire(new InitProject());
       }

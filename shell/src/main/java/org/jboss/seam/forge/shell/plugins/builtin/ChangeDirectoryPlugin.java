@@ -78,6 +78,10 @@ public class ChangeDirectoryPlugin implements Plugin
       else
       {
          r = ResourceUtil.parsePathspec(resFactory, curr, path);
+         if (r instanceof DirectoryResource)
+         {
+            r = resFactory.getResourceFrom(((DirectoryResource) r).getUnderlyingResourceObject());
+         }
       }
 
       if (r != null)

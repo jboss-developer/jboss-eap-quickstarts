@@ -1,12 +1,12 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
-import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.ClassMemberResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
 import java.util.Collections;
 import java.util.List;
+
+import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.Parameter;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.ClassMemberResource;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -20,14 +20,14 @@ public class JavaMethodResource extends ClassMemberResource<Method>
       super(null);
    }
 
-   public JavaMethodResource(Resource parent, Method method)
+   public JavaMethodResource(final Resource<?> parent, final Method method)
    {
       super(parent);
       this.method = method;
    }
 
    @Override
-   public Resource<Method> createFrom(Method file)
+   public Resource<Method> createFrom(final Method file)
    {
       throw new RuntimeException("not implemented");
    }
@@ -41,5 +41,21 @@ public class JavaMethodResource extends ClassMemberResource<Method>
    public Method getUnderlyingResourceObject()
    {
       return method;
+   }
+
+   @Override
+   public String toString()
+   {
+      String params = "";
+      for (Parameter param : method.getParameters())
+      {
+         params += param;
+         if (method.getParameters().lastIndexOf(param) < method.getParameters().size() - 1)
+         {
+            params += ", ";
+         }
+      }
+      return method.getName() + "(" + params + ")" + " : "
+               + (method.getReturnType() == null ? "void" : method.getReturnType());
    }
 }

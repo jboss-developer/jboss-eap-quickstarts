@@ -41,16 +41,13 @@ public class JavaResource extends FileResource
    @Override
    public synchronized List<Resource<?>> listResources()
    {
-      if (javaClass == null)
+      try
       {
-         try
-         {
-            javaClass = JavaParser.parse(file);
-         }
-         catch (FileNotFoundException e)
-         {
-            return Collections.emptyList();
-         }
+         lazyInitialize();
+      }
+      catch (FileNotFoundException e)
+      {
+         return Collections.emptyList();
       }
 
       List<Resource<?>> list = new LinkedList<Resource<?>>();
@@ -68,6 +65,14 @@ public class JavaResource extends FileResource
       return list;
    }
 
+   private void lazyInitialize() throws FileNotFoundException
+   {
+      if (javaClass == null)
+      {
+         javaClass = JavaParser.parse(file);
+      }
+   }
+
    @Override
    public JavaResource createFrom(final File file)
    {
@@ -77,6 +82,14 @@ public class JavaResource extends FileResource
    @Override
    public String toString()
    {
-      return javaClass.getName();
+      try
+      {
+         lazyInitialize();
+      }
+      catch (FileNotFoundException e)
+      {
+         return "[File not found: " + file + "]";
+      }
+      return javaClass.getName() + ".java";
    }
 }
