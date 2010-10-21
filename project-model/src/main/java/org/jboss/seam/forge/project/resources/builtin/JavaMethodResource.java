@@ -50,7 +50,7 @@ public class JavaMethodResource extends ClassMemberResource<Method>
       for (Parameter param : method.getParameters())
       {
          params += param;
-         if (method.getParameters().lastIndexOf(param) < method.getParameters().size() - 1)
+         if (method.getParameters().indexOf(param) < method.getParameters().size() - 1)
          {
             params += ", ";
          }

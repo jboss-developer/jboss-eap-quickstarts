@@ -64,9 +64,6 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(javaClass.hasField("gamesWon"));
       assertTrue(javaClass.getField("gamesWon").isPrimitive());
       assertFalse(javaClass.hasSyntaxErrors());
-
-      getShell().execute("cd src/main/java/com/test/domain/Goofy0.java ");
-      getShell().execute("ls");
    }
 
    @Test
