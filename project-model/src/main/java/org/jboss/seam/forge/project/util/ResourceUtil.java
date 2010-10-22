@@ -1,25 +1,24 @@
 package org.jboss.seam.forge.project.util;
 
+import java.io.File;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.pathspec.PathspecParser;
-
-import java.io.File;
 
 /**
  * A set of utilities to work with the resources API.
- *
+ * 
  * @author Mike Brock
  */
 public class ResourceUtil
 {
    /**
     * A simple utility method to locate the outermost contextual File reference for the specified resource.
-    *
+    * 
     * @param r resource instance.
     * @return outermost relevant file context.
     */
-   public static File getContextFile(Resource r)
+   public static File getContextFile(Resource<?> r)
    {
       do
       {
@@ -35,24 +34,31 @@ public class ResourceUtil
       return null;
    }
 
-   public static File getContextDirectory(final Resource r)
+   public static File getContextDirectory(final Resource<?> r)
    {
       final File ctx = getContextFile(r);
-      if (ctx != null && !ctx.isDirectory())
+      if ((ctx != null) && !ctx.isDirectory())
       {
          return ctx.getParentFile();
       }
       return ctx;
    }
 
-   public static Resource<?> parsePathspec(final ResourceFactory factory, final Resource<?> resource, final String pathspec) {
-     return new PathspecParser(factory, resource, pathspec).parse();
+   public static Resource<?> parsePathspec(final ResourceFactory factory, final Resource<?> resource,
+            final String pathspec)
+   {
+      return new PathspecParser(factory, resource, pathspec).parse();
    }
 
-   public static boolean isChildOf(final Resource<?> parent, final Resource<?> isChild) {
+   public static boolean isChildOf(final Resource<?> parent, final Resource<?> isChild)
+   {
       Resource<?> r = isChild;
-      while ((r = r.getParent()) != null) {
-         if (r.equals(parent)) return true;
+      while ((r = r.getParent()) != null)
+      {
+         if (r.equals(parent))
+         {
+            return true;
+         }
       }
       return false;
    }

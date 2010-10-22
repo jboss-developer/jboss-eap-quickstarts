@@ -19,30 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.services;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
 
-import org.jboss.seam.forge.project.Project;
+import javax.enterprise.inject.Typed;
+
+import org.jboss.seam.forge.project.facets.ResourceFacet;
 
 /**
- * Locates project root directories.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface ProjectLocator
+@Typed()
+public abstract class AbstractResourceFacet implements ResourceFacet
 {
-   /**
-    * Attempt to locate a project root directory in the given folder or its
-    * hierarchy by using a strategy implemented by this method. If found, return
-    * the project; otherwise, return null;
-    */
-   public Project findProjectRecursively(File startingDirectory);
+   @Override
+   public File createResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
+   }
 
-   /**
-    * Attempt to locate a project root directory in the given folder. If found,
-    * return the project; otherwise, return null;
-    */
-   public Project findProject(File directory);
+   @Override
+   public File createTestResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
+   }
+
 }

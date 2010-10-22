@@ -1,12 +1,11 @@
 package org.jboss.seam.forge.project.resources;
 
+import java.io.File;
+
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-
-import java.io.File;
-import java.util.List;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -20,12 +19,12 @@ public abstract class FileResource extends AbstractResource<File>
 
    protected long lastModification;
 
-   protected FileResource(ResourceFactory factory)
+   protected FileResource(final ResourceFactory factory)
    {
       super(factory);
    }
 
-   protected FileResource(ResourceFactory factory, File file)
+   protected FileResource(final ResourceFactory factory, final File file)
    {
       super(factory);
       this.file = file;
@@ -34,7 +33,7 @@ public abstract class FileResource extends AbstractResource<File>
 
    /**
     * Get the actual underlying file resource that this resource instance represents, whether existing or non-existing.
-    *
+    * 
     * @return An instance of {@link File}
     */
    public File getUnderlyingResourceObject()
@@ -51,23 +50,22 @@ public abstract class FileResource extends AbstractResource<File>
 
    /**
     * Get the parent of the current resource. Returns null if the current resource is the project root.
-    *
+    * 
     * @return An instance of the resource parent.
     */
-   public Resource getParent()
+   public Resource<?> getParent()
    {
       return new DirectoryResource(resourceFactory, file.getParentFile());
    }
 
-   public Resource getChild(String name)
+   public Resource<?> getChild(final String name)
    {
       throw new RuntimeException("this resource type can have no children");
    }
 
-
    /**
     * Create a new resource instance for the target file of the type that this current resource is.
-    *
+    * 
     * @param file The file to create the resource instance from.
     * @return A new resource.
     */
@@ -75,7 +73,7 @@ public abstract class FileResource extends AbstractResource<File>
 
    /**
     * Returns true if the underlying resource has been modified on the file system since it was initially loaded.
-    *
+    * 
     * @return boolean true if resource is changed.
     */
    public boolean isStale()

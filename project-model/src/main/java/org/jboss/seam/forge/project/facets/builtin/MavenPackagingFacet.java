@@ -19,14 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -37,22 +35,31 @@ import org.jboss.seam.forge.project.facets.PackagingFacet;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class MavenWebFacet extends AbstractWebResourceFacet
+public class MavenPackagingFacet implements PackagingFacet
 {
    private Project project;
 
    @Override
-   public File getWebRootDirectory()
+   public void setPackagingType(final PackagingType type)
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp");
+      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      Model pom = mavenFacet.getPOM();
+      pom.setPackaging(type.getType());
+      mavenFacet.setPOM(pom);
    }
 
    @Override
-   public List<File> getWebRootDirectories()
+   public PackagingType getPackagingType()
    {
-      List<File> result = new ArrayList<File>();
-      result.add(getWebRootDirectory());
-      return result;
+      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      Model pom = mavenFacet.getPOM();
+      return new PackagingType(pom.getPackaging());
+   }
+
+   @Override
+   public Project getProject()
+   {
+      return project;
    }
 
    @Override
@@ -63,31 +70,18 @@ public class MavenWebFacet extends AbstractWebResourceFacet
    }
 
    @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
    public boolean isInstalled()
    {
       MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-      PackagingType packagingType = project.getFacet(PackagingFacet.class).getPackagingType();
-
-      return getWebRootDirectory().exists() && mavenFacet.isInstalled()
-               && packagingType.equals(new PackagingType("war"));
+      return mavenFacet != null;
    }
 
    @Override
    public Facet install()
    {
-      if (!this.isInstalled())
+      if (PackagingType.NONE.equals(getPackagingType()))
       {
-         project.getFacet(PackagingFacet.class).setPackagingType(new PackagingType("war"));
-         for (File folder : this.getWebRootDirectories())
-         {
-            folder.mkdirs();
-         }
+         setPackagingType(PackagingType.BASIC);
       }
       project.registerFacet(this);
       return this;
@@ -98,13 +92,6 @@ public class MavenWebFacet extends AbstractWebResourceFacet
    {
       Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
       result.add(MavenFacet.class);
-      result.add(PackagingFacet.class);
       return result;
-   }
-
-   @Override
-   public File getWebResource(final String relativePath)
-   {
-      return new File(getWebRootDirectory() + File.separator + relativePath);
    }
 }

@@ -19,12 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.services;
+package org.jboss.seam.forge.project.locators;
 
 import java.io.File;
 
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.impl.MavenFacetImpl;
+import org.jboss.seam.forge.project.facets.builtin.MavenFacetImpl;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 
 /**

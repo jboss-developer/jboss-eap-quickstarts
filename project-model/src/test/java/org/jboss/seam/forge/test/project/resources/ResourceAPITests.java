@@ -39,7 +39,7 @@ public class ResourceAPITests extends ProjectModelTest
       DirectoryResource expect = new DirectoryResource(factory, new File("/"));
       DirectoryResource root = new DirectoryResource(factory, new File("").getAbsoluteFile());
 
-      Resource r = ResourceUtil.parsePathspec(factory, root, "/");
+      Resource<?> r = ResourceUtil.parsePathspec(factory, root, "/");
 
       Assert.assertEquals(expect, r);
    }

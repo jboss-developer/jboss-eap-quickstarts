@@ -19,32 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.util;
 
-import java.io.File;
-
-import org.jboss.seam.forge.project.facets.ResourceFacet;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public abstract class AbstractResourceFacet implements ResourceFacet
+public final class Iterators
 {
-   @Override
-   public File createResource(final char[] bytes, final String relativeFilename)
+   /**
+    * Converts an {@link Iterator} into a {@link List} of its elements.
+    */
+   public static <T> List<T> toList(final Iterator<T> iterator)
    {
-      File file = new File(getResourceFolder() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
-      return file;
+      List<T> result = new ArrayList<T>();
+      while (iterator.hasNext())
+      {
+         T element = iterator.next();
+         result.add(element);
+      }
+      return result;
    }
-
-   @Override
-   public File createTestResource(final char[] bytes, final String relativeFilename)
-   {
-      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
-      return file;
-   }
-
 }

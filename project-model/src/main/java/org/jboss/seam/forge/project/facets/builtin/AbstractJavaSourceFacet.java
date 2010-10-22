@@ -19,9 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
+
+import javax.enterprise.inject.Typed;
 
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Formatter;
@@ -31,6 +33,7 @@ import org.jboss.seam.forge.project.util.Packages;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@Typed()
 public abstract class AbstractJavaSourceFacet implements JavaSourceFacet
 {
    // TODO the impl part of the project model API needs to be split into a

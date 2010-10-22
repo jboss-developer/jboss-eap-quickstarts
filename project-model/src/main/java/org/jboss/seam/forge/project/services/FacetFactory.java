@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -35,6 +34,7 @@ import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.util.BeanManagerUtils;
 
 /**
  * Responsible for instantiating {@link Facet}s through CDI.
@@ -68,7 +68,7 @@ public class FacetFactory implements Extension
 
       for (Bean<?> bean : facetTypes)
       {
-         facets.add((Facet) getContextualInstance(manager, bean));
+         facets.add((Facet) BeanManagerUtils.getContextualInstance(manager, bean));
       }
 
       return facets;
@@ -83,25 +83,10 @@ public class FacetFactory implements Extension
       {
          if (type.isAssignableFrom(bean.getBeanClass()))
          {
-            result = (T) getContextualInstance(manager, bean);
+            result = (T) BeanManagerUtils.getContextualInstance(manager, bean);
          }
       }
 
-      return result;
-   }
-
-   @SuppressWarnings("unchecked")
-   private <T> T getContextualInstance(final BeanManager manager, final Bean<T> bean)
-   {
-      T result = null;
-      if (bean != null)
-      {
-         CreationalContext<T> context = manager.createCreationalContext(bean);
-         if (context != null)
-         {
-            result = (T) manager.getReference(bean, bean.getBeanClass(), context);
-         }
-      }
       return result;
    }
 }

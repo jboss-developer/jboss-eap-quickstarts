@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,43 +28,31 @@ import java.util.List;
 import java.util.Set;
 
 import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.MavenFacet;
-import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class MavenResourceFacet extends AbstractResourceFacet implements ResourceFacet
+public class MavenWebResourceFacet extends AbstractWebResourceFacet
 {
    private Project project;
 
    @Override
-   public List<File> getResourceFolders()
+   public File getWebRootDirectory()
+   {
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp");
+   }
+
+   @Override
+   public List<File> getWebRootDirectories()
    {
       List<File> result = new ArrayList<File>();
-      result.add(getResourceFolder());
-      result.add(getTestResourceFolder());
+      result.add(getWebRootDirectory());
       return result;
-   }
-
-   @Override
-   public File getResourceFolder()
-   {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "resources");
-   }
-
-   @Override
-   public File getTestResourceFolder()
-   {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test" + File.separator + "resources");
-   }
-
-   @Override
-   public Project getProject()
-   {
-      return project;
    }
 
    @Override
@@ -75,10 +63,19 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    }
 
    @Override
+   public Project getProject()
+   {
+      return project;
+   }
+
+   @Override
    public boolean isInstalled()
    {
       MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-      return getResourceFolder().exists() && (mavenFacet != null) && mavenFacet.isInstalled();
+      PackagingType packagingType = project.getFacet(PackagingFacet.class).getPackagingType();
+
+      return getWebRootDirectory().exists() && mavenFacet.isInstalled()
+               && packagingType.equals(new PackagingType("war"));
    }
 
    @Override
@@ -86,7 +83,8 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    {
       if (!this.isInstalled())
       {
-         for (File folder : this.getResourceFolders())
+         project.getFacet(PackagingFacet.class).setPackagingType(new PackagingType("war"));
+         for (File folder : this.getWebRootDirectories())
          {
             folder.mkdirs();
          }
@@ -100,18 +98,13 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    {
       Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
       result.add(MavenFacet.class);
+      result.add(PackagingFacet.class);
       return result;
    }
 
    @Override
-   public File getResource(final String relativePath)
+   public File getWebResource(final String relativePath)
    {
-      return new File(getResourceFolder() + File.separator + relativePath).getAbsoluteFile();
-   }
-
-   @Override
-   public File getTestResource(final String relativePath)
-   {
-      return new File(getTestResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+      return new File(getWebRootDirectory() + File.separator + relativePath);
    }
 }

@@ -23,22 +23,23 @@ package org.jboss.seam.forge.project;
 
 import java.util.Set;
 
+import javax.enterprise.context.Dependent;
+
 /**
- * Represents a standardized piece of a project, on which certain plugins may
- * rely for a set of domain-specific operations. Facets are an access point to
- * common functionality, file manipulations, descriptors that extend a basic
+ * Represents a standardized piece of a project, on which certain plugins may rely for a set of domain-specific
+ * operations. Facets are an access point to common functionality, file manipulations, descriptors that extend a basic
  * {@link Project}.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Dependent
 public interface Facet
 {
    /**
-    * Return a Set of facet {@link Class} types on which this {@link Facet}
-    * depends. An instance of each of these facets must exist in the project
-    * before this facet can be initialized or installed. If no dependencies are
-    * required, this method should return null, or an empty set.
+    * Return a Set of facet {@link Class} types on which this {@link Facet} depends. An instance of each of these facets
+    * must exist in the project before this facet can be initialized or installed. If no dependencies are required, this
+    * method should return null, or an empty set.
     */
    Set<Class<? extends Facet>> getDependencies();
 
@@ -48,18 +49,16 @@ public interface Facet
    Project getProject();
 
    /**
-    * Initialize this {@link Facet} for operation on the given {@link Project}.
-    * This method is responsible for ensuring that the {@link Facet} instance is
-    * ready for use, and must be called before any other methods.
+    * Initialize this {@link Facet} for operation on the given {@link Project}. This method is responsible for ensuring
+    * that the {@link Facet} instance is ready for use, and must be called before any other methods.
     * 
     * @return a builder pattern reference to this {@link Facet}
     */
    Facet init(Project project);
 
    /**
-    * Perform necessary setup for this {@link Facet} to be considered installed
-    * in the given {@link Project}. If installation is successful, the
-    * {@link Facet} should be registered in the {@link Project} by calling
+    * Perform necessary setup for this {@link Facet} to be considered installed in the given {@link Project}. If
+    * installation is successful, the {@link Facet} should be registered in the {@link Project} by calling
     * {@link Project#registerFacet(Facet)}
     * 
     * @return a builder pattern reference to this {@link Facet}
@@ -67,8 +66,7 @@ public interface Facet
    Facet install();
 
    /**
-    * Return true if the {@link Facet} is available for the given
-    * {@link Project}, false if otherwise.
+    * Return true if the {@link Facet} is available for the given {@link Project}, false if otherwise.
     */
    boolean isInstalled();
 

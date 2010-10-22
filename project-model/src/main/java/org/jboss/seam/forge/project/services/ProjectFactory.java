@@ -23,18 +23,18 @@ package org.jboss.seam.forge.project.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.locators.ProjectLocator;
 import org.jboss.seam.forge.project.model.ProjectImpl;
-import org.jboss.weld.extensions.util.service.ServiceLoader;
+import org.jboss.seam.forge.project.util.Iterators;
 
 /**
  * Responsible for instantiating project instances through CDI.
@@ -45,14 +45,15 @@ import org.jboss.weld.extensions.util.service.ServiceLoader;
 public class ProjectFactory
 {
    private final FacetFactory facetFactory;
-   private final ResourceFactory resourceFactory;
-   private List<ProjectLocator> locators = null;
+   private final List<ProjectLocator> locators;
 
    @Inject
-   public ProjectFactory(final FacetFactory facetFactory, final ResourceFactory resourceFactory)
+   public ProjectFactory(final FacetFactory facetFactory,
+            final Instance<ProjectLocator> locatorInstance)
    {
       this.facetFactory = facetFactory;
-      this.resourceFactory = resourceFactory;
+      this.locators = Iterators.toList(locatorInstance.iterator());
+
    }
 
    public Project findProjectRecursively(final File startingPath) throws FileNotFoundException
@@ -146,30 +147,10 @@ public class ProjectFactory
       project.registerFacet(facet);
    }
 
-   private void loadServices()
-   {
-      Iterator<ProjectLocator> providers = ServiceLoader.load(ProjectLocator.class).iterator();
-      while (providers.hasNext())
-      {
-         locators.add(providers.next());
-      }
-   }
-
-   public List<ProjectLocator> getLocators()
-   {
-      if (locators == null)
-      {
-         locators = new ArrayList<ProjectLocator>();
-         loadServices();
-      }
-      return locators;
-   }
-
    /**
-    * An exception-safe method of determining whether a directory contains a
-    * project.
+    * An exception-safe method of determining whether a directory contains a project.
     */
-   public boolean containsProject(File dir)
+   public boolean containsProject(final File dir)
    {
       try
       {
@@ -182,7 +163,7 @@ public class ProjectFactory
       }
    }
 
-   public Project findProject(File path) throws FileNotFoundException
+   public Project findProject(final File path) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
@@ -204,8 +185,8 @@ public class ProjectFactory
       return project;
    }
 
-   public ResourceFactory getResourceFactory()
+   private List<ProjectLocator> getLocators()
    {
-      return resourceFactory;
+      return locators;
    }
 }

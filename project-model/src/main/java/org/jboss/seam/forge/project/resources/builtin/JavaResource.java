@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
@@ -21,7 +20,6 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
-@Singleton
 @ResourceHandles("*.java")
 public class JavaResource extends FileResource
 {

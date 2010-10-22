@@ -19,41 +19,46 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.MavenFacet;
-import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.facets.ResourceFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class MavenPackagingFacet implements PackagingFacet
+public class MavenResourceFacet extends AbstractResourceFacet implements ResourceFacet
 {
    private Project project;
 
    @Override
-   public void setPackagingType(final PackagingType type)
+   public List<File> getResourceFolders()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-      Model pom = mavenFacet.getPOM();
-      pom.setPackaging(type.getType());
-      mavenFacet.setPOM(pom);
+      List<File> result = new ArrayList<File>();
+      result.add(getResourceFolder());
+      result.add(getTestResourceFolder());
+      return result;
    }
 
    @Override
-   public PackagingType getPackagingType()
+   public File getResourceFolder()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-      Model pom = mavenFacet.getPOM();
-      return new PackagingType(pom.getPackaging());
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "resources");
+   }
+
+   @Override
+   public File getTestResourceFolder()
+   {
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test" + File.separator + "resources");
    }
 
    @Override
@@ -73,15 +78,18 @@ public class MavenPackagingFacet implements PackagingFacet
    public boolean isInstalled()
    {
       MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
-      return mavenFacet != null;
+      return getResourceFolder().exists() && (mavenFacet != null) && mavenFacet.isInstalled();
    }
 
    @Override
    public Facet install()
    {
-      if (PackagingType.NONE.equals(getPackagingType()))
+      if (!this.isInstalled())
       {
-         setPackagingType(PackagingType.BASIC);
+         for (File folder : this.getResourceFolders())
+         {
+            folder.mkdirs();
+         }
       }
       project.registerFacet(this);
       return this;
@@ -93,5 +101,17 @@ public class MavenPackagingFacet implements PackagingFacet
       Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
       result.add(MavenFacet.class);
       return result;
+   }
+
+   @Override
+   public File getResource(final String relativePath)
+   {
+      return new File(getResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
+
+   @Override
+   public File getTestResource(final String relativePath)
+   {
+      return new File(getTestResourceFolder() + File.separator + relativePath).getAbsoluteFile();
    }
 }

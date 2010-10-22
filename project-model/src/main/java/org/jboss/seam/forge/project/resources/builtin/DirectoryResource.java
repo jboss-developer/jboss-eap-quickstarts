@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
@@ -14,8 +13,6 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
-
-@Singleton
 public class DirectoryResource extends FileResource
 {
    private Resource<?> parent;

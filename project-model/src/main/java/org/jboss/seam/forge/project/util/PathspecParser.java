@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.project.util.pathspec;
+package org.jboss.seam.forge.project.util;
 
 import java.io.File;
 

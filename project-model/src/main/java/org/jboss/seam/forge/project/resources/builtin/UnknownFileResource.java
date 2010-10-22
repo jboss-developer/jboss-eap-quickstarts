@@ -1,32 +1,30 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
-import javax.inject.Inject;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
 public class UnknownFileResource extends FileResource
 {
-   public UnknownFileResource(ResourceFactory factory)
+   public UnknownFileResource(final ResourceFactory factory)
    {
       super(factory);
    }
 
-   public UnknownFileResource(ResourceFactory factory, File file)
+   public UnknownFileResource(final ResourceFactory factory, final File file)
    {
       super(factory, file);
    }
 
-
    @Override
-   public UnknownFileResource createFrom(File file)
+   public UnknownFileResource createFrom(final File file)
    {
       return new UnknownFileResource(resourceFactory, file);
    }
@@ -36,7 +34,6 @@ public class UnknownFileResource extends FileResource
    {
       return Collections.emptyList();
    }
-
 
    @Override
    public String toString()

@@ -19,9 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
+
+import javax.enterprise.inject.Typed;
 
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 
@@ -29,6 +31,7 @@ import org.jboss.seam.forge.project.facets.WebResourceFacet;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Typed()
 abstract public class AbstractWebResourceFacet implements WebResourceFacet
 {
    @Override
