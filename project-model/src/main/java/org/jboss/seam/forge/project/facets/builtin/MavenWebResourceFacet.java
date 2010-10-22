@@ -23,20 +23,21 @@ package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@RequiresFacets({ JavaSourceFacet.class, PackagingFacet.class })
 public class MavenWebResourceFacet extends AbstractWebResourceFacet
 {
    private Project project;
@@ -44,7 +45,8 @@ public class MavenWebResourceFacet extends AbstractWebResourceFacet
    @Override
    public File getWebRootDirectory()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp");
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
+               + File.separator + "webapp");
    }
 
    @Override
@@ -56,10 +58,9 @@ public class MavenWebResourceFacet extends AbstractWebResourceFacet
    }
 
    @Override
-   public Facet init(final Project project)
+   public void setProject(final Project project)
    {
       this.project = project;
-      return this;
    }
 
    @Override
@@ -71,11 +72,11 @@ public class MavenWebResourceFacet extends AbstractWebResourceFacet
    @Override
    public boolean isInstalled()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       PackagingType packagingType = project.getFacet(PackagingFacet.class).getPackagingType();
 
       return getWebRootDirectory().exists() && mavenFacet.isInstalled()
-               && packagingType.equals(new PackagingType("war"));
+               && packagingType.equals(PackagingType.WAR);
    }
 
    @Override
@@ -83,7 +84,7 @@ public class MavenWebResourceFacet extends AbstractWebResourceFacet
    {
       if (!this.isInstalled())
       {
-         project.getFacet(PackagingFacet.class).setPackagingType(new PackagingType("war"));
+         project.getFacet(PackagingFacet.class).setPackagingType(PackagingType.WAR);
          for (File folder : this.getWebRootDirectories())
          {
             folder.mkdirs();
@@ -91,15 +92,6 @@ public class MavenWebResourceFacet extends AbstractWebResourceFacet
       }
       project.registerFacet(this);
       return this;
-   }
-
-   @Override
-   public Set<Class<? extends Facet>> getDependencies()
-   {
-      Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
-      result.add(MavenFacet.class);
-      result.add(PackagingFacet.class);
-      return result;
    }
 
    @Override

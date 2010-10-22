@@ -24,15 +24,12 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
+import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.command.PluginMetadata;
-import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.MavenPlugin;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
@@ -40,11 +37,11 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("status")
-@Help("Check the current project configuration and display the specified plugin's installed status.")
+@Help("Check the current project configuration")
 public class StatusPlugin implements Plugin
 {
    @Inject
-   private PluginRegistry registry;
+   private FacetFactory factory;
 
    @Inject
    private Shell shell;
@@ -53,55 +50,44 @@ public class StatusPlugin implements Plugin
    private Project project;
 
    @DefaultCommand
-   public void status(@Option(help = "The name of the plugin.") final String pluginName)
+   public void status(
+            @Option(help = "The name of the facet.",
+                     name = "facet",
+                     required = false) final String facetName)
    {
-      if ((pluginName == null) || pluginName.isEmpty())
+      if ((facetName == null) || facetName.isEmpty())
       {
          shell.println("Currently operating on the project located in: " + project.getProjectRoot());
       }
       else
       {
-         PluginMetadata meta = registry.getPlugins().get(pluginName);
-         if (meta != null)
+         Facet facet = factory.getFacetByName(facetName);
+         if (facet != null)
          {
-            Plugin plugin = registry.instanceOf(meta);
-            if (plugin instanceof MavenPlugin)
+
+            try
             {
-               MavenPlugin installable = (MavenPlugin) plugin;
-               if (isInstalledInProject(installable))
+               facet = project.getFacet(facet.getClass());
+               if (facet.isInstalled())
                {
                   shell.println("Status: INSTALLED");
                }
                else
                {
-                  shell.println("Status: NOT-INSTALLED (you may run \"install " + pluginName
-                           + "\" to install this plugin.");
+                  throw new Exception();
                }
             }
-            else
+            catch (Exception e)
             {
-               shell.println("The plugin [" + pluginName
-                        + "] is not an installable plugin.");
+               shell.println("Status: NOT-INSTALLED (you may run \"install " + facetName
+                           + "\" to install this facet.");
             }
          }
          else
          {
-            shell.println("Could not find a plugin with the name: " + pluginName
+            shell.println("Could not find a facet with the name: " + facetName
                      + "; are you sure that's the correct name?");
          }
       }
    }
-
-   private boolean isInstalledInProject(final MavenPlugin installable)
-   {
-      for (Dependency d : installable.getDependencies())
-      {
-         if (!project.getFacet(MavenFacet.class).hasDependency(d))
-         {
-            return false;
-         }
-      }
-      return true;
-   }
-
 }

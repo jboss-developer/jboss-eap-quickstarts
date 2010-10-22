@@ -25,9 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
@@ -39,14 +37,16 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
+import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.util.Packages;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@RequiresFacets({ MavenCoreFacet.class })
 public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements JavaSourceFacet
 {
    private Project project;
@@ -81,16 +81,15 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    }
 
    @Override
-   public Facet init(final Project project)
+   public void setProject(final Project project)
    {
       this.project = project;
-      return this;
    }
 
    @Override
    public boolean isInstalled()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       return getSourceFolder().exists() && (mavenFacet != null) && mavenFacet.isInstalled();
    }
 
@@ -105,7 +104,7 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
          }
 
          // FIXME WOW this needs to be simplified somehow...
-         MavenFacet maven = project.getFacet(MavenFacet.class);
+         MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
          Model pom = maven.getPOM();
          Build build = pom.getBuild();
          if (build == null)
@@ -151,14 +150,6 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       }
       project.registerFacet(this);
       return this;
-   }
-
-   @Override
-   public Set<Class<? extends Facet>> getDependencies()
-   {
-      Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
-      result.add(MavenFacet.class);
-      return result;
    }
 
    @Override
@@ -211,7 +202,7 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
    @Override
    public String getBasePackage()
    {
-      return project.getFacet(MavenFacet.class).getMavenProject().getGroupId();
+      return project.getFacet(MavenCoreFacet.class).getMavenProject().getGroupId();
    }
 
    @Override
@@ -236,4 +227,5 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       String path = Packages.toFileSyntax(pkg) + ".java";
       return JavaParser.parse(getTestSourceFile(path));
    }
+
 }

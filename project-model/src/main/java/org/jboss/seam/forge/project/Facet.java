@@ -21,8 +21,6 @@
  */
 package org.jboss.seam.forge.project;
 
-import java.util.Set;
-
 import javax.enterprise.context.Dependent;
 
 /**
@@ -37,13 +35,6 @@ import javax.enterprise.context.Dependent;
 public interface Facet
 {
    /**
-    * Return a Set of facet {@link Class} types on which this {@link Facet} depends. An instance of each of these facets
-    * must exist in the project before this facet can be initialized or installed. If no dependencies are required, this
-    * method should return null, or an empty set.
-    */
-   Set<Class<? extends Facet>> getDependencies();
-
-   /**
     * Return the {@link Project} instance on which this {@link Facet} operates.
     */
    Project getProject();
@@ -51,10 +42,8 @@ public interface Facet
    /**
     * Initialize this {@link Facet} for operation on the given {@link Project}. This method is responsible for ensuring
     * that the {@link Facet} instance is ready for use, and must be called before any other methods.
-    * 
-    * @return a builder pattern reference to this {@link Facet}
     */
-   Facet init(Project project);
+   void setProject(Project project);
 
    /**
     * Perform necessary setup for this {@link Facet} to be considered installed in the given {@link Project}. If

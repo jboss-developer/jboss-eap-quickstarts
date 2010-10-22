@@ -24,7 +24,6 @@ package org.jboss.seam.forge.project.services;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Set;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -32,6 +31,7 @@ import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.locators.ProjectLocator;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 import org.jboss.seam.forge.project.util.Iterators;
@@ -97,7 +97,7 @@ public class ProjectFactory
    {
       Facet facet = facetFactory.getFacet(type);
 
-      Set<Class<? extends Facet>> dependencies = facet.getDependencies();
+      List<Class<? extends Facet>> dependencies = ConstraintInspector.getFacetDependencies(facet.getClass());
       if (dependencies != null)
       {
          for (Class<? extends Facet> dep : dependencies)
@@ -127,7 +127,7 @@ public class ProjectFactory
 
    private void registerSingleFacet(final Project project, final Facet facet)
    {
-      Set<Class<? extends Facet>> dependencies = facet.getDependencies();
+      List<Class<? extends Facet>> dependencies = ConstraintInspector.getFacetDependencies(facet.getClass());
       if (dependencies != null)
       {
          for (Class<? extends Facet> dep : dependencies)

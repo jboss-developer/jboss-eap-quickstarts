@@ -31,6 +31,7 @@ import java.util.List;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 
 /**
@@ -203,19 +204,17 @@ public abstract class AbstractProject implements Project
          throw new IllegalArgumentException("Attempted to register 'null' as a Facet; Facets cannot be null.");
       }
 
-      if (facet.getDependencies() != null)
+      List<Class<? extends Facet>> dependencies = ConstraintInspector.getFacetDependencies(facet.getClass());
+      for (Class<? extends Facet> type : dependencies)
       {
-         for (Class<? extends Facet> type : facet.getDependencies())
+         if (!hasFacet(type))
          {
-            if (!hasFacet(type))
-            {
-               throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: ["
+            throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: ["
                         + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
-            }
          }
       }
 
-      facet.init(this);
+      facet.setProject(this);
       if (facet.isInstalled() && !hasFacet(facet.getClass()))
       {
          facets.add(facet);
@@ -226,7 +225,7 @@ public abstract class AbstractProject implements Project
    @Override
    public Project installFacet(final Facet facet)
    {
-      facet.init(this);
+      facet.setProject(this);
       if (!facet.isInstalled() && !hasFacet(facet.getClass()))
       {
          facet.install();

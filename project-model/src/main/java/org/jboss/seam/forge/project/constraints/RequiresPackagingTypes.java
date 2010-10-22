@@ -19,17 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.parser.java;
+package org.jboss.seam.forge.project.constraints;
 
-import org.jboss.seam.forge.parser.Internal;
-import org.jboss.seam.forge.parser.Origin;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
+ * The annotated element requires the given {@link PackagingType}s
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Parameter extends Internal, Origin<JavaClass>
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface RequiresPackagingTypes
 {
-   // TODO this needs to be filled out (Type, Annotations, Initializer, Etc.)
-   String getName();
+   /**
+    * The array of {@link PackagingType}s required by the annotated {@link Facet} or {@link Plugin}
+    */
+   PackagingType[] value() default {};
 }

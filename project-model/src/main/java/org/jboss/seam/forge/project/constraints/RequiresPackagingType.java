@@ -19,41 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins;
+package org.jboss.seam.forge.project.constraints;
 
-import java.util.List;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Project;
 
 /**
- * A plugin that can be installed and removed from a working project.
+ * The annotated element requires the given {@link PackagingType}s
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface InstallablePlugin extends Plugin
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface RequiresPackagingType
 {
    /**
-    * Get a list of the {@link PackagingType}s this {@link Plugin} is compatible with; at least one of these types must
-    * be used in order for this {@link Plugin} to function. Returning an empty list signals that this plugin is
-    * compatible with all {@link PackagingType} options.
+    * The array of {@link PackagingType}s required by the annotated {@link Facet} or {@link Plugin}
     */
-   public List<PackagingType> getCompatiblePackagingTypes();
-
-   /**
-    * Ask this plugin to determine whether or not it has been installed in the given {@link Project}. Return true if the
-    * plugin is already installed, return false if not.
-    */
-   boolean isInstalled(Project project);
-
-   /**
-    * Ask this plugin to perform necessary operations for installation in the given {@link Project}.
-    */
-   void install(Project project);
-
-   /**
-    * Ask this plugin to perform necessary operations to safely remove itself from the given {@link Project}
-    */
-   void remove(Project project);
+   PackagingType value();
 }

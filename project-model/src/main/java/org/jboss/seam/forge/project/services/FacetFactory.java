@@ -34,6 +34,7 @@ import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.util.BeanManagerUtils;
 
 /**
@@ -47,7 +48,7 @@ public class FacetFactory implements Extension
 {
    private BeanManager manager;
 
-   private final Set<Bean<?>> facetTypes = new HashSet<Bean<?>>();
+   private final Set<Bean<?>> facetBeans = new HashSet<Bean<?>>();
 
    public void scan(@Observes final ProcessBean<?> event, final BeanManager manager)
    {
@@ -58,7 +59,7 @@ public class FacetFactory implements Extension
 
       if (Facet.class.isAssignableFrom(clazz))
       {
-         facetTypes.add(bean);
+         facetBeans.add(bean);
       }
    }
 
@@ -66,7 +67,7 @@ public class FacetFactory implements Extension
    {
       List<Facet> facets = new ArrayList<Facet>();
 
-      for (Bean<?> bean : facetTypes)
+      for (Bean<?> bean : facetBeans)
       {
          facets.add((Facet) BeanManagerUtils.getContextualInstance(manager, bean));
       }
@@ -79,7 +80,7 @@ public class FacetFactory implements Extension
    {
       T result = null;
 
-      for (Bean<?> bean : facetTypes)
+      for (Bean<?> bean : facetBeans)
       {
          if (type.isAssignableFrom(bean.getBeanClass()))
          {
@@ -87,6 +88,21 @@ public class FacetFactory implements Extension
          }
       }
 
+      return result;
+   }
+
+   public Facet getFacetByName(final String facetName)
+   {
+      Facet result = null;
+      for (Bean<?> bean : facetBeans)
+      {
+         Class<?> facetClass = bean.getBeanClass();
+         String name = ConstraintInspector.getName(facetClass);
+         if (name.equals(facetName))
+         {
+            result = (Facet) BeanManagerUtils.getContextualInstance(manager, bean);
+         }
+      }
       return result;
    }
 }

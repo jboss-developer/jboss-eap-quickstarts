@@ -31,7 +31,7 @@ import org.apache.maven.model.Model;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.PromptType;
@@ -131,13 +131,13 @@ public class NewProjectPlugin implements Plugin
          dir.mkdirs();
       }
 
-      Project project = projectFactory.createProject(dir, MavenFacet.class, JavaSourceFacet.class, ResourceFacet.class);
-      Model pom = project.getFacet(MavenFacet.class).getPOM();
+      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, JavaSourceFacet.class, ResourceFacet.class);
+      Model pom = project.getFacet(MavenCoreFacet.class).getPOM();
       pom.setArtifactId(name);
       pom.setGroupId(groupId);
       pom.setPackaging("jar");
 
-      project.getFacet(MavenFacet.class).setPOM(pom);
+      project.getFacet(MavenCoreFacet.class).setPOM(pom);
 
       project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
             .createClass()

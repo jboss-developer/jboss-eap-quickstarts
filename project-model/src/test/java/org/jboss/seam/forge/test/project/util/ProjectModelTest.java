@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
@@ -82,7 +82,7 @@ public abstract class ProjectModelTest
          tempFolder.delete();
          tempFolder.mkdirs();
 
-         tempProject = projectFactory.createProject(tempFolder, MavenFacet.class, JavaSourceFacet.class,
+         tempProject = projectFactory.createProject(tempFolder, MavenCoreFacet.class, JavaSourceFacet.class,
                   ResourceFacet.class, WebResourceFacet.class);
       }
    }

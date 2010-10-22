@@ -19,24 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins;
+package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Facet;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
- * Informs the {@link Shell} that the annotated {@link Plugin} requires the given facets. This plugin and its commands
- * will not show up in the list of available commands until the required facets are installed and registered in the
- * project. (See also: {@link RequiredFacet})
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-// TODO implement handling strategy for this annotation metadata
-public @interface RequiresFacets
+@Named("remove")
+@Help("Remove a plugin from the current project.")
+public class FacetUninstallPlugin implements Plugin
 {
-   /**
-    * The array of {@link Facet}s required by the annotated {@link Plugin}
-    */
-   Class<? extends Facet>[] value();
+   @Inject
+   private FacetFactory factory;
+
+   @Inject
+   private Shell shell;
+
+   @Inject
+   private Project project;
+
+   @DefaultCommand
+   public void remove(@Option(help = "The name of the facet to remove from the project.") final String pluginName)
+   {
+      throw new IllegalStateException("Removing facets is not implemented.");
+   }
 }
