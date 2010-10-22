@@ -23,10 +23,18 @@ package org.jboss.seam.forge.project;
 
 import javax.enterprise.context.Dependent;
 
+import org.jboss.seam.forge.project.constraints.RequiresFacet;
+import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.constraints.RequiresPackagingType;
+import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
+
 /**
  * Represents a standardized piece of a project, on which certain plugins may rely for a set of domain-specific
  * operations. Facets are an access point to common functionality, file manipulations, descriptors that extend a basic
  * {@link Project}.
+ * <p>
+ * Facets may be annotated with any of the following constraints in order to ensure proper dependencies are satisfied at
+ * runtime: {@link RequiresFacet}, {@link RequiresFacets}, {@link RequiresPackagingTypes}, {@link RequiresPackagingType}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
