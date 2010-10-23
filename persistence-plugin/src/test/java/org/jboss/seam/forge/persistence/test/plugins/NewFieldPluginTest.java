@@ -31,6 +31,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -265,6 +267,39 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertEquals("right", rightEntity.getField("left").getAnnotation(ManyToMany.class).getStringValue("mappedBy"));
       assertTrue(rightEntity.hasImport(leftEntity.getQualifiedName()));
       assertTrue(rightEntity.hasImport(ManyToMany.class));
+      assertFalse(rightEntity.hasSyntaxErrors());
+   }
+
+   @Test
+   public void testNewOneToManyRelationshipInverse() throws Exception
+   {
+      Project project = getProject();
+      JavaClass rightEntity = generateEntity(project);
+      JavaClass leftEntity = generateEntity(project);
+
+      getShell().execute(
+               "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
+                        + " --inverseFieldName left");
+
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+
+      assertTrue(leftEntity.hasAnnotation(Entity.class));
+      assertTrue(leftEntity.hasField("right"));
+      assertTrue(leftEntity.getField("right").getType().equals("Set<" + rightEntity.getName() + ">"));
+      assertTrue(leftEntity.getField("right").hasAnnotation(OneToMany.class));
+      assertEquals("left", leftEntity.getField("right").getAnnotation(OneToMany.class).getStringValue("mappedBy"));
+      assertTrue(leftEntity.hasImport(rightEntity.getQualifiedName()));
+      assertTrue(leftEntity.hasImport(OneToMany.class));
+      assertFalse(leftEntity.hasSyntaxErrors());
+
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+
+      assertTrue(rightEntity.hasField("left"));
+      assertTrue(rightEntity.getField("left").getType().equals("Set<" + leftEntity.getName() + ">"));
+      assertTrue(rightEntity.getField("left").hasAnnotation(ManyToOne.class));
+      assertEquals("right", rightEntity.getField("left").getAnnotation(ManyToOne.class).getStringValue("mappedBy"));
+      assertTrue(rightEntity.hasImport(leftEntity.getQualifiedName()));
+      assertTrue(rightEntity.hasImport(ManyToOne.class));
       assertFalse(rightEntity.hasSyntaxErrors());
    }
 
