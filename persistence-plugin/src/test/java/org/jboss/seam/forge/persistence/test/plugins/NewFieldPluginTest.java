@@ -238,6 +238,35 @@ public class NewFieldPluginTest extends AbstractJPATest
    }
 
    @Test
+   public void testNewOneToManyRelationship() throws Exception
+   {
+      Project project = getProject();
+      JavaClass rightEntity = generateEntity(project);
+      JavaClass leftEntity = generateEntity(project);
+
+      getShell().execute(
+               "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
+
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+
+      assertTrue(leftEntity.hasAnnotation(Entity.class));
+      assertTrue(leftEntity.hasField("right"));
+      assertTrue(leftEntity.getField("right").getType().equals("Set<" + rightEntity.getName() + ">"));
+      assertTrue(leftEntity.getField("right").hasAnnotation(OneToMany.class));
+      assertNull(leftEntity.getField("right").getAnnotation(OneToMany.class).getStringValue("mappedBy"));
+      assertTrue(leftEntity.hasImport(rightEntity.getQualifiedName()));
+      assertTrue(leftEntity.hasImport(OneToMany.class));
+      assertFalse(leftEntity.hasSyntaxErrors());
+
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+
+      assertFalse(rightEntity.hasField("left"));
+      assertFalse(rightEntity.hasImport(leftEntity.getQualifiedName()));
+      assertFalse(rightEntity.hasImport(OneToMany.class));
+      assertFalse(rightEntity.hasSyntaxErrors());
+   }
+
+   @Test
    public void testNewManyToManyRelationshipInverse() throws Exception
    {
       Project project = getProject();
