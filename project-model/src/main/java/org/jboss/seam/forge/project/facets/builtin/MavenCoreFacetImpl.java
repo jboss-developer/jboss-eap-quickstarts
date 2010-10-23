@@ -57,7 +57,7 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class MavenCoreFacetImpl implements MavenCoreFacet
+public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 {
    private ProjectBuildingRequest request;
    private DefaultPlexusContainer container = null;

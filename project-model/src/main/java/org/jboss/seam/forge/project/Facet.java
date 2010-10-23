@@ -21,8 +21,6 @@
  */
 package org.jboss.seam.forge.project;
 
-import javax.enterprise.context.Dependent;
-
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingType;
@@ -39,7 +37,6 @@ import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Dependent
 public interface Facet
 {
    /**

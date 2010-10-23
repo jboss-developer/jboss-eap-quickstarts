@@ -31,6 +31,7 @@ import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
+import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
@@ -60,9 +61,9 @@ public class FacetInstallPlugin implements Plugin
    public void install(@Option(required = true,
             description = "Name of the facet to install") final String facetName)
    {
-      Facet facet = factory.getFacetByName(facetName);
-      if (facet != null)
+      try
       {
+         Facet facet = factory.getFacetByName(facetName);
          facet.setProject(project);
          if (!facet.isInstalled())
          {
@@ -125,9 +126,9 @@ public class FacetInstallPlugin implements Plugin
             shell.println("Installation failed! Please check your project; there may be a mess!");
          }
       }
-      else
+      catch (FacetNotFoundException e)
       {
-         shell.println("Could not find a plugin with the name: " + facetName
+         shell.println("Could not find a facet with the name: " + facetName
                   + "; are you sure that's the correct name?");
       }
    }

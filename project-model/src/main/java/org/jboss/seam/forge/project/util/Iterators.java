@@ -34,7 +34,7 @@ public final class Iterators
    /**
     * Converts an {@link Iterator} into a {@link List} of its elements.
     */
-   public static <T> List<T> toList(final Iterator<T> iterator)
+   public static <T> List<T> toList(final Iterator<? extends T> iterator)
    {
       List<T> result = new ArrayList<T>();
       while (iterator.hasNext())

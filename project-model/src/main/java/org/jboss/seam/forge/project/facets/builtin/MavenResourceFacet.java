@@ -36,7 +36,7 @@ import org.jboss.seam.forge.project.facets.ResourceFacet;
  * 
  */
 @RequiresFacets({ MavenCoreFacet.class })
-public class MavenResourceFacet extends AbstractResourceFacet implements ResourceFacet
+public class MavenResourceFacet implements ResourceFacet, Facet
 {
    private Project project;
 
@@ -106,5 +106,21 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    public File getTestResource(final String relativePath)
    {
       return new File(getTestResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
+
+   @Override
+   public File createResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
+   }
+
+   @Override
+   public File createTestResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
    }
 }

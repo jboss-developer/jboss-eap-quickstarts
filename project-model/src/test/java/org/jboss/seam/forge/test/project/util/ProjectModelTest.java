@@ -33,10 +33,7 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
-import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.project.services.ProjectFactory;
-import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.test.project.MavenFacetsTest;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -56,10 +53,6 @@ public abstract class ProjectModelTest
    {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
                .addPackages(true, Project.class.getPackage())
-               .addClass(ResourceFactory.class)
-               .addClass(ProjectFactory.class)
-               .addClass(FacetFactory.class)
-               .addClass(MavenWebResourceFacet.class)
                .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"))
                .addManifestResource("META-INF/services/javax.enterprise.inject.spi.Extension");
    }

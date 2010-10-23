@@ -34,7 +34,7 @@ import org.jboss.seam.forge.project.facets.PackagingFacet;
  * 
  */
 @RequiresFacets({ MavenCoreFacet.class })
-public class MavenPackagingFacet implements PackagingFacet
+public class MavenPackagingFacet implements PackagingFacet, Facet
 {
    private Project project;
 

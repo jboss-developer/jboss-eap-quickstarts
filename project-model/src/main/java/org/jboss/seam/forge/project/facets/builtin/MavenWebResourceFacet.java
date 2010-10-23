@@ -32,13 +32,14 @@ import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.facets.WebResourceFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 @RequiresFacets({ JavaSourceFacet.class, PackagingFacet.class })
-public class MavenWebResourceFacet extends AbstractWebResourceFacet
+public class MavenWebResourceFacet implements WebResourceFacet, Facet
 {
    private Project project;
 
@@ -98,5 +99,13 @@ public class MavenWebResourceFacet extends AbstractWebResourceFacet
    public File getWebResource(final String relativePath)
    {
       return new File(getWebRootDirectory() + File.separator + relativePath);
+   }
+
+   @Override
+   public File createWebResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getWebRootDirectory() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
    }
 }

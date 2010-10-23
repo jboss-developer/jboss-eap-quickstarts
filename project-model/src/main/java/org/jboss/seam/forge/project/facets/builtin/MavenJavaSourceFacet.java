@@ -34,6 +34,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.util.Formatter;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
@@ -47,7 +48,7 @@ import org.jboss.seam.forge.project.util.Packages;
  * 
  */
 @RequiresFacets({ MavenCoreFacet.class })
-public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements JavaSourceFacet
+public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 {
    private Project project;
 
@@ -228,4 +229,25 @@ public class MavenJavaSourceFacet extends AbstractJavaSourceFacet implements Jav
       return JavaParser.parse(getTestSourceFile(path));
    }
 
+   private File saveJavaFile(final File sourceFolder, final JavaClass clazz)
+   {
+      String path = sourceFolder.getAbsolutePath() + File.separator + Packages.toFileSyntax(clazz.getPackage());
+      File file = new File(path + File.separator + clazz.getName() + ".java");
+
+      getProject().writeFile(Formatter.format(clazz).toCharArray(), file);
+      // TODO event.fire(Created new Java file);
+      return file;
+   }
+
+   @Override
+   public File saveJavaClass(final JavaClass clazz)
+   {
+      return saveJavaFile(getSourceFolder(), clazz);
+   }
+
+   @Override
+   public File saveTestJavaClass(final JavaClass clazz)
+   {
+      return saveJavaFile(getTestSourceFolder(), clazz);
+   }
 }
