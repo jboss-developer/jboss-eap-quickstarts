@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jboss.seam</groupId>
-  <artifactId>scaffolding</artifactId>
+  <artifactId>socialpm</artifactId>
   <version>X-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>OcpSoft Social Project Management</name>

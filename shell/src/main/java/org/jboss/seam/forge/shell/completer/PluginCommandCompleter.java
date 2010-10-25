@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
@@ -46,7 +47,6 @@ import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
 import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
 import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -56,11 +56,11 @@ import org.jboss.seam.forge.shell.completer.CommandCompleter;
 public class PluginCommandCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
-         new NamedBooleanOptionParser(),
-         new NamedValueOptionParser(),
-         new NamedValueVarargsOptionParser(),
-         new OrderedValueOptionParser(),
-         new OrderedValueVarargsOptionParser());
+            new NamedBooleanOptionParser(),
+            new NamedValueOptionParser(),
+            new NamedValueVarargsOptionParser(),
+            new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser());
 
    @Inject
    private PluginRegistry registry;
@@ -217,7 +217,7 @@ public class PluginCommandCompleter implements CommandCompleter
    /**
     * Add plugin completions for the given word
     */
-   private List<String> getPluginCandidates(PluginRegistry registry, String pluginBase)
+   private List<String> getPluginCandidates(final PluginRegistry registry, final String pluginBase)
    {
       Map<String, PluginMetadata> plugins = registry.getPlugins();
 
@@ -241,7 +241,7 @@ public class PluginCommandCompleter implements CommandCompleter
    /**
     * Add command completions for the given plugin, with or without tokens
     */
-   private List<String> getCommandCandidates(PluginMetadata plugin, Queue<String> tokens)
+   private List<String> getCommandCandidates(final PluginMetadata plugin, final Queue<String> tokens)
    {
       List<String> results = new ArrayList<String>();
       if (plugin.hasCommands())
@@ -285,10 +285,9 @@ public class PluginCommandCompleter implements CommandCompleter
    }
 
    /**
-    * Add option completions for the given command, with or without argument
-    * tokens
+    * Add option completions for the given command, with or without argument tokens
     */
-   private List<String> getOptionCandidates(CommandMetadata command, Queue<String> tokens)
+   private List<String> getOptionCandidates(final CommandMetadata command, final Queue<String> tokens)
    {
       ArrayList<String> results = new ArrayList<String>();
       Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
@@ -328,7 +327,8 @@ public class PluginCommandCompleter implements CommandCompleter
                   Matcher matcher = Pattern.compile("^.*" + value + "$").matcher(currentBuffer);
                   if (matcher.find())
                   {
-                     if (File.class.isAssignableFrom(option.getBoxedType()))
+                     if (File.class.isAssignableFrom(option.getBoxedType())
+                              || Resource.class.isAssignableFrom(option.getBoxedType()))
                      {
                         FileOptionCompleter completer = new FileOptionCompleter(shell);
                         List<CharSequence> completions = new ArrayList<CharSequence>();
@@ -423,7 +423,7 @@ public class PluginCommandCompleter implements CommandCompleter
    /**
     * Return true if the given string could begin command, return false if not.
     */
-   private boolean couldBeCommand(PluginMetadata plugin, String potentialCommand)
+   private boolean couldBeCommand(final PluginMetadata plugin, final String potentialCommand)
    {
       List<CommandMetadata> commands = plugin.getCommands();
       if ((commands != null) && !commands.isEmpty())

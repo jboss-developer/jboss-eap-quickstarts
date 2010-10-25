@@ -34,13 +34,13 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
-import org.jboss.seam.forge.shell.CurrentProjectHolder;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
 
 /**
@@ -54,7 +54,7 @@ public class NewProjectPlugin implements Plugin
    private Shell shell;
 
    @Inject
-   private CurrentProjectHolder cp;
+   private ProjectContext cp;
 
    @Inject
    private ProjectFactory projectFactory;

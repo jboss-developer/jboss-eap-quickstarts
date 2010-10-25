@@ -22,14 +22,13 @@
 
 package org.jboss.seam.forge.shell.plugins.events;
 
+
 /**
- * An event representing the initialization of the project in the current
- * working directory.
+ * An event representing the initialization of the project in the current working directory.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 public class InitProject
 {
-
 }

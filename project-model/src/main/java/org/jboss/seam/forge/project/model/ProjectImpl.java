@@ -47,4 +47,10 @@ public class ProjectImpl extends AbstractProject
    {
       return projectRoot != null;
    }
+
+   @Override
+   public String toString()
+   {
+      return "ProjectImpl [" + getProjectRoot() + "]";
+   }
 }

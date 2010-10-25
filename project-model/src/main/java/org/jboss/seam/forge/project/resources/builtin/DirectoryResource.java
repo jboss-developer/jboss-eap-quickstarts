@@ -1,14 +1,15 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -17,16 +18,16 @@ import java.util.List;
 @Singleton
 public class DirectoryResource extends FileResource
 {
-   private Resource parent;
+   private Resource<?> parent;
    private volatile List<Resource<?>> listCache;
 
    @Inject
-   public DirectoryResource(ResourceFactory factory)
+   public DirectoryResource(final ResourceFactory factory)
    {
       super(factory);
    }
 
-   public DirectoryResource(ResourceFactory factory, File file)
+   public DirectoryResource(final ResourceFactory factory, final File file)
    {
       super(factory, file);
    }
@@ -48,13 +49,13 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
-   public Resource getChild(String name)
+   public Resource<?> getChild(final String name)
    {
       return resourceFactory.getResourceFrom(new File(file.getAbsolutePath() + "/" + name));
    }
 
    @Override
-   public DirectoryResource createFrom(File file)
+   public DirectoryResource createFrom(final File file)
    {
       if (!file.isDirectory())
       {
@@ -65,12 +66,15 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
-   public synchronized Resource getParent()
+   public synchronized Resource<?> getParent()
    {
       if (parent == null)
       {
          File parentFile = file.getParentFile();
-         if (parentFile == null) return null;
+         if (parentFile == null)
+         {
+            return null;
+         }
 
          parent = createFrom(parentFile);
       }
@@ -84,8 +88,8 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
-      return obj instanceof DirectoryResource && ((DirectoryResource) obj).file.equals(file);
+      return (obj instanceof DirectoryResource) && ((DirectoryResource) obj).file.equals(file);
    }
 }

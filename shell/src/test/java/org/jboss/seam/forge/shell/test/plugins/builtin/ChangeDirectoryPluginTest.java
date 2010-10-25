@@ -65,7 +65,7 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
       shell.execute("cd ./");
 
       File newDir = shell.getCurrentDirectory();
-      assertEquals(newDir.getAbsoluteFile(), currentDirectory.getAbsoluteFile());
+      assertEquals(currentDirectory.getAbsoluteFile(), newDir.getAbsoluteFile());
    }
 
    @Test

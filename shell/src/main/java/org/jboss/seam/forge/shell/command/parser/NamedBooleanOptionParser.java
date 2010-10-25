@@ -44,9 +44,9 @@ public class NamedBooleanOptionParser implements CommandParser
    {
       Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
-      if (currentToken.startsWith("-"))
+      if (currentToken.matches("--?\\S+"))
       {
-         boolean shortOption = currentToken.charAt(1) != '-';
+         boolean shortOption = currentToken.matches("-[^-]\\S+");
          currentToken = currentToken.substring(shortOption ? 1 : 2);
 
          if (shortOption ? command.hasShortOption(currentToken) : command.hasOption(currentToken))

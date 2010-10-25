@@ -49,13 +49,16 @@ public class ProjectFactoryTest extends AbstractShellTest
       Shell shell = getShell();
       initializeJavaProject();
 
+      assertNotNull(getProject());
+
       shell.execute("cd /");
 
       assertNull(getProject());
 
-      shell.execute("cd - ");
+      shell.execute("cd -");
 
       Project project = getProject();
+      assertNotNull(project);
       JavaSourceFacet javaSourceFacet = project.getFacet(JavaSourceFacet.class);
 
       assertNotNull(javaSourceFacet);

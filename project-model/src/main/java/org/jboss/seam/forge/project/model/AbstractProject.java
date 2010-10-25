@@ -55,11 +55,12 @@ public abstract class AbstractProject implements Project
             }
          }
       }
+      // System.gc(); // try to get rid of any lingering file-handle references.
       return file.delete();
    }
 
    @Override
-   public void writeFile(String string, File file)
+   public void writeFile(String string, final File file)
    {
       if (string == null)
       {
@@ -79,7 +80,7 @@ public abstract class AbstractProject implements Project
          {
             mkdirs(file);
 
-            file.delete();
+            delete(file);
             if (!file.createNewFile())
             {
                throw new IOException("Failed to create file: " + file);
@@ -95,7 +96,7 @@ public abstract class AbstractProject implements Project
             }
          }
 
-         file.delete();
+         delete(file);
 
          writer = new BufferedWriter(new FileWriter(file));
          writer.write(data);
@@ -118,20 +119,20 @@ public abstract class AbstractProject implements Project
       {
          if (tempFile != null)
          {
-            tempFile.delete();
+            delete(tempFile);
          }
       }
    }
 
    @Override
-   public void mkdirs(File file)
+   public void mkdirs(final File file)
    {
       if (!file.exists())
       {
          if (!file.mkdirs())
          {
             throw new ProjectModelException(
-                  new IOException("Failed to create required directory structure for file: " + file));
+                     new IOException("Failed to create required directory structure for file: " + file));
          }
       }
    }
@@ -208,7 +209,8 @@ public abstract class AbstractProject implements Project
          {
             if (!hasFacet(type))
             {
-               throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: [" + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
+               throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: ["
+                        + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
             }
          }
       }

@@ -1,34 +1,33 @@
 package org.jboss.seam.forge.project.util.pathspec;
 
-import org.codehaus.plexus.util.cli.shell.Shell;
+import java.io.File;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
-import java.io.File;
-
 public class PathspecParser
 {
    private int cursor;
-   private int length;
+   private final int length;
 
-   private ResourceFactory factory;
-   private Resource<?> res;
+   private final ResourceFactory factory;
+   private final Resource<?> res;
    private String path;
 
-   public PathspecParser(ResourceFactory factory, Resource<?> res, String path)
+   public PathspecParser(final ResourceFactory factory, final Resource<?> res, final String path)
    {
       this.factory = factory;
       this.res = res;
 
       this.length = (
-            this.path = path
-      ).length();
+               this.path = path
+               ).length();
    }
 
    public Resource<?> parse()
    {
-      Resource r = res;
+      Resource<?> r = res;
       String tk;
 
       if (path.startsWith("~"))
@@ -53,14 +52,20 @@ public class PathspecParser
          case '.':
             if (read() == '.')
             {
-               Resource parent = r.getParent();
-               if (parent == null) return r;
+               Resource<?> parent = r.getParent();
+               if (parent == null)
+               {
+                  return r;
+               }
                r = parent;
             }
             break;
 
          default:
-            if (read() == '.') continue;
+            if (read() == '.')
+            {
+               continue;
+            }
             boolean first = --cursor == 0;
             tk = capture();
 
@@ -78,7 +83,7 @@ public class PathspecParser
                }
             }
 
-            Resource child = r.getChild(tk);
+            Resource<?> child = r.getChild(tk);
             if (child == null)
             {
                throw new RuntimeException("no such child: " + child);
@@ -104,10 +109,16 @@ public class PathspecParser
    {
       int start = cursor;
 
-      //capture can start with a '/'
-      if (path.charAt(cursor) == '/') cursor++;
+      // capture can start with a '/'
+      if (path.charAt(cursor) == '/')
+      {
+         cursor++;
+      }
 
-      while (cursor != length && path.charAt(cursor) != '/') cursor++;
+      while ((cursor != length) && (path.charAt(cursor) != '/'))
+      {
+         cursor++;
+      }
       return path.substring(start, cursor);
    }
 }

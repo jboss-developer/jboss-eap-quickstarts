@@ -20,26 +20,36 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell;
+package org.jboss.seam.forge.shell.project;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
+import org.jboss.seam.forge.shell.plugins.events.InitProject;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Singleton
-public class CurrentProjectHolder
+public class ProjectContext
 {
+   // TODO separate project-specific shell impl into separate project!
    private Project currentProject;
-   private Resource currentResource;
+
+   @Inject
+   private ResourceContext resourceContext;
+   @Inject
    private ResourceFactory factory;
+   @Inject
+   private Event<InitProject> init;
 
    @Produces
    @Default
@@ -49,28 +59,38 @@ public class CurrentProjectHolder
       return currentProject;
    }
 
-   public void setCurrentProject(final Project currentProject)
+   public void setCurrentProject(final Project project)
    {
-      if (factory == null)
+      if (((this.currentProject != null)
+               && (project != null)
+               && !this.currentProject.getProjectRoot().equals(project.getProjectRoot()))
+               || ((this.currentProject == null) && (project != null)))
       {
-         throw new RuntimeException("ResourceFactory not supplied");
+         this.resourceContext.setCurrent(factory.getResourceFrom(project.getProjectRoot()));
       }
 
+      this.currentProject = project;
+   }
+
+   public void setCurrentResource(final Resource<?> resource)
+   {
+      this.resourceContext.setCurrent(resource);
       if (currentProject != null)
       {
-         this.currentResource = factory.getResourceFrom(currentProject.getProjectRoot());
+         Resource<?> projectRoot = factory.getResourceFrom(currentProject.getProjectRoot());
+         if (!projectRoot.equals(resource) && !ResourceUtil.isChildOf(projectRoot, resource))
+         {
+            init.fire(new InitProject());
+         }
       }
-
-      this.currentProject = currentProject;
+      else
+      {
+         init.fire(new InitProject());
+      }
    }
 
-   public ResourceFactory getResourceFactory()
+   public Resource<?> getCurrentResource()
    {
-      return factory;
-   }
-
-   public void setResourceFactory(ResourceFactory factory)
-   {
-      this.factory = factory;
+      return this.resourceContext.getCurrent();
    }
 }

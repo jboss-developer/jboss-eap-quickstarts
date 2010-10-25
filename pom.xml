@@ -15,7 +15,7 @@
 
    <name>Seam Forge - Parent</name>
    <description>Simplified project bootstrapping, incremental
-      enhancement framework, and plugins	</description>
+      enhancement framework, and plugins</description>
 
    <modules>
       <module>event-bus</module>
@@ -117,6 +117,7 @@
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
             <version>${shrinkwrap.version}</version>
+            <scope>test</scope>
          </dependency>
          <dependency>
             <groupId>org.jboss.shrinkwrap.descriptors</groupId>
@@ -244,9 +245,26 @@
 
    <repositories>
       <repository>
+         <id>jboss-snapshots-repository-group</id>
+         <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+      <repository>
          <id>jboss-public-repository-group</id>
          <url>https://repository.jboss.org/nexus/content/groups/public/</url>
          <layout>default</layout>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
       </repository>
    </repositories>
 
