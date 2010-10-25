@@ -19,24 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class MavenResourceFacet extends AbstractResourceFacet implements ResourceFacet
+@RequiresFacets({ MavenCoreFacet.class })
+public class MavenResourceFacet implements ResourceFacet, Facet
 {
    private Project project;
 
@@ -52,13 +52,15 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    @Override
    public File getResourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "resources");
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
+               + File.separator + "resources");
    }
 
    @Override
    public File getTestResourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test" + File.separator + "resources");
+      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
+               + File.separator + "resources");
    }
 
    @Override
@@ -68,16 +70,15 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    }
 
    @Override
-   public Facet init(final Project project)
+   public void setProject(final Project project)
    {
       this.project = project;
-      return this;
    }
 
    @Override
    public boolean isInstalled()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       return getResourceFolder().exists() && (mavenFacet != null) && mavenFacet.isInstalled();
    }
 
@@ -96,14 +97,6 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    }
 
    @Override
-   public Set<Class<? extends Facet>> getDependencies()
-   {
-      Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
-      result.add(MavenFacet.class);
-      return result;
-   }
-
-   @Override
    public File getResource(final String relativePath)
    {
       return new File(getResourceFolder() + File.separator + relativePath).getAbsoluteFile();
@@ -113,5 +106,21 @@ public class MavenResourceFacet extends AbstractResourceFacet implements Resourc
    public File getTestResource(final String relativePath)
    {
       return new File(getTestResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+   }
+
+   @Override
+   public File createResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
+   }
+
+   @Override
+   public File createTestResource(final char[] bytes, final String relativeFilename)
+   {
+      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
+      getProject().writeFile(bytes, file);
+      return file;
    }
 }

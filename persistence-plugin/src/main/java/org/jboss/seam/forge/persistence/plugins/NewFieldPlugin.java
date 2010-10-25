@@ -34,6 +34,8 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.persistence.Column;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
@@ -42,6 +44,8 @@ import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.parser.java.util.Types;
 import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.constraints.RequiresFacet;
+import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
@@ -49,8 +53,6 @@ import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.RequiresFacet;
-import org.jboss.seam.forge.shell.plugins.RequiresProject;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -295,6 +297,10 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "manyToMany", help = "Add a many-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
    public void newManyToManyRelationship(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
             @Option(name = "fieldType",
                      required = true,
                      description = "The @Entity type to which this field is a relationship",
@@ -303,10 +309,6 @@ public class NewFieldPlugin implements Plugin
                      required = false,
                      description = "The @Entity to which this field will be added",
                      type = PromptType.JAVA_CLASS) final String targetEntity,
-            @Option(name = "fieldName",
-                     required = true,
-                     description = "The field name",
-                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
             @Option(name = "inverseFieldName",
                      required = false,
                      description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
@@ -349,6 +351,63 @@ public class NewFieldPlugin implements Plugin
          shell.println("Could not locate the @Entity requested. No update was made.");
       }
 
+   }
+
+   @Command(value = "oneToMany", help = "Add a one-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
+   public void newOneToManyRelationship(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity representing the 'many' side of the relationship.",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "addToClass",
+                     required = false,
+                     description = "The @Entity to which this field will be added (the 'one' side of the relationship)",
+                     type = PromptType.JAVA_CLASS) final String targetEntity,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+   {
+
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         JavaClass entity = findEntity(targetEntity);
+         JavaClass otherEntity = findEntity(fieldType);
+
+         entity.addImport(Set.class);
+         entity.addImport(HashSet.class);
+         entity.addImport(otherEntity.getQualifiedName());
+         Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
+                  + otherEntity.getName() + ">();");
+         org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(OneToMany.class);
+         Refactory.createGetterAndSetter(entity, field);
+
+         if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
+         {
+            annotation.setStringValue("mappedBy", inverseFieldName);
+
+            otherEntity.addImport(Set.class);
+            otherEntity.addImport(HashSet.class);
+            otherEntity.addImport(entity.getQualifiedName());
+            otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
+                              + "= new HashSet<" + entity.getName() + ">();")
+                     .addAnnotation(ManyToOne.class).setStringValue("mappedBy", fieldName);
+
+            java.saveJavaClass(otherEntity);
+         }
+         java.saveJavaClass(entity);
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
    }
 
    /*

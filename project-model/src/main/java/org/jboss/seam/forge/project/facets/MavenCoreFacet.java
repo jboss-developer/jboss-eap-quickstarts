@@ -33,7 +33,7 @@ import org.jboss.seam.forge.project.util.DependencyBuilder;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface MavenFacet extends Facet
+public interface MavenCoreFacet extends Facet
 {
    /**
     * Get the current Maven POM file.

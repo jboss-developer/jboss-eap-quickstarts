@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
+import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
@@ -58,6 +59,17 @@ public class ParameterImpl implements Parameter
    public String toString()
    {
       return param.toString();
+   }
+
+   @Override
+   public String getName()
+   {
+      SimpleName name = param.getName();
+      if (name != null)
+      {
+         return name.toString();
+      }
+      return "";
    }
 
 }

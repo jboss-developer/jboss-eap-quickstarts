@@ -19,30 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.services;
+package org.jboss.seam.forge.project.util;
 
-import java.io.File;
-
-import org.jboss.seam.forge.project.Project;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Locates project root directories.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface ProjectLocator
+public final class Iterators
 {
    /**
-    * Attempt to locate a project root directory in the given folder or its
-    * hierarchy by using a strategy implemented by this method. If found, return
-    * the project; otherwise, return null;
+    * Converts an {@link Iterator} into a {@link List} of its elements.
     */
-   public Project findProjectRecursively(File startingDirectory);
-
-   /**
-    * Attempt to locate a project root directory in the given folder. If found,
-    * return the project; otherwise, return null;
-    */
-   public Project findProject(File directory);
+   public static <T> List<T> toList(final Iterator<? extends T> iterator)
+   {
+      List<T> result = new ArrayList<T>();
+      while (iterator.hasNext())
+      {
+         T element = iterator.next();
+         result.add(element);
+      }
+      return result;
+   }
 }

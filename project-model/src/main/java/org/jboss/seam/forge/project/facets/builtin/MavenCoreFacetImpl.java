@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,9 +27,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import javax.enterprise.inject.Typed;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
@@ -53,15 +50,14 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
 import org.sonatype.aether.util.DefaultRepositorySystemSession;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Typed()
-public class MavenFacetImpl implements MavenFacet
+public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 {
    private ProjectBuildingRequest request;
    private DefaultPlexusContainer container = null;
@@ -299,10 +295,9 @@ public class MavenFacetImpl implements MavenFacet
    }
 
    @Override
-   public Facet init(final Project project)
+   public void setProject(final Project project)
    {
       this.project = project;
-      return this;
    }
 
    @Override
@@ -318,12 +313,6 @@ public class MavenFacetImpl implements MavenFacet
       bootstrapMaven();
       project.registerFacet(this);
       return this;
-   }
-
-   @Override
-   public Set<Class<? extends Facet>> getDependencies()
-   {
-      return null;
    }
 
    @Override

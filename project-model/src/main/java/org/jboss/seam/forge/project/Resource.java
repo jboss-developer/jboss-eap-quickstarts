@@ -1,7 +1,5 @@
 package org.jboss.seam.forge.project;
 
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
 import java.util.List;
 
 /**
@@ -10,16 +8,16 @@ import java.util.List;
 public interface Resource<T>
 {
 
-
    /**
     * Get the parent of the current resource. Returns null if the current resource is the project root.
-    *
+    * 
     * @return An instance of the resource parent.
     */
-   public Resource getParent();
+   public Resource<?> getParent();
+
    /**
     * Create a new resource instance for the target resource reference of the type that this current resource is.
-    *
+    * 
     * @param file The target reference to create the resource instance from.
     * @return A new resource.
     */
@@ -27,12 +25,12 @@ public interface Resource<T>
 
    /**
     * Return a list of child resources of the current resource.
-    *
+    * 
     * @return A list of child resources.
     */
    public List<Resource<?>> listResources();
 
    public T getUnderlyingResourceObject();
 
-   public Resource getChild(String name);
+   public Resource<?> getChild(String name);
 }

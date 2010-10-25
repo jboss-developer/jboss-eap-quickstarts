@@ -19,20 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.project.locators;
 
-package org.jboss.seam.forge.shell.plugins;
+import java.io.File;
 
 import org.jboss.seam.forge.project.Project;
 
 /**
- * An annotation signaling that the annotated {@link Plugin} requires an active
- * {@link Project} before it will be available on the {@link Shell} CLI.
+ * Locates project root directories.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-// TODO implement handling strategy for this annotation metadata
-public @interface RequiresProject
+public interface ProjectLocator
 {
+   /**
+    * Attempt to locate a project root directory in the given folder or its
+    * hierarchy by using a strategy implemented by this method. If found, return
+    * the project; otherwise, return null;
+    */
+   public Project findProjectRecursively(File startingDirectory);
 
+   /**
+    * Attempt to locate a project root directory in the given folder. If found,
+    * return the project; otherwise, return null;
+    */
+   public Project findProject(File directory);
 }

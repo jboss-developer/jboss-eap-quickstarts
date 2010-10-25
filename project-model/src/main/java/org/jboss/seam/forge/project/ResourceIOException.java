@@ -5,21 +5,23 @@ package org.jboss.seam.forge.project;
  */
 public class ResourceIOException extends RuntimeException
 {
+   private static final long serialVersionUID = -6669530557926742097L;
+
    public ResourceIOException()
    {
    }
 
-   public ResourceIOException(String message)
+   public ResourceIOException(final String message)
    {
       super(message);
    }
 
-   public ResourceIOException(String message, Throwable cause)
+   public ResourceIOException(final String message, final Throwable cause)
    {
       super(message, cause);
    }
 
-   public ResourceIOException(Throwable cause)
+   public ResourceIOException(final Throwable cause)
    {
       super(cause);
    }

@@ -1,1 +1,0 @@
-org.jboss.seam.forge.project.resources.builtin.JavaResource

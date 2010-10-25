@@ -19,30 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
-
-import java.util.HashSet;
-import java.util.Set;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class MavenPackagingFacet implements PackagingFacet
+@RequiresFacets({ MavenCoreFacet.class })
+public class MavenPackagingFacet implements PackagingFacet, Facet
 {
    private Project project;
 
    @Override
    public void setPackagingType(final PackagingType type)
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       Model pom = mavenFacet.getPOM();
       pom.setPackaging(type.getType());
       mavenFacet.setPOM(pom);
@@ -51,9 +50,9 @@ public class MavenPackagingFacet implements PackagingFacet
    @Override
    public PackagingType getPackagingType()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       Model pom = mavenFacet.getPOM();
-      return new PackagingType(pom.getPackaging());
+      return PackagingType.from(pom.getPackaging());
    }
 
    @Override
@@ -63,16 +62,15 @@ public class MavenPackagingFacet implements PackagingFacet
    }
 
    @Override
-   public Facet init(final Project project)
+   public void setProject(final Project project)
    {
       this.project = project;
-      return this;
    }
 
    @Override
    public boolean isInstalled()
    {
-      MavenFacet mavenFacet = project.getFacet(MavenFacet.class);
+      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       return mavenFacet != null;
    }
 
@@ -87,11 +85,4 @@ public class MavenPackagingFacet implements PackagingFacet
       return this;
    }
 
-   @Override
-   public Set<Class<? extends Facet>> getDependencies()
-   {
-      Set<Class<? extends Facet>> result = new HashSet<Class<? extends Facet>>();
-      result.add(MavenFacet.class);
-      return result;
-   }
 }

@@ -47,7 +47,7 @@ import jline.console.completer.Completer;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.MavenFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
@@ -457,7 +457,7 @@ public class ShellImpl implements Shell
       if (projectContext.getCurrentProject() != null)
       {
          // FIXME eventually, this cannot reference the MavenFacet directly.
-         suffix = "[" + projectContext.getCurrentProject().getFacet(MavenFacet.class).getPOM().getArtifactId() + "]";
+         suffix = "[" + projectContext.getCurrentProject().getFacet(MavenCoreFacet.class).getPOM().getArtifactId() + "]";
       }
       String path = getCurrentResource().toString();
       return suffix + " " + path + " $ ";

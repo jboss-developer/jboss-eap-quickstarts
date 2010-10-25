@@ -19,32 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.File;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.services.FacetFactory;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public abstract class AbstractResourceFacet implements ResourceFacet
+@Named("remove")
+@Help("Remove a plugin from the current project.")
+public class FacetUninstallPlugin implements Plugin
 {
-   @Override
-   public File createResource(final char[] bytes, final String relativeFilename)
-   {
-      File file = new File(getResourceFolder() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
-      return file;
-   }
+   @Inject
+   private FacetFactory factory;
 
-   @Override
-   public File createTestResource(final char[] bytes, final String relativeFilename)
-   {
-      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
-      return file;
-   }
+   @Inject
+   private Shell shell;
 
+   @Inject
+   private Project project;
+
+   @DefaultCommand
+   public void remove(@Option(help = "The name of the facet to remove from the project.") final String pluginName)
+   {
+      throw new IllegalStateException("Removing facets is not implemented.");
+   }
 }

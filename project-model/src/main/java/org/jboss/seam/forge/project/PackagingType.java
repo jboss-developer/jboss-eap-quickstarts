@@ -26,25 +26,18 @@ package org.jboss.seam.forge.project;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class PackagingType
+public enum PackagingType
 {
-   // TODO there needs to be some kind of hierarchy of PackagingTypes, enforced via a nice friendly resolution
-   // algorithm.
-   public static final PackagingType NONE = new PackagingType("", "None");
-   public static final PackagingType BASIC = new PackagingType("pom", "Basic Project");
-   public static final PackagingType JAR = new PackagingType("jar", "Java Application");
-   public static final PackagingType WAR = new PackagingType("war", "Java Web Application");
+   NONE("", "None"),
+   BASIC("pom", "Basic Project"),
+   JAR("jar", "Java Application"),
+   WAR("war", "Java Web Application"),
+   OTHER("", "Other packaging type");
 
    private String type;
    private String description;
 
-   public PackagingType(final String type)
-   {
-      this.type = type;
-      this.description = "";
-   }
-
-   public PackagingType(final String type, final String description)
+   private PackagingType(final String type, final String description)
    {
       setType(type);
       setDescription(description);
@@ -55,52 +48,13 @@ public class PackagingType
       return type;
    }
 
-   public void setType(String type)
+   private void setType(String type)
    {
       if (type != null)
       {
          type = type.trim().toLowerCase();
       }
       this.type = type;
-   }
-
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((type == null) ? 0 : type.hashCode());
-      return result;
-   }
-
-   @Override
-   public boolean equals(final Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (obj == null)
-      {
-         return false;
-      }
-      if (getClass() != obj.getClass())
-      {
-         return false;
-      }
-      PackagingType other = (PackagingType) obj;
-      if (type == null)
-      {
-         if (other.type != null)
-         {
-            return false;
-         }
-      }
-      else if (!type.equals(other.type))
-      {
-         return false;
-      }
-      return true;
    }
 
    @Override
@@ -114,8 +68,31 @@ public class PackagingType
       return description;
    }
 
-   public void setDescription(final String description)
+   private void setDescription(final String description)
    {
       this.description = description;
+   }
+
+   public static PackagingType from(String type)
+   {
+      PackagingType result = OTHER;
+      if (type != null)
+      {
+         type = type.trim();
+         for (PackagingType p : values())
+         {
+            if (p.getType().equals(type))
+            {
+               result = p;
+               break;
+            }
+         }
+
+         if (OTHER.equals(result))
+         {
+            OTHER.setType(type);
+         }
+      }
+      return result;
    }
 }

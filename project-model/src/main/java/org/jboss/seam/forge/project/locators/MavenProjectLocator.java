@@ -19,20 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.services;
+package org.jboss.seam.forge.project.locators;
 
 import java.io.File;
 
+import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.impl.MavenFacetImpl;
+import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 
 /**
- * Locate a Maven project starting in the current directory, and progressing up
- * the chain of parent directories until a project is found, or the root
- * directory is found. If a project is found, return the {@link File} referring
- * to the directory containing that project, or return null if no projects were
- * found.
+ * Locate a Maven project starting in the current directory, and progressing up the chain of parent directories until a
+ * project is found, or the root directory is found. If a project is found, return the {@link File} referring to the
+ * directory containing that project, or return null if no projects were found.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -53,7 +52,7 @@ public class MavenProjectLocator implements ProjectLocator
    }
 
    @Override
-   public Project findProject(File directory)
+   public Project findProject(final File directory)
    {
       File pom = new File(directory.getAbsolutePath() + File.separator + "pom.xml");
 
@@ -61,7 +60,9 @@ public class MavenProjectLocator implements ProjectLocator
       if (pom.exists())
       {
          result = new ProjectImpl(directory.getAbsoluteFile());
-         result.registerFacet(new MavenFacetImpl().init(result));
+         Facet facet = new MavenCoreFacetImpl();
+         facet.setProject(result);
+         result.registerFacet(facet);
       }
       return result;
    }

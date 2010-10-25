@@ -100,5 +100,8 @@ public class MethodTest
    {
       method.setParameters("final int foo, final String bar");
       List<Parameter> parameters = method.getParameters();
+      assertEquals(2, parameters.size());
+      assertEquals("foo", parameters.get(0).getName());
+      assertEquals("bar", parameters.get(1).getName());
    }
 }

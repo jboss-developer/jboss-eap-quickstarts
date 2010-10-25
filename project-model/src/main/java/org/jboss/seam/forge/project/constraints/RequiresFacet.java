@@ -19,24 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.facets.impl;
+package org.jboss.seam.forge.project.constraints;
 
-import java.io.File;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.Facet;
 
 /**
+ * The annotated element requires the given {@link Facet}
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-abstract public class AbstractWebResourceFacet implements WebResourceFacet
-{
-   @Override
-   public File createWebResource(final char[] bytes, final String relativeFilename)
-   {
-      File file = new File(getWebRootDirectory() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
-      return file;
-   }
+// TODO implement handling strategy for this annotation metadata
 
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface RequiresFacet
+{
+   /**
+    * The {@link Facet}s required by the annotated {@link Plugin}
+    */
+   Class<? extends Facet> value();
 }

@@ -21,20 +21,17 @@
  */
 package org.jboss.seam.forge.project.services;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.ProcessBean;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
+import org.jboss.seam.forge.project.facets.FacetNotFoundException;
+import org.jboss.seam.forge.project.util.Iterators;
 
 /**
  * Responsible for instantiating {@link Facet}s through CDI.
@@ -43,65 +40,67 @@ import org.jboss.seam.forge.project.Facet;
  * 
  */
 @Singleton
-public class FacetFactory implements Extension
+public class FacetFactory
 {
-   private BeanManager manager;
+   private List<Facet> facets;
 
-   private final Set<Bean<?>> facetTypes = new HashSet<Bean<?>>();
+   private final Instance<? extends Facet> instances;
 
-   public void scan(@Observes final ProcessBean<?> event, final BeanManager manager)
+   @Inject
+   public FacetFactory(@Any final Instance<Facet> instances)
    {
-      this.manager = manager;
-
-      Bean<?> bean = event.getBean();
-      Class<?> clazz = bean.getBeanClass();
-
-      if (Facet.class.isAssignableFrom(clazz))
-      {
-         facetTypes.add(bean);
-      }
+      this.instances = instances;
    }
 
    public List<Facet> getFacets()
    {
-      List<Facet> facets = new ArrayList<Facet>();
-
-      for (Bean<?> bean : facetTypes)
+      if (facets == null)
       {
-         facets.add((Facet) getContextualInstance(manager, bean));
+         facets = Iterators.toList(instances.iterator());
       }
-
       return facets;
    }
 
    @SuppressWarnings("unchecked")
-   public <T extends Facet> T getFacet(final Class<T> type)
+   public <T extends Facet> T getFacet(final Class<T> type) throws FacetNotFoundException
    {
       T result = null;
 
-      for (Bean<?> bean : facetTypes)
+      for (Facet facet : getFacets())
       {
-         if (type.isAssignableFrom(bean.getBeanClass()))
+         if (type.isAssignableFrom(facet.getClass()))
          {
-            result = (T) getContextualInstance(manager, bean);
+            result = (T) facet;
+            break;
          }
+      }
+
+      if (result == null)
+      {
+         throw new FacetNotFoundException("The requested Facet of type [" + type.getName() + "] could not be loaded.");
       }
 
       return result;
    }
 
-   @SuppressWarnings("unchecked")
-   private <T> T getContextualInstance(final BeanManager manager, final Bean<T> bean)
+   public Facet getFacetByName(final String facetName) throws FacetNotFoundException
    {
-      T result = null;
-      if (bean != null)
+      Facet result = null;
+      for (Facet facet : getFacets())
       {
-         CreationalContext<T> context = manager.createCreationalContext(bean);
-         if (context != null)
+         String name = ConstraintInspector.getName(facet.getClass());
+         if (name.equals(facetName))
          {
-            result = (T) manager.getReference(bean, bean.getBeanClass(), context);
+            result = facet;
+            break;
          }
       }
+
+      if (result == null)
+      {
+         throw new FacetNotFoundException("The requested Facet named [" + facetName + "] could not be found.");
+      }
+
       return result;
    }
 }

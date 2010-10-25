@@ -19,24 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins;
+package org.jboss.seam.forge.project.constraints;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
- * Informs the {@link Shell} that the annotated {@link Plugin} requires the given facets. This plugin and its commands
- * will not show up in the list of available commands until the required facets are installed and registered in the
- * project. (See also: {@link RequiredFacet})
+ * The annotated element requires the given {@link PackagingType}s
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-// TODO implement handling strategy for this annotation metadata
-public @interface RequiresFacets
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface RequiresPackagingTypes
 {
    /**
-    * The array of {@link Facet}s required by the annotated {@link Plugin}
+    * The array of {@link PackagingType}s required by the annotated {@link Facet} or {@link Plugin}
     */
-   Class<? extends Facet>[] value();
+   PackagingType[] value() default {};
 }
