@@ -34,21 +34,6 @@ import javax.enterprise.inject.spi.BeanManager;
 public abstract class BeanManagerUtils
 {
    @SuppressWarnings("unchecked")
-   public static <T> T getContextualInstance(final BeanManager manager, final Bean<T> bean)
-   {
-      T result = null;
-      if (bean != null)
-      {
-         CreationalContext<T> context = manager.createCreationalContext(bean);
-         if (context != null)
-         {
-            result = (T) manager.getReference(bean, bean.getBeanClass(), context);
-         }
-      }
-      return result;
-   }
-
-   @SuppressWarnings("unchecked")
    public static <T> T getContextualInstance(final BeanManager manager, final Class<T> type)
    {
       T result = null;
