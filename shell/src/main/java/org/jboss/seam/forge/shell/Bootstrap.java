@@ -45,5 +45,4 @@ public class Bootstrap
       manager.fireEvent(new Startup());
       manager.fireEvent(new AcceptUserInput());
    }
-
 }

@@ -14,7 +14,7 @@
     <name>Seam Forge - Project Model APIs</name>
 
     <dependencies>
-        <dependency> 
+        <dependency>
             <groupId>org.jboss.seam.forge</groupId>
             <artifactId>forge-parser-java</artifactId>
         </dependency>
@@ -46,5 +46,7 @@
         </dependency>
 
     </dependencies>
+
+
 
 </project>
