@@ -24,6 +24,7 @@ package org.jboss.seam.forge.shell.command.parser;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.regex.Pattern;
 
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
@@ -46,7 +47,7 @@ public class NamedBooleanOptionParser implements CommandParser
       String currentToken = tokens.peek();
       if (currentToken.matches("--?\\S+"))
       {
-         boolean shortOption = currentToken.matches("-[^-]\\S+");
+         boolean shortOption = currentToken.length() == 2 && currentToken.charAt(1) != '-';
          currentToken = currentToken.substring(shortOption ? 1 : 2);
 
          if (shortOption ? command.hasShortOption(currentToken) : command.hasOption(currentToken))
@@ -73,5 +74,4 @@ public class NamedBooleanOptionParser implements CommandParser
       }
       return valueMap;
    }
-
 }
