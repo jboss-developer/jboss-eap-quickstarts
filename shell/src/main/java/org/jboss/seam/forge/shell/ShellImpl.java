@@ -78,6 +78,7 @@ import org.slf4j.Logger;
 
 import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
 import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
+import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -127,9 +128,9 @@ public class ShellImpl implements Shell
       log.info("Seam Forge Shell - Starting up.");
 
       BooleanConverter booleanConverter = new BooleanConverter();
-      DataConversion.addConversionHandler(boolean.class, booleanConverter);
-      DataConversion.addConversionHandler(Boolean.class, booleanConverter);
-      DataConversion.addConversionHandler(File.class, new FileConverter());
+      addConversionHandler(boolean.class, booleanConverter);
+      addConversionHandler(Boolean.class, booleanConverter);
+      addConversionHandler(File.class, new FileConverter());
 
       initStreams();
       initCompleters(pluginCompleter);

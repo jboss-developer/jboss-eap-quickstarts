@@ -16,7 +16,7 @@ public abstract class Parsing
 
       }
 
-      return -1;
+      return str.length();
    }
 
    public static String firstToken(String str) {
