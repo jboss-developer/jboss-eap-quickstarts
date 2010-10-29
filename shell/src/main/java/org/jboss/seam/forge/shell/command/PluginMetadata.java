@@ -21,9 +21,9 @@
  */
 package org.jboss.seam.forge.shell.command;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
@@ -35,6 +35,10 @@ public class PluginMetadata
    private String help = "";
    private String name = "";
    private Class<? extends Plugin> type;
+
+   @SuppressWarnings({"unchecked"})
+   private Set<Class<? extends Resource<?>>> resourceScopes = Collections.emptySet();
+
    private List<CommandMetadata> commands = new ArrayList<CommandMetadata>();
 
    /**
@@ -130,4 +134,16 @@ public class PluginMetadata
    {
       return (commands != null) && (commands.size() > 0);
    }
+
+   public Set<Class<? extends Resource<?>>> getResourceScopes()
+   {
+      return resourceScopes;
+   }
+
+   public void setResourceScopes(List<Class<? extends Resource<?>>> resourceScopes)
+   {
+      this.resourceScopes = new HashSet<Class<? extends Resource<?>>>(resourceScopes);
+   }
+
+
 }

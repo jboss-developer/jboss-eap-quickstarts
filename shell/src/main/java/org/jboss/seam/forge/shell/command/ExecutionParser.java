@@ -22,12 +22,12 @@
 package org.jboss.seam.forge.shell.command;
 
 import java.io.File;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.parser.CommandParser;
@@ -40,6 +40,7 @@ import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser
 import org.jboss.seam.forge.shell.command.parser.ParseErrorParser;
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.mvel2.util.ParseTools;
 
 /**
@@ -56,7 +57,7 @@ public class ExecutionParser
    @Inject
    public ExecutionParser(final PluginRegistry registry, final Instance<Execution> executionInstance,
                           final Tokenizer tokenizer, final Shell shell,
-            final PromptTypeConverter promptTypeConverter)
+                          final PromptTypeConverter promptTypeConverter)
    {
       this.registry = registry;
       this.executionInstance = executionInstance;
@@ -85,8 +86,10 @@ public class ExecutionParser
             {
                String second = tokens.peek();
                command = plugin.getCommand(second);
+
                if (command != null)
                {
+
                   tokens.remove();
                }
             }
@@ -98,6 +101,17 @@ public class ExecutionParser
 
             if (command != null)
             {
+
+               if (!command.usableWithScope(shell.getCurrentResource().getClass()))
+               {
+                  //noinspection unchecked
+                  throw new PluginExecutionException(plugin, "command '" + command.getName()
+                        + "' is not usable in current scope ["
+                        + shell.getCurrentResource().getClass().getSimpleName() + "]"
+                        + " -- usable scopes: " + GeneralUtils.elementSetSimpleTypesToString((Set<Class>) command.getResourceScopes()));
+               }
+
+
                execution.setCommand(command);
 
                // parse parameters and set order / nulls for command invocation
@@ -108,7 +122,7 @@ public class ExecutionParser
             else
             {
                throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                        + "], available commands: " + plugin.getCommands());
+                     + "], available commands: " + plugin.getCommands());
             }
          }
       }
@@ -119,8 +133,8 @@ public class ExecutionParser
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
       Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
 

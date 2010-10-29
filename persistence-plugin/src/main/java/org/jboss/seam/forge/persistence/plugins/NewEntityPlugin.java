@@ -43,12 +43,10 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -58,6 +56,7 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 @Named("new-entity")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
+@ResourceScope(DirectoryResource.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewEntityPlugin implements Plugin
 {

@@ -21,9 +21,10 @@
  */
 package org.jboss.seam.forge.shell.command;
 
+import org.jboss.seam.forge.project.Resource;
+
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -37,6 +38,9 @@ public class CommandMetadata
    private String name = "";
    private String help = "";
    private List<OptionMetadata> options = new ArrayList<OptionMetadata>();
+
+   @SuppressWarnings({"unchecked"})
+   private Set<Class> resourceScopes = Collections.emptySet();
 
    public OptionMetadata getNamedOption(final String name) throws IllegalArgumentException
    {
@@ -151,7 +155,7 @@ public class CommandMetadata
    {
       for (OptionMetadata option : options)
       {
-         if (option.isNamed() &&  option.getShortName().equals(name))
+         if (option.isNamed() && option.getShortName().equals(name))
          {
             return true;
          }
@@ -169,5 +173,20 @@ public class CommandMetadata
          }
       }
       return false;
+   }
+
+   public Set<Class> getResourceScopes()
+   {
+      return resourceScopes;
+   }
+
+   public void setResourceScopes(List<Class<? extends Resource>> resourceScopes)
+   {
+      this.resourceScopes = new HashSet<Class>(resourceScopes);
+   }
+
+   public boolean usableWithScope(Class resource)
+   {
+      return this.resourceScopes.size() == 0 || this.resourceScopes.contains(resource);
    }
 }

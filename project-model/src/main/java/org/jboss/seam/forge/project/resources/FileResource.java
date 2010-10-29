@@ -33,7 +33,7 @@ public abstract class FileResource extends AbstractResource<File>
 
    /**
     * Get the actual underlying file resource that this resource instance represents, whether existing or non-existing.
-    * 
+    *
     * @return An instance of {@link File}
     */
    public File getUnderlyingResourceObject()
@@ -50,7 +50,7 @@ public abstract class FileResource extends AbstractResource<File>
 
    /**
     * Get the parent of the current resource. Returns null if the current resource is the project root.
-    * 
+    *
     * @return An instance of the resource parent.
     */
    public Resource<?> getParent()
@@ -65,15 +65,20 @@ public abstract class FileResource extends AbstractResource<File>
 
    /**
     * Create a new resource instance for the target file of the type that this current resource is.
-    * 
+    *
     * @param file The file to create the resource instance from.
     * @return A new resource.
     */
    public abstract Resource<File> createFrom(File file);
 
+   public boolean exists()
+   {
+      return getUnderlyingResourceObject().exists();
+   }
+
    /**
     * Returns true if the underlying resource has been modified on the file system since it was initially loaded.
-    * 
+    *
     * @return boolean true if resource is changed.
     */
    public boolean isStale()
@@ -84,5 +89,46 @@ public abstract class FileResource extends AbstractResource<File>
    public void markUpToDate()
    {
       lastModification = getUnderlyingResourceObject().lastModified();
+   }
+
+
+   public boolean mkdir()
+   {
+      return file.mkdir();
+   }
+
+   public boolean mkdirs()
+   {
+      return file.mkdirs();
+   }
+
+   public boolean delete(boolean recursive)
+   {
+      if (recursive)
+      {
+         _deleteRecursive(file);
+
+      }
+      return file.delete();
+   }
+
+   private static boolean _deleteRecursive(File file)
+   {
+      for (File sf : file.listFiles())
+      {
+         if (sf.isDirectory())
+         {
+            _deleteRecursive(sf);
+         }
+         else
+         {
+            if (!sf.delete())
+            {
+               throw new RuntimeException("failed to delete: " + sf.getAbsolutePath());
+            }
+         }
+      }
+
+      return file.delete();
    }
 }

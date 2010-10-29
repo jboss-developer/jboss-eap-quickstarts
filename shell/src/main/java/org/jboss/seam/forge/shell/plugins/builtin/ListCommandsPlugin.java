@@ -9,7 +9,12 @@ import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: christopherbrock Date: 30-Aug-2010 Time: 6:31:57 PM
@@ -29,16 +34,39 @@ public class ListCommandsPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void listCommands()
+   public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) boolean showAll)
    {
+      List<String> listData = new ArrayList<String>();
+      Class currResource = shell.getCurrentResource().getClass();
       for (PluginMetadata pluginMetaData : registry.getPlugins().values())
       {
          for (CommandMetadata commandMetadata : pluginMetaData.getCommands())
          {
-            shell.print(commandMetadata.getName());
-            shell.print("  ");
+            render(listData, showAll, currResource, commandMetadata);
          }
       }
-      shell.println();
+
+      GeneralUtils.printOutColumns(listData, shell, true);
+   }
+
+   private static void render(List<String> listData, boolean showAll, Class currResource, CommandMetadata cmdMeta)
+   {
+      boolean contextual = cmdMeta.usableWithScope(currResource);
+
+      if (showAll)
+      {
+         if (!cmdMeta.isDefault())
+         {
+            listData.add((contextual ? "*" : "") + cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName());
+         }
+         else
+         {
+            listData.add((contextual ? "*" : "") + cmdMeta.getName());
+         }
+      }
+      else if (contextual)
+      {
+         listData.add(cmdMeta.getName());
+      }
    }
 }

@@ -47,12 +47,10 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -62,6 +60,7 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 @Singleton
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
+@ResourceScope(JavaResource.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewFieldPlugin implements Plugin
 {
@@ -87,15 +86,12 @@ public class NewFieldPlugin implements Plugin
             @Option(name = "type",
                      required = true,
                      type = PromptType.JAVA_CLASS,
-                     description = "The qualified Class to be used as this field's type") final String type,
-            @Option(name = "addToClass",
-                     required = false,
-                     type = PromptType.JAVA_CLASS,
-                     description = "The @Entity to which this field will be added") final String entityName)
+                     description = "The qualified Class to be used as this field's type") final String type
+           )
    {
       try
       {
-         JavaClass entity = findEntity(entityName);
+         JavaClass entity = getJavaClass();
          addFieldTo(entity, type, fieldName, Column.class);
       }
       catch (FileNotFoundException e)
@@ -110,10 +106,7 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-            @Option(name = "addToClass",
-                     required = false,
-                     type = PromptType.JAVA_CLASS,
-                     description = "The @Entity to which this field will be added") final String entityName,
+
             @Option(name = "primitive",
                      required = false,
                      defaultValue = "true",
@@ -122,7 +115,7 @@ public class NewFieldPlugin implements Plugin
    {
       try
       {
-         JavaClass entity = findEntity(entityName);
+         JavaClass entity = getJavaClass();
          if (primitive)
          {
             addFieldTo(entity, boolean.class, fieldName, Column.class);
@@ -144,10 +137,7 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-            @Option(name = "addToClass",
-                     required = false,
-                     type = PromptType.JAVA_CLASS,
-                     description = "The @Entity to which this field will be added") final String entityName,
+
             @Option(name = "primitive",
                      required = false,
                      defaultValue = "true",
@@ -156,7 +146,7 @@ public class NewFieldPlugin implements Plugin
    {
       try
       {
-         JavaClass entity = findEntity(entityName);
+         JavaClass entity = getJavaClass();
          if (primitive)
          {
             addFieldTo(entity, int.class, fieldName, Column.class);
@@ -178,10 +168,6 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-            @Option(name = "addToClass",
-                     required = false,
-                     type = PromptType.JAVA_CLASS,
-                     description = "The @Entity to which this field will be added") final String entityName,
             @Option(name = "primitive",
                      required = false,
                      defaultValue = "true",
@@ -190,7 +176,7 @@ public class NewFieldPlugin implements Plugin
    {
       try
       {
-         JavaClass entity = findEntity(entityName);
+         JavaClass entity = getJavaClass();
          if (primitive)
          {
             addFieldTo(entity, long.class, fieldName, Column.class);
@@ -215,15 +201,11 @@ public class NewFieldPlugin implements Plugin
             @Option(name = "type",
                      required = true,
                      type = PromptType.JAVA_CLASS,
-                     description = "The qualified Class to be used as this field's type") final String type,
-            @Option(name = "addToClass",
-                     required = false,
-                     type = PromptType.JAVA_CLASS,
-                     description = "The @Entity to which this field will be added") final String entityName)
+                     description = "The qualified Class to be used as this field's type") final String type)
    {
       try
       {
-         JavaClass entity = findEntity(entityName);
+         JavaClass entity = getJavaClass();
          addFieldTo(entity, Class.forName(type), fieldName, Column.class);
       }
       catch (FileNotFoundException e)
@@ -250,7 +232,7 @@ public class NewFieldPlugin implements Plugin
    {
       try
       {
-         JavaClass entity = findEntity(entityName);
+         JavaClass entity = getJavaClass();
          addFieldTo(entity, String.class, fieldName, Column.class);
       }
       catch (FileNotFoundException e)
@@ -269,10 +251,6 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The @Entity type to which this field is a relationship",
                      type = PromptType.JAVA_CLASS) final String fieldType,
-            @Option(name = "addToClass",
-                     required = false,
-                     description = "The @Entity to which this field will be added",
-                     type = PromptType.JAVA_CLASS) final String targetEntity,
             @Option(name = "inverseFieldName",
                      required = false,
                      description = "Create a bi-directional relationship, using this value as the name of the inverse field.",
@@ -282,7 +260,7 @@ public class NewFieldPlugin implements Plugin
       try
       {
          JavaClass field = findEntity(fieldType);
-         JavaClass entity = findEntity(targetEntity);
+         JavaClass entity = getJavaClass();
          addFieldTo(entity, field, fieldName, OneToOne.class);
          if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
          {
@@ -305,10 +283,6 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The @Entity type to which this field is a relationship",
                      type = PromptType.JAVA_CLASS) final String fieldType,
-            @Option(name = "addToClass",
-                     required = false,
-                     description = "The @Entity to which this field will be added",
-                     type = PromptType.JAVA_CLASS) final String targetEntity,
             @Option(name = "inverseFieldName",
                      required = false,
                      description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
@@ -320,7 +294,7 @@ public class NewFieldPlugin implements Plugin
 
       try
       {
-         JavaClass entity = findEntity(targetEntity);
+         JavaClass entity = getJavaClass();
          JavaClass otherEntity = findEntity(fieldType);
 
          entity.addImport(Set.class);
@@ -363,10 +337,6 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The @Entity representing the 'many' side of the relationship.",
                      type = PromptType.JAVA_CLASS) final String fieldType,
-            @Option(name = "addToClass",
-                     required = false,
-                     description = "The @Entity to which this field will be added (the 'one' side of the relationship)",
-                     type = PromptType.JAVA_CLASS) final String targetEntity,
             @Option(name = "inverseFieldName",
                      required = false,
                      description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
@@ -378,7 +348,7 @@ public class NewFieldPlugin implements Plugin
 
       try
       {
-         JavaClass entity = findEntity(targetEntity);
+         JavaClass entity = getJavaClass();
          JavaClass otherEntity = findEntity(fieldType);
 
          entity.addImport(Set.class);
@@ -461,6 +431,17 @@ public class NewFieldPlugin implements Plugin
    public Project getCurrentProject()
    {
       return projectInstance.get();
+   }
+
+   private JavaClass getJavaClass() throws FileNotFoundException
+   {
+      if (shell.getCurrentResource() instanceof JavaResource) {
+         return ((JavaResource) shell.getCurrentResource()).getJavaClass();
+      }
+      else {
+         throw new RuntimeException("current resource is not a JavaResource!");
+      }
+
    }
 
    private JavaClass findEntity(final String entity) throws FileNotFoundException

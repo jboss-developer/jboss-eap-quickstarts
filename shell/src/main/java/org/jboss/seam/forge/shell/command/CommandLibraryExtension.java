@@ -23,10 +23,7 @@ package org.jboss.seam.forge.shell.command;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Bean;
@@ -34,16 +31,12 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Named;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.util.Annotations;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class CommandLibraryExtension implements Extension
 {
@@ -85,6 +78,15 @@ public class CommandLibraryExtension implements Extension
          pluginMeta.setHelp("");
       }
 
+      if (Annotations.isAnnotationPresent(plugin, ResourceScope.class))
+      {
+         List<Class<? extends Resource<?>>> resourceTypes
+               = Arrays.asList(Annotations.getAnnotation(plugin, ResourceScope.class).value());
+
+         pluginMeta.setResourceScopes(resourceTypes);
+
+      }
+
       processPluginCommands(pluginMeta, plugin);
 
       return pluginMeta;
@@ -122,8 +124,8 @@ public class CommandLibraryExtension implements Extension
                if (pluginMeta.hasDefaultCommand())
                {
                   throw new IllegalStateException("Plugins may only have one @"
-                           + DefaultCommand.class.getSimpleName()
-                           + ", but [" + pluginMeta.getType() + "] has more than one.");
+                        + DefaultCommand.class.getSimpleName()
+                        + ", but [" + pluginMeta.getType() + "] has more than one.");
                }
 
                commandMeta.setDefault(true);
@@ -135,6 +137,16 @@ public class CommandLibraryExtension implements Extension
                {
                   commandMeta.setHelp(def.help());
                }
+            }
+
+            if (Annotations.isAnnotationPresent(method, ResourceScope.class))
+            {
+               List<Class<? extends Resource>> resourceTypes
+                     = new ArrayList<Class<? extends Resource>>(pluginMeta.getResourceScopes());
+
+               resourceTypes.addAll(Arrays.asList(Annotations.getAnnotation(method, ResourceScope.class).value()));
+
+               commandMeta.setResourceScopes(resourceTypes);
             }
 
             // fall back to the pluginMetadata for help text
@@ -168,6 +180,7 @@ public class CommandLibraryExtension implements Extension
                      optionMeta.setRequired(option.required());
                      optionMeta.setPromptType(option.type());
                   }
+
                }
                commandMeta.addOption(optionMeta);
                i++;

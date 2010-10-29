@@ -62,6 +62,7 @@ public class DirectoryResource extends FileResource
       return new DirectoryResource(resourceFactory, file);
    }
 
+
    @Override
    public synchronized Resource<?> getParent()
    {
@@ -89,4 +90,6 @@ public class DirectoryResource extends FileResource
    {
       return (obj instanceof DirectoryResource) && ((DirectoryResource) obj).file.equals(file);
    }
+
 }
+

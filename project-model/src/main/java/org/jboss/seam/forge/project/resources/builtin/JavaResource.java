@@ -71,6 +71,12 @@ public class JavaResource extends FileResource
       }
    }
 
+   public JavaClass getJavaClass() throws FileNotFoundException
+   {
+      lazyInitialize();
+      return javaClass;
+   }
+
    @Override
    public JavaResource createFrom(final File file)
    {

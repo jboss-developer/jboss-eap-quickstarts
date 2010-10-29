@@ -1,5 +1,7 @@
 package org.jboss.seam.forge.shell.util;
 
+import java.util.Arrays;
+
 public abstract class Parsing
 {
    public static int firstWhitespace(String str)

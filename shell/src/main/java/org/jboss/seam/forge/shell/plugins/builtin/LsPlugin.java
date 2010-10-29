@@ -33,6 +33,7 @@ import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -70,44 +71,11 @@ public class LsPlugin implements Plugin
          if (showAll || !el.startsWith("."))
          {
             listData.add(el);
-            if (el.length() > maxLength)
-            {
-               maxLength = el.length();
-            }
          }
       }
 
-      int cols = width / (maxLength + 4);
-      int colSize = width / cols;
-
-      if (cols == 0)
-      {
-         colSize = width;
-         cols = 1;
-      }
-
-      int i = 0;
-      for (String s : listData)
-      {
-         shell.print(s);
-         shell.print(pad(colSize - s.length()));
-         if (++i == cols)
-         {
-            shell.println();
-            i = 0;
-         }
-      }
-      shell.println();
+      GeneralUtils.printOutColumns(listData, shell, true);
    }
 
-   private String pad(final int amount)
-   {
-      char[] padding = new char[amount];
-      for (int i = 0; i < amount; i++)
-      {
-         padding[i] = ' ';
-      }
-      return new String(padding);
-   }
 
 }

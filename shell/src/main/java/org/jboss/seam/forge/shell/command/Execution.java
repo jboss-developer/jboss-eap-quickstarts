@@ -46,7 +46,6 @@ public class Execution
    private final BeanManager manager;
    private final Shell shell;
 
-
    private CommandMetadata command;
    private Object[] parameterArray;
    private String originalStatement;
