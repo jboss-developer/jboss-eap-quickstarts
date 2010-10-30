@@ -22,12 +22,15 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.core.internal.utils.Cache;
+import org.eclipse.core.runtime.Path;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
@@ -37,9 +40,11 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.mvel2.util.StringAppender;
 
 import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -51,6 +56,25 @@ public class LsPlugin implements Plugin
 {
    private final Shell shell;
    private final ResourceFactory factory;
+
+
+   private static final long yearMarker;
+   private static final SimpleDateFormat dateFormatOld = new SimpleDateFormat("MMM d yyyy");
+   private static final SimpleDateFormat dateFormatRecent = new SimpleDateFormat("MMM d HH:mm");
+
+   static
+   {
+      Calendar c = Calendar.getInstance();
+      c.setTimeInMillis(System.currentTimeMillis());
+      c.set(Calendar.MONTH, 0);
+      c.set(Calendar.DAY_OF_MONTH, 0);
+      c.set(Calendar.HOUR, 0);
+      c.set(Calendar.MINUTE, 0);
+      c.set(Calendar.SECOND, 0);
+      c.set(Calendar.MILLISECOND, 0);
+
+      yearMarker = c.getTimeInMillis();
+   }
 
    @Inject
    public LsPlugin(final Shell shell, final ResourceFactory factory)
@@ -64,29 +88,82 @@ public class LsPlugin implements Plugin
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") String... path)
    {
-      List<String> listData = new LinkedList<String>();
+
+      Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
+      List<String> listBuild;
 
       for (String p : path)
       {
          Resource<?> resource = parsePathspec(factory, shell.getCurrentResource(), p);
-
          List<Resource<?>> childResources = resource.listResources();
 
-
          String el;
-         for (Resource<?> r : childResources)
-         {
-            el = r.toString();
+         File file;
 
-            if (showAll || !el.startsWith("."))
+         if (list)
+         {
+            /**
+             * List-view implementation.
+             */
+            for (Resource<?> r : childResources)
             {
-               listData.add(el);
+               sortMap.put(el = r.toString(), listBuild = new ArrayList<String>());
+               file = (File) r.getUnderlyingResourceObject();
+
+               if (showAll || !el.startsWith("."))
+               {
+                  StringBuilder permissions = new StringBuilder(file.isDirectory() ? "d" : "-")
+                        .append(file.canRead() ? 'r' : '-')
+                        .append(file.canWrite() ? 'w' : '-')
+                        .append(file.canExecute() ? 'x' : '-')
+                        .append("------");
+
+                  listBuild.add(permissions.toString());
+                  listBuild.add("owner"); // not supported
+                  listBuild.add(" users "); // not supported
+                  listBuild.add(String.valueOf(file.length()));
+                  listBuild.addAll(Arrays.asList(getDateString(file.lastModified())));
+                  listBuild.add(el);
+               }
             }
+
+            listBuild = new ArrayList<String>();
+
+            for (List<String> sublist : sortMap.values())
+            {
+               listBuild.addAll(sublist);
+            }
+
+            shell.println("total " + sortMap.size());
+            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell);
+         }
+         else
+         {
+            listBuild = new ArrayList<String>();
+            for (Resource<?> r : childResources)
+            {
+               el = r.toString();
+               if (showAll || !el.startsWith("."))
+               {
+                  listBuild.add(el);
+               }
+            }
+
+            printOutColumns(listBuild, shell, false);
          }
       }
+   }
 
-      if (list) System.out.println("LIST!");
 
-      printOutColumns(listData, shell, true);
+   private static String[] getDateString(long time)
+   {
+      if (time < yearMarker)
+      {
+         return dateFormatOld.format(new Date(time)).split(" ");
+      }
+      else
+      {
+         return dateFormatRecent.format(new Date(time)).split(" ");
+      }
    }
 }

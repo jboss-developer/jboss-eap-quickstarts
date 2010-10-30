@@ -65,7 +65,6 @@ public class GeneralUtils
 
    public static void printOutColumns(List<String> list, Shell shell, boolean sort)
    {
-
       int width = shell.getWidth();
       int maxLength = 0;
 
@@ -74,7 +73,8 @@ public class GeneralUtils
          if (s.length() > maxLength) maxLength = s.length();
       }
 
-      if (sort) {
+      if (sort)
+      {
          Collections.sort(list);
       }
 
@@ -99,7 +99,46 @@ public class GeneralUtils
          }
       }
       shell.println();
+   }
 
+   public static void printOutTables(List<String> list, boolean[] columns, Shell shell)
+   {
+      int cols = columns.length;
+      int[] colSizes = new int[columns.length];
+
+      Iterator<String> iter = list.iterator();
+
+      String el;
+      while (iter.hasNext())
+      {
+         for (int i = 0; i < cols; i++)
+         {
+            if (colSizes[i] < (el = iter.next()).length())
+               colSizes[i] = el.length();
+         }
+      }
+
+      iter = list.iterator();
+
+      while (iter.hasNext())
+      {
+         for (int i = 0; i < cols; i++)
+         {
+            el = iter.next();
+            if (columns[i])
+            {
+               shell.print(pad(colSizes[i] - el.length()));
+               shell.print(el);
+            }
+            else
+            {
+               shell.print(el);
+               shell.print(pad(colSizes[i] - el.length()));
+            }
+            shell.print(" ");
+         }
+         shell.println();
+      }
    }
 
    public static String pad(final int amount)
