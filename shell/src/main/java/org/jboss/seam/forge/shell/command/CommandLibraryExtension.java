@@ -41,9 +41,9 @@ import org.jboss.seam.forge.shell.plugins.*;
  */
 public class CommandLibraryExtension implements Extension
 {
-   private final Map<String, PluginMetadata> plugins = new HashMap<String, PluginMetadata>();
+   private final Map<String, List<PluginMetadata>> plugins = new HashMap<String, List<PluginMetadata>>();
 
-   public Map<String, PluginMetadata> getPlugins()
+   public Map<String, List<PluginMetadata>> getPlugins()
    {
       return plugins;
    }
@@ -58,7 +58,13 @@ public class CommandLibraryExtension implements Extension
       if (Plugin.class.isAssignableFrom(clazz))
       {
          PluginMetadata pluginMeta = getMetadataFor((Class<? extends Plugin>) clazz);
-         plugins.put(pluginMeta.getName(), pluginMeta);
+
+         if (!plugins.containsKey(pluginMeta.getName()))
+         {
+            plugins.put(pluginMeta.getName(), new ArrayList<PluginMetadata>());
+         }
+
+         plugins.get(pluginMeta.getName()).add(pluginMeta);
       }
    }
 
@@ -96,7 +102,6 @@ public class CommandLibraryExtension implements Extension
    private List<CommandMetadata> processPluginCommands(final PluginMetadata pluginMeta, final Class<?> plugin)
    {
       List<CommandMetadata> results = new ArrayList<CommandMetadata>();
-      pluginMeta.setCommands(results);
 
       for (Method method : plugin.getMethods())
       {
@@ -190,20 +195,39 @@ public class CommandLibraryExtension implements Extension
             results.add(commandMeta);
          }
       }
+
+      pluginMeta.addCommands(results);
+
       return results;
    }
 
    private String getPluginName(final Class<?> plugin)
    {
       String name = null;
-      Named named = Annotations.getAnnotation(plugin, Named.class);
-      if (named != null)
+
+      if (Annotations.isAnnotationPresent(plugin, OverloadedName.class))
       {
-         name = named.value();
+         OverloadedName named = Annotations.getAnnotation(plugin, OverloadedName.class);
+         if (named != null)
+         {
+            name = named.value();
+         }
+         if ((name == null) || "".equals(name.trim()))
+         {
+            name = plugin.getSimpleName();
+         }
       }
-      if ((name == null) || "".equals(name.trim()))
+      else
       {
-         name = plugin.getSimpleName();
+         Named named = Annotations.getAnnotation(plugin, Named.class);
+         if (named != null)
+         {
+            name = named.value();
+         }
+         if ((name == null) || "".equals(name.trim()))
+         {
+            name = plugin.getSimpleName();
+         }
       }
       return name.toLowerCase();
    }

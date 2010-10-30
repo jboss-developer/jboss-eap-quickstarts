@@ -35,6 +35,8 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -64,7 +66,7 @@ public class HelpPlugin implements Plugin
       else
       {
          String pluginName = tokens[0];
-         PluginMetadata plugin = registry.getPlugins().get(pluginName);
+         PluginMetadata plugin = registry.getPluginMetadataForScope(pluginName, shell);
          if (plugin != null)
          {
             writePluginHelp(plugin);
@@ -72,9 +74,9 @@ public class HelpPlugin implements Plugin
             if (tokens.length >= 2)
             {
                String commandName = tokens[1];
-               if (plugin.hasCommand(commandName))
+               if (plugin.hasCommand(commandName, shell))
                {
-                  CommandMetadata command = plugin.getCommand(commandName);
+                  CommandMetadata command = plugin.getCommand(commandName, shell);
                   writeCommandHelp(command);
                }
                else
@@ -84,11 +86,12 @@ public class HelpPlugin implements Plugin
             }
             else if (tokens.length >= 1)
             {
-               if (plugin.getCommands().size() > 0)
+               List<CommandMetadata> ctxCommands = plugin.getCommands(shell);
+               if (ctxCommands.size() > 0)
                {
                   shell.println("");
                   shell.println("Commands:");
-                  for (CommandMetadata command : plugin.getCommands())
+                  for (CommandMetadata command : ctxCommands)
                   {
                      writeCommandHelp(command);
                   }

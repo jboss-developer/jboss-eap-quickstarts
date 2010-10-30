@@ -71,7 +71,6 @@ public class ExecutionParser
    {
       Queue<String> tokens = tokenizer.tokenize(line);
 
-      Map<String, PluginMetadata> plugins = registry.getPlugins();
       Execution execution = executionInstance.get();
       execution.setOriginalStatement(line);
       CommandMetadata command = null;
@@ -79,14 +78,14 @@ public class ExecutionParser
       if (!tokens.isEmpty())
       {
          String first = tokens.remove();
-         PluginMetadata plugin = plugins.get(first);
+         PluginMetadata plugin = registry.getPluginMetadataForScope(first, shell);
 
          if (plugin != null)
          {
             if (!tokens.isEmpty())
             {
                String second = tokens.peek();
-               command = plugin.getCommand(second);
+               command = plugin.getCommand(second, shell);
 
                if (command != null)
                {
@@ -123,7 +122,7 @@ public class ExecutionParser
             else
             {
                throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                     + "], available commands: " + plugin.getCommands());
+                     + "], available commands: " + plugin.getCommands(shell));
             }
          }
       }

@@ -36,7 +36,11 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
 /**
  * @author Mike Brock
@@ -59,19 +63,25 @@ public class ListCommandsPlugin implements Plugin
    public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) boolean showAll)
    {
       List<String> listData = new ArrayList<String>();
+      Set<String> displayed = new HashSet<String>();
       Class currResource = shell.getCurrentResource().getClass();
-      for (PluginMetadata pluginMetaData : registry.getPlugins().values())
+      for (List<PluginMetadata> lpm : registry.getPlugins().values())
       {
-         for (CommandMetadata commandMetadata : pluginMetaData.getCommands())
+         for (PluginMetadata pluginMetadata : lpm)
          {
-            render(listData, showAll, currResource, commandMetadata);
+            for (CommandMetadata commandMetadata : pluginMetadata.getAllCommands())
+            {
+               render(listData, showAll, currResource, commandMetadata, displayed.contains(commandMetadata.getName()));
+               displayed.add(commandMetadata.getName());
+            }
          }
       }
 
-      GeneralUtils.printOutColumns(listData, shell, true);
+      printOutColumns(listData, shell, true);
    }
 
-   private static void render(List<String> listData, boolean showAll, Class currResource, CommandMetadata cmdMeta)
+   private static void render(List<String> listData, boolean showAll, Class currResource,
+                              CommandMetadata cmdMeta, boolean overloaded)
    {
       boolean contextual = cmdMeta.usableWithScope(currResource);
 
@@ -79,11 +89,13 @@ public class ListCommandsPlugin implements Plugin
       {
          if (!cmdMeta.isDefault())
          {
-            listData.add((contextual ? "*" : " ") + cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName());
+            listData.add(cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName()
+                  + (contextual ? "*" : "") + (overloaded ? "@" : ""));
          }
          else
          {
-            listData.add((contextual ? "*" : " ") + cmdMeta.getName());
+            listData.add(cmdMeta.getName()
+                  + (contextual ? "*" : "") + (overloaded ? "@" : ""));
          }
       }
       else if (contextual)

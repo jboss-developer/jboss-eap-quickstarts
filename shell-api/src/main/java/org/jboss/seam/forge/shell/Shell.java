@@ -45,6 +45,8 @@ public interface Shell
 
    Resource<?> getCurrentResource();
 
+   Class<? extends Resource> getCurrentResourceScope();
+
    void setCurrentResource(Resource<?> resource);
 
    void setCurrentResource(File file);

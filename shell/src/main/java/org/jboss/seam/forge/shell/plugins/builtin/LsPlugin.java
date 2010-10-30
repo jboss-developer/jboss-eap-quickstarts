@@ -32,13 +32,11 @@ import javax.inject.Named;
 import org.eclipse.core.internal.utils.Cache;
 import org.eclipse.core.runtime.Path;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.mvel2.util.StringAppender;
 
@@ -51,6 +49,7 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
  * @author Mike Brock
  */
 @Named("ls")
+@ResourceScope(DirectoryResource.class)
 @Help("Prints the contents current directory.")
 public class LsPlugin implements Plugin
 {

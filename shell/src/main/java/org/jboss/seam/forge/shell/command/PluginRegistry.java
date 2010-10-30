@@ -22,7 +22,7 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.spi.CreationalContext;
@@ -31,18 +31,21 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
  * Stores the current registry of all installed & loaded plugins.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 public class PluginRegistry
 {
-   private Map<String, PluginMetadata> plugins;
+   private Map<String, List<PluginMetadata>> plugins;
+   private Map<String, Map<Class, PluginMetadata>> accessCache;
+
    private final CommandLibraryExtension library;
    private final BeanManager manager;
 
@@ -57,16 +60,23 @@ public class PluginRegistry
    public void init()
    {
       plugins = library.getPlugins();
+      accessCache = new HashMap<String, Map<Class, PluginMetadata>>();
+      sanityCheck();
    }
 
-   public Map<String, PluginMetadata> getPlugins()
+   public Map<String, List<PluginMetadata>> getPlugins()
    {
       return plugins;
    }
 
    public void addPlugin(final PluginMetadata plugin)
    {
-      plugins.put(plugin.getName(), plugin);
+      if (!plugins.containsKey(plugin.getName()))
+      {
+         plugins.put(plugin.getName(), new ArrayList<PluginMetadata>());
+      }
+
+      plugins.get(plugin.getName()).add(plugin);
    }
 
    @Override
@@ -98,12 +108,75 @@ public class PluginRegistry
 
    /**
     * Get {@link PluginMetadata} for the plugin with the given name.
-    * 
+    *
     * @return the metadata, or null if no plugin with given name exists.
     */
-   public PluginMetadata getPluginMetadata(final String plugin)
+   public List<PluginMetadata> getPluginMetadata(final String plugin)
    {
-      return plugins.get(plugin);
+      return Collections.unmodifiableList(plugins.get(plugin));
+   }
+
+   public PluginMetadata getPluginMetadataForScope(final String name, Shell shell)
+   {
+      return getPluginMetadataForScope(name, shell.getCurrentResourceScope());
+   }
+
+   public PluginMetadata getPluginMetadataForScope(final String name, Class<? extends Resource> scope)
+   {
+      if (accessCache.containsKey(name) && accessCache.get(name).containsKey(scope)) {
+         return accessCache.get(name).get(scope);
+      }
+
+      List<PluginMetadata> pluginMetadataList = plugins.get(name);
+      if (pluginMetadataList == null)
+      {
+         return null;
+      }
+
+      PluginMetadata pmd = null;
+      for (PluginMetadata p : pluginMetadataList)
+      {
+         if (p.usableWithScope(scope))
+         {
+            pmd = p;
+            break;
+         }
+      }
+
+//      if (pmd == null)
+//      {
+//         throw new RuntimeException("plugin '" + name + "' was found, but it is not valid in the specified scope: " + scope.getSimpleName());
+//      }
+
+      return pmd;
+   }
+
+
+   private void sanityCheck()
+   {
+      for (Map.Entry<String, List<PluginMetadata>> entry : plugins.entrySet())
+      {
+         Set<Class<? extends Resource<?>>> scopes = null;
+
+         for (PluginMetadata metaData : entry.getValue())
+         {
+            if (scopes == null)
+            {
+               scopes = metaData.getResourceScopes();
+            }
+            else
+            {
+               for (Class<? extends Resource<?>> r : metaData.getResourceScopes())
+               {
+                  if (scopes.contains(r))
+                  {
+                     throw new RuntimeException("failed sanity check. overlapping scopes for overloaded plugin name: "
+                           + entry.getKey() + " [" + entry.getValue() + "]");
+                  }
+               }
+            }
+         }
+      }
    }
 
 }

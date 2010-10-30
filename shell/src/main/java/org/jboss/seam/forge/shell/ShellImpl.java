@@ -502,6 +502,12 @@ public class ShellImpl implements Shell
    }
 
    @Override
+   public Class<? extends Resource> getCurrentResourceScope()
+   {
+      return getCurrentResource().getClass();
+   }
+
+   @Override
    public void setCurrentResource(final Resource<?> resource)
    {
       projectContext.setCurrentResource(resource);
