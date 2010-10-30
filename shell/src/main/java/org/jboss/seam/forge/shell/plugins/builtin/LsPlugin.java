@@ -60,6 +60,7 @@ public class LsPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") String... path)
    {
       List<String> listData = new LinkedList<String>();
@@ -82,6 +83,8 @@ public class LsPlugin implements Plugin
             }
          }
       }
+
+      if (list) System.out.println("LIST!");
 
       printOutColumns(listData, shell, true);
    }
