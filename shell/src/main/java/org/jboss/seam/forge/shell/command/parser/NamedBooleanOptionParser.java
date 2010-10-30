@@ -100,6 +100,4 @@ public class NamedBooleanOptionParser implements CommandParser
          valueMap.put(option, value);
       }
    }
-
-
 }

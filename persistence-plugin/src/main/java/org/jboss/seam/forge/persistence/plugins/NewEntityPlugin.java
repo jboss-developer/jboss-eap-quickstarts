@@ -58,7 +58,6 @@ import java.io.File;
 @Named("new-entity")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
-@ResourceScope(DirectoryResource.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewEntityPlugin implements Plugin
 {
