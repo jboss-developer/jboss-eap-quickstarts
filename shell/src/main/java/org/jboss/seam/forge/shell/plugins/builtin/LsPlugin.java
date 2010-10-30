@@ -105,14 +105,18 @@ public class LsPlugin implements Plugin
             /**
              * List-view implementation.
              */
+            int fileCount = 0;
+            boolean dir;
             for (Resource<?> r : childResources)
             {
                sortMap.put(el = r.toString(), listBuild = new ArrayList<String>());
                file = (File) r.getUnderlyingResourceObject();
 
+               if ((dir = file.isDirectory())) fileCount++;
+
                if (showAll || !el.startsWith("."))
                {
-                  StringBuilder permissions = new StringBuilder(file.isDirectory() ? "d" : "-")
+                  StringBuilder permissions = new StringBuilder(dir ? "d" : "-")
                         .append(file.canRead() ? 'r' : '-')
                         .append(file.canWrite() ? 'w' : '-')
                         .append(file.canExecute() ? 'x' : '-')
@@ -134,7 +138,7 @@ public class LsPlugin implements Plugin
                listBuild.addAll(sublist);
             }
 
-            shell.println("total " + sortMap.size());
+            shell.println("total " + fileCount);
             printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell);
          }
          else
