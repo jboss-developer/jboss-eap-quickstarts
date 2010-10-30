@@ -106,7 +106,6 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-
             @Option(name = "primitive",
                      required = false,
                      defaultValue = "true",

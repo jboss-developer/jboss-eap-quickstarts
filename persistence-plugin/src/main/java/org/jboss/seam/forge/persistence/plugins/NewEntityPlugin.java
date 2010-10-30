@@ -48,6 +48,8 @@ import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 
+import java.io.File;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -125,11 +127,16 @@ public class NewEntityPlugin implements Plugin
       Refactory.createGetterAndSetter(javaClass, id);
       Refactory.createGetterAndSetter(javaClass, version);
 
-      java.saveJavaClass(javaClass);
+      File javaFileLocation = java.saveJavaClass(javaClass);
 
       this.lastEntity = javaClass;
       this.lastProject = project;
 
       shell.println("Created @Entity [" + javaClass.getQualifiedName() + "]");
+
+      /**
+       * Pick up the generated resource.
+       */
+      shell.execute("pick-up " + javaFileLocation.getAbsolutePath());
    }
 }

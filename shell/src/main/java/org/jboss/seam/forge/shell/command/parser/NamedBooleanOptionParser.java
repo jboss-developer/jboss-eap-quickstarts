@@ -88,10 +88,12 @@ public class NamedBooleanOptionParser implements CommandParser
          String value = "true";
          if (!option.isFlagOnly() && !tokens.isEmpty())
          {
+            tokens.remove();
             String nextToken = tokens.peek();
             if (nextToken.matches("true|false"))
             {
                value = nextToken;
+               tokens.remove();
             }
          }
 
