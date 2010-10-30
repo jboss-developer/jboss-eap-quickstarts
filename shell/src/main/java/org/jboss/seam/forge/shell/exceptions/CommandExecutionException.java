@@ -41,7 +41,7 @@ public class CommandExecutionException extends ShellExecutionException
 
    public CommandExecutionException(final CommandMetadata command, final Throwable e)
    {
-      super(e);
+      super(e.getCause().getMessage(), e);
       this.command = command;
    }
 

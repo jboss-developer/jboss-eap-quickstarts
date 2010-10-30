@@ -107,13 +107,20 @@ public abstract class FileResource extends AbstractResource<File>
       if (recursive)
       {
          _deleteRecursive(file);
-
       }
+
+      if (file.listFiles().length != 0)
+      {
+         throw new RuntimeException("directory not empty");
+      }
+
       return file.delete();
    }
 
    private static boolean _deleteRecursive(File file)
    {
+      if (file == null) return false;
+
       for (File sf : file.listFiles())
       {
          if (sf.isDirectory())

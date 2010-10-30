@@ -32,6 +32,8 @@ public class DirectoryResource extends FileResource
    @Override
    public synchronized List<Resource<?>> listResources()
    {
+      if (isStale()) listCache = null;
+
       if (listCache == null)
       {
          listCache = new LinkedList<Resource<?>>();

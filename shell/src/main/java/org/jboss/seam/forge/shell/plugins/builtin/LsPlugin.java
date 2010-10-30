@@ -28,12 +28,17 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
+
+import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -44,38 +49,40 @@ import org.jboss.seam.forge.shell.util.GeneralUtils;
 public class LsPlugin implements Plugin
 {
    private final Shell shell;
+   private final ResourceFactory factory;
 
    @Inject
-   public LsPlugin(final Shell shell)
+   public LsPlugin(final Shell shell, final ResourceFactory factory)
    {
       this.shell = shell;
+      this.factory = factory;
    }
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll)
+   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+                   @Option(description = "path", defaultValue = ".") String... path)
    {
-      Resource<?> resource = shell.getCurrentResource();
-
-      int width = shell.getWidth();
-
-      List<Resource<?>> childResources = resource.listResources();
       List<String> listData = new LinkedList<String>();
 
-      int maxLength = 0;
-
-      String el;
-      for (Resource<?> r : childResources)
+      for (String p : path)
       {
-         el = r.toString();
+         Resource<?> resource = parsePathspec(factory, shell.getCurrentResource(), p);
 
-         if (showAll || !el.startsWith("."))
+         List<Resource<?>> childResources = resource.listResources();
+
+
+         String el;
+         for (Resource<?> r : childResources)
          {
-            listData.add(el);
+            el = r.toString();
+
+            if (showAll || !el.startsWith("."))
+            {
+               listData.add(el);
+            }
          }
       }
 
-      GeneralUtils.printOutColumns(listData, shell, true);
+      printOutColumns(listData, shell, true);
    }
-
-
 }

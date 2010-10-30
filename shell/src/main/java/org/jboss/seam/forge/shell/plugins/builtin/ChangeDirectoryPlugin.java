@@ -30,6 +30,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
@@ -84,8 +85,13 @@ public class ChangeDirectoryPlugin implements Plugin
          }
       }
 
+
       if (r != null)
       {
+         if (!((FileResource) r).exists()) {
+            throw new RuntimeException("no such directory: " + r.toString());
+         }
+
          shell.setCurrentResource(r);
          if (curr != null)
          {
