@@ -79,11 +79,11 @@ public class ListCommandsPlugin implements Plugin
       {
          if (!cmdMeta.isDefault())
          {
-            listData.add((contextual ? "*" : "") + cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName());
+            listData.add((contextual ? "*" : " ") + cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName());
          }
          else
          {
-            listData.add((contextual ? "*" : "") + cmdMeta.getName());
+            listData.add((contextual ? "*" : " ") + cmdMeta.getName());
          }
       }
       else if (contextual)
