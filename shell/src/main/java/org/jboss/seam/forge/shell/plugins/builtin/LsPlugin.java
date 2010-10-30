@@ -112,7 +112,7 @@ public class LsPlugin implements Plugin
                sortMap.put(el = r.toString(), listBuild = new ArrayList<String>());
                file = (File) r.getUnderlyingResourceObject();
 
-               if ((dir = file.isDirectory())) fileCount++;
+               dir = file.isDirectory();
 
                if (showAll || !el.startsWith("."))
                {
@@ -128,6 +128,8 @@ public class LsPlugin implements Plugin
                   listBuild.add(String.valueOf(file.length()));
                   listBuild.addAll(Arrays.asList(getDateString(file.lastModified())));
                   listBuild.add(el);
+
+                  if (!dir) fileCount++;
                }
             }
 
