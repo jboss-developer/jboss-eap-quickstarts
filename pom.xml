@@ -17,6 +17,11 @@
    <description>Simplified project bootstrapping, incremental
       enhancement framework, and plugins</description>
 
+
+   <prerequisites>
+      <maven>3.0</maven>
+   </prerequisites>
+
    <modules>
       <module>event-bus</module>
       <module>parser-java</module>
