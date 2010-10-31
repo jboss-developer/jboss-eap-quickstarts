@@ -63,7 +63,6 @@ public class ListCommandsPlugin implements Plugin
    public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) boolean showAll)
    {
       List<String> listData = new ArrayList<String>();
-      Set<String> displayed = new HashSet<String>();
       Class currResource = shell.getCurrentResource().getClass();
       for (List<PluginMetadata> lpm : registry.getPlugins().values())
       {
@@ -71,17 +70,26 @@ public class ListCommandsPlugin implements Plugin
          {
             for (CommandMetadata commandMetadata : pluginMetadata.getAllCommands())
             {
-               render(listData, showAll, currResource, commandMetadata, displayed.contains(commandMetadata.getName()));
-               displayed.add(commandMetadata.getName());
+               String name = render(listData, showAll, currResource, commandMetadata);
+
+               /**
+                * Deal with overloaded plugins.
+                */
+               if (name.endsWith("*")) {
+                  listData.remove(name.substring(0, name.length()-1));
+               }
+
+               listData.add(name);
             }
          }
       }
 
+      if (showAll) shell.println("[* = command accessible from current context]");
       printOutColumns(listData, shell, true);
    }
 
-   private static void render(List<String> listData, boolean showAll, Class currResource,
-                              CommandMetadata cmdMeta, boolean overloaded)
+   private static String render(List<String> listData, boolean showAll, Class currResource,
+                              CommandMetadata cmdMeta)
    {
       boolean contextual = cmdMeta.usableWithScope(currResource);
 
@@ -89,18 +97,20 @@ public class ListCommandsPlugin implements Plugin
       {
          if (!cmdMeta.isDefault())
          {
-            listData.add(cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName()
-                  + (contextual ? "*" : "") + (overloaded ? "@" : ""));
+            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName()
+                  + (contextual ? "*" : ""));
          }
          else
          {
-            listData.add(cmdMeta.getName()
-                  + (contextual ? "*" : "") + (overloaded ? "@" : ""));
+            return (cmdMeta.getName()
+                  + (contextual ? "*" : ""));
          }
       }
       else if (contextual)
       {
-         listData.add(cmdMeta.getName());
+         return cmdMeta.getName();
       }
+
+      return "";
    }
 }

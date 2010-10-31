@@ -63,6 +63,8 @@ public class LsJavaPlugin implements Plugin
                    @Option(description = "path", defaultValue = ".") String... path)
    {
 
+      System.out.println("List a java file!");
+
    }
 
 }

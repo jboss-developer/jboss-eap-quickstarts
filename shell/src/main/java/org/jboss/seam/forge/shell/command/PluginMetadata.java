@@ -196,6 +196,10 @@ public class PluginMetadata
       return Collections.unmodifiableList(result);
    }
 
+   public boolean isCommandOverloaded(String name) {
+      return commandMap.containsKey(name) && commandMap.get(name).size() > 1;
+   }
+
    @Override
    public String toString()
    {
