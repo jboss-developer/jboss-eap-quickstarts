@@ -79,7 +79,7 @@ public class ListCommandsPlugin implements Plugin
                   listData.remove(name.substring(0, name.length()-1));
                }
 
-               listData.add(name);
+               if (!"".equals(name)) listData.add(name);
             }
          }
       }
