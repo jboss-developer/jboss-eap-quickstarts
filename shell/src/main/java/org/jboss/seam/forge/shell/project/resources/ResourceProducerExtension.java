@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,7 @@ import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.weld.extensions.annotated.AnnotatedTypeBuilder;
 
 /**
@@ -88,8 +90,10 @@ public class ResourceProducerExtension
 
    @Produces
    @Dependent
-   public Resource<?> getCurrentResource(InjectionPoint ip)
+   public Resource<?> getCurrentResource(InjectionPoint ip, Shell shell)
    {
+      Resource<?> currentResource = shell.getCurrentResource();
+      Type type = ip.getType();
       return null;
    }
 }
