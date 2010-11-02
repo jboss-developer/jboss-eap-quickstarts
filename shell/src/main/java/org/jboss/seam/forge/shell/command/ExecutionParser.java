@@ -23,12 +23,13 @@
 package org.jboss.seam.forge.shell.command;
 
 import java.io.File;
-import java.util.*;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.parser.CommandParser;
@@ -104,13 +105,12 @@ public class ExecutionParser
 
                if (!command.usableWithScope(shell.getCurrentResource().getClass()))
                {
-                  //noinspection unchecked
+                  // noinspection unchecked
                   throw new PluginExecutionException(plugin, "command '" + command.getName()
                         + "' is not usable in current scope ["
                         + shell.getCurrentResource().getClass().getSimpleName() + "]"
-                        + " -- usable scopes: " + GeneralUtils.elementSetSimpleTypesToString((Set<Class>) command.getResourceScopes()));
+                        + " -- usable scopes: " + GeneralUtils.elementSetSimpleTypesToString((Set<Class<?>>) command.getResourceScopes()));
                }
-
 
                execution.setCommand(command);
 

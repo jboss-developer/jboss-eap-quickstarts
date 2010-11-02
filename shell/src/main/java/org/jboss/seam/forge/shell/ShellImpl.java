@@ -22,6 +22,10 @@
 
 package org.jboss.seam.forge.shell;
 
+import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
+import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
+import static org.mvel2.DataConversion.addConversionHandler;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,16 +74,11 @@ import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
-import org.jboss.seam.forge.shell.util.Parsing;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
 import org.slf4j.Logger;
-
-import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
-import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
-import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -179,7 +178,8 @@ public class ShellImpl implements Shell
 
       if ((parameters != null) && !parameters.isEmpty())
       {
-         // this is where we will initialize other parameters... e.g. accepting a path
+         // this is where we will initialize other parameters... e.g. accepting
+         // a path
       }
    }
 
@@ -291,7 +291,6 @@ public class ShellImpl implements Shell
 
    private String execScript(final String script)
    {
-
 
       try
       {
@@ -502,9 +501,10 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public Class<? extends Resource> getCurrentResourceScope()
+   @SuppressWarnings("unchecked")
+   public Class<? extends Resource<?>> getCurrentResourceScope()
    {
-      return getCurrentResource().getClass();
+      return (Class<? extends Resource<?>>) getCurrentResource().getClass();
    }
 
    @Override

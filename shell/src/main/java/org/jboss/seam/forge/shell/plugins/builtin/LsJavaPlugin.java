@@ -22,21 +22,17 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.OverloadedName;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

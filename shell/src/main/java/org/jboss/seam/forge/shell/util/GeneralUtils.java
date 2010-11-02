@@ -22,9 +22,14 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import org.jboss.seam.forge.shell.Shell;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import org.jboss.seam.forge.shell.Shell;
 
 public class GeneralUtils
 {
@@ -39,29 +44,34 @@ public class GeneralUtils
       return newList;
    }
 
-   public static String elementListSimpleTypesToString(List<Class> list)
+   public static String elementListSimpleTypesToString(List<Class<?>> list)
    {
       StringBuilder sbuild = new StringBuilder();
       for (int i = 0; i < list.size(); i++)
       {
          sbuild.append(list.get(0).getSimpleName());
-         if (i < list.size()) sbuild.append(", ");
+         if (i < list.size())
+         {
+            sbuild.append(", ");
+         }
       }
       return sbuild.toString();
    }
 
-   public static String elementSetSimpleTypesToString(Set<Class> set)
+   public static String elementSetSimpleTypesToString(Set<Class<?>> set)
    {
       StringBuilder sbuild = new StringBuilder();
 
-      for (Iterator<Class> iter = set.iterator(); iter.hasNext();)
+      for (Iterator<Class<?>> iter = set.iterator(); iter.hasNext();)
       {
          sbuild.append(iter.next().getSimpleName());
-         if (iter.hasNext()) sbuild.append(", ");
+         if (iter.hasNext())
+         {
+            sbuild.append(", ");
+         }
       }
       return sbuild.toString();
    }
-
 
    public static void printOutColumns(List<String> list, Shell shell, boolean sort)
    {
@@ -70,7 +80,10 @@ public class GeneralUtils
 
       for (String s : list)
       {
-         if (s.length() > maxLength) maxLength = s.length();
+         if (s.length() > maxLength)
+         {
+            maxLength = s.length();
+         }
       }
 
       if (sort)
@@ -114,7 +127,9 @@ public class GeneralUtils
          for (int i = 0; i < cols; i++)
          {
             if (colSizes[i] < (el = iter.next()).length())
+            {
                colSizes[i] = el.length();
+            }
          }
       }
 

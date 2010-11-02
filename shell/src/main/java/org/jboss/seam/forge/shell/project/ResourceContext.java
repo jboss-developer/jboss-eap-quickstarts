@@ -27,6 +27,8 @@ import javax.inject.Singleton;
 import org.jboss.seam.forge.project.Resource;
 
 /**
+ * Contains the current {@link Resource} - not to be used by outsiders.
+ * 
  * @author Mike Brock <cbrock@redhat.com>
  */
 @Singleton

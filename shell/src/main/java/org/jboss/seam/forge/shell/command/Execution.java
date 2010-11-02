@@ -31,7 +31,6 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -45,17 +44,15 @@ import org.mvel2.util.ParseTools;
 public class Execution
 {
    private final BeanManager manager;
-   private final Shell shell;
 
    private CommandMetadata command;
    private Object[] parameterArray;
    private String originalStatement;
 
    @Inject
-   public Execution(BeanManager manager, Shell shell)
+   public Execution(BeanManager manager)
    {
       this.manager = manager;
-      this.shell = shell;
    }
 
    @SuppressWarnings("unchecked")
@@ -82,7 +79,8 @@ public class Execution
                {
                   paramStaging[i] = false;
                }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                throw new CommandExecutionException(command, "command option '"
                      + command.getOrderedOptionByIndex(i).getDescription()
@@ -102,13 +100,15 @@ public class Execution
                try
                {
                   command.getMethod().invoke(plugin, paramStaging);
-               } catch (Exception e)
+               }
+               catch (Exception e)
                {
                   throw new CommandExecutionException(command, e);
                }
             }
          }
-      } else
+      }
+      else
       {
          // TODO it would be nice if this delegated to the system shell
          throw new NoSuchCommandException(command, "No such command: " + originalStatement);

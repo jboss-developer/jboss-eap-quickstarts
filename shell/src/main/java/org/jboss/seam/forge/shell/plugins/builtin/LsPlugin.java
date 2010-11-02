@@ -22,27 +22,32 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.core.internal.utils.Cache;
-import org.eclipse.core.runtime.Path;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.mvel2.util.StringAppender;
-
-import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -55,7 +60,6 @@ public class LsPlugin implements Plugin
 {
    private final Shell shell;
    private final ResourceFactory factory;
-
 
    private static final long yearMarker;
    private static final SimpleDateFormat dateFormatOld = new SimpleDateFormat("MMM d yyyy");
@@ -128,7 +132,10 @@ public class LsPlugin implements Plugin
                   listBuild.addAll(Arrays.asList(getDateString(file.lastModified())));
                   listBuild.add(el);
 
-                  if (!dir) fileCount++;
+                  if (!dir)
+                  {
+                     fileCount++;
+                  }
                }
             }
 
@@ -140,7 +147,7 @@ public class LsPlugin implements Plugin
             }
 
             shell.println("total " + fileCount);
-            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell);
+            printOutTables(listBuild, new boolean[] { false, false, false, true, false, false, true, false }, shell);
          }
          else
          {
@@ -158,7 +165,6 @@ public class LsPlugin implements Plugin
          }
       }
    }
-
 
    private static String[] getDateString(long time)
    {
