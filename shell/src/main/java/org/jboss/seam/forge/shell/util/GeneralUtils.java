@@ -62,17 +62,29 @@ public class GeneralUtils
       return sbuild.toString();
    }
 
-   public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
+   public static class OutputAttributes
    {
-      printOutColumns(rawList, null, ShellColor.NONE, shell, sort);
+      public OutputAttributes(int columnSize, int columns)
+      {
+         this.columnSize = columnSize;
+         this.columns = columns;
+      }
+
+      private int columnSize;
+      private int columns;
    }
 
-   public static void printOutColumns(List<String> rawList, List<String> coloredList, Shell shell, boolean sort)
+   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
    {
-      printOutColumns(rawList, coloredList, ShellColor.NONE, shell, sort);
+      if (in == null) return calculateOutputAttributs(rawList, shell);
+
+      OutputAttributes newAttr = calculateOutputAttributs(rawList, shell);
+
+      return new OutputAttributes(in.columnSize > newAttr.columnSize ? in.columnSize : newAttr.columnSize,
+            in.columns < newAttr.columns ? in.columns : newAttr.columns);
    }
 
-   public static void printOutColumns(List<String> rawList, List<String> coloredList, ShellColor color, Shell shell, boolean sort)
+   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell)
    {
       int width = shell.getWidth();
       int maxLength = 0;
@@ -81,12 +93,6 @@ public class GeneralUtils
       {
          if (s.length() > maxLength) maxLength = s.length();
       }
-
-      if (sort)
-      {
-         Collections.sort(rawList);
-      }
-
       int cols = width / (maxLength + 4);
       int colSize = width / cols;
 
@@ -95,6 +101,30 @@ public class GeneralUtils
          colSize = width;
          cols = 1;
       }
+
+      return new OutputAttributes(colSize, cols);
+   }
+
+   public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
+   {
+      printOutColumns(rawList, null, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, List<String> coloredList, Shell shell, boolean sort)
+   {
+      printOutColumns(rawList, coloredList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, List<String> coloredList, ShellColor color, Shell shell, OutputAttributes attributes, boolean sort)
+   {
+
+      if (sort)
+      {
+         Collections.sort(rawList);
+      }
+
+      int cols = attributes.columns;
+      int colSize = attributes.columnSize;
 
       int i = 0;
       int count = 0;
@@ -125,6 +155,11 @@ public class GeneralUtils
 
    public static void printOutTables(List<String> list, boolean[] columns, Shell shell)
    {
+      printOutTables(list, columns, shell, null);
+   }
+
+   public static void printOutTables(List<String> list, boolean[] columns, Shell shell, FormatCallback callback)
+   {
       int cols = columns.length;
       int[] colSizes = new int[columns.length];
 
@@ -150,11 +185,27 @@ public class GeneralUtils
             if (columns[i])
             {
                shell.print(pad(colSizes[i] - el.length()));
-               shell.print(el);
+               if (callback != null)
+               {
+                  shell.print(callback.format(i, el));
+               }
+               else
+               {
+                  shell.print(el);
+               }
+
             }
             else
             {
-               shell.print(el);
+               if (callback != null)
+               {
+                  shell.print(callback.format(i, el));
+               }
+               else
+               {
+                  shell.print(el);
+               }
+
                shell.print(pad(colSizes[i] - el.length()));
             }
             shell.print(" ");

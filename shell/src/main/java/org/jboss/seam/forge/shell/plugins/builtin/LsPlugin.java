@@ -38,6 +38,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 import org.mvel2.util.StringAppender;
@@ -145,7 +146,18 @@ public class LsPlugin implements Plugin
             }
 
             shell.println("total " + fileCount);
-            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell);
+
+            FormatCallback formatCallback = color ? new FormatCallback()
+            {
+               @Override
+               public String format(int column, String value)
+               {
+                  if (column == 7 && value.endsWith("/")) return shell.renderColor(ShellColor.BLUE, value);
+                  return value;
+               }
+            } : null;
+
+            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell, formatCallback);
          }
          else
          {

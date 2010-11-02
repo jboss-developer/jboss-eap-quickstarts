@@ -99,12 +99,18 @@ public class ListCommandsPlugin implements Plugin
          }
       }
 
+      GeneralUtils.OutputAttributes attr = null;
+      for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
+      {
+         attr = GeneralUtils.calculateOutputAttributs(entry.getValue(), shell, attr);
+      }
+
       for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
       {
          shell.println();
          shell.println(ShellColor.BLUE, "[" + entry.getKey().toUpperCase() + "]");
 
-         printOutColumns(entry.getValue(), null, ShellColor.BOLD, shell, true);
+         printOutColumns(entry.getValue(), null, ShellColor.BOLD, shell, attr, true);
       }
 
       shell.println();
