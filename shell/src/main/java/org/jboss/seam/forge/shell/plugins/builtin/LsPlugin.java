@@ -152,8 +152,14 @@ public class LsPlugin implements Plugin
                @Override
                public String format(int column, String value)
                {
-                  if (column == 7 && value.endsWith("/")) return shell.renderColor(ShellColor.BLUE, value);
-                  return value;
+                  if (column == 7 && value.endsWith("/"))
+                  {
+                     return shell.renderColor(ShellColor.BLUE, value);
+                  }
+                  else
+                  {
+                     return value;
+                  }
                }
             } : null;
 
