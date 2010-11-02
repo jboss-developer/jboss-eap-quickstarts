@@ -32,12 +32,14 @@ import javax.inject.Named;
 import org.eclipse.core.internal.utils.Cache;
 import org.eclipse.core.runtime.Path;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.jboss.seam.forge.shell.util.ShellColor;
 import org.mvel2.util.StringAppender;
 
 import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
@@ -86,11 +88,13 @@ public class LsPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+                   @Option(flagOnly = true, name = "color", required = false) final boolean color,
                    @Option(description = "path", defaultValue = ".") String... path)
    {
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
       List<String> listBuild;
+      List<String> coloredList = color ? new ArrayList<String>() : null;
 
       for (String p : path)
       {
@@ -151,11 +155,18 @@ public class LsPlugin implements Plugin
                el = r.toString();
                if (showAll || !el.startsWith("."))
                {
+                  if (color)
+                  {
+                     coloredList.add(shell.renderColor(
+                           ((FileResource) r).getUnderlyingResourceObject().isDirectory()
+                                 ? ShellColor.BLUE : ShellColor.NONE, el));
+                  }
+
                   listBuild.add(el);
                }
             }
 
-            printOutColumns(listBuild, shell, false);
+            printOutColumns(listBuild, coloredList, shell, false);
          }
       }
    }

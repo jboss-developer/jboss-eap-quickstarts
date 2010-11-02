@@ -42,10 +42,12 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.sun.org.apache.xerces.internal.dom.AttrNSImpl;
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 
+import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
@@ -71,6 +73,7 @@ import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
 import org.jboss.seam.forge.shell.util.Parsing;
+import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
@@ -377,6 +380,66 @@ public class ShellImpl implements Shell
       System.out.println();
    }
 
+
+   @Override
+   public void print(ShellColor color, String output)
+   {
+      print(renderColor(color, output));
+   }
+
+   @Override
+   public void println(ShellColor color, String output)
+   {
+      println(renderColor(color, output));
+   }
+
+   @Override
+   public void printlnVerbose(ShellColor color, String output)
+   {
+      printlnVerbose(renderColor(color, output));
+   }
+
+   public String renderColor(ShellColor color, String output)
+   {
+      Ansi ansi = new Ansi();
+
+      switch (color)
+      {
+      case BLACK:
+         ansi.fg(Ansi.Color.BLACK);
+         break;
+      case BLUE:
+         ansi.fg(Ansi.Color.BLUE);
+         break;
+      case CYAN:
+         ansi.fg(Ansi.Color.CYAN);
+         break;
+      case GREEN:
+         ansi.fg(Ansi.Color.GREEN);
+         break;
+      case MAGENTA:
+         ansi.fg(Ansi.Color.MAGENTA);
+         break;
+      case RED:
+         ansi.fg(Ansi.Color.RED);
+         break;
+      case WHITE:
+         ansi.fg(Ansi.Color.WHITE);
+         break;
+      case YELLOW:
+         ansi.fg(Ansi.Color.YELLOW);
+         break;
+      case BOLD:
+         ansi.a(Ansi.Attribute.INTENSITY_BOLD);
+         break;
+
+      default:
+         ansi.fg(Ansi.Color.WHITE);
+      }
+
+      return ansi.render(output).reset().toString();
+   }
+
    @Override
    public void clear()
    {
@@ -584,7 +647,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-                  + pattern + "]");
+               + pattern + "]");
       }
 
       String input = "";
@@ -684,7 +747,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -727,7 +790,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -767,6 +830,11 @@ public class ShellImpl implements Shell
    public int getWidth()
    {
       return reader.getTerminal().getWidth();
+   }
+
+   public String escapeCode(int code, String value)
+   {
+      return new Ansi().a(value).fg(Ansi.Color.BLUE).toString();
    }
 
    @Override

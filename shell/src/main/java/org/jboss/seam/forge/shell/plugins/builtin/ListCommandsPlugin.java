@@ -31,6 +31,7 @@ import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 import java.util.*;
 
@@ -75,8 +76,6 @@ public class ListCommandsPlugin implements Plugin
                listData = listGroups.get(pluginMetadata.getTopic());
             }
 
-
-
             for (CommandMetadata commandMetadata : pluginMetadata.getAllCommands())
             {
                String name = render(showAll, currResource, commandMetadata);
@@ -98,16 +97,14 @@ public class ListCommandsPlugin implements Plugin
             }
 
          }
-
       }
-
 
       for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
       {
          shell.println();
-         shell.println("[" + entry.getKey().toUpperCase() + "]");
+         shell.println(ShellColor.BLUE, "[" + entry.getKey().toUpperCase() + "]");
 
-         printOutColumns(entry.getValue(), shell, true);
+         printOutColumns(entry.getValue(), null, ShellColor.BOLD, shell, true);
       }
 
       shell.println();

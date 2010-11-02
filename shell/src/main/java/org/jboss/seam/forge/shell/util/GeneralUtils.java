@@ -62,20 +62,29 @@ public class GeneralUtils
       return sbuild.toString();
    }
 
+   public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
+   {
+      printOutColumns(rawList, null, ShellColor.NONE, shell, sort);
+   }
 
-   public static void printOutColumns(List<String> list, Shell shell, boolean sort)
+   public static void printOutColumns(List<String> rawList, List<String> coloredList, Shell shell, boolean sort)
+   {
+      printOutColumns(rawList, coloredList, ShellColor.NONE, shell, sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, List<String> coloredList, ShellColor color, Shell shell, boolean sort)
    {
       int width = shell.getWidth();
       int maxLength = 0;
 
-      for (String s : list)
+      for (String s : rawList)
       {
          if (s.length() > maxLength) maxLength = s.length();
       }
 
       if (sort)
       {
-         Collections.sort(list);
+         Collections.sort(rawList);
       }
 
       int cols = width / (maxLength + 4);
@@ -88,15 +97,28 @@ public class GeneralUtils
       }
 
       int i = 0;
-      for (String s : list)
+      int count = 0;
+      for (String s : rawList)
       {
-         shell.print(s);
+         String out;
+         if (color == ShellColor.NONE)
+         {
+            out = coloredList != null ? coloredList.get(count) : s;
+            shell.print(out);
+         }
+         else
+         {
+            out = coloredList != null ? coloredList.get(count) : s;
+            shell.print(color, out);
+         }
+
          shell.print(pad(colSize - s.length()));
          if (++i == cols)
          {
             shell.println();
             i = 0;
          }
+         count++;
       }
       shell.println();
    }
