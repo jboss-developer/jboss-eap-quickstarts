@@ -36,10 +36,7 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 
 /**
@@ -47,6 +44,7 @@ import org.jboss.seam.forge.shell.plugins.events.InitProject;
  * @author Mike Brock
  */
 @Named("cd")
+@Topic("File & Resources")
 @Help("Change the current directory")
 @Singleton
 public class ChangeDirectoryPlugin implements Plugin

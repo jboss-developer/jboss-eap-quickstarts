@@ -20,34 +20,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.shell.plugins;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-import org.jboss.seam.forge.project.util.ResourceUtil;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
-
-import static org.jboss.seam.forge.project.util.ResourceUtil.getContextDirectory;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock .
  */
-@Named("pwd")
-@Topic("File & Resources")
-@Help("Prints the current directory.")
-public class PwdPlugin implements Plugin
+@Target({TYPE})
+@Retention(RUNTIME)
+@Documented
+public @interface Topic
 {
-   @Inject
-   Shell shell;
-
-   @DefaultCommand
-   public void run()
-   {
-      shell.println(getContextDirectory(shell.getCurrentResource()).getAbsolutePath());
-   }
+   String value();
 }

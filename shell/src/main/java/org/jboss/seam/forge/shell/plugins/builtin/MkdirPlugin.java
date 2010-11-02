@@ -34,6 +34,7 @@ import javax.inject.Named;
  * @author Mike Brock
  */
 @Named("mkdir")
+@Topic("File & Resources")
 @ResourceScope(DirectoryResource.class)
 @Help("Create a new directory")
 public class MkdirPlugin implements Plugin

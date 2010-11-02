@@ -49,10 +49,9 @@ import org.jboss.seam.forge.bus.event.BaseEvent;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ObserverCaptureExtension implements Extension
 {
    private final Map<Class<?>, List<BusManaged>> eventQualifierMap = new HashMap<Class<?>, List<BusManaged>>();
@@ -108,7 +107,7 @@ public class ObserverCaptureExtension implements Extension
    }
 
    private AnnotatedType<Object> removeMethodsFromType(final AnnotatedType type,
-            final List<AnnotatedMethod> targetedMethods)
+                                                       final List<AnnotatedMethod> targetedMethods)
    {
 
       final Set<AnnotatedMethod> methods = new HashSet<AnnotatedMethod>();
@@ -174,14 +173,14 @@ public class ObserverCaptureExtension implements Extension
    }
 
    private AnnotatedType<Object> addReplacementMethodsToType(final AnnotatedType newType,
-            final List<AnnotatedMethod> replacementMethods)
+                                                             final List<AnnotatedMethod> replacementMethods)
    {
       newType.getMethods().addAll(replacementMethods);
       return newType;
    }
 
    private AnnotatedMethod<Object> qualifyObservedEvent(
-            final AnnotatedMethod method, final AnnotatedParameter param)
+         final AnnotatedMethod method, final AnnotatedParameter param)
    {
       final List<AnnotatedParameter> parameters = new ArrayList<AnnotatedParameter>();
 
@@ -248,7 +247,7 @@ public class ObserverCaptureExtension implements Extension
    }
 
    private AnnotatedParameter addUniqueQualifier(final AnnotatedMethod method,
-            final AnnotatedParameter param)
+                                                 final AnnotatedParameter param)
    {
       final String identifier = String.valueOf(rollingIdentifier++);
       final String methodName = method.getJavaMember().getName();
@@ -326,7 +325,7 @@ public class ObserverCaptureExtension implements Extension
          }
 
          @Override
-         public int getPosition()                                          
+         public int getPosition()
          {
             return param.getPosition();
          }
@@ -334,7 +333,7 @@ public class ObserverCaptureExtension implements Extension
    }
 
    private void addQualifierToMap(final AnnotatedMethod annotatedMethod,
-            final AnnotatedParameter param, final BusManaged qualifier)
+                                  final AnnotatedParameter param, final BusManaged qualifier)
    {
       Method method = annotatedMethod.getJavaMember();
       Class<?> clazz = method.getParameterTypes()[param.getPosition()];

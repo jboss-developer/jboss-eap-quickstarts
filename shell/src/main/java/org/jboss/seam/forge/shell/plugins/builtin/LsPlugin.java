@@ -49,6 +49,7 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
  * @author Mike Brock
  */
 @Named("ls")
+@Topic("File & Resources")
 @ResourceScope(DirectoryResource.class)
 @Help("Prints the contents current directory.")
 public class LsPlugin implements Plugin

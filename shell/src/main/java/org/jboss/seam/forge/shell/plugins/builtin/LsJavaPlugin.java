@@ -44,6 +44,7 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
  */
 @OverloadedName("ls")
 @ResourceScope(JavaResource.class)
+@Topic("File & Resources")
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
 {

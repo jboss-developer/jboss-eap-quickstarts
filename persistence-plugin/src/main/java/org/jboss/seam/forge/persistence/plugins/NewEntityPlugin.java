@@ -56,6 +56,7 @@ import java.io.File;
  */
 @Singleton
 @Named("new-entity")
+@Topic("Project")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")

@@ -36,16 +36,14 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("install")
 @Help("Installs a facet into a project.")
+@Topic("Project")
 @RequiresProject
 public class FacetInstallPlugin implements Plugin
 {

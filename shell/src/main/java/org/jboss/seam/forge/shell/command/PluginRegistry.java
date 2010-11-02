@@ -143,11 +143,6 @@ public class PluginRegistry
          }
       }
 
-//      if (pmd == null)
-//      {
-//         throw new RuntimeException("plugin '" + name + "' was found, but it is not valid in the specified scope: " + scope.getSimpleName());
-//      }
-
       return pmd;
    }
 

@@ -37,10 +37,7 @@ import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
 
@@ -48,6 +45,7 @@ import org.jboss.seam.forge.shell.util.Files;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("new-project")
+@Topic("Project")
 @Help("Create a new project in an empty directory.")
 public class NewProjectPlugin implements Plugin
 {

@@ -91,7 +91,11 @@ public class CommandLibraryExtension implements Extension
                = Arrays.asList(Annotations.getAnnotation(plugin, ResourceScope.class).value());
 
          pluginMeta.setResourceScopes(resourceTypes);
+      }
 
+      if (Annotations.isAnnotationPresent(plugin, Topic.class))
+      {
+         pluginMeta.setTopic(Annotations.getAnnotation(plugin, Topic.class).value());
       }
 
       processPluginCommands(pluginMeta, plugin);
@@ -186,6 +190,7 @@ public class CommandLibraryExtension implements Extension
                      optionMeta.setRequired(option.required());
                      optionMeta.setPromptType(option.type());
                   }
+
 
                }
                commandMeta.addOption(optionMeta);

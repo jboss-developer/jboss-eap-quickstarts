@@ -29,16 +29,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.mvel2.util.StringAppender;
 
 /**
  * @author Mike Brock
  */
 @Named("exec")
+@Topic("Shell Environment")
 @Help("Executes an expression")
 public class ScriptExecPlugin implements Plugin
 {

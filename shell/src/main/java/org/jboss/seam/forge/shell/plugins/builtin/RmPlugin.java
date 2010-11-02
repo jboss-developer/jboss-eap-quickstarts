@@ -39,6 +39,7 @@ import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
  * @author Mike Brock
  */
 @Named("rm")
+@Topic("File & Resources")
 @ResourceScope(DirectoryResource.class)
 @Help("Removes a file or directory")
 public class RmPlugin implements Plugin

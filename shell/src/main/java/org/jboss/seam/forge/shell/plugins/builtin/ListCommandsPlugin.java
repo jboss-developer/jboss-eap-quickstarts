@@ -29,16 +29,10 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
@@ -46,6 +40,7 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
  * @author Mike Brock
  */
 @Named("list-commands")
+@Topic("Shell Environment")
 @Help("Lists executable shell commands")
 public class ListCommandsPlugin implements Plugin
 {
@@ -62,34 +57,67 @@ public class ListCommandsPlugin implements Plugin
    @DefaultCommand
    public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) boolean showAll)
    {
-      List<String> listData = new ArrayList<String>();
+      List<String> listData;
+      Map<String, List<String>> listGroups = new TreeMap<String, List<String>>();
+
       Class currResource = shell.getCurrentResource().getClass();
+
       for (List<PluginMetadata> lpm : registry.getPlugins().values())
       {
          for (PluginMetadata pluginMetadata : lpm)
          {
+            if (!listGroups.containsKey(pluginMetadata.getTopic()))
+            {
+               listGroups.put(pluginMetadata.getTopic(), listData = new ArrayList<String>());
+            }
+            else
+            {
+               listData = listGroups.get(pluginMetadata.getTopic());
+            }
+
+
+
             for (CommandMetadata commandMetadata : pluginMetadata.getAllCommands())
             {
-               String name = render(listData, showAll, currResource, commandMetadata);
+               String name = render(showAll, currResource, commandMetadata);
 
                /**
                 * Deal with overloaded plugins.
                 */
-               if (name.endsWith("*")) {
-                  listData.remove(name.substring(0, name.length()-1));
+               if (name.endsWith("*"))
+               {
+                  listData.remove(name.substring(0, name.length() - 1));
                }
 
                if (!"".equals(name)) listData.add(name);
             }
+
+            if (!listGroups.containsKey(pluginMetadata.getTopic()))
+            {
+               listGroups.put(pluginMetadata.getTopic(), listData);
+            }
+
          }
+
       }
 
-      if (showAll) shell.println("[* = command accessible from current context]");
-      printOutColumns(listData, shell, true);
+
+      for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
+      {
+         shell.println();
+         shell.println("[" + entry.getKey().toUpperCase() + "]");
+
+         printOutColumns(entry.getValue(), shell, true);
+      }
+
+      shell.println();
+
+      if (showAll) shell.println("(* = command accessible from current context)");
+      else shell.println("(only commands in relevant scope displayed. use --all to see all commands.)");
    }
 
-   private static String render(List<String> listData, boolean showAll, Class currResource,
-                              CommandMetadata cmdMeta)
+   private static String render(boolean showAll, Class currResource,
+                                CommandMetadata cmdMeta)
    {
       boolean contextual = cmdMeta.usableWithScope(currResource);
 
