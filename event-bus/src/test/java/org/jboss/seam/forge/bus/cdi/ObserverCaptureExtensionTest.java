@@ -32,8 +32,6 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.bus.cdi.BusManaged;
-import org.jboss.seam.forge.bus.cdi.ObserverCaptureExtension;
 import org.jboss.seam.forge.bus.event.BaseEvent;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -56,6 +54,7 @@ public class ObserverCaptureExtensionTest
                .addClass(ObserverCaptureExtension.class)
                .addClass(MockBaseEventObserver.class)
                .addClass(BaseEvent.class)
+               .addManifestResource("META-INF/services/javax.enterprise.inject.spi.Extension")
                .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
    }
 

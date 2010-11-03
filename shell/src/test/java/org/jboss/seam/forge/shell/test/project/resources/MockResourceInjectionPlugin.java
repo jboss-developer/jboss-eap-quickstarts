@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.test.project.resources;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
@@ -41,7 +42,7 @@ public class MockResourceInjectionPlugin implements Plugin
 {
    @Inject
    @Current
-   private DirectoryResource resource;
+   private Resource resource;
 
    @DefaultCommand
    public void run()
@@ -49,12 +50,12 @@ public class MockResourceInjectionPlugin implements Plugin
 
    }
 
-   public DirectoryResource getResource()
+   public Resource getResource()
    {
       return resource;
    }
 
-   public void setResource(DirectoryResource resource)
+   public void setResource(Resource resource)
    {
       this.resource = resource;
    }

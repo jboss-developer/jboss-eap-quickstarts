@@ -22,6 +22,10 @@
 
 package org.jboss.seam.forge.shell;
 
+import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
+import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
+import static org.mvel2.DataConversion.addConversionHandler;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +46,6 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.sun.org.apache.xerces.internal.dom.AttrNSImpl;
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
@@ -72,17 +75,11 @@ import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
-import org.jboss.seam.forge.shell.util.Parsing;
 import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
-import org.slf4j.Logger;
-
-import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
-import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
-import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -97,9 +94,6 @@ public class ShellImpl implements Shell
    @Inject
    @Parameters
    private List<String> parameters;
-
-   @Inject
-   private Logger log;
 
    @Inject
    private ExecutionParser parser;
@@ -129,8 +123,6 @@ public class ShellImpl implements Shell
 
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
-      log.info("Seam Forge Shell - Starting up.");
-
       BooleanConverter booleanConverter = new BooleanConverter();
       addConversionHandler(boolean.class, booleanConverter);
       addConversionHandler(Boolean.class, booleanConverter);
@@ -296,7 +288,6 @@ public class ShellImpl implements Shell
    private String execScript(final String script)
    {
 
-
       try
       {
          Object retVal = MVEL.eval(script, new ScriptContext(), properties);
@@ -381,7 +372,6 @@ public class ShellImpl implements Shell
       System.out.println();
    }
 
-
    @Override
    public void print(ShellColor color, String output)
    {
@@ -400,6 +390,7 @@ public class ShellImpl implements Shell
       printlnVerbose(renderColor(color, output));
    }
 
+   @Override
    public String renderColor(ShellColor color, String output)
    {
       Ansi ansi = new Ansi();

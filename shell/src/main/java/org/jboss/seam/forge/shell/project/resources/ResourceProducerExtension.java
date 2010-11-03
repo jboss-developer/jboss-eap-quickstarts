@@ -44,7 +44,7 @@ import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Current;
-import org.jboss.weld.extensions.annotated.AnnotatedTypeBuilder;
+import org.jboss.weld.extensions.reflection.annotated.AnnotatedTypeBuilder;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -56,8 +56,8 @@ public class ResourceProducerExtension implements Extension
 
    public <T> void processAnnotatedType(@Observes final ProcessAnnotatedType<T> event)
    {
-      AnnotatedTypeBuilder<T> builder = AnnotatedTypeBuilder.newInstance(event.getAnnotatedType());
-      builder.readAnnotationsFromUnderlyingType();
+      AnnotatedTypeBuilder<T> builder = new AnnotatedTypeBuilder<T>();
+      builder.readFromType(event.getAnnotatedType());
 
       boolean modifiedType = false;
 
@@ -69,7 +69,7 @@ public class ResourceProducerExtension implements Extension
             {
                if (p.getTypeClosure().contains(Resource.class))
                {
-                  builder.overrideConstructorParameterType(c.getJavaMember(), Resource.class, p.getPosition());
+                  builder.overrideConstructorParameterType(c.getJavaMember(), p.getPosition(), Resource.class);
                   modifiedType = true;
                }
             }
@@ -89,14 +89,14 @@ public class ResourceProducerExtension implements Extension
       {
          AnnotatedType<T> replacement = builder.create();
          typeOverrides.put(replacement.getJavaClass(), replacement);
-         event.setAnnotatedType(replacement);
+         // event.setAnnotatedType(replacement);
       }
    }
 
    @Produces
    @Current
    @Dependent
-   public static Resource getCurrentResource(InjectionPoint ip, Shell shell, BeanManager manager)
+   public static Resource<?> getCurrentResource(InjectionPoint ip, Shell shell, BeanManager manager)
    {
       System.err.println("Producing current resource");
       Resource<?> currentResource = shell.getCurrentResource();

@@ -1,316 +1,343 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.jboss.weld</groupId>
-        <artifactId>weld-parent</artifactId>
-        <version>15</version>
-    </parent>
+   <parent>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-parent</artifactId>
+      <version>15</version>
+   </parent>
 
-    <groupId>org.jboss.seam.forge</groupId>
-    <artifactId>forge-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+   <groupId>org.jboss.seam.forge</groupId>
+   <artifactId>forge-parent</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+   <packaging>pom</packaging>
 
-    <name>Seam Forge - Parent</name>
-    <description>Simplified project bootstrapping, incremental
+   <name>Seam Forge - Parent</name>
+   <description>Simplified project bootstrapping, incremental
         enhancement framework, and plugins
     </description>
 
 
-    <prerequisites>
-        <maven>3.0</maven>
-    </prerequisites>
+   <prerequisites>
+      <maven>3.0</maven>
+   </prerequisites>
 
-    <modules>
-        <module>event-bus</module>
-        <module>parser-java</module>
-        <module>project-model</module>
-        <module>project-model-tests</module>
-        <module>shell-api</module>
-        <module>test-harness</module>
-        <module>shell</module>
-        <module>persistence-plugin</module>
-    </modules>
+   <modules>
+      <module>event-bus</module>
+      <module>parser-java</module>
+      <module>project-model</module>
+      <module>project-model-tests</module>
+      <module>shell-api</module>
+      <module>test-harness</module>
+      <module>shell</module>
+      <module>persistence-plugin</module>
+   </modules>
 
-    <properties>
-        <arquillian.version>1.0.0.Alpha3</arquillian.version>
-        <cal10n.version>0.7.2</cal10n.version>
-        <cdi.version>1.0-SP1</cdi.version>
-        <jline.version>2.3</jline.version>
-        <junit.version>4.8.1</junit.version>
-        <log4j.version>1.2.16</log4j.version>
-        <maven.version>3.0</maven.version>
-        <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
-        <shrinkwrap.descriptors.version>1.0.0-alpha-1-SNAPSHOT</shrinkwrap.descriptors.version>
-        <slf4j.version>1.5.10</slf4j.version>
-        <weld.version>1.0.1-Final</weld.version>
-        <weldx.version>1.0.0.Alpha2</weldx.version>
-        <weld.bom.version>1.0.1-SP1</weld.bom.version>
-    </properties>
+   <properties>
+      <arquillian.version>1.0.0.Alpha4</arquillian.version>
+      <cal10n.version>0.7.2</cal10n.version>
+      <cdi.version>1.0-SP2</cdi.version>
+      <jboss.logging.version>3.0.0.Beta4</jboss.logging.version>
+      <jboss.javaee.version>1.0.0.Beta4</jboss.javaee.version>
+      <jline.version>2.3</jline.version>
+      <junit.version>4.8.1</junit.version>
+      <log4j.version>1.2.16</log4j.version>
+      <maven.version>3.0</maven.version>
+      <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
+      <shrinkwrap.descriptors.version>1.0.0-alpha-1-SNAPSHOT</shrinkwrap.descriptors.version>
+      <slf4j.version>1.5.10</slf4j.version>
+      <weld.version>1.1.0.Beta1</weld.version>
+      <weldx.version>1.0.0.Beta1</weldx.version>
+      <weld.bom.version>1.1.0.Beta1</weld.bom.version>
+   </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.weld</groupId>
-                <artifactId>weld-core-bom</artifactId>
-                <version>${weld.bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-core-bom</artifactId>
+            <version>${weld.bom.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
 
-            <dependency>
-                <groupId>org.jboss.seam.forge</groupId>
-                <artifactId>forge-parser-java</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.seam.forge</groupId>
-                <artifactId>forge-project-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.seam.forge</groupId>
-                <artifactId>forge-shell</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.seam.forge</groupId>
-                <artifactId>forge-shell-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.seam.forge</groupId>
-                <artifactId>forge-persistence-plugin</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.seam.forge</groupId>
-                <artifactId>forge-test-harness</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-parser-java</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-project-model</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-shell</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-shell-api</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-persistence-plugin</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-test-harness</artifactId>
+            <version>${project.version}</version>
+         </dependency>
 
-            <dependency>
-                <groupId>org.jboss.weld</groupId>
-                <artifactId>weld-se</artifactId>
-                <version>${weld.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.weld</groupId>
-                <artifactId>weld-extensions</artifactId>
-                <version>${weldx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.enterprise</groupId>
-                <artifactId>cdi-api</artifactId>
-                <version>${cdi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-junit</artifactId>
-                <version>${arquillian.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.shrinkwrap</groupId>
-                <artifactId>shrinkwrap-api</artifactId>
-                <version>${shrinkwrap.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-                <artifactId>shrinkwrap-descriptors-api</artifactId>
-                <version>${shrinkwrap.descriptors.version}</version>
-                <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-model</artifactId>
-                <version>${maven.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-core</artifactId>
-                <version>${maven.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-compat</artifactId>
-                <version>${maven.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-aether-provider</artifactId>
-                <version>${maven.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.sonatype.jline</groupId>
-                <artifactId>jline</artifactId>
-                <version>${jline.version}</version>
-            </dependency>
-
-            <!-- SLF4J Deps -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.cal10n</groupId>
-                <artifactId>cal10n-api</artifactId>
-                <version>${cal10n.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <!-- END SLF4J Deps -->
-
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <!-- Arquillian Deps -->
-        <dependency>
+         <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se</artifactId>
+            <version>${weld.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.weld.core</groupId>
+            <artifactId>weld-core</artifactId>
+            <version>${weld.version}</version>
+            <scope>test</scope>
+         </dependency>
+         
+         <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-extensions</artifactId>
+            <version>${weldx.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>${jboss.logging.version}</version>
+            <scope>provided</scope>
+         </dependency>
+         <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>${cdi.version}</version>
+         </dependency>
+         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
+         </dependency>
+         <dependency>
             <groupId>org.jboss.arquillian</groupId>
             <artifactId>arquillian-junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-weld-se-embedded-1</artifactId>
             <version>${arquillian.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-core</artifactId>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+            <version>${arquillian.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-api</artifactId>
+         </dependency>
+
+         <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-api</artifactId>
+            <version>${shrinkwrap.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+            <artifactId>shrinkwrap-descriptors-api</artifactId>
+            <version>${shrinkwrap.descriptors.version}</version>
+            <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
+         </dependency>
+         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${maven.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>${maven.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-compat</artifactId>
+            <version>${maven.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-aether-provider</artifactId>
+            <version>${maven.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.sonatype.jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>${jline.version}</version>
+         </dependency>
+
+         <!-- SLF4J Deps -->
+         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+            <version>${slf4j.version}</version>
+         </dependency>
+         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
+            <version>${slf4j.version}</version>
+         </dependency>
+         <dependency>
             <groupId>ch.qos.cal10n</groupId>
             <artifactId>cal10n-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- END Arquillian Deps -->
-    </dependencies>
+            <version>${cal10n.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+         </dependency>
+         <!-- END SLF4J Deps -->
 
-    <profiles>
-        <profile>
-            <id>dist</id>
-            <modules>
-                <module>dist</module>
-            </modules>
-        </profile>
-    </profiles>
+      </dependencies>
+   </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>jboss-snapshots-repository-group</id>
-            <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+   <dependencies>
+      <!-- Arquillian Deps -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian</groupId>
+         <artifactId>arquillian-junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>javax.el</groupId>
+         <artifactId>el-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian.container</groupId>
+         <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.spec</groupId>
+         <artifactId>jboss-javaee-6.0</artifactId>
+         <version>${jboss.javaee.version}</version>
+         <scope>provided</scope>
+         <type>pom</type>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-core</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-log4j12</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>log4j</groupId>
+         <artifactId>log4j</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.cal10n</groupId>
+         <artifactId>cal10n-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <!-- END Arquillian Deps -->
+   </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
-            </plugin>
-        </plugins>
-    </build>
+   <profiles>
+      <profile>
+         <id>dist</id>
+         <modules>
+            <module>dist</module>
+         </modules>
+      </profile>
+   </profiles>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <instrumentation>
-                        <ignores>
-                            <!-- <ignore></ignore> -->
-                        </ignores>
-                        <excludes>
-                            <exclude>org/jboss/seam/forge/**/*.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+   <repositories>
+      <repository>
+         <id>jboss-snapshots-repository-group</id>
+         <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+      <repository>
+         <id>jboss-public-repository-group</id>
+         <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </repository>
+   </repositories>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+               <source>1.6</source>
+               <target>1.6</target>
+               <encoding>UTF-8</encoding>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1</version>
+         </plugin>
+      </plugins>
+   </build>
+
+   <reporting>
+      <plugins>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+               <instrumentation>
+                  <ignores>
+                     <!-- <ignore></ignore> -->
+                  </ignores>
+                  <excludes>
+                     <exclude>org/jboss/seam/forge/**/*.class</exclude>
+                  </excludes>
+               </instrumentation>
+            </configuration>
+         </plugin>
+      </plugins>
+   </reporting>
 
 </project>
