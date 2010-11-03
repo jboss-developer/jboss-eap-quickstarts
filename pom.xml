@@ -104,7 +104,7 @@
             <version>${weld.version}</version>
             <scope>test</scope>
          </dependency>
-         
+
          <dependency>
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-extensions</artifactId>
@@ -114,7 +114,6 @@
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
             <version>${jboss.logging.version}</version>
-            <scope>provided</scope>
          </dependency>
          <dependency>
             <groupId>javax.enterprise</groupId>
@@ -242,6 +241,11 @@
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.logging</groupId>
+         <artifactId>jboss-logging</artifactId>
          <scope>test</scope>
       </dependency>
       <dependency>

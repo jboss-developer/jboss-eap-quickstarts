@@ -20,6 +20,7 @@
       <dependency>
          <groupId>org.jboss.logging</groupId>
          <artifactId>jboss-logging</artifactId>
+         <scope>compile</scope>
       </dependency>
       
       <!-- Arquillian Deps -->
