@@ -175,8 +175,6 @@ public class LsPlugin implements Plugin
                el = r.toString();
                if (showAll || !el.startsWith("."))
                {
-
-
                   listBuild.add(el);
                }
             }
