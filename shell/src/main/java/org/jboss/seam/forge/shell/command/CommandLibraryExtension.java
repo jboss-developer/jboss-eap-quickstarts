@@ -24,7 +24,11 @@ package org.jboss.seam.forge.shell.command;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Bean;
@@ -34,7 +38,14 @@ import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.util.Annotations;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.OverloadedName;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -87,8 +98,7 @@ public class CommandLibraryExtension implements Extension
 
       if (Annotations.isAnnotationPresent(plugin, ResourceScope.class))
       {
-         List<Class<? extends Resource<?>>> resourceTypes
-               = Arrays.asList(Annotations.getAnnotation(plugin, ResourceScope.class).value());
+         List<Class<? extends Resource<?>>> resourceTypes = Arrays.asList(Annotations.getAnnotation(plugin, ResourceScope.class).value());
 
          pluginMeta.setResourceScopes(resourceTypes);
       }
@@ -151,8 +161,7 @@ public class CommandLibraryExtension implements Extension
 
             if (Annotations.isAnnotationPresent(method, ResourceScope.class))
             {
-               List<Class<? extends Resource>> resourceTypes
-                     = new ArrayList<Class<? extends Resource>>(pluginMeta.getResourceScopes());
+               List<Class<? extends Resource<?>>> resourceTypes = new ArrayList<Class<? extends Resource<?>>>(pluginMeta.getResourceScopes());
 
                resourceTypes.addAll(Arrays.asList(Annotations.getAnnotation(method, ResourceScope.class).value()));
 
@@ -190,7 +199,6 @@ public class CommandLibraryExtension implements Extension
                      optionMeta.setRequired(option.required());
                      optionMeta.setPromptType(option.type());
                   }
-
 
                }
                commandMeta.addOption(optionMeta);

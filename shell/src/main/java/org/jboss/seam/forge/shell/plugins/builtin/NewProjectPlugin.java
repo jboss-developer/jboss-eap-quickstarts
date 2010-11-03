@@ -58,6 +58,7 @@ public class NewProjectPlugin implements Plugin
    @Inject
    private ProjectFactory projectFactory;
 
+   @SuppressWarnings("unchecked")
    @DefaultCommand
    public void create(
          @Option(name = "named",
@@ -70,7 +71,7 @@ public class NewProjectPlugin implements Plugin
          @Option(name = "projectFolder",
                description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
                required = false) File projectFolder
-   ) throws IOException
+         ) throws IOException
    {
       File cwd = shell.getCurrentDirectory();
 
@@ -81,7 +82,6 @@ public class NewProjectPlugin implements Plugin
          {
             shell.println("***ERROR*** [" + dir.getAbsolutePath() + "] already contains a project; please use a different folder.");
          }
-
 
          File defaultDir;
 
@@ -108,8 +108,7 @@ public class NewProjectPlugin implements Plugin
             shell.println();
             if (!projectFactory.containsProject(cwd))
             {
-               newDir = shell.promptFile("Where would you like to create the project? [Press ENTER to use the current directory: " + cwd + "]", defaultDir)
-               ;
+               newDir = shell.promptFile("Where would you like to create the project? [Press ENTER to use the current directory: " + cwd + "]", defaultDir);
             }
             else
             {

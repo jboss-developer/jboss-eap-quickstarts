@@ -39,7 +39,7 @@ public class GeneralUtils
       return newList;
    }
 
-   public static String elementListSimpleTypesToString(List<Class> list)
+   public static String elementListSimpleTypesToString(List<Class<?>> list)
    {
       StringBuilder sbuild = new StringBuilder();
       for (int i = 0; i < list.size(); i++)
@@ -53,11 +53,11 @@ public class GeneralUtils
       return sbuild.toString();
    }
 
-   public static String elementSetSimpleTypesToString(Set<Class> set)
+   public static String elementSetSimpleTypesToString(Set<Class<?>> set)
    {
       StringBuilder sbuild = new StringBuilder();
 
-      for (Iterator<Class> iter = set.iterator(); iter.hasNext();)
+      for (Iterator<Class<?>> iter = set.iterator(); iter.hasNext();)
       {
          sbuild.append(iter.next().getSimpleName());
          if (iter.hasNext())

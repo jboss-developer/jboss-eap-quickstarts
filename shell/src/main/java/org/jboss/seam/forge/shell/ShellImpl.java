@@ -182,7 +182,8 @@ public class ShellImpl implements Shell
 
       if ((parameters != null) && !parameters.isEmpty())
       {
-         // this is where we will initialize other parameters... e.g. accepting a path
+         // this is where we will initialize other parameters... e.g. accepting
+         // a path
       }
    }
 
@@ -565,9 +566,10 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public Class<? extends Resource> getCurrentResourceScope()
+   @SuppressWarnings("unchecked")
+   public Class<? extends Resource<?>> getCurrentResourceScope()
    {
-      return getCurrentResource().getClass();
+      return (Class<? extends Resource<?>>) getCurrentResource().getClass();
    }
 
    @Override

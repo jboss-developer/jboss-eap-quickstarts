@@ -108,7 +108,7 @@ public class PluginRegistry
 
    /**
     * Get {@link PluginMetadata} for the plugin with the given name.
-    *
+    * 
     * @return the metadata, or null if no plugin with given name exists.
     */
    public List<PluginMetadata> getPluginMetadata(final String plugin)
@@ -145,7 +145,6 @@ public class PluginRegistry
 
       return pmd;
    }
-
 
    private void sanityCheck()
    {
