@@ -24,6 +24,7 @@ package org.jboss.seam.forge.shell.util;
 
 import org.jboss.seam.forge.shell.Shell;
 
+import java.text.Format;
 import java.util.*;
 
 public class GeneralUtils
@@ -123,7 +124,13 @@ public class GeneralUtils
    }
 
 
-   public static void printOutColumns(List<String> rawList, ShellColor color, Shell shell, OutputAttributes attributes, FormatCallback callback, boolean sort)
+   public static void printOutColumns(List<String> rawList, Shell shell, FormatCallback callback, boolean sort)
+   {
+      printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), callback, sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, ShellColor color, Shell shell,
+                                      OutputAttributes attributes, FormatCallback callback, boolean sort)
    {
 
       if (sort)
@@ -155,6 +162,11 @@ public class GeneralUtils
          }
       }
       shell.println();
+   }
+
+   public static void printOutTables(List<String> list, int cols, Shell shell)
+   {
+      printOutTables(list, new boolean[cols], shell, null);
    }
 
    public static void printOutTables(List<String> list, boolean[] columns, Shell shell)

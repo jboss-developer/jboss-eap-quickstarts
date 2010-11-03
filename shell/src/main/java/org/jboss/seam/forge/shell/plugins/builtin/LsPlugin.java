@@ -94,12 +94,28 @@ public class LsPlugin implements Plugin
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
       List<String> listBuild;
-      List<String> coloredList = color ? new ArrayList<String>() : null;
+
+      FormatCallback formatCallback = color ? new FormatCallback()
+      {
+         @Override
+         public String format(int column, String value)
+         {
+            if (column == 7 && value.endsWith("/"))
+            {
+               return shell.renderColor(ShellColor.BLUE, value);
+            }
+            else
+            {
+               return value;
+            }
+         }
+      } : null;
 
       for (String p : path)
       {
          Resource<?> resource = parsePathspec(factory, shell.getCurrentResource(), p);
          List<Resource<?>> childResources = resource.listResources();
+
 
          String el;
          File file;
@@ -148,23 +164,7 @@ public class LsPlugin implements Plugin
             }
 
             shell.println("total " + fileCount);
-
-            FormatCallback formatCallback = color ? new FormatCallback()
-            {
-               @Override
-               public String format(int column, String value)
-               {
-                  if (column == 7 && value.endsWith("/"))
-                  {
-                     return shell.renderColor(ShellColor.BLUE, value);
-                  }
-                  else
-                  {
-                     return value;
-                  }
-               }
-            } : null;
-
+                                                         x
             printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell, formatCallback);
          }
          else
@@ -175,18 +175,13 @@ public class LsPlugin implements Plugin
                el = r.toString();
                if (showAll || !el.startsWith("."))
                {
-                  if (color)
-                  {
-                     coloredList.add(shell.renderColor(
-                           ((FileResource) r).getUnderlyingResourceObject().isDirectory()
-                                 ? ShellColor.BLUE : ShellColor.NONE, el));
-                  }
+
 
                   listBuild.add(el);
                }
             }
 
-            printOutColumns(listBuild, coloredList, shell, false);
+            printOutColumns(listBuild, shell, formatCallback, false);
          }
       }
    }
