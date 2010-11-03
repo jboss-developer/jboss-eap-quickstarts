@@ -45,6 +45,7 @@ import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -100,7 +101,11 @@ public class CommandLibraryExtension implements Extension
          List<Class<? extends Resource<?>>> resourceTypes = Arrays.asList(Annotations.getAnnotation(plugin, ResourceScope.class).value());
 
          pluginMeta.setResourceScopes(resourceTypes);
+      }
 
+      if (Annotations.isAnnotationPresent(plugin, Topic.class))
+      {
+         pluginMeta.setTopic(Annotations.getAnnotation(plugin, Topic.class).value());
       }
 
       processPluginCommands(pluginMeta, plugin);

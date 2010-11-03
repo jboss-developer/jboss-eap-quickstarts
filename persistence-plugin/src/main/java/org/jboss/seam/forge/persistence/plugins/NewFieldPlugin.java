@@ -57,6 +57,7 @@ import org.jboss.seam.forge.shell.plugins.*;
  * 
  */
 @Named("new-field")
+@Topic("File & Resources")
 @Singleton
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)

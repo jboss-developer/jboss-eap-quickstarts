@@ -29,6 +29,7 @@ import javax.inject.Named;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 
 /**
@@ -38,6 +39,7 @@ import org.jboss.seam.forge.shell.plugins.events.Shutdown;
  * 
  */
 @Named("exit")
+@Topic("Shell Environment")
 @Help("Exits the shell.")
 public class ExitShellPlugin implements Plugin
 {

@@ -1,1 +1,2 @@
 org.jboss.seam.forge.shell.command.CommandLibraryExtension
+org.jboss.seam.forge.shell.project.resources.ResourceProducerExtension

@@ -20,41 +20,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.shell.plugins;
 
-import javax.inject.Inject;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock .
  */
-@Help("Writes input to output.")
-@Topic("Shell Environment")
-public class Echo implements Plugin
+@Target({TYPE})
+@Retention(RUNTIME)
+@Documented
+public @interface Topic
 {
-   @Inject
-   Shell shell;
-
-   @DefaultCommand
-   public void run(@Option(help = "The text to be echoed") final String... tokens)
-   {
-      String input = null;
-      if (tokens != null)
-      {
-         input = "";
-         for (String token : tokens)
-         {
-            input = input + " " + token;
-         }
-         input = input.trim();
-      }
-
-      if (input == null)
-      {
-         input = shell.prompt();
-      }
-      shell.println(input);
-   }
+   String value();
 }

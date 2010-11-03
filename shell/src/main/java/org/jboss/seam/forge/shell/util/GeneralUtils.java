@@ -22,14 +22,9 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.jboss.seam.forge.shell.Shell;
+
+import java.util.*;
 
 public class GeneralUtils
 {
@@ -73,24 +68,40 @@ public class GeneralUtils
       return sbuild.toString();
    }
 
-   public static void printOutColumns(List<String> list, Shell shell, boolean sort)
+   public static class OutputAttributes
+   {
+      public OutputAttributes(int columnSize, int columns)
+      {
+         this.columnSize = columnSize;
+         this.columns = columns;
+      }
+
+      private int columnSize;
+      private int columns;
+   }
+
+   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
+   {
+      if (in == null) return calculateOutputAttributs(rawList, shell);
+
+      OutputAttributes newAttr = calculateOutputAttributs(rawList, shell);
+
+      return new OutputAttributes(in.columnSize > newAttr.columnSize ? in.columnSize : newAttr.columnSize,
+            in.columns < newAttr.columns ? in.columns : newAttr.columns);
+   }
+
+   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell)
    {
       int width = shell.getWidth();
       int maxLength = 0;
 
-      for (String s : list)
+      for (String s : rawList)
       {
          if (s.length() > maxLength)
          {
             maxLength = s.length();
          }
       }
-
-      if (sort)
-      {
-         Collections.sort(list);
-      }
-
       int cols = width / (maxLength + 4);
       int colSize = width / cols;
 
@@ -100,21 +111,63 @@ public class GeneralUtils
          cols = 1;
       }
 
-      int i = 0;
-      for (String s : list)
+      return new OutputAttributes(colSize, cols);
+   }
+
+   public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
+   {
+      printOutColumns(rawList, null, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, List<String> coloredList, Shell shell, boolean sort)
+   {
+      printOutColumns(rawList, coloredList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, List<String> coloredList, ShellColor color, Shell shell, OutputAttributes attributes, boolean sort)
+   {
+
+      if (sort)
       {
-         shell.print(s);
+         Collections.sort(rawList);
+      }
+
+      int cols = attributes.columns;
+      int colSize = attributes.columnSize;
+
+      int i = 0;
+      int count = 0;
+      for (String s : rawList)
+      {
+         String out;
+         if (color == ShellColor.NONE)
+         {
+            out = coloredList != null ? coloredList.get(count) : s;
+            shell.print(out);
+         }
+         else
+         {
+            out = coloredList != null ? coloredList.get(count) : s;
+            shell.print(color, out);
+         }
+
          shell.print(pad(colSize - s.length()));
          if (++i == cols)
          {
             shell.println();
             i = 0;
          }
+         count++;
       }
       shell.println();
    }
 
    public static void printOutTables(List<String> list, boolean[] columns, Shell shell)
+   {
+      printOutTables(list, columns, shell, null);
+   }
+
+   public static void printOutTables(List<String> list, boolean[] columns, Shell shell, FormatCallback callback)
    {
       int cols = columns.length;
       int[] colSizes = new int[columns.length];
@@ -143,11 +196,27 @@ public class GeneralUtils
             if (columns[i])
             {
                shell.print(pad(colSizes[i] - el.length()));
-               shell.print(el);
+               if (callback != null)
+               {
+                  shell.print(callback.format(i, el));
+               }
+               else
+               {
+                  shell.print(el);
+               }
+
             }
             else
             {
-               shell.print(el);
+               if (callback != null)
+               {
+                  shell.print(callback.format(i, el));
+               }
+               else
+               {
+                  shell.print(el);
+               }
+
                shell.print(pad(colSizes[i] - el.length()));
             }
             shell.print(" ");

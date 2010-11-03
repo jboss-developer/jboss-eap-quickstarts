@@ -22,12 +22,7 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.spi.CreationalContext;
@@ -42,7 +37,7 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
  * Stores the current registry of all installed & loaded plugins.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Singleton
@@ -126,10 +121,9 @@ public class PluginRegistry
       return getPluginMetadataForScope(name, shell.getCurrentResourceScope());
    }
 
-   public PluginMetadata getPluginMetadataForScope(final String name, Class<? extends Resource<?>> scope)
+   public PluginMetadata getPluginMetadataForScope(final String name, Class<? extends Resource> scope)
    {
-      if (accessCache.containsKey(name) && accessCache.get(name).containsKey(scope))
-      {
+      if (accessCache.containsKey(name) && accessCache.get(name).containsKey(scope)) {
          return accessCache.get(name).get(scope);
       }
 
@@ -148,13 +142,6 @@ public class PluginRegistry
             break;
          }
       }
-
-      // if (pmd == null)
-      // {
-      // throw new RuntimeException("plugin '" + name +
-      // "' was found, but it is not valid in the specified scope: " +
-      // scope.getSimpleName());
-      // }
 
       return pmd;
    }

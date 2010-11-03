@@ -25,10 +25,7 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,6 +36,7 @@ import java.io.File;
  * @author Mike Brock <cbrock@redhat.com>
  */
 @Named("pick-up")
+@Topic("File & Resources")
 @Help("Picks up a specific resource to work with.")
 @Singleton
 public class PickupResource implements Plugin

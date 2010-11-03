@@ -22,9 +22,11 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Observes;
@@ -33,6 +35,9 @@ import javax.enterprise.inject.spi.AnnotatedConstructor;
 import javax.enterprise.inject.spi.AnnotatedField;
 import javax.enterprise.inject.spi.AnnotatedParameter;
 import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.inject.Inject;
@@ -45,7 +50,7 @@ import org.jboss.weld.extensions.annotated.AnnotatedTypeBuilder;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ResourceProducerExtension
+public class ResourceProducerExtension implements Extension
 {
    private final Map<Class<?>, AnnotatedType<?>> typeOverrides = new HashMap<Class<?>, AnnotatedType<?>>();
 
@@ -90,10 +95,27 @@ public class ResourceProducerExtension
 
    @Produces
    @Dependent
-   public Resource<?> getCurrentResource(InjectionPoint ip, Shell shell)
+   @SuppressWarnings({ "rawtypes" })
+   public Resource getCurrentResource(InjectionPoint ip, Shell shell, BeanManager manager)
    {
       Resource<?> currentResource = shell.getCurrentResource();
-      Type type = ip.getType();
+      Type type = ip.getAnnotated().getBaseType();
+
+      try
+      {
+         Set<Bean<?>> beans = manager.getBeans(type, (Annotation[]) ip.getQualifiers().toArray());
+         Bean<? extends Object> bean = manager.resolve(beans);
+
+         if (currentResource.getClass().isAssignableFrom(bean.getBeanClass()))
+         {
+            return currentResource;
+         }
+      }
+      catch (Exception e)
+      {
+         throw new IllegalStateException("Could not @Inject Resource type into InjectionPoint:" + ip);
+      }
+
       return null;
    }
 }

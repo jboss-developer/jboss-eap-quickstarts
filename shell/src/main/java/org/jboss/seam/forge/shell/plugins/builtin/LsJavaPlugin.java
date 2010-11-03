@@ -33,6 +33,7 @@ import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -40,6 +41,7 @@ import org.jboss.seam.forge.shell.plugins.ResourceScope;
  */
 @OverloadedName("ls")
 @ResourceScope(JavaResource.class)
+@Topic("File & Resources")
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
 {

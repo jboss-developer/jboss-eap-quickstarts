@@ -28,15 +28,13 @@ import javax.inject.Named;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("remove")
+@Topic("Project")
 @Help("Remove a plugin from the current project.")
 public class FacetUninstallPlugin implements Plugin
 {

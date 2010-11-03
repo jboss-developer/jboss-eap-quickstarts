@@ -20,41 +20,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
-
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+package org.jboss.seam.forge.shell.util;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock .
  */
-@Help("Writes input to output.")
-@Topic("Shell Environment")
-public class Echo implements Plugin
+public enum ShellColor
 {
-   @Inject
-   Shell shell;
-
-   @DefaultCommand
-   public void run(@Option(help = "The text to be echoed") final String... tokens)
-   {
-      String input = null;
-      if (tokens != null)
-      {
-         input = "";
-         for (String token : tokens)
-         {
-            input = input + " " + token;
-         }
-         input = input.trim();
-      }
-
-      if (input == null)
-      {
-         input = shell.prompt();
-      }
-      shell.println(input);
-   }
+   NONE, BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, YELLOW,  WHITE, BOLD, ITALIC
 }

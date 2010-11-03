@@ -31,6 +31,7 @@ import java.util.Map;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -123,7 +124,7 @@ public interface Shell
     * list.) Loop until the user enters a number corresponding to one of the
     * options, then return the index of that option from the list.
     * 
-    * @param <T> The type of the objects contained in the list
+
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the index of selected option
@@ -136,7 +137,6 @@ public interface Shell
     * list.) Loop until the user enters a number corresponding to one of the
     * options, then return the index of that option from the list.
     * 
-    * @param <T> The type of the objects contained in the list
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the index of the selected option
@@ -237,7 +237,7 @@ public interface Shell
     * value if user input is empty.
     * 
     * @param message The prompt message to display until valid input is entered
-    * @param regex The regular expression to which valid input must be matched
+    * @param pattern The regular expression to which valid input must be matched
     * @param defaultIfEmpty The value to be returned when an empty or
     *           whitespace-only user input is read.
     */
@@ -273,6 +273,31 @@ public interface Shell
     * <code> == true</code>.
     */
    void printlnVerbose(String output);
+
+      /**
+    * Print color output to the console.
+    */
+   void print(ShellColor color, String output);
+
+   /**
+    * Print color output to the console, followed by the newline character.
+    */
+   void println(ShellColor color, String output);
+
+
+   /**
+    * Write color output to the console, only if {@link #isVerbose()} <code> == true</code>.
+    */
+   void printlnVerbose(ShellColor color, String output);
+
+
+   /**
+    * Render a color for the current terminal emulation by encapsulating the string is the appropriate escape codes
+    * @param color
+    * @param output
+    * @return
+    */
+   public String renderColor(ShellColor color, String output);
 
    /**
     * Set a property in the shell context.

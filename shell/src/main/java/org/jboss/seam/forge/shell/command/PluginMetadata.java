@@ -37,6 +37,7 @@ public class PluginMetadata
 {
    private String help = "";
    private String name = "";
+   private String topic = "Other";
    private Class<? extends Plugin> type;
 
    @SuppressWarnings({"unchecked"})
@@ -234,6 +235,16 @@ public class PluginMetadata
    public void setHelp(final String help)
    {
       this.help = help;
+   }
+
+   public String getTopic()
+   {
+      return topic;
+   }
+
+   public void setTopic(String topic)
+   {
+      this.topic = topic.toUpperCase();
    }
 
    public boolean hasCommands()
