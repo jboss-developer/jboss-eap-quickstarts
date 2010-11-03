@@ -45,7 +45,10 @@ public class GeneralUtils
       for (int i = 0; i < list.size(); i++)
       {
          sbuild.append(list.get(0).getSimpleName());
-         if (i < list.size()) sbuild.append(", ");
+         if (i < list.size())
+         {
+            sbuild.append(", ");
+         }
       }
       return sbuild.toString();
    }
@@ -57,7 +60,10 @@ public class GeneralUtils
       for (Iterator<Class> iter = set.iterator(); iter.hasNext();)
       {
          sbuild.append(iter.next().getSimpleName());
-         if (iter.hasNext()) sbuild.append(", ");
+         if (iter.hasNext())
+         {
+            sbuild.append(", ");
+         }
       }
       return sbuild.toString();
    }
@@ -76,7 +82,10 @@ public class GeneralUtils
 
    public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
    {
-      if (in == null) return calculateOutputAttributs(rawList, shell);
+      if (in == null)
+      {
+         return calculateOutputAttributs(rawList, shell);
+      }
 
       OutputAttributes newAttr = calculateOutputAttributs(rawList, shell);
 
@@ -91,7 +100,10 @@ public class GeneralUtils
 
       for (String s : rawList)
       {
-         if (s.length() > maxLength) maxLength = s.length();
+         if (s.length() > maxLength)
+         {
+            maxLength = s.length();
+         }
       }
       int cols = width / (maxLength + 4);
       int colSize = width / cols;
@@ -107,15 +119,11 @@ public class GeneralUtils
 
    public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
    {
-      printOutColumns(rawList, null, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), sort);
+      printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), null, sort);
    }
 
-   public static void printOutColumns(List<String> rawList, List<String> coloredList, Shell shell, boolean sort)
-   {
-      printOutColumns(rawList, coloredList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), sort);
-   }
 
-   public static void printOutColumns(List<String> rawList, List<String> coloredList, ShellColor color, Shell shell, OutputAttributes attributes, boolean sort)
+   public static void printOutColumns(List<String> rawList, ShellColor color, Shell shell, OutputAttributes attributes, FormatCallback callback, boolean sort)
    {
 
       if (sort)
@@ -130,15 +138,13 @@ public class GeneralUtils
       int count = 0;
       for (String s : rawList)
       {
-         String out;
+         String out = callback != null ? callback.format(0, s) : s;
          if (color == ShellColor.NONE)
          {
-            out = coloredList != null ? coloredList.get(count) : s;
             shell.print(out);
          }
          else
          {
-            out = coloredList != null ? coloredList.get(count) : s;
             shell.print(color, out);
          }
 
@@ -171,7 +177,9 @@ public class GeneralUtils
          for (int i = 0; i < cols; i++)
          {
             if (colSizes[i] < (el = iter.next()).length())
+            {
                colSizes[i] = el.length();
+            }
          }
       }
 

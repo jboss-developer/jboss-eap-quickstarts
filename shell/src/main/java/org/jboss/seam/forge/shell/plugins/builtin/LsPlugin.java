@@ -60,7 +60,6 @@ public class LsPlugin implements Plugin
    private final Shell shell;
    private final ResourceFactory factory;
 
-
    private static final long yearMarker;
    private static final SimpleDateFormat dateFormatOld = new SimpleDateFormat("MMM d yyyy");
    private static final SimpleDateFormat dateFormatRecent = new SimpleDateFormat("MMM d HH:mm");
@@ -134,7 +133,10 @@ public class LsPlugin implements Plugin
                   listBuild.addAll(Arrays.asList(getDateString(file.lastModified())));
                   listBuild.add(el);
 
-                  if (!dir) fileCount++;
+                  if (!dir)
+                  {
+                     fileCount++;
+                  }
                }
             }
 

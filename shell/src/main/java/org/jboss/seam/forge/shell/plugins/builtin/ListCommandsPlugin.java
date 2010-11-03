@@ -30,6 +30,7 @@ import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
@@ -89,7 +90,10 @@ public class ListCommandsPlugin implements Plugin
                }
                listData.remove(name);
 
-               if (!"".equals(name)) listData.add(name);
+               if (!"".equals(name))
+               {
+                  listData.add(name);
+               }
             }
 
             if (!listGroups.containsKey(pluginMetadata.getTopic()))
@@ -106,18 +110,34 @@ public class ListCommandsPlugin implements Plugin
          attr = GeneralUtils.calculateOutputAttributs(entry.getValue(), shell, attr);
       }
 
+      FormatCallback formatCallback = new FormatCallback()
+      {
+         @Override
+         public String format(int column, String value)
+         {
+            return value.endsWith("*") ? shell.renderColor(ShellColor.BOLD, value) : value;
+         }
+      };
+
       for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
       {
          shell.println();
-         shell.println(ShellColor.BLUE, "[" + entry.getKey().toUpperCase() + "]");
+         shell.println(ShellColor.RED, "[" + entry.getKey().toUpperCase() + "]");
 
-         printOutColumns(entry.getValue(), null, ShellColor.BOLD, shell, attr, true);
+
+         printOutColumns(entry.getValue(), ShellColor.NONE, shell, attr, formatCallback, true);
       }
 
       shell.println();
 
-      if (showAll) shell.println("(* = command accessible from current context)");
-      else shell.println("(only commands in relevant scope displayed. use --all to see all commands.)");
+      if (showAll)
+      {
+         shell.println("(* = command accessible from current context)");
+      }
+      else
+      {
+         shell.println("(only commands in relevant scope displayed. use --all to see all commands.)");
+      }
    }
 
    private static String render(boolean showAll, Class currResource,
