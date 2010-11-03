@@ -164,7 +164,7 @@ public class LsPlugin implements Plugin
             }
 
             shell.println("total " + fileCount);
-                                                         x
+
             printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell, formatCallback);
          }
          else
