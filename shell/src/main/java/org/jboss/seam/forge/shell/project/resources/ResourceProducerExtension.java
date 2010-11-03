@@ -40,10 +40,10 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.weld.extensions.annotated.AnnotatedTypeBuilder;
 
 /**
@@ -63,7 +63,7 @@ public class ResourceProducerExtension implements Extension
 
       for (AnnotatedConstructor<T> c : event.getAnnotatedType().getConstructors())
       {
-         if (c.isAnnotationPresent(Inject.class))
+         if (c.isAnnotationPresent(Current.class))
          {
             for (AnnotatedParameter<?> p : c.getParameters())
             {
@@ -78,7 +78,7 @@ public class ResourceProducerExtension implements Extension
 
       for (AnnotatedField<?> f : event.getAnnotatedType().getFields())
       {
-         if (f.isAnnotationPresent(Inject.class) && f.getTypeClosure().contains(Resource.class))
+         if (f.isAnnotationPresent(Current.class))
          {
             builder.overrideFieldType(f.getJavaMember(), Resource.class);
             modifiedType = true;
@@ -94,10 +94,11 @@ public class ResourceProducerExtension implements Extension
    }
 
    @Produces
+   @Current
    @Dependent
-   @SuppressWarnings({ "rawtypes" })
-   public Resource getCurrentResource(InjectionPoint ip, Shell shell, BeanManager manager)
+   public static Resource getCurrentResource(InjectionPoint ip, Shell shell, BeanManager manager)
    {
+      System.err.println("Producing current resource");
       Resource<?> currentResource = shell.getCurrentResource();
       Type type = ip.getAnnotated().getBaseType();
 

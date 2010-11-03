@@ -22,9 +22,14 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import org.jboss.seam.forge.shell.Shell;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import org.jboss.seam.forge.shell.Shell;
 
 public class GeneralUtils
 {
@@ -76,8 +81,8 @@ public class GeneralUtils
          this.columns = columns;
       }
 
-      private int columnSize;
-      private int columns;
+      private final int columnSize;
+      private final int columns;
    }
 
    public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
@@ -121,7 +126,6 @@ public class GeneralUtils
    {
       printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), null, sort);
    }
-
 
    public static void printOutColumns(List<String> rawList, ShellColor color, Shell shell, OutputAttributes attributes, FormatCallback callback, boolean sort)
    {

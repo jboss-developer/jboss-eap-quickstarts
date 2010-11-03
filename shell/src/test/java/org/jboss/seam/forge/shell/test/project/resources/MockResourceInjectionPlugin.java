@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -20,48 +20,42 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.shell.test.project.resources;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.jboss.seam.forge.project.resources.builtin.JavaResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
-import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * @author Mike Brock
+ * 
  */
-@OverloadedName("ls")
-@ResourceScope(JavaResource.class)
-@Topic("File & Resources")
-@Help("Prints the contents current Java file")
-public class LsJavaPlugin implements Plugin
+@Named("inject")
+@ResourceScope(DirectoryResource.class)
+public class MockResourceInjectionPlugin implements Plugin
 {
    @Inject
    @Current
-   private JavaResource resource;
+   private DirectoryResource resource;
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") String... path)
+   public void run()
    {
-      System.out.println("LSing a Java File");
-      try
-      {
-         System.out.println(resource.getJavaClass().getQualifiedName());
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
 
+   }
+
+   public DirectoryResource getResource()
+   {
+      return resource;
+   }
+
+   public void setResource(DirectoryResource resource)
+   {
+      this.resource = resource;
    }
 }

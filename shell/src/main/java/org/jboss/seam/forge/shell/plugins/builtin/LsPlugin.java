@@ -22,30 +22,35 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.core.internal.utils.Cache;
-import org.eclipse.core.runtime.Path;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
-import org.mvel2.util.StringAppender;
-
-import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -88,13 +93,13 @@ public class LsPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(flagOnly = true, name = "color", required = false) final boolean color,
+                   @Option(flagOnly = true, name = "color", shortName = "c", required = false) final boolean color,
                    @Option(description = "path", defaultValue = ".") String... path)
    {
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
       List<String> listBuild;
-      List<String> coloredList = color ? new ArrayList<String>() : null;
+      List<String> coloredList = new ArrayList<String>();
 
       for (String p : path)
       {
@@ -154,7 +159,7 @@ public class LsPlugin implements Plugin
                @Override
                public String format(int column, String value)
                {
-                  if (column == 7 && value.endsWith("/"))
+                  if ((column == 7) && value.endsWith("/"))
                   {
                      return shell.renderColor(ShellColor.BLUE, value);
                   }
@@ -165,7 +170,7 @@ public class LsPlugin implements Plugin
                }
             } : null;
 
-            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell, formatCallback);
+            GeneralUtils.printOutTables(listBuild, new boolean[] { false, false, false, true, false, false, true, false }, shell, formatCallback);
          }
          else
          {
@@ -177,20 +182,22 @@ public class LsPlugin implements Plugin
                {
                   if (color)
                   {
-                     coloredList.add(shell.renderColor(
-                           ((FileResource) r).getUnderlyingResourceObject().isDirectory()
-                                 ? ShellColor.BLUE : ShellColor.NONE, el));
+                     ShellColor renderColor = ShellColor.NONE;
+                     if (((FileResource) r).getUnderlyingResourceObject().isDirectory())
+                     {
+                        renderColor = ShellColor.BLUE;
+                     }
+                     coloredList.add(shell.renderColor(renderColor, el));
                   }
 
                   listBuild.add(el);
                }
             }
 
-            printOutColumns(listBuild, coloredList, shell, false);
+            GeneralUtils.printOutColumns(color ? coloredList : listBuild, shell, false);
          }
       }
    }
-
 
    private static String[] getDateString(long time)
    {
