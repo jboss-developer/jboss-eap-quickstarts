@@ -66,7 +66,8 @@ import com.google.common.collect.MapMaker;
  */
 public abstract class AbstractProducerBean<X, T, S extends Member> extends AbstractReceiverBean<X, T, S>
 {
-
+   // FIXME Remove this class when https://jira.jboss.org/browse/WELD-748 is
+   // fixed
    private static final Function<Class<?>, Boolean> SERIALIZABLE_CHECK = new Function<Class<?>, Boolean>()
    {
 
