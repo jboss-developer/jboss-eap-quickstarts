@@ -135,7 +135,6 @@ public class GeneralUtils
       int colSize = attributes.columnSize;
 
       int i = 0;
-      int count = 0;
       for (String s : rawList)
       {
          String out = callback != null ? callback.format(0, s) : s;
@@ -154,7 +153,6 @@ public class GeneralUtils
             shell.println();
             i = 0;
          }
-         count++;
       }
       shell.println();
    }
