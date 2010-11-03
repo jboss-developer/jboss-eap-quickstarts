@@ -95,21 +95,6 @@ public class LsPlugin implements Plugin
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
       List<String> listBuild;
 
-      FormatCallback formatCallback = color ? new FormatCallback()
-      {
-         @Override
-         public String format(int column, String value)
-         {
-            if (column == 7 && value.endsWith("/"))
-            {
-               return shell.renderColor(ShellColor.BLUE, value);
-            }
-            else
-            {
-               return value;
-            }
-         }
-      } : null;
 
       for (String p : path)
       {
@@ -165,7 +150,27 @@ public class LsPlugin implements Plugin
 
             shell.println("total " + fileCount);
 
-            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell, formatCallback);
+            FormatCallback formatCallback = color ? new FormatCallback()
+            {
+               @Override
+               public String format(int column, String value)
+               {
+                  if (column == 7 && value.endsWith("/"))
+                  {
+                     return shell.renderColor(ShellColor.BLUE, value);
+                  }
+                  else
+                  {
+                     return value;
+                  }
+               }
+            } : null;
+
+            printOutTables(
+                  listBuild,
+                  new boolean[]{false, false, false, true, false, false, true, false},
+                  shell,
+                  formatCallback);
          }
          else
          {
@@ -178,6 +183,22 @@ public class LsPlugin implements Plugin
                   listBuild.add(el);
                }
             }
+
+            FormatCallback formatCallback = color ? new FormatCallback()
+            {
+               @Override
+               public String format(int column, String value)
+               {
+                  if (value.endsWith("/"))
+                  {
+                     return shell.renderColor(ShellColor.BLUE, value);
+                  }
+                  else
+                  {
+                     return value;
+                  }
+               }
+            } : null;
 
             printOutColumns(listBuild, shell, formatCallback, false);
          }
