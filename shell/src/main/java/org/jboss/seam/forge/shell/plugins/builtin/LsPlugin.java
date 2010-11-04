@@ -95,12 +95,10 @@ public class LsPlugin implements Plugin
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
       List<String> listBuild;
 
-
       for (String p : path)
       {
          Resource<?> resource = parsePathspec(factory, shell.getCurrentResource(), p);
          List<Resource<?>> childResources = resource.listResources();
-
 
          String el;
          File file;
@@ -204,7 +202,6 @@ public class LsPlugin implements Plugin
          }
       }
    }
-
 
    private static String[] getDateString(long time)
    {
