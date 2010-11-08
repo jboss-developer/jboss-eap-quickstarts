@@ -22,11 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -45,23 +41,11 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
 {
-   private final Shell shell;
-   private final ResourceFactory factory;
-
-   @Inject
-   public LsJavaPlugin(final Shell shell, final ResourceFactory factory)
-   {
-      this.shell = shell;
-      this.factory = factory;
-   }
-
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") String... path)
    {
-
-      System.out.println("List a java file!");
-
+      System.out.println("LSing a Java File");
    }
 }

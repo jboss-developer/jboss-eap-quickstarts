@@ -22,29 +22,20 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.AnnotatedConstructor;
 import javax.enterprise.inject.spi.AnnotatedField;
 import javax.enterprise.inject.spi.AnnotatedParameter;
 import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.weld.extensions.annotated.AnnotatedTypeBuilder;
+import org.jboss.seam.forge.shell.plugins.Current;
+import org.jboss.weld.extensions.reflection.annotated.AnnotatedTypeBuilder;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -56,20 +47,20 @@ public class ResourceProducerExtension implements Extension
 
    public <T> void processAnnotatedType(@Observes final ProcessAnnotatedType<T> event)
    {
-      AnnotatedTypeBuilder<T> builder = AnnotatedTypeBuilder.newInstance(event.getAnnotatedType());
-      builder.readAnnotationsFromUnderlyingType();
+      AnnotatedTypeBuilder<T> builder = new AnnotatedTypeBuilder<T>();
+      builder.readFromType(event.getAnnotatedType());
 
       boolean modifiedType = false;
 
       for (AnnotatedConstructor<T> c : event.getAnnotatedType().getConstructors())
       {
-         if (c.isAnnotationPresent(Inject.class))
+         if (c.isAnnotationPresent(Current.class))
          {
             for (AnnotatedParameter<?> p : c.getParameters())
             {
                if (p.getTypeClosure().contains(Resource.class))
                {
-                  builder.overrideConstructorParameterType(c.getJavaMember(), Resource.class, p.getPosition());
+                  builder.overrideConstructorParameterType(c.getJavaMember(), p.getPosition(), Resource.class);
                   modifiedType = true;
                }
             }
@@ -78,7 +69,7 @@ public class ResourceProducerExtension implements Extension
 
       for (AnnotatedField<?> f : event.getAnnotatedType().getFields())
       {
-         if (f.isAnnotationPresent(Inject.class) && f.getTypeClosure().contains(Resource.class))
+         if (f.isAnnotationPresent(Current.class))
          {
             builder.overrideFieldType(f.getJavaMember(), Resource.class);
             modifiedType = true;
@@ -91,31 +82,5 @@ public class ResourceProducerExtension implements Extension
          typeOverrides.put(replacement.getJavaClass(), replacement);
          event.setAnnotatedType(replacement);
       }
-   }
-
-   @Produces
-   @Dependent
-   @SuppressWarnings({ "rawtypes" })
-   public Resource getCurrentResource(InjectionPoint ip, Shell shell, BeanManager manager)
-   {
-      Resource<?> currentResource = shell.getCurrentResource();
-      Type type = ip.getAnnotated().getBaseType();
-
-      try
-      {
-         Set<Bean<?>> beans = manager.getBeans(type, (Annotation[]) ip.getQualifiers().toArray());
-         Bean<? extends Object> bean = manager.resolve(beans);
-
-         if (currentResource.getClass().isAssignableFrom(bean.getBeanClass()))
-         {
-            return currentResource;
-         }
-      }
-      catch (Exception e)
-      {
-         throw new IllegalStateException("Could not @Inject Resource type into InjectionPoint:" + ip);
-      }
-
-      return null;
    }
 }

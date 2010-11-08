@@ -1,59 +1,63 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>forge-parent</artifactId>
-        <groupId>org.jboss.seam.forge</groupId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+   <parent>
+      <artifactId>forge-parent</artifactId>
+      <groupId>org.jboss.seam.forge</groupId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
 
-    <artifactId>forge-distribution</artifactId>
-    <name>Seam Forge - Distribution</name>
-    <packaging>jar</packaging>
+   <artifactId>forge-distribution</artifactId>
+   <name>Seam Forge - Distribution</name>
+   <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jboss.seam.forge</groupId>
-            <artifactId>forge-shell</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.forge</groupId>
-            <artifactId>forge-persistence-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+   <dependencies>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-shell</artifactId>
+         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-persistence-plugin</artifactId>
+         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.logging</groupId>
+         <artifactId>jboss-logging</artifactId>
+      </dependency>
+   </dependencies>
 
-    <build>
-        <finalName>forge</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+   <build>
+      <finalName>forge</finalName>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1</version>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1.1</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
 
 </project>

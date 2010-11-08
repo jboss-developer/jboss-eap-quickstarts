@@ -94,6 +94,7 @@ public class LsPlugin implements Plugin
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
       List<String> listBuild;
+      List<String> coloredList = color ? new ArrayList<String>() : null;
 
       for (String p : path)
       {
@@ -164,11 +165,7 @@ public class LsPlugin implements Plugin
                }
             } : null;
 
-            printOutTables(
-                  listBuild,
-                  new boolean[]{false, false, false, true, false, false, true, false},
-                  shell,
-                  formatCallback);
+            printOutTables(listBuild, new boolean[]{false, false, false, true, false, false, true, false}, shell, formatCallback);
          }
          else
          {
@@ -178,30 +175,22 @@ public class LsPlugin implements Plugin
                el = r.toString();
                if (showAll || !el.startsWith("."))
                {
+                  if (color)
+                  {
+                     coloredList.add(shell.renderColor(
+                           ((FileResource) r).getUnderlyingResourceObject().isDirectory()
+                                 ? ShellColor.BLUE : ShellColor.NONE, el));
+                  }
+
                   listBuild.add(el);
                }
             }
 
-            FormatCallback formatCallback = color ? new FormatCallback()
-            {
-               @Override
-               public String format(int column, String value)
-               {
-                  if (value.endsWith("/"))
-                  {
-                     return shell.renderColor(ShellColor.BLUE, value);
-                  }
-                  else
-                  {
-                     return value;
-                  }
-               }
-            } : null;
-
-            printOutColumns(listBuild, shell, formatCallback, false);
+            printOutColumns(listBuild, coloredList, shell, false);
          }
       }
    }
+
 
    private static String[] getDateString(long time)
    {

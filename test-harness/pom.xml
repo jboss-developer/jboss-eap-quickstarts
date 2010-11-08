@@ -17,6 +17,11 @@
          <artifactId>forge-shell-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      <dependency>
+         <groupId>org.jboss.logging</groupId>
+         <artifactId>jboss-logging</artifactId>
+         <scope>compile</scope>
+      </dependency>
       
       <!-- Arquillian Deps -->
       <dependency>
@@ -41,13 +46,7 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.arquillian.container</groupId>
-         <artifactId>arquillian-weld-se-embedded-1</artifactId>
-         <version>${arquillian.version}</version>
-         <scope>compile</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.weld</groupId>
-         <artifactId>weld-core</artifactId>
+         <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
          <scope>compile</scope>
       </dependency>
       <dependency>
