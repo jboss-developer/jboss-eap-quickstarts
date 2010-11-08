@@ -153,6 +153,19 @@ public abstract class AbstractProject implements Project
    }
 
    @Override
+   public boolean hasAllFacets(final List<Class<? extends Facet>> facetDependencies)
+   {
+      for (Class<? extends Facet> type : facetDependencies)
+      {
+         if (!hasFacet(type))
+         {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   @Override
    @SuppressWarnings("unchecked")
    public <F extends Facet> F getFacet(final Class<F> type)
    {

@@ -79,7 +79,7 @@ public class ExecutionParser
       if (!tokens.isEmpty())
       {
          String first = tokens.remove();
-         PluginMetadata plugin = registry.getPluginMetadataForScope(first, shell);
+         PluginMetadata plugin = registry.getPluginMetadataForScopeAndConstraints(first, shell);
 
          if (plugin != null)
          {
@@ -103,13 +103,16 @@ public class ExecutionParser
             if (command != null)
             {
 
-               if (!command.usableWithScope(shell.getCurrentResource().getClass()))
+               if (!command.usableWithResource(shell.getCurrentResource().getClass()))
                {
                   // noinspection unchecked
-                  throw new PluginExecutionException(plugin, "command '" + command.getName()
-                        + "' is not usable in current scope ["
-                        + shell.getCurrentResource().getClass().getSimpleName() + "]"
-                        + " -- usable scopes: " + GeneralUtils.elementSetSimpleTypesToString((Set<Class<?>>) command.getResourceScopes()));
+                  throw new PluginExecutionException(plugin, "command '"
+                           + command.getName()
+                           + "' is not usable in current scope ["
+                           + shell.getCurrentResource().getClass().getSimpleName()
+                           + "]"
+                           + " -- usable scopes: "
+                           + GeneralUtils.elementSetSimpleTypesToString((Set) command.getResourceScopes()));
                }
 
                execution.setCommand(command);
@@ -122,7 +125,7 @@ public class ExecutionParser
             else
             {
                throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                     + "], available commands: " + plugin.getCommands(shell));
+                        + "], available commands: " + plugin.getCommands(shell));
             }
          }
       }
@@ -133,8 +136,8 @@ public class ExecutionParser
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
       Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
 

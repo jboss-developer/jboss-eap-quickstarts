@@ -22,12 +22,19 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
+import org.jboss.seam.forge.shell.constraint.ConstraintException;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.mvel2.sh.ShellSession;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -40,21 +47,18 @@ public class PluginMetadata
    private String topic = "Other";
    private Class<? extends Plugin> type;
 
-   @SuppressWarnings({"unchecked"})
    private Set<Class<? extends Resource<?>>> resourceScopes = Collections.emptySet();
 
-   private Map<String, List<CommandMetadata>> commandMap = new HashMap<String, List<CommandMetadata>>();
-   private Map<String, Map<Class, CommandMetadata>> commandAccessCache
-         = new HashMap<String, Map<Class, CommandMetadata>>();
+   private final Map<String, List<CommandMetadata>> commandMap = new HashMap<String, List<CommandMetadata>>();
+   private final Map<String, Map<Class<? extends Resource<?>>, CommandMetadata>> commandAccessCache = new HashMap<String, Map<Class<? extends Resource<?>>, CommandMetadata>>();
 
    private CommandMetadata defaultCommand;
 
    private boolean scopeOverloaded = false;
 
-
    public CommandMetadata getCommand(final String name)
    {
-      return getCommand(name, (Class<? extends Resource>) null);
+      return getCommand(name, (Class<? extends Resource<?>>) null);
    }
 
    public CommandMetadata getCommand(final String name, final Shell shell)
@@ -65,11 +69,11 @@ public class PluginMetadata
    /**
     * Get the command matching the given name, or return null.
     */
-   public CommandMetadata getCommand(final String name, final Class<? extends Resource> scope)
+   public CommandMetadata getCommand(final String name, final Class<? extends Resource<?>> scope)
    {
       if (scope == null)
       {
-         if (commandMap.containsKey(name) && commandMap.get(name).size() > 1)
+         if (commandMap.containsKey(name) && (commandMap.get(name).size() > 1))
          {
             throw new RuntimeException("ambiguous query: overloaded commands exist. you must specify a scope.");
          }
@@ -92,7 +96,7 @@ public class PluginMetadata
 
       for (CommandMetadata c : cmdMetadata)
       {
-         if (c.usableWithScope(scope))
+         if (c.usableWithResource(scope))
          {
             return c;
          }
@@ -101,13 +105,12 @@ public class PluginMetadata
       return null;
    }
 
-   public boolean hasCommand(final String name, Shell shell)
+   public boolean hasCommand(final String name, final Shell shell)
    {
       return getCommand(name, shell.getCurrentResourceScope()) != null;
    }
 
-
-   public boolean hasCommand(final String name, final Class<? extends Resource> scope)
+   public boolean hasCommand(final String name, final Class<? extends Resource<?>> scope)
    {
       return getCommand(name, scope) != null;
    }
@@ -122,7 +125,7 @@ public class PluginMetadata
       return defaultCommand;
    }
 
-   public void addCommands(List<CommandMetadata> commands)
+   public void addCommands(final List<CommandMetadata> commands)
    {
       for (CommandMetadata c : commands)
       {
@@ -130,13 +133,14 @@ public class PluginMetadata
       }
    }
 
-   public void addCommand(CommandMetadata command)
+   public void addCommand(final CommandMetadata command)
    {
       if (command.isDefault())
       {
          if (defaultCommand != null)
          {
-            throw new RuntimeException("default command already defined: " + command.getName() + "; for plugin: " + name);
+            throw new RuntimeException("default command already defined: " + command.getName() + "; for plugin: "
+                     + name);
          }
          defaultCommand = command;
       }
@@ -155,7 +159,7 @@ public class PluginMetadata
 
    public List<CommandMetadata> getCommands()
    {
-      return getCommands((Class<? extends Resource>) null);
+      return getCommands((Class<? extends Resource<?>>) null);
    }
 
    public List<CommandMetadata> getCommands(final Shell shell)
@@ -163,9 +167,9 @@ public class PluginMetadata
       return getCommands(shell.getCurrentResourceScope());
    }
 
-   public List<CommandMetadata> getCommands(final Class<? extends Resource> scope)
+   public List<CommandMetadata> getCommands(final Class<? extends Resource<?>> scope)
    {
-      if (scope == null && scopeOverloaded)
+      if ((scope == null) && scopeOverloaded)
       {
          throw new RuntimeException("ambiguous query: overloaded commands exist. you must specify a scope.");
       }
@@ -175,7 +179,7 @@ public class PluginMetadata
       {
          for (CommandMetadata c : cl)
          {
-            if (scope == null || c.usableWithScope(scope))
+            if ((scope == null) || c.usableWithResource(scope))
             {
                result.add(c);
             }
@@ -197,8 +201,9 @@ public class PluginMetadata
       return Collections.unmodifiableList(result);
    }
 
-   public boolean isCommandOverloaded(String name) {
-      return commandMap.containsKey(name) && commandMap.get(name).size() > 1;
+   public boolean isCommandOverloaded(final String name)
+   {
+      return commandMap.containsKey(name) && (commandMap.get(name).size() > 1);
    }
 
    @Override
@@ -242,7 +247,7 @@ public class PluginMetadata
       return topic;
    }
 
-   public void setTopic(String topic)
+   public void setTopic(final String topic)
    {
       this.topic = topic.toUpperCase();
    }
@@ -252,7 +257,21 @@ public class PluginMetadata
       return !commandMap.isEmpty();
    }
 
-   public boolean usableWithScope(Class<? extends Resource> scope)
+   public boolean constrantsSatisfied(final Shell shell)
+   {
+      try
+      {
+         ConstraintEnforcer enforcer = new ConstraintEnforcer();
+         enforcer.verifyAvailable(shell.getCurrentProject(), this);
+         return this.usableWithScope(shell.getCurrentResourceScope());
+      }
+      catch (ConstraintException e)
+      {
+         return false;
+      }
+   }
+
+   public boolean usableWithScope(final Class<? extends Resource> scope)
    {
       return resourceScopes.isEmpty() || resourceScopes.contains(scope);
    }
@@ -262,7 +281,7 @@ public class PluginMetadata
       return resourceScopes;
    }
 
-   public void setResourceScopes(List<Class<? extends Resource<?>>> resourceScopes)
+   public void setResourceScopes(final List<Class<? extends Resource<?>>> resourceScopes)
    {
       this.resourceScopes = new HashSet<Class<? extends Resource<?>>>(resourceScopes);
    }

@@ -39,6 +39,9 @@ import org.jboss.seam.forge.project.util.Annotations;
  */
 public abstract class ConstraintInspector
 {
+   /**
+    * Return the name of the given bean type.
+    */
    public static String getName(final Class<?> type)
    {
       String result = type.getSimpleName();
@@ -111,6 +114,9 @@ public abstract class ConstraintInspector
       return result;
    }
 
+   /**
+    * Inspect the given {@link Class} type for a dependency on an active project.
+    */
    public static boolean requiresProject(final Class<?> type)
    {
       return Annotations.isAnnotationPresent(type, RequiresProject.class);

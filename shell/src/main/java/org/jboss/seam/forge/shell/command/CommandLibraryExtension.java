@@ -98,7 +98,8 @@ public class CommandLibraryExtension implements Extension
 
       if (Annotations.isAnnotationPresent(plugin, ResourceScope.class))
       {
-         List<Class<? extends Resource<?>>> resourceTypes = Arrays.asList(Annotations.getAnnotation(plugin, ResourceScope.class).value());
+         List<Class<? extends Resource<?>>> resourceTypes = Arrays.asList(Annotations.getAnnotation(plugin,
+                  ResourceScope.class).value());
 
          pluginMeta.setResourceScopes(resourceTypes);
       }
@@ -144,8 +145,8 @@ public class CommandLibraryExtension implements Extension
                if (pluginMeta.hasDefaultCommand())
                {
                   throw new IllegalStateException("Plugins may only have one @"
-                        + DefaultCommand.class.getSimpleName()
-                        + ", but [" + pluginMeta.getType() + "] has more than one.");
+                           + DefaultCommand.class.getSimpleName()
+                           + ", but [" + pluginMeta.getType() + "] has more than one.");
                }
 
                commandMeta.setDefault(true);
@@ -161,7 +162,8 @@ public class CommandLibraryExtension implements Extension
 
             if (Annotations.isAnnotationPresent(method, ResourceScope.class))
             {
-               List<Class<? extends Resource<?>>> resourceTypes = new ArrayList<Class<? extends Resource<?>>>(pluginMeta.getResourceScopes());
+               List<Class<? extends Resource>> resourceTypes = new ArrayList<Class<? extends Resource>>(
+                        pluginMeta.getResourceScopes());
 
                resourceTypes.addAll(Arrays.asList(Annotations.getAnnotation(method, ResourceScope.class).value()));
 

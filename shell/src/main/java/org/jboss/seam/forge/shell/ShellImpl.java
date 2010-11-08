@@ -229,6 +229,7 @@ public class ShellImpl implements Shell
       try
       {
          execution = parser.parse(line);
+         execution.verifyConstraints(this);
          execution.perform();
       }
       catch (NoSuchCommandException e)
@@ -373,25 +374,25 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void print(ShellColor color, String output)
+   public void print(final ShellColor color, final String output)
    {
       print(renderColor(color, output));
    }
 
    @Override
-   public void println(ShellColor color, String output)
+   public void println(final ShellColor color, final String output)
    {
       println(renderColor(color, output));
    }
 
    @Override
-   public void printlnVerbose(ShellColor color, String output)
+   public void printlnVerbose(final ShellColor color, final String output)
    {
       printlnVerbose(renderColor(color, output));
    }
 
    @Override
-   public String renderColor(ShellColor color, String output)
+   public String renderColor(final ShellColor color, final String output)
    {
       Ansi ansi = new Ansi();
 
@@ -514,7 +515,8 @@ public class ShellImpl implements Shell
       if (projectContext.getCurrentProject() != null)
       {
          // FIXME eventually, this cannot reference the MavenFacet directly.
-         suffix = "[" + projectContext.getCurrentProject().getFacet(MavenCoreFacet.class).getPOM().getArtifactId() + "]";
+         suffix = "[" + projectContext.getCurrentProject().getFacet(MavenCoreFacet.class).getPOM().getArtifactId()
+                  + "]";
       }
       String path = getCurrentResource().toString();
       return suffix + " " + path + " $ ";
@@ -640,7 +642,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-               + pattern + "]");
+                  + pattern + "]");
       }
 
       String input = "";
@@ -740,7 +742,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -783,7 +785,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -825,7 +827,7 @@ public class ShellImpl implements Shell
       return reader.getTerminal().getWidth();
    }
 
-   public String escapeCode(int code, String value)
+   public String escapeCode(final int code, final String value)
    {
       return new Ansi().a(value).fg(Ansi.Color.BLUE).toString();
    }

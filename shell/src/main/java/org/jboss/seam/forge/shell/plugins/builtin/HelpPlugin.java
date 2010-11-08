@@ -22,6 +22,8 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -30,9 +32,11 @@ import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import java.util.List;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -46,7 +50,7 @@ public class HelpPlugin implements Plugin
    Shell shell;
 
    @Inject
-   public HelpPlugin(PluginRegistry registry, Shell shell)
+   public HelpPlugin(final PluginRegistry registry, final Shell shell)
    {
       this.registry = registry;
       this.shell = shell;
@@ -58,13 +62,13 @@ public class HelpPlugin implements Plugin
       if ((tokens == null) || (tokens.length == 0))
       {
          shell.println("");
-         shell.println("Welcome to Seam Forgeype \"help {plugin} {command}\" to learn more about what this shell can do.");
+         shell.println("Welcome to Seam Forge. Type \"help {plugin} {command}\" to learn more about what this shell can do.");
          shell.println("");
       }
       else
       {
          String pluginName = tokens[0];
-         PluginMetadata plugin = registry.getPluginMetadataForScope(pluginName, shell);
+         PluginMetadata plugin = registry.getPluginMetadataForScopeAndConstraints(pluginName, shell);
          if (plugin != null)
          {
             writePluginHelp(plugin);

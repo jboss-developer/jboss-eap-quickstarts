@@ -25,7 +25,6 @@ package org.jboss.seam.forge.shell.command.parser;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
-import java.util.regex.Pattern;
 
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
@@ -34,7 +33,7 @@ import org.jboss.seam.forge.shell.command.OptionMetadata;
  * Parses named boolean options such as:
  * <p/>
  * <code>[command] {--toggle}</code>
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
@@ -48,7 +47,7 @@ public class NamedBooleanOptionParser implements CommandParser
       String currentToken = tokens.peek();
       if (currentToken.matches("--?\\S+"))
       {
-         if (currentToken.length() > 1 && currentToken.charAt(1) != '-')
+         if ((currentToken.length() > 1) && (currentToken.charAt(1) != '-'))
          {
             for (int i = 1; i < currentToken.length(); i++)
             {
@@ -58,7 +57,8 @@ public class NamedBooleanOptionParser implements CommandParser
                {
                   processOption(valueMap, tokens, command, shortOption);
                }
-               else {
+               else
+               {
                   throw new RuntimeException("unknown option: " + shortOption);
                }
             }
@@ -78,8 +78,8 @@ public class NamedBooleanOptionParser implements CommandParser
       return valueMap;
    }
 
-   private static void processOption(Map<OptionMetadata, Object> valueMap, Queue<String> tokens,
-                                           CommandMetadata command, String currentToken)
+   private static void processOption(final Map<OptionMetadata, Object> valueMap, final Queue<String> tokens,
+                                           final CommandMetadata command, final String currentToken)
    {
       OptionMetadata option = command.getNamedOption(currentToken);
 
