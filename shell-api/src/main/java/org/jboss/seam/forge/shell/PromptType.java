@@ -33,7 +33,8 @@ public enum PromptType
    ANY(".*", String.class),
    JAVA_PACKAGE("(?i)(~\\.)?([a-z0-9_]+\\.?)+[a-z0-9_]", String.class),
    JAVA_VARIABLE_NAME("^(?!(" + Patterns.JAVA_KEYWORDS + "))[A-Za-z0-9$_]+$", String.class),
-   JAVA_CLASS(JAVA_PACKAGE.pattern + "\\.?[a-z0-9$_]", String.class);
+   JAVA_CLASS(JAVA_PACKAGE.pattern + "\\.?[a-z0-9$_]", String.class),
+   FILE_PATH(".*", String.class);
 
    private final String pattern;
    private final Class<?> type;

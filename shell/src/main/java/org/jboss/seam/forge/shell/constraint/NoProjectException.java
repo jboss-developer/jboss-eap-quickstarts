@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,41 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.forge.shell.exceptions;
-
-import org.jboss.seam.forge.shell.command.CommandMetadata;
+package org.jboss.seam.forge.shell.constraint;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CommandExecutionException extends ShellExecutionException
+public class NoProjectException extends ConstraintException
 {
-   private static final long serialVersionUID = -6474891123733228235L;
-   private final CommandMetadata command;
+   private static final long serialVersionUID = 1041156085212467520L;
 
-   public CommandExecutionException(final CommandMetadata command, final String message)
+   public NoProjectException()
+   {
+      super();
+   }
+
+   public NoProjectException(final String message, final Throwable cause)
+   {
+      super(message, cause);
+   }
+
+   public NoProjectException(final String message)
    {
       super(message);
-      this.command = command;
    }
 
-   public CommandExecutionException(final CommandMetadata command, final Throwable e)
+   public NoProjectException(final Throwable cause)
    {
-      super(e);
-      this.command = command;
-   }
-
-   public CommandExecutionException(final CommandMetadata command, final String message, final Throwable e)
-   {
-      super(message, e);
-      this.command = command;
-   }
-
-   public CommandMetadata getCommand()
-   {
-      return command;
+      super(cause);
    }
 
 }

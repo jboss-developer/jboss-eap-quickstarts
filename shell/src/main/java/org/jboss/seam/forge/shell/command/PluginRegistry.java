@@ -22,7 +22,12 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.spi.CreationalContext;
@@ -31,13 +36,16 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 
 /**
  * Stores the current registry of all installed & loaded plugins.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Singleton
@@ -116,14 +124,15 @@ public class PluginRegistry
       return Collections.unmodifiableList(plugins.get(plugin));
    }
 
-   public PluginMetadata getPluginMetadataForScope(final String name, Shell shell)
+   /**
+    * Get {@link PluginMetadata} matching the given name, {@link ResourceScope}, {@link Project}, {@link PackagingType},
+    * and {@link Facet} constraints. Return null if no match for the given constraints can be found.
+    */
+   public PluginMetadata getPluginMetadataForScopeAndConstraints(final String name, final Shell shell)
    {
-      return getPluginMetadataForScope(name, shell.getCurrentResourceScope());
-   }
-
-   public PluginMetadata getPluginMetadataForScope(final String name, Class<? extends Resource> scope)
-   {
-      if (accessCache.containsKey(name) && accessCache.get(name).containsKey(scope)) {
+      Class<? extends Resource<?>> scope = shell.getCurrentResourceScope();
+      if (accessCache.containsKey(name) && accessCache.get(name).containsKey(scope))
+      {
          return accessCache.get(name).get(scope);
       }
 
@@ -136,7 +145,7 @@ public class PluginRegistry
       PluginMetadata pmd = null;
       for (PluginMetadata p : pluginMetadataList)
       {
-         if (p.usableWithScope(scope))
+         if (p.constrantsSatisfied(shell))
          {
             pmd = p;
             break;
@@ -165,7 +174,7 @@ public class PluginRegistry
                   if (scopes.contains(r))
                   {
                      throw new RuntimeException("failed sanity check. overlapping scopes for overloaded plugin name: "
-                           + entry.getKey() + " [" + entry.getValue() + "]");
+                              + entry.getKey() + " [" + entry.getValue() + "]");
                   }
                }
             }

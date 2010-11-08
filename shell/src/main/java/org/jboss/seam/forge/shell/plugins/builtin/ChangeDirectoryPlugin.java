@@ -36,7 +36,11 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 
 /**
@@ -63,11 +67,13 @@ public class ChangeDirectoryPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(description = "The new directory") final String path) throws IOException
+   public void run(@Option(description = "The new directory") final File dir)
+            throws IOException
    {
       Resource<?> curr = shell.getCurrentResource();
       Resource<?> r;
 
+      String path = dir.getPath();
       if ("-".equals(path))
       {
          r = this.lastResource;
@@ -85,10 +91,10 @@ public class ChangeDirectoryPlugin implements Plugin
          }
       }
 
-
       if (r != null)
       {
-         if (!((FileResource) r).exists()) {
+         if (!((FileResource) r).exists())
+         {
             throw new RuntimeException("no such directory: " + r.toString());
          }
 

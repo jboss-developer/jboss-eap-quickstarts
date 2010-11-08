@@ -56,11 +56,11 @@ import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 public class PluginCommandCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
-         new NamedBooleanOptionParser(),
-         new NamedValueOptionParser(),
-         new NamedValueVarargsOptionParser(),
-         new OrderedValueOptionParser(),
-         new OrderedValueVarargsOptionParser());
+            new NamedBooleanOptionParser(),
+            new NamedValueOptionParser(),
+            new NamedValueVarargsOptionParser(),
+            new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser());
 
    @Inject
    private PluginRegistry registry;
@@ -82,9 +82,9 @@ public class PluginCommandCompleter implements CommandCompleter
       if (!tokens.isEmpty())
       {
          String pluginName = tokens.remove();
-         PluginMetadata plugin = registry.getPluginMetadataForScope(pluginName, shell);
+         PluginMetadata plugin = registry.getPluginMetadataForScopeAndConstraints(pluginName, shell);
 
-         if (plugin != null)
+         if ((plugin != null))
          {
             // found plugin
             if (tokens.isEmpty())
@@ -229,7 +229,7 @@ public class PluginCommandCompleter implements CommandCompleter
             if (pluginMeta.hasCommands())
             {
                String pluginName = pluginMeta.getName();
-               if (isPotentialMatch(pluginName, pluginBase))
+               if (isPotentialMatch(pluginName, pluginBase) && pluginMeta.constrantsSatisfied(shell))
                {
                   results.add(pluginName + " ");
                }
@@ -330,7 +330,7 @@ public class PluginCommandCompleter implements CommandCompleter
                   if (matcher.find())
                   {
                      if (File.class.isAssignableFrom(option.getBoxedType())
-                           || Resource.class.isAssignableFrom(option.getBoxedType()))
+                              || Resource.class.isAssignableFrom(option.getBoxedType()))
                      {
                         FileOptionCompleter completer = new FileOptionCompleter(shell);
                         List<CharSequence> completions = new ArrayList<CharSequence>();

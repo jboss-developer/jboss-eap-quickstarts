@@ -22,21 +22,30 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import java.util.*;
-
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
 /**
  * @author Mike Brock
@@ -57,48 +66,52 @@ public class ListCommandsPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) boolean showAll)
+   public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) final boolean showAll)
    {
       List<String> listData;
       Map<String, List<String>> listGroups = new TreeMap<String, List<String>>();
 
-      Class currResource = shell.getCurrentResource().getClass();
+      Class<? extends Resource> currResource = shell.getCurrentResource().getClass();
 
       for (List<PluginMetadata> lpm : registry.getPlugins().values())
       {
          for (PluginMetadata pluginMetadata : lpm)
          {
-            if (!listGroups.containsKey(pluginMetadata.getTopic()))
+            ConstraintEnforcer enforcer = new ConstraintEnforcer();
+            if (enforcer.isAvailable(shell.getCurrentProject(), pluginMetadata))
             {
-               listGroups.put(pluginMetadata.getTopic(), listData = new ArrayList<String>());
-            }
-            else
-            {
-               listData = listGroups.get(pluginMetadata.getTopic());
-            }
-
-            for (CommandMetadata commandMetadata : pluginMetadata.getAllCommands())
-            {
-               String name = render(showAll, currResource, commandMetadata);
-
-               /**
-                * Deal with overloaded plugins.
-                */
-               if (name.endsWith("*"))
+               if (!listGroups.containsKey(pluginMetadata.getTopic()))
                {
-                  listData.remove(name.substring(0, name.length() - 1));
+                  listGroups.put(pluginMetadata.getTopic(), listData = new ArrayList<String>());
                }
-               listData.remove(name);
-
-               if (!"".equals(name))
+               else
                {
-                  listData.add(name);
+                  listData = listGroups.get(pluginMetadata.getTopic());
                }
-            }
 
-            if (!listGroups.containsKey(pluginMetadata.getTopic()))
-            {
-               listGroups.put(pluginMetadata.getTopic(), listData);
+               for (CommandMetadata commandMetadata : pluginMetadata.getAllCommands())
+               {
+                  String name = render(showAll, currResource, commandMetadata);
+
+                  /**
+                   * Deal with overloaded plugins.
+                   */
+                  if (name.endsWith("*"))
+                  {
+                     listData.remove(name.substring(0, name.length() - 1));
+                  }
+                  listData.remove(name);
+
+                  if (!"".equals(name))
+                  {
+                     listData.add(name);
+                  }
+               }
+
+               if (!listGroups.containsKey(pluginMetadata.getTopic()))
+               {
+                  listGroups.put(pluginMetadata.getTopic(), listData);
+               }
             }
 
          }
@@ -113,7 +126,7 @@ public class ListCommandsPlugin implements Plugin
       FormatCallback formatCallback = new FormatCallback()
       {
          @Override
-         public String format(int column, String value)
+         public String format(final int column, final String value)
          {
             return value.endsWith("*") ? shell.renderColor(ShellColor.BOLD, value) : value;
          }
@@ -123,7 +136,6 @@ public class ListCommandsPlugin implements Plugin
       {
          shell.println();
          shell.println(ShellColor.RED, "[" + entry.getKey().toUpperCase() + "]");
-
 
          printOutColumns(entry.getValue(), ShellColor.NONE, shell, attr, formatCallback, true);
       }
@@ -140,22 +152,20 @@ public class ListCommandsPlugin implements Plugin
       }
    }
 
-   private static String render(boolean showAll, Class currResource,
-                                CommandMetadata cmdMeta)
+   private static String render(final boolean showAll, final Class<? extends Resource> currResource,
+                                final CommandMetadata cmdMeta)
    {
-      boolean contextual = cmdMeta.usableWithScope(currResource);
+      boolean contextual = cmdMeta.usableWithResource(currResource);
 
       if (showAll)
       {
          if (!cmdMeta.isDefault())
          {
-            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName()
-                  + (contextual ? "*" : ""));
+            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + (contextual ? "*" : ""));
          }
          else
          {
-            return (cmdMeta.getName()
-                  + (contextual ? "*" : ""));
+            return (cmdMeta.getName() + (contextual ? "*" : ""));
          }
       }
       else if (contextual)

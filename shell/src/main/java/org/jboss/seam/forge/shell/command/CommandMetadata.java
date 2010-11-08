@@ -44,7 +44,7 @@ public class CommandMetadata
    private String help = "";
    private List<OptionMetadata> options = new ArrayList<OptionMetadata>();
 
-   private Set<Class<?>> resourceScopes = Collections.emptySet();
+   private Set<Class<? extends Resource>> resourceScopes = Collections.emptySet();
 
    public OptionMetadata getNamedOption(final String name) throws IllegalArgumentException
    {
@@ -155,7 +155,7 @@ public class CommandMetadata
       return !getOptions().isEmpty();
    }
 
-   public boolean hasShortOption(String name)
+   public boolean hasShortOption(final String name)
    {
       for (OptionMetadata option : options)
       {
@@ -167,7 +167,7 @@ public class CommandMetadata
       return false;
    }
 
-   public boolean hasOption(String name)
+   public boolean hasOption(final String name)
    {
       for (OptionMetadata option : options)
       {
@@ -179,17 +179,17 @@ public class CommandMetadata
       return false;
    }
 
-   public Set<Class<?>> getResourceScopes()
+   public Set<Class<? extends Resource>> getResourceScopes()
    {
       return resourceScopes;
    }
 
-   public void setResourceScopes(List<Class<? extends Resource<?>>> resourceScopes)
+   public void setResourceScopes(final List<Class<? extends Resource>> resourceScopes)
    {
-      this.resourceScopes = new HashSet<Class<?>>(resourceScopes);
+      this.resourceScopes = new HashSet<Class<? extends Resource>>(resourceScopes);
    }
 
-   public boolean usableWithScope(Class<?> resource)
+   public boolean usableWithResource(final Class<? extends Resource> resource)
    {
       return (this.resourceScopes.size() == 0) || this.resourceScopes.contains(resource);
    }
