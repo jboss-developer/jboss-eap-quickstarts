@@ -44,9 +44,9 @@ import org.jboss.seam.forge.shell.plugins.Current;
 public class ResourceProducer
 {
 
-   @Produces
-   @Current
-   @Dependent
+//   @Produces
+//   @Current
+//   @Dependent
    @SuppressWarnings({ "rawtypes", "unchecked" })
    public Resource<?> getCurrentResource(InjectionPoint ip, Shell shell)
    {

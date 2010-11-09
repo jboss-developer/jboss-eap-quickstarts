@@ -133,7 +133,6 @@ public class PathspecParser
                return results;
             }
 
-
             if (tk.startsWith("/"))
             {
                if (first)
