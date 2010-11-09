@@ -67,7 +67,7 @@ public class ChangeDirectoryPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(description = "The new directory") final File dir)
+   public void run(@Option(description = "The new directory", defaultValue = "~") final File dir)
             throws IOException
    {
       Resource<?> curr = shell.getCurrentResource();
