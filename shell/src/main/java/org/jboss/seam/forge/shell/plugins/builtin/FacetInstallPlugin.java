@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +37,11 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -64,9 +69,44 @@ public class FacetInstallPlugin implements Plugin
       {
          Facet facet = factory.getFacetByName(facetName);
          facet.setProject(project);
+
+         /*
+          * Verify Facet Dependencies
+          */
+         List<Class<? extends Facet>> deps = ConstraintInspector.getFacetDependencies(facet.getClass());
+         if (!project.hasAllFacets(deps))
+         {
+            List<String> facetNames = new ArrayList<String>();
+            for (Class<? extends Facet> f : deps)
+            {
+               facetNames.add(ConstraintInspector.getName(f));
+            }
+
+            if (shell.promptBoolean("The ["
+                  + facetName
+                  + "] facet depends on the following missing facets: "
+                  + facetNames
+                  + ". Would you like to attempt installation of these facets as well?"))
+            {
+               for (Class<? extends Facet> type : deps)
+               {
+                  project.installFacet(factory.getFacet(type));
+               }
+            }
+            else
+            {
+               abort();
+               return;
+            }
+         }
+
          if (!facet.isInstalled())
          {
             List<PackagingType> types = ConstraintInspector.getCompatiblePackagingTypes(facet.getClass());
+
+            /*
+             * Verify Packaging Dependencies
+             */
             PackagingType packaging = project.getFacet(PackagingFacet.class).getPackagingType();
             if (!types.isEmpty() && !types.contains(packaging))
             {
@@ -112,7 +152,6 @@ public class FacetInstallPlugin implements Plugin
                }
 
             }
-
             project.installFacet(facet);
          }
 

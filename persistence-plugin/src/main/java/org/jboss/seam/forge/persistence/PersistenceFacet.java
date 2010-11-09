@@ -118,8 +118,6 @@ public class PersistenceFacet implements Facet
          File descriptor = getConfigFile();
          if (!descriptor.exists())
          {
-            project.writeFile("", descriptor);
-
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
                      .persistenceUnit("default")
                      .description("The Seam Forge default Persistence Unit")

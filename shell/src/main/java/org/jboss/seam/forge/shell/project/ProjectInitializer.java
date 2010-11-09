@@ -29,6 +29,7 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
@@ -78,6 +79,11 @@ public class ProjectInitializer
       if (currentProject != null)
       {
          shell.printlnVerbose("Current project: " + currentProject.getProjectRoot().getAbsolutePath());
+         shell.printlnVerbose("Registered Facets:");
+         for (Facet facet : currentProject.getFacets())
+         {
+            shell.printlnVerbose("\t- " + facet);
+         }
       }
 
       cp.setCurrentProject(currentProject);
