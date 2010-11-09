@@ -23,20 +23,23 @@
 package org.jboss.seam.forge.project.util;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * A set of utilities to work with the resources API.
- * 
+ *
  * @author Mike Brock
  */
 public class ResourceUtil
 {
    /**
     * A simple utility method to locate the outermost contextual File reference for the specified resource.
-    * 
+    *
     * @param r resource instance.
     * @return outermost relevant file context.
     */
@@ -66,8 +69,10 @@ public class ResourceUtil
       return ctx;
    }
 
-   public static Resource<?> parsePathspec(final ResourceFactory factory, final Resource<?> resource,
-            final String pathspec)
+
+
+   public static List<Resource<?>> parsePathspec(final ResourceFactory factory, final Resource<?> resource,
+                                                 final String pathspec)
    {
       return new PathspecParser(factory, resource, pathspec).parse();
    }

@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
@@ -52,16 +53,16 @@ public class PickupResource implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option final String path)
+   public void run(@Option final Resource<?> resource)
    {
-      shell.setCurrentResource(ResourceUtil.parsePathspec(resourceFactory, shell.getCurrentResource(), path));
+      shell.setCurrentResource(resource);
 
       if (shell.getCurrentResource() == null)
       {
-         shell.println("No such resource: " + path);
+         shell.println("No such resource: " + resource);
          return;
       }
 
-      shell.println("Picked up type <" + shell.getCurrentResource().getClass().getSimpleName() + ">: " + path);
+      shell.println("Picked up type <" + shell.getCurrentResource().getClass().getSimpleName() + ">: " + resource);
    }
 }

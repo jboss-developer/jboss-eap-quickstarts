@@ -50,7 +50,7 @@ public class JavaResource extends FileResource
    @Inject
    public JavaResource(final ResourceFactory factory)
    {
-      super(factory);
+      super(factory, null);
    }
 
    public JavaResource(final ResourceFactory factory, final File file)

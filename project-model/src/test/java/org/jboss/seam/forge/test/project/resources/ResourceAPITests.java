@@ -1,6 +1,7 @@
 package org.jboss.seam.forge.test.project.resources;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -30,7 +31,7 @@ public class ResourceAPITests extends ProjectModelTest
                .getParentFile());
       DirectoryResource r = new DirectoryResource(factory, new File("").getAbsoluteFile());
 
-      Assert.assertEquals(expect, ResourceUtil.parsePathspec(factory, r, "../.."));
+      Assert.assertEquals(expect, ResourceUtil.parsePathspec(factory, r, "../..").iterator().next());
    }
 
    @Test
@@ -39,8 +40,8 @@ public class ResourceAPITests extends ProjectModelTest
       DirectoryResource expect = new DirectoryResource(factory, new File("/"));
       DirectoryResource root = new DirectoryResource(factory, new File("").getAbsoluteFile());
 
-      Resource<?> r = ResourceUtil.parsePathspec(factory, root, "/");
+      List<Resource<?>> r = ResourceUtil.parsePathspec(factory, root, "/");
 
-      Assert.assertEquals(expect, r);
+      Assert.assertEquals(expect, r.iterator().next());
    }
 }

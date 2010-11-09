@@ -32,6 +32,7 @@ import javax.inject.Named;
 import org.eclipse.core.internal.utils.Cache;
 import org.eclipse.core.runtime.Path;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -89,16 +90,29 @@ public class LsPlugin implements Plugin
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
                    @Option(flagOnly = true, name = "color", required = false) final boolean color,
-                   @Option(description = "path", defaultValue = ".") String... path)
+                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths)
    {
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
-      List<String> listBuild;
+      List<String> listBuild = new LinkedList<String>();
 
-      for (String p : path)
+      for (Resource<?> resource : paths)
       {
-         Resource<?> resource = parsePathspec(factory, shell.getCurrentResource(), p);
-         List<Resource<?>> childResources = resource.listResources();
+         List<Resource<?>> childResources = null;
+
+         /**
+          * Check to see if the way this resource was resolved was by a wildcard, in which case we don't
+          * expand into it's children. Otherwise, if it's fully qualified we recurse into that directory
+          * and list all those files.
+          */
+         if (!resource.isFlagSet(ResourceFlag.AmbiguouslyQualified))
+         {
+            childResources = resource.listResources();
+         }
+         else
+         {
+            childResources = Collections.<Resource<?>>singletonList(resource);
+         }
 
          String el;
          File file;
@@ -110,9 +124,10 @@ public class LsPlugin implements Plugin
              */
             int fileCount = 0;
             boolean dir;
+            List<String> subList;
             for (Resource<?> r : childResources)
             {
-               sortMap.put(el = r.toString(), listBuild = new ArrayList<String>());
+               sortMap.put(el = r.toString(), subList = new ArrayList<String>());
                file = (File) r.getUnderlyingResourceObject();
 
                dir = file.isDirectory();
@@ -125,12 +140,12 @@ public class LsPlugin implements Plugin
                         .append(file.canExecute() ? 'x' : '-')
                         .append("------");
 
-                  listBuild.add(permissions.toString());
-                  listBuild.add("owner"); // not supported
-                  listBuild.add(" users "); // not supported
-                  listBuild.add(String.valueOf(file.length()));
-                  listBuild.addAll(Arrays.asList(getDateString(file.lastModified())));
-                  listBuild.add(el);
+                  subList.add(permissions.toString());
+                  subList.add("owner"); // not supported
+                  subList.add(" users "); // not supported
+                  subList.add(String.valueOf(file.length()));
+                  subList.addAll(Arrays.asList(getDateString(file.lastModified())));
+                  subList.add(el);
 
                   if (!dir)
                   {
@@ -139,40 +154,15 @@ public class LsPlugin implements Plugin
                }
             }
 
-            listBuild = new ArrayList<String>();
-
             for (List<String> sublist : sortMap.values())
             {
                listBuild.addAll(sublist);
             }
 
             shell.println("total " + fileCount);
-
-            FormatCallback formatCallback = color ? new FormatCallback()
-            {
-               @Override
-               public String format(int column, String value)
-               {
-                  if (column == 7 && value.endsWith("/"))
-                  {
-                     return shell.renderColor(ShellColor.BLUE, value);
-                  }
-                  else
-                  {
-                     return value;
-                  }
-               }
-            } : null;
-
-            printOutTables(
-                  listBuild,
-                  new boolean[]{false, false, false, true, false, false, true, false},
-                  shell,
-                  formatCallback);
          }
          else
          {
-            listBuild = new ArrayList<String>();
             for (Resource<?> r : childResources)
             {
                el = r.toString();
@@ -181,25 +171,58 @@ public class LsPlugin implements Plugin
                   listBuild.add(el);
                }
             }
-
-            FormatCallback formatCallback = color ? new FormatCallback()
-            {
-               @Override
-               public String format(int column, String value)
-               {
-                  if (value.endsWith("/"))
-                  {
-                     return shell.renderColor(ShellColor.BLUE, value);
-                  }
-                  else
-                  {
-                     return value;
-                  }
-               }
-            } : null;
-
-            printOutColumns(listBuild, shell, formatCallback, false);
          }
+      }
+
+      /**
+       * print the results.
+       */
+
+      if (list)
+      {
+
+         FormatCallback formatCallback = color ? new FormatCallback()
+         {
+            @Override
+            public String format(int column, String value)
+            {
+               if (column == 7 && value.endsWith("/"))
+               {
+                  return shell.renderColor(ShellColor.BLUE, value);
+               }
+               else
+               {
+                  return value;
+               }
+            }
+         } : null;
+
+         printOutTables(
+               listBuild,
+               new boolean[]{false, false, false, true, false, false, true, false},
+               shell,
+               formatCallback);
+      }
+      else
+      {
+
+         FormatCallback formatCallback = color ? new FormatCallback()
+         {
+            @Override
+            public String format(int column, String value)
+            {
+               if (value.endsWith("/"))
+               {
+                  return shell.renderColor(ShellColor.BLUE, value);
+               }
+               else
+               {
+                  return value;
+               }
+            }
+         } : null;
+
+         printOutColumns(listBuild, shell, formatCallback, false);
       }
    }
 

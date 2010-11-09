@@ -22,8 +22,13 @@
 
 package org.jboss.seam.forge.shell.util;
 
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 
+import java.io.File;
 import java.text.Format;
 import java.util.*;
 
@@ -242,4 +247,28 @@ public class GeneralUtils
       return new String(padding);
    }
 
+
+   public static Resource<?>[] parseSystemPathspec(ResourceFactory resourceFactory, Resource<?> lastResource,
+                                                   Resource<?> currentResource, String[] paths)
+   {
+      List<Resource<?>> result = new LinkedList<Resource<?>>();
+
+      for (String path : paths)
+      {
+         if ("-".equals(path))
+         {
+            result.add(lastResource == null ? currentResource : lastResource);
+         }
+         else if (path == null)
+         {
+            result.add(new DirectoryResource(resourceFactory, new File(System.getProperty("user.home"))));
+         }
+         else
+         {
+            result.addAll(ResourceUtil.parsePathspec(resourceFactory, currentResource, path));
+         }
+      }
+
+      return result.toArray(new Resource<?>[result.size()]);
+   }
 }

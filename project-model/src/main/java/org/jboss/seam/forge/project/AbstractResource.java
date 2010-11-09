@@ -24,16 +24,64 @@ package org.jboss.seam.forge.project;
 
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
+
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
 public abstract class AbstractResource<T> implements Resource<T>
 {
-   protected boolean scratch;
    protected final ResourceFactory resourceFactory;
+   protected Resource<?> parent;
 
-   protected AbstractResource(final ResourceFactory factory)
+   protected EnumSet<ResourceFlag> flags;
+
+   protected AbstractResource(final ResourceFactory factory, final Resource<?> parent)
    {
       this.resourceFactory = factory;
+      this.parent = parent;
    }
+
+   @Override
+   public Resource<?> getParent()
+   {
+      return parent;
+   }
+
+   @Override
+   public void setFlag(ResourceFlag flag)
+   {
+      if (flags == null)
+      {
+         flags = EnumSet.of(flag);
+      }
+      else
+      {
+         flags.add(flag);
+      }
+   }
+
+   @Override
+   public void unsetFlag(ResourceFlag flag)
+   {
+      if (flags != null)
+      {
+          flags.remove(flag);
+      }
+   }
+
+   @Override
+   public boolean isFlagSet(ResourceFlag flag)
+   {
+      return flags != null && flags.contains(flag);
+   }
+
+   @Override
+   public Set<ResourceFlag> getFlags()
+   {
+      return Collections.unmodifiableSet(flags);
+   }
+
 }
