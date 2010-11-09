@@ -64,7 +64,6 @@ public class PathspecParser
       Resource<?> r = res;
       String tk;
 
-
       if (path.startsWith("~"))
       {
          File homeDir = new File(System.getProperty("user.home")).getAbsoluteFile();
@@ -79,7 +78,6 @@ public class PathspecParser
             r = new DirectoryResource(factory, homeDir);
          }
       }
-
 
       while (cursor < length)
       {
@@ -167,7 +165,6 @@ public class PathspecParser
    {
       return Collections.<Resource<?>>singletonList(item);
    }
-
 
    private char read()
    {

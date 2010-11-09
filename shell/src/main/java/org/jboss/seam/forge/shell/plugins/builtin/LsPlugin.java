@@ -98,7 +98,7 @@ public class LsPlugin implements Plugin
 
       for (Resource<?> resource : paths)
       {
-         List<Resource<?>> childResources = null;
+         List<Resource<?>> childResources;
 
          /**
           * Check to see if the way this resource was resolved was by a wildcard, in which case we don't
@@ -180,7 +180,6 @@ public class LsPlugin implements Plugin
 
       if (list)
       {
-
          FormatCallback formatCallback = color ? new FormatCallback()
          {
             @Override
@@ -205,7 +204,6 @@ public class LsPlugin implements Plugin
       }
       else
       {
-
          FormatCallback formatCallback = color ? new FormatCallback()
          {
             @Override

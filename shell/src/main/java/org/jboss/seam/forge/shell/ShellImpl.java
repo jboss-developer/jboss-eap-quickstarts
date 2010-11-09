@@ -122,7 +122,6 @@ public class ShellImpl implements Shell
    private InputStream inputStream;
    private Writer outputWriter;
 
-
    private final ConversionHandler resourceConversionHandler = new ConversionHandler()
    {
       @Override
@@ -142,14 +141,12 @@ public class ShellImpl implements Shell
       }
    };
 
-
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
       BooleanConverter booleanConverter = new BooleanConverter();
       addConversionHandler(boolean.class, booleanConverter);
       addConversionHandler(Boolean.class, booleanConverter);
       addConversionHandler(File.class, new FileConverter());
-
 
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
@@ -179,7 +176,6 @@ public class ShellImpl implements Shell
             return resourceConversionHandler.canConvertFrom(aClass);
          }
       });
-
 
       initStreams();
       initCompleters(pluginCompleter);
@@ -254,7 +250,7 @@ public class ShellImpl implements Shell
       try
       {
          reader.setPrompt(getPrompt());
-         while ((exitRequested != true) && ((line = readLine()) != null))
+         while ((!exitRequested) && ((line = readLine()) != null))
          {
             if (!"".equals(line))
             {
