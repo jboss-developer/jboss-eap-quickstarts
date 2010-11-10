@@ -23,8 +23,11 @@
 package org.jboss.seam.forge.project.util;
 
 import java.io.File;
+import java.util.*;
+import java.util.regex.Pattern;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
@@ -37,6 +40,8 @@ public class PathspecParser
    private final Resource<?> res;
    private final String path;
 
+   List<Resource<?>> results = new LinkedList<Resource<?>>();
+
    public PathspecParser(final ResourceFactory factory, final Resource<?> res, final String path)
    {
       this.factory = factory;
@@ -45,7 +50,16 @@ public class PathspecParser
       this.length = path.length();
    }
 
-   public Resource<?> parse()
+   private PathspecParser(final ResourceFactory factory, final Resource<?> res, final String path, int cursor)
+   {
+      this.factory = factory;
+      this.res = res;
+      this.path = path;
+      this.length = path.length();
+      this.cursor = cursor;
+   }
+
+   public List<Resource<?>> parse()
    {
       Resource<?> r = res;
       String tk;
@@ -56,7 +70,7 @@ public class PathspecParser
 
          if (path.length() == 1)
          {
-            return new DirectoryResource(factory, homeDir);
+            return singleResult(new DirectoryResource(factory, homeDir));
          }
          else
          {
@@ -73,11 +87,10 @@ public class PathspecParser
             if (read() == '.')
             {
                Resource<?> parent = r.getParent();
-               if (parent == null)
+               if (parent != null)
                {
-                  return r;
+                  r = parent;
                }
-               r = parent;
             }
             break;
 
@@ -87,7 +100,39 @@ public class PathspecParser
                continue;
             }
             boolean first = --cursor == 0;
+
             tk = capture();
+
+            if (tk.contains("*"))
+            {
+               Pattern p = Pattern.compile(pathspecToRegEx(tk.startsWith("/") ? tk.substring(1) : tk));
+
+               List<Resource<?>> res = new LinkedList<Resource<?>>();
+
+               for (Resource<?> child : r.listResources())
+               {
+                  if (p.matcher(child.toString()).matches())
+                  {
+                     child.setFlag(ResourceFlag.AmbiguouslyQualified);
+                     res.add(child);
+                  }
+               }
+
+               if (cursor != length)
+               {
+                  for (Resource<?> child : res)
+                  {
+                     results.addAll(new PathspecParser(factory, child, path, cursor).parse());
+                  }
+               }
+               else
+               {
+                  results.addAll(res);
+               }
+
+               return results;
+            }
+
 
             if (tk.startsWith("/"))
             {
@@ -113,7 +158,12 @@ public class PathspecParser
          }
       }
 
-      return r;
+      return singleResult(r);
+   }
+
+   private static List<Resource<?>> singleResult(Resource<?> item)
+   {
+      return Collections.<Resource<?>>singletonList(item);
    }
 
    private char read()
@@ -140,5 +190,10 @@ public class PathspecParser
          cursor++;
       }
       return path.substring(start, cursor);
+   }
+
+   private static String pathspecToRegEx(final String pathSpec)
+   {
+      return "^" + pathSpec.replaceAll("\\*", "\\.\\*").replaceAll("\\?", "\\.") + "$";
    }
 }

@@ -41,16 +41,14 @@ public abstract class FileResource extends AbstractResource<File>
 
    protected long lastModification;
 
-   protected FileResource(final ResourceFactory factory)
-   {
-      super(factory);
-   }
-
    protected FileResource(final ResourceFactory factory, final File file)
    {
-      super(factory);
-      this.file = file;
-      this.lastModification = file.lastModified();
+      super(factory, null);
+
+      if ((this.file = file) != null)
+      {
+         this.lastModification = file.lastModified();
+      }
    }
 
    /**
@@ -141,7 +139,10 @@ public abstract class FileResource extends AbstractResource<File>
 
    private static boolean _deleteRecursive(File file)
    {
-      if (file == null) return false;
+      if (file == null)
+      {
+         return false;
+      }
 
       for (File sf : file.listFiles())
       {

@@ -22,24 +22,17 @@
 
 package org.jboss.seam.forge.project.resources;
 
+import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
 
 /**
  * @author Mike Brock
  */
-public abstract class ClassMemberResource<T> implements Resource<T>
+public abstract class ClassMemberResource<T> extends AbstractResource<T>
 {
-   protected Resource<?> parent;
-
    protected ClassMemberResource(final Resource<?> parent)
    {
-      this.parent = parent;
-   }
-
-   @Override
-   public Resource<?> getParent()
-   {
-      return parent;
+      super(null, parent);
    }
 
    @Override

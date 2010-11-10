@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.project;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Mike Brock
@@ -55,4 +56,12 @@ public interface Resource<T>
    public T getUnderlyingResourceObject();
 
    public Resource<?> getChild(String name);
+
+   public void setFlag(ResourceFlag flag);
+
+   public void unsetFlag(ResourceFlag flag);
+
+   public boolean isFlagSet(ResourceFlag flag);
+
+   public Set<ResourceFlag> getFlags();
 }

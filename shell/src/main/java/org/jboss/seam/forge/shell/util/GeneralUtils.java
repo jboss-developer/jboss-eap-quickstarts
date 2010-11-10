@@ -22,18 +22,19 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
+
+import java.io.File;
+import java.text.Format;
+import java.util.*;
 
 public class GeneralUtils
 {
-   public static <T> List<T> concatArraysToList(final T[]... arrays)
+   public static <T> List<T> concatArraysToList(T[]... arrays)
    {
       List<T> newList = new ArrayList<T>();
       for (T[] elArray : arrays)
@@ -44,7 +45,7 @@ public class GeneralUtils
       return newList;
    }
 
-   public static String elementListSimpleTypesToString(final List<Class<?>> list)
+   public static String elementListSimpleTypesToString(List<Class<?>> list)
    {
       StringBuilder sbuild = new StringBuilder();
       for (int i = 0; i < list.size(); i++)
@@ -58,12 +59,11 @@ public class GeneralUtils
       return sbuild.toString();
    }
 
-   @SuppressWarnings("rawtypes")
-   public static String elementSetSimpleTypesToString(final Set<Class> set)
+   public static String elementSetSimpleTypesToString(Set<Class<?>> set)
    {
       StringBuilder sbuild = new StringBuilder();
 
-      for (Iterator<Class> iter = set.iterator(); iter.hasNext();)
+      for (Iterator<Class<?>> iter = set.iterator(); iter.hasNext();)
       {
          sbuild.append(iter.next().getSimpleName());
          if (iter.hasNext())
@@ -76,18 +76,17 @@ public class GeneralUtils
 
    public static class OutputAttributes
    {
-      public OutputAttributes(final int columnSize, final int columns)
+      public OutputAttributes(int columnSize, int columns)
       {
          this.columnSize = columnSize;
          this.columns = columns;
       }
 
-      private final int columnSize;
-      private final int columns;
+      private int columnSize;
+      private int columns;
    }
 
-   public static OutputAttributes calculateOutputAttributs(final List<String> rawList, final Shell shell,
-            final OutputAttributes in)
+   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
    {
       if (in == null)
       {
@@ -97,10 +96,10 @@ public class GeneralUtils
       OutputAttributes newAttr = calculateOutputAttributs(rawList, shell);
 
       return new OutputAttributes(in.columnSize > newAttr.columnSize ? in.columnSize : newAttr.columnSize,
-               in.columns < newAttr.columns ? in.columns : newAttr.columns);
+            in.columns < newAttr.columns ? in.columns : newAttr.columns);
    }
 
-   public static OutputAttributes calculateOutputAttributs(final List<String> rawList, final Shell shell)
+   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell)
    {
       int width = shell.getWidth();
       int maxLength = 0;
@@ -124,13 +123,19 @@ public class GeneralUtils
       return new OutputAttributes(colSize, cols);
    }
 
-   public static void printOutColumns(final List<String> rawList, final Shell shell, final boolean sort)
+   public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
    {
       printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), null, sort);
    }
 
-   public static void printOutColumns(final List<String> rawList, final ShellColor color, final Shell shell,
-            final OutputAttributes attributes, final FormatCallback callback, final boolean sort)
+
+   public static void printOutColumns(List<String> rawList, Shell shell, FormatCallback callback, boolean sort)
+   {
+      printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), callback, sort);
+   }
+
+   public static void printOutColumns(List<String> rawList, ShellColor color, Shell shell,
+                                      OutputAttributes attributes, FormatCallback callback, boolean sort)
    {
 
       if (sort)
@@ -164,13 +169,17 @@ public class GeneralUtils
       shell.println();
    }
 
-   public static void printOutTables(final List<String> list, final boolean[] columns, final Shell shell)
+   public static void printOutTables(List<String> list, int cols, Shell shell)
+   {
+      printOutTables(list, new boolean[cols], shell, null);
+   }
+
+   public static void printOutTables(List<String> list, boolean[] columns, Shell shell)
    {
       printOutTables(list, columns, shell, null);
    }
 
-   public static void printOutTables(final List<String> list, final boolean[] columns, final Shell shell,
-            final FormatCallback callback)
+   public static void printOutTables(List<String> list, boolean[] columns, Shell shell, FormatCallback callback)
    {
       int cols = columns.length;
       int[] colSizes = new int[columns.length];
@@ -238,4 +247,28 @@ public class GeneralUtils
       return new String(padding);
    }
 
+
+   public static Resource<?>[] parseSystemPathspec(ResourceFactory resourceFactory, Resource<?> lastResource,
+                                                   Resource<?> currentResource, String[] paths)
+   {
+      List<Resource<?>> result = new LinkedList<Resource<?>>();
+
+      for (String path : paths)
+      {
+         if ("-".equals(path))
+         {
+            result.add(lastResource == null ? currentResource : lastResource);
+         }
+         else if (path == null)
+         {
+            result.add(new DirectoryResource(resourceFactory, new File(System.getProperty("user.home"))));
+         }
+         else
+         {
+            result.addAll(ResourceUtil.parsePathspec(resourceFactory, currentResource, path));
+         }
+      }
+
+      return result.toArray(new Resource<?>[result.size()]);
+   }
 }

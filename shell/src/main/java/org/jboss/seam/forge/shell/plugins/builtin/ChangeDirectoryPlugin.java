@@ -67,28 +67,20 @@ public class ChangeDirectoryPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(description = "The new directory") final File dir)
-            throws IOException
+   public void run(@Option(description = "The new directory", defaultValue = "~") final Resource<?>[] dirs)
+         throws IOException
    {
       Resource<?> curr = shell.getCurrentResource();
-      Resource<?> r;
+      Resource<?> r = null;
 
-      String path = dir.getPath();
-      if ("-".equals(path))
+      for (Resource<?> dir : dirs)
       {
-         r = this.lastResource;
-      }
-      else if (path == null)
-      {
-         r = new DirectoryResource(resFactory, new File(System.getProperty("user.home")));
-      }
-      else
-      {
-         r = ResourceUtil.parsePathspec(resFactory, curr, path);
-         if (r instanceof DirectoryResource)
+         if (!(dir instanceof DirectoryResource))
          {
-            r = resFactory.getResourceFrom(((DirectoryResource) r).getUnderlyingResourceObject());
+            throw new RuntimeException(dir + " is not a directory");
          }
+
+         r = dir;
       }
 
       if (r != null)

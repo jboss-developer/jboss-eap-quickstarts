@@ -37,10 +37,8 @@ public class JavaMethodResource extends ClassMemberResource<Method>
 {
    private Method method;
 
-   public JavaMethodResource()
-   {
-      super(null);
-   }
+
+
 
    public JavaMethodResource(final Resource<?> parent, final Method method)
    {

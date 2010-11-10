@@ -24,6 +24,12 @@
             <artifactId>shrinkwrap-descriptors-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.jboss.seam.forge</groupId>
@@ -35,8 +41,5 @@
             <artifactId>forge-shell</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
-
 </project>

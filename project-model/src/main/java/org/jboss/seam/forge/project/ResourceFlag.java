@@ -20,46 +20,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project.resources.builtin;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
+package org.jboss.seam.forge.project;
 
 /**
- * @author Mike Brock
+ * @author Mike Brock .
  */
-public class UnknownFileResource extends FileResource
+public enum ResourceFlag
 {
-   public UnknownFileResource(final ResourceFactory factory)
-   {
-      super(factory, null);
-   }
-
-   public UnknownFileResource(final ResourceFactory factory, final File file)
-   {
-      super(factory, file);
-   }
-
-   @Override
-   public UnknownFileResource createFrom(final File file)
-   {
-      return new UnknownFileResource(resourceFactory, file);
-   }
-
-   @Override
-   public List<Resource<?>> listResources()
-   {
-      return Collections.emptyList();
-   }
-
-   @Override
-   public String toString()
-   {
-      return file.getName();
-   }
+   AmbiguouslyQualified, Node, Leaf
 }

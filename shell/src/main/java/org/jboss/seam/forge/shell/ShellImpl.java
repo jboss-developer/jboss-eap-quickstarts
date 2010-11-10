@@ -32,12 +32,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
@@ -55,6 +50,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
@@ -69,14 +65,17 @@ import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.weld.environment.se.bindings.Parameters;
+import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
@@ -107,6 +106,7 @@ public class ShellImpl implements Shell
    // TODO Resource API needs to be separated from Project API
    @Inject
    private ResourceFactory resourceFactory;
+   private Resource<?> lastResource;
 
    @Inject
    private PromptTypeConverter promptTypeConverter;
@@ -121,12 +121,60 @@ public class ShellImpl implements Shell
    private InputStream inputStream;
    private Writer outputWriter;
 
+   private final ConversionHandler resourceConversionHandler = new ConversionHandler()
+   {
+      @Override
+      public Resource[] convertFrom(Object o)
+      {
+         return GeneralUtils.parseSystemPathspec(
+               resourceFactory,
+               lastResource,
+               getCurrentResource(),
+               o instanceof String[] ? (String[]) o : new String[]{o.toString()});
+      }
+
+      @Override
+      public boolean canConvertFrom(Class aClass)
+      {
+         return true;
+      }
+   };
+
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
       BooleanConverter booleanConverter = new BooleanConverter();
       addConversionHandler(boolean.class, booleanConverter);
       addConversionHandler(Boolean.class, booleanConverter);
       addConversionHandler(File.class, new FileConverter());
+
+      addConversionHandler(Resource[].class, resourceConversionHandler);
+      addConversionHandler(Resource.class, new ConversionHandler()
+      {
+         @SuppressWarnings({"unchecked"})
+         @Override
+         public Object convertFrom(Object o)
+         {
+            Resource<?>[] res = (Resource<?>[]) resourceConversionHandler.convertFrom(o);
+            if (res.length > 1)
+            {
+               throw new RuntimeException("ambiguous paths");
+            }
+            else if (res.length == 0)
+            {
+               return ResourceUtil.parsePathspec(resourceFactory, getCurrentResource(), o.toString()).get(0);
+            }
+            else
+            {
+               return res[0];
+            }
+         }
+
+         @Override
+         public boolean canConvertFrom(Class aClass)
+         {
+            return resourceConversionHandler.canConvertFrom(aClass);
+         }
+      });
 
       initStreams();
       initCompleters(pluginCompleter);
@@ -568,6 +616,7 @@ public class ShellImpl implements Shell
    @Override
    public void setCurrentResource(final Resource<?> resource)
    {
+      lastResource = getCurrentResource();
       projectContext.setCurrentResource(resource);
    }
 
@@ -785,7 +834,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;

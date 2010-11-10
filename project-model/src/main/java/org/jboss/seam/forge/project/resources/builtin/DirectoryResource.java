@@ -37,14 +37,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
  */
 public class DirectoryResource extends FileResource
 {
-   private Resource<?> parent;
    private volatile List<Resource<?>> listCache;
-
-   @Inject
-   public DirectoryResource(final ResourceFactory factory)
-   {
-      super(factory);
-   }
 
    public DirectoryResource(final ResourceFactory factory, final File file)
    {
