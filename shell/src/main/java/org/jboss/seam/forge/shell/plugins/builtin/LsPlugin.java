@@ -89,7 +89,6 @@ public class LsPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(flagOnly = true, name = "color", required = false) final boolean color,
                    @Option(description = "path", defaultValue = ".") Resource<?>[] paths)
    {
 
@@ -180,7 +179,7 @@ public class LsPlugin implements Plugin
 
       if (list)
       {
-         FormatCallback formatCallback = color ? new FormatCallback()
+         FormatCallback formatCallback = new FormatCallback()
          {
             @Override
             public String format(int column, String value)
@@ -194,7 +193,7 @@ public class LsPlugin implements Plugin
                   return value;
                }
             }
-         } : null;
+         };
 
          printOutTables(
                listBuild,
@@ -204,7 +203,7 @@ public class LsPlugin implements Plugin
       }
       else
       {
-         FormatCallback formatCallback = color ? new FormatCallback()
+         FormatCallback formatCallback =  new FormatCallback()
          {
             @Override
             public String format(int column, String value)
@@ -218,7 +217,7 @@ public class LsPlugin implements Plugin
                   return value;
                }
             }
-         } : null;
+         };
 
          printOutColumns(listBuild, shell, formatCallback, false);
       }
