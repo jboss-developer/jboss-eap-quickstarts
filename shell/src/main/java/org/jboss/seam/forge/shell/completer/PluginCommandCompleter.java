@@ -23,18 +23,18 @@
 package org.jboss.seam.forge.shell.completer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import jline.console.completer.StringsCompleter;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
@@ -56,17 +56,20 @@ import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 public class PluginCommandCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
-            new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(),
-            new NamedValueVarargsOptionParser(),
-            new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser());
+         new NamedBooleanOptionParser(),
+         new NamedValueOptionParser(),
+         new NamedValueVarargsOptionParser(),
+         new OrderedValueOptionParser(),
+         new OrderedValueVarargsOptionParser());
 
    @Inject
    private PluginRegistry registry;
 
    @Inject
    private Shell shell;
+
+   @Inject
+   private ResourceFactory resourceFactory;
 
    private String currentBuffer = "";
    private String lastBuffer = "";
@@ -319,60 +322,31 @@ public class PluginCommandCompleter implements CommandCompleter
          {
             if (valueMap.containsKey(option))
             {
-               String value = (String) valueMap.get(option);
-               if (value == null)
-               {
-                  value = "";
-               }
-               if (!option.isNamed())
-               {
-                  Matcher matcher = Pattern.compile("^.*" + value + "$").matcher(currentBuffer);
-                  if (matcher.find())
-                  {
-                     if (File.class.isAssignableFrom(option.getBoxedType())
-                              || Resource.class.isAssignableFrom(option.getBoxedType()))
-                     {
-                        FileOptionCompleter completer = new FileOptionCompleter(shell);
-                        List<CharSequence> completions = new ArrayList<CharSequence>();
-                        int offset = completer.complete(value, 0, completions);
-                        index = index - value.length();
-                        for (CharSequence charSequence : completions)
-                        {
-                           results.add(value.substring(0, offset) + String.valueOf(charSequence));
-                        }
-                     }
-                  }
-               }
+               /**
+                * Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
+                * strings in an array.
+                */
 
-               if (!option.isBoolean() && option.isNamed())
+               if (isResourceAssignable(option))
                {
-                  Matcher matcher = Pattern.compile("^.*--" + option.getName() + "\\s*(\\S*)$").matcher(currentBuffer);
-                  if (matcher.find())
-                  {
-                     if ((value != null) && !"".equals(value))
-                     {
-                        if (File.class.isAssignableFrom(option.getBoxedType()))
-                        {
-                           FileOptionCompleter completer = new FileOptionCompleter(shell);
-                           List<CharSequence> completions = new ArrayList<CharSequence>();
-                           int offset = completer.complete(value, 0, completions);
-                           index = index - value.length();
-                           for (CharSequence charSequence : completions)
-                           {
-                              results.add(value.substring(0, offset) + String.valueOf(charSequence));
-                           }
-                        }
-                     }
+                  String[] values = valueMap.get(option) instanceof String
+                        ? new String[]{(String) valueMap.get(option)}
+                        : (String[]) valueMap.get(option);
 
-                     results.add("");
+                  String val = values[values.length - 1];
+                  if (val.trim().length() == 0)
+                  {
                      break;
                   }
-               }
-               else
-               {
-                  // ignore this, we can't deal with it if they forgot the
-                  // value,
-                  // executionparser will fix it for them
+                  int lastNest = val.lastIndexOf('/');
+
+                  for (Resource<?> r :
+                        new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
+                  {
+                     results.add(r.toString());
+                  }
+
+                  index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
                }
             }
 
@@ -439,5 +413,9 @@ public class PluginCommandCompleter implements CommandCompleter
          }
       }
       return false;
+   }
+
+   private boolean isResourceAssignable(OptionMetadata option) {
+      return Resource[].class.isAssignableFrom(option.getBoxedType()) || Resource.class.isAssignableFrom(option.getBoxedType());
    }
 }

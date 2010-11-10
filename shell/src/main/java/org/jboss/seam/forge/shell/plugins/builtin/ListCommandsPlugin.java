@@ -78,7 +78,7 @@ public class ListCommandsPlugin implements Plugin
          for (PluginMetadata pluginMetadata : lpm)
          {
             ConstraintEnforcer enforcer = new ConstraintEnforcer();
-            if (enforcer.isAvailable(shell.getCurrentProject(), pluginMetadata))
+            if (showAll || enforcer.isAvailable(shell.getCurrentProject(), pluginMetadata))
             {
                if (!listGroups.containsKey(pluginMetadata.getTopic()))
                {

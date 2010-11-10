@@ -28,6 +28,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.plugins.Current;
@@ -44,17 +45,17 @@ import org.jboss.seam.forge.shell.plugins.ResourceScope;
 @ResourceScope(DirectoryResource.class)
 public class MockResourceInjectionPlugin implements Plugin
 {
-   @Inject
-   @Current
-   private Resource r;
+//   @Inject
+//   @Current
+//   private Resource r;
 
-   @Inject
-   @Current
-   private JavaResource j;
+//   @Inject
+//   @Current
+//   private JavaResource j;
 
-   @Inject
-   @Current
-   private DirectoryResource d;
+//   @Inject
+//   @Current
+//   private DirectoryResource d;
 
    private Resource<?> observedResource;
 
@@ -64,40 +65,41 @@ public class MockResourceInjectionPlugin implements Plugin
 
    }
 
-   public void observe(@Observes MockEvent event, @Current Resource resource)
-   {
-      this.observedResource = resource;
-   }
+//   public void observe(@Observes MockEvent event, @Current Resource resource)
+//   {
+//      this.observedResource = resource;
+//   }
 
-   public Resource getR()
-   {
-      return r;
-   }
+//   public Resource getR()
+//   {
+//      return r;
+//   }
+//
+//   public void setR(Resource r)
+//   {
+//      this.r = r;
+//   }
 
-   public void setR(Resource r)
-   {
-      this.r = r;
-   }
-
-   public JavaResource getJ()
-   {
-      return j;
-   }
-
-   public void setJ(JavaResource j)
-   {
-      this.j = j;
-   }
-
-   public DirectoryResource getD()
-   {
-      return d;
-   }
-
-   public void setD(DirectoryResource d)
-   {
-      this.d = d;
-   }
+//   public JavaResource getJ()
+//   {
+//
+//      return j;
+//   }
+//
+//   public void setJ(JavaResource j)
+//   {
+//      this.j = j;
+//   }
+//
+//   public DirectoryResource getD()
+//   {
+//      return d;
+//   }
+//
+//   public void setD(DirectoryResource d)
+//   {
+//      this.d = d;
+//   }
 
    public Resource<?> getObservedResource()
    {

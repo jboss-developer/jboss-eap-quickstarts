@@ -189,7 +189,7 @@ public class ShellImpl implements Shell
    {
       List<Completer> completers = new ArrayList<Completer>();
       completers.add(new CommandCompleterAdaptor(pluginCompleter));
-      completers.add(new FileOptionCompleter(this));
+    //  completers.add(new FileOptionCompleter());
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);
@@ -932,7 +932,7 @@ public class ShellImpl implements Shell
       String path = "";
       while ((path == null) || path.trim().isEmpty())
       {
-         path = promptWithCompleter(message, new FileOptionCompleter(this));
+         path = promptWithCompleter(message, new FileOptionCompleter());
       }
 
       try
@@ -950,7 +950,7 @@ public class ShellImpl implements Shell
    public File promptFile(final String message, final File defaultIfEmpty)
    {
       File result = defaultIfEmpty;
-      String path = promptWithCompleter(message, new FileOptionCompleter(this));
+      String path = promptWithCompleter(message, new FileOptionCompleter());
       if (!"".equals(path) && (path != null) && !path.trim().isEmpty())
       {
          try

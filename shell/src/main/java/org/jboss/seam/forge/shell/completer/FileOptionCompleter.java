@@ -37,28 +37,10 @@ import org.jboss.seam.forge.shell.Shell;
  */
 public class FileOptionCompleter extends FileNameCompleter
 {
-   private final Shell shell;
-
-   @Inject
-   public FileOptionCompleter(final Shell shell)
-   {
-      this.shell = shell;
-   }
-
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      String[] tokens = buffer.substring(0, cursor).split("\\s+");
-      if (cursor < buffer.length() - 1)
-      {
-
-      }
       return super.complete(buffer, cursor, candidates);
    }
 
-   @Override
-   protected File getUserDir()
-   {
-      return shell.getCurrentDirectory();
-   }
 }
