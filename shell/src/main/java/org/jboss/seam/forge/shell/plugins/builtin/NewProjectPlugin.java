@@ -33,11 +33,16 @@ import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
+import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.project.ProjectContext;
 import org.jboss.seam.forge.shell.util.Files;
 
@@ -129,7 +134,7 @@ public class NewProjectPlugin implements Plugin
          dir.mkdirs();
       }
 
-      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, JavaSourceFacet.class, ResourceFacet.class);
+      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, MetadataFacet.class, JavaSourceFacet.class, ResourceFacet.class);
       Model pom = project.getFacet(MavenCoreFacet.class).getPOM();
       pom.setArtifactId(name);
       pom.setGroupId(groupId);
@@ -142,7 +147,7 @@ public class NewProjectPlugin implements Plugin
             .setPackage(groupId)
             .setName("HelloWorld")
             .addMethod("public void String sayHello() {}")
-            .setBody("System.out.println(\"Hi there! I was created as part of the project you call " + name
+            .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
                   + ".\");")
             .getOrigin());
 

@@ -148,7 +148,8 @@ public class ProjectFactory
    }
 
    /**
-    * An exception-safe method of determining whether a directory contains a project.
+    * An exception-safe method of determining whether a directory contains a
+    * project.
     */
    public boolean containsProject(final File dir)
    {

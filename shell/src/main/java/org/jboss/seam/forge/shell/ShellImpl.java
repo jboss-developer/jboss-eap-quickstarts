@@ -48,8 +48,7 @@ import jline.console.completer.Completer;
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.command.Execution;
@@ -250,7 +249,7 @@ public class ShellImpl implements Shell
       try
       {
          reader.setPrompt(getPrompt());
-         while ((!exitRequested) && ((line = readLine()) != null))
+         while ((exitRequested != true) && ((line = readLine()) != null))
          {
             if (!"".equals(line))
             {
@@ -563,9 +562,9 @@ public class ShellImpl implements Shell
       String suffix = "[no project]";
       if (projectContext.getCurrentProject() != null)
       {
-         // FIXME eventually, this cannot reference the MavenFacet directly.
-         suffix = "[" + projectContext.getCurrentProject().getFacet(MavenCoreFacet.class).getPOM().getArtifactId()
-               + "]";
+         Project currentProject = projectContext.getCurrentProject();
+         String projectName = currentProject.getFacet(MetadataFacet.class).getProjectName();
+         suffix = "[" + projectName + "]";
       }
       String path = getCurrentResource().toString();
       return suffix + " " + path + " $ ";
@@ -692,7 +691,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-               + pattern + "]");
+                  + pattern + "]");
       }
 
       String input = "";
@@ -792,7 +791,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
