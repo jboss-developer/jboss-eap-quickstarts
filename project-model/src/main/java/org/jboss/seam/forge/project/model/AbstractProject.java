@@ -26,8 +26,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.jboss.seam.forge.project.Facet;
@@ -43,6 +45,25 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 public abstract class AbstractProject implements Project
 {
    private final Set<Facet> facets = new HashSet<Facet>();
+   private final Map<String, Object> attributes = new HashMap<String, Object>();
+
+   @Override
+   public Object getAttribute(final String key)
+   {
+      return attributes.get(key);
+   }
+
+   @Override
+   public void setAttribute(final String key, final Object value)
+   {
+      attributes.put(key, value);
+   }
+
+   @Override
+   public void removeAttribute(final String key)
+   {
+      attributes.remove(key);
+   }
 
    @Override
    public boolean delete(final File file)

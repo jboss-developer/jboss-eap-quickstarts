@@ -43,7 +43,7 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.project.ProjectContext;
+import org.jboss.seam.forge.shell.project.CurrentProject;
 import org.jboss.seam.forge.shell.util.Files;
 
 /**
@@ -58,7 +58,7 @@ public class NewProjectPlugin implements Plugin
    private Shell shell;
 
    @Inject
-   private ProjectContext cp;
+   private CurrentProject cp;
 
    @Inject
    private ProjectFactory projectFactory;

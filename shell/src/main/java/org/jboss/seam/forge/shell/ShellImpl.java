@@ -70,7 +70,7 @@ import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
-import org.jboss.seam.forge.shell.project.ProjectContext;
+import org.jboss.seam.forge.shell.project.CurrentProject;
 import org.jboss.seam.forge.shell.util.Files;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
@@ -101,7 +101,7 @@ public class ShellImpl implements Shell
    private Event<PostStartup> postStartup;
 
    @Inject
-   private ProjectContext projectContext;
+   private CurrentProject projectContext;
 
    // TODO Resource API needs to be separated from Project API
    @Inject
@@ -564,9 +564,9 @@ public class ShellImpl implements Shell
    public String getPrompt()
    {
       String suffix = "[no project]";
-      if (projectContext.getCurrentProject() != null)
+      if (projectContext.getCurrent() != null)
       {
-         Project currentProject = projectContext.getCurrentProject();
+         Project currentProject = projectContext.getCurrent();
          String projectName = currentProject.getFacet(MetadataFacet.class).getProjectName();
          suffix = "[" + projectName + "]";
       }
@@ -633,7 +633,7 @@ public class ShellImpl implements Shell
    @Override
    public Project getCurrentProject()
    {
-      return this.projectContext.getCurrentProject();
+      return this.projectContext.getCurrent();
    }
 
    /*

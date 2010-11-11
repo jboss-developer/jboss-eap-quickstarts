@@ -42,13 +42,13 @@ import org.jboss.seam.forge.shell.plugins.events.PostStartup;
 public class ProjectInitializer
 {
    private final Shell shell;
-   private final ProjectContext cp;
+   private final CurrentProject cp;
    private final Event<InitProject> init;
 
    private final ProjectFactory projectFactory;
 
    @Inject
-   public ProjectInitializer(final Shell shell, final ProjectContext currentProjectHolder,
+   public ProjectInitializer(final Shell shell, final CurrentProject currentProjectHolder,
                             final Event<InitProject> init, final ProjectFactory projectFactory)
    {
       this.shell = shell;
