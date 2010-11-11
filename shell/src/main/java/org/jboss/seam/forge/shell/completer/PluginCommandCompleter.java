@@ -346,12 +346,6 @@ public class PluginCommandCompleter implements CommandCompleter
                   }
 
                   index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
-
-                  index = index - val.length();
-                  if (lastNest != -1)
-                  {
-                     index = index + lastNest + 1;
-                  }
                }
             }
 
