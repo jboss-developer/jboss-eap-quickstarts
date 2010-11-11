@@ -429,7 +429,12 @@ public class JavaClassImpl implements JavaClass
    {
       TypeDeclarationFinderVisitor typeDeclarationFinder = new TypeDeclarationFinderVisitor();
       unit.accept(typeDeclarationFinder);
-      return typeDeclarationFinder.getTypeDeclarations().get(0);
+      List<TypeDeclaration> typeDeclarations = typeDeclarationFinder.getTypeDeclarations();
+      if (typeDeclarations.isEmpty())
+      {
+         throw new RuntimeException("A type-declaration is required in order to complete the current operation, but no type-declaration exists in compilation unit: " + unit.toString());
+      }
+      return typeDeclarations.get(0);
    }
 
    /*
