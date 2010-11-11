@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.ClassMemberResource;
 
 /**
@@ -36,15 +37,12 @@ public class JavaFieldResource extends ClassMemberResource<Field>
 {
    private Field field;
 
-   public JavaFieldResource()
-   {
-      super(null);
-   }
-
    public JavaFieldResource(final JavaResource parent, final Field field)
    {
       super(parent);
       this.field = field;
+
+      setFlag(ResourceFlag.Leaf);
    }
 
    @Override
@@ -63,6 +61,12 @@ public class JavaFieldResource extends ClassMemberResource<Field>
    public Field getUnderlyingResourceObject()
    {
       return field;
+   }
+
+   @Override
+   public String getName()
+   {
+      return field.getName();
    }
 
    @Override

@@ -26,10 +26,13 @@ import java.io.File;
 
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
+ * A standard, built-in resource for representing files on the filesystem.
+ *
  * @author Mike Brock
  */
 public abstract class FileResource extends AbstractResource<File>
@@ -44,11 +47,18 @@ public abstract class FileResource extends AbstractResource<File>
    protected FileResource(final ResourceFactory factory, final File file)
    {
       super(factory, null);
+      setFlag(ResourceFlag.File);
 
       if ((this.file = file) != null)
       {
          this.lastModification = file.lastModified();
       }
+   }
+
+   @Override
+   public String getName()
+   {
+      return file.getName();
    }
 
    /**

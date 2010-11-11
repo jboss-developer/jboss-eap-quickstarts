@@ -22,16 +22,18 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import jline.console.completer.StringsCompleter;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
@@ -289,8 +291,7 @@ public class PluginCommandCompleter implements CommandCompleter
    }
 
    /**
-    * Add option completions for the given command, with or without argument
-    * tokens
+    * Add option completions for the given command, with or without argument tokens
     */
    private List<String> getOptionCandidates(final CommandMetadata command, final Queue<String> tokens)
    {
@@ -322,29 +323,34 @@ public class PluginCommandCompleter implements CommandCompleter
          {
             if (valueMap.containsKey(option))
             {
-               /**
-                * Commands may arrive as an array or a single string. Check for
-                * that here, and wrap any stand-alone strings in an array.
-                */
 
                if (isResourceAssignable(option))
                {
+                   // Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
+                   // strings in an array.
                   String[] values = valueMap.get(option) instanceof String
-                        ? new String[] { (String) valueMap.get(option) }
+                        ? new String[]{(String) valueMap.get(option)}
                         : (String[]) valueMap.get(option);
 
                   String val = values[values.length - 1];
+
                   if (val.trim().length() == 0)
                   {
+                     // Empty parameter. Go no further.
                      break;
                   }
-                  int lastNest = val.lastIndexOf('/');
 
-                  for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
+                  for (Resource<?> r :
+                        new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
                   {
-                     results.add(r.toString());
+                     // Add result to the results list, and append a '/' if the resource has children.
+                     results.add(r.getName() + (r.isFlagSet(ResourceFlag.Node) ? "/" : ""));
                   }
 
+                  int lastNest = val.lastIndexOf(File.separatorChar);
+
+                  // Record the current index point in the buffer. If we're at the separator char
+                  // set the value ahead by 1.
                   index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
                }
             }

@@ -126,10 +126,13 @@ public class LsPlugin implements Plugin
             List<String> subList;
             for (Resource<?> r : childResources)
             {
-               sortMap.put(el = r.toString(), subList = new ArrayList<String>());
+               sortMap.put(el = r.getName(), subList = new ArrayList<String>());
                file = (File) r.getUnderlyingResourceObject();
 
-               dir = file.isDirectory();
+               if (dir = (r instanceof DirectoryResource))
+               {
+                  el += "/";
+               }
 
                if (showAll || !el.startsWith("."))
                {
@@ -164,7 +167,13 @@ public class LsPlugin implements Plugin
          {
             for (Resource<?> r : childResources)
             {
-               el = r.toString();
+               el = r.getName();
+
+               if (r instanceof DirectoryResource)
+               {
+                  el += "/";
+               }
+
                if (showAll || !el.startsWith("."))
                {
                   listBuild.add(el);
@@ -203,7 +212,7 @@ public class LsPlugin implements Plugin
       }
       else
       {
-         FormatCallback formatCallback =  new FormatCallback()
+         FormatCallback formatCallback = new FormatCallback()
          {
             @Override
             public String format(int column, String value)
