@@ -26,15 +26,14 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
 import org.apache.maven.artifact.repository.MavenArtifactRepository;
 import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
-import org.apache.maven.artifact.versioning.ArtifactVersion;
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
@@ -57,6 +56,8 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@Dependent
+@Named("forge.maven.MavenCoreFacet")
 public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 {
    private ProjectBuildingRequest request;
@@ -68,50 +69,48 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 
    private void bootstrapMaven()
    {
+      if (!initialized())
       {
-         if (!initialized())
+         try
          {
-            try
+            if (!isInstalled())
             {
-               if (!isInstalled())
-               {
-                  throw new ProjectModelException("No POM file found at [" + getPOMFile().getAbsolutePath() + "]");
-               }
-
-               container = new DefaultPlexusContainer();
-               ConsoleLoggerManager loggerManager = new ConsoleLoggerManager();
-               loggerManager.setThreshold("ERROR");
-               container.setLoggerManager(loggerManager);
-
-               builder = container.lookup(ProjectBuilder.class);
-
-               // TODO this needs to be configurable via the project/.forge //
-               // file.
-               String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
-
-               request = new DefaultProjectBuildingRequest();
-               request.setLocalRepository(new MavenArtifactRepository(
-                        "local", new File(localRepository).toURI().toURL().toString(),
-                        container.lookup(ArtifactRepositoryLayout.class),
-                        new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                                 ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
-                        new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                                 ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
-               request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
-
-               DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
-               repositorySession.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepository));
-               repositorySession.setOffline(true);
-
-               request.setRepositorySession(repositorySession);
-               request.setProcessPlugins(true);
-               request.setResolveDependencies(true);
+               throw new ProjectModelException("No POM file found at [" + getPOMFile().getAbsolutePath() + "]");
             }
-            catch (Exception e)
-            {
-               throw new ProjectModelException(
-                        "Could not initialize maven project located in: " + project.getProjectRoot(), e);
-            }
+
+            container = new DefaultPlexusContainer();
+            ConsoleLoggerManager loggerManager = new ConsoleLoggerManager();
+            loggerManager.setThreshold("ERROR");
+            container.setLoggerManager(loggerManager);
+
+            builder = container.lookup(ProjectBuilder.class);
+
+            // TODO this needs to be configurable via the project/.forge //
+            // file.
+            String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
+
+            request = new DefaultProjectBuildingRequest();
+            request.setLocalRepository(new MavenArtifactRepository(
+                     "local", new File(localRepository).toURI().toURL().toString(),
+                     container.lookup(ArtifactRepositoryLayout.class),
+                     new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                              ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
+                     new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                              ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
+            request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
+
+            DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
+            repositorySession.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepository));
+            repositorySession.setOffline(true);
+
+            request.setRepositorySession(repositorySession);
+            request.setProcessPlugins(true);
+            request.setResolveDependencies(true);
+         }
+         catch (Exception e)
+         {
+            throw new ProjectModelException(
+                     "Could not initialize maven project located in: " + project.getProjectRoot(), e);
          }
       }
    }
@@ -146,56 +145,6 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    private void invalidateBuildingResult()
    {
       this.buildingResult = null;
-   }
-
-   @Override
-   public void addDependency(final Dependency dep)
-   {
-      bootstrapMaven();
-      if (!hasDependency(dep))
-      {
-         Model pom = getPOM();
-         List<Dependency> dependencies = pom.getDependencies();
-         dependencies.add(dep);
-         setPOM(pom);
-      }
-      invalidateBuildingResult();
-   }
-
-   @Override
-   public boolean hasDependency(final Dependency dep)
-   {
-      bootstrapMaven();
-      List<Dependency> dependencies = getProjectBuildingResult().getProject().getDependencies();
-
-      for (Dependency dependency : dependencies)
-      {
-         if (areEquivalent(dependency, dep))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
-
-   @Override
-   public void removeDependency(final Dependency dep)
-   {
-      bootstrapMaven();
-      Model pom = getPOM();
-      List<Dependency> dependencies = pom.getDependencies();
-
-      List<Dependency> toBeRemoved = new ArrayList<Dependency>();
-      for (Dependency dependency : dependencies)
-      {
-         if (areEquivalent(dependency, dep))
-         {
-            toBeRemoved.add(dependency);
-         }
-      }
-      dependencies.removeAll(toBeRemoved);
-      setPOM(pom);
-      invalidateBuildingResult();
    }
 
    @Override
@@ -269,23 +218,6 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    private File getUserHomeDir()
    {
       return new File(System.getProperty("user.home")).getAbsoluteFile();
-   }
-
-   @SuppressWarnings("unchecked")
-   private boolean areEquivalent(final Dependency left, final Dependency right)
-   {
-      boolean result = false;
-      if (left.getGroupId().equals(right.getGroupId()) && left.getArtifactId().equals(right.getArtifactId()))
-      {
-         ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
-         ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
-
-         if (lversion.compareTo(rversion) == 0)
-         {
-            result = true;
-         }
-      }
-      return result;
    }
 
    @Override

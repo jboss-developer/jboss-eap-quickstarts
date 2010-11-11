@@ -26,13 +26,11 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Named;
 import javax.persistence.Entity;
 
-import org.apache.maven.model.Dependency;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
@@ -40,9 +38,11 @@ import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
-import org.jboss.seam.forge.project.util.DependencyBuilder;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
@@ -59,19 +59,14 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
  * 
  */
 @Named("persistence")
-@RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class })
+@RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
 public class PersistenceFacet implements Facet
 {
-   private Project project;
+   private static final Dependency dep =
+         DependencyBuilder.create("hibernate-entitymanager:org.hibernate:3.4.0.GA:provided");
 
-   public List<Dependency> getMavenDependencies()
-   {
-      return Arrays.asList(DependencyBuilder.create()
-               .setGroupId("org.hibernate")
-               .setArtifactId("hibernate-entitymanager")
-               .setVersion("3.4.0.GA").build());
-   }
+   private Project project;
 
    private final FilenameFilter entityFileFilter = new FilenameFilter()
    {
@@ -108,6 +103,9 @@ public class PersistenceFacet implements Facet
    {
       if (!isInstalled())
       {
+         DependencyFacet deps = project.getFacet(DependencyFacet.class);
+         if (!deps.hasDependency(dep)) deps.addDependency(dep);
+
          File entityRoot = getEntityPackageFile();
          if (!entityRoot.exists())
          {
@@ -135,6 +133,14 @@ public class PersistenceFacet implements Facet
       }
       project.registerFacet(this);
       return this;
+   }
+
+   @Override
+   public boolean isInstalled()
+   {
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      boolean hasDependency = deps.hasDependency(dep);
+      return hasDependency && getEntityPackageFile().exists() && getConfigFile().exists();
    }
 
    public String getEntityPackage()
@@ -171,12 +177,6 @@ public class PersistenceFacet implements Facet
       return new File(resources.getResourceFolder() + File.separator + "META-INF" + File.separator + "persistence.xml");
    }
 
-   @Override
-   public boolean isInstalled()
-   {
-      return getEntityPackageFile().exists() && getConfigFile().exists();
-   }
-
    public List<JavaClass> getAllEntities()
    {
       File packageFile = getEntityPackageFile();
@@ -189,20 +189,15 @@ public class PersistenceFacet implements Facet
       if (packageFile.exists())
       {
          for (File source : packageFile.listFiles(entityFileFilter))
-         {
             try
             {
                JavaClass javaClass = JavaParser.parse(source);
-               if (javaClass.hasAnnotation(Entity.class))
-               {
-                  result.add(javaClass);
-               }
+               if (javaClass.hasAnnotation(Entity.class)) result.add(javaClass);
             }
             catch (FileNotFoundException e)
             {
                // Meh, oh well.
             }
-         }
 
          for (File source : packageFile.listFiles(directoryFilter))
          {

@@ -23,8 +23,8 @@
 package org.jboss.seam.forge.test.project;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,17 +34,16 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
-import org.jboss.seam.forge.project.util.DependencyBuilder;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,14 +74,8 @@ public class MavenFacetsTest extends ProjectModelTest
    {
       super.postConstruct();
 
-      if (thisProject == null)
-      {
-         thisProject = projectFactory.findProjectRecursively(new File(""));
-      }
-      if (testProject == null)
-      {
-         testProject = projectFactory.findProjectRecursively(new File("src/test/resources/test-pom"));
-      }
+      if (thisProject == null) thisProject = projectFactory.findProjectRecursively(new File(""));
+      if (testProject == null) testProject = projectFactory.findProjectRecursively(new File("src/test/resources/test-pom"));
    }
 
    @Test
@@ -138,37 +131,6 @@ public class MavenFacetsTest extends ProjectModelTest
    }
 
    @Test
-   public void testHasDependency() throws Exception
-   {
-      assertTrue(testProject.getFacet(MavenCoreFacet.class).hasDependency(dependencyBuilder.setGroupId("com.ocpsoft")
-               .setArtifactId("prettyfaces-jsf2").setVersion("3.0.2-SNAPSHOT").build()));
-   }
-
-   @Test
-   public void testAddDependency() throws Exception
-   {
-      Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
-               .setArtifactId("test-dependency").setVersion("1.0.0.Final").build();
-
-      assertFalse(getProject().getFacet(MavenCoreFacet.class).hasDependency(dependency));
-      getProject().getFacet(MavenCoreFacet.class).addDependency(dependency);
-      assertTrue(getProject().getFacet(MavenCoreFacet.class).hasDependency(dependency));
-   }
-
-   @Test
-   public void testRemoveDependency() throws Exception
-   {
-      Dependency dependency = dependencyBuilder.setGroupId("org.jboss")
-               .setArtifactId("test-dependency").setVersion("1.0.1.Final").build();
-
-      assertFalse(getProject().getFacet(MavenCoreFacet.class).hasDependency(dependency));
-      getProject().getFacet(MavenCoreFacet.class).addDependency(dependency);
-      assertTrue(getProject().getFacet(MavenCoreFacet.class).hasDependency(dependency));
-      getProject().getFacet(MavenCoreFacet.class).removeDependency(dependency);
-      assertFalse(getProject().getFacet(MavenCoreFacet.class).hasDependency(dependency));
-   }
-
-   @Test
    public void testProjectIsCurrentProject() throws Exception
    {
       Model pom = thisProject.getFacet(MavenCoreFacet.class).getPOM();
@@ -178,7 +140,8 @@ public class MavenFacetsTest extends ProjectModelTest
    @Test
    public void testAbsoluteProjectIsResolvedCorrectly() throws Exception
    {
-      Model pom = testProject.getFacet(MavenCoreFacet.class).getPOM();
+      MavenCoreFacet maven = testProject.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
       assertEquals("socialpm", pom.getArtifactId());
    }
 
@@ -189,6 +152,7 @@ public class MavenFacetsTest extends ProjectModelTest
       temp.delete();
       temp.mkdirs();
       projectFactory.findProjectRecursively(temp); // boom
+      fail();
    }
 
    @Test
@@ -198,7 +162,7 @@ public class MavenFacetsTest extends ProjectModelTest
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      projectFactory.createProject(temp, MavenCoreFacet.class, JavaSourceFacet.class); // no
-                                                                                   // boom
+      projectFactory.createProject(temp, MavenCoreFacet.class, JavaSourceFacet.class);
+      // no boom
    }
 }

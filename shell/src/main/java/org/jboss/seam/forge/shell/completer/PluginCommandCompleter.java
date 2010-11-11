@@ -22,16 +22,15 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Queue;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import jline.console.completer.StringsCompleter;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.PathspecParser;
@@ -290,7 +289,8 @@ public class PluginCommandCompleter implements CommandCompleter
    }
 
    /**
-    * Add option completions for the given command, with or without argument tokens
+    * Add option completions for the given command, with or without argument
+    * tokens
     */
    private List<String> getOptionCandidates(final CommandMetadata command, final Queue<String> tokens)
    {
@@ -323,14 +323,14 @@ public class PluginCommandCompleter implements CommandCompleter
             if (valueMap.containsKey(option))
             {
                /**
-                * Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
-                * strings in an array.
+                * Commands may arrive as an array or a single string. Check for
+                * that here, and wrap any stand-alone strings in an array.
                 */
 
                if (isResourceAssignable(option))
                {
                   String[] values = valueMap.get(option) instanceof String
-                        ? new String[]{(String) valueMap.get(option)}
+                        ? new String[] { (String) valueMap.get(option) }
                         : (String[]) valueMap.get(option);
 
                   String val = values[values.length - 1];
@@ -340,13 +340,18 @@ public class PluginCommandCompleter implements CommandCompleter
                   }
                   int lastNest = val.lastIndexOf('/');
 
-                  for (Resource<?> r :
-                        new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
+                  for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
                   {
                      results.add(r.toString());
                   }
 
                   index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
+
+                  index = index - val.length();
+                  if (lastNest != -1)
+                  {
+                     index = index + lastNest + 1;
+                  }
                }
             }
 
@@ -415,7 +420,8 @@ public class PluginCommandCompleter implements CommandCompleter
       return false;
    }
 
-   private boolean isResourceAssignable(OptionMetadata option) {
+   private boolean isResourceAssignable(OptionMetadata option)
+   {
       return Resource[].class.isAssignableFrom(option.getBoxedType()) || Resource.class.isAssignableFrom(option.getBoxedType());
    }
 }

@@ -25,6 +25,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -38,6 +41,8 @@ import org.jboss.seam.forge.project.facets.WebResourceFacet;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Dependent
+@Named("forge.maven.WebResourceFacet")
 @RequiresFacets({ JavaSourceFacet.class, PackagingFacet.class })
 public class MavenWebResourceFacet implements WebResourceFacet, Facet
 {

@@ -26,7 +26,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
@@ -40,7 +42,7 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
  */
 public abstract class AbstractProject implements Project
 {
-   private final List<Facet> facets = new ArrayList<Facet>();
+   private final Set<Facet> facets = new HashSet<Facet>();
 
    @Override
    public boolean delete(final File file)
@@ -189,7 +191,9 @@ public abstract class AbstractProject implements Project
    @Override
    public List<Facet> getFacets()
    {
-      return facets;
+      List<Facet> result = new ArrayList<Facet>();
+      result.addAll(facets);
+      return result;
    }
 
    @Override
