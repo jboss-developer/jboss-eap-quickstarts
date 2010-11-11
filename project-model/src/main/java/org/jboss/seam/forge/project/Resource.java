@@ -26,10 +26,33 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * A Resource is an abstraction on top of usable items within a Forge project.  For instance, files, source code, etc.
+ * Like a simplified virtual file system, a Resource is represented hierarchically with a parent and children.  This
+ * allows plugins to say, direct access to project elements within a consistent API from files to class members.
+ * </br>
+ * However, Resource instances should be treated as representative query result objects. A modification to an instance
+ * variable in a resource will not be persisted. Rather than thinking of the Resource object as meta-data (which it is not),
+ * it is better conceptualized as a wrapper or "view" of an underlying resource such as a File. For this reason,
+ * custom Resource types should never implement any sort of static cache and should preferably lazily initialize
+ * their data.
+ *
  * @author Mike Brock
  */
 public interface Resource<T>
 {
+
+   /**
+    * Return the common name of the resource.  If it's a file, for instance, just the file name.
+    * @return The name of the resource.
+    */
+   public String getName();
+
+   /**
+    * Return the fully qualified name of the resource (if applicable).  In the case of a file, this would
+    * normally be the full path name.
+    * @return The fully qualified name.
+    */
+   public String getFullyQualifiedName();
 
    /**
     * Get the parent of the current resource. Returns null if the current resource is the project root.
@@ -56,6 +79,7 @@ public interface Resource<T>
    public T getUnderlyingResourceObject();
 
    public Resource<?> getChild(String name);
+
 
    public void setFlag(ResourceFlag flag);
 

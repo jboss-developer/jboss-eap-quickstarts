@@ -35,6 +35,7 @@ import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -56,6 +57,7 @@ public class JavaResource extends FileResource
    public JavaResource(final ResourceFactory factory, final File file)
    {
       super(factory, file);
+      setFlag(ResourceFlag.ProjectSourceFile);
    }
 
    @Override
@@ -108,14 +110,6 @@ public class JavaResource extends FileResource
    @Override
    public String toString()
    {
-      try
-      {
-         lazyInitialize();
-      }
-      catch (FileNotFoundException e)
-      {
-         return "[File not found: " + file + "]";
-      }
-      return javaClass.getName() + ".java";
+      return file.getName();
    }
 }

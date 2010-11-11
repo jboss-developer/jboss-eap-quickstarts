@@ -111,7 +111,7 @@ public class PathspecParser
 
                for (Resource<?> child : r.listResources())
                {
-                  if (p.matcher(child.toString()).matches())
+                  if (p.matcher(child.getName()).matches())
                   {
                      child.setFlag(ResourceFlag.AmbiguouslyQualified);
                      res.add(child);

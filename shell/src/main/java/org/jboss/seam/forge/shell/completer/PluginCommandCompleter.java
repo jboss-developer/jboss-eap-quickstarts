@@ -33,6 +33,7 @@ import javax.inject.Singleton;
 
 import jline.console.completer.StringsCompleter;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
@@ -325,7 +326,6 @@ public class PluginCommandCompleter implements CommandCompleter
 
                if (isResourceAssignable(option))
                {
-
                    // Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
                    // strings in an array.
                   String[] values = valueMap.get(option) instanceof String
@@ -333,21 +333,25 @@ public class PluginCommandCompleter implements CommandCompleter
                         : (String[]) valueMap.get(option);
 
                   String val = values[values.length - 1];
+
                   if (val.trim().length() == 0)
                   {
+                     // Empty parameter. Go no further.
                      break;
                   }
-                  int lastNest = val.lastIndexOf('/');
 
                   for (Resource<?> r :
                         new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
                   {
-                     results.add(r.toString());
+                     // Add result to the results list, and append a '/' if the resource has children.
+                     results.add(r.getName() + (r.isFlagSet(ResourceFlag.Node) ? "/" : ""));
                   }
 
-                  // Record the current index point in the buffer. If we're at the seperator char
+                  int lastNest = val.lastIndexOf(File.separatorChar);
+
+                  // Record the current index point in the buffer. If we're at the separator char
                   // set the value ahead by 1.
-                  index -= val.length() + (lastNest != -1 ? lastNest + 1 : 0);
+                  index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
                }
             }
 

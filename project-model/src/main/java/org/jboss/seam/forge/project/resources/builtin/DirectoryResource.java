@@ -26,13 +26,14 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
+ * A standard, build-in, resource for representing directories on the filesystem.
+ *
  * @author Mike Brock
  */
 public class DirectoryResource extends FileResource
@@ -42,6 +43,7 @@ public class DirectoryResource extends FileResource
    public DirectoryResource(final ResourceFactory factory, final File file)
    {
       super(factory, file);
+      setFlag(ResourceFlag.Node);
    }
 
    @Override
@@ -97,9 +99,15 @@ public class DirectoryResource extends FileResource
    }
 
    @Override
+   public String getName()
+   {
+      return file.getName();
+   }
+
+   @Override
    public String toString()
    {
-      return file.getName() + "/";
+      return getName();
    }
 
    @Override

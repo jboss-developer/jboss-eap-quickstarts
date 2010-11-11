@@ -45,6 +45,12 @@ public abstract class AbstractResource<T> implements Resource<T>
    }
 
    @Override
+   public String getFullyQualifiedName()
+   {
+      return getParent() != null ? getParent().getFullyQualifiedName() + "/" + getName() : getName();
+   }
+
+   @Override
    public Resource<?> getParent()
    {
       return parent;
@@ -83,5 +89,7 @@ public abstract class AbstractResource<T> implements Resource<T>
    {
       return Collections.unmodifiableSet(flags);
    }
+
+
 
 }

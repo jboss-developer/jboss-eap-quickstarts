@@ -28,6 +28,7 @@ import java.util.List;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.ClassMemberResource;
 
 /**
@@ -37,13 +38,13 @@ public class JavaMethodResource extends ClassMemberResource<Method>
 {
    private Method method;
 
-
-
-
    public JavaMethodResource(final Resource<?> parent, final Method method)
    {
       super(parent);
       this.method = method;
+
+      // indicate this node resource is a leaf and cannot be expanded
+      setFlag(ResourceFlag.Leaf);
    }
 
    @Override
@@ -61,6 +62,12 @@ public class JavaMethodResource extends ClassMemberResource<Method>
    public Method getUnderlyingResourceObject()
    {
       return method;
+   }
+
+   @Override
+   public String getName()
+   {
+      return method.getName();
    }
 
    @Override
