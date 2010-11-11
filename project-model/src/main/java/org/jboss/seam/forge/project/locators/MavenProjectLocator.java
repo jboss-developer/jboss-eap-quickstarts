@@ -29,9 +29,11 @@ import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 
 /**
- * Locate a Maven project starting in the current directory, and progressing up the chain of parent directories until a
- * project is found, or the root directory is found. If a project is found, return the {@link File} referring to the
- * directory containing that project, or return null if no projects were found.
+ * Locate a Maven project starting in the current directory, and progressing up
+ * the chain of parent directories until a project is found, or the root
+ * directory is found. If a project is found, return the {@link File} referring
+ * to the directory containing that project, or return null if no projects were
+ * found.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -39,20 +41,7 @@ import org.jboss.seam.forge.project.model.ProjectImpl;
 public class MavenProjectLocator implements ProjectLocator
 {
    @Override
-   public Project findProjectRecursively(final File startingDirectory)
-   {
-      File root = startingDirectory.getAbsoluteFile();
-      while ((findProject(root) == null) && (root.getParentFile() != null))
-      {
-         root = root.getParentFile();
-      }
-
-      Project result = findProject(root);
-      return result;
-   }
-
-   @Override
-   public Project findProject(final File directory)
+   public Project createProject(final File directory)
    {
       File pom = new File(directory.getAbsolutePath() + File.separator + "pom.xml");
 
@@ -65,5 +54,25 @@ public class MavenProjectLocator implements ProjectLocator
          result.registerFacet(facet);
       }
       return result;
+   }
+
+   @Override
+   public File findProjectRootRecursively(final File startingDirectory)
+   {
+      File root = startingDirectory.getAbsoluteFile();
+
+      Project project = createProject(root);
+      while ((project == null) && (root.getParentFile() != null))
+      {
+         root = root.getParentFile();
+         project = createProject(root);
+      }
+
+      if (project == null)
+      {
+         return null;
+      }
+
+      return root;
    }
 }

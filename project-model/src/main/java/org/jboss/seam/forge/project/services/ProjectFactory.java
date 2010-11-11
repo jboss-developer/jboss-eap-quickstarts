@@ -56,26 +56,44 @@ public class ProjectFactory
 
    }
 
-   public Project findProjectRecursively(final File startingPath) throws FileNotFoundException
+   public File findProjectRootRecusively(File currentDirectory)
+   {
+      File root = null;
+      List<ProjectLocator> locators = getLocators();
+      for (ProjectLocator locator : locators)
+      {
+         root = locator.findProjectRootRecursively(currentDirectory.getAbsoluteFile());
+         if (root != null)
+         {
+            break;
+         }
+      }
+      return root;
+   }
+
+   public Project findProjectRecursively(final File startingPath)
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         project = locator.findProjectRecursively(startingPath.getAbsoluteFile());
+         File root = locator.findProjectRootRecursively(startingPath.getAbsoluteFile());
 
-         if (project != null)
+         if (root != null)
          {
-            break;
+            project = locator.createProject(root);
+            if (project != null)
+            {
+               break;
+            }
          }
       }
 
-      if (project == null)
+      if (project != null)
       {
-         throw new FileNotFoundException("Could not locate project in folder or any of its parents: ["
-                  + startingPath.getAbsolutePath() + "]");
+         registerFacets(project);
       }
-      registerFacets(project);
+
       return project;
    }
 
@@ -170,7 +188,7 @@ public class ProjectFactory
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         project = locator.findProject(path.getAbsoluteFile());
+         project = locator.createProject(path.getAbsoluteFile());
          if (project != null)
          {
             break;

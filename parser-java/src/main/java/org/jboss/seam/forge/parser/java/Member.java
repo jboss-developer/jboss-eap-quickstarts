@@ -22,43 +22,14 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import java.util.List;
-
 /**
+ * Represents a {@link JavaClass} member. (E.g.: a {@link Field} or
+ * {@link Method})
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Method extends Abstractable<Method>, Member<Method>
+public interface Member<T> extends VisibilityScoped<T>, AnnotationTarget<T>
 {
-   public String getBody();
-
-   public Method setBody(final String body);
-
-   /**
-    * Toggle this method as a constructor. If true, and the name of the
-    * {@link Method} is not the same as the name of its parent {@link JavaClass}
-    * , update the name of the to match.
-    */
-   public Method setConstructor(final boolean constructor);
-
-   public boolean isConstructor();
-
-   public Method setFinal();
-
-   public Method setName(final String name);
-
-   public String getReturnType();
-
-   public Method setReturnType(final Class<?> type);
-
-   public Method setReturnType(final String type);
-
-   public boolean isReturnTypeVoid();
-
-   public Method setReturnTypeVoid();
-
-   public Method setParameters(String string);
-
-   public List<Parameter> getParameters();
-
+   public String getName();
 }

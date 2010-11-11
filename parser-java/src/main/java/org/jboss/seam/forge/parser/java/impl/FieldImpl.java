@@ -38,6 +38,7 @@ import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Visibility;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.util.Strings;
@@ -223,6 +224,22 @@ public class FieldImpl implements Field
       modifiers.addModifier(field, ModifierKeyword.PROTECTED_KEYWORD);
       return this;
    }
+
+   @Override
+   public Visibility getVisibility()
+   {
+      return Visibility.getFrom(this);
+   }
+
+   @Override
+   public Field setVisibility(Visibility scope)
+   {
+      return Visibility.set(this, scope);
+   }
+
+   /*
+    * Field methods
+    */
 
    @Override
    public String getName()

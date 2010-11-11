@@ -33,16 +33,16 @@ import org.jboss.seam.forge.project.Project;
  */
 public interface ProjectLocator
 {
-   /**
-    * Attempt to locate a project root directory in the given folder or its
-    * hierarchy by using a strategy implemented by this method. If found, return
-    * the project; otherwise, return null;
-    */
-   public Project findProjectRecursively(File startingDirectory);
 
    /**
     * Attempt to locate a project root directory in the given folder. If found,
     * return the project; otherwise, return null;
     */
-   public Project findProject(File directory);
+   public Project createProject(File directory);
+
+   /**
+    * Attempt to locate a project root directory in the given folder. If found,
+    * return the root directory; otherwise, return null;
+    */
+   public File findProjectRootRecursively(File absoluteFile);
 }

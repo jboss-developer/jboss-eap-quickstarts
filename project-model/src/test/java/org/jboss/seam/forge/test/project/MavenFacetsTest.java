@@ -23,12 +23,12 @@
 package org.jboss.seam.forge.test.project;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -145,14 +145,13 @@ public class MavenFacetsTest extends ProjectModelTest
       assertEquals("socialpm", pom.getArtifactId());
    }
 
-   @Test(expected = FileNotFoundException.class)
+   @Test
    public void testAbsoluteUnknownProjectCannotInstantiate() throws Exception
    {
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      projectFactory.findProjectRecursively(temp); // boom
-      fail();
+      assertNull(projectFactory.findProjectRecursively(temp));
    }
 
    @Test
@@ -162,7 +161,7 @@ public class MavenFacetsTest extends ProjectModelTest
       File temp = File.createTempFile(PKG, null);
       temp.delete();
       temp.mkdirs();
-      projectFactory.createProject(temp, MavenCoreFacet.class, JavaSourceFacet.class);
-      // no boom
+      assertNotNull(projectFactory.createProject(temp, MavenCoreFacet.class, JavaSourceFacet.class));
+      assertNotNull(projectFactory.findProjectRecursively(temp));
    }
 }

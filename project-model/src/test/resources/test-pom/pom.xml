@@ -66,11 +66,6 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.jboss</groupId>
-      <artifactId>test-dependency</artifactId>
-      <version>1.0.0.Final</version>
-    </dependency>
   </dependencies>
   <repositories>
     <repository>

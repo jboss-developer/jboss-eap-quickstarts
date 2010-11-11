@@ -32,7 +32,12 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
@@ -65,7 +70,6 @@ import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
@@ -121,20 +125,22 @@ public class ShellImpl implements Shell
    private InputStream inputStream;
    private Writer outputWriter;
 
-   private boolean colorEnabled = Boolean.getBoolean("seam.forge.shell.colorEnabled");
+   private final boolean colorEnabled = Boolean.getBoolean("seam.forge.shell.colorEnabled");
 
    private final ConversionHandler resourceConversionHandler = new ConversionHandler()
    {
       @Override
+      @SuppressWarnings("rawtypes")
       public Resource[] convertFrom(Object o)
       {
          return GeneralUtils.parseSystemPathspec(
                resourceFactory,
                lastResource,
                getCurrentResource(),
-               o instanceof String[] ? (String[]) o : new String[]{o.toString()});
+               o instanceof String[] ? (String[]) o : new String[] { o.toString() });
       }
 
+      @SuppressWarnings("rawtypes")
       @Override
       public boolean canConvertFrom(Class aClass)
       {
@@ -152,7 +158,6 @@ public class ShellImpl implements Shell
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
       {
-         @SuppressWarnings({"unchecked"})
          @Override
          public Object convertFrom(Object o)
          {
@@ -171,6 +176,7 @@ public class ShellImpl implements Shell
             }
          }
 
+         @SuppressWarnings("rawtypes")
          @Override
          public boolean canConvertFrom(Class aClass)
          {
@@ -190,7 +196,7 @@ public class ShellImpl implements Shell
    {
       List<Completer> completers = new ArrayList<Completer>();
       completers.add(new CommandCompleterAdaptor(pluginCompleter));
-    //  completers.add(new FileOptionCompleter());
+      // completers.add(new FileOptionCompleter());
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);

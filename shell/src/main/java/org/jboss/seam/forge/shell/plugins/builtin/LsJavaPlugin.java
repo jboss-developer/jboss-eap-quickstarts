@@ -22,10 +22,19 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Member;
+import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.color.JavaColorizer;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -48,14 +57,60 @@ public class LsJavaPlugin implements Plugin
    @Inject
    private Shell shell;
 
+   @Inject
+   private JavaColorizer colorizer;
+
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") String... path)
+                   @Option(description = "path", defaultValue = ".") String... path) throws FileNotFoundException
    {
-      for (String file : path)
+
+      Resource<?> currentResource = shell.getCurrentResource();
+      JavaClass javaClass = null;
+
+      if (currentResource instanceof JavaResource)
       {
-         shell.print(ShellColor.GREEN, "Ls'ing a .java file: " + file);
+         JavaResource javaSource = (JavaResource) currentResource;
+         javaClass = javaSource.getJavaClass();
+
+         for (String p : path)
+         {
+            if (!".".equals(p))
+            {
+               List<Member<?>> members = javaClass.getMembers();
+               for (Member<?> member : members)
+               {
+                  if (p.equals(member.getName()))
+                  {
+                     shell.println(colorizer.format(member.toString()));
+                  }
+               }
+               shell.println();
+            }
+            else
+            {
+               List<Field> fields = javaClass.getFields();
+               shell.println(ShellColor.GREEN, "[fields]");
+               for (Field field : fields)
+               {
+                  shell.print(ShellColor.BLUE, field.getVisibility().scope());
+                  shell.print(" : " + field.getName());
+                  shell.println(ShellColor.GREEN, " : " + field.getType() + "");
+               }
+               shell.println();
+
+               List<Method> methods = javaClass.getMethods();
+               shell.println(ShellColor.GREEN, "[fields]");
+               for (Method method : methods)
+               {
+                  shell.print(ShellColor.BLUE, method.getVisibility().scope());
+                  shell.print(" : " + method.getName());
+                  shell.println(ShellColor.GREEN, " : " + method.getReturnType() + "");
+               }
+               shell.println();
+            }
+         }
       }
    }
 }
