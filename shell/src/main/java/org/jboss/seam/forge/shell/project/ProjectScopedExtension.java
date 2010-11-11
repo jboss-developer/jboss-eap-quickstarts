@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,38 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jboss.seam.forge.shell.project;
 
-import javax.inject.Singleton;
-
-import org.jboss.seam.forge.project.Resource;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.BeforeBeanDiscovery;
+import javax.enterprise.inject.spi.Extension;
 
 /**
- * Contains the current {@link Resource} - not to be used by outsiders.
+ * An extension to provide {@link ProjectScoped} support.
  * 
- * @author Mike Brock <cbrock@redhat.com>
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Singleton
-public class ResourceContext
+public class ProjectScopedExtension implements Extension
 {
-   // FIXME Resource API needs to be separated from project API
-   private Resource<?> current;
 
-   public Resource<?> getCurrent()
+   public void addScope(@Observes final BeforeBeanDiscovery event)
    {
-      return current;
+      event.addScope(ProjectScoped.class, true, true);
    }
 
-   public void setCurrent(final Resource<?> current)
+   public void registerContext(@Observes final AfterBeanDiscovery event)
    {
-      this.current = current;
-   }
-
-   @Override
-   public String toString()
-   {
-      return "ResourceContext [" + current + "]";
+      event.addContext(new ProjectScopedContext());
    }
 
 }

@@ -34,27 +34,30 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
+import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Singleton
-public class ProjectContext
+public class CurrentProject
 {
    // TODO separate project-specific shell impl into separate project!
    private Project currentProject;
 
    @Inject
-   private ResourceContext resourceContext;
+   private CurrentResource currentResource;
    @Inject
    private ResourceFactory factory;
    @Inject
    private Event<InitProject> init;
+   @Inject
+   private Event<ProjectChange> projectChanged;
 
    @Produces
    @Default
    @Dependent
-   public Project getCurrentProject()
+   public Project getCurrent()
    {
       return currentProject;
    }
@@ -66,15 +69,17 @@ public class ProjectContext
                && !this.currentProject.getProjectRoot().equals(project.getProjectRoot()))
                || ((this.currentProject == null) && (project != null)))
       {
-         this.resourceContext.setCurrent(factory.getResourceFrom(project.getProjectRoot()));
+         this.currentResource.setCurrent(factory.getResourceFrom(project.getProjectRoot()));
       }
 
+      ProjectChange event = new ProjectChange(currentProject, project);
       this.currentProject = project;
+      projectChanged.fire(event);
    }
 
    public void setCurrentResource(final Resource<?> resource)
    {
-      this.resourceContext.setCurrent(resource);
+      this.currentResource.setCurrent(resource);
       if (currentProject != null)
       {
          Resource<?> projectRoot = factory.getResourceFrom(currentProject.getProjectRoot());
@@ -91,6 +96,6 @@ public class ProjectContext
 
    public Resource<?> getCurrentResource()
    {
-      return this.resourceContext.getCurrent();
+      return this.currentResource.getCurrent();
    }
 }

@@ -33,6 +33,23 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 public interface Project
 {
    /**
+    * Get an value from this project's internal attributes. If the value is not set, return <code>null</code> instead.
+    * 
+    * @param key the attribute name
+    */
+   public Object getAttribute(String key);
+
+   /**
+    * Set a value in this project's internal attributes.
+    */
+   public void setAttribute(String key, Object value);
+
+   /**
+    * Remove a value from this project's internal attributes.
+    */
+   public void removeAttribute(String key);
+
+   /**
     * Return true if this project has a facet of the given type; return false otherwise.
     */
    public boolean hasFacet(Class<? extends Facet> type);
