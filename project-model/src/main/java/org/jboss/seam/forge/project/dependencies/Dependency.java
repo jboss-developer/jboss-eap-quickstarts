@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,49 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.util;
 
-import org.apache.maven.model.Dependency;
+package org.jboss.seam.forge.project.dependencies;
+
+import java.util.List;
 
 /**
- * Convenience builder to create Dependency objects.
+ * Represents a project library dependency.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class DependencyBuilder
+public interface Dependency
 {
-   private final Dependency dep = new Dependency();
+   /**
+    * Get the minor-identifier for this {@link Dependency}.
+    */
+   String getArtifactId();
 
    /**
-    * Obtain a new {@link DependencyBuilder} instance.
+    * Get the major identifier for this {@link Dependency}.
     */
-   public static DependencyBuilder create()
-   {
-      return new DependencyBuilder();
-   }
+   String getGroupId();
 
-   public DependencyBuilder setGroupId(final String groupId)
-   {
-      dep.setGroupId(groupId);
-      return this;
-   }
+   /**
+    * Get the version of this {@link Dependency}.
+    */
+   String getVersion();
 
-   public DependencyBuilder setArtifactId(final String artifactId)
-   {
-      dep.setArtifactId(artifactId);
-      return this;
-   }
+   /**
+    * Get the {@link ScopeType} of this {@link Dependency}
+    */
+   ScopeType getScopeType();
 
-   public DependencyBuilder setVersion(final String version)
-   {
-      dep.setVersion(version);
-      return this;
-   }
-
-   public Dependency build()
-   {
-      return dep.clone();
-   }
-
+   List<Dependency> getExcludedDependencies();
 }

@@ -27,6 +27,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
@@ -47,6 +50,8 @@ import org.jboss.seam.forge.project.util.Packages;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Dependent
+@Named("forge.maven.JavaSourceFacet")
 @RequiresFacets({ MavenCoreFacet.class })
 public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 {

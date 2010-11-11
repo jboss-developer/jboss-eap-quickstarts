@@ -21,11 +21,15 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 
@@ -33,6 +37,8 @@ import org.jboss.seam.forge.project.facets.PackagingFacet;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@Dependent
+@Named("forge.maven.PackagingFacet")
 @RequiresFacets({ MavenCoreFacet.class })
 public class MavenPackagingFacet implements PackagingFacet, Facet
 {
@@ -70,8 +76,15 @@ public class MavenPackagingFacet implements PackagingFacet, Facet
    @Override
    public boolean isInstalled()
    {
-      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
-      return mavenFacet != null;
+      try
+      {
+         project.getFacet(MavenCoreFacet.class);
+         return true;
+      }
+      catch (FacetNotFoundException e)
+      {
+         return false;
+      }
    }
 
    @Override

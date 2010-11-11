@@ -21,43 +21,41 @@
  */
 package org.jboss.seam.forge.project.facets;
 
-import org.apache.maven.model.Model;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuildingResult;
+import java.util.List;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 
 /**
- * Provides *DIRECT* access to a Project's Maven POM and Build artifacts. Should
- * only be used by extremely low-level operations.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface MavenCoreFacet extends Facet
+public interface DependencyFacet extends Facet
 {
    /**
-    * Get the current Maven POM file.
+    * Return true if this {@link Project} contains a dependency matching the
+    * given {@link Dependency}; return false otherwise. See also:
+    * {@link DependencyBuilder}.
     */
-   public Model getPOM();
+   public boolean hasDependency(Dependency dependency);
 
    /**
-    * Set the current Maven POM file (overwriting any existing POM)
+    * Add the given {@link Dependency} to this facet's {@link Project}. See
+    * also: {@link DependencyBuilder}.
     */
-   public void setPOM(Model pom);
+   public void addDependency(Dependency dependency);
 
    /**
-    * Ask Maven to process this project's POM and return the resulting metadata.
-    * <p>
-    * <b>**Warning!**</b> Calling this method has serious performance
-    * implications! Avoid whenever possible!
+    * Remove the given {@link Dependency} from this facet's {@link Project}. See
+    * also: {@link DependencyBuilder}.
     */
-   public ProjectBuildingResult getProjectBuildingResult();
+   public void removeDependency(Dependency dependency);
 
    /**
-    * Return the fully-resolved POM/{@link MavenProject} for this Maven enabled
-    * {@link Project}
+    * Return a list of all current {@link Dependencies} contained within this
+    * project.
     */
-   public MavenProject getMavenProject();
-
+   public List<Dependency> getDependencies();
 }

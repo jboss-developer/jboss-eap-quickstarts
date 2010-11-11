@@ -20,56 +20,55 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project.facets.builtin;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.facets.MetadataFacet;
+package org.jboss.seam.forge.project.dependencies;
 
 /**
+ * Represents the various dependency scopes.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Dependent
-@Named("forge.maven.MetadataFacet")
-@RequiresFacets({ MavenCoreFacet.class })
-public class MavenMetadataFacet implements MetadataFacet
+public enum ScopeType
 {
-   private Project project;
+   COMPILE("compile"),
+   PROVIDED("provided"),
+   RUNTIME("runtime"),
+   TEST("test"),
+   SYSTEM("system"),
+   IMPORT("import"),
+   OTHER("");
 
-   @Override
-   public String getProjectName()
+   private String scope;
+
+   private ScopeType(String scope)
    {
-      return project.getFacet(MavenCoreFacet.class).getPOM().getArtifactId();
+      this.scope = scope;
    }
 
-   @Override
-   public Project getProject()
+   public String getScope()
    {
-      return project;
+      return scope;
    }
 
-   @Override
-   public void setProject(Project project)
+   public static ScopeType getScopeType(String scope)
    {
-      this.project = project;
-   }
+      ScopeType result = null;
 
-   @Override
-   public Facet install()
-   {
-      project.registerFacet(this);
-      return this;
-   }
+      if (scope != null)
+      {
+         for (ScopeType type : ScopeType.values())
+         {
+            if (type.getScope().equalsIgnoreCase(scope.trim()))
+            {
+               result = type;
+            }
+         }
 
-   @Override
-   public boolean isInstalled()
-   {
-      return project.hasFacet(MavenCoreFacet.class);
+         if (result == null)
+         {
+            result = ScopeType.OTHER;
+         }
+      }
+      return result;
    }
 }

@@ -22,7 +22,10 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -30,6 +33,7 @@ import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,11 +45,17 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
 {
+   @Inject
+   private Shell shell;
+
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") String... path)
    {
-      System.out.println("LSing a Java File");
+      for (String file : path)
+      {
+         shell.print(ShellColor.GREEN, "Ls'ing a .java file: " + file);
+      }
    }
 }
