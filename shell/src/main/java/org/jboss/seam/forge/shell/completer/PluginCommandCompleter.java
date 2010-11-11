@@ -321,24 +321,26 @@ public class PluginCommandCompleter implements CommandCompleter
          }
          else
          {
-            if (valueMap.containsKey(option))
+            if (valueMap.isEmpty() || valueMap.containsKey(option))
             {
-
                if (isResourceAssignable(option))
                {
-                   // Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
-                   // strings in an array.
-                  String[] values = valueMap.get(option) instanceof String
-                        ? new String[]{(String) valueMap.get(option)}
-                        : (String[]) valueMap.get(option);
+                  String[] values;
+
+                  if (valueMap.isEmpty())
+                  {
+                     values = new String[]{""};
+                  }
+                  else if (valueMap.get(option) instanceof String[])
+                  {
+                     values = (String[]) valueMap.get(option);
+                  }
+                  else
+                  {
+                     values = new String[]{String.valueOf(valueMap.get(option))};
+                  }
 
                   String val = values[values.length - 1];
-
-                  if (val.trim().length() == 0)
-                  {
-                     // Empty parameter. Go no further.
-                     break;
-                  }
 
                   for (Resource<?> r :
                         new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
@@ -353,6 +355,10 @@ public class PluginCommandCompleter implements CommandCompleter
                   // set the value ahead by 1.
                   index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
                }
+            }
+            else
+            {
+               System.out.println("Fail...");
             }
 
             if (!valueMap.containsKey(option) && option.isRequired())

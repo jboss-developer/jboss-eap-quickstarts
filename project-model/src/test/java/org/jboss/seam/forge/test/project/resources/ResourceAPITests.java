@@ -44,4 +44,18 @@ public class ResourceAPITests extends ProjectModelTest
 
       Assert.assertEquals(expect, r.iterator().next());
    }
+
+   @Test
+   public void testWildCards()
+   {
+
+      DirectoryResource r = new DirectoryResource(factory, new File("").getAbsoluteFile());
+
+      for (Resource<?> res : ResourceUtil.parsePathspec(factory, r, "*"))
+      {
+         System.out.println(res);
+      }
+
+   }
+
 }
