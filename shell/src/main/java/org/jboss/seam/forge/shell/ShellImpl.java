@@ -121,6 +121,8 @@ public class ShellImpl implements Shell
    private InputStream inputStream;
    private Writer outputWriter;
 
+   private boolean colorEnabled = Boolean.getBoolean("seam.forge.shell.colorEnabled");
+
    private final ConversionHandler resourceConversionHandler = new ConversionHandler()
    {
       @Override
@@ -442,6 +444,8 @@ public class ShellImpl implements Shell
    @Override
    public String renderColor(final ShellColor color, final String output)
    {
+      if (!colorEnabled) return output;
+
       Ansi ansi = new Ansi();
 
       switch (color)

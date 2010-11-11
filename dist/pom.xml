@@ -60,6 +60,7 @@
             </executions>
             <configuration>
                <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
+               <commandlineArgs>-Dseam.forge.shell.colorEnabled=true</commandlineArgs>
             </configuration>
          </plugin>
       </plugins>
