@@ -356,10 +356,6 @@ public class PluginCommandCompleter implements CommandCompleter
                   index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
                }
             }
-            else
-            {
-               System.out.println("Fail...");
-            }
 
             if (!valueMap.containsKey(option) && option.isRequired())
             {
