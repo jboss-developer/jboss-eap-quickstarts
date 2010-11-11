@@ -322,13 +322,12 @@ public class PluginCommandCompleter implements CommandCompleter
          {
             if (valueMap.containsKey(option))
             {
-               /**
-                * Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
-                * strings in an array.
-                */
 
                if (isResourceAssignable(option))
                {
+
+                   // Commands may arrive as an array or a single string.  Check for that here, and wrap any stand-alone
+                   // strings in an array.
                   String[] values = valueMap.get(option) instanceof String
                         ? new String[]{(String) valueMap.get(option)}
                         : (String[]) valueMap.get(option);
@@ -346,7 +345,9 @@ public class PluginCommandCompleter implements CommandCompleter
                      results.add(r.toString());
                   }
 
-                  index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
+                  // Record the current index point in the buffer. If we're at the seperator char
+                  // set the value ahead by 1.
+                  index -= val.length() + (lastNest != -1 ? lastNest + 1 : 0);
                }
             }
 
@@ -415,7 +416,8 @@ public class PluginCommandCompleter implements CommandCompleter
       return false;
    }
 
-   private boolean isResourceAssignable(OptionMetadata option) {
+   private boolean isResourceAssignable(OptionMetadata option)
+   {
       return Resource[].class.isAssignableFrom(option.getBoxedType()) || Resource.class.isAssignableFrom(option.getBoxedType());
    }
 }
