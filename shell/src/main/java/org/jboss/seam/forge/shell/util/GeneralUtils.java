@@ -22,15 +22,20 @@
 
 package org.jboss.seam.forge.shell.util;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
-
-import java.io.File;
-import java.text.Format;
-import java.util.*;
 
 public class GeneralUtils
 {
@@ -82,8 +87,8 @@ public class GeneralUtils
          this.columns = columns;
       }
 
-      private int columnSize;
-      private int columns;
+      private final int columnSize;
+      private final int columns;
    }
 
    public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
@@ -127,7 +132,6 @@ public class GeneralUtils
    {
       printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), null, sort);
    }
-
 
    public static void printOutColumns(List<String> rawList, Shell shell, FormatCallback callback, boolean sort)
    {
@@ -246,7 +250,6 @@ public class GeneralUtils
       }
       return new String(padding);
    }
-
 
    public static Resource<?>[] parseSystemPathspec(ResourceFactory resourceFactory, Resource<?> lastResource,
                                                    Resource<?> currentResource, String[] paths)

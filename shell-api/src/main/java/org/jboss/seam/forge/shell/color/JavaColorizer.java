@@ -25,8 +25,6 @@ package org.jboss.seam.forge.shell.color;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
@@ -41,10 +39,7 @@ public class JavaColorizer
    public static final ShellColor CLR_KEYWORD = ShellColor.BLUE;
    public static final ShellColor CLR_COMMENT = ShellColor.CYAN;
 
-   @Inject
-   private Shell shell;
-
-   public String format(String in)
+   public static String format(Shell shell, String in)
    {
       StringBuilder output = new StringBuilder("");
 
@@ -58,7 +53,7 @@ public class JavaColorizer
          {
             if (capture)
             {
-               doCapture(arr, output, start, cursor);
+               doCapture(shell, arr, output, start, cursor);
                capture = false;
             }
 
@@ -122,7 +117,7 @@ public class JavaColorizer
          {
             if (capture)
             {
-               doCapture(arr, output, start, cursor);
+               doCapture(shell, arr, output, start, cursor);
                capture = false;
             }
             output.append(arr[cursor]);
@@ -134,12 +129,12 @@ public class JavaColorizer
 
    }
 
-   private String getHTMLizedString(char[] arr, int start, int length)
+   private static String getHTMLizedString(char[] arr, int start, int length)
    {
       return new String(arr, start, length);
    }
 
-   private void doCapture(char[] arr, StringBuilder output, int start, int cursor)
+   private static void doCapture(Shell shell, char[] arr, StringBuilder output, int start, int cursor)
    {
       String tk = new String(arr, start, cursor - start).trim();
       if (LITERALS.contains(tk))
@@ -190,7 +185,7 @@ public class JavaColorizer
       LITERALS.add("null");
    }
 
-   private int balancedCapture(char[] chars, int start, char type)
+   private static int balancedCapture(char[] chars, int start, char type)
    {
       int depth = 1;
       char term = type;
@@ -269,7 +264,7 @@ public class JavaColorizer
       return start;
    }
 
-   private int captureStringLiteral(final char type, final char[] expr, int cursor, int length)
+   private static int captureStringLiteral(final char type, final char[] expr, int cursor, int length)
    {
       while ((++cursor < length) && (expr[cursor] != type))
       {
