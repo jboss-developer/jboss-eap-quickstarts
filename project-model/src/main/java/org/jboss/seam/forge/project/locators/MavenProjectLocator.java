@@ -23,8 +23,11 @@ package org.jboss.seam.forge.project.locators;
 
 import java.io.File;
 
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
 import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 
@@ -40,6 +43,14 @@ import org.jboss.seam.forge.project.model.ProjectImpl;
  */
 public class MavenProjectLocator implements ProjectLocator
 {
+   private final MavenContainer container;
+
+   @Inject
+   public MavenProjectLocator(MavenContainer container)
+   {
+      this.container = container;
+   }
+
    @Override
    public Project createProject(final File directory)
    {
@@ -49,7 +60,7 @@ public class MavenProjectLocator implements ProjectLocator
       if (pom.exists())
       {
          result = new ProjectImpl(directory.getAbsoluteFile());
-         Facet facet = new MavenCoreFacetImpl();
+         Facet facet = new MavenCoreFacetImpl(container);
          facet.setProject(result);
          result.registerFacet(facet);
       }

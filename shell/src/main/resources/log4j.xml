@@ -38,7 +38,11 @@
     <!-- ############### Weld logging ################### -->
 
     <category name="org.jboss">
-        <priority value="INFO"/>
+        <priority value="FATAL"/>
+    </category>
+    
+    <category name="org.jboss.weld">
+        <priority value="FATAL"/>
     </category>
 
     <category name="org.apache">

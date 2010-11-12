@@ -25,33 +25,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
-import org.apache.maven.artifact.repository.MavenArtifactRepository;
-import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
-import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
-import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.project.ProjectBuildingResult;
-import org.codehaus.plexus.DefaultPlexusContainer;
-import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
-import org.sonatype.aether.util.DefaultRepositorySystemSession;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -60,64 +49,15 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
 @Named("forge.maven.MavenCoreFacet")
 public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 {
-   private ProjectBuildingRequest request;
-   private DefaultPlexusContainer container = null;
-   private ProjectBuilder builder = null;
 
    private Project project;
    private ProjectBuildingResult buildingResult;
+   private final MavenContainer container;
 
-   private void bootstrapMaven()
+   @Inject
+   public MavenCoreFacetImpl(MavenContainer container)
    {
-      if (!initialized())
-      {
-         try
-         {
-            if (!isInstalled())
-            {
-               throw new ProjectModelException("No POM file found at [" + getPOMFile().getAbsolutePath() + "]");
-            }
-
-            container = new DefaultPlexusContainer();
-            ConsoleLoggerManager loggerManager = new ConsoleLoggerManager();
-            loggerManager.setThreshold("ERROR");
-            container.setLoggerManager(loggerManager);
-
-            builder = container.lookup(ProjectBuilder.class);
-
-            // TODO this needs to be configurable via the project/.forge //
-            // file.
-            String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
-
-            request = new DefaultProjectBuildingRequest();
-            request.setLocalRepository(new MavenArtifactRepository(
-                     "local", new File(localRepository).toURI().toURL().toString(),
-                     container.lookup(ArtifactRepositoryLayout.class),
-                     new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                              ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
-                     new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                              ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
-            request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
-
-            DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
-            repositorySession.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepository));
-            repositorySession.setOffline(true);
-
-            request.setRepositorySession(repositorySession);
-            request.setProcessPlugins(true);
-            request.setResolveDependencies(true);
-         }
-         catch (Exception e)
-         {
-            throw new ProjectModelException(
-                     "Could not initialize maven project located in: " + project.getProjectRoot(), e);
-         }
-      }
-   }
-
-   private boolean initialized()
-   {
-      return request != null;
+      this.container = container;
    }
 
    /*
@@ -127,12 +67,11 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    public ProjectBuildingResult getProjectBuildingResult()
    {
       // FIXME This method is SLOW: about 2-5 seconds/call (needs optimization!)
-      bootstrapMaven();
       try
       {
          if (this.buildingResult == null)
          {
-            buildingResult = builder.build(getPOMFile(), request);
+            buildingResult = container.getBuilder().build(getPOMFile(), container.getRequest());
          }
          return buildingResult;
       }
@@ -215,11 +154,6 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       return file;
    }
 
-   private File getUserHomeDir()
-   {
-      return new File(System.getProperty("user.home")).getAbsoluteFile();
-   }
-
    @Override
    public Project getProject()
    {
@@ -242,7 +176,6 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    public Facet install()
    {
       createPOM();
-      bootstrapMaven();
       project.registerFacet(this);
       return this;
    }

@@ -45,11 +45,6 @@
          <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
-            <version>1.1</version>
-         </plugin>
-         <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
             <version>1.1.1</version>
             <executions>
                <execution>
@@ -59,7 +54,10 @@
                </execution>
             </executions>
             <configuration>
-               <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
+               <!-- 
+			   <mainClass>org.jboss.weld.environment.se.StartMain</mainClass> 
+			   -->
+               <mainClass>org.jboss.seam.forge.shell.Bootstrap</mainClass>
                <commandlineArgs>-Dseam.forge.shell.colorEnabled=true</commandlineArgs>
             </configuration>
          </plugin>
