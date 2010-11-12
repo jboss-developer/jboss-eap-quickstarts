@@ -25,13 +25,10 @@ package org.jboss.seam.forge.shell.completer;
 import java.io.File;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import jline.console.completer.StringsCompleter;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -343,7 +340,7 @@ public class PluginCommandCompleter implements CommandCompleter
                   String val = values[values.length - 1];
 
                   for (Resource<?> r :
-                        new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").parse())
+                        new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").resolve())
                   {
                      // Add result to the results list, and append a '/' if the resource has children.
                      results.add(r.getName() + (r.isFlagSet(ResourceFlag.Node) ? "/" : ""));

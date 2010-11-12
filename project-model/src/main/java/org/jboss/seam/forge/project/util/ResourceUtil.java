@@ -23,11 +23,9 @@
 package org.jboss.seam.forge.project.util;
 
 import java.io.File;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
@@ -74,7 +72,7 @@ public class ResourceUtil
    public static List<Resource<?>> parsePathspec(final ResourceFactory factory, final Resource<?> resource,
                                                  final String pathspec)
    {
-      return new PathspecParser(factory, resource, pathspec).parse();
+      return new PathspecParser(factory, resource, pathspec).resolve();
    }
 
    public static boolean isChildOf(final Resource<?> parent, final Resource<?> isChild)

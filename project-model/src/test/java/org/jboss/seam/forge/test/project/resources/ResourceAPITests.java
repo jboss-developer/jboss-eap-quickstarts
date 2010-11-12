@@ -12,6 +12,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Test;
@@ -55,7 +56,17 @@ public class ResourceAPITests extends ProjectModelTest
       {
          System.out.println(res);
       }
+   }
 
+   @Test
+   public void testDeepSearch() {
+      DirectoryResource root = new DirectoryResource(factory, new File("").getAbsoluteFile());
+      List<Resource<?>> results =  new PathspecParser(factory, root,"BaseEvent.java").search();
+
+      for (Resource<?> r : results)
+      {
+         System.out.println(r);
+      }
    }
 
 }

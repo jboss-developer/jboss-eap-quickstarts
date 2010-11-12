@@ -59,7 +59,7 @@ public class PathspecParser
       this.cursor = cursor;
    }
 
-   public List<Resource<?>> parse()
+   public List<Resource<?>> resolve()
    {
       Resource<?> r = res;
       String tk;
@@ -122,7 +122,7 @@ public class PathspecParser
                {
                   for (Resource<?> child : res)
                   {
-                     results.addAll(new PathspecParser(factory, child, path, cursor).parse());
+                     results.addAll(new PathspecParser(factory, child, path, cursor).resolve());
                   }
                }
                else
@@ -158,6 +158,52 @@ public class PathspecParser
       }
 
       return singleResult(r);
+   }
+
+
+   public List<Resource<?>> search()
+   {
+      return match(path.split(String.valueOf(File.separatorChar)), 0, res, new LinkedList<Resource<?>>());
+   }
+
+   private static List<Resource<?>> match(String[] matchLevels,
+                                          int nestStart,
+                                          Resource<?> res,
+                                          List<Resource<?>> candidates)
+   {
+      Pattern matchPattern = Pattern.compile(pathspecToRegEx(matchLevels[nestStart]));
+
+      if (matchPattern.matcher(res.getName()).matches())
+      {
+         if (nestStart < matchLevels.length && res.isFlagSet(ResourceFlag.Node))
+         {
+            return match(matchLevels, nestStart + 1, res, candidates);
+         }
+         else
+         {
+            candidates.add(res);
+            return candidates;
+         }
+      }
+
+      /**
+       * Check to see if this type of node can have children, or if we're exhausted the nest match depth.
+       * Otherwise, bail.
+       */
+      if (!res.isFlagSet(ResourceFlag.Node) || nestStart == matchLevels.length)
+      {
+         return candidates;
+      }
+
+      /**
+       * Let's iterate the child nodes.
+       */
+      for (Resource<?> r : res.listResources())
+      {
+         match(matchLevels, nestStart, r, candidates);
+      }
+
+      return candidates;
    }
 
    private static List<Resource<?>> singleResult(Resource<?> item)

@@ -22,11 +22,9 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.util.List;
-
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
-
 import jline.console.completer.Completer;
+
+import java.util.List;
 
 /**
  * Adapts the shell's {@link CommandCompleter} to JLine's {@link Completer}
@@ -52,5 +50,4 @@ public class CommandCompleterAdaptor implements Completer, CommandCompleter
       }
       return -1;
    }
-
 }

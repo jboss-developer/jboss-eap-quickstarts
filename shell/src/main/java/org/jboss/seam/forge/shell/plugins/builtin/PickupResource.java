@@ -24,6 +24,7 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
@@ -32,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.io.File;
+import java.util.List;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -53,8 +55,38 @@ public class PickupResource implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option final Resource<?> resource)
+   public void run(@Option(required = false) Resource<?> resource,
+                   @Option(required = false, name = "find", shortName = "f") final String path)
    {
+
+      if (path != null)
+      {
+         PathspecParser pathspecParser = new PathspecParser(resourceFactory, shell.getCurrentResource(), path);
+         List<Resource<?>> targets = pathspecParser.search();
+
+         if (targets.isEmpty())
+         {
+            shell.println("No such resource");
+         }
+         else if (targets.size() > 1)
+         {
+            shell.println("Multiple targets");
+            shell.println("----------------");
+
+            int offset = shell.getCurrentResource().getFullyQualifiedName().length();
+
+            for (Resource<?> r : targets)
+            {
+               shell.println(" --> ." + r.getFullyQualifiedName().substring(offset));
+            }
+            return;
+         }
+         else
+         {  resource = targets.get(0);
+
+         }
+      }
+
       shell.setCurrentResource(resource);
 
       if (shell.getCurrentResource() == null)
