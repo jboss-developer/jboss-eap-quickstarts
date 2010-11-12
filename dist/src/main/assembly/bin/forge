@@ -142,7 +142,8 @@ if [ -z "$JAVA_HOME" ] ; then
   echo "Warning: JAVA_HOME environment variable is not set."
 fi
 
-FORGE_MAIN_CLASS=org.jboss.weld.environment.se.StartMain
+FORGE_MAIN_CLASS=org.jboss.seam.forge.shell.Bootstrap
+#FORGE_MAIN_CLASS=org.jboss.weld.environment.se.StartMain
 
 # For Cygwin, switch paths to Windows format before running java
 if $cygwin; then
