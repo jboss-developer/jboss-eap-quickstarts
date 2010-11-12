@@ -43,7 +43,6 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.project.CurrentProject;
 import org.jboss.seam.forge.shell.util.Files;
 
 /**
@@ -56,9 +55,6 @@ public class NewProjectPlugin implements Plugin
 {
    @Inject
    private Shell shell;
-
-   @Inject
-   private CurrentProject cp;
 
    @Inject
    private ProjectFactory projectFactory;
@@ -156,8 +152,7 @@ public class NewProjectPlugin implements Plugin
       /*
        * Only change the environment after success!
        */
-      cp.setCurrentProject(project);
-
+      shell.setCurrentResource(project.getProjectRoot());
       shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
    }
 }

@@ -22,6 +22,8 @@
 
 package org.jboss.seam.forge.shell.project;
 
+import java.io.File;
+
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Default;
@@ -32,7 +34,6 @@ import javax.inject.Singleton;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
@@ -64,14 +65,24 @@ public class CurrentProject
 
    public void setCurrentProject(final Project project)
    {
-      if (((this.currentProject != null)
-               && (project != null)
-               && !this.currentProject.getProjectRoot().equals(project.getProjectRoot()))
-               || ((this.currentProject == null) && (project != null)))
+      if ((project != null) && (currentProject != null))
       {
-         this.currentResource.setCurrent(factory.getResourceFrom(project.getProjectRoot()));
+         File currentRoot = currentProject.getProjectRoot();
+         File newRoot = project.getProjectRoot();
+         if (!currentRoot.equals(newRoot))
+         {
+            changeProject(currentProject, project);
+         }
       }
+      else if (((project != null) && (currentProject == null))
+            || ((project == null) && (currentProject != null)))
+      {
+         changeProject(currentProject, project);
+      }
+   }
 
+   private void changeProject(Project currentProject, Project project)
+   {
       ProjectChange event = new ProjectChange(currentProject, project);
       this.currentProject = project;
       projectChanged.fire(event);
@@ -80,18 +91,20 @@ public class CurrentProject
    public void setCurrentResource(final Resource<?> resource)
    {
       this.currentResource.setCurrent(resource);
-      if (currentProject != null)
-      {
-         Resource<?> projectRoot = factory.getResourceFrom(currentProject.getProjectRoot());
-         if (!projectRoot.equals(resource) && !ResourceUtil.isChildOf(projectRoot, resource))
-         {
-            init.fire(new InitProject());
-         }
-      }
-      else
-      {
-         init.fire(new InitProject());
-      }
+      // if (currentProject != null)
+      // {
+      // Resource<?> projectRoot =
+      // factory.getResourceFrom(currentProject.getProjectRoot());
+      // if (!projectRoot.equals(resource) &&
+      // !ResourceUtil.isChildOf(projectRoot, resource))
+      // {
+      // init.fire(new InitProject());
+      // }
+      // }
+      // else
+      // {
+      init.fire(new InitProject());
+      // }
    }
 
    public Resource<?> getCurrentResource()

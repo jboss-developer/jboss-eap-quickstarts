@@ -22,10 +22,21 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Member;
+import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.Parameter;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.color.JavaColorizer;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -33,6 +44,7 @@ import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
@@ -51,11 +63,70 @@ public class LsJavaPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") String... path)
+                   @Option(description = "path", defaultValue = ".") String... path) throws FileNotFoundException
    {
-      for (String file : path)
+
+      Resource<?> currentResource = shell.getCurrentResource();
+      JavaClass javaClass = null;
+
+      if (currentResource instanceof JavaResource)
       {
-         shell.print(ShellColor.GREEN, "Ls'ing a .java file: " + file);
+         JavaResource javaSource = (JavaResource) currentResource;
+         javaClass = javaSource.getJavaClass();
+
+         for (String p : path)
+         {
+            if (!".".equals(p))
+            {
+               List<Member<?>> members = javaClass.getMembers();
+               for (Member<?> member : members)
+               {
+                  if (p.equals(member.getName()))
+                  {
+                     shell.println(JavaColorizer.format(shell, member.toString()));
+                  }
+               }
+            }
+            else
+            {
+               List<String> output = new ArrayList<String>();
+
+               shell.println(ShellColor.RED, "[fields]");
+               List<Field> fields = javaClass.getFields();
+
+               for (Field field : fields)
+               {
+                  String entry = shell.renderColor(ShellColor.BLUE, field.getVisibility().scope());
+                  entry += shell.renderColor(ShellColor.GREEN, " " + field.getType() + "");
+                  entry += " " + field.getName() + ";";
+                  output.add(entry);
+               }
+               GeneralUtils.printOutColumns(output, shell, true);
+               shell.println();
+
+               // rinse and repeat for methods
+               output = new ArrayList<String>();
+               List<Method> methods = javaClass.getMethods();
+               shell.println(ShellColor.RED, "[methods]");
+               for (Method method : methods)
+               {
+                  String entry = shell.renderColor(ShellColor.BLUE, method.getVisibility().scope());
+                  String parameterString = "(";
+
+                  for (Parameter param : method.getParameters())
+                  {
+                     parameterString += param.toString();
+                  }
+                  parameterString += ")";
+
+                  entry += " : " + method.getName() + parameterString;
+                  entry += shell.renderColor(ShellColor.GREEN, " : " + method.getReturnType() + "");
+                  output.add(entry);
+               }
+               GeneralUtils.printOutColumns(output, shell, true);
+               shell.println();
+            }
+         }
       }
    }
 }

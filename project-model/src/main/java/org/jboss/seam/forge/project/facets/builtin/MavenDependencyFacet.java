@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.project.facets.builtin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -112,6 +113,23 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
    }
 
    @Override
+   public boolean hasDirectDependency(Dependency dependency)
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+      List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(pom.getDependencies());
+
+      for (Dependency dep : dependencies)
+      {
+         if (areEquivalent(dependency, dep))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   @Override
    public void removeDependency(final Dependency dep)
    {
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
@@ -137,7 +155,7 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
       Model pom = maven.getPOM();
       List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(pom.getDependencies());
-      return dependencies;
+      return Collections.unmodifiableList(dependencies);
    }
 
    @SuppressWarnings("unchecked")

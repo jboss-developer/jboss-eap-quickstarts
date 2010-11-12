@@ -22,7 +22,6 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.enterprise.event.Event;
@@ -34,7 +33,6 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -95,8 +93,6 @@ public class ChangeDirectoryPlugin implements Plugin
          {
             this.lastResource = curr;
          }
-
-         init.fire(new InitProject());
       }
    }
 }

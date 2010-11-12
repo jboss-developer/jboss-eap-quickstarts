@@ -27,7 +27,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ContextNotActiveException;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
@@ -41,7 +40,6 @@ import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@RequestScoped
 public class ProjectScopedContext implements Context
 {
    private final static String COMPONENT_MAP_NAME = ProjectScopedContext.class.getName() + ".componentInstanceMap";
@@ -90,6 +88,7 @@ public class ProjectScopedContext implements Context
    /*
     * Context Methods
     */
+   @Override
    @SuppressWarnings("unchecked")
    public <T> T get(final Contextual<T> component)
    {
@@ -97,6 +96,7 @@ public class ProjectScopedContext implements Context
       return (T) getComponentInstanceMap().get(component);
    }
 
+   @Override
    @SuppressWarnings("unchecked")
    public <T> T get(final Contextual<T> component, final CreationalContext<T> creationalContext)
    {
@@ -128,11 +128,13 @@ public class ProjectScopedContext implements Context
       return instance;
    }
 
+   @Override
    public boolean isActive()
    {
       return context != null;
    }
 
+   @Override
    public Class<? extends Annotation> getScope()
    {
       return ProjectScoped.class;

@@ -48,8 +48,10 @@ import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.SyntaxError;
+import org.jboss.seam.forge.parser.java.Visibility;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
@@ -425,6 +427,17 @@ public class JavaClassImpl implements JavaClass
       return this;
    }
 
+   @Override
+   public List<Member<?>> getMembers()
+   {
+      List<Member<?>> result = new ArrayList<Member<?>>();
+
+      result.addAll(getFields());
+      result.addAll(getMethods());
+
+      return result;
+   }
+
    private TypeDeclaration getTypeDeclaration()
    {
       TypeDeclarationFinderVisitor typeDeclarationFinder = new TypeDeclarationFinderVisitor();
@@ -565,6 +578,18 @@ public class JavaClassImpl implements JavaClass
       modifiers.clearVisibility(getTypeDeclaration());
       modifiers.addModifier(getTypeDeclaration(), ModifierKeyword.PROTECTED_KEYWORD);
       return this;
+   }
+
+   @Override
+   public Visibility getVisibility()
+   {
+      return Visibility.getFrom(this);
+   }
+
+   @Override
+   public JavaClass setVisibility(Visibility scope)
+   {
+      return Visibility.set(this, scope);
    }
 
    /*

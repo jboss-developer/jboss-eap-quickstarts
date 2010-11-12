@@ -38,6 +38,7 @@ import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
+import org.jboss.seam.forge.parser.java.Visibility;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 
@@ -380,6 +381,18 @@ public class MethodImpl implements Method
       modifiers.clearVisibility(method);
       modifiers.addModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
       return this;
+   }
+
+   @Override
+   public Visibility getVisibility()
+   {
+      return Visibility.getFrom(this);
+   }
+
+   @Override
+   public Method setVisibility(Visibility scope)
+   {
+      return Visibility.set(this, scope);
    }
 
    /*

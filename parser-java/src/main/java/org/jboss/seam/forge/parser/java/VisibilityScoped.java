@@ -28,19 +28,23 @@ package org.jboss.seam.forge.parser.java;
  */
 public interface VisibilityScoped<T>
 {
-   public abstract boolean isPackagePrivate();
+   boolean isPackagePrivate();
 
-   public abstract T setPackagePrivate();
+   T setPackagePrivate();
 
-   public abstract boolean isPublic();
+   boolean isPublic();
 
-   public abstract T setPublic();
+   T setPublic();
 
-   public abstract boolean isPrivate();
+   boolean isPrivate();
 
-   public abstract T setPrivate();
+   T setPrivate();
 
-   public abstract boolean isProtected();
+   boolean isProtected();
 
-   public abstract T setProtected();
+   T setProtected();
+
+   Visibility getVisibility();
+
+   T setVisibility(Visibility scope);
 }
