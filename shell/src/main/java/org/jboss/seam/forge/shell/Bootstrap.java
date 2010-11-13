@@ -73,6 +73,7 @@ public class Bootstrap
       }
    }
 
+   @Deprecated
    public void observeStartup(@Observes final ContainerInitialized event)
    {
       manager.fireEvent(new Startup());
