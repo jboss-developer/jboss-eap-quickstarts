@@ -131,18 +131,18 @@ public class ShellImpl implements Shell
    {
       @Override
       @SuppressWarnings("rawtypes")
-      public Resource[] convertFrom(Object o)
+      public Resource[] convertFrom(final Object o)
       {
          return GeneralUtils.parseSystemPathspec(
-               resourceFactory,
-               lastResource,
-               getCurrentResource(),
-               o instanceof String[] ? (String[]) o : new String[] { o.toString() });
+                  resourceFactory,
+                  lastResource,
+                  getCurrentResource(),
+                  o instanceof String[] ? (String[]) o : new String[] { o.toString() });
       }
 
       @SuppressWarnings("rawtypes")
       @Override
-      public boolean canConvertFrom(Class aClass)
+      public boolean canConvertFrom(final Class aClass)
       {
          return true;
       }
@@ -161,7 +161,7 @@ public class ShellImpl implements Shell
 
       {
          @Override
-         public Object convertFrom(Object o)
+         public Object convertFrom(final Object o)
          {
             Resource<?>[] res = (Resource<?>[]) resourceConversionHandler.convertFrom(o);
             if (res.length > 1)
@@ -180,7 +180,7 @@ public class ShellImpl implements Shell
 
          @SuppressWarnings("rawtypes")
          @Override
-         public boolean canConvertFrom(Class aClass)
+         public boolean canConvertFrom(final Class aClass)
          {
             return resourceConversionHandler.canConvertFrom(aClass);
          }
@@ -452,7 +452,10 @@ public class ShellImpl implements Shell
    @Override
    public String renderColor(final ShellColor color, final String output)
    {
-      if (!colorEnabled) return output;
+      if (!colorEnabled)
+      {
+         return output;
+      }
 
       Ansi ansi = new Ansi();
 
@@ -571,15 +574,20 @@ public class ShellImpl implements Shell
    @Override
    public String getPrompt()
    {
-      String suffix = "[no project]";
+      String prefix = "[" + renderColor(ShellColor.RED, "no project") + "]";
+
       if (projectContext.getCurrent() != null)
       {
          Project currentProject = projectContext.getCurrent();
          String projectName = currentProject.getFacet(MetadataFacet.class).getProjectName();
-         suffix = "[" + projectName + "]";
+         prefix = "[" + renderColor(ShellColor.GREEN, projectName) + "]";
       }
+
       String path = getCurrentResource().toString();
-      return suffix + " " + path + " $ ";
+      String prompt = prefix + " " + path +
+               renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
+
+      return prompt;
    }
 
    @Override
@@ -846,7 +854,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;

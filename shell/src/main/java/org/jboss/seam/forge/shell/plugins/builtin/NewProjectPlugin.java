@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -62,26 +63,28 @@ public class NewProjectPlugin implements Plugin
    @SuppressWarnings("unchecked")
    @DefaultCommand
    public void create(
-         @Option(name = "named",
-               description = "The name of the new project",
-               required = true) final String name,
-         @Option(name = "topLevelPackage",
-               description = "The top level package for your Java source files [e.g: \"com.example.project\"] ",
-               required = true,
-               type = PromptType.JAVA_PACKAGE) String groupId,
-         @Option(name = "projectFolder",
-               description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
-               required = false) File projectFolder
-         ) throws IOException
+            @Option(name = "named",
+                     description = "The name of the new project",
+                     required = true) final String name,
+            @Option(name = "topLevelPackage",
+                     description = "The top level package for your Java source files [e.g: \"com.example.project\"] ",
+                     required = true,
+                     type = PromptType.JAVA_PACKAGE) final String groupId,
+            @Option(name = "projectFolder",
+                     description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
+                     required = false) final File projectFolder
+            ) throws IOException
    {
       File cwd = shell.getCurrentDirectory();
 
       File dir = new File(cwd.getAbsolutePath() + File.separator + name);
-      if (projectFactory.containsProject(dir) || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
+      if (projectFactory.containsProject(dir)
+               || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
       {
          if (projectFactory.containsProject(dir))
          {
-            shell.println("***ERROR*** [" + dir.getAbsolutePath() + "] already contains a project; please use a different folder.");
+            shell.println("***ERROR*** [" + dir.getAbsolutePath()
+                     + "] already contains a project; please use a different folder.");
          }
 
          File defaultDir;
@@ -109,7 +112,9 @@ public class NewProjectPlugin implements Plugin
             shell.println();
             if (!projectFactory.containsProject(cwd))
             {
-               newDir = shell.promptFile("Where would you like to create the project? [Press ENTER to use the current directory: " + cwd + "]", defaultDir);
+               newDir = shell.promptFile(
+                        "Where would you like to create the project? [Press ENTER to use the current directory: " + cwd
+                                 + "]", defaultDir);
             }
             else
             {
@@ -130,22 +135,29 @@ public class NewProjectPlugin implements Plugin
          dir.mkdirs();
       }
 
-      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, MetadataFacet.class, JavaSourceFacet.class, ResourceFacet.class);
-      Model pom = project.getFacet(MavenCoreFacet.class).getPOM();
+      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, MetadataFacet.class,
+               JavaSourceFacet.class, ResourceFacet.class);
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
       pom.setArtifactId(name);
       pom.setGroupId(groupId);
       pom.setPackaging("jar");
 
-      project.getFacet(MavenCoreFacet.class).setPOM(pom);
+      Repository jbossRepo = new Repository();
+      jbossRepo.setId("jboss");
+      jbossRepo.setUrl("https://repository.jboss.org/nexus/content/groups/public/");
+      pom.getRepositories().add(jbossRepo);
+
+      maven.setPOM(pom);
 
       project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
-            .createClass()
-            .setPackage(groupId)
-            .setName("HelloWorld")
-            .addMethod("public void String sayHello() {}")
-            .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
-                  + ".\");")
-            .getOrigin());
+               .createClass()
+               .setPackage(groupId)
+               .setName("HelloWorld")
+               .addMethod("public void String sayHello() {}")
+               .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
+                        + ".\");")
+               .getOrigin());
 
       project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 

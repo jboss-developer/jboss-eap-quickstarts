@@ -64,7 +64,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 public class PersistenceFacet implements Facet
 {
    private static final Dependency dep =
-         DependencyBuilder.create("hibernate-entitymanager:org.hibernate:3.4.0.GA:provided");
+            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided");
 
    private Project project;
 
@@ -104,7 +104,10 @@ public class PersistenceFacet implements Facet
       if (!isInstalled())
       {
          DependencyFacet deps = project.getFacet(DependencyFacet.class);
-         if (!deps.hasDependency(dep)) deps.addDependency(dep);
+         if (!deps.hasDependency(dep))
+         {
+            deps.addDependency(dep);
+         }
 
          File entityRoot = getEntityPackageFile();
          if (!entityRoot.exists())
@@ -189,15 +192,20 @@ public class PersistenceFacet implements Facet
       if (packageFile.exists())
       {
          for (File source : packageFile.listFiles(entityFileFilter))
+         {
             try
             {
                JavaClass javaClass = JavaParser.parse(source);
-               if (javaClass.hasAnnotation(Entity.class)) result.add(javaClass);
+               if (javaClass.hasAnnotation(Entity.class))
+               {
+                  result.add(javaClass);
+               }
             }
             catch (FileNotFoundException e)
             {
                // Meh, oh well.
             }
+         }
 
          for (File source : packageFile.listFiles(directoryFilter))
          {
