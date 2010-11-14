@@ -22,43 +22,13 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import com.sun.tools.javac.util.Log;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
-
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * @author Mike Brock .
  */
-public class LogicalStatement extends NestedNode
+public class ScriptNode extends LogicalStatement
 {
-   public LogicalStatement(Node nest)
+   public ScriptNode(Node nest)
    {
       super(nest);
    }
-
-   public Queue<String> getTokens(FSHRuntime runtime) {
-      Queue<String> newQueue = new LinkedList<String>();
-      Node n = nest;
-      do
-      {
-         if (n instanceof TokenNode)
-         {
-            newQueue.add(((TokenNode) n).getValue());
-         }
-         else if (n instanceof LogicalStatement)
-         {
-            Queue<String> nested = ((LogicalStatement) n).getTokens(runtime);
-
-
-         }
-         else {
-            throw new RuntimeException("uh-oh");
-         }
-      } while ((n = n.next) != null);
-
-      return newQueue;
-   }
-
 }

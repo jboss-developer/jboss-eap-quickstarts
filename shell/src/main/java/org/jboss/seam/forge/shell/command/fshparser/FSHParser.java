@@ -97,6 +97,7 @@ public class FSHParser
       Node d;
 
       boolean pipe = false;
+      boolean script = false;
 
       while ((d = nextNode()) != null)
       {
@@ -120,16 +121,22 @@ public class FSHParser
          }
          else if (tokenMatch(d, "|"))
          {
-
-           pipe = true;
-           break;
+            pipe = true;
+            break;
+         }
+         else if (!script && tokenIsOperator(d))
+         {
+            script = true;
          }
 
-         if (n != d ) n.setNext(n = d);
+         if (n != d)
+         {
+            n.setNext(n = d);
+         }
       }
 
 
-      LogicalStatement logicalStatement = new LogicalStatement(start);
+      LogicalStatement logicalStatement = script ? new ScriptNode(start) : new LogicalStatement(start);
 
       if (pipe)
       {
@@ -196,6 +203,11 @@ public class FSHParser
       {
          node.setNext(node = n);
       }
+   }
+
+   private static boolean tokenIsOperator(Node n)
+   {
+      return n instanceof TokenNode && Parse.isOperator(((TokenNode) n).getValue());
    }
 
    private static boolean tokenMatch(Node n, String text)

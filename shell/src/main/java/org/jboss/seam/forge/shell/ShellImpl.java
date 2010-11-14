@@ -151,12 +151,14 @@ public class ShellImpl implements Shell
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
       BooleanConverter booleanConverter = new BooleanConverter();
+
       addConversionHandler(boolean.class, booleanConverter);
       addConversionHandler(Boolean.class, booleanConverter);
       addConversionHandler(File.class, new FileConverter());
 
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
+
       {
          @Override
          public Object convertFrom(Object o)

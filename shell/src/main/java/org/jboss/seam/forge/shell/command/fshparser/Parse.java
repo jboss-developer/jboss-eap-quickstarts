@@ -31,6 +31,7 @@ import java.util.Set;
 public abstract class Parse
 {
    private static final Set<String> reservedWords = new HashSet<String>();
+   private static final Set<String> operators = new HashSet<String>();
 
    static
    {
@@ -39,6 +40,15 @@ public abstract class Parse
       reservedWords.add("for");
       reservedWords.add("new");
       reservedWords.add("do");
+
+      operators.add("+");
+      operators.add("-");
+      operators.add("/");
+      operators.add("*");
+      operators.add("%");
+      operators.add("&&");
+      operators.add("||");
+      operators.add("=");
    }
 
    public static boolean isReservedWord(String word)
@@ -57,6 +67,12 @@ public abstract class Parse
          return Character.isJavaIdentifierPart(c);
       }
    }
+
+   public static boolean isOperator(String str)
+   {
+      return operators.contains(str);
+   }
+
 
    public static String disassemble(Node n)
    {
