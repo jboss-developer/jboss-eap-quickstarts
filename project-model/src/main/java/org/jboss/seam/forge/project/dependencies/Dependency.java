@@ -24,6 +24,8 @@ package org.jboss.seam.forge.project.dependencies;
 
 import java.util.List;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 /**
  * Represents a project library dependency.
  * 
@@ -46,6 +48,11 @@ public interface Dependency
     * Get the version of this {@link Dependency}.
     */
    String getVersion();
+
+   /**
+    * Get the specified packaging type for the given artifact
+    */
+   PackagingType getPackagingType();
 
    /**
     * Get the {@link ScopeType} of this {@link Dependency}

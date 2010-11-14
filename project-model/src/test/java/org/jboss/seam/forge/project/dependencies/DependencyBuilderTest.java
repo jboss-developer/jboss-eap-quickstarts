@@ -23,7 +23,9 @@
 package org.jboss.seam.forge.project.dependencies;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
+import org.jboss.seam.forge.project.PackagingType;
 import org.junit.Test;
 
 /**
@@ -45,12 +47,13 @@ public class DependencyBuilderTest
    @Test
    public void testCreateWithPartialIdentifier() throws Exception
    {
-      DependencyBuilder dep = DependencyBuilder.create("org.jboss.seam.forge: seam-forge :9");
+      DependencyBuilder dep = DependencyBuilder.create("org.jboss.seam.forge: seam-forge :9 ::pom");
 
       assertEquals("org.jboss.seam.forge", dep.getGroupId());
       assertEquals("seam-forge", dep.getArtifactId());
       assertEquals("9", dep.getVersion());
-      assertEquals(null, dep.getScopeType());
+      assertNull(dep.getScopeType());
+      assertEquals(PackagingType.BASIC, dep.getPackagingType());
    }
 
    @Test

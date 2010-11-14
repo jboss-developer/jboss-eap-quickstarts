@@ -24,6 +24,8 @@ package org.jboss.seam.forge.project.dependencies;
 
 import java.util.List;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -33,12 +35,12 @@ public class ExcludedDependencyBuilder implements Dependency
    private final DependencyBuilder parent;
    private final DependencyImpl dep = new DependencyImpl();
 
-   protected ExcludedDependencyBuilder(DependencyBuilder parent)
+   protected ExcludedDependencyBuilder(final DependencyBuilder parent)
    {
       this.parent = parent;
    }
 
-   public static ExcludedDependencyBuilder create(DependencyBuilder parent)
+   public static ExcludedDependencyBuilder create(final DependencyBuilder parent)
    {
       return new ExcludedDependencyBuilder(parent);
    }
@@ -82,7 +84,7 @@ public class ExcludedDependencyBuilder implements Dependency
    @Override
    public ScopeType getScopeType()
    {
-      return null;
+      throw new IllegalStateException("Not implemented for Exclusions");
    }
 
    @Override
@@ -106,10 +108,16 @@ public class ExcludedDependencyBuilder implements Dependency
       return parent;
    }
 
-   public DependencyBuilder setScope(ScopeType scope)
+   public DependencyBuilder setScope(final ScopeType scope)
    {
       parent.setScopeType(scope);
       return parent;
+   }
+
+   @Override
+   public PackagingType getPackagingType()
+   {
+      throw new IllegalStateException("Not implemented for Exclusions");
    }
 
    @Override
@@ -122,7 +130,7 @@ public class ExcludedDependencyBuilder implements Dependency
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {

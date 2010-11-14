@@ -23,8 +23,11 @@
 package org.jboss.seam.forge.shell.completer;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -54,11 +57,11 @@ import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 public class PluginCommandCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
-         new NamedBooleanOptionParser(),
-         new NamedValueOptionParser(),
-         new NamedValueVarargsOptionParser(),
-         new OrderedValueOptionParser(),
-         new OrderedValueVarargsOptionParser());
+            new NamedBooleanOptionParser(),
+            new NamedValueOptionParser(),
+            new NamedValueVarargsOptionParser(),
+            new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser());
 
    @Inject
    private PluginRegistry registry;
@@ -263,7 +266,7 @@ public class PluginCommandCompleter implements CommandCompleter
                   }
                   else
                   {
-                     results.add("");
+                     // results.add("");
                   }
                }
                else
@@ -326,7 +329,7 @@ public class PluginCommandCompleter implements CommandCompleter
 
                   if (valueMap.isEmpty())
                   {
-                     values = new String[]{""};
+                     values = new String[] { "" };
                   }
                   else if (valueMap.get(option) instanceof String[])
                   {
@@ -334,13 +337,13 @@ public class PluginCommandCompleter implements CommandCompleter
                   }
                   else
                   {
-                     values = new String[]{String.valueOf(valueMap.get(option))};
+                     values = new String[] { String.valueOf(valueMap.get(option)) };
                   }
 
                   String val = values[values.length - 1];
 
-                  for (Resource<?> r :
-                        new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*").resolve())
+                  for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*")
+                           .resolve())
                   {
                      // Add result to the results list, and append a '/' if the resource has children.
                      results.add(r.getName() + (r.isFlagSet(ResourceFlag.Node) ? "/" : ""));
@@ -419,8 +422,9 @@ public class PluginCommandCompleter implements CommandCompleter
       return false;
    }
 
-   private boolean isResourceAssignable(OptionMetadata option)
+   private boolean isResourceAssignable(final OptionMetadata option)
    {
-      return Resource[].class.isAssignableFrom(option.getBoxedType()) || Resource.class.isAssignableFrom(option.getBoxedType());
+      return Resource[].class.isAssignableFrom(option.getBoxedType())
+               || Resource.class.isAssignableFrom(option.getBoxedType());
    }
 }

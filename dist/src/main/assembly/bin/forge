@@ -155,8 +155,6 @@ if $cygwin; then
     HOME=`cygpath --path --windows "$HOME"`
 fi
 
-forge_exec_cmd="\"$JAVACMD\" $FORGE_OPTS -classpath \"${FORGE_HOME}/lib/*\" \"-Dforge.home=${FORGE_HOME}\"  \"-Dseam.forge.shell.colorEnabled\" ${FORGE_MAIN_CLASS}"
-
-#echo $forge_exec_cmd
+forge_exec_cmd="\"$JAVACMD\" $FORGE_OPTS \"-Dforge.home=${FORGE_HOME}\"  \"-Dseam.forge.shell.colorEnabled=true\" -classpath \"${FORGE_HOME}/lib/*\" ${FORGE_MAIN_CLASS}"
 
 eval $forge_exec_cmd "$QUOTED_ARGS"

@@ -131,13 +131,13 @@ public class ShellImpl implements Shell
    {
       @Override
       @SuppressWarnings("rawtypes")
-      public Resource[] convertFrom(final Object o)
+      public Resource[] convertFrom(final Object obl)
       {
          return GeneralUtils.parseSystemPathspec(
                   resourceFactory,
                   lastResource,
                   getCurrentResource(),
-                  o instanceof String[] ? (String[]) o : new String[] { o.toString() });
+                  obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
       }
 
       @SuppressWarnings("rawtypes")
@@ -241,8 +241,10 @@ public class ShellImpl implements Shell
    {
       System.out.println("   ____                          _____                    ");
       System.out.println("  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ ");
-      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  \\\\");
-      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  //");
+      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  "
+               + renderColor(ShellColor.YELLOW, "\\\\"));
+      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  "
+               + renderColor(ShellColor.YELLOW, "//"));
       System.out.println("  |____/ \\___|\\__,_|_| |_| |_|  |_|  \\___/|_|  \\__, |\\___| ");
       System.out.println("                                                |___/      ");
       System.out.println("");

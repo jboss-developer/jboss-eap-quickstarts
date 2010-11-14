@@ -64,7 +64,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 public class PersistenceFacet implements Facet
 {
    private static final Dependency dep =
-            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided");
+            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
    private Project project;
 

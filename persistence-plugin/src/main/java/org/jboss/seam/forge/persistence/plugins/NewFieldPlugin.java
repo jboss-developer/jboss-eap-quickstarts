@@ -24,6 +24,7 @@ package org.jboss.seam.forge.persistence.plugins;
 import java.io.FileNotFoundException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +51,13 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -78,6 +85,13 @@ public class NewFieldPlugin implements Plugin
       this.entityInstance = entity;
    }
 
+   @DefaultCommand(help = "Add many custom field to an existing @Entity class")
+   public void newExpressionField(
+            @Option(required = true, description = "The field descriptor") final String... fields)
+   {
+      System.out.println(Arrays.asList(fields));
+   }
+
    @Command(value = "custom", help = "Add a custom field to an existing @Entity class")
    public void newCustomField(
             @Option(name = "fieldName",
@@ -88,7 +102,7 @@ public class NewFieldPlugin implements Plugin
                      required = true,
                      type = PromptType.JAVA_CLASS,
                      description = "The qualified Class to be used as this field's type") final String type
-           )
+            )
    {
       try
       {
@@ -435,10 +449,12 @@ public class NewFieldPlugin implements Plugin
 
    private JavaClass getJavaClass() throws FileNotFoundException
    {
-      if (shell.getCurrentResource() instanceof JavaResource) {
+      if (shell.getCurrentResource() instanceof JavaResource)
+      {
          return ((JavaResource) shell.getCurrentResource()).getJavaClass();
       }
-      else {
+      else
+      {
          throw new RuntimeException("current resource is not a JavaResource!");
       }
 

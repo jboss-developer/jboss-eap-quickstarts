@@ -23,10 +23,11 @@ package org.jboss.seam.forge.project.dependencies;
 
 import java.util.List;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 /**
- * Builder to create {@link Dependency} objects. This class implements
- * {@link Dependency} for easy consumption. (I.e.: Use this class wherever you
- * need to create and use a new {@link Dependency})
+ * Builder to create {@link Dependency} objects. This class implements {@link Dependency} for easy consumption. (I.e.:
+ * Use this class wherever you need to create and use a new {@link Dependency})
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -50,17 +51,35 @@ public class DependencyBuilder implements Dependency
    /**
     * @param identifier of the form "groupId:artifactId:version:scope
     */
-   public static DependencyBuilder create(String identifier)
+   public static DependencyBuilder create(final String identifier)
    {
       DependencyBuilder dependencyBuilder = new DependencyBuilder();
 
       if (identifier != null)
       {
          String[] split = identifier.split(":");
-         if (split.length > 0) dependencyBuilder.setGroupId(split[0].trim());
-         if (split.length > 1) dependencyBuilder.setArtifactId(split[1].trim());
-         if (split.length > 2) dependencyBuilder.setVersion(split[2].trim());
-         if (split.length > 3) dependencyBuilder.setScopeType(ScopeType.getScopeType(split[3].trim()));
+         if (split.length > 0)
+         {
+            dependencyBuilder.setGroupId(split[0].trim());
+         }
+         if (split.length > 1)
+         {
+            dependencyBuilder.setArtifactId(split[1].trim());
+         }
+         if (split.length > 2)
+         {
+            dependencyBuilder.setVersion(split[2].trim());
+         }
+         if (split.length > 3)
+         {
+            ScopeType scopeType = ScopeType.getScopeType(split[3].trim());
+            dependencyBuilder.setScopeType(scopeType == ScopeType.OTHER ? null : scopeType);
+         }
+         if (split.length > 4)
+         {
+            PackagingType packaging = PackagingType.from(split[4].trim());
+            dependencyBuilder.setPackagingType(packaging == PackagingType.OTHER ? null : packaging);
+         }
       }
 
       return dependencyBuilder;
@@ -84,7 +103,7 @@ public class DependencyBuilder implements Dependency
       return this;
    }
 
-   public DependencyBuilder setScopeType(ScopeType scope)
+   public DependencyBuilder setScopeType(final ScopeType scope)
    {
       dep.setScopeType(scope);
       return this;
@@ -125,11 +144,23 @@ public class DependencyBuilder implements Dependency
       return addExclusion(this);
    }
 
-   ExcludedDependencyBuilder addExclusion(DependencyBuilder parent)
+   ExcludedDependencyBuilder addExclusion(final DependencyBuilder parent)
    {
       ExcludedDependencyBuilder exclusion = ExcludedDependencyBuilder.create(parent);
       dep.getExcludedDependencies().add(exclusion);
       return exclusion;
+   }
+
+   @Override
+   public PackagingType getPackagingType()
+   {
+      return dep.getPackagingType();
+   }
+
+   public DependencyBuilder setPackagingType(final PackagingType type)
+   {
+      dep.setPackagingType(type);
+      return this;
    }
 
    @Override
@@ -142,17 +173,32 @@ public class DependencyBuilder implements Dependency
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
-      if (this == obj) return true;
-      if (obj == null) return false;
-      if (getClass() != obj.getClass()) return false;
+      if (this == obj)
+      {
+         return true;
+      }
+      if (obj == null)
+      {
+         return false;
+      }
+      if (getClass() != obj.getClass())
+      {
+         return false;
+      }
       DependencyBuilder other = (DependencyBuilder) obj;
       if (dep == null)
       {
-         if (other.dep != null) return false;
+         if (other.dep != null)
+         {
+            return false;
+         }
       }
-      else if (!dep.equals(other.dep)) return false;
+      else if (!dep.equals(other.dep))
+      {
+         return false;
+      }
       return true;
    }
 }
