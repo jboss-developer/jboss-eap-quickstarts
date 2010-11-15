@@ -326,9 +326,10 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(Set.class);
             otherEntity.addImport(HashSet.class);
             otherEntity.addImport(entity.getQualifiedName());
-            otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
-                              + "= new HashSet<" + entity.getName() + ">();")
-                     .addAnnotation(ManyToMany.class).setStringValue("mappedBy", fieldName);
+            Field otherField = otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
+                              + "= new HashSet<" + entity.getName() + ">();");
+            otherField.addAnnotation(ManyToMany.class).setStringValue("mappedBy", fieldName);
+            Refactory.createGetterAndSetter(otherEntity, otherField);
 
             java.saveJavaClass(otherEntity);
          }
