@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.mvel2.util.ParseTools;
 
 import static org.mvel2.util.ParseTools.balancedCapture;
@@ -60,27 +61,25 @@ public class FSHParser
          return null;
       }
 
-      try
+      skipWhitespace();
+      int start = cursor;
+      switch (expr[cursor])
       {
-         skipWhitespace();
-         int start = cursor;
-         switch (expr[cursor])
-         {
-         //literals
-         case '\'':
-         case '"':
-         case '(':
-            cursor = balancedCapture(expr, cursor, expr[cursor]);
-            return new FSHParser(new String(expr, ++start, cursor - start)).parse();
+      //literals
+      case '\'':
+      case '"':
+         cursor = balancedCapture(expr, cursor, expr[cursor]);
+         return new TokenNode(new String(expr, start, cursor++ - start + 1));
 
-         default:
-            return new TokenNode(captureToken());
-         }
+      case '(':
+         cursor = balancedCapture(expr, cursor, expr[cursor]);
+         return new FSHParser(new String(expr, ++start, cursor++ - start)).parse();
+      default:
+         String tk = captureToken();
+
+         return tk.startsWith("$") ? new ScriptNode(new TokenNode(tk)) : new TokenNode(tk);
       }
-      finally
-      {
-         cursor++;
-      }
+
    }
 
    private LogicalStatement captureLogicalStatement()
@@ -114,15 +113,18 @@ public class FSHParser
                start = n = nextNode();
                continue;
             }
+            cursor++;
 
             break;
          }
          else if (tokenMatch(d, "|"))
          {
             pipe = true;
+
+            cursor++;
             break;
          }
-         else if (!script && tokenIsOperator(d))
+         else if ((!script && tokenIsOperator(d)) || (d == start && (tokenIsReservedWorld(d) || tokenIsVarRef(d))))
          {
             script = true;
          }
@@ -133,8 +135,8 @@ public class FSHParser
          }
       }
 
-
-      LogicalStatement logicalStatement = script ? new ScriptNode(start) : new LogicalStatement(start);
+      LogicalStatement logicalStatement
+            = new LogicalStatement(script ? new ScriptNode(start) : start);
 
       if (pipe)
       {
@@ -203,6 +205,16 @@ public class FSHParser
       }
    }
 
+   private static boolean tokenIsVarRef(Node n)
+   {
+      return n instanceof TokenNode && ((TokenNode) n).getValue().startsWith("$");
+   }
+
+   private static boolean tokenIsReservedWorld(Node n)
+   {
+      return n instanceof TokenNode && Parse.isReservedWord(((TokenNode) n).getValue());
+   }
+
    private static boolean tokenIsOperator(Node n)
    {
       return n instanceof TokenNode && Parse.isOperator(((TokenNode) n).getValue());
@@ -215,10 +227,9 @@ public class FSHParser
 
    public static void main(String[] args)
    {
-      Node n = new FSHParser("this-command (1 + 1); abc * 3 | foo").parse();
+      Node n = new FSHParser("this-command (x = ''; for (count:100) x += count); abc * 3 | foo").parse();
 
 
-
-      System.out.println(Parse.disassemble(n));
+      System.out.println(n);
    }
 }

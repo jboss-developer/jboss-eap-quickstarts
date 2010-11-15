@@ -20,48 +20,20 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.command.fshparser;
+package org.jboss.seam.forge.shell.plugins;
 
-import com.sun.tools.javac.util.Log;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author Mike Brock .
  */
-public class LogicalStatement extends NestedNode
+@Target({ METHOD, PARAMETER })
+@Retention(RUNTIME)
+public @interface PipeIn
 {
-   public LogicalStatement(Node nest)
-   {
-      super(nest);
-   }
-
-   public Queue<String> getTokens(FSHRuntime runtime)
-   {
-      Queue<String> newQueue = new LinkedList<String>();
-      Node n = nest;
-      do
-      {
-         if (n instanceof TokenNode)
-         {
-            newQueue.add(((TokenNode) n).getValue());
-         }
-         else if (n instanceof LogicalStatement)
-         {
-            newQueue.add("(");
-            newQueue.addAll(((LogicalStatement) n).getTokens(runtime));
-            newQueue.add(")");
-         }
-         else
-         {
-            throw new RuntimeException("uh-oh");
-         }
-      }
-      while ((n = n.next) != null);
-
-      return newQueue;
-   }
-
 }

@@ -22,6 +22,8 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import org.mvel2.MVEL;
+
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
@@ -74,7 +76,6 @@ public abstract class Parse
       return operators.contains(str);
    }
 
-
    public static String disassemble(Node n)
    {
       if (n == null)
@@ -88,7 +89,7 @@ public abstract class Parse
       {
          if (n instanceof PipeNode)
          {
-             build.append('|')
+            build.append('|')
                   .append(disassemble(((NestedNode) n).getNest()));
          }
          else if (n instanceof NestedNode)
@@ -116,5 +117,11 @@ public abstract class Parse
          sb.append(s);
       }
       return sb.toString();
+   }
+
+   public static String executeScript(ScriptNode node, FSHRuntime runtime)
+   {
+      String toExec = queueToString(node.getTokens(runtime));
+      return MVEL.eval(toExec, runtime.getShell().getProperties(), String.class);
    }
 }

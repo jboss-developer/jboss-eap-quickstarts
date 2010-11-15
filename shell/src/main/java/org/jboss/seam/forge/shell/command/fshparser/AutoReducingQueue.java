@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import com.sun.tools.javac.util.Log;
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.jboss.seam.forge.shell.plugins.builtin.ScriptExecPlugin;
 import org.mvel2.MVEL;
@@ -103,17 +104,25 @@ public class AutoReducingQueue implements Queue<String>
    {
       if (currNode instanceof ScriptNode)
       {
-         String toExec = Parse.queueToString(((ScriptNode) currNode).getTokens(runtime));
-         reduceCache = MVEL.eval(toExec, runtime.getShell().getProperties(), String.class);
+         reduceCache = Parse.executeScript((ScriptNode) currNode, runtime);
       }
       else if (currNode instanceof TokenNode)
       {
          reduceCache = ((TokenNode) currNode).getValue();
       }
+      else if (currNode instanceof LogicalStatement)
+      {
+        for (String s : new AutoReducingQueue(((LogicalStatement) currNode).getNest(), runtime))
+        {
+           reduceCache = s;
+        }
+      }
       else
       {
          throw new RuntimeException("cannot reduce: " + currNode);
       }
+
+      if (reduceCache == null) reduceCache = "";
    }
 
    private void advance()

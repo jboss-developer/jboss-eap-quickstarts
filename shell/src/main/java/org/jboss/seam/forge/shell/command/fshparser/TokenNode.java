@@ -31,7 +31,14 @@ public class TokenNode extends Node
 
    public TokenNode(String value)
    {
-      this.value = value;
+      if (value.startsWith("$"))
+      {
+         this.value = value.substring(1);
+      }
+      else
+      {
+         this.value = value;
+      }
    }
 
    public String getValue()

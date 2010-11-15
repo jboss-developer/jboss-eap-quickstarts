@@ -27,6 +27,7 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
+import org.jboss.seam.forge.shell.plugins.builtin.ScriptExecPlugin;
 import org.mvel2.MVEL;
 
 import javax.enterprise.inject.Instance;
