@@ -22,9 +22,7 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.mvel2.util.ParseTools;
-import sun.org.mozilla.javascript.internal.Parser;
 
 import static org.mvel2.util.ParseTools.balancedCapture;
 
@@ -218,6 +216,8 @@ public class FSHParser
    public static void main(String[] args)
    {
       Node n = new FSHParser("this-command (1 + 1); abc * 3 | foo").parse();
+
+
 
       System.out.println(Parse.disassemble(n));
    }

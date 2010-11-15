@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.shell.command.fshparser;
 
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -105,5 +106,15 @@ public abstract class Parse
       while ((n = n.getNext()) != null);
 
       return build.toString();
+   }
+
+   public static String queueToString(Queue<String> tokens)
+   {
+      StringBuilder sb = new StringBuilder();
+      for (String s : tokens)
+      {
+         sb.append(s);
+      }
+      return sb.toString();
    }
 }

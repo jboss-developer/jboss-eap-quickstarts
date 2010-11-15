@@ -22,8 +22,10 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import com.sun.tools.javac.util.Log;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.Execution;
+import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.mvel2.MVEL;
 
@@ -41,32 +43,56 @@ public class FSHRuntime
    private final Shell shell;
    private final PluginRegistry pluginRegistry;
    private final Instance<Execution> executionInstance;
+   private final ExecutionParser executionParser;
 
    @Inject
-   public FSHRuntime(Shell shell, PluginRegistry pluginRegistry, Instance<Execution> executionInstance)
+   public FSHRuntime(Shell shell, PluginRegistry pluginRegistry,
+                     Instance<Execution> executionInstance,
+                     ExecutionParser executionParser)
    {
       this.shell = shell;
       this.pluginRegistry = pluginRegistry;
       this.executionInstance = executionInstance;
+      this.executionParser = executionParser;
+   }
+
+   public void run(final String str)
+   {
+      run(new FSHParser(str).parse());
    }
 
    public Object run(final Node startNode)
    {
+      Execution execution = executionInstance.get();
+      AutoReducingQueue arQueue = null;
+
       Node n = startNode;
+      do
+      {
+         if (n instanceof LogicalStatement)
+         {
+            arQueue = new AutoReducingQueue(((LogicalStatement) n).getNest(), this);
+         }
+         else if (n instanceof PipeNode)
+         {
+            System.out.print(" -pipe-> " + n);
+         }
+         else
+         {
+            throw new RuntimeException("badly formed stack:" + n);
+         }
+
+         for (String s : arQueue)
+         {
+            System.out.print(s);
+            System.out.print(" ");
+         }
+         System.out.println();
+      }
+      while ((n = n.next) != null);
 
 
       return null;
-   }
-
-
-   private static String queueToString(Queue<String> tokens)
-   {
-      StringBuilder sb = new StringBuilder();
-      for (String s : tokens)
-      {
-         sb.append(s);
-      }
-      return sb.toString();
    }
 
    public Shell getShell()
