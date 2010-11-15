@@ -66,7 +66,7 @@ public class ChangeDirectoryPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(description = "The new directory", defaultValue = "~") final Resource<?>[] dirs)
-         throws IOException
+            throws IOException
    {
       Resource<?> curr = shell.getCurrentResource();
       Resource<?> r = null;
@@ -75,9 +75,8 @@ public class ChangeDirectoryPlugin implements Plugin
       {
          if (!(dir instanceof DirectoryResource))
          {
-            throw new RuntimeException(dir + " is not a directory");
+            // throw new RuntimeException(dir + " is not a directory");
          }
-
          r = dir;
       }
 
@@ -85,7 +84,7 @@ public class ChangeDirectoryPlugin implements Plugin
       {
          if (!((FileResource) r).exists())
          {
-            throw new RuntimeException("no such directory: " + r.toString());
+            throw new RuntimeException("no such resource: " + r.toString());
          }
 
          shell.setCurrentResource(r);

@@ -116,6 +116,8 @@ public class PersistenceFacet implements Facet
             entityRoot.mkdirs();
          }
 
+         installUtils();
+
          File descriptor = getConfigFile();
          if (!descriptor.exists())
          {
@@ -136,6 +138,21 @@ public class PersistenceFacet implements Facet
       }
       project.registerFacet(this);
       return this;
+   }
+
+   private void installUtils()
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      JavaClass util = JavaParser.parse(loader.getResourceAsStream("templates/PersistenceUtil.java"));
+      JavaClass producer = JavaParser.parse(loader.getResourceAsStream("templates/DatasourceProducer.java"));
+
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      util.setPackage(java.getBasePackage() + ".persist");
+      producer.setPackage(java.getBasePackage() + ".persist");
+
+      java.saveJavaClass(producer);
+      java.saveJavaClass(util);
    }
 
    @Override

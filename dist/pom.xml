@@ -58,14 +58,44 @@
                </execution>
             </executions>
             <configuration>
-               <!-- 
-			   <mainClass>org.jboss.weld.environment.se.StartMain</mainClass> 
-			   -->
+               <!-- <mainClass>org.jboss.weld.environment.se.StartMain</mainClass> -->
                <mainClass>org.jboss.seam.forge.shell.Bootstrap</mainClass>
-               <commandlineArgs>-Dseam.forge.shell.colorEnabled=true</commandlineArgs>
+               <systemProperties>
+                  <systemProperty>
+                     <key>seam.forge.shell.colorEnabled</key>
+                     <value>true</value>
+                  </systemProperty>
+               </systemProperties>
             </configuration>
          </plugin>
       </plugins>
    </build>
+
+   <profiles>
+      <profile>
+         <id>colorDisabled</id>
+         <activation>
+            <property>
+               <name>colorDisabled</name>
+            </property>
+         </activation>
+         <build>
+         <plugins>
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>exec-maven-plugin</artifactId>
+               <configuration>
+                  <systemProperties>
+                     <systemProperty>
+                        <key>seam.forge.shell.colorEnabled</key>
+                        <value>false</value>
+                     </systemProperty>
+                  </systemProperties>
+               </configuration>
+            </plugin>
+         </plugins>
+         </build>
+      </profile>
+   </profiles>
 
 </project>
