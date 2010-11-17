@@ -33,6 +33,7 @@ import org.mvel2.MVEL;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -64,10 +65,10 @@ public class FSHRuntime
 
    public Object run(final Node startNode)
    {
-      Execution execution = executionInstance.get();
-      AutoReducingQueue arQueue = null;
-
+      AutoReducingQueue arQueue;
       Node n = startNode;
+
+      Outer:
       do
       {
          if (n instanceof LogicalStatement)
@@ -77,21 +78,30 @@ public class FSHRuntime
          else if (n instanceof PipeNode)
          {
             System.out.print(" -pipe-> " + n);
+            continue;
          }
          else
          {
             throw new RuntimeException("badly formed stack:" + n);
          }
 
+         Queue<String> outQueue = new LinkedList<String>();
          for (String s : arQueue)
          {
-            System.out.print(s);
-            System.out.print(" ");
+            if (s == null || s.equals(""))
+            {
+               continue;
+            }
+            outQueue.add(s);
          }
-         System.out.println();
+
+         if (!outQueue.isEmpty())
+         {
+            Execution execution = executionParser.parse(outQueue);
+            execution.perform();
+         }
       }
       while ((n = n.next) != null);
-
 
       return null;
    }

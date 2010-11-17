@@ -41,7 +41,10 @@ public class AutoReducingQueue implements Queue<String>
 
    private String reduceCache;
 
+   private boolean deferDispatch = false;
+
    private FSHRuntime runtime;
+
 
    public AutoReducingQueue(Node startNode, FSHRuntime runtime)
    {
@@ -64,13 +67,13 @@ public class AutoReducingQueue implements Queue<String>
    @Override
    public String remove()
    {
-      reduce();
-      advance();
-
-      if (reduceCache == null)
+      if (currNode == null)
       {
          throw new RuntimeException("empty queue");
       }
+
+      reduce();
+      advance();
 
       return reduceCache;
    }
@@ -105,6 +108,7 @@ public class AutoReducingQueue implements Queue<String>
       if (currNode instanceof ScriptNode)
       {
          reduceCache = Parse.executeScript((ScriptNode) currNode, runtime);
+         deferDispatch = true;
       }
       else if (currNode instanceof TokenNode)
       {
@@ -148,7 +152,7 @@ public class AutoReducingQueue implements Queue<String>
    @Override
    public boolean isEmpty()
    {
-      return false;
+      return currNode == null;
    }
 
    @Override
@@ -188,6 +192,8 @@ public class AutoReducingQueue implements Queue<String>
       };
    }
 
+
+
    @Override
    public Object[] toArray()
    {
@@ -205,6 +211,12 @@ public class AutoReducingQueue implements Queue<String>
    {
       return false;
    }
+
+   public boolean isDeferDispatch()
+   {
+      return deferDispatch;
+   }
+
 
    @Override
    public boolean containsAll(Collection<?> c)
@@ -234,6 +246,5 @@ public class AutoReducingQueue implements Queue<String>
    public void clear()
    {
       throw new RuntimeException("clear() not supported");
-
    }
 }

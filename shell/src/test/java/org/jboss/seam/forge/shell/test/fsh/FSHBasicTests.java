@@ -41,6 +41,6 @@ public class FSHBasicTests extends AbstractShellTest
 
    @Test
    public void testSimple() {
-       runtime.run("dir = '~'; ls $dir | sort");
+       runtime.run("dir = '~'; ls $dir");
    }
 }

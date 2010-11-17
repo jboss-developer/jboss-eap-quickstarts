@@ -70,10 +70,15 @@ public class ExecutionParser
 
    public Execution parse(final String line)
    {
-      Queue<String> tokens = tokenizer.tokenize(line);
+      return parse(tokenizer.tokenize(line));
+
+   }
+
+   public Execution parse(final Queue<String> tokens)
+   {
 
       Execution execution = executionInstance.get();
-      execution.setOriginalStatement(line);
+     // execution.setOriginalStatement(line);
       CommandMetadata command = null;
 
       if (!tokens.isEmpty())
@@ -107,12 +112,12 @@ public class ExecutionParser
                {
                   // noinspection unchecked
                   throw new PluginExecutionException(plugin, "command '"
-                           + command.getName()
-                           + "' is not usable in current scope ["
-                           + shell.getCurrentResource().getClass().getSimpleName()
-                           + "]"
-                           + " -- usable scopes: "
-                           + GeneralUtils.elementSetSimpleTypesToString((Set) command.getResourceScopes()));
+                        + command.getName()
+                        + "' is not usable in current scope ["
+                        + shell.getCurrentResource().getClass().getSimpleName()
+                        + "]"
+                        + " -- usable scopes: "
+                        + GeneralUtils.elementSetSimpleTypesToString((Set) command.getResourceScopes()));
                }
 
                execution.setCommand(command);
@@ -125,7 +130,7 @@ public class ExecutionParser
             else
             {
                throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                        + "], available commands: " + plugin.getCommands(shell));
+                     + "], available commands: " + plugin.getCommands(shell));
             }
          }
       }
@@ -136,8 +141,8 @@ public class ExecutionParser
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
       Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
 
