@@ -328,7 +328,7 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(entity.getQualifiedName());
             Field otherField = otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
                               + "= new HashSet<" + entity.getName() + ">();");
-            otherField.addAnnotation(ManyToMany.class).setStringValue("mappedBy", fieldName);
+            otherField.addAnnotation(ManyToMany.class);
             Refactory.createGetterAndSetter(otherEntity, otherField);
 
             java.saveJavaClass(otherEntity);
