@@ -63,7 +63,7 @@ public class LsJavaPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") String... path) throws FileNotFoundException
+                   @Option(description = "path", defaultValue = ".") final String... path) throws FileNotFoundException
    {
 
       Resource<?> currentResource = shell.getCurrentResource();
@@ -79,6 +79,10 @@ public class LsJavaPlugin implements Plugin
             if (!".".equals(p))
             {
                List<Member<?>> members = javaClass.getMembers();
+               if (members.size() > 0)
+               {
+                  shell.println();
+               }
                for (Member<?> member : members)
                {
                   if (p.equals(member.getName()))
@@ -91,6 +95,7 @@ public class LsJavaPlugin implements Plugin
             {
                List<String> output = new ArrayList<String>();
 
+               shell.println();
                shell.println(ShellColor.RED, "[fields]");
                List<Field> fields = javaClass.getFields();
 

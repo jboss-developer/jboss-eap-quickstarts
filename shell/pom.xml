@@ -52,6 +52,7 @@
       <dependency>
          <groupId>org.jboss.weld</groupId>
          <artifactId>weld-core</artifactId>
+         <scope>compile</scope>
       </dependency>
       <dependency>
          <groupId>org.jboss.weld</groupId>
@@ -65,16 +66,6 @@
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-jdk14</artifactId>
       </dependency>
-      <!-- 
-      <dependency>
-         <groupId>org.slf4j</groupId>
-         <artifactId>slf4j-log4j12</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>log4j</groupId>
-         <artifactId>log4j</artifactId>
-      </dependency>
-       -->
       <dependency>
          <groupId>org.sonatype.jline</groupId>
          <artifactId>jline</artifactId>
@@ -83,6 +74,40 @@
          <groupId>org.mvel</groupId>
          <artifactId>mvel2</artifactId>
          <version>2.0.18-RC5</version>
+      </dependency>
+
+      <!-- Test Deps -->
+
+      <dependency>
+         <groupId>org.jboss.arquillian</groupId>
+         <artifactId>arquillian-junit</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>javax.el</groupId>
+         <artifactId>el-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian.container</groupId>
+         <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.spec</groupId>
+         <artifactId>jboss-javaee-6.0</artifactId>
+         <scope>test</scope>
+         <type>pom</type>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.logging</groupId>
+         <artifactId>jboss-logging</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.cal10n</groupId>
+         <artifactId>cal10n-api</artifactId>
+         <scope>test</scope>
       </dependency>
    </dependencies>
 

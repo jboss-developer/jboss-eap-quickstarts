@@ -95,12 +95,14 @@ public class ExecutionParser
 
                if (command != null)
                {
-
                   tokens.remove();
                }
+               else if (plugin.hasDefaultCommand())
+               {
+                  command = plugin.getDefaultCommand();
+               }
             }
-
-            if (plugin.hasDefaultCommand())
+            else if (plugin.hasDefaultCommand())
             {
                command = plugin.getDefaultCommand();
             }

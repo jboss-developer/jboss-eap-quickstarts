@@ -19,45 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.persistence;
 
-package org.jboss.seam.forge.project.dependencies;
-
-import java.util.List;
-
-import org.jboss.seam.forge.project.PackagingType;
+import javax.ejb.Stateful;
+import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 /**
- * Represents a project library dependency.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Dependency
+@Stateful
+public class DatasourceProducer
 {
-   /**
-    * Get the minor-identifier for this {@link Dependency}.
-    */
-   String getArtifactId();
-
-   /**
-    * Get the major identifier for this {@link Dependency}.
-    */
-   String getGroupId();
-
-   /**
-    * Get the version of this {@link Dependency}.
-    */
-   String getVersion();
-
-   /**
-    * Get the specified packaging type for the given artifact
-    */
-   PackagingType getPackagingType();
-
-   /**
-    * Get the {@link ScopeType} of this {@link Dependency}
-    */
-   ScopeType getScopeType();
-
-   List<Dependency> getExcludedDependencies();
+   @Produces
+   @PersistenceContext(type = PersistenceContextType.EXTENDED)
+   private EntityManager manager;
 }

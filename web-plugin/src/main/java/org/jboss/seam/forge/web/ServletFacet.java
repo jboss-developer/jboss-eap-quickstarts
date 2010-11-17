@@ -25,17 +25,18 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Named;
 
-import org.apache.maven.model.Dependency;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
@@ -50,16 +51,15 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
  * 
  */
 @Named("servlet")
-@RequiresFacets({ WebResourceFacet.class })
+@RequiresFacets({ WebResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.WAR })
 public class ServletFacet implements Facet
 {
-   private Project project;
 
-   public List<Dependency> getMavenDependencies()
-   {
-      return Arrays.asList();
-   }
+   private static final Dependency dep =
+            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
+
+   private Project project;
 
    /*
     * Servlet Facet Methods
@@ -95,20 +95,20 @@ public class ServletFacet implements Facet
       return listChildrenRecursively(webRoot, new FileFilter()
       {
          @Override
-         public boolean accept(File file)
+         public boolean accept(final File file)
          {
             return true;
          }
       });
    }
 
-   public List<File> getResources(FileFilter filter)
+   public List<File> getResources(final FileFilter filter)
    {
       File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
       return listChildrenRecursively(webRoot, filter);
    }
 
-   private List<File> listChildrenRecursively(File current, FileFilter filter)
+   private List<File> listChildrenRecursively(final File current, final FileFilter filter)
    {
       List<File> result = new ArrayList<File>();
       File[] list = current.listFiles(filter);
@@ -145,7 +145,7 @@ public class ServletFacet implements Facet
    public boolean isInstalled()
    {
       File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return webRoot.exists() && getConfigFile().exists();
+      return webRoot.exists() && getConfigFile().exists() && project.getFacet(DependencyFacet.class).hasDependency(dep);
    }
 
    @Override
@@ -154,6 +154,8 @@ public class ServletFacet implements Facet
       if (!isInstalled())
       {
          String projectName = project.getFacet(MetadataFacet.class).getProjectName();
+
+         project.getFacet(DependencyFacet.class).addDependency(dep);
 
          File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
          if (!webRoot.exists())
@@ -166,9 +168,9 @@ public class ServletFacet implements Facet
          if (!descriptor.exists())
          {
             WebAppDescriptor unit = Descriptors.create(WebAppDescriptor.class)
-                  .displayName(projectName)
-                  .sessionTimeout(30)
-                  .welcomeFile("/index.html");
+                     .displayName(projectName)
+                     .sessionTimeout(30)
+                     .welcomeFile("/index.html");
 
             project.writeFile(unit.exportAsString(), descriptor);
          }

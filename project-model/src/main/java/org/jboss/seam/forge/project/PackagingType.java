@@ -81,16 +81,11 @@ public enum PackagingType
          type = type.trim();
          for (PackagingType p : values())
          {
-            if (p.getType().equals(type))
+            if (p.getType().equals(type) || p.name().equalsIgnoreCase(type))
             {
                result = p;
                break;
             }
-         }
-
-         if (OTHER.equals(result))
-         {
-            OTHER.setType(type);
          }
       }
       return result;

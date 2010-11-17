@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.model.Exclusion;
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -35,7 +36,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
 {
    private static final long serialVersionUID = -518791785675970540L;
 
-   public MavenDependencyAdapter(org.apache.maven.model.Dependency dep)
+   public MavenDependencyAdapter(final org.apache.maven.model.Dependency dep)
    {
       if (dep == null)
       {
@@ -54,7 +55,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       this.setVersion(clone.getVersion());
    }
 
-   public MavenDependencyAdapter(Dependency dep)
+   public MavenDependencyAdapter(final Dependency dep)
    {
       if (dep == null)
       {
@@ -64,7 +65,8 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       this.setArtifactId(dep.getArtifactId());
       this.setGroupId(dep.getGroupId());
       this.setVersion(dep.getVersion());
-      this.setScope(dep.getScopeType() == null ? "" : dep.getScopeType().getScope());
+      this.setScope(dep.getScopeType() == null ? null : dep.getScopeType().getScope());
+      this.setType(dep.getPackagingType() == null ? null : dep.getPackagingType().getType());
 
       for (Dependency exclusion : dep.getExcludedDependencies())
       {
@@ -78,7 +80,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    @Override
    public String getScope()
    {
-      return super.getScope() == null ? "" : super.getScope().toLowerCase().trim();
+      return super.getScope() == null ? null : super.getScope().toLowerCase().trim();
    }
 
    @Override
@@ -94,13 +96,14 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       List<Exclusion> exclusions = this.getExclusions();
       for (Exclusion exclusion : exclusions)
       {
-         Dependency dep = DependencyBuilder.create().setArtifactId(exclusion.getArtifactId()).setGroupId(exclusion.getGroupId());
+         Dependency dep = DependencyBuilder.create().setArtifactId(exclusion.getArtifactId())
+                  .setGroupId(exclusion.getGroupId());
          result.add(dep);
       }
       return result;
    }
 
-   public static List<Dependency> fromMavenList(List<org.apache.maven.model.Dependency> dependencies)
+   public static List<Dependency> fromMavenList(final List<org.apache.maven.model.Dependency> dependencies)
    {
       List<Dependency> result = new ArrayList<Dependency>();
 
@@ -112,7 +115,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       return result;
    }
 
-   public static List<org.apache.maven.model.Dependency> toMavenList(List<Dependency> dependencies)
+   public static List<org.apache.maven.model.Dependency> toMavenList(final List<Dependency> dependencies)
    {
       List<org.apache.maven.model.Dependency> result = new ArrayList<org.apache.maven.model.Dependency>();
 
@@ -124,7 +127,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       return result;
    }
 
-   public static List<org.apache.maven.model.Dependency> fromForgeList(List<Dependency> dependencies)
+   public static List<org.apache.maven.model.Dependency> fromForgeList(final List<Dependency> dependencies)
    {
       List<org.apache.maven.model.Dependency> result = new ArrayList<org.apache.maven.model.Dependency>();
 
@@ -136,7 +139,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       return result;
    }
 
-   public static List<Dependency> toForgeList(List<org.apache.maven.model.Dependency> dependencies)
+   public static List<Dependency> toForgeList(final List<org.apache.maven.model.Dependency> dependencies)
    {
       List<Dependency> result = new ArrayList<Dependency>();
 
@@ -148,4 +151,15 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       return result;
    }
 
+   @Override
+   public PackagingType getPackagingType()
+   {
+      return PackagingType.from(getType());
+   }
+
+   @Override
+   public String getType()
+   {
+      return super.getType() == null ? null : super.getType().toLowerCase().trim();
+   }
 }

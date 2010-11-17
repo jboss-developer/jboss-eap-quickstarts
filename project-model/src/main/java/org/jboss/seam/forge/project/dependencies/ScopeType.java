@@ -40,7 +40,7 @@ public enum ScopeType
 
    private String scope;
 
-   private ScopeType(String scope)
+   private ScopeType(final String scope)
    {
       this.scope = scope;
    }
@@ -50,7 +50,7 @@ public enum ScopeType
       return scope;
    }
 
-   public static ScopeType getScopeType(String scope)
+   public static ScopeType getScopeType(final String scope)
    {
       ScopeType result = null;
 
@@ -62,11 +62,6 @@ public enum ScopeType
             {
                result = type;
             }
-         }
-
-         if (result == null)
-         {
-            result = ScopeType.OTHER;
          }
       }
       return result;

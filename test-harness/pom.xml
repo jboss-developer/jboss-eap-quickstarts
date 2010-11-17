@@ -35,6 +35,12 @@
          <scope>compile</scope>
       </dependency>
          <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <scope>compile</scope>
+				<type>pom</type>
+         </dependency>
+         <dependency>
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
             <scope>compile</scope>

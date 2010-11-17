@@ -25,6 +25,7 @@ package org.jboss.seam.forge.project.dependencies;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.maven.model.Exclusion;
+import org.jboss.seam.forge.project.PackagingType;
 import org.junit.Test;
 
 /**
@@ -39,16 +40,17 @@ public class MavenDependencyAdapterTest
    public MavenDependencyAdapterTest()
    {
       dep = DependencyBuilder.create()
-            .setArtifactId("seam-forge")
-            .setGroupId("org.jboss.seam.forge")
-            .addExclusion()
+               .setArtifactId("seam-forge")
+               .setGroupId("org.jboss.seam.forge")
+               .addExclusion()
                .setArtifactId("sub-module")
                .setGroupId("org.jboss.seam.forge")
-            .addExclusion()
+               .addExclusion()
                .setArtifactId("sub-module-2")
                .setGroupId("org.jboss.seam.forge")
-            .setScope(ScopeType.COMPILE)
-            .setVersion("9");
+               .setScope(ScopeType.COMPILE)
+               .setVersion("9")
+               .setPackagingType(PackagingType.WAR);
 
       mvn = new org.apache.maven.model.Dependency();
       mvn.setArtifactId("seam-forge");

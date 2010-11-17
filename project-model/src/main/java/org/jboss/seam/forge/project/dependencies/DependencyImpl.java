@@ -25,9 +25,10 @@ package org.jboss.seam.forge.project.dependencies;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 /**
- * This class is internal; instead use {@link DependencyBuilder} for
- * {@link Dependency} creation & instantiation.
+ * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -38,6 +39,7 @@ public class DependencyImpl implements Dependency
    private String version;
    private String groupId;
    private String artifactId;
+   private PackagingType packagingType;
    private List<Dependency> excludedDependencies = new ArrayList<Dependency>();
 
    DependencyImpl()
@@ -68,22 +70,22 @@ public class DependencyImpl implements Dependency
       return scopeType;
    }
 
-   public void setScopeType(ScopeType scope)
+   public void setScopeType(final ScopeType scope)
    {
       this.scopeType = scope;
    }
 
-   public void setVersion(String version)
+   public void setVersion(final String version)
    {
       this.version = version;
    }
 
-   public void setGroupId(String groupId)
+   public void setGroupId(final String groupId)
    {
       this.groupId = groupId;
    }
 
-   public void setArtifactId(String artifactId)
+   public void setArtifactId(final String artifactId)
    {
       this.artifactId = artifactId;
    }
@@ -94,9 +96,19 @@ public class DependencyImpl implements Dependency
       return excludedDependencies;
    }
 
-   public void setExcludedDependencies(List<Dependency> excludedDependencies)
+   public void setExcludedDependencies(final List<Dependency> excludedDependencies)
    {
       this.excludedDependencies = excludedDependencies;
+   }
+
+   public PackagingType getPackagingType()
+   {
+      return packagingType;
+   }
+
+   public void setPackagingType(final PackagingType packagingType)
+   {
+      this.packagingType = packagingType;
    }
 
    @Override
@@ -106,13 +118,14 @@ public class DependencyImpl implements Dependency
       int result = 1;
       result = prime * result + ((artifactId == null) ? 0 : artifactId.hashCode());
       result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
+      result = prime * result + ((packagingType == null) ? 0 : packagingType.hashCode());
       result = prime * result + ((scopeType == null) ? 0 : scopeType.hashCode());
       result = prime * result + ((version == null) ? 0 : version.hashCode());
       return result;
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {
@@ -146,6 +159,10 @@ public class DependencyImpl implements Dependency
          }
       }
       else if (!groupId.equals(other.groupId))
+      {
+         return false;
+      }
+      if (packagingType != other.packagingType)
       {
          return false;
       }
