@@ -23,7 +23,11 @@ package org.jboss.seam.forge.project.facets.builtin;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import javax.enterprise.context.Dependent;
 
@@ -100,7 +104,8 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
    public boolean hasDependency(final Dependency dep)
    {
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
-      List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(maven.getProjectBuildingResult().getProject().getDependencies());
+      List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(maven.getProjectBuildingResult()
+               .getProject().getDependencies());
 
       for (Dependency dependency : dependencies)
       {
@@ -113,7 +118,7 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
    }
 
    @Override
-   public boolean hasDirectDependency(Dependency dependency)
+   public boolean hasDirectDependency(final Dependency dependency)
    {
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
       Model pom = maven.getPOM();
@@ -173,6 +178,51 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
          }
       }
       return result;
+   }
+
+   @Override
+   public Map<String, String> getProperties()
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+
+      Properties properties = pom.getProperties();
+      Map<String, String> result = new HashMap<String, String>();
+      for (Entry<Object, Object> o : properties.entrySet())
+      {
+         result.put((String) o.getKey(), (String) o.getValue());
+      }
+      return result;
+   }
+
+   @Override
+   public void setProperty(final String name, final String value)
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+
+      Properties properties = pom.getProperties();
+      properties.put(name, value);
+   }
+
+   @Override
+   public String getProperty(final String name)
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+
+      Properties properties = pom.getProperties();
+      return (String) properties.get(name);
+   }
+
+   @Override
+   public String removeProperty(final String name)
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+
+      Properties properties = pom.getProperties();
+      return (String) properties.remove(name);
    }
 
 }

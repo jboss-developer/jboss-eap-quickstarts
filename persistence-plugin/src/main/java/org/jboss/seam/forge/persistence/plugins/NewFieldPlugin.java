@@ -383,7 +383,7 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(entity.getQualifiedName());
             otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
                               + "= new HashSet<" + entity.getName() + ">();")
-                     .addAnnotation(ManyToOne.class).setStringValue("mappedBy", fieldName);
+                     .addAnnotation(ManyToOne.class);
 
             java.saveJavaClass(otherEntity);
          }
