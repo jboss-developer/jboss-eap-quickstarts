@@ -86,11 +86,27 @@ public interface DependencyFacet extends Facet
     */
    public List<Dependency> getDependencies();
 
+   /**
+    * Return a list of all build dependency properties.(Build properties such, as ${my.version}, can be used anywhere in
+    * a dependency, and will be expanded during building to their property value.)
+    */
    public Map<String, String> getProperties();
 
+   /**
+    * Set a build dependency property. (Build properties, such as ${my.version}, can be used anywhere in a dependency,
+    * and will be expanded during building to their property value.)
+    */
    public void setProperty(String name, String value);
 
+   /**
+    * Get a build property by name. (Build properties, such as ${my.version}, can be used anywhere in a dependency, and
+    * will be expanded during building to their property value.)
+    */
    public String getProperty(String name);
 
+   /**
+    * Remove a build property by name. (Build properties, such as ${my.version}, can be used anywhere in a dependency,
+    * and will be expanded during building to their property value.)
+    */
    public String removeProperty(String name);
 }
