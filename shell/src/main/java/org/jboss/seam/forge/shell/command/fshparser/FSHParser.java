@@ -22,11 +22,9 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
-import org.mvel2.util.ParseTools;
-import sun.org.mozilla.javascript.internal.Parser;
-
 import static org.mvel2.util.ParseTools.balancedCapture;
+
+import org.mvel2.util.ParseTools;
 
 /**
  * @author Mike Brock .
@@ -35,12 +33,12 @@ public class FSHParser
 {
    private char[] expr;
    private int cursor;
-   private int length;
+   private final int length;
 
    private Node firstNode;
    private Node node;
 
-   public FSHParser(String expr)
+   public FSHParser(final String expr)
    {
       this.length = (this.expr = expr.toCharArray()).length;
    }
@@ -68,7 +66,7 @@ public class FSHParser
          int start = cursor;
          switch (expr[cursor])
          {
-         //literals
+         // literals
          case '\'':
          case '"':
          case '(':
@@ -135,7 +133,6 @@ public class FSHParser
          }
       }
 
-
       LogicalStatement logicalStatement = script ? new ScriptNode(start) : new LogicalStatement(start);
 
       if (pipe)
@@ -158,12 +155,14 @@ public class FSHParser
 
       if (Parse.isTokenPart(expr[cursor]))
       {
-         while (cursor != length && Parse.isTokenPart(expr[cursor])) cursor++;
+         while ((cursor != length) && Parse.isTokenPart(expr[cursor]))
+         {
+            cursor++;
+         }
       }
       else
       {
-         Skip:
-         while (cursor != length)
+         Skip: while (cursor != length)
          {
             switch (expr[cursor])
             {
@@ -190,10 +189,13 @@ public class FSHParser
 
    private void skipWhitespace()
    {
-      while (cursor != length && ParseTools.isWhitespace(expr[cursor])) cursor++;
+      while ((cursor != length) && ParseTools.isWhitespace(expr[cursor]))
+      {
+         cursor++;
+      }
    }
 
-   private void addNode(Node n)
+   private void addNode(final Node n)
    {
       if (node == null)
       {
@@ -205,17 +207,17 @@ public class FSHParser
       }
    }
 
-   private static boolean tokenIsOperator(Node n)
+   private static boolean tokenIsOperator(final Node n)
    {
-      return n instanceof TokenNode && Parse.isOperator(((TokenNode) n).getValue());
+      return (n instanceof TokenNode) && Parse.isOperator(((TokenNode) n).getValue());
    }
 
-   private static boolean tokenMatch(Node n, String text)
+   private static boolean tokenMatch(final Node n, final String text)
    {
-      return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
+      return (n instanceof TokenNode) && ((TokenNode) n).getValue().equals(text);
    }
 
-   public static void main(String[] args)
+   public static void main(final String[] args)
    {
       Node n = new FSHParser("this-command (1 + 1); abc * 3 | foo").parse();
 
