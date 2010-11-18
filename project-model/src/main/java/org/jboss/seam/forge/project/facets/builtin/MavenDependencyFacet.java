@@ -203,6 +203,7 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
 
       Properties properties = pom.getProperties();
       properties.put(name, value);
+      maven.setPOM(pom);
    }
 
    @Override
@@ -212,6 +213,7 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
       Model pom = maven.getPOM();
 
       Properties properties = pom.getProperties();
+      maven.setPOM(pom);
       return (String) properties.get(name);
    }
 
@@ -222,7 +224,9 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
       Model pom = maven.getPOM();
 
       Properties properties = pom.getProperties();
-      return (String) properties.remove(name);
+      String result = (String) properties.remove(name);
+      maven.setPOM(pom);
+      return result;
    }
 
 }

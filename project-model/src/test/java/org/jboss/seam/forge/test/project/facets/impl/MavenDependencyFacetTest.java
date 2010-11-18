@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.test.project.facets.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -82,7 +83,7 @@ public class MavenDependencyFacetTest extends ProjectModelTest
    public void testAddDependency() throws Exception
    {
       Dependency dependency =
-            DependencyBuilder.create("org.jboss:test-dependency:1.0.0.Final");
+               DependencyBuilder.create("org.jboss:test-dependency:1.0.0.Final");
 
       Project project = getProject();
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -95,7 +96,7 @@ public class MavenDependencyFacetTest extends ProjectModelTest
    public void testRemoveDependency() throws Exception
    {
       Dependency dependency =
-            DependencyBuilder.create("org.jboss:test-dependency:1.0.1.Final");
+               DependencyBuilder.create("org.jboss:test-dependency:1.0.1.Final");
 
       Project project = getProject();
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -105,5 +106,17 @@ public class MavenDependencyFacetTest extends ProjectModelTest
       assertTrue(deps.hasDependency(dependency));
       deps.removeDependency(dependency);
       assertFalse(deps.hasDependency(dependency));
+   }
+
+   public void testAddProperty() throws Exception
+   {
+      String version = "1.0.2.Final";
+
+      Project project = getProject();
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+
+      deps.setProperty("version", version);
+
+      assertEquals(version, deps.getProperty("version"));
    }
 }
