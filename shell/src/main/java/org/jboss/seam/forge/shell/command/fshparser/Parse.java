@@ -115,13 +115,15 @@ public abstract class Parse
       for (String s : tokens)
       {
          sb.append(s);
+         sb.append(" ");
       }
       return sb.toString();
    }
 
    public static String executeScript(ScriptNode node, FSHRuntime runtime)
    {
-      String toExec = queueToString(node.getTokens(runtime));
+      String toExec = queueToString(new AutoReducingQueue(node.getNest(), runtime));
+      System.err.println("exec:" + toExec);
       return MVEL.eval(toExec, runtime.getShell().getProperties(), String.class);
    }
 }

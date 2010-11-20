@@ -63,6 +63,7 @@ public class FSHParser
 
       skipWhitespace();
       int start = cursor;
+
       switch (expr[cursor])
       {
       //literals
@@ -74,12 +75,11 @@ public class FSHParser
       case '(':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
          return new FSHParser(new String(expr, ++start, cursor++ - start)).parse();
+
       default:
          String tk = captureToken();
-
-         return tk.startsWith("$") ? new ScriptNode(new TokenNode(tk)) : new TokenNode(tk);
+         return tk.startsWith("$") ? new ScriptNode(new TokenNode(tk), false) : new TokenNode(tk);
       }
-
    }
 
    private LogicalStatement captureLogicalStatement()
@@ -93,8 +93,10 @@ public class FSHParser
       Node n = null;
       Node d;
 
+      int tokens = 0;
       boolean pipe = false;
       boolean script = false;
+      boolean nocommand = false;
 
       while ((d = nextNode()) != null)
       {
@@ -124,19 +126,29 @@ public class FSHParser
             cursor++;
             break;
          }
-         else if ((!script && tokenIsOperator(d)) || (d == start && (tokenIsReservedWorld(d) || tokenIsVarRef(d))))
+         else if (tokens == 0 && tokenMatch(d, "@"))
+         {
+            nocommand = true;
+            continue;
+         }
+         else if (!script && tokenIsOperator(d))
+         {
+            script = true;
+         }
+         else if (d == start && (tokenIsReservedWorld(d) || tokenIsVarRef(d)))
          {
             script = true;
          }
 
          if (n != d)
          {
+            tokens++;
             n.setNext(n = d);
          }
       }
 
       LogicalStatement logicalStatement
-            = new LogicalStatement(script ? new ScriptNode(start) : start);
+            = new LogicalStatement(script ? new ScriptNode(start, nocommand) : start);
 
       if (pipe)
       {
@@ -179,7 +191,6 @@ public class FSHParser
                {
                   break Skip;
                }
-
             }
             cursor++;
          }
@@ -220,16 +231,19 @@ public class FSHParser
       return n instanceof TokenNode && Parse.isOperator(((TokenNode) n).getValue());
    }
 
-   private static boolean tokenMatch(Node n, String text)
+   public static boolean tokenMatch(Node n, String text)
    {
       return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
+   }
+
+   private static String getTokenString(Node n)
+   {
+      return n instanceof TokenNode ? ((TokenNode) n).getValue() : "";
    }
 
    public static void main(String[] args)
    {
       Node n = new FSHParser("this-command (x = ''; for (count:100) x += count); abc * 3 | foo").parse();
-
-
       System.out.println(n);
    }
 }

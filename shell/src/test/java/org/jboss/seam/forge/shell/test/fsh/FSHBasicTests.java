@@ -23,7 +23,9 @@
 package org.jboss.seam.forge.shell.test.fsh;
 
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.forge.shell.command.fshparser.FSHParser;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
+import org.jboss.seam.forge.shell.command.fshparser.Parse;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +43,13 @@ public class FSHBasicTests extends AbstractShellTest
 
    @Test
    public void testSimple() {
-       runtime.run("dir = '~'; ls $dir");
+       runtime.run("@dir = '/'; for (i=0;i<4;i++) ls -l $dir");
+   }
+
+   @Test
+   public void testParse() {
+      String s = Parse.disassemble(new FSHParser("for (i=0;i<4;i++) ls -l $dir").parse());
+
+      System.out.println(s);
    }
 }

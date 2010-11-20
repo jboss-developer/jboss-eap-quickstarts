@@ -27,8 +27,22 @@ package org.jboss.seam.forge.shell.command.fshparser;
  */
 public class ScriptNode extends LogicalStatement
 {
-   public ScriptNode(Node nest)
+   private boolean nocommand = false;
+   public ScriptNode(Node nest, boolean nocommand)
    {
       super(nest);
+
+      /**
+       * If the next node is just a value suppression operator, we discard it.
+       */
+      if ((this.nocommand = nocommand) || FSHParser.tokenMatch(nest, "@"))
+      {
+         super.nest = nest.next;
+      }
+   }
+
+   public boolean isNocommand()
+   {
+      return nocommand;
    }
 }

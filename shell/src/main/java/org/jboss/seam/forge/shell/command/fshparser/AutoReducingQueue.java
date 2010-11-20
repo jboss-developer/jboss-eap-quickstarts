@@ -108,6 +108,12 @@ public class AutoReducingQueue implements Queue<String>
       if (currNode instanceof ScriptNode)
       {
          reduceCache = Parse.executeScript((ScriptNode) currNode, runtime);
+
+         if (((ScriptNode) currNode).isNocommand())
+         {
+            reduceCache = "";
+         }
+
          deferDispatch = true;
       }
       else if (currNode instanceof TokenNode)
@@ -116,17 +122,20 @@ public class AutoReducingQueue implements Queue<String>
       }
       else if (currNode instanceof LogicalStatement)
       {
-        for (String s : new AutoReducingQueue(((LogicalStatement) currNode).getNest(), runtime))
-        {
-           reduceCache = s;
-        }
+         for (String s : new AutoReducingQueue(((LogicalStatement) currNode).getNest(), runtime))
+         {
+            reduceCache = s;
+         }
       }
       else
       {
          throw new RuntimeException("cannot reduce: " + currNode);
       }
 
-      if (reduceCache == null) reduceCache = "";
+      if (reduceCache == null)
+      {
+         reduceCache = "";
+      }
    }
 
    private void advance()
@@ -141,7 +150,6 @@ public class AutoReducingQueue implements Queue<String>
          currNode = null;
       }
    }
-
 
    @Override
    public int size()
@@ -191,7 +199,6 @@ public class AutoReducingQueue implements Queue<String>
          }
       };
    }
-
 
 
    @Override

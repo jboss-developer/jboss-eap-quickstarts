@@ -76,7 +76,6 @@ public class ExecutionParser
 
    public Execution parse(final Queue<String> tokens)
    {
-
       Execution execution = executionInstance.get();
      // execution.setOriginalStatement(line);
       CommandMetadata command = null;
@@ -84,6 +83,7 @@ public class ExecutionParser
       if (!tokens.isEmpty())
       {
          String first = tokens.remove();
+         execution.setOriginalStatement(first);
          PluginMetadata plugin = registry.getPluginMetadataForScopeAndConstraints(first, shell);
 
          if (plugin != null)
@@ -109,7 +109,6 @@ public class ExecutionParser
 
             if (command != null)
             {
-
                if (!command.usableWithResource(shell.getCurrentResource().getClass()))
                {
                   // noinspection unchecked
