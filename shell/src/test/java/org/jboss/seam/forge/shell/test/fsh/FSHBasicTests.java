@@ -43,12 +43,23 @@ public class FSHBasicTests extends AbstractShellTest
 
    @Test
    public void testSimple() {
-       runtime.run("@dir = '/'; for (i=0;i<4;i++) ls -l $dir");
+       runtime.run("@dir = '/'; for (i=0;i<4;i++) { ls -l $dir }");
    }
 
    @Test
+   public void testSimple2() {
+       runtime.run("if (true) { ls -l / } else { ls / }");
+   }
+
+   @Test
+   public void testSimple3() {
+       runtime.run("if (true) { ls -l (2 * 2) } else { ls / }");
+   }
+
+
+   @Test
    public void testParse() {
-      String s = Parse.disassemble(new FSHParser("for (i=0;i<4;i++) ls -l $dir").parse());
+      String s = Parse.disassemble(new FSHParser("for (i=0;i<4;i++) { ls -l $dir }").parse());
 
       System.out.println(s);
    }

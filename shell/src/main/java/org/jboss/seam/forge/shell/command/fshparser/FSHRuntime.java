@@ -103,6 +103,11 @@ public class FSHRuntime
       return null;
    }
 
+   public void shell(String command)
+   {
+      run(command);
+   }
+
    public Shell getShell()
    {
       return shell;

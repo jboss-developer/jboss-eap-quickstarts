@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.command.fshparser;
 import org.mvel2.util.ParseTools;
 
 import static org.mvel2.util.ParseTools.balancedCapture;
+import static org.mvel2.util.ParseTools.isWhitespace;
 
 /**
  * @author Mike Brock .
@@ -38,10 +39,19 @@ public class FSHParser
    private Node firstNode;
    private Node node;
 
+   private boolean nest = false;
+
    public FSHParser(String expr)
    {
       this.length = (this.expr = expr.toCharArray()).length;
    }
+
+   public FSHParser(String expr, boolean nest)
+   {
+      this.length = (this.expr = expr.toCharArray()).length;
+      this.nest = nest;
+   }
+
 
    public Node parse()
    {
@@ -73,12 +83,121 @@ public class FSHParser
 
       case '(':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
-         return new FSHParser(new String(expr, ++start, cursor++ - start)).parse();
+         return new FSHParser(new String(expr, ++start, cursor++ - start), true).parse();
 
       default:
          String tk = captureToken();
+
+         if (Parse.isReservedWord(tk))
+         {
+            boolean block = "for".equals(tk) || "if".equals(tk) || "while".equals(tk);
+
+            start = cursor;
+            SkipLoop:
+            while (cursor <= length)
+            {
+               switch (expr[cursor])
+               {
+               case '\'':
+               case '"':
+               case '(':
+                  cursor = balancedCapture(expr, cursor, expr[cursor]);
+
+                  if (block)
+                  {
+                     cursor++;
+                     while (cursor != length && Character.isWhitespace(expr[cursor])) cursor++;
+
+                     if (cursor != length)
+                     {
+                        do
+                        {
+                           boolean openBracket = expr[cursor] == '{';
+
+                           if (openBracket)
+                           {
+                              cursor++;
+                           }
+
+                           tk += new String(expr, start, cursor - start);
+                           tk += "shell(\"";
+
+                           start = cursor;
+
+                           if (openBracket)
+                           {
+                              cursor = balancedCapture(expr, cursor, '{');
+                           }
+                           else
+                           {
+                              while (cursor != length && expr[cursor] != ';') cursor++;
+                           }
+
+                           int offset = cursor != length && expr[cursor] == '}' ? -1 : 0;
+
+                           tk += new String(expr, start, cursor - start + offset)
+                                 .replace("\"", "\\\"") + "\") ";
+
+                           if (offset == -1)
+                           {
+                              tk += "}";
+                              cursor++;
+                           }
+
+                           start = cursor;
+                        }
+                        while (ifThenElseBlockContinues());
+
+                        return new ScriptNode(new TokenNode(tk), false);
+                     }
+                  }
+
+
+                  break;
+
+               case ';':
+                  break SkipLoop;
+               }
+
+               cursor++;
+            }
+
+            tk += new String(expr, start, cursor - start);
+         }
+
          return tk.startsWith("$") ? new ScriptNode(new TokenNode(tk), false) : new TokenNode(tk);
       }
+   }
+
+   protected boolean ifThenElseBlockContinues()
+   {
+      skipWhitespace();
+      if ((cursor + 4) < length)
+      {
+         if (expr[cursor] != ';')
+         {
+            cursor--;
+         }
+         skipWhitespace();
+
+         if (expr[cursor] == 'e' && expr[cursor + 1] == 'l' && expr[cursor + 2] == 's' && expr[cursor + 3] == 'e'
+               && (isWhitespace(expr[cursor + 4]) || expr[cursor + 4] == '{'))
+         {
+
+            cursor += 4;
+            skipWhitespace();
+
+            if ((cursor+1) < length && expr[cursor] == 'i' && expr[cursor+1] == 'f')
+            {
+               cursor += 2;
+            }
+
+            skipWhitespace();
+
+            return true;
+         }
+      }
+      return false;
    }
 
    private LogicalStatement captureLogicalStatement()
@@ -130,7 +249,7 @@ public class FSHParser
             nocommand = true;
             continue;
          }
-         else if (!script && tokenIsOperator(d))
+         else if (nest && !script && tokenIsOperator(d))
          {
             script = true;
          }
