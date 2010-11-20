@@ -178,7 +178,7 @@ public class ServletFacet implements Facet
          File welcomePage = new File(webRoot + File.separator + "index.html");
          project.writeFile("<html><head><title>Welcome to Seam Forge</title></head>" +
                      "<body>" +
-                     "<h1> [" + projectName + "] is Online</h2>" +
+                     "<h1> [" + projectName + "] is Online</h1>" +
                            "Powered by <a href=\"http://bit.ly/seamforge\">Seam Forge</a>" +
                      "</body>" +
                      "</html>", welcomePage);

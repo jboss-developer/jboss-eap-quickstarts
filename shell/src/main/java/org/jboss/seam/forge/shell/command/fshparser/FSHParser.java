@@ -22,7 +22,6 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.mvel2.util.ParseTools;
 
 import static org.mvel2.util.ParseTools.balancedCapture;
