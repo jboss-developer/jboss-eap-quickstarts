@@ -246,7 +246,7 @@ public class FSHParser
          }
          else if (tokens == 0 && tokenMatch(d, "@"))
          {
-            nocommand = true;
+            script = nocommand = true;
             continue;
          }
          else if (nest && !script && tokenIsOperator(d))
