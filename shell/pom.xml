@@ -130,6 +130,7 @@
                </execution>
             </executions>
             <configuration>
+	       <classpathScope>test</classpathScope>
                <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
             </configuration>
          </plugin>
