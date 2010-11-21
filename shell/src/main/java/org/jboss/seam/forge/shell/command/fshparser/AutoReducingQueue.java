@@ -122,10 +122,21 @@ public class AutoReducingQueue implements Queue<String>
       }
       else if (currNode instanceof LogicalStatement)
       {
-         for (String s : new AutoReducingQueue(((LogicalStatement) currNode).getNest(), runtime))
+         StringBuilder sb = new StringBuilder("(");
+
+         Iterator<String> iter = new AutoReducingQueue(((LogicalStatement) currNode).getNest(), runtime)
+               .iterator();
+
+         while (iter.hasNext())
          {
-            reduceCache = s;
+            sb.append(iter.next());
+            if (iter.hasNext())
+            {
+               sb.append(" ");
+            }
          }
+
+         reduceCache = sb.append(")").toString();
       }
       else
       {

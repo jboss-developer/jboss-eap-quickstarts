@@ -110,8 +110,14 @@ public class FSHParser
 
                      if (cursor != length)
                      {
+                        boolean first = true;
                         do
                         {
+//                           if (!first)
+//                           {
+//                              tk += new String(expr, start, cursor - start);
+//                           }
+
                            boolean openBracket = expr[cursor] == '{';
 
                            if (openBracket)
@@ -145,6 +151,8 @@ public class FSHParser
                            }
 
                            start = cursor;
+
+                           first = false;
                         }
                         while (ifThenElseBlockContinues());
 
@@ -187,9 +195,12 @@ public class FSHParser
             cursor += 4;
             skipWhitespace();
 
-            if ((cursor+1) < length && expr[cursor] == 'i' && expr[cursor+1] == 'f')
+            if ((cursor + 1) < length && expr[cursor] == 'i' && expr[cursor + 1] == 'f')
             {
                cursor += 2;
+
+               expectNext('(');
+               cursor = balancedCapture(expr, cursor, '(') + 1;
             }
 
             skipWhitespace();
@@ -331,6 +342,16 @@ public class FSHParser
       else
       {
          node.setNext(node = n);
+      }
+   }
+
+   private void expectNext(char c)
+   {
+      while (cursor != length && expr[cursor] != c) cursor++;
+
+      if (cursor == length || expr[cursor] != c)
+      {
+         throw new RuntimeException("expected '('");
       }
    }
 

@@ -26,10 +26,7 @@ import org.mvel2.MVEL;
 import org.mvel2.util.StringAppender;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Mike Brock .
@@ -67,6 +64,7 @@ public abstract class Parse
    {
       switch (c)
       {
+      case '.':
       case '-':
          return true;
       default:
@@ -115,22 +113,23 @@ public abstract class Parse
    public static String queueToString(Queue<String> tokens)
    {
       StringBuilder sb = new StringBuilder();
-      for (String s : tokens)
+
+      Iterator<String> iter = tokens.iterator();
+      while (iter.hasNext())
       {
-         sb.append(s);
-         sb.append(" ");
+         sb.append(iter.next());
+         if (iter.hasNext())
+         {
+            sb.append(" ");
+         }
       }
+
       return sb.toString();
    }
-
 
    public static String executeScript(ScriptNode node, final FSHRuntime runtime)
    {
       String toExec = queueToString(new AutoReducingQueue(node.getNest(), runtime));
-      String v = MVEL.eval(toExec, runtime, runtime.getShell().getProperties(), String.class);
-
-      System.out.println("<" + toExec + ">=" + v);
-
-      return v;
+      return MVEL.eval(toExec, runtime, runtime.getShell().getProperties(), String.class);
    }
 }
