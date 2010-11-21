@@ -26,6 +26,7 @@ import org.mvel2.util.ParseTools;
 
 import static org.mvel2.util.ParseTools.balancedCapture;
 import static org.mvel2.util.ParseTools.isWhitespace;
+import static org.mvel2.util.ParseTools.subset;
 
 /**
  * @author Mike Brock .
@@ -65,13 +66,15 @@ public class FSHParser
 
    private Node nextNode()
    {
+
+
+      skipWhitespace();
+      int start = cursor;
+
       if (cursor >= length)
       {
          return null;
       }
-
-      skipWhitespace();
-      int start = cursor;
 
       switch (expr[cursor])
       {
@@ -110,13 +113,9 @@ public class FSHParser
 
                      if (cursor != length)
                      {
-                        boolean first = true;
                         do
                         {
-//                           if (!first)
-//                           {
-//                              tk += new String(expr, start, cursor - start);
-//                           }
+
 
                            boolean openBracket = expr[cursor] == '{';
 
@@ -141,8 +140,45 @@ public class FSHParser
 
                            int offset = cursor != length && expr[cursor] == '}' ? -1 : 0;
 
-                           tk += new String(expr, start, cursor - start + offset)
-                                 .replace("\"", "\\\"") + "\") ";
+                           String subStmt = new String(expr, start, cursor - start)
+                                 .replace("\"", "\\\"");
+
+                           StringBuilder execString = new StringBuilder();
+                           boolean terminated = false;
+                           for (int i = 0; i < subStmt.length(); i++)
+                           {
+                              if (subStmt.charAt(i) == '$')
+                              {
+                                 execString.append("\"+");
+                                 i++;
+
+                                 while (i < subStmt.length()
+                                       && Character.isJavaIdentifierPart(subStmt.charAt(i)))
+                                    execString.append(subStmt.charAt(i++));
+
+                                 if (i < subStmt.length())
+                                 {
+                                    execString.append("+\"");
+                                    i--;
+                                 }
+                                 else
+                                 {
+                                    execString.append(")");
+                                    terminated = true;
+                                 }
+                              }
+                              else
+                              {
+                                 execString.append(subStmt.charAt(i));
+                              }
+                           }
+
+                           if (!terminated)
+                           {
+                              execString.append("\")");
+                           }
+
+                           tk += execString.toString();
 
                            if (offset == -1)
                            {
@@ -151,8 +187,6 @@ public class FSHParser
                            }
 
                            start = cursor;
-
-                           first = false;
                         }
                         while (ifThenElseBlockContinues());
 

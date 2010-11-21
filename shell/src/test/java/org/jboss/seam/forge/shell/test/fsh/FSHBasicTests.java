@@ -65,6 +65,19 @@ public class FSHBasicTests extends AbstractShellTest
       runtime.run("if (false) { ls -l (2 * 2) } else if (false) { ls / } else if (true) { @System.out.println('Hello') }");
    }
 
+   @Test
+   public void testSimple5()
+   {
+      runtime.run("@MySetting=true; if (MySetting) { @System.out.println('Yep!'); }");
+   }
+
+   @Test
+   public void testSimple6()
+   {
+      runtime.run("for (dir : ['/', '~']) { ls -l $dir}");
+   }
+
+
 
    @Test
    public void testStatement()
