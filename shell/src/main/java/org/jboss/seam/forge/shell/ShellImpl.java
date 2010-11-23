@@ -134,10 +134,10 @@ public class ShellImpl implements Shell
       public Resource[] convertFrom(final Object obl)
       {
          return GeneralUtils.parseSystemPathspec(
-                  resourceFactory,
-                  lastResource,
-                  getCurrentResource(),
-                  obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
+               resourceFactory,
+               lastResource,
+               getCurrentResource(),
+               obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
       }
 
       @SuppressWarnings("rawtypes")
@@ -242,9 +242,9 @@ public class ShellImpl implements Shell
       System.out.println("   ____                          _____                    ");
       System.out.println("  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ ");
       System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  "
-               + renderColor(ShellColor.YELLOW, "\\\\"));
+            + renderColor(ShellColor.YELLOW, "\\\\"));
       System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  "
-               + renderColor(ShellColor.YELLOW, "//"));
+            + renderColor(ShellColor.YELLOW, "//"));
       System.out.println("  |____/ \\___|\\__,_|_| |_| |_|  |_|  \\___/|_|  \\__, |\\___| ");
       System.out.println("                                                |___/      ");
       System.out.println("");
@@ -502,14 +502,7 @@ public class ShellImpl implements Shell
    @Override
    public void clear()
    {
-      try
-      {
-         reader.clearScreen();
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException(e);
-      }
+      print(new Ansi().cursor(0, 0).eraseScreen().toString());
    }
 
    @Override
@@ -589,7 +582,7 @@ public class ShellImpl implements Shell
       String path = getCurrentResource().toString();
 
       return prefix + " " + path +
-               renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
+            renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
    }
 
    @Override
@@ -713,7 +706,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-                  + pattern + "]");
+               + pattern + "]");
       }
 
       String input;
@@ -813,7 +806,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -856,7 +849,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;

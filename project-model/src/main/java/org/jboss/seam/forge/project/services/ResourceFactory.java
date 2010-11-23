@@ -61,6 +61,7 @@ public class ResourceFactory implements Extension
       }
    };
 
+   @SuppressWarnings({"UnusedDeclaration"})
    public void scan(@Observes final ProcessBean<?> event, final BeanManager manager)
    {
       Bean<?> bean = event.getBean();
@@ -130,7 +131,7 @@ public class ResourceFactory implements Extension
          return pattern.matcher(name).matches();
       }
 
-      @SuppressWarnings({ "unchecked" })
+      @SuppressWarnings({"unchecked", "UnusedDeclaration"})
       public <T> Resource<T> getResource(final Class<T> type)
       {
          return (Resource<T>) resource;
