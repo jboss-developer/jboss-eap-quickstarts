@@ -22,29 +22,20 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.util.FormatCallback;
+import org.jboss.seam.forge.shell.util.ShellColor;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.eclipse.core.internal.utils.Cache;
-import org.eclipse.core.runtime.Path;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.FormatCallback;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.jboss.seam.forge.shell.util.ShellColor;
-import org.mvel2.util.StringAppender;
-
-import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
@@ -59,7 +50,6 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 public class LsPlugin implements Plugin
 {
    private final Shell shell;
-   private final ResourceFactory factory;
 
    private static final long yearMarker;
    private static final SimpleDateFormat dateFormatOld = new SimpleDateFormat("MMM d yyyy");
@@ -80,10 +70,9 @@ public class LsPlugin implements Plugin
    }
 
    @Inject
-   public LsPlugin(final Shell shell, final ResourceFactory factory)
+   public LsPlugin(final Shell shell)
    {
       this.shell = shell;
-      this.factory = factory;
    }
 
    @DefaultCommand
@@ -123,7 +112,7 @@ public class LsPlugin implements Plugin
              */
             int fileCount = 0;
             boolean dir;
-            List<String> subList;
+            @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"}) List<String> subList;
             for (Resource<?> r : childResources)
             {
                sortMap.put(el = r.getName(), subList = new ArrayList<String>());

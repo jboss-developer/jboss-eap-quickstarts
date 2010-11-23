@@ -419,10 +419,4 @@ public class FSHParser
 //   {
 //      return n instanceof TokenNode ? ((TokenNode) n).getValue() : "";
 //   }
-
-   public static void main(String[] args)
-   {
-      Node n = new FSHParser("this-command (x = ''; for (count:100) x += count); abc * 3 | foo").parse();
-      System.out.println(n);
-   }
 }
