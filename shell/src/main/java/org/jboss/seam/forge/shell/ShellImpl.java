@@ -756,7 +756,7 @@ public class ShellImpl implements Shell
    @SuppressWarnings("unchecked")
    public <T> T prompt(final String message, final Class<T> clazz, final T defaultIfEmpty)
    {
-      Object result = null;
+      Object result;
       String input = "";
       do
       {

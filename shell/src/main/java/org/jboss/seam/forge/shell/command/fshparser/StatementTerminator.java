@@ -25,18 +25,6 @@ package org.jboss.seam.forge.shell.command.fshparser;
 /**
  * @author Mike Brock .
  */
-public class ScriptNode extends LogicalStatement
+public class StatementTerminator extends Node
 {
-   private boolean nocommand = false;
-
-   public ScriptNode(Node nest, boolean nocommand)
-   {
-      super(nest);
-      this.nocommand = nocommand;
-   }
-
-   public boolean isNocommand()
-   {
-      return nocommand;
-   }
 }

@@ -68,7 +68,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple5()
    {
-      runtime.run("@MySetting=true; if (MySetting) { @System.out.println('Yep!'); }");
+      runtime.run("@MySetting=true; if (MySetting) { @System.out.println('Yep!' + MySetting); }");
    }
 
    @Test
@@ -77,6 +77,12 @@ public class FSHBasicTests extends AbstractShellTest
       runtime.run("for (dir : ['/', '~']) { ls -l $dir}");
    }
 
+
+   @Test
+   public void testSimple7()
+   {
+      runtime.run("ls -l /; ls -l /");
+   }
 
 
    @Test

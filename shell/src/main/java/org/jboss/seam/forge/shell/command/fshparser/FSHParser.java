@@ -23,7 +23,9 @@
 package org.jboss.seam.forge.shell.command.fshparser;
 
 import org.mvel2.util.ParseTools;
+import org.mvel2.util.StringAppender;
 
+import static org.jboss.seam.forge.shell.command.fshparser.Parse.isTokenPart;
 import static org.mvel2.util.ParseTools.balancedCapture;
 import static org.mvel2.util.ParseTools.isWhitespace;
 import static org.mvel2.util.ParseTools.subset;
@@ -66,8 +68,6 @@ public class FSHParser
 
    private Node nextNode()
    {
-
-
       skipWhitespace();
       int start = cursor;
 
@@ -75,10 +75,28 @@ public class FSHParser
       {
          return null;
       }
+      else if (expr[cursor] == ';')
+      {
+         ++cursor;
+         return new StatementTerminator();
+      }
 
       switch (expr[cursor])
       {
-      //literals
+      case '@':
+         if (start == cursor)
+         {
+            start++;
+            skipToEOS();
+
+            String scriptTk = new String(expr, start, cursor - start);
+            return new ScriptNode(new TokenNode(scriptTk), true);
+         }
+         else
+         {
+            return new TokenNode("@");
+         }
+         //literals
       case '\'':
       case '"':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
@@ -111,12 +129,12 @@ public class FSHParser
                      cursor++;
                      while (cursor != length && Character.isWhitespace(expr[cursor])) cursor++;
 
+                     StringAppender buf = new StringAppender();
+
                      if (cursor != length)
                      {
                         do
                         {
-
-
                            boolean openBracket = expr[cursor] == '{';
 
                            if (openBracket)
@@ -124,8 +142,8 @@ public class FSHParser
                               cursor++;
                            }
 
-                           tk += new String(expr, start, cursor - start);
-                           tk += "shell(\"";
+                           buf.append(new String(expr, start, cursor - start))
+                                 .append("shell(\"");
 
                            start = cursor;
 
@@ -143,48 +161,48 @@ public class FSHParser
                            String subStmt = new String(expr, start, cursor - start)
                                  .replace("\"", "\\\"");
 
-                           StringBuilder execString = new StringBuilder();
                            boolean terminated = false;
                            for (int i = 0; i < subStmt.length(); i++)
                            {
                               if (subStmt.charAt(i) == '$')
                               {
-                                 execString.append("\"+");
+                                 buf.append("\"+");
                                  i++;
 
                                  while (i < subStmt.length()
                                        && Character.isJavaIdentifierPart(subStmt.charAt(i)))
-                                    execString.append(subStmt.charAt(i++));
+                                    buf.append(subStmt.charAt(i++));
 
                                  if (i < subStmt.length())
                                  {
-                                    execString.append("+\"");
+                                    buf.append("+\"");
                                     i--;
                                  }
                                  else
                                  {
-                                    execString.append(")");
+                                    buf.append(")");
                                     terminated = true;
                                  }
                               }
                               else
                               {
-                                 execString.append(subStmt.charAt(i));
+                                 buf.append(subStmt.charAt(i));
                               }
                            }
 
                            if (!terminated)
                            {
-                              execString.append("\")");
+                              buf.append("\")");
                            }
-
-                           tk += execString.toString();
 
                            if (offset == -1)
                            {
-                              tk += "}";
+                              buf.append("}");
                               cursor++;
                            }
+
+                           tk += buf.toString();
+                           buf.reset();
 
                            start = cursor;
                         }
@@ -256,30 +274,25 @@ public class FSHParser
       Node n = null;
       Node d;
 
-      int tokens = 0;
       boolean pipe = false;
       boolean script = false;
       boolean nocommand = false;
 
       while ((d = nextNode()) != null)
       {
+         if (d instanceof StatementTerminator)
+         {
+            break;
+         }
+
          if (start == null)
          {
             start = n = d;
          }
 
-         if (tokenMatch(d, ";"))
+         if (d instanceof ScriptNode)
          {
-            /**
-             * If the first token is a ';' we reset to the next node, skipping it.
-             */
-            if (d == start)
-            {
-               start = n = nextNode();
-               continue;
-            }
-            cursor++;
-
+            start = d;
             break;
          }
          else if (tokenMatch(d, "|"))
@@ -289,23 +302,14 @@ public class FSHParser
             cursor++;
             break;
          }
-         else if (tokens == 0 && tokenMatch(d, "@"))
-         {
-            script = nocommand = true;
-            continue;
-         }
          else if (nest && !script && tokenIsOperator(d))
          {
             script = true;
          }
-         else if (d == start && (tokenIsReservedWorld(d) || tokenIsVarRef(d)))
-         {
-            script = true;
-         }
+
 
          if (n != d)
          {
-            tokens++;
             n.setNext(n = d);
          }
       }
@@ -331,9 +335,9 @@ public class FSHParser
 
       int start = cursor;
 
-      if (Parse.isTokenPart(expr[cursor]))
+      if (isTokenPart(expr[cursor]))
       {
-         while (cursor != length && Parse.isTokenPart(expr[cursor])) cursor++;
+         while (cursor != length && isTokenPart(expr[cursor])) cursor++;
       }
       else
       {
@@ -345,12 +349,11 @@ public class FSHParser
             case ' ':
             case '\t':
             case '\r':
-               break Skip;
             case ';':
-               return ";";
+               break Skip;
 
             default:
-               if (Parse.isTokenPart(expr[cursor]))
+               if (isTokenPart(expr[cursor]))
                {
                   break Skip;
                }
@@ -365,6 +368,11 @@ public class FSHParser
    private void skipWhitespace()
    {
       while (cursor != length && ParseTools.isWhitespace(expr[cursor])) cursor++;
+   }
+
+   public void skipToEOS()
+   {
+      while (cursor != length && expr[cursor] != ';') cursor++;
    }
 
    private void addNode(Node n)
