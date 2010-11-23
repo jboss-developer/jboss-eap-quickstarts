@@ -71,13 +71,12 @@ public class ExecutionParser
    public Execution parse(final String line)
    {
       return parse(tokenizer.tokenize(line));
-
    }
 
    public Execution parse(final Queue<String> tokens)
    {
       Execution execution = executionInstance.get();
-     // execution.setOriginalStatement(line);
+      // execution.setOriginalStatement(line);
       CommandMetadata command = null;
 
       if (!tokens.isEmpty())
@@ -211,13 +210,11 @@ public class ExecutionParser
       if ((value != null) && value.getClass().isArray())
       {
          Object[] values = (Object[]) value;
-         if (values != null)
+         for (int i = 0; i < values.length; i++)
          {
-            for (int i = 0; i < values.length; i++)
-            {
-               values[i] = promptTypeConverter.convert(promptType, (String) values[i]);
-            }
+            values[i] = promptTypeConverter.convert(promptType, (String) values[i]);
          }
+
          value = values;
       }
       else

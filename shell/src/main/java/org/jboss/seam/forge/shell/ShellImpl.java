@@ -257,11 +257,11 @@ public class ShellImpl implements Shell
 
    void doShell(@Observes final AcceptUserInput event)
    {
-      String line = "";
+      String line;
       try
       {
          reader.setPrompt(getPrompt());
-         while ((exitRequested != true) && ((line = readLine()) != null))
+         while ((!exitRequested) && ((line = readLine()) != null))
          {
             if (!"".equals(line))
             {
@@ -273,6 +273,7 @@ public class ShellImpl implements Shell
       }
       catch (IOException e)
       {
+         // ?
       }
    }
 
@@ -586,10 +587,9 @@ public class ShellImpl implements Shell
       }
 
       String path = getCurrentResource().toString();
-      String prompt = prefix + " " + path +
-               renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
 
-      return prompt;
+      return prefix + " " + path +
+               renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
    }
 
    @Override
@@ -666,7 +666,7 @@ public class ShellImpl implements Shell
    @Override
    public String prompt(final String message)
    {
-      return promptWithCompleter(message, (Completer) null);
+      return promptWithCompleter(message, null);
    }
 
    private String promptWithCompleter(String message, final Completer tempCompleter)
@@ -698,7 +698,7 @@ public class ShellImpl implements Shell
    @Override
    public String promptRegex(final String message, final String regex)
    {
-      String input = "";
+      String input;
       do
       {
          input = prompt(message);
@@ -716,7 +716,7 @@ public class ShellImpl implements Shell
                   + pattern + "]");
       }
 
-      String input = "";
+      String input;
       do
       {
          input = prompt(message + " [" + defaultIfEmpty + "]");
@@ -733,8 +733,8 @@ public class ShellImpl implements Shell
    @SuppressWarnings("unchecked")
    public <T> T prompt(final String message, final Class<T> clazz)
    {
-      Object result = null;
-      Object input = "";
+      Object result;
+      Object input;
       do
       {
          input = prompt(message);
@@ -757,7 +757,7 @@ public class ShellImpl implements Shell
    public <T> T prompt(final String message, final Class<T> clazz, final T defaultIfEmpty)
    {
       Object result;
-      String input = "";
+      String input;
       do
       {
          input = prompt(message);

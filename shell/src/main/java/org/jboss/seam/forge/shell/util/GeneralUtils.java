@@ -22,20 +22,14 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
+
+import java.io.File;
+import java.util.*;
 
 public class GeneralUtils
 {

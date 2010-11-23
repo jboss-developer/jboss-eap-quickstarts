@@ -28,7 +28,6 @@ import org.mvel2.util.StringAppender;
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isTokenPart;
 import static org.mvel2.util.ParseTools.balancedCapture;
 import static org.mvel2.util.ParseTools.isWhitespace;
-import static org.mvel2.util.ParseTools.subset;
 
 /**
  * @author Mike Brock .
@@ -54,7 +53,6 @@ public class FSHParser
       this.length = (this.expr = expr.toCharArray()).length;
       this.nest = nest;
    }
-
 
    public Node parse()
    {
@@ -397,15 +395,15 @@ public class FSHParser
       }
    }
 
-   private static boolean tokenIsVarRef(Node n)
-   {
-      return n instanceof TokenNode && ((TokenNode) n).getValue().startsWith("$");
-   }
-
-   private static boolean tokenIsReservedWorld(Node n)
-   {
-      return n instanceof TokenNode && Parse.isReservedWord(((TokenNode) n).getValue());
-   }
+//   private static boolean tokenIsVarRef(Node n)
+//   {
+//      return n instanceof TokenNode && ((TokenNode) n).getValue().startsWith("$");
+//   }
+//
+//   private static boolean tokenIsReservedWorld(Node n)
+//   {
+//      return n instanceof TokenNode && Parse.isReservedWord(((TokenNode) n).getValue());
+//   }
 
    private static boolean tokenIsOperator(Node n)
    {
@@ -417,10 +415,10 @@ public class FSHParser
       return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
    }
 
-   private static String getTokenString(Node n)
-   {
-      return n instanceof TokenNode ? ((TokenNode) n).getValue() : "";
-   }
+//   private static String getTokenString(Node n)
+//   {
+//      return n instanceof TokenNode ? ((TokenNode) n).getValue() : "";
+//   }
 
    public static void main(String[] args)
    {

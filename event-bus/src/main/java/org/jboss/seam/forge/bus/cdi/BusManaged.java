@@ -35,10 +35,9 @@ import javax.inject.Qualifier;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Target({TYPE, METHOD, PARAMETER, FIELD})
 @Retention(RUNTIME)
 @Documented
 public @interface BusManaged

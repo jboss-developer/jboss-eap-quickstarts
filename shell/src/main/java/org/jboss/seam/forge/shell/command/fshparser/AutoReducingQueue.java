@@ -22,11 +22,6 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import com.sun.tools.javac.util.Log;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
-import org.jboss.seam.forge.shell.plugins.builtin.ScriptExecPlugin;
-import org.mvel2.MVEL;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Queue;
@@ -36,19 +31,16 @@ import java.util.Queue;
  */
 public class AutoReducingQueue implements Queue<String>
 {
-   private Node startNode;
    private Node currNode;
 
    private String reduceCache;
-
-   private boolean deferDispatch = false;
 
    private FSHRuntime runtime;
 
 
    public AutoReducingQueue(Node startNode, FSHRuntime runtime)
    {
-      this.startNode = this.currNode = startNode;
+      this.currNode = startNode;
       this.runtime = runtime;
    }
 
@@ -113,8 +105,6 @@ public class AutoReducingQueue implements Queue<String>
          {
             reduceCache = "";
          }
-
-         deferDispatch = true;
       }
       else if (currNode instanceof TokenNode)
       {
@@ -228,11 +218,6 @@ public class AutoReducingQueue implements Queue<String>
    public boolean remove(Object o)
    {
       return false;
-   }
-
-   public boolean isDeferDispatch()
-   {
-      return deferDispatch;
    }
 
 

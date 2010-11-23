@@ -65,7 +65,7 @@ public class FSHRuntime
       AutoReducingQueue arQueue;
       Node n = startNode;
 
-      Outer:
+    //  Outer:
       do
       {
          if (n instanceof LogicalStatement)
