@@ -86,6 +86,7 @@ public class PathspecParser
          case '.':
             if (read() == '.')
             {
+               cursor++;
                Resource<?> parent = r.getParent();
                if (parent != null)
                {
@@ -93,19 +94,27 @@ public class PathspecParser
                }
             }
             break;
+         case '/':
+            if (cursor - 1 == 0)
+            {
+               r = factory.getResourceFrom(new File("/"));
+            }
+            continue;
 
          default:
-            if (read() == '.')
-            {
-               continue;
-            }
+//            if (read() == '.')
+//            {
+//               continue;
+//            }
+
             boolean first = --cursor == 0;
 
             tk = capture();
 
             if (tk.contains("*"))
             {
-               Pattern p = Pattern.compile(pathspecToRegEx(tk.startsWith("/") ? tk.substring(1) : tk));
+               String regex = pathspecToRegEx(tk.startsWith("/") ? tk.substring(1) : tk);
+               Pattern p = Pattern.compile(regex);
 
                List<Resource<?>> res = new LinkedList<Resource<?>>();
 
@@ -171,7 +180,8 @@ public class PathspecParser
                                           Resource<?> res,
                                           List<Resource<?>> candidates)
    {
-      Pattern matchPattern = Pattern.compile(pathspecToRegEx(matchLevels[nestStart]));
+      String regex = pathspecToRegEx(matchLevels[nestStart]);
+      Pattern matchPattern = Pattern.compile(regex);
 
       if (matchPattern.matcher(res.getName()).matches())
       {
