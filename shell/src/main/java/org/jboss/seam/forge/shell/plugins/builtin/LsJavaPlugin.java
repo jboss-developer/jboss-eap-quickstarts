@@ -67,7 +67,7 @@ public class LsJavaPlugin implements Plugin
    {
 
       Resource<?> currentResource = shell.getCurrentResource();
-      JavaClass javaClass = null;
+      JavaClass javaClass;
 
       if (currentResource instanceof JavaResource)
       {

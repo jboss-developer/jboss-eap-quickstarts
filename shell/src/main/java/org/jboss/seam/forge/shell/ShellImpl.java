@@ -61,6 +61,7 @@ import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
+import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
@@ -111,6 +112,10 @@ public class ShellImpl implements Shell
    @Inject
    private ResourceFactory resourceFactory;
    private Resource<?> lastResource;
+
+   // inject the runtime of the shell scripting engine
+   @Inject
+   private FSHRuntime fshRuntime;
 
    @Inject
    private PromptTypeConverter promptTypeConverter;
@@ -286,12 +291,13 @@ public class ShellImpl implements Shell
    @Override
    public void execute(final String line)
    {
-      Execution execution;
+//      Execution execution;
       try
       {
-         execution = parser.parse(line);
-         execution.verifyConstraints(this);
-         execution.perform();
+         fshRuntime.run(line);
+//         execution = parser.parse(line);
+//         execution.verifyConstraints(this);
+//         execution.perform();
       }
       catch (NoSuchCommandException e)
       {

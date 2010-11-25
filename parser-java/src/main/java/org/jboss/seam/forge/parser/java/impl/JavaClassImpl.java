@@ -75,8 +75,7 @@ public class JavaClassImpl implements JavaClass
     * result it abstract syntax tree (AST) representation and this action uses
     * the third edition of java Language Specification.
     * 
-    * @param source - the java source to be parsed (i.e. the char[] contains
-    *           Java source).
+    * @param inputStream - a stream of the java source to be parsed
     * @return CompilationUnit Abstract syntax tree representation of a java
     *         source file.
     */
@@ -129,7 +128,6 @@ public class JavaClassImpl implements JavaClass
    /*
     * Annotation modifiers
     */
-
    @Override
    public Annotation addAnnotation()
    {
@@ -191,7 +189,6 @@ public class JavaClassImpl implements JavaClass
    /*
     * Import modifiers
     */
-
    @Override
    @SuppressWarnings("unchecked")
    public Import addImport(final String className)
@@ -453,7 +450,6 @@ public class JavaClassImpl implements JavaClass
    /*
     * Name modifiers
     */
-
    @Override
    public String getName()
    {
@@ -483,7 +479,6 @@ public class JavaClassImpl implements JavaClass
    /*
     * Package modifiers
     */
-
    @Override
    public String getPackage()
    {
@@ -595,7 +590,6 @@ public class JavaClassImpl implements JavaClass
    /*
     * Type modifiers
     */
-
    @Override
    public boolean isAbstract()
    {
@@ -619,7 +613,6 @@ public class JavaClassImpl implements JavaClass
    /*
     * Non-manipulation methods.
     */
-
    @Override
    public String toString()
    {
@@ -716,5 +709,4 @@ public class JavaClassImpl implements JavaClass
       }
       return name;
    }
-
 }

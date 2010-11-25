@@ -39,7 +39,7 @@ import javax.inject.Inject;
 public class FSHBasicTests extends AbstractShellTest
 {
    @Inject
-   private FSHRuntime runtime;
+   public FSHRuntime runtime;
 
    @Test
    public void testSimple()
@@ -50,7 +50,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple2()
    {
-      runtime.run("if (true) { ls -l / } else { ls / }");
+      runtime.run("@foo = 0; while (foo < 2) { if (foo == 1) { ls -l /; @foo++; } else { ls /; @foo++; };  }");
    }
 
    @Test
@@ -68,13 +68,13 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple5()
    {
-      runtime.run("@MySetting=true; if (MySetting) { @System.out.println('Yep!' + MySetting); }");
+      runtime.run("@MySetting=true; if (MySetting) { @System.out.println('Yep (' + MySetting + ')'); }");
    }
 
    @Test
    public void testSimple6()
    {
-      runtime.run("for (dir : ['/', '~']) { ls -l $dir}");
+      runtime.run("for (dir : ['/', '~', '..']) { ls -l $dir}");
    }
 
 

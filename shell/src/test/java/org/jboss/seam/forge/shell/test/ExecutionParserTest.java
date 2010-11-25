@@ -48,7 +48,7 @@ public class ExecutionParserTest extends AbstractShellTest
    {
       String packg = "com.example.good.package";
       queueInputLines(packg);
-      getShell().execute("motp suppliedOption --package bad#$%package");
+      getShell().execute("motp suppliedOption --package bad_%package");
       assertEquals(packg, plugin.suppliedOption);
    }
 

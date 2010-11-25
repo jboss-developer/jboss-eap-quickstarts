@@ -210,7 +210,6 @@ public class FSHParser
                      }
                   }
 
-
                   break;
 
                case ';':
@@ -305,7 +304,6 @@ public class FSHParser
             script = true;
          }
 
-
          if (n != d)
          {
             n.setNext(n = d);
@@ -395,16 +393,6 @@ public class FSHParser
       }
    }
 
-//   private static boolean tokenIsVarRef(Node n)
-//   {
-//      return n instanceof TokenNode && ((TokenNode) n).getValue().startsWith("$");
-//   }
-//
-//   private static boolean tokenIsReservedWorld(Node n)
-//   {
-//      return n instanceof TokenNode && Parse.isReservedWord(((TokenNode) n).getValue());
-//   }
-
    private static boolean tokenIsOperator(Node n)
    {
       return n instanceof TokenNode && Parse.isOperator(((TokenNode) n).getValue());
@@ -414,9 +402,4 @@ public class FSHParser
    {
       return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
    }
-
-//   private static String getTokenString(Node n)
-//   {
-//      return n instanceof TokenNode ? ((TokenNode) n).getValue() : "";
-//   }
 }

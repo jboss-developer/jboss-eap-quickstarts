@@ -60,12 +60,11 @@ public class FSHRuntime
       run(new FSHParser(str).parse());
    }
 
-   public Object run(final Node startNode)
+   public void run(final Node startNode)
    {
       AutoReducingQueue arQueue;
       Node n = startNode;
 
-    //  Outer:
       do
       {
          if (n instanceof LogicalStatement)
@@ -95,12 +94,11 @@ public class FSHRuntime
          if (!outQueue.isEmpty())
          {
             Execution execution = executionParser.parse(outQueue);
+            execution.verifyConstraints(shell);
             execution.perform();
          }
       }
       while ((n = n.next) != null);
-
-      return null;
    }
 
    public void shell(String command)
