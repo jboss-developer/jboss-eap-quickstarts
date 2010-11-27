@@ -40,7 +40,7 @@ public class PipeOutImpl implements PipeOut
    }
 
    @Override
-   public void write(int b)
+   public void write(byte b)
    {
       if (piped)
       {

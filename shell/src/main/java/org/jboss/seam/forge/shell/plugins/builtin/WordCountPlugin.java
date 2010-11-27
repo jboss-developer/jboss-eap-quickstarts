@@ -19,7 +19,6 @@ import java.util.List;
 @Help("word, line, character and byte count")
 public class WordCountPlugin implements Plugin
 {
-
    @DefaultCommand
    public void run(
          @PipeIn final InputStream pipeIn,
@@ -78,7 +77,6 @@ public class WordCountPlugin implements Plugin
       GeneralUtils.printOutTables(results, colJust, out, null);
    }
 
-
    private static Results count(InputStream stream, boolean lines, boolean words, boolean chars)
          throws IOException
    {
@@ -134,7 +132,6 @@ public class WordCountPlugin implements Plugin
       return res;
    }
 
-
    private static class Results
    {
       int words;
@@ -178,7 +175,6 @@ public class WordCountPlugin implements Plugin
          return 0;
       }
 
-
       List<String> getResults(String name)
       {
          int cols = getColumns();
@@ -194,7 +190,5 @@ public class WordCountPlugin implements Plugin
 
          return results;
       }
-
-
    }
 }

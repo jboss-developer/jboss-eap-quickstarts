@@ -501,6 +501,13 @@ public class ShellImpl implements Shell
       return ansi.render(output).reset().toString();
    }
 
+
+   @Override
+   public void write(byte b)
+   {
+      System.out.print((char) b);
+   }
+
    @Override
    public void clear()
    {

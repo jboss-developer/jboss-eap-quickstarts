@@ -22,10 +22,7 @@
 
 package org.jboss.seam.forge.shell;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +33,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface Shell
+public interface Shell extends ShellPrintWriter
 {
    /**
     * Return the current working directory of the shell. (This value may change

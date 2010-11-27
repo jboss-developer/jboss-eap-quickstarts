@@ -47,24 +47,14 @@ public class ConcatenatePlugin implements Plugin
 
    @DefaultCommand
    public void run(
-         @PipeIn final String in, // pipe in
+         @PipeIn final InputStream in, // pipe in
          @Option(description = "path", required = false) Resource<?>[] paths, // params
          final PipeOut out // pipe out
    ) throws IOException
    {
       if (in != null)
       {
-         writeOutToConsole(new InputStream()
-         {
-            int cursor = 0;
-            int len = in.length();
-
-            @Override
-            public int read() throws IOException
-            {
-               return len != cursor ? in.charAt(cursor++) : -1;
-            }
-         }, out);
+         writeOutToConsole(in, out);
       }
 
       if (paths != null)
