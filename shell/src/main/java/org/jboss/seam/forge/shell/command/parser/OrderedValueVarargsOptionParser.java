@@ -39,13 +39,13 @@ public class OrderedValueVarargsOptionParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
    {
       Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (!currentToken.startsWith("--"))
       {
-         OptionMetadata option = command.getOrderedOptionByIndex(getNumberOrderedParamsIn(valueMap));
+         OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
          if (option.isVarargs())
          {
             List<String> args = new ArrayList<String>();
@@ -58,6 +58,8 @@ public class OrderedValueVarargsOptionParser implements CommandParser
                                                                // return this as
                                                                // a tuple
                                                                // instead?
+
+            ctx.incrementParmCount();
          }
       }
       return valueMap;

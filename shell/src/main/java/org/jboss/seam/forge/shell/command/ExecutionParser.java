@@ -34,15 +34,7 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.command.parser.CommandParser;
-import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
-import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.ParseErrorParser;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
+import org.jboss.seam.forge.shell.command.parser.*;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
@@ -147,7 +139,7 @@ public class ExecutionParser
             new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
             new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
-      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens, new CommandParserContext());
 
       Object[] parameters = new Object[command.getOptions().size()];
       for (OptionMetadata option : command.getOptions())

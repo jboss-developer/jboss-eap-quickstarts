@@ -41,14 +41,7 @@ import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
-import org.jboss.seam.forge.shell.command.parser.CommandParser;
-import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
-import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
+import org.jboss.seam.forge.shell.command.parser.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -296,7 +289,7 @@ public class PluginCommandCompleter implements CommandCompleter
    private List<String> getOptionCandidates(final CommandMetadata command, final Queue<String> tokens)
    {
       ArrayList<String> results = new ArrayList<String>();
-      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens);
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens, new CommandParserContext());
       List<OptionMetadata> options = command.getOptions();
 
       // TODO determine which option came last, if it had a value, if the value
