@@ -26,6 +26,8 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.util.PipeOutImpl;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -57,13 +59,14 @@ public class FSHRuntime
 
    public void run(final String str)
    {
-      run(new FSHParser(str).parse());
+      run(new FSHParser(str).parse(), null);
    }
 
-   public void run(final Node startNode)
+   public void run(final Node startNode, final PipeOut forwardPipe)
    {
       AutoReducingQueue arQueue;
       Node n = startNode;
+      PipeOut lastPipe = null;
 
       do
       {
@@ -73,7 +76,12 @@ public class FSHRuntime
          }
          else if (n instanceof PipeNode)
          {
-            System.out.print(" -pipe-> " + n);
+            if (lastPipe == null)
+            {
+               throw new RuntimeException("broken pipe");
+            }
+
+            run(((PipeNode) n).getNest(), lastPipe);
             continue;
          }
          else
@@ -93,9 +101,18 @@ public class FSHRuntime
 
          if (!outQueue.isEmpty())
          {
-            Execution execution = executionParser.parse(outQueue);
+            PipeOut pipeOut = new PipeOutImpl(shell);
+
+            if (n.next != null && n.next instanceof PipeNode)
+            {
+               pipeOut.setPiped(true);
+               lastPipe = pipeOut;
+            }
+
+            String pipeIn = forwardPipe != null ? forwardPipe.getBuffer() : null;
+            Execution execution = executionParser.parse(outQueue, pipeIn, pipeOut);
             execution.verifyConstraints(shell);
-            execution.perform();
+            execution.perform(forwardPipe);
          }
       }
       while ((n = n.next) != null);

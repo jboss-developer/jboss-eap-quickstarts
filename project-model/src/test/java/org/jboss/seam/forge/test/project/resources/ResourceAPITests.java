@@ -59,6 +59,18 @@ public class ResourceAPITests extends ProjectModelTest
    }
 
    @Test
+   public void testWildCards2()
+   {
+
+      DirectoryResource r = new DirectoryResource(factory, new File("").getAbsoluteFile());
+
+      for (Resource<?> res : ResourceUtil.parsePathspec(factory, r, "*.java"))
+      {
+         System.out.println(res);
+      }
+   }
+
+   @Test
    public void testDeepSearch() {
       DirectoryResource root = new DirectoryResource(factory, new File("").getAbsoluteFile());
       List<Resource<?>> results =  new PathspecParser(factory, root,"BaseEvent.java").search();

@@ -291,13 +291,9 @@ public class ShellImpl implements Shell
    @Override
    public void execute(final String line)
    {
-//      Execution execution;
       try
       {
          fshRuntime.run(line);
-//         execution = parser.parse(line);
-//         execution.verifyConstraints(this);
-//         execution.perform();
       }
       catch (NoSuchCommandException e)
       {

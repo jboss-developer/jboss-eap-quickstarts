@@ -33,6 +33,7 @@ import javax.inject.Named;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author Mike Brock .
@@ -43,47 +44,64 @@ import java.io.InputStream;
 @Help("Concatenate and print files")
 public class ConcatenatePlugin implements Plugin
 {
-   private final Shell shell;
-
-   @Inject
-   public ConcatenatePlugin(Shell shell)
-   {
-      this.shell = shell;
-   }
 
    @DefaultCommand
-   public void run(@Option(description = "path", required = true) Resource<?>[] paths) throws IOException
+   public void run(
+         @PipeIn final String in, // pipe in
+         @Option(description = "path", required = false) Resource<?>[] paths, // params
+         final PipeOut out // pipe out
+   ) throws IOException
    {
-      for (Resource res : paths)
+      if (in != null)
       {
-         if (res instanceof FileResource)
+         writeOutToConsole(new InputStream()
          {
-            InputStream istream = null;
-            try
-            {
-               istream = new FileInputStream(res.getFullyQualifiedName());
+            int cursor = 0;
+            int len = in.length();
 
-               byte[] buf = new byte[10];
-               int read;
-               while ((read = istream.read(buf)) != -1)
+            @Override
+            public int read() throws IOException
+            {
+               return len != cursor ? in.charAt(cursor++) : -1;
+            }
+         }, out);
+      }
+
+      if (paths != null)
+      {
+         for (Resource res : paths)
+         {
+            if (res instanceof FileResource)
+            {
+               InputStream istream = null;
+               try
                {
-                  shell.print(new String(buf, 0, read));
+                  istream = new FileInputStream(res.getFullyQualifiedName());
+                  writeOutToConsole(istream, out);
                }
-
-            }
-            catch (IOException e)
-            {
-               throw new RuntimeException("error opening file: " + res.getName());
-            }
-            finally
-            {
-               if (istream != null)
+               catch (IOException e)
                {
-                  istream.close();
+                  throw new RuntimeException("error opening file: " + res.getName());
+               }
+               finally
+               {
+                  if (istream != null)
+                  {
+                     istream.close();
+                  }
                }
             }
          }
       }
-    //  shell.println();
+   }
+
+   private void writeOutToConsole(InputStream istream, PipeOut out) throws IOException
+   {
+      byte[] buf = new byte[10];
+      int read;
+      while ((read = istream.read(buf)) != -1)
+      {
+         out.print(new String(buf, 0, read));
+      }
    }
 }

@@ -28,6 +28,8 @@ import org.mvel2.util.StringAppender;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static java.lang.Character.isJavaIdentifierPart;
+
 /**
  * @author Mike Brock .
  */
@@ -70,9 +72,14 @@ public abstract class Parse
       case '/':
       case '%':
       case '+':
+      case '*':
+      case '?':
+      case '~':
+      case '#':
+      case '$':
          return true;
       default:
-         return Character.isJavaIdentifierPart(c);
+         return isJavaIdentifierPart(c);
       }
    }
 

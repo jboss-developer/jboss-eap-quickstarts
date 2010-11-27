@@ -22,19 +22,27 @@
 
 package org.jboss.seam.forge.shell.plugins;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author Mike Brock .
  */
-@Target({ PARAMETER })
-@Retention(RUNTIME)
-public @interface PipeIn
+public interface PipeOut
 {
-   String value() default "";
+   public void write(int b);
+
+
+   public void print(String s);
+   public void println(String s);
+   public void println();
+
+   public void print(ShellColor color, String s);
+   public void println(ShellColor color, String s);
+
+   public String renderColor(ShellColor color, String s);
+
+   public boolean isPiped();
+   public void setPiped(boolean v);
+
+   public String getBuffer();
 }

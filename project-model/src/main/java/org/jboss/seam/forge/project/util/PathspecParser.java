@@ -102,11 +102,6 @@ public class PathspecParser
             continue;
 
          default:
-//            if (read() == '.')
-//            {
-//               continue;
-//            }
-
             boolean first = --cursor == 0;
 
             tk = capture();
@@ -249,6 +244,26 @@ public class PathspecParser
 
    private static String pathspecToRegEx(final String pathSpec)
    {
-      return "^" + pathSpec.replaceAll("\\*", "\\.\\*").replaceAll("\\?", "\\.") + "$";
+      StringBuilder sb = new StringBuilder("^");
+      char c;
+      for (int i = 0; i < pathSpec.length(); i++)
+      {
+         switch (c = pathSpec.charAt(i))
+         {
+         case '.':
+            sb.append("\\.");
+            break;
+         case '*':
+            sb.append(".*");
+            break;
+         case '?':
+            sb.append(".");
+            break;
+         default:
+            sb.append(c);
+         }
+      }
+
+      return sb.append("$").toString();
    }
 }

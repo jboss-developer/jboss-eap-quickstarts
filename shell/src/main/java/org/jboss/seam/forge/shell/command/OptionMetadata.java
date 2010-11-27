@@ -36,6 +36,7 @@ public class OptionMetadata
    private CommandMetadata parent;
    private Class<?> type;
    private int index;
+   private int effectiveIndex;
 
    private String name = "";
    private String shortName = "";
@@ -46,6 +47,9 @@ public class OptionMetadata
    private boolean flagOnly = false;
    private boolean required = false;
    private PromptType promptType;
+
+   private boolean pipeOut;
+   private boolean pipeIn;
 
    /**
     * Get an informational string describing this Option
@@ -144,6 +148,16 @@ public class OptionMetadata
       this.index = index;
    }
 
+   public int getEffectiveIndex()
+   {
+      return effectiveIndex;
+   }
+
+   public void setEffectiveIndex(int effectiveIndex)
+   {
+      this.effectiveIndex = effectiveIndex;
+   }
+
    public String getHelp()
    {
       return help;
@@ -215,4 +229,27 @@ public class OptionMetadata
       this.promptType = type;
    }
 
+   public boolean isPipeOut()
+   {
+      return pipeOut;
+   }
+
+   public void setPipeOut(boolean pipeOut)
+   {
+      this.pipeOut = pipeOut;
+   }
+
+   public boolean isPipeIn()
+   {
+      return pipeIn;
+   }
+
+   public void setPipeIn(boolean pipeIn)
+   {
+      this.pipeIn = pipeIn;
+   }
+
+   public boolean notOrdered() {
+      return pipeIn || pipeOut || isNamed();
+   }
 }

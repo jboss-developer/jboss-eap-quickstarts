@@ -35,6 +35,7 @@ import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
 import org.jboss.seam.forge.shell.constraint.ConstraintException;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.mvel2.DataConversion;
 import org.mvel2.util.ParseTools;
@@ -73,7 +74,7 @@ public class Execution
    }
 
    @SuppressWarnings("unchecked")
-   public void perform()
+   public void perform(PipeOut pipeOut)
    {
       if (command != null)
       {
@@ -131,6 +132,7 @@ public class Execution
          throw new NoSuchCommandException(command, "No such command: " + originalStatement);
       }
    }
+
 
    private static boolean isBooleanOption(final Class<?> type)
    {

@@ -38,6 +38,8 @@ public class CommandMetadata
 {
    private PluginMetadata parent;
    private Method method;
+   private Method pipeInMethod;
+
    private boolean isDefault = false;
 
    private String name = "";
@@ -63,11 +65,11 @@ public class CommandMetadata
       int currentIndex = 0;
       for (OptionMetadata option : options)
       {
-         if (!option.isNamed() && (index == currentIndex))
+         if (!option.notOrdered() && (index == currentIndex))
          {
             return option;
          }
-         else if (!option.isNamed())
+         else if (!option.notOrdered())
          {
             currentIndex++;
          }
@@ -83,6 +85,16 @@ public class CommandMetadata
    public void setMethod(final Method method)
    {
       this.method = method;
+   }
+
+   public Method getPipeInMethod()
+   {
+      return pipeInMethod;
+   }
+
+   public void setPipeInMethod(Method pipeInMethod)
+   {
+      this.pipeInMethod = pipeInMethod;
    }
 
    public boolean isDefault()
@@ -114,6 +126,7 @@ public class CommandMetadata
       return options;
    }
 
+
    public void setOptions(final List<OptionMetadata> options)
    {
       this.options = options;
@@ -121,6 +134,7 @@ public class CommandMetadata
 
    public void addOption(final OptionMetadata option)
    {
+
       this.options.add(option);
    }
 

@@ -42,6 +42,7 @@ import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser
 import org.jboss.seam.forge.shell.command.parser.ParseErrorParser;
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.mvel2.util.ParseTools;
 
@@ -70,10 +71,10 @@ public class ExecutionParser
 
    public Execution parse(final String line)
    {
-      return parse(tokenizer.tokenize(line));
+      return parse(tokenizer.tokenize(line), null, null);
    }
 
-   public Execution parse(final Queue<String> tokens)
+   public Execution parse(final Queue<String> tokens, String pipeIn, PipeOut pipeOut)
    {
       Execution execution = executionInstance.get();
       // execution.setOriginalStatement(line);
@@ -124,7 +125,7 @@ public class ExecutionParser
 
                // parse parameters and set order / nulls for command invocation
 
-               Object[] parameters = parseParameters(command, tokens);
+               Object[] parameters = parseParameters(command, tokens, pipeIn, pipeOut);
                execution.setParameterArray(parameters);
             }
             else
@@ -138,7 +139,7 @@ public class ExecutionParser
       return execution;
    }
 
-   private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens)
+   private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, String pipeIn, PipeOut pipeOut)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
             new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
@@ -149,54 +150,71 @@ public class ExecutionParser
       Object[] parameters = new Object[command.getOptions().size()];
       for (OptionMetadata option : command.getOptions())
       {
-         Object value = valueMap.get(option);
+
+         Object value;
+         if (option.isPipeOut())
+         {
+            value = pipeOut;
+         }
+         else if (option.isPipeIn())
+         {
+            value = pipeIn;
+         }
+         else
+         {
+            value = valueMap.get(option);
+         }
 
          PromptType promptType = option.getPromptType();
          String defaultValue = option.getDefaultValue();
          Class<?> optionType = option.getBoxedType();
          String optionDescriptor = option.getOptionDescriptor() + ": ";
 
-         // TODO Is this really where we want to do PromptType conversion?
-         value = doPromptTypeConversions(value, promptType);
+         if (!option.isPipeOut() && !option.isPipeIn())
+         {
+            // TODO Is this really where we want to do PromptType conversion?
+            value = doPromptTypeConversions(value, promptType);
 
-         if ((value != null) && !value.toString().matches(promptType.getPattern()))
-         {
-            // make sure the current option value is OK
-            shell.println("Could not parse [" + value + "]... please try again...");
-            value = shell.promptCommon(optionDescriptor, promptType);
-         }
-         else if (option.isRequired() && (value == null) && (!option.hasDefaultValue()))
-         {
-            while (value == null)
+
+            if ((value != null) && !value.toString().matches(promptType.getPattern()))
             {
-               if (isBooleanOption(option))
+               // make sure the current option value is OK
+               shell.println("Could not parse [" + value + "]... please try again...");
+               value = shell.promptCommon(optionDescriptor, promptType);
+            }
+            else if (option.isRequired() && (value == null) && (!option.hasDefaultValue()))
+            {
+               while (value == null)
                {
-                  value = shell.promptBoolean(optionDescriptor);
-               }
-               else if (isFileOption(optionType))
-               {
-                  value = shell.promptFile(optionDescriptor);
-               }
-               else if (promptType != null)
-               {
-                  // make sure an omitted required option value is OK
-                  value = shell.promptCommon(optionDescriptor, promptType);
-               }
-               else
-               {
-                  value = shell.prompt(optionDescriptor);
-               }
+                  if (isBooleanOption(option))
+                  {
+                     value = shell.promptBoolean(optionDescriptor);
+                  }
+                  else if (isFileOption(optionType))
+                  {
+                     value = shell.promptFile(optionDescriptor);
+                  }
+                  else if (promptType != null)
+                  {
+                     // make sure an omitted required option value is OK
+                     value = shell.promptCommon(optionDescriptor, promptType);
+                  }
+                  else
+                  {
+                     value = shell.prompt(optionDescriptor);
+                  }
 
-               if (String.valueOf(value).trim().length() == 0)
-               {
-                  shell.println("The option is required to execute this command.");
-                  value = null;
+                  if (String.valueOf(value).trim().length() == 0)
+                  {
+                     shell.println("The option is required to execute this command.");
+                     value = null;
+                  }
                }
             }
-         }
-         else if ((value == null) && (option.hasDefaultValue()))
-         {
-            value = defaultValue;
+            else if ((value == null) && (option.hasDefaultValue()))
+            {
+               value = defaultValue;
+            }
          }
 
          parameters[option.getIndex()] = value;

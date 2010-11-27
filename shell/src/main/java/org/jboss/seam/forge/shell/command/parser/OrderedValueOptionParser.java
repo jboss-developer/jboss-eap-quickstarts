@@ -73,7 +73,7 @@ public class OrderedValueOptionParser implements CommandParser
       int result = 0;
       for (OptionMetadata option : valueMap.keySet())
       {
-         if (!option.isNamed())
+         if (option.notOrdered())
          {
             result++;
          }
