@@ -23,6 +23,8 @@
 package org.jboss.seam.forge.shell.command;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -139,7 +141,7 @@ public class ExecutionParser
       return execution;
    }
 
-   private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, String pipeIn, PipeOut pipeOut)
+   private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, final String pipeIn, PipeOut pipeOut)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
             new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
@@ -151,6 +153,11 @@ public class ExecutionParser
       for (OptionMetadata option : command.getOptions())
       {
 
+         PromptType promptType = option.getPromptType();
+         String defaultValue = option.getDefaultValue();
+         Class<?> optionType = option.getBoxedType();
+         String optionDescriptor = option.getOptionDescriptor() + ": ";
+
          Object value;
          if (option.isPipeOut())
          {
@@ -159,16 +166,31 @@ public class ExecutionParser
          else if (option.isPipeIn())
          {
             value = pipeIn;
+
+            if (pipeIn != null)
+            {
+               if (InputStream.class.isAssignableFrom(option.getBoxedType()))
+               {
+                  value = new InputStream()
+                  {
+                     int cursor = 0;
+                     int len = pipeIn.length();
+
+                     @Override
+                     public int read() throws IOException
+                     {
+                        return len != cursor ? pipeIn.charAt(cursor++) : -1;
+                     }
+                  };
+               }
+            }
+
          }
          else
          {
             value = valueMap.get(option);
          }
 
-         PromptType promptType = option.getPromptType();
-         String defaultValue = option.getDefaultValue();
-         Class<?> optionType = option.getBoxedType();
-         String optionDescriptor = option.getOptionDescriptor() + ": ";
 
          if (!option.isPipeOut() && !option.isPipeIn())
          {

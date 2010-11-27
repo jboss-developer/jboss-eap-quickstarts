@@ -20,32 +20,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project.resources;
+package org.jboss.seam.forge.shell;
 
-import org.jboss.seam.forge.project.AbstractResource;
-import org.jboss.seam.forge.project.Resource;
-
-import java.io.InputStream;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
- * @author Mike Brock
+ * @author Mike Brock .
  */
-public abstract class ClassMemberResource<T> extends AbstractResource<T>
+public interface ShellPrintWriter
 {
-   protected ClassMemberResource(final Resource<?> parent)
-   {
-      super(null, parent);
-   }
+   public void print(String s);
+   public void println(String s);
+   public void println();
 
-   @Override
-   public Resource<?> getChild(final String name)
-   {
-      throw new RuntimeException("not implemented");
-   }
+   public void print(ShellColor color, String s);
+   public void println(ShellColor color, String s);
 
-   @Override
-   public InputStream getResourceInputStream()
-   {
-      throw new RuntimeException("not supported");
-   }
+   public void write(byte b);
 }

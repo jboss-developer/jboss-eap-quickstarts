@@ -27,6 +27,7 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
 
 import java.io.File;
 import java.util.*;
@@ -122,17 +123,17 @@ public class GeneralUtils
       return new OutputAttributes(colSize, cols);
    }
 
-   public static void printOutColumns(List<String> rawList, Shell shell, boolean sort)
+   public static void printOutColumns(List<String> rawList, ShellPrintWriter out, Shell shell, boolean sort)
    {
-      printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), null, sort);
+      printOutColumns(rawList, ShellColor.NONE, out, calculateOutputAttributs(rawList, shell), null, sort);
    }
 
-   public static void printOutColumns(List<String> rawList, Shell shell, FormatCallback callback, boolean sort)
+   public static void printOutColumns(List<String> rawList, ShellPrintWriter out, Shell shell, FormatCallback callback, boolean sort)
    {
-      printOutColumns(rawList, ShellColor.NONE, shell, calculateOutputAttributs(rawList, shell), callback, sort);
+      printOutColumns(rawList, ShellColor.NONE, out, calculateOutputAttributs(rawList, shell), callback, sort);
    }
 
-   public static void printOutColumns(List<String> rawList, ShellColor color, Shell shell,
+   public static void printOutColumns(List<String> rawList, ShellColor color, ShellPrintWriter printWriter,
                                       OutputAttributes attributes, FormatCallback callback, boolean sort)
    {
 
@@ -150,21 +151,21 @@ public class GeneralUtils
          String out = callback != null ? callback.format(0, s) : s;
          if (color == ShellColor.NONE)
          {
-            shell.print(out);
+            printWriter.print(out);
          }
          else
          {
-            shell.print(color, out);
+            printWriter.print(color, out);
          }
 
-         shell.print(pad(colSize - s.length()));
+         printWriter.print(pad(colSize - s.length()));
          if (++i == cols)
          {
-            shell.println();
+            printWriter.println();
             i = 0;
          }
       }
-      shell.println();
+      printWriter.println();
    }
 
    public static void printOutTables(List<String> list, int cols, Shell shell)
@@ -177,7 +178,7 @@ public class GeneralUtils
       printOutTables(list, columns, shell, null);
    }
 
-   public static void printOutTables(List<String> list, boolean[] columns, Shell shell, FormatCallback callback)
+   public static void printOutTables(List<String> list, boolean[] columns, ShellPrintWriter shell, FormatCallback callback)
    {
       int cols = columns.length;
       int[] colSizes = new int[columns.length];

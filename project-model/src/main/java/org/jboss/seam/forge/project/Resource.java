@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.project;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -78,6 +79,8 @@ public interface Resource<T>
    public List<Resource<?>> listResources();
 
    public T getUnderlyingResourceObject();
+
+   public InputStream getResourceInputStream();
 
    public Resource<?> getChild(String name);
 

@@ -217,7 +217,7 @@ public class LsPlugin implements Plugin
             }
          };
 
-         printOutColumns(listBuild, shell, formatCallback, false);
+         printOutColumns(listBuild, shell, shell, formatCallback, false);
       }
    }
 

@@ -106,7 +106,7 @@ public class LsJavaPlugin implements Plugin
                   entry += " " + field.getName() + ";";
                   output.add(entry);
                }
-               GeneralUtils.printOutColumns(output, shell, true);
+               GeneralUtils.printOutColumns(output, shell, shell, true);
                shell.println();
 
                // rinse and repeat for methods
@@ -128,7 +128,7 @@ public class LsJavaPlugin implements Plugin
                   entry += shell.renderColor(ShellColor.GREEN, " : " + method.getReturnType() + "");
                   output.add(entry);
                }
-               GeneralUtils.printOutColumns(output, shell, true);
+               GeneralUtils.printOutColumns(output, shell, shell, true);
                shell.println();
             }
          }

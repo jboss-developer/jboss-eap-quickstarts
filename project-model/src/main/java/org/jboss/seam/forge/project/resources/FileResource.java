@@ -23,6 +23,9 @@
 package org.jboss.seam.forge.project.resources;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
@@ -75,6 +78,19 @@ public abstract class FileResource extends AbstractResource<File>
       else
       {
          return file;
+      }
+   }
+
+   @Override
+   public InputStream getResourceInputStream()
+   {
+      try
+      {
+         return new FileInputStream(file);
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new RuntimeException("cannot obtain stream to file: file does not exist: " + file.getAbsolutePath());
       }
    }
 
