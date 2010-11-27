@@ -136,7 +136,6 @@ public class GeneralUtils
    public static void printOutColumns(List<String> rawList, ShellColor color, ShellPrintWriter printWriter,
                                       OutputAttributes attributes, FormatCallback callback, boolean sort)
    {
-
       if (sort)
       {
          Collections.sort(rawList);
@@ -158,8 +157,12 @@ public class GeneralUtils
             printWriter.print(color, out);
          }
 
-         printWriter.print(pad(colSize - s.length()));
-         if (++i == cols)
+         if (++i != cols)
+         {
+            printWriter.print(pad(colSize - s.length()));
+         }
+
+         if (i == cols)
          {
             printWriter.println();
             i = 0;

@@ -80,7 +80,7 @@ public class WordCountPlugin implements Plugin
    private static Results count(InputStream stream, boolean lines, boolean words, boolean chars)
          throws IOException
    {
-      byte[] buffer = new byte[20];
+      byte[] buffer = new byte[1024];
       int read;
 
       Results res = new Results();

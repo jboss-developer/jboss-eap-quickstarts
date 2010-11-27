@@ -179,7 +179,7 @@ public class ExecutionParser
                      @Override
                      public int read() throws IOException
                      {
-                        return len != cursor ? pipeIn.charAt(cursor++) : -1;
+                        return cursor != len ? pipeIn.charAt(cursor++) : -1;
                      }
                   };
                }
