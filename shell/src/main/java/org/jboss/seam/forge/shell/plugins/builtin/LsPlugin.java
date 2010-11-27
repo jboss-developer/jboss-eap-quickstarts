@@ -28,6 +28,7 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.FormatCallback;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 import javax.inject.Inject;
@@ -78,7 +79,8 @@ public class LsPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths)
+                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
+                   final PipeOut out)
    {
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
@@ -150,7 +152,7 @@ public class LsPlugin implements Plugin
                listBuild.addAll(sublist);
             }
 
-            shell.println("total " + fileCount);
+            out.println("total " + fileCount);
          }
          else
          {
@@ -196,7 +198,7 @@ public class LsPlugin implements Plugin
          printOutTables(
                listBuild,
                new boolean[]{false, false, false, true, false, false, true, false},
-               shell,
+               out,
                formatCallback);
       }
       else
@@ -208,7 +210,7 @@ public class LsPlugin implements Plugin
             {
                if (value.endsWith("/"))
                {
-                  return shell.renderColor(ShellColor.BLUE, value);
+                  return out.renderColor(ShellColor.BLUE, value);
                }
                else
                {
@@ -217,7 +219,15 @@ public class LsPlugin implements Plugin
             }
          };
 
-         printOutColumns(listBuild, shell, shell, formatCallback, false);
+         if (out.isPiped())
+         {
+            GeneralUtils.OutputAttributes attr = new GeneralUtils.OutputAttributes(120, 1);
+            printOutColumns(listBuild, ShellColor.NONE, out, attr, null, false);
+         }
+         else
+         {
+            printOutColumns(listBuild, out, shell, formatCallback, false);
+         }
       }
    }
 

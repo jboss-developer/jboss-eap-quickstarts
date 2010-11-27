@@ -165,7 +165,10 @@ public class GeneralUtils
             i = 0;
          }
       }
-      printWriter.println();
+      if (i != 0 && i != cols)
+      {
+         printWriter.println();
+      }
    }
 
    public static void printOutTables(List<String> list, int cols, Shell shell)
@@ -216,6 +219,10 @@ public class GeneralUtils
                   shell.print(el);
                }
 
+               if (iter.hasNext())
+               {
+                  shell.print(" ");
+               }
             }
             else
             {
@@ -228,9 +235,12 @@ public class GeneralUtils
                   shell.print(el);
                }
 
-               shell.print(pad(colSizes[i] - el.length()));
+               if (iter.hasNext())
+               {
+                  shell.print(pad(colSizes[i] - el.length()));
+                  shell.print(" ");
+               }
             }
-            shell.print(" ");
          }
          shell.println();
       }
