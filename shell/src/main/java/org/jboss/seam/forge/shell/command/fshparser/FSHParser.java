@@ -287,11 +287,6 @@ public class FSHParser
             start = n = d;
          }
 
-//         if (d instanceof ScriptNode)
-//         {
-//            start = d;
-//            break;
-//         }
          if (tokenMatch(d, "|"))
          {
             pipe = true;
