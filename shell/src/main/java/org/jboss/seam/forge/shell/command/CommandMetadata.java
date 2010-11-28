@@ -46,6 +46,8 @@ public class CommandMetadata
    private String help = "";
    private List<OptionMetadata> options = new ArrayList<OptionMetadata>();
 
+   private int parmLength = 0;
+
    private Set<Class<? extends Resource>> resourceScopes = Collections.emptySet();
 
    public OptionMetadata getNamedOption(final String name) throws IllegalArgumentException
@@ -206,5 +208,15 @@ public class CommandMetadata
    public boolean usableWithResource(final Class<? extends Resource> resource)
    {
       return (this.resourceScopes.size() == 0) || this.resourceScopes.contains(resource);
+   }
+
+   public int getParmLength()
+   {
+      return parmLength;
+   }
+
+   public void setParmLength(int parmLength)
+   {
+      this.parmLength = parmLength;
    }
 }

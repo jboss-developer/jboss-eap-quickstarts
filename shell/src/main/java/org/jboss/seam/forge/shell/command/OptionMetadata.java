@@ -181,7 +181,7 @@ public class OptionMetadata
    @Override
    public String toString()
    {
-      return name;
+      return name + ":" + description;
    }
 
    public CommandMetadata getParent()

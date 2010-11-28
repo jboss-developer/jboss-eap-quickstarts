@@ -41,7 +41,7 @@ public class NamedValueOptionParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
    {
       Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();

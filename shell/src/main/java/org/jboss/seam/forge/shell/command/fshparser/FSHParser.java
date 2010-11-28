@@ -295,8 +295,6 @@ public class FSHParser
          else if (tokenMatch(d, "|"))
          {
             pipe = true;
-
-            cursor++;
             break;
          }
          else if (nest && !script && tokenIsOperator(d))
@@ -402,4 +400,5 @@ public class FSHParser
    {
       return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
    }
+
 }

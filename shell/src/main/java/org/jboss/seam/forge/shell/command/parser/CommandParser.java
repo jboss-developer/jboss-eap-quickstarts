@@ -41,5 +41,5 @@ public interface CommandParser
     * 
     * @return a map of options mapped to their given values.
     */
-   public Map<OptionMetadata, Object> parse(CommandMetadata command, Queue<String> tokens);
+   public Map<OptionMetadata, Object> parse(CommandMetadata command, Queue<String> tokens, CommandParserContext context);
 }

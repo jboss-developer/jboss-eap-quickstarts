@@ -39,7 +39,7 @@ public class ParseErrorParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
    {
       String token = tokens.peek();
       throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());

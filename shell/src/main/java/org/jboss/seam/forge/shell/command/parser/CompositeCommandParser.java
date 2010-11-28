@@ -46,7 +46,7 @@ public class CompositeCommandParser implements CommandParser
    }
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens)
+   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
    {
       Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
 
@@ -63,7 +63,7 @@ public class CompositeCommandParser implements CommandParser
             }
 
             int size = tokens.size();
-            Map<OptionMetadata, Object> partial = parser.parse(command, tokens);
+            Map<OptionMetadata, Object> partial = parser.parse(command, tokens, ctx);
             valueMap.putAll(partial);
 
             if (size > tokens.size())
