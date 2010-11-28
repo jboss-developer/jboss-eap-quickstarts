@@ -125,10 +125,15 @@ public class Echo implements Plugin
             if (Character.isWhitespace(expr[i]))
             {
                out.append(new String(expr, start, i - start));
+
+               start = i;
                while (i != expr.length && Character.isWhitespace(expr[i]))
                {
                   i++;
                }
+
+               out.append(new String(expr, start, i - start));
+
                start = i;
             }
          }
@@ -141,6 +146,4 @@ public class Echo implements Plugin
 
       return out.toString();
    }
-
-
 }
