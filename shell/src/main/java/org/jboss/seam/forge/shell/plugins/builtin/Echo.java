@@ -23,13 +23,28 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.command.fshparser.FSHParser;
 import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.util.ShellColor;
+import org.mvel2.util.ParseTools;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock
  */
+@Named("echo")
 @Help("Writes input to output.")
 @Topic("Shell Environment")
 public class Echo implements Plugin
@@ -38,23 +53,94 @@ public class Echo implements Plugin
    Shell shell;
 
    @DefaultCommand
-   public void run(@Option(help = "The text to be echoed") final String... tokens)
+   public void run(
+         @Option(help = "The text to be echoed") final String[] tokens,
+         final PipeOut out)
    {
-      String input = null;
-      if (tokens != null)
+      if (tokens == null || tokens.length == 0)
       {
-         input = "";
-         for (String token : tokens)
-         {
-            input = input + " " + token;
-         }
-         input = input.trim();
+         return;
       }
 
-      if (input == null)
-      {
-         input = shell.prompt();
-      }
-      shell.println(input);
+      out.println(echo(shell, tokensToString(tokens)));
    }
+
+   private static String tokensToString(String... tokens)
+   {
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < tokens.length; i++)
+      {
+         sb.append(tokens[i]);
+         if (i + 1 < tokens.length)
+         {
+            sb.append(" ");
+         }
+      }
+
+      return sb.toString();
+   }
+
+
+   private static String echo(Shell shell, String input)
+   {
+      char[] expr = input.toCharArray();
+      StringBuilder out = new StringBuilder();
+      int start = 0;
+      int i = 0;
+      for (; i < expr.length; i++)
+      {
+         if (i >= expr.length)
+         {
+            break;
+         }
+
+         switch (expr[i])
+         {
+         case '\'':
+         case '"':
+            out.append(new String(expr, start, i - start));
+            start = i;
+            i = ParseTools.balancedCapture(expr, i, expr[i]);
+            out.append(new String(expr, start + 1, i - start - 1));
+            start = ++i;
+            break;
+         case '$':
+            out.append(new String(expr, start, i - start));
+            start = ++i;
+            while (i != expr.length && Character.isJavaIdentifierPart(expr[i]))
+            {
+               i++;
+            }
+
+            String var = new String(expr, start, i - start);
+            if (shell.getProperties().containsKey(var))
+            {
+               out.append(String.valueOf(shell.getProperties().get(var)));
+            }
+
+            start = i;
+            break;
+
+         default:
+            if (Character.isWhitespace(expr[i]))
+            {
+               out.append(new String(expr, start, i - start));
+               while (i != expr.length && Character.isWhitespace(expr[i]))
+               {
+                  i++;
+               }
+               start = i;
+            }
+         }
+      }
+
+      if (i > start)
+      {
+         out.append(new String(expr, start, i - start));
+      }
+
+      return out.toString();
+   }
+
+
 }

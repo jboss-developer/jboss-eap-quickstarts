@@ -297,11 +297,17 @@ public class ShellImpl implements Shell
       }
       catch (NoSuchCommandException e)
       {
-         String s = execScript(line);
-         if (s.length() != 0)
+         println("[" + e.getCommand() + "]" + e.getMessage());
+         if (verbose)
          {
-            println(s);
+            e.printStackTrace();
          }
+
+//         String s = execScript(line);
+//         if (s.length() != 0)
+//         {
+//            println(s);
+//         }
       }
       catch (CommandExecutionException e)
       {
