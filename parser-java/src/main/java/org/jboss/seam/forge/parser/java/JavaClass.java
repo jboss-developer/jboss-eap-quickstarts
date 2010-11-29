@@ -22,23 +22,23 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import java.util.List;
-
 import org.jboss.seam.forge.parser.JavaParser;
+
+import java.util.List;
 
 /**
  * Represents a Java Class source file as an in-memory modifiable element. See
  * {@link JavaParser} for various options in generating {@link JavaClass}
  * instances.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<JavaClass>, AnnotationTarget<JavaClass>
 {
    /*
     * Compilation apis
     */
+
    /**
     * Get a list of all {@link SyntaxError}s detected in the current
     * {@link JavaClass}. Note that when errors are present, the class may still
@@ -55,6 +55,7 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    /*
     * Package modifiers
     */
+
    /**
     * Get the package of this {@link JavaClass}, or return null if it is in the
     * default package.
@@ -80,6 +81,7 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    /*
     * Import modifiers
     */
+
    /**
     * Add an import by qualified class name. (E.g: "org.jboss.Imported")
     */
@@ -161,7 +163,7 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    /**
     * Add a new {@link Field} declaration to this {@link JavaClass} instance,
     * using the given {@link String} as the declaration.
-    * <p>
+    * <p/>
     * <strong>For example:</strong><br>
     * <code>Field f = javaClass.addField("private String newField;");</code>
     */
@@ -206,7 +208,7 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
    /**
     * Add a new {@link Method} declaration to this {@link JavaClass} instance,
     * using the given {@link String} as the method declaration.
-    * <p>
+    * <p/>
     * <strong>For example:</strong><br>
     * <code>Method m = javaClass.addMethod("public String method() {return \"hello!\";}")</code>
     */
@@ -234,7 +236,7 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
 
    /**
     * Set the simple-name of this {@link JavaClass} instance.
-    * 
+    *
     * @see #getName()
     */
    public JavaClass setName(String name);
@@ -243,14 +245,14 @@ public interface JavaClass extends Abstractable<JavaClass>, VisibilityScoped<Jav
     * Set the qualified-name of this {@link JavaClass} instance, where the
     * qualified-name contains both the Java package and simple class name of the
     * type represented by this {@link JavaClass} instance.
-    * <p>
+    * <p/>
     * <strong>For example</strong>, calling:<br>
-    * 
+    * <p/>
     * <code>
     * javaClass.setQualifiedName("org.jboss.Example");</code>
-    * <p>
+    * <p/>
     * Is equivalent to calling:
-    * <p>
+    * <p/>
     * <code>javaClass.setPackage("org.jboss").setName("Example");</code>
     */
    public String getQualifiedName();

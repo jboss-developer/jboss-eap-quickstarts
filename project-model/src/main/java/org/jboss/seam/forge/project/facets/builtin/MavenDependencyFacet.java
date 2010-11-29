@@ -21,16 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-
-import javax.enterprise.context.Dependent;
-
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.model.Model;
@@ -43,12 +33,15 @@ import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 
+import javax.enterprise.context.Dependent;
+import java.util.*;
+import java.util.Map.Entry;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Dependent
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacets({MavenCoreFacet.class})
 public class MavenDependencyFacet implements DependencyFacet, Facet
 {
    private Project project;
@@ -105,7 +98,7 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
    {
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
       List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(maven.getProjectBuildingResult()
-               .getProject().getDependencies());
+            .getProject().getDependencies());
 
       for (Dependency dependency : dependencies)
       {

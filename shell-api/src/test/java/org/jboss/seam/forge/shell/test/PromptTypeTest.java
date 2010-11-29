@@ -22,16 +22,15 @@
 
 package org.jboss.seam.forge.shell.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.util.Patterns;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class PromptTypeTest
 {

@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.ClassMemberResource;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Mike Brock

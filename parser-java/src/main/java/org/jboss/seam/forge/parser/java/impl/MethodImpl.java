@@ -21,30 +21,19 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Block;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.*;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
-import org.eclipse.jdt.core.dom.Statement;
-import org.eclipse.jdt.core.dom.Type;
-import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.parser.java.Parameter;
-import org.jboss.seam.forge.parser.java.Visibility;
+import org.jboss.seam.forge.parser.java.*;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class MethodImpl implements Method
 {

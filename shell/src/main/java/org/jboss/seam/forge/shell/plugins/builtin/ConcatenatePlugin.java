@@ -25,15 +25,12 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * @author Mike Brock .

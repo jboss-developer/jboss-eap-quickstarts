@@ -103,7 +103,14 @@ public class LsPlugin implements Plugin
          }
          else
          {
-            childResources = Collections.<Resource<?>>singletonList(resource);
+            if (resource.exists())
+            {
+               childResources = Collections.<Resource<?>>singletonList(resource);
+            }
+            else
+            {
+               return;
+            }
          }
 
          String el;

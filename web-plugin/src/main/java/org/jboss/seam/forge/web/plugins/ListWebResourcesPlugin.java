@@ -21,26 +21,20 @@
  */
 package org.jboss.seam.forge.web.plugins;
 
-import java.io.File;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.web.ServletFacet;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Named("list-web-resources")
 @Topic("File & Resources")

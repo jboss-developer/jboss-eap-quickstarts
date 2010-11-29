@@ -22,16 +22,15 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 /**
  * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class DependencyImpl implements Dependency
 {

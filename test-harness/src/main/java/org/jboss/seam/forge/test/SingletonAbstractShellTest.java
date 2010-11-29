@@ -22,21 +22,6 @@
 
 package org.jboss.seam.forge.test;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
@@ -51,9 +36,22 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 
+import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public abstract class SingletonAbstractShellTest
 {
@@ -62,8 +60,8 @@ public abstract class SingletonAbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-               .addPackages(true, BasePackageMarker.class.getPackage())
-               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+            .addPackages(true, BasePackageMarker.class.getPackage())
+            .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
    }
@@ -92,7 +90,7 @@ public abstract class SingletonAbstractShellTest
       if (tempFolder == null)
       {
          shell.setVerbose(true);
-         beanManager.fireEvent(new Startup(), new Annotation[] {});
+         beanManager.fireEvent(new Startup(), new Annotation[]{});
 
          resetInputQueue();
          shell.setOutputWriter(new PrintWriter(System.out));

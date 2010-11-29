@@ -22,22 +22,17 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 
+import java.util.*;
+
 /**
  * Parses named varargs options such as:
- * <p>
+ * <p/>
  * <code>[command] {--option foo bar baz}</code>
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class NamedValueVarargsOptionParser implements CommandParser
 {
@@ -62,8 +57,8 @@ public class NamedValueVarargsOptionParser implements CommandParser
                   args.add(tokens.remove());
                }
                valueMap.put(option, args.toArray()); // add the value, should we
-                                                     // return this as a tuple
-                                                     // instead?
+               // return this as a tuple
+               // instead?
             }
          }
       }

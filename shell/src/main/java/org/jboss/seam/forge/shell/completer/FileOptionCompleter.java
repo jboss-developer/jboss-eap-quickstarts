@@ -22,18 +22,12 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.io.File;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import jline.console.completer.FileNameCompleter;
 
-import org.jboss.seam.forge.shell.Shell;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class FileOptionCompleter extends FileNameCompleter
 {

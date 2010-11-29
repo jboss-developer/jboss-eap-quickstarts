@@ -22,25 +22,26 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.command.fshparser.FSHParser;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
 import org.mvel2.util.ParseTools;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -683,7 +684,7 @@ public class Echo implements Plugin
          }
       };
 
-    //  System.out.println(shell.renderColor(ShellColor.GREEN, "foo"));
+      //  System.out.println(shell.renderColor(ShellColor.GREEN, "foo"));
 
       String pre = promptExpressionParser(shell, "[\\c{yellow}OH NO!\\c] \\@ \\c{bold}\\W\\c $");
 

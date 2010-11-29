@@ -21,17 +21,7 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.BodyDeclaration;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.MemberValuePair;
-import org.eclipse.jdt.core.dom.NormalAnnotation;
-import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
+import org.eclipse.jdt.core.dom.*;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
@@ -39,10 +29,12 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.ValuePair;
 import org.jboss.seam.forge.parser.java.util.Strings;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class AnnotationImpl implements Annotation
 {

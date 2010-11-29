@@ -21,23 +21,22 @@
  */
 package org.jboss.seam.forge.shell.project;
 
-import java.lang.annotation.Annotation;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
 import javax.enterprise.context.ContextNotActiveException;
 import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
-
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
+import java.lang.annotation.Annotation;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class provides lifecycle management for the {@link Project} scope
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class ProjectScopedContext implements Context
@@ -50,7 +49,7 @@ public class ProjectScopedContext implements Context
       if (!isActive())
       {
          throw new ContextNotActiveException(
-                  "Context with scope annotation @ProjectScoped is not active with respect to the current directory.");
+               "Context with scope annotation @ProjectScoped is not active with respect to the current directory.");
       }
    }
 
@@ -61,7 +60,7 @@ public class ProjectScopedContext implements Context
       return context;
    }
 
-   @SuppressWarnings({ "rawtypes", "unchecked" })
+   @SuppressWarnings({"rawtypes", "unchecked"})
    public void destroy(@Observes final ProjectChange event)
    {
       if (context != null)
@@ -147,7 +146,7 @@ public class ProjectScopedContext implements Context
    private Map<Contextual<?>, Object> getComponentInstanceMap()
    {
       ConcurrentHashMap<Contextual<?>, Object> map = (ConcurrentHashMap<Contextual<?>, Object>) getCurrentProject()
-               .getAttribute(COMPONENT_MAP_NAME);
+            .getAttribute(COMPONENT_MAP_NAME);
 
       if (map == null)
       {
@@ -162,7 +161,7 @@ public class ProjectScopedContext implements Context
    private Map<Contextual<?>, CreationalContext<?>> getCreationalContextMap()
    {
       Map<Contextual<?>, CreationalContext<?>> map = (ConcurrentHashMap<Contextual<?>, CreationalContext<?>>) getCurrentProject()
-               .getAttribute(CREATIONAL_MAP_NAME);
+            .getAttribute(CREATIONAL_MAP_NAME);
 
       if (map == null)
       {

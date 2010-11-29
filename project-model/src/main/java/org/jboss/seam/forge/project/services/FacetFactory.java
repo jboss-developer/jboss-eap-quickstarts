@@ -21,23 +21,21 @@
  */
 package org.jboss.seam.forge.project.services;
 
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.util.Iterators;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import java.util.List;
+
 /**
  * Responsible for instantiating {@link Facet}s through CDI.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Dependent
 public class FacetFactory

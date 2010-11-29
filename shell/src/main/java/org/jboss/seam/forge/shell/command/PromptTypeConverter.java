@@ -22,16 +22,15 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.PromptType;
 
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class PromptTypeConverter
 {

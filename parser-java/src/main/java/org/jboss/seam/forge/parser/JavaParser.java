@@ -22,19 +22,18 @@
 
 package org.jboss.seam.forge.parser;
 
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.impl.JavaClassImpl;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.impl.JavaClassImpl;
-
 /**
  * Responsible for parsing data into new {@link JavaClass} instances.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public abstract class JavaParser
 {

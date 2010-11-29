@@ -22,16 +22,16 @@
 
 package org.jboss.seam.forge.project.resources;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * A standard, built-in resource for representing files on the filesystem.

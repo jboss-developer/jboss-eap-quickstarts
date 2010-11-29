@@ -22,16 +22,6 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Queue;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -43,6 +33,15 @@ import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.command.parser.*;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Queue;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -50,11 +49,11 @@ import org.jboss.seam.forge.shell.command.parser.*;
 public class PluginCommandCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
-            new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(),
-            new NamedValueVarargsOptionParser(),
-            new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser());
+         new NamedBooleanOptionParser(),
+         new NamedValueOptionParser(),
+         new NamedValueVarargsOptionParser(),
+         new OrderedValueOptionParser(),
+         new OrderedValueVarargsOptionParser());
 
    @Inject
    private PluginRegistry registry;
@@ -322,7 +321,7 @@ public class PluginCommandCompleter implements CommandCompleter
 
                   if (valueMap.isEmpty())
                   {
-                     values = new String[] { "" };
+                     values = new String[]{""};
                   }
                   else if (valueMap.get(option) instanceof String[])
                   {
@@ -330,13 +329,13 @@ public class PluginCommandCompleter implements CommandCompleter
                   }
                   else
                   {
-                     values = new String[] { String.valueOf(valueMap.get(option)) };
+                     values = new String[]{String.valueOf(valueMap.get(option))};
                   }
 
                   String val = values[values.length - 1];
 
                   for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*")
-                           .resolve())
+                        .resolve())
                   {
                      // Add result to the results list, and append a '/' if the resource has children.
                      results.add(r.getName() + (r.isFlagSet(ResourceFlag.Node) ? "/" : ""));
@@ -418,6 +417,6 @@ public class PluginCommandCompleter implements CommandCompleter
    private boolean isResourceAssignable(final OptionMetadata option)
    {
       return Resource[].class.isAssignableFrom(option.getBoxedType())
-               || Resource.class.isAssignableFrom(option.getBoxedType());
+            || Resource.class.isAssignableFrom(option.getBoxedType());
    }
 }

@@ -22,27 +22,10 @@
 
 package org.jboss.seam.forge.shell.test.project.resources;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.JavaResource;
-import org.jboss.seam.forge.shell.project.resources.ResourceProducer;
-import org.jboss.seam.forge.shell.project.resources.ResourceProducerExtension;
-import org.jboss.seam.forge.test.AbstractShellTest;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 //@RunWith(Arquillian.class)
 public class ResourceProducerExtensionTest

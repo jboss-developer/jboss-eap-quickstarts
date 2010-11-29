@@ -21,16 +21,6 @@
  */
 package org.jboss.seam.forge.persistence;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Named;
-import javax.persistence.Entity;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
@@ -45,26 +35,30 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.*;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
+import javax.inject.Named;
+import javax.persistence.Entity;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Named("persistence")
-@RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
-@RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
+@RequiresFacets({JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class})
+@RequiresPackagingTypes({PackagingType.JAR, PackagingType.WAR})
 public class PersistenceFacet implements Facet
 {
    private static final Dependency dep =
-            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
+         DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
    private Project project;
 
@@ -122,16 +116,16 @@ public class PersistenceFacet implements Facet
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                     .persistenceUnit("default")
-                     .description("The Seam Forge default Persistence Unit")
-                     .transactionType(TransactionType.JTA)
-                     .provider(ProviderType.HIBERNATE)
-                     .jtaDataSource("java:/DefaultDS")
-                     .includeUnlistedClasses()
-                     .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
-                     .showSql()
-                     .formatSql()
-                     .property("hibernate.transaction.flush_before_completion", true);
+                  .persistenceUnit("default")
+                  .description("The Seam Forge default Persistence Unit")
+                  .transactionType(TransactionType.JTA)
+                  .provider(ProviderType.HIBERNATE)
+                  .jtaDataSource("java:/DefaultDS")
+                  .includeUnlistedClasses()
+                  .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
+                  .showSql()
+                  .formatSql()
+                  .property("hibernate.transaction.flush_before_completion", true);
 
             project.writeFile(unit.exportAsString(), descriptor);
          }

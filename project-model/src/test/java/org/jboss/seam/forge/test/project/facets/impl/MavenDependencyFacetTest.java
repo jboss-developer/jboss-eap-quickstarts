@@ -22,16 +22,6 @@
 
 package org.jboss.seam.forge.test.project.facets.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
@@ -43,9 +33,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 @RunWith(Arquillian.class)
@@ -83,7 +79,7 @@ public class MavenDependencyFacetTest extends ProjectModelTest
    public void testAddDependency() throws Exception
    {
       Dependency dependency =
-               DependencyBuilder.create("org.jboss:test-dependency:1.0.0.Final");
+            DependencyBuilder.create("org.jboss:test-dependency:1.0.0.Final");
 
       Project project = getProject();
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -96,7 +92,7 @@ public class MavenDependencyFacetTest extends ProjectModelTest
    public void testRemoveDependency() throws Exception
    {
       Dependency dependency =
-               DependencyBuilder.create("org.jboss:test-dependency:1.0.1.Final");
+            DependencyBuilder.create("org.jboss:test-dependency:1.0.1.Final");
 
       Project project = getProject();
       DependencyFacet deps = project.getFacet(DependencyFacet.class);

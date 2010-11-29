@@ -22,9 +22,6 @@
 
 package org.jboss.seam.forge.bus.event.changes.java;
 
-import org.jboss.seam.forge.bus.event.changes.java.types.JavaChangeField;
-import org.jboss.seam.forge.bus.event.changes.java.types.JavaChangeMethod;
-
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */

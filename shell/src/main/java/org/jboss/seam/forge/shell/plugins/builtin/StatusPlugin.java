@@ -22,14 +22,14 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -50,9 +50,9 @@ public class StatusPlugin implements Plugin
 
    @DefaultCommand
    public void status(
-            @Option(help = "The name of the facet.",
-                     name = "facet",
-                     required = false) final String facetName)
+         @Option(help = "The name of the facet.",
+               name = "facet",
+               required = false) final String facetName)
    {
       if ((facetName == null) || facetName.isEmpty())
       {
@@ -79,13 +79,13 @@ public class StatusPlugin implements Plugin
             catch (Exception e)
             {
                shell.println("Status: NOT-INSTALLED (you may run \"install " + facetName
-                           + "\" to install this facet.");
+                     + "\" to install this facet.");
             }
          }
          else
          {
             shell.println("Could not find a facet with the name: " + facetName
-                     + "; are you sure that's the correct name?");
+                  + "; are you sure that's the correct name?");
          }
       }
    }

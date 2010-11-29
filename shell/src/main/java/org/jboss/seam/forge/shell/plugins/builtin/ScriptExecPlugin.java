@@ -22,15 +22,15 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import static java.lang.String.valueOf;
-import static org.mvel2.MVEL.eval;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.*;
+import org.mvel2.util.StringAppender;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.mvel2.util.StringAppender;
+import static java.lang.String.valueOf;
+import static org.mvel2.MVEL.eval;
 
 /**
  * @author Mike Brock

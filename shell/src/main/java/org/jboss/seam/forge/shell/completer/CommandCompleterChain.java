@@ -22,12 +22,10 @@
 
 package org.jboss.seam.forge.shell.completer;
 
+import jline.console.completer.Completer;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
-
-import jline.console.completer.Completer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

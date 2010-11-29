@@ -21,21 +21,14 @@
  */
 package org.jboss.seam.forge.shell.project;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import javax.enterprise.context.NormalScope;
+import java.lang.annotation.*;
 
 /**
  * Declares a bean as being scoped to the current {@link Project}. Beans using this scope will be destroyed when the
  * current {@link Project} is removed. The scope is active as long as there is an active {@link Project}
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @NormalScope
 @Inherited

@@ -22,16 +22,16 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import static org.jboss.seam.forge.project.util.ResourceUtil.getContextDirectory;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import static org.jboss.seam.forge.project.util.ResourceUtil.getContextDirectory;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

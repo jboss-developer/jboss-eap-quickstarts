@@ -22,12 +22,6 @@
 
 package org.jboss.seam.forge.shell.project;
 
-import java.io.File;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
@@ -35,6 +29,11 @@ import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -49,7 +48,7 @@ public class ProjectInitializer
 
    @Inject
    public ProjectInitializer(final Shell shell, final CurrentProject currentProjectHolder,
-                            final Event<InitProject> init, final ProjectFactory projectFactory)
+                             final Event<InitProject> init, final ProjectFactory projectFactory)
    {
       this.shell = shell;
       this.cp = currentProjectHolder;
@@ -104,6 +103,6 @@ public class ProjectInitializer
 
       cp.setCurrentProject(newProject);
 
-     // shell.setDefaultPrompt();
+      // shell.setDefaultPrompt();
    }
 }

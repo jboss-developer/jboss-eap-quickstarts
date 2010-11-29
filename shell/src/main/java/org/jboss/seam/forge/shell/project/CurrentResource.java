@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.shell.project;
 
-import javax.inject.Singleton;
-
 import org.jboss.seam.forge.project.Resource;
+
+import javax.inject.Singleton;
 
 /**
  * Contains the current {@link Resource} - not to be used by outsiders.
- * 
+ *
  * @author Mike Brock <cbrock@redhat.com>
  */
 @Singleton

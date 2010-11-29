@@ -21,28 +21,25 @@
  */
 package org.jboss.seam.forge.project.util;
 
+import javax.enterprise.inject.Stereotype;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import javax.enterprise.inject.Stereotype;
-
 /**
  * Utility class for common @{@link Annotation} operations.
- * <p>
+ * <p/>
  * TODO: This should probably go into weld-extensions so other portable extensions can leverage it.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com>Lincoln Baxter, III</a>
- * 
  */
 public class Annotations
 {
    /**
     * Discover if a Method <b>m</b> has been annotated with <b>type</b>. This also discovers annotations defined through
     * a @{@link Stereotype}.
-    * 
-    * @param m The method to inspect.
+    *
+    * @param m    The method to inspect.
     * @param type The targeted annotation class
-    * 
     * @return True if annotation is present either on the method itself, or on the declaring class of the method.
     *         Returns false if the annotation is not present.
     */
@@ -74,10 +71,9 @@ public class Annotations
    /**
     * Discover if a Class <b>c</b> has been annotated with <b>type</b>. This also discovers annotations defined through
     * a @{@link Stereotype}.
-    * 
-    * @param c The class to inspect.
+    *
+    * @param c    The class to inspect.
     * @param type The targeted annotation class
-    * 
     * @return True if annotation is present either on class, false if the annotation is not present.
     */
    public static boolean isAnnotationPresent(final Class<?> c, final Class<? extends Annotation> type)
@@ -103,10 +99,9 @@ public class Annotations
    /**
     * Inspect method <b>m</b> for a specific <b>type</b> of annotation. This also discovers annotations defined through
     * a @ {@link Stereotype}.
-    * 
-    * @param m The method to inspect.
+    *
+    * @param m    The method to inspect.
     * @param type The targeted annotation class
-    * 
     * @return The annotation instance found on this method or enclosing class, or null if no matching annotation was
     *         found.
     */
@@ -133,10 +128,9 @@ public class Annotations
    /**
     * Inspect class <b>c</b> for a specific <b>type</b> of annotation. This also discovers annotations defined through a @
     * {@link Stereotype}.
-    * 
-    * @param c The class to inspect.
+    *
+    * @param c    The class to inspect.
     * @param type The targeted annotation class
-    * 
     * @return The annotation instance found on this class, or null if no matching annotation was found.
     */
    public static <A extends Annotation> A getAnnotation(final Class<?> c, final Class<A> type)

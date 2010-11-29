@@ -22,42 +22,14 @@
 
 package org.jboss.seam.forge.shell;
 
-import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
-import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
-import static org.mvel2.DataConversion.addConversionHandler;
-import static org.mvel2.DataConversion.main;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Pattern;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
-
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
-import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
@@ -66,12 +38,7 @@ import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.forge.shell.exceptions.CommandParserException;
-import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
-import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.forge.shell.exceptions.ShellException;
-import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
+import org.jboss.seam.forge.shell.exceptions.*;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
@@ -86,6 +53,20 @@ import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.regex.Pattern;
+
+import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
+import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
+import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -594,7 +575,8 @@ public class ShellImpl implements Shell
       {
          return Echo.echo(this, Echo.promptExpressionParser(this, (String) properties.get(PROP_PROMPT)));
       }
-      else {
+      else
+      {
          return Echo.echo(this, Echo.promptExpressionParser(this, (String) properties.get(PROP_PROMPT_NO_PROJ)));
       }
 

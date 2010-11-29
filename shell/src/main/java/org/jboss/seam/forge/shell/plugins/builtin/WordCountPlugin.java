@@ -2,7 +2,6 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 
@@ -45,7 +44,7 @@ public class WordCountPlugin implements Plugin
          {
             if (r instanceof DirectoryResource)
             {
-               System.err.println("wc: " + r.getName() +": is a directory.");
+               System.err.println("wc: " + r.getName() + ": is a directory.");
                continue;
             }
 
@@ -81,7 +80,7 @@ public class WordCountPlugin implements Plugin
       {
          colJust[i] = true;
       }
-      colJust[cols-1] = false;
+      colJust[cols - 1] = false;
 
       GeneralUtils.printOutTables(results, colJust, out, null);
    }

@@ -22,11 +22,11 @@
  */
 package org.jboss.seam.forge.shell.color;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.util.ShellColor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Mike Brock
@@ -122,7 +122,10 @@ public class JavaColorizer
             }
             output.append(arr[cursor]);
          }
-         else if (!capture) output.append(arr[cursor]);
+         else if (!capture)
+         {
+            output.append(arr[cursor]);
+         }
       }
 
       return output.toString();
@@ -218,7 +221,10 @@ public class JavaColorizer
          {
             if ((start < chars.length) && (chars[start] == '/'))
             {
-               if (start + 1 == chars.length) return start;
+               if (start + 1 == chars.length)
+               {
+                  return start;
+               }
                if (chars[start + 1] == '/')
                {
                   start++;
@@ -245,7 +251,10 @@ public class JavaColorizer
                   }
                }
             }
-            if (start == chars.length) return start;
+            if (start == chars.length)
+            {
+               return start;
+            }
             if ((chars[start] == '\'') || (chars[start] == '"'))
             {
                start = captureStringLiteral(chars[start], chars, start, chars.length);
@@ -268,7 +277,10 @@ public class JavaColorizer
    {
       while ((++cursor < length) && (expr[cursor] != type))
       {
-         if (expr[cursor] == '\\') cursor++;
+         if (expr[cursor] == '\\')
+         {
+            cursor++;
+         }
       }
 
       return cursor;

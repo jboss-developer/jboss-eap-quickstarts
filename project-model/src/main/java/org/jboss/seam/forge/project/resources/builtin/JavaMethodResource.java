@@ -22,14 +22,14 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.ClassMemberResource;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Mike Brock
@@ -83,6 +83,6 @@ public class JavaMethodResource extends ClassMemberResource<Method>
          }
       }
       return method.getName() + "(" + params + ")" + " : "
-               + (method.getReturnType() == null ? "void" : method.getReturnType());
+            + (method.getReturnType() == null ? "void" : method.getReturnType());
    }
 }

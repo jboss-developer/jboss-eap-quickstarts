@@ -21,14 +21,6 @@
  */
 package org.jboss.seam.forge.web;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -46,18 +38,24 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppDescriptorImp
 import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
+import javax.inject.Named;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Named("servlet")
-@RequiresFacets({ WebResourceFacet.class, DependencyFacet.class })
-@RequiresPackagingTypes({ PackagingType.WAR })
+@RequiresFacets({WebResourceFacet.class, DependencyFacet.class})
+@RequiresPackagingTypes({PackagingType.WAR})
 public class ServletFacet implements Facet
 {
 
    private static final Dependency dep =
-            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
+         DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
    private Project project;
 
@@ -168,20 +166,20 @@ public class ServletFacet implements Facet
          if (!descriptor.exists())
          {
             WebAppDescriptor unit = Descriptors.create(WebAppDescriptor.class)
-                     .displayName(projectName)
-                     .sessionTimeout(30)
-                     .welcomeFile("/index.html");
+                  .displayName(projectName)
+                  .sessionTimeout(30)
+                  .welcomeFile("/index.html");
 
             project.writeFile(unit.exportAsString(), descriptor);
          }
 
          File welcomePage = new File(webRoot + File.separator + "index.html");
          project.writeFile("<html><head><title>Welcome to Seam Forge</title></head>" +
-                     "<body>" +
-                     "<h1> [" + projectName + "] is Online</h1>" +
-                           "Powered by <a href=\"http://bit.ly/seamforge\">Seam Forge</a>" +
-                     "</body>" +
-                     "</html>", welcomePage);
+               "<body>" +
+               "<h1> [" + projectName + "] is Online</h1>" +
+               "Powered by <a href=\"http://bit.ly/seamforge\">Seam Forge</a>" +
+               "</body>" +
+               "</html>", welcomePage);
       }
       project.registerFacet(this);
       return this;

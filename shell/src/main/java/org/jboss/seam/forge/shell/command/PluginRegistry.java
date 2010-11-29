@@ -22,20 +22,6 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Resource;
@@ -43,9 +29,17 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.*;
+
 /**
  * Stores the current registry of all installed & loaded plugins.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Singleton
@@ -116,7 +110,7 @@ public class PluginRegistry
 
    /**
     * Get {@link PluginMetadata} for the plugin with the given name.
-    * 
+    *
     * @return the metadata, or null if no plugin with given name exists.
     */
    public List<PluginMetadata> getPluginMetadata(final String plugin)
@@ -174,7 +168,7 @@ public class PluginRegistry
                   if (scopes.contains(r))
                   {
                      throw new RuntimeException("failed sanity check. overlapping scopes for overloaded plugin name: "
-                              + entry.getKey() + " [" + entry.getValue() + "]");
+                           + entry.getKey() + " [" + entry.getValue() + "]");
                   }
                }
             }

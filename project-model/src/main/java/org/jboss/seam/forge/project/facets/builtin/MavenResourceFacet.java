@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
@@ -35,13 +28,18 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Dependent
 @Named("forge.maven.ResourceFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacets({MavenCoreFacet.class})
 public class MavenResourceFacet implements ResourceFacet, Facet
 {
    private Project project;
@@ -59,14 +57,14 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    public File getResourceFolder()
    {
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
-               + File.separator + "resources");
+            + File.separator + "resources");
    }
 
    @Override
    public File getTestResourceFolder()
    {
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
-               + File.separator + "resources");
+            + File.separator + "resources");
    }
 
    @Override

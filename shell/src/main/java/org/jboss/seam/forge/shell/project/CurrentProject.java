@@ -22,7 +22,11 @@
 
 package org.jboss.seam.forge.shell.project;
 
-import java.io.File;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.shell.plugins.events.InitProject;
+import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
@@ -30,13 +34,7 @@ import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.events.InitProject;
-import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

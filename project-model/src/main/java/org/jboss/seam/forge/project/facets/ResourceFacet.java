@@ -21,15 +21,14 @@
  */
 package org.jboss.seam.forge.project.facets;
 
-import java.io.File;
-import java.util.List;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 
+import java.io.File;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface ResourceFacet extends Facet
 {
@@ -57,7 +56,7 @@ public interface ResourceFacet extends Facet
    /**
     * At the given path/filename relative to the project resources directory:
     * {@link #getResourceFolder()} - create a file containing the given bytes.
-    * 
+    *
     * @return a handle to the {@link File} that was created.
     */
    File createResource(char[] bytes, String relativeFilename);
@@ -66,7 +65,7 @@ public interface ResourceFacet extends Facet
     * At the given path/filename relative to the project test resources
     * directory: {@link #getTestResourceFolder()} - create a file containing the
     * given bytes.
-    * 
+    *
     * @return a handle to the {@link File} that was created.
     */
    File createTestResource(char[] bytes, String relativeFilename);

@@ -21,19 +21,6 @@
  */
 package org.jboss.seam.forge.persistence.plugins;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -43,16 +30,21 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+import javax.persistence.*;
 import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 @Named("new-entity")
@@ -90,9 +82,9 @@ public class NewEntityPlugin implements Plugin
 
    @DefaultCommand(help = "Create a JPA @Entity")
    public void newEntity(
-            @Option(required = true,
-                     name = "named",
-                     description = "The @Entity name") final String entityName)
+         @Option(required = true,
+               name = "named",
+               description = "The @Entity name") final String entityName)
    {
       // TODO this should accept a qualified name as a parameter instead of
       // prompting for the package later
@@ -101,15 +93,15 @@ public class NewEntityPlugin implements Plugin
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       String entityPackage = shell.promptCommon(
-               "In which package you'd like to create this @Entity, or enter for default:",
-               PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
+            "In which package you'd like to create this @Entity, or enter for default:",
+            PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
 
       JavaClass javaClass = JavaParser.createClass()
-               .setPackage(entityPackage)
-               .setName(entityName)
-               .setPublic()
-               .addAnnotation(Entity.class)
-               .getOrigin();
+            .setPackage(entityPackage)
+            .setName(entityName)
+            .setPublic()
+            .addAnnotation(Entity.class)
+            .getOrigin();
 
       Field id = javaClass.addField("private long id = 0;");
       id.addAnnotation(Id.class);

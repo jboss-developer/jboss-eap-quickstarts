@@ -21,22 +21,19 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -209,7 +206,7 @@ public class JavaClassTest
    public void testAddMethodFromString() throws Exception
    {
       javaClass.addMethod("public URL rewriteURL(String pattern, String replacement) { return null; }")
-               .setPackagePrivate().getOrigin();
+            .setPackagePrivate().getOrigin();
       List<Method> methods = javaClass.getMethods();
       assertEquals(3, methods.size());
       assertEquals("URL", methods.get(2).getReturnType());
@@ -232,7 +229,7 @@ public class JavaClassTest
    public void testAddConstructor() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setProtected().setReturnType(String.class)
-               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
+            .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
       Method method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertEquals(javaClass.getName(), method.getName());
@@ -247,7 +244,7 @@ public class JavaClassTest
    public void testAddConstructorIngoresReturnTypeAndName() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setPrivate().setReturnType(String.class)
-               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
+            .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
       Method method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertTrue(method.isPrivate());

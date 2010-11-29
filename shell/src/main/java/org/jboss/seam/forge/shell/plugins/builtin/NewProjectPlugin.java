@@ -22,12 +22,6 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.parser.JavaParser;
@@ -39,12 +33,13 @@ import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.Files;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -63,28 +58,28 @@ public class NewProjectPlugin implements Plugin
    @SuppressWarnings("unchecked")
    @DefaultCommand
    public void create(
-            @Option(name = "named",
-                     description = "The name of the new project",
-                     required = true) final String name,
-            @Option(name = "topLevelPackage",
-                     description = "The top level package for your Java source files [e.g: \"com.example.project\"] ",
-                     required = true,
-                     type = PromptType.JAVA_PACKAGE) final String groupId,
-            @Option(name = "projectFolder",
-                     description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
-                     required = false) final File projectFolder
-            ) throws IOException
+         @Option(name = "named",
+               description = "The name of the new project",
+               required = true) final String name,
+         @Option(name = "topLevelPackage",
+               description = "The top level package for your Java source files [e.g: \"com.example.project\"] ",
+               required = true,
+               type = PromptType.JAVA_PACKAGE) final String groupId,
+         @Option(name = "projectFolder",
+               description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
+               required = false) final File projectFolder
+   ) throws IOException
    {
       File cwd = shell.getCurrentDirectory();
 
       File dir = new File(cwd.getAbsolutePath() + File.separator + name);
       if (projectFactory.containsProject(dir)
-               || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
+            || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
       {
          if (projectFactory.containsProject(dir))
          {
             shell.println("***ERROR*** [" + dir.getAbsolutePath()
-                     + "] already contains a project; please use a different folder.");
+                  + "] already contains a project; please use a different folder.");
          }
 
          File defaultDir;
@@ -113,8 +108,8 @@ public class NewProjectPlugin implements Plugin
             if (!projectFactory.containsProject(cwd))
             {
                newDir = shell.promptFile(
-                        "Where would you like to create the project? [Press ENTER to use the current directory: " + cwd
-                                 + "]", defaultDir);
+                     "Where would you like to create the project? [Press ENTER to use the current directory: " + cwd
+                           + "]", defaultDir);
             }
             else
             {
@@ -136,7 +131,7 @@ public class NewProjectPlugin implements Plugin
       }
 
       Project project = projectFactory.createProject(dir, MavenCoreFacet.class, MetadataFacet.class,
-               JavaSourceFacet.class, ResourceFacet.class);
+            JavaSourceFacet.class, ResourceFacet.class);
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
       Model pom = maven.getPOM();
       pom.setArtifactId(name);
@@ -151,13 +146,13 @@ public class NewProjectPlugin implements Plugin
       maven.setPOM(pom);
 
       project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
-               .createClass()
-               .setPackage(groupId)
-               .setName("HelloWorld")
-               .addMethod("public void String sayHello() {}")
-               .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
-                        + ".\");")
-               .getOrigin());
+            .createClass()
+            .setPackage(groupId)
+            .setName("HelloWorld")
+            .addMethod("public void String sayHello() {}")
+            .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
+                  + ".\");")
+            .getOrigin());
 
       project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 

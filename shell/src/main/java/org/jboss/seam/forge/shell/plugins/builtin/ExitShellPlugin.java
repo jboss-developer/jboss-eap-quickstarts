@@ -22,21 +22,20 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
 
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 /**
  * Implements a {@link Plugin} that fires the shell {@link Shutdown#NORMAL} event.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Named("exit")
 @Topic("Shell Environment")

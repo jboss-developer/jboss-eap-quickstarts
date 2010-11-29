@@ -22,24 +22,22 @@
 
 package org.jboss.seam.forge.shell;
 
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Singleton
 public class Bootstrap
@@ -60,7 +58,7 @@ public class Bootstrap
 
    private static void initLogging()
    {
-      String[] loggerNames = new String[] { "", "main", Logger.GLOBAL_LOGGER_NAME };
+      String[] loggerNames = new String[]{"", "main", Logger.GLOBAL_LOGGER_NAME};
       for (String loggerName : loggerNames)
       {
          Logger globalLogger = Logger.getLogger(loggerName);

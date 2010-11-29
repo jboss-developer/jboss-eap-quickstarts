@@ -21,26 +21,25 @@
  */
 package org.jboss.seam.forge.project.facets;
 
-import java.util.List;
-import java.util.Map;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface DependencyFacet extends Facet
 {
    /**
     * Return true if this {@link Project} contains a dependency matching the given {@link Dependency} at any level of
     * the project hierarchy; return false otherwise. This method ignores {@link Dependency#getScopeType()}
-    * <p>
+    * <p/>
     * See also: {@link DependencyBuilder}.
-    * <p>
+    * <p/>
     * <b>Notice:</b> This method checks the entire project dependency structure, meaning that if a dependency is
     * declared somewhere else in the hierarchy, it will not be detected by {@link #hasDirectDependency(Dependency)} and
     * will not be removable via {@link #removeDependency(Dependency)}.
@@ -50,9 +49,9 @@ public interface DependencyFacet extends Facet
    /**
     * Return true if this {@link Project} contains a dependency matching the given {@link Dependency}; return false
     * otherwise. This method ignores {@link Dependency#getScopeType()}
-    * <p>
+    * <p/>
     * See also: {@link DependencyBuilder}.
-    * <p>
+    * <p/>
     * <b>Notice:</b> This method checks only the immediate project dependencies, meaning that if a dependency is
     * declared somewhere else in the hierarchy, it will not be detected by this method, even though by
     * {@link #hasDependency(Dependency)} may return true.
@@ -62,7 +61,7 @@ public interface DependencyFacet extends Facet
    /**
     * Add the given {@link Dependency} to this {@link Project}'s immediate list of dependencies. This method first calls
     * {@link #hasDependency(Dependency)} before making changes to the dependency list.
-    * <p>
+    * <p/>
     * See also: {@link DependencyBuilder}.
     */
    public void addDependency(Dependency dependency);
@@ -70,9 +69,9 @@ public interface DependencyFacet extends Facet
    /**
     * Remove the given {@link Dependency} from this facet's {@link Project}. This method ignores
     * {@link Dependency#getScopeType()}
-    * <p>
+    * <p/>
     * See also: {@link DependencyBuilder}.
-    * <p>
+    * <p/>
     * <b>Notice:</b> This method operates only the immediate project dependencies, meaning that if a dependency is
     * declared somewhere else in the hierarchy, it will not be removable by this method. You should call
     * {@link #hasDirectDependency(Dependency)} first in order to check if the dependency exists in this projects

@@ -22,11 +22,11 @@
 
 package org.jboss.seam.forge.project.util;
 
-import java.io.File;
-import java.util.List;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * A set of utilities to work with the resources API.
@@ -66,7 +66,6 @@ public class ResourceUtil
       }
       return ctx;
    }
-
 
 
    public static List<Resource<?>> parsePathspec(final ResourceFactory factory, final Resource<?> resource,

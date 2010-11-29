@@ -21,17 +21,14 @@
  */
 package org.jboss.seam.forge.test.grammar.java.common;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -171,7 +168,7 @@ public abstract class AnnotationTest
       int size = target.getAnnotations().size();
 
       target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class")
-               .setLiteralValue("foo", "bar");
+            .setLiteralValue("foo", "bar");
 
       List<Annotation> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
