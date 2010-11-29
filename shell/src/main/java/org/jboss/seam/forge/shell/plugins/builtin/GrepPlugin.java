@@ -24,7 +24,6 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.plugins.*;
-import org.mvel2.util.StringAppender;
 
 import javax.inject.Named;
 import java.io.IOException;

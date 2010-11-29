@@ -22,7 +22,9 @@
 
 package org.jboss.seam.forge.shell.command.convert;
 
-import static java.lang.String.valueOf;
+import org.mvel2.ConversionException;
+import org.mvel2.ConversionHandler;
+import org.mvel2.conversion.Converter;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -30,9 +32,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.mvel2.ConversionException;
-import org.mvel2.ConversionHandler;
-import org.mvel2.conversion.Converter;
+import static java.lang.String.valueOf;
 
 /**
  * User: christopherbrock Date: 31-Aug-2010 Time: 10:58:26 PM
@@ -97,7 +97,7 @@ public class BooleanConverter implements ConversionHandler
    {
       CNV.put(String.class,
             stringConverter
-            );
+      );
 
       CNV.put(Object.class,
             new Converter()
@@ -108,7 +108,7 @@ public class BooleanConverter implements ConversionHandler
                   return stringConverter.convert(valueOf(o));
                }
             }
-            );
+      );
 
       CNV.put(Boolean.class,
             new Converter()
@@ -119,7 +119,7 @@ public class BooleanConverter implements ConversionHandler
                   return o;
                }
             }
-            );
+      );
 
       CNV.put(Integer.class,
             new Converter()
@@ -130,7 +130,7 @@ public class BooleanConverter implements ConversionHandler
                   return (((Integer) o) > 0);
                }
             }
-            );
+      );
 
       CNV.put(Float.class,
             new Converter()
@@ -141,7 +141,7 @@ public class BooleanConverter implements ConversionHandler
                   return (((Float) o) > 0);
                }
             }
-            );
+      );
 
       CNV.put(Double.class,
             new Converter()
@@ -152,7 +152,7 @@ public class BooleanConverter implements ConversionHandler
                   return (((Double) o) > 0);
                }
             }
-            );
+      );
 
       CNV.put(Short.class,
             new Converter()
@@ -163,7 +163,7 @@ public class BooleanConverter implements ConversionHandler
                   return (((Short) o) > 0);
                }
             }
-            );
+      );
 
       CNV.put(Long.class,
             new Converter()
@@ -174,7 +174,7 @@ public class BooleanConverter implements ConversionHandler
                   return (((Long) o) > 0);
                }
             }
-            );
+      );
 
       CNV.put(boolean.class,
             new Converter()
@@ -186,7 +186,7 @@ public class BooleanConverter implements ConversionHandler
                   return Boolean.valueOf((Boolean) o);
                }
             }
-            );
+      );
 
       CNV.put(BigDecimal.class,
             new Converter()
@@ -198,7 +198,7 @@ public class BooleanConverter implements ConversionHandler
                   return Boolean.valueOf(((BigDecimal) o).doubleValue() > 0);
                }
             }
-            );
+      );
 
    }
 }

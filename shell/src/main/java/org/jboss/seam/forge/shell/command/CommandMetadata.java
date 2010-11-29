@@ -22,14 +22,10 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.jboss.seam.forge.project.Resource;
+
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

@@ -21,10 +21,6 @@
  */
 package org.jboss.seam.forge.test.parser.java.util;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -33,9 +29,12 @@ import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class RefactoryTest
 {

@@ -22,15 +22,14 @@
 
 package org.jboss.seam.forge.test.parser.java;
 
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class JavaParserTest
 {

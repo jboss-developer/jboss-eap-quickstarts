@@ -21,15 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
@@ -46,13 +37,20 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.util.Packages;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Dependent
 @Named("forge.maven.JavaSourceFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacets({MavenCoreFacet.class})
 public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 {
    private Project project;
@@ -70,14 +68,14 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    public File getSourceFolder()
    {
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
-               + File.separator + "java").getAbsoluteFile();
+            + File.separator + "java").getAbsoluteFile();
    }
 
    @Override
    public File getTestSourceFolder()
    {
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
-               + File.separator + "java").getAbsoluteFile();
+            + File.separator + "java").getAbsoluteFile();
    }
 
    @Override
@@ -122,7 +120,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
          for (Plugin plugin : plugins)
          {
             if ("org.apache.maven.plugins".equals(plugin.getGroupId())
-                     && "maven-compiler-plugin".equals(plugin.getArtifactId()))
+                  && "maven-compiler-plugin".equals(plugin.getArtifactId()))
             {
                javaSourcePlugin = plugin;
             }
@@ -137,9 +135,9 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
             try
             {
                Xpp3Dom dom = Xpp3DomBuilder.build(
-                        new ByteArrayInputStream(
-                                 "<configuration><source>1.6</source><target>1.6</target></configuration>".getBytes()),
-                        "UTF-8");
+                     new ByteArrayInputStream(
+                           "<configuration><source>1.6</source><target>1.6</target></configuration>".getBytes()),
+                     "UTF-8");
 
                javaSourcePlugin.setConfiguration(dom);
             }

@@ -22,9 +22,9 @@
 
 package org.jboss.seam.forge.shell.command.convert;
 
-import java.io.File;
-
 import org.mvel2.ConversionHandler;
+
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

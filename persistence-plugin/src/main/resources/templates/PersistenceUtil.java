@@ -1,13 +1,12 @@
 package org.jboss.seam.forge.persistence;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import java.io.Serializable;
+import java.util.List;
 
 public class PersistenceUtil implements Serializable
 {
@@ -111,7 +110,7 @@ public class PersistenceUtil implements Serializable
 
    @SuppressWarnings("unchecked")
    protected <T> T findUniqueByNamedQuery(final String namedQueryName, final Object... params)
-            throws NoResultException
+         throws NoResultException
    {
       Query query = getEntityManager().createNamedQuery(namedQueryName);
       int i = 1;

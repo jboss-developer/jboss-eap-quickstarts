@@ -22,10 +22,6 @@
 
 package org.jboss.seam.forge.test.parser.java.util;
 
-import static org.junit.Assert.assertNotSame;
-
-import java.io.InputStream;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Formatter;
@@ -33,9 +29,12 @@ import org.jboss.seam.forge.test.grammar.java.FieldAnnotationTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.InputStream;
+
+import static org.junit.Assert.assertNotSame;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class FormatterTest
 {

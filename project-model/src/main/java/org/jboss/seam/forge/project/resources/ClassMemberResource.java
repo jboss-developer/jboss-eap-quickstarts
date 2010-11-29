@@ -48,4 +48,10 @@ public abstract class ClassMemberResource<T> extends AbstractResource<T>
    {
       throw new RuntimeException("not supported");
    }
+
+   @Override
+   public boolean exists()
+   {
+      return true;
+   }
 }

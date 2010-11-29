@@ -21,26 +21,24 @@
  */
 package org.jboss.seam.forge.shell.plugins;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.jboss.seam.forge.shell.PromptType;
 
+import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.inject.Qualifier;
-
-import org.jboss.seam.forge.shell.PromptType;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * A command option.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Qualifier
-@Target({ METHOD, PARAMETER })
+@Target({METHOD, PARAMETER})
 @Retention(RUNTIME)
 @Documented
 public @interface Option
@@ -53,6 +51,7 @@ public @interface Option
 
    /**
     * An optional short version of the flag name.
+    *
     * @return
     */
    String shortName() default "";
@@ -83,7 +82,7 @@ public @interface Option
    /**
     * The prompt type to use when validating user input. This should be used
     * carefully!
-    * <p>
+    * <p/>
     * <b>**WARNING**</b> Since specifying a {@link PromptType} restricts user
     * input, you need to make sure that the option type is compatible with this
     * input, or exceptions may occur. (String or Object are your safest

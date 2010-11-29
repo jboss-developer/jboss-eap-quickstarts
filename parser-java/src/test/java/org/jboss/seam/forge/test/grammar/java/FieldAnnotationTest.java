@@ -21,17 +21,17 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.InputStream;
-import java.util.List;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
 import org.jboss.seam.forge.test.grammar.java.common.MockEnum;
 import org.junit.Test;
+
+import java.io.InputStream;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

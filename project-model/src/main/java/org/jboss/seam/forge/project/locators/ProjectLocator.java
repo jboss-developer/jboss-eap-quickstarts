@@ -21,15 +21,14 @@
  */
 package org.jboss.seam.forge.project.locators;
 
-import java.io.File;
-
 import org.jboss.seam.forge.project.Project;
+
+import java.io.File;
 
 /**
  * Locates project root directories.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface ProjectLocator
 {

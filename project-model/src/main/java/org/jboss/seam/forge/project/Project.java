@@ -21,20 +21,19 @@
  */
 package org.jboss.seam.forge.project;
 
+import org.jboss.seam.forge.project.facets.FacetNotFoundException;
+
 import java.io.File;
 import java.util.List;
 
-import org.jboss.seam.forge.project.facets.FacetNotFoundException;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface Project
 {
    /**
     * Get an value from this project's internal attributes. If the value is not set, return <code>null</code> instead.
-    * 
+    *
     * @param key the attribute name
     */
    public Object getAttribute(String key);

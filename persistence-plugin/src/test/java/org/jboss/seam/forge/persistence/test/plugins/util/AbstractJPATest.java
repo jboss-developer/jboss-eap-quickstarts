@@ -21,11 +21,6 @@
  */
 package org.jboss.seam.forge.persistence.test.plugins.util;
 
-import static org.junit.Assert.assertFalse;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
@@ -34,9 +29,13 @@ import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.junit.Before;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static org.junit.Assert.assertFalse;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public abstract class AbstractJPATest extends SingletonAbstractShellTest
 {

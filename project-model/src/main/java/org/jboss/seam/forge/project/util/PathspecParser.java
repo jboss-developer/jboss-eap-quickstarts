@@ -22,14 +22,16 @@
 
 package org.jboss.seam.forge.project.util;
 
-import java.io.File;
-import java.util.*;
-import java.util.regex.Pattern;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class PathspecParser
 {
@@ -81,6 +83,7 @@ public class PathspecParser
 
       while (cursor < length)
       {
+         SW:
          switch (path.charAt(cursor++))
          {
 
@@ -92,16 +95,22 @@ public class PathspecParser
             continue;
 
          case '.':
-            if (read() == '.')
+            switch (read())
             {
+            case '.':
                cursor++;
                Resource<?> parent = r.getParent();
                if (parent != null)
                {
                   r = parent;
                }
-               break;
+               break SW;
+
+            case '/':
+               cursor++;
+               break SW;
             }
+
 
          default:
             boolean first = --cursor == 0;

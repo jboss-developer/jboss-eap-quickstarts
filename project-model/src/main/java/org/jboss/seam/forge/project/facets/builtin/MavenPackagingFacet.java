@@ -21,9 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
@@ -33,13 +30,15 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Dependent
 @Named("forge.maven.PackagingFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacets({MavenCoreFacet.class})
 public class MavenPackagingFacet implements PackagingFacet, Facet
 {
    private Project project;

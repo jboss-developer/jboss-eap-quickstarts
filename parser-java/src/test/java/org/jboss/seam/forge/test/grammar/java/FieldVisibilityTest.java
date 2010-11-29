@@ -21,11 +21,11 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
-import java.io.InputStream;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.test.grammar.java.common.VisibilityTest;
+
+import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

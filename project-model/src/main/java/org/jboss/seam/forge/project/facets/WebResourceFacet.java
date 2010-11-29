@@ -21,16 +21,15 @@
  */
 package org.jboss.seam.forge.project.facets;
 
+import org.jboss.seam.forge.project.Facet;
+
 import java.io.File;
 import java.util.List;
 
-import org.jboss.seam.forge.project.Facet;
-
 /**
  * A {@link Facet} containing APIs to interact with Java Web Projects
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface WebResourceFacet extends Facet
 {
@@ -50,7 +49,7 @@ public interface WebResourceFacet extends Facet
    /**
     * At the given path/filename relative to the project Web Root directory: {@link #getWebRootDirectory()} - create a
     * file containing the given bytes.
-    * 
+    *
     * @return a handle to the {@link File} that was created.
     */
    File createWebResource(char[] bytes, String relativeFilename);

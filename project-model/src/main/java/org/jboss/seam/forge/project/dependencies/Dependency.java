@@ -22,15 +22,14 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import java.util.List;
-
 import org.jboss.seam.forge.project.PackagingType;
+
+import java.util.List;
 
 /**
  * Represents a project library dependency.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface Dependency
 {

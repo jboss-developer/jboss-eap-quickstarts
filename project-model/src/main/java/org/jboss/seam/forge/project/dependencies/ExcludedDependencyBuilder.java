@@ -22,13 +22,12 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import java.util.List;
-
 import org.jboss.seam.forge.project.PackagingType;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class ExcludedDependencyBuilder implements Dependency
 {

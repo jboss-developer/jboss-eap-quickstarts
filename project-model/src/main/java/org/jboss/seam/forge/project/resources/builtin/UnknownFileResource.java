@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Mike Brock

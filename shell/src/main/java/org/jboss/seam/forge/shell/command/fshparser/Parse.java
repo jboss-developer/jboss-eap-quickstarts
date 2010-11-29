@@ -23,11 +23,11 @@
 package org.jboss.seam.forge.shell.command.fshparser;
 
 import org.mvel2.MVEL;
-import org.mvel2.util.ParseTools;
-import org.mvel2.util.StringAppender;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.Set;
 
 import static java.lang.Character.isJavaIdentifierPart;
 
@@ -141,7 +141,7 @@ public abstract class Parse
    public static String executeScript(ScriptNode node, final FSHRuntime runtime)
    {
       String toExec = queueToString(new AutoReducingQueue(node.getNest(), runtime));
-  //    System.out.println(">" + toExec);
+      //    System.out.println(">" + toExec);
       return MVEL.eval(toExec, runtime, runtime.getShell().getProperties(), String.class);
    }
 }

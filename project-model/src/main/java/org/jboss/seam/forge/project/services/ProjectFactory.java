@@ -21,14 +21,6 @@
  */
 package org.jboss.seam.forge.project.services;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
@@ -36,9 +28,16 @@ import org.jboss.seam.forge.project.locators.ProjectLocator;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 import org.jboss.seam.forge.project.util.Iterators;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+
 /**
  * Responsible for instantiating project instances through CDI.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
@@ -49,7 +48,7 @@ public class ProjectFactory
 
    @Inject
    public ProjectFactory(final FacetFactory facetFactory,
-            final Instance<ProjectLocator> locatorInstance)
+                         final Instance<ProjectLocator> locatorInstance)
    {
       this.facetFactory = facetFactory;
       this.locators = Iterators.toList(locatorInstance.iterator());
@@ -198,7 +197,7 @@ public class ProjectFactory
       if (project == null)
       {
          throw new FileNotFoundException("Could not locate project in folder or any of its parents: ["
-                  + path.getAbsolutePath() + "]");
+               + path.getAbsolutePath() + "]");
       }
       registerFacets(project);
       return project;

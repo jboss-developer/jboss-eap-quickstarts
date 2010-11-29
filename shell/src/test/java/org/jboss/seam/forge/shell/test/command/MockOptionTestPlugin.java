@@ -21,17 +21,16 @@
  */
 package org.jboss.seam.forge.shell.test.command;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Named("motp")
 @Singleton

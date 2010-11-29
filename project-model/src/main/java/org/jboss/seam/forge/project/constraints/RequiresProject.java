@@ -22,19 +22,14 @@
 
 package org.jboss.seam.forge.project.constraints;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import org.jboss.seam.forge.project.Project;
+
+import java.lang.annotation.*;
 
 /**
  * The annotated element requires an active {@link Project}
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 // TODO implement handling strategy for this annotation metadata
 

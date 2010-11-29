@@ -35,7 +35,7 @@ import java.util.Set;
  * not), it is better conceptualized as a wrapper or "view" of an underlying resource such as a File. For this reason,
  * custom Resource types should never implement any sort of static cache and should preferably lazily initialize their
  * data.
- * 
+ *
  * @author Mike Brock
  */
 public interface Resource<T>
@@ -43,7 +43,7 @@ public interface Resource<T>
 
    /**
     * Return the common name of the resource. If it's a file, for instance, just the file name.
-    * 
+    *
     * @return The name of the resource.
     */
    public String getName();
@@ -51,21 +51,21 @@ public interface Resource<T>
    /**
     * Return the fully qualified name of the resource (if applicable). In the case of a file, this would normally be the
     * full path name.
-    * 
+    *
     * @return The fully qualified name.
     */
    public String getFullyQualifiedName();
 
    /**
     * Get the parent of the current resource. Returns null if the current resource is the project root.
-    * 
+    *
     * @return An instance of the resource parent.
     */
    public Resource<?> getParent();
 
    /**
     * Create a new resource instance for the target resource reference of the type that this current resource is.
-    * 
+    *
     * @param file The target reference to create the resource instance from.
     * @return A new resource.
     */
@@ -73,7 +73,7 @@ public interface Resource<T>
 
    /**
     * Return a list of child resources of the current resource.
-    * 
+    *
     * @return A list of child resources.
     */
    public List<Resource<?>> listResources();
@@ -89,6 +89,8 @@ public interface Resource<T>
    public void unsetFlag(ResourceFlag flag);
 
    public boolean isFlagSet(ResourceFlag flag);
+
+   public boolean exists();
 
    public Set<ResourceFlag> getFlags();
 }

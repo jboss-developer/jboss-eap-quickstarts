@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -38,14 +31,19 @@ import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @Dependent
 @Named("forge.maven.WebResourceFacet")
 @RequiresPackagingType(PackagingType.WAR)
-@RequiresFacets({ JavaSourceFacet.class, PackagingFacet.class })
+@RequiresFacets({JavaSourceFacet.class, PackagingFacet.class})
 public class MavenWebResourceFacet implements WebResourceFacet, Facet
 {
    private Project project;
@@ -54,7 +52,7 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    public File getWebRootDirectory()
    {
       return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
-               + File.separator + "webapp");
+            + File.separator + "webapp");
    }
 
    @Override
@@ -84,7 +82,7 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
       PackagingType packagingType = project.getFacet(PackagingFacet.class).getPackagingType();
 
       return getWebRootDirectory().exists() && mavenFacet.isInstalled()
-               && packagingType.equals(PackagingType.WAR);
+            && packagingType.equals(PackagingType.WAR);
    }
 
    @Override

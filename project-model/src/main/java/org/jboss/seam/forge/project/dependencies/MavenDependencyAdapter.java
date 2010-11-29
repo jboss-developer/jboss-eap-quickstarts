@@ -22,15 +22,14 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.maven.model.Exclusion;
 import org.jboss.seam.forge.project.PackagingType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class MavenDependencyAdapter extends org.apache.maven.model.Dependency implements Dependency
 {
@@ -97,7 +96,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       for (Exclusion exclusion : exclusions)
       {
          Dependency dep = DependencyBuilder.create().setArtifactId(exclusion.getArtifactId())
-                  .setGroupId(exclusion.getGroupId());
+               .setGroupId(exclusion.getGroupId());
          result.add(dep);
       }
       return result;

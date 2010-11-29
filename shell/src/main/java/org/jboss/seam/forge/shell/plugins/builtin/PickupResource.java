@@ -25,14 +25,12 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.PathspecParser;
-import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -82,7 +80,8 @@ public class PickupResource implements Plugin
             return;
          }
          else
-         {  resource = targets.get(0);
+         {
+            resource = targets.get(0);
 
          }
       }

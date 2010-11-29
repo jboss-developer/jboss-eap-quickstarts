@@ -22,20 +22,19 @@
 
 package org.jboss.seam.forge.shell.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import javax.inject.Inject;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.shell.test.command.MockOptionTestPlugin;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @RunWith(Arquillian.class)
 public class ExecutionParserTest extends AbstractShellTest

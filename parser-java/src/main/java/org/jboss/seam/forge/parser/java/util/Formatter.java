@@ -22,10 +22,6 @@
 
 package org.jboss.seam.forge.parser.java.util;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.BadLocationException;
@@ -33,6 +29,10 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.text.edits.TextEdit;
 import org.jboss.seam.forge.parser.java.JavaClass;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

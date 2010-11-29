@@ -22,26 +22,26 @@
 
 package org.jboss.seam.forge.shell.plugins;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
 
 /**
  * Signals to the framework that the annotated plugin or command should be
  * favored over the default implementation when a {@link Resource} of the type
  * requested by a {@link ResourceScope} is currently in scope.
- * <p>
+ * <p/>
  * Scopes and overloads are checked at boot time; if conflicts are detected, the
  * shell will fail to boot. (No two plugins or commands can declare the same
  * {@link OverloadedName} and {@link ResourceScope})
- * 
+ *
  * @author Mike Brock .
  */
 @Retention(RUNTIME)
-@Target({ TYPE, METHOD })
+@Target({TYPE, METHOD})
 public @interface OverloadedName
 {
    String value();

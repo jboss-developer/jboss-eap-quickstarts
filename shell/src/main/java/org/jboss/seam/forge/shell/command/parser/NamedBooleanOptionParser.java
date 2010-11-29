@@ -22,18 +22,18 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
-
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
 
 /**
  * Parses named boolean options such as:
  * <p/>
  * <code>[command] {--toggle}</code>
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
@@ -79,7 +79,7 @@ public class NamedBooleanOptionParser implements CommandParser
    }
 
    private static void processOption(final Map<OptionMetadata, Object> valueMap, final Queue<String> tokens,
-                                           final CommandMetadata command, final String currentToken)
+                                     final CommandMetadata command, final String currentToken)
    {
       OptionMetadata option = command.getNamedOption(currentToken);
 

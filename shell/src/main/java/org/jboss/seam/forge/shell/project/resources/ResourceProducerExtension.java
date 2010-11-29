@@ -22,24 +22,17 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AnnotatedConstructor;
-import javax.enterprise.inject.spi.AnnotatedField;
-import javax.enterprise.inject.spi.AnnotatedParameter;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.ProcessAnnotatedType;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.weld.extensions.reflection.annotated.AnnotatedTypeBuilder;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.*;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class ResourceProducerExtension implements Extension
 {

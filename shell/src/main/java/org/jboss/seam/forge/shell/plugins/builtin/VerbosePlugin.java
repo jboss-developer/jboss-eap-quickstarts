@@ -22,11 +22,11 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

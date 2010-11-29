@@ -21,23 +21,10 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.compiler.IProblem;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.*;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
-import org.eclipse.jdt.core.dom.PackageDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.util.Util;
 import org.eclipse.jface.text.BadLocationException;
@@ -45,21 +32,21 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
 import org.jboss.seam.forge.parser.java.Annotation;
-import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.parser.java.Import;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.Member;
-import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.parser.java.SyntaxError;
-import org.jboss.seam.forge.parser.java.Visibility;
+import org.jboss.seam.forge.parser.java.*;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Represents a Java Source File
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class JavaClassImpl implements JavaClass
@@ -74,7 +61,7 @@ public class JavaClassImpl implements JavaClass
     * Parses and process the java source code as a compilation unit and the
     * result it abstract syntax tree (AST) representation and this action uses
     * the third edition of java Language Specification.
-    * 
+    *
     * @param inputStream - a stream of the java source to be parsed
     * @return CompilationUnit Abstract syntax tree representation of a java
     *         source file.
@@ -107,7 +94,7 @@ public class JavaClassImpl implements JavaClass
       this("public class JavaClass { }");
    }
 
-   @SuppressWarnings({ "unchecked", "rawtypes" })
+   @SuppressWarnings({"unchecked", "rawtypes"})
    private void init(final char[] source)
    {
       document = new Document(new String(source));

@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.shell.test.command;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandLibraryExtension;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
@@ -35,9 +28,12 @@ import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class CommandLibraryExtensionTest
 {

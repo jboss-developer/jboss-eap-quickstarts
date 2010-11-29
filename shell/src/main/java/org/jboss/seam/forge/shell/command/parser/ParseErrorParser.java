@@ -22,18 +22,17 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import java.util.Map;
-import java.util.Queue;
-
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
+
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * Used at the end of the {@link CommandParser} chain to signal with an
  * {@link IllegalStateException} that an invalid token was encountered.
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class ParseErrorParser implements CommandParser
 {

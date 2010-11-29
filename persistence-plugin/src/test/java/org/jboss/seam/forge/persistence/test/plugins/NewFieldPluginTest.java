@@ -22,19 +22,6 @@ package org.jboss.seam.forge.persistence.test.plugins;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.math.BigDecimal;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
@@ -43,9 +30,13 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+import static org.junit.Assert.*;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @RunWith(Arquillian.class)
 public class NewFieldPluginTest extends AbstractJPATest
@@ -157,7 +148,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       JavaClass leftEntity = generateEntity(project);
 
       getShell().execute(
-               "new-field oneToOne --fieldName right --fieldType ~.domain." + rightEntity.getName());
+            "new-field oneToOne --fieldName right --fieldType ~.domain." + rightEntity.getName());
 
       leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
 
@@ -185,8 +176,8 @@ public class NewFieldPluginTest extends AbstractJPATest
       JavaClass leftEntity = generateEntity(project);
 
       getShell().execute(
-               "new-field oneToOne --fieldName right --fieldType ~.domain." + rightEntity.getName()
-                        + " --inverseFieldName left");
+            "new-field oneToOne --fieldName right --fieldType ~.domain." + rightEntity.getName()
+                  + " --inverseFieldName left");
 
       leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
 
@@ -216,7 +207,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       JavaClass leftEntity = generateEntity(project);
 
       getShell().execute(
-               "new-field manyToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
+            "new-field manyToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
 
       leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
 
@@ -245,7 +236,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       JavaClass leftEntity = generateEntity(project);
 
       getShell().execute(
-               "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
+            "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
 
       leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
 
@@ -274,8 +265,8 @@ public class NewFieldPluginTest extends AbstractJPATest
       JavaClass leftEntity = generateEntity(project);
 
       getShell().execute(
-               "new-field manyToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
-                        + " --inverseFieldName left");
+            "new-field manyToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
+                  + " --inverseFieldName left");
 
       leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
 
@@ -307,8 +298,8 @@ public class NewFieldPluginTest extends AbstractJPATest
       JavaClass leftEntity = generateEntity(project);
 
       getShell().execute(
-               "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
-                        + " --inverseFieldName left");
+            "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
+                  + " --inverseFieldName left");
 
       leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
 

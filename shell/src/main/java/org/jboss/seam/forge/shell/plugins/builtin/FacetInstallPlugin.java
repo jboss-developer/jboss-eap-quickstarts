@@ -22,12 +22,6 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -37,11 +31,12 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -63,7 +58,7 @@ public class FacetInstallPlugin implements Plugin
 
    @DefaultCommand
    public void install(@Option(required = true,
-            description = "Name of the facet to install") final String facetName)
+         description = "Name of the facet to install") final String facetName)
    {
       try
       {
@@ -113,13 +108,13 @@ public class FacetInstallPlugin implements Plugin
                if (types.size() == 1)
                {
                   if (shell.promptBoolean("The ["
-                              + facetName
-                              + "] facet requires the following packaging type "
-                              + types
-                              + ", but is currently ["
-                              + packaging
-                              + "], would you like to change the packaging to " + types
-                              + "? (Note: this could break other plugins in your project.)"))
+                        + facetName
+                        + "] facet requires the following packaging type "
+                        + types
+                        + ", but is currently ["
+                        + packaging
+                        + "], would you like to change the packaging to " + types
+                        + "? (Note: this could break other plugins in your project.)"))
                   {
                      project.getFacet(PackagingFacet.class).setPackagingType(types.get(0));
                      shell.println("Packaging updated to " + types + "");
@@ -133,12 +128,12 @@ public class FacetInstallPlugin implements Plugin
                else if (types.size() > 1)
                {
                   if (shell.promptBoolean("The ["
-                              + facetName
-                              + "] plugin requires one of the following packaging types: "
-                              + types
-                              + ", but is currently ["
-                              + packaging
-                              + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+                        + facetName
+                        + "] plugin requires one of the following packaging types: "
+                        + types
+                        + ", but is currently ["
+                        + packaging
+                        + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
                   {
                      PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
                      project.getFacet(PackagingFacet.class).setPackagingType(type);
@@ -167,7 +162,7 @@ public class FacetInstallPlugin implements Plugin
       catch (FacetNotFoundException e)
       {
          shell.println("Could not find a facet with the name: " + facetName
-                  + "; are you sure that's the correct name?");
+               + "; are you sure that's the correct name?");
       }
    }
 

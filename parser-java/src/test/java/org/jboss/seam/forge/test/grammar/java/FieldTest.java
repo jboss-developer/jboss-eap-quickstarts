@@ -21,17 +21,15 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.InputStream;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.InputStream;
+
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -163,7 +161,7 @@ public class FieldTest
    public void testAddQualifiedFieldType() throws Exception
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
-               .setPrivate();
+            .setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 
@@ -178,7 +176,7 @@ public class FieldTest
    public void testHasField() throws Exception
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
-               .setPrivate();
+            .setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       assertTrue(javaClass.hasField(fld));
 

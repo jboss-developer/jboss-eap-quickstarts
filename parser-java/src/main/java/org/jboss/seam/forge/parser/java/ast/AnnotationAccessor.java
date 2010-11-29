@@ -22,19 +22,18 @@
 
 package org.jboss.seam.forge.parser.java.ast;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
 import org.jboss.seam.forge.parser.java.impl.AnnotationImpl;
 import org.jboss.seam.forge.parser.java.util.Types;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class AnnotationAccessor
 {
@@ -75,7 +74,7 @@ public class AnnotationAccessor
    }
 
    public <T extends AnnotationTarget<?>> T removeAnnotation(final T target, final BodyDeclaration body,
-            final Annotation annotation)
+                                                             final Annotation annotation)
    {
       List<?> modifiers = body.modifiers();
       for (Object object : modifiers)
@@ -90,7 +89,7 @@ public class AnnotationAccessor
    }
 
    public <T extends AnnotationTarget<?>> boolean hasAnnotation(final T target, final BodyDeclaration body,
-            final String type)
+                                                                final String type)
    {
       List<?> modifiers = body.modifiers();
       for (Object object : modifiers)
@@ -109,7 +108,7 @@ public class AnnotationAccessor
    }
 
    public Annotation getAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body,
-            final Class<? extends java.lang.annotation.Annotation> type)
+                                   final Class<? extends java.lang.annotation.Annotation> type)
    {
       Annotation result = null;
       if (type != null)

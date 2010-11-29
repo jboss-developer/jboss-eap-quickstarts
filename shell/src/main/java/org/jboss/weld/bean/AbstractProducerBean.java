@@ -1,43 +1,7 @@
 package org.jboss.weld.bean;
 
-import static org.jboss.weld.logging.Category.BEAN;
-import static org.jboss.weld.logging.LoggerFactory.loggerFactory;
-import static org.jboss.weld.logging.messages.BeanMessage.NON_SERIALIZABLE_CONSTRUCTOR_PARAM_INJECTION_ERROR;
-import static org.jboss.weld.logging.messages.BeanMessage.NON_SERIALIZABLE_FIELD_INJECTION_ERROR;
-import static org.jboss.weld.logging.messages.BeanMessage.NON_SERIALIZABLE_INITIALIZER_PARAM_INJECTION_ERROR;
-import static org.jboss.weld.logging.messages.BeanMessage.NON_SERIALIZABLE_PRODUCER_PARAM_INJECTION_ERROR;
-import static org.jboss.weld.logging.messages.BeanMessage.NON_SERIALIZABLE_PRODUCT_ERROR;
-import static org.jboss.weld.logging.messages.BeanMessage.NULL_NOT_ALLOWED_FROM_PRODUCER;
-import static org.jboss.weld.logging.messages.BeanMessage.ONLY_ONE_SCOPE_ALLOWED;
-import static org.jboss.weld.logging.messages.BeanMessage.PRODUCER_CAST_ERROR;
-import static org.jboss.weld.logging.messages.BeanMessage.PRODUCER_METHOD_WITH_TYPE_VARIABLE_RETURN_TYPE_MUST_BE_DEPENDENT;
-import static org.jboss.weld.logging.messages.BeanMessage.PRODUCER_METHOD_WITH_WILDCARD_RETURN_TYPE_MUST_BE_DEPENDENT;
-import static org.jboss.weld.logging.messages.BeanMessage.RETURN_TYPE_MUST_BE_CONCRETE;
-import static org.jboss.weld.logging.messages.BeanMessage.USING_DEFAULT_SCOPE;
-import static org.jboss.weld.logging.messages.BeanMessage.USING_SCOPE;
-
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.lang.reflect.WildcardType;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.NormalScope;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
-import javax.enterprise.inject.spi.Producer;
-import javax.inject.Inject;
-import javax.inject.Scope;
-
+import com.google.common.base.Function;
+import com.google.common.collect.MapMaker;
 import org.jboss.weld.Container;
 import org.jboss.weld.bootstrap.BeanDeployerEnvironment;
 import org.jboss.weld.exceptions.DefinitionException;
@@ -51,18 +15,33 @@ import org.jboss.weld.util.Beans;
 import org.jboss.weld.util.reflection.Reflections;
 import org.slf4j.cal10n.LocLogger;
 
-import com.google.common.base.Function;
-import com.google.common.collect.MapMaker;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.NormalScope;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.inject.spi.Producer;
+import javax.inject.Inject;
+import javax.inject.Scope;
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
+
+import static org.jboss.weld.logging.Category.BEAN;
+import static org.jboss.weld.logging.LoggerFactory.loggerFactory;
+import static org.jboss.weld.logging.messages.BeanMessage.*;
 
 /**
  * The implicit producer bean
- * 
- * @author Gavin King
- * @author David Allen
- * 
+ *
  * @param <X>
  * @param <T>
  * @param <S>
+ * @author Gavin King
+ * @author David Allen
  */
 public abstract class AbstractProducerBean<X, T, S extends Member> extends AbstractReceiverBean<X, T, S>
 {
@@ -94,9 +73,9 @@ public abstract class AbstractProducerBean<X, T, S extends Member> extends Abstr
 
    /**
     * Constructor
-    * 
+    *
     * @param declaringBean The declaring bean
-    * @param beanManager The Bean manager
+    * @param beanManager   The Bean manager
     */
    public AbstractProducerBean(String idSuffix, AbstractClassBean<X> declaringBean, BeanManagerImpl beanManager)
    {
@@ -231,7 +210,7 @@ public abstract class AbstractProducerBean<X, T, S extends Member> extends Abstr
 
    /**
     * Validates the return value
-    * 
+    *
     * @param instance The instance to validate
     */
    protected void checkReturnValue(T instance)
@@ -321,7 +300,7 @@ public abstract class AbstractProducerBean<X, T, S extends Member> extends Abstr
    /**
     * This operation is *not* threadsafe, and should not be called outside
     * bootstrap
-    * 
+    *
     * @param producer
     */
    public void setProducer(Producer<T> producer)
@@ -336,7 +315,7 @@ public abstract class AbstractProducerBean<X, T, S extends Member> extends Abstr
 
    /**
     * Creates an instance of the bean
-    * 
+    *
     * @returns The instance
     */
    @Override

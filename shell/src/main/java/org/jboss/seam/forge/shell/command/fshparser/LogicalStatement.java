@@ -22,9 +22,6 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import com.sun.tools.javac.util.Log;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
-
 import java.util.LinkedList;
 import java.util.Queue;
 

@@ -21,15 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
@@ -41,6 +32,14 @@ import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -136,7 +135,7 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       File pomFile = getPOMFile();
       if (!pomFile.exists())
       {
-         project.writeFile(new char[] {}, pomFile);
+         project.writeFile(new char[]{}, pomFile);
       }
       Model pom = getPOM();
       pom.setGroupId("org.jboss.seam");

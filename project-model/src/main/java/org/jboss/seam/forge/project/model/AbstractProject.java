@@ -21,26 +21,20 @@
  */
 package org.jboss.seam.forge.project.model;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public abstract class AbstractProject implements Project
 {
@@ -156,7 +150,7 @@ public abstract class AbstractProject implements Project
          if (!file.mkdirs())
          {
             throw new ProjectModelException(
-                     new IOException("Failed to create required directory structure for file: " + file));
+                  new IOException("Failed to create required directory structure for file: " + file));
          }
       }
    }
@@ -204,7 +198,7 @@ public abstract class AbstractProject implements Project
       if (result == null)
       {
          throw new FacetNotFoundException("The requested facet of type [" + type.getName()
-                  + "] was not found. The facet is not installed.");
+               + "] was not found. The facet is not installed.");
       }
       return (F) result;
    }
@@ -248,7 +242,7 @@ public abstract class AbstractProject implements Project
          if (!hasFacet(type))
          {
             throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: ["
-                        + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
+                  + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
          }
       }
 

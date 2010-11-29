@@ -22,14 +22,13 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import java.util.List;
-
 import org.jboss.seam.forge.parser.Internal;
 import org.jboss.seam.forge.parser.Origin;
 
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface AnnotationTarget<T> extends Internal, Origin<JavaClass>
 {

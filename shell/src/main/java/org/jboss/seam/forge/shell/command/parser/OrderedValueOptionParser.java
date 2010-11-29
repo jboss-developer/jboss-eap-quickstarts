@@ -22,17 +22,16 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.exceptions.CommandParserException;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class OrderedValueOptionParser implements CommandParser
 {
@@ -51,8 +50,8 @@ public class OrderedValueOptionParser implements CommandParser
             if (!option.isVarargs())
             {
                valueMap.put(option, currentToken); // add the value, should we
-                                                   // return this as a tuple
-                                                   // instead?
+               // return this as a tuple
+               // instead?
                tokens.remove();
 
                ctx.incrementParmCount();
@@ -62,7 +61,7 @@ public class OrderedValueOptionParser implements CommandParser
       catch (IllegalArgumentException e)
       {
          throw new CommandParserException(command, "The command " + command.getName() + " takes ["
-                  + numberOrderedParams + "] argument(s).");
+               + numberOrderedParams + "] argument(s).");
       }
       return valueMap;
    }

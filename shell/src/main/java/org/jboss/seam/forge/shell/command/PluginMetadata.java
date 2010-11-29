@@ -22,19 +22,13 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
 import org.jboss.seam.forge.shell.constraint.ConstraintException;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -140,7 +134,7 @@ public class PluginMetadata
          if (defaultCommand != null)
          {
             throw new RuntimeException("default command already defined: " + command.getName() + "; for plugin: "
-                     + name);
+                  + name);
          }
          defaultCommand = command;
       }

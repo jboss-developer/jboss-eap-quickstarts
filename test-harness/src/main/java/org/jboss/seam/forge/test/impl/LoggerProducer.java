@@ -1,10 +1,10 @@
 package org.jboss.seam.forge.test.impl;
 
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
-
 import org.jboss.logging.Logger;
 import org.jboss.weld.extensions.log.Category;
+
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 
 public class LoggerProducer
 {
