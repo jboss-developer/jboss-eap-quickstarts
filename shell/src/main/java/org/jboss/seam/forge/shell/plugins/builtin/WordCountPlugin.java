@@ -1,6 +1,7 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
@@ -40,6 +41,12 @@ public class WordCountPlugin implements Plugin
          List<String> results = new ArrayList<String>();
          for (Resource<?> r : resources)
          {
+            if (r instanceof DirectoryResource)
+            {
+               System.err.println("wc: " + r.getName() +": is a directory.");
+               continue;
+            }
+
             InputStream instream = r.getResourceInputStream();
             try
             {

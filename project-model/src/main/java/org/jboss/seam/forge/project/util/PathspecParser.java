@@ -83,6 +83,14 @@ public class PathspecParser
       {
          switch (path.charAt(cursor++))
          {
+
+         case '/':
+            if (cursor - 1 == 0)
+            {
+               r = factory.getResourceFrom(new File("/"));
+            }
+            continue;
+
          case '.':
             if (read() == '.')
             {
@@ -92,22 +100,17 @@ public class PathspecParser
                {
                   r = parent;
                }
+               break;
             }
-            break;
-         case '/':
-            if (cursor - 1 == 0)
-            {
-               r = factory.getResourceFrom(new File("/"));
-            }
-            continue;
 
          default:
             boolean first = --cursor == 0;
 
             tk = capture();
 
-            if (tk.contains("*"))
+            if (tk.matches(".*(\\?|\\*)+.*"))
             {
+               boolean startDot = tk.startsWith(".");
                String regex = pathspecToRegEx(tk.startsWith("/") ? tk.substring(1) : tk);
                Pattern p = Pattern.compile(regex);
 
@@ -118,7 +121,18 @@ public class PathspecParser
                   if (p.matcher(child.getName()).matches())
                   {
                      child.setFlag(ResourceFlag.AmbiguouslyQualified);
-                     res.add(child);
+
+                     if (child.getName().startsWith("."))
+                     {
+                        if (startDot)
+                        {
+                           res.add(child);
+                        }
+                     }
+                     else
+                     {
+                        res.add(child);
+                     }
                   }
                }
 
