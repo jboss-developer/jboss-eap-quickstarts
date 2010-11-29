@@ -41,7 +41,9 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * Lists directory contents for filesystem based directories. This is a simplified version of the UNIX 'ls' command
+ * and currently supports the -l and -a flags, as in unix.
+ *
  * @author Mike Brock
  */
 @Named("ls")
@@ -95,7 +97,7 @@ public class LsPlugin implements Plugin
           * expand into it's children. Otherwise, if it's fully qualified we recurse into that directory
           * and list all those files.
           */
-         if (!resource.isFlagSet(ResourceFlag.AmbiguouslyQualified))
+         if (!resource.isFlagSet(ResourceFlag.AmbiguouslyQualified) && resource.isFlagSet(ResourceFlag.Node))
          {
             childResources = resource.listResources();
          }

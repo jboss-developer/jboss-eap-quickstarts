@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A simple port of the unix 'wc' command for forge.
+ *
  * @author Mike Brock .
  */
 @Named("wc")
@@ -160,6 +162,8 @@ public class WordCountPlugin implements Plugin
 
       public int getValue(int index)
       {
+         //note: the lack of breaks here is intentional, the cases are supposed to fall-through,
+         //      to the next case if the condition is not satisfied.
          switch (index)
          {
          case 0:
