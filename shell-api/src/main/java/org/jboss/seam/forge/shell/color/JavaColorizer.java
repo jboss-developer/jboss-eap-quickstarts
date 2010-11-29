@@ -22,13 +22,15 @@
  */
 package org.jboss.seam.forge.shell.color;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.util.ShellColor;
+
 /**
+ * Should be used to colorize a Java Source file or Java Source string snippit.
+ * 
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -39,6 +41,9 @@ public class JavaColorizer
    public static final ShellColor CLR_KEYWORD = ShellColor.BLUE;
    public static final ShellColor CLR_COMMENT = ShellColor.CYAN;
 
+   /**
+    * Perform colorization of a Java source string.
+    */
    public static String format(Shell shell, String in)
    {
       StringBuilder output = new StringBuilder("");
