@@ -90,10 +90,17 @@ public class FSHBasicTests extends AbstractShellTest
       runtime.run("ls -l *.txt");
    }
 
+
    @Test
    public void testSimple9()
    {
       runtime.run("cat /Users/christopherbrock/forge_test.sh | cat");
+   }
+
+   @Test
+   public void testSimple10()
+   {
+      runtime.run("myVar='ls'");
    }
 
    @Test

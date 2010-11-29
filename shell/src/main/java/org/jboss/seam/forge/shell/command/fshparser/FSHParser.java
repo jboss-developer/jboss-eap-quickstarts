@@ -206,6 +206,7 @@ public class FSHParser
                         }
                         while (ifThenElseBlockContinues());
 
+                        cursor++;
                         return new ScriptNode(new TokenNode(tk), false);
                      }
                   }
@@ -292,7 +293,7 @@ public class FSHParser
             pipe = true;
             break;
          }
-         else if (nest && !script && tokenIsOperator(d))
+         else if ((nest && !script && tokenIsOperator(d)) || tokenMatch(d, "="))
          {
             script = true;
          }
@@ -339,6 +340,7 @@ public class FSHParser
             case '\t':
             case '\r':
             case ';':
+            case '=':
                break Skip;
 
             default:
@@ -351,17 +353,22 @@ public class FSHParser
          }
       }
 
+
+      if (cursor == start)
+      {
+         cursor++;
+      }
       return new String(expr, start, cursor - start);
    }
 
    private void skipWhitespace()
    {
-      while (cursor != length && ParseTools.isWhitespace(expr[cursor])) cursor++;
+      while (cursor < length && ParseTools.isWhitespace(expr[cursor])) cursor++;
    }
 
    public void skipToEOS()
    {
-      while (cursor != length && expr[cursor] != ';') cursor++;
+      while (cursor < length && expr[cursor] != ';') cursor++;
    }
 
    private void addNode(Node n)
@@ -395,5 +402,4 @@ public class FSHParser
    {
       return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
    }
-
 }
