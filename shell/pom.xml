@@ -115,6 +115,20 @@
          <scope>test</scope>
       </dependency>
    </dependencies>
+   
+   <repositories>
+      <repository>
+         <id>codehaus</id>
+         <url>http://snapshots.repository.codehaus.org/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </repository>
+   </repositories>
 
    <build>
       <plugins>
