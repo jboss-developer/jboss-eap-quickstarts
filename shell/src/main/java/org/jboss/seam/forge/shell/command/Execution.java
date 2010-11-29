@@ -51,6 +51,8 @@ public class Execution
    private Object[] parameterArray;
    private String originalStatement;
 
+   private boolean scriptOnly;
+
    @Inject
    public Execution(final BeanManager manager)
    {
@@ -131,6 +133,7 @@ public class Execution
          // TODO it would be nice if this delegated to the system shell
          throw new NoSuchCommandException(command, "No such command: " + originalStatement);
       }
+
    }
 
 
@@ -147,6 +150,17 @@ public class Execution
    public void setCommand(final CommandMetadata command)
    {
       this.command = command;
+   }
+
+
+   public boolean isScriptOnly()
+   {
+      return scriptOnly;
+   }
+
+   public void setScriptOnly(boolean scriptOnly)
+   {
+      this.scriptOnly = scriptOnly;
    }
 
    public Object[] getParameterArray()
