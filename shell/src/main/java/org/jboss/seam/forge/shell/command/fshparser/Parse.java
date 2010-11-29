@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.shell.command.fshparser;
 
 import org.mvel2.MVEL;
+import org.mvel2.util.ParseTools;
 import org.mvel2.util.StringAppender;
 
 import java.text.SimpleDateFormat;
@@ -61,7 +62,6 @@ public abstract class Parse
    {
       return reservedWords.contains(word);
    }
-
 
    public static boolean isTokenPart(char c)
    {

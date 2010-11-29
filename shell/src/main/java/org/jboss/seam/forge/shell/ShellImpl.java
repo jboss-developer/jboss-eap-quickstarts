@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell;
 import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
 import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
 import static org.mvel2.DataConversion.addConversionHandler;
+import static org.mvel2.DataConversion.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,6 +72,7 @@ import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
+import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
 import org.jboss.seam.forge.shell.plugins.events.Shutdown;
@@ -91,7 +93,12 @@ import org.mvel2.PropertyAccessException;
 @Singleton
 public class ShellImpl implements Shell
 {
-   private static final String PROP_PROMPT = "$PROMPT";
+   private static final String PROP_PROMPT = "PROMPT";
+   private static final String PROP_PROMPT_NO_PROJ = "PROMPT_NOPROJ";
+
+   private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
+   private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
+
    private final Map<String, Object> properties = new HashMap<String, Object>();
    private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
 
@@ -194,6 +201,10 @@ public class ShellImpl implements Shell
       initStreams();
       initCompleters(pluginCompleter);
       initParameters();
+
+      properties.put(PROP_PROMPT, DEFAULT_PROMPT);
+      properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
+
       printWelcomeBanner();
 
       postStartup.fire(new PostStartup());
@@ -302,12 +313,6 @@ public class ShellImpl implements Shell
          {
             e.printStackTrace();
          }
-
-//         String s = execScript(line);
-//         if (s.length() != 0)
-//         {
-//            println(s);
-//         }
       }
       catch (CommandExecutionException e)
       {
@@ -357,7 +362,6 @@ public class ShellImpl implements Shell
 
    private String execScript(final String script)
    {
-
       try
       {
          Object retVal = MVEL.eval(script, new ScriptContext(), properties);
@@ -585,19 +589,29 @@ public class ShellImpl implements Shell
    @Override
    public String getPrompt()
    {
-      String prefix = "[" + renderColor(ShellColor.RED, "no project") + "]";
 
       if (projectContext.getCurrent() != null)
       {
-         Project currentProject = projectContext.getCurrent();
-         String projectName = currentProject.getFacet(MetadataFacet.class).getProjectName();
-         prefix = "[" + renderColor(ShellColor.GREEN, projectName) + "]";
+         return Echo.echo(this, Echo.promptExpressionParser(this, (String) properties.get(PROP_PROMPT)));
+      }
+      else {
+         return Echo.echo(this, Echo.promptExpressionParser(this, (String) properties.get(PROP_PROMPT_NO_PROJ)));
       }
 
-      String path = getCurrentResource().toString();
-
-      return prefix + " " + path +
-            renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
+//
+//      String prefix = "[" + renderColor(ShellColor.RED, "no project") + "]";
+//
+//      if (projectContext.getCurrent() != null)
+//      {
+//         Project currentProject = projectContext.getCurrent();
+//         String projectName = currentProject.getFacet(MetadataFacet.class).getProjectName();
+//         prefix = "[" + renderColor(ShellColor.GREEN, projectName) + "]";
+//      }
+//
+//      String path = getCurrentResource().toString();
+//
+//      return prefix + " " + path +
+//            renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
    }
 
    @Override
@@ -631,6 +645,7 @@ public class ShellImpl implements Shell
       if (result == null)
       {
          result = this.resourceFactory.getResourceFrom(Files.getWorkingDirectory());
+         properties.put("CWD", result.getFullyQualifiedName());
       }
 
       return result;
@@ -648,12 +663,13 @@ public class ShellImpl implements Shell
    {
       lastResource = getCurrentResource();
       projectContext.setCurrentResource(resource);
+      properties.put("CWD", resource.getFullyQualifiedName());
    }
 
    @Override
    public void setCurrentResource(final File file)
    {
-      projectContext.setCurrentResource(this.resourceFactory.getResourceFrom(file.getAbsoluteFile()));
+      setCurrentResource((this.resourceFactory.getResourceFrom(file.getAbsoluteFile())));
    }
 
    @Override

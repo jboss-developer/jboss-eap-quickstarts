@@ -34,6 +34,7 @@ import javax.inject.Singleton;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
@@ -54,6 +55,7 @@ public class CurrentProject
    private Event<InitProject> init;
    @Inject
    private Event<ProjectChange> projectChanged;
+
 
    @Produces
    @Default

@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
@@ -97,9 +98,12 @@ public class ProjectInitializer
          {
             shell.printlnVerbose("\t- " + facet);
          }
+
+         shell.setProperty("PROJECT_NAME", newProject.getFacet(MetadataFacet.class).getProjectName());
       }
 
       cp.setCurrentProject(newProject);
-      shell.setDefaultPrompt();
+
+     // shell.setDefaultPrompt();
    }
 }
