@@ -82,6 +82,7 @@ public class PathspecParser
             r = new DirectoryResource(factory, homeDir);
          }
       }
+      // for windows, support drive letter prefixes here.
       else if (isWindows && path.matches("^[a-zA-Z]{1,1}:/.*"))
       {
          int idx = path.indexOf('/') + 1;
