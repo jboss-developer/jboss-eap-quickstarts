@@ -42,6 +42,8 @@ public class PathspecParser
    private final Resource<?> res;
    private final String path;
 
+   private static boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+
    List<Resource<?>> results = new LinkedList<Resource<?>>();
 
    public PathspecParser(final ResourceFactory factory, final Resource<?> res, final String path)
@@ -79,6 +81,12 @@ public class PathspecParser
             cursor++;
             r = new DirectoryResource(factory, homeDir);
          }
+      }
+      else if (isWindows && path.matches("^[a-zA-Z]{1,1}:/.*"))
+      {
+         int idx = path.indexOf('/') + 1;
+         r = new DirectoryResource(factory, new File(path.substring(0, idx)));
+         cursor = idx;
       }
 
       while (cursor < length)
@@ -262,6 +270,7 @@ public class PathspecParser
       {
          cursor++;
       }
+
       return path.substring(start, cursor);
    }
 

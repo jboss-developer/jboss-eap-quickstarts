@@ -67,6 +67,7 @@ public abstract class Parse
    {
       switch (c)
       {
+      case ':':
       case '.':
       case '-':
       case '/':
