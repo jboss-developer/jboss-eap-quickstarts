@@ -22,16 +22,20 @@
 
 package org.jboss.seam.forge.project.util;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * A set of utilities to work with the resources API.
  *
  * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class ResourceUtil
 {
@@ -57,14 +61,18 @@ public class ResourceUtil
       return null;
    }
 
-   public static File getContextDirectory(final Resource<?> r)
+   public static DirectoryResource getContextDirectory(Resource<?> r)
    {
-      final File ctx = getContextFile(r);
-      if ((ctx != null) && !ctx.isDirectory())
+      do
       {
-         return ctx.getParentFile();
+         if (r instanceof DirectoryResource)
+         {
+            return (DirectoryResource) r;
+         }
       }
-      return ctx;
+      while ((r = r.getParent()) != null);
+
+      return null;
    }
 
 
@@ -85,6 +93,21 @@ public class ResourceUtil
          }
       }
       return false;
+   }
+
+   @SuppressWarnings("unchecked")
+   public static <E extends Resource<?>, R extends Collection<E>, I extends Collection<Resource<?>>> R filterByType(Class<E> type, I list)
+   {
+      ArrayList<E> result = new ArrayList<E>();
+      
+      for (Resource<?> r : list)
+      {
+         if(type.isAssignableFrom(r.getClass()))
+         {
+            result.add((E) r);
+         }
+      }
+      return (R) result;
    }
 
 }

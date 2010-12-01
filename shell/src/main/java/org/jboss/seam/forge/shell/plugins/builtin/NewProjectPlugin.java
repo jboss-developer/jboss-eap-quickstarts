@@ -26,10 +26,12 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
@@ -70,9 +72,9 @@ public class NewProjectPlugin implements Plugin
                required = false) final File projectFolder
    ) throws IOException
    {
-      File cwd = shell.getCurrentDirectory();
+	   DirectoryResource cwr = shell.getCurrentDirectory();
+	   DirectoryResource dir = cwr.createChild(name);
 
-      File dir = new File(cwd.getAbsolutePath() + File.separator + name);
       if (projectFactory.containsProject(dir)
             || !shell.promptBoolean("Use [" + dir.getAbsolutePath() + "] as project directory?"))
       {

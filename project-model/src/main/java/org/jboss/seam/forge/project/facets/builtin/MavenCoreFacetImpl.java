@@ -31,7 +31,9 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -70,7 +72,9 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       {
          if (this.buildingResult == null)
          {
-            buildingResult = container.getBuilder().build(getPOMFile(), container.getRequest());
+            // FIXME this should not use the file API if we are going to abstract file APIs
+            // there could be complications with this abstraction and Maven's need for operating on a file-system.
+            buildingResult = container.getBuilder().build(getPOMFile().getUnderlyingResourceObject(), container.getRequest());
          }
          return buildingResult;
       }
@@ -92,15 +96,16 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       {
          Model result = new Model();
 
+         // FIXME this should/can-not use the Maven Native file writer if we are going to abstract file APIs
          MavenXpp3Reader reader = new MavenXpp3Reader();
-         FileInputStream stream = new FileInputStream(getPOMFile());
+         FileInputStream stream = new FileInputStream(getPOMFile().getUnderlyingResourceObject());
          if (stream.available() > 0)
          {
             result = reader.read(stream);
          }
          stream.close();
 
-         result.setPomFile(getPOMFile());
+         result.setPomFile(getPOMFile().getUnderlyingResourceObject());
          return result;
       }
       catch (IOException e)
@@ -118,8 +123,9 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    {
       try
       {
+         // FIXME this should/can-not use the Maven Native file writer if we are going to abstract file APIs
          MavenXpp3Writer writer = new MavenXpp3Writer();
-         FileWriter fw = new FileWriter(getPOMFile());
+         FileWriter fw = new FileWriter(getPOMFile().getUnderlyingResourceObject());
          writer.write(fw, pom);
          fw.close();
       }
@@ -132,25 +138,25 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 
    private Model createPOM()
    {
-      File pomFile = getPOMFile();
+      FileResource pomFile = getPOMFile();
       if (!pomFile.exists())
       {
-         project.writeFile(new char[]{}, pomFile);
+         pomFile.createNewFile();
       }
       Model pom = getPOM();
       pom.setGroupId("org.jboss.seam");
       pom.setArtifactId("scaffolding");
       pom.setVersion("1.0.0-SNAPSHOT");
-      pom.setPomFile(getPOMFile());
+      pom.setPomFile(getPOMFile().getUnderlyingResourceObject());
       pom.setModelVersion("4.0.0");
       setPOM(pom);
       return pom;
    }
 
-   private File getPOMFile()
+   private FileResource getPOMFile()
    {
-      File file = new File(project.getProjectRoot() + File.separator + "pom.xml");
-      return file;
+      Resource<?> file = project.getProjectRoot().getChild("pom.xml");
+      return (FileResource) file;
    }
 
    @Override

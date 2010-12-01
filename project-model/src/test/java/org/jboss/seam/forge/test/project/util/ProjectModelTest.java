@@ -26,6 +26,8 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.*;
 import org.jboss.seam.forge.project.services.ProjectFactory;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.MavenFacetsTest;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -58,6 +60,9 @@ public abstract class ProjectModelTest
    @Inject
    private ProjectFactory projectFactory;
 
+   @Inject
+   private ResourceFactory resourceFactory;
+
    private static Project project;
 
    @Before
@@ -70,8 +75,9 @@ public abstract class ProjectModelTest
          tempFolder.delete();
          tempFolder.mkdirs();
 
-         project = projectFactory.createProject(tempFolder, MavenCoreFacet.class, JavaSourceFacet.class,
-               ResourceFacet.class, WebResourceFacet.class, DependencyFacet.class, PackagingFacet.class);
+         project = projectFactory.createProject(
+               ResourceUtil.getContextDirectory(resourceFactory.getResourceFrom(tempFolder)), 
+               MavenCoreFacet.class, JavaSourceFacet.class, ResourceFacet.class, WebResourceFacet.class, DependencyFacet.class, PackagingFacet.class);
       }
    }
 

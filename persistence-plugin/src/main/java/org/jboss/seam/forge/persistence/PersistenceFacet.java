@@ -166,7 +166,7 @@ public class PersistenceFacet implements Facet
    public File getEntityPackageFile()
    {
       JavaSourceFacet sourceFacet = project.getFacet(JavaSourceFacet.class);
-      return new File(sourceFacet.getBasePackageFile() + File.separator + "domain").getAbsoluteFile();
+      return new File(sourceFacet.getBasePackageResource() + File.separator + "domain").getAbsoluteFile();
    }
 
    @SuppressWarnings("unchecked")

@@ -21,19 +21,20 @@
  */
 package org.jboss.seam.forge.project.services;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.locators.ProjectLocator;
 import org.jboss.seam.forge.project.model.ProjectImpl;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.util.Iterators;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
 
 /**
  * Responsible for instantiating project instances through CDI.
@@ -55,13 +56,13 @@ public class ProjectFactory
 
    }
 
-   public File findProjectRootRecusively(File currentDirectory)
+   public DirectoryResource findProjectRootRecusively(DirectoryResource currentDirectory)
    {
-      File root = null;
+      DirectoryResource root = null;
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         root = locator.findProjectRootRecursively(currentDirectory.getAbsoluteFile());
+         root = locator.findProjectRootRecursively(currentDirectory);
          if (root != null)
          {
             break;
@@ -70,13 +71,13 @@ public class ProjectFactory
       return root;
    }
 
-   public Project findProjectRecursively(final File startingPath)
+   public Project findProjectRecursively(final DirectoryResource startingPath)
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         File root = locator.findProjectRootRecursively(startingPath.getAbsoluteFile());
+         DirectoryResource root = locator.findProjectRootRecursively(startingPath);
 
          if (root != null)
          {
@@ -96,7 +97,7 @@ public class ProjectFactory
       return project;
    }
 
-   public Project createProject(final File targetDir, final Class<? extends Facet>... facetTypes)
+   public Project createProject(final DirectoryResource targetDir, final Class<? extends Facet>... facetTypes)
    {
       Project project = new ProjectImpl(targetDir);
 
@@ -168,7 +169,7 @@ public class ProjectFactory
     * An exception-safe method of determining whether a directory contains a
     * project.
     */
-   public boolean containsProject(final File dir)
+   public boolean containsProject(final DirectoryResource dir)
    {
       try
       {
@@ -181,13 +182,13 @@ public class ProjectFactory
       }
    }
 
-   public Project findProject(final File path) throws FileNotFoundException
+   public Project findProject(final DirectoryResource dir) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         project = locator.createProject(path.getAbsoluteFile());
+         project = locator.createProject(dir);
          if (project != null)
          {
             break;
@@ -197,7 +198,7 @@ public class ProjectFactory
       if (project == null)
       {
          throw new FileNotFoundException("Could not locate project in folder or any of its parents: ["
-               + path.getAbsolutePath() + "]");
+               + dir.getFullyQualifiedName() + "]");
       }
       registerFacets(project);
       return project;

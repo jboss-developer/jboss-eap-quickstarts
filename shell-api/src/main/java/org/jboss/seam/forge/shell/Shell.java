@@ -24,6 +24,7 @@ package org.jboss.seam.forge.shell;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 import java.io.File;
@@ -39,11 +40,16 @@ import java.util.Map;
 public interface Shell extends ShellPrintWriter
 {
    /**
-    * Return the current working directory of the shell. (This value may change
-    * through execution of plugins or other operations.)
+    * Return the current working directory resource of the shell. Start with {@link #getCurrentResource()}
+    * and move up the hierarchy until a {@link DirectoryResource} is found. (This value may change
+    * through execution of plug-ins or other operations.)
     */
-   File getCurrentDirectory();
+   DirectoryResource getCurrentDirectory();
 
+   /**
+    * Return the current working {@link Resource} of the shell. (This value may change
+    * through execution of plug-ins or other operations.)
+    */
    Resource<?> getCurrentResource();
 
    Class<? extends Resource<?>> getCurrentResourceScope();

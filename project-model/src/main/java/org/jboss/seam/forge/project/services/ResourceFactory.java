@@ -60,7 +60,6 @@ public class ResourceFactory implements Extension
       }
    };
 
-   @SuppressWarnings({"UnusedDeclaration"})
    public void scan(@Observes final ProcessBean<?> event, final BeanManager manager)
    {
       Bean<?> bean = event.getBean();

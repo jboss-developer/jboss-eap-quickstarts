@@ -24,6 +24,8 @@ package org.jboss.seam.forge.project.facets;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,16 +37,28 @@ import java.util.List;
 public interface JavaSourceFacet extends Facet
 {
    /**
+    * Return the base Java {@link Package} for this project, returned as a
+    * {@link String}
+    */
+   public String getBasePackage();
+
+   /**
+    * Return the base Java {@link Package} for this project, returned as a
+    * directory {@link File}
+    */
+   public DirectoryResource getBasePackageResource();
+   
+   /**
     * Get a list of {@link File}s representing the directories this project uses
     * to contain {@link Project} source documents (such as .java files.)
     */
-   public List<File> getSourceFolders();
+   public List<DirectoryResource> getSourceFolders();
 
    /**
     * Get the {@link File} representing the folder this {@link Project} uses to
     * store package-able source documents (such as .java files.)
     */
-   public File getSourceFolder();
+   public DirectoryResource getSourceFolder();
 
    /**
     * Get the {@link File} representing the folder this {@link Project} uses to
@@ -52,7 +66,7 @@ public interface JavaSourceFacet extends Facet
     * directory will never be packaged or deployed except when running Unit
     * Tests.
     */
-   public File getTestSourceFolder();
+   public DirectoryResource getTestSourceFolder();
 
    /**
     * Return the {@link File} at the given path relative to
@@ -60,7 +74,7 @@ public interface JavaSourceFacet extends Facet
     * of whether the target actually exists. To determine if the file exists,
     * you should call {@link File#exists()} on the return value of this method.
     */
-   public File getSourceFile(String relativePath);
+   public JavaResource getSourceFile(String relativePath);
 
    /**
     * Return the {@link File} at the given path relative to
@@ -69,7 +83,7 @@ public interface JavaSourceFacet extends Facet
     * exists, you should call {@link File#exists()} on the return value of this
     * method.
     */
-   public File getTestSourceFile(String relativePath);
+   public JavaResource getTestSourceFile(String relativePath);
 
    /**
     * Create or update a Java file in the primary source directory:
@@ -80,7 +94,7 @@ public interface JavaSourceFacet extends Facet
     * @param clazz The java class to create
     * @return The created or updated {@link File}
     */
-   public File saveJavaClass(JavaClass clazz);
+   public JavaResource saveJavaClass(JavaClass clazz);
 
    /**
     * Create or update a Java file in the primary test source directory:
@@ -91,7 +105,7 @@ public interface JavaSourceFacet extends Facet
     * @param clazz The java class to create
     * @return The created or updated {@link File}
     */
-   public File saveTestJavaClass(JavaClass clazz);
+   public JavaResource saveTestJavaClass(JavaClass clazz);
 
    /**
     * Return the {@link JavaClass} at the given path relative to
@@ -131,17 +145,5 @@ public interface JavaSourceFacet extends Facet
     * @throws FileNotFoundException if the target file does not exist
     */
    public JavaClass getTestJavaClass(JavaClass javaClass) throws FileNotFoundException;
-
-   /**
-    * Return the base Java {@link Package} for this project, returned as a
-    * {@link String}
-    */
-   public String getBasePackage();
-
-   /**
-    * Return the base Java {@link Package} for this project, returned as a
-    * directory {@link File}
-    */
-   public File getBasePackageFile();
 
 }

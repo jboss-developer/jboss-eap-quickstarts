@@ -22,21 +22,26 @@
 
 package org.jboss.seam.forge.project.resources;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.jboss.seam.forge.project.AbstractResource;
+import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 /**
  * A standard, built-in resource for representing files on the filesystem.
  *
  * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public abstract class FileResource extends AbstractResource<File>
 {
@@ -148,6 +153,14 @@ public abstract class FileResource extends AbstractResource<File>
       return file.mkdirs();
    }
 
+   /**
+    * Delete this file, recursively.
+    */
+   public boolean delete()
+   {
+      return delete(true);
+   }
+
    public boolean delete(boolean recursive)
    {
       if (recursive)
@@ -186,5 +199,98 @@ public abstract class FileResource extends AbstractResource<File>
       }
 
       return file.delete();
+   }
+
+   public void setContents(String data)
+   {
+      if (data == null)
+      {
+         data = "";
+      }
+      setContents(data.toCharArray());
+   }
+
+   public void setContents(final char[] data)
+   {
+      BufferedWriter writer = null;
+      FileResource temp = null;
+      try
+      {
+         if (!exists())
+         {
+            mkdirs();
+
+            delete();
+            if (!createNewFile())
+            {
+               throw new IOException("Failed to create file: " + file);
+            }
+         }
+         else
+         {
+            temp = createTempResource();
+            if (!renameTo(temp))
+            {
+               throw new IOException("Failed to update file because a temporary file could not be created: " + file);
+            }
+         }
+
+         file.delete();
+         writer = new BufferedWriter(new FileWriter(file));
+         writer.write(data);
+         writer.close();
+
+         // FIXME need a way for these classes to access a writer
+         System.out.println("Wrote " + getFullyQualifiedName());
+
+      }
+      catch (IOException e)
+      {
+         if ((temp != null) && !file.exists())
+         {
+            temp.renameTo(this);
+         }
+
+         throw new ProjectModelException(e);
+      }
+      finally
+      {
+         if (temp != null)
+         {
+            temp.delete();
+         }
+      }
+   }
+   
+   /**
+    * Create the file in the underlying resource system.
+    */
+   public boolean createNewFile()
+   {
+      try
+      {
+         return file.createNewFile();
+      }
+      catch (IOException e)
+      {
+         throw new ProjectModelException(e);
+      }
+   }
+
+   public FileResource createTempResource()
+   {
+      try
+      {
+         return (FileResource) createFrom(File.createTempFile("forgetemp", ""));
+      }
+      catch (IOException e)
+      {
+         throw new ProjectModelException(e);
+      }
+   }
+
+   public boolean renameTo(FileResource target)
+   {
+      return file.renameTo(target.getUnderlyingResourceObject());
    }
 }

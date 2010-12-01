@@ -23,9 +23,11 @@ package org.jboss.seam.forge.project.locators;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
 import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
 import org.jboss.seam.forge.project.model.ProjectImpl;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -50,14 +52,14 @@ public class MavenProjectLocator implements ProjectLocator
    }
 
    @Override
-   public Project createProject(final File directory)
+   public Project createProject(final DirectoryResource dir)
    {
-      File pom = new File(directory.getAbsolutePath() + File.separator + "pom.xml");
+      Resource<?> pom = dir.getChild("pom.xml");
 
       Project result = null;
       if (pom.exists())
       {
-         result = new ProjectImpl(directory.getAbsoluteFile());
+         result = new ProjectImpl(dir);
          Facet facet = new MavenCoreFacetImpl(container);
          facet.setProject(result);
          result.registerFacet(facet);
@@ -66,14 +68,14 @@ public class MavenProjectLocator implements ProjectLocator
    }
 
    @Override
-   public File findProjectRootRecursively(final File startingDirectory)
+   public DirectoryResource findProjectRootRecursively(final DirectoryResource startingDirectory)
    {
-      File root = startingDirectory.getAbsoluteFile();
+      DirectoryResource root = startingDirectory;
 
       Project project = createProject(root);
-      while ((project == null) && (root.getParentFile() != null))
+      while ((project == null) && (root.getParent() instanceof DirectoryResource))
       {
-         root = root.getParentFile();
+         root = (DirectoryResource) root.getParent();
          project = createProject(root);
       }
 

@@ -47,6 +47,6 @@ public class PwdPlugin implements Plugin
    @DefaultCommand
    public void run()
    {
-      shell.println(getContextDirectory(shell.getCurrentResource()).getAbsolutePath());
+      shell.println(shell.getCurrentDirectory().getFullyQualifiedName());
    }
 }

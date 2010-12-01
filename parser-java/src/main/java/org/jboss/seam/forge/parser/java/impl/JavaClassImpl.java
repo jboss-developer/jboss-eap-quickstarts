@@ -71,6 +71,7 @@ public class JavaClassImpl implements JavaClass
       try
       {
          char[] source = Util.getInputStreamAsCharArray(inputStream, inputStream.available(), "ISO8859_1");
+         inputStream.close();
          init(source);
       }
       catch (Exception e)

@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
@@ -355,7 +356,7 @@ public class Echo implements Plugin
       Shell shell = new Shell()
       {
          @Override
-         public File getCurrentDirectory()
+         public DirectoryResource getCurrentDirectory()
          {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
          }

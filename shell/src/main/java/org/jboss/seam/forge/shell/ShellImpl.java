@@ -28,6 +28,7 @@ import jline.console.completer.Completer;
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
@@ -570,7 +571,6 @@ public class ShellImpl implements Shell
    @Override
    public String getPrompt()
    {
-
       if (projectContext.getCurrent() != null)
       {
          return Echo.echo(this, Echo.promptExpressionParser(this, (String) properties.get(PROP_PROMPT)));
@@ -579,45 +579,19 @@ public class ShellImpl implements Shell
       {
          return Echo.echo(this, Echo.promptExpressionParser(this, (String) properties.get(PROP_PROMPT_NO_PROJ)));
       }
-
-//
-//      String prefix = "[" + renderColor(ShellColor.RED, "no project") + "]";
-//
-//      if (projectContext.getCurrent() != null)
-//      {
-//         Project currentProject = projectContext.getCurrent();
-//         String projectName = currentProject.getFacet(MetadataFacet.class).getProjectName();
-//         prefix = "[" + renderColor(ShellColor.GREEN, projectName) + "]";
-//      }
-//
-//      String path = getCurrentResource().toString();
-//
-//      return prefix + " " + path +
-//            renderColor(projectContext.getCurrent() == null ? ShellColor.RED : ShellColor.GREEN, " $ ");
    }
 
    @Override
-   public File getCurrentDirectory()
+   public DirectoryResource getCurrentDirectory()
    {
       Resource<?> r = getCurrentResource();
-      File curr = null;
-
-      do
+      Resource<File> curr = ResourceUtil.getContextDirectory(r);
+      
+      if(curr instanceof DirectoryResource)
       {
-         if (r.getUnderlyingResourceObject() instanceof File)
-         {
-            curr = (File) r.getUnderlyingResourceObject();
-            if (!curr.isDirectory())
-            {
-               curr = curr.getParentFile();
-            }
-         }
-
-         r = r.getParent();
+          return (DirectoryResource) curr;
       }
-      while ((curr == null) && (r != null));
-
-      return curr;
+      return null;
    }
 
    @Override

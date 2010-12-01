@@ -59,7 +59,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
       JavaClass result = JavaParser.parse(file);
       assertEquals(name, result.getName());
       assertEquals(PKG, result.getPackage());
-      assertTrue(project.delete(file));
+      assertTrue(file.delete());
       assertEquals(clazz, result);
    }
 
