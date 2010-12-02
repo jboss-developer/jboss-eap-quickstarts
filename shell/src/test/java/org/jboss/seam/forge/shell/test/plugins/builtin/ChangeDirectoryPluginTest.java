@@ -47,12 +47,12 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
 
       Shell shell = getShell();
       Resource<?> currentDirectory = shell.getCurrentResource();
-      assertNotSame(home, currentDirectory.getFullyQualifiedName());
+      assertNotSame(home.getAbsolutePath(), currentDirectory.getFullyQualifiedName());
 
       shell.execute("cd ~");
 
       currentDirectory = shell.getCurrentResource();
-      assertEquals(home, currentDirectory.getFullyQualifiedName());
+      assertEquals(home.getAbsolutePath(), currentDirectory.getFullyQualifiedName());
    }
 
    @Test
