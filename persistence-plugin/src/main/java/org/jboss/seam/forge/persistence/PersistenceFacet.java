@@ -21,11 +21,20 @@
  */
 package org.jboss.seam.forge.persistence;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Named;
+import javax.persistence.Entity;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
 import org.jboss.seam.forge.project.dependencies.Dependency;
@@ -33,52 +42,32 @@ import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.*;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
-
-import javax.inject.Named;
-import javax.persistence.Entity;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("persistence")
-@RequiresFacets({JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class})
-@RequiresPackagingTypes({PackagingType.JAR, PackagingType.WAR})
+@RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
+@RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
 public class PersistenceFacet implements Facet
 {
    private static final Dependency dep =
          DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
    private Project project;
-
-   private final FilenameFilter entityFileFilter = new FilenameFilter()
-   {
-      @Override
-      public boolean accept(final File dir, final String name)
-      {
-         return name.endsWith(".java");
-      }
-   };
-
-   private final FileFilter directoryFilter = new FileFilter()
-   {
-      @Override
-      public boolean accept(final File file)
-      {
-         return file.isDirectory();
-      }
-   };
 
    @Override
    public Project getProject()
@@ -103,16 +92,15 @@ public class PersistenceFacet implements Facet
             deps.addDependency(dep);
          }
 
-         File entityRoot = getEntityPackageFile();
+         DirectoryResource entityRoot = getEntityPackageFile();
          if (!entityRoot.exists())
          {
-            project.mkdirs(entityRoot);
             entityRoot.mkdirs();
          }
 
          installUtils();
 
-         File descriptor = getConfigFile();
+         FileResource descriptor = getConfigFile();
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
@@ -127,7 +115,7 @@ public class PersistenceFacet implements Facet
                   .formatSql()
                   .property("hibernate.transaction.flush_before_completion", true);
 
-            project.writeFile(unit.exportAsString(), descriptor);
+            descriptor.setContents(unit.exportAsString());
          }
       }
       project.registerFacet(this);
@@ -163,17 +151,17 @@ public class PersistenceFacet implements Facet
       return sourceFacet.getBasePackage() + ".domain";
    }
 
-   public File getEntityPackageFile()
+   public DirectoryResource getEntityPackageFile()
    {
       JavaSourceFacet sourceFacet = project.getFacet(JavaSourceFacet.class);
-      return new File(sourceFacet.getBasePackageResource() + File.separator + "domain").getAbsoluteFile();
+      return (DirectoryResource) sourceFacet.getBasePackageResource().getChild("domain");
    }
 
    @SuppressWarnings("unchecked")
    public PersistenceModel getConfig()
    {
       DescriptorImporter<PersistenceDescriptor> importer = Descriptors.importAs(PersistenceDescriptor.class);
-      PersistenceDescriptor descriptor = importer.from(getConfigFile());
+      PersistenceDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
       PersistenceModel model = ((SchemaDescriptorProvider<PersistenceModel>) descriptor).getSchemaModel();
       return model;
    }
@@ -182,46 +170,52 @@ public class PersistenceFacet implements Facet
    {
       PersistenceDescriptor descriptor = new PersistenceDescriptorImpl(model);
       String output = descriptor.exportAsString();
-      project.writeFile(output, getConfigFile());
+      getConfigFile().setContents(output);
    }
 
-   private File getConfigFile()
+   private FileResource getConfigFile()
    {
       ResourceFacet resources = project.getFacet(ResourceFacet.class);
-      return new File(resources.getResourceFolder() + File.separator + "META-INF" + File.separator + "persistence.xml");
+      return (FileResource) resources.getResourceFolder().getChild("META-INF" + File.separator + "persistence.xml");
    }
 
    public List<JavaClass> getAllEntities()
    {
-      File packageFile = getEntityPackageFile();
+      DirectoryResource packageFile = getEntityPackageFile();
       return findEntitiesInFolder(packageFile);
    }
 
-   private List<JavaClass> findEntitiesInFolder(final File packageFile)
+   private List<JavaClass> findEntitiesInFolder(final DirectoryResource packageFile)
    {
       List<JavaClass> result = new ArrayList<JavaClass>();
       if (packageFile.exists())
       {
-         for (File source : packageFile.listFiles(entityFileFilter))
+         for (Resource<?> source : packageFile.listResources())
          {
-            try
+            if (source instanceof JavaResource)
             {
-               JavaClass javaClass = JavaParser.parse(source);
-               if (javaClass.hasAnnotation(Entity.class))
+               try
                {
-                  result.add(javaClass);
+                  JavaClass javaClass = ((JavaResource) source).getJavaClass();
+                  if (javaClass.hasAnnotation(Entity.class))
+                  {
+                     result.add(javaClass);
+                  }
                }
-            }
-            catch (FileNotFoundException e)
-            {
-               // Meh, oh well.
+               catch (FileNotFoundException e)
+               {
+                  throw new IllegalStateException(e);
+               }
             }
          }
 
-         for (File source : packageFile.listFiles(directoryFilter))
+         for (Resource<?> source : packageFile.listResources())
          {
-            List<JavaClass> subResults = findEntitiesInFolder(source);
-            result.addAll(subResults);
+            if (source instanceof DirectoryResource)
+            {
+               List<JavaClass> subResults = findEntitiesInFolder((DirectoryResource) source);
+               result.addAll(subResults);
+            }
          }
       }
       return result;

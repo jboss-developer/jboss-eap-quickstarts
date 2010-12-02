@@ -21,17 +21,22 @@
  */
 package org.jboss.seam.forge.web.plugins;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.web.ServletFacet;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.File;
-import java.util.List;
+
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.constraints.RequiresFacet;
+import org.jboss.seam.forge.project.constraints.RequiresProject;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.web.ServletFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -58,10 +63,10 @@ public class ListWebResourcesPlugin implements Plugin
    {
       ServletFacet web = project.getFacet(ServletFacet.class);
 
-      List<File> resources = web.getResources();
-      for (File file : resources)
+      List<Resource<?>> resources = web.getResources();
+      for (Resource<?> file : resources)
       {
-         shell.println(file.getAbsolutePath());
+         shell.println(file.getFullyQualifiedName());
       }
    }
 }

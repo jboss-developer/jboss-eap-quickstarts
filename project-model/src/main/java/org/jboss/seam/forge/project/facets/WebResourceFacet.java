@@ -21,11 +21,12 @@
  */
 package org.jboss.seam.forge.project.facets;
 
-import java.util.List;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * A {@link Facet} containing APIs to interact with Java Web Projects
