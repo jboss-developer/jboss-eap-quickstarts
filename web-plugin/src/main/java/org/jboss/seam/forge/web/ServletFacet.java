@@ -21,6 +21,13 @@
  */
 package org.jboss.seam.forge.web;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -40,13 +47,6 @@ import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
 import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
-
-import javax.inject.Named;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -69,7 +69,7 @@ public class ServletFacet implements Facet
    public WebAppModel getConfig()
    {
       DescriptorImporter<WebAppDescriptor> importer = Descriptors.importAs(WebAppDescriptor.class);
-      WebAppDescriptor descriptor = importer.from(getConfigFile());
+      WebAppDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
       WebAppModel model = ((SchemaDescriptorProvider<WebAppModel>) descriptor).getSchemaModel();
       return model;
    }
@@ -78,7 +78,7 @@ public class ServletFacet implements Facet
    {
       WebAppDescriptor descriptor = new WebAppDescriptorImpl(model);
       String output = descriptor.exportAsString();
-      project.writeFile(output, getConfigFile());
+      getConfigFile().setContents(output);
    }
 
    private FileResource getConfigFile()
@@ -90,29 +90,29 @@ public class ServletFacet implements Facet
    /**
     * List all servlet resource files.
     */
-   public List<FileResource> getResources()
+   public List<Resource<?>> getResources()
    {
       DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
       return listChildrenRecursively(webRoot);
    }
 
-   public List<File> getResources(final FileFilter filter)
+   public List<Resource<?>> getResources(final FileFilter filter)
    {
-      File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return listChildrenRecursively(webRoot, filter);
+      DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
+      return listChildrenRecursively(webRoot);
    }
 
-   private List<File> listChildrenRecursively(final DirectoryResource current, final FileFilter filter)
+   private List<Resource<?>> listChildrenRecursively(final DirectoryResource current)
    {
       List<Resource<?>> result = new ArrayList<Resource<?>>();
-      File[] list = current.listFiles(filter);
+      List<Resource<?>> list = current.listResources();
       if (list != null)
       {
-         for (File file : list)
+         for (Resource<?> file : list)
          {
-            if (file.isDirectory())
+            if (file instanceof DirectoryResource)
             {
-               result.addAll(listChildrenRecursively(file, filter));
+               result.addAll(listChildrenRecursively((DirectoryResource) file));
             }
             result.add(file);
          }

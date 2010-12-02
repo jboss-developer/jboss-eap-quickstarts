@@ -59,14 +59,14 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    @Override
    public DirectoryResource getResourceFolder()
    {
-      return (DirectoryResource) project.getProjectRoot().getChild("src" + File.separator + "main"
+      return project.getProjectRoot().getChildDirectory("src" + File.separator + "main"
             + File.separator + "resources");
    }
 
    @Override
    public DirectoryResource getTestResourceFolder()
    {
-      return (DirectoryResource) project.getProjectRoot().getChild("src" + File.separator + "test"
+      return project.getProjectRoot().getChildDirectory("src" + File.separator + "test"
             + File.separator + "resources");
    }
 

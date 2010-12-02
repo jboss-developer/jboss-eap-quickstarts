@@ -53,7 +53,7 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    @Override
    public DirectoryResource getWebRootDirectory()
    {
-      return (DirectoryResource) project.getProjectRoot().getChild("src" + File.separator + "main" + File.separator + "webapp");
+      return (DirectoryResource) project.getProjectRoot().getChildDirectory("src" + File.separator + "main" + File.separator + "webapp");
    }
 
    @Override

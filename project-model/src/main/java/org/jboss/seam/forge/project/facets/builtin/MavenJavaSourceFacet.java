@@ -35,7 +35,6 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
-import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Formatter;
 import org.jboss.seam.forge.project.Facet;
@@ -44,7 +43,6 @@ import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.project.util.Packages;
@@ -72,14 +70,14 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    public DirectoryResource getSourceFolder()
    {
       DirectoryResource projectRoot = project.getProjectRoot();
-      return (DirectoryResource) projectRoot.getChild("src" + File.separator + "main" + File.separator + "java");
+      return (DirectoryResource) projectRoot.getChildDirectory("src" + File.separator + "main" + File.separator + "java");
    }
 
    @Override
    public DirectoryResource getTestSourceFolder()
    {
       DirectoryResource projectRoot = project.getProjectRoot();
-      return (DirectoryResource) projectRoot.getChild("src" + File.separator + "test" + File.separator + "java");
+      return (DirectoryResource) projectRoot.getChildDirectory("src" + File.separator + "test" + File.separator + "java");
    }
 
    @Override
@@ -186,7 +184,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
          }
       }
 
-      return JavaParser.parse(target.getResourceInputStream());
+      return target.getJavaClass();
    }
 
    @Override
@@ -203,7 +201,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
          }
       }
 
-      return JavaParser.parse(target.getResourceInputStream());
+      return target.getJavaClass();
    }
 
    @Override
@@ -215,7 +213,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    @Override
    public DirectoryResource getBasePackageResource()
    {
-      return (DirectoryResource) getSourceFolder().getChild(getBasePackage());
+      return getSourceFolder().getChildDirectory(getBasePackage());
    }
 
    @Override
@@ -236,7 +234,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 
    private JavaResource saveJavaFile(final DirectoryResource sourceFolder, final JavaClass clazz)
    {
-      FileResource path = (FileResource) sourceFolder.getChild(Packages.toFileSyntax(clazz.getPackage()));
+      DirectoryResource path = sourceFolder.getChildDirectory(Packages.toFileSyntax(clazz.getPackage()));
       JavaResource file = (JavaResource) path.getChild(clazz.getName() + ".java");
 
       file.setContents(Formatter.format(clazz));
