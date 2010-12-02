@@ -22,20 +22,20 @@
 
 package org.jboss.seam.forge.test.project.facets.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import javax.inject.Singleton;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Singleton;
-import java.io.File;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -53,13 +53,13 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      File file = project.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      FileResource file = project.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
-      JavaClass result = JavaParser.parse(file);
+      JavaClass result = JavaParser.parse(file.getResourceInputStream());
       assertEquals(name, result.getName());
       assertEquals(PKG, result.getPackage());
-      assertTrue(project.delete(file));
+      assertTrue(file.delete());
       assertEquals(clazz, result);
    }
 
@@ -71,7 +71,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      File file = java.saveJavaClass(clazz);
+      FileResource file = java.saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass parsed = java.getJavaClass(clazz);
@@ -88,7 +88,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      File file = java.saveTestJavaClass(clazz);
+      FileResource file = java.saveTestJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass parsed = java.getTestJavaClass(clazz);

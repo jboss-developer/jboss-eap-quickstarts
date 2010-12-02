@@ -1,19 +1,26 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Named;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
+
 /**
  * A simple port of the unix 'wc' command for forge.
- *
+ * 
  * @author Mike Brock .
  */
 @Named("wc")
@@ -29,7 +36,7 @@ public class WordCountPlugin implements Plugin
          @Option(name = "characters", shortName = "c", flagOnly = true) boolean charCount,
          @Option(description = "file ...", required = false) Resource<?>[] resources,
          final PipeOut out
-   ) throws IOException
+         ) throws IOException
    {
 
       if (!(lineCount || wordCount || charCount))
@@ -118,7 +125,7 @@ public class WordCountPlugin implements Plugin
                 */
                if (c == '\r')
                {
-                  if (i + 1 < read && buffer[i + 1] == '\n')
+                  if ((i + 1 < read) && (buffer[i + 1] == '\n'))
                   {
                      i++;
                      c = '\n';
@@ -161,8 +168,9 @@ public class WordCountPlugin implements Plugin
 
       public int getValue(int index)
       {
-         //note: the lack of breaks here is intentional, the cases are supposed to fall-through,
-         //      to the next case if the condition is not satisfied.
+         // note: the lack of breaks here is intentional, the cases are supposed
+         // to fall-through,
+         // to the next case if the condition is not satisfied.
          switch (index)
          {
          case 0:

@@ -21,6 +21,15 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
@@ -35,15 +44,10 @@ import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.project.util.Packages;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -56,26 +60,26 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    private Project project;
 
    @Override
-   public List<File> getSourceFolders()
+   public List<DirectoryResource> getSourceFolders()
    {
-      List<File> result = new ArrayList<File>();
+      List<DirectoryResource> result = new ArrayList<DirectoryResource>();
       result.add(getSourceFolder());
       result.add(getTestSourceFolder());
       return result;
    }
 
    @Override
-   public File getSourceFolder()
+   public DirectoryResource getSourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
-            + File.separator + "java").getAbsoluteFile();
+      DirectoryResource projectRoot = project.getProjectRoot();
+      return (DirectoryResource) projectRoot.getChild("src" + File.separator + "main" + File.separator + "java");
    }
 
    @Override
-   public File getTestSourceFolder()
+   public DirectoryResource getTestSourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
-            + File.separator + "java").getAbsoluteFile();
+      DirectoryResource projectRoot = project.getProjectRoot();
+      return (DirectoryResource) projectRoot.getChild("src" + File.separator + "test" + File.separator + "java");
    }
 
    @Override
@@ -102,7 +106,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    {
       if (!this.isInstalled())
       {
-         for (File folder : this.getSourceFolders())
+         for (DirectoryResource folder : this.getSourceFolders())
          {
             folder.mkdirs();
          }
@@ -157,50 +161,49 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    }
 
    @Override
-   public File getSourceFile(final String relativePath)
+   public JavaResource getSourceFile(final String relativePath)
    {
-      File target = new File(getSourceFolder() + File.separator + relativePath).getAbsoluteFile();
-      return target;
+      return (JavaResource) getSourceFolder().getChild(relativePath);
    }
 
    @Override
-   public File getTestSourceFile(final String relativePath)
+   public JavaResource getTestSourceFile(final String relativePath)
    {
-      return new File(getTestSourceFolder() + File.separator + relativePath).getAbsoluteFile();
+      return (JavaResource) getTestSourceFolder().getChild(relativePath);
    }
 
    @Override
    public JavaClass getJavaClass(final String relativePath) throws FileNotFoundException
    {
-      File target = getSourceFile(relativePath);
+      JavaResource target = getSourceFile(relativePath);
 
       if (!target.exists())
       {
-         File secondary = getSourceFile(Packages.toFileSyntax(relativePath) + ".java");
+         JavaResource secondary = getSourceFile(Packages.toFileSyntax(relativePath) + ".java");
          if (secondary.exists())
          {
             target = secondary;
          }
       }
 
-      return JavaParser.parse(target);
+      return JavaParser.parse(target.getResourceInputStream());
    }
 
    @Override
    public JavaClass getTestJavaClass(final String relativePath) throws FileNotFoundException
    {
-      File target = getTestSourceFile(relativePath);
+      JavaResource target = getTestSourceFile(relativePath);
 
       if (!target.exists())
       {
-         File secondary = getTestSourceFile(Packages.toFileSyntax(relativePath) + ".java");
+         JavaResource secondary = getTestSourceFile(Packages.toFileSyntax(relativePath) + ".java");
          if (secondary.exists())
          {
             target = secondary;
          }
       }
 
-      return JavaParser.parse(target);
+      return JavaParser.parse(target.getResourceInputStream());
    }
 
    @Override
@@ -210,10 +213,9 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    }
 
    @Override
-   public File getBasePackageFile()
+   public DirectoryResource getBasePackageResource()
    {
-      String base = Packages.toFileSyntax(getBasePackage());
-      return new File(getSourceFolder().getAbsolutePath() + File.separator + base).getAbsoluteFile();
+      return (DirectoryResource) getSourceFolder().getChild(getBasePackage());
    }
 
    @Override
@@ -221,7 +223,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    {
       String pkg = javaClass.getPackage() + "." + javaClass.getName();
       String path = Packages.toFileSyntax(pkg) + ".java";
-      return JavaParser.parse(getSourceFile(path));
+      return getSourceFile(path).getJavaClass();
    }
 
    @Override
@@ -229,27 +231,27 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    {
       String pkg = javaClass.getPackage() + "." + javaClass.getName();
       String path = Packages.toFileSyntax(pkg) + ".java";
-      return JavaParser.parse(getTestSourceFile(path));
+      return getTestSourceFile(path).getJavaClass();
    }
 
-   private File saveJavaFile(final File sourceFolder, final JavaClass clazz)
+   private JavaResource saveJavaFile(final DirectoryResource sourceFolder, final JavaClass clazz)
    {
-      String path = sourceFolder.getAbsolutePath() + File.separator + Packages.toFileSyntax(clazz.getPackage());
-      File file = new File(path + File.separator + clazz.getName() + ".java");
+      FileResource path = (FileResource) sourceFolder.getChild(Packages.toFileSyntax(clazz.getPackage()));
+      JavaResource file = (JavaResource) path.getChild(clazz.getName() + ".java");
 
-      getProject().writeFile(Formatter.format(clazz).toCharArray(), file);
+      file.setContents(Formatter.format(clazz));
       // TODO event.fire(Created new Java file);
       return file;
    }
 
    @Override
-   public File saveJavaClass(final JavaClass clazz)
+   public JavaResource saveJavaClass(final JavaClass clazz)
    {
       return saveJavaFile(getSourceFolder(), clazz);
    }
 
    @Override
-   public File saveTestJavaClass(final JavaClass clazz)
+   public JavaResource saveTestJavaClass(final JavaClass clazz)
    {
       return saveJavaFile(getTestSourceFolder(), clazz);
    }

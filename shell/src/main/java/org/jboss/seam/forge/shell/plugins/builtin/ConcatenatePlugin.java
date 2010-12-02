@@ -56,7 +56,7 @@ public class ConcatenatePlugin implements Plugin
 
       if (paths != null)
       {
-         for (Resource res : paths)
+         for (Resource<?> res : paths)
          {
             if (res instanceof FileResource)
             {

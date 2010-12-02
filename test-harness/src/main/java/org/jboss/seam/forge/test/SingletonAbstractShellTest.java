@@ -26,6 +26,9 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.model.ProjectImpl;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -70,9 +73,11 @@ public abstract class SingletonAbstractShellTest
    private BeanManager beanManager;
    @Inject
    private Shell shell;
+   @Inject 
+   private ResourceFactory factory;
 
-   private File tempFolder;
-   private static final List<File> tempFolders = new ArrayList<File>();
+   private DirectoryResource tempFolder;
+   private static final List<FileResource> tempFolders = new ArrayList<FileResource>();
    private static final String PKG = SingletonAbstractShellTest.class.getSimpleName().toLowerCase();
    private static Queue<String> inputQueue = new LinkedList<String>();
 
@@ -86,7 +91,7 @@ public abstract class SingletonAbstractShellTest
       {
          throw new IllegalStateException("Failed to initialize Shell instance for test.");
       }
-
+      
       if (tempFolder == null)
       {
          shell.setVerbose(true);
@@ -106,11 +111,11 @@ public abstract class SingletonAbstractShellTest
    @AfterClass
    public static void afterClass() throws IOException
    {
-      for (File file : tempFolders)
+      for (FileResource file : tempFolders)
       {
          if (file.exists())
          {
-            assertTrue(new ProjectImpl(file).delete(file));
+            assertTrue(file.delete());
          }
       }
    }
@@ -162,7 +167,7 @@ public abstract class SingletonAbstractShellTest
    protected Project initializeJavaProject() throws IOException
    {
       File folder = createTempFolder();
-      tempFolders.add(folder);
+      tempFolders.add((FileResource) factory.getResourceFrom(folder));
       getShell().execute("cd " + folder.getAbsolutePath());
       queueInputLines("", "");
       getShell().execute("new-project --named test --topLevelPackage com.test");

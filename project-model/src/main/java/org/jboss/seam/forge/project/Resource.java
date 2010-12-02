@@ -77,7 +77,7 @@ public interface Resource<T>
     * @return A list of child resources.
     */
    public List<Resource<?>> listResources();
-
+   
    public T getUnderlyingResourceObject();
 
    public InputStream getResourceInputStream();

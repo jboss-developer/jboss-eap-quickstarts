@@ -21,18 +21,21 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -45,25 +48,25 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    private Project project;
 
    @Override
-   public List<File> getResourceFolders()
+   public List<DirectoryResource> getResourceFolders()
    {
-      List<File> result = new ArrayList<File>();
+      List<DirectoryResource> result = new ArrayList<DirectoryResource>();
       result.add(getResourceFolder());
       result.add(getTestResourceFolder());
       return result;
    }
 
    @Override
-   public File getResourceFolder()
+   public DirectoryResource getResourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
+      return (DirectoryResource) project.getProjectRoot().getChild("src" + File.separator + "main"
             + File.separator + "resources");
    }
 
    @Override
-   public File getTestResourceFolder()
+   public DirectoryResource getTestResourceFolder()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "test"
+      return (DirectoryResource) project.getProjectRoot().getChild("src" + File.separator + "test"
             + File.separator + "resources");
    }
 
@@ -98,7 +101,7 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    {
       if (!this.isInstalled())
       {
-         for (File folder : this.getResourceFolders())
+         for (DirectoryResource folder : this.getResourceFolders())
          {
             folder.mkdirs();
          }
@@ -108,30 +111,30 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    }
 
    @Override
-   public File getResource(final String relativePath)
+   public FileResource getResource(final String relativePath)
    {
-      return new File(getResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+      return (FileResource) getResourceFolder().getChild(relativePath);
    }
 
    @Override
-   public File getTestResource(final String relativePath)
+   public FileResource getTestResource(final String relativePath)
    {
-      return new File(getTestResourceFolder() + File.separator + relativePath).getAbsoluteFile();
+      return (FileResource) getTestResourceFolder().getChild(relativePath);
    }
 
    @Override
-   public File createResource(final char[] bytes, final String relativeFilename)
+   public FileResource createResource(final char[] bytes, final String relativeFilename)
    {
-      File file = new File(getResourceFolder() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
+      FileResource file = (FileResource) getResourceFolder().getChild(relativeFilename);
+      file.setContents(bytes);
       return file;
    }
 
    @Override
-   public File createTestResource(final char[] bytes, final String relativeFilename)
+   public FileResource createTestResource(final char[] bytes, final String relativeFilename)
    {
-      File file = new File(getTestResourceFolder() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
+      FileResource file = (FileResource) getTestResourceFolder().getChild(relativeFilename);
+      file.setContents(bytes);
       return file;
    }
 }

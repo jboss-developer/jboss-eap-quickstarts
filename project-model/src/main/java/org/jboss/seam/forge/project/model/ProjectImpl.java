@@ -21,7 +21,7 @@
  */
 package org.jboss.seam.forge.project.model;
 
-import java.io.File;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -29,15 +29,15 @@ import java.io.File;
  */
 public class ProjectImpl extends AbstractProject
 {
-   private File projectRoot = null;
+   private DirectoryResource projectRoot = null;
 
-   public ProjectImpl(final File rootDirectory)
+   public ProjectImpl(final DirectoryResource dir)
    {
-      projectRoot = rootDirectory;
+      projectRoot = dir;
    }
 
    @Override
-   public File getProjectRoot()
+   public DirectoryResource getProjectRoot()
    {
       return projectRoot;
    }

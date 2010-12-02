@@ -22,10 +22,26 @@
 
 package org.jboss.seam.forge.test;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.model.ProjectImpl;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -36,20 +52,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -72,15 +74,18 @@ public abstract class AbstractShellTest
 
    @Inject
    private BeanManager beanManager;
-
+   
    private Queue<String> inputQueue = new LinkedList<String>();
 
-   private final List<File> tempFolders = new ArrayList<File>();
+   private final List<FileResource> tempFolders = new ArrayList<FileResource>();
 
    private static final String PKG = AbstractShellTest.class.getSimpleName().toLowerCase();
 
    @Inject
    private Instance<Project> project;
+   
+   @Inject 
+   private ResourceFactory factory;
 
    @BeforeClass
    public static void before() throws IOException
@@ -98,7 +103,7 @@ public abstract class AbstractShellTest
       File tempFolder = createTempFolder();
 
       shell.setVerbose(true);
-      shell.setCurrentResource(tempFolder.getAbsoluteFile());
+      shell.setCurrentResource(factory.getResourceFrom(tempFolder));
       beanManager.fireEvent(new Startup(), new Annotation[]{});
 
       resetInputQueue();
@@ -113,7 +118,7 @@ public abstract class AbstractShellTest
       File tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      tempFolders.add(tempFolder);
+      tempFolders.add((FileResource) factory.getResourceFrom(tempFolder));
       return tempFolder;
    }
 
@@ -130,11 +135,11 @@ public abstract class AbstractShellTest
    @After
    public void afterTest() throws IOException
    {
-      for (File file : tempFolders)
+      for (FileResource file : tempFolders)
       {
          if (file.exists())
          {
-            assertTrue(new ProjectImpl(file).delete(file));
+            assertTrue(file.delete());
          }
       }
    }

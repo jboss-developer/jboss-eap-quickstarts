@@ -21,17 +21,17 @@
  */
 package org.jboss.seam.forge.project.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -57,102 +57,6 @@ public abstract class AbstractProject implements Project
    public void removeAttribute(final String key)
    {
       attributes.remove(key);
-   }
-
-   @Override
-   public boolean delete(final File file)
-   {
-      // TODO event.fire(File deleted)
-      if (file.isDirectory())
-      {
-         for (File c : file.listFiles())
-         {
-            if (!delete(c))
-            {
-               throw new ProjectModelException("Could not delete file or folder: " + file);
-            }
-         }
-      }
-      // System.gc(); // try to get rid of any lingering file-handle references.
-      return file.delete();
-   }
-
-   @Override
-   public void writeFile(String string, final File file)
-   {
-      if (string == null)
-      {
-         string = "";
-      }
-      writeFile(string.toCharArray(), file);
-   }
-
-   @Override
-   public void writeFile(final char[] data, final File file)
-   {
-      BufferedWriter writer = null;
-      File tempFile = null;
-      try
-      {
-         if (!file.exists())
-         {
-            mkdirs(file);
-
-            delete(file);
-            if (!file.createNewFile())
-            {
-               throw new IOException("Failed to create file: " + file);
-            }
-         }
-         else
-         {
-            tempFile = File.createTempFile(AbstractProject.class.getName(), null);
-            File origin = file.getAbsoluteFile();
-            if (!origin.renameTo(tempFile))
-            {
-               throw new IOException("Failed to update file because a temporary file could not be created: " + file);
-            }
-         }
-
-         delete(file);
-
-         writer = new BufferedWriter(new FileWriter(file));
-         writer.write(data);
-         writer.close();
-
-         // FIXME need a way for these classes to access a writer
-         System.out.println("Wrote " + file.getCanonicalPath());
-
-      }
-      catch (IOException e)
-      {
-         if ((tempFile != null) && !file.exists())
-         {
-            tempFile.renameTo(file);
-         }
-
-         throw new ProjectModelException(e);
-      }
-      finally
-      {
-         if (tempFile != null)
-         {
-            delete(tempFile);
-         }
-      }
-   }
-
-   @Override
-   public void mkdirs(final File file)
-   {
-      if (!file.exists())
-      {
-         if (!file.mkdirs())
-         {
-            throw new ProjectModelException(
-                  new IOException("Failed to create required directory structure for file: " + file));
-         }
-      }
    }
 
    @Override
@@ -197,8 +101,7 @@ public abstract class AbstractProject implements Project
       }
       if (result == null)
       {
-         throw new FacetNotFoundException("The requested facet of type [" + type.getName()
-               + "] was not found. The facet is not installed.");
+         throw new FacetNotFoundException("The requested facet of type [" + type.getName() + "] was not found. The facet is not installed.");
       }
       return (F) result;
    }
@@ -241,8 +144,7 @@ public abstract class AbstractProject implements Project
       {
          if (!hasFacet(type))
          {
-            throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: ["
-                  + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
+            throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: [" + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
          }
       }
 

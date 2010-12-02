@@ -22,19 +22,18 @@
 
 package org.jboss.seam.forge.shell.project;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.shell.plugins.events.InitProject;
-import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
-
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.io.File;
+
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.shell.plugins.events.InitProject;
+import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -47,8 +46,6 @@ public class CurrentProject
 
    @Inject
    private CurrentResource currentResource;
-   @Inject
-   private ResourceFactory factory;
    @Inject
    private Event<InitProject> init;
    @Inject
@@ -67,8 +64,8 @@ public class CurrentProject
    {
       if ((project != null) && (currentProject != null))
       {
-         File currentRoot = currentProject.getProjectRoot();
-         File newRoot = project.getProjectRoot();
+         FileResource currentRoot = currentProject.getProjectRoot();
+         FileResource newRoot = project.getProjectRoot();
          if (!currentRoot.equals(newRoot))
          {
             changeProject(currentProject, project);

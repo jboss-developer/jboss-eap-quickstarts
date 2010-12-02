@@ -32,8 +32,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A standard, build-in, resource for representing directories on the filesystem.
- *
+ * A standard, build-in, resource for representing directories on the
+ * filesystem.
+ * 
  * @author Mike Brock
  */
 public class DirectoryResource extends FileResource
@@ -67,10 +68,13 @@ public class DirectoryResource extends FileResource
       return listCache;
    }
 
+   /**
+    * Obtain a reference to the child resource.
+    */
    @Override
    public Resource<?> getChild(final String name)
    {
-      return resourceFactory.getResourceFrom(new File(file.getAbsolutePath() + "/" + name));
+      return resourceFactory.getResourceFrom(new File(file.getAbsolutePath() + File.separator + name));
    }
 
    @Override
@@ -83,7 +87,6 @@ public class DirectoryResource extends FileResource
 
       return new DirectoryResource(resourceFactory, file);
    }
-
 
    @Override
    public synchronized Resource<?> getParent()
@@ -120,4 +123,3 @@ public class DirectoryResource extends FileResource
    }
 
 }
-

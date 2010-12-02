@@ -30,6 +30,8 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
@@ -49,16 +51,15 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    private Project project;
 
    @Override
-   public File getWebRootDirectory()
+   public DirectoryResource getWebRootDirectory()
    {
-      return new File(project.getProjectRoot().getAbsolutePath() + File.separator + "src" + File.separator + "main"
-            + File.separator + "webapp");
+      return (DirectoryResource) project.getProjectRoot().getChild("src" + File.separator + "main" + File.separator + "webapp");
    }
 
    @Override
-   public List<File> getWebRootDirectories()
+   public List<DirectoryResource> getWebRootDirectories()
    {
-      List<File> result = new ArrayList<File>();
+      List<DirectoryResource> result = new ArrayList<DirectoryResource>();
       result.add(getWebRootDirectory());
       return result;
    }
@@ -91,7 +92,7 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
       if (!this.isInstalled())
       {
          project.getFacet(PackagingFacet.class).setPackagingType(PackagingType.WAR);
-         for (File folder : this.getWebRootDirectories())
+         for (DirectoryResource folder : this.getWebRootDirectories())
          {
             folder.mkdirs();
          }
@@ -101,16 +102,16 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    }
 
    @Override
-   public File getWebResource(final String relativePath)
+   public FileResource getWebResource(final String relativePath)
    {
-      return new File(getWebRootDirectory() + File.separator + relativePath);
+      return (FileResource) getWebRootDirectory().getChild(relativePath);
    }
 
    @Override
-   public File createWebResource(final char[] bytes, final String relativeFilename)
+   public FileResource createWebResource(final char[] bytes, final String relativePath)
    {
-      File file = new File(getWebRootDirectory() + File.separator + relativeFilename);
-      getProject().writeFile(bytes, file);
+      FileResource file = (FileResource) getWebRootDirectory().getChild(relativePath);
+      file.setContents(bytes);
       return file;
    }
 }

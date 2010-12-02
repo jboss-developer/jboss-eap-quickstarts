@@ -28,6 +28,8 @@ import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,10 +49,11 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class MavenDependencyFacetTest extends ProjectModelTest
 {
-   private static final String PKG = MavenDependencyFacetTest.class.getSimpleName().toLowerCase();
-
    @Inject
    private ProjectFactory projectFactory;
+
+   @Inject
+   private ResourceFactory resourceFactory;
 
    private static Project testProject;
 
@@ -62,7 +65,8 @@ public class MavenDependencyFacetTest extends ProjectModelTest
 
       if (testProject == null)
       {
-         testProject = projectFactory.findProjectRecursively(new File("src/test/resources/test-pom"));
+         testProject = projectFactory.findProjectRecursively(
+               ResourceUtil.getContextDirectory(resourceFactory.getResourceFrom( new File("src/test/resources/test-pom"))));
       }
    }
 

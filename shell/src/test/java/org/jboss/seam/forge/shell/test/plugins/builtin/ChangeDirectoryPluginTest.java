@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.shell.test.plugins.builtin;
 
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
@@ -45,13 +46,13 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
       File home = new File(System.getProperty("user.home")).getAbsoluteFile();
 
       Shell shell = getShell();
-      File currentDirectory = shell.getCurrentDirectory();
-      assertNotSame(home, currentDirectory.getAbsoluteFile());
+      Resource<?> currentDirectory = shell.getCurrentResource();
+      assertNotSame(home, currentDirectory.getFullyQualifiedName());
 
       shell.execute("cd ~");
 
-      currentDirectory = shell.getCurrentDirectory();
-      assertEquals(home, currentDirectory.getAbsoluteFile());
+      currentDirectory = shell.getCurrentResource();
+      assertEquals(home, currentDirectory.getFullyQualifiedName());
    }
 
    @Test
@@ -59,12 +60,12 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
    {
       Shell shell = getShell();
       shell.execute("cd ~");
-      File currentDirectory = shell.getCurrentDirectory();
+      Resource<?> currentDirectory = shell.getCurrentResource();
 
       shell.execute("cd ./");
 
-      File newDir = shell.getCurrentDirectory();
-      assertEquals(currentDirectory.getAbsoluteFile(), newDir.getAbsoluteFile());
+      Resource<?> newDir = shell.getCurrentResource();
+      assertEquals(currentDirectory.getFullyQualifiedName(), newDir.getFullyQualifiedName());
    }
 
    @Test
@@ -73,12 +74,12 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
       Shell shell = getShell();
       shell.execute("cd ~");
 
-      File parentDir = shell.getCurrentDirectory().getParentFile();
+      Resource<?> parentDir = shell.getCurrentResource().getParent();
 
       shell.execute("cd ../");
 
-      File newDir = shell.getCurrentDirectory();
-      assertEquals(newDir.getAbsoluteFile(), parentDir.getAbsoluteFile());
+      Resource<?> newDir = shell.getCurrentResource();
+      assertEquals(newDir.getFullyQualifiedName(), parentDir.getFullyQualifiedName());
    }
 
    @Test
@@ -87,12 +88,12 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
       Shell shell = getShell();
       shell.execute("cd ~");
 
-      File base = shell.getCurrentDirectory();
+      Resource<?> base = shell.getCurrentResource();
 
       shell.execute("cd ../");
       shell.execute("cd -");
 
-      File newDir = shell.getCurrentDirectory();
+      Resource<?> newDir = shell.getCurrentResource();
       assertEquals(base, newDir);
    }
 
@@ -102,13 +103,15 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
       Shell shell = getShell();
       shell.execute("cd ~");
 
-      File currentDirectory = shell.getCurrentDirectory().getAbsoluteFile();
-      File parentDir = currentDirectory.getParentFile().getAbsoluteFile();
+      Resource<?> currentDirectory = shell.getCurrentResource();
+      Resource<?> parent = currentDirectory.getParent();
 
-      shell.execute("cd " + parentDir.getAbsolutePath());
+      String parentPath = parent.getFullyQualifiedName();
+      
+      shell.execute("cd " + parentPath);
 
-      File newDir = shell.getCurrentDirectory().getAbsoluteFile();
-      assertEquals(newDir.getAbsoluteFile(), parentDir.getAbsoluteFile());
+      Resource<?>  newDir = shell.getCurrentResource();
+      assertEquals(newDir.getFullyQualifiedName(), parent.getFullyQualifiedName());
    }
 
 }

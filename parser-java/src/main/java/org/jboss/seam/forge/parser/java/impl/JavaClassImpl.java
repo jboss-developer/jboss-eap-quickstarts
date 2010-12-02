@@ -38,6 +38,7 @@ import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,6 +77,17 @@ public class JavaClassImpl implements JavaClass
       catch (Exception e)
       {
          throw new IllegalArgumentException("InputStream must be a parsable java file: ", e);
+      }
+      finally
+      {
+         try
+         {
+            inputStream.close();
+         }
+         catch (IOException e)
+         {
+            throw new IllegalStateException(e);
+         }
       }
    }
 

@@ -22,6 +22,8 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import org.jboss.seam.forge.shell.command.parser.Tokenizer;
+
 import java.util.LinkedList;
 import java.util.Queue;
 

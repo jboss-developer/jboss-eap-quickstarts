@@ -22,8 +22,7 @@
 package org.jboss.seam.forge.project.locators;
 
 import org.jboss.seam.forge.project.Project;
-
-import java.io.File;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 /**
  * Locates project root directories.
@@ -37,11 +36,11 @@ public interface ProjectLocator
     * Attempt to locate a project root directory in the given folder. If found,
     * return the project; otherwise, return null;
     */
-   public Project createProject(File directory);
+   public Project createProject(DirectoryResource dir);
 
    /**
     * Attempt to locate a project root directory in the given folder. If found,
     * return the root directory; otherwise, return null;
     */
-   public File findProjectRootRecursively(File absoluteFile);
+   public DirectoryResource findProjectRootRecursively(DirectoryResource start);
 }

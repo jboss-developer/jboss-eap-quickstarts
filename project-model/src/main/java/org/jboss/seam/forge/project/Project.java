@@ -21,10 +21,11 @@
  */
 package org.jboss.seam.forge.project;
 
-import org.jboss.seam.forge.project.facets.FacetNotFoundException;
-
 import java.io.File;
 import java.util.List;
+
+import org.jboss.seam.forge.project.facets.FacetNotFoundException;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -84,32 +85,12 @@ public interface Project
    /**
     * Get the {@link File} representing the root directory of this {@link Project}
     */
-   public File getProjectRoot();
-
-   /**
-    * Delete the given {@link File}
-    */
-   public boolean delete(File file);
-
-   /**
-    * Create the requested {@link File} if it does not exist and write the given data to it.
-    */
-   public void writeFile(char[] data, File file);
-
-   /**
-    * Create the requested {@link File} if it does not exist and write the given data to it.
-    */
-   public void writeFile(String string, File file);
+   public DirectoryResource getProjectRoot();
 
    /**
     * Return true if this project's file-system has been created and initialized; otherwise, return false.
     */
    public boolean exists();
-
-   /**
-    * Create all necessary parent directories for the given {@link File}.
-    */
-   public void mkdirs(File file);
 
    /**
     * Return true if this project has all {@link Facet}s of the given types; otherwise, if any of the given facet types

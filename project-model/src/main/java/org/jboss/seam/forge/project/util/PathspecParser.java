@@ -199,7 +199,7 @@ public class PathspecParser
 
    public List<Resource<?>> search()
    {
-      return match(path.split(String.valueOf(File.separatorChar)), 0, res, new LinkedList<Resource<?>>());
+      return match(path.split(Pattern.quote(File.separator)), 0, res, new LinkedList<Resource<?>>());
    }
 
    private static List<Resource<?>> match(String[] matchLevels,

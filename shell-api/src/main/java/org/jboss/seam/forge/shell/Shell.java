@@ -22,10 +22,6 @@
 
 package org.jboss.seam.forge.shell;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,24 +29,33 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.util.ShellColor;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public interface Shell extends ShellPrintWriter
 {
    /**
-    * Return the current working directory of the shell. (This value may change
-    * through execution of plugins or other operations.)
+    * Return the current working directory resource of the shell. Start with {@link #getCurrentResource()}
+    * and move up the hierarchy until a {@link DirectoryResource} is found. (This value may change
+    * through execution of plug-ins or other operations.)
     */
-   File getCurrentDirectory();
+   DirectoryResource getCurrentDirectory();
 
+   /**
+    * Return the current working {@link Resource} of the shell. (This value may change
+    * through execution of plug-ins or other operations.)
+    */
    Resource<?> getCurrentResource();
 
    Class<? extends Resource<?>> getCurrentResourceScope();
 
    void setCurrentResource(Resource<?> resource);
-
-   void setCurrentResource(File file);
 
    Project getCurrentProject();
 
@@ -197,7 +202,7 @@ public interface Shell extends ShellPrintWriter
     *
     * @param message The prompt message to display until valid input is entered
     */
-   File promptFile(String message);
+   FileResource promptFile(String message);
 
    /**
     * Prompt for user input in the form of a file path, first printing the given
@@ -208,7 +213,7 @@ public interface Shell extends ShellPrintWriter
     * @param defaultIfEmpty The value to be returned when an empty or
     *                       whitespace-only user input is read.
     */
-   File promptFile(String message, File defaultIfEmpty);
+   FileResource promptFile(String message, FileResource defaultIfEmpty);
 
    /**
     * Same as {@link #promptCommon(String, PromptType)}, but will default to a
