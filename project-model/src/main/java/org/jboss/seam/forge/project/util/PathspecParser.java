@@ -120,10 +120,8 @@ public class PathspecParser
                break SW;
             }
 
-
          default:
             boolean first = --cursor == 0;
-
             tk = capture();
 
             if (tk.matches(".*(\\?|\\*)+.*"))

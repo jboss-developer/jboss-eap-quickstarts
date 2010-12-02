@@ -121,5 +121,4 @@ public class DirectoryResource extends FileResource
    {
       return (obj instanceof DirectoryResource) && ((DirectoryResource) obj).file.equals(file);
    }
-
 }
