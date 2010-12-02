@@ -112,12 +112,17 @@ public class GeneralUtils
          }
       }
       int cols = width / (maxLength + 4);
-      int colSize = width / cols;
+      int colSize;
 
       if (cols == 0)
       {
          colSize = width;
          cols = 1;
+
+      }
+      else
+      {
+         colSize = width / cols;
       }
 
       return new OutputAttributes(colSize, cols);
