@@ -21,10 +21,11 @@
  */
 package org.jboss.seam.forge.project.facets;
 
-import org.jboss.seam.forge.project.Facet;
-
-import java.io.File;
 import java.util.List;
+
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 /**
  * A {@link Facet} containing APIs to interact with Java Web Projects
@@ -34,25 +35,28 @@ import java.util.List;
 public interface WebResourceFacet extends Facet
 {
    /**
-    * Get the default Web Root directory (this is the directory containing resources to be deployed to the web-root URL
+    * Get the default Web Root directory (this is the {@link DirectoryResource} containing resources to be deployed to the web-root URL
     * when the application is published. (E.g. In a maven project, files in the <code>/project/src/main/webapp</code>
     * directory are typically published to the root URL: <code>http://localhost:8080/project/</code> root directory. In
     * an eclipse project, this folder is typically located by default at: <code>/project/WebContent/</code>.)
     */
-   File getWebRootDirectory();
+   DirectoryResource getWebRootDirectory();
 
    /**
-    * Get a list containing all possible Web Root directories for the current project.
+    * Get a list containing all possible Web Root {@link DirectoryResource}s for the current project.
     */
-   List<File> getWebRootDirectories();
+   List<DirectoryResource> getWebRootDirectories();
 
    /**
     * At the given path/filename relative to the project Web Root directory: {@link #getWebRootDirectory()} - create a
-    * file containing the given bytes.
+    * {@link FileResource} containing the given bytes.
     *
-    * @return a handle to the {@link File} that was created.
+    * @return a handle to the {@link FileResource} that was created.
     */
-   File createWebResource(char[] bytes, String relativeFilename);
+   FileResource createWebResource(char[] bytes, String relativeFilename);
 
-   File getWebResource(String relativePath);
+   /**
+    * Get the given {@link FileResource} relative to the project Web Root directory: {@link #getWebRootDirectory()}
+    */
+   FileResource getWebResource(String relativePath);
 }

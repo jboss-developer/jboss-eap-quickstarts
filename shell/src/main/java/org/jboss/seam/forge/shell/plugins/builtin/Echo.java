@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
@@ -380,12 +381,6 @@ public class Echo implements Plugin
          }
 
          @Override
-         public void setCurrentResource(File file)
-         {
-            //To change body of implemented methods use File | Settings | File Templates.
-         }
-
-         @Override
          public Project getCurrentProject()
          {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -488,13 +483,13 @@ public class Echo implements Plugin
          }
 
          @Override
-         public File promptFile(String message)
+         public FileResource promptFile(String message)
          {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
          }
 
          @Override
-         public File promptFile(String message, File defaultIfEmpty)
+         public FileResource promptFile(String message, FileResource defaultIfEmpty)
          {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
          }

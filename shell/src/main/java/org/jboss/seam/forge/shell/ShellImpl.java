@@ -22,12 +22,38 @@
 
 package org.jboss.seam.forge.shell;
 
+import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
+import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
+import static org.mvel2.DataConversion.addConversionHandler;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.regex.Pattern;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
+
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
@@ -39,7 +65,11 @@ import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.exceptions.*;
+import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.forge.shell.exceptions.CommandParserException;
+import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
@@ -54,20 +84,6 @@ import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.MVEL;
 import org.mvel2.PropertyAccessException;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.regex.Pattern;
-
-import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
-import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
-import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -127,11 +143,7 @@ public class ShellImpl implements Shell
       @SuppressWarnings("rawtypes")
       public Resource[] convertFrom(final Object obl)
       {
-         return GeneralUtils.parseSystemPathspec(
-               resourceFactory,
-               lastResource,
-               getCurrentResource(),
-               obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
+         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(), obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
       }
 
       @SuppressWarnings("rawtypes")
@@ -239,10 +251,8 @@ public class ShellImpl implements Shell
    {
       System.out.println("   ____                          _____                    ");
       System.out.println("  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ ");
-      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  "
-            + renderColor(ShellColor.YELLOW, "\\\\"));
-      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  "
-            + renderColor(ShellColor.YELLOW, "//"));
+      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  " + renderColor(ShellColor.YELLOW, "\\\\"));
+      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  " + renderColor(ShellColor.YELLOW, "//"));
       System.out.println("  |____/ \\___|\\__,_|_| |_| |_|  |_|  \\___/|_|  \\__, |\\___| ");
       System.out.println("                                                |___/      ");
       System.out.println("");
@@ -493,7 +503,6 @@ public class ShellImpl implements Shell
       return ansi.render(output).reset().toString();
    }
 
-
    @Override
    public void write(byte b)
    {
@@ -585,13 +594,8 @@ public class ShellImpl implements Shell
    public DirectoryResource getCurrentDirectory()
    {
       Resource<?> r = getCurrentResource();
-      Resource<File> curr = ResourceUtil.getContextDirectory(r);
-      
-      if(curr instanceof DirectoryResource)
-      {
-          return (DirectoryResource) curr;
-      }
-      return null;
+      DirectoryResource curr = ResourceUtil.getContextDirectory(r);
+      return curr;
    }
 
    @Override
@@ -620,12 +624,6 @@ public class ShellImpl implements Shell
       lastResource = getCurrentResource();
       projectContext.setCurrentResource(resource);
       properties.put("CWD", resource.getFullyQualifiedName());
-   }
-
-   @Override
-   public void setCurrentResource(final File file)
-   {
-      setCurrentResource((this.resourceFactory.getResourceFrom(file.getAbsoluteFile())));
    }
 
    @Override
@@ -692,8 +690,7 @@ public class ShellImpl implements Shell
    {
       if (!defaultIfEmpty.matches(pattern))
       {
-         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-               + pattern + "]");
+         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern [" + pattern + "]");
       }
 
       String input;
@@ -792,8 +789,7 @@ public class ShellImpl implements Shell
    {
       if (options == null)
       {
-         throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+         throw new IllegalArgumentException("promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -835,8 +831,7 @@ public class ShellImpl implements Shell
    {
       if (options == null)
       {
-         throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+         throw new IllegalArgumentException("promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -928,7 +923,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public File promptFile(final String message)
+   public FileResource promptFile(final String message)
    {
       String path = "";
       while ((path == null) || path.trim().isEmpty())
@@ -936,32 +931,33 @@ public class ShellImpl implements Shell
          path = promptWithCompleter(message, new FileOptionCompleter());
       }
 
-      try
+      path = Files.canonicalize(path);
+      Resource<File> resource = resourceFactory.getResourceFrom(new File(path));
+
+      if (resource instanceof FileResource)
       {
-         path = Files.canonicalize(path);
-         return new File(path).getCanonicalFile();
+         return (FileResource) resource;
       }
-      catch (IOException e)
-      {
-         throw new ShellException(e);
-      }
+      return null;
    }
 
    @Override
-   public File promptFile(final String message, final File defaultIfEmpty)
+   public FileResource promptFile(final String message, final FileResource defaultIfEmpty)
    {
-      File result = defaultIfEmpty;
+      FileResource result = defaultIfEmpty;
       String path = promptWithCompleter(message, new FileOptionCompleter());
       if (!"".equals(path) && (path != null) && !path.trim().isEmpty())
       {
-         try
+         path = Files.canonicalize(path);
+         Resource<File> resource = resourceFactory.getResourceFrom(new File(path));
+
+         if (resource instanceof FileResource)
          {
-            path = Files.canonicalize(path);
-            result = new File(path).getCanonicalFile();
+            result = (FileResource) resource;
          }
-         catch (IOException e)
+         else
          {
-            throw new ShellException(e);
+            result = null;
          }
       }
       return result;

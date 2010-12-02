@@ -33,8 +33,10 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.locators.ProjectLocator;
 import org.jboss.seam.forge.project.model.ProjectImpl;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.util.Iterators;
+import org.jboss.seam.forge.project.util.ResourceUtil;
 
 /**
  * Responsible for instantiating project instances through CDI.
@@ -169,7 +171,7 @@ public class ProjectFactory
     * An exception-safe method of determining whether a directory contains a
     * project.
     */
-   public boolean containsProject(final DirectoryResource dir)
+   public boolean containsProject(final FileResource dir)
    {
       try
       {
@@ -182,13 +184,13 @@ public class ProjectFactory
       }
    }
 
-   public Project findProject(final DirectoryResource dir) throws FileNotFoundException
+   public Project findProject(final FileResource dir) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();
       for (ProjectLocator locator : locators)
       {
-         project = locator.createProject(dir);
+         project = locator.createProject(ResourceUtil.getContextDirectory(dir));
          if (project != null)
          {
             break;

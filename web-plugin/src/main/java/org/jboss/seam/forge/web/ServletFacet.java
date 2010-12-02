@@ -24,6 +24,7 @@ package org.jboss.seam.forge.web;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
 import org.jboss.seam.forge.project.dependencies.Dependency;
@@ -31,6 +32,8 @@ import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
@@ -78,26 +81,19 @@ public class ServletFacet implements Facet
       project.writeFile(output, getConfigFile());
    }
 
-   private File getConfigFile()
+   private FileResource getConfigFile()
    {
-      File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return new File(webRoot + File.separator + "WEB-INF" + File.separator + "web.xml");
+      DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
+      return (FileResource) webRoot.getChild("WEB-INF" + File.separator + "web.xml");
    }
 
    /**
     * List all servlet resource files.
     */
-   public List<File> getResources()
+   public List<FileResource> getResources()
    {
-      File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return listChildrenRecursively(webRoot, new FileFilter()
-      {
-         @Override
-         public boolean accept(final File file)
-         {
-            return true;
-         }
-      });
+      DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
+      return listChildrenRecursively(webRoot);
    }
 
    public List<File> getResources(final FileFilter filter)
@@ -106,9 +102,9 @@ public class ServletFacet implements Facet
       return listChildrenRecursively(webRoot, filter);
    }
 
-   private List<File> listChildrenRecursively(final File current, final FileFilter filter)
+   private List<File> listChildrenRecursively(final DirectoryResource current, final FileFilter filter)
    {
-      List<File> result = new ArrayList<File>();
+      List<Resource<?>> result = new ArrayList<Resource<?>>();
       File[] list = current.listFiles(filter);
       if (list != null)
       {
@@ -142,7 +138,7 @@ public class ServletFacet implements Facet
    @Override
    public boolean isInstalled()
    {
-      File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
+      DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
       return webRoot.exists() && getConfigFile().exists() && project.getFacet(DependencyFacet.class).hasDependency(dep);
    }
 
@@ -155,14 +151,13 @@ public class ServletFacet implements Facet
 
          project.getFacet(DependencyFacet.class).addDependency(dep);
 
-         File webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
+         DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
          if (!webRoot.exists())
          {
-            project.mkdirs(webRoot);
             webRoot.mkdirs();
          }
 
-         File descriptor = getConfigFile();
+         FileResource descriptor = getConfigFile();
          if (!descriptor.exists())
          {
             WebAppDescriptor unit = Descriptors.create(WebAppDescriptor.class)
@@ -170,31 +165,19 @@ public class ServletFacet implements Facet
                   .sessionTimeout(30)
                   .welcomeFile("/index.html");
 
-            project.writeFile(unit.exportAsString(), descriptor);
+            descriptor.setContents(unit.exportAsString());
          }
 
-         File welcomePage = new File(webRoot + File.separator + "index.html");
-         project.writeFile("<html><head><title>Welcome to Seam Forge</title></head>" +
+         FileResource welcomePage = (FileResource) webRoot.getChild("index.html");
+         welcomePage.setContents("<html><head><title>Welcome to Seam Forge</title></head>" +
                "<body>" +
                "<h1> [" + projectName + "] is Online</h1>" +
                "Powered by <a href=\"http://bit.ly/seamforge\">Seam Forge</a>" +
                "</body>" +
-               "</html>", welcomePage);
+               "</html>");
       }
       project.registerFacet(this);
       return this;
-   }
-
-   private FilenameFilter getEntityFileFilter(final String extension)
-   {
-      return new FilenameFilter()
-      {
-         @Override
-         public boolean accept(final File dir, final String name)
-         {
-            return name.endsWith(extension);
-         }
-      };
    }
 
 }

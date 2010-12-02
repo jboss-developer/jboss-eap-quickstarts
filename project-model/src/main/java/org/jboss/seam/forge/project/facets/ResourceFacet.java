@@ -23,6 +23,8 @@ package org.jboss.seam.forge.project.facets;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
 import java.io.File;
 import java.util.List;
@@ -33,58 +35,58 @@ import java.util.List;
 public interface ResourceFacet extends Facet
 {
    /**
-    * Get a list of {@link File}s representing the directories this project uses
+    * Get a list of {@link DirectoryResource}s representing the directories this project uses
     * to contain {@link Project} non-source documents (such as configuration
     * files.)
     */
-   public List<File> getResourceFolders();
+   public List<DirectoryResource> getResourceFolders();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to
+    * Get the {@link DirectoryResource} representing the folder this {@link Project} uses to
     * store package-able, non-source documents (such as configuration files.)
     */
-   public File getResourceFolder();
+   public DirectoryResource getResourceFolder();
 
    /**
-    * Get the {@link File} representing the folder this {@link Project} uses to
+    * Get the {@link DirectoryResource} representing the folder this {@link Project} uses to
     * store test-scoped non-source documents (such as configuration files.)
     * Files in this directory will never be packaged or deployed except when
     * running Unit Tests.
     */
-   public File getTestResourceFolder();
+   public DirectoryResource getTestResourceFolder();
 
    /**
     * At the given path/filename relative to the project resources directory:
     * {@link #getResourceFolder()} - create a file containing the given bytes.
     *
-    * @return a handle to the {@link File} that was created.
+    * @return a handle to the {@link FileResource} that was created.
     */
-   File createResource(char[] bytes, String relativeFilename);
+   FileResource createResource(char[] bytes, String relativeFilename);
 
    /**
     * At the given path/filename relative to the project test resources
     * directory: {@link #getTestResourceFolder()} - create a file containing the
     * given bytes.
     *
-    * @return a handle to the {@link File} that was created.
+    * @return a handle to the {@link FileResource} that was created.
     */
-   File createTestResource(char[] bytes, String relativeFilename);
+   FileResource createTestResource(char[] bytes, String relativeFilename);
 
    /**
-    * Return the {@link File} at the given path relative to
-    * {@link #getResourceFolder()}. The {@link File} object is returned
+    * Return the {@link FileResource} at the given path relative to
+    * {@link #getResourceFolder()}. The {@link FileResource} object is returned
     * regardless of whether the target actually exists. To determine if the file
-    * exists, you should call {@link File#exists()} on the return value of this
+    * exists, you should call {@link FileResource#exists()} on the return value of this
     * method.
     */
-   public File getResource(String relativePath);
+   FileResource getResource(String relativePath);
 
    /**
-    * Attempt to locate a {@link File} at the given path relative to
-    * {@link #getTestResourceFolder()}. The {@link File} object is returned
+    * Attempt to locate a {@link FileResource} at the given path relative to
+    * {@link #getTestResourceFolder()}. The {@link FileResource} object is returned
     * regardless of whether the target actually exists. To determine if the file
-    * exists, you should call {@link File#exists()} on the return value of this
+    * exists, you should call {@link FileResource#exists()} on the return value of this
     * method.
     */
-   public File getTestResource(String relativePath);
+   FileResource getTestResource(String relativePath);
 }

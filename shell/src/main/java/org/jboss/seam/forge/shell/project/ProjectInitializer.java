@@ -22,18 +22,18 @@
 
 package org.jboss.seam.forge.shell.project;
 
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.events.InitProject;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -63,17 +63,17 @@ public class ProjectInitializer
 
    public void doInit(@Observes final InitProject event)
    {
-      File currentDirectory = shell.getCurrentDirectory();
+      DirectoryResource currentDirectory = shell.getCurrentDirectory();
 
       Project newProject = null;
 
-      File newRoot = projectFactory.findProjectRootRecusively(currentDirectory);
+      DirectoryResource newRoot = projectFactory.findProjectRootRecusively(currentDirectory);
       if (newRoot != null)
       {
          Project oldProject = cp.getCurrent();
          if (oldProject != null)
          {
-            File oldProjectRoot = oldProject.getProjectRoot();
+            DirectoryResource oldProjectRoot = oldProject.getProjectRoot();
             if (!newRoot.equals(oldProjectRoot))
             {
                newProject = projectFactory.findProjectRecursively(currentDirectory);
@@ -91,7 +91,7 @@ public class ProjectInitializer
 
       if (newProject != null)
       {
-         shell.printlnVerbose("Current project: " + newProject.getProjectRoot().getAbsolutePath());
+         shell.printlnVerbose("Current project: " + newProject.getProjectRoot().getFullyQualifiedName());
          shell.printlnVerbose("Registered Facets:");
          for (Facet facet : newProject.getFacets())
          {

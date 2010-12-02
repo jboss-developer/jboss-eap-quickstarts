@@ -24,8 +24,6 @@ package org.jboss.seam.forge.project.locators;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
-import java.io.File;
-
 /**
  * Locates project root directories.
  *

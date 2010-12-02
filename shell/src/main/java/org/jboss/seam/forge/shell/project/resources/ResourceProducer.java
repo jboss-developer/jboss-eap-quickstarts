@@ -51,13 +51,11 @@ public class ResourceProducer
       }
       else if (member instanceof Method)
       {
-         Method method = ((Method) member);
          AnnotatedParameter<?> annotated = (AnnotatedParameter<?>) ip.getAnnotated();
          type = annotated.getBaseType();
       }
       else if (member instanceof Constructor<?>)
       {
-         Constructor method = ((Constructor<?>) member);
          AnnotatedParameter<?> annotated = (AnnotatedParameter<?>) ip.getAnnotated();
          type = annotated.getBaseType();
       }
