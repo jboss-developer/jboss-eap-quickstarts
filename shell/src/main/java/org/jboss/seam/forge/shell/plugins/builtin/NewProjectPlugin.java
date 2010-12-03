@@ -84,7 +84,7 @@ public class NewProjectPlugin implements Plugin
    {
       DirectoryResource cwr = shell.getCurrentDirectory();
       FileResource file = (FileResource) cwr.getChild(name);
-      DirectoryResource dir = null;
+      DirectoryResource dir = cwr;
 
       if (file instanceof DirectoryResource)
       {

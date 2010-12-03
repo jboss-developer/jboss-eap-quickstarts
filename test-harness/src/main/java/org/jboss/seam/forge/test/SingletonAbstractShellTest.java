@@ -167,8 +167,9 @@ public abstract class SingletonAbstractShellTest
    protected Project initializeJavaProject() throws IOException
    {
       File folder = createTempFolder();
-      tempFolders.add((FileResource) factory.getResourceFrom(folder));
-      getShell().execute("cd " + folder.getAbsolutePath());
+      FileResource resource = (FileResource) factory.getResourceFrom(folder);
+      tempFolders.add(resource);
+      getShell().setCurrentResource(resource);
       queueInputLines("", "");
       getShell().execute("new-project --named test --topLevelPackage com.test");
 

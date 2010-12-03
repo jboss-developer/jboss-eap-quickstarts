@@ -154,7 +154,7 @@ public class PersistenceFacet implements Facet
    public DirectoryResource getEntityPackageFile()
    {
       JavaSourceFacet sourceFacet = project.getFacet(JavaSourceFacet.class);
-      return (DirectoryResource) sourceFacet.getBasePackageResource().getChild("domain");
+      return (DirectoryResource) sourceFacet.getBasePackageResource().getChildDirectory("domain");
    }
 
    @SuppressWarnings("unchecked")
