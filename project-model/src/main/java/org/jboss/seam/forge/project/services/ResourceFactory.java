@@ -78,11 +78,12 @@ public class ResourceFactory implements Extension
       }
    }
 
-   public Resource<File> getResourceFrom(final File file)
+   public Resource<File> getResourceFrom(File file)
    {
       /**
        * Special case for directories required.
        */
+      file = file.getAbsoluteFile();
       if (file.isDirectory())
       {
          return new DirectoryResource(this, file);

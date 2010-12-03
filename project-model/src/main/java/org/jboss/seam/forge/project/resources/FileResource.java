@@ -39,7 +39,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * A standard, built-in resource for representing files on the filesystem.
- *
+ * 
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -70,8 +70,9 @@ public abstract class FileResource extends AbstractResource<File>
    }
 
    /**
-    * Get the actual underlying file resource that this resource instance represents, whether existing or non-existing.
-    *
+    * Get the actual underlying file resource that this resource instance
+    * represents, whether existing or non-existing.
+    * 
     * @return An instance of {@link File}
     */
    public File getUnderlyingResourceObject()
@@ -100,8 +101,9 @@ public abstract class FileResource extends AbstractResource<File>
    }
 
    /**
-    * Get the parent of the current resource. Returns null if the current resource is the project root.
-    *
+    * Get the parent of the current resource. Returns null if the current
+    * resource is the project root.
+    * 
     * @return An instance of the resource parent.
     */
    public Resource<?> getParent()
@@ -115,8 +117,9 @@ public abstract class FileResource extends AbstractResource<File>
    }
 
    /**
-    * Create a new resource instance for the target file of the type that this current resource is.
-    *
+    * Create a new resource instance for the target file of the type that this
+    * current resource is.
+    * 
     * @param file The file to create the resource instance from.
     * @return A new resource.
     */
@@ -128,8 +131,9 @@ public abstract class FileResource extends AbstractResource<File>
    }
 
    /**
-    * Returns true if the underlying resource has been modified on the file system since it was initially loaded.
-    *
+    * Returns true if the underlying resource has been modified on the file
+    * system since it was initially loaded.
+    * 
     * @return boolean true if resource is changed.
     */
    public boolean isStale()
@@ -141,7 +145,6 @@ public abstract class FileResource extends AbstractResource<File>
    {
       lastModification = getUnderlyingResourceObject().lastModified();
    }
-
 
    public boolean mkdir()
    {
@@ -165,14 +168,15 @@ public abstract class FileResource extends AbstractResource<File>
    {
       if (recursive)
       {
-         _deleteRecursive(file);
+         return _deleteRecursive(file);
       }
 
-      if (file.listFiles().length != 0)
+      if (file.listFiles() != null && file.listFiles().length != 0)
       {
          throw new RuntimeException("directory not empty");
       }
 
+      System.gc(); // ensure no lingering handles that would prevent deletion
       return file.delete();
    }
 
@@ -183,21 +187,27 @@ public abstract class FileResource extends AbstractResource<File>
          return false;
       }
 
-      for (File sf : file.listFiles())
+      File[] children = file.listFiles();
+      if (children != null)
       {
-         if (sf.isDirectory())
+         for (File sf : children)
          {
-            _deleteRecursive(sf);
-         }
-         else
-         {
-            if (!sf.delete())
+            if (sf.isDirectory())
             {
-               throw new RuntimeException("failed to delete: " + sf.getAbsolutePath());
+               _deleteRecursive(sf);
+            }
+            else
+            {
+               System.gc(); // ensure no lingering handles that would prevent deletion
+               if (!sf.delete())
+               {
+                  throw new RuntimeException("failed to delete: " + sf.getAbsolutePath());
+               }
             }
          }
       }
 
+      System.gc(); // ensure no lingering handles that would prevent deletion
       return file.delete();
    }
 
@@ -212,7 +222,6 @@ public abstract class FileResource extends AbstractResource<File>
 
    public void setContents(final char[] data)
    {
-      BufferedWriter writer = null;
       FileResource temp = null;
       try
       {
@@ -236,9 +245,17 @@ public abstract class FileResource extends AbstractResource<File>
          }
 
          file.delete();
-         writer = new BufferedWriter(new FileWriter(file));
-         writer.write(data);
-         writer.close();
+
+         BufferedWriter writer = null;
+         try
+         {
+            writer = new BufferedWriter(new FileWriter(file));
+            writer.write(data);
+         }
+         finally
+         {
+            writer.close();
+         }
 
          // FIXME need a way for these classes to access a writer
          System.out.println("Wrote " + getFullyQualifiedName());
@@ -261,7 +278,7 @@ public abstract class FileResource extends AbstractResource<File>
          }
       }
    }
-   
+
    /**
     * Create the file in the underlying resource system.
     */

@@ -33,9 +33,10 @@ import java.util.List;
 
 /**
  * A standard, build-in, resource for representing directories on the
- * filesystem.
+ * file-system.
  * 
  * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class DirectoryResource extends FileResource
 {
@@ -75,6 +76,29 @@ public class DirectoryResource extends FileResource
    public Resource<?> getChild(final String name)
    {
       return resourceFactory.getResourceFrom(new File(file.getAbsolutePath() + File.separator + name));
+   }
+
+   /**
+    * Obtain a reference to the child {@link DirectoryResource}. If that resource 
+    * does not exist, return a new instance. If the resource exists and is not a 
+    * {@link DirectoryResource}, throw {@link IllegalStateException}
+    */
+   public DirectoryResource getChildDirectory(String name) throws IllegalStateException
+   {
+      Resource<?> result = getChild(name);
+      if(!(result instanceof DirectoryResource))
+      {
+         if(result.exists())
+         {
+            throw new IllegalStateException("The resource ["+result.getFullyQualifiedName()+"] is not a DirectoryResource");
+         }
+      }
+
+      if(!(result instanceof DirectoryResource))
+      {
+         result = new DirectoryResource(resourceFactory, new File(file.getAbsoluteFile() + File.separator + name));
+      }
+      return (DirectoryResource) result;
    }
 
    @Override

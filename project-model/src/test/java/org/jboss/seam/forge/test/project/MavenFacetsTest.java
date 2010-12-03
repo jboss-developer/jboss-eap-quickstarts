@@ -40,10 +40,12 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
@@ -95,13 +97,17 @@ public class MavenFacetsTest extends ProjectModelTest
    @Test
    public void testGetDefaultSourceDir() throws Exception
    {
-      assertEquals(new File(getProject().getProjectRoot() + "/src/main/java/"), getProject().getFacet(JavaSourceFacet.class).getSourceFolder());
+      Resource<?> expected = getProject().getProjectRoot().getChild("/src/main/java/");
+      DirectoryResource actual = getProject().getFacet(JavaSourceFacet.class).getSourceFolder();
+      assertEquals(expected, actual);
    }
 
    @Test
    public void testGetTestSourceDir() throws Exception
    {
-      assertEquals(new File(getProject().getProjectRoot() + "/src/test/java/"), getProject().getFacet(JavaSourceFacet.class).getTestSourceFolder());
+      Resource<?> expected = getProject().getProjectRoot().getChild("/src/test/java/");
+      DirectoryResource actual = getProject().getFacet(JavaSourceFacet.class).getTestSourceFolder();
+      assertEquals(expected, actual);
    }
 
    @Test
@@ -110,10 +116,10 @@ public class MavenFacetsTest extends ProjectModelTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
       clazz.getOrigin();
-      FileResource file = getProject().getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      JavaResource file = getProject().getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
-      JavaClass result = JavaParser.parse(file.getResourceInputStream());
+      JavaClass result = file.getJavaClass();
       assertEquals(name, result.getName());
       assertEquals(PKG, result.getPackage());
       assertTrue(file.delete());
@@ -154,7 +160,7 @@ public class MavenFacetsTest extends ProjectModelTest
    @Test
    public void testAbsoluteUnknownProjectCannotInstantiate() throws Exception
    {
-      DirectoryResource temp = ResourceUtil.getContextDirectory(resourceFactory.getResourceFrom(File.createTempFile(PKG, null)));
+      DirectoryResource temp = new DirectoryResource(resourceFactory,File.createTempFile(PKG, null));
       temp.delete();
       temp.mkdirs();
       assertNull(projectFactory.findProjectRecursively(temp));
@@ -164,7 +170,7 @@ public class MavenFacetsTest extends ProjectModelTest
    @SuppressWarnings("unchecked")
    public void testAbsoluteUnknownProjectInstantiatesWithCreateTrue() throws Exception
    {
-      DirectoryResource temp = ResourceUtil.getContextDirectory(resourceFactory.getResourceFrom(File.createTempFile(PKG, null)));
+      DirectoryResource temp = new DirectoryResource(resourceFactory,File.createTempFile(PKG, null));
       temp.delete();
       temp.mkdirs();
       assertNotNull(projectFactory.createProject(temp, MavenCoreFacet.class, JavaSourceFacet.class));

@@ -33,6 +33,7 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,10 +54,10 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      FileResource file = project.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      JavaResource file = project.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
-      JavaClass result = JavaParser.parse(file.getResourceInputStream());
+      JavaClass result = file.getJavaClass();
       assertEquals(name, result.getName());
       assertEquals(PKG, result.getPackage());
       assertTrue(file.delete());

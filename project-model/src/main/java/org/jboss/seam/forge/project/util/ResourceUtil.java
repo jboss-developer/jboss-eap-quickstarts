@@ -63,14 +63,15 @@ public class ResourceUtil
 
    public static DirectoryResource getContextDirectory(Resource<?> r)
    {
+      Resource<?> temp = r;
       do
       {
-         if (r instanceof DirectoryResource)
+         if (temp instanceof DirectoryResource)
          {
-            return (DirectoryResource) r;
+            return (DirectoryResource) temp;
          }
       }
-      while ((r = r.getParent()) != null);
+      while ((temp = temp.getParent()) != null);
 
       return null;
    }
