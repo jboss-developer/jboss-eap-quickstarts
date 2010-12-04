@@ -50,7 +50,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       getShell().execute("new-field boolean --fieldName gamesPlayed --primitive false");
       getShell().execute("new-field boolean --fieldName gamesWon");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasField("gamesPlayed"));
       assertFalse(javaClass.getField("gamesPlayed").isPrimitive());
       assertEquals("Boolean", javaClass.getField("gamesPlayed").getType());
@@ -67,7 +67,7 @@ public class NewFieldPluginTest extends AbstractJPATest
 
       getShell().execute("new-field custom --fieldName gamesPlayed --type org.jboss.CustomType");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasField("gamesPlayed"));
       assertEquals("CustomType", javaClass.getField("gamesPlayed").getType());
       assertTrue(javaClass.hasImport("org.jboss.CustomType"));
@@ -82,7 +82,7 @@ public class NewFieldPluginTest extends AbstractJPATest
 
       getShell().execute("new-field int --fieldName gamesPlayed --primitive false");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasField("gamesPlayed"));
       assertFalse(javaClass.getField("gamesPlayed").isPrimitive());
@@ -99,7 +99,7 @@ public class NewFieldPluginTest extends AbstractJPATest
 
       getShell().execute("new-field int --fieldName gamesPlayed");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasField("gamesPlayed"));
       assertTrue(javaClass.getField("gamesPlayed").isPrimitive());
@@ -116,7 +116,7 @@ public class NewFieldPluginTest extends AbstractJPATest
 
       getShell().execute("new-field number --fieldName gamesPlayed --type java.math.BigDecimal");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasField("gamesPlayed"));
       assertFalse(javaClass.getField("gamesPlayed").isPrimitive());
@@ -134,7 +134,7 @@ public class NewFieldPluginTest extends AbstractJPATest
 
       getShell().execute("new-field number --fieldName gamesPlayed --type org.jboss.NotANumber");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertEquals(originalSize, javaClass.getFields().size());
       assertFalse(javaClass.hasImport("org.jboss.NotANumber"));
       assertFalse(javaClass.hasSyntaxErrors());
@@ -150,7 +150,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       getShell().execute(
             "new-field oneToOne --fieldName right --fieldType ~.domain." + rightEntity.getName());
 
-      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(leftEntity).getJavaClass();
 
       assertTrue(leftEntity.hasAnnotation(Entity.class));
       assertTrue(leftEntity.hasField("right"));
@@ -160,7 +160,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(leftEntity.hasImport(OneToOne.class));
       assertFalse(leftEntity.hasSyntaxErrors());
 
-      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(rightEntity).getJavaClass();
 
       assertFalse(rightEntity.hasField("left"));
       assertFalse(rightEntity.hasImport(leftEntity.getQualifiedName()));
@@ -179,7 +179,7 @@ public class NewFieldPluginTest extends AbstractJPATest
             "new-field oneToOne --fieldName right --fieldType ~.domain." + rightEntity.getName()
                   + " --inverseFieldName left");
 
-      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(leftEntity).getJavaClass();
 
       assertTrue(leftEntity.hasAnnotation(Entity.class));
       assertTrue(leftEntity.hasField("right"));
@@ -189,7 +189,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(leftEntity.hasImport(OneToOne.class));
       assertFalse(leftEntity.hasSyntaxErrors());
 
-      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(rightEntity).getJavaClass();
 
       assertTrue(rightEntity.hasField("left"));
       assertTrue(rightEntity.getField("left").getType().equals(leftEntity.getName()));
@@ -209,7 +209,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       getShell().execute(
             "new-field manyToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
 
-      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(leftEntity).getJavaClass();
 
       assertTrue(leftEntity.hasAnnotation(Entity.class));
       assertTrue(leftEntity.hasField("right"));
@@ -220,7 +220,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(leftEntity.hasImport(ManyToMany.class));
       assertFalse(leftEntity.hasSyntaxErrors());
 
-      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(rightEntity).getJavaClass();
 
       assertFalse(rightEntity.hasField("left"));
       assertFalse(rightEntity.hasImport(leftEntity.getQualifiedName()));
@@ -238,7 +238,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       getShell().execute(
             "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName());
 
-      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(leftEntity).getJavaClass();
 
       assertTrue(leftEntity.hasAnnotation(Entity.class));
       assertTrue(leftEntity.hasField("right"));
@@ -249,7 +249,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(leftEntity.hasImport(OneToMany.class));
       assertFalse(leftEntity.hasSyntaxErrors());
 
-      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(rightEntity).getJavaClass();
 
       assertFalse(rightEntity.hasField("left"));
       assertFalse(rightEntity.hasImport(leftEntity.getQualifiedName()));
@@ -268,7 +268,7 @@ public class NewFieldPluginTest extends AbstractJPATest
             "new-field manyToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
                   + " --inverseFieldName left");
 
-      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(leftEntity).getJavaClass();
 
       assertTrue(leftEntity.hasAnnotation(Entity.class));
       assertTrue(leftEntity.hasField("right"));
@@ -279,7 +279,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(leftEntity.hasImport(ManyToMany.class));
       assertFalse(leftEntity.hasSyntaxErrors());
 
-      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(rightEntity).getJavaClass();
 
       assertTrue(rightEntity.hasField("left"));
       assertTrue(rightEntity.getField("left").getType().equals("Set<" + leftEntity.getName() + ">"));
@@ -301,7 +301,7 @@ public class NewFieldPluginTest extends AbstractJPATest
             "new-field oneToMany --fieldName right --fieldType ~.domain." + rightEntity.getName()
                   + " --inverseFieldName left");
 
-      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(leftEntity);
+      leftEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(leftEntity).getJavaClass();
 
       assertTrue(leftEntity.hasAnnotation(Entity.class));
       assertTrue(leftEntity.hasField("right"));
@@ -311,7 +311,7 @@ public class NewFieldPluginTest extends AbstractJPATest
       assertTrue(leftEntity.hasImport(OneToMany.class));
       assertFalse(leftEntity.hasSyntaxErrors());
 
-      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaClass(rightEntity);
+      rightEntity = project.getFacet(JavaSourceFacet.class).getJavaResource(rightEntity).getJavaClass();
 
       assertTrue(rightEntity.hasField("left"));
       assertTrue(rightEntity.getField("left").getType().equals("Set<" + leftEntity.getName() + ">"));

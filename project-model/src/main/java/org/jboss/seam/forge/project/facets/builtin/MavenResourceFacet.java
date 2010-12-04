@@ -111,29 +111,29 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    }
 
    @Override
-   public FileResource getResource(final String relativePath)
+   public FileResource<?> getResource(final String relativePath)
    {
-      return (FileResource) getResourceFolder().getChild(relativePath);
+      return (FileResource<?>) getResourceFolder().getChild(relativePath);
    }
 
    @Override
-   public FileResource getTestResource(final String relativePath)
+   public FileResource<?> getTestResource(final String relativePath)
    {
-      return (FileResource) getTestResourceFolder().getChild(relativePath);
+      return (FileResource<?>) getTestResourceFolder().getChild(relativePath);
    }
 
    @Override
-   public FileResource createResource(final char[] bytes, final String relativeFilename)
+   public FileResource<?> createResource(final char[] bytes, final String relativeFilename)
    {
-      FileResource file = (FileResource) getResourceFolder().getChild(relativeFilename);
+      FileResource<?> file = (FileResource<?>) getResourceFolder().getChild(relativeFilename);
       file.setContents(bytes);
       return file;
    }
 
    @Override
-   public FileResource createTestResource(final char[] bytes, final String relativeFilename)
+   public FileResource<?> createTestResource(final char[] bytes, final String relativeFilename)
    {
-      FileResource file = (FileResource) getTestResourceFolder().getChild(relativeFilename);
+      FileResource<?> file = (FileResource<?>) getTestResourceFolder().getChild(relativeFilename);
       file.setContents(bytes);
       return file;
    }

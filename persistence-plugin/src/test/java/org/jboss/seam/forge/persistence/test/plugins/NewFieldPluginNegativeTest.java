@@ -22,6 +22,8 @@ package org.jboss.seam.forge.persistence.test.plugins;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import java.io.FileNotFoundException;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
@@ -30,10 +32,6 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.fail;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -56,7 +54,6 @@ public class NewFieldPluginNegativeTest extends AbstractJPATest
 
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
-      java.getJavaClass(path); // exception here or die
-      fail();
+      java.getJavaResource(path).getJavaClass(); // exception here or die
    }
 }

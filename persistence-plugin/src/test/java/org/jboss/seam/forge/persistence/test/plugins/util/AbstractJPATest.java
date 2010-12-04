@@ -61,7 +61,7 @@ public abstract class AbstractJPATest extends SingletonAbstractShellTest
 
       String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(path).getJavaClass();
 
       assertFalse(javaClass.hasSyntaxErrors());
       return javaClass;

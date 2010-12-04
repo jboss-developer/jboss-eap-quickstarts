@@ -21,6 +21,8 @@
  */
 package org.jboss.seam.forge.persistence.plugins;
 
+import java.io.FileNotFoundException;
+
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
@@ -93,7 +95,7 @@ public class NewEntityPlugin implements Plugin
    public void newEntity(
          @Option(required = true,
                name = "named",
-               description = "The @Entity name") final String entityName)
+               description = "The @Entity name") final String entityName) throws FileNotFoundException
    {
       // TODO this should accept a qualified name as a parameter instead of
       // prompting for the package later

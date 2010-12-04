@@ -383,7 +383,7 @@ public class NewFieldPlugin implements Plugin
     * Helpers
     */
    private void addFieldTo(final JavaClass targetEntity, final JavaClass fieldEntity, final String fieldName,
-                           final Class<? extends Annotation> annotation)
+                           final Class<? extends Annotation> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -397,7 +397,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    private void addFieldTo(final JavaClass targetEntity, final String fieldType, final String fieldName,
-                           final Class<Column> annotation)
+                           final Class<Column> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -411,7 +411,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    private void addFieldTo(final JavaClass targetEntity, final Class<?> fieldType, final String fieldName,
-                           final Class<? extends Annotation> annotation)
+                           final Class<? extends Annotation> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -455,10 +455,10 @@ public class NewFieldPlugin implements Plugin
 
       if (entity != null)
       {
-         result = java.getJavaClass(entity);
+         result = java.getJavaResource(entity).getJavaClass();
          if (result == null)
          {
-            result = java.getJavaClass(scaffold.getEntityPackage() + "." + entity);
+            result = java.getJavaResource(scaffold.getEntityPackage() + "." + entity).getJavaClass();
          }
       }
 

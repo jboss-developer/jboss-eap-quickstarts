@@ -138,7 +138,7 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 
    private Model createPOM()
    {
-      FileResource pomFile = getPOMFile();
+      FileResource<?> pomFile = getPOMFile();
       if (!pomFile.exists())
       {
          pomFile.createNewFile();
@@ -153,10 +153,10 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       return pom;
    }
 
-   private FileResource getPOMFile()
+   private FileResource<?> getPOMFile()
    {
       Resource<?> file = project.getProjectRoot().getChild("pom.xml");
-      return (FileResource) file;
+      return (FileResource<?>) file;
    }
 
    @Override

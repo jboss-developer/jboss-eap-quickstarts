@@ -72,10 +72,10 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      FileResource file = java.saveJavaClass(clazz);
+      JavaResource file = java.saveJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
-      JavaClass parsed = java.getJavaClass(clazz);
+      JavaClass parsed = java.getJavaResource(clazz).getJavaClass();
       assertEquals(parsed.getName(), clazz.getName());
       assertEquals(parsed.getPackage(), clazz.getPackage());
       assertEquals(parsed, clazz);
@@ -89,10 +89,10 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.createClass().setName(name).setPackage(PKG);
-      FileResource file = java.saveTestJavaClass(clazz);
+      JavaResource file = java.saveTestJavaClass(clazz);
       assertEquals(name + ".java", file.getName());
 
-      JavaClass parsed = java.getTestJavaClass(clazz);
+      JavaClass parsed = java.getTestJavaResource(clazz).getJavaClass();
       assertEquals(parsed.getName(), clazz.getName());
       assertEquals(parsed.getPackage(), clazz.getPackage());
       assertEquals(parsed, clazz);

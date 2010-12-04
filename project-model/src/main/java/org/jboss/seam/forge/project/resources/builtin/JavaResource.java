@@ -22,6 +22,14 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -32,18 +40,11 @@ import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
-import javax.inject.Inject;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * @author Mike Brock
  */
 @ResourceHandles("*.java")
-public class JavaResource extends FileResource
+public class JavaResource extends FileResource<JavaResource>
 {
    private volatile JavaClass javaClass;
 
@@ -84,6 +85,12 @@ public class JavaResource extends FileResource
       }
 
       return list;
+   }
+   
+   public JavaResource setContents(JavaClass javaClass)
+   {
+      setContents(javaClass.toString());
+      return this;
    }
 
    private void lazyInitialize() throws FileNotFoundException

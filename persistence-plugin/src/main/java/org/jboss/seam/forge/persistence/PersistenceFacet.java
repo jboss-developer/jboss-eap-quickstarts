@@ -100,7 +100,7 @@ public class PersistenceFacet implements Facet
 
          installUtils();
 
-         FileResource descriptor = getConfigFile();
+         FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
@@ -133,8 +133,15 @@ public class PersistenceFacet implements Facet
       util.setPackage(java.getBasePackage() + ".persist");
       producer.setPackage(java.getBasePackage() + ".persist");
 
-      java.saveJavaClass(producer);
-      java.saveJavaClass(util);
+      try
+      {
+         java.saveJavaClass(producer);
+         java.saveJavaClass(util);
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override
@@ -173,10 +180,10 @@ public class PersistenceFacet implements Facet
       getConfigFile().setContents(output);
    }
 
-   private FileResource getConfigFile()
+   private FileResource<?> getConfigFile()
    {
       ResourceFacet resources = project.getFacet(ResourceFacet.class);
-      return (FileResource) resources.getResourceFolder().getChild("META-INF" + File.separator + "persistence.xml");
+      return (FileResource<?>) resources.getResourceFolder().getChild("META-INF" + File.separator + "persistence.xml");
    }
 
    public List<JavaClass> getAllEntities()

@@ -55,10 +55,10 @@ public class NewEntityPluginTest extends AbstractJPATest
 
       String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(path);
+      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(path).getJavaClass();
 
       assertFalse(javaClass.hasSyntaxErrors());
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertFalse(javaClass.hasSyntaxErrors());
 
@@ -78,7 +78,7 @@ public class NewEntityPluginTest extends AbstractJPATest
       queueInputLines("gamesLost");
       getShell().execute("new-field int --fieldName #$%#");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaClass(javaClass);
+      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasImport(Entity.class));
       assertTrue(javaClass.hasField("gamesWon"));

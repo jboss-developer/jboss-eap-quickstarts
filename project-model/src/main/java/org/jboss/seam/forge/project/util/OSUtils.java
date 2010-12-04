@@ -19,47 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.forge.project.resources.builtin;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
+package org.jboss.seam.forge.project.util;
 
 /**
- * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class UnknownFileResource extends FileResource<UnknownFileResource>
+public final class OSUtils
 {
-   public UnknownFileResource(final ResourceFactory factory)
+   private static String operatingSystem = null;
+
+   public static String getOsName()
    {
-      super(factory, null);
+      if (operatingSystem == null)
+      {
+         operatingSystem = System.getProperty("os.name");
+      }
+      return operatingSystem;
    }
 
-   public UnknownFileResource(final ResourceFactory factory, final File file)
+   public static boolean isWindows()
    {
-      super(factory, file);
-   }
-
-   @Override
-   public UnknownFileResource createFrom(final File file)
-   {
-      return new UnknownFileResource(resourceFactory, file);
-   }
-
-   @Override
-   public List<Resource<?>> listResources()
-   {
-      return Collections.emptyList();
-   }
-
-   @Override
-   public String toString()
-   {
-      return file.getName();
+      return getOsName().startsWith("Windows") || getOsName().startsWith("windows");
    }
 }

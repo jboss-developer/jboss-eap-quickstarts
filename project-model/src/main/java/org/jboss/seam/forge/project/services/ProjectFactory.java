@@ -171,7 +171,7 @@ public class ProjectFactory
     * An exception-safe method of determining whether a directory contains a
     * project.
     */
-   public boolean containsProject(final FileResource dir)
+   public boolean containsProject(final FileResource<?> dir)
    {
       try
       {
@@ -184,7 +184,7 @@ public class ProjectFactory
       }
    }
 
-   public Project findProject(final FileResource dir) throws FileNotFoundException
+   public Project findProject(final FileResource<?> dir) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();

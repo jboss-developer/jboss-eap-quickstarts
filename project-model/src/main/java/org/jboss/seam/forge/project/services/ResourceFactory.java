@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.project.services;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceHandles;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
@@ -34,10 +34,11 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Singleton;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceHandles;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -76,6 +77,28 @@ public class ResourceFactory implements Extension
             resourceGenerators.add(new ResourceGenerator(p, rInst));
          }
       }
+   }
+   
+   @SuppressWarnings("unchecked")
+   public <E, T extends Resource<E>> T createFromType(Class<T> type, E underlyingResource)
+   {
+      synchronized (this)
+      {
+         for (ResourceGenerator gen : resourceGenerators)
+         {
+            Resource<?> resource = gen.getResource();
+            if (type.isAssignableFrom(resource.getClass()))
+            {
+               /*
+                * This little <T> hack is required due to bug in javac:
+                * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
+                */
+               T result = (lastTypeLoaded = gen).<T>getResource();
+               return (T) result.createFrom(underlyingResource);
+            }
+         }
+      }
+      return null;
    }
 
    public Resource<File> getResourceFrom(File file)
@@ -130,7 +153,13 @@ public class ResourceFactory implements Extension
          return pattern.matcher(name).matches();
       }
 
-      @SuppressWarnings({"unchecked", "UnusedDeclaration"})
+      @SuppressWarnings("unchecked")
+      public <T> T getResource()
+      {
+         return (T) resource;
+      }
+      
+      @SuppressWarnings({"unchecked"})
       public <T> Resource<T> getResource(final Class<T> type)
       {
          return (Resource<T>) resource;

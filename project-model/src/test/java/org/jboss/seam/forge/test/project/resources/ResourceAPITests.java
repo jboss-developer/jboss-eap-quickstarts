@@ -42,7 +42,7 @@ public class ResourceAPITests extends ProjectModelTest
       List<Resource<?>> r = ResourceUtil.parsePathspec(factory, root, "/");
       Resource<?> actual = r.iterator().next();
 
-      //Assert.assertEquals(expect, actual);
+      Assert.assertEquals(expect.getFullyQualifiedName(), actual.getFullyQualifiedName());
    }
 
    @Test
