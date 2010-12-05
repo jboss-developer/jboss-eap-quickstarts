@@ -83,19 +83,13 @@ public class FSHParser
       switch (expr[cursor])
       {
       case '@':
-         if (start == cursor)
-         {
-            start++;
-            skipToEOS();
+         start++;
+         skipToEOS();
 
-            String scriptTk = new String(expr, start, cursor - start);
-            return new ScriptNode(new TokenNode(scriptTk), true);
-         }
-         else
-         {
-            return new TokenNode("@");
-         }
-         //literals
+         String scriptTk = new String(expr, start, cursor - start);
+         return new ScriptNode(new TokenNode(scriptTk), true);
+
+      //literals
       case '\'':
       case '"':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
@@ -156,10 +150,8 @@ public class FSHParser
 
                            int offset = cursor != length && expr[cursor] == '}' ? -1 : 0;
 
-                           String subStmt = new String(expr, start, cursor - start)
-                                 .replace("\"", "\\\"").trim();
-
-                           buf.append(shellToMVEL(subStmt));
+                           buf.append(shellToMVEL(new String(expr, start, cursor - start)
+                                 .replace("\"", "\\\"").trim()));
 
                            if (offset == -1)
                            {
@@ -287,7 +279,7 @@ public class FSHParser
 
    private String shellToMVEL(String subStmt)
    {
-      StringBuilder buf = new StringBuilder();
+      StringAppender buf = new StringAppender();
 
       boolean stmtStart = true;
       boolean openShellCall = false;
@@ -303,7 +295,10 @@ public class FSHParser
          {
             while (i < subStmt.length() && isWhitespace(subStmt.charAt(i))) i++;
 
-            if (i >= subStmt.length()) break;
+            if (i >= subStmt.length())
+            {
+               break;
+            }
 
             if (subStmt.charAt(i) != '@' && firstToken != -1 && !isReservedWord(subStmt.substring(0, firstToken)))
             {
@@ -314,7 +309,10 @@ public class FSHParser
             {
                scriptOnly = true;
                stmtStart = false;
-               if (subStmt.charAt(i) == '@') continue;
+               if (subStmt.charAt(i) == '@')
+               {
+                  continue;
+               }
             }
 
             stmtStart = false;
@@ -322,49 +320,46 @@ public class FSHParser
 
          switch (subStmt.charAt(i))
          {
-
          case '\'':
             nest.nestSingleQuote();
             buf.append(subStmt.charAt(i));
-
             break;
+
          case '"':
             nest.nestDoubleQuote();
             buf.append(subStmt.charAt(i));
-
             break;
+
          case '(':
             nest.bracket++;
             buf.append(subStmt.charAt(i));
-
             break;
+
          case '{':
             buf.append(subStmt.charAt(i));
             int start = ++i;
-            i = balancedCapture(subStmt.toCharArray(), i, '{');
-            buf.append(shellToMVEL(subStmt.substring(start, i)));
-            buf.append("}");
+            buf.append(shellToMVEL(subStmt.substring(start,
+                  i = balancedCapture(subStmt.toCharArray(), i, '{')))).append('}');
             break;
+
          case '[':
             nest.square++;
             buf.append(subStmt.charAt(i));
-
             break;
 
          case ')':
             nest.bracket--;
             buf.append(subStmt.charAt(i));
-
             break;
+
          case '}':
             nest.curly--;
             buf.append(subStmt.charAt(i));
-
             break;
+
          case ']':
             nest.square--;
             buf.append(subStmt.charAt(i));
-
             break;
 
          case ';':
@@ -380,17 +375,14 @@ public class FSHParser
             }
 
             buf.append(subStmt.charAt(i));
-
             break;
-
 
          case '$':
             if (!scriptOnly)
             {
                buf.append("\"+");
-               i++;
 
-               start = i;
+               start = ++i;
                i = captureToken(i, subStmt.length(), subStmt.toCharArray());
                buf.append(subStmt.substring(start, i));
 
@@ -407,9 +399,7 @@ public class FSHParser
             }
             else
             {
-               i++;
-
-               if (i < subStmt.length())
+               if (++i < subStmt.length())
                {
                   buf.append(subStmt.charAt(i));
                }
@@ -437,11 +427,11 @@ public class FSHParser
          buf.append("\")");
       }
 
-      System.out.println(subStmt + " -MVEL-> " + buf.toString());
       return buf.toString();
    }
 
-   private String captureToken() {
+   private String captureToken()
+   {
       int start = cursor;
       cursor = captureToken(cursor, length, expr);
       return new String(expr, start, cursor - start);
@@ -553,8 +543,14 @@ public class FSHParser
    {
       while (cursor != expr.length && isWhitespace(expr[cursor])) cursor++;
 
-      if (cursor == expr.length) return (char) -1;
-      else return expr[cursor];
+      if (cursor == expr.length)
+      {
+         return (char) -1;
+      }
+      else
+      {
+         return expr[cursor];
+      }
    }
 
    private char firstNonWhite(int pos)

@@ -56,7 +56,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple3()
    {
-      runtime.run("if (true) { ls -l (2 * 2) } else { ls / }");
+      runtime.run("if (true) { ls -l (2 * 2) } else { ls / | cat }");
    }
 
    @Test
@@ -74,7 +74,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple6()
    {
-      runtime.run("for (dir : ['/', '~', '..']) { ls -l $dir}");
+      runtime.run("for (dir : ['/', '~', '..']) { ls -l $dir | wc -l }");
    }
 
 
