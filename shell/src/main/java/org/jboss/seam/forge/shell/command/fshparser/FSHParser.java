@@ -27,7 +27,8 @@ import org.mvel2.util.StringAppender;
 
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isReservedWord;
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isTokenPart;
-import static org.mvel2.util.ParseTools.*;
+import static org.mvel2.util.ParseTools.balancedCapture;
+import static org.mvel2.util.ParseTools.isWhitespace;
 
 /**
  * @author Mike Brock .
@@ -389,9 +390,9 @@ public class FSHParser
                buf.append("\"+");
                i++;
 
-               while (i < subStmt.length()
-                     && Character.isJavaIdentifierPart(subStmt.charAt(i)))
-                  buf.append(subStmt.charAt(i++));
+               start = i;
+               i = captureToken(i, subStmt.length(), subStmt.toCharArray());
+               buf.append(subStmt.substring(start, i));
 
                if (i < subStmt.length())
                {
@@ -440,11 +441,17 @@ public class FSHParser
       return buf.toString();
    }
 
-   private String captureToken()
+   private String captureToken() {
+      int start = cursor;
+      cursor = captureToken(cursor, length, expr);
+      return new String(expr, start, cursor - start);
+   }
+
+   private static int captureToken(int cursor, int length, char[] expr)
    {
       if (cursor >= length)
       {
-         return null;
+         return length;
       }
 
       int start = cursor;
@@ -463,7 +470,7 @@ public class FSHParser
             }
             else
             {
-               int c = nextNonBlank(expr, cursor);
+               int c = nextNonBlank(cursor, expr);
                if (c == -1 || (expr[cursor] != '(' && expr[cursor] != '['))
                {
                   capturing = false;
@@ -507,7 +514,7 @@ public class FSHParser
       {
          cursor++;
       }
-      return new String(expr, start, cursor - start);
+      return cursor;
    }
 
    private void skipWhitespace()
@@ -540,6 +547,14 @@ public class FSHParser
       {
          throw new RuntimeException("expected '('");
       }
+   }
+
+   private static char nextNonBlank(int cursor, char[] expr)
+   {
+      while (cursor != expr.length && isWhitespace(expr[cursor])) cursor++;
+
+      if (cursor == expr.length) return (char) -1;
+      else return expr[cursor];
    }
 
    private char firstNonWhite(int pos)
