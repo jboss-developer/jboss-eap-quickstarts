@@ -24,11 +24,14 @@ package org.jboss.seam.forge.shell.test.plugins.builtin;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
@@ -40,19 +43,23 @@ import static org.junit.Assert.assertNotSame;
 @RunWith(Arquillian.class)
 public class ChangeDirectoryPluginTest extends AbstractShellTest
 {
+   @Inject 
+   private ResourceFactory factory;
+   
    @Test
    public void testTildeAliasesHomeDir() throws Exception
    {
-      File home = new File(System.getProperty("user.home")).getAbsoluteFile();
+      
+      DirectoryResource home = new DirectoryResource(factory, new File(System.getProperty("user.home")));
 
       Shell shell = getShell();
       Resource<?> currentDirectory = shell.getCurrentResource();
-      assertNotSame(home.getAbsolutePath(), currentDirectory.getFullyQualifiedName());
+      assertNotSame(home.getFullyQualifiedName(), currentDirectory.getFullyQualifiedName());
 
       shell.execute("cd ~");
 
       currentDirectory = shell.getCurrentResource();
-      assertEquals(home.getAbsolutePath(), currentDirectory.getFullyQualifiedName());
+      assertEquals(home.getFullyQualifiedName(), currentDirectory.getFullyQualifiedName());
    }
 
    @Test

@@ -21,22 +21,12 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.util.Formatter;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
@@ -47,12 +37,20 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.project.util.Packages;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
 @Named("forge.maven.JavaSourceFacet")
-@RequiresFacets({MavenCoreFacet.class})
+@RequiresFacets({ MavenCoreFacet.class })
 public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 {
    private Project project;
@@ -64,6 +62,18 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
       result.add(getSourceFolder());
       result.add(getTestSourceFolder());
       return result;
+   }
+
+   @Override
+   public String getBasePackage()
+   {
+      return project.getFacet(MavenCoreFacet.class).getMavenProject().getGroupId();
+   }
+
+   @Override
+   public DirectoryResource getBasePackageResource()
+   {
+      return getSourceFolder().getChildDirectory(getBasePackage());
    }
 
    @Override
@@ -159,98 +169,48 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    }
 
    @Override
-   public JavaResource getSourceFile(final String relativePath)
+   public JavaResource getJavaResource(final JavaClass javaClass) throws FileNotFoundException
    {
-      return (JavaResource) getSourceFolder().getChild(relativePath);
+      return getJavaResource(javaClass.getPackage() + "." + javaClass.getName());
    }
 
    @Override
-   public JavaResource getTestSourceFile(final String relativePath)
+   public JavaResource getTestJavaResource(final JavaClass javaClass) throws FileNotFoundException
    {
-      return (JavaResource) getTestSourceFolder().getChild(relativePath);
+      return getTestJavaResource(javaClass.getPackage() + "." + javaClass.getName());
    }
 
    @Override
-   public JavaClass getJavaClass(final String relativePath) throws FileNotFoundException
+   public JavaResource getJavaResource(final String relativePath) throws FileNotFoundException
    {
-      JavaResource target = getSourceFile(relativePath);
-
-      if (!target.exists())
-      {
-         JavaResource secondary = getSourceFile(Packages.toFileSyntax(relativePath) + ".java");
-         if (secondary.exists())
-         {
-            target = secondary;
-         }
-      }
-
-      return target.getJavaClass();
+      return getJavaResource(getSourceFolder(), relativePath);
    }
 
    @Override
-   public JavaClass getTestJavaClass(final String relativePath) throws FileNotFoundException
+   public JavaResource getTestJavaResource(final String relativePath) throws FileNotFoundException
    {
-      JavaResource target = getTestSourceFile(relativePath);
+      return getJavaResource(getTestSourceFolder(), relativePath);
+   }
 
-      if (!target.exists())
-      {
-         JavaResource secondary = getTestSourceFile(Packages.toFileSyntax(relativePath) + ".java");
-         if (secondary.exists())
-         {
-            target = secondary;
-         }
-      }
-
-      return target.getJavaClass();
+   private JavaResource getJavaResource(DirectoryResource sourceDir, String relativePath) throws FileNotFoundException
+   {
+      String path = relativePath.trim().endsWith(".java")
+            ? relativePath.substring(0, relativePath.lastIndexOf(".java")) : relativePath;
+            
+      path = Packages.toFileSyntax(path) + ".java";
+      JavaResource target = sourceDir.getChildOfType(JavaResource.class, path);
+      return target;
    }
 
    @Override
-   public String getBasePackage()
+   public JavaResource saveJavaClass(final JavaClass javaClass) throws FileNotFoundException
    {
-      return project.getFacet(MavenCoreFacet.class).getMavenProject().getGroupId();
+      return getJavaResource(javaClass.getQualifiedName()).setContents(javaClass);
    }
 
    @Override
-   public DirectoryResource getBasePackageResource()
+   public JavaResource saveTestJavaClass(final JavaClass javaClass) throws FileNotFoundException
    {
-      return getSourceFolder().getChildDirectory(getBasePackage());
-   }
-
-   @Override
-   public JavaClass getJavaClass(final JavaClass javaClass) throws FileNotFoundException
-   {
-      String pkg = javaClass.getPackage() + "." + javaClass.getName();
-      String path = Packages.toFileSyntax(pkg) + ".java";
-      return getSourceFile(path).getJavaClass();
-   }
-
-   @Override
-   public JavaClass getTestJavaClass(final JavaClass javaClass) throws FileNotFoundException
-   {
-      String pkg = javaClass.getPackage() + "." + javaClass.getName();
-      String path = Packages.toFileSyntax(pkg) + ".java";
-      return getTestSourceFile(path).getJavaClass();
-   }
-
-   private JavaResource saveJavaFile(final DirectoryResource sourceFolder, final JavaClass clazz)
-   {
-      DirectoryResource path = sourceFolder.getChildDirectory(Packages.toFileSyntax(clazz.getPackage()));
-      JavaResource file = (JavaResource) path.getChild(clazz.getName() + ".java");
-
-      file.setContents(Formatter.format(clazz));
-      // TODO event.fire(Created new Java file);
-      return file;
-   }
-
-   @Override
-   public JavaResource saveJavaClass(final JavaClass clazz)
-   {
-      return saveJavaFile(getSourceFolder(), clazz);
-   }
-
-   @Override
-   public JavaResource saveTestJavaClass(final JavaClass clazz)
-   {
-      return saveJavaFile(getTestSourceFolder(), clazz);
+      return getTestJavaResource(javaClass.getQualifiedName()).setContents(javaClass);
    }
 }

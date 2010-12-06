@@ -22,11 +22,6 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.parser.JavaParser;
@@ -36,19 +31,19 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.Files;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -82,58 +77,60 @@ public class NewProjectPlugin implements Plugin
                required = false) final Resource<?> projectFolder
          ) throws IOException
    {
-      DirectoryResource cwr = shell.getCurrentDirectory();
-      FileResource file = (FileResource) cwr.getChild(name);
-      DirectoryResource dir = null;
+      DirectoryResource dir = shell.getCurrentDirectory();
 
-      if (file instanceof DirectoryResource)
+      try
       {
-         dir = (DirectoryResource) file;
-         if (projectFactory.containsProject(dir)
+         dir = dir.getChildDirectory(name);
+      }
+      catch (ResourceException e)
+      {
+         // ask
+      }
 
-         || !shell.promptBoolean("Use [" + dir.getFullyQualifiedName() + "] as project directory?"))
+      if (projectFactory.containsProject(dir)
+            || !shell.promptBoolean("Use [" + dir.getFullyQualifiedName() + "] as project directory?"))
+      {
+         if (projectFactory.containsProject(dir))
          {
-            if (projectFactory.containsProject(dir))
-            {
-               shell.println("***ERROR*** [" + dir.getFullyQualifiedName()
+            shell.println("***ERROR*** [" + dir.getFullyQualifiedName()
                      + "] already contains a project; please use a different folder.");
-            }
+         }
 
-            DirectoryResource defaultDir;
+         DirectoryResource defaultDir;
 
-            if (shell.getCurrentResource() == null)
+         if (shell.getCurrentResource() == null)
+         {
+            defaultDir = ResourceUtil.getContextDirectory(factory.getResourceFrom(Files.getWorkingDirectory()));
+         }
+         else
+         {
+            defaultDir = shell.getCurrentDirectory();
+         }
+
+         DirectoryResource newDir = shell.getCurrentDirectory();
+         do
+         {
+            shell.println();
+            if (!projectFactory.containsProject(newDir))
             {
-               defaultDir = ResourceUtil.getContextDirectory(factory.getResourceFrom(Files.getWorkingDirectory()));
+               newDir = ResourceUtil.getContextDirectory(shell.promptFile(
+                        "Where would you like to create the project? [Press ENTER to use the current directory: " + newDir
+                              + "]", defaultDir));
             }
             else
             {
-               defaultDir = shell.getCurrentDirectory();
+               newDir = ResourceUtil.getContextDirectory(shell.promptFile("Where would you like to create the project?"));
             }
 
-            FileResource newDir = cwr;
-            do
+            if (projectFactory.containsProject(newDir))
             {
-               shell.println();
-               if (!projectFactory.containsProject(cwr))
-               {
-                  newDir = shell.promptFile(
-                        "Where would you like to create the project? [Press ENTER to use the current directory: " + cwr
-                              + "]", defaultDir);
-               }
-               else
-               {
-                  newDir = shell.promptFile("Where would you like to create the project?");
-               }
-
-               if (projectFactory.containsProject(newDir))
-               {
-                  newDir = null;
-               }
+               newDir = null;
             }
-            while (newDir == null || !(newDir instanceof DirectoryResource));
-
-            dir = (DirectoryResource) newDir;
          }
+         while ((newDir == null) || !(newDir instanceof DirectoryResource));
+
+         dir = newDir;
       }
 
       if (!dir.exists())
@@ -171,6 +168,6 @@ public class NewProjectPlugin implements Plugin
        * Only change the environment after success!
        */
       shell.setCurrentResource(project.getProjectRoot());
-      shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + file + "]");
+      shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
    }
 }

@@ -21,14 +21,6 @@
  */
 package org.jboss.seam.forge.persistence;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Named;
-import javax.persistence.Entity;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
@@ -47,14 +39,17 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.*;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
+
+import javax.inject.Named;
+import javax.persistence.Entity;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -100,7 +95,7 @@ public class PersistenceFacet implements Facet
 
          installUtils();
 
-         FileResource descriptor = getConfigFile();
+         FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
@@ -133,8 +128,15 @@ public class PersistenceFacet implements Facet
       util.setPackage(java.getBasePackage() + ".persist");
       producer.setPackage(java.getBasePackage() + ".persist");
 
-      java.saveJavaClass(producer);
-      java.saveJavaClass(util);
+      try
+      {
+         java.saveJavaClass(producer);
+         java.saveJavaClass(util);
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override
@@ -154,7 +156,7 @@ public class PersistenceFacet implements Facet
    public DirectoryResource getEntityPackageFile()
    {
       JavaSourceFacet sourceFacet = project.getFacet(JavaSourceFacet.class);
-      return (DirectoryResource) sourceFacet.getBasePackageResource().getChild("domain");
+      return (DirectoryResource) sourceFacet.getBasePackageResource().getChildDirectory("domain");
    }
 
    @SuppressWarnings("unchecked")
@@ -173,10 +175,10 @@ public class PersistenceFacet implements Facet
       getConfigFile().setContents(output);
    }
 
-   private FileResource getConfigFile()
+   private FileResource<?> getConfigFile()
    {
       ResourceFacet resources = project.getFacet(ResourceFacet.class);
-      return (FileResource) resources.getResourceFolder().getChild("META-INF" + File.separator + "persistence.xml");
+      return (FileResource<?>) resources.getResourceFolder().getChild("META-INF" + File.separator + "persistence.xml");
    }
 
    public List<JavaClass> getAllEntities()

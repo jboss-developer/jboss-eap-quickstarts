@@ -26,7 +26,6 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -61,7 +60,7 @@ public interface ResourceFacet extends Facet
     *
     * @return a handle to the {@link FileResource} that was created.
     */
-   FileResource createResource(char[] bytes, String relativeFilename);
+   FileResource<?> createResource(char[] bytes, String relativeFilename);
 
    /**
     * At the given path/filename relative to the project test resources
@@ -70,7 +69,7 @@ public interface ResourceFacet extends Facet
     *
     * @return a handle to the {@link FileResource} that was created.
     */
-   FileResource createTestResource(char[] bytes, String relativeFilename);
+   FileResource<?> createTestResource(char[] bytes, String relativeFilename);
 
    /**
     * Return the {@link FileResource} at the given path relative to
@@ -79,7 +78,7 @@ public interface ResourceFacet extends Facet
     * exists, you should call {@link FileResource#exists()} on the return value of this
     * method.
     */
-   FileResource getResource(String relativePath);
+   FileResource<?> getResource(String relativePath);
 
    /**
     * Attempt to locate a {@link FileResource} at the given path relative to
@@ -88,5 +87,5 @@ public interface ResourceFacet extends Facet
     * exists, you should call {@link FileResource#exists()} on the return value of this
     * method.
     */
-   FileResource getTestResource(String relativePath);
+   FileResource<?> getTestResource(String relativePath);
 }

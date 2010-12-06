@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
@@ -36,6 +29,12 @@ import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -111,29 +110,29 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    }
 
    @Override
-   public FileResource getResource(final String relativePath)
+   public FileResource<?> getResource(final String relativePath)
    {
-      return (FileResource) getResourceFolder().getChild(relativePath);
+      return (FileResource<?>) getResourceFolder().getChild(relativePath);
    }
 
    @Override
-   public FileResource getTestResource(final String relativePath)
+   public FileResource<?> getTestResource(final String relativePath)
    {
-      return (FileResource) getTestResourceFolder().getChild(relativePath);
+      return (FileResource<?>) getTestResourceFolder().getChild(relativePath);
    }
 
    @Override
-   public FileResource createResource(final char[] bytes, final String relativeFilename)
+   public FileResource<?> createResource(final char[] bytes, final String relativeFilename)
    {
-      FileResource file = (FileResource) getResourceFolder().getChild(relativeFilename);
+      FileResource<?> file = (FileResource<?>) getResourceFolder().getChild(relativeFilename);
       file.setContents(bytes);
       return file;
    }
 
    @Override
-   public FileResource createTestResource(final char[] bytes, final String relativeFilename)
+   public FileResource<?> createTestResource(final char[] bytes, final String relativeFilename)
    {
-      FileResource file = (FileResource) getTestResourceFolder().getChild(relativeFilename);
+      FileResource<?> file = (FileResource<?>) getTestResourceFolder().getChild(relativeFilename);
       file.setContents(bytes);
       return file;
    }

@@ -25,6 +25,7 @@ package org.jboss.seam.forge.project.resources.builtin;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 import java.io.File;
@@ -38,7 +39,7 @@ import java.util.List;
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class DirectoryResource extends FileResource
+public class DirectoryResource extends FileResource<DirectoryResource>
 {
    private volatile List<Resource<?>> listCache;
 
@@ -79,26 +80,53 @@ public class DirectoryResource extends FileResource
    }
 
    /**
-    * Obtain a reference to the child {@link DirectoryResource}. If that resource 
-    * does not exist, return a new instance. If the resource exists and is not a 
-    * {@link DirectoryResource}, throw {@link IllegalStateException}
+    * Obtain a reference to the child {@link DirectoryResource}. If that
+    * resource does not exist, return a new instance. If the resource exists and
+    * is not a {@link DirectoryResource}, throw {@link ResourceException}
     */
-   public DirectoryResource getChildDirectory(String name) throws IllegalStateException
+   public DirectoryResource getChildDirectory(String name) throws ResourceException
    {
       Resource<?> result = getChild(name);
-      if(!(result instanceof DirectoryResource))
+      if (!(result instanceof DirectoryResource))
       {
-         if(result.exists())
+         if (result.exists())
          {
-            throw new IllegalStateException("The resource ["+result.getFullyQualifiedName()+"] is not a DirectoryResource");
+            throw new ResourceException("The resource [" + result.getFullyQualifiedName() + "] is not a DirectoryResource");
          }
       }
 
-      if(!(result instanceof DirectoryResource))
+      if (!(result instanceof DirectoryResource))
       {
          result = new DirectoryResource(resourceFactory, new File(file.getAbsoluteFile() + File.separator + name));
       }
       return (DirectoryResource) result;
+   }
+
+   /**
+    * Using the given type, obtain a reference to the child resource of the
+    * given type. If the result is not of the requested type and does not exist,
+    * return null. If the result is not of the requested type and exists, throw
+    * {@link ResourceException}
+    */
+   @SuppressWarnings("unchecked")
+   public <E, T extends Resource<E>> T getChildOfType(Class<T> type, String name) throws ResourceException
+   {
+      T result = null;
+      Resource<?> child = getChild(name);
+      if (type.isAssignableFrom(child.getClass()))
+      {
+         result = (T) child;
+      }
+      else if (child.exists())
+      {
+         throw new ResourceException("Requested resource [" + name + "] was not of type [" + type.getName() + "], but was instead [" + child.getClass().getName() + "]");
+      }
+      else
+      {
+         E underlyingResource = (E) child.getUnderlyingResourceObject();
+         result = resourceFactory.createFromType(type, underlyingResource);
+      }
+      return result;
    }
 
    @Override
@@ -106,7 +134,7 @@ public class DirectoryResource extends FileResource
    {
       if (!file.isDirectory())
       {
-         throw new RuntimeException("File reference is not a directory: " + file.getAbsolutePath());
+         throw new ResourceException("File reference is not a directory: " + file.getAbsolutePath());
       }
 
       return new DirectoryResource(resourceFactory, file);

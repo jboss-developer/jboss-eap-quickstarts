@@ -74,7 +74,6 @@ public interface JavaSourceFacet extends Facet
     * of whether the target actually exists. To determine if the file exists,
     * you should call {@link JavaResource#exists()} on the return value of this method.
     */
-   public JavaResource getSourceFile(String relativePath);
 
    /**
     * Return the {@link JavaResource} at the given path relative to
@@ -83,7 +82,6 @@ public interface JavaSourceFacet extends Facet
     * exists, you should call {@link JavaResource#exists()} on the return value of this
     * method.
     */
-   public JavaResource getTestSourceFile(String relativePath);
 
    /**
     * Create or update a Java file in the primary source directory:
@@ -93,8 +91,9 @@ public interface JavaSourceFacet extends Facet
     *
     * @param clazz The java class to create
     * @return The created or updated {@link JavaResource}
+    * @throws FileNotFoundException 
     */
-   public JavaResource saveJavaClass(JavaClass clazz);
+   public JavaResource saveJavaClass(JavaClass clazz) throws FileNotFoundException;
 
    /**
     * Create or update a Java file in the primary test source directory:
@@ -105,7 +104,7 @@ public interface JavaSourceFacet extends Facet
     * @param clazz The java class to create
     * @return The created or updated {@link JavaResource}
     */
-   public JavaResource saveTestJavaClass(JavaClass clazz);
+   public JavaResource saveTestJavaClass(JavaClass clazz) throws FileNotFoundException;
 
    /**
     * Return the {@link JavaClass} at the given path relative to
@@ -115,7 +114,7 @@ public interface JavaSourceFacet extends Facet
     *                     file.
     * @throws FileNotFoundException if the target {@link JavaResource} does not exist
     */
-   public JavaClass getJavaClass(String relativePath) throws FileNotFoundException;
+   public JavaResource getJavaResource(String relativePath) throws FileNotFoundException;
 
    /**
     * Attempt to locate and re-parse the given {@link JavaClass} from its
@@ -125,7 +124,7 @@ public interface JavaSourceFacet extends Facet
     * @param javaClass The {@link JavaClass} to re-parse.
     * @throws FileNotFoundException if the target {@link JavaResource} does not exist
     */
-   public JavaClass getJavaClass(JavaClass javaClass) throws FileNotFoundException;
+   public JavaResource getJavaResource(JavaClass javaClass) throws FileNotFoundException;
 
    /**
     * Return the {@link JavaClass} at the given path relative to
@@ -134,7 +133,7 @@ public interface JavaSourceFacet extends Facet
     * @param relativePath The package path of the target Java source
     *                     {@link JavaResource}.
     */
-   public JavaClass getTestJavaClass(String relativePath) throws FileNotFoundException;
+   public JavaResource getTestJavaResource(String relativePath) throws FileNotFoundException;
 
    /**
     * Attempt to locate and re-parse the given {@link JavaClass} from its
@@ -144,6 +143,6 @@ public interface JavaSourceFacet extends Facet
     * @param javaClass The {@link JavaClass} to re-parse.
     * @throws FileNotFoundException if the target {@link JavaResource} does not exist
     */
-   public JavaClass getTestJavaClass(JavaClass javaClass) throws FileNotFoundException;
+   public JavaResource getTestJavaResource(JavaClass javaClass) throws FileNotFoundException;
 
 }

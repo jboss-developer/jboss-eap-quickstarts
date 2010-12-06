@@ -43,7 +43,7 @@ import java.util.List;
  * @author Mike Brock
  */
 @ResourceHandles("*.java")
-public class JavaResource extends FileResource
+public class JavaResource extends FileResource<JavaResource>
 {
    private volatile JavaClass javaClass;
 
@@ -84,6 +84,12 @@ public class JavaResource extends FileResource
       }
 
       return list;
+   }
+   
+   public JavaResource setContents(JavaClass javaClass)
+   {
+      setContents(javaClass.toString());
+      return this;
    }
 
    private void lazyInitialize() throws FileNotFoundException

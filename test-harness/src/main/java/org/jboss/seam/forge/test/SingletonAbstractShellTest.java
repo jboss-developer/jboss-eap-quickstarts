@@ -25,7 +25,6 @@ package org.jboss.seam.forge.test;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.model.ProjectImpl;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -167,8 +166,9 @@ public abstract class SingletonAbstractShellTest
    protected Project initializeJavaProject() throws IOException
    {
       File folder = createTempFolder();
-      tempFolders.add((FileResource) factory.getResourceFrom(folder));
-      getShell().execute("cd " + folder.getAbsolutePath());
+      FileResource resource = (FileResource) factory.getResourceFrom(folder);
+      tempFolders.add(resource);
+      getShell().setCurrentResource(resource);
       queueInputLines("", "");
       getShell().execute("new-project --named test --topLevelPackage com.test");
 

@@ -22,20 +22,15 @@
 
 package org.jboss.seam.forge.project.resources;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.OSUtils;
+
+import java.io.*;
 
 /**
  * A standard, built-in resource for representing files on the filesystem.
@@ -43,7 +38,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class FileResource extends AbstractResource<File>
+public abstract class FileResource<T extends FileResource<?>> extends AbstractResource<File>
 {
    protected boolean scratch;
 
@@ -157,7 +152,7 @@ public abstract class FileResource extends AbstractResource<File>
    }
 
    /**
-    * Delete this file, recursively.
+    * Delete this file, recursively. TODO this should not be recursive?
     */
    public boolean delete()
    {
@@ -168,7 +163,7 @@ public abstract class FileResource extends AbstractResource<File>
    {
       if (recursive)
       {
-         return _deleteRecursive(file);
+         return _deleteRecursive(file, true);
       }
 
       if (file.listFiles() != null && file.listFiles().length != 0)
@@ -176,12 +171,16 @@ public abstract class FileResource extends AbstractResource<File>
          throw new RuntimeException("directory not empty");
       }
 
-      System.gc(); // ensure no lingering handles that would prevent deletion
+      if (OSUtils.isWindows())
+         System.gc(); // ensure no lingering handles that would prevent deletion
       return file.delete();
    }
 
-   private static boolean _deleteRecursive(File file)
+   private static boolean _deleteRecursive(File file, boolean collect)
    {
+      if (collect && OSUtils.isWindows())
+         System.gc(); // ensure no lingering handles that would prevent deletion
+
       if (file == null)
       {
          return false;
@@ -194,11 +193,10 @@ public abstract class FileResource extends AbstractResource<File>
          {
             if (sf.isDirectory())
             {
-               _deleteRecursive(sf);
+               _deleteRecursive(sf, false);
             }
             else
             {
-               System.gc(); // ensure no lingering handles that would prevent deletion
                if (!sf.delete())
                {
                   throw new RuntimeException("failed to delete: " + sf.getAbsolutePath());
@@ -207,67 +205,61 @@ public abstract class FileResource extends AbstractResource<File>
          }
       }
 
-      System.gc(); // ensure no lingering handles that would prevent deletion
       return file.delete();
    }
 
-   public void setContents(String data)
+   public T setContents(String data)
    {
       if (data == null)
       {
          data = "";
       }
-      setContents(data.toCharArray());
+      return setContents(data.toCharArray());
    }
 
-   public void setContents(final char[] data)
+   public T setContents(final char[] data)
    {
-      FileResource temp = null;
+      return setContents(new ByteArrayInputStream(new String(data).getBytes()));
+   }
+
+   @SuppressWarnings("unchecked")
+   public T setContents(InputStream data)
+   {
+      T temp = null;
       try
       {
          if (!exists())
          {
             mkdirs();
-
             delete();
             if (!createNewFile())
             {
                throw new IOException("Failed to create file: " + file);
             }
          }
-         else
-         {
-            temp = createTempResource();
-            if (!renameTo(temp))
-            {
-               throw new IOException("Failed to update file because a temporary file could not be created: " + file);
-            }
-         }
 
          file.delete();
 
-         BufferedWriter writer = null;
+         OutputStream out = new FileOutputStream(file);
          try
          {
-            writer = new BufferedWriter(new FileWriter(file));
-            writer.write(data);
+            byte buf[] = new byte[1024];
+            int len;
+            while ((len = data.read(buf)) > 0)
+            {
+               out.write(buf, 0, len);
+            }
          }
          finally
          {
-            writer.close();
+            data.close();
+            out.close();
          }
 
-         // FIXME need a way for these classes to access a writer
          System.out.println("Wrote " + getFullyQualifiedName());
-
       }
       catch (IOException e)
       {
-         if ((temp != null) && !file.exists())
-         {
-            temp.renameTo(this);
-         }
-
          throw new ProjectModelException(e);
       }
       finally
@@ -277,6 +269,7 @@ public abstract class FileResource extends AbstractResource<File>
             temp.delete();
          }
       }
+      return (T) this;
    }
 
    /**
@@ -294,11 +287,12 @@ public abstract class FileResource extends AbstractResource<File>
       }
    }
 
-   public FileResource createTempResource()
+   @SuppressWarnings("unchecked")
+   public T createTempResource()
    {
       try
       {
-         return (FileResource) createFrom(File.createTempFile("forgetemp", ""));
+         return (T) createFrom(File.createTempFile("forgetemp", ""));
       }
       catch (IOException e)
       {
@@ -306,7 +300,7 @@ public abstract class FileResource extends AbstractResource<File>
       }
    }
 
-   public boolean renameTo(FileResource target)
+   public boolean renameTo(FileResource<?> target)
    {
       return file.renameTo(target.getUnderlyingResourceObject());
    }

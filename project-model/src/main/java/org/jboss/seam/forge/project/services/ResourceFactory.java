@@ -77,6 +77,28 @@ public class ResourceFactory implements Extension
          }
       }
    }
+   
+   @SuppressWarnings("unchecked")
+   public <E, T extends Resource<E>> T createFromType(Class<T> type, E underlyingResource)
+   {
+      synchronized (this)
+      {
+         for (ResourceGenerator gen : resourceGenerators)
+         {
+            Resource<?> resource = gen.getResource();
+            if (type.isAssignableFrom(resource.getClass()))
+            {
+               /*
+                * This little <T> hack is required due to bug in javac:
+                * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6302954
+                */
+               T result = (lastTypeLoaded = gen).<T>getResource();
+               return (T) result.createFrom(underlyingResource);
+            }
+         }
+      }
+      return null;
+   }
 
    public Resource<File> getResourceFrom(File file)
    {
@@ -131,7 +153,13 @@ public class ResourceFactory implements Extension
          return pattern.matcher(name).matches();
       }
 
-      @SuppressWarnings({"unchecked", "UnusedDeclaration"})
+      @SuppressWarnings("unchecked")
+      public <T> T getResource()
+      {
+         return (T) resource;
+      }
+      
+      @SuppressWarnings({"unchecked"})
       public <T> Resource<T> getResource(final Class<T> type)
       {
          return (Resource<T>) resource;

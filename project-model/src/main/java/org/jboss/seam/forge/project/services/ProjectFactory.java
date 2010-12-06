@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.project.services;
 
-import java.io.FileNotFoundException;
-import java.util.List;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
@@ -37,6 +30,12 @@ import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.util.Iterators;
 import org.jboss.seam.forge.project.util.ResourceUtil;
+
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Responsible for instantiating project instances through CDI.
@@ -171,7 +170,7 @@ public class ProjectFactory
     * An exception-safe method of determining whether a directory contains a
     * project.
     */
-   public boolean containsProject(final FileResource dir)
+   public boolean containsProject(final FileResource<?> dir)
    {
       try
       {
@@ -184,7 +183,7 @@ public class ProjectFactory
       }
    }
 
-   public Project findProject(final FileResource dir) throws FileNotFoundException
+   public Project findProject(final FileResource<?> dir) throws FileNotFoundException
    {
       Project project = null;
       List<ProjectLocator> locators = getLocators();

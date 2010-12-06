@@ -19,13 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.persistence.plugins;
+package org.jboss.seam.forge.persistence;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.parser.java.util.Types;
-import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
@@ -38,7 +37,6 @@ import org.jboss.seam.forge.shell.plugins.*;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 import javax.persistence.*;
 import java.io.FileNotFoundException;
 import java.lang.annotation.Annotation;
@@ -49,7 +47,6 @@ import java.util.*;
  */
 @Named("new-field")
 @Topic("File & Resources")
-@Singleton
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
 @ResourceScope(JavaResource.class)
@@ -58,15 +55,12 @@ public class NewFieldPlugin implements Plugin
 {
    private final Instance<Project> projectInstance;
    private final Shell shell;
-   private final Instance<JavaClass> entityInstance;
 
    @Inject
-   public NewFieldPlugin(final Instance<Project> project, final Shell shell,
-                         final @LastEntity Instance<JavaClass> entity)
+   public NewFieldPlugin(final Instance<Project> project, final Shell shell)
    {
       this.projectInstance = project;
       this.shell = shell;
-      this.entityInstance = entity;
    }
 
    @DefaultCommand(help = "Add many custom field to an existing @Entity class")
@@ -86,7 +80,7 @@ public class NewFieldPlugin implements Plugin
                required = true,
                type = PromptType.JAVA_CLASS,
                description = "The qualified Class to be used as this field's type") final String type
-   )
+         )
    {
       try
       {
@@ -383,7 +377,7 @@ public class NewFieldPlugin implements Plugin
     * Helpers
     */
    private void addFieldTo(final JavaClass targetEntity, final JavaClass fieldEntity, final String fieldName,
-                           final Class<? extends Annotation> annotation)
+                           final Class<? extends Annotation> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -397,7 +391,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    private void addFieldTo(final JavaClass targetEntity, final String fieldType, final String fieldName,
-                           final Class<Column> annotation)
+                           final Class<Column> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -411,7 +405,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    private void addFieldTo(final JavaClass targetEntity, final Class<?> fieldType, final String fieldName,
-                           final Class<? extends Annotation> annotation)
+                           final Class<? extends Annotation> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -455,16 +449,11 @@ public class NewFieldPlugin implements Plugin
 
       if (entity != null)
       {
-         result = java.getJavaClass(entity);
+         result = java.getJavaResource(entity).getJavaClass();
          if (result == null)
          {
-            result = java.getJavaClass(scaffold.getEntityPackage() + "." + entity);
+            result = java.getJavaResource(scaffold.getEntityPackage() + "." + entity).getJavaClass();
          }
-      }
-
-      if (result == null)
-      {
-         result = entityInstance.get();
       }
 
       if (result == null)

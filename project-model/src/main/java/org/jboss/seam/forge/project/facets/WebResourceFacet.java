@@ -25,7 +25,6 @@ import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -54,10 +53,10 @@ public interface WebResourceFacet extends Facet
     *
     * @return a handle to the {@link FileResource} that was created.
     */
-   FileResource createWebResource(char[] bytes, String relativeFilename);
+   FileResource<?> createWebResource(char[] bytes, String relativeFilename);
 
    /**
     * Get the given {@link FileResource} relative to the project Web Root directory: {@link #getWebRootDirectory()}
     */
-   FileResource getWebResource(String relativePath);
+   FileResource<?> getWebResource(String relativePath);
 }

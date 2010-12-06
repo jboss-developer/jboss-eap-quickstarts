@@ -102,15 +102,15 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    }
 
    @Override
-   public FileResource getWebResource(final String relativePath)
+   public FileResource<?> getWebResource(final String relativePath)
    {
-      return (FileResource) getWebRootDirectory().getChild(relativePath);
+      return (FileResource<?>) getWebRootDirectory().getChild(relativePath);
    }
 
    @Override
-   public FileResource createWebResource(final char[] bytes, final String relativePath)
+   public FileResource<?> createWebResource(final char[] bytes, final String relativePath)
    {
-      FileResource file = (FileResource) getWebRootDirectory().getChild(relativePath);
+      FileResource<?> file = (FileResource<?>) getWebRootDirectory().getChild(relativePath);
       file.setContents(bytes);
       return file;
    }

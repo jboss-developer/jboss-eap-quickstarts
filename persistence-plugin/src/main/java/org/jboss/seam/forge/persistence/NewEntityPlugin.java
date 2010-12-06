@@ -19,26 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.persistence.plugins;
-
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
+package org.jboss.seam.forge.persistence;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Refactory;
-import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
@@ -46,16 +32,17 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.*;
+import java.io.FileNotFoundException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Singleton
 @Named("new-entity")
 @Topic("Project")
 @RequiresProject
@@ -66,8 +53,6 @@ public class NewEntityPlugin implements Plugin
    private final Instance<Project> projectInstance;
 
    private final Shell shell;
-   private JavaClass lastEntity;
-   private Project lastProject;
 
    @Inject
    public NewEntityPlugin(final Instance<Project> projectInstance, final Shell shell)
@@ -76,24 +61,11 @@ public class NewEntityPlugin implements Plugin
       this.shell = shell;
    }
 
-   @Produces
-   @Dependent
-   @LastEntity
-   JavaClass getLastEntity()
-   {
-      // TODO this needs to be replaced once Mike's contextuals are working.
-      if (projectInstance.get() != this.lastProject)
-      {
-         lastEntity = null;
-      }
-      return lastEntity;
-   }
-
    @DefaultCommand(help = "Create a JPA @Entity")
    public void newEntity(
          @Option(required = true,
                name = "named",
-               description = "The @Entity name") final String entityName)
+               description = "The @Entity name") final String entityName) throws FileNotFoundException
    {
       // TODO this should accept a qualified name as a parameter instead of
       // prompting for the package later
@@ -129,9 +101,6 @@ public class NewEntityPlugin implements Plugin
       Refactory.createGetterAndSetter(javaClass, version);
 
       JavaResource javaFileLocation = java.saveJavaClass(javaClass);
-
-      this.lastEntity = javaClass;
-      this.lastProject = project;
 
       shell.println("Created @Entity [" + javaClass.getQualifiedName() + "]");
 
