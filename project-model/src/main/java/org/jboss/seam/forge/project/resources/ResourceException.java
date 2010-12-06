@@ -20,26 +20,39 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.persistence.plugins;
+package org.jboss.seam.forge.project.resources;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.jboss.seam.forge.project.ProjectModelException;
+import org.jboss.seam.forge.project.Resource;
 
 /**
+ * Represents a generic Exception thrown by the Forge {@link Resource} API
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Qualifier
-@Inherited
-@Target({TYPE, METHOD, PARAMETER, FIELD})
-@Retention(RUNTIME)
-@Documented
-public @interface LastEntity
+public class ResourceException extends ProjectModelException
 {
+   private static final long serialVersionUID = 1532458466162580423L;
+
+   public ResourceException()
+   {
+      super();
+   }
+
+   public ResourceException(String message, Throwable e)
+   {
+      super(message, e);
+   }
+
+   public ResourceException(String message)
+   {
+      super(message);
+   }
+
+   public ResourceException(Throwable e)
+   {
+      super(e);
+   }
 
 }

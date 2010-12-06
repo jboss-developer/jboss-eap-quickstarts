@@ -58,6 +58,9 @@
                </execution>
             </executions>
             <configuration>
+               <executable>java</executable>
+               <includeProjectDependencies>true</includeProjectDependencies>
+               
                <!-- <mainClass>org.jboss.weld.environment.se.StartMain</mainClass> -->
                <mainClass>org.jboss.seam.forge.shell.Bootstrap</mainClass>
                <systemProperties>

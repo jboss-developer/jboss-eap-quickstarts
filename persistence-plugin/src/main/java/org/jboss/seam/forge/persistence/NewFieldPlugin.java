@@ -19,13 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.persistence.plugins;
+package org.jboss.seam.forge.persistence;
+
+import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.parser.java.util.Types;
-import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
@@ -33,23 +49,19 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.persistence.*;
-import java.io.FileNotFoundException;
-import java.lang.annotation.Annotation;
-import java.util.*;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("new-field")
 @Topic("File & Resources")
-@Singleton
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
 @ResourceScope(JavaResource.class)
@@ -58,15 +70,12 @@ public class NewFieldPlugin implements Plugin
 {
    private final Instance<Project> projectInstance;
    private final Shell shell;
-   private final Instance<JavaClass> entityInstance;
 
    @Inject
-   public NewFieldPlugin(final Instance<Project> project, final Shell shell,
-                         final @LastEntity Instance<JavaClass> entity)
+   public NewFieldPlugin(final Instance<Project> project, final Shell shell)
    {
       this.projectInstance = project;
       this.shell = shell;
-      this.entityInstance = entity;
    }
 
    @DefaultCommand(help = "Add many custom field to an existing @Entity class")
@@ -86,7 +95,7 @@ public class NewFieldPlugin implements Plugin
                required = true,
                type = PromptType.JAVA_CLASS,
                description = "The qualified Class to be used as this field's type") final String type
-   )
+         )
    {
       try
       {
@@ -460,11 +469,6 @@ public class NewFieldPlugin implements Plugin
          {
             result = java.getJavaResource(scaffold.getEntityPackage() + "." + entity).getJavaClass();
          }
-      }
-
-      if (result == null)
-      {
-         result = entityInstance.get();
       }
 
       if (result == null)
