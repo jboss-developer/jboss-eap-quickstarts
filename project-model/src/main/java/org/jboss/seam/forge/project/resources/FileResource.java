@@ -87,7 +87,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    {
       try
       {
-         return new FileInputStream(file);
+         return new BufferedInputStream(new FileInputStream(file));
       }
       catch (FileNotFoundException e)
       {
