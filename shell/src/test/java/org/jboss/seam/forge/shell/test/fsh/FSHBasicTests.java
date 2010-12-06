@@ -56,7 +56,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple3()
    {
-      runtime.run("if (true) { ls -l (2 * 2) } else { ls / }");
+      runtime.run("if (true) { ls -l (2 * 2) } else { ls / | cat }");
    }
 
    @Test
@@ -74,7 +74,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple6()
    {
-      runtime.run("for (dir : ['/', '~', '..']) { ls -l $dir}");
+      runtime.run("for (dir : ['/', '~', '..']) { ls -l $dir | wc -l }");
    }
 
 
@@ -92,15 +92,14 @@ public class FSHBasicTests extends AbstractShellTest
 
 
    @Test
-   public void testSimple9()
+   public void testSimple10()
    {
-      runtime.run("cat /Users/christopherbrock/forge_test.sh | cat");
+      runtime.run("myVar='ls'; echo $myVar.toUpperCase()");
    }
 
    @Test
-   public void testSimple10()
-   {
-      runtime.run("myVar='ls'");
+   public void testExpressionLoop() {
+      runtime.run("for (file : new java.io.File(\".\").listFiles()) { echo $file.getName().toUpperCase(); }");
    }
 
    @Test

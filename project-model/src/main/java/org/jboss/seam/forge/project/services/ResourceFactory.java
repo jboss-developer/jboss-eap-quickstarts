@@ -146,6 +146,7 @@ public class ResourceFactory implements Extension
       {
          this.pattern = pattern;
          this.resource = resource;
+
       }
 
       public boolean matches(final String name)

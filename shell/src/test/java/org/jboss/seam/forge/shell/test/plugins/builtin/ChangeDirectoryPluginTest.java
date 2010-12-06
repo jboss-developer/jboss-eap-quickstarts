@@ -22,9 +22,15 @@
 
 package org.jboss.seam.forge.shell.test.plugins.builtin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+
+import java.io.File;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
@@ -32,26 +38,19 @@ import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-
-import javax.inject.Inject;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @RunWith(Arquillian.class)
 public class ChangeDirectoryPluginTest extends AbstractShellTest
 {
-   @Inject 
+   @Inject
    private ResourceFactory factory;
-   
+
    @Test
    public void testTildeAliasesHomeDir() throws Exception
    {
-      
+
       DirectoryResource home = new DirectoryResource(factory, new File(System.getProperty("user.home")));
 
       Shell shell = getShell();
@@ -116,10 +115,10 @@ public class ChangeDirectoryPluginTest extends AbstractShellTest
       Resource<?> parent = currentDirectory.getParent();
 
       String parentPath = parent.getFullyQualifiedName();
-      
+
       shell.execute("cd " + parentPath);
 
-      Resource<?>  newDir = shell.getCurrentResource();
+      Resource<?> newDir = shell.getCurrentResource();
       assertEquals(newDir.getFullyQualifiedName(), parent.getFullyQualifiedName());
    }
 
