@@ -29,7 +29,6 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -68,7 +67,7 @@ public class ChangeDirectoryPlugin implements Plugin
 
       if (r != null)
       {
-         if (!((FileResource) r).exists())
+         if (!((Resource<?>) r).exists())
          {
             throw new RuntimeException("no such resource: " + r.toString());
          }

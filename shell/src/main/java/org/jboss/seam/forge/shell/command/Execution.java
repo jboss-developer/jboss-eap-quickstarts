@@ -104,7 +104,7 @@ public class Execution
             {
                throw new CommandExecutionException(command, "command option '"
                      + command.getOptionByAbsoluteIndex(i).getDescription()
-                     + "' must be of type '" + parmTypes[i].getSimpleName() + "'");
+                     + "' must be of type '" + parmTypes[i].getSimpleName() + "'", e);
             }
          }
 
