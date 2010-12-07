@@ -22,11 +22,6 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.parser.JavaParser;
@@ -43,12 +38,12 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.Files;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

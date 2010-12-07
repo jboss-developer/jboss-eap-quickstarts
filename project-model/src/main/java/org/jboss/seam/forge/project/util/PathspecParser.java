@@ -114,7 +114,7 @@ public class PathspecParser
                }
                break SW;
 
-            case '/':
+            default:
                cursor++;
                break SW;
             }

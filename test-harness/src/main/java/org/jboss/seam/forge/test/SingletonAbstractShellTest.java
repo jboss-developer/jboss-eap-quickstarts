@@ -25,7 +25,6 @@ package org.jboss.seam.forge.test;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.model.ProjectImpl;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;

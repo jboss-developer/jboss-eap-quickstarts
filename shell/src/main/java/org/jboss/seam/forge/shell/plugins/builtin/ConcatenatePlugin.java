@@ -28,6 +28,7 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.plugins.*;
 
 import javax.inject.Named;
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +64,7 @@ public class ConcatenatePlugin implements Plugin
                InputStream istream = null;
                try
                {
-                  istream = new FileInputStream(res.getFullyQualifiedName());
+                  istream = new BufferedInputStream(new FileInputStream(res.getFullyQualifiedName()));
                   writeOutToConsole(istream, out);
                }
                catch (IOException e)

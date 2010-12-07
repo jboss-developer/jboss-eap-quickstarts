@@ -24,6 +24,7 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.plugins.*;
+import org.mvel2.util.StringAppender;
 
 import javax.inject.Named;
 import java.io.IOException;
@@ -101,7 +102,7 @@ public class GrepPlugin implements Plugin
 
    private void match(InputStream instream, Pattern pattern, PipeOut out, boolean caseInsensitive) throws IOException
    {
-      StringBuilder buf = new StringBuilder();
+      StringAppender buf = new StringAppender();
 
       int c;
       while ((c = instream.read()) != -1)
@@ -116,7 +117,7 @@ public class GrepPlugin implements Plugin
             {
                out.println(s);
             }
-            buf = new StringBuilder();
+            buf.reset();
             break;
          default:
             buf.append((char) c);

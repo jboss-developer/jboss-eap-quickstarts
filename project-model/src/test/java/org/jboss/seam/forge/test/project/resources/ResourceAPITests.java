@@ -33,6 +33,15 @@ public class ResourceAPITests extends ProjectModelTest
       Assert.assertEquals(expect, ResourceUtil.parsePathspec(factory, r, "../..").iterator().next());
    }
 
+      @Test
+   public void testPathNavigation2()
+   {
+      DirectoryResource expect = new DirectoryResource(factory, new File("").getAbsoluteFile());
+      DirectoryResource r = new DirectoryResource(factory, new File("").getAbsoluteFile());
+
+      Assert.assertEquals(expect, ResourceUtil.parsePathspec(factory, r, ".").iterator().next());
+   }
+
    @Test
    public void testPathParser()
    {

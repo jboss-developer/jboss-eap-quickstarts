@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.project.services;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceHandles;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
@@ -34,11 +34,10 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Singleton;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceHandles;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.UnknownFileResource;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>

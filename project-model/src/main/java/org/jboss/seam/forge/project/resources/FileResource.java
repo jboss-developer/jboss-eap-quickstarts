@@ -22,15 +22,6 @@
 
 package org.jboss.seam.forge.project.resources;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.Resource;
@@ -38,6 +29,8 @@ import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.OSUtils;
+
+import java.io.*;
 
 /**
  * A standard, built-in resource for representing files on the filesystem.
@@ -95,7 +88,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    {
       try
       {
-         return new FileInputStream(file);
+         return new BufferedInputStream(new FileInputStream(file));
       }
       catch (FileNotFoundException e)
       {

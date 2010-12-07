@@ -22,15 +22,15 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
-import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A standard, build-in, resource for representing directories on the
