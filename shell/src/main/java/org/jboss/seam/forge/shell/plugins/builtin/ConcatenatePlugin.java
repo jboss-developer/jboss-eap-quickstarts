@@ -24,7 +24,6 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.plugins.*;
 
 import javax.inject.Named;
@@ -38,11 +37,9 @@ import java.io.InputStream;
  */
 @Named("cat")
 @Topic("File & Resources")
-@ResourceScope(DirectoryResource.class)
 @Help("Concatenate and print files")
 public class ConcatenatePlugin implements Plugin
 {
-
    @DefaultCommand
    public void run(
          @PipeIn final InputStream in, // pipe in
