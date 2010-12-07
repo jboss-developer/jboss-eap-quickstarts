@@ -31,7 +31,7 @@ import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
 
 /**
- * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class JavaMethodResource extends JavaMemberResource<Method>
 {

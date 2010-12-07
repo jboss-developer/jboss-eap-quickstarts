@@ -45,6 +45,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @ResourceHandles("*.java")
 public class JavaResource extends FileResource<JavaResource>
