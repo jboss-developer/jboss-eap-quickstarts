@@ -27,45 +27,51 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A Resource is an abstraction on top of usable items within a Forge project. For instance, files, source code, etc.
- * Like a simplified virtual file system, a Resource is represented hierarchically with a parent and children. This
- * allows plugins to say, direct access to project elements within a consistent API from files to class members. </br>
- * However, Resource instances should be treated as representative query result objects. A modification to an instance
- * variable in a resource will not be persisted. Rather than thinking of the Resource object as meta-data (which it is
- * not), it is better conceptualized as a wrapper or "view" of an underlying resource such as a File. For this reason,
- * custom Resource types should never implement any sort of static cache and should preferably lazily initialize their
- * data.
- *
+ * A Resource is an abstraction on top of usable items within a Forge project.
+ * For instance, files, source code, etc. Like a simplified virtual file system,
+ * a Resource is represented hierarchically with a parent and children. This
+ * allows plugins to say, direct access to project elements within a consistent
+ * API from files to class members. </br> However, Resource instances should be
+ * treated as representative query result objects. A modification to an instance
+ * variable in a resource will not be persisted. Rather than thinking of the
+ * Resource object as meta-data (which it is not), it is better conceptualized
+ * as a wrapper or "view" of an underlying resource such as a File. For this
+ * reason, custom Resource types should never implement any sort of static cache
+ * and should preferably lazily initialize their data.
+ * 
  * @author Mike Brock
  */
 public interface Resource<T>
 {
 
    /**
-    * Return the common name of the resource. If it's a file, for instance, just the file name.
-    *
+    * Return the common name of the resource. If it's a file, for instance, just
+    * the file name.
+    * 
     * @return The name of the resource.
     */
    public String getName();
 
    /**
-    * Return the fully qualified name of the resource (if applicable). In the case of a file, this would normally be the
-    * full path name.
-    *
+    * Return the fully qualified name of the resource (if applicable). In the
+    * case of a file, this would normally be the full path name.
+    * 
     * @return The fully qualified name.
     */
    public String getFullyQualifiedName();
 
    /**
-    * Get the parent of the current resource. Returns null if the current resource is the project root.
-    *
+    * Get the parent of the current resource. Returns null if the current
+    * resource is the project root.
+    * 
     * @return An instance of the resource parent.
     */
    public Resource<?> getParent();
 
    /**
-    * Create a new resource instance for the target resource reference of the type that this current resource is.
-    *
+    * Create a new resource instance for the target resource reference of the
+    * type that this current resource is.
+    * 
     * @param file The target reference to create the resource instance from.
     * @return A new resource.
     */
@@ -73,15 +79,19 @@ public interface Resource<T>
 
    /**
     * Return a list of child resources of the current resource.
-    *
+    * 
     * @return A list of child resources.
     */
    public List<Resource<?>> listResources();
-   
+
    public T getUnderlyingResourceObject();
 
    public InputStream getResourceInputStream();
 
+   /**
+    * Get a child of this resource. Returns null if no child by the given name
+    * can be found.
+    */
    public Resource<?> getChild(String name);
 
    public void setFlag(ResourceFlag flag);

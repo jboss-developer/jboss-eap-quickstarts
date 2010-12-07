@@ -122,8 +122,8 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
-    * Create a new resource instance for the target file of the type that this
-    * current resource is.
+    * Create a new {@link Resource} instance for the target file. The new
+    * {@link Resource} should be of the same type as <b>this</b>.
     * 
     * @param file The file to create the resource instance from.
     * @return A new resource.

@@ -22,11 +22,11 @@
 
 package org.jboss.seam.forge.project;
 
-import org.jboss.seam.forge.project.services.ResourceFactory;
-
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
+
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -74,14 +74,14 @@ public abstract class AbstractResource<T> implements Resource<T>
    {
       if (flags != null)
       {
-          flags.remove(flag);
+         flags.remove(flag);
       }
    }
 
    @Override
    public boolean isFlagSet(ResourceFlag flag)
    {
-      return flags != null && flags.contains(flag);
+      return (flags != null) && flags.contains(flag);
    }
 
    @Override
@@ -89,7 +89,5 @@ public abstract class AbstractResource<T> implements Resource<T>
    {
       return Collections.unmodifiableSet(flags);
    }
-
-
 
 }

@@ -30,7 +30,6 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.dependencies.Dependency;
-import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -62,12 +61,14 @@ public class MavenPomResource extends FileResource<MavenPomResource>
    public Resource<?> getChild(String name)
    {
       List<Resource<?>> chidren = listResources();
+
       for (Resource<?> child : chidren)
       {
          if (child.getName().trim().equals(name))
             return child;
       }
-      return new MavenDependencyResource(this, DependencyBuilder.create());
+
+      return null;
    }
 
    @Override

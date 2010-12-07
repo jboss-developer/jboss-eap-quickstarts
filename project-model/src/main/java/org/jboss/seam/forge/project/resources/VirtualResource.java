@@ -46,11 +46,11 @@ public abstract class VirtualResource<T> extends AbstractResource<T>
    @Override
    public Resource<?> getChild(final String name)
    {
-      throw new ResourceException("not implemented");
+      return null;
    }
 
    @Override
-   public Resource<T> createFrom(T file)
+   public Resource<T> createFrom(T resource)
    {
       throw new RuntimeException("not implemented");
    }
