@@ -38,7 +38,6 @@ public class MavenDependencyResource extends VirtualResource<Dependency>
    {
       super(null, parent);
       this.dependency = dependency;
-
       setFlag(ResourceFlag.Leaf);
    }
 

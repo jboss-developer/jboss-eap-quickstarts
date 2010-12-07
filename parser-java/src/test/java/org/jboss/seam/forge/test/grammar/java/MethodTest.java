@@ -21,17 +21,19 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.InputStream;
+import java.util.List;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -101,5 +103,15 @@ public class MethodTest
       assertEquals(2, parameters.size());
       assertEquals("foo", parameters.get(0).getName());
       assertEquals("bar", parameters.get(1).getName());
+   }
+
+   @Test
+   public void testGetParameterType() throws Exception
+   {
+      method.setParameters("final int foo, final String bar");
+      List<Parameter> parameters = method.getParameters();
+      assertEquals(2, parameters.size());
+      assertEquals("int", parameters.get(0).getType());
+      assertEquals("String", parameters.get(1).getType());
    }
 }

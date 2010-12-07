@@ -42,7 +42,7 @@ public class PathspecParser
    private final Resource<?> res;
    private final String path;
 
-   private static boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+   private static boolean isWindows = OSUtils.isWindows();
 
    List<Resource<?>> results = new LinkedList<Resource<?>>();
 

@@ -23,28 +23,29 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.parser.java.Parameter;
+import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
+import org.jboss.seam.forge.project.resources.VirtualResource;
 
 /**
- * @author Mike Brock
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaMethodResource extends JavaMemberResource<Method>
+public abstract class JavaMemberResource<T extends Member<?>> extends VirtualResource<T>
 {
-   private final Method method;
+   private final T member;
 
-   public JavaMethodResource(final Resource<?> parent, final Method method)
+   public JavaMemberResource(final Resource<?> parent, final T member)
    {
-      super(parent, method);
-      this.method = method;
+      super(parent);
+      this.member = member;
+      setFlag(ResourceFlag.Leaf);
    }
 
    @Override
-   public Resource<Method> createFrom(final Method file)
+   public Resource<T> createFrom(final T file)
    {
       throw new RuntimeException("not implemented");
    }
@@ -56,38 +57,20 @@ public class JavaMethodResource extends JavaMemberResource<Method>
    }
 
    @Override
-   public Method getUnderlyingResourceObject()
+   public T getUnderlyingResourceObject()
    {
-      return method;
+      return member;
    }
 
    @Override
    public String getName()
    {
-      String params = "(";
-      List<Parameter> parameters = method.getParameters();
-
-      Iterator<Parameter> iterator = parameters.iterator();
-      while (iterator.hasNext())
-      {
-         Parameter p = iterator.next();
-         params += p.getType();
-
-         if (iterator.hasNext())
-         {
-            params += ",";
-         }
-      }
-
-      params += ")";
-
-      String returnType = method.getReturnType() == null ? "void" : method.getReturnType();
-      return method.getName() + params + "::" + returnType;
+      return member.getName();
    }
 
    @Override
    public String toString()
    {
-      return method.toString();
+      return member.toString();
    }
 }

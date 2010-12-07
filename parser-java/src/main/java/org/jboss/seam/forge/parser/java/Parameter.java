@@ -32,4 +32,6 @@ public interface Parameter extends Internal, Origin<JavaClass>
 {
    // TODO this needs to be filled out (Type, Annotations, Initializer, Etc.)
    String getName();
+
+   String getType();
 }

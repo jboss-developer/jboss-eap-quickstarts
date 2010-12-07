@@ -25,7 +25,7 @@ package org.jboss.seam.forge.shell.color;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
@@ -44,7 +44,7 @@ public class JavaColorizer
    /**
     * Perform colorization of a Java source string.
     */
-   public static String format(Shell shell, String in)
+   public static String format(ShellPrintWriter writer, String in)
    {
       StringBuilder output = new StringBuilder("");
 
@@ -58,7 +58,7 @@ public class JavaColorizer
          {
             if (capture)
             {
-               doCapture(shell, arr, output, start, cursor);
+               doCapture(writer, arr, output, start, cursor);
                capture = false;
             }
 
@@ -72,7 +72,7 @@ public class JavaColorizer
             }
 
             cursor = balancedCapture(arr, start = cursor, arr[cursor]);
-            output.append(shell.renderColor(CLR_STR_LITERAL, getHTMLizedString(arr, start, ++cursor - start)));
+            output.append(writer.renderColor(CLR_STR_LITERAL, getHTMLizedString(arr, start, ++cursor - start)));
 
          }
          else if (!capture)
@@ -91,7 +91,7 @@ public class JavaColorizer
                      cursor++;
 
                   String comment = getHTMLizedString(arr, start, ++cursor - start + 1);
-                  output.append(shell.renderColor(CLR_COMMENT, comment));
+                  output.append(writer.renderColor(CLR_COMMENT, comment));
                   cursor++;
                }
                else if (arr[cursor] == '*')
@@ -100,7 +100,7 @@ public class JavaColorizer
                      cursor++;
 
                   String comment = getHTMLizedString(arr, start, ++cursor - start + 1);
-                  output.append(shell.renderColor(CLR_COMMENT, comment));
+                  output.append(writer.renderColor(CLR_COMMENT, comment));
                   cursor++;
                }
                else
@@ -114,7 +114,7 @@ public class JavaColorizer
                while ((cursor != arr.length) && Character.isJavaIdentifierPart(arr[cursor]))
                   cursor++;
                String token = new String(arr, start, cursor - start);
-               output.append(shell.renderColor(CLR_ANNOTATION, token));
+               output.append(writer.renderColor(CLR_ANNOTATION, token));
             }
          }
 
@@ -122,7 +122,7 @@ public class JavaColorizer
          {
             if (capture)
             {
-               doCapture(shell, arr, output, start, cursor);
+               doCapture(writer, arr, output, start, cursor);
                capture = false;
             }
             output.append(arr[cursor]);
@@ -142,12 +142,12 @@ public class JavaColorizer
       return new String(arr, start, length);
    }
 
-   private static void doCapture(Shell shell, char[] arr, StringBuilder output, int start, int cursor)
+   private static void doCapture(ShellPrintWriter writer, char[] arr, StringBuilder output, int start, int cursor)
    {
       String tk = new String(arr, start, cursor - start).trim();
       if (LITERALS.contains(tk))
       {
-         output.append(shell.renderColor(CLR_KEYWORD, tk));
+         output.append(writer.renderColor(CLR_KEYWORD, tk));
       }
       else
       {

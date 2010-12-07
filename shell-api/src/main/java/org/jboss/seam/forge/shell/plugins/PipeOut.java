@@ -23,16 +23,14 @@
 package org.jboss.seam.forge.shell.plugins;
 
 import org.jboss.seam.forge.shell.ShellPrintWriter;
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author Mike Brock .
  */
 public interface PipeOut extends ShellPrintWriter
 {
-   public String renderColor(ShellColor color, String s);
-
    public boolean isPiped();
+
    public void setPiped(boolean v);
 
    public String getBuffer();

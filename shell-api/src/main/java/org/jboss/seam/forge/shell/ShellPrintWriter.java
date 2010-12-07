@@ -30,11 +30,16 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 public interface ShellPrintWriter
 {
    public void print(String s);
+
    public void println(String s);
+
    public void println();
 
    public void print(ShellColor color, String s);
+
    public void println(ShellColor color, String s);
+
+   public String renderColor(ShellColor color, String s);
 
    public void write(byte b);
 }

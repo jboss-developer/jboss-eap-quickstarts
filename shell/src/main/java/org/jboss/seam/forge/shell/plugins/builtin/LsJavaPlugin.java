@@ -30,10 +30,12 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.builtin.JavaFieldResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaMemberResource;
+import org.jboss.seam.forge.project.resources.builtin.JavaMethodResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.color.JavaColorizer;
@@ -53,11 +55,13 @@ import org.jboss.seam.forge.shell.util.ShellColor;
  * @author Mike Brock
  */
 @OverloadedName("ls")
-@ResourceScope(JavaResource.class)
+@ResourceScope({ JavaResource.class, JavaMethodResource.class, JavaFieldResource.class })
 @Topic("File & Resources")
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
 {
+   private static final String DELIM = " :: ";
+
    @Inject
    private Shell shell;
 
@@ -68,53 +72,38 @@ public class LsJavaPlugin implements Plugin
                    final PipeOut out) throws FileNotFoundException
    {
 
-      Resource<?> currentResource = shell.getCurrentResource();
-      JavaClass javaClass;
-
-      if (currentResource instanceof JavaResource)
+      for (Resource<?> resource : paths)
       {
-         JavaResource javaSource = (JavaResource) currentResource;
-         javaClass = javaSource.getJavaClass();
-
-         for (Resource<?> p : paths)
+         if (resource instanceof JavaResource)
          {
-            if (!".".equals(p))
+            if (showAll)
             {
-               List<Member<?>> members = javaClass.getMembers();
-               if (members.size() > 0)
-               {
-                  shell.println();
-               }
-               for (Member<?> member : members)
-               {
-                  if (p.equals(member.getName()))
-                  {
-                     shell.println(JavaColorizer.format(shell, member.toString()));
-                  }
-               }
+               out.print(JavaColorizer.format(out, resource.toString()));
             }
             else
             {
+               JavaResource javaSource = (JavaResource) resource;
+               JavaClass javaClass = javaSource.getJavaClass();
                List<String> output = new ArrayList<String>();
 
-               shell.println();
-               shell.println(ShellColor.RED, "[fields]");
+               out.println();
+               out.println(ShellColor.RED, "[fields]");
                List<Field> fields = javaClass.getFields();
 
                for (Field field : fields)
                {
-                  String entry = shell.renderColor(ShellColor.BLUE, field.getVisibility().scope());
-                  entry += shell.renderColor(ShellColor.GREEN, " " + field.getType() + "");
+                  String entry = out.renderColor(ShellColor.BLUE, field.getVisibility().scope());
+                  entry += out.renderColor(ShellColor.GREEN, " " + field.getType() + "");
                   entry += " " + field.getName() + ";";
                   output.add(entry);
                }
-               GeneralUtils.printOutColumns(output, shell, shell, true);
+               GeneralUtils.printOutColumns(output, out, shell, true);
                shell.println();
 
                // rinse and repeat for methods
                output = new ArrayList<String>();
                List<Method> methods = javaClass.getMethods();
-               shell.println(ShellColor.RED, "[methods]");
+               out.println(ShellColor.RED, "[methods]");
                for (Method method : methods)
                {
                   String entry = shell.renderColor(ShellColor.BLUE, method.getVisibility().scope());
@@ -126,13 +115,20 @@ public class LsJavaPlugin implements Plugin
                   }
                   parameterString += ")";
 
-                  entry += " : " + method.getName() + parameterString;
-                  entry += shell.renderColor(ShellColor.GREEN, " : " + method.getReturnType() + "");
+                  entry += DELIM + method.getName() + parameterString;
+
+                  String returnType = method.getReturnType() == null ? "void" : method.getReturnType();
+                  entry += out.renderColor(ShellColor.GREEN, DELIM + returnType + "");
                   output.add(entry);
                }
-               GeneralUtils.printOutColumns(output, shell, shell, true);
-               shell.println();
+               GeneralUtils.printOutColumns(output, out, shell, true);
+               out.println();
             }
+         }
+         else if (resource instanceof JavaMemberResource<?>)
+         {
+            out.println();
+            out.println(JavaColorizer.format(out, resource.toString()));
          }
       }
    }

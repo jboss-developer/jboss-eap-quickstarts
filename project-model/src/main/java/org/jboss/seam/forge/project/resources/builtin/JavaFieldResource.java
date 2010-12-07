@@ -22,24 +22,23 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.VirtualResource;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Mike Brock
  */
-public class JavaFieldResource extends VirtualResource<Field>
+public class JavaFieldResource extends JavaMemberResource<Field>
 {
-   private Field field;
+   private final Field field;
 
    public JavaFieldResource(final JavaResource parent, final Field field)
    {
-      super(parent);
+      super(parent, field);
       this.field = field;
 
       setFlag(ResourceFlag.Leaf);
@@ -66,12 +65,12 @@ public class JavaFieldResource extends VirtualResource<Field>
    @Override
    public String getName()
    {
-      return field.getName();
+      return field.getName() + "::" + field.getType();
    }
 
    @Override
    public String toString()
    {
-      return field.getName();
+      return field.toString();
    }
 }

@@ -22,22 +22,26 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-
-import javax.inject.Inject;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Mike Brock
@@ -57,6 +61,39 @@ public class JavaResource extends FileResource<JavaResource>
    {
       super(factory, file);
       setFlag(ResourceFlag.ProjectSourceFile);
+   }
+
+   @Override
+   public Resource<?> getChild(String name)
+   {
+      List<Resource<?>> children = listResources();
+      List<Resource<?>> subset = new ArrayList<Resource<?>>();
+
+      for (Resource<?> child : children)
+      {
+         if ((name != null) && (child instanceof JavaMemberResource<?>))
+         {
+            String childName = child.getName();
+            if (((Member<?>) child.getUnderlyingResourceObject()).getName().equals(name.trim())
+                  || childName.equals(name))
+            {
+               subset.add(child);
+            }
+         }
+      }
+
+      if (subset.size() == 1)
+      {
+         return subset.get(0);
+      }
+      else if (subset.size() > 1)
+      {
+         throw new ResourceException("Ambiguous name [" + name + "], full type signature required");
+      }
+      else
+      {
+         return null;
+      }
    }
 
    @Override
@@ -85,7 +122,7 @@ public class JavaResource extends FileResource<JavaResource>
 
       return list;
    }
-   
+
    public JavaResource setContents(JavaClass javaClass)
    {
       setContents(javaClass.toString());
@@ -115,6 +152,13 @@ public class JavaResource extends FileResource<JavaResource>
    @Override
    public String toString()
    {
-      return file.getName();
+      try
+      {
+         return getJavaClass().toString();
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new ResourceException(e);
+      }
    }
 }

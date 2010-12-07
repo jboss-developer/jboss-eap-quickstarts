@@ -47,6 +47,10 @@ public interface Method extends Abstractable<Method>, Member<Method>
 
    public Method setName(final String name);
 
+   /**
+    * Get the return type of this {@link Method} or return null if the return
+    * type is void.
+    */
    public String getReturnType();
 
    public Method setReturnType(final Class<?> type);

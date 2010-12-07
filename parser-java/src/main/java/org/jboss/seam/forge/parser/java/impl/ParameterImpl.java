@@ -21,6 +21,8 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
+import java.lang.reflect.Field;
+
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -70,6 +72,28 @@ public class ParameterImpl implements Parameter
          return name.toString();
       }
       return "";
+   }
+
+   @Override
+   public String getType()
+   {
+      Object type = "";
+
+      try
+      {
+         // FIXME there *must* be a better way of doing this
+         Class<? extends VariableDeclaration> clazz = param.getClass();
+         Field field = clazz.getDeclaredField("type");
+         field.setAccessible(true);
+         type = field.get(param);
+         field.setAccessible(false);
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException(e);
+      }
+
+      return type.toString();
    }
 
 }
