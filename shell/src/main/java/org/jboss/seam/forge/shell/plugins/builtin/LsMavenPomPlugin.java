@@ -38,6 +38,7 @@ import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.OverloadedName;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.Topic;
@@ -45,7 +46,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * LsMavenPomPlugin
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
@@ -61,7 +62,8 @@ public class LsMavenPomPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") final String... path) throws FileNotFoundException
+                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
+                   final PipeOut out) throws FileNotFoundException
    {
 
       Resource<?> currentResource = shell.getCurrentResource();
@@ -70,55 +72,62 @@ public class LsMavenPomPlugin implements Plugin
       {
          MavenPomResource pom = (MavenPomResource) currentResource;
 
+         out.println();
+         out.println(shell.renderColor(ShellColor.RED, "[dependencies] "));
          List<Resource<?>> children = pom.listResources();
-         for(Resource<?> child : children)
+         for (Resource<?> child : children)
          {
-            if(child instanceof MavenDependencyResource)
+            if (child instanceof MavenDependencyResource)
             {
-               MavenDependencyResource resource = (MavenDependencyResource)child;
+               MavenDependencyResource resource = (MavenDependencyResource) child;
                Dependency dep = resource.getDependency();
-               shell.println(
-                     shell.renderColor(ShellColor.NONE, dep.getGroupId()) +
-                     shell.renderColor(ShellColor.RED, ":") + 
-                     shell.renderColor(ShellColor.NONE, dep.getArtifactId()) +
-                     shell.renderColor(ShellColor.RED, ":") +
-                     shell.renderColor(ShellColor.NONE, dep.getVersion() == null ? "":dep.getVersion()) +
-                     shell.renderColor(ShellColor.RED, ":") +
-                     shell.renderColor(ShellColor.NONE, dep.getPackagingType() == null ? "":dep.getPackagingType().name().toLowerCase()) +
-                     shell.renderColor(ShellColor.RED, ":") +
-                     shell.renderColor(determineDependencyShellColor(dep.getScopeType()), dep.getScopeType() == null ? "compile":dep.getScopeType().name().toLowerCase()));
+               out.println(
+                     out.renderColor(ShellColor.BLUE, dep.getGroupId()) +
+                           out.renderColor(ShellColor.BOLD, " : ") +
+                           out.renderColor(ShellColor.BLUE, dep.getArtifactId()) +
+                           out.renderColor(ShellColor.BOLD, " : ") +
+                           out.renderColor(ShellColor.NONE, dep.getVersion() == null ? "" : dep.getVersion()) +
+                           out.renderColor(ShellColor.BOLD, " : ") +
+                           out.renderColor(ShellColor.NONE, dep.getPackagingType() == null ? "" : dep.getPackagingType().name().toLowerCase()) +
+                           out.renderColor(ShellColor.BOLD, " : ") +
+                           out.renderColor(determineDependencyShellColor(dep.getScopeType()), dep.getScopeType() == null ? "compile" : dep.getScopeType().name().toLowerCase()));
             }
-            else if(child instanceof MavenProfileResource)
+         }
+
+         out.println();
+         out.println(out.renderColor(ShellColor.RED, "[profiles] "));
+
+         for (Resource<?> child : children)
+         {
+            if (child instanceof MavenProfileResource)
             {
-               MavenProfileResource resource = (MavenProfileResource)child;
-               shell.println(
-                     resource.getName()
-               );
+               MavenProfileResource resource = (MavenProfileResource) child;
+               out.println(out.renderColor(ShellColor.BLUE, resource.getName()));
             }
          }
       }
    }
-   
+
    private ShellColor determineDependencyShellColor(ScopeType type)
    {
-      if(type == null)
+      if (type == null)
       {
          return ShellColor.YELLOW;
       }
-      switch(type)
+      switch (type)
       {
-         case PROVIDED:
-            return ShellColor.GREEN;
-         case COMPILE:
-            return ShellColor.YELLOW;
-         case RUNTIME:
-            return ShellColor.MAGENTA;
-         case OTHER:
-            return ShellColor.BLACK;
-         case SYSTEM:
-            return ShellColor.BLACK;
-         case TEST:
-            return ShellColor.BLUE;
+      case PROVIDED:
+         return ShellColor.GREEN;
+      case COMPILE:
+         return ShellColor.YELLOW;
+      case RUNTIME:
+         return ShellColor.MAGENTA;
+      case OTHER:
+         return ShellColor.BLACK;
+      case SYSTEM:
+         return ShellColor.BLACK;
+      case TEST:
+         return ShellColor.BLUE;
       }
       return ShellColor.NONE;
    }

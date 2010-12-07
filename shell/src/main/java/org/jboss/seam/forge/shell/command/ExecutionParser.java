@@ -22,22 +22,32 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import org.jboss.seam.forge.shell.PromptType;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.command.parser.*;
-import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.mvel2.util.ParseTools;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.command.parser.CommandParser;
+import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
+import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
+import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
+import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
+import org.jboss.seam.forge.shell.command.parser.ParseErrorParser;
+import org.jboss.seam.forge.shell.command.parser.Tokenizer;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.mvel2.util.ParseTools;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -182,12 +192,10 @@ public class ExecutionParser
             value = valueMap.get(option);
          }
 
-
          if (!option.isPipeOut() && !option.isPipeIn())
          {
             // TODO Is this really where we want to do PromptType conversion?
             value = doPromptTypeConversions(value, promptType);
-
 
             if ((value != null) && !value.toString().matches(promptType.getPattern()))
             {

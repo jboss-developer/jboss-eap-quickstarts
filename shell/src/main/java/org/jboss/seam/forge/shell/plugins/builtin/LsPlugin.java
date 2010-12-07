@@ -22,28 +22,44 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
-
 /**
- * Lists directory contents for filesystem based directories. This is a simplified version of the UNIX 'ls' command
- * and currently supports the -l and -a flags, as in unix.
- *
+ * Lists directory contents for filesystem based directories. This is a
+ * simplified version of the UNIX 'ls' command and currently supports the -l and
+ * -a flags, as in unix.
+ * 
  * @author Mike Brock
  */
 @Named("ls")
@@ -93,8 +109,9 @@ public class LsPlugin implements Plugin
          List<Resource<?>> childResources;
 
          /**
-          * Check to see if the way this resource was resolved was by a wildcard, in which case we don't
-          * expand into it's children. Otherwise, if it's fully qualified we recurse into that directory
+          * Check to see if the way this resource was resolved was by a
+          * wildcard, in which case we don't expand into it's children.
+          * Otherwise, if it's fully qualified we recurse into that directory
           * and list all those files.
           */
          if (!resource.isFlagSet(ResourceFlag.AmbiguouslyQualified) && resource.isFlagSet(ResourceFlag.Node))
@@ -105,7 +122,7 @@ public class LsPlugin implements Plugin
          {
             if (resource.exists())
             {
-               childResources = Collections.<Resource<?>>singletonList(resource);
+               childResources = Collections.<Resource<?>> singletonList(resource);
             }
             else
             {
@@ -123,7 +140,7 @@ public class LsPlugin implements Plugin
              */
             int fileCount = 0;
             boolean dir;
-            @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"}) List<String> subList;
+            List<String> subList;
             for (Resource<?> r : childResources)
             {
                sortMap.put(el = r.getName(), subList = new ArrayList<String>());
@@ -193,7 +210,7 @@ public class LsPlugin implements Plugin
             @Override
             public String format(int column, String value)
             {
-               if (column == 7 && value.endsWith("/"))
+               if ((column == 7) && value.endsWith("/"))
                {
                   return shell.renderColor(ShellColor.BLUE, value);
                }
@@ -206,7 +223,7 @@ public class LsPlugin implements Plugin
 
          printOutTables(
                listBuild,
-               new boolean[]{false, false, false, true, false, false, true, false},
+               new boolean[] { false, false, false, true, false, false, true, false },
                out,
                formatCallback);
       }

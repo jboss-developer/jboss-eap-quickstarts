@@ -22,10 +22,14 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import org.jboss.seam.forge.project.Resource;
-
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.jboss.seam.forge.project.Resource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -56,6 +60,24 @@ public class CommandMetadata
          }
       }
       throw new IllegalArgumentException("No such option [" + name + "] for command: " + this);
+   }
+
+   /**
+    * Return the option at the given index. This index represents where the
+    * option was defined in the plugin method signature, not the index of the
+    * option on the command line.
+    */
+   public OptionMetadata getOptionByAbsoluteIndex(int index)
+   {
+      for (OptionMetadata option : options)
+      {
+         if (option.getIndex() == index)
+         {
+            return option;
+         }
+      }
+      throw new IllegalArgumentException("No option with index [" + index + "] exists for command: " + this);
+
    }
 
    public OptionMetadata getOrderedOptionByIndex(final int index) throws IllegalArgumentException
@@ -123,7 +145,6 @@ public class CommandMetadata
       }
       return options;
    }
-
 
    public void setOptions(final List<OptionMetadata> options)
    {

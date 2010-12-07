@@ -38,6 +38,7 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.resources.FileResource;
@@ -52,10 +53,12 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@RunWith(Arquillian.class)
 public abstract class AbstractShellTest
 {
    @Deployment
@@ -74,17 +77,17 @@ public abstract class AbstractShellTest
 
    @Inject
    private BeanManager beanManager;
-   
+
    private Queue<String> inputQueue = new LinkedList<String>();
 
-   private final List<FileResource> tempFolders = new ArrayList<FileResource>();
+   private final List<FileResource<?>> tempFolders = new ArrayList<FileResource<?>>();
 
    private static final String PKG = AbstractShellTest.class.getSimpleName().toLowerCase();
 
    @Inject
    private Instance<Project> project;
-   
-   @Inject 
+
+   @Inject
    private ResourceFactory factory;
 
    @BeforeClass
@@ -104,7 +107,7 @@ public abstract class AbstractShellTest
 
       shell.setVerbose(true);
       shell.setCurrentResource(factory.getResourceFrom(tempFolder));
-      beanManager.fireEvent(new Startup(), new Annotation[]{});
+      beanManager.fireEvent(new Startup(), new Annotation[] {});
 
       resetInputQueue();
       shell.setOutputWriter(new PrintWriter(System.out));
@@ -118,7 +121,7 @@ public abstract class AbstractShellTest
       File tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      tempFolders.add((FileResource) factory.getResourceFrom(tempFolder));
+      tempFolders.add((FileResource<?>) factory.getResourceFrom(tempFolder));
       return tempFolder;
    }
 
@@ -135,7 +138,7 @@ public abstract class AbstractShellTest
    @After
    public void afterTest() throws IOException
    {
-      for (FileResource file : tempFolders)
+      for (FileResource<?> file : tempFolders)
       {
          if (file.exists())
          {

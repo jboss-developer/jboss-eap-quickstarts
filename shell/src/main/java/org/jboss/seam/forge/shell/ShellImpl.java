@@ -22,8 +22,6 @@
 
 package org.jboss.seam.forge.shell;
 
-import static org.jboss.seam.forge.shell.util.Parsing.firstToken;
-import static org.jboss.seam.forge.shell.util.Parsing.firstWhitespace;
 import static org.mvel2.DataConversion.addConversionHandler;
 
 import java.io.File;
@@ -31,15 +29,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Pattern;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -57,7 +52,6 @@ import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
-import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
@@ -82,8 +76,6 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
-import org.mvel2.MVEL;
-import org.mvel2.PropertyAccessException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -98,14 +90,10 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
-   private static final Pattern validCommand = Pattern.compile("^[a-zA-Z0-9\\-_]{0,}$");
 
    @Inject
    @Parameters
    private List<String> parameters;
-
-   @Inject
-   private ExecutionParser parser;
 
    @Inject
    private Event<PostStartup> postStartup;
@@ -113,12 +101,10 @@ public class ShellImpl implements Shell
    @Inject
    private CurrentProject projectContext;
 
-   // TODO Resource API needs to be separated from Project API
    @Inject
    private ResourceFactory resourceFactory;
    private Resource<?> lastResource;
 
-   // inject the runtime of the shell scripting engine
    @Inject
    private FSHRuntime fshRuntime;
 
@@ -349,62 +335,6 @@ public class ShellImpl implements Shell
             println("Exception encountered: (type \"verbose false\" to disable stack traces)");
             e.printStackTrace();
          }
-      }
-   }
-
-   private String execScript(final String script)
-   {
-      try
-      {
-         Object retVal = MVEL.eval(script, new ScriptContext(), properties);
-         if (retVal != null)
-         {
-            return String.valueOf(retVal);
-         }
-      }
-      catch (PropertyAccessException e)
-      {
-         println(firstToken(script) + ": command or property not found.");
-
-         if (verbose)
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (Exception e)
-      {
-         if (!validCommand.matcher(firstToken(script)).matches())
-         {
-            println("error executing command:\n" + e.getMessage());
-         }
-         else if (firstWhitespace(script) != -1)
-         {
-            println(firstToken(script) + ": command or property not found.");
-         }
-         else
-         {
-            println(firstToken(script) + ": error executing statement: " + e.getMessage());
-         }
-
-         if (verbose)
-         {
-            e.printStackTrace();
-         }
-      }
-
-      return "";
-   }
-
-   public class ScriptContext
-   {
-      public void shell(final String cmd)
-      {
-         execute(cmd);
-      }
-
-      public String time()
-      {
-         return new SimpleDateFormat("hh:mm").format(new Date());
       }
    }
 
@@ -923,7 +853,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public FileResource promptFile(final String message)
+   public FileResource<?> promptFile(final String message)
    {
       String path = "";
       while ((path == null) || path.trim().isEmpty())
@@ -936,15 +866,15 @@ public class ShellImpl implements Shell
 
       if (resource instanceof FileResource)
       {
-         return (FileResource) resource;
+         return (FileResource<?>) resource;
       }
       return null;
    }
 
    @Override
-   public FileResource promptFile(final String message, final FileResource defaultIfEmpty)
+   public FileResource<?> promptFile(final String message, final FileResource<?> defaultIfEmpty)
    {
-      FileResource result = defaultIfEmpty;
+      FileResource<?> result = defaultIfEmpty;
       String path = promptWithCompleter(message, new FileOptionCompleter());
       if (!"".equals(path) && (path != null) && !path.trim().isEmpty())
       {
@@ -953,7 +883,7 @@ public class ShellImpl implements Shell
 
          if (resource instanceof FileResource)
          {
-            result = (FileResource) resource;
+            result = (FileResource<?>) resource;
          }
          else
          {

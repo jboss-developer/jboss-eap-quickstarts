@@ -77,6 +77,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
     * 
     * @return An instance of {@link File}
     */
+   @Override
    public File getUnderlyingResourceObject()
    {
       if (scratch)
@@ -98,7 +99,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       }
       catch (FileNotFoundException e)
       {
-         throw new RuntimeException("cannot obtain stream to file: file does not exist: " + file.getAbsolutePath());
+         throw new ResourceException("cannot obtain stream to file: file does not exist: " + file.getAbsolutePath());
       }
    }
 
@@ -108,14 +109,16 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
     * 
     * @return An instance of the resource parent.
     */
+   @Override
    public Resource<?> getParent()
    {
       return new DirectoryResource(resourceFactory, file.getParentFile());
    }
 
+   @Override
    public Resource<?> getChild(final String name)
    {
-      throw new RuntimeException("this resource type can have no children");
+      throw new ResourceException("[" + this.getClass().getSimpleName() + "] can have no children");
    }
 
    /**
@@ -125,8 +128,10 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
     * @param file The file to create the resource instance from.
     * @return A new resource.
     */
+   @Override
    public abstract Resource<File> createFrom(File file);
 
+   @Override
    public boolean exists()
    {
       return getUnderlyingResourceObject().exists();
@@ -173,7 +178,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
          return _deleteRecursive(file, true);
       }
 
-      if (file.listFiles() != null && file.listFiles().length != 0)
+      if ((file.listFiles() != null) && (file.listFiles().length != 0))
       {
          throw new RuntimeException("directory not empty");
       }
