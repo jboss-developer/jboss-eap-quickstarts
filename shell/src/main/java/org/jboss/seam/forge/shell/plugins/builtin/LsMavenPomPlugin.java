@@ -66,6 +66,7 @@ public class LsMavenPomPlugin implements Plugin
                    final PipeOut out) throws FileNotFoundException
    {
 
+      // TODO this should not use the shell - rather the paths parameter
       Resource<?> currentResource = shell.getCurrentResource();
 
       if (currentResource instanceof MavenPomResource)
@@ -73,7 +74,7 @@ public class LsMavenPomPlugin implements Plugin
          MavenPomResource pom = (MavenPomResource) currentResource;
 
          out.println();
-         out.println(shell.renderColor(ShellColor.RED, "[dependencies] "));
+         out.println(out.renderColor(ShellColor.RED, "[dependencies] "));
          List<Resource<?>> children = pom.listResources();
          for (Resource<?> child : children)
          {

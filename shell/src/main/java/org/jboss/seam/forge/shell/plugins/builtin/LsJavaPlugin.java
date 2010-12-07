@@ -98,7 +98,7 @@ public class LsJavaPlugin implements Plugin
                   output.add(entry);
                }
                GeneralUtils.printOutColumns(output, out, shell, true);
-               shell.println();
+               out.println();
 
                // rinse and repeat for methods
                output = new ArrayList<String>();
@@ -106,7 +106,7 @@ public class LsJavaPlugin implements Plugin
                out.println(ShellColor.RED, "[methods]");
                for (Method method : methods)
                {
-                  String entry = shell.renderColor(ShellColor.BLUE, method.getVisibility().scope());
+                  String entry = out.renderColor(ShellColor.BLUE, method.getVisibility().scope());
                   String parameterString = "(";
 
                   for (Parameter param : method.getParameters())
