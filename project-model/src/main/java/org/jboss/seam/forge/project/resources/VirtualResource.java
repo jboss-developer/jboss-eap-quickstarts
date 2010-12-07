@@ -22,23 +22,35 @@
 
 package org.jboss.seam.forge.project.resources;
 
+import java.io.InputStream;
+
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
-
-import java.io.InputStream;
+import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * @author Mike Brock
  */
-public abstract class ClassMemberResource<T> extends AbstractResource<T>
+public abstract class VirtualResource<T> extends AbstractResource<T>
 {
-   protected ClassMemberResource(final Resource<?> parent)
+   protected VirtualResource(final Resource<?> parent)
    {
       super(null, parent);
    }
 
+   protected VirtualResource(ResourceFactory factory, final Resource<?> parent)
+   {
+      super(factory, parent);
+   }
+
    @Override
    public Resource<?> getChild(final String name)
+   {
+      throw new ResourceException("not implemented");
+   }
+
+   @Override
+   public Resource<T> createFrom(T file)
    {
       throw new RuntimeException("not implemented");
    }
@@ -46,7 +58,7 @@ public abstract class ClassMemberResource<T> extends AbstractResource<T>
    @Override
    public InputStream getResourceInputStream()
    {
-      throw new RuntimeException("not supported");
+      throw new ResourceException("not supported");
    }
 
    @Override

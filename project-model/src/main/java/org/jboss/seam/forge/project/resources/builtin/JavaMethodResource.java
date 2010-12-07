@@ -26,7 +26,7 @@ import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.ClassMemberResource;
+import org.jboss.seam.forge.project.resources.VirtualResource;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * @author Mike Brock
  */
-public class JavaMethodResource extends ClassMemberResource<Method>
+public class JavaMethodResource extends VirtualResource<Method>
 {
    private Method method;
 

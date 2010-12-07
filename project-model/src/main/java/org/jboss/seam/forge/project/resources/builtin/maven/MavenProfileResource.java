@@ -17,79 +17,51 @@
 package org.jboss.seam.forge.project.resources.builtin.maven;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.model.Profile;
-import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
+import org.jboss.seam.forge.project.resources.VirtualResource;
 
 /**
  * MavenProfileResource
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-public class MavenProfileResource extends AbstractResource<Profile>
+public class MavenProfileResource extends VirtualResource<Profile>
 {
-   private Profile profile;
-   
+   private final Profile profile;
+
    public MavenProfileResource(Resource<?> parent, Profile profile)
    {
-      super(null, parent);
+      super(parent);
       this.profile = profile;
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#getName()
-    */
    @Override
    public String getName()
    {
       return profile.getId();
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#createFrom(java.lang.Object)
-    */
-   @Override
-   public Resource<Profile> createFrom(Profile file)
-   {
-      throw new RuntimeException("not implemented");
-   }
-
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#listResources()
-    */
    @Override
    public List<Resource<?>> listResources()
    {
       List<Resource<?>> children = new ArrayList<Resource<?>>();
       List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(profile.getDependencies());
-      for(Dependency dep : dependencies)
+      for (Dependency dep : dependencies)
       {
          children.add(new MavenDependencyResource(this, dep));
       }
       return children;
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#getUnderlyingResourceObject()
-    */
    @Override
    public Profile getUnderlyingResourceObject()
    {
       return profile;
-   }
-
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#getChild(java.lang.String)
-    */
-   @Override
-   public Resource<?> getChild(String name)
-   {
-      throw new RuntimeException("not implemented");
    }
 }

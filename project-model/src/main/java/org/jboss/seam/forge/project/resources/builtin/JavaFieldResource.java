@@ -25,7 +25,7 @@ package org.jboss.seam.forge.project.resources.builtin;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.ClassMemberResource;
+import org.jboss.seam.forge.project.resources.VirtualResource;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * @author Mike Brock
  */
-public class JavaFieldResource extends ClassMemberResource<Field>
+public class JavaFieldResource extends VirtualResource<Field>
 {
    private Field field;
 

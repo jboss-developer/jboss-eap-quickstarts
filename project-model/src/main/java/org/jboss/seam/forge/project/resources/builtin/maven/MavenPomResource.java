@@ -36,15 +36,15 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * MavenPomResource
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
 @ResourceHandles("pom.xml")
-public class MavenPomResource extends FileResource
+public class MavenPomResource extends FileResource<MavenPomResource>
 {
    private Model currentModel;
-   
+
    @Inject
    public MavenPomResource(final ResourceFactory factory)
    {
@@ -57,14 +57,15 @@ public class MavenPomResource extends FileResource
       setFlag(ResourceFlag.ProjectSourceFile);
    }
 
-   
-   /* (non-Javadoc)
+   /*
+    * (non-Javadoc)
+    * 
     * @see org.jboss.seam.forge.project.Resource#listResources()
     */
    @Override
    public List<Resource<?>> listResources()
    {
-      List<Resource<?>> children = new ArrayList<Resource<?>>(); 
+      List<Resource<?>> children = new ArrayList<Resource<?>>();
       listDependencies(children);
       listProfiles(children);
       return children;
@@ -74,17 +75,17 @@ public class MavenPomResource extends FileResource
    {
       Model model = getCurrentModel();
       List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(model.getDependencies());
-      for(Dependency dep : dependencies)
+      for (Dependency dep : dependencies)
       {
          children.add(new MavenDependencyResource(this, dep));
       }
    }
-   
+
    private void listProfiles(List<Resource<?>> children)
    {
       Model model = getCurrentModel();
       List<Profile> profiles = model.getProfiles();
-      for(Profile profile : profiles)
+      for (Profile profile : profiles)
       {
          children.add(new MavenProfileResource(this, profile));
       }
@@ -95,9 +96,13 @@ public class MavenPomResource extends FileResource
       initialize();
       return currentModel;
    }
-   
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.resources.FileResource#createFrom(java.io.File)
+
+   /*
+    * (non-Javadoc)
+    * 
+    * @see
+    * org.jboss.seam.forge.project.resources.FileResource#createFrom(java.io
+    * .File)
     */
    @Override
    public Resource<File> createFrom(File file)
@@ -107,7 +112,7 @@ public class MavenPomResource extends FileResource
 
    private void initialize()
    {
-      if(currentModel == null)
+      if (currentModel == null)
       {
          try
          {
@@ -127,10 +132,7 @@ public class MavenPomResource extends FileResource
          }
       }
    }
-   
-   /* (non-Javadoc)
-    * @see java.lang.Object#toString()
-    */
+
    @Override
    public String toString()
    {

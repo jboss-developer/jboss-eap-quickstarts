@@ -19,29 +19,29 @@ package org.jboss.seam.forge.project.resources.builtin.maven;
 import java.util.Collections;
 import java.util.List;
 
-import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.resources.VirtualResource;
 
 /**
  * MavenDependencyResource
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-public class MavenDependencyResource extends AbstractResource<Dependency>
+public class MavenDependencyResource extends VirtualResource<Dependency>
 {
-   private Dependency dependency;
+   private final Dependency dependency;
 
    public MavenDependencyResource(Resource<?> parent, Dependency dependency)
    {
       super(null, parent);
       this.dependency = dependency;
-      
+
       setFlag(ResourceFlag.Leaf);
    }
-      
+
    /**
     * @return the dependency
     */
@@ -50,58 +50,31 @@ public class MavenDependencyResource extends AbstractResource<Dependency>
       return dependency;
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#getName()
-    */
    @Override
    public String getName()
    {
       return dependency.getGroupId() + ":" + dependency.getArtifactId();
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#createFrom(java.lang.Object)
-    */
-   @Override
-   public Resource<Dependency> createFrom(Dependency dependency)
-   {
-      throw new RuntimeException("not implemented");
-   }
-
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#listResources()
-    */
    @Override
    public List<Resource<?>> listResources()
    {
       return Collections.emptyList();
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#getUnderlyingResourceObject()
-    */
    @Override
    public Dependency getUnderlyingResourceObject()
    {
       return dependency;
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.forge.project.Resource#getChild(java.lang.String)
-    */
-   @Override
-   public Resource<?> getChild(String name)
-   {
-      throw new RuntimeException("not implemented");
-   }
-
    @Override
    public String toString()
    {
-      return dependency.getGroupId() + ":" + 
-             dependency.getArtifactId() + ":" + 
-             dependency.getVersion() + ":" + 
-             dependency.getPackagingType() + ":" + 
+      return dependency.getGroupId() + ":" +
+             dependency.getArtifactId() + ":" +
+             dependency.getVersion() + ":" +
+             dependency.getPackagingType() + ":" +
              dependency.getScopeType();
    }
 }
