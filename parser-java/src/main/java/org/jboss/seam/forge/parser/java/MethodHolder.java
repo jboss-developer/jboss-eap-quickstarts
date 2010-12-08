@@ -22,20 +22,39 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
+import java.util.List;
 
 /**
- * Represents a Java Class source file as an in-memory modifiable element. See
- * {@link JavaParser} for various options in generating {@link JavaClass}
- * instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface JavaClass extends
-      CompilationUnit<JavaClass>,
-      Abstractable<JavaClass>,
-      FieldHolder<JavaClass>,
-      MethodHolder<JavaClass>
+public interface MethodHolder<T> extends MemberHolder<T>
 {
+   /**
+    * Add an uninitialized {@link Method} declaration to this {@link T}
+    * instance. This {@link Method} will be a stub until further modified.
+    */
+   public Method addMethod();
+
+   /**
+    * Add a new {@link Method} declaration to this {@link T} instance, using the
+    * given {@link String} as the method declaration.
+    * <p/>
+    * <strong>For example:</strong><br>
+    * <code>Method m = javaClass.addMethod("public String method() {return \"hello!\";}")</code>
+    */
+   public Method addMethod(final String method);
+
+   /**
+    * Get a {@link List} of all {@link Method}s declared by this {@link T}
+    * instance, if any; otherwise, return an empty {@link List}
+    */
+   public List<Method> getMethods();
+
+   /**
+    * Remove the given {@link Method} declaration from this {@link T} instance,
+    * if it exists; otherwise, do nothing.
+    */
+   public T removeMethod(final Method method);
 
 }

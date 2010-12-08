@@ -19,23 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.test.grammar.java;
 
-package org.jboss.seam.forge.parser.java;
-
-import org.jboss.seam.forge.parser.JavaParser;
+import org.junit.Test;
 
 /**
- * Represents a Java Class source file as an in-memory modifiable element. See
- * {@link JavaParser} for various options in generating {@link JavaClass}
- * instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface JavaClass extends
-      CompilationUnit<JavaClass>,
-      Abstractable<JavaClass>,
-      FieldHolder<JavaClass>,
-      MethodHolder<JavaClass>
+public class JavaEnumTest
 {
+   @Test
+   public void testCanParseEnum() throws Exception
+   {
+      // InputStream stream =
+      // JavaEnumTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockEnum.java");
+      // JavaClass javaClass = JavaParser.parse(stream);
+      // String name = javaClass.getName();
+      // assertEquals("MockEnum", name);
+   }
 
 }

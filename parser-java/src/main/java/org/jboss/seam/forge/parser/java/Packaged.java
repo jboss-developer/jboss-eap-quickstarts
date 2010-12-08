@@ -22,20 +22,32 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
-
 /**
- * Represents a Java Class source file as an in-memory modifiable element. See
- * {@link JavaParser} for various options in generating {@link JavaClass}
- * instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface JavaClass extends
-      CompilationUnit<JavaClass>,
-      Abstractable<JavaClass>,
-      FieldHolder<JavaClass>,
-      MethodHolder<JavaClass>
+public interface Packaged<T>
 {
+   /**
+    * Get the package of this {@link T}, or return null if it is in the default
+    * package.
+    */
+   public String getPackage();
+
+   /**
+    * Set this {@link T}' package.
+    */
+   public T setPackage(String name);
+
+   /**
+    * Set this {@link T} to be in the default package (removes any current
+    * package declaration.)
+    */
+   public T setDefaultPackage();
+
+   /**
+    * Return whether or not this {@link T} is in the default package.
+    */
+   public boolean isDefaultPackage();
 
 }

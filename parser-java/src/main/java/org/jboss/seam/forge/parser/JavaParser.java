@@ -22,17 +22,17 @@
 
 package org.jboss.seam.forge.parser;
 
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.impl.JavaClassImpl;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.impl.JavaClassImpl;
+
 /**
  * Responsible for parsing data into new {@link JavaClass} instances.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public abstract class JavaParser
@@ -55,7 +55,8 @@ public abstract class JavaParser
    }
 
    /**
-    * Read the given {@link InputStream} and parse the data into a new {@link JavaClass} instance.
+    * Read the given {@link InputStream} and parse the data into a new
+    * {@link JavaClass} instance.
     */
    public static JavaClass parse(final InputStream data)
    {
@@ -71,7 +72,8 @@ public abstract class JavaParser
    }
 
    /**
-    * Open the given {@link File}, parsing its contents into a new {@link JavaClass} instance.
+    * Open the given {@link File}, parsing its contents into a new
+    * {@link JavaClass} instance.
     */
    public static JavaClass parse(final File file) throws FileNotFoundException
    {

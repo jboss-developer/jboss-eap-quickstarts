@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+Lin * JBoss, by Red Hat.
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -24,7 +24,8 @@ package org.jboss.seam.forge.shell.completer;
 import java.util.List;
 
 /**
- * Defines the interface for interacting with the Shell command completion functionality.
+ * Defines the interface for interacting with the Shell command completion
+ * functionality.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 

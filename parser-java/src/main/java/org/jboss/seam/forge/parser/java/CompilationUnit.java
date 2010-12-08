@@ -22,20 +22,41 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
+import java.util.List;
 
 /**
- * Represents a Java Class source file as an in-memory modifiable element. See
- * {@link JavaParser} for various options in generating {@link JavaClass}
- * instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface JavaClass extends
-      CompilationUnit<JavaClass>,
-      Abstractable<JavaClass>,
-      FieldHolder<JavaClass>,
-      MethodHolder<JavaClass>
+public interface CompilationUnit<T extends CompilationUnit<?>> extends
+      Packaged<T>,
+      Importer<T>,
+      Compiled<T>,
+      Named<T>,
+      VisibilityScoped<T>,
+      AnnotationTarget<T>
 {
+   /**
+    * Set the qualified-name of this {@link T} instance, where the
+    * qualified-name contains both the Java package and simple class name of the
+    * type represented by this {@link T} instance.
+    * <p/>
+    * <strong>For example</strong>, calling: {@link #getQualifiedName()} is
+    * equivalent to calling "{@link #getPackage()} + "." + {@link #getName()}",
+    * which in turn is equivalent to calling: {@link Class#getName()}
+    */
+   public String getQualifiedName();
 
+   /**
+    * Get a list of all {@link SyntaxError}s detected in the current {@link T}.
+    * Note that when errors are present, the class may still be modified, but
+    * changes may not be completely accurate.
+    */
+   public List<SyntaxError> getSyntaxErrors();
+
+   /**
+    * Return whether or not this {@link T} currently has any {@link SyntaxError}
+    * s.
+    */
+   public boolean hasSyntaxErrors();
 }

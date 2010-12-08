@@ -22,20 +22,27 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
+import java.lang.reflect.Method;
 
 /**
- * Represents a Java Class source file as an in-memory modifiable element. See
- * {@link JavaParser} for various options in generating {@link JavaClass}
- * instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface JavaClass extends
-      CompilationUnit<JavaClass>,
-      Abstractable<JavaClass>,
-      FieldHolder<JavaClass>,
-      MethodHolder<JavaClass>
+public interface Named<T>
 {
+   /**
+    * Get the simple name of this {@link T} instance. (E.g: For a Java type,
+    * this is be equivalent to calling,
+    * <code>{@link Class#getSimpleName()}.</code> For a Java method, this would
+    * be equivalent to calling {@link Method#getName()} ... and so on.
+    */
+   public String getName();
+
+   /**
+    * Set the simple-name of this {@link T} instance.
+    * 
+    * @see #getName()
+    */
+   public T setName(String name);
 
 }
