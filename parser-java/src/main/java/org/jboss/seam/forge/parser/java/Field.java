@@ -26,23 +26,23 @@ package org.jboss.seam.forge.parser.java;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Field extends Member<Field>
+public interface Field<O> extends Member<O, Field<O>>
 {
-   Field setName(String name);
+   Field<O> setName(String name);
 
    String getType();
 
-   Field setType(Class<?> clazz);
+   Field<O> setType(Class<?> clazz);
 
-   Field setType(String type);
+   Field<O> setType(String type);
 
    String getStringInitializer();
 
    String getLiteralInitializer();
 
-   Field setLiteralInitializer(String value);
+   Field<O> setLiteralInitializer(String value);
 
-   Field setStringInitializer(String value);
+   Field<O> setStringInitializer(String value);
 
    boolean isPrimitive();
 }

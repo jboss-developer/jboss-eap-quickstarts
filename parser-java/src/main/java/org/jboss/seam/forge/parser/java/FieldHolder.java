@@ -28,13 +28,13 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface FieldHolder<T> extends MemberHolder<T>
+public interface FieldHolder<T> extends MemberHolder<T, Member>
 {
    /**
     * Add a new Java {@link Field} to this {@link T} instance. This field will
     * be a stub until further modified.
     */
-   public Field addField();
+   public Field<T> addField();
 
    /**
     * Add a new {@link Field} declaration to this {@link T} instance, using the
@@ -43,7 +43,7 @@ public interface FieldHolder<T> extends MemberHolder<T>
     * <strong>For example:</strong><br>
     * <code>Field f = javaClass.addField("private String newField;");</code>
     */
-   public Field addField(final String declaration);
+   public Field<T> addField(final String declaration);
 
    /**
     * Return whether or not this {@link T} declares a {@link Field} with the
@@ -55,23 +55,23 @@ public interface FieldHolder<T> extends MemberHolder<T>
     * Return whether or not this {@link T} declares the given {@link Field}
     * instance.
     */
-   public boolean hasField(Field field);
+   public boolean hasField(Field<T> field);
 
    /**
     * Get the {@link Field} with the given name and return it, otherwise, return
     * null.
     */
-   public Field getField(String name);
+   public Field<T> getField(String name);
 
    /**
     * Get a list of all {@link Field}s declared by this {@link T}, or return an
     * empty list if no {@link Field}s are declared.
     */
-   public List<Field> getFields();
+   public List<Field<JavaClass>> getFields();
 
    /**
     * Remove the given {@link Field} from this {@link T} instance, if it exists;
     * otherwise, do nothing.
     */
-   public T removeField(final Field method);
+   public T removeField(final Field<T> method);
 }

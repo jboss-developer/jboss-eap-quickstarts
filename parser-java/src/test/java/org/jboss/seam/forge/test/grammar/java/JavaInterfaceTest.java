@@ -53,7 +53,7 @@ public class JavaInterfaceTest
       JavaClass javaClass = JavaParser.parse(stream);
       String name = javaClass.getName();
       assertEquals("BigInterface", name);
-      List<Member<?>> members = javaClass.getMembers();
+      List<Member<JavaClass, ?>> members = javaClass.getMembers();
       assertFalse(members.isEmpty());
    }
 

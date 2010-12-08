@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.parser;
 
+
 /**
  * Represents an object that has a root ancestor that should be made accessible
  * to its clients.

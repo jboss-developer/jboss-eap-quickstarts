@@ -21,26 +21,33 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import org.eclipse.jdt.core.dom.*;
-import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.Annotation;
-import org.jboss.seam.forge.parser.java.AnnotationTarget;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.ValuePair;
-import org.jboss.seam.forge.parser.java.util.Strings;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.BodyDeclaration;
+import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.MemberValuePair;
+import org.eclipse.jdt.core.dom.NormalAnnotation;
+import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Annotation;
+import org.jboss.seam.forge.parser.java.AnnotationTarget;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.parser.java.ValuePair;
+import org.jboss.seam.forge.parser.java.util.Strings;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class AnnotationImpl implements Annotation
+public class AnnotationImpl<O, T> implements Annotation<O>
 {
    private static final String DEFAULT_VALUE = "value";
 
-   private AnnotationTarget<?> parent = null;
+   private AnnotationTarget<O, T> parent = null;
    private AST ast = null;
    private org.eclipse.jdt.core.dom.Annotation annotation;
 
@@ -49,18 +56,24 @@ public class AnnotationImpl implements Annotation
       MARKER, SINGLE, NORMAL
    }
 
-   private void init(final AnnotationTarget<?> parent)
+   private void init(final AnnotationTarget<O, T> parent)
    {
       this.parent = parent;
       ast = ((ASTNode) parent.getInternal()).getAST();
    }
 
-   public AnnotationImpl(AnnotationTarget<?> parent)
+   public AnnotationImpl(AnnotationTarget<O, T> parent)
    {
       this(parent, AnnotationType.MARKER);
    }
 
-   public AnnotationImpl(AnnotationTarget<?> parent, AnnotationType type)
+   public AnnotationImpl(AnnotationTarget<O, T> parent, Object internal)
+   {
+      init(parent);
+      this.annotation = (org.eclipse.jdt.core.dom.Annotation) internal;
+   }
+
+   public AnnotationImpl(AnnotationTarget<O, T> parent, AnnotationType type)
    {
       init(parent);
       switch (type)
@@ -77,12 +90,6 @@ public class AnnotationImpl implements Annotation
       default:
          throw new IllegalArgumentException("Unknown annotation type: " + type);
       }
-   }
-
-   public AnnotationImpl(AnnotationTarget<?> parent, Object internal)
-   {
-      init(parent);
-      this.annotation = (org.eclipse.jdt.core.dom.Annotation) internal;
    }
 
    @Override
@@ -196,7 +203,7 @@ public class AnnotationImpl implements Annotation
    }
 
    @Override
-   public Annotation removeAllValues()
+   public Annotation<O> removeAllValues()
    {
       convertTo(AnnotationType.MARKER);
       return this;
@@ -204,7 +211,7 @@ public class AnnotationImpl implements Annotation
 
    @Override
    @SuppressWarnings("unchecked")
-   public Annotation removeValue(String name)
+   public Annotation<O> removeValue(String name)
    {
       if (annotation.isNormalAnnotation())
       {
@@ -241,14 +248,14 @@ public class AnnotationImpl implements Annotation
    }
 
    @Override
-   public Annotation setName(String className)
+   public Annotation<O> setName(String className)
    {
       annotation.setTypeName(ast.newName(className));
       return this;
    }
 
    @Override
-   public Annotation setLiteralValue(String value)
+   public Annotation<O> setLiteralValue(String value)
    {
       if (isMarker())
       {
@@ -277,7 +284,7 @@ public class AnnotationImpl implements Annotation
 
    @Override
    @SuppressWarnings("unchecked")
-   public Annotation setLiteralValue(String name, String value)
+   public Annotation<O> setLiteralValue(String name, String value)
    {
       if (!isNormal() && !DEFAULT_VALUE.equals(name))
       {
@@ -308,36 +315,36 @@ public class AnnotationImpl implements Annotation
    }
 
    @Override
-   public Annotation setStringValue(String value)
+   public Annotation<O> setStringValue(String value)
    {
       return setLiteralValue(Strings.enquote(value));
    }
 
    @Override
-   public Annotation setStringValue(String name, String value)
+   public Annotation<O> setStringValue(String name, String value)
    {
       return setLiteralValue(name, Strings.enquote(value));
    }
 
    @Override
-   public <T extends Enum<T>> T getEnumValue(Class<T> type)
+   public <E extends Enum<E>> E getEnumValue(Class<E> type)
    {
       String literalValue = getLiteralValue();
       return convertLiteralToEnum(type, literalValue);
    }
 
    @Override
-   public <T extends Enum<T>> T getEnumValue(Class<T> type, String name)
+   public <E extends Enum<E>> E getEnumValue(Class<E> type, String name)
    {
       String literalValue = getLiteralValue(name);
       return convertLiteralToEnum(type, literalValue);
    }
 
-   private <T extends Enum<T>> T convertLiteralToEnum(Class<T> type, String literalValue)
+   private <E extends Enum<E>> E convertLiteralToEnum(Class<E> type, String literalValue)
    {
-      T[] constants = type.getEnumConstants();
+      E[] constants = type.getEnumConstants();
 
-      for (T t : constants)
+      for (E inst : constants)
       {
          String[] tokens = literalValue.split("\\.");
          if (tokens.length > 1)
@@ -345,32 +352,42 @@ public class AnnotationImpl implements Annotation
             literalValue = tokens[tokens.length - 1];
          }
 
-         if (t.name().equals(literalValue))
+         if (inst.name().equals(literalValue))
          {
-            return t;
+            return inst;
          }
       }
       return null;
    }
 
    @Override
-   public Annotation setEnumValue(String name, Enum<?> value)
+   public Annotation<O> setEnumValue(String name, Enum<?> value)
    {
-      JavaClass javaClass = getOrigin();
-      if (!javaClass.hasImport(value.getDeclaringClass()))
+      O origin = getOrigin();
+
+      if (origin instanceof JavaSource)
       {
-         javaClass.addImport(value.getDeclaringClass());
+         JavaSource<?> source = (JavaSource<?>) origin;
+         if (!source.hasImport(value.getDeclaringClass()))
+         {
+            source.addImport(value.getDeclaringClass());
+         }
       }
       return setLiteralValue(name, value.getDeclaringClass().getSimpleName() + "." + value.name());
    }
 
    @Override
-   public Annotation setEnumValue(Enum<?> value)
+   public Annotation<O> setEnumValue(Enum<?> value)
    {
-      JavaClass javaClass = getOrigin();
-      if (!javaClass.hasImport(value.getDeclaringClass()))
+      O origin = getOrigin();
+
+      if (origin instanceof JavaSource)
       {
-         javaClass.addImport(value.getDeclaringClass());
+         JavaSource<?> source = (JavaSource<?>) origin;
+         if (!source.hasImport(value.getDeclaringClass()))
+         {
+            source.addImport(value.getDeclaringClass());
+         }
       }
       return setLiteralValue(value.getDeclaringClass().getSimpleName() + "." + value.name());
    }
@@ -379,7 +396,7 @@ public class AnnotationImpl implements Annotation
     * Shared interface methods.
     */
    @Override
-   public JavaClass getOrigin()
+   public O getOrigin()
    {
       return parent.getOrigin();
    }
@@ -407,7 +424,7 @@ public class AnnotationImpl implements Annotation
          if (o.equals(annotation))
          {
             node.modifiers().remove(annotation);
-            Annotation na = new AnnotationImpl(parent, type);
+            Annotation<O> na = new AnnotationImpl<O, T>(parent, type);
             na.setName(getName());
             annotation = (org.eclipse.jdt.core.dom.Annotation) na.getInternal();
             node.modifiers().add(annotation);
@@ -445,7 +462,7 @@ public class AnnotationImpl implements Annotation
       {
          return false;
       }
-      AnnotationImpl other = (AnnotationImpl) obj;
+      AnnotationImpl<?, ?> other = (AnnotationImpl<?, ?>) obj;
       if (annotation == null)
       {
          if (other.annotation != null)

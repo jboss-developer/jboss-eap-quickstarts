@@ -25,7 +25,6 @@ import java.lang.reflect.Field;
 
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
-import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 
@@ -33,13 +32,12 @@ import org.jboss.seam.forge.parser.java.Parameter;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ParameterImpl implements Parameter
+public class ParameterImpl<O> implements Parameter<O>
 {
-
    private final VariableDeclaration param;
-   private final Method method;
+   private final Method<O> method;
 
-   public ParameterImpl(final Method method, final Object internal)
+   public ParameterImpl(final Method<O> method, final Object internal)
    {
       this.method = method;
       this.param = (VariableDeclaration) internal;
@@ -52,7 +50,7 @@ public class ParameterImpl implements Parameter
    }
 
    @Override
-   public JavaClass getOrigin()
+   public O getOrigin()
    {
       return method.getOrigin();
    }

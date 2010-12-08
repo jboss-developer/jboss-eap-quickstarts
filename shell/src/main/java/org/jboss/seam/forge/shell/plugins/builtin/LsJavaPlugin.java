@@ -22,6 +22,14 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
@@ -33,23 +41,23 @@ import org.jboss.seam.forge.project.resources.builtin.JavaMethodResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.color.JavaColorizer;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.OverloadedName;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
 @OverloadedName("ls")
-@ResourceScope({JavaResource.class, JavaMethodResource.class, JavaFieldResource.class})
+@ResourceScope({ JavaResource.class, JavaMethodResource.class, JavaFieldResource.class })
 @Topic("File & Resources")
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
@@ -86,9 +94,9 @@ public class LsJavaPlugin implements Plugin
                   out.println(ShellColor.RED, "[fields]");
                }
 
-               List<Field> fields = javaClass.getFields();
+               List<Field<JavaClass>> fields = javaClass.getFields();
 
-               for (Field field : fields)
+               for (Field<JavaClass> field : fields)
                {
                   String entry = out.renderColor(ShellColor.BLUE, field.getVisibility().scope());
                   entry += out.renderColor(ShellColor.GREEN, DELIM + field.getType() + "");
@@ -109,19 +117,19 @@ public class LsJavaPlugin implements Plugin
 
                // rinse and repeat for methods
                output = new ArrayList<String>();
-               List<Method> methods = javaClass.getMethods();
+               List<Method<JavaClass>> methods = javaClass.getMethods();
 
                if (!out.isPiped())
                {
                   out.println(ShellColor.RED, "[methods]");
                }
 
-               for (Method method : methods)
+               for (Method<JavaClass> method : methods)
                {
                   String entry = out.renderColor(ShellColor.BLUE, method.getVisibility().scope());
                   String parameterString = "(";
 
-                  for (Parameter param : method.getParameters())
+                  for (Parameter<JavaClass> param : method.getParameters())
                   {
                      parameterString += param.toString();
                   }

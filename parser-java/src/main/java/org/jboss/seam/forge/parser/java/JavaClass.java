@@ -25,14 +25,14 @@ package org.jboss.seam.forge.parser.java;
 import org.jboss.seam.forge.parser.JavaParser;
 
 /**
- * Represents a Java Class source file as an in-memory modifiable element. See
- * {@link JavaParser} for various options in generating {@link JavaClass}
- * instances.
+ * Represents a Java {@link Class} source file as an in-memory modifiable
+ * element. See {@link JavaParser} for various options in generating
+ * {@link JavaClass} instances.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public interface JavaClass extends
-      CompilationUnit<JavaClass>,
+      JavaSource<JavaClass>,
       Abstractable<JavaClass>,
       FieldHolder<JavaClass>,
       MethodHolder<JavaClass>

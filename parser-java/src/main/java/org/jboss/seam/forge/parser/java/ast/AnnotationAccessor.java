@@ -22,50 +22,50 @@
 
 package org.jboss.seam.forge.parser.java.ast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
 import org.jboss.seam.forge.parser.java.impl.AnnotationImpl;
 import org.jboss.seam.forge.parser.java.util.Types;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class AnnotationAccessor
+public class AnnotationAccessor<O, T>
 {
 
    @SuppressWarnings("unchecked")
-   public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body)
+   public Annotation<O> addAnnotation(final AnnotationTarget<O, T> target, final BodyDeclaration body)
    {
-      Annotation annotation = new AnnotationImpl(target);
+      Annotation<O> annotation = new AnnotationImpl<O, T>(target);
       body.modifiers().add(0, annotation.getInternal());
       return annotation;
    }
 
-   public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body, final Class<?> clazz)
+   public Annotation<O> addAnnotation(final AnnotationTarget<O, T> target, final BodyDeclaration body, final Class<?> clazz)
    {
       return addAnnotation(target, body, clazz.getName());
    }
 
-   public Annotation addAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body, final String className)
+   public Annotation<O> addAnnotation(final AnnotationTarget<O, T> target, final BodyDeclaration body, final String className)
    {
       return addAnnotation(target, body).setName(className);
    }
 
-   public List<Annotation> getAnnotations(final AnnotationTarget<?> target, final BodyDeclaration body)
+   public List<Annotation<O>> getAnnotations(final AnnotationTarget<O, T> target, final BodyDeclaration body)
    {
-      List<Annotation> result = new ArrayList<Annotation>();
+      List<Annotation<O>> result = new ArrayList<Annotation<O>>();
 
       List<?> modifiers = body.modifiers();
       for (Object object : modifiers)
       {
          if (object instanceof org.eclipse.jdt.core.dom.Annotation)
          {
-            Annotation annotation = new AnnotationImpl(target, object);
+            Annotation<O> annotation = new AnnotationImpl<O, T>(target, object);
             result.add(annotation);
          }
       }
@@ -73,8 +73,8 @@ public class AnnotationAccessor
       return Collections.unmodifiableList(result);
    }
 
-   public <T extends AnnotationTarget<?>> T removeAnnotation(final T target, final BodyDeclaration body,
-                                                             final Annotation annotation)
+   public <E extends AnnotationTarget<O, T>> E removeAnnotation(final E target, final BodyDeclaration body,
+                                                             final Annotation<O> annotation)
    {
       List<?> modifiers = body.modifiers();
       for (Object object : modifiers)
@@ -88,7 +88,7 @@ public class AnnotationAccessor
       return target;
    }
 
-   public <T extends AnnotationTarget<?>> boolean hasAnnotation(final T target, final BodyDeclaration body,
+   public <E extends AnnotationTarget<O, T>> boolean hasAnnotation(final E target, final BodyDeclaration body,
                                                                 final String type)
    {
       List<?> modifiers = body.modifiers();
@@ -96,7 +96,7 @@ public class AnnotationAccessor
       {
          if (object instanceof org.eclipse.jdt.core.dom.Annotation)
          {
-            Annotation annotation = new AnnotationImpl(target, object);
+            Annotation<O> annotation = new AnnotationImpl<O, T>(target, object);
             String annotationType = annotation.getName();
             if (Types.areEquivalent(type, annotationType))
             {
@@ -107,10 +107,10 @@ public class AnnotationAccessor
       return false;
    }
 
-   public Annotation getAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body,
+   public Annotation<O> getAnnotation(final AnnotationTarget<O, T> target, final BodyDeclaration body,
                                    final Class<? extends java.lang.annotation.Annotation> type)
    {
-      Annotation result = null;
+      Annotation<O> result = null;
       if (type != null)
       {
          result = getAnnotation(target, body, type.getName());
@@ -118,10 +118,10 @@ public class AnnotationAccessor
       return result;
    }
 
-   public Annotation getAnnotation(final AnnotationTarget<?> target, final BodyDeclaration body, final String type)
+   public Annotation<O> getAnnotation(final AnnotationTarget<O, T> target, final BodyDeclaration body, final String type)
    {
-      List<Annotation> annotations = getAnnotations(target, body);
-      for (Annotation annotation : annotations)
+      List<Annotation<O>> annotations = getAnnotations(target, body);
+      for (Annotation<O> annotation : annotations)
       {
          if (Types.areEquivalent(type, annotation.getName()))
          {

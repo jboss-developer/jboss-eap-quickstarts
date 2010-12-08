@@ -22,31 +22,31 @@
 
 package org.jboss.seam.forge.parser.java;
 
+import java.util.List;
+
 import org.jboss.seam.forge.parser.Internal;
 import org.jboss.seam.forge.parser.Origin;
-
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface AnnotationTarget<T> extends Internal, Origin<JavaClass>
+public interface AnnotationTarget<O, T> extends Internal, Origin<O>
 {
-   public abstract Annotation addAnnotation();
+   public abstract Annotation<O> addAnnotation();
 
-   public abstract Annotation addAnnotation(Class<? extends java.lang.annotation.Annotation> type);
+   public abstract Annotation<O> addAnnotation(Class<? extends java.lang.annotation.Annotation> type);
 
-   public abstract Annotation addAnnotation(final String className);
+   public abstract Annotation<O> addAnnotation(final String className);
 
-   public abstract List<Annotation> getAnnotations();
+   public abstract List<Annotation<O>> getAnnotations();
 
    public boolean hasAnnotation(final Class<? extends java.lang.annotation.Annotation> type);
 
    public boolean hasAnnotation(final String type);
 
-   public Annotation getAnnotation(final Class<? extends java.lang.annotation.Annotation> type);
+   public Annotation<O> getAnnotation(final Class<? extends java.lang.annotation.Annotation> type);
 
-   public Annotation getAnnotation(final String type);
+   public Annotation<O> getAnnotation(final String type);
 
-   public abstract T removeAnnotation(Annotation annotation);
+   public abstract T removeAnnotation(Annotation<O> annotation);
 }

@@ -21,19 +21,22 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.Import;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.Method;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Import;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Method;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -164,7 +167,7 @@ public class JavaClassTest
    @Test
    public void testRemoveImportByClass() throws Exception
    {
-      List<Import> imports = javaClass.getImports();
+      List<Import<JavaClass>> imports = javaClass.getImports();
       assertEquals(1, imports.size());
       assertEquals(URL.class.getName(), imports.get(0).getName());
 
@@ -197,7 +200,7 @@ public class JavaClassTest
    public void testAddMethod() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setReturnTypeVoid().setBody("").getOrigin();
-      List<Method> methods = javaClass.getMethods();
+      List<Method<JavaClass>> methods = javaClass.getMethods();
       assertEquals(3, methods.size());
       assertNull(methods.get(2).getReturnType());
    }
@@ -207,7 +210,7 @@ public class JavaClassTest
    {
       javaClass.addMethod("public URL rewriteURL(String pattern, String replacement) { return null; }")
             .setPackagePrivate().getOrigin();
-      List<Method> methods = javaClass.getMethods();
+      List<Method<JavaClass>> methods = javaClass.getMethods();
       assertEquals(3, methods.size());
       assertEquals("URL", methods.get(2).getReturnType());
       assertEquals("rewriteURL", methods.get(2).getName());
@@ -219,7 +222,7 @@ public class JavaClassTest
    @Test
    public void testRemoveMethod() throws Exception
    {
-      List<Method> methods = javaClass.getMethods();
+      List<Method<JavaClass>> methods = javaClass.getMethods();
       javaClass.removeMethod(methods.get(0)).getOrigin();
       methods = javaClass.getMethods();
       assertEquals(1, methods.size());
@@ -230,7 +233,7 @@ public class JavaClassTest
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setProtected().setReturnType(String.class)
             .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
-      Method method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
+      Method<JavaClass> method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertEquals(javaClass.getName(), method.getName());
       assertTrue(method.isProtected());
@@ -245,7 +248,7 @@ public class JavaClassTest
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setPrivate().setReturnType(String.class)
             .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
-      Method method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
+      Method<JavaClass> method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertTrue(method.isPrivate());
       assertTrue(method.isConstructor());

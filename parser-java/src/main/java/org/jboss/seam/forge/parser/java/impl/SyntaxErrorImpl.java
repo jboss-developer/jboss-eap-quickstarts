@@ -23,7 +23,7 @@ package org.jboss.seam.forge.parser.java.impl;
 
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.jboss.seam.forge.parser.Internal;
-import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.SyntaxError;
 
 /**
@@ -32,10 +32,10 @@ import org.jboss.seam.forge.parser.java.SyntaxError;
  */
 public class SyntaxErrorImpl implements SyntaxError, Internal
 {
-   private final JavaClass parent;
+   private final JavaSource<?> parent;
    private final IProblem problem;
 
-   public SyntaxErrorImpl(final JavaClass parent, final Object internal)
+   public SyntaxErrorImpl(final JavaSource<?> parent, final Object internal)
    {
       this.parent = parent;
       this.problem = (IProblem) internal;

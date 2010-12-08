@@ -24,28 +24,30 @@ package org.jboss.seam.forge.parser.java;
 
 import java.util.List;
 
+import org.jboss.seam.forge.parser.Origin;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Method extends Abstractable<Method>, Member<Method>
+public interface Method<O> extends Abstractable<Method<O>>, Member<O, Method<O>>, Origin<O>
 {
    public String getBody();
 
-   public Method setBody(final String body);
+   public Method<O> setBody(final String body);
 
    /**
     * Toggle this method as a constructor. If true, and the name of the
     * {@link Method} is not the same as the name of its parent {@link JavaClass}
     * , update the name of the to match.
     */
-   public Method setConstructor(final boolean constructor);
+   public Method<O> setConstructor(final boolean constructor);
 
    public boolean isConstructor();
 
-   public Method setFinal();
+   public Method<O> setFinal();
 
-   public Method setName(final String name);
+   public Method<O> setName(final String name);
 
    /**
     * Get the return type of this {@link Method} or return null if the return
@@ -53,16 +55,16 @@ public interface Method extends Abstractable<Method>, Member<Method>
     */
    public String getReturnType();
 
-   public Method setReturnType(final Class<?> type);
+   public Method<O> setReturnType(final Class<?> type);
 
-   public Method setReturnType(final String type);
+   public Method<O> setReturnType(final String type);
 
    public boolean isReturnTypeVoid();
 
-   public Method setReturnTypeVoid();
+   public Method<O> setReturnTypeVoid();
 
-   public Method setParameters(String string);
+   public Method<O> setParameters(String string);
 
-   public List<Parameter> getParameters();
+   public List<Parameter<O>> getParameters();
 
 }

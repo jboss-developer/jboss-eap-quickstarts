@@ -33,12 +33,12 @@ public interface Importer<T>
    /**
     * Add an import by qualified class name. (E.g: "com.example.Imported")
     */
-   public Import addImport(final String className);
+   public Import<T> addImport(final String className);
 
    /**
     * Add an import for the given {@link Class} type;
     */
-   public Import addImport(final Class<?> type);
+   public Import<T> addImport(final Class<?> type);
 
    /**
     * Add an import for each of the given {@link Class} types.
@@ -66,13 +66,13 @@ public interface Importer<T>
     * Get the {@link Import} for the given fully-qualified class name, if it
     * exists; otherwise, return null;
     */
-   public Import getImport(String literalValue);
+   public Import<T> getImport(String literalValue);
 
    /**
     * Get the {@link Import} for the given {@link Class} type, if it exists;
     * otherwise, return null;
     */
-   public Import getImport(Class<?> type);
+   public Import<T> getImport(Class<?> type);
 
    /**
     * Remove any {@link Import} for the given fully-qualified class name, if it
@@ -90,11 +90,11 @@ public interface Importer<T>
     * Remove the given {@link Import} from this {@link T} instance, if it
     * exists; otherwise, do nothing;
     */
-   public T removeImport(Import imprt);
+   public T removeImport(Import<T> imprt);
 
    /**
     * Get an immutable list of all {@link Import}s currently imported by this
     * {@link T}
     */
-   public List<Import> getImports();
+   public List<Import<T>> getImports();
 }

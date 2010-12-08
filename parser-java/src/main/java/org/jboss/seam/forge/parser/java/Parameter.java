@@ -28,9 +28,8 @@ import org.jboss.seam.forge.parser.Origin;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Parameter extends Internal, Origin<JavaClass>
+public interface Parameter<O> extends Internal, Origin<O>
 {
-   // TODO this needs to be filled out (Type, Annotations, Initializer, Etc.)
    String getName();
 
    String getType();

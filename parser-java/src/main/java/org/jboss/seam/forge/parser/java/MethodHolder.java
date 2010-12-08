@@ -28,13 +28,13 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface MethodHolder<T> extends MemberHolder<T>
+public interface MethodHolder<T> extends MemberHolder<T, Member>
 {
    /**
     * Add an uninitialized {@link Method} declaration to this {@link T}
     * instance. This {@link Method} will be a stub until further modified.
     */
-   public Method addMethod();
+   public Method<T> addMethod();
 
    /**
     * Add a new {@link Method} declaration to this {@link T} instance, using the
@@ -43,18 +43,18 @@ public interface MethodHolder<T> extends MemberHolder<T>
     * <strong>For example:</strong><br>
     * <code>Method m = javaClass.addMethod("public String method() {return \"hello!\";}")</code>
     */
-   public Method addMethod(final String method);
+   public Method<T> addMethod(final String method);
 
    /**
     * Get a {@link List} of all {@link Method}s declared by this {@link T}
     * instance, if any; otherwise, return an empty {@link List}
     */
-   public List<Method> getMethods();
+   public List<Method<T>> getMethods();
 
    /**
     * Remove the given {@link Method} declaration from this {@link T} instance,
     * if it exists; otherwise, do nothing.
     */
-   public T removeMethod(final Method method);
+   public T removeMethod(final Method<T> method);
 
 }

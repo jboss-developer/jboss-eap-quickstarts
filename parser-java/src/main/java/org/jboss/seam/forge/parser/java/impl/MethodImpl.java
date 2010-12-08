@@ -36,6 +36,7 @@ import org.eclipse.jdt.core.dom.VariableDeclaration;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.parser.java.Visibility;
@@ -45,60 +46,60 @@ import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class MethodImpl implements Method
+public class MethodImpl<O extends JavaSource<O>> implements Method<O>
 {
-   private static AnnotationAccessor annotations = new AnnotationAccessor();
+   private final AnnotationAccessor<O, Method<O>> annotations = new AnnotationAccessor<O, Method<O>>();
    private final ModifierAccessor modifiers = new ModifierAccessor();
 
-   private JavaClass parent = null;
+   private O parent = null;
    private AST ast = null;
    private CompilationUnit cu = null;
    private final MethodDeclaration method;
 
-   private void init(final JavaClass parent)
+   private void init(final O parent)
    {
       this.parent = parent;
       cu = (CompilationUnit) parent.getInternal();
       ast = cu.getAST();
    }
 
-   public MethodImpl(final JavaClass parent)
+   public MethodImpl(final O parent)
    {
       init(parent);
       method = ast.newMethodDeclaration();
       method.setConstructor(false);
    }
 
-   public MethodImpl(final JavaClass parent, final Object internal)
+   public MethodImpl(final O parent, final Object internal)
    {
       init(parent);
       method = (MethodDeclaration) internal;
    }
 
-   public MethodImpl(final JavaClass parent, final String method)
+   public MethodImpl(final O parent, final String method)
    {
       init(parent);
 
       String stub = "public class Stub { " + method + " }";
       JavaClass temp = JavaParser.parse(stub);
-      List<Method> methods = temp.getMethods();
+      List<Method<JavaClass>> methods = temp.getMethods();
       MethodDeclaration newMethod = (MethodDeclaration) methods.get(0).getInternal();
       MethodDeclaration subtree = (MethodDeclaration) ASTNode.copySubtree(cu.getAST(), newMethod);
       this.method = subtree;
    }
 
    /*
-    * Annotation Modifiers
+    * Annotation<O> Modifiers
     */
 
    @Override
-   public Annotation addAnnotation()
+   public Annotation<O> addAnnotation()
    {
       return annotations.addAnnotation(this, method);
    }
 
    @Override
-   public Annotation addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
+   public Annotation<O> addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
       if (!parent.hasImport(clazz))
       {
@@ -108,13 +109,13 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Annotation addAnnotation(final String className)
+   public Annotation<O> addAnnotation(final String className)
    {
       return annotations.addAnnotation(this, method, className);
    }
 
    @Override
-   public List<Annotation> getAnnotations()
+   public List<Annotation<O>> getAnnotations()
    {
       return annotations.getAnnotations(this, method);
    }
@@ -132,25 +133,25 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method removeAnnotation(final Annotation annotation)
+   public Method<O> removeAnnotation(final Annotation<O> annotation)
    {
       return annotations.removeAnnotation(this, method, annotation);
    }
 
    @Override
-   public Annotation getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   public Annotation<O> getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
    {
-      return annotations.getAnnotation(parent, method, type);
+      return annotations.getAnnotation(this, method, type);
    }
 
    @Override
-   public Annotation getAnnotation(final String type)
+   public Annotation<O> getAnnotation(final String type)
    {
-      return annotations.getAnnotation(parent, method, type);
+      return annotations.getAnnotation(this, method, type);
    }
 
    /*
-    * Method Modifiers
+    * Method<O> Modifiers
     */
 
    @Override
@@ -169,11 +170,11 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setBody(final String body)
+   public Method<O> setBody(final String body)
    {
       String stub = "public class Stub { public void method() {" + body + "} }";
       JavaClass temp = JavaParser.parse(stub);
-      List<Method> methods = temp.getMethods();
+      List<Method<JavaClass>> methods = temp.getMethods();
       Block block = ((MethodDeclaration) methods.get(0).getInternal()).getBody();
 
       block = (Block) ASTNode.copySubtree(method.getAST(), block);
@@ -183,7 +184,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setConstructor(final boolean constructor)
+   public Method<O> setConstructor(final boolean constructor)
    {
       method.setConstructor(constructor);
       if (isConstructor())
@@ -211,17 +212,17 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setReturnType(final Class<?> type)
+   public Method<O> setReturnType(final Class<?> type)
    {
       return setReturnType(type.getSimpleName());
    }
 
    @Override
-   public Method setReturnType(final String typeName)
+   public Method<O> setReturnType(final String typeName)
    {
       String stub = "public class Stub { public " + typeName + " method() {} }";
       JavaClass temp = JavaParser.parse(stub);
-      List<Method> methods = temp.getMethods();
+      List<Method<JavaClass>> methods = temp.getMethods();
       Type returnType = ((MethodDeclaration) methods.get(0).getInternal()).getReturnType2();
 
       returnType = (Type) ASTNode.copySubtree(method.getAST(), returnType);
@@ -237,7 +238,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setReturnTypeVoid()
+   public Method<O> setReturnTypeVoid()
    {
       method.setReturnType2(null);
       return this;
@@ -254,7 +255,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setAbstract(final boolean abstrct)
+   public Method<O> setAbstract(final boolean abstrct)
    {
       if (abstrct)
       {
@@ -268,7 +269,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setFinal()
+   public Method<O> setFinal()
    {
       modifiers.addModifier(method, ModifierKeyword.FINAL_KEYWORD);
       return this;
@@ -281,7 +282,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setName(final String name)
+   public Method<O> setName(final String name)
    {
       if (method.isConstructor())
       {
@@ -293,11 +294,11 @@ public class MethodImpl implements Method
 
    @Override
    @SuppressWarnings("unchecked")
-   public Method setParameters(final String parameters)
+   public Method<O> setParameters(final String parameters)
    {
       String stub = "public class Stub { public void method( " + parameters + " ) {} }";
       JavaClass temp = JavaParser.parse(stub);
-      List<Method> methods = temp.getMethods();
+      List<Method<JavaClass>> methods = temp.getMethods();
       List<VariableDeclaration> astParameters = ((MethodDeclaration) methods.get(0).getInternal()).parameters();
 
       method.parameters().clear();
@@ -312,13 +313,13 @@ public class MethodImpl implements Method
 
    @Override
    @SuppressWarnings("unchecked")
-   public List<Parameter> getParameters()
+   public List<Parameter<O>> getParameters()
    {
-      List<Parameter> results = new ArrayList<Parameter>();
+      List<Parameter<O>> results = new ArrayList<Parameter<O>>();
       List<VariableDeclaration> parameters = method.parameters();
       for (VariableDeclaration param : parameters)
       {
-         results.add(new ParameterImpl(this, param));
+         results.add(new ParameterImpl<O>(this, param));
       }
       return results;
    }
@@ -334,7 +335,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setPackagePrivate()
+   public Method<O> setPackagePrivate()
    {
       modifiers.clearVisibility(method);
       return this;
@@ -347,7 +348,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setPublic()
+   public Method<O> setPublic()
    {
       modifiers.clearVisibility(method);
       modifiers.addModifier(method, ModifierKeyword.PUBLIC_KEYWORD);
@@ -361,7 +362,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setPrivate()
+   public Method<O> setPrivate()
    {
       modifiers.clearVisibility(method);
       modifiers.addModifier(method, ModifierKeyword.PRIVATE_KEYWORD);
@@ -375,7 +376,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setProtected()
+   public Method<O> setProtected()
    {
       modifiers.clearVisibility(method);
       modifiers.addModifier(method, ModifierKeyword.PROTECTED_KEYWORD);
@@ -389,7 +390,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public Method setVisibility(Visibility scope)
+   public Method<O> setVisibility(Visibility scope)
    {
       return Visibility.set(this, scope);
    }
@@ -411,7 +412,7 @@ public class MethodImpl implements Method
    }
 
    @Override
-   public JavaClass getOrigin()
+   public O getOrigin()
    {
       return parent.getOrigin();
    }
@@ -440,7 +441,7 @@ public class MethodImpl implements Method
       {
          return false;
       }
-      MethodImpl other = (MethodImpl) obj;
+      MethodImpl<?> other = (MethodImpl<?>) obj;
       if (method == null)
       {
          if (other.method != null)

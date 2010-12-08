@@ -21,28 +21,31 @@
  */
 package org.jboss.seam.forge.test.grammar.java.common;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class AnnotationTest
+public abstract class AnnotationTest<O, T>
 {
-   private AnnotationTarget<?> target;
+   private AnnotationTarget<O, T> target;
 
-   protected AnnotationTarget<?> getTarget()
+   protected AnnotationTarget<O, T> getTarget()
    {
       return target;
    }
 
-   protected void setTarget(final AnnotationTarget<?> target)
+   protected void setTarget(final AnnotationTarget<O, T> target)
    {
       this.target = target;
    }
@@ -58,7 +61,7 @@ public abstract class AnnotationTest
    @Test
    public void testParseAnnotation() throws Exception
    {
-      List<Annotation> annotations = target.getAnnotations();
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(4, annotations.size());
       assertEquals("deprecation", annotations.get(1).getStringValue());
       assertEquals("deprecation", annotations.get(1).getStringValue("value"));
@@ -75,8 +78,8 @@ public abstract class AnnotationTest
    public void testAddAnnotation() throws Exception
    {
       int size = target.getAnnotations().size();
-      Annotation annotation = target.addAnnotation().setName("RequestScoped");
-      List<Annotation> annotations = target.getAnnotations();
+      Annotation<O> annotation = target.addAnnotation().setName("RequestScoped");
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
       assertEquals("RequestScoped", annotation.getName());
    }
@@ -85,8 +88,8 @@ public abstract class AnnotationTest
    public void testAddAnnotationByClass() throws Exception
    {
       int size = target.getAnnotations().size();
-      Annotation annotation = target.addAnnotation(Test.class);
-      List<Annotation> annotations = target.getAnnotations();
+      Annotation<O> annotation = target.addAnnotation(Test.class);
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
       assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertTrue(target.toString().contains("@" + Test.class.getSimpleName()));
@@ -96,8 +99,8 @@ public abstract class AnnotationTest
    public void testAddAnnotationByName() throws Exception
    {
       int size = target.getAnnotations().size();
-      Annotation annotation = target.addAnnotation("RequestScoped");
-      List<Annotation> annotations = target.getAnnotations();
+      Annotation<O> annotation = target.addAnnotation("RequestScoped");
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
       assertEquals("RequestScoped", annotation.getName());
       assertTrue(target.toString().contains("@RequestScoped"));
@@ -107,9 +110,9 @@ public abstract class AnnotationTest
    public void testCanAddAnnotationDuplicate() throws Exception
    {
       int size = target.getAnnotations().size();
-      Annotation anno1 = target.addAnnotation(Test.class);
-      Annotation anno2 = target.addAnnotation(Test.class);
-      List<Annotation> annotations = target.getAnnotations();
+      Annotation<O> anno1 = target.addAnnotation(Test.class);
+      Annotation<O> anno2 = target.addAnnotation(Test.class);
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(size + 2, annotations.size());
       assertEquals(Test.class.getSimpleName(), anno1.getName());
       assertEquals(Test.class.getSimpleName(), anno2.getName());
@@ -128,9 +131,9 @@ public abstract class AnnotationTest
    {
       target.addAnnotation(Test.class).setEnumValue(MockEnum.FOO);
 
-      List<Annotation> annotations = target.getAnnotations();
+      List<Annotation<O>> annotations = target.getAnnotations();
 
-      Annotation annotation = annotations.get(annotations.size() - 1);
+      Annotation<O> annotation = annotations.get(annotations.size() - 1);
       MockEnum enumValue = annotation.getEnumValue(MockEnum.class);
       assertEquals(MockEnum.FOO, enumValue);
    }
@@ -140,9 +143,9 @@ public abstract class AnnotationTest
    {
       target.addAnnotation(Test.class).setEnumValue("name", MockEnum.BAR);
 
-      List<Annotation> annotations = target.getAnnotations();
+      List<Annotation<O>> annotations = target.getAnnotations();
 
-      Annotation annotation = annotations.get(annotations.size() - 1);
+      Annotation<O> annotation = annotations.get(annotations.size() - 1);
       MockEnum enumValue = annotation.getEnumValue(MockEnum.class, "name");
       assertEquals(MockEnum.BAR, enumValue);
    }
@@ -154,10 +157,10 @@ public abstract class AnnotationTest
 
       target.addAnnotation(Test.class).setLiteralValue("435");
 
-      List<Annotation> annotations = target.getAnnotations();
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
 
-      Annotation annotation = annotations.get(annotations.size() - 1);
+      Annotation<O> annotation = annotations.get(annotations.size() - 1);
       assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertEquals("435", annotation.getLiteralValue());
    }
@@ -170,10 +173,10 @@ public abstract class AnnotationTest
       target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class")
             .setLiteralValue("foo", "bar");
 
-      List<Annotation> annotations = target.getAnnotations();
+      List<Annotation<O>> annotations = target.getAnnotations();
       assertEquals(size + 1, annotations.size());
 
-      Annotation annotation = annotations.get(annotations.size() - 1);
+      Annotation<O> annotation = annotations.get(annotations.size() - 1);
       assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertEquals(null, annotation.getLiteralValue());
       assertEquals("RuntimeException.class", annotation.getLiteralValue("expected"));
@@ -184,7 +187,7 @@ public abstract class AnnotationTest
    public void testAddValueConvertsToNormalAnnotation() throws Exception
    {
       target.addAnnotation(Test.class).setLiteralValue("RuntimeException.class");
-      Annotation annotation = target.getAnnotations().get(target.getAnnotations().size() - 1);
+      Annotation<O> annotation = target.getAnnotations().get(target.getAnnotations().size() - 1);
 
       assertEquals("RuntimeException.class", annotation.getLiteralValue());
       assertTrue(annotation.isSingleValue());
@@ -201,7 +204,7 @@ public abstract class AnnotationTest
    @Test
    public void testAnnotationBeginsAsMarker() throws Exception
    {
-      Annotation anno = target.addAnnotation(Test.class);
+      Annotation<O> anno = target.addAnnotation(Test.class);
       assertTrue(anno.isMarker());
       assertFalse(anno.isSingleValue());
       assertFalse(anno.isNormal());
@@ -276,8 +279,8 @@ public abstract class AnnotationTest
    {
       target.addAnnotation(Test.class).setLiteralValue("expected", "RuntimeException.class");
 
-      List<Annotation> annotations = target.getAnnotations();
-      Annotation annotation = annotations.get(annotations.size() - 1);
+      List<Annotation<O>> annotations = target.getAnnotations();
+      Annotation<O> annotation = annotations.get(annotations.size() - 1);
       annotation.removeAllValues();
 
       assertEquals(0, annotation.getValues().size());

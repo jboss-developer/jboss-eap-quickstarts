@@ -26,17 +26,18 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaFieldResource extends JavaMemberResource<Field>
+public class JavaFieldResource extends JavaMemberResource<Field<JavaSource<?>>>
 {
-   private final Field field;
+   private final Field<JavaSource<?>> field;
 
-   public JavaFieldResource(final JavaResource parent, final Field field)
+   public JavaFieldResource(final JavaResource parent, final Field<JavaSource<?>> field)
    {
       super(parent, field);
       this.field = field;
@@ -45,7 +46,7 @@ public class JavaFieldResource extends JavaMemberResource<Field>
    }
 
    @Override
-   public Resource<Field> createFrom(final Field file)
+   public Resource<Field<JavaSource<?>>> createFrom(final Field<JavaSource<?>> file)
    {
       throw new RuntimeException("not implemented");
    }
@@ -57,7 +58,7 @@ public class JavaFieldResource extends JavaMemberResource<Field>
    }
 
    @Override
-   public Field getUnderlyingResourceObject()
+   public Field<JavaSource<?>> getUnderlyingResourceObject()
    {
       return field;
    }

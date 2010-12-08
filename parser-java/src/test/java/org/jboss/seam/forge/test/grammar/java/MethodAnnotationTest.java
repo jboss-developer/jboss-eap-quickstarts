@@ -21,22 +21,23 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
+import java.io.InputStream;
+
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
-
-import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class MethodAnnotationTest extends AnnotationTest
+public class MethodAnnotationTest extends AnnotationTest<JavaClass, Method<JavaClass>>
 {
    @Override
    public void resetTests()
    {
       InputStream stream = MethodAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedMethod.java");
-      Method method = JavaParser.parse(stream).getMethods().get(0);
+      Method<JavaClass> method = JavaParser.parse(stream).getMethods().get(0);
       setTarget(method);
    }
 }

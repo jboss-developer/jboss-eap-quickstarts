@@ -21,15 +21,15 @@
  */
 package org.jboss.seam.forge.parser.java;
 
+import java.util.List;
+
 import org.jboss.seam.forge.parser.Internal;
 import org.jboss.seam.forge.parser.Origin;
-
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface Annotation extends Internal, Origin<JavaClass>
+public interface Annotation<O> extends Internal, Origin<O>
 {
    boolean isSingleValue();
 
@@ -53,21 +53,21 @@ public interface Annotation extends Internal, Origin<JavaClass>
 
    String getStringValue(String name);
 
-   Annotation removeValue(String name);
+   Annotation<O> removeValue(String name);
 
-   Annotation removeAllValues();
+   Annotation<O> removeAllValues();
 
-   Annotation setName(String className);
+   Annotation<O> setName(String className);
 
-   Annotation setEnumValue(String name, Enum<?> value);
+   Annotation<O> setEnumValue(String name, Enum<?> value);
 
-   Annotation setEnumValue(Enum<?> value);
+   Annotation<O> setEnumValue(Enum<?> value);
 
-   Annotation setLiteralValue(String value);
+   Annotation<O> setLiteralValue(String value);
 
-   Annotation setLiteralValue(String name, String value);
+   Annotation<O> setLiteralValue(String name, String value);
 
-   Annotation setStringValue(String value);
+   Annotation<O> setStringValue(String value);
 
-   Annotation setStringValue(String name, String value);
+   Annotation<O> setStringValue(String name, String value);
 }

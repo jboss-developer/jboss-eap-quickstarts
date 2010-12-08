@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
@@ -33,18 +34,18 @@ import org.jboss.seam.forge.project.Resource;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaMethodResource extends JavaMemberResource<Method>
+public class JavaMethodResource extends JavaMemberResource<Method<JavaSource<?>>>
 {
-   private final Method method;
+   private final Method<JavaSource<?>> method;
 
-   public JavaMethodResource(final Resource<?> parent, final Method method)
+   public JavaMethodResource(final Resource<?> parent, final Method<JavaSource<?>> method)
    {
       super(parent, method);
       this.method = method;
    }
 
    @Override
-   public Resource<Method> createFrom(final Method file)
+   public Resource<Method<JavaSource<?>>> createFrom(final Method<JavaSource<?>> file)
    {
       throw new RuntimeException("not implemented");
    }
@@ -56,7 +57,7 @@ public class JavaMethodResource extends JavaMemberResource<Method>
    }
 
    @Override
-   public Method getUnderlyingResourceObject()
+   public Method<JavaSource<?>> getUnderlyingResourceObject()
    {
       return method;
    }
@@ -65,12 +66,12 @@ public class JavaMethodResource extends JavaMemberResource<Method>
    public String getName()
    {
       String params = "(";
-      List<Parameter> parameters = method.getParameters();
+      List<Parameter<JavaSource<?>>> parameters = method.getParameters();
 
-      Iterator<Parameter> iterator = parameters.iterator();
+      Iterator<Parameter<JavaSource<?>>> iterator = parameters.iterator();
       while (iterator.hasNext())
       {
-         Parameter p = iterator.next();
+         Parameter<JavaSource<?>> p = iterator.next();
          params += p.getType();
 
          if (iterator.hasNext())

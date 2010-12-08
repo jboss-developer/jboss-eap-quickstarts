@@ -21,6 +21,18 @@
  */
 package org.jboss.seam.forge.persistence;
 
+import java.io.FileNotFoundException;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Version;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -32,13 +44,11 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.*;
-import java.io.FileNotFoundException;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -84,7 +94,7 @@ public class NewEntityPlugin implements Plugin
             .addAnnotation(Entity.class)
             .getOrigin();
 
-      Field id = javaClass.addField("private long id = 0;");
+      Field<JavaClass> id = javaClass.addField("private long id = 0;");
       id.addAnnotation(Id.class);
       id.addAnnotation(GeneratedValue.class)
             .setEnumValue("strategy", GenerationType.AUTO);
@@ -93,7 +103,7 @@ public class NewEntityPlugin implements Plugin
             .setLiteralValue("updatable", "false")
             .setLiteralValue("nullable", "false");
 
-      Field version = javaClass.addField("private int version = 0;");
+      Field<JavaClass> version = javaClass.addField("private int version = 0;");
       version.addAnnotation(Version.class);
       version.addAnnotation(Column.class).setStringValue("name", "version");
 

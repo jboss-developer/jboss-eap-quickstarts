@@ -21,36 +21,37 @@
  */
 package org.jboss.seam.forge.test.grammar.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.Annotation;
-import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
-import org.jboss.seam.forge.test.grammar.java.common.MockEnum;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Annotation;
+import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
+import org.jboss.seam.forge.test.grammar.java.common.MockEnum;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class FieldAnnotationTest extends AnnotationTest
+public class FieldAnnotationTest extends AnnotationTest<JavaClass, Field<JavaClass>>
 {
    @Override
    public void resetTests()
    {
       InputStream stream = FieldAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedField.java");
-      Field field = JavaParser.parse(stream).getFields().get(0);
+      Field<JavaClass> field = JavaParser.parse(stream).getFields().get(0);
       setTarget(field);
    }
 
    @Test
    public void testParseEnumValueStaticImport() throws Exception
    {
-      List<Annotation> annotations = getTarget().getAnnotations();
-      Annotation annotation = annotations.get(annotations.size() - 1);
+      List<Annotation<JavaClass>> annotations = getTarget().getAnnotations();
+      Annotation<JavaClass> annotation = annotations.get(annotations.size() - 1);
       MockEnum enumValue = annotation.getEnumValue(MockEnum.class);
       assertEquals(MockEnum.FOO, enumValue);
    }

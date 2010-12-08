@@ -21,6 +21,10 @@
  */
 package org.jboss.seam.forge.test.parser.java.util;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -28,10 +32,6 @@ import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -49,15 +49,14 @@ public class RefactoryTest
    @Test
    public void testAddGettersAndSetters() throws Exception
    {
-      Field field = javaClass.getField("foo");
+      Field<JavaClass> field = javaClass.getField("foo");
       Refactory.createGetterAndSetter(javaClass, field);
 
-      List<Method> methods = javaClass.getMethods();
-      Method getter = methods.get(0);
-      Method setter = methods.get(1);
+      List<Method<JavaClass>> methods = javaClass.getMethods();
+      Method<JavaClass> getter = methods.get(0);
+      Method<JavaClass> setter = methods.get(1);
 
       assertEquals("getFoo", getter.getName());
       assertEquals("setFoo", setter.getName());
-
    }
 }

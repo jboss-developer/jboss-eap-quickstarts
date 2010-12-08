@@ -22,11 +22,18 @@
 
 package org.jboss.seam.forge.parser.java;
 
+import java.lang.annotation.Annotation;
+
+import org.jboss.seam.forge.parser.JavaParser;
 
 /**
+ * Represents a Java {@link Annotation} source file as an in-memory modifiable
+ * element. See {@link JavaParser} for various options in generating
+ * {@link JavaAnnotation} instances.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface Compiled<T>
+public interface JavaAnnotation extends JavaSource<JavaAnnotation>
 {
 
 }

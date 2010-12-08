@@ -25,7 +25,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.jboss.seam.forge.parser.java.Import;
-import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
@@ -34,26 +34,25 @@ import org.jboss.seam.forge.parser.java.util.Types;
  */
 public class ImportImpl implements Import
 {
-
-   private JavaClass parent;
+   private JavaSource<?> parent;
    private AST ast = null;
    private CompilationUnit cu = null;
    private ImportDeclaration imprt = null;
 
-   private void init(final JavaClass parent)
+   private void init(final JavaSource<?> parent)
    {
       this.parent = parent;
       cu = (CompilationUnit) parent.getInternal();
       ast = cu.getAST();
    }
 
-   public ImportImpl(final JavaClass parent)
+   public ImportImpl(final JavaSource<?> parent)
    {
       init(parent);
       imprt = ast.newImportDeclaration();
    }
 
-   public ImportImpl(final JavaClass parent, final Object internal)
+   public ImportImpl(final JavaSource<?> parent, final Object internal)
    {
       init(parent);
       imprt = (ImportDeclaration) internal;
@@ -86,7 +85,7 @@ public class ImportImpl implements Import
    }
 
    @Override
-   public JavaClass getOrigin()
+   public JavaSource<?> getOrigin()
    {
       return parent.getOrigin();
    }

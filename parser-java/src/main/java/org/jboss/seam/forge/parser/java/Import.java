@@ -29,14 +29,14 @@ import org.jboss.seam.forge.parser.Origin;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Import extends Internal, Origin<JavaClass>
+public interface Import<O> extends Internal, Origin<O>
 {
    public String getName();
 
-   public Import setName(final String name);
+   public Import<O> setName(final String name);
 
    public boolean isStatic();
 
-   public Import setStatic(final boolean value);
+   public Import<O> setStatic(final boolean value);
 
 }

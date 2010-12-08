@@ -24,17 +24,19 @@ package org.jboss.seam.forge.parser.java;
 
 import java.util.List;
 
+import org.jboss.seam.forge.parser.Origin;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface CompilationUnit<T extends CompilationUnit<?>> extends
+public interface JavaSource<T extends JavaSource<T>> extends
       Packaged<T>,
       Importer<T>,
-      Compiled<T>,
       Named<T>,
       VisibilityScoped<T>,
-      AnnotationTarget<T>
+      AnnotationTarget<T, T>,
+      Origin<T>
 {
    /**
     * Set the qualified-name of this {@link T} instance, where the

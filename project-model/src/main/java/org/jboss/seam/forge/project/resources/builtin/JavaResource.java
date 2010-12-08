@@ -75,7 +75,7 @@ public class JavaResource extends FileResource<JavaResource>
          if ((name != null) && (child instanceof JavaMemberResource<?>))
          {
             String childName = child.getName();
-            if (((Member<?>) child.getUnderlyingResourceObject()).getName().equals(name.trim())
+            if (((Member<?, ?>) child.getUnderlyingResourceObject()).getName().equals(name.trim())
                   || childName.equals(name))
             {
                subset.add(child);
@@ -98,6 +98,7 @@ public class JavaResource extends FileResource<JavaResource>
    }
 
    @Override
+   @SuppressWarnings({ "unchecked", "rawtypes" })
    public synchronized List<Resource<?>> listResources()
    {
       try
