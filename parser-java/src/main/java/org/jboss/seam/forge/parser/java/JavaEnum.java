@@ -31,7 +31,7 @@ import org.jboss.seam.forge.parser.JavaParser;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface JavaEnum extends CompilationUnit<JavaClass>
+public interface JavaEnum extends CompilationUnit<JavaEnum>
 {
 
 }
