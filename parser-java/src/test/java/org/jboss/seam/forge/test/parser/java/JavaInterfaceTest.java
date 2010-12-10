@@ -28,7 +28,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaInterface;
 import org.jboss.seam.forge.parser.java.Member;
 import org.junit.Test;
 
@@ -40,8 +40,9 @@ public class JavaInterfaceTest
    @Test
    public void testCanParseInterface() throws Exception
    {
-      InputStream stream = JavaInterfaceTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockInterface.java");
-      JavaClass javaClass = JavaParser.parse(stream);
+      InputStream stream = JavaInterfaceTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockInterface.java");
+      JavaInterface javaClass = JavaParser.parse(JavaInterface.class, stream);
       String name = javaClass.getName();
       assertEquals("MockInterface", name);
    }
@@ -49,11 +50,12 @@ public class JavaInterfaceTest
    @Test
    public void testCanParseBigInterface() throws Exception
    {
-      InputStream stream = JavaInterfaceTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/BigInterface.java");
-      JavaClass javaClass = JavaParser.parse(stream);
+      InputStream stream = JavaInterfaceTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/BigInterface.java");
+      JavaInterface javaClass = JavaParser.parse(JavaInterface.class, stream);
       String name = javaClass.getName();
       assertEquals("BigInterface", name);
-      List<Member<JavaClass, ?>> members = javaClass.getMembers();
+      List<Member<JavaInterface, ?>> members = javaClass.getMembers();
       assertFalse(members.isEmpty());
    }
 

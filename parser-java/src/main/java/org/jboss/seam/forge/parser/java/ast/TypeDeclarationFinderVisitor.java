@@ -22,30 +22,42 @@
 package org.jboss.seam.forge.parser.java.ast;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class TypeDeclarationFinderVisitor extends ASTVisitor
 {
-   private final List<TypeDeclaration> types = new ArrayList<TypeDeclaration>();
+   private AbstractTypeDeclaration declaration = null;
 
    @Override
    public boolean visit(final TypeDeclaration node)
    {
-      types.addAll(Arrays.asList(node));
+      declaration = node;
+      return true;
+   }
+
+   @Override
+   public boolean visit(final AnnotationTypeDeclaration node)
+   {
+      declaration = node;
       return super.visit(node);
    }
 
-   public List<TypeDeclaration> getTypeDeclarations()
+   @Override
+   public boolean visit(final EnumDeclaration node)
    {
-      return Collections.unmodifiableList(types);
+      declaration = node;
+      return super.visit(node);
+   }
+
+   public AbstractTypeDeclaration getTypeDeclaration()
+   {
+      return declaration;
    }
 
 }

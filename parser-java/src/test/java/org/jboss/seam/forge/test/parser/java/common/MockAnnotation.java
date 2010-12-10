@@ -28,5 +28,5 @@ package org.jboss.seam.forge.test.parser.java.common;
  */
 public @interface MockAnnotation
 {
-   MockEnum value() default MockEnum.BAR;
+   MockEnumType value() default MockEnumType.BAR;
 }

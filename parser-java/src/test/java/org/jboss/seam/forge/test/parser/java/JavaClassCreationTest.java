@@ -39,7 +39,7 @@ public class JavaClassCreationTest
    @BeforeClass
    public static void testCreateClass() throws Exception
    {
-      jc = JavaParser.createClass();
+      jc = JavaParser.create(JavaClass.class);
    }
 
    @Test

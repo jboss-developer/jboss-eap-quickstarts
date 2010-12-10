@@ -74,7 +74,7 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
       init(parent);
 
       String stub = "public class Stub { " + declaration + " }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
       List<Field<JavaClass>> fields = temp.getFields();
       FieldDeclaration newField = (FieldDeclaration) fields.get(0).getInternal();
       FieldDeclaration subtree = (FieldDeclaration) ASTNode.copySubtree(ast, newField);
@@ -232,7 +232,7 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
    }
 
    @Override
-   public Field<O> setVisibility(Visibility scope)
+   public Field<O> setVisibility(final Visibility scope)
    {
       return Visibility.set(this, scope);
    }
@@ -341,7 +341,7 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
    public Field<O> setLiteralInitializer(final String value)
    {
       String stub = "public class Stub { private Field<O> stub = " + value + " }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
       FieldDeclaration internal = (FieldDeclaration) temp.getFields().get(0).getInternal();
 
       for (Object f : internal.fragments())

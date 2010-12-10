@@ -1,11 +1,11 @@
 package org.jboss.seam.forge.grammar.java;
 
 @SuppressWarnings
-public enum MockInterface
+public enum MockEnum
 {
    FOO, BAR, BAZ;
    
-   private MockInterface()
+   private MockEnum()
    {
    }
    

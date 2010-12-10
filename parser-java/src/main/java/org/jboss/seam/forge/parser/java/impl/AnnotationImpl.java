@@ -62,18 +62,18 @@ public class AnnotationImpl<O, T> implements Annotation<O>
       ast = ((ASTNode) parent.getInternal()).getAST();
    }
 
-   public AnnotationImpl(AnnotationTarget<O, T> parent)
+   public AnnotationImpl(final AnnotationTarget<O, T> parent)
    {
       this(parent, AnnotationType.MARKER);
    }
 
-   public AnnotationImpl(AnnotationTarget<O, T> parent, Object internal)
+   public AnnotationImpl(final AnnotationTarget<O, T> parent, final Object internal)
    {
       init(parent);
       this.annotation = (org.eclipse.jdt.core.dom.Annotation) internal;
    }
 
-   public AnnotationImpl(AnnotationTarget<O, T> parent, AnnotationType type)
+   public AnnotationImpl(final AnnotationTarget<O, T> parent, final AnnotationType type)
    {
       init(parent);
       switch (type)
@@ -124,7 +124,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public String getLiteralValue(String name)
+   public String getLiteralValue(final String name)
    {
       String result = null;
       if (isNormal())
@@ -179,7 +179,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public String getStringValue(String name)
+   public String getStringValue(final String name)
    {
       return Strings.unquote(getLiteralValue(name));
    }
@@ -211,7 +211,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
 
    @Override
    @SuppressWarnings("unchecked")
-   public Annotation<O> removeValue(String name)
+   public Annotation<O> removeValue(final String name)
    {
       if (annotation.isNormalAnnotation())
       {
@@ -248,14 +248,14 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public Annotation<O> setName(String className)
+   public Annotation<O> setName(final String className)
    {
       annotation.setTypeName(ast.newName(className));
       return this;
    }
 
    @Override
-   public Annotation<O> setLiteralValue(String value)
+   public Annotation<O> setLiteralValue(final String value)
    {
       if (isMarker())
       {
@@ -267,7 +267,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
          SingleMemberAnnotation sa = (SingleMemberAnnotation) annotation;
 
          String stub = "@" + getName() + "(" + value + ") public class Stub { }";
-         JavaClass temp = JavaParser.parse(stub);
+         JavaClass temp = (JavaClass) JavaParser.parse(stub);
 
          SingleMemberAnnotation anno = (SingleMemberAnnotation) temp.getAnnotations().get(0).getInternal();
 
@@ -284,7 +284,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
 
    @Override
    @SuppressWarnings("unchecked")
-   public Annotation<O> setLiteralValue(String name, String value)
+   public Annotation<O> setLiteralValue(final String name, final String value)
    {
       if (!isNormal() && !DEFAULT_VALUE.equals(name))
       {
@@ -299,7 +299,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
       NormalAnnotation na = (NormalAnnotation) annotation;
 
       String stub = "@" + getName() + "(" + name + "=" + value + " ) public class Stub { }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
 
       NormalAnnotation anno = (NormalAnnotation) temp.getAnnotations().get(0).getInternal();
 
@@ -315,32 +315,32 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public Annotation<O> setStringValue(String value)
+   public Annotation<O> setStringValue(final String value)
    {
       return setLiteralValue(Strings.enquote(value));
    }
 
    @Override
-   public Annotation<O> setStringValue(String name, String value)
+   public Annotation<O> setStringValue(final String name, final String value)
    {
       return setLiteralValue(name, Strings.enquote(value));
    }
 
    @Override
-   public <E extends Enum<E>> E getEnumValue(Class<E> type)
+   public <E extends Enum<E>> E getEnumValue(final Class<E> type)
    {
       String literalValue = getLiteralValue();
       return convertLiteralToEnum(type, literalValue);
    }
 
    @Override
-   public <E extends Enum<E>> E getEnumValue(Class<E> type, String name)
+   public <E extends Enum<E>> E getEnumValue(final Class<E> type, final String name)
    {
       String literalValue = getLiteralValue(name);
       return convertLiteralToEnum(type, literalValue);
    }
 
-   private <E extends Enum<E>> E convertLiteralToEnum(Class<E> type, String literalValue)
+   private <E extends Enum<E>> E convertLiteralToEnum(final Class<E> type, String literalValue)
    {
       E[] constants = type.getEnumConstants();
 
@@ -361,7 +361,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public Annotation<O> setEnumValue(String name, Enum<?> value)
+   public Annotation<O> setEnumValue(final String name, final Enum<?> value)
    {
       O origin = getOrigin();
 
@@ -377,7 +377,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public Annotation<O> setEnumValue(Enum<?> value)
+   public Annotation<O> setEnumValue(final Enum<?> value)
    {
       O origin = getOrigin();
 
@@ -414,7 +414,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @SuppressWarnings("unchecked")
-   private void convertTo(AnnotationType type)
+   private void convertTo(final AnnotationType type)
    {
       BodyDeclaration node = (BodyDeclaration) annotation.getParent();
       String value = this.getLiteralValue();
@@ -448,7 +448,7 @@ public class AnnotationImpl<O, T> implements Annotation<O>
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(final Object obj)
    {
       if (this == obj)
       {

@@ -81,7 +81,7 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
       init(parent);
 
       String stub = "public class Stub { " + method + " }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
       List<Method<JavaClass>> methods = temp.getMethods();
       MethodDeclaration newMethod = (MethodDeclaration) methods.get(0).getInternal();
       MethodDeclaration subtree = (MethodDeclaration) ASTNode.copySubtree(cu.getAST(), newMethod);
@@ -173,7 +173,7 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
    public Method<O> setBody(final String body)
    {
       String stub = "public class Stub { public void method() {" + body + "} }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
       List<Method<JavaClass>> methods = temp.getMethods();
       Block block = ((MethodDeclaration) methods.get(0).getInternal()).getBody();
 
@@ -221,7 +221,7 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
    public Method<O> setReturnType(final String typeName)
    {
       String stub = "public class Stub { public " + typeName + " method() {} }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
       List<Method<JavaClass>> methods = temp.getMethods();
       Type returnType = ((MethodDeclaration) methods.get(0).getInternal()).getReturnType2();
 
@@ -297,7 +297,7 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
    public Method<O> setParameters(final String parameters)
    {
       String stub = "public class Stub { public void method( " + parameters + " ) {} }";
-      JavaClass temp = JavaParser.parse(stub);
+      JavaClass temp = (JavaClass) JavaParser.parse(stub);
       List<Method<JavaClass>> methods = temp.getMethods();
       List<VariableDeclaration> astParameters = ((MethodDeclaration) methods.get(0).getInternal()).parameters();
 
@@ -390,7 +390,7 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
    }
 
    @Override
-   public Method<O> setVisibility(Visibility scope)
+   public Method<O> setVisibility(final Visibility scope)
    {
       return Visibility.set(this, scope);
    }

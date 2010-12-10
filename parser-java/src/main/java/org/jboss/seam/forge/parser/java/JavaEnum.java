@@ -25,16 +25,12 @@ package org.jboss.seam.forge.parser.java;
 import org.jboss.seam.forge.parser.JavaParser;
 
 /**
- * Represents a Java {@link Enum} source file as an in-memory modifiable
- * element. See {@link JavaParser} for various options in generating
- * {@link JavaEnum} instances.
+ * Represents a Java {@link Enum} source file as an in-memory modifiable element. See {@link JavaParser} for various
+ * options in generating {@link JavaEnum} instances.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface JavaEnum extends
-      JavaSource<JavaEnum>,
-      FieldHolder<JavaClass>,
-      MethodHolder<JavaClass>
+public interface JavaEnum extends JavaSource<JavaEnum>
 {
 
 }

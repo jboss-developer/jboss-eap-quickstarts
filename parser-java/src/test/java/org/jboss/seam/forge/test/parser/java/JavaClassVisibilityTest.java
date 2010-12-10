@@ -21,11 +21,11 @@
  */
 package org.jboss.seam.forge.test.parser.java;
 
+import java.io.InputStream;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
-
-import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -35,8 +35,9 @@ public class JavaClassVisibilityTest extends VisibilityTest
    @Override
    public void resetTests()
    {
-      InputStream stream = JavaClassVisibilityTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockClass.java");
-      JavaClass clazz = JavaParser.parse(stream);
+      InputStream stream = JavaClassVisibilityTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockClass.java");
+      JavaClass clazz = JavaParser.parse(JavaClass.class, stream);
       setTarget(clazz);
    }
 }

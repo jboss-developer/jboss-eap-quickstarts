@@ -19,26 +19,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.parser.java;
+package org.jboss.seam.forge.parser.java.impl;
 
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jface.text.Document;
+import org.jboss.seam.forge.parser.java.JavaEnum;
+import org.jboss.seam.forge.parser.java.Member;
 
 /**
+ * Represents a Java Source File
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class FieldVisibilityTest extends VisibilityTest
+public class JavaEnumImpl extends AbstractJavaSource<JavaEnum> implements JavaEnum
 {
-   @Override
-   public void resetTests()
+   public JavaEnumImpl(final Document document, final CompilationUnit unit)
    {
-      InputStream stream = FieldVisibilityTest.class
-               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedField.java");
-      Field field = JavaParser.parse(JavaClass.class, stream).getFields().get(0);
-      setTarget(field);
+      super(document, unit);
    }
+
+   @Override
+   public List<Member<JavaEnum, ?>> getMembers()
+   {
+      List<Member<JavaEnum, ?>> result = new ArrayList<Member<JavaEnum, ?>>();
+
+      return result;
+   }
+
+   @Override
+   protected JavaEnum updateTypeNames(final String newName)
+   {
+      return this;
+   }
+
 }

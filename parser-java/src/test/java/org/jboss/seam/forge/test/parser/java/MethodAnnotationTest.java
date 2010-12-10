@@ -36,8 +36,9 @@ public class MethodAnnotationTest extends AnnotationTest<JavaClass, Method<JavaC
    @Override
    public void resetTests()
    {
-      InputStream stream = MethodAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedMethod.java");
-      Method<JavaClass> method = JavaParser.parse(stream).getMethods().get(0);
+      InputStream stream = MethodAnnotationTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedMethod.java");
+      Method<JavaClass> method = JavaParser.parse(JavaClass.class, stream).getMethods().get(0);
       setTarget(method);
    }
 }

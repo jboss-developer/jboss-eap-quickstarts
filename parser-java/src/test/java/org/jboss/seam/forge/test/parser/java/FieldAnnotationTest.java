@@ -31,7 +31,7 @@ import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
-import org.jboss.seam.forge.test.parser.java.common.MockEnum;
+import org.jboss.seam.forge.test.parser.java.common.MockEnumType;
 import org.junit.Test;
 
 /**
@@ -42,8 +42,9 @@ public class FieldAnnotationTest extends AnnotationTest<JavaClass, Field<JavaCla
    @Override
    public void resetTests()
    {
-      InputStream stream = FieldAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedField.java");
-      Field<JavaClass> field = JavaParser.parse(stream).getFields().get(0);
+      InputStream stream = FieldAnnotationTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedField.java");
+      Field<JavaClass> field = JavaParser.parse(JavaClass.class, stream).getFields().get(0);
       setTarget(field);
    }
 
@@ -52,7 +53,7 @@ public class FieldAnnotationTest extends AnnotationTest<JavaClass, Field<JavaCla
    {
       List<Annotation<JavaClass>> annotations = getTarget().getAnnotations();
       Annotation<JavaClass> annotation = annotations.get(annotations.size() - 1);
-      MockEnum enumValue = annotation.getEnumValue(MockEnum.class);
-      assertEquals(MockEnum.FOO, enumValue);
+      MockEnumType enumValue = annotation.getEnumValue(MockEnumType.class);
+      assertEquals(MockEnumType.FOO, enumValue);
    }
 }

@@ -129,25 +129,25 @@ public abstract class AnnotationTest<O, T>
    @Test
    public void testAddEnumValue() throws Exception
    {
-      target.addAnnotation(Test.class).setEnumValue(MockEnum.FOO);
+      target.addAnnotation(Test.class).setEnumValue(MockEnumType.FOO);
 
       List<Annotation<O>> annotations = target.getAnnotations();
 
       Annotation<O> annotation = annotations.get(annotations.size() - 1);
-      MockEnum enumValue = annotation.getEnumValue(MockEnum.class);
-      assertEquals(MockEnum.FOO, enumValue);
+      MockEnumType enumValue = annotation.getEnumValue(MockEnumType.class);
+      assertEquals(MockEnumType.FOO, enumValue);
    }
 
    @Test
    public void testAddEnumNameValue() throws Exception
    {
-      target.addAnnotation(Test.class).setEnumValue("name", MockEnum.BAR);
+      target.addAnnotation(Test.class).setEnumValue("name", MockEnumType.BAR);
 
       List<Annotation<O>> annotations = target.getAnnotations();
 
       Annotation<O> annotation = annotations.get(annotations.size() - 1);
-      MockEnum enumValue = annotation.getEnumValue(MockEnum.class, "name");
-      assertEquals(MockEnum.BAR, enumValue);
+      MockEnumType enumValue = annotation.getEnumValue(MockEnumType.class, "name");
+      assertEquals(MockEnumType.BAR, enumValue);
    }
 
    @Test

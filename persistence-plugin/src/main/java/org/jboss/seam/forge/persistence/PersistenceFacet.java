@@ -21,8 +21,17 @@
  */
 package org.jboss.seam.forge.persistence;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Named;
+import javax.persistence.Entity;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -39,17 +48,14 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.*;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
-
-import javax.inject.Named;
-import javax.persistence.Entity;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -60,7 +66,7 @@ import java.util.List;
 public class PersistenceFacet implements Facet
 {
    private static final Dependency dep =
-         DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
+            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
    private Project project;
 
@@ -99,16 +105,16 @@ public class PersistenceFacet implements Facet
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                  .persistenceUnit("default")
-                  .description("The Seam Forge default Persistence Unit")
-                  .transactionType(TransactionType.JTA)
-                  .provider(ProviderType.HIBERNATE)
-                  .jtaDataSource("java:/DefaultDS")
-                  .includeUnlistedClasses()
-                  .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
-                  .showSql()
-                  .formatSql()
-                  .property("hibernate.transaction.flush_before_completion", true);
+                     .persistenceUnit("default")
+                     .description("The Seam Forge default Persistence Unit")
+                     .transactionType(TransactionType.JTA)
+                     .provider(ProviderType.HIBERNATE)
+                     .jtaDataSource("java:/DefaultDS")
+                     .includeUnlistedClasses()
+                     .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
+                     .showSql()
+                     .formatSql()
+                     .property("hibernate.transaction.flush_before_completion", true);
 
             descriptor.setContents(unit.exportAsString());
          }
@@ -120,8 +126,9 @@ public class PersistenceFacet implements Facet
    private void installUtils()
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(loader.getResourceAsStream("templates/PersistenceUtil.java"));
-      JavaClass producer = JavaParser.parse(loader.getResourceAsStream("templates/DatasourceProducer.java"));
+      JavaClass util = JavaParser.parse(JavaClass.class, loader.getResourceAsStream("templates/PersistenceUtil.java"));
+      JavaClass producer = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("templates/DatasourceProducer.java"));
 
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
@@ -156,7 +163,7 @@ public class PersistenceFacet implements Facet
    public DirectoryResource getEntityPackageFile()
    {
       JavaSourceFacet sourceFacet = project.getFacet(JavaSourceFacet.class);
-      return (DirectoryResource) sourceFacet.getBasePackageResource().getChildDirectory("domain");
+      return sourceFacet.getBasePackageResource().getChildDirectory("domain");
    }
 
    @SuppressWarnings("unchecked")
@@ -198,10 +205,10 @@ public class PersistenceFacet implements Facet
             {
                try
                {
-                  JavaClass javaClass = ((JavaResource) source).getJavaClass();
-                  if (javaClass.hasAnnotation(Entity.class))
+                  JavaSource<?> javaClass = ((JavaResource) source).getJavaSource();
+                  if (javaClass.hasAnnotation(Entity.class) && javaClass.isClass())
                   {
-                     result.add(javaClass);
+                     result.add((JavaClass) javaClass);
                   }
                }
                catch (FileNotFoundException e)

@@ -54,6 +54,6 @@ public class NewFieldPluginNegativeTest extends AbstractJPATest
 
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
-      java.getJavaResource(path).getJavaClass(); // exception here or die
+      java.getJavaResource(path).getJavaSource(); // exception here or die
    }
 }

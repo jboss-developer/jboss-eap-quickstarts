@@ -32,6 +32,7 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
@@ -70,7 +71,7 @@ public class LsJavaPlugin implements Plugin
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
+                   @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
                    final PipeOut out) throws FileNotFoundException
    {
 
@@ -84,8 +85,8 @@ public class LsJavaPlugin implements Plugin
             }
             else
             {
-               JavaResource javaSource = (JavaResource) resource;
-               JavaClass javaClass = javaSource.getJavaClass();
+               JavaResource javaResource = (JavaResource) resource;
+               JavaSource<?> javaSource = javaResource.getJavaSource();
                List<String> output = new ArrayList<String>();
 
                if (!out.isPiped())
@@ -94,63 +95,67 @@ public class LsJavaPlugin implements Plugin
                   out.println(ShellColor.RED, "[fields]");
                }
 
-               List<Field<JavaClass>> fields = javaClass.getFields();
-
-               for (Field<JavaClass> field : fields)
+               if (javaSource instanceof JavaClass)
                {
-                  String entry = out.renderColor(ShellColor.BLUE, field.getVisibility().scope());
-                  entry += out.renderColor(ShellColor.GREEN, DELIM + field.getType() + "");
-                  entry += DELIM + field.getName() + ";";
-                  output.add(entry);
-               }
+                  JavaClass javaClass = (JavaClass) javaSource;
+                  List<Field<JavaClass>> fields = javaClass.getFields();
 
-               if (out.isPiped())
-               {
-                  GeneralUtils.OutputAttributes attr = new GeneralUtils.OutputAttributes(120, 1);
-                  printOutColumns(output, ShellColor.NONE, out, attr, null, false);
-               }
-               else
-               {
-                  GeneralUtils.printOutColumns(output, out, shell, true);
-                  out.println();
-               }
-
-               // rinse and repeat for methods
-               output = new ArrayList<String>();
-               List<Method<JavaClass>> methods = javaClass.getMethods();
-
-               if (!out.isPiped())
-               {
-                  out.println(ShellColor.RED, "[methods]");
-               }
-
-               for (Method<JavaClass> method : methods)
-               {
-                  String entry = out.renderColor(ShellColor.BLUE, method.getVisibility().scope());
-                  String parameterString = "(";
-
-                  for (Parameter<JavaClass> param : method.getParameters())
+                  for (Field<JavaClass> field : fields)
                   {
-                     parameterString += param.toString();
+                     String entry = out.renderColor(ShellColor.BLUE, field.getVisibility().scope());
+                     entry += out.renderColor(ShellColor.GREEN, DELIM + field.getType() + "");
+                     entry += DELIM + field.getName() + ";";
+                     output.add(entry);
                   }
-                  parameterString += ")";
 
-                  entry += DELIM + method.getName() + parameterString;
+                  if (out.isPiped())
+                  {
+                     GeneralUtils.OutputAttributes attr = new GeneralUtils.OutputAttributes(120, 1);
+                     printOutColumns(output, ShellColor.NONE, out, attr, null, false);
+                  }
+                  else
+                  {
+                     GeneralUtils.printOutColumns(output, out, shell, true);
+                     out.println();
+                  }
 
-                  String returnType = method.getReturnType() == null ? "void" : method.getReturnType();
-                  entry += out.renderColor(ShellColor.GREEN, DELIM + returnType + "");
-                  output.add(entry);
-               }
+                  // rinse and repeat for methods
+                  output = new ArrayList<String>();
+                  List<Method<JavaClass>> methods = javaClass.getMethods();
 
-               if (out.isPiped())
-               {
-                  GeneralUtils.OutputAttributes attr = new GeneralUtils.OutputAttributes(120, 1);
-                  printOutColumns(output, ShellColor.NONE, out, attr, null, false);
-               }
-               else
-               {
-                  GeneralUtils.printOutColumns(output, out, shell, true);
-                  out.println();
+                  if (!out.isPiped())
+                  {
+                     out.println(ShellColor.RED, "[methods]");
+                  }
+
+                  for (Method<JavaClass> method : methods)
+                  {
+                     String entry = out.renderColor(ShellColor.BLUE, method.getVisibility().scope());
+                     String parameterString = "(";
+
+                     for (Parameter<JavaClass> param : method.getParameters())
+                     {
+                        parameterString += param.toString();
+                     }
+                     parameterString += ")";
+
+                     entry += DELIM + method.getName() + parameterString;
+
+                     String returnType = method.getReturnType() == null ? "void" : method.getReturnType();
+                     entry += out.renderColor(ShellColor.GREEN, DELIM + returnType + "");
+                     output.add(entry);
+                  }
+
+                  if (out.isPiped())
+                  {
+                     GeneralUtils.OutputAttributes attr = new GeneralUtils.OutputAttributes(120, 1);
+                     printOutColumns(output, ShellColor.NONE, out, attr, null, false);
+                  }
+                  else
+                  {
+                     GeneralUtils.printOutColumns(output, out, shell, true);
+                     out.println();
+                  }
                }
             }
          }

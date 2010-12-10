@@ -40,9 +40,11 @@ import javax.persistence.OneToOne;
 
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.parser.java.util.Types;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -80,22 +82,22 @@ public class NewFieldPlugin implements Plugin
 
    @DefaultCommand(help = "Add many custom field to an existing @Entity class")
    public void newExpressionField(
-         @Option(required = true, description = "The field descriptor") final String... fields)
+            @Option(required = true, description = "The field descriptor") final String... fields)
    {
       System.out.println(Arrays.asList(fields));
    }
 
    @Command(value = "custom", help = "Add a custom field to an existing @Entity class")
    public void newCustomField(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "type",
-               required = true,
-               type = PromptType.JAVA_CLASS,
-               description = "The qualified Class to be used as this field's type") final String type
-         )
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "type",
+                     required = true,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The qualified Class to be used as this field's type") final String type
+            )
    {
       try
       {
@@ -110,15 +112,15 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "boolean", help = "Add a boolean field to an existing @Entity class")
    public void newBooleanField(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "primitive",
-               required = false,
-               defaultValue = "true",
-               description = "Marks this field to be created as a primitive.",
-               type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "primitive",
+                     required = false,
+                     defaultValue = "true",
+                     description = "Marks this field to be created as a primitive.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
    {
       try
       {
@@ -140,16 +142,16 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "int", help = "Add an int field to an existing @Entity class")
    public void newIntField(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
 
-         @Option(name = "primitive",
-               required = false,
-               defaultValue = "true",
-               description = "Marks this field to be created as a primitive.",
-               type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
+            @Option(name = "primitive",
+                     required = false,
+                     defaultValue = "true",
+                     description = "Marks this field to be created as a primitive.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
    {
       try
       {
@@ -171,15 +173,15 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "long", help = "Add a long field to an existing @Entity class")
    public void newLongField(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "primitive",
-               required = false,
-               defaultValue = "true",
-               description = "Marks this field to be created as a primitive.",
-               type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "primitive",
+                     required = false,
+                     defaultValue = "true",
+                     description = "Marks this field to be created as a primitive.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final boolean primitive)
    {
       try
       {
@@ -201,14 +203,14 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "number", help = "Add a number field to an existing @Entity class")
    public void newNumberField(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "type",
-               required = true,
-               type = PromptType.JAVA_CLASS,
-               description = "The qualified Class to be used as this field's type") final String type)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "type",
+                     required = true,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The qualified Class to be used as this field's type") final String type)
    {
       try
       {
@@ -222,20 +224,20 @@ public class NewFieldPlugin implements Plugin
       catch (ClassNotFoundException e)
       {
          shell.println("Sorry, I don't think [" + type
-               + "] is a valid Java number type. Try something in the 'java.lang.* or java.math*' packages.");
+                  + "] is a valid Java number type. Try something in the 'java.lang.* or java.math*' packages.");
       }
    }
 
    @Command(value = "string", help = "Add a String field to an existing @Entity class")
    public void newLongField(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "addToClass",
-               required = false,
-               type = PromptType.JAVA_CLASS,
-               description = "The @Entity to which this field will be added") final String entityName)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "addToClass",
+                     required = false,
+                     type = PromptType.JAVA_CLASS,
+                     description = "The @Entity to which this field will be added") final String entityName)
    {
       try
       {
@@ -250,18 +252,18 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "oneToOne", help = "Add a One-to-one relationship field to an existing @Entity class")
    public void newOneToOneRelationship(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "fieldType",
-               required = true,
-               description = "The @Entity type to which this field is a relationship",
-               type = PromptType.JAVA_CLASS) final String fieldType,
-         @Option(name = "inverseFieldName",
-               required = false,
-               description = "Create a bi-directional relationship, using this value as the name of the inverse field.",
-               type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity type to which this field is a relationship",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "Create a bi-directional relationship, using this value as the name of the inverse field.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
 
       try
@@ -282,18 +284,18 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "manyToMany", help = "Add a many-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
    public void newManyToManyRelationship(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "fieldType",
-               required = true,
-               description = "The @Entity type to which this field is a relationship",
-               type = PromptType.JAVA_CLASS) final String fieldType,
-         @Option(name = "inverseFieldName",
-               required = false,
-               description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
-               type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity type to which this field is a relationship",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
 
       Project project = getCurrentProject();
@@ -308,7 +310,7 @@ public class NewFieldPlugin implements Plugin
          entity.addImport(HashSet.class);
          entity.addImport(otherEntity.getQualifiedName());
          Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
-               + otherEntity.getName() + ">();");
+                  + otherEntity.getName() + ">();");
          org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(ManyToMany.class);
          Refactory.createGetterAndSetter(entity, field);
 
@@ -320,7 +322,7 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(HashSet.class);
             otherEntity.addImport(entity.getQualifiedName());
             Field otherField = otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
-                  + "= new HashSet<" + entity.getName() + ">();");
+                     + "= new HashSet<" + entity.getName() + ">();");
             otherField.addAnnotation(ManyToMany.class);
             Refactory.createGetterAndSetter(otherEntity, otherField);
 
@@ -337,18 +339,18 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "oneToMany", help = "Add a one-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
    public void newOneToManyRelationship(
-         @Option(name = "fieldName",
-               required = true,
-               description = "The field name",
-               type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-         @Option(name = "fieldType",
-               required = true,
-               description = "The @Entity representing the 'many' side of the relationship.",
-               type = PromptType.JAVA_CLASS) final String fieldType,
-         @Option(name = "inverseFieldName",
-               required = false,
-               description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
-               type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity representing the 'many' side of the relationship.",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
 
       Project project = getCurrentProject();
@@ -363,7 +365,7 @@ public class NewFieldPlugin implements Plugin
          entity.addImport(HashSet.class);
          entity.addImport(otherEntity.getQualifiedName());
          Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
-               + otherEntity.getName() + ">();");
+                  + otherEntity.getName() + ">();");
          org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(OneToMany.class);
          Refactory.createGetterAndSetter(entity, field);
 
@@ -375,8 +377,8 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(HashSet.class);
             otherEntity.addImport(entity.getQualifiedName());
             otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
-                  + "= new HashSet<" + entity.getName() + ">();")
-                  .addAnnotation(ManyToOne.class);
+                     + "= new HashSet<" + entity.getName() + ">();")
+                     .addAnnotation(ManyToOne.class);
 
             java.saveJavaClass(otherEntity);
          }
@@ -443,15 +445,26 @@ public class NewFieldPlugin implements Plugin
 
    private JavaClass getJavaClass() throws FileNotFoundException
    {
-      if (shell.getCurrentResource() instanceof JavaResource)
+      Resource<?> resource = shell.getCurrentResource();
+      if (resource instanceof JavaResource)
       {
-         return ((JavaResource) shell.getCurrentResource()).getJavaClass();
+         return getJavaClassFrom(resource);
       }
       else
       {
-         throw new RuntimeException("current resource is not a JavaResource!");
+         throw new RuntimeException("Current resource is not a JavaResource!");
       }
 
+   }
+
+   private JavaClass getJavaClassFrom(final Resource<?> resource) throws FileNotFoundException
+   {
+      JavaSource<?> source = ((JavaResource) resource).getJavaSource();
+      if (!source.isClass())
+      {
+         throw new IllegalStateException("Current resource is not a JavaClass!");
+      }
+      return (JavaClass) source;
    }
 
    private JavaClass findEntity(final String entity) throws FileNotFoundException
@@ -464,10 +477,10 @@ public class NewFieldPlugin implements Plugin
 
       if (entity != null)
       {
-         result = java.getJavaResource(entity).getJavaClass();
+         result = getJavaClassFrom(java.getJavaResource(entity));
          if (result == null)
          {
-            result = java.getJavaResource(scaffold.getEntityPackage() + "." + entity).getJavaClass();
+            result = getJavaClassFrom(java.getJavaResource(scaffold.getEntityPackage() + "." + entity));
          }
       }
 

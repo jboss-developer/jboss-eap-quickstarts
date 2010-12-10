@@ -32,10 +32,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
-import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.ResourceHandles;
@@ -50,7 +49,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 @ResourceHandles("*.java")
 public class JavaResource extends FileResource<JavaResource>
 {
-   private volatile JavaClass javaClass;
+   private volatile JavaSource<?> source;
 
    @Inject
    public JavaResource(final ResourceFactory factory)
@@ -65,7 +64,7 @@ public class JavaResource extends FileResource<JavaResource>
    }
 
    @Override
-   public Resource<?> getChild(String name)
+   public Resource<?> getChild(final String name)
    {
       List<Resource<?>> children = listResources();
       List<Resource<?>> subset = new ArrayList<Resource<?>>();
@@ -76,7 +75,7 @@ public class JavaResource extends FileResource<JavaResource>
          {
             String childName = child.getName();
             if (((Member<?, ?>) child.getUnderlyingResourceObject()).getName().equals(name.trim())
-                  || childName.equals(name))
+                     || childName.equals(name))
             {
                subset.add(child);
             }
@@ -112,20 +111,15 @@ public class JavaResource extends FileResource<JavaResource>
 
       List<Resource<?>> list = new LinkedList<Resource<?>>();
 
-      for (Field field : javaClass.getFields())
+      for (Member<?, ?> member : source.getMembers())
       {
-         list.add(new JavaFieldResource(this, field));
-      }
-
-      for (Method method : javaClass.getMethods())
-      {
-         list.add(new JavaMethodResource(this, method));
+         list.add(new JavaMemberResource(this, member));
       }
 
       return list;
    }
 
-   public JavaResource setContents(JavaClass javaClass)
+   public JavaResource setContents(final JavaClass javaClass)
    {
       setContents(javaClass.toString());
       return this;
@@ -133,16 +127,19 @@ public class JavaResource extends FileResource<JavaResource>
 
    private void lazyInitialize() throws FileNotFoundException
    {
-      if (javaClass == null)
+      if (source == null)
       {
-         javaClass = JavaParser.parse(file);
+         source = JavaParser.parse(file);
       }
    }
 
-   public JavaClass getJavaClass() throws FileNotFoundException
+   /**
+    * Attempts to perform cast automatically. This can lead to problems.
+    */
+   public JavaSource<?> getJavaSource() throws FileNotFoundException
    {
       lazyInitialize();
-      return javaClass;
+      return source;
    }
 
    @Override
@@ -156,7 +153,7 @@ public class JavaResource extends FileResource<JavaResource>
    {
       try
       {
-         return getJavaClass().toString();
+         return getJavaSource().toString();
       }
       catch (FileNotFoundException e)
       {

@@ -21,11 +21,11 @@
  */
 package org.jboss.seam.forge.test.parser.java;
 
+import java.io.InputStream;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
-
-import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -35,8 +35,9 @@ public class JavaClassAnnotationTest extends AnnotationTest
    @Override
    public void resetTests()
    {
-      InputStream stream = JavaClassAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedClass.java");
-      JavaClass javaClass = JavaParser.parse(stream);
+      InputStream stream = JavaClassAnnotationTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedClass.java");
+      JavaClass javaClass = JavaParser.parse(JavaClass.class, stream);
       setTarget(javaClass);
    }
 }

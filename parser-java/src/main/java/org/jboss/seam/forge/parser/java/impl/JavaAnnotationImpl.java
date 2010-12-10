@@ -19,26 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.parser.java;
+package org.jboss.seam.forge.parser.java.impl;
 
-import java.io.InputStream;
-
-import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jface.text.Document;
+import org.jboss.seam.forge.parser.java.JavaAnnotation;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class FieldVisibilityTest extends VisibilityTest
+public class JavaAnnotationImpl extends AbstractJavaSource<JavaAnnotation> implements JavaAnnotation
 {
-   @Override
-   public void resetTests()
+
+   public JavaAnnotationImpl(final Document document, final CompilationUnit unit)
    {
-      InputStream stream = FieldVisibilityTest.class
-               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedField.java");
-      Field field = JavaParser.parse(JavaClass.class, stream).getFields().get(0);
-      setTarget(field);
+      super(document, unit);
    }
+
+   @Override
+   protected JavaAnnotation updateTypeNames(final String name)
+   {
+      return this;
+   }
+
 }

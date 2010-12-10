@@ -73,9 +73,9 @@ public class NewEntityPlugin implements Plugin
 
    @DefaultCommand(help = "Create a JPA @Entity")
    public void newEntity(
-         @Option(required = true,
-               name = "named",
-               description = "The @Entity name") final String entityName) throws FileNotFoundException
+            @Option(required = true,
+                     name = "named",
+                     description = "The @Entity name") final String entityName) throws FileNotFoundException
    {
       // TODO this should accept a qualified name as a parameter instead of
       // prompting for the package later
@@ -84,24 +84,24 @@ public class NewEntityPlugin implements Plugin
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       String entityPackage = shell.promptCommon(
-            "In which package you'd like to create this @Entity, or enter for default:",
-            PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
+               "In which package you'd like to create this @Entity, or enter for default:",
+               PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
 
-      JavaClass javaClass = JavaParser.createClass()
-            .setPackage(entityPackage)
-            .setName(entityName)
-            .setPublic()
-            .addAnnotation(Entity.class)
-            .getOrigin();
+      JavaClass javaClass = JavaParser.create(JavaClass.class)
+               .setPackage(entityPackage)
+               .setName(entityName)
+               .setPublic()
+               .addAnnotation(Entity.class)
+               .getOrigin();
 
       Field<JavaClass> id = javaClass.addField("private long id = 0;");
       id.addAnnotation(Id.class);
       id.addAnnotation(GeneratedValue.class)
-            .setEnumValue("strategy", GenerationType.AUTO);
+               .setEnumValue("strategy", GenerationType.AUTO);
       id.addAnnotation(Column.class)
-            .setStringValue("name", "id")
-            .setLiteralValue("updatable", "false")
-            .setLiteralValue("nullable", "false");
+               .setStringValue("name", "id")
+               .setLiteralValue("updatable", "false")
+               .setLiteralValue("nullable", "false");
 
       Field<JavaClass> version = javaClass.addField("private int version = 0;");
       version.addAnnotation(Version.class);

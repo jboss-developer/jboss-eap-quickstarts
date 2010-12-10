@@ -43,7 +43,7 @@ public class RefactoryTest
    @Before
    public void before()
    {
-      javaClass = JavaParser.parse("public class Foo { private int foo; }");
+      javaClass = JavaParser.parse(JavaClass.class, "public class Foo { private int foo; }");
    }
 
    @Test

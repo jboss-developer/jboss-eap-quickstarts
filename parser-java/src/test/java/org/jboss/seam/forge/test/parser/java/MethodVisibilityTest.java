@@ -21,11 +21,12 @@
  */
 package org.jboss.seam.forge.test.parser.java;
 
+import java.io.InputStream;
+
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
-
-import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -35,8 +36,9 @@ public class MethodVisibilityTest extends VisibilityTest
    @Override
    public void resetTests()
    {
-      InputStream stream = MethodVisibilityTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedMethod.java");
-      Method method = JavaParser.parse(stream).getMethods().get(0);
+      InputStream stream = MethodVisibilityTest.class
+               .getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedMethod.java");
+      Method method = JavaParser.parse(JavaClass.class, stream).getMethods().get(0);
       setTarget(method);
    }
 }

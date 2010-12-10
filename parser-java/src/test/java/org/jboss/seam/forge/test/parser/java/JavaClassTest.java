@@ -50,7 +50,7 @@ public class JavaClassTest
    public void reset()
    {
       stream = JavaClassTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockClass.java");
-      javaClass = JavaParser.parse(stream);
+      javaClass = JavaParser.parse(JavaClass.class, stream);
    }
 
    @Test
@@ -209,7 +209,7 @@ public class JavaClassTest
    public void testAddMethodFromString() throws Exception
    {
       javaClass.addMethod("public URL rewriteURL(String pattern, String replacement) { return null; }")
-            .setPackagePrivate().getOrigin();
+               .setPackagePrivate().getOrigin();
       List<Method<JavaClass>> methods = javaClass.getMethods();
       assertEquals(3, methods.size());
       assertEquals("URL", methods.get(2).getReturnType());
@@ -232,7 +232,7 @@ public class JavaClassTest
    public void testAddConstructor() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setProtected().setReturnType(String.class)
-            .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
+               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
       Method<JavaClass> method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertEquals(javaClass.getName(), method.getName());
@@ -247,7 +247,7 @@ public class JavaClassTest
    public void testAddConstructorIngoresReturnTypeAndName() throws Exception
    {
       javaClass.addMethod().setName("testMethod").setConstructor(true).setPrivate().setReturnType(String.class)
-            .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
+               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
       Method<JavaClass> method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
       assertEquals(3, javaClass.getMethods().size());
       assertTrue(method.isPrivate());

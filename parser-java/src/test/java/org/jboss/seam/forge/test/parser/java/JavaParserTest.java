@@ -23,20 +23,18 @@
 package org.jboss.seam.forge.test.parser.java;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.ParserException;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class JavaParserTest
 {
-   @Test
-   public void testSyntaxErrorsPresentWhenBadFileParsed() throws Exception
+   @Test(expected = ParserException.class)
+   public void testExceptionWhenBadFileParsed() throws Exception
    {
-      JavaClass clazz = JavaParser.parse("asdfa$%(*&#$%sdfdsf");
-      assertTrue(clazz.hasSyntaxErrors());
+      JavaParser.parse(JavaClass.class, "asdfa$%(*&#$%sdfdsf");
    }
 }

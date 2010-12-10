@@ -28,26 +28,22 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaInterface;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
-import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 
 /**
- * Represents a Java Source File
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements JavaClass
+public class JavaInterfaceImpl extends AbstractJavaSource<JavaInterface> implements JavaInterface
 {
-   private final ModifierAccessor modifiers = new ModifierAccessor();
 
-   public JavaClassImpl(final Document document, final CompilationUnit unit)
+   public JavaInterfaceImpl(final Document document, final CompilationUnit unit)
    {
       super(document, unit);
    }
@@ -57,39 +53,39 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
     */
    @Override
    @SuppressWarnings("unchecked")
-   public Field<JavaClass> addField()
+   public Field<JavaInterface> addField()
    {
-      Field<JavaClass> field = new FieldImpl<JavaClass>(this);
+      Field<JavaInterface> field = new FieldImpl<JavaInterface>(this);
       getBodyDeclaration().bodyDeclarations().add(field.getInternal());
       return field;
    }
 
    @Override
    @SuppressWarnings("unchecked")
-   public Field<JavaClass> addField(final String declaration)
+   public Field<JavaInterface> addField(final String declaration)
    {
-      Field<JavaClass> field = new FieldImpl<JavaClass>(this, declaration);
+      Field<JavaInterface> field = new FieldImpl<JavaInterface>(this, declaration);
       getBodyDeclaration().bodyDeclarations().add(field.getInternal());
       return field;
    }
 
    @Override
-   public List<Field<JavaClass>> getFields()
+   public List<Field<JavaInterface>> getFields()
    {
-      List<Field<JavaClass>> result = new ArrayList<Field<JavaClass>>();
+      List<Field<JavaInterface>> result = new ArrayList<Field<JavaInterface>>();
 
       for (FieldDeclaration field : ((TypeDeclaration) getBodyDeclaration()).getFields())
       {
-         result.add(new FieldImpl<JavaClass>(this, field));
+         result.add(new FieldImpl<JavaInterface>(this, field));
       }
 
       return Collections.unmodifiableList(result);
    }
 
    @Override
-   public Field<JavaClass> getField(final String name)
+   public Field<JavaInterface> getField(final String name)
    {
-      for (Field<JavaClass> field : getFields())
+      for (Field<JavaInterface> field : getFields())
       {
          if (field.getName().equals(name))
          {
@@ -102,7 +98,7 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    @Override
    public boolean hasField(final String name)
    {
-      for (Field<JavaClass> field : getFields())
+      for (Field<JavaInterface> field : getFields())
       {
          if (field.getName().equals(name))
          {
@@ -113,13 +109,13 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    }
 
    @Override
-   public boolean hasField(final Field<JavaClass> field)
+   public boolean hasField(final Field<JavaInterface> field)
    {
       return getFields().contains(field);
    }
 
    @Override
-   public JavaClass removeField(final Field<JavaClass> field)
+   public JavaInterface removeField(final Field<JavaInterface> field)
    {
       getBodyDeclaration().bodyDeclarations().remove(field.getInternal());
       return this;
@@ -127,26 +123,26 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
 
    @Override
    @SuppressWarnings("unchecked")
-   public Method<JavaClass> addMethod()
+   public Method<JavaInterface> addMethod()
    {
-      Method<JavaClass> m = new MethodImpl<JavaClass>(this);
+      Method<JavaInterface> m = new MethodImpl<JavaInterface>(this);
       getBodyDeclaration().bodyDeclarations().add(m.getInternal());
       return m;
    }
 
    @Override
    @SuppressWarnings("unchecked")
-   public Method<JavaClass> addMethod(final String method)
+   public Method<JavaInterface> addMethod(final String method)
    {
-      Method<JavaClass> m = new MethodImpl<JavaClass>(this, method);
+      Method<JavaInterface> m = new MethodImpl<JavaInterface>(this, method);
       getBodyDeclaration().bodyDeclarations().add(m.getInternal());
       return m;
    }
 
    @Override
-   public List<Method<JavaClass>> getMethods()
+   public List<Method<JavaInterface>> getMethods()
    {
-      List<Method<JavaClass>> result = new ArrayList<Method<JavaClass>>();
+      List<Method<JavaInterface>> result = new ArrayList<Method<JavaInterface>>();
 
       MethodFinderVisitor methodFinderVisitor = new MethodFinderVisitor();
       unit.accept(methodFinderVisitor);
@@ -154,24 +150,24 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
       List<MethodDeclaration> methods = methodFinderVisitor.getMethods();
       for (MethodDeclaration methodDeclaration : methods)
       {
-         result.add(new MethodImpl<JavaClass>(this, methodDeclaration));
+         result.add(new MethodImpl<JavaInterface>(this, methodDeclaration));
       }
       return Collections.unmodifiableList(result);
    }
 
    @Override
-   public JavaClass removeMethod(final Method<JavaClass> method)
+   public JavaInterface removeMethod(final Method<JavaInterface> method)
    {
       getBodyDeclaration().bodyDeclarations().remove(method.getInternal());
       return this;
    }
 
    @Override
-   public List<Member<JavaClass, ?>> getMembers()
+   public List<Member<JavaInterface, ?>> getMembers()
    {
-      List<Member<JavaClass, ?>> result = new ArrayList<Member<JavaClass, ?>>();
+      List<Member<JavaInterface, ?>> result = new ArrayList<Member<JavaInterface, ?>>();
 
-      for (Field<JavaClass> member : getFields())
+      for (Field<JavaInterface> member : getFields())
       {
          result.add(member);
       }
@@ -182,70 +178,9 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    }
 
    @Override
-   protected JavaClass updateTypeNames(final String newName)
+   protected JavaInterface updateTypeNames(final String name)
    {
-      for (Method<JavaClass> m : getMethods())
-      {
-         if (m.isConstructor())
-         {
-            m.setConstructor(false);
-            m.setConstructor(true);
-         }
-      }
       return this;
    }
 
-   /*
-    * Type modifiers
-    */
-   @Override
-   public boolean isAbstract()
-   {
-      return modifiers.hasModifier(getBodyDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
-   }
-
-   @Override
-   public JavaClass setAbstract(final boolean abstrct)
-   {
-      if (abstrct)
-      {
-         modifiers.addModifier(getBodyDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
-      }
-      else
-      {
-         modifiers.removeModifier(getBodyDeclaration(), ModifierKeyword.ABSTRACT_KEYWORD);
-      }
-      return this;
-   }
-
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((toString() == null) ? 0 : unit.toString().hashCode());
-      return result;
-   }
-
-   @Override
-   public boolean equals(final Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (obj == null)
-      {
-         return false;
-      }
-      if (getClass() != obj.getClass())
-      {
-         return false;
-      }
-      if (!this.toString().equals(obj.toString()))
-      {
-         return false;
-      }
-      return true;
-   }
 }

@@ -21,15 +21,17 @@
  */
 package org.jboss.seam.forge.test.parser.java;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.InputStream;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
-
-import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -44,7 +46,7 @@ public class FieldTest
    public void reset()
    {
       stream = FieldTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedField.java");
-      javaClass = JavaParser.parse(stream);
+      javaClass = JavaParser.parse(JavaClass.class, stream);
       field = javaClass.getFields().get(javaClass.getFields().size() - 1);
    }
 
@@ -161,7 +163,7 @@ public class FieldTest
    public void testAddQualifiedFieldType() throws Exception
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
-            .setPrivate();
+               .setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 
@@ -176,11 +178,11 @@ public class FieldTest
    public void testHasField() throws Exception
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
-            .setPrivate();
+               .setPrivate();
       Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       assertTrue(javaClass.hasField(fld));
 
-      Field notFld = JavaParser.parse("public class Foo {}").addField("private int foobar;");
+      Field notFld = JavaParser.parse(JavaClass.class, "public class Foo {}").addField("private int foobar;");
       assertFalse(javaClass.hasField(notFld));
 
    }

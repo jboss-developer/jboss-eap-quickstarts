@@ -22,6 +22,11 @@ package org.jboss.seam.forge.persistence.test.plugins;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import javax.persistence.Entity;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.persistence.PersistenceFacet;
@@ -31,11 +36,6 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.persistence.Entity;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -55,10 +55,10 @@ public class NewEntityPluginTest extends AbstractJPATest
 
       String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(path).getJavaClass();
+      JavaClass javaClass = (JavaClass) project.getFacet(JavaSourceFacet.class).getJavaResource(path).getJavaSource();
 
       assertFalse(javaClass.hasSyntaxErrors());
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
+      javaClass = (JavaClass) project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaSource();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertFalse(javaClass.hasSyntaxErrors());
 
@@ -78,7 +78,7 @@ public class NewEntityPluginTest extends AbstractJPATest
       queueInputLines("gamesLost");
       getShell().execute("new-field int --fieldName #$%#");
 
-      javaClass = project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaClass();
+      javaClass = (JavaClass) project.getFacet(JavaSourceFacet.class).getJavaResource(javaClass).getJavaSource();
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertTrue(javaClass.hasImport(Entity.class));
       assertTrue(javaClass.hasField("gamesWon"));

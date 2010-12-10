@@ -33,7 +33,7 @@ import org.jboss.seam.forge.project.resources.VirtualResource;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class JavaMemberResource<T extends Member<?, T>> extends VirtualResource<T>
+public class JavaMemberResource<T extends Member<?, T>> extends VirtualResource<T>
 {
    private final T member;
 

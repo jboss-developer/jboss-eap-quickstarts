@@ -21,25 +21,19 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.compiler.IProblem;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
-import org.eclipse.jdt.internal.compiler.util.Util;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
@@ -48,7 +42,6 @@ import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
-import org.jboss.seam.forge.parser.java.MemberHolder;
 import org.jboss.seam.forge.parser.java.SyntaxError;
 import org.jboss.seam.forge.parser.java.Visibility;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
@@ -61,82 +54,18 @@ import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
-      JavaSource<T>,
-      MemberHolder<T, Member>
+         JavaSource<T>
 {
    private final AnnotationAccessor<T, T> annotations = new AnnotationAccessor<T, T>();
    private final ModifierAccessor modifiers = new ModifierAccessor();
 
-   private Document document;
+   private final Document document;
    protected CompilationUnit unit;
 
-   /**
-    * Parses and process the java source code as a compilation unit and the
-    * result it abstract syntax tree (AST) representation and this action uses
-    * the third edition of java Language Specification.
-    * 
-    * @param inputStream - a stream of the java source to be parsed
-    * @return CompilationUnit Abstract syntax tree representation of a java
-    *         source file.
-    */
-   public AbstractJavaSource(final InputStream inputStream)
+   public AbstractJavaSource(final Document document, final CompilationUnit unit)
    {
-      try
-      {
-         char[] source = Util.getInputStreamAsCharArray(inputStream, inputStream.available(), "ISO8859_1");
-         init(source);
-      }
-      catch (Exception e)
-      {
-         throw new IllegalArgumentException("InputStream must be a parsable java file: ", e);
-      }
-      finally
-      {
-         if (inputStream != null)
-         {
-            try
-            {
-               inputStream.close();
-            }
-            catch (IOException e)
-            {
-               throw new IllegalStateException(e);
-            }
-         }
-      }
-   }
-
-   public AbstractJavaSource(final String source)
-   {
-      this(source.toCharArray());
-   }
-
-   public AbstractJavaSource(final char[] source)
-   {
-      init(source);
-   }
-
-   public AbstractJavaSource()
-   {
-      this("public class JavaClass { }");
-   }
-
-   @SuppressWarnings({ "unchecked", "rawtypes" })
-   private void init(final char[] source)
-   {
-      document = new Document(new String(source));
-      ASTParser parser = ASTParser.newParser(AST.JLS3);
-
-      parser.setSource(document.get().toCharArray());
-      Map options = JavaCore.getOptions();
-      options.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_1_5);
-      parser.setCompilerOptions(options);
-
-      parser.setResolveBindings(true);
-      parser.setKind(ASTParser.K_COMPILATION_UNIT);
-      unit = (CompilationUnit) parser.createAST(null);
-      unit.recordModifications();
-
+      this.document = document;
+      this.unit = unit;
    }
 
    /*
@@ -235,7 +164,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public Import<T> getImport(Class<?> type)
+   public Import<T> getImport(final Class<?> type)
    {
       return getImport(type.getName());
    }
@@ -335,12 +264,14 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    {
       TypeDeclarationFinderVisitor typeDeclarationFinder = new TypeDeclarationFinderVisitor();
       unit.accept(typeDeclarationFinder);
-      List<TypeDeclaration> typeDeclarations = typeDeclarationFinder.getTypeDeclarations();
-      if (typeDeclarations.isEmpty())
+      AbstractTypeDeclaration declaration = typeDeclarationFinder.getTypeDeclaration();
+      if (declaration == null)
       {
-         throw new RuntimeException("A type-declaration is required in order to complete the current operation, but no type-declaration exists in compilation unit: " + unit.toString());
+         throw new RuntimeException(
+                  "A type-declaration is required in order to complete the current operation, but no type-declaration exists in compilation unit: "
+                           + unit.toString());
       }
-      return typeDeclarations.get(0);
+      return declaration;
    }
 
    /*
@@ -356,13 +287,13 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    public T setName(final String name)
    {
       getBodyDeclaration().setName(unit.getAST().newSimpleName(name));
-      return updateConstructorNames();
+      return updateTypeNames(name);
    }
 
    /**
-    * Callback to allow updating of any necessary internal names.
+    * Call-back to allow updating of any necessary internal names with the given name.
     */
-   protected abstract T updateConstructorNames();
+   protected abstract T updateTypeNames(String name);
 
    @Override
    public String getQualifiedName()
@@ -482,7 +413,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setVisibility(Visibility scope)
+   public T setVisibility(final Visibility scope)
    {
       return (T) Visibility.set(this, scope);
    }
@@ -573,5 +504,36 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    public boolean hasSyntaxErrors()
    {
       return !getSyntaxErrors().isEmpty();
+   }
+
+   @Override
+   public boolean isClass()
+   {
+      AbstractTypeDeclaration declaration = getBodyDeclaration();
+      return (declaration instanceof TypeDeclaration)
+               && !((TypeDeclaration) declaration).isInterface();
+
+   }
+
+   @Override
+   public boolean isEnum()
+   {
+      AbstractTypeDeclaration declaration = getBodyDeclaration();
+      return declaration instanceof EnumDeclaration;
+   }
+
+   @Override
+   public boolean isInterface()
+   {
+      AbstractTypeDeclaration declaration = getBodyDeclaration();
+      return (declaration instanceof TypeDeclaration)
+               && ((TypeDeclaration) declaration).isInterface();
+   }
+
+   @Override
+   public boolean isAnnotation()
+   {
+      AbstractTypeDeclaration declaration = getBodyDeclaration();
+      return declaration instanceof AnnotationTypeDeclaration;
    }
 }
