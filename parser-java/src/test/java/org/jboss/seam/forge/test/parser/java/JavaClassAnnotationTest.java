@@ -19,23 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.grammar.java;
+package org.jboss.seam.forge.test.parser.java;
 
-import org.junit.Test;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
+
+import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaEnumTest
+public class JavaClassAnnotationTest extends AnnotationTest
 {
-   @Test
-   public void testCanParseEnum() throws Exception
+   @Override
+   public void resetTests()
    {
-      // InputStream stream =
-      // JavaEnumTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockEnum.java");
-      // JavaClass javaClass = JavaParser.parse(stream);
-      // String name = javaClass.getName();
-      // assertEquals("MockEnum", name);
+      InputStream stream = JavaClassAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedClass.java");
+      JavaClass javaClass = JavaParser.parse(stream);
+      setTarget(javaClass);
    }
-
 }

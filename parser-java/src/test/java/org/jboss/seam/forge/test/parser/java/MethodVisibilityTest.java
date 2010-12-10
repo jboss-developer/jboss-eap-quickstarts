@@ -19,11 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.grammar.java;
+package org.jboss.seam.forge.test.parser.java;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.test.grammar.java.common.VisibilityTest;
+import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
 
 import java.io.InputStream;
 

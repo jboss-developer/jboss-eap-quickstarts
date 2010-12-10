@@ -19,14 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.grammar.java;
+package org.jboss.seam.forge.test.parser.java;
 
 import java.io.InputStream;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
+import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

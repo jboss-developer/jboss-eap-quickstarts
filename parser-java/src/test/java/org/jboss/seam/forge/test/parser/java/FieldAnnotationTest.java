@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.grammar.java;
+package org.jboss.seam.forge.test.parser.java;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,8 +30,8 @@ import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
-import org.jboss.seam.forge.test.grammar.java.common.MockEnum;
+import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
+import org.jboss.seam.forge.test.parser.java.common.MockEnum;
 import org.junit.Test;
 
 /**

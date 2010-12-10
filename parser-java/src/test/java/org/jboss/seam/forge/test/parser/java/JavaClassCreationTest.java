@@ -19,24 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.grammar.java;
+package org.jboss.seam.forge.test.parser.java;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.test.grammar.java.common.AnnotationTest;
-
-import java.io.InputStream;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaClassAnnotationTest extends AnnotationTest
+public class JavaClassCreationTest
 {
-   @Override
-   public void resetTests()
+   private static JavaClass jc;
+
+   @BeforeClass
+   public static void testCreateClass() throws Exception
    {
-      InputStream stream = JavaClassAnnotationTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockAnnotatedClass.java");
-      JavaClass javaClass = JavaParser.parse(stream);
-      setTarget(javaClass);
+      jc = JavaParser.createClass();
    }
+
+   @Test
+   public void testClassCreatesStub() throws Exception
+   {
+      assertEquals("JavaClass", jc.getName());
+      assertTrue(jc.isPublic());
+   }
+
 }

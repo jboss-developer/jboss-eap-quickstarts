@@ -19,42 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.grammar.java;
+package org.jboss.seam.forge.test.parser.java;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import java.io.InputStream;
-import java.util.List;
 
 import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.Member;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaInterfaceTest
+public class JavaEnumTest
 {
    @Test
-   public void testCanParseInterface() throws Exception
+   public void testCanParseEnum() throws Exception
    {
-      InputStream stream = JavaInterfaceTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockInterface.java");
-      JavaClass javaClass = JavaParser.parse(stream);
+      InputStream stream =
+            JavaEnumTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockEnum.java");
+      JavaSource<?> javaClass = JavaParser.parse(stream);
       String name = javaClass.getName();
-      assertEquals("MockInterface", name);
-   }
-
-   @Test
-   public void testCanParseBigInterface() throws Exception
-   {
-      InputStream stream = JavaInterfaceTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/BigInterface.java");
-      JavaClass javaClass = JavaParser.parse(stream);
-      String name = javaClass.getName();
-      assertEquals("BigInterface", name);
-      List<Member<JavaClass, ?>> members = javaClass.getMembers();
-      assertFalse(members.isEmpty());
+      assertEquals("MockEnum", name);
    }
 
 }

@@ -25,7 +25,7 @@ package org.jboss.seam.forge.test.parser.java.util;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Formatter;
-import org.jboss.seam.forge.test.grammar.java.FieldAnnotationTest;
+import org.jboss.seam.forge.test.parser.java.FieldAnnotationTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

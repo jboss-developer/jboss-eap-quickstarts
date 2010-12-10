@@ -19,14 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.test.parser.java;
 
-package org.jboss.seam.forge.test.grammar.java.common;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
+
+import java.io.InputStream;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public @interface MockAnnotation
+public class JavaClassVisibilityTest extends VisibilityTest
 {
-   MockEnum value() default MockEnum.BAR;
+   @Override
+   public void resetTests()
+   {
+      InputStream stream = JavaClassVisibilityTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockClass.java");
+      JavaClass clazz = JavaParser.parse(stream);
+      setTarget(clazz);
+   }
 }
