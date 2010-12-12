@@ -183,7 +183,6 @@ public class MorePlugin implements Plugin
       }
    }
 
-
    /**
     * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower
     * memory usage.
@@ -281,12 +280,10 @@ public class MorePlugin implements Plugin
          {
             int cursor = idxMark == 0 ? 0 : index.get(idxMark - 1);
             int currLine = idxMark * INDEX_MARK_SIZE;
-
             int lCount = lineWidth;
 
             while (cursor < curr.length() && currLine != line)
             {
-
                switch (curr.charAt(cursor++))
                {
                case '\r':
@@ -302,7 +299,6 @@ public class MorePlugin implements Plugin
                   lCount = lineWidth;
                }
             }
-
 
             return cursor;
          }
