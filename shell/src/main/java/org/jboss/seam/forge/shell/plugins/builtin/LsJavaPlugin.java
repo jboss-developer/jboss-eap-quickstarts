@@ -22,19 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.JavaSource;
-import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.parser.java.Parameter;
+import org.jboss.seam.forge.parser.java.*;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.JavaFieldResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaMemberResource;
@@ -42,16 +30,16 @@ import org.jboss.seam.forge.project.resources.builtin.JavaMethodResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.color.JavaColorizer;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.OverloadedName;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
+
+import javax.inject.Inject;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -70,7 +58,7 @@ public class LsJavaPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+                   @Option(flagOnly = true, name = "list", shortName = "totalLines", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
                    final PipeOut out) throws FileNotFoundException
    {

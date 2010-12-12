@@ -22,42 +22,27 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
+
 /**
  * Lists directory contents for filesystem based directories. This is a
- * simplified version of the UNIX 'ls' command and currently supports the -l and
+ * simplified version of the UNIX 'ls' command and currently supports the -totalLines and
  * -a flags, as in unix.
  * 
  * @author Mike Brock
@@ -96,7 +81,7 @@ public class LsPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+                   @Option(flagOnly = true, name = "list", shortName = "totalLines", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
                    final PipeOut out)
    {
