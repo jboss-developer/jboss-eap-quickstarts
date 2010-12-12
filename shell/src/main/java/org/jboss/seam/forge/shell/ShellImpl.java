@@ -278,7 +278,7 @@ public class ShellImpl implements Shell
 
    public void clearLine()
    {
-      print(new Ansi().eraseLine(Ansi.Erase.BACKWARD).toString());
+      print(new Ansi().eraseLine(Ansi.Erase.ALL).toString());
    }
 
    public void cursorLeft(int x)

@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 /**
  * Implementation of more & less, but called more.
+ *
  * @author Mike Brock .
  */
 @Named("more")
@@ -88,9 +89,12 @@ public class MorePlugin implements Plugin
       byte c;
 
       int height = shell.getHeight() - 1;
+      int width = shell.getWidth();
+
+      int lCounter = width;
       int y = 0;
 
-      LineBuffer lineBuffer = new LineBuffer(stream);
+      LineBuffer lineBuffer = new LineBuffer(stream, width);
 
       Mainloop:
       while ((read = lineBuffer.read(buffer)) != -1)
@@ -98,14 +102,24 @@ public class MorePlugin implements Plugin
          Bufferloop:
          for (int i = 0; i < read; i++)
          {
+            if (--lCounter == 0)
+            {
+               lineBuffer.seenLine();
+               lCounter = width;
+               ++y;
+            }
+
             switch (c = buffer[i])
             {
             case '\r':
                i++;
             case '\n':
                lineBuffer.seenLine();
+               lCounter = width;
+               ++y;
 
-               if (++y == height)
+            default:
+               if (y == height)
                {
                   out.println();
                   String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + "]--";
@@ -120,15 +134,16 @@ public class MorePlugin implements Plugin
                      case 'j':
                      case 'J':
                      case 16:
-                        shell.clear();
                         lineBuffer.rewindBuffer(height = shell.getHeight() - 1, lineBuffer.getCurrentLine() - 1);
+                        lineBuffer.setLineWidth(shell.getWidth());
                         y = 0;
+                        shell.clear();
                         continue Mainloop;
                      case 'u':
                      case 'U':
-                        shell.clear();
                         lineBuffer.rewindBuffer(height = shell.getHeight() - 1, lineBuffer.getCurrentLine() - height);
                         y = 0;
+                        shell.clear();
                         continue Mainloop;
 
                      case 'y':
@@ -138,15 +153,19 @@ public class MorePlugin implements Plugin
                      case 14:
                      case '\n':
                         y--;
-                        shell.clearLine();
-                        shell.cursorLeft(prompt.length());
                         height = shell.getHeight() - 1;
+                        lineBuffer.setLineWidth(shell.getWidth());
+
+                        shell.cursorLeft(prompt.length());
+                        shell.clearLine();
                         continue Bufferloop;
                      case ' ':
                         y = 0;
+                        height = shell.getHeight() - 1;
+                        lineBuffer.setLineWidth(shell.getWidth());
+
                         shell.clearLine();
                         shell.cursorLeft(prompt.length());
-                        height = shell.getHeight() - 1;
                         continue Bufferloop;
                      case 'q':
                      case 'Q':
@@ -156,12 +175,14 @@ public class MorePlugin implements Plugin
                   }
                   while (true);
                }
+
             }
 
             out.write(c);
          }
       }
    }
+
 
    /**
     * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower
@@ -175,15 +196,20 @@ public class MorePlugin implements Plugin
       private int bufferPos;
       private int bufferLine;
 
+      private int lineWidth;
+      private int lineCounter;
+
       private static final int INDEX_MARK_SIZE = 50;
 
       int totalLines = 0;
 
-      private LineBuffer(InputStream stream)
+      private LineBuffer(InputStream stream, int lineWidth)
       {
          this.stream = stream;
          curr = new StringAppender();
          index = new ArrayList<Integer>();
+         this.lineWidth = lineWidth;
+         this.lineCounter = lineWidth - 1;
       }
 
 
@@ -202,8 +228,9 @@ public class MorePlugin implements Plugin
             {
                curr.append((char) c);
                bufferPos++;
-               if (c == '\n')
+               if (--lineCounter == 0 || c == '\n')
                {
+                  lineCounter = lineWidth - 1;
                   markLine();
                }
             }
@@ -237,6 +264,11 @@ public class MorePlugin implements Plugin
          return bufferLine;
       }
 
+      public void setLineWidth(int lineWidth)
+      {
+         this.lineWidth = lineWidth;
+      }
+
       public int findLine(int line)
       {
          int idxMark = line / INDEX_MARK_SIZE;
@@ -250,16 +282,27 @@ public class MorePlugin implements Plugin
             int cursor = idxMark == 0 ? 0 : index.get(idxMark - 1);
             int currLine = idxMark * INDEX_MARK_SIZE;
 
+            int lCount = lineWidth;
+
             while (cursor < curr.length() && currLine != line)
             {
+
                switch (curr.charAt(cursor++))
                {
                case '\r':
                   cursor++;
                case '\n':
+                  lCount = lineWidth;
                   currLine++;
                }
+
+               if (--lCount == 0)
+               {
+                  currLine++;
+                  lCount = lineWidth;
+               }
             }
+
 
             return cursor;
          }
