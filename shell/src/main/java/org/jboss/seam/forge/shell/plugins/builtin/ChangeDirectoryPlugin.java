@@ -22,19 +22,14 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.IOException;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -67,7 +62,7 @@ public class ChangeDirectoryPlugin implements Plugin
 
       if (r != null)
       {
-         if (!((Resource<?>) r).exists())
+         if (!r.exists())
          {
             throw new RuntimeException("no such resource: " + r.toString());
          }

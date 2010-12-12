@@ -22,29 +22,9 @@
 
 package org.jboss.seam.forge.shell;
 
-import static org.mvel2.DataConversion.addConversionHandler;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
-
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
@@ -59,11 +39,7 @@ import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.forge.shell.exceptions.CommandParserException;
-import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
-import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
+import org.jboss.seam.forge.shell.exceptions.*;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
@@ -76,6 +52,16 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.*;
+import java.util.*;
+import java.util.Map.Entry;
+
+import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -129,7 +115,7 @@ public class ShellImpl implements Shell
       @SuppressWarnings("rawtypes")
       public Resource[] convertFrom(final Object obl)
       {
-         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(), obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
+         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(), obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
       }
 
       @SuppressWarnings("rawtypes")
@@ -275,6 +261,29 @@ public class ShellImpl implements Shell
    public String readLine() throws IOException
    {
       return reader.readLine();
+   }
+
+   @Override
+   public int scan()
+   {
+      try
+      {
+         return reader.readVirtualKey();
+      }
+      catch (IOException e)
+      {
+         return -1;
+      }
+   }
+
+   public void clearLine()
+   {
+      print(new Ansi().eraseLine(Ansi.Erase.BACKWARD).toString());
+   }
+
+   public void cursorLeft(int x)
+   {
+      print(new Ansi().cursorLeft(x).toString());
    }
 
    @Override
