@@ -115,6 +115,8 @@ public class MorePlugin implements Plugin
                   {
                      switch (shell.scan())
                      {
+                     case 'e':
+                     case 'E':
                      case 'j':
                      case 'J':
                      case 16:
@@ -129,6 +131,10 @@ public class MorePlugin implements Plugin
                         y = 0;
                         continue Mainloop;
 
+                     case 'y':
+                     case 'Y':
+                     case 'k':
+                     case 'K':
                      case 14:
                      case '\n':
                         y--;
@@ -157,7 +163,10 @@ public class MorePlugin implements Plugin
       }
    }
 
-
+   /**
+    * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower
+    * memory usage.
+    */
    private static class LineBuffer extends InputStream
    {
       private InputStream stream;
@@ -166,7 +175,7 @@ public class MorePlugin implements Plugin
       private int bufferPos;
       private int bufferLine;
 
-      private static final int INDEX_MARK_SIZE = 20;
+      private static final int INDEX_MARK_SIZE = 50;
 
       int totalLines = 0;
 
@@ -214,7 +223,6 @@ public class MorePlugin implements Plugin
       {
          bufferLine++;
       }
-
 
       public void markLine()
       {
