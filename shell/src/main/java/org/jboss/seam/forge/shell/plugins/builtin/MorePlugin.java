@@ -179,7 +179,6 @@ public class MorePlugin implements Plugin
                      case 'Q':
                         shell.clearLine();
                         shell.cursorLeft(prompt.length());
-                        out.println();
                         break Mainloop;
 
                      case '?':
