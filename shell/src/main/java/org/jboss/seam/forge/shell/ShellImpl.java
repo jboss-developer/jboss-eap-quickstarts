@@ -75,7 +75,7 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
-   private static final String PROP_VERBOSE = "verbose";
+   private static final String PROP_VERBOSE = "VERBOSE";
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
 
@@ -339,7 +339,7 @@ public class ShellImpl implements Shell
       {
          if (!isVerbose())
          {
-            println("Exception encountered: " + e.getMessage() + " (type \"set verbose true\" to enable stack traces)");
+            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
          }
          else
          {
