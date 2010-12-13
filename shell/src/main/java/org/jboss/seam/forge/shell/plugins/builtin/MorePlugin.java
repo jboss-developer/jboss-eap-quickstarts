@@ -33,6 +33,7 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of more & less, but called more.
@@ -44,6 +45,10 @@ import java.util.ArrayList;
 public class MorePlugin implements Plugin
 {
    private static final String MOREPROMPT = "--[SPACE:PageDn U:PageUp ENT:LineDn J:LineUp Q:Quit]--";
+   private static final String SEARCH_FORWARD_PROMPT = "Search-Foward: ";
+   private static final String SEARCH_BACKWARDS_PROMPT = "Search-Backwards: ";
+   private static final String PATTERN_NOT_FOUND = "-- Pattern not found: ";
+
 
    private final Shell shell;
 
@@ -122,11 +127,14 @@ public class MorePlugin implements Plugin
                if (y == height)
                {
                   out.println();
-                  String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + "]--";
-                  out.print(ShellColor.BOLD, prompt);
+
+                  boolean backwards = false;
 
                   do
                   {
+                     String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + "]--";
+                     out.print(ShellColor.BOLD, prompt);
+
                      switch (shell.scan())
                      {
                      case 'e':
@@ -171,17 +179,49 @@ public class MorePlugin implements Plugin
                      case 'Q':
                         out.println();
                         break Mainloop;
+
+                     case '?':
+                        backwards = true;
+                     case '/':
+                        shell.clearLine();
+                        shell.cursorLeft(prompt.length());
+
+                        prompt = backwards ? SEARCH_BACKWARDS_PROMPT : SEARCH_FORWARD_PROMPT;
+
+                        out.print(ShellColor.BOLD, prompt);
+                        String pattern = shell.promptAndSwallowCR().trim();
+                        int result = lineBuffer.findPattern(pattern, backwards);
+                        if (result == -1)
+                        {
+                           shell.clearLine();
+                           shell.cursorLeft(prompt.length() + pattern.length());
+                           shell.print(ShellColor.RED, PATTERN_NOT_FOUND + pattern);
+
+                           shell.scan();
+                           shell.clearLine();
+                           shell.cursorLeft(PATTERN_NOT_FOUND.length() + pattern.length());
+                        }
+                        else
+                        {
+                           lineBuffer.rewindBuffer(shell.getHeight() - 1, result);
+                           y = 0;
+                           shell.clear();
+                           continue Mainloop;
+                        }
+                        break;
+
+
                      }
                   }
                   while (true);
                }
-
             }
 
             out.write(c);
          }
       }
    }
+
 
    /**
     * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower
@@ -210,7 +250,6 @@ public class MorePlugin implements Plugin
          this.lineWidth = lineWidth;
          this.lineCounter = lineWidth - 1;
       }
-
 
       @Override
       public int read() throws IOException
@@ -303,6 +342,66 @@ public class MorePlugin implements Plugin
             return cursor;
          }
       }
+
+      public int findPattern(String pattern, boolean backwards) throws IOException
+      {
+         Pattern p = Pattern.compile(".*" + pattern + ".*");
+         int currentBuffer = bufferPos;
+         int currentLine = bufferLine;
+
+         int startLine;
+         int cursor = 0;
+         if (backwards)
+         {
+            bufferLine = 0;
+            startLine = 0;
+            bufferPos = 0;
+         }
+         else
+         {
+            cursor = startLine = bufferPos = findLine(bufferLine);
+         }
+
+         int line = bufferLine;
+         int lCount = lineWidth;
+
+         byte[] buffer = new byte[1024];
+         int read;
+
+         while ((read = read(buffer)) != -1)
+         {
+            for (int i = 0; i < read; i++)
+            {
+               cursor++;
+
+               switch (buffer[i])
+               {
+               case '\r':
+                  i++;
+               case '\n':
+
+                  String l = new String(curr.getChars(startLine, cursor - startLine - 1));
+                  if (p.matcher(l).matches())
+                  {
+                     return line;
+                  }
+                  line++;
+                  startLine = cursor;
+               }
+
+               if (--lCount == 0)
+               {
+                  line++;
+                  lCount = lineWidth;
+               }
+            }
+         }
+
+         bufferPos = currentBuffer;
+         bufferLine = currentLine;
+         return -1;
+      }
+
 
       public void rewindBuffer(int height, int toLine)
       {

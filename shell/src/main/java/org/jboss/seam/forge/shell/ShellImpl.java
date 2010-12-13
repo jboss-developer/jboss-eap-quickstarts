@@ -580,6 +580,18 @@ public class ShellImpl implements Shell
       return prompt("");
    }
 
+   public String promptAndSwallowCR()
+   {
+      int c;
+      StringBuilder buf = new StringBuilder();
+      while ((c = scan()) != '\n')
+      {
+         write((byte) c);
+         buf.append((char) c);
+      }
+      return buf.toString();
+   }
+
    @Override
    public String prompt(final String message)
    {
