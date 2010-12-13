@@ -133,7 +133,8 @@ public class MorePlugin implements Plugin
 
                   do
                   {
-                     String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + "]--";
+                     String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + (lineBuffer.getCurrentLine()-shell.getHeight()+1==0?" TOP":"") +"]--";
+
                      out.print(ShellColor.BOLD, prompt);
                      int scanCode;
 
@@ -152,6 +153,7 @@ public class MorePlugin implements Plugin
                      case 'u':
                      case 'U':
                         lineBuffer.rewindBuffer(height = shell.getHeight() - 1, lineBuffer.getCurrentLine() - height);
+                        lineBuffer.setLineWidth(shell.getWidth());
                         y = 0;
                         shell.clear();
                         continue Mainloop;

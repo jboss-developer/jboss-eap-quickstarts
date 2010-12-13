@@ -116,6 +116,12 @@ public interface Shell extends ShellPrintWriter
     */
    String prompt();
 
+   /**
+    * This works like prompt, however when a CR is received, the method returns the value, but does
+    * produce a CR in the actual terminal buffer. This is useful when a plugin is using manual
+    * cursor control.
+    * @return
+    */
    String promptAndSwallowCR();
 
    /**
