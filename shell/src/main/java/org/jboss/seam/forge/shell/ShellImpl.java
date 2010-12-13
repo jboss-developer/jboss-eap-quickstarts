@@ -588,7 +588,7 @@ public class ShellImpl implements Shell
       {
          if (c == 127)
          {
-            if (buf.length() != 0)
+            if (buf.length() > 0)
             {
                buf.deleteCharAt(buf.length() - 1);
                cursorLeft(1);
