@@ -48,6 +48,7 @@ public class MorePlugin implements Plugin
    private static final String SEARCH_FORWARD_PROMPT = "Search-Foward: ";
    private static final String SEARCH_BACKWARDS_PROMPT = "Search-Backwards: ";
    private static final String PATTERN_NOT_FOUND = "-- Pattern not found: ";
+   private static final String INVALID_COMMAND = "-- Invalid command: ";
 
    private final Shell shell;
 
@@ -134,8 +135,9 @@ public class MorePlugin implements Plugin
                   {
                      String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + "]--";
                      out.print(ShellColor.BOLD, prompt);
+                     int scanCode;
 
-                     switch (shell.scan())
+                     switch (scanCode = shell.scan())
                      {
                      case 'e':
                      case 'E':
@@ -221,6 +223,16 @@ public class MorePlugin implements Plugin
                            continue Mainloop;
                         }
                         break;
+
+                     default:
+                        shell.clearLine();
+                        shell.cursorLeft(prompt.length());
+                        out.print(ShellColor.RED, INVALID_COMMAND + ((char)scanCode));
+                        shell.scan();
+
+                        shell.clearLine();
+                        shell.cursorLeft(INVALID_COMMAND.length() + 1);
+
                      }
                   }
                   while (true);
