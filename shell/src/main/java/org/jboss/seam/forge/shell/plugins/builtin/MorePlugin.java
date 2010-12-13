@@ -209,8 +209,6 @@ public class MorePlugin implements Plugin
                            continue Mainloop;
                         }
                         break;
-
-
                      }
                   }
                   while (true);
