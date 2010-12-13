@@ -377,13 +377,14 @@ public class MorePlugin implements Plugin
                case '\r':
                   i++;
                case '\n':
-
+                  line++;
+                  lCount = lineWidth;
                   String l = new String(curr.getChars(startLine, cursor - startLine - 1));
                   if (p.matcher(l).matches())
                   {
                      return line;
                   }
-                  line++;
+
                   startLine = cursor;
                }
 
