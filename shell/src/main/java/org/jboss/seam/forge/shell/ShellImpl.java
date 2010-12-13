@@ -586,6 +586,15 @@ public class ShellImpl implements Shell
       StringBuilder buf = new StringBuilder();
       while ((c = scan()) != '\n')
       {
+         if (c == 127)
+         {
+            buf.deleteCharAt(buf.length()-1);
+            cursorLeft(1);
+            print(" ");
+            cursorLeft(1);
+            continue;
+         }
+
          write((byte) c);
          buf.append((char) c);
       }
