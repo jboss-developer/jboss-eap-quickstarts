@@ -49,7 +49,6 @@ public class MorePlugin implements Plugin
    private static final String SEARCH_BACKWARDS_PROMPT = "Search-Backwards: ";
    private static final String PATTERN_NOT_FOUND = "-- Pattern not found: ";
 
-
    private final Shell shell;
 
    @Inject
@@ -101,6 +100,8 @@ public class MorePlugin implements Plugin
 
       LineBuffer lineBuffer = new LineBuffer(stream, width);
 
+      String lastPattern = null;
+
       Mainloop:
       while ((read = lineBuffer.read(buffer)) != -1)
       {
@@ -127,7 +128,6 @@ public class MorePlugin implements Plugin
                if (y == height)
                {
                   out.println();
-
                   boolean backwards = false;
 
                   do
@@ -177,6 +177,8 @@ public class MorePlugin implements Plugin
                         continue Bufferloop;
                      case 'q':
                      case 'Q':
+                        shell.clearLine();
+                        shell.cursorLeft(prompt.length());
                         out.println();
                         break Mainloop;
 
@@ -187,19 +189,30 @@ public class MorePlugin implements Plugin
                         shell.cursorLeft(prompt.length());
 
                         prompt = backwards ? SEARCH_BACKWARDS_PROMPT : SEARCH_FORWARD_PROMPT;
+                        String pattern;
+
+                        if (lastPattern != null)
+                        {
+                           prompt += "[ENT to repeat search '" + lastPattern + "']: ";
+                        }
 
                         out.print(ShellColor.BOLD, prompt);
-                        String pattern = shell.promptAndSwallowCR().trim();
-                        int result = lineBuffer.findPattern(pattern, backwards);
+                        pattern = shell.promptAndSwallowCR().trim();
+
+                        String searched;
+
+                        int result = lineBuffer.findPattern(pattern.equals("") && lastPattern != null
+                              ? searched = lastPattern : (searched = lastPattern = pattern), backwards);
+
                         if (result == -1)
                         {
                            shell.clearLine();
                            shell.cursorLeft(prompt.length() + pattern.length());
-                           shell.print(ShellColor.RED, PATTERN_NOT_FOUND + pattern);
+                           shell.print(ShellColor.RED, PATTERN_NOT_FOUND + searched);
 
                            shell.scan();
                            shell.clearLine();
-                           shell.cursorLeft(PATTERN_NOT_FOUND.length() + pattern.length());
+                           shell.cursorLeft(PATTERN_NOT_FOUND.length() + searched.length());
                         }
                         else
                         {
@@ -219,7 +232,6 @@ public class MorePlugin implements Plugin
          }
       }
    }
-
 
    /**
     * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower
@@ -379,8 +391,7 @@ public class MorePlugin implements Plugin
                case '\n':
                   line++;
                   lCount = lineWidth;
-                  String l = new String(curr.getChars(startLine, cursor - startLine - 1));
-                  if (p.matcher(l).matches())
+                  if (p.matcher(new String(curr.getChars(startLine, cursor - startLine - 1))).matches())
                   {
                      return line;
                   }

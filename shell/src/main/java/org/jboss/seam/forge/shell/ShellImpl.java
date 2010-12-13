@@ -588,10 +588,13 @@ public class ShellImpl implements Shell
       {
          if (c == 127)
          {
-            buf.deleteCharAt(buf.length()-1);
-            cursorLeft(1);
-            print(" ");
-            cursorLeft(1);
+            if (buf.length() != 0)
+            {
+               buf.deleteCharAt(buf.length() - 1);
+               cursorLeft(1);
+               print(" ");
+               cursorLeft(1);
+            }
             continue;
          }
 
