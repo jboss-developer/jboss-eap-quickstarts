@@ -587,7 +587,7 @@ public class ShellImpl implements Shell
    {
       int c;
       StringBuilder buf = new StringBuilder();
-      while ((c = scan()) != '\n')
+      while ((c = scan()) != '\n' && c != '\r')
       {
          if (c == 127)
          {

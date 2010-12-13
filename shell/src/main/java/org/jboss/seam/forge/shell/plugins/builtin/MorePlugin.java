@@ -26,7 +26,6 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
-import org.mvel2.util.StringAppender;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -88,7 +87,7 @@ public class MorePlugin implements Plugin
 
    private void more(InputStream stream, PipeOut out) throws IOException
    {
-      byte[] buffer = new byte[1024];
+      byte[] buffer = new byte[128];
       int read;
 
       byte c;
@@ -133,7 +132,8 @@ public class MorePlugin implements Plugin
 
                   do
                   {
-                     String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine() + (lineBuffer.getCurrentLine()-shell.getHeight()+1==0?" TOP":"") +"]--";
+                     String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine()
+                           + (lineBuffer.getCurrentLine() - shell.getHeight() + 1 == 0 ? " TOP" : "") + "]--";
 
                      out.print(ShellColor.BOLD, prompt);
                      int scanCode;
@@ -204,13 +204,19 @@ public class MorePlugin implements Plugin
 
                         String searched;
 
+                        shell.clearLine();
+                        shell.cursorLeft(prompt.length() + pattern.length());
+
+                        prompt += "Scanning buffer...";
+                        out.print(ShellColor.BOLD, prompt);
+
                         int result = lineBuffer.findPattern(pattern.equals("") && lastPattern != null
                               ? searched = lastPattern : (searched = lastPattern = pattern), backwards);
 
                         if (result == -1)
                         {
                            shell.clearLine();
-                           shell.cursorLeft(prompt.length() + pattern.length());
+                           shell.cursorLeft(prompt.length());
                            shell.print(ShellColor.RED, PATTERN_NOT_FOUND + searched);
 
                            shell.scan();
@@ -229,7 +235,7 @@ public class MorePlugin implements Plugin
                      default:
                         shell.clearLine();
                         shell.cursorLeft(prompt.length());
-                        out.print(ShellColor.RED, INVALID_COMMAND + ((char)scanCode));
+                        out.print(ShellColor.RED, INVALID_COMMAND + ((char) scanCode));
                         shell.scan();
 
                         shell.clearLine();
@@ -253,22 +259,24 @@ public class MorePlugin implements Plugin
    private static class LineBuffer extends InputStream
    {
       private InputStream stream;
-      private StringAppender curr;
+      private StringBuilder curr;
       private ArrayList<Integer> index;
+      private boolean buffered = false;
+
       private int bufferPos;
       private int bufferLine;
 
       private int lineWidth;
       private int lineCounter;
 
-      private static final int INDEX_MARK_SIZE = 50;
+      private static final int INDEX_MARK_SIZE = 100;
 
       int totalLines = 0;
 
       private LineBuffer(InputStream stream, int lineWidth)
       {
          this.stream = stream;
-         curr = new StringAppender();
+         curr = new StringBuilder();
          index = new ArrayList<Integer>();
          this.lineWidth = lineWidth;
          this.lineCounter = lineWidth - 1;
@@ -277,25 +285,32 @@ public class MorePlugin implements Plugin
       @Override
       public int read() throws IOException
       {
-         int c;
-         if (inBuffer())
+         if (buffered)
          {
-            return curr.charAt(bufferPos++);
+            return bufferPos < curr.length() ? curr.charAt(bufferPos++) : -1;
          }
          else
          {
-            c = stream.read();
-            if (c != -1)
+            int c;
+            int read;
+            byte[] buffer = new byte[1024];
+            while ((read = stream.read(buffer)) != -1)
             {
-               curr.append((char) c);
-               bufferPos++;
-               if (--lineCounter == 0 || c == '\n')
+               for (int i = 0; i < read; i++)
                {
-                  lineCounter = lineWidth - 1;
-                  markLine();
+                  if ((c = buffer[i]) != -1)
+                  {
+                     curr.append((char) c);
+                     if (--lineCounter == 0 || c == '\n')
+                     {
+                        lineCounter = lineWidth - 1;
+                        markLine();
+                     }
+                  }
                }
             }
-            return c;
+            buffered = true;
+            return read();
          }
       }
 
@@ -388,7 +403,7 @@ public class MorePlugin implements Plugin
          int line = bufferLine;
          int lCount = lineWidth;
 
-         byte[] buffer = new byte[1024];
+         byte[] buffer = new byte[128];
          int read;
 
          while ((read = read(buffer)) != -1)
@@ -404,7 +419,7 @@ public class MorePlugin implements Plugin
                case '\n':
                   line++;
                   lCount = lineWidth;
-                  if (p.matcher(new String(curr.getChars(startLine, cursor - startLine - 1))).matches())
+                  if (p.matcher(curr.subSequence(startLine, cursor - 1)).matches())
                   {
                      return line;
                   }
