@@ -143,8 +143,7 @@ public abstract class Parse
    public static String executeScript(ScriptNode node, final FSHRuntime runtime)
    {
       String toExec = queueToString(new AutoReducingQueue(node.getNest(), runtime));
-     // System.out.println(">" + toExec);
-      //     Serializable s = MVEL.compileExpression(toExec);
+
       Object r = MVEL.eval(toExec, runtime, runtime.getShell().getProperties());
       if (r == null)
       {
@@ -154,6 +153,5 @@ public abstract class Parse
       {
          return String.valueOf(r);
       }
-      //   return MVEL.eval(toExec, runtime, runtime.getShell().getProperties(), String.class);
    }
 }

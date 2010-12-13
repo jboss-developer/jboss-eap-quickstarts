@@ -75,6 +75,8 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
+   private static final String PROP_VERBOSE = "VERBOSE";
+
    private final Map<String, Object> properties = new HashMap<String, Object>();
 
    @Inject
@@ -100,7 +102,7 @@ public class ShellImpl implements Shell
    private ConsoleReader reader;
    private Completer completer;
 
-   private boolean verbose = false;
+ //  private boolean verbose = false;
    private boolean pretend = false;
    private boolean exitRequested = false;
 
@@ -204,7 +206,7 @@ public class ShellImpl implements Shell
    {
       if (parameters.contains("--verbose"))
       {
-         verbose = true;
+         properties.put(PROP_VERBOSE, "true");
       }
 
       if (parameters.contains("--pretend"))
@@ -296,7 +298,7 @@ public class ShellImpl implements Shell
       catch (NoSuchCommandException e)
       {
          println("[" + e.getCommand() + "]" + e.getMessage());
-         if (verbose)
+         if (isVerbose())
          {
             e.printStackTrace();
          }
@@ -304,7 +306,7 @@ public class ShellImpl implements Shell
       catch (CommandExecutionException e)
       {
          println("[" + e.getCommand() + "] " + e.getMessage());
-         if (verbose)
+         if (isVerbose())
          {
             e.printStackTrace();
          }
@@ -312,7 +314,7 @@ public class ShellImpl implements Shell
       catch (CommandParserException e)
       {
          println("[" + e.getCommand() + "] " + e.getMessage());
-         if (verbose)
+         if (isVerbose())
          {
             e.printStackTrace();
          }
@@ -320,7 +322,7 @@ public class ShellImpl implements Shell
       catch (PluginExecutionException e)
       {
          println("[" + e.getPlugin() + "] " + e.getMessage());
-         if (verbose)
+         if (isVerbose())
          {
             e.printStackTrace();
          }
@@ -328,16 +330,16 @@ public class ShellImpl implements Shell
       catch (ShellExecutionException e)
       {
          println(e.getMessage());
-         if (verbose)
+         if (isVerbose())
          {
             e.printStackTrace();
          }
       }
       catch (Exception e)
       {
-         if (!verbose)
+         if (!isVerbose())
          {
-            println("Exception encountered: " + e.getMessage() + " (type \"verbose on\" to enable stack traces)");
+            println("Exception encountered: " + e.getMessage() + " (type \"@verbose=true\" to enable stack traces)");
          }
          else
          {
@@ -353,7 +355,7 @@ public class ShellImpl implements Shell
    @Override
    public void printlnVerbose(final String line)
    {
-      if (verbose)
+      if (isVerbose())
       {
          System.out.println(line);
       }
@@ -457,13 +459,14 @@ public class ShellImpl implements Shell
    @Override
    public boolean isVerbose()
    {
-      return verbose;
+      Object s = properties.get(PROP_VERBOSE);
+      return s != null && "true".equals(s);
    }
 
    @Override
    public void setVerbose(final boolean verbose)
    {
-      this.verbose = verbose;
+     properties.put(PROP_VERBOSE, String.valueOf(verbose));
    }
 
    @Override
