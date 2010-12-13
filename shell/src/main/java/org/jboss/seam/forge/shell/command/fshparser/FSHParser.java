@@ -325,8 +325,15 @@ public class FSHParser
             break;
 
          case '"':
-            nest.nestDoubleQuote();
-            buf.append(subStmt.charAt(i));
+            if (openShellCall)
+            {
+               buf.append("\\\"");
+            }
+            else
+            {
+               nest.nestDoubleQuote();
+               buf.append(subStmt.charAt(i));
+            }
             break;
 
          case '(':
