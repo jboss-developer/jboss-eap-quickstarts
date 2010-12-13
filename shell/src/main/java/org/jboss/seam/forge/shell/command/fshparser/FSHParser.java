@@ -150,8 +150,7 @@ public class FSHParser
 
                            int offset = cursor != length && expr[cursor] == '}' ? -1 : 0;
 
-                           buf.append(shellToMVEL(new String(expr, start, cursor - start)
-                                 .replace("\"", "\\\"").trim()));
+                           buf.append(shellToMVEL(new String(expr, start, cursor - start).trim()));
 
                            if (offset == -1)
                            {
@@ -618,7 +617,5 @@ public class FSHParser
             singleQuote = 0;
          }
       }
-
-
    }
 }

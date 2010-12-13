@@ -97,10 +97,16 @@ public class FSHBasicTests extends AbstractShellTest
       runtime.run("@myVar='ls'; echo $myVar.toUpperCase()");
    }
 
+//   @Test
+//   public void testSimple11()
+//   {
+//      runtime.run("for (i=0;i<1000;i++) { ls }");
+//   }
+
    @Test
-   public void testSimple11()
+   public void testSimple12()
    {
-      runtime.run("for (i=0;i<4;i++) { ls }");
+      runtime.run("for (i = 0; i < 2; i++) { @System.out.println(\"foo\"); }");
    }
 
 
