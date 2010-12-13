@@ -81,7 +81,7 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple7()
    {
-      runtime.run("ls -l /; ls -l /");
+      runtime.run("ls -l /; ls");
    }
 
    @Test
@@ -94,8 +94,15 @@ public class FSHBasicTests extends AbstractShellTest
    @Test
    public void testSimple10()
    {
-      runtime.run("myVar='ls'; echo $myVar.toUpperCase()");
+      runtime.run("@myVar='ls'; echo $myVar.toUpperCase()");
    }
+
+   @Test
+   public void testSimple11()
+   {
+      runtime.run("for (i=0;i<4;i++) { ls }");
+   }
+
 
    @Test
    public void testExpressionLoop() {
@@ -107,7 +114,6 @@ public class FSHBasicTests extends AbstractShellTest
    {
       runtime.run("@System.out.println('hello')");
    }
-
 
    @Test
    public void testParse()

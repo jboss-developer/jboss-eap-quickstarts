@@ -300,7 +300,7 @@ public class FSHParser
                break;
             }
 
-            if (subStmt.charAt(i) != '@' && firstToken != -1 && !isReservedWord(subStmt.substring(0, firstToken)))
+            if (subStmt.charAt(i) != '@' && (firstToken == -1 || !isReservedWord(subStmt.substring(0, firstToken))))
             {
                buf.append("shell(\"");
                openShellCall = true;
