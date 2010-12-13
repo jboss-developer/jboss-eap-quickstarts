@@ -61,7 +61,10 @@ public class ListCommandsPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void listCommands(@Option(name = "all", shortName = "a", flagOnly = true) final boolean showAll)
+   public void listCommands(
+         @Option(name = "all", shortName = "a", flagOnly = true) final boolean showAll,
+         final PipeOut pipeOut
+   )
    {
       List<String> listData;
       Map<String, List<String>> listGroups = new TreeMap<String, List<String>>();
@@ -113,9 +116,17 @@ public class ListCommandsPlugin implements Plugin
       }
 
       GeneralUtils.OutputAttributes attr = null;
-      for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
+
+      if (pipeOut.isPiped())
       {
-         attr = GeneralUtils.calculateOutputAttributs(entry.getValue(), shell, attr);
+         attr = new GeneralUtils.OutputAttributes(120, 1);
+      }
+      else
+      {
+         for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
+         {
+            attr = GeneralUtils.calculateOutputAttributs(entry.getValue(), shell, attr);
+         }
       }
 
       FormatCallback formatCallback = new FormatCallback()
@@ -123,27 +134,32 @@ public class ListCommandsPlugin implements Plugin
          @Override
          public String format(final int column, final String value)
          {
-            return value.endsWith("*") ? shell.renderColor(ShellColor.BOLD, value) : value;
+            return value.endsWith("*") ? pipeOut.renderColor(ShellColor.BOLD, value) : value;
          }
       };
 
       for (Map.Entry<String, List<String>> entry : listGroups.entrySet())
       {
-         shell.println();
-         shell.println(ShellColor.RED, "[" + entry.getKey().toUpperCase() + "]");
+         if (!pipeOut.isPiped())
+         {
+            pipeOut.println();
+            pipeOut.println(ShellColor.RED, "[" + entry.getKey().toUpperCase() + "]");
+         }
 
-         printOutColumns(entry.getValue(), ShellColor.NONE, shell, attr, formatCallback, true);
+         printOutColumns(entry.getValue(), ShellColor.NONE, pipeOut, attr, formatCallback, true);
       }
 
-      shell.println();
-
-      if (showAll)
+      if (!pipeOut.isPiped())
       {
-         shell.println("(* = command accessible from current context)");
-      }
-      else
-      {
-         shell.println("(only commands in relevant scope displayed. use --all to see all commands.)");
+         pipeOut.println();
+         if (showAll)
+         {
+            pipeOut.println("(* = command accessible from current context)");
+         }
+         else
+         {
+            pipeOut.println("(only commands in relevant scope displayed. use --all to see all commands.)");
+         }
       }
    }
 
