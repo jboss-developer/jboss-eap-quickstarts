@@ -144,7 +144,7 @@ public class MorePlugin implements Plugin
                         y = 0;
                         continue Bufferloop;
                      case 0:
-                        noAutoExit = true;
+                        noAutoExit = false;
                         break Mainloop;
                      }
 
