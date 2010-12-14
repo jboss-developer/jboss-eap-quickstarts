@@ -290,7 +290,10 @@ public class MorePlugin implements Plugin
             }
             else
             {
-               lastPattern.delete(0, lastPattern.length() - 1);
+               if (lastPattern.length() != 0)
+               {
+                  lastPattern.delete(0, lastPattern.length() - 1);
+               }
                lastPattern.append(pattern);
                p = searched = pattern;
             }
@@ -348,6 +351,7 @@ public class MorePlugin implements Plugin
       private int lineCounter;
 
       private static final int INDEX_MARK_SIZE = 100;
+      private static final int MAX_PREBUFFER = 1024 * 5; // kkb
 
       int totalLines = 0;
 
@@ -365,15 +369,33 @@ public class MorePlugin implements Plugin
       {
          if (buffered)
          {
-            return bufferPos < curr.length() ? curr.charAt(bufferPos++) : -1;
+            if (bufferPos < curr.length())
+            {
+               return curr.charAt(bufferPos++);
+            }
+            else
+            {
+               int c = stream.read();
+               if (c == -1)
+               {
+                  return -1;
+               }
+               else
+               {
+                  buffered = false;
+                  return read();
+               }
+            }
          }
          else
          {
             int c;
             int read;
             byte[] buffer = new byte[1024];
+            int totalBytes = 0;
             while ((read = stream.read(buffer)) != -1)
             {
+
                for (int i = 0; i < read; i++)
                {
                   if ((c = buffer[i]) != -1)
@@ -385,6 +407,11 @@ public class MorePlugin implements Plugin
                         markLine();
                      }
                   }
+               }
+
+               if ((totalBytes += read) > MAX_PREBUFFER)
+               {
+                  break;
                }
             }
             buffered = true;
