@@ -232,8 +232,7 @@ public class ShellImpl implements Shell
             {
                if (b[i] == '\n')
                {
-                  String s = buf.toString();
-                  history.add(s);
+                  history.add(buf.toString());
                   buf.reset();
                }
                else
@@ -275,7 +274,6 @@ public class ShellImpl implements Shell
       catch (IOException e)
       {
       }
-
    }
 
    private void writeToHistory(String command)
