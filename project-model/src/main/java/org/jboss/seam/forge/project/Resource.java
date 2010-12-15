@@ -44,6 +44,15 @@ import java.util.Set;
 public interface Resource<T>
 {
 
+   /*
+    * TODO Add a ResourceFilter API/Utility
+    * 
+    * Resource.listResources(ResourceFilter filter) <T> List<T>
+    * Filter.apply(ResourceFilter<T> filter, List<Resource<?>> resources)
+    * List<Resource<?>> Filter.apply(ResourceFilter<?> filter, List<Resource<?>>
+    * resources)
+    */
+
    /**
     * Return the common name of the resource. If it's a file, for instance, just
     * the file name.

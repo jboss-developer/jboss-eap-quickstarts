@@ -153,7 +153,7 @@ public class JavaResource extends FileResource<JavaResource>
    {
       try
       {
-         return getJavaSource().toString();
+         return getJavaSource().getQualifiedName();
       }
       catch (FileNotFoundException e)
       {

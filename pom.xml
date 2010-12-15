@@ -33,6 +33,7 @@
       <module>shell</module>
       <module>persistence-plugin</module>
       <module>web-plugin</module>
+      <module>scaffold-plugin</module>
    </modules>
 
    <properties>

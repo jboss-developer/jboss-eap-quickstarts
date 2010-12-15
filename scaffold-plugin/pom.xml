@@ -8,9 +8,9 @@
    </parent>
 
    <groupId>org.jboss.seam.forge</groupId>
-   <artifactId>forge-web-plugin</artifactId>
+   <artifactId>forge-scaffold</artifactId>
    <packaging>jar</packaging>
-   <name>Seam Forge - Web Plugins</name>
+   <name>Seam Forge - Scaffolding Plugins</name>
 
    <dependencies>
       <dependency>
@@ -20,8 +20,11 @@
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-         <artifactId>shrinkwrap-descriptors-api</artifactId>
+         <groupId>org.metawidget</groupId>
+         <artifactId>metawidget</artifactId>
+         <scope>system</scope>
+         <version>1.0.0</version>
+         <systemPath>${basedir}/metawidget.jar</systemPath>
       </dependency>
 
       <dependency>

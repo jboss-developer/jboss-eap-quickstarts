@@ -22,13 +22,19 @@
 
 package org.jboss.seam.forge.shell.command;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
 import org.jboss.seam.forge.shell.constraint.ConstraintException;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-
-import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -265,6 +271,7 @@ public class PluginMetadata
       }
    }
 
+   @SuppressWarnings("rawtypes")
    public boolean usableWithScope(final Class<? extends Resource> scope)
    {
       return resourceScopes.isEmpty() || resourceScopes.contains(scope);

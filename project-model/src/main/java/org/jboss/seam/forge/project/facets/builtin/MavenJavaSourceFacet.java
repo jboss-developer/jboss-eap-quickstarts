@@ -21,6 +21,15 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
@@ -36,14 +45,6 @@ import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.project.util.Packages;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -73,21 +74,21 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    @Override
    public DirectoryResource getBasePackageResource()
    {
-      return getSourceFolder().getChildDirectory(getBasePackage());
+      return getSourceFolder().getChildDirectory(Packages.toFileSyntax(getBasePackage()));
    }
 
    @Override
    public DirectoryResource getSourceFolder()
    {
       DirectoryResource projectRoot = project.getProjectRoot();
-      return (DirectoryResource) projectRoot.getChildDirectory("src" + File.separator + "main" + File.separator + "java");
+      return projectRoot.getChildDirectory("src" + File.separator + "main" + File.separator + "java");
    }
 
    @Override
    public DirectoryResource getTestSourceFolder()
    {
       DirectoryResource projectRoot = project.getProjectRoot();
-      return (DirectoryResource) projectRoot.getChildDirectory("src" + File.separator + "test" + File.separator + "java");
+      return projectRoot.getChildDirectory("src" + File.separator + "test" + File.separator + "java");
    }
 
    @Override
@@ -196,7 +197,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    {
       String path = relativePath.trim().endsWith(".java")
             ? relativePath.substring(0, relativePath.lastIndexOf(".java")) : relativePath;
-            
+
       path = Packages.toFileSyntax(path) + ".java";
       JavaResource target = sourceDir.getChildOfType(JavaResource.class, path);
       return target;

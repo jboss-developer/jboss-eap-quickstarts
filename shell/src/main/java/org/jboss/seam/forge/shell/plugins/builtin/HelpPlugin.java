@@ -22,16 +22,23 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -42,7 +49,7 @@ import java.util.List;
 public class HelpPlugin implements Plugin
 {
    PluginRegistry registry;
-   Shell shell;
+   private final Shell shell;
 
    @Inject
    public HelpPlugin(final PluginRegistry registry, final Shell shell)
@@ -52,13 +59,13 @@ public class HelpPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void help(@Option final String... tokens)
+   public void help(@Option final String[] tokens, PipeOut out)
    {
       if ((tokens == null) || (tokens.length == 0))
       {
-         shell.println("");
-         shell.println("Welcome to Seam Forge. Type \"help {plugin} {command}\" to learn more about what this shell can do.");
-         shell.println("");
+         out.println("");
+         out.println("Welcome to Seam Forge. Type \"help {plugin} {command}\" to learn more about what this shell can do.");
+         out.println("");
       }
       else
       {
@@ -66,7 +73,7 @@ public class HelpPlugin implements Plugin
          PluginMetadata plugin = registry.getPluginMetadataForScopeAndConstraints(pluginName, shell);
          if (plugin != null)
          {
-            writePluginHelp(plugin);
+            writePluginHelp(plugin, out);
 
             if (tokens.length >= 2)
             {
@@ -74,11 +81,11 @@ public class HelpPlugin implements Plugin
                if (plugin.hasCommand(commandName, shell))
                {
                   CommandMetadata command = plugin.getCommand(commandName, shell);
-                  writeCommandHelp(command);
+                  writeCommandHelp(command, out);
                }
                else
                {
-                  shell.println("Unknown command [" + commandName + "]");
+                  out.println("Unknown command [" + commandName + "]");
                }
             }
             else if (tokens.length >= 1)
@@ -86,83 +93,83 @@ public class HelpPlugin implements Plugin
                List<CommandMetadata> ctxCommands = plugin.getCommands(shell);
                if (ctxCommands.size() > 0)
                {
-                  shell.println("");
-                  shell.println("Commands:");
+                  out.println("");
+                  out.println("Commands:");
                   for (CommandMetadata command : ctxCommands)
                   {
-                     writeCommandHelp(command);
+                     writeCommandHelp(command, out);
                   }
                }
             }
          }
          else
          {
-            shell.println("I couldn't find a help topic for: " + tokens[0]);
+            out.println("I couldn't find a help topic for: " + tokens[0]);
          }
-         shell.println("");
+         out.println("");
       }
 
    }
 
-   private void writePluginHelp(final PluginMetadata plugin)
+   private void writePluginHelp(final PluginMetadata plugin, ShellPrintWriter out)
    {
-      shell.println("[" + plugin.getName() + "] " + plugin.getHelp());
+      out.println("[" + plugin.getName() + "] " + plugin.getHelp());
    }
 
-   private void writeCommandHelp(final CommandMetadata command)
+   private void writeCommandHelp(final CommandMetadata command, ShellPrintWriter out)
    {
       if (command.isDefault())
       {
-         shell.print("[default] " + command.getName() + " ");
-         writeCommandUsage(command);
-         shell.println(" - " + command.getHelp());
+         out.print("[default] " + command.getName() + " ");
+         writeCommandUsage(command, out);
+         out.println(" - " + command.getHelp());
       }
       else
       {
-         shell.print(command.getName() + " ");
-         writeCommandUsage(command);
-         shell.println(" - " + command.getHelp());
+         out.print(command.getName() + " ");
+         writeCommandUsage(command, out);
+         out.println(" - " + command.getHelp());
       }
-      shell.println();
+      out.println();
    }
 
-   private void writeCommandUsage(final CommandMetadata command)
+   private void writeCommandUsage(final CommandMetadata command, ShellPrintWriter out)
    {
       for (OptionMetadata option : command.getOptions())
       {
          if (option.isRequired())
          {
-            shell.print("[");
+            out.print("[");
          }
          else
          {
-            shell.print("{");
+            out.print("{");
          }
 
          if (option.isBoolean())
          {
-            shell.print("--" + option.getName());
+            out.print("--" + option.getName());
          }
          else if (option.isNamed())
          {
-            shell.print("--" + option.getName() + "=...");
+            out.print("--" + option.getName() + "=...");
          }
          else if (option.isVarargs())
          {
-            shell.print(option.getDescription() + " ...");
+            out.print(option.getDescription() + " ...");
          }
          else
          {
-            shell.print(option.getDescription());
+            out.print(option.getDescription());
          }
 
          if (option.isRequired())
          {
-            shell.print("]");
+            out.print("]");
          }
          else
          {
-            shell.print("}");
+            out.print("}");
          }
       }
    }

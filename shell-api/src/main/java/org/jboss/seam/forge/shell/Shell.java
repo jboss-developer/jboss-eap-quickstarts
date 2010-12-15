@@ -22,17 +22,17 @@
 
 package org.jboss.seam.forge.shell;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -50,6 +50,8 @@ public interface Shell extends ShellPrintWriter
    /**
     * Return the current working {@link Resource} of the shell. (This value may
     * change through execution of plug-ins or other operations.)
+    * 
+    * TODO implement ResourceBag for multiple resources
     */
    Resource<?> getCurrentResource();
 
@@ -85,15 +87,15 @@ public interface Shell extends ShellPrintWriter
 
    /**
     * Execute a shell command.
-    *
+    * 
     * @param command
     */
    void execute(String command);
 
-
    /**
-    * Wait for input. Return as soon as any key is pressed and return the scancode.
-    *
+    * Wait for input. Return as soon as any key is pressed and return the
+    * scancode.
+    * 
     * @return
     */
    int scan();
@@ -103,10 +105,9 @@ public interface Shell extends ShellPrintWriter
     */
    void clearLine();
 
-
    /**
     * Move the cursor x the specified number of positions.
-    *
+    * 
     * @param x
     */
    void cursorLeft(int x);
@@ -117,9 +118,10 @@ public interface Shell extends ShellPrintWriter
    String prompt();
 
    /**
-    * This works like prompt, however when a CR is received, the method returns the value, but does
-    * produce a CR in the actual terminal buffer. This is useful when a plugin is using manual
-    * cursor control.
+    * This works like prompt, however when a CR is received, the method returns
+    * the value, but does produce a CR in the actual terminal buffer. This is
+    * useful when a plugin is using manual cursor control.
+    * 
     * @return
     */
    String promptAndSwallowCR();
@@ -146,9 +148,9 @@ public interface Shell extends ShellPrintWriter
    /**
     * Prompt for boolean user input (Y/n), first printing the given message,
     * then returning user input as a boolean.
-    *
+    * 
     * @param defaultIfEmpty The value to be returned when an empty or
-    *                       whitespace-only user input is read.
+    *           whitespace-only user input is read.
     */
    boolean promptBoolean(String message, boolean defaultIfEmpty);
 
@@ -157,7 +159,7 @@ public interface Shell extends ShellPrintWriter
     * enumerated list of options (printing the String value of each item in the
     * list.) Loop until the user enters a number corresponding to one of the
     * options, then return the index of that option from the list.
-    *
+    * 
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the index of selected option
@@ -169,7 +171,7 @@ public interface Shell extends ShellPrintWriter
     * enumerated list of options (printing the String value of each item in the
     * list.) Loop until the user enters a number corresponding to one of the
     * options, then return the index of that option from the list.
-    *
+    * 
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the index of the selected option
@@ -181,8 +183,8 @@ public interface Shell extends ShellPrintWriter
     * enumerated list of options (printing the String value of each item in the
     * list.) Loop until the user enters a number corresponding to one of the
     * options, then return that option from the list.
-    *
-    * @param <T>     The type of the objects contained in the list
+    * 
+    * @param <T> The type of the objects contained in the list
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the selected option
@@ -194,8 +196,8 @@ public interface Shell extends ShellPrintWriter
     * enumerated list of options (printing the String value of each item in the
     * list.) Loop until the user enters a number corresponding to one of the
     * options, then return that option from the list.
-    *
-    * @param <T>     The type of the objects contained in the list
+    * 
+    * @param <T> The type of the objects contained in the list
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
     * @return the selected option
@@ -206,8 +208,8 @@ public interface Shell extends ShellPrintWriter
     * Prompt for user input, first printing the given message, followed by a
     * keyed list of options. Loop until the user enters a key corresponding to
     * one of the options, then return the value of that option from the map.
-    *
-    * @param <T>     The type of the objects contained in the map
+    * 
+    * @param <T> The type of the objects contained in the map
     * @param message The prompt message to display until valid input is entered
     * @param options The map of selection options
     * @return the selected option
@@ -218,9 +220,9 @@ public interface Shell extends ShellPrintWriter
     * Prompt for user input, first printing the given message, then returning
     * user input as a String. The prompt will repeat until input matching the
     * prompt type is entered.
-    *
+    * 
     * @param message The prompt message to display until valid input is entered
-    * @param type    The prompt type to which valid input must be matched
+    * @param type The prompt type to which valid input must be matched
     */
    String promptCommon(String message, PromptType type);
 
@@ -228,7 +230,7 @@ public interface Shell extends ShellPrintWriter
     * Prompt for user input in the form of a file path, first printing the given
     * message, then returning user input as a File. The prompt will repeat until
     * input matching the prompt type is entered.
-    *
+    * 
     * @param message The prompt message to display until valid input is entered
     */
    FileResource<?> promptFile(String message);
@@ -237,21 +239,21 @@ public interface Shell extends ShellPrintWriter
     * Prompt for user input in the form of a file path, first printing the given
     * message, then returning user input as a File. The prompt will repeat until
     * input matching the prompt type is entered.
-    *
-    * @param message        The prompt message to display until valid input is entered
+    * 
+    * @param message The prompt message to display until valid input is entered
     * @param defaultIfEmpty The value to be returned when an empty or
-    *                       whitespace-only user input is read.
+    *           whitespace-only user input is read.
     */
    FileResource<?> promptFile(String message, FileResource<?> defaultIfEmpty);
 
    /**
     * Same as {@link #promptCommon(String, PromptType)}, but will default to a
     * given value if user input is empty.
-    *
-    * @param message        The prompt message to display until valid input is entered
-    * @param type           The prompt type to which valid input must be matched
+    * 
+    * @param message The prompt message to display until valid input is entered
+    * @param type The prompt type to which valid input must be matched
     * @param defaultIfEmpty The value to be returned when an empty or
-    *                       whitespace-only user input is read.
+    *           whitespace-only user input is read.
     */
    String promptCommon(String message, PromptType type, String defaultIfEmpty);
 
@@ -259,30 +261,30 @@ public interface Shell extends ShellPrintWriter
     * Prompt for user input (Y/n), first printing the given message, then
     * returning user input as a String. The prompt will repeat until input
     * matching the regular expression is entered.
-    *
+    * 
     * @param message The prompt message to display until valid input is entered
-    * @param regex   The regular expression to which valid input must be matched
+    * @param regex The regular expression to which valid input must be matched
     */
    String promptRegex(String message, String regex);
 
    /**
     * Same as {@link #promptRegex(String, String)}, but will default to a given
     * value if user input is empty.
-    *
-    * @param message        The prompt message to display until valid input is entered
-    * @param pattern        The regular expression to which valid input must be matched
+    * 
+    * @param message The prompt message to display until valid input is entered
+    * @param pattern The regular expression to which valid input must be matched
     * @param defaultIfEmpty The value to be returned when an empty or
-    *                       whitespace-only user input is read.
+    *           whitespace-only user input is read.
     */
    String promptRegex(String message, String pattern, String defaultIfEmpty);
 
    /**
     * Prompt for user input, first printing the given line, then returning user
     * input as a converted value.
-    *
-    * @param clazz          The type to which the value will be converted, if possible.
+    * 
+    * @param clazz The type to which the value will be converted, if possible.
     * @param defaultIfEmpty The value to be returned when an empty or
-    *                       whitespace-only user input is read.
+    *           whitespace-only user input is read.
     */
    <T> T prompt(String message, Class<T> clazz, T defaultIfEmpty);
 
@@ -331,16 +333,17 @@ public interface Shell extends ShellPrintWriter
    /**
     * Render a color for the current terminal emulation by encapsulating the
     * string is the appropriate escape codes
-    *
+    * 
     * @param color
     * @param output
     * @return
     */
+   @Override
    public String renderColor(ShellColor color, String output);
 
    /**
     * Set a property in the shell context.
-    *
+    * 
     * @param name
     * @param value
     */
@@ -348,14 +351,14 @@ public interface Shell extends ShellPrintWriter
 
    /**
     * Get a map of properties for the current shell context.
-    *
+    * 
     * @return
     */
    Map<String, Object> getProperties();
 
    /**
     * Get a named property for the shell context
-    *
+    * 
     * @param name
     * @return
     */
@@ -404,7 +407,7 @@ public interface Shell extends ShellPrintWriter
 
    /**
     * Ask the current {@link InputStream} for data.
-    *
+    * 
     * @return any read data as a string, or null if none available.
     * @throws IOException on error
     */
