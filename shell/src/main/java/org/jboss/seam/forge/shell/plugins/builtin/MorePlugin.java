@@ -132,6 +132,7 @@ public class MorePlugin implements Plugin
                   if (y == height)
                   {
                      out.println();
+                     height = shell.getHeight() - 1;
                      switch (prompt(lineBuffer, out, lastPattern))
                      {
                      case -1:
@@ -182,7 +183,6 @@ public class MorePlugin implements Plugin
          throws IOException
    {
       boolean backwards = false;
-
 
       do
       {

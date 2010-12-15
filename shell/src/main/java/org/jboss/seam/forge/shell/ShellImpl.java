@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell;
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
+import jline.console.history.MemoryHistory;
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
@@ -52,6 +53,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
+import org.mvel2.util.StringAppender;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -76,6 +78,9 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
    private static final String PROP_VERBOSE = "VERBOSE";
+
+   private static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
+   private static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
 
@@ -102,12 +107,13 @@ public class ShellImpl implements Shell
    private ConsoleReader reader;
    private Completer completer;
 
- //  private boolean verbose = false;
    private boolean pretend = false;
    private boolean exitRequested = false;
 
    private InputStream inputStream;
    private Writer outputWriter;
+
+   private OutputStream historyOutstream;
 
    private final boolean colorEnabled = Boolean.getBoolean("seam.forge.shell.colorEnabled");
 
@@ -173,9 +179,118 @@ public class ShellImpl implements Shell
       properties.put(PROP_PROMPT, DEFAULT_PROMPT);
       properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
 
+      loadConfig();
+
       printWelcomeBanner();
 
       postStartup.fire(new PostStartup());
+   }
+
+   private void loadConfig()
+   {
+      File configDir = new File(FORGE_CONFIG_DIR);
+
+      if (!configDir.exists())
+      {
+         if (!configDir.mkdirs())
+         {
+            System.err.println("could not create config directory: " + configDir.getAbsolutePath());
+            return;
+         }
+      }
+
+      File historyFile = new File(configDir.getPath() + "/" + FORGE_COMMAND_HISTORY_FILE);
+
+      try
+      {
+         if (!historyFile.exists())
+         {
+            if (!historyFile.createNewFile())
+            {
+               System.err.println("could not create config file: " + historyFile.getAbsolutePath());
+            }
+
+         }
+      }
+      catch (IOException e)
+      {
+         throw new RuntimeException("could not create config file: " + historyFile.getAbsolutePath());
+      }
+
+      MemoryHistory history = new MemoryHistory();
+      try
+      {
+         StringAppender buf = new StringAppender();
+         InputStream instream = new BufferedInputStream(new FileInputStream(historyFile));
+
+         byte[] b = new byte[25];
+         int read;
+
+         while ((read = instream.read(b)) != -1)
+         {
+            for (int i = 0; i < read; i++)
+            {
+               if (b[i] == '\n')
+               {
+                  String s = buf.toString();
+                  history.add(s);
+                  buf.reset();
+               }
+               else
+               {
+                  buf.append(b[i]);
+               }
+            }
+         }
+
+         instream.close();
+
+         reader.setHistory(history);
+      }
+      catch (IOException e)
+      {
+         throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
+      }
+
+      try
+      {
+         historyOutstream = new BufferedOutputStream(new FileOutputStream(historyFile, true));
+
+         Runtime.getRuntime().addShutdownHook(new Thread()
+         {
+            @Override
+            public void run()
+            {
+               try
+               {
+                  historyOutstream.flush();
+                  historyOutstream.close();
+               }
+               catch (Exception e)
+               {
+               }
+            }
+         });
+      }
+      catch (IOException e)
+      {
+      }
+
+   }
+
+   private void writeToHistory(String command)
+   {
+      try
+      {
+         for (int i = 0; i < command.length(); i++)
+         {
+            historyOutstream.write(command.charAt(i));
+         }
+         historyOutstream.write('\n');
+      }
+      catch (IOException e)
+      {
+      }
    }
 
    private void initCompleters(final PluginCommandCompleter pluginCompleter)
@@ -293,6 +408,7 @@ public class ShellImpl implements Shell
    {
       try
       {
+         writeToHistory(line);
          fshRuntime.run(line);
       }
       catch (NoSuchCommandException e)
@@ -466,7 +582,7 @@ public class ShellImpl implements Shell
    @Override
    public void setVerbose(final boolean verbose)
    {
-     properties.put(PROP_VERBOSE, String.valueOf(verbose));
+      properties.put(PROP_VERBOSE, String.valueOf(verbose));
    }
 
    @Override
