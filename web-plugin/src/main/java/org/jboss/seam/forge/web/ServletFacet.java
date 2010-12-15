@@ -52,8 +52,8 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("servlet")
-@RequiresFacets({WebResourceFacet.class, DependencyFacet.class})
-@RequiresPackagingTypes({PackagingType.WAR})
+@RequiresFacets({ WebResourceFacet.class, DependencyFacet.class })
+@RequiresPackagingTypes({ PackagingType.WAR })
 public class ServletFacet implements Facet
 {
 
@@ -81,10 +81,10 @@ public class ServletFacet implements Facet
       getConfigFile().setContents(output);
    }
 
-   private FileResource getConfigFile()
+   private FileResource<?> getConfigFile()
    {
       DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return (FileResource) webRoot.getChild("WEB-INF" + File.separator + "web.xml");
+      return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "web.xml");
    }
 
    /**
@@ -157,7 +157,7 @@ public class ServletFacet implements Facet
             webRoot.mkdirs();
          }
 
-         FileResource descriptor = getConfigFile();
+         FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
             WebAppDescriptor unit = Descriptors.create(WebAppDescriptor.class)
@@ -168,7 +168,7 @@ public class ServletFacet implements Facet
             descriptor.setContents(unit.exportAsString());
          }
 
-         FileResource welcomePage = (FileResource) webRoot.getChild("index.html");
+         FileResource<?> welcomePage = (FileResource<?>) webRoot.getChild("index.html");
          welcomePage.setContents("<html><head><title>Welcome to Seam Forge</title></head>" +
                "<body>" +
                "<h1> [" + projectName + "] is Online</h1>" +
