@@ -29,13 +29,14 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.impl.AnnotationImpl;
 import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class AnnotationAccessor<O, T>
+public class AnnotationAccessor<O extends JavaSource<?>, T>
 {
 
    @SuppressWarnings("unchecked")
@@ -53,6 +54,10 @@ public class AnnotationAccessor<O, T>
 
    public Annotation<O> addAnnotation(final AnnotationTarget<O, T> target, final BodyDeclaration body, final String className)
    {
+      if (!target.getOrigin().hasImport(className) && Types.isQualified(className))
+      {
+         target.getOrigin().addImport(className);
+      }
       return addAnnotation(target, body).setName(className);
    }
 

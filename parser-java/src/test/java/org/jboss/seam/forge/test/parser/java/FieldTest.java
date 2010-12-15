@@ -40,7 +40,7 @@ public class FieldTest
 {
    private InputStream stream;
    private JavaClass javaClass;
-   private Field field;
+   private Field<JavaClass> field;
 
    @Before
    public void reset()
@@ -112,7 +112,7 @@ public class FieldTest
    public void testAddField() throws Exception
    {
       javaClass.addField("public Boolean flag = false;");
-      Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+      Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 
       assertTrue(fld.toString().contains("Boolean"));
@@ -124,8 +124,8 @@ public class FieldTest
    @Test
    public void testIsPrimitive() throws Exception
    {
-      Field objectField = javaClass.addField("public Boolean flag = false;");
-      Field primitiveField = javaClass.addField("public boolean flag = false;");
+      Field<JavaClass> objectField = javaClass.addField("public Boolean flag = false;");
+      Field<JavaClass> primitiveField = javaClass.addField("public boolean flag = false;");
 
       assertFalse(objectField.isPrimitive());
       assertTrue(primitiveField.isPrimitive());
@@ -136,7 +136,20 @@ public class FieldTest
    public void testAddFieldInitializerLiteral() throws Exception
    {
       javaClass.addField("public int flag;").setLiteralInitializer("1234").setPrivate();
-      Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+      Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+
+      assertEquals("int", fld.getType());
+      assertEquals("flag", fld.getName());
+      assertEquals("1234", fld.getLiteralInitializer());
+      assertEquals("1234", fld.getStringInitializer());
+      assertEquals("private int flag=1234;", fld.toString().trim());
+   }
+
+   @Test
+   public void testAddFieldInitializerLiteralIgnoresTerminator() throws Exception
+   {
+      javaClass.addField("public int flag;").setLiteralInitializer("1234;").setPrivate();
+      Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
 
       assertEquals("int", fld.getType());
       assertEquals("flag", fld.getName());
@@ -149,7 +162,7 @@ public class FieldTest
    public void testAddFieldInitializerString() throws Exception
    {
       javaClass.addField("public String flag;").setStringInitializer("american");
-      Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+      Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 
       assertEquals("String", fld.getType());
@@ -164,7 +177,7 @@ public class FieldTest
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
                .setPrivate();
-      Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+      Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 
       assertEquals(String.class.getName(), fld.getType());
@@ -179,10 +192,10 @@ public class FieldTest
    {
       javaClass.addField().setName("flag").setType(String.class.getName()).setStringInitializer("american")
                .setPrivate();
-      Field fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
+      Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       assertTrue(javaClass.hasField(fld));
 
-      Field notFld = JavaParser.parse(JavaClass.class, "public class Foo {}").addField("private int foobar;");
+      Field<JavaClass> notFld = JavaParser.parse(JavaClass.class, "public class Foo {}").addField("private int foobar;");
       assertFalse(javaClass.hasField(notFld));
 
    }

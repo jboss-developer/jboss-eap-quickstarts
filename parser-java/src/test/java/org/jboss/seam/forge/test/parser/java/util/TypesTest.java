@@ -20,52 +20,24 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.parser.java.util;
+package org.jboss.seam.forge.test.parser.java.util;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.jboss.seam.forge.parser.java.util.Types;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class Types
+public class TypesTest
 {
-   public static boolean areEquivalent(final String longType, final String type)
+   @Test
+   public void testIsQualified() throws Exception
    {
-      String shortType = longType.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
-      if (shortType.equals(type) ||
-               longType.equals(type))
-      {
-         return true;
-      }
-      return false;
-   }
-
-   public static String toSimpleName(final String fieldType)
-   {
-      String result = fieldType;
-      if (result != null)
-      {
-         String[] tokens = tokenizeClassName(result);
-         if (tokens != null)
-         {
-            result = tokens[tokens.length - 1];
-         }
-      }
-      return result;
-   }
-
-   public static String[] tokenizeClassName(final String className)
-   {
-      String[] result = null;
-      if (className != null)
-      {
-         result = className.split("\\.");
-      }
-      return result;
-   }
-
-   public static boolean isQualified(String className)
-   {
-      String[] tokens = tokenizeClassName(className);
-      return (tokens != null) && (tokens.length > 1);
+      assertTrue(Types.isQualified("org.jboss.seam.forge.parser.JavaParser"));
+      assertFalse(Types.isQualified("JavaParser"));
    }
 }

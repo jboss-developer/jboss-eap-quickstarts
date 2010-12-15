@@ -286,6 +286,12 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
    }
 
    @Override
+   public Field<O> setType(JavaSource<?> source)
+   {
+      return setType(source.getName());
+   }
+
+   @Override
    public Field<O> setType(final String typeName)
    {
       Code primitive = PrimitiveType.toCode(typeName);

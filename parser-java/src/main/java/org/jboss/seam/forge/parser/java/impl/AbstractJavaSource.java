@@ -80,10 +80,6 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    @Override
    public Annotation<T> addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
-      if (!this.hasImport(clazz))
-      {
-         this.addImport(clazz);
-      }
       return annotations.addAnnotation(this, getBodyDeclaration(), clazz.getSimpleName());
    }
 
@@ -291,7 +287,8 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    /**
-    * Call-back to allow updating of any necessary internal names with the given name.
+    * Call-back to allow updating of any necessary internal names with the given
+    * name.
     */
    protected abstract T updateTypeNames(String name);
 
