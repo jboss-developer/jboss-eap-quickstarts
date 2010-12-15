@@ -21,6 +21,13 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -33,19 +40,13 @@ import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
 @Named("forge.maven.WebResourceFacet")
 @RequiresPackagingType(PackagingType.WAR)
-@RequiresFacets({JavaSourceFacet.class, PackagingFacet.class})
+@RequiresFacets({ JavaSourceFacet.class, PackagingFacet.class })
 public class MavenWebResourceFacet implements WebResourceFacet, Facet
 {
    private Project project;
@@ -53,7 +54,7 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    @Override
    public DirectoryResource getWebRootDirectory()
    {
-      return (DirectoryResource) project.getProjectRoot().getChildDirectory("src" + File.separator + "main" + File.separator + "webapp");
+      return project.getProjectRoot().getChildDirectory("src" + File.separator + "main" + File.separator + "webapp");
    }
 
    @Override
@@ -108,10 +109,16 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    }
 
    @Override
-   public FileResource<?> createWebResource(final char[] bytes, final String relativePath)
+   public FileResource<?> createWebResource(final char[] data, final String relativePath)
    {
       FileResource<?> file = (FileResource<?>) getWebRootDirectory().getChild(relativePath);
-      file.setContents(bytes);
+      file.setContents(data);
       return file;
+   }
+
+   @Override
+   public FileResource<?> createWebResource(String data, String relativePath)
+   {
+      return createWebResource(data.toCharArray(), relativePath);
    }
 }
