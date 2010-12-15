@@ -58,7 +58,7 @@ public class AnnotationAccessor<O extends JavaSource<?>, T>
       {
          target.getOrigin().addImport(className);
       }
-      return addAnnotation(target, body).setName(className);
+      return addAnnotation(target, body).setName(Types.toSimpleName(className));
    }
 
    public List<Annotation<O>> getAnnotations(final AnnotationTarget<O, T> target, final BodyDeclaration body)

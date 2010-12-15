@@ -30,13 +30,14 @@ import java.util.List;
 
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.AnnotationTarget;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class AnnotationTest<O, T>
+public abstract class AnnotationTest<O extends JavaSource<?>, T>
 {
    private AnnotationTarget<O, T> target;
 
@@ -93,6 +94,7 @@ public abstract class AnnotationTest<O, T>
       assertEquals(size + 1, annotations.size());
       assertEquals(Test.class.getSimpleName(), annotation.getName());
       assertTrue(target.toString().contains("@" + Test.class.getSimpleName()));
+      assertTrue(target.getOrigin().hasImport(Test.class));
    }
 
    @Test
@@ -104,6 +106,7 @@ public abstract class AnnotationTest<O, T>
       assertEquals(size + 1, annotations.size());
       assertEquals("RequestScoped", annotation.getName());
       assertTrue(target.toString().contains("@RequestScoped"));
+      assertFalse(target.getOrigin().hasImport("RequestScoped"));
    }
 
    @Test
@@ -118,6 +121,7 @@ public abstract class AnnotationTest<O, T>
       assertEquals(Test.class.getSimpleName(), anno2.getName());
       String pattern = "@" + Test.class.getSimpleName() + " " + "@" + Test.class.getSimpleName();
       assertTrue(target.toString().contains(pattern));
+      assertTrue(target.getOrigin().hasImport(Test.class));
    }
 
    @Test(expected = IllegalArgumentException.class)

@@ -80,7 +80,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    @Override
    public Annotation<T> addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
-      return annotations.addAnnotation(this, getBodyDeclaration(), clazz.getSimpleName());
+      return annotations.addAnnotation(this, getBodyDeclaration(), clazz.getName());
    }
 
    @Override
