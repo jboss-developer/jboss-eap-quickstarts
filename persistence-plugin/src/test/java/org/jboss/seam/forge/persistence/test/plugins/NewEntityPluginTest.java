@@ -62,6 +62,7 @@ public class NewEntityPluginTest extends AbstractJPATest
       assertTrue(javaClass.hasAnnotation(Entity.class));
       assertFalse(javaClass.hasSyntaxErrors());
 
+      assertTrue(javaClass.hasImport(Entity.class));
       assertTrue(javaClass.hasField("id"));
       assertTrue(javaClass.hasField("version"));
    }
