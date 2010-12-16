@@ -407,12 +407,14 @@ public class ShellImpl implements Shell
 
    private String getDefaultConfig()
    {
-      return "echo \"   ____                          _____                    \";\n" +
+      return "@/** Automatically generated config file **/;\n" +
+            "" +
+            "echo \"   ____                          _____                    \";\n" +
             "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n" +
             "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n" +
             "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
             "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-            "echo \"                                                |___/      \";";
+            "echo \"                                                |___/      \";\n\n";
    }
 
    void teardown(@Observes final Shutdown event)
