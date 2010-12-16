@@ -43,7 +43,7 @@ public class Refactory
       String fieldName = field.getName();
       String methodNameSuffix = Strings.capitalize(fieldName);
       entity.addMethod().setReturnType(field.getType()).setName("get" + methodNameSuffix).setPublic()
-               .setParameters("final " + field.getType() + fieldName).setBody("return this." + fieldName + ";");
+               .setBody("return this." + fieldName + ";");
       entity.addMethod().setReturnTypeVoid().setName("set" + methodNameSuffix).setPublic()
                .setParameters("final " + field.getType() + " " + fieldName)
                .setBody("this." + fieldName + " = " + fieldName + ";");

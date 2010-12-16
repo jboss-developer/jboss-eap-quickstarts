@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.test.parser.java.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class RefactoryTest
       Method<JavaClass> setter = methods.get(1);
 
       assertEquals("getFoo", getter.getName());
+      assertTrue(getter.getParameters().isEmpty());
       assertEquals("setFoo", setter.getName());
    }
 }
