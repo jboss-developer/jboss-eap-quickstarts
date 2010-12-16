@@ -182,8 +182,6 @@ public class ShellImpl implements Shell
 
       loadConfig();
 
-  //    printWelcomeBanner();
-
       postStartup.fire(new PostStartup());
    }
 
