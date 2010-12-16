@@ -81,6 +81,7 @@ public class ShellImpl implements Shell
 
    private static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
    private static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
+   private static final String FORGE_CONFIG_FILE = "config";
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
 
@@ -181,7 +182,7 @@ public class ShellImpl implements Shell
 
       loadConfig();
 
-      printWelcomeBanner();
+  //    printWelcomeBanner();
 
       postStartup.fire(new PostStartup());
    }
@@ -250,6 +251,65 @@ public class ShellImpl implements Shell
       {
          throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
       }
+
+      File configFile = new File(configDir.getPath() + "/" + FORGE_CONFIG_FILE);
+
+      if (!configFile.exists())
+      {
+         try
+         {
+            /**
+             * Create a default config file.
+             */
+
+            configFile.createNewFile();
+            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(configFile));
+            String defaultConfig = getDefaultConfig();
+            for (int i = 0; i < defaultConfig.length(); i++)
+            {
+               outputStream.write(defaultConfig.charAt(i));
+            }
+            outputStream.flush();
+            outputStream.close();
+
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
+            throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
+         }
+      }
+
+
+      try
+      {
+         /**
+          * Load the config file script.
+          */
+         StringAppender buf = new StringAppender();
+         InputStream instream = new BufferedInputStream(new FileInputStream(configFile));
+
+         byte[] b = new byte[25];
+         int read;
+
+         while ((read = instream.read(b)) != -1)
+         {
+            for (int i = 0; i < read; i++)
+            {
+               buf.append(b[i]);
+            }
+         }
+
+         instream.close();
+
+         execute(buf.toString());
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+         throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
+      }
+
 
       try
       {
@@ -345,6 +405,16 @@ public class ShellImpl implements Shell
       System.out.println("");
    }
 
+   private String getDefaultConfig()
+   {
+      return "echo \"   ____                          _____                    \";\n" +
+            "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n" +
+            "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n" +
+            "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+            "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+            "echo \"                                                |___/      \";";
+   }
+
    void teardown(@Observes final Shutdown event)
    {
       exitRequested = true;
@@ -360,6 +430,7 @@ public class ShellImpl implements Shell
          {
             if (!"".equals(line))
             {
+               writeToHistory(line);
                execute(line);
             }
             reader.setPrompt(getPrompt());
@@ -406,7 +477,6 @@ public class ShellImpl implements Shell
    {
       try
       {
-         writeToHistory(line);
          fshRuntime.run(line);
       }
       catch (NoSuchCommandException e)
