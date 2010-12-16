@@ -68,7 +68,7 @@
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
             <version>${jboss.javaee.version}</version>
-				<type>pom</type>
+            <type>pom</type>
          </dependency>
 
          <dependency>
@@ -94,6 +94,11 @@
          <dependency>
             <groupId>org.jboss.seam.forge</groupId>
             <artifactId>forge-persistence-plugin</artifactId>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-web-plugin</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>
@@ -157,7 +162,6 @@
             <groupId>org.jboss.shrinkwrap.descriptors</groupId>
             <artifactId>shrinkwrap-descriptors-api</artifactId>
             <version>${shrinkwrap.descriptors.version}</version>
-            <!-- Requires checkout & Manual 'mvn install': http://github.com/shrinkwrap/descriptors -->
          </dependency>
          <dependency>
             <groupId>org.apache.maven</groupId>

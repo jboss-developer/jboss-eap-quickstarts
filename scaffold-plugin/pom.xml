@@ -32,6 +32,12 @@
       </dependency>
 
       <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-web-plugin</artifactId>
+         <scope>compile</scope>
+      </dependency>
+      
+      <dependency>
          <groupId>org.metawidget</groupId>
          <artifactId>metawidget</artifactId>
          <version>1.0.5</version>

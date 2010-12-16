@@ -9,17 +9,14 @@ import org.jboss.seam.forge.persistence.PersistenceUtil;
 @Named
 @Stateful
 @RequestScoped
-public class @{entity.getName()}Bean
+public class @{entity.getName()}Bean extends PersistenceUtil
 {
-   @Inject
-   private PersistenceUtil util;
-   
-   private @{entity.getName()} entity = new @{entity.getName()}();
+   private @{entity.getName()} @{lc = entity.getName().toLowerCase(); lc} = new @{entity.getName()}();
    private long id = 0;
 
    public void load()
    {
-      entity = util.findById(@{entity.getName()}.class, id);
+      @{lc} = findById(@{entity.getName()}.class, id);
    }
 
    public long getId()
@@ -35,11 +32,11 @@ public class @{entity.getName()}Bean
    
    public @{entity.getName()} get@{entity.getName()}()
    {
-      return entity;
+      return @{lc};
    }
 
-   public void set@{entity.getName()}(@{entity.getName()} entity)
+   public void set@{entity.getName()}(@{entity.getName()} @{lc})
    {
-      this.entity = entity;
+      this.@{lc} = @{lc};
    }
 }

@@ -21,7 +21,7 @@
 
         <h:messages />
 
-        <m:metawidget value="#{@{beanName}.entity}" readOnly="true">
+        <m:metawidget value="#{@{beanName}.@{entity.getName().toLowerCase()}}" readOnly="#{true}">
         </m:metawidget>
 
     </h:form>

@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.scaffold.plugins;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
@@ -52,6 +53,8 @@ import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.web.CDIFacet;
+import org.jboss.seam.forge.web.FacesFacet;
 import org.jboss.seam.render.TemplateCompiler;
 import org.jboss.seam.render.template.CompiledTemplateResource;
 
@@ -62,7 +65,10 @@ import org.jboss.seam.render.template.CompiledTemplateResource;
 @Named("scaffold")
 @Topic("UI Generation & Scaffolding")
 @Help("Metawidget UI scaffolding")
-@RequiresFacets({ MavenWebResourceFacet.class, PersistenceFacet.class, JavaSourceFacet.class, DependencyFacet.class })
+@RequiresFacets({ MavenWebResourceFacet.class,
+      PersistenceFacet.class,
+      CDIFacet.class,
+      FacesFacet.class })
 @RequiresProject
 public class ScaffoldPlugin implements Plugin
 {
@@ -82,7 +88,6 @@ public class ScaffoldPlugin implements Plugin
    {
       Project project = shell.getCurrentProject();
       JavaSourceFacet jsf = project.getFacet(JavaSourceFacet.class);
-      WebResourceFacet wrf = project.getFacet(WebResourceFacet.class);
       DependencyFacet df = project.getFacet(DependencyFacet.class);
 
       if (!df.hasDependency(metawidget))
@@ -126,8 +131,9 @@ public class ScaffoldPlugin implements Plugin
                   String name = viewBean.getName();
                   name = name.substring(0, 1).toLowerCase() + name.substring(1);
                   context.put("beanName", name);
+                  context.put("entity", entity);
 
-                  wrf.createWebResource(viewTemplate.render(context), entity.getName().toLowerCase() + ".xhtml");
+                  createView(viewTemplate.render(context), entity.getName());
 
                   jsf.saveJavaClass(viewBean);
 
@@ -144,6 +150,13 @@ public class ScaffoldPlugin implements Plugin
             }
          }
       }
+   }
+
+   private void createView(String data, String entityName)
+   {
+      Project project = shell.getCurrentProject();
+      WebResourceFacet wrf = project.getFacet(WebResourceFacet.class);
+      wrf.createWebResource(data, "scaffold" + File.separator + "view" + entityName + ".xhtml");
    }
 
    private void displaySkippingResourceMsg(PipeOut out, JavaSource<?> entity)
