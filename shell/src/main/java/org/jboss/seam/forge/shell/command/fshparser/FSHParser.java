@@ -135,7 +135,11 @@ public class FSHParser
                               cursor++;
                            }
 
-                           buf.append(new String(expr, start, cursor - start));
+                           buf.append(shellToMVEL(new String(expr, start, cursor - start - (openBracket ? 1 : 0)), true));
+                           if (openBracket)
+                           {
+                              buf.append('{');
+                           }
 
                            start = cursor;
 
@@ -150,7 +154,7 @@ public class FSHParser
 
                            int offset = cursor != length && expr[cursor] == '}' ? -1 : 0;
 
-                           buf.append(shellToMVEL(new String(expr, start, cursor - start).trim()));
+                           buf.append(shellToMVEL(new String(expr, start, cursor - start).trim(), false));
 
                            if (offset == -1)
                            {
@@ -165,7 +169,6 @@ public class FSHParser
                         }
                         while (ifThenElseBlockContinues());
 
-                        cursor++;
                         return new ScriptNode(new TokenNode(tk), false);
                      }
                   }
@@ -274,7 +277,7 @@ public class FSHParser
       return logicalStatement;
    }
 
-   private String shellToMVEL(String subStmt)
+   private String shellToMVEL(String subStmt, boolean noShellCall)
    {
       StringAppender buf = new StringAppender();
 
@@ -297,7 +300,7 @@ public class FSHParser
                break;
             }
 
-            if (subStmt.charAt(i) != '@' && (firstToken == -1 || !isReservedWord(subStmt.substring(0, firstToken))))
+            if (!noShellCall && subStmt.charAt(i) != '@' && (firstToken == -1 || !isReservedWord(subStmt.substring(0, firstToken))))
             {
                buf.append("shell(\"");
                openShellCall = true;
@@ -343,7 +346,7 @@ public class FSHParser
             buf.append(subStmt.charAt(i));
             int start = ++i;
             buf.append(shellToMVEL(subStmt.substring(start,
-                  i = balancedCapture(subStmt.toCharArray(), i, '{')))).append('}');
+                  i = balancedCapture(subStmt.toCharArray(), i, '{')), false)).append('}');
             break;
 
          case '[':

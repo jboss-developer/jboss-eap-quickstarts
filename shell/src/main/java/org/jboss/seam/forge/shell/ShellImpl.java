@@ -180,6 +180,7 @@ public class ShellImpl implements Shell
 //      properties.put(PROP_PROMPT, DEFAULT_PROMPT);
 //      properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
 
+      properties.put("OS_NAME", System.getProperty("os.name"));
       properties.put(PROP_PROMPT, "> ");
       properties.put(PROP_PROMPT_NO_PROJ, "> ");
       loadConfig();
@@ -413,6 +414,11 @@ public class ShellImpl implements Shell
             "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
             "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
             "echo \"                                                |___/      \";\n\n" +
+            "" +
+            "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
+            "    echo \"Windows? Really? Okay...\"\n" +
+            "}\n" +
+            "\n" +
             "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
             "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n";
 
