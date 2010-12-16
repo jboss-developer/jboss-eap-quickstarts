@@ -22,16 +22,16 @@
 
 package org.jboss.seam.forge.project.util;
 
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
 
 public class PathspecParser
 {
@@ -92,7 +92,8 @@ public class PathspecParser
 
       while (cursor < length)
       {
-         SW: switch (path.charAt(cursor++))
+         SW:
+         switch (path.charAt(cursor++))
          {
 
          case '/':
@@ -115,8 +116,11 @@ public class PathspecParser
                break SW;
 
             default:
-               cursor++;
-               break SW;
+               if (cursor < length && path.charAt(cursor) == '/')
+               {
+                  cursor++;
+                  break SW;
+               }
             }
 
          default:
@@ -241,7 +245,7 @@ public class PathspecParser
 
    private static List<Resource<?>> singleResult(Resource<?> item)
    {
-      return Collections.<Resource<?>> singletonList(item);
+      return Collections.<Resource<?>>singletonList(item);
    }
 
    private char read()
