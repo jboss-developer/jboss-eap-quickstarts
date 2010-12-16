@@ -59,7 +59,7 @@ public class ImportImpl implements Import
    }
 
    @Override
-   public String getName()
+   public String getQualifiedName()
    {
       return imprt.getName().getFullyQualifiedName();
    }
@@ -138,6 +138,6 @@ public class ImportImpl implements Import
    @Override
    public String toString()
    {
-      return "Import [" + getName() + "]";
+      return "Import [" + getQualifiedName() + "]";
    }
 }

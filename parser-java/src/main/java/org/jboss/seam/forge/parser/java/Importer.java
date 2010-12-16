@@ -28,73 +28,122 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Importer<T>
+public interface Importer<O>
 {
    /**
     * Add an import by qualified class name. (E.g: "com.example.Imported")
     */
-   public Import<T> addImport(final String className);
+   public Import<O> addImport(final String className);
 
    /**
     * Add an import for the given {@link Class} type;
     */
-   public Import<T> addImport(final Class<?> type);
+   public Import<O> addImport(final Class<?> type);
+
+   /**
+    * Add an import for the given {@link Import} type;
+    */
+   public Import<O> addImport(Import<?> imprt);
+
+   /**
+    * Add an import for the given {@link JavaSource} type;
+    */
+   public <T extends JavaSource<?>> Import<O> addImport(T type);
 
    /**
     * Add an import for each of the given {@link Class} types.
     */
-   public T addImports(final Class<?>... types);
+   public O addImports(final Class<?>... types);
+
+   /**
+    * Add an import for each given {@link Import} type;
+    */
+   public O addImports(Import<?>... imprt);
+
+   /**
+    * Add an import for each given {@link JavaSource} type;
+    */
+   public <T extends JavaSource<?>> O addImports(T... types);
 
    /**
     * Add an import for each of the given fully-qualified class names.
     */
-   public T addImports(final String... types);
+   public O addImports(final String... types);
 
    /**
-    * Return whether or not this {@link T} has an import for the given
+    * Return whether or not this {@link O} has an import for the given
     * {@link Class} type.
     */
    boolean hasImport(Class<?> type);
 
    /**
-    * Return whether or not this {@link T} has an import for the given
+    * Return whether or not this {@link O} has an import for the given
     * fully-qualified class name.
     */
    boolean hasImport(String type);
 
    /**
+    * Return whether or not this {@link O} has an import for the given {@link T}
+    * type.
+    */
+   public <T extends JavaSource<?>> boolean hasImport(T type);
+
+   /**
+    * Return whether or not this {@link O} has the given {@link Import} type.
+    */
+   public boolean hasImport(Import<?> imprt);
+
+   /**
     * Get the {@link Import} for the given fully-qualified class name, if it
     * exists; otherwise, return null;
     */
-   public Import<T> getImport(String literalValue);
+   public Import<O> getImport(String literalValue);
 
    /**
     * Get the {@link Import} for the given {@link Class} type, if it exists;
     * otherwise, return null;
     */
-   public Import<T> getImport(Class<?> type);
+   public Import<O> getImport(Class<?> type);
+
+   /**
+    * Get the {@link Import} for the given {@link T} type, if it exists;
+    * otherwise, return null;
+    */
+   public <T extends JavaSource<?>> Import<O> getImport(T type);
+
+   /**
+    * Get the {@link Import} of the given {@link Import} type, if it exists;
+    * otherwise, return null;
+    */
+   public Import<O> getImport(Import<?> imprt);
 
    /**
     * Remove any {@link Import} for the given fully-qualified class name, if it
     * exists; otherwise, do nothing;
     */
-   public T removeImport(String name);
+   public O removeImport(String name);
 
    /**
     * Remove any {@link Import} for the given {@link Class} type, if it exists;
     * otherwise, do nothing;
     */
-   public T removeImport(Class<?> type);
+   public O removeImport(Class<?> type);
 
    /**
-    * Remove the given {@link Import} from this {@link T} instance, if it
+    * Remove any {@link Import} for the given {@link T} type, if it exists;
+    * otherwise, do nothing;
+    */
+   public <T extends JavaSource<?>> O removeImport(T type);
+
+   /**
+    * Remove the given {@link Import} from this {@link O} instance, if it
     * exists; otherwise, do nothing;
     */
-   public T removeImport(Import<T> imprt);
+   public O removeImport(Import<O> imprt);
 
    /**
     * Get an immutable list of all {@link Import}s currently imported by this
-    * {@link T}
+    * {@link O}
     */
-   public List<Import<T>> getImports();
+   public List<Import<O>> getImports();
 }

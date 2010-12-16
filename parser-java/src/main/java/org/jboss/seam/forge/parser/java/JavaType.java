@@ -19,16 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.jboss.seam.forge.parser.java;
 
 /**
+ * Represents either a Java Class or Interface type.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface JavaInterface extends JavaType<JavaInterface>,
-         MemberHolder<JavaInterface, Member>,
-         FieldHolder<JavaInterface>,
-         MethodHolder<JavaInterface>
+public interface JavaType<T extends JavaSource<T>> extends JavaSource<T>,
+      Extendable<JavaClass>
 {
 
 }

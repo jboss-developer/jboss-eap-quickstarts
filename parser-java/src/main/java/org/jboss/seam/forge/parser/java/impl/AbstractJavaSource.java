@@ -53,10 +53,10 @@ import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
-         JavaSource<T>
+public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
+         JavaSource<O>
 {
-   private final AnnotationAccessor<T, T> annotations = new AnnotationAccessor<T, T>();
+   private final AnnotationAccessor<O, O> annotations = new AnnotationAccessor<O, O>();
    private final ModifierAccessor modifiers = new ModifierAccessor();
 
    private final Document document;
@@ -72,25 +72,25 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
     * Annotation modifiers
     */
    @Override
-   public Annotation<T> addAnnotation()
+   public Annotation<O> addAnnotation()
    {
       return annotations.addAnnotation(this, getBodyDeclaration());
    }
 
    @Override
-   public Annotation<T> addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
+   public Annotation<O> addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
       return annotations.addAnnotation(this, getBodyDeclaration(), clazz.getName());
    }
 
    @Override
-   public Annotation<T> addAnnotation(final String className)
+   public Annotation<O> addAnnotation(final String className)
    {
       return annotations.addAnnotation(this, getBodyDeclaration(), className);
    }
 
    @Override
-   public List<Annotation<T>> getAnnotations()
+   public List<Annotation<O>> getAnnotations()
    {
       return annotations.getAnnotations(this, getBodyDeclaration());
    }
@@ -108,19 +108,19 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T removeAnnotation(final Annotation<T> annotation)
+   public O removeAnnotation(final Annotation<O> annotation)
    {
-      return (T) annotations.removeAnnotation(this, getBodyDeclaration(), annotation);
+      return (O) annotations.removeAnnotation(this, getBodyDeclaration(), annotation);
    }
 
    @Override
-   public Annotation<T> getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
+   public Annotation<O> getAnnotation(final Class<? extends java.lang.annotation.Annotation> type)
    {
       return annotations.getAnnotation(this, getBodyDeclaration(), type);
    }
 
    @Override
-   public Annotation<T> getAnnotation(final String type)
+   public Annotation<O> getAnnotation(final String type)
    {
       return annotations.getAnnotation(this, getBodyDeclaration(), type);
    }
@@ -128,11 +128,30 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    /*
     * Import modifiers
     */
+
+   @Override
+   public Import<O> addImport(final Class<?> type)
+   {
+      return addImport(type.getName());
+   }
+
+   @Override
+   public <T extends JavaSource<?>> Import<O> addImport(T type)
+   {
+      return this.addImport(type.getQualifiedName());
+   };
+
+   @Override
+   public Import<O> addImport(Import<?> imprt)
+   {
+      return addImport(imprt.getQualifiedName()).setStatic(imprt.isStatic());
+   }
+
    @Override
    @SuppressWarnings("unchecked")
-   public Import<T> addImport(final String className)
+   public Import<O> addImport(final String className)
    {
-      Import<T> imprt = null;
+      Import<O> imprt = null;
       if (!hasImport(className))
       {
          imprt = new ImportImpl(this).setName(className);
@@ -146,12 +165,52 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public Import<T> getImport(final String className)
+   public O addImports(final Class<?>... types)
    {
-      List<Import<T>> imports = getImports();
-      for (Import<T> imprt : imports)
+      for (Class<?> type : types)
       {
-         if (imprt.getName().equals(className))
+         addImport(type.getName());
+      }
+      return (O) this;
+   }
+
+   @Override
+   public <T extends JavaSource<?>> O addImports(T[] types)
+   {
+      for (T t : types)
+      {
+         addImport(t);
+      }
+      return (O) this;
+   };
+
+   @Override
+   public O addImports(final String... types)
+   {
+      for (String type : types)
+      {
+         addImport(type);
+      }
+      return (O) this;
+   }
+
+   @Override
+   public O addImports(Import<?>[] imprt)
+   {
+      for (Import<?> i : imprt)
+      {
+         addImport(i);
+      }
+      return (O) this;
+   };
+
+   @Override
+   public Import<O> getImport(final String className)
+   {
+      List<Import<O>> imports = getImports();
+      for (Import<O> imprt : imports)
+      {
+         if (imprt.getQualifiedName().equals(className))
          {
             return imprt;
          }
@@ -160,85 +219,28 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public Import<T> getImport(final Class<?> type)
+   public Import<O> getImport(final Class<?> type)
    {
       return getImport(type.getName());
    }
 
    @Override
-   public Import<T> addImport(final Class<?> type)
+   public <T extends JavaSource<?>> Import<O> getImport(T type)
    {
-      return addImport(type.getName());
-   }
+      return getImport(type.getQualifiedName());
+   };
 
    @Override
-   public T addImports(final Class<?>... types)
+   public Import<O> getImport(Import<?> imprt)
    {
-      for (Class<?> type : types)
-      {
-         addImport(type.getName());
-      }
-      return (T) this;
-   }
-
-   @Override
-   public T addImports(final String... types)
-   {
-      for (String type : types)
-      {
-         addImport(type);
-      }
-      return (T) this;
-   }
-
-   @Override
-   public boolean hasImport(final Class<?> type)
-   {
-      return hasImport(type.getName());
-   }
-
-   @Override
-   public boolean hasImport(final String type)
-   {
-      return getImport(type) != null;
-   }
-
-   @Override
-   public T removeImport(final String name)
-   {
-      for (Import<T> i : getImports())
-      {
-         if (i.getName().equals(name))
-         {
-            removeImport(i);
-            break;
-         }
-      }
-      return (T) this;
-   }
-
-   @Override
-   public T removeImport(final Class<?> clazz)
-   {
-      return removeImport(clazz.getName());
-   }
-
-   @Override
-   public T removeImport(final Import<T> imprt)
-   {
-      Object internal = imprt.getInternal();
-      if (unit.imports().contains(internal))
-      {
-         unit.imports().remove(internal);
-      }
-      return (T) this;
+      return getImport(imprt.getQualifiedName());
    }
 
    @Override
    @SuppressWarnings("unchecked")
-   public List<Import<T>> getImports()
+   public List<Import<O>> getImports()
    {
-      List<Import<T>> results = new ArrayList<Import<T>>();
+      List<Import<O>> results = new ArrayList<Import<O>>();
 
       for (ImportDeclaration i : (List<ImportDeclaration>) unit.imports())
       {
@@ -249,9 +251,70 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public List<Member<T, ?>> getMembers()
+   public boolean hasImport(final Class<?> type)
    {
-      List<Member<T, ?>> result = new ArrayList<Member<T, ?>>();
+      return hasImport(type.getName());
+   }
+
+   @Override
+   public <T extends JavaSource<?>> boolean hasImport(T type)
+   {
+      return hasImport(type.getQualifiedName());
+   };
+
+   @Override
+   public boolean hasImport(Import<?> imprt)
+   {
+      return hasImport(imprt.getQualifiedName());
+   }
+
+   @Override
+   public boolean hasImport(final String type)
+   {
+      return getImport(type) != null;
+   }
+
+   @Override
+   public O removeImport(final String name)
+   {
+      for (Import<O> i : getImports())
+      {
+         if (i.getQualifiedName().equals(name))
+         {
+            removeImport(i);
+            break;
+         }
+      }
+      return (O) this;
+   }
+
+   @Override
+   public O removeImport(final Class<?> clazz)
+   {
+      return removeImport(clazz.getName());
+   }
+
+   @Override
+   public <T extends JavaSource<?>> O removeImport(T type)
+   {
+      return removeImport(type.getQualifiedName());
+   };
+
+   @Override
+   public O removeImport(final Import<O> imprt)
+   {
+      Object internal = imprt.getInternal();
+      if (unit.imports().contains(internal))
+      {
+         unit.imports().remove(internal);
+      }
+      return (O) this;
+   }
+
+   @Override
+   public List<Member<O, ?>> getMembers()
+   {
+      List<Member<O, ?>> result = new ArrayList<Member<O, ?>>();
 
       return result;
    }
@@ -280,7 +343,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setName(final String name)
+   public O setName(final String name)
    {
       getBodyDeclaration().setName(unit.getAST().newSimpleName(name));
       return updateTypeNames(name);
@@ -290,7 +353,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
     * Call-back to allow updating of any necessary internal names with the given
     * name.
     */
-   protected abstract T updateTypeNames(String name);
+   protected abstract O updateTypeNames(String name);
 
    @Override
    public String getQualifiedName()
@@ -322,21 +385,21 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setPackage(final String name)
+   public O setPackage(final String name)
    {
       if (unit.getPackage() == null)
       {
          unit.setPackage(unit.getAST().newPackageDeclaration());
       }
       unit.getPackage().setName(unit.getAST().newName(name));
-      return (T) this;
+      return (O) this;
    }
 
    @Override
-   public T setDefaultPackage()
+   public O setDefaultPackage()
    {
       unit.setPackage(null);
-      return (T) this;
+      return (O) this;
    }
 
    @Override
@@ -355,10 +418,10 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setPackagePrivate()
+   public O setPackagePrivate()
    {
       modifiers.clearVisibility(getBodyDeclaration());
-      return (T) this;
+      return (O) this;
    }
 
    @Override
@@ -368,11 +431,11 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setPublic()
+   public O setPublic()
    {
       modifiers.clearVisibility(getBodyDeclaration());
       modifiers.addModifier(getBodyDeclaration(), ModifierKeyword.PUBLIC_KEYWORD);
-      return (T) this;
+      return (O) this;
    }
 
    @Override
@@ -382,11 +445,11 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setPrivate()
+   public O setPrivate()
    {
       modifiers.clearVisibility(getBodyDeclaration());
       modifiers.addModifier(getBodyDeclaration(), ModifierKeyword.PRIVATE_KEYWORD);
-      return (T) this;
+      return (O) this;
    }
 
    @Override
@@ -396,11 +459,11 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setProtected()
+   public O setProtected()
    {
       modifiers.clearVisibility(getBodyDeclaration());
       modifiers.addModifier(getBodyDeclaration(), ModifierKeyword.PROTECTED_KEYWORD);
-      return (T) this;
+      return (O) this;
    }
 
    @Override
@@ -410,9 +473,9 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T setVisibility(final Visibility scope)
+   public O setVisibility(final Visibility scope)
    {
-      return (T) Visibility.set(this, scope);
+      return (O) Visibility.set(this, scope);
    }
 
    /*
@@ -431,7 +494,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
    }
 
    @Override
-   public T getOrigin()
+   public O getOrigin()
    {
       try
       {
@@ -447,7 +510,7 @@ public abstract class AbstractJavaSource<T extends JavaSource<T>> implements
          throw new RuntimeException(e);
       }
 
-      return (T) this;
+      return (O) this;
    }
 
    @Override

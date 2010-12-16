@@ -29,14 +29,17 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
+import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
+import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * Represents a Java Source File
@@ -247,5 +250,36 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
          return false;
       }
       return true;
+   }
+
+   @Override
+   public String getSuperType()
+   {
+      Object superType = ((TypeDeclaration) getBodyDeclaration()).getStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY);
+      return superType.toString();
+   }
+
+   @Override
+   public <T extends JavaType<?>> JavaClass setSuperType(T type)
+   {
+      return setSuperType(type.getQualifiedName());
+   }
+
+   @Override
+   public JavaClass setSuperType(Class<?> type)
+   {
+      return setSuperType(type.getName());
+   }
+
+   @Override
+   public JavaClass setSuperType(String type)
+   {
+      if (!hasImport(type))
+      {
+         addImport(type);
+      }
+      SimpleType simpleType = unit.getAST().newSimpleType(unit.getAST().newSimpleName(Types.toSimpleName(type)));
+      ((TypeDeclaration) getBodyDeclaration()).setStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY, simpleType);
+      return this;
    }
 }

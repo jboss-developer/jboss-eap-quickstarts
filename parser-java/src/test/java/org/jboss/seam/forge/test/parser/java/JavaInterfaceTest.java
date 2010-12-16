@@ -23,11 +23,14 @@ package org.jboss.seam.forge.test.parser.java;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.List;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaInterface;
 import org.jboss.seam.forge.parser.java.Member;
 import org.junit.Test;
@@ -59,4 +62,36 @@ public class JavaInterfaceTest
       assertFalse(members.isEmpty());
    }
 
+   @Test
+   public void testImportJavaSource() throws Exception
+   {
+      JavaInterface foo = JavaParser.parse(JavaInterface.class, "package org.jboss.seam; public interface Foo{}");
+      JavaInterface bar = JavaParser.parse(JavaInterface.class, "package org.jboss.seam.forge; public interface Bar{}");
+
+      assertFalse(foo.hasImport(bar));
+      assertFalse(bar.hasImport(foo));
+
+      Import<JavaInterface> importBar = foo.addImport(bar);
+      assertTrue(foo.hasImport(bar));
+      assertFalse(bar.hasImport(foo));
+
+      assertEquals("org.jboss.seam.forge.Bar", importBar.getQualifiedName());
+      assertEquals(importBar, foo.getImport(bar));
+
+      foo.removeImport(bar);
+      assertFalse(foo.hasImport(bar));
+      assertFalse(bar.hasImport(foo));
+   }
+
+   @Test
+   public void testImportImport() throws Exception
+   {
+      JavaInterface foo = JavaParser.parse(JavaInterface.class, "public interface Foo{}");
+      Import<JavaInterface> i = foo.addImport(getClass());
+
+      foo.removeImport(getClass());
+      Import<JavaInterface> i2 = foo.addImport(i);
+      assertNotSame(i, i2);
+      assertEquals(i.getQualifiedName(), i2.getQualifiedName());
+   }
 }

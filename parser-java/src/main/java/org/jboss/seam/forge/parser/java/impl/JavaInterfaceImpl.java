@@ -31,7 +31,9 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
+import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaInterface;
+import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
@@ -181,6 +183,30 @@ public class JavaInterfaceImpl extends AbstractJavaSource<JavaInterface> impleme
    protected JavaInterface updateTypeNames(final String name)
    {
       return this;
+   }
+
+   @Override
+   public String getSuperType()
+   {
+      return null;
+   }
+
+   @Override
+   public <T extends JavaType<?>> JavaClass setSuperType(T type)
+   {
+      return null;
+   }
+
+   @Override
+   public JavaClass setSuperType(String type)
+   {
+      return null;
+   }
+
+   @Override
+   public JavaClass setSuperType(Class<?> type)
+   {
+      return null;
    }
 
 }

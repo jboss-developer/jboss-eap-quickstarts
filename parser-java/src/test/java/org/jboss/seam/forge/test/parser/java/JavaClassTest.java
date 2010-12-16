@@ -66,7 +66,7 @@ public class JavaClassTest
    @Test
    public void testParse() throws Exception
    {
-      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getName());
+      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getQualifiedName());
       assertEquals(2, javaClass.getMethods().size());
       assertEquals("MockClass", javaClass.getName());
       assertTrue(javaClass.isPublic());
@@ -119,8 +119,8 @@ public class JavaClassTest
    {
       javaClass.addImport(List.class.getName());
       assertEquals(2, javaClass.getImports().size());
-      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getName());
-      assertEquals(List.class.getName(), javaClass.getImports().get(1).getName());
+      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getQualifiedName());
+      assertEquals(List.class.getName(), javaClass.getImports().get(1).getQualifiedName());
    }
 
    @Test
@@ -131,7 +131,7 @@ public class JavaClassTest
       javaClass.addImports(List.class, Map.class);
 
       assertEquals(3, javaClass.getImports().size());
-      assertEquals(Map.class.getName(), javaClass.getImports().get(2).getName());
+      assertEquals(Map.class.getName(), javaClass.getImports().get(2).getQualifiedName());
    }
 
    @Test
@@ -169,7 +169,7 @@ public class JavaClassTest
    {
       List<Import<JavaClass>> imports = javaClass.getImports();
       assertEquals(1, imports.size());
-      assertEquals(URL.class.getName(), imports.get(0).getName());
+      assertEquals(URL.class.getName(), imports.get(0).getQualifiedName());
 
       javaClass.removeImport(URL.class);
       imports = javaClass.getImports();
@@ -180,7 +180,7 @@ public class JavaClassTest
    public void testRemoveImportByName() throws Exception
    {
       assertEquals(1, javaClass.getImports().size());
-      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getName());
+      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getQualifiedName());
 
       javaClass.removeImport(URL.class.getName());
       assertEquals(0, javaClass.getImports().size());
@@ -190,7 +190,7 @@ public class JavaClassTest
    public void testRemoveImportByReference() throws Exception
    {
       assertEquals(1, javaClass.getImports().size());
-      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getName());
+      assertEquals(URL.class.getName(), javaClass.getImports().get(0).getQualifiedName());
 
       javaClass.removeImport(javaClass.getImports().get(0));
       assertEquals(0, javaClass.getImports().size());
@@ -256,6 +256,17 @@ public class JavaClassTest
       assertEquals(javaClass.getName(), method.getName());
       String body = method.getBody();
       assertEquals("System.out.println(\"I am a constructor!\");".replaceAll("\\s+", ""), body.replaceAll("\\s+", ""));
+   }
+
+   @Test
+   public void testSuperType() throws Exception
+   {
+      JavaClass source = JavaParser.parse(JavaClass.class, "public class Base extends Super {}");
+      assertEquals("Super", source.getSuperType());
+
+      source.setSuperType(getClass());
+      assertEquals(getClass().getSimpleName(), source.getSuperType());
+      assertTrue(source.hasImport(getClass()));
    }
 
 }

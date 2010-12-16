@@ -31,7 +31,7 @@ import org.jboss.seam.forge.parser.Origin;
  */
 public interface Import<O> extends Internal, Origin<O>
 {
-   public String getName();
+   public String getQualifiedName();
 
    public Import<O> setName(final String name);
 

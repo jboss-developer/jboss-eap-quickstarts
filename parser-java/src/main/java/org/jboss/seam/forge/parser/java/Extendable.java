@@ -19,16 +19,50 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.jboss.seam.forge.parser.java;
 
 /**
+ * Represents a {@link JavaType} that can extend other types. (Java inheritance
+ * and interfaces.)
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface JavaInterface extends JavaType<JavaInterface>,
-         MemberHolder<JavaInterface, Member>,
-         FieldHolder<JavaInterface>,
-         MethodHolder<JavaInterface>
+public interface Extendable<O extends JavaType<?>>
 {
+   /**
+    * Get this type's super class.
+    * 
+    * @see #setSuperType(String)
+    */
+   public String getSuperType();
 
+   /**
+    * Set this type's super class.
+    * 
+    * @see #setSuperType(String)
+    */
+   public <T extends JavaType<?>> O setSuperType(T type);
+
+   /**
+    * Set this type's super class.
+    * 
+    * @see #setSuperType(String)
+    */
+   public O setSuperType(Class<?> type);
+
+   /**
+    * Set this type's super class.
+    * <p>
+    * <strong>For example:</strong><br/>
+    * In the case of " <code>public class Foo extends Bar {}</code>" -
+    * <code>Foo</code> is the base type, and <code>Bar</code> is the super
+    * class.)
+    * <p>
+    * Attempt to add an import statement to this object's {@link O} if required.
+    * (Note that the given className must be fully-qualified in order to
+    * properly import required classes)
+    */
+   public O setSuperType(String type);
 }
