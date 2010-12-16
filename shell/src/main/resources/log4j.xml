@@ -1,57 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
-  ~ JBoss, by Red Hat.
-  ~ Copyright 2010, Red Hat, Inc., and individual contributors
-  ~ by the @authors tag. See the copyright.txt in the distribution for a
-  ~ full listing of individual contributors.
-  ~
-  ~ This is free software; you can redistribute it and/or modify it
-  ~ under the terms of the GNU Lesser General Public License as
-  ~ published by the Free Software Foundation; either version 2.1 of
-  ~ the License, or (at your option) any later version.
-  ~
-  ~ This software is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  ~ Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public
-  ~ License along with this software; if not, write to the Free
-  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  -->
+<?xml version="1.0" encoding="UTF-8"?><!-- ~ JBoss, by Red Hat. ~ Copyright 
+   2010, Red Hat, Inc., and individual contributors ~ by the @authors tag. See 
+   the copyright.txt in the distribution for a ~ full listing of individual 
+   contributors. ~ ~ This is free software; you can redistribute it and/or modify 
+   it ~ under the terms of the GNU Lesser General Public License as ~ published 
+   by the Free Software Foundation; either version 2.1 of ~ the License, or 
+   (at your option) any later version. ~ ~ This software is distributed in the 
+   hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even the 
+   implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+   See the GNU ~ Lesser General Public License for more details. ~ ~ You should 
+   have received a copy of the GNU Lesser General Public ~ License along with 
+   this software; if not, write to the Free ~ Software Foundation, Inc., 51 
+   Franklin St, Fifth Floor, Boston, MA ~ 02110-1301 USA, or see the FSF site: 
+   http://www.fsf.org. -->
 
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+   debug="false">
 
-    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-        <param name="Target" value="System.out"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n"/>
-        </layout>
-        <filter class="org.apache.log4j.varia.StringMatchFilter">
+   <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+      <param name="Target" value="System.out" />
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n" />
+      </layout>
+      <filter class="org.apache.log4j.varia.LevelRangeFilter">
+         <param name="levelMin" value="DEBUG" />
+         <param name="levelMax" value="DEBUG" />
+      </filter>
+      <filter class="org.apache.log4j.varia.StringMatchFilter">
+         <param name="AcceptOnMatch" value="true" />
+         <param name="StringToMatch" value="WELD-000119" />
+      </filter>
+      <filter class="org.apache.log4j.varia.StringMatchFilter">
+         <param name="AcceptOnMatch" value="true" />
+         <param name="StringToMatch" value="catching" />
+      </filter>
+      <filter class="org.apache.log4j.varia.StringMatchFilter">
          <param name="AcceptOnMatch" value="false" />
-         <param name="StringToMatch" value="Failure while notifying an observer of event [a]" />
-        </filter>
-    </appender>
+         <param name="StringToMatch" value="" />
+      </filter>
+   </appender>
 
-    <!-- ############### Weld logging ################### -->
+   <!-- ############### Weld logging ################### -->
 
-    <category name="org.jboss">
-        <priority value="FATAL"/>
-    </category>
-    
-    <category name="org.jboss.weld">
-        <priority value="FATAL"/>
-    </category>
+   <category name="org.jboss">
+      <priority value="FATAL" />
+   </category>
 
-    <category name="org.apache">
-        <priority value="ERROR"/>
-    </category>
+   <category name="org.jboss.weld">
+      <priority value="DEBUG" />
+   </category>
 
-    <root>
-        <priority value="INFO"/>
-        <appender-ref ref="CONSOLE"/>
-    </root>
+   <category name="org.apache">
+      <priority value="ERROR" />
+   </category>
+
+   <root>
+      <priority value="INFO" />
+      <appender-ref ref="CONSOLE" />
+   </root>
 
 </log4j:configuration>

@@ -132,9 +132,6 @@ public class PersistenceFacet implements Facet
 
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
-      util.setPackage(java.getBasePackage() + ".persist");
-      producer.setPackage(java.getBasePackage() + ".persist");
-
       try
       {
          java.saveJavaClass(producer);

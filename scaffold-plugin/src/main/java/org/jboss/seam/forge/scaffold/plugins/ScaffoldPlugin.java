@@ -23,17 +23,25 @@
 package org.jboss.seam.forge.scaffold.plugins;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Entity;
 
+import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.persistence.PersistenceFacet;
+import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
@@ -44,25 +52,44 @@ import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.render.TemplateCompiler;
+import org.jboss.seam.render.template.CompiledTemplateResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Named("mw")
-@Topic("File & Resources")
+@Named("scaffold")
+@Topic("UI Generation & Scaffolding")
 @Help("Metawidget UI scaffolding")
-@RequiresFacets({ MavenWebResourceFacet.class, JavaSourceFacet.class })
+@RequiresFacets({ MavenWebResourceFacet.class, PersistenceFacet.class, JavaSourceFacet.class, DependencyFacet.class })
 @RequiresProject
-public class MetawidgetPlugin implements Plugin
+public class ScaffoldPlugin implements Plugin
 {
+   private static final String VIEW_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/ViewBean.java";
+   private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
+
    @Inject
    private Shell shell;
+
+   @Inject
+   private TemplateCompiler compiler;
+   private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
 
    @Command("generate")
    public void generateUI(
          @Option(required = false) Resource<?>[] targets, PipeOut out) throws FileNotFoundException
    {
+      Project project = shell.getCurrentProject();
+      JavaSourceFacet jsf = project.getFacet(JavaSourceFacet.class);
+      WebResourceFacet wrf = project.getFacet(WebResourceFacet.class);
+      DependencyFacet df = project.getFacet(DependencyFacet.class);
+
+      if (!df.hasDependency(metawidget))
+      {
+         df.addDependency(metawidget);
+      }
+
       Resource<?> currentResource = shell.getCurrentResource();
       if ((targets == null) && (currentResource instanceof JavaResource))
       {
@@ -81,23 +108,49 @@ public class MetawidgetPlugin implements Plugin
       {
          if (r instanceof JavaResource)
          {
-            JavaSource<?> source = ((JavaResource) r).getJavaSource();
-            if (source instanceof JavaClass)
+            JavaSource<?> entity = ((JavaResource) r).getJavaSource();
+            if (entity instanceof JavaClass)
             {
-               if (source.hasAnnotation(Entity.class))
+               if (entity.hasAnnotation(Entity.class))
                {
-                  out.println("Generating UI for [" + source.getQualifiedName() + "]");
+                  CompiledTemplateResource viewBeanTemplate = compiler.compile(VIEW_BEAN_TEMPLATE);
+                  HashMap<Object, Object> context = new HashMap<Object, Object>();
+                  context.put("entity", entity);
+
+                  JavaClass viewBean = JavaParser.parse(JavaClass.class, viewBeanTemplate.render(context));
+                  viewBean.setPackage(jsf.getBasePackage() + ".view");
+
+                  CompiledTemplateResource viewTemplate = compiler.compile(VIEW_TEMPLATE);
+                  context = new HashMap<Object, Object>();
+
+                  String name = viewBean.getName();
+                  name = name.substring(0, 1).toLowerCase() + name.substring(1);
+                  context.put("beanName", name);
+
+                  wrf.createWebResource(viewTemplate.render(context), entity.getName().toLowerCase() + ".xhtml");
+
+                  jsf.saveJavaClass(viewBean);
+
+                  out.println("Generating UI for [" + entity.getQualifiedName() + "]");
+               }
+               else
+               {
+                  displaySkippingResourceMsg(out, entity);
                }
             }
             else
             {
-               if (!out.isPiped())
-               {
-                  out.println(out.renderColor(ShellColor.RED, "Notice:") + " skipped non-@Entity class [" + source.getQualifiedName() + "]");
-               }
+               displaySkippingResourceMsg(out, entity);
             }
          }
       }
    }
 
+   private void displaySkippingResourceMsg(PipeOut out, JavaSource<?> entity)
+   {
+      if (!out.isPiped())
+      {
+         out.println(out.renderColor(ShellColor.RED, "Notice:") + " skipped non-@Entity class [" + entity.getQualifiedName() + "]");
+      }
+   }
 }

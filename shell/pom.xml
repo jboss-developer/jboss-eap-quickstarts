@@ -64,7 +64,11 @@
       </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
-         <artifactId>slf4j-jdk14</artifactId>
+         <artifactId>slf4j-log4j12</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>log4j</groupId>
+         <artifactId>log4j</artifactId>
       </dependency>
       <dependency>
          <groupId>org.sonatype.jline</groupId>
@@ -75,10 +79,10 @@
          <artifactId>mvel2</artifactId>
          <version>2.0.20-SNAPSHOT</version>
       </dependency>
-       <dependency>
-        <groupId>org.fusesource.jansi</groupId>
-        <artifactId>jansi</artifactId>
-        <version>1.2.1</version>
+      <dependency>
+         <groupId>org.fusesource.jansi</groupId>
+         <artifactId>jansi</artifactId>
+         <version>1.2.1</version>
       </dependency>
 
       <!-- Test Deps -->
@@ -115,7 +119,7 @@
          <scope>test</scope>
       </dependency>
    </dependencies>
-   
+
    <repositories>
       <repository>
          <id>codehaus</id>
@@ -144,7 +148,7 @@
                </execution>
             </executions>
             <configuration>
-	       <classpathScope>test</classpathScope>
+               <classpathScope>test</classpathScope>
                <mainClass>org.jboss.weld.environment.se.StartMain</mainClass>
             </configuration>
          </plugin>
