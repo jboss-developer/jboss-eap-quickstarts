@@ -62,9 +62,6 @@ public class ServletFacet implements Facet
 
    private Project project;
 
-   /*
-    * Servlet Facet Methods
-    */
    @SuppressWarnings("unchecked")
    public WebAppModel getConfig()
    {
