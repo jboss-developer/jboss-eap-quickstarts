@@ -25,7 +25,6 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
-import org.mvel2.util.ParseTools;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -54,7 +53,7 @@ public class Echo implements Plugin
          return;
       }
 
-      out.println(echo(shell, tokensToString(tokens)));
+      out.println(echo(shell, promptExpressionParser(shell, tokensToString(tokens))));
    }
 
    public static String tokensToString(String... tokens)
@@ -91,6 +90,12 @@ public class Echo implements Plugin
                 */
                switch (expr[++i])
                {
+               case '\\':
+                  builder.append(new String(expr, start, i - start - 1));
+                  builder.append("\\");
+                  start = i + 1;
+                  break;
+
                case 'w':
                   builder.append(new String(expr, start, i - start - 1));
                   builder.append(shell.getProperty("CWD"));
@@ -270,14 +275,14 @@ public class Echo implements Plugin
 
          switch (expr[i])
          {
-         case '\'':
-         case '"':
-            out.append(new String(expr, start, i - start));
-            start = i;
-            i = ParseTools.balancedCapture(expr, i, expr[i]);
-            out.append(new String(expr, start + 1, i - start - 1));
-            start = ++i;
-            break;
+//         case '\'':
+//         case '"':
+//            out.append(new String(expr, start, i - start));
+//            start = i;
+//            i = ParseTools.balancedCapture(expr, i, expr[i]);
+//            out.append(new String(expr, start + 1, i - start - 1));
+//            start = ++i;
+//            break;
 
          case '\\':
             if (i + 1 < expr.length && expr[i + 1] == '$')

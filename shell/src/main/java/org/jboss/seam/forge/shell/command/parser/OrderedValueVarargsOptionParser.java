@@ -32,7 +32,6 @@ import java.util.*;
  */
 public class OrderedValueVarargsOptionParser implements CommandParser
 {
-
    @Override
    public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
    {
@@ -75,5 +74,4 @@ public class OrderedValueVarargsOptionParser implements CommandParser
       }
       return result;
    }
-
 }

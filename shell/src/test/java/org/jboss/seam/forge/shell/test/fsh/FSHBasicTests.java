@@ -109,6 +109,13 @@ public class FSHBasicTests extends AbstractShellTest
       runtime.run("for (i = 0; i < 2; i++) { @System.out.println(\"foo\"); }");
    }
 
+   @Test
+   public void testSimple13()
+   {
+      runtime.run("if (isdef $FOO) { }");
+   }
+
+
 
    @Test
    public void testExpressionLoop() {

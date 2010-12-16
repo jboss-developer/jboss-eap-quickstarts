@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 
+import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -32,10 +33,7 @@ import org.jboss.seam.forge.shell.plugins.*;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import static org.jboss.seam.forge.project.util.ResourceUtil.parsePathspec;
-
 /**
- *
  * @author Mike Brock
  */
 @Named("rm")
@@ -56,16 +54,22 @@ public class RmPlugin implements Plugin
 
    @DefaultCommand
    public void rm(@Option(name = "recursive", shortName = "r", help = "recursively delete files and directories", flagOnly = true) boolean recursive,
-                  @Option(name = "force", shortName = "f", help = "do not prompt to confirm operations") boolean force,
-                  @Option(description = "path", required = true) String path)
+                  @Option(name = "force", shortName = "f", help = "do not prompt to confirm operations", flagOnly = true) boolean force,
+                  @Option(description = "path", required = true) Resource<?>[] paths)
    {
-
-      FileResource resource = (FileResource) parsePathspec(factory, shell.getCurrentResource(), path);
-
-      if (force || shell.promptBoolean("delete: " + resource.toString() + ": are you sure?"))
+      for (Resource<?> resource : paths)
       {
-         if (!resource.delete(recursive)) {
-            throw new RuntimeException("error deleting files.");
+         if (resource instanceof FileResource)
+         {
+            FileResource fResource = (FileResource) resource;
+
+            if (force || shell.promptBoolean("delete: " + resource.toString() + ": are you sure?"))
+            {
+               if (!fResource.delete(recursive))
+               {
+                  throw new RuntimeException("error deleting files.");
+               }
+            }
          }
       }
    }

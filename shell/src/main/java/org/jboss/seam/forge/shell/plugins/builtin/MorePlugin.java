@@ -26,6 +26,7 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
+import org.mvel2.util.StringAppender;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -60,6 +61,7 @@ public class MorePlugin implements Plugin
    @DefaultCommand
    public void run(@PipeIn InputStream pipeIn,
                    final Resource<?> file,
+                   @Option(name = "noautoexit", shortName = "x", flagOnly = true) final boolean noAutoExit,
                    final PipeOut pipeOut)
          throws IOException
    {
@@ -69,7 +71,7 @@ public class MorePlugin implements Plugin
          try
          {
             fileInstream = file.getResourceInputStream();
-            more(fileInstream, pipeOut);
+            more(fileInstream, pipeOut, noAutoExit);
          }
          finally
          {
@@ -81,11 +83,11 @@ public class MorePlugin implements Plugin
       }
       else if (pipeIn != null)
       {
-         more(pipeIn, pipeOut);
+         more(pipeIn, pipeOut, noAutoExit);
       }
    }
 
-   private void more(InputStream stream, PipeOut out) throws IOException
+   void more(InputStream stream, PipeOut out, boolean noAutoExit) throws IOException
    {
       byte[] buffer = new byte[128];
       int read;
@@ -100,156 +102,235 @@ public class MorePlugin implements Plugin
 
       LineBuffer lineBuffer = new LineBuffer(stream, width);
 
-      String lastPattern = null;
+      StringBuilder lastPattern = new StringBuilder();
 
-      Mainloop:
-      while ((read = lineBuffer.read(buffer)) != -1)
+      do
       {
-         Bufferloop:
-         for (int i = 0; i < read; i++)
+         Mainloop:
+         while ((read = lineBuffer.read(buffer)) != -1)
          {
-            if (--lCounter == 0)
+            Bufferloop:
+            for (int i = 0; i < read; i++)
             {
-               lineBuffer.seenLine();
-               lCounter = width;
-               ++y;
-            }
-
-            switch (c = buffer[i])
-            {
-            case '\r':
-               i++;
-            case '\n':
-               lineBuffer.seenLine();
-               lCounter = width;
-               ++y;
-
-            default:
-               if (y == height)
+               if (--lCounter == 0)
                {
-                  out.println();
-                  boolean backwards = false;
-
-                  do
-                  {
-                     String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine()
-                           + (lineBuffer.getCurrentLine() - shell.getHeight() + 1 == 0 ? " TOP" : "") + "]--";
-
-                     out.print(ShellColor.BOLD, prompt);
-                     int scanCode;
-
-                     switch (scanCode = shell.scan())
-                     {
-                     case 'e':
-                     case 'E':
-                     case 'j':
-                     case 'J':
-                     case 16:
-                        lineBuffer.rewindBuffer(height = shell.getHeight() - 1, lineBuffer.getCurrentLine() - 1);
-                        lineBuffer.setLineWidth(shell.getWidth());
-                        y = 0;
-                        shell.clear();
-                        continue Mainloop;
-                     case 'u':
-                     case 'U':
-                        lineBuffer.rewindBuffer(height = shell.getHeight() - 1, lineBuffer.getCurrentLine() - height);
-                        lineBuffer.setLineWidth(shell.getWidth());
-                        y = 0;
-                        shell.clear();
-                        continue Mainloop;
-
-                     case 'y':
-                     case 'Y':
-                     case 'k':
-                     case 'K':
-                     case 14:
-                     case '\n':
-                        y--;
-                        height = shell.getHeight() - 1;
-                        lineBuffer.setLineWidth(shell.getWidth());
-
-                        shell.cursorLeft(prompt.length());
-                        shell.clearLine();
-                        continue Bufferloop;
-                     case ' ':
-                        y = 0;
-                        height = shell.getHeight() - 1;
-                        lineBuffer.setLineWidth(shell.getWidth());
-
-                        shell.clearLine();
-                        shell.cursorLeft(prompt.length());
-                        continue Bufferloop;
-                     case 'q':
-                     case 'Q':
-                        shell.clearLine();
-                        shell.cursorLeft(prompt.length());
-                        break Mainloop;
-
-                     case '?':
-                        backwards = true;
-                     case '/':
-                        shell.clearLine();
-                        shell.cursorLeft(prompt.length());
-
-                        prompt = backwards ? SEARCH_BACKWARDS_PROMPT : SEARCH_FORWARD_PROMPT;
-                        String pattern;
-
-                        if (lastPattern != null)
-                        {
-                           prompt += "[ENT to repeat search '" + lastPattern + "']: ";
-                        }
-
-                        out.print(ShellColor.BOLD, prompt);
-                        pattern = shell.promptAndSwallowCR().trim();
-
-                        String searched;
-
-                        shell.clearLine();
-                        shell.cursorLeft(prompt.length() + pattern.length());
-
-                        prompt += "Scanning buffer...";
-                        out.print(ShellColor.BOLD, prompt);
-
-                        int result = lineBuffer.findPattern(pattern.equals("") && lastPattern != null
-                              ? searched = lastPattern : (searched = lastPattern = pattern), backwards);
-
-                        if (result == -1)
-                        {
-                           shell.clearLine();
-                           shell.cursorLeft(prompt.length());
-                           shell.print(ShellColor.RED, PATTERN_NOT_FOUND + searched);
-
-                           shell.scan();
-                           shell.clearLine();
-                           shell.cursorLeft(PATTERN_NOT_FOUND.length() + searched.length());
-                        }
-                        else
-                        {
-                           lineBuffer.rewindBuffer(shell.getHeight() - 1, result);
-                           y = 0;
-                           shell.clear();
-                           continue Mainloop;
-                        }
-                        break;
-
-                     default:
-                        shell.clearLine();
-                        shell.cursorLeft(prompt.length());
-                        out.print(ShellColor.RED, INVALID_COMMAND + ((char) scanCode));
-                        shell.scan();
-
-                        shell.clearLine();
-                        shell.cursorLeft(INVALID_COMMAND.length() + 1);
-
-                     }
-                  }
-                  while (true);
+                  lineBuffer.seenLine();
+                  lCounter = width;
+                  ++y;
                }
+
+               switch (c = buffer[i])
+               {
+               case '\r':
+                  i++;
+               case '\n':
+                  lineBuffer.seenLine();
+                  lCounter = width;
+                  ++y;
+
+               default:
+                  if (y == height)
+                  {
+                     out.println();
+                     height = shell.getHeight() - 1;
+                     switch (prompt(lineBuffer, out, lastPattern))
+                     {
+                     case -1:
+                        y = 0;
+                        continue Mainloop;
+                     case -2:
+                        y--;
+                        continue Bufferloop;
+                     case -3:
+                        y = 0;
+                        continue Bufferloop;
+                     case 0:
+                        noAutoExit = false;
+                        break Mainloop;
+                     }
+
+                  }
+               }
+
+               out.write(c);
+            }
+         }
+
+         if (noAutoExit)
+         {
+            switch (prompt(lineBuffer, out, lastPattern))
+            {
+            case -1:
+               y = 0;
+               break;
+            case -2:
+               y--;
+               break;
+            case -3:
+               y = 0;
+               break;
+            case 0:
+               noAutoExit = false;
+               break;
+            }
+         }
+
+      }
+      while (noAutoExit);
+   }
+
+   private int prompt(LineBuffer lineBuffer, PipeOut out, StringBuilder lastPattern)
+         throws IOException
+   {
+      boolean backwards = false;
+
+      do
+      {
+         String topBottomIndicator;
+         if (lineBuffer.getCurrentLine() - shell.getHeight() + 1 == 0)
+         {
+            topBottomIndicator = " TOP";
+         }
+         else if (lineBuffer.atEnd())
+         {
+            topBottomIndicator = " END";
+         }
+         else
+         {
+            topBottomIndicator = "";
+         }
+
+         String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine()
+               + topBottomIndicator + "]--";
+
+         out.print(ShellColor.BOLD, prompt);
+         int scanCode;
+
+         switch (scanCode = shell.scan())
+         {
+         case 'e':
+         case 'E':
+         case 'j':
+         case 'J':
+         case 16:
+            lineBuffer.rewindBuffer(shell.getHeight() - 1, lineBuffer.getCurrentLine() - 1);
+            lineBuffer.setLineWidth(shell.getWidth());
+            //       y = 0;
+            shell.clear();
+            return -1;
+
+         //       continue Mainloop;
+         case 'u':
+         case 'U':
+            lineBuffer.rewindBuffer(shell.getHeight() - 1, lineBuffer.getCurrentLine() - shell.getHeight());
+            lineBuffer.setLineWidth(shell.getWidth());
+            //        y = 0;
+            shell.clear();
+            return -1;
+         //     continue Mainloop;
+
+         case 'y':
+         case 'Y':
+         case 'k':
+         case 'K':
+         case 14:
+         case '\n':
+            //   y--;
+            lineBuffer.setLineWidth(shell.getWidth());
+
+            shell.cursorLeft(prompt.length());
+            shell.clearLine();
+            return -2;
+         //     continue Bufferloop;
+         case ' ':
+//            y = 0;
+//            height = shell.getHeight() - 1;
+            lineBuffer.setLineWidth(shell.getWidth());
+
+            shell.clearLine();
+            shell.cursorLeft(prompt.length());
+            return -3;
+         //        continue Bufferloop;
+         case 'q':
+         case 'Q':
+            shell.clearLine();
+            shell.cursorLeft(prompt.length());
+            return 0;
+//            break Mainloop;
+
+         case '?':
+            backwards = true;
+         case '/':
+            shell.clearLine();
+            shell.cursorLeft(prompt.length());
+
+            prompt = backwards ? SEARCH_BACKWARDS_PROMPT : SEARCH_FORWARD_PROMPT;
+            String pattern;
+
+            if (lastPattern != null)
+            {
+               prompt += "[ENT to repeat search '" + lastPattern + "']: ";
             }
 
-            out.write(c);
+            out.print(ShellColor.BOLD, prompt);
+            pattern = shell.promptAndSwallowCR().trim();
+
+            String searched;
+
+            shell.clearLine();
+            shell.cursorLeft(prompt.length() + pattern.length());
+
+            prompt += "Scanning buffer...";
+            out.print(ShellColor.BOLD, prompt);
+
+            String p;
+            if (pattern.equals("") && lastPattern.length() != 0)
+            {
+               p = searched = lineBuffer.toString();
+            }
+            else
+            {
+               if (lastPattern.length() != 0)
+               {
+                  lastPattern.delete(0, lastPattern.length() - 1);
+               }
+               lastPattern.append(pattern);
+               p = searched = pattern;
+            }
+
+            int result = lineBuffer.findPattern(p, backwards);
+
+            if (result == -1)
+            {
+               shell.clearLine();
+               shell.cursorLeft(prompt.length());
+               shell.print(ShellColor.RED, PATTERN_NOT_FOUND + searched);
+
+               shell.scan();
+               shell.clearLine();
+               shell.cursorLeft(PATTERN_NOT_FOUND.length() + searched.length());
+            }
+            else
+            {
+               lineBuffer.rewindBuffer(shell.getHeight() - 1, result);
+               //        y = 0;
+               shell.clear();
+               return -1;
+            }
+            break;
+
+         default:
+            shell.clearLine();
+            shell.cursorLeft(prompt.length());
+            out.print(ShellColor.RED, INVALID_COMMAND + ((char) scanCode));
+            shell.scan();
+
+            shell.clearLine();
+            shell.cursorLeft(INVALID_COMMAND.length() + 1);
+
          }
       }
+      while (true);
    }
 
    /**
@@ -259,7 +340,7 @@ public class MorePlugin implements Plugin
    private static class LineBuffer extends InputStream
    {
       private InputStream stream;
-      private StringBuilder curr;
+      private StringAppender curr;
       private ArrayList<Integer> index;
       private boolean buffered = false;
 
@@ -270,13 +351,14 @@ public class MorePlugin implements Plugin
       private int lineCounter;
 
       private static final int INDEX_MARK_SIZE = 100;
+      private static final int MAX_PREBUFFER = 1024 * 5; // kkb
 
       int totalLines = 0;
 
       private LineBuffer(InputStream stream, int lineWidth)
       {
          this.stream = stream;
-         curr = new StringBuilder();
+         curr = new StringAppender();
          index = new ArrayList<Integer>();
          this.lineWidth = lineWidth;
          this.lineCounter = lineWidth - 1;
@@ -287,15 +369,33 @@ public class MorePlugin implements Plugin
       {
          if (buffered)
          {
-            return bufferPos < curr.length() ? curr.charAt(bufferPos++) : -1;
+            if (bufferPos < curr.length())
+            {
+               return curr.charAt(bufferPos++);
+            }
+            else
+            {
+               int c = stream.read();
+               if (c == -1)
+               {
+                  return -1;
+               }
+               else
+               {
+                  buffered = false;
+                  return read();
+               }
+            }
          }
          else
          {
             int c;
             int read;
             byte[] buffer = new byte[1024];
+            int totalBytes = 0;
             while ((read = stream.read(buffer)) != -1)
             {
+
                for (int i = 0; i < read; i++)
                {
                   if ((c = buffer[i]) != -1)
@@ -307,6 +407,11 @@ public class MorePlugin implements Plugin
                         markLine();
                      }
                   }
+               }
+
+               if ((totalBytes += read) > MAX_PREBUFFER)
+               {
+                  break;
                }
             }
             buffered = true;
@@ -454,6 +559,11 @@ public class MorePlugin implements Plugin
             bufferPos = findLine(renderFrom);
             bufferLine = renderFrom;
          }
+      }
+
+      public boolean atEnd()
+      {
+         return bufferLine >= totalLines;
       }
 
       public boolean inBuffer()
