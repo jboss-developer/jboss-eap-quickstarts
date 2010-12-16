@@ -177,9 +177,11 @@ public class ShellImpl implements Shell
       initCompleters(pluginCompleter);
       initParameters();
 
-      properties.put(PROP_PROMPT, DEFAULT_PROMPT);
-      properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
+//      properties.put(PROP_PROMPT, DEFAULT_PROMPT);
+//      properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
 
+      properties.put(PROP_PROMPT, "> ");
+      properties.put(PROP_PROMPT_NO_PROJ, "> ");
       loadConfig();
 
       postStartup.fire(new PostStartup());
@@ -410,7 +412,10 @@ public class ShellImpl implements Shell
             "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n" +
             "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
             "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-            "echo \"                                                |___/      \";\n\n";
+            "echo \"                                                |___/      \";\n\n" +
+            "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
+            "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n";
+
    }
 
    void teardown(@Observes final Shutdown event)
