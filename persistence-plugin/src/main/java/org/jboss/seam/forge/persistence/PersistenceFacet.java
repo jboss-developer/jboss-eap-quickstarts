@@ -60,7 +60,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("persistence")
+@Named("jpa")
 @RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
 public class PersistenceFacet implements Facet
@@ -105,7 +105,8 @@ public class PersistenceFacet implements Facet
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                     .persistenceUnit("default")
+                  .version("2.0")
+                  .persistenceUnit("default")
                      .description("The Seam Forge default Persistence Unit")
                      .transactionType(TransactionType.JTA)
                      .provider(ProviderType.HIBERNATE)

@@ -22,7 +22,6 @@
 package org.jboss.seam.forge.persistence;
 
 import java.io.FileNotFoundException;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,6 +37,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
@@ -309,9 +309,9 @@ public class NewFieldPlugin implements Plugin
          entity.addImport(Set.class);
          entity.addImport(HashSet.class);
          entity.addImport(otherEntity.getQualifiedName());
-         Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
+         Field<JavaClass> field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
                   + otherEntity.getName() + ">();");
-         org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(ManyToMany.class);
+         Annotation<JavaClass> annotation = field.addAnnotation(ManyToMany.class);
          Refactory.createGetterAndSetter(entity, field);
 
          if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
@@ -321,7 +321,7 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(Set.class);
             otherEntity.addImport(HashSet.class);
             otherEntity.addImport(entity.getQualifiedName());
-            Field otherField = otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
+            Field<JavaClass> otherField = otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
                      + "= new HashSet<" + entity.getName() + ">();");
             otherField.addAnnotation(ManyToMany.class);
             Refactory.createGetterAndSetter(otherEntity, otherField);
@@ -358,31 +358,76 @@ public class NewFieldPlugin implements Plugin
 
       try
       {
-         JavaClass entity = getJavaClass();
-         JavaClass otherEntity = findEntity(fieldType);
+         JavaClass one = getJavaClass();
+         JavaClass many = findEntity(fieldType);
 
-         entity.addImport(Set.class);
-         entity.addImport(HashSet.class);
-         entity.addImport(otherEntity.getQualifiedName());
-         Field field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
-                  + otherEntity.getName() + ">();");
-         org.jboss.seam.forge.parser.java.Annotation annotation = field.addAnnotation(OneToMany.class);
-         Refactory.createGetterAndSetter(entity, field);
+         one.addImport(Set.class);
+         one.addImport(HashSet.class);
+         one.addImport(many.getQualifiedName());
+         Field<JavaClass> oneField = one.addField("private Set<" + many.getName() + "> " + fieldName + "= new HashSet<"
+                  + many.getName() + ">();");
+         Annotation<JavaClass> annotation = oneField.addAnnotation(OneToMany.class);
+         Refactory.createGetterAndSetter(one, oneField);
 
          if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
          {
             annotation.setStringValue("mappedBy", inverseFieldName);
 
-            otherEntity.addImport(Set.class);
-            otherEntity.addImport(HashSet.class);
-            otherEntity.addImport(entity.getQualifiedName());
-            otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
-                     + "= new HashSet<" + entity.getName() + ">();")
-                     .addAnnotation(ManyToOne.class);
-
-            java.saveJavaClass(otherEntity);
+            many.addImport(one);
+            Field<JavaClass> manyField = many.addField("private " + one.getName() + " " + inverseFieldName + "= new " + one.getName() + "();");
+            manyField.addAnnotation(ManyToOne.class);
+            Refactory.createGetterAndSetter(many, manyField);
+            java.saveJavaClass(many);
          }
-         java.saveJavaClass(entity);
+         java.saveJavaClass(one);
+      }
+      catch (FileNotFoundException e)
+      {
+         shell.println("Could not locate the @Entity requested. No update was made.");
+      }
+   }
+
+   @Command(value = "manyToOne", help = "Add a many-to-one relationship field to an existing @Entity class")
+   public void newManyToOneRelationship(
+            @Option(name = "fieldName",
+                     required = true,
+                     description = "The field name",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
+            @Option(name = "fieldType",
+                     required = true,
+                     description = "The @Entity representing the 'one' side of the relationship.",
+                     type = PromptType.JAVA_CLASS) final String fieldType,
+            @Option(name = "inverseFieldName",
+                     required = false,
+                     description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
+                     type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
+   {
+
+      Project project = getCurrentProject();
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         JavaClass many = getJavaClass();
+         JavaClass one = findEntity(fieldType);
+
+         many.addImport(one);
+         Field<JavaClass> manyField = many.addField("private " + one.getName() + " " + fieldName + "= new " + one.getName() + "();");
+         manyField.addAnnotation(ManyToOne.class);
+         Refactory.createGetterAndSetter(many, manyField);
+
+         if ((inverseFieldName != null) && !inverseFieldName.isEmpty())
+         {
+            one.addImport(Set.class);
+            one.addImport(HashSet.class);
+            one.addImport(many.getQualifiedName());
+            Field<JavaClass> oneField = one.addField("private Set<" + many.getName() + "> " + inverseFieldName + "= new HashSet<"
+                     + many.getName() + ">();");
+            oneField.addAnnotation(OneToMany.class).setStringValue("mappedBy", fieldName);
+            Refactory.createGetterAndSetter(one, oneField);
+            java.saveJavaClass(one);
+         }
+         java.saveJavaClass(many);
       }
       catch (FileNotFoundException e)
       {
@@ -394,7 +439,7 @@ public class NewFieldPlugin implements Plugin
     * Helpers
     */
    private void addFieldTo(final JavaClass targetEntity, final JavaClass fieldEntity, final String fieldName,
-                           final Class<? extends Annotation> annotation) throws FileNotFoundException
+                           final Class<? extends java.lang.annotation.Annotation> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -422,7 +467,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    private void addFieldTo(final JavaClass targetEntity, final Class<?> fieldType, final String fieldName,
-                           final Class<? extends Annotation> annotation) throws FileNotFoundException
+                           final Class<? extends java.lang.annotation.Annotation> annotation) throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
