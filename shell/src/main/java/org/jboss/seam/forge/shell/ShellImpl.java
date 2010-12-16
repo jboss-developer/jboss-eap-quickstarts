@@ -278,7 +278,6 @@ public class ShellImpl implements Shell
          }
       }
 
-
       try
       {
          /**
@@ -307,7 +306,6 @@ public class ShellImpl implements Shell
          e.printStackTrace();
          throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
       }
-
 
       try
       {
@@ -405,7 +403,7 @@ public class ShellImpl implements Shell
 
    private String getDefaultConfig()
    {
-      return "@/** Automatically generated config file **/;\n" +
+      return "@/* Automatically generated config file */;\n" +
             "" +
             "echo \"   ____                          _____                    \";\n" +
             "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n" +

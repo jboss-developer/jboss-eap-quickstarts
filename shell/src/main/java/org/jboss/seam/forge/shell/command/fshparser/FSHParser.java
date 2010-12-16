@@ -102,7 +102,7 @@ public class FSHParser
       default:
          String tk = captureToken();
 
-         if (Parse.isReservedWord(tk))
+         if (isReservedWord(tk))
          {
             boolean block = "for".equals(tk) || "if".equals(tk) || "while".equals(tk);
 
@@ -165,12 +165,10 @@ public class FSHParser
                         }
                         while (ifThenElseBlockContinues());
 
-
                         cursor++;
                         return new ScriptNode(new TokenNode(tk), false);
                      }
                   }
-
                   break;
 
                case ';':
