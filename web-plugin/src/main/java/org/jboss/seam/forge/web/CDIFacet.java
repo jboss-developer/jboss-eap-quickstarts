@@ -31,6 +31,12 @@ import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
+import org.jboss.shrinkwrap.descriptor.api.Descriptors;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
+import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansDescriptorImpl;
+import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
+import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -68,6 +74,22 @@ public class CDIFacet implements Facet
       return getConfigFile().exists();
    }
 
+   @SuppressWarnings("unchecked")
+   public BeansModel getConfig()
+   {
+      DescriptorImporter<BeansDescriptor> importer = Descriptors.importAs(BeansDescriptor.class);
+      BeansDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
+      BeansModel model = ((SchemaDescriptorProvider<BeansModel>) descriptor).getSchemaModel();
+      return model;
+   }
+
+   public void saveConfig(final BeansModel model)
+   {
+      BeansDescriptor descriptor = new BeansDescriptorImpl(model);
+      String output = descriptor.exportAsString();
+      getConfigFile().setContents(output);
+   }
+
    @Override
    public Facet install()
    {
@@ -77,8 +99,15 @@ public class CDIFacet implements Facet
          {
             throw new RuntimeException("Failed to create required [" + getConfigFile().getFullyQualifiedName() + "]");
          }
-         getConfigFile().setContents(getClass()
-               .getResourceAsStream("/org/jboss/seam/forge/web/beans.xml"));
+
+         FileResource<?> descriptor = getConfigFile();
+         if (!descriptor.exists())
+         {
+            descriptor.createNewFile();
+            descriptor.setContents(getClass()
+                  .getResourceAsStream("/org/jboss/seam/forge/web/beans.xml"));
+         }
+
       }
       project.registerFacet(this);
       return this;
