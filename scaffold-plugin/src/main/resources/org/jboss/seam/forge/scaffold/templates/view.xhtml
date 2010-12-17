@@ -11,6 +11,9 @@
     <f:viewParam name="id" value="#{@{beanName}.id}">
         <f:validateLongRange minimum="1" />
     </f:viewParam>
+    <f:viewParam name="edit" value="#{_editMode}">
+        <f:validateRegex pattern="(|true|false)" />
+    </f:viewParam>
 </f:metadata>
 
 <h:head>
@@ -20,10 +23,19 @@
     <h:form id="form">
 
         <h:messages />
+        <br/>
 
-        <m:metawidget value="#{@{beanName}.@{entity.getName().toLowerCase()}}" readOnly="#{true}">
-        </m:metawidget>
-
+        <h:button value="View all" outcome="list" rendered="#{ _editMode == null or _editMode eq 'false' }" />
+        <h:button value="Edit" outcome="edit" includeViewParams="true" rendered="#{ _editMode == null or _editMode eq 'false' }" />
+        <h:button value="Create new" outcome="create" rendered="#{ _editMode == null or _editMode eq 'false' }" />
+        <br/>
+        
+        <m:metawidget value="#{@{beanName}.@{entity.getName().toLowerCase()}}" readOnly="#{ _editMode == null or _editMode eq 'false' }" />
+        
+        <br/>
+        <h:commandButton value="Save" action="#{@{beanName}.save()}" rendered="#{ _editMode != null and _editMode ne 'false' }" />
+        <h:button value="Cancel" outcome="view" includeViewParams="true" rendered="#{ _editMode != null and _editMode ne 'false' }" />
+    
     </h:form>
 </h:body>
 </html>

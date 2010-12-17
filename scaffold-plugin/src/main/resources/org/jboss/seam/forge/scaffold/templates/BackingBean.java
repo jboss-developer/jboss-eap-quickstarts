@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+   
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -11,12 +14,19 @@ import org.jboss.seam.forge.persistence.PersistenceUtil;
 @RequestScoped
 public class @{entity.getName()}Bean extends PersistenceUtil
 {
+   private List<Customer> list = null;
    private @{entity.getName()} @{lc = entity.getName().toLowerCase(); lc} = new @{entity.getName()}();
    private long id = 0;
 
    public void load()
    {
       @{lc} = findById(@{entity.getName()}.class, id);
+   }
+   
+   public String create()
+   {
+      create(@{lc});
+      return "view?faces-redirect=true&id=" + @{lc}.getId();
    }
 
    public long getId()
@@ -26,8 +36,8 @@ public class @{entity.getName()}Bean extends PersistenceUtil
 
    public void setId(long id)
    {
-      load();
       this.id = id;
+      load();
    }
    
    public @{entity.getName()} get@{entity.getName()}()
@@ -39,4 +49,19 @@ public class @{entity.getName()}Bean extends PersistenceUtil
    {
       this.@{lc} = @{lc};
    }
+
+   public List<@{entity.getName()}> getList()
+   {
+      if(list == null)
+      {
+         list = findAll(@{entity.getName()}.class);
+      }
+      return list;
+   }
+
+   public void setList(List<@{entity.getName()}> list)
+   {
+      this.list = list;
+   }
+  
 }

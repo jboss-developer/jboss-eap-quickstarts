@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:m="http://metawidget.org/faces">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{@{beanName}.id}">
+        <f:validateLongRange minimum="1" />
+    </f:viewParam>
+</f:metadata>
+
+<h:head>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+
+        <h:messages />
+        
+        <h:button value="Create new" outcome="create" />
+        <br/>
+        
+        <ul>
+        <ui:repeat var="entity" value="#{@{beanName}.list}">
+            <li><m:metawidget value="#{entity}" readOnly="#{true}" /></li>
+        </ui:repeat>
+        </ul>
+
+    </h:form>
+</h:body>
+</html>

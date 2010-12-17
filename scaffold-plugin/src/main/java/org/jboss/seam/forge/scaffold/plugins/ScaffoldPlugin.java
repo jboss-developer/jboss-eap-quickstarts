@@ -22,10 +22,12 @@
 
 package org.jboss.seam.forge.scaffold.plugins;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Entity;
@@ -72,8 +74,10 @@ import org.jboss.seam.render.template.CompiledTemplateResource;
 @RequiresProject
 public class ScaffoldPlugin implements Plugin
 {
-   private static final String VIEW_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/ViewBean.java";
+   private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.java";
    private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
+   private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
+   private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
 
    @Inject
    private Shell shell;
@@ -82,33 +86,64 @@ public class ScaffoldPlugin implements Plugin
    private TemplateCompiler compiler;
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
 
-   @Command("generate")
+   private CompiledTemplateResource viewTemplate;
+   private CompiledTemplateResource createTemplate;
+   private CompiledTemplateResource listTemplate;
+
+   @PostConstruct
+   public void init()
+   {
+      viewTemplate = compiler.compile(VIEW_TEMPLATE);
+      createTemplate = compiler.compile(CREATE_TEMPLATE);
+      listTemplate = compiler.compile(LIST_TEMPLATE);
+   }
+
+   @Command("generate-metawidget-jsf")
    public void generateUI(
          @Option(required = false) Resource<?>[] targets, PipeOut out) throws FileNotFoundException
    {
-      Project project = shell.getCurrentProject();
-      JavaSourceFacet jsf = project.getFacet(JavaSourceFacet.class);
-      DependencyFacet df = project.getFacet(DependencyFacet.class);
-
-      if (!df.hasDependency(metawidget))
-      {
-         df.addDependency(metawidget);
-      }
-
       Resource<?> currentResource = shell.getCurrentResource();
-      if ((targets == null) && (currentResource instanceof JavaResource))
+      if (((targets == null) || (targets.length < 1))
+            && (currentResource instanceof JavaResource))
       {
          targets = new JavaResource[] { (JavaResource) currentResource };
       }
-      else if (targets == null)
+
+      List<JavaResource> javaTargets = selectTargets(out, targets);
+      if (javaTargets.isEmpty())
       {
          if (!out.isPiped())
          {
-            out.println("Error: Must specify a domain entity on which to operate.");
+            out.println("***ERROR*** Must specify a domain entity on which to operate.");
          }
          return;
       }
 
+      addMetawidget();
+
+      for (JavaResource jr : javaTargets)
+      {
+         JavaClass entity = (JavaClass) (jr).getJavaSource();
+         createViews(entity);
+         out.println("***SUCCESS*** Generated UI for [" + entity.getQualifiedName() + "]");
+      }
+
+   }
+
+   public Project addMetawidget()
+   {
+      Project project = shell.getCurrentProject();
+      DependencyFacet df = project.getFacet(DependencyFacet.class);
+      if (!df.hasDependency(metawidget))
+      {
+         df.addDependency(metawidget);
+      }
+      return project;
+   }
+
+   private List<JavaResource> selectTargets(PipeOut out, Resource<?>[] targets) throws FileNotFoundException
+   {
+      List<JavaResource> results = new ArrayList<JavaResource>();
       for (Resource<?> r : targets)
       {
          if (r instanceof JavaResource)
@@ -118,26 +153,7 @@ public class ScaffoldPlugin implements Plugin
             {
                if (entity.hasAnnotation(Entity.class))
                {
-                  CompiledTemplateResource viewBeanTemplate = compiler.compile(VIEW_BEAN_TEMPLATE);
-                  HashMap<Object, Object> context = new HashMap<Object, Object>();
-                  context.put("entity", entity);
-
-                  JavaClass viewBean = JavaParser.parse(JavaClass.class, viewBeanTemplate.render(context));
-                  viewBean.setPackage(jsf.getBasePackage() + ".view");
-
-                  CompiledTemplateResource viewTemplate = compiler.compile(VIEW_TEMPLATE);
-                  context = new HashMap<Object, Object>();
-
-                  String name = viewBean.getName();
-                  name = name.substring(0, 1).toLowerCase() + name.substring(1);
-                  context.put("beanName", name);
-                  context.put("entity", entity);
-
-                  createView(viewTemplate.render(context), entity.getName());
-
-                  jsf.saveJavaClass(viewBean);
-
-                  out.println("Generating UI for [" + entity.getQualifiedName() + "]");
+                  results.add((JavaResource) r);
                }
                else
                {
@@ -150,13 +166,36 @@ public class ScaffoldPlugin implements Plugin
             }
          }
       }
+      return results;
    }
 
-   private void createView(String data, String entityName)
+   private void createViews(JavaClass entity) throws FileNotFoundException
    {
       Project project = shell.getCurrentProject();
-      WebResourceFacet wrf = project.getFacet(WebResourceFacet.class);
-      wrf.createWebResource(data, "scaffold" + File.separator + "view" + entityName + ".xhtml");
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+      WebResourceFacet web = project.getFacet(WebResourceFacet.class);
+
+      CompiledTemplateResource backingBeanTemplate = compiler.compile(BACKING_BEAN_TEMPLATE);
+      HashMap<Object, Object> context = new HashMap<Object, Object>();
+      context.put("entity", entity);
+
+      // Create the Backing Bean for this entity
+      JavaClass viewBean = JavaParser.parse(JavaClass.class, backingBeanTemplate.render(context));
+      viewBean.setPackage(java.getBasePackage() + ".view");
+      java.saveJavaClass(viewBean);
+
+      // Set context for view generation
+      context = new HashMap<Object, Object>();
+      String name = viewBean.getName();
+      name = name.substring(0, 1).toLowerCase() + name.substring(1);
+      context.put("beanName", name);
+      context.put("entity", entity);
+
+      // Generate views
+      String type = entity.getName().toLowerCase();
+      web.createWebResource(viewTemplate.render(context), "scaffold/" + type + "/view.xhtml");
+      web.createWebResource(createTemplate.render(context), "scaffold/" + type + "/create.xhtml");
+      web.createWebResource(listTemplate.render(context), "scaffold/" + type + "/list.xhtml");
    }
 
    private void displaySkippingResourceMsg(PipeOut out, JavaSource<?> entity)
