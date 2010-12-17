@@ -35,6 +35,8 @@ import javax.inject.Named;
 /**
  * Implements a {@link Plugin} that fires the shell {@link Shutdown#NORMAL} event.
  *
+ *
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("exit")

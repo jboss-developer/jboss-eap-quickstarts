@@ -68,7 +68,11 @@ public class PathspecParser
       Resource<?> r = res;
       String tk;
 
-      if (path.startsWith("~"))
+      if (".".equals(path))
+      {
+        return singleResult(r);
+      }
+      else if (path.startsWith("~"))
       {
          File homeDir = new File(System.getProperty("user.home")).getAbsoluteFile();
 
