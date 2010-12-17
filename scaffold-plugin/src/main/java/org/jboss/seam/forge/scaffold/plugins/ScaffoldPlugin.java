@@ -88,6 +88,7 @@ public class ScaffoldPlugin implements Plugin
    private TemplateCompiler compiler;
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
    private final Dependency seamPersist = DependencyBuilder.create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta1");
+   private final Dependency weldX = DependencyBuilder.create("org.jboss.weld:weld-extensions:1.0.0.Beta1");
 
    private CompiledTemplateResource viewTemplate;
    private CompiledTemplateResource createTemplate;
@@ -99,6 +100,11 @@ public class ScaffoldPlugin implements Plugin
       viewTemplate = compiler.compile(VIEW_TEMPLATE);
       createTemplate = compiler.compile(CREATE_TEMPLATE);
       listTemplate = compiler.compile(LIST_TEMPLATE);
+
+      // TODO remove this once seamPersist no longer pulls in bad WeldX dep
+      seamPersist.getExcludedDependencies().add(weldX);
+      weldX.getExcludedDependencies().add(DependencyBuilder.create("javax.el:el-api"));
+      weldX.getExcludedDependencies().add(DependencyBuilder.create("javax.transaction:jta"));
    }
 
    @Command("generate-metawidget-jsf")
@@ -146,8 +152,17 @@ public class ScaffoldPlugin implements Plugin
       {
          df.addDependency(seamPersist);
          BeansModel config = cdi.getConfig();
-         config.getInterceptors().add("org.jboss.seam.persistence.transaction.TransactionInterceptor");
+         String persistenceInterceptor = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
+         List<String> interceptors = config.getInterceptors();
+         if (!interceptors.contains(persistenceInterceptor))
+         {
+            interceptors.add(persistenceInterceptor);
+         }
          cdi.saveConfig(config);
+      }
+      if (!df.hasDependency(weldX))
+      {
+         df.addDependency(weldX);
       }
       return project;
    }
