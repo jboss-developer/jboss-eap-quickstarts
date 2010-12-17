@@ -127,9 +127,9 @@ public class PersistenceFacet implements Facet
    private void installUtils()
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(JavaClass.class, loader.getResourceAsStream("templates/PersistenceUtil.java"));
+      JavaClass util = JavaParser.parse(JavaClass.class, loader.getResourceAsStream("templates/PersistenceUtil.jtpl"));
       JavaClass producer = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("templates/DatasourceProducer.java"));
+               loader.getResourceAsStream("templates/DatasourceProducer.jtpl"));
 
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
