@@ -11,7 +11,7 @@
    <artifactId>forge-scaffold</artifactId>
    <packaging>jar</packaging>
    <name>Seam Forge - Scaffolding Plugins</name>
-   
+
    <repositories>
       <repository>
          <id>sun</id>
@@ -25,13 +25,12 @@
          <artifactId>forge-shell-api</artifactId>
          <scope>compile</scope>
       </dependency>
-      
       <dependency>
          <groupId>org.jboss.seam.render</groupId>
          <artifactId>seam-render</artifactId>
          <version>1.0.0-SNAPSHOT</version>
       </dependency>
-      
+
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
          <artifactId>forge-persistence-plugin</artifactId>
@@ -43,7 +42,7 @@
          <artifactId>forge-web-plugin</artifactId>
          <scope>compile</scope>
       </dependency>
-      
+
       <dependency>
          <groupId>org.metawidget</groupId>
          <artifactId>metawidget</artifactId>
@@ -57,7 +56,7 @@
          <scope>compile</scope>
          <type>pom</type>
       </dependency>
-      
+
       <!-- TODO this EL dep should probably be included at a higher level -->
       <dependency>
          <groupId>org.glassfish.web</groupId>

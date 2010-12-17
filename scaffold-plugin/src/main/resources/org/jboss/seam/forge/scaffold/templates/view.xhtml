@@ -26,7 +26,9 @@
         <br/>
 
         <h:button value="View all" outcome="list" rendered="#{ _editMode == null or _editMode eq 'false' }" />
-        <h:button value="Edit" outcome="edit" includeViewParams="true" rendered="#{ _editMode == null or _editMode eq 'false' }" />
+        <h:button value="Edit" outcome="view" includeViewParams="true" rendered="#{ _editMode == null or _editMode eq 'false' }">
+            <f:param name="edit" value="true" />
+        </h:button>
         <h:button value="Create new" outcome="create" rendered="#{ _editMode == null or _editMode eq 'false' }" />
         <br/>
         
@@ -34,6 +36,7 @@
         
         <br/>
         <h:commandButton value="Save" action="#{@{beanName}.save()}" rendered="#{ _editMode != null and _editMode ne 'false' }" />
+        <h:commandButton value="Delete" action="#{@{beanName}.delete()}" />
         <h:button value="Cancel" outcome="view" includeViewParams="true" rendered="#{ _editMode != null and _editMode ne 'false' }" />
     
     </h:form>

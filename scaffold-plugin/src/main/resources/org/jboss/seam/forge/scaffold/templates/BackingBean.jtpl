@@ -1,20 +1,20 @@
-import java.util.ArrayList;
 import java.util.List;
    
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import @{entity.getQualifiedName()};
 import org.jboss.seam.forge.persistence.PersistenceUtil;
+import org.jboss.seam.persistence.transaction.Transactional;
 
 @Named
 @Stateful
 @RequestScoped
+@Transactional
 public class @{entity.getName()}Bean extends PersistenceUtil
 {
-   private List<Customer> list = null;
+   private List<@{entity.getName()}> list = null;
    private @{entity.getName()} @{lc = entity.getName().toLowerCase(); lc} = new @{entity.getName()}();
    private long id = 0;
 
@@ -26,6 +26,18 @@ public class @{entity.getName()}Bean extends PersistenceUtil
    public String create()
    {
       create(@{lc});
+      return "view?faces-redirect=true&id=" + @{lc}.getId();
+   }
+
+   public String delete()
+   {
+      delete(@{lc});
+      return "list?faces-redirect=true";
+   }
+
+   public String save()
+   {
+      save(@{lc});
       return "view?faces-redirect=true&id=" + @{lc}.getId();
    }
 

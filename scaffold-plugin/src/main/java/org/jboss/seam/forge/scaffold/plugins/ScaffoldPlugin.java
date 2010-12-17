@@ -35,6 +35,7 @@ import javax.persistence.Entity;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
@@ -59,6 +60,7 @@ import org.jboss.seam.forge.web.CDIFacet;
 import org.jboss.seam.forge.web.FacesFacet;
 import org.jboss.seam.render.TemplateCompiler;
 import org.jboss.seam.render.template.CompiledTemplateResource;
+import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -74,7 +76,7 @@ import org.jboss.seam.render.template.CompiledTemplateResource;
 @RequiresProject
 public class ScaffoldPlugin implements Plugin
 {
-   private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.java";
+   private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jtpl";
    private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
    private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
@@ -85,6 +87,7 @@ public class ScaffoldPlugin implements Plugin
    @Inject
    private TemplateCompiler compiler;
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
+   private final Dependency seamPersist = DependencyBuilder.create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta1");
 
    private CompiledTemplateResource viewTemplate;
    private CompiledTemplateResource createTemplate;
@@ -119,7 +122,7 @@ public class ScaffoldPlugin implements Plugin
          return;
       }
 
-      addMetawidget();
+      addDependencies();
 
       for (JavaResource jr : javaTargets)
       {
@@ -130,13 +133,21 @@ public class ScaffoldPlugin implements Plugin
 
    }
 
-   public Project addMetawidget()
+   public Project addDependencies()
    {
       Project project = shell.getCurrentProject();
       DependencyFacet df = project.getFacet(DependencyFacet.class);
+      CDIFacet cdi = project.getFacet(CDIFacet.class);
       if (!df.hasDependency(metawidget))
       {
          df.addDependency(metawidget);
+      }
+      if (!df.hasDependency(seamPersist))
+      {
+         df.addDependency(seamPersist);
+         BeansModel config = cdi.getConfig();
+         config.getInterceptors().add("org.jboss.seam.persistence.transaction.TransactionInterceptor");
+         cdi.saveConfig(config);
       }
       return project;
    }
@@ -174,6 +185,12 @@ public class ScaffoldPlugin implements Plugin
       Project project = shell.getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
+
+      if (!entity.hasMethod("toString"))
+      {
+         Refactory.createToStringFromFields(entity);
+         java.saveJavaClass(entity);
+      }
 
       CompiledTemplateResource backingBeanTemplate = compiler.compile(BACKING_BEAN_TEMPLATE);
       HashMap<Object, Object> context = new HashMap<Object, Object>();
