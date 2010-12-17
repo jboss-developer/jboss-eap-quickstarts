@@ -147,6 +147,32 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    }
 
    @Override
+   public boolean hasMethod(String name)
+   {
+      for (Method<JavaClass> method : getMethods())
+      {
+         if (method.getName().equals(name))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   @Override
+   public Method<JavaClass> getMethod(String name)
+   {
+      for (Method<JavaClass> method : getMethods())
+      {
+         if (method.getName().equals(name))
+         {
+            return method;
+         }
+      }
+      return null;
+   }
+
+   @Override
    public List<Method<JavaClass>> getMethods()
    {
       List<Method<JavaClass>> result = new ArrayList<Method<JavaClass>>();

@@ -46,6 +46,19 @@ public interface MethodHolder<T> extends MemberHolder<T, Member>
    public Method<T> addMethod(final String method);
 
    /**
+    * Return true if this {@link T} has a method with the given name; otherwise
+    * return false.
+    */
+   public boolean hasMethod(final String name);
+
+   /**
+    * Return the {@link Method} with the given name; otherwise return null.
+    * <p>
+    * FIXME this should probably use a signature instead
+    */
+   public Method<T> getMethod(final String name);
+
+   /**
     * Get a {@link List} of all {@link Method}s declared by this {@link T}
     * instance, if any; otherwise, return an empty {@link List}
     */

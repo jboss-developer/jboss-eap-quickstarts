@@ -21,8 +21,12 @@
  */
 package org.jboss.seam.forge.parser.java.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Method;
 
 /**
  * 
@@ -31,7 +35,7 @@ import org.jboss.seam.forge.parser.java.JavaClass;
  */
 public class Refactory
 {
-   public static void createGetterAndSetter(final JavaClass entity, final Field field)
+   public static void createGetterAndSetter(final JavaClass entity, final Field<JavaClass> field)
    {
       if (!entity.hasField(field))
       {
@@ -47,5 +51,28 @@ public class Refactory
       entity.addMethod().setReturnTypeVoid().setName("set" + methodNameSuffix).setPublic()
                .setParameters("final " + field.getType() + " " + fieldName)
                .setBody("this." + fieldName + " = " + fieldName + ";");
+   }
+
+   public static void createToStringFromFields(final JavaClass entity)
+   {
+      List<Field<JavaClass>> fields = entity.getFields();
+      createToStringFromFields(entity, fields);
+   }
+
+   public static void createToStringFromFields(final JavaClass entity, final List<Field<JavaClass>> fields)
+   {
+      Method<JavaClass> method = entity.addMethod().setName("toString").setReturnType(String.class).setPublic();
+      List<String> list = new ArrayList<String>();
+
+      String delimeter = "+ \", \" + ";
+      for (Field<JavaClass> field : fields)
+      {
+         if (entity.hasField(field))
+         {
+            list.add(field.getName());
+         }
+      }
+      String body = "return this.getClass().getSimpleName() + \"[\" + " + Strings.join(list, delimeter) + " + \"]\";";
+      method.setBody(body);
    }
 }

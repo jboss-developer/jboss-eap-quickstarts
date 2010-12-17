@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.test.parser.java.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -60,5 +61,14 @@ public class RefactoryTest
       assertEquals("getFoo", getter.getName());
       assertTrue(getter.getParameters().isEmpty());
       assertEquals("setFoo", setter.getName());
+   }
+
+   @Test
+   public void testCreateToSrtingFromFields() throws Exception
+   {
+      assertFalse(javaClass.hasMethod("toString"));
+      Refactory.createToStringFromFields(javaClass);
+      assertTrue(javaClass.hasMethod("toString"));
+      assertTrue(javaClass.getMethod("toString").getBody().contains("return"));
    }
 }

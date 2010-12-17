@@ -22,6 +22,9 @@
 
 package org.jboss.seam.forge.parser.java.util;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * String utilities.
  * 
@@ -61,4 +64,20 @@ public class Strings
       }
       return result;
    }
+
+   public static String join(Collection<?> collection, String delimiter)
+   {
+      StringBuffer buffer = new StringBuffer();
+      Iterator<?> iter = collection.iterator();
+      while (iter.hasNext())
+      {
+         buffer.append(iter.next());
+         if (iter.hasNext())
+         {
+            buffer.append(delimiter);
+         }
+      }
+      return buffer.toString();
+   }
+
 }

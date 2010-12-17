@@ -142,6 +142,32 @@ public class JavaInterfaceImpl extends AbstractJavaSource<JavaInterface> impleme
    }
 
    @Override
+   public boolean hasMethod(String name)
+   {
+      for (Method<JavaInterface> method : getMethods())
+      {
+         if (method.getName().equals(name))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   @Override
+   public Method<JavaInterface> getMethod(String name)
+   {
+      for (Method<JavaInterface> method : getMethods())
+      {
+         if (method.getName().equals(name))
+         {
+            return method;
+         }
+      }
+      return null;
+   }
+
+   @Override
    public List<Method<JavaInterface>> getMethods()
    {
       List<Method<JavaInterface>> result = new ArrayList<Method<JavaInterface>>();
