@@ -816,11 +816,11 @@ public class ShellImpl implements Shell
       try
       {
          reader.removeCompleter(this.completer);
-         reader.addCompleter(tempCompleter);
+         if (tempCompleter!=null) { reader.addCompleter(tempCompleter); }
          reader.setHistoryEnabled(false);
          reader.setPrompt(message);
          String line = readLine();
-         reader.removeCompleter(tempCompleter);
+         if (tempCompleter!=null) { reader.removeCompleter(tempCompleter); }
          reader.addCompleter(this.completer);
          reader.setHistoryEnabled(true);
          reader.setPrompt("");
