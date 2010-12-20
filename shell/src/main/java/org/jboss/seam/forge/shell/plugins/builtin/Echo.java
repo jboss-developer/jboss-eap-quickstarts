@@ -293,15 +293,6 @@ public class Echo implements Plugin
 
          switch (expr[i])
          {
-//         case '\'':
-//         case '"':
-//            out.append(new String(expr, start, i - start));
-//            start = i;
-//            i = ParseTools.balancedCapture(expr, i, expr[i]);
-//            out.append(new String(expr, start + 1, i - start - 1));
-//            start = ++i;
-//            break;
-
          case '\\':
             if (i + 1 < expr.length && expr[i + 1] == '$')
             {

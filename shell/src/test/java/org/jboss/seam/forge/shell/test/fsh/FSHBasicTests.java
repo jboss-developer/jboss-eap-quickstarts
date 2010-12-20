@@ -116,6 +116,12 @@ public class FSHBasicTests extends AbstractShellTest
    }
 
 
+   @Test
+   public void testSimple14()
+   {
+      runtime.run("echo \"$PROMPT\"");
+   }
+
 
    @Test
    public void testExpressionLoop() {
