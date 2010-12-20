@@ -112,7 +112,7 @@ public class ProjectFactory
       return project;
    }
 
-   private void installSingleFacet(final Project project, final Class<? extends Facet> type)
+   public void installSingleFacet(final Project project, final Class<? extends Facet> type)
    {
       Facet facet = facetFactory.getFacet(type);
 

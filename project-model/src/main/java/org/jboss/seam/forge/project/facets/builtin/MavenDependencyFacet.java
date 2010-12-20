@@ -34,6 +34,8 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -41,6 +43,7 @@ import java.util.Map.Entry;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
+@Named("forge.maven.MavenDependencyFacet")
 @RequiresFacets({MavenCoreFacet.class})
 public class MavenDependencyFacet implements DependencyFacet, Facet
 {
