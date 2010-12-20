@@ -60,7 +60,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("jpa")
+@Named("forge.jpa")
 @RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
 public class PersistenceFacet implements Facet
