@@ -29,13 +29,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.completer.CommandCompleter;
+import org.jboss.seam.forge.shell.completer.NullCommandCompleter;
 
 /**
  * A command option.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Target({PARAMETER})
+@Target({ PARAMETER })
 @Retention(RUNTIME)
 @Documented
 public @interface Option
@@ -45,19 +47,18 @@ public @interface Option
     */
    String name() default "";
 
-
    /**
     * An optional short version of the flag name.
-    *
+    * 
     * @return
     */
    String shortName() default "";
 
-
    String description() default "";
 
    /**
-    * Sets whether or not the option is just a flag. Option must be a boolean in this case.
+    * Sets whether or not the option is just a flag. Option must be a boolean in
+    * this case.
     */
    boolean flagOnly() default false;
 
@@ -86,4 +87,10 @@ public @interface Option
     * choices.)
     */
    PromptType type() default PromptType.ANY;
+
+   /**
+    * Specify the command completer type that should be used for this option.
+    * This may only be used with named options.
+    */
+   Class<? extends CommandCompleter> completer() default NullCommandCompleter.class;
 }
