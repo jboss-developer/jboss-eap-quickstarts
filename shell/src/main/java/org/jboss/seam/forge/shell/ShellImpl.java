@@ -405,7 +405,7 @@ public class ShellImpl implements Shell
             "echo \"                                                |___/      \";\n\n" +
             "" +
             "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
-            "    echo \"Windows? Really? Okay...\\n\"\n" +
+            "    echo \"  Windows? Really? Okay...\\n\"\n" +
             "}\n" +
             "\n" +
             "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
