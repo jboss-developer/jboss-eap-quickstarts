@@ -124,7 +124,7 @@ public class ShellImpl implements Shell
       @SuppressWarnings("rawtypes")
       public Resource[] convertFrom(final Object obl)
       {
-         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(), obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
+         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(), obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
       }
 
       @SuppressWarnings("rawtypes")
@@ -177,8 +177,8 @@ public class ShellImpl implements Shell
       initCompleters(pluginCompleter);
       initParameters();
 
-//      properties.put(PROP_PROMPT, DEFAULT_PROMPT);
-//      properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
+      // properties.put(PROP_PROMPT, DEFAULT_PROMPT);
+      // properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
 
       properties.put("OS_NAME", System.getProperty("os.name"));
       properties.put(PROP_PROMPT, "> ");
@@ -393,17 +393,6 @@ public class ShellImpl implements Shell
       }
    }
 
-   private void printWelcomeBanner()
-   {
-      System.out.println("   ____                          _____                    ");
-      System.out.println("  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ ");
-      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  " + renderColor(ShellColor.YELLOW, "\\\\"));
-      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  " + renderColor(ShellColor.YELLOW, "//"));
-      System.out.println("  |____/ \\___|\\__,_|_| |_| |_|  |_|  \\___/|_|  \\__, |\\___| ");
-      System.out.println("                                                |___/      ");
-      System.out.println("");
-   }
-
    private String getDefaultConfig()
    {
       return "@/* Automatically generated config file */;\n" +
@@ -431,24 +420,81 @@ public class ShellImpl implements Shell
 
    void doShell(@Observes final AcceptUserInput event)
    {
-      String line;
+      String line = "";
+      reader.setPrompt(getPrompt());
+      while ((exitRequested != true))
+      {
+         try
+         {
+            line = readLine();
+
+            if (line != null)
+            {
+               if (!"".equals(line.trim()))
+               {
+                  writeToHistory(line);
+                  execute(line);
+               }
+               reader.setPrompt(getPrompt());
+            }
+         }
+         catch (Exception e)
+         {
+            handleException(e);
+         }
+      }
+      println();
+   }
+
+   private void handleException(Exception original)
+   {
       try
       {
-         reader.setPrompt(getPrompt());
-         while ((!exitRequested) && ((line = readLine()) != null))
-         {
-            if (!"".equals(line))
-            {
-               writeToHistory(line);
-               execute(line);
-            }
-            reader.setPrompt(getPrompt());
-         }
-         println();
+         throw original;
       }
-      catch (IOException e)
+      catch (CommandExecutionException e)
       {
-         // ?
+         println("[" + e.getCommand() + "] " + e.getMessage());
+         if (isVerbose())
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (CommandParserException e)
+      {
+         println("[" + e.getCommand() + "] " + e.getMessage());
+         if (isVerbose())
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (PluginExecutionException e)
+      {
+         println("[" + e.getPlugin() + "] " + e.getMessage());
+         if (isVerbose())
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (ShellExecutionException e)
+      {
+         println(e.getMessage());
+         if (isVerbose())
+         {
+            e.printStackTrace();
+         }
+      }
+      catch (Exception e)
+      {
+         if (!isVerbose())
+         {
+            println("Exception encountered: " + e.getMessage() + " (type \"verbose on\" to enable stack traces)");
+         }
+         else
+         {
+            println("Exception encountered: (type \"verbose false\" to disable stack traces)");
+            e.printStackTrace();
+         }
       }
    }
 
@@ -816,11 +862,17 @@ public class ShellImpl implements Shell
       try
       {
          reader.removeCompleter(this.completer);
-         if (tempCompleter!=null) { reader.addCompleter(tempCompleter); }
+         if (tempCompleter != null)
+         {
+            reader.addCompleter(tempCompleter);
+         }
          reader.setHistoryEnabled(false);
          reader.setPrompt(message);
          String line = readLine();
-         if (tempCompleter!=null) { reader.removeCompleter(tempCompleter); }
+         if (tempCompleter != null)
+         {
+            reader.removeCompleter(tempCompleter);
+         }
          reader.addCompleter(this.completer);
          reader.setHistoryEnabled(true);
          reader.setPrompt("");

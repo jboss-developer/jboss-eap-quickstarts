@@ -21,24 +21,21 @@
  */
 package org.jboss.seam.forge.shell.plugins;
 
-import org.jboss.seam.forge.shell.PromptType;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.jboss.seam.forge.shell.PromptType;
 
 /**
  * A command option.
  *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Qualifier
-@Target({METHOD, PARAMETER})
+@Target({PARAMETER})
 @Retention(RUNTIME)
 @Documented
 public @interface Option

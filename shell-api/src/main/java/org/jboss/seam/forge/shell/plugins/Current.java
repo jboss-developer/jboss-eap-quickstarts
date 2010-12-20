@@ -40,13 +40,13 @@ import static java.lang.annotation.ElementType.*;
  * <p/>
  * Will inject the current resource if and only if it is a Java Resource;
  * otherwise, the injected value will be null.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Qualifier
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({METHOD, FIELD, PARAMETER})
+@Target({ TYPE, METHOD, FIELD, PARAMETER })
 public @interface Current
 {
 
