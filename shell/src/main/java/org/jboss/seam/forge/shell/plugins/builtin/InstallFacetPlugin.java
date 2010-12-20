@@ -22,6 +22,12 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -30,13 +36,14 @@ import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.services.FacetFactory;
+import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -45,10 +52,13 @@ import java.util.List;
 @Help("Installs a facet into a project.")
 @Topic("Project")
 @RequiresProject
-public class FacetInstallPlugin implements Plugin
+public class InstallFacetPlugin implements Plugin
 {
    @Inject
    private FacetFactory factory;
+
+   @Inject
+   private ProjectFactory projectFactory;
 
    @Inject
    private Shell shell;
@@ -58,6 +68,7 @@ public class FacetInstallPlugin implements Plugin
 
    @DefaultCommand
    public void install(@Option(required = true,
+         completer = AvailableFacetsCompleter.class,
          description = "Name of the facet to install") final String facetName)
    {
       try
@@ -83,10 +94,7 @@ public class FacetInstallPlugin implements Plugin
                   + facetNames
                   + ". Would you like to attempt installation of these facets as well?"))
             {
-               for (Class<? extends Facet> type : deps)
-               {
-                  project.installFacet(factory.getFacet(type));
-               }
+               projectFactory.installSingleFacet(project, facet.getClass());
             }
             else
             {

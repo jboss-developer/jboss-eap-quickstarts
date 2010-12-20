@@ -45,7 +45,7 @@ import java.util.List;
 @Help("Display a list of all project Facets.")
 @Topic("Project")
 @RequiresProject
-public class FacetStatusListPlugin implements Plugin
+public class ListFacetsPlugin implements Plugin
 {
    @Inject
    private FacetFactory factory;

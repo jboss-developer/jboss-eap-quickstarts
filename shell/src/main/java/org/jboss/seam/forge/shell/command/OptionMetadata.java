@@ -23,6 +23,8 @@
 package org.jboss.seam.forge.shell.command;
 
 import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.completer.CommandCompleter;
+import org.jboss.seam.forge.shell.completer.NullCommandCompleter;
 import org.jboss.seam.forge.shell.util.Types;
 import org.mvel2.util.ParseTools;
 import org.mvel2.util.StringAppender;
@@ -50,6 +52,7 @@ public class OptionMetadata
 
    private boolean pipeOut;
    private boolean pipeIn;
+   private Class<? extends CommandCompleter> completerType;
 
    /**
     * Get an informational string describing this Option
@@ -251,5 +254,20 @@ public class OptionMetadata
 
    public boolean notOrdered() {
       return pipeIn || pipeOut || isNamed();
+   }
+
+   public boolean hasCustomCompleter()
+   {
+      return !completerType.equals(NullCommandCompleter.class);
+   }
+
+   public void setCompleterType(Class<? extends CommandCompleter> type)
+   {
+      this.completerType = type;
+   }
+
+   public Class<? extends CommandCompleter> getCompleterType()
+   {
+      return completerType;
    }
 }

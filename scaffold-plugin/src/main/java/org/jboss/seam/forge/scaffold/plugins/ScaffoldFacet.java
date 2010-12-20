@@ -19,37 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.web;
-
-import java.io.File;
+package org.jboss.seam.forge.scaffold.plugins;
 
 import javax.inject.Named;
 
+import org.jboss.seam.forge.persistence.PersistenceFacet;
 import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
+import org.jboss.seam.forge.web.CDIFacet;
+import org.jboss.seam.forge.web.FacesFacet;
+import org.jboss.seam.forge.web.ServletFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.jsf")
-@RequiresFacets({ ServletFacet.class })
-public class FacesFacet implements Facet
+@Named("forge.scaffold")
+@RequiresFacets({ ServletFacet.class, CDIFacet.class, FacesFacet.class, PersistenceFacet.class })
+@RequiresPackagingTypes({ PackagingType.WAR })
+public class ScaffoldFacet implements Facet
 {
    private Project project;
-
-   private FileResource<?> getConfigFile()
-   {
-      DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "faces-config.xml");
-   }
-
-   /*
-    * Facet Methods
-    */
+   
    @Override
    public Project getProject()
    {
@@ -65,21 +58,12 @@ public class FacesFacet implements Facet
    @Override
    public boolean isInstalled()
    {
-      return getConfigFile().exists();
+      return project.hasFacet(ServletFacet.class) && project.hasFacet(FacesFacet.class) && project.hasFacet(CDIFacet.class);
    }
 
    @Override
    public Facet install()
    {
-      if (!isInstalled())
-      {
-         if (!getConfigFile().createNewFile())
-         {
-            throw new RuntimeException("Failed to create required [" + getConfigFile().getFullyQualifiedName() + "]");
-         }
-         getConfigFile().setContents(getClass()
-               .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
-      }
       project.registerFacet(this);
       return this;
    }

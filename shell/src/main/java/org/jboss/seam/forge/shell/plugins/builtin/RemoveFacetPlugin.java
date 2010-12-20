@@ -36,7 +36,7 @@ import javax.inject.Named;
 @Named("remove")
 @Topic("Project")
 @Help("Remove a plugin from the current project.")
-public class FacetUninstallPlugin implements Plugin
+public class RemoveFacetPlugin implements Plugin
 {
    @Inject
    private FacetFactory factory;

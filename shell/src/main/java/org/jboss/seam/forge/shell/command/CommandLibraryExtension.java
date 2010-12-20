@@ -116,6 +116,7 @@ public class CommandLibraryExtension implements Extension
       return pluginMeta;
    }
 
+   @SuppressWarnings("rawtypes")
    private List<CommandMetadata> processPluginCommands(final PluginMetadata pluginMeta, final Class<?> plugin)
    {
       List<CommandMetadata> results = new ArrayList<CommandMetadata>();
@@ -210,13 +211,13 @@ public class CommandLibraryExtension implements Extension
                      optionMeta.setHelp(option.help());
                      optionMeta.setRequired(option.required());
                      optionMeta.setPromptType(option.type());
+                     optionMeta.setCompleterType(option.completer());
 
                      effectiveIndex++;
 
                   }
                   else if (annotation instanceof PipeIn)
                   {
-                     PipeIn pipeIn = (PipeIn) annotation;
                      optionMeta.setPipeIn(true);
                   }
 

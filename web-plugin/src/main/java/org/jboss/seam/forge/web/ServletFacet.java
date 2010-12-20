@@ -51,7 +51,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("servlet")
+@Named("forge.servlet")
 @RequiresFacets({ WebResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.WAR })
 public class ServletFacet implements Facet

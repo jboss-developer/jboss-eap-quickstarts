@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.completer;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.BeanManagerUtils;
 import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
@@ -33,6 +34,7 @@ import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.command.parser.*;
 
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
@@ -63,6 +65,9 @@ public class PluginCommandCompleter implements CommandCompleter
 
    @Inject
    private ResourceFactory resourceFactory;
+
+   @Inject
+   private BeanManager manager;
 
    private String currentBuffer = "";
    private String lastBuffer = "";
@@ -346,6 +351,21 @@ public class PluginCommandCompleter implements CommandCompleter
                   // Record the current index point in the buffer. If we're at the separator char
                   // set the value ahead by 1.
                   index = index - val.length() + (lastNest != -1 ? lastNest + 1 : 0);
+               }
+               if(option.hasCustomCompleter())
+               {
+                  CommandCompleter completer = BeanManagerUtils.getContextualInstance(manager, option.getCompleterType());
+                  final List<CharSequence> candidates = new ArrayList<CharSequence>();
+                  
+                  String buf = currentBuffer.substring(command.getName().length() + 1);
+                  int ind = buf.length();
+                  
+                  int result = completer.complete(buf, ind, candidates);
+                  index = (result == 0 ? index : index - result);
+                  for (CharSequence c : candidates)
+                  {
+                     results.add(c.toString());
+                  }
                }
             }
 

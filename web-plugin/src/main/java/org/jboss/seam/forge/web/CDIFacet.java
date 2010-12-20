@@ -41,7 +41,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("cdi-web")
+@Named("forge.cdi-web")
 @RequiresFacets({ WebResourceFacet.class })
 public class CDIFacet implements Facet
 {
