@@ -36,9 +36,9 @@ import javax.inject.Singleton;
 @Singleton
 public class MockOptionTestPlugin implements Plugin
 {
-   public String suppliedOption = "";
-   public String requiredOption = "";
-   public Boolean booleanOptionOmitted = null;
+   private String suppliedOption = "";
+   private String requiredOption = "";
+   private Boolean booleanOptionOmitted = null;
 
    @Command("suppliedOption")
    public void suppliedOption(@Option(name = "package",
@@ -62,5 +62,35 @@ public class MockOptionTestPlugin implements Plugin
          description = "Some boolean flag") final boolean option)
    {
       booleanOptionOmitted = option;
+   }
+
+   public String getSuppliedOption()
+   {
+      return suppliedOption;
+   }
+
+   public void setSuppliedOption(String suppliedOption)
+   {
+      this.suppliedOption = suppliedOption;
+   }
+
+   public String getRequiredOption()
+   {
+      return requiredOption;
+   }
+
+   public void setRequiredOption(String requiredOption)
+   {
+      this.requiredOption = requiredOption;
+   }
+
+   public Boolean getBooleanOptionOmitted()
+   {
+      return booleanOptionOmitted;
+   }
+
+   public void setBooleanOptionOmitted(Boolean booleanOptionOmitted)
+   {
+      this.booleanOptionOmitted = booleanOptionOmitted;
    }
 }
