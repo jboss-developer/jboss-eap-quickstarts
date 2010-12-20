@@ -393,17 +393,6 @@ public class ShellImpl implements Shell
       }
    }
 
-   private void printWelcomeBanner()
-   {
-      System.out.println("   ____                          _____                    ");
-      System.out.println("  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ ");
-      System.out.println("  \\___ \\ / _ \\/ _` | '_ ` _ \\   | |_ / _ \\| '__/ _` |/ _ \\  " + renderColor(ShellColor.YELLOW, "\\\\"));
-      System.out.println("   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  " + renderColor(ShellColor.YELLOW, "//"));
-      System.out.println("  |____/ \\___|\\__,_|_| |_| |_|  |_|  \\___/|_|  \\__, |\\___| ");
-      System.out.println("                                                |___/      ");
-      System.out.println("");
-   }
-
    private String getDefaultConfig()
    {
       return "@/* Automatically generated config file */;\n" +

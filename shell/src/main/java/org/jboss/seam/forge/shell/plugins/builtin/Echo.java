@@ -75,6 +75,7 @@ public class Echo implements Plugin
    {
       StringBuilder builder = new StringBuilder();
       char[] expr = input.toCharArray();
+      ShellColor c = null;
 
       int i = 0;
       int start = 0;
@@ -156,6 +157,8 @@ public class Echo implements Plugin
                      switch (expr[++i])
                      {
                      case '{':
+                        boolean nextNodeColor = false;
+
                         builder.append(new String(expr, start, i - start - 2));
 
                         start = i;
@@ -181,6 +184,10 @@ public class Echo implements Plugin
                                  {
                                     if (expr[i + 1] == 'c')
                                     {
+                                       if ((i + 2 < expr.length) && expr[i + 2] == '{')
+                                       {
+                                          nextNodeColor = true;
+                                       }
                                        break Capture;
                                     }
                                  }
@@ -190,7 +197,11 @@ public class Echo implements Plugin
                               }
                            }
 
-                           ShellColor c;
+                           if (c != null && c != ShellColor.NONE)
+                           {
+                              builder.append(shell.renderColor(ShellColor.NONE, ""));
+                           }
+
                            if ("red".equals(color))
                            {
                               c = ShellColor.RED;
@@ -236,15 +247,22 @@ public class Echo implements Plugin
                            String cStr = shell.renderColor(c, toColorize);
 
                            builder.append(cStr);
-                           start = i += 2;
+                           if (nextNodeColor)
+                           {
+                              start = i--;
+                           }
+                           else
+                           {
+                              start = i += 2;
+                           }
                         }
 
                         break;
 
 
                      default:
-                        builder.append(promptExpressionParser(shell, new String(expr, start, i - start - 2)));
-                        start = ++i;
+                        //       builder.append(promptExpressionParser(shell, new String(expr, start, i - start - 2)));
+                        start = i += 2;
                      }
                   }
                }
