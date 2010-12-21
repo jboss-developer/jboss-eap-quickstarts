@@ -34,12 +34,12 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
@@ -63,94 +63,10 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 @Named("forge.spec.jpa")
 @RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
-public class PersistenceFacet implements Facet
+public class PersistenceFacet extends BaseFacet
 {
    private static final Dependency dep =
             DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
-
-   private Project project;
-
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
-   }
-
-   @Override
-   public Facet install()
-   {
-      if (!isInstalled())
-      {
-         DependencyFacet deps = project.getFacet(DependencyFacet.class);
-         if (!deps.hasDependency(dep))
-         {
-            deps.addDependency(dep);
-         }
-
-         DirectoryResource entityRoot = getEntityPackageFile();
-         if (!entityRoot.exists())
-         {
-            entityRoot.mkdirs();
-         }
-
-         installUtils();
-
-         FileResource<?> descriptor = getConfigFile();
-         if (!descriptor.exists())
-         {
-            PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                  .version("2.0")
-                  .persistenceUnit("default")
-                     .description("The Seam Forge default Persistence Unit")
-                     .transactionType(TransactionType.JTA)
-                     .provider(ProviderType.HIBERNATE)
-                     .jtaDataSource("java:/DefaultDS")
-                     .includeUnlistedClasses()
-                     .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
-                     .showSql()
-                     .formatSql()
-                     .property("hibernate.transaction.flush_before_completion", true);
-
-            descriptor.setContents(unit.exportAsString());
-         }
-      }
-      project.registerFacet(this);
-      return this;
-   }
-
-   private void installUtils()
-   {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(JavaClass.class, loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
-      JavaClass producer = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
-
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      try
-      {
-         java.saveJavaClass(producer);
-         java.saveJavaClass(util);
-      }
-      catch (FileNotFoundException e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
-
-   @Override
-   public boolean isInstalled()
-   {
-      DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      boolean hasDependency = deps.hasDependency(dep);
-      return hasDependency && getEntityPackageFile().exists() && getConfigFile().exists();
-   }
 
    public String getEntityPackage()
    {
@@ -226,5 +142,75 @@ public class PersistenceFacet implements Facet
          }
       }
       return result;
+   }
+
+   @Override
+   public Facet install()
+   {
+      if (!isInstalled())
+      {
+         DependencyFacet deps = project.getFacet(DependencyFacet.class);
+         if (!deps.hasDependency(dep))
+         {
+            deps.addDependency(dep);
+         }
+
+         DirectoryResource entityRoot = getEntityPackageFile();
+         if (!entityRoot.exists())
+         {
+            entityRoot.mkdirs();
+         }
+
+         installUtils();
+
+         FileResource<?> descriptor = getConfigFile();
+         if (!descriptor.exists())
+         {
+            PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
+                  .version("2.0")
+                  .persistenceUnit("default")
+                     .description("The Seam Forge default Persistence Unit")
+                     .transactionType(TransactionType.JTA)
+                     .provider(ProviderType.HIBERNATE)
+                     .jtaDataSource("java:/DefaultDS")
+                     .includeUnlistedClasses()
+                     .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
+                     .showSql()
+                     .formatSql()
+                     .property("hibernate.transaction.flush_before_completion", true);
+
+            descriptor.setContents(unit.exportAsString());
+         }
+      }
+      project.registerFacet(this);
+      return this;
+   }
+
+   private void installUtils()
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      JavaClass util = JavaParser.parse(JavaClass.class, loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
+      JavaClass producer = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
+
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         java.saveJavaClass(producer);
+         java.saveJavaClass(util);
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new RuntimeException(e);
+      }
+   }
+
+   @Override
+   public boolean isInstalled()
+   {
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      boolean hasDependency = deps.hasDependency(dep);
+      return hasDependency && getEntityPackageFile().exists() && getConfigFile().exists();
    }
 }

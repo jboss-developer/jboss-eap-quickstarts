@@ -26,8 +26,8 @@ import java.io.File;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
@@ -38,10 +38,8 @@ import org.jboss.seam.forge.spec.servlet.ServletFacet;
  */
 @Named("forge.spec.jsf")
 @RequiresFacets({ ServletFacet.class })
-public class FacesFacet implements Facet
+public class FacesFacet extends BaseFacet
 {
-   private Project project;
-
    private FileResource<?> getConfigFile()
    {
       DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
@@ -51,18 +49,6 @@ public class FacesFacet implements Facet
    /*
     * Facet Methods
     */
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
-   }
-
    @Override
    public boolean isInstalled()
    {

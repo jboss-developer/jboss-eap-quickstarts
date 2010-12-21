@@ -26,8 +26,8 @@ import java.io.File;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
@@ -43,35 +43,12 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
  */
 @Named("forge.spec.cdi-web")
 @RequiresFacets({ WebResourceFacet.class })
-public class CDIFacet implements Facet
+public class CDIFacet extends BaseFacet
 {
-   private Project project;
-
    private FileResource<?> getConfigFile()
    {
       DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
       return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "beans.xml");
-   }
-
-   /*
-    * Facet Methods
-    */
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
-   }
-
-   @Override
-   public boolean isInstalled()
-   {
-      return getConfigFile().exists();
    }
 
    @SuppressWarnings("unchecked")
@@ -88,6 +65,15 @@ public class CDIFacet implements Facet
       BeansDescriptor descriptor = new BeansDescriptorImpl(model);
       String output = descriptor.exportAsString();
       getConfigFile().setContents(output);
+   }
+
+   /*
+    * Facet Methods
+    */
+   @Override
+   public boolean isInstalled()
+   {
+      return getConfigFile().exists();
    }
 
    @Override
@@ -112,5 +98,4 @@ public class CDIFacet implements Facet
       project.registerFacet(this);
       return this;
    }
-
 }

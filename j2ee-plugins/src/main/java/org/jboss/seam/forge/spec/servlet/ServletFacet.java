@@ -30,12 +30,12 @@ import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
@@ -54,13 +54,11 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 @Named("forge.spec.servlet")
 @RequiresFacets({ WebResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.WAR })
-public class ServletFacet implements Facet
+public class ServletFacet extends BaseFacet
 {
 
    private static final Dependency dep =
          DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
-
-   private Project project;
 
    @SuppressWarnings("unchecked")
    public WebAppModel getConfig()
@@ -120,18 +118,6 @@ public class ServletFacet implements Facet
    /*
     * Facet Methods
     */
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
-   }
-
    @Override
    public boolean isInstalled()
    {
