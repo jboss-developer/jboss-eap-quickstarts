@@ -24,10 +24,7 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.mvel2.util.StringAppender;
 
 import javax.inject.Inject;
@@ -39,6 +36,7 @@ import java.io.InputStream;
  * @author Mike Brock .
  */
 @Named("git")
+@Topic("Version Control")
 @ResourceScope(DirectoryResource.class)
 public class GitShellPlugin implements Plugin
 {
@@ -68,7 +66,6 @@ public class GitShellPlugin implements Plugin
          Process p = Runtime.getRuntime().exec("git " + appender.toString(), null,
                shell.getCurrentDirectory().getUnderlyingResourceObject());
 
-         p.waitFor();
 
          InputStream stdout = p.getInputStream();
          InputStream stderr = p.getErrorStream();
@@ -83,7 +80,6 @@ public class GitShellPlugin implements Plugin
             }
          }
 
-
          while ((read = stderr.read(buf)) != -1)
          {
             for (int i = 0; i < read; i++)
@@ -91,6 +87,9 @@ public class GitShellPlugin implements Plugin
                out.write(buf[i]);
             }
          }
+
+         p.waitFor();
+
       }
       catch (InterruptedException e)
       {
