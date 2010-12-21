@@ -109,7 +109,7 @@ public class ConstraintEnforcer
    {
       try
       {
-         verifyAvailable(null, plugin);
+         verifyAvailable(currentProject, plugin);
       }
       catch (ConstraintException e)
       {
