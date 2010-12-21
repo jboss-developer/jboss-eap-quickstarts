@@ -25,40 +25,10 @@ package org.jboss.seam.forge.shell.command.fshparser;
 /**
  * @author Mike Brock .
  */
-public class TokenNode extends Node
+public class StringTokenNode extends TokenNode
 {
-   protected String value;
-
-   public TokenNode()
-   {
-   }
-
-   public TokenNode(String value)
-   {
-      if (value.startsWith("$"))
-      {
-         this.value = value.substring(1);
-      }
-      else
-      {
-         this.value = value;
-      }
-   }
-
-   public String getValue()
-   {
-      return value;
-   }
-
-   public void setValue(String value)
+   public StringTokenNode(String value)
    {
       this.value = value;
-   }
-
-
-   @Override
-   public String toString()
-   {
-      return value + (next != null ? " " + next.toString() : "");
    }
 }

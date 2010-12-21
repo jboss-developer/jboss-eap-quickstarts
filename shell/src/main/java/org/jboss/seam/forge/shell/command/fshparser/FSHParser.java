@@ -93,7 +93,7 @@ public class FSHParser
       case '\'':
       case '"':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
-         return new TokenNode(new String(expr, start + 1, cursor++ - start - 1));
+         return new StringTokenNode(new String(expr, start + 1, cursor++ - start - 1));
 
       case '(':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
