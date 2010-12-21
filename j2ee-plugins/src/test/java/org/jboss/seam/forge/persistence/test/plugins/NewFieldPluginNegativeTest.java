@@ -1,3 +1,5 @@
+package org.jboss.seam.forge.persistence.test.plugins;
+
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
@@ -19,53 +21,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.scaffold.plugins;
 
-import javax.inject.Named;
-
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
-import org.jboss.seam.forge.spec.cdi.CDIFacet;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
-import org.jboss.seam.forge.spec.jsf.FacesFacet;
-import org.jboss.seam.forge.spec.servlet.ServletFacet;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.io.FileNotFoundException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.scaffold")
-@RequiresFacets({ ServletFacet.class, CDIFacet.class, FacesFacet.class, PersistenceFacet.class })
-@RequiresPackagingTypes({ PackagingType.WAR })
-public class ScaffoldFacet implements Facet
+@RunWith(Arquillian.class)
+public class NewFieldPluginNegativeTest extends AbstractJPATest
 {
-   private Project project;
-   
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
 
-   @Override
-   public void setProject(final Project project)
+   @Test(expected = FileNotFoundException.class)
+   public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
    {
-      this.project = project;
-   }
+      Project project = getProject();
+      String entityName = "Goofy";
 
-   @Override
-   public boolean isInstalled()
-   {
-      return project.hasFacet(ServletFacet.class) && project.hasFacet(FacesFacet.class) && project.hasFacet(CDIFacet.class);
-   }
+      queueInputLines(entityName);
+      getShell().execute("new-field int --fieldName gamesPlayed");
 
-   @Override
-   public Facet install()
-   {
-      project.registerFacet(this);
-      return this;
-   }
+      String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
+      String path = Packages.toFileSyntax(pkg) + ".java";
 
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      java.getJavaResource(path).getJavaSource(); // exception here or die
+   }
 }

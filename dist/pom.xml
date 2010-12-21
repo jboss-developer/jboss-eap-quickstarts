@@ -25,12 +25,7 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
-         <artifactId>forge-persistence-plugin</artifactId>
-         <version>${project.version}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.seam.forge</groupId>
-         <artifactId>forge-web-plugin</artifactId>
+         <artifactId>forge-j2ee-plugins</artifactId>
          <version>${project.version}</version>
       </dependency>
       <dependency>

@@ -30,8 +30,7 @@
       <module>shell-api</module>
       <module>test-harness</module>
       <module>shell</module>
-      <module>persistence-plugin</module>
-      <module>web-plugin</module>
+      <module>j2ee-plugins</module>
       <module>scaffold-plugin</module>
    </modules>
 
@@ -92,12 +91,7 @@
          </dependency>
          <dependency>
             <groupId>org.jboss.seam.forge</groupId>
-            <artifactId>forge-persistence-plugin</artifactId>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.jboss.seam.forge</groupId>
-            <artifactId>forge-web-plugin</artifactId>
+            <artifactId>forge-j2ee-plugins</artifactId>
             <version>${project.version}</version>
          </dependency>
          <dependency>

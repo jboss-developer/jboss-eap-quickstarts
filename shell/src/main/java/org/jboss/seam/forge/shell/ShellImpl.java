@@ -354,7 +354,6 @@ public class ShellImpl implements Shell
    {
       List<Completer> completers = new ArrayList<Completer>();
       completers.add(new CommandCompleterAdaptor(pluginCompleter));
-      // completers.add(new FileOptionCompleter());
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);
