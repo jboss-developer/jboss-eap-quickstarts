@@ -14,45 +14,39 @@ import org.jboss.seam.forge.shell.completer.CommandCompleter;
 
 public class AvailableFacetsCompleter implements CommandCompleter
 {
-   @Inject 
+   @Inject
    private FacetFactory factory;
-   
-   @Inject 
+
+   @Inject
    private Shell shell;
 
    @Override
-   public int complete(String buffer, int cursor, List<CharSequence> candidates)
+   public void complete(CommandCompleterState st)
    {
+      PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
+
       Project project = shell.getCurrentProject();
       List<Facet> allFacets = factory.getFacets();
       List<Class<? extends Facet>> uninstalledFacets = new ArrayList<Class<? extends Facet>>();
-      
+
       for (Facet facet : allFacets)
       {
-         if(!project.hasFacet(facet.getClass()))
+         if (!project.hasFacet(facet.getClass()))
          {
             uninstalledFacets.add(facet.getClass());
          }
       }
-      
+
+      String buf = state.getBuffer().substring(state.getCommand().getName().length() + 1);
       for (Class<? extends Facet> type : uninstalledFacets)
       {
          String name = ConstraintInspector.getName(type);
-         if(name.startsWith(buffer))
+         if (name.startsWith(buf))
          {
-            candidates.add(name + " ");
+            state.getCandidates().add(name + " ");
+            state.setIndex(state.getIndex() - buf.length());
          }
       }
-      
-      if(candidates.isEmpty())
-      {
-         return 0;
-      }
-      if(buffer.length() == 0)
-      {
-         return cursor;
-      }
-      return buffer.length();
    }
 
 }

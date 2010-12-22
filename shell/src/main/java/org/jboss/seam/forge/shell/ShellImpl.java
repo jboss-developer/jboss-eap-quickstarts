@@ -22,10 +22,35 @@
 
 package org.jboss.seam.forge.shell;
 
+import static org.mvel2.DataConversion.addConversionHandler;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 import jline.console.history.MemoryHistory;
+
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
@@ -37,10 +62,13 @@ import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
-import org.jboss.seam.forge.shell.completer.CommandCompleterAdaptor;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.exceptions.*;
+import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.forge.shell.exceptions.CommandParserException;
+import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
@@ -54,16 +82,6 @@ import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.util.StringAppender;
-
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.*;
-import java.util.*;
-import java.util.Map.Entry;
-
-import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -353,7 +371,7 @@ public class ShellImpl implements Shell
    private void initCompleters(final PluginCommandCompleter pluginCompleter)
    {
       List<Completer> completers = new ArrayList<Completer>();
-      completers.add(new CommandCompleterAdaptor(pluginCompleter));
+      completers.add(pluginCompleter);
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);

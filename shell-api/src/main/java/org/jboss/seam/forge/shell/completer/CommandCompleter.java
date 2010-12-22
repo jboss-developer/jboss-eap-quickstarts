@@ -32,5 +32,5 @@ import java.util.List;
  */
 public interface CommandCompleter
 {
-   public int complete(final String buffer, final int cursor, final List<CharSequence> candidates);
+   public void complete(CommandCompleterState state);
 }

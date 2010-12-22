@@ -258,7 +258,7 @@ public class OptionMetadata
 
    public boolean hasCustomCompleter()
    {
-      return !completerType.equals(NullCommandCompleter.class);
+      return completerType != null && !completerType.equals(NullCommandCompleter.class);
    }
 
    public void setCompleterType(Class<? extends CommandCompleter> type)
