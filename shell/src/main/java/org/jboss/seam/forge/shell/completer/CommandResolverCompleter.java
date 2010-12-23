@@ -16,7 +16,7 @@ public class CommandResolverCompleter implements CommandCompleter
    private Shell shell;
 
    @Override
-   public void complete(CommandCompleterState st)
+   public void complete(final CommandCompleterState st)
    {
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
@@ -35,7 +35,7 @@ public class CommandResolverCompleter implements CommandCompleter
             {
                CommandMetadata command = plugin.getCommand(tokens.remove());
                state.setCommand(command);
-               
+
                // TODO this should probably be tokenComplete`?` sensitive
                // complete the command, remove the last token
             }
@@ -43,14 +43,14 @@ public class CommandResolverCompleter implements CommandCompleter
             {
                CommandMetadata defaultCommand = plugin.getDefaultCommand();
                state.setCommand(defaultCommand);
-               
+
             }
             else
             {
                // bad input, not a command and there is no default command
             }
          }
-         else
+         else if (!tokens.isEmpty())
          {
             // just one more token, it's either a command or an argument
             // for the default command
@@ -63,22 +63,29 @@ public class CommandResolverCompleter implements CommandCompleter
             else if (couldBeCommand(plugin, peek))
             {
                state.setIndex(state.getBuffer().indexOf(peek));
-               List<String> commandCandidates = getCommandCandidates(plugin, state);
-               state.getCandidates().addAll(commandCandidates);
+               addCommandCandidates(plugin, state);
             }
-            else if (plugin.hasDefaultCommand())
+         }
+
+         if (state.getCommand() == null)
+         {
+            if (plugin.hasDefaultCommand())
             {
                CommandMetadata defaultCommand = plugin.getDefaultCommand();
                state.setCommand(defaultCommand);
             }
+            else if (plugin.hasCommands())
+            {
+               addCommandCandidates(plugin, state);
+            }
          }
       }
    }
-   
+
    /**
     * Add command completions for the given plugin, with or without tokens
     */
-   private List<String> getCommandCandidates(final PluginMetadata plugin, final PluginCommandCompleterState state)
+   private void addCommandCandidates(final PluginMetadata plugin, final PluginCommandCompleterState state)
    {
       Queue<String> tokens = state.getTokens();
       List<String> results = new ArrayList<String>();
@@ -107,7 +114,7 @@ public class CommandResolverCompleter implements CommandCompleter
             }
          }
       }
-      return results;
+      state.getCandidates().addAll(results);
    }
 
    private boolean couldBeCommand(final PluginMetadata plugin, final String potentialCommand)
@@ -117,7 +124,8 @@ public class CommandResolverCompleter implements CommandCompleter
       {
          for (CommandMetadata commandMetadata : commands)
          {
-            if (!commandMetadata.isDefault() && PluginCommandCompleter.isPotentialMatch(commandMetadata.getName(), potentialCommand))
+            if (!commandMetadata.isDefault()
+                     && PluginCommandCompleter.isPotentialMatch(commandMetadata.getName(), potentialCommand))
             {
                return true;
             }

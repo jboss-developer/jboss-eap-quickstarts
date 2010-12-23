@@ -46,11 +46,11 @@ public class PluginResolverCompleter implements CommandCompleter
    private PluginRegistry registry;
 
    @Override
-   public void complete(CommandCompleterState st)
+   public void complete(final CommandCompleterState st)
    {
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
       Queue<String> tokens = state.getTokens();
-      
+
       if (!tokens.isEmpty())
       {
          String pluginName = tokens.remove();
@@ -59,18 +59,19 @@ public class PluginResolverCompleter implements CommandCompleter
          if ((plugin != null))
          {
             // found a plugin match directly
+            state.setPlugin(plugin);
             if (tokens.isEmpty())
             {
                // there's only a plugin so far
                if (state.isFinalTokenComplete())
                {
-                  // they chose this command, start at the end for command
+                  // they chose this plugin, start at the end for command
                   // completion
-                  state.setPlugin(plugin);
                   state.setIndex(state.getBuffer().length());
                }
                else
                {
+                  state.getCandidates().add(pluginName + " ");
                   // they haven't yet chosen a plugin, start at the beginning
                   state.setIndex(0);
                }
@@ -114,7 +115,8 @@ public class PluginResolverCompleter implements CommandCompleter
             if (pluginMeta.hasCommands())
             {
                String pluginName = pluginMeta.getName();
-               if (PluginCommandCompleter.isPotentialMatch(pluginName, pluginBase) && pluginMeta.constrantsSatisfied(shell))
+               if (PluginCommandCompleter.isPotentialMatch(pluginName, pluginBase)
+                        && pluginMeta.constrantsSatisfied(shell))
                {
                   results.add(pluginName + " ");
                }

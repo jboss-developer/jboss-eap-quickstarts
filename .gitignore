@@ -3,5 +3,8 @@
 *.settings
 *.DS_Store
 */target/*
+*target/*
+*/bin/*
+*bin/*
 *.iml
 *.ipr

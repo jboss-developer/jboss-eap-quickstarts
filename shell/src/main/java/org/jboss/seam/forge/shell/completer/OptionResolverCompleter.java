@@ -11,7 +11,7 @@ public class OptionResolverCompleter implements CommandCompleter
 {
 
    @Override
-   public void complete(CommandCompleterState st)
+   public void complete(final CommandCompleterState st)
    {
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
@@ -31,11 +31,11 @@ public class OptionResolverCompleter implements CommandCompleter
       Queue<String> tokens = state.getTokens();
       ArrayList<String> results = new ArrayList<String>();
       List<OptionMetadata> options = command.getOptions();
+      List<OptionMetadata> removedOptions = new ArrayList<OptionMetadata>();
 
-      // suggest when we have a named param and no value
       for (OptionMetadata option : options)
       {
-         if (tokens.size() == 1)
+         if ((tokens.size() == 1) && !tokens.peek().equals("--"))
          {
             String potentialOption = tokens.remove();
             if (potentialOption.startsWith("--"))
@@ -43,17 +43,39 @@ public class OptionResolverCompleter implements CommandCompleter
                potentialOption = potentialOption.substring(2);
             }
 
-            if (option.getName().startsWith(potentialOption))
+            if (!potentialOption.isEmpty() && option.getName().startsWith(potentialOption))
             {
-               results.add("--" + option.getName() + " ");
-               state.setIndex(state.getIndex() - potentialOption.length());
+               String suggestion = "--" + option.getName() + " ";
+               results.add(suggestion);
+               state.setIndex(state.getIndex() - potentialOption.length() - 2);
+               if (state.isFinalTokenComplete())
+               {
+                  state.setIndex(state.getIndex() - 1);
+               }
             }
          }
-         else
+         else if (tokens.size() > 1)
          {
-            if (!option.isRequired() && state.getBuffer().equals(state.getLastBuffer()))
+            String removed = tokens.remove();
+            if (removed.startsWith("--"))
             {
-               if (option.isNamed())
+               removed.substring(2);
+            }
+
+            if (!removed.isEmpty() && option.getName().equals(removed))
+            {
+               removedOptions.add(option);
+            }
+         }
+      }
+
+      if (!state.hasSuggestions())
+      {
+         for (OptionMetadata option : options)
+         {
+            if (option.isNamed() && !removedOptions.contains(option))
+            {
+               if (option.isRequired())
                {
                   String prefix = "";
                   if (!state.isFinalTokenComplete())
@@ -62,16 +84,21 @@ public class OptionResolverCompleter implements CommandCompleter
                   }
                   results.add(prefix + "--" + option.getName() + " ");
                }
-               else
+               else if (!option.isRequired() && state.getBuffer().equals(state.getLastBuffer()))
                {
-                  results.add("");
+                  // only do optional options if they really want it (double tab)
+                  // TODO this state comparison should be state.isRepeat() or something
+
+                  String prefix = "";
+                  if (!state.isFinalTokenComplete())
+                  {
+                     prefix = " ";
+                  }
+                  results.add(prefix + "--" + option.getName() + " ");
                }
-               break;
             }
          }
       }
-
       return results;
    }
-
 }
