@@ -41,12 +41,13 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.spec.cdi-web")
+@Named("forge.spec.cdi")
 @RequiresFacets({ WebResourceFacet.class })
 public class CDIFacet extends BaseFacet
 {
    private FileResource<?> getConfigFile()
    {
+      // TODO this needs to observe (PackagingChangedEvent) and be able to switch between JAR/WAR
       DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
       return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "beans.xml");
    }
@@ -81,18 +82,14 @@ public class CDIFacet extends BaseFacet
    {
       if (!isInstalled())
       {
-         if (!getConfigFile().createNewFile())
+         FileResource<?> descriptor = getConfigFile();
+         if (!descriptor.createNewFile())
          {
             throw new RuntimeException("Failed to create required [" + getConfigFile().getFullyQualifiedName() + "]");
          }
 
-         FileResource<?> descriptor = getConfigFile();
-         if (!descriptor.exists())
-         {
-            descriptor.createNewFile();
-            descriptor.setContents(getClass()
-                  .getResourceAsStream("/org/jboss/seam/forge/web/beans.xml"));
-         }
+         descriptor.setContents(getClass()
+                     .getResourceAsStream("/org/jboss/seam/forge/web/beans.xml"));
 
       }
       project.registerFacet(this);

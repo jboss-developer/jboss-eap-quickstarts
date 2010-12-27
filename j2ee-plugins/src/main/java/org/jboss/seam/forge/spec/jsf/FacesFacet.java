@@ -40,7 +40,7 @@ import org.jboss.seam.forge.spec.servlet.ServletFacet;
 @RequiresFacets({ ServletFacet.class })
 public class FacesFacet extends BaseFacet
 {
-   private FileResource<?> getConfigFile()
+   public FileResource<?> getConfigFile()
    {
       DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
       return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "faces-config.xml");
@@ -65,7 +65,7 @@ public class FacesFacet extends BaseFacet
             throw new RuntimeException("Failed to create required [" + getConfigFile().getFullyQualifiedName() + "]");
          }
          getConfigFile().setContents(getClass()
-               .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
+                  .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
       }
       project.registerFacet(this);
       return this;

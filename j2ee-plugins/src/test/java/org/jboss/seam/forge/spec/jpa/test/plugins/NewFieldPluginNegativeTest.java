@@ -1,3 +1,5 @@
+package org.jboss.seam.forge.spec.jpa.test.plugins;
+
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
@@ -19,51 +21,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.persistence.test.plugins.util;
 
-import static org.junit.Assert.assertFalse;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
-import org.junit.Before;
+import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.io.FileNotFoundException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class AbstractJPATest extends SingletonAbstractShellTest
+@RunWith(Arquillian.class)
+public class NewFieldPluginNegativeTest extends AbstractJPATest
 {
-   private int count = 0;
 
-   @Before
-   @Override
-   public void beforeTest() throws IOException
+   @Test(expected = FileNotFoundException.class)
+   public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
    {
-      super.beforeTest();
-      initializeJavaProject();
-      if ((getProject() != null) && !getProject().hasFacet(PersistenceFacet.class))
-      {
-         getShell().execute("install forge.spec.jpa");
-      }
-   }
+      Project project = getProject();
+      String entityName = "Goofy";
 
-   protected JavaClass generateEntity(final Project project) throws FileNotFoundException
-   {
-      String entityName = "Goofy" + count++;
-      queueInputLines("");
-      getShell().execute("new-entity --named " + entityName);
+      queueInputLines(entityName);
+      getShell().execute("new-field int --fieldName gamesPlayed");
 
       String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";
-      JavaClass javaClass = (JavaClass) project.getFacet(JavaSourceFacet.class).getJavaResource(path).getJavaSource();
 
-      assertFalse(javaClass.hasSyntaxErrors());
-      return javaClass;
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      java.getJavaResource(path).getJavaSource(); // exception here or die
    }
 }

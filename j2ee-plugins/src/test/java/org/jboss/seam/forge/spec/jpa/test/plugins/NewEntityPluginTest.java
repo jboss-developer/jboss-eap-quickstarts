@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.persistence.test.plugins;
+package org.jboss.seam.forge.spec.jpa.test.plugins;
 
 /*
  * JBoss, Home of Professional Open Source
@@ -29,11 +29,11 @@ import javax.persistence.Entity;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.util.Packages;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
+import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

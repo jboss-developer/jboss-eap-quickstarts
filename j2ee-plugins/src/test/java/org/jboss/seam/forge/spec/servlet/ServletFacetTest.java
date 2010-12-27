@@ -1,5 +1,3 @@
-package org.jboss.seam.forge.persistence.test.plugins;
-
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
@@ -22,38 +20,34 @@ package org.jboss.seam.forge.persistence.test.plugins;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+package org.jboss.seam.forge.spec.servlet;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.persistence.test.plugins.util.AbstractJPATest;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.util.Packages;
-import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
+import org.jboss.seam.forge.test.SingletonAbstractShellTest;
+import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.FileNotFoundException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @RunWith(Arquillian.class)
-public class NewFieldPluginNegativeTest extends AbstractJPATest
+public class ServletFacetTest extends SingletonAbstractShellTest
 {
-
-   @Test(expected = FileNotFoundException.class)
-   public void testNewFieldWithoutEntityDoesNotCreateFile() throws Exception
+   @Test
+   public void testWebXMLCreatedWhenInstalled() throws Exception
    {
-      Project project = getProject();
-      String entityName = "Goofy";
+      Project project = initializeJavaProject();
+      getShell().execute("install forge.spec.servlet");
+      assertTrue(project.hasFacet(ServletFacet.class));
+      WebAppModel config = project.getFacet(ServletFacet.class).getConfig();
 
-      queueInputLines(entityName);
-      getShell().execute("new-field int --fieldName gamesPlayed");
-
-      String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
-      String path = Packages.toFileSyntax(pkg) + ".java";
-
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      java.getJavaResource(path).getJavaSource(); // exception here or die
+      assertNotNull(config);
+      assertEquals("3.0", config.getVersion());
    }
 }

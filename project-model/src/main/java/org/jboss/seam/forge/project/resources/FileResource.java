@@ -22,6 +22,16 @@
 
 package org.jboss.seam.forge.project.resources;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.Resource;
@@ -29,8 +39,6 @@ import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.OSUtils;
-
-import java.io.*;
 
 /**
  * A standard, built-in resource for representing files on the filesystem.
@@ -65,8 +73,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
-    * Get the actual underlying file resource that this resource instance
-    * represents, whether existing or non-existing.
+    * Get the actual underlying file resource that this resource instance represents, whether existing or non-existing.
     * 
     * @return An instance of {@link File}
     */
@@ -97,8 +104,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
-    * Get the parent of the current resource. Returns null if the current
-    * resource is the project root.
+    * Get the parent of the current resource. Returns null if the current resource is the project root.
     * 
     * @return An instance of the resource parent.
     */
@@ -115,8 +121,8 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
-    * Create a new {@link Resource} instance for the target file. The new
-    * {@link Resource} should be of the same type as <b>this</b>.
+    * Create a new {@link Resource} instance for the target file. The new {@link Resource} should be of the same type as
+    * <b>this</b>.
     * 
     * @param file The file to create the resource instance from.
     * @return A new resource.
@@ -131,8 +137,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
-    * Returns true if the underlying resource has been modified on the file
-    * system since it was initially loaded.
+    * Returns true if the underlying resource has been modified on the file system since it was initially loaded.
     * 
     * @return boolean true if resource is changed.
     */
@@ -164,7 +169,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       return delete(true);
    }
 
-   public boolean delete(boolean recursive)
+   public boolean delete(final boolean recursive)
    {
       if (recursive)
       {
@@ -181,7 +186,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       return file.delete();
    }
 
-   private static boolean _deleteRecursive(File file, boolean collect)
+   private static boolean _deleteRecursive(final File file, final boolean collect)
    {
       if (collect && OSUtils.isWindows())
          System.gc(); // ensure no lingering handles that would prevent deletion
@@ -228,7 +233,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    @SuppressWarnings("unchecked")
-   public T setContents(InputStream data)
+   public T setContents(final InputStream data)
    {
       T temp = null;
       try
@@ -284,6 +289,10 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    {
       try
       {
+         if (file.mkdirs())
+         {
+            file.delete();
+         }
          return file.createNewFile();
       }
       catch (IOException e)
@@ -305,7 +314,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       }
    }
 
-   public boolean renameTo(FileResource<?> target)
+   public boolean renameTo(final FileResource<?> target)
    {
       return file.renameTo(target.getUnderlyingResourceObject());
    }
