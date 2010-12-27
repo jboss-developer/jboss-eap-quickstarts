@@ -59,7 +59,7 @@ public class OptionResolverCompleter implements CommandCompleter
             String removed = tokens.remove();
             if (removed.startsWith("--"))
             {
-               removed.substring(2);
+               removed = removed.substring(2);
             }
 
             if (!removed.isEmpty() && option.getName().equals(removed))

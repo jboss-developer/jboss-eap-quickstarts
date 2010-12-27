@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.shell.test.completer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -120,5 +121,17 @@ public class PluginCommandCompleterTest extends AbstractShellTest
       int index = completer.complete(input, 0, candidates);
       assertEquals(input.length(), index);
       assertTrue(candidates.contains("--option "));
+   }
+
+   @Test
+   public void testRequiredNamedOptionCompletionTabTwice() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command3 --option foo ";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(input.length(), index);
+      assertEquals(1, candidates.size());
+      assertTrue(candidates.contains("--option2 "));
+      assertFalse(candidates.contains("--option "));
    }
 }

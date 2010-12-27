@@ -48,6 +48,15 @@ public class MockCompleterPlugin implements Plugin
       command2Invoked = true;
    }
 
+   @Command("command3")
+   public void command3(
+            @Option(name = "option", description = "Option One", required = true) final int number,
+            @Option(name = "option2", description = "Option Two", required = true) final int number2,
+            @Option(required = false) final String optional)
+   {
+      command2Invoked = true;
+   }
+
    public boolean isCommand1Invoked()
    {
       return command1Invoked;

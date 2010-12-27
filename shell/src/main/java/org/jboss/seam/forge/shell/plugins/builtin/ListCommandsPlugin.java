@@ -22,25 +22,31 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 
 /**
  * @author Mike Brock
@@ -60,11 +66,12 @@ public class ListCommandsPlugin implements Plugin
       this.shell = shell;
    }
 
+   @SuppressWarnings("rawtypes")
    @DefaultCommand
    public void listCommands(
-         @Option(name = "all", shortName = "a", flagOnly = true) final boolean showAll,
-         final PipeOut pipeOut
-   )
+            @Option(name = "all", shortName = "a", flagOnly = true) final boolean showAll,
+            final PipeOut pipeOut
+            )
    {
       List<String> listData;
       Map<String, List<String>> listGroups = new TreeMap<String, List<String>>();
@@ -163,6 +170,7 @@ public class ListCommandsPlugin implements Plugin
       }
    }
 
+   @SuppressWarnings("rawtypes")
    private static String render(final boolean showAll, final Class<? extends Resource> currResource,
                                 final CommandMetadata cmdMeta)
    {

@@ -51,7 +51,6 @@ public class CurrentProject
    @Inject
    private Event<ProjectChange> projectChanged;
 
-
    @Produces
    @Default
    @Dependent
@@ -64,21 +63,21 @@ public class CurrentProject
    {
       if ((project != null) && (currentProject != null))
       {
-         FileResource currentRoot = currentProject.getProjectRoot();
-         FileResource newRoot = project.getProjectRoot();
+         FileResource<?> currentRoot = currentProject.getProjectRoot();
+         FileResource<?> newRoot = project.getProjectRoot();
          if (!currentRoot.equals(newRoot))
          {
             changeProject(currentProject, project);
          }
       }
       else if (((project != null) && (currentProject == null))
-            || ((project == null) && (currentProject != null)))
+               || ((project == null) && (currentProject != null)))
       {
          changeProject(currentProject, project);
       }
    }
 
-   private void changeProject(Project currentProject, Project project)
+   private void changeProject(final Project currentProject, final Project project)
    {
       ProjectChange event = new ProjectChange(currentProject, project);
       this.currentProject = project;
