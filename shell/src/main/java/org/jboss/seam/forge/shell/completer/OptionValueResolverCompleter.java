@@ -33,7 +33,7 @@ public class OptionValueResolverCompleter implements CommandCompleter
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
       OptionMetadata option = state.getOption();
-      if (option != null)
+      if ((option != null) && (state.getOptionValueMap() != null))
       {
          ArrayList<String> results = new ArrayList<String>();
 
