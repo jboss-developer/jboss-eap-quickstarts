@@ -28,11 +28,11 @@ import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser
 public class OptionValueResolverCompleter implements CommandCompleter
 {
    private final CommandParser commandParser = new CompositeCommandParser(
-         new NamedBooleanOptionParser(),
-         new NamedValueOptionParser(),
-         new NamedValueVarargsOptionParser(),
-         new OrderedValueOptionParser(),
-         new OrderedValueVarargsOptionParser());
+            new NamedBooleanOptionParser(),
+            new NamedValueOptionParser(),
+            new NamedValueVarargsOptionParser(),
+            new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser());
 
    @Inject
    private Shell shell;
@@ -43,7 +43,7 @@ public class OptionValueResolverCompleter implements CommandCompleter
    private ResourceFactory resourceFactory;
 
    @Override
-   public void complete(CommandCompleterState st)
+   public void complete(final CommandCompleterState st)
    {
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
@@ -52,13 +52,10 @@ public class OptionValueResolverCompleter implements CommandCompleter
       {
          Queue<String> tokens = state.getTokens();
          ArrayList<String> results = new ArrayList<String>();
-         Map<OptionMetadata, Object> valueMap = commandParser.parse(state.getCommand(), tokens, new CommandParserContext());
+         Map<OptionMetadata, Object> optionValueMap = commandParser.parse(state.getCommand(), tokens,
+                  new CommandParserContext());
 
-         // TODO determine which option came last, if it had a value, if the
-         // value
-         // can be hinted
-
-         if (!valueMap.containsKey(option) && option.isRequired())
+         if (!optionValueMap.containsKey(option) && option.isRequired())
          {
             if (option.isNamed())
             {
@@ -74,7 +71,7 @@ public class OptionValueResolverCompleter implements CommandCompleter
                results.add("");
             }
          }
-         else if (valueMap.isEmpty() || valueMap.containsKey(option))
+         else if (optionValueMap.isEmpty() || optionValueMap.containsKey(option))
          {
             if (option.hasCustomCompleter())
             {
@@ -91,23 +88,23 @@ public class OptionValueResolverCompleter implements CommandCompleter
             {
                String[] values;
 
-               if (valueMap.isEmpty())
+               if (optionValueMap.isEmpty())
                {
                   values = new String[] { "" };
                }
-               else if (valueMap.get(option) instanceof String[])
+               else if (optionValueMap.get(option) instanceof String[])
                {
-                  values = (String[]) valueMap.get(option);
+                  values = (String[]) optionValueMap.get(option);
                }
                else
                {
-                  values = new String[] { String.valueOf(valueMap.get(option)) };
+                  values = new String[] { String.valueOf(optionValueMap.get(option)) };
                }
 
                String val = values[values.length - 1];
 
                for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*")
-                     .resolve())
+                        .resolve())
                {
                   // Add result to the results list, and append a '/' if the
                   // resource has children.
@@ -129,7 +126,7 @@ public class OptionValueResolverCompleter implements CommandCompleter
    private boolean isResourceAssignable(final OptionMetadata option)
    {
       return Resource[].class.isAssignableFrom(option.getBoxedType())
-            || Resource.class.isAssignableFrom(option.getBoxedType());
+               || Resource.class.isAssignableFrom(option.getBoxedType());
    }
 
 }

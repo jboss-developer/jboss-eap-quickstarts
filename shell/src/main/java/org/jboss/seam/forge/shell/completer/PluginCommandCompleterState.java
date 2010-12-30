@@ -42,25 +42,25 @@ public class PluginCommandCompleterState implements CommandCompleterState
    /*
     * Immutable state
     */
-   private String buffer;
-   private String lastBuffer;
-   private int originalIndex;
-   private boolean tokenComplete;
+   private final String buffer;
+   private final String lastBuffer;
+   private final int originalIndex;
+   private final boolean tokenComplete;
 
    /*
     * Mutable State
     */
-   private Queue<String> tokens;
+   private final Queue<String> tokens;
 
    private PluginMetadata plugin;
    private CommandMetadata command;
    private OptionMetadata option;
    private Map<OptionMetadata, Object> optionValueMap;
-   
-   private List<String> candidates = new ArrayList<String>();
+
+   private final List<String> candidates = new ArrayList<String>();
    private int index;
 
-   public PluginCommandCompleterState(String initialBuffer, String lastBuffer, int initialIndex)
+   public PluginCommandCompleterState(final String initialBuffer, final String lastBuffer, final int initialIndex)
    {
       this.buffer = initialBuffer;
       this.lastBuffer = lastBuffer;
@@ -107,6 +107,14 @@ public class PluginCommandCompleterState implements CommandCompleterState
    }
 
    /*
+    * Modifiers
+    */
+   public void setIndex(final int newIndex)
+   {
+      this.index = newIndex;
+   }
+
+   /*
     * Mutable state
     */
    public PluginMetadata getPlugin()
@@ -114,7 +122,7 @@ public class PluginCommandCompleterState implements CommandCompleterState
       return plugin;
    }
 
-   public void setPlugin(PluginMetadata plugin)
+   public void setPlugin(final PluginMetadata plugin)
    {
       this.plugin = plugin;
    }
@@ -124,7 +132,7 @@ public class PluginCommandCompleterState implements CommandCompleterState
       return command;
    }
 
-   public void setCommand(CommandMetadata command)
+   public void setCommand(final CommandMetadata command)
    {
       this.command = command;
    }
@@ -134,7 +142,7 @@ public class PluginCommandCompleterState implements CommandCompleterState
       return option;
    }
 
-   public void setOption(OptionMetadata option)
+   public void setOption(final OptionMetadata option)
    {
       this.option = option;
    }
@@ -142,11 +150,6 @@ public class PluginCommandCompleterState implements CommandCompleterState
    public int getIndex()
    {
       return index;
-   }
-
-   public void setIndex(int newIndex)
-   {
-      this.index = newIndex;
    }
 
    public Queue<String> getTokens()
@@ -164,7 +167,7 @@ public class PluginCommandCompleterState implements CommandCompleterState
       return optionValueMap;
    }
 
-   public void setOptionValueMap(Map<OptionMetadata, Object> optionValueMap)
+   public void setOptionValueMap(final Map<OptionMetadata, Object> optionValueMap)
    {
       this.optionValueMap = optionValueMap;
    }

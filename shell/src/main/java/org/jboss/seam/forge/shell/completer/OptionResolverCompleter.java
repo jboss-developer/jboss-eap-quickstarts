@@ -2,13 +2,30 @@ package org.jboss.seam.forge.shell.completer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
+import org.jboss.seam.forge.shell.command.parser.CommandParser;
+import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
+import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
+import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
+import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
 
 public class OptionResolverCompleter implements CommandCompleter
 {
+
+   private final CommandParser commandParser = new CompositeCommandParser(
+            new NamedBooleanOptionParser(),
+            new NamedValueOptionParser(),
+            new NamedValueVarargsOptionParser(),
+            new OrderedValueOptionParser(),
+            new OrderedValueVarargsOptionParser());
 
    @Override
    public void complete(final CommandCompleterState st)
@@ -20,85 +37,107 @@ public class OptionResolverCompleter implements CommandCompleter
       {
          if (command.hasOptions())
          {
-            List<String> optionCandidates = getOptionCandidates(command, state);
-            state.getCandidates().addAll(optionCandidates);
+            getOptionCandidates(command, state);
          }
       }
    }
 
-   private List<String> getOptionCandidates(final CommandMetadata command, final PluginCommandCompleterState state)
+   private void getOptionCandidates(final CommandMetadata command, final PluginCommandCompleterState state)
    {
-      Queue<String> tokens = state.getTokens();
       ArrayList<String> results = new ArrayList<String>();
+      Map<OptionMetadata, Object> optionValueMap = commandParser.parse(state.getCommand(), state.getTokens(),
+               new CommandParserContext());
       List<OptionMetadata> options = command.getOptions();
-      List<OptionMetadata> removedOptions = new ArrayList<OptionMetadata>();
 
-      for (OptionMetadata option : options)
+      Queue<String> tokens = state.getOriginalTokens();
+      if (tokens.size() > 0)
       {
-         if ((tokens.size() == 1) && !tokens.peek().equals("--"))
+         while (tokens.size() > 1)
          {
-            String potentialOption = tokens.remove();
-            if (potentialOption.startsWith("--"))
-            {
-               potentialOption = potentialOption.substring(2);
-            }
+            tokens.remove();
+         }
 
-            if (!potentialOption.isEmpty() && option.getName().startsWith(potentialOption))
+         String finalToken = tokens.peek();
+         int finalTokenIndex = state.getBuffer().lastIndexOf(finalToken);
+
+         boolean tailOptionValued = true;
+         boolean finalTokenIsValue = false;
+         if (!finalToken.startsWith("-"))
+         {
+            finalTokenIsValue = true;
+            finalTokenIndex = state.getIndex();
+         }
+         else
+         {
+            boolean shortOption = finalToken.matches("^-[^\\-]+$")
+                     && (finalToken.length() > 1);
+            finalToken = finalToken.replaceFirst("^[-]+", "");
+            for (Entry<OptionMetadata, Object> entry : optionValueMap.entrySet())
             {
-               String suggestion = "--" + option.getName() + " ";
-               results.add(suggestion);
-               state.setIndex(state.getIndex() - potentialOption.length() - 2);
-               if (state.isFinalTokenComplete())
+               if (entry.getValue() == null)
                {
-                  state.setIndex(state.getIndex() - 1);
+                  tailOptionValued = false;
                }
             }
-         }
-         else if (tokens.size() > 1)
-         {
-            String removed = tokens.remove();
-            if (removed.startsWith("--"))
-            {
-               removed = removed.substring(2);
-            }
 
-            if (!removed.isEmpty() && option.getName().equals(removed))
+            if (tailOptionValued)
             {
-               removedOptions.add(option);
-            }
-         }
-      }
-
-      if (!state.hasSuggestions())
-      {
-         for (OptionMetadata option : options)
-         {
-            if (option.isNamed() && !removedOptions.contains(option))
-            {
-               if (option.isRequired())
+               for (OptionMetadata option : options)
                {
-                  String prefix = "";
-                  if (!state.isFinalTokenComplete())
+                  if (option.isNamed())
                   {
-                     prefix = " ";
+                     if (option.getName().equals(finalToken) && optionValueMap.containsKey(option))
+                     {
+                        if (!state.isFinalTokenComplete())
+                        {
+                           results.add(" ");
+                        }
+                        break;
+                     }
+                     if (option.getName().startsWith(finalToken) && !optionValueMap.containsKey(option))
+                     {
+                        results.add("--" + option.getName() + " ");
+                     }
                   }
-                  results.add(prefix + "--" + option.getName() + " ");
-               }
-               else if (!option.isRequired() && state.getBuffer().equals(state.getLastBuffer()))
-               {
-                  // only do optional options if they really want it (double tab)
-                  // TODO this state comparison should be state.isRepeat() or something
-
-                  String prefix = "";
-                  if (!state.isFinalTokenComplete())
-                  {
-                     prefix = " ";
-                  }
-                  results.add(prefix + "--" + option.getName() + " ");
                }
             }
          }
+
+         if (!results.isEmpty())
+         {
+            tokens.remove();
+         }
+
+         /*
+          * If we haven't gotten any suggestions yet, then we just need to add everything we havent seen yet
+          */
+         if (results.isEmpty() && tailOptionValued)
+         {
+            for (OptionMetadata option : options)
+            {
+               if (option.isNamed() && !optionValueMap.containsKey(option))
+               {
+                  results.add("--" + option.getName() + " ");
+               }
+            }
+         }
+
+         // add to state
+         if (!state.isFinalTokenComplete() && finalTokenIsValue)
+         {
+            results.clear();
+            if (state.getBuffer().equals(state.getLastBuffer()))
+            {
+               // wait until the buffer remains the same until we append a space
+               results.add(" ");
+            }
+         }
+         else if (!results.isEmpty() && tailOptionValued)
+         {
+            state.setIndex(finalTokenIndex);
+         }
+
+         state.getCandidates().addAll(results);
       }
-      return results;
    }
 }

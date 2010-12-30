@@ -51,7 +51,7 @@ public class MockCompleterPlugin implements Plugin
    @Command("command3")
    public void command3(
             @Option(name = "option", description = "Option One", required = true) final int number,
-            @Option(name = "option2", description = "Option Two", required = true) final int number2,
+            @Option(name = "option2", description = "Option Two", required = true, defaultValue = "default") final int number2,
             @Option(required = false) final String optional)
    {
       command2Invoked = true;

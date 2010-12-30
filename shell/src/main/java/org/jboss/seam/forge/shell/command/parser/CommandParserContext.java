@@ -38,4 +38,10 @@ public class CommandParserContext
    {
       return parmCount;
    }
+
+   @Override
+   public String toString()
+   {
+      return "CommandParserContext [parmCount=" + parmCount + "]";
+   }
 }

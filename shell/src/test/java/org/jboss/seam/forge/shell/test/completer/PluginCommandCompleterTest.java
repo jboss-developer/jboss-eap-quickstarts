@@ -22,7 +22,6 @@
 package org.jboss.seam.forge.shell.test.completer;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -124,14 +123,50 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    }
 
    @Test
+   public void testRequiredNamedOptionCompletionAppendsSpaceOnPartial() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command3 --option foo";
+
+      int index = completer.complete(input, 0, candidates);
+      assertTrue(candidates.isEmpty());
+      assertEquals(input.length(), index);
+   }
+
+   @Test
    public void testRequiredNamedOptionCompletionTabTwice() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin command3 --option foo ";
+
       int index = completer.complete(input, 0, candidates);
       assertEquals(input.length(), index);
       assertEquals(1, candidates.size());
       assertTrue(candidates.contains("--option2 "));
-      assertFalse(candidates.contains("--option "));
    }
+
+   @Test
+   public void testRequiredMultipleNamedOptionCompletion() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command3 --";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(2, candidates.size());
+      assertTrue(candidates.contains("--option "));
+      assertTrue(candidates.contains("--option2 "));
+      assertEquals(input.length() - 2, index);
+   }
+
+   @Test
+   public void testRequiredMultipleNamedOptionCompletionWithSpace() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command3 -- ";
+      int index = completer.complete(input, 0, candidates);
+      assertEquals(2, candidates.size());
+      assertTrue(candidates.contains("--option "));
+      assertTrue(candidates.contains("--option2 "));
+      assertEquals(input.length() - 3, index);
+   }
+
 }

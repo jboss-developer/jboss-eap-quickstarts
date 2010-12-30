@@ -87,7 +87,14 @@ public class NewProjectPlugin implements Plugin
 
       try
       {
-         dir = dir.getChildDirectory(name);
+         if (projectFolder instanceof DirectoryResource)
+         {
+            dir = (DirectoryResource) projectFolder;
+         }
+         else
+         {
+            dir = dir.getChildDirectory(name);
+         }
       }
       catch (ResourceException e)
       {

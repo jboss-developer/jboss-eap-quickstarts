@@ -68,8 +68,8 @@ public class InstallFacetPlugin implements Plugin
 
    @DefaultCommand
    public void install(@Option(required = true,
-         completer = AvailableFacetsCompleter.class,
-         description = "Name of the facet to install") final String facetName)
+            completer = AvailableFacetsCompleter.class,
+            description = "Name of the facet to install") final String facetName)
    {
       try
       {
@@ -89,10 +89,10 @@ public class InstallFacetPlugin implements Plugin
             }
 
             if (shell.promptBoolean("The ["
-                  + facetName
-                  + "] facet depends on the following missing facets: "
-                  + facetNames
-                  + ". Would you like to attempt installation of these facets as well?"))
+                     + facetName
+                     + "] facet depends on the following missing facets: "
+                     + facetNames
+                     + ". Would you like to attempt installation of these facets as well?"))
             {
                projectFactory.installSingleFacet(project, facet.getClass());
             }
@@ -116,13 +116,13 @@ public class InstallFacetPlugin implements Plugin
                if (types.size() == 1)
                {
                   if (shell.promptBoolean("The ["
-                        + facetName
-                        + "] facet requires the following packaging type "
-                        + types
-                        + ", but is currently ["
-                        + packaging
-                        + "], would you like to change the packaging to " + types
-                        + "? (Note: this could break other plugins in your project.)"))
+                           + facetName
+                           + "] facet requires the following packaging type "
+                           + types
+                           + ", but is currently ["
+                           + packaging
+                           + "], would you like to change the packaging to " + types
+                           + "? (Note: this could break other plugins in your project.)"))
                   {
                      project.getFacet(PackagingFacet.class).setPackagingType(types.get(0));
                      shell.println("Packaging updated to " + types + "");
@@ -136,12 +136,12 @@ public class InstallFacetPlugin implements Plugin
                else if (types.size() > 1)
                {
                   if (shell.promptBoolean("The ["
-                        + facetName
-                        + "] plugin requires one of the following packaging types: "
-                        + types
-                        + ", but is currently ["
-                        + packaging
-                        + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+                           + facetName
+                           + "] plugin requires one of the following packaging types: "
+                           + types
+                           + ", but is currently ["
+                           + packaging
+                           + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
                   {
                      PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
                      project.getFacet(PackagingFacet.class).setPackagingType(type);
@@ -170,7 +170,8 @@ public class InstallFacetPlugin implements Plugin
       catch (FacetNotFoundException e)
       {
          shell.println("Could not find a facet with the name: " + facetName
-               + "; are you sure that's the correct name?");
+                  + "; you can use the [" + ConstraintInspector.getName(ListFacetsPlugin.class)
+                  + "] command to see if the facet is available.");
       }
    }
 
