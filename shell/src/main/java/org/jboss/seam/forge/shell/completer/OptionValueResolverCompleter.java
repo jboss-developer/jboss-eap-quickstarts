@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
@@ -16,23 +15,9 @@ import org.jboss.seam.forge.project.util.BeanManagerUtils;
 import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-import org.jboss.seam.forge.shell.command.parser.CommandParser;
-import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
-import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
-import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
 
 public class OptionValueResolverCompleter implements CommandCompleter
 {
-   private final CommandParser commandParser = new CompositeCommandParser(
-            new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(),
-            new NamedValueVarargsOptionParser(),
-            new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser());
 
    @Inject
    private Shell shell;
@@ -50,28 +35,10 @@ public class OptionValueResolverCompleter implements CommandCompleter
       OptionMetadata option = state.getOption();
       if (option != null)
       {
-         Queue<String> tokens = state.getTokens();
          ArrayList<String> results = new ArrayList<String>();
-         Map<OptionMetadata, Object> optionValueMap = commandParser.parse(state.getCommand(), tokens,
-                  new CommandParserContext());
 
-         if (!optionValueMap.containsKey(option) && option.isRequired())
-         {
-            if (option.isNamed())
-            {
-               String prefix = "";
-               if (!state.isFinalTokenComplete())
-               {
-                  prefix = " ";
-               }
-               results.add(prefix + "--" + option.getName() + " ");
-            }
-            else
-            {
-               results.add("");
-            }
-         }
-         else if (optionValueMap.isEmpty() || optionValueMap.containsKey(option))
+         Map<OptionMetadata, Object> optionValueMap = state.getOptionValueMap();
+         if (optionValueMap.isEmpty() || optionValueMap.containsKey(option))
          {
             if (option.hasCustomCompleter())
             {
@@ -95,6 +62,10 @@ public class OptionValueResolverCompleter implements CommandCompleter
                else if (optionValueMap.get(option) instanceof String[])
                {
                   values = (String[]) optionValueMap.get(option);
+               }
+               else if (optionValueMap.get(option) == null)
+               {
+                  values = new String[] { "" };
                }
                else
                {

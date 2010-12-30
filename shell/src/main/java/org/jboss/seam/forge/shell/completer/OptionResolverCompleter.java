@@ -47,6 +47,7 @@ public class OptionResolverCompleter implements CommandCompleter
       ArrayList<String> results = new ArrayList<String>();
       Map<OptionMetadata, Object> optionValueMap = commandParser.parse(state.getCommand(), state.getTokens(),
                new CommandParserContext());
+      state.setOptionValueMap(optionValueMap);
       List<OptionMetadata> options = command.getOptions();
 
       Queue<String> tokens = state.getOriginalTokens();
@@ -54,7 +55,20 @@ public class OptionResolverCompleter implements CommandCompleter
       {
          while (tokens.size() > 1)
          {
-            tokens.remove();
+            String tok = tokens.remove();
+
+            if (tok.startsWith("-"))
+            {
+               tok = tok.replaceFirst("^[-]+", "");
+               for (Entry<OptionMetadata, Object> entry : optionValueMap.entrySet())
+               {
+                  OptionMetadata key = entry.getKey();
+                  if (tok.equals(key.getName()) || tok.equals(key.getShortName()))
+                  {
+                     state.setOption(key);
+                  }
+               }
+            }
          }
 
          String finalToken = tokens.peek();
@@ -74,9 +88,15 @@ public class OptionResolverCompleter implements CommandCompleter
             finalToken = finalToken.replaceFirst("^[-]+", "");
             for (Entry<OptionMetadata, Object> entry : optionValueMap.entrySet())
             {
+               OptionMetadata option = entry.getKey();
                if (entry.getValue() == null)
                {
                   tailOptionValued = false;
+               }
+               if (((option.getShortName().equals(finalToken) && shortOption) || option.getName().equals(
+                        finalToken)))
+               {
+                  state.setOption(option);
                }
             }
 
@@ -86,7 +106,8 @@ public class OptionResolverCompleter implements CommandCompleter
                {
                   if (option.isNamed())
                   {
-                     if (option.getName().equals(finalToken) && optionValueMap.containsKey(option))
+                     if (((option.getShortName().equals(finalToken) && shortOption) || option.getName().equals(
+                              finalToken)) && optionValueMap.containsKey(option))
                      {
                         if (!state.isFinalTokenComplete())
                         {
