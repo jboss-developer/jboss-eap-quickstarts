@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
@@ -10,20 +10,52 @@
 <f:metadata>
 </f:metadata>
 
-<h:head>
-</h:head>
+<ui:composition template="/resources/forge-template.xhtml">
 
-<h:body>
-    <h:form id="form">
+	<ui:param name="pageTitle" value="Create @{entity.getName()}" />
 
-        <h:messages />
-        
-        <m:metawidget value="#{@{beanName}.@{entity.getName().toLowerCase()}}" readOnly="#{false}" />
-        
-        <br/>
-        <h:button value="Cancel" outcome="list" />
-        <h:commandButton value="Create" action="#{@{beanName}.create()}" />
+	<ui:define name="header">
+		@{entity.getName()}
+	</ui:define>
 
-    </h:form>
-</h:body>
+	<ui:define name="subheader">
+		Create a new object
+	</ui:define>
+
+	<ui:define name="footer">
+	</ui:define>
+
+	<ui:define name="main">
+		<h:form id="form">
+		
+		    <h:messages />
+		    
+		    <m:metawidget value="#{@{beanName}.@{entity.getName().toLowerCase()}}" readOnly="#{false}" />
+		    
+		    <br/>
+		    <h:button value="Cancel" outcome="list" />
+		    <h:commandButton value="Create" action="#{@{beanName}.create()}" />
+
+		</h:form>
+	</ui:define>
+
+	<ui:define name="left">
+		<h3>Get involved</h3>
+		<p>If you would like to get involved in this project, please visit
+		the <a href="http://bit.ly/seamforge">Forge homepage</a> or visit the
+		#seam-dev IRC channel: <a href="irc://chat.freenode.net/#seam-dev">freenode.net#seam-dev</a>
+		and ask about "Forge"</p>
+		<p>If you have an idea for a plugin or improvement, and would like
+		to do some "forgestorming", submit it <a
+			href="http://bit.ly/forgestorm">here</a>.</p>
+
+		<h3>Useful links</h3>
+		<ul>
+			<li>Seam 3: <a href="http://seamframework.org/Seam3">Home</a></li>
+			<li>JBoss.org: <a href="http://jboss.org">Home</a></li>
+		</ul>
+	</ui:define>
+
+</ui:composition>
 </html>
+

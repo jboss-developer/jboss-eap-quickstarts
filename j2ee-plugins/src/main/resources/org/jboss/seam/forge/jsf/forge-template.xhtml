@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xml:lang="EN" lang="EN"
+	dir="ltr">
+
+<h:head>
+	<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<link rel="icon" href="#{resource['favicon.ico']}" />
+	<link rel="stylesheet" href="#{resource['forge.css']}" type="text/css" />
+</h:head>
+
+<h:body id="top">
+	<div id="container">
+	<div id="header">
+	<h:link outcome="/faces/index.xhtml" value="Home" />
+	<h1><ui:insert name="header">{header}</ui:insert></h1>
+	<h2><ui:insert name="subheader">{subheader}</ui:insert></h2>
+	<br />
+	<hr />
+	</div>
+	<!-- end header -->
+
+	<div id="left"><ui:insert name="left">{left}</ui:insert></div>
+	<!-- end left division -->
+
+	<div id="main"><ui:insert name="main">{main}</ui:insert></div>
+
+	<div id="footer">
+	<hr />
+
+	<ui:insert name="footer">{footer}</ui:insert>
+
+	<p class="right">Powered by <a href="http://bit.ly/seamforge">Forge</a></p>
+	<p class="right" style="display: none;">Template by <a
+		href="mailto:support@syndicateme.net">syndicateme.net</a> 2007</p>
+
+	<p>&nbsp;</p>
+	</div>	<!-- end footer -->
+	</div>	<!-- end container -->
+</h:body>
+</html>
+
+
+
+
+
+

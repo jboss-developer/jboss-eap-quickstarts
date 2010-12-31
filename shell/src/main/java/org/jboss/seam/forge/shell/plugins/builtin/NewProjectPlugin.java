@@ -37,6 +37,7 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
@@ -87,9 +88,15 @@ public class NewProjectPlugin implements Plugin
 
       try
       {
-         if (projectFolder instanceof DirectoryResource)
+         if (projectFolder instanceof FileResource<?>)
          {
-            dir = (DirectoryResource) projectFolder;
+            // FIXME this is ugly
+            if (!((FileResource<?>) projectFolder).exists())
+            {
+               ((FileResource<?>) projectFolder).mkdirs();
+            }
+            Resource<?> parent = projectFolder.getParent();
+            dir = (DirectoryResource) parent.getChild(projectFolder.getName());
          }
          else
          {

@@ -58,7 +58,7 @@ public class ServletFacet extends BaseFacet
 {
 
    private static final Dependency dep =
-         DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
+            DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
    @SuppressWarnings("unchecked")
    public WebAppModel getConfig()
@@ -144,20 +144,20 @@ public class ServletFacet extends BaseFacet
          if (!descriptor.exists())
          {
             WebAppDescriptor unit = Descriptors.create(WebAppDescriptor.class)
-                  .displayName(projectName)
-                  .sessionTimeout(30)
-                  .welcomeFile("/index.html");
+                     .displayName(projectName)
+                     .sessionTimeout(30)
+                     .welcomeFile("/index.html");
 
             descriptor.setContents(unit.exportAsString());
          }
 
          FileResource<?> welcomePage = (FileResource<?>) webRoot.getChild("index.html");
          welcomePage.setContents("<html><head><title>Welcome to Seam Forge</title></head>" +
-               "<body>" +
-               "<h1> [" + projectName + "] is Online</h1>" +
-               "Powered by <a href=\"http://bit.ly/seamforge\">Seam Forge</a>" +
-               "</body>" +
-               "</html>");
+                  "<body>" +
+                  "<h1> [" + projectName + "] is Online</h1>" +
+                  "Powered by <a href=\"http://bit.ly/seamforge\">Seam Forge</a>" +
+                  "</body>" +
+                  "</html>");
       }
       project.registerFacet(this);
       return this;

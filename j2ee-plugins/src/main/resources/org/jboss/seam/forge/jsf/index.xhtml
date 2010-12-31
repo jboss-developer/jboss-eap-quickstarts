@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/resources/forge-template.xhtml">
+
+	<ui:param name="pageTitle" value="Index" />
+
+	<ui:define name="header">
+		Index
+	</ui:define>
+
+	<ui:define name="subheader">
+		Your project is online.
+	</ui:define>
+
+	<ui:define name="footer">
+	</ui:define>
+
+	<ui:define name="left">
+		<h3>Get involved</h3>
+		<p>If you would like to get involved in this project, please visit
+		the <a href="http://bit.ly/seamforge">Forge homepage</a> or visit the
+		#seam-dev IRC channel: <a href="irc://chat.freenode.net/#seam-dev">freenode.net#seam-dev</a>
+		and ask about "Forge"</p>
+		<p>If you have an idea for a plugin or improvement, and would like
+		to do some "forgestorming", submit it <a
+			href="http://bit.ly/forgestorm">here</a>.</p>
+
+		<h3>Useful links</h3>
+		<ul>
+			<li>Seam 3: <a href="http://seamframework.org/Seam3">Home</a></li>
+			<li>JBoss.org: <a href="http://jboss.org">Home</a></li>
+		</ul>
+	</ui:define>
+
+	<ui:define name="main">
+		<h3>Welcome to Forge</h3>
+		<p>Your application is up and running on Forge Alpha1!</p>
+		<p>There are a few things you should probably check-out. If you
+		are confused at any time, try pressing <b><code>&lt;TAB&gt;</code></b>.
+		For instance, if you have not yet seen the Forge built-in commands,
+		you may either press <b><code>&lt;TAB&gt;</code></b> to see a list of
+		the currently available commands, or get a more descriptive list by
+		using:</p>
+		<ol>
+			<li><code>list-commands --all</code></li>
+		</ol>
+		<p>To build a barebones scaffolding project, you can follow these
+		steps:</p>
+		<ol>
+			<li><code>new-project --named <b>{projectname}</b>
+			--topLevelPackage <b>{com.yourpackage}</b></code></li>
+			<li><code>install forge.scaffold</code></li>
+			<li><code>new-entity --named Person</code></li>
+			<li><code>new-field string --fieldName firstName</code></li>
+			<li><code>new-field string --fieldName lastName</code></li>
+			<li><code>cd ..</code></li>
+			<li><code>scaffold generate-metawidget-jsf *.java</code></li>
+		</ol>
+		<p>Now refresh or redeploy your application and visit:</p>
+		<ol>
+			<li><code>http://localhost:8080/<b>{projectname}</b>/faces/scaffold/person/view.xhtml</code></li>
+		</ol>
+	</ui:define>
+
+</ui:composition>
+</html>
+

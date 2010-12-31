@@ -60,15 +60,59 @@ public class FacesFacet extends BaseFacet
    {
       if (!isInstalled())
       {
+         // Create faces-config
          if (!getConfigFile().createNewFile())
          {
             throw new RuntimeException("Failed to create required [" + getConfigFile().getFullyQualifiedName() + "]");
          }
          getConfigFile().setContents(getClass()
                   .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
+
+         // Set up index redirect
+         WebResourceFacet web = project.getFacet(WebResourceFacet.class);
+         FileResource<?> index = web.getWebResource("index.html");
+         if (!index.exists())
+         {
+            index.createNewFile();
+            project.getFacet(ServletFacet.class).getConfig().getWelcomeFiles().add("index.html");
+         }
+         index.setContents(getClass()
+                  .getResourceAsStream("/org/jboss/seam/forge/jsf/index.html"));
+
+         // Set up JSF index page
+         index = web.getWebResource("index.xhtml");
+         if (!index.exists())
+         {
+            index.createNewFile();
+            index.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/index.xhtml"));
+         }
+
+         // Add template
+         FileResource<?> template = web.getWebResource("/resources/forge-template.xhtml");
+         if (!template.exists())
+         {
+            template.createNewFile();
+            template.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge-template.xhtml"));
+         }
+
+         // Add css
+         FileResource<?> css = web.getWebResource("/resources/forge.css");
+         if (!css.exists())
+         {
+            css.createNewFile();
+            css.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge.css"));
+         }
+
+         // Add favicon
+         FileResource<?> favicon = web.getWebResource("/resources/favicon.ico");
+         if (!favicon.exists())
+         {
+            favicon.createNewFile();
+            favicon.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/web/favicon.ico"));
+         }
+
       }
       project.registerFacet(this);
       return this;
    }
-
 }
