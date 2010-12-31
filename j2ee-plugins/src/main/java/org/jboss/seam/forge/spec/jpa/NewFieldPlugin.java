@@ -233,11 +233,7 @@ public class NewFieldPlugin implements Plugin
             @Option(name = "fieldName",
                      required = true,
                      description = "The field name",
-                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
-            @Option(name = "addToClass",
-                     required = false,
-                     type = PromptType.JAVA_CLASS,
-                     description = "The @Entity to which this field will be added") final String entityName)
+                     type = PromptType.JAVA_VARIABLE_NAME) final String fieldName)
    {
       try
       {
@@ -309,7 +305,8 @@ public class NewFieldPlugin implements Plugin
          entity.addImport(Set.class);
          entity.addImport(HashSet.class);
          entity.addImport(otherEntity.getQualifiedName());
-         Field<JavaClass> field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName + "= new HashSet<"
+         Field<JavaClass> field = entity.addField("private Set<" + otherEntity.getName() + "> " + fieldName
+                  + "= new HashSet<"
                   + otherEntity.getName() + ">();");
          Annotation<JavaClass> annotation = field.addAnnotation(ManyToMany.class);
          Refactory.createGetterAndSetter(entity, field);
@@ -321,7 +318,8 @@ public class NewFieldPlugin implements Plugin
             otherEntity.addImport(Set.class);
             otherEntity.addImport(HashSet.class);
             otherEntity.addImport(entity.getQualifiedName());
-            Field<JavaClass> otherField = otherEntity.addField("private Set<" + entity.getName() + "> " + inverseFieldName
+            Field<JavaClass> otherField = otherEntity.addField("private Set<" + entity.getName() + "> "
+                     + inverseFieldName
                      + "= new HashSet<" + entity.getName() + ">();");
             otherField.addAnnotation(ManyToMany.class);
             Refactory.createGetterAndSetter(otherEntity, otherField);
@@ -374,7 +372,8 @@ public class NewFieldPlugin implements Plugin
             annotation.setStringValue("mappedBy", inverseFieldName);
 
             many.addImport(one);
-            Field<JavaClass> manyField = many.addField("private " + one.getName() + " " + inverseFieldName + "= new " + one.getName() + "();");
+            Field<JavaClass> manyField = many.addField("private " + one.getName() + " " + inverseFieldName + "= new "
+                     + one.getName() + "();");
             manyField.addAnnotation(ManyToOne.class);
             Refactory.createGetterAndSetter(many, manyField);
             java.saveJavaClass(many);
@@ -412,7 +411,8 @@ public class NewFieldPlugin implements Plugin
          JavaClass one = findEntity(fieldType);
 
          many.addImport(one);
-         Field<JavaClass> manyField = many.addField("private " + one.getName() + " " + fieldName + "= new " + one.getName() + "();");
+         Field<JavaClass> manyField = many.addField("private " + one.getName() + " " + fieldName + "= new "
+                  + one.getName() + "();");
          manyField.addAnnotation(ManyToOne.class);
          Refactory.createGetterAndSetter(many, manyField);
 
@@ -421,7 +421,8 @@ public class NewFieldPlugin implements Plugin
             one.addImport(Set.class);
             one.addImport(HashSet.class);
             one.addImport(many.getQualifiedName());
-            Field<JavaClass> oneField = one.addField("private Set<" + many.getName() + "> " + inverseFieldName + "= new HashSet<"
+            Field<JavaClass> oneField = one.addField("private Set<" + many.getName() + "> " + inverseFieldName
+                     + "= new HashSet<"
                      + many.getName() + ">();");
             oneField.addAnnotation(OneToMany.class).setStringValue("mappedBy", fieldName);
             Refactory.createGetterAndSetter(one, oneField);
@@ -439,7 +440,8 @@ public class NewFieldPlugin implements Plugin
     * Helpers
     */
    private void addFieldTo(final JavaClass targetEntity, final JavaClass fieldEntity, final String fieldName,
-                           final Class<? extends java.lang.annotation.Annotation> annotation) throws FileNotFoundException
+                           final Class<? extends java.lang.annotation.Annotation> annotation)
+            throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
@@ -467,7 +469,8 @@ public class NewFieldPlugin implements Plugin
    }
 
    private void addFieldTo(final JavaClass targetEntity, final Class<?> fieldType, final String fieldName,
-                           final Class<? extends java.lang.annotation.Annotation> annotation) throws FileNotFoundException
+                           final Class<? extends java.lang.annotation.Annotation> annotation)
+            throws FileNotFoundException
    {
       Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);

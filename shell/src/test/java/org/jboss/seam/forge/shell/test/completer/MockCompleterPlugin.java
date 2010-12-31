@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.shell.test.completer;
 
 import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
@@ -31,8 +32,15 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
  */
 public class MockCompleterPlugin implements Plugin
 {
+   private boolean defaultInvoked = false;
    private boolean command1Invoked = false;
    private boolean command2Invoked = false;
+
+   @DefaultCommand
+   public void defaultCommand()
+   {
+      defaultInvoked = true;
+   }
 
    @Command("command1")
    public void command1(@Option(description = "Option One", required = true) final int number,
@@ -65,5 +73,10 @@ public class MockCompleterPlugin implements Plugin
    public boolean isCommand2Invoked()
    {
       return command2Invoked;
+   }
+
+   public boolean isDefaultInvoked()
+   {
+      return defaultInvoked;
    }
 }

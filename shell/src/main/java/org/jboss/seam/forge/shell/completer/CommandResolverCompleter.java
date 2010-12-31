@@ -62,21 +62,24 @@ public class CommandResolverCompleter implements CommandCompleter
             }
             else if (couldBeCommand(plugin, peek))
             {
-               state.setIndex(state.getBuffer().indexOf(peek));
+               state.setIndex(state.getBuffer().lastIndexOf(peek));
                addCommandCandidates(plugin, state);
             }
          }
 
-         if (state.getCommand() == null)
+         if (plugin.hasDefaultCommand())
          {
-            if (plugin.hasDefaultCommand())
+            if ((state.getCommand() == null))
             {
                CommandMetadata defaultCommand = plugin.getDefaultCommand();
                state.setCommand(defaultCommand);
             }
-            else if (plugin.hasCommands())
+            if (tokens.isEmpty() && !state.hasSuggestions() && plugin.getDefaultCommand().equals(state.getCommand()))
             {
-               addCommandCandidates(plugin, state);
+               if (plugin.hasCommands())
+               {
+                  addCommandCandidates(plugin, state);
+               }
             }
          }
       }

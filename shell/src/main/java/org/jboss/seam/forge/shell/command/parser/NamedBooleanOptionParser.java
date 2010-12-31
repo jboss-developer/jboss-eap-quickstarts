@@ -22,18 +22,16 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Queue;
+
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
 
 /**
  * Parses named boolean options such as:
  * <p/>
  * <code>[command] {--toggle}</code>
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
@@ -41,9 +39,9 @@ public class NamedBooleanOptionParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (currentToken.matches("--?\\S+"))
       {
@@ -55,7 +53,7 @@ public class NamedBooleanOptionParser implements CommandParser
 
                if (command.hasShortOption(shortOption))
                {
-                  processOption(valueMap, tokens, command, shortOption);
+                  processOption(ctx, tokens, command, shortOption);
                }
                else
                {
@@ -71,14 +69,14 @@ public class NamedBooleanOptionParser implements CommandParser
 
             if (command.hasOption(currentToken))
             {
-               processOption(valueMap, tokens, command, currentToken);
+               processOption(ctx, tokens, command, currentToken);
             }
          }
       }
-      return valueMap;
+      return ctx;
    }
 
-   private static void processOption(final Map<OptionMetadata, Object> valueMap, final Queue<String> tokens,
+   private static void processOption(final CommandParserContext ctx, final Queue<String> tokens,
                                      final CommandMetadata command, final String currentToken)
    {
       OptionMetadata option = command.getNamedOption(currentToken);
@@ -86,18 +84,18 @@ public class NamedBooleanOptionParser implements CommandParser
       if (option.isBoolean())
       {
          String value = "true";
-         if (!option.isFlagOnly() && !tokens.isEmpty())
+         if (!tokens.isEmpty())
          {
             tokens.remove();
             String nextToken = tokens.peek();
-            if (nextToken.matches("true|false"))
+            if (!option.isFlagOnly() && (nextToken != null) && nextToken.matches("true|false"))
             {
                value = nextToken;
                tokens.remove();
             }
          }
 
-         valueMap.put(option, value);
+         ctx.put(option, value);
       }
    }
 }

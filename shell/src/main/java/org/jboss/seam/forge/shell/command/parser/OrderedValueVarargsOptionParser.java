@@ -22,10 +22,12 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -33,9 +35,9 @@ import java.util.*;
 public class OrderedValueVarargsOptionParser implements CommandParser
 {
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (!currentToken.startsWith("--"))
       {
@@ -47,31 +49,11 @@ public class OrderedValueVarargsOptionParser implements CommandParser
             {
                args.add(tokens.remove());
             }
-            valueMap.put(option, args.toArray(new String[0])); // add the value,
-            // should we
-            // return this as
-            // a tuple
-            // instead?
-
+            ctx.put(option, args.toArray(new String[0])); // add the value,
             ctx.incrementParmCount();
          }
       }
-      return valueMap;
+      return ctx;
    }
 
-   /**
-    * Return a count of how many ordered params have already been parsed.
-    */
-   private int getNumberOrderedParamsIn(final Map<OptionMetadata, Object> valueMap)
-   {
-      int result = 0;
-      for (OptionMetadata option : valueMap.keySet())
-      {
-         if (option.notOrdered())
-         {
-            result++;
-         }
-      }
-      return result;
-   }
 }

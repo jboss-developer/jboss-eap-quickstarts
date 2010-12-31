@@ -22,25 +22,25 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.Map;
 import java.util.Queue;
 
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+
 /**
- * Used at the end of the {@link CommandParser} chain to signal with an
- * {@link IllegalStateException} that an invalid token was encountered.
- *
+ * Used at the end of the {@link CommandParser} chain to signal with an {@link IllegalStateException} that an invalid
+ * token was encountered.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class ParseErrorParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
       String token = tokens.peek();
+      // TODO should probably display the entire statement with the offending token highlighted
       throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());
    }
 

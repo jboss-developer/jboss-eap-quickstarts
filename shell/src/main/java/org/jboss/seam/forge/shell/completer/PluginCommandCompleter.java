@@ -38,14 +38,14 @@ public class PluginCommandCompleter implements Completer
 {
 
    List<CommandCompleter> completers = new ArrayList<CommandCompleter>();
-   
+
    private String lastBuffer = null;
 
    @Inject
-   public PluginCommandCompleter(PluginResolverCompleter plugin,
-         CommandResolverCompleter command,
-         OptionResolverCompleter option,
-         OptionValueResolverCompleter value)
+   public PluginCommandCompleter(final PluginResolverCompleter plugin,
+            final CommandResolverCompleter command,
+            final OptionResolverCompleter option,
+            final OptionValueResolverCompleter value)
    {
       completers.add(plugin);
       completers.add(command);
@@ -56,10 +56,10 @@ public class PluginCommandCompleter implements Completer
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      CommandCompleterState state = new PluginCommandCompleterState(buffer, lastBuffer, cursor);
-      //TODO replace lastBuffer with a lastState object?
+      PluginCommandCompleterState state = new PluginCommandCompleterState(buffer, lastBuffer, cursor);
+      // TODO replace lastBuffer with a lastState object?
       lastBuffer = buffer;
-      
+
       for (CommandCompleter c : completers)
       {
          if (!state.hasSuggestions())
@@ -67,15 +67,20 @@ public class PluginCommandCompleter implements Completer
             c.complete(state);
          }
       }
-      
+
+      if ((state.getPlugin() != null) && !state.isFinalTokenComplete() && !state.hasSuggestions()
+               && state.isDuplicateBuffer())
+      {
+         candidates.add(" ");
+      }
+
       candidates.addAll(state.getCandidates());
 
       return state.getIndex();
    }
 
    /**
-    * Add option completions for the given command, with or without argument
-    * tokens
+    * Add option completions for the given command, with or without argument tokens
     */
    public static boolean isPotentialMatch(final String full, final String partial)
    {

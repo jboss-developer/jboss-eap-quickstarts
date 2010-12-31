@@ -23,12 +23,12 @@ package org.jboss.seam.forge.shell.completer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
+import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 
 /**
@@ -55,7 +55,7 @@ public class PluginCommandCompleterState implements CommandCompleterState
    private PluginMetadata plugin;
    private CommandMetadata command;
    private OptionMetadata option;
-   private Map<OptionMetadata, Object> optionValueMap;
+   private CommandParserContext commandContext;
 
    private final List<String> candidates = new ArrayList<String>();
    private int index;
@@ -162,13 +162,18 @@ public class PluginCommandCompleterState implements CommandCompleterState
       return candidates;
    }
 
-   public Map<OptionMetadata, Object> getOptionValueMap()
+   public CommandParserContext getCommandContext()
    {
-      return optionValueMap;
+      return commandContext;
    }
 
-   public void setOptionValueMap(final Map<OptionMetadata, Object> optionValueMap)
+   public void setCommandContext(final CommandParserContext commandContext)
    {
-      this.optionValueMap = optionValueMap;
+      this.commandContext = commandContext;
+   }
+
+   public boolean isDuplicateBuffer()
+   {
+      return (buffer != null) && buffer.equals(lastBuffer);
    }
 }

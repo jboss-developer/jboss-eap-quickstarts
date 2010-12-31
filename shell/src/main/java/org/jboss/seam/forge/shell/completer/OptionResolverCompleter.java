@@ -45,32 +45,49 @@ public class OptionResolverCompleter implements CommandCompleter
    private void getOptionCandidates(final CommandMetadata command, final PluginCommandCompleterState state)
    {
       ArrayList<String> results = new ArrayList<String>();
-      Map<OptionMetadata, Object> optionValueMap = commandParser.parse(state.getCommand(), state.getTokens(),
+      Queue<String> tokens = state.getTokens();
+      CommandParserContext commandContext = commandParser.parse(state.getCommand(), tokens,
                new CommandParserContext());
-      state.setOptionValueMap(optionValueMap);
+      state.setCommandContext(commandContext);
+      Map<OptionMetadata, Object> valueMap = commandContext.getValueMap();
       List<OptionMetadata> options = command.getOptions();
 
-      Queue<String> tokens = state.getOriginalTokens();
-      if (tokens.size() > 0)
+      if (tokens.isEmpty())
       {
-         while (tokens.size() > 1)
+         if (state.isFinalTokenComplete())
          {
-            String tok = tokens.remove();
-
-            if (tok.startsWith("-"))
+            if ((commandContext.isEmpty() || commandContext.isLastOptionValued()))
             {
-               tok = tok.replaceFirst("^[-]+", "");
-               for (Entry<OptionMetadata, Object> entry : optionValueMap.entrySet())
+               for (OptionMetadata option : options)
                {
-                  OptionMetadata key = entry.getKey();
-                  if (tok.equals(key.getName()) || tok.equals(key.getShortName()))
+                  if (!valueMap.containsKey(option))
                   {
-                     state.setOption(key);
+                     if (option.isNamed())
+                     {
+                        results.add("--" + option.getName() + " ");
+                     }
+                     else if (!option.isNamed() && !option.isPipeOut() && !option.isPipeIn())
+                     {
+                        state.setOption(option);
+                     }
                   }
                }
             }
+            else if (!commandContext.isEmpty() && !commandContext.isLastOptionValued())
+            {
+               state.setOption(commandContext.getLastParsed());
+            }
          }
-
+         else
+         {
+            if (!state.isFinalTokenComplete() && !commandContext.isEmpty())
+            {
+               state.setOption(commandContext.getLastParsed());
+            }
+         }
+      }
+      else
+      {
          String finalToken = tokens.peek();
          int finalTokenIndex = state.getBuffer().lastIndexOf(finalToken);
 
@@ -86,7 +103,7 @@ public class OptionResolverCompleter implements CommandCompleter
             boolean shortOption = finalToken.matches("^-[^\\-]+$")
                      && (finalToken.length() > 1);
             finalToken = finalToken.replaceFirst("^[-]+", "");
-            for (Entry<OptionMetadata, Object> entry : optionValueMap.entrySet())
+            for (Entry<OptionMetadata, Object> entry : valueMap.entrySet())
             {
                OptionMetadata option = entry.getKey();
                if (entry.getValue() == null)
@@ -107,7 +124,7 @@ public class OptionResolverCompleter implements CommandCompleter
                   if (option.isNamed())
                   {
                      if (((option.getShortName().equals(finalToken) && shortOption) || option.getName().equals(
-                              finalToken)) && optionValueMap.containsKey(option))
+                              finalToken)) && valueMap.containsKey(option))
                      {
                         if (!state.isFinalTokenComplete())
                         {
@@ -115,39 +132,42 @@ public class OptionResolverCompleter implements CommandCompleter
                         }
                         break;
                      }
-                     if (option.getName().startsWith(finalToken) && !optionValueMap.containsKey(option))
+                     if (option.getName().startsWith(finalToken) && !valueMap.containsKey(option))
                      {
                         results.add("--" + option.getName() + " ");
                      }
                   }
                }
             }
-         }
 
-         if (!results.isEmpty())
-         {
-            tokens.remove();
-         }
-
-         /*
-          * If we haven't gotten any suggestions yet, then we just need to add everything we havent seen yet
-          */
-         if (results.isEmpty() && tailOptionValued)
-         {
-            for (OptionMetadata option : options)
+            if (!results.isEmpty())
             {
-               if (option.isNamed() && !optionValueMap.containsKey(option))
+               tokens.remove();
+            }
+
+            /*
+             * If we haven't gotten any suggestions yet, then we just need to add everything we haven't seen yet. First
+             * time - just the required options.
+             */
+            if (results.isEmpty() && tailOptionValued)
+            {
+               for (OptionMetadata option : options)
                {
-                  results.add("--" + option.getName() + " ");
+                  if (option.isNamed() && !valueMap.containsKey(option))
+                  {
+                     if (option.isRequired() || state.isDuplicateBuffer())
+                        results.add("--" + option.getName() + " ");
+                  }
                }
             }
+
          }
 
          // add to state
          if (!state.isFinalTokenComplete() && finalTokenIsValue)
          {
             results.clear();
-            if (state.getBuffer().equals(state.getLastBuffer()))
+            if (state.isDuplicateBuffer())
             {
                // wait until the buffer remains the same until we append a space
                results.add(" ");
@@ -157,8 +177,7 @@ public class OptionResolverCompleter implements CommandCompleter
          {
             state.setIndex(finalTokenIndex);
          }
-
-         state.getCandidates().addAll(results);
       }
+      state.getCandidates().addAll(results);
    }
 }

@@ -22,22 +22,32 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import org.jboss.seam.forge.shell.PromptType;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.command.parser.*;
-import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.mvel2.util.ParseTools;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.command.parser.CommandParser;
+import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
+import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
+import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
+import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
+import org.jboss.seam.forge.shell.command.parser.ParseErrorParser;
+import org.jboss.seam.forge.shell.command.parser.Tokenizer;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.mvel2.util.ParseTools;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -67,7 +77,7 @@ public class ExecutionParser
       return parse(tokenizer.tokenize(line), null, null);
    }
 
-   public Execution parse(final Queue<String> tokens, String pipeIn, PipeOut pipeOut)
+   public Execution parse(final Queue<String> tokens, final String pipeIn, final PipeOut pipeOut)
    {
       Execution execution = executionInstance.get();
       // execution.setOriginalStatement(line);
@@ -106,12 +116,12 @@ public class ExecutionParser
                {
                   // noinspection unchecked
                   throw new PluginExecutionException(plugin, "command '"
-                        + command.getName()
-                        + "' is not usable in current scope ["
-                        + shell.getCurrentResource().getClass().getSimpleName()
-                        + "]"
-                        + " -- usable scopes: "
-                        + GeneralUtils.elementSetSimpleTypesToString((Set) command.getResourceScopes()));
+                           + command.getName()
+                           + "' is not usable in current scope ["
+                           + shell.getCurrentResource().getClass().getSimpleName()
+                           + "]"
+                           + " -- usable scopes: "
+                           + GeneralUtils.elementSetSimpleTypesToString((Set) command.getResourceScopes()));
                }
 
                execution.setCommand(command);
@@ -124,7 +134,7 @@ public class ExecutionParser
             else
             {
                throw new PluginExecutionException(plugin, "Missing command for plugin [" + plugin.getName()
-                     + "], available commands: " + plugin.getCommands(shell));
+                        + "], available commands: " + plugin.getCommands(shell));
             }
          }
       }
@@ -132,13 +142,15 @@ public class ExecutionParser
       return execution;
    }
 
-   private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, final String pipeIn, PipeOut pipeOut)
+   private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, final String pipeIn,
+            final PipeOut pipeOut)
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
-            new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-            new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+               new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
+               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
 
-      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens, new CommandParserContext());
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens, new CommandParserContext())
+               .getValueMap();
 
       Object[] parameters = new Object[command.getOptions().size()];
       for (OptionMetadata option : command.getOptions())
@@ -187,7 +199,7 @@ public class ExecutionParser
             // TODO Is this really where we want to do PromptType conversion?
             value = doPromptTypeConversions(value, promptType);
 
-            if ((value != null && promptType != null) && !value.toString().matches(promptType.getPattern()))
+            if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
             {
                // make sure the current option value is OK
                shell.println("Could not parse [" + value + "]... please try again...");

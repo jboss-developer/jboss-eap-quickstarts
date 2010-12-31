@@ -22,25 +22,27 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.*;
 
 /**
  * Parses named varargs options such as:
  * <p/>
  * <code>[command] {--option foo bar baz}</code>
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class NamedValueVarargsOptionParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (currentToken.startsWith("--"))
       {
@@ -56,13 +58,13 @@ public class NamedValueVarargsOptionParser implements CommandParser
                {
                   args.add(tokens.remove());
                }
-               valueMap.put(option, args.toArray()); // add the value, should we
+               ctx.put(option, args.toArray()); // add the value, should we
                // return this as a tuple
                // instead?
             }
          }
       }
-      return valueMap;
+      return ctx;
    }
 
 }

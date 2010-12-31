@@ -22,12 +22,21 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jboss.seam.forge.shell.command.OptionMetadata;
+
 /**
  * @author Mike Brock .
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class CommandParserContext
 {
    private int parmCount;
+   private final Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
+   private OptionMetadata lastParsed;
 
    public void incrementParmCount()
    {
@@ -44,4 +53,53 @@ public class CommandParserContext
    {
       return "CommandParserContext [parmCount=" + parmCount + "]";
    }
+
+   /**
+    * Return an unmodifiable view of the parsed statement options.
+    */
+   public Map<OptionMetadata, Object> getValueMap()
+   {
+      return Collections.unmodifiableMap(valueMap);
+   }
+
+   /**
+    * Return a count of how many ordered params have already been parsed.
+    */
+   public int getNumberOrderedParams()
+   {
+      int result = 0;
+      for (OptionMetadata option : valueMap.keySet())
+      {
+         if (option.notOrdered())
+         {
+            result++;
+         }
+      }
+      return result;
+   }
+
+   public void put(final OptionMetadata option, final Object value)
+   {
+      lastParsed = option;
+      valueMap.put(option, value);
+   }
+
+   /**
+    * @return the last parsed {@link OptionMetadata}
+    */
+   public OptionMetadata getLastParsed()
+   {
+      return lastParsed;
+   }
+
+   public boolean isLastOptionValued()
+   {
+      return (lastParsed != null) && (valueMap.get(lastParsed) != null);
+   }
+
+   public boolean isEmpty()
+   {
+      return valueMap.isEmpty();
+   }
+
 }

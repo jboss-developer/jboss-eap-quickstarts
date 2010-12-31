@@ -22,11 +22,9 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.Map;
 import java.util.Queue;
+
+import org.jboss.seam.forge.shell.command.CommandMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -34,11 +32,10 @@ import java.util.Queue;
 public interface CommandParser
 {
    /**
-    * Assuming the given {@link CommandMetadata} has already been determined,
-    * use the remaining tokens to parse as many tokens as possible from the
-    * given {@link Queue}.
-    *
+    * Assuming the given {@link CommandMetadata} has already been determined, use the remaining tokens to parse as many
+    * tokens as possible from the given {@link Queue}.
+    * 
     * @return a map of options mapped to their given values.
     */
-   public Map<OptionMetadata, Object> parse(CommandMetadata command, Queue<String> tokens, CommandParserContext context);
+   public CommandParserContext parse(CommandMetadata command, Queue<String> tokens, CommandParserContext context);
 }

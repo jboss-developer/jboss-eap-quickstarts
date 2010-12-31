@@ -15,6 +15,7 @@ import org.jboss.seam.forge.project.util.BeanManagerUtils;
 import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
+import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
 
 public class OptionValueResolverCompleter implements CommandCompleter
 {
@@ -33,12 +34,13 @@ public class OptionValueResolverCompleter implements CommandCompleter
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
       OptionMetadata option = state.getOption();
-      if ((option != null) && (state.getOptionValueMap() != null))
+      if ((option != null) && (state.getCommandContext() != null))
       {
          ArrayList<String> results = new ArrayList<String>();
 
-         Map<OptionMetadata, Object> optionValueMap = state.getOptionValueMap();
-         if (optionValueMap.isEmpty() || optionValueMap.containsKey(option))
+         CommandParserContext commandContext = state.getCommandContext();
+         Map<OptionMetadata, Object> valueMap = commandContext.getValueMap();
+         if (valueMap.isEmpty() || valueMap.containsKey(option))
          {
             if (option.hasCustomCompleter())
             {
@@ -55,21 +57,21 @@ public class OptionValueResolverCompleter implements CommandCompleter
             {
                String[] values;
 
-               if (optionValueMap.isEmpty())
+               if (valueMap.isEmpty())
                {
                   values = new String[] { "" };
                }
-               else if (optionValueMap.get(option) instanceof String[])
+               else if (valueMap.get(option) instanceof String[])
                {
-                  values = (String[]) optionValueMap.get(option);
+                  values = (String[]) valueMap.get(option);
                }
-               else if (optionValueMap.get(option) == null)
+               else if (valueMap.get(option) == null)
                {
                   values = new String[] { "" };
                }
                else
                {
-                  values = new String[] { String.valueOf(optionValueMap.get(option)) };
+                  values = new String[] { String.valueOf(valueMap.get(option)) };
                }
 
                String val = values[values.length - 1];
@@ -79,7 +81,9 @@ public class OptionValueResolverCompleter implements CommandCompleter
                {
                   // Add result to the results list, and append a '/' if the
                   // resource has children.
-                  results.add(r.getName() + (r.isFlagSet(ResourceFlag.Node) ? "/" : ""));
+                  String name = ("~".equals(val) ? "~/" : "") + r.getName()
+                           + (r.isFlagSet(ResourceFlag.Node) ? "/" : "");
+                  results.add(name);
                }
 
                int lastNest = val.lastIndexOf(File.separatorChar);

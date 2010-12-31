@@ -22,13 +22,11 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Queue;
+
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.exceptions.CommandParserException;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -37,10 +35,10 @@ public class OrderedValueOptionParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
-      int numberOrderedParams = getNumberOrderedParamsIn(valueMap);
+      int numberOrderedParams = ctx.getNumberOrderedParams();
       try
       {
          String currentToken = tokens.peek();
@@ -49,7 +47,7 @@ public class OrderedValueOptionParser implements CommandParser
             OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
             if (!option.isVarargs())
             {
-               valueMap.put(option, currentToken); // add the value, should we
+               ctx.put(option, currentToken); // add the value, should we
                // return this as a tuple
                // instead?
                tokens.remove();
@@ -61,25 +59,9 @@ public class OrderedValueOptionParser implements CommandParser
       catch (IllegalArgumentException e)
       {
          throw new CommandParserException(command, "The command " + command.getName() + " takes ["
-               + numberOrderedParams + "] argument(s).");
+                  + numberOrderedParams + "] argument(s).");
       }
-      return valueMap;
-   }
-
-   /**
-    * Return a count of how many ordered params have already been parsed.
-    */
-   private int getNumberOrderedParamsIn(final Map<OptionMetadata, Object> valueMap)
-   {
-      int result = 0;
-      for (OptionMetadata option : valueMap.keySet())
-      {
-         if (option.notOrdered())
-         {
-            result++;
-         }
-      }
-      return result;
+      return ctx;
    }
 
 }

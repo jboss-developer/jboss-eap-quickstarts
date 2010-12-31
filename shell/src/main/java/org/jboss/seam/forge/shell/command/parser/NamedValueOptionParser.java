@@ -22,27 +22,25 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Queue;
+
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
 
 /**
  * Parses named value options such as:
  * <p/>
  * <code>[command] {--option=value}</code>
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class NamedValueOptionParser implements CommandParser
 {
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
       String currentToken = tokens.peek();
       if (currentToken.startsWith("--"))
       {
@@ -64,13 +62,13 @@ public class NamedValueOptionParser implements CommandParser
                      tokens.remove(); // increment the chain of tokens
                   }
                }
-               valueMap.put(option, value); // add the value, should we return
+               ctx.put(option, value); // add the value, should we return
                // this
                // as a tuple instead?
             }
          }
       }
-      return valueMap;
+      return ctx;
    }
 
 }

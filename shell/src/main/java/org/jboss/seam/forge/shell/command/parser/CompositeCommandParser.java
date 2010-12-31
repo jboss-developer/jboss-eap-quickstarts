@@ -22,10 +22,12 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Queue;
 
-import java.util.*;
+import org.jboss.seam.forge.shell.command.CommandMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -40,11 +42,11 @@ public class CompositeCommandParser implements CommandParser
    }
 
    @Override
-   public Map<OptionMetadata, Object> parse(final CommandMetadata command, final Queue<String> tokens, CommandParserContext ctx)
+   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
+            final CommandParserContext ctx)
    {
-      Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
-
       boolean complete = false;
+      CommandParserContext context = ctx;
       while (!complete)
       {
          boolean altered = false;
@@ -57,8 +59,7 @@ public class CompositeCommandParser implements CommandParser
             }
 
             int size = tokens.size();
-            Map<OptionMetadata, Object> partial = parser.parse(command, tokens, ctx);
-            valueMap.putAll(partial);
+            context = parser.parse(command, tokens, context);
 
             if (size > tokens.size())
             {
@@ -72,7 +73,7 @@ public class CompositeCommandParser implements CommandParser
             break;
          }
       }
-      return valueMap;
+      return ctx;
    }
 
 }
