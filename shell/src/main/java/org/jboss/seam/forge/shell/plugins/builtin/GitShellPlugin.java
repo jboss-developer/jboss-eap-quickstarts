@@ -25,12 +25,11 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
-import org.mvel2.util.StringAppender;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author Mike Brock .
@@ -51,50 +50,7 @@ public class GitShellPlugin implements Plugin
    @DefaultCommand
    public void run(final PipeOut out, String... parms) throws IOException
    {
-      StringAppender appender = new StringAppender();
-
-      if (parms != null)
-      {
-         for (String s : parms)
-         {
-            appender.append(s).append(" ");
-         }
-      }
-
-      try
-      {
-         Process p = Runtime.getRuntime().exec("git " + appender.toString(), null,
-               shell.getCurrentDirectory().getUnderlyingResourceObject());
-
-
-         InputStream stdout = p.getInputStream();
-         InputStream stderr = p.getErrorStream();
-
-         byte[] buf = new byte[10];
-         int read;
-         while ((read = stdout.read(buf)) != -1)
-         {
-            for (int i = 0; i < read; i++)
-            {
-               out.write(buf[i]);
-            }
-         }
-
-         while ((read = stderr.read(buf)) != -1)
-         {
-            for (int i = 0; i < read; i++)
-            {
-               out.write(buf[i]);
-            }
-         }
-
-         p.waitFor();
-
-      }
-      catch (InterruptedException e)
-      {
-         e.printStackTrace();
-      }
+      GeneralUtils.nativeCommandCall("git", parms, out, shell);
    }
 
 }

@@ -26,7 +26,6 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
-import org.mvel2.util.StringAppender;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -340,7 +339,7 @@ public class MorePlugin implements Plugin
    private static class LineBuffer extends InputStream
    {
       private InputStream stream;
-      private StringAppender curr;
+      private StringBuilder curr;
       private ArrayList<Integer> index;
       private boolean buffered = false;
 
@@ -358,7 +357,7 @@ public class MorePlugin implements Plugin
       private LineBuffer(InputStream stream, int lineWidth)
       {
          this.stream = stream;
-         curr = new StringAppender();
+         curr = new StringBuilder();
          index = new ArrayList<Integer>();
          this.lineWidth = lineWidth;
          this.lineCounter = lineWidth - 1;

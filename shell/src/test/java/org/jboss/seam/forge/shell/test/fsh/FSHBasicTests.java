@@ -124,7 +124,8 @@ public class FSHBasicTests extends AbstractShellTest
 
 
    @Test
-   public void testExpressionLoop() {
+   public void testExpressionLoop()
+   {
       runtime.run("for (file : new java.io.File(\".\").listFiles()) { echo $file.getName().toUpperCase(); }");
    }
 

@@ -259,9 +259,7 @@ public class Echo implements Plugin
 
                         break;
 
-
                      default:
-                        //       builder.append(promptExpressionParser(shell, new String(expr, start, i - start - 2)));
                         start = i += 2;
                      }
                   }

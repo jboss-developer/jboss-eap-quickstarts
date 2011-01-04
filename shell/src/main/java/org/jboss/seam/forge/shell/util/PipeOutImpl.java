@@ -24,14 +24,13 @@ package org.jboss.seam.forge.shell.util;
 
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.mvel2.util.StringAppender;
 
 /**
  * @author Mike Brock .
  */
 public class PipeOutImpl implements PipeOut
 {
-   private StringAppender buffer = new StringAppender();
+   private StringBuilder buffer = new StringBuilder();
    private Shell shell;
    private boolean piped = false;
 
