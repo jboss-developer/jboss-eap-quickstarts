@@ -121,7 +121,7 @@ public class MorePlugin implements Plugin
                switch (c = buffer[i])
                {
                case '\r':
-                  i++;
+                  continue Bufferloop;
                case '\n':
                   lineBuffer.seenLine();
                   lCounter = width;
