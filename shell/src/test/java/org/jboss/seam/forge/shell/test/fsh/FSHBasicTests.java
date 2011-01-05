@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import java.util.regex.Pattern;
 
 /**
  * @author Mike Brock .
@@ -141,5 +142,10 @@ public class FSHBasicTests extends AbstractShellTest
       String s = Parse.disassemble(new FSHParser("for (i=0;i<4;i++) { ls -l $dir }").parse());
 
       System.out.println(s);
+   }
+
+   public static void main(String[] args)
+   {
+      System.out.println(Pattern.compile("a(102|103)z").matcher("a103z").matches());
    }
 }

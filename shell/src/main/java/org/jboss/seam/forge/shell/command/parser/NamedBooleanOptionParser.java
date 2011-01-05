@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import java.util.Queue;
-
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
+
+import java.util.Queue;
 
 /**
  * Parses named boolean options such as:
@@ -60,8 +60,6 @@ public class NamedBooleanOptionParser implements CommandParser
                   throw new RuntimeException("unknown option: " + shortOption);
                }
             }
-
-            tokens.remove(); // increment the chain of tokens
          }
          else
          {

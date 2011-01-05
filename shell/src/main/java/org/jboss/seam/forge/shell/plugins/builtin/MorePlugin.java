@@ -111,7 +111,7 @@ public class MorePlugin implements Plugin
             Bufferloop:
             for (int i = 0; i < read; i++)
             {
-               if (--lCounter == 0)
+               if (--lCounter <= -1)
                {
                   lineBuffer.seenLine();
                   lCounter = width;
@@ -128,8 +128,9 @@ public class MorePlugin implements Plugin
                   ++y;
 
                default:
-                  if (y == height)
+                  if (y >= height)
                   {
+                     y = height;
                      out.println();
                      height = shell.getHeight() - 1;
                      switch (prompt(lineBuffer, out, lastPattern))
@@ -469,12 +470,14 @@ public class MorePlugin implements Plugin
                {
                case '\r':
                   cursor++;
+                  continue;
                case '\n':
                   lCount = lineWidth;
                   currLine++;
+                  continue;
                }
 
-               if (--lCount == 0)
+               if (--lCount <= -1)
                {
                   currLine++;
                   lCount = lineWidth;
@@ -531,7 +534,7 @@ public class MorePlugin implements Plugin
                   startLine = cursor;
                }
 
-               if (--lCount == 0)
+               if (--lCount <= 0)
                {
                   line++;
                   lCount = lineWidth;
