@@ -109,23 +109,23 @@ public class FSHRuntime
                lastPipe = pipeOut;
             }
 
-            if (n.next == null || pipeOut.isPiped())
+//            if (n.next == null || pipeOut.isPiped())
+//            {
+            Node x = n;
+            while (x instanceof LogicalStatement && (x = ((LogicalStatement) x).nest) != null)
             {
-               Node x = n;
-               while (x instanceof LogicalStatement && (x = ((LogicalStatement) x).nest) != null)
+               if (x instanceof ScriptNode || x.next != null)
                {
-                  if (x instanceof ScriptNode || x.next != null)
-                  {
-                     break;
-                  }
-               }
-
-               if (x instanceof ScriptNode && x.next == null)
-               {
-                  pipeOut.println(Parse.executeScript((ScriptNode) x, this));
-                  continue;
+                  break;
                }
             }
+
+            if (x instanceof ScriptNode)
+            {
+//               pipeOut.println(Parse.executeScript((ScriptNode) x, this));
+               continue;
+            }
+//            }
 
             String pipeIn = forwardPipe != null ? forwardPipe.getBuffer() : null;
             Execution execution = executionParser.parse(outQueue, pipeIn, pipeOut);
