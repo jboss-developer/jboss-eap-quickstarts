@@ -38,6 +38,7 @@
       <arquillian.version>1.0.0.Alpha4</arquillian.version>
       <cal10n.version>0.7.2</cal10n.version>
       <cdi.version>1.0-SP2</cdi.version>
+      <groovy.version>1.7.5</groovy.version>
       <jboss.logging.version>3.0.0.Beta4</jboss.logging.version>
       <jboss.javaee.version>1.0.0.CR1</jboss.javaee.version>
       <jline.version>2.3</jline.version>
@@ -183,6 +184,12 @@
             <version>${jline.version}</version>
          </dependency>
 
+         <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+         </dependency>
+
          <!-- SLF4J Deps -->
          <dependency>
             <groupId>org.slf4j</groupId>
@@ -227,6 +234,7 @@
          <id>dist</id>
          <modules>
             <module>dist</module>
+            <module>docs/reference</module>
          </modules>
       </profile>
    </profiles>
@@ -256,37 +264,37 @@
       </repository>
    </repositories>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<inherited>true</inherited>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+               <source>1.6</source>
+               <target>1.6</target>
+               <encoding>UTF-8</encoding>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.1</version>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <inherited>true</inherited>
+            <configuration>
+               <archive>
+                  <manifest>
+                     <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                     <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                  </manifest>
+               </archive>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
 
    <reporting>
       <plugins>
