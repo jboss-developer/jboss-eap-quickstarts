@@ -6,7 +6,7 @@
    <artifactId>forge-reference-guide</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>jdocbook</packaging>
-   <name>Forge Reference Guide</name>
+   <name>Seam Forge - Reference Guide</name>
 
    <parent>
       <groupId>org.jboss.seam.forge</groupId>
