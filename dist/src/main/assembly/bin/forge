@@ -55,8 +55,6 @@ case "`uname`" in
   Darwin*) darwin=true 
            if [ -z "$JAVA_VERSION" ] ; then
              JAVA_VERSION="CurrentJDK"
-           else
-             echo "Using Java version: $JAVA_VERSION"
            fi
            if [ -z "$JAVA_HOME" ] ; then
              JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/${JAVA_VERSION}/Home
@@ -133,6 +131,16 @@ if [ ! -x "$JAVACMD" ] ; then
   echo "  We cannot execute $JAVACMD"
   exit 1
 fi
+
+JAVAVER=`$JAVACMD -version 2>&1`
+case $JAVAVER in
+*1.[6-9]*) ;;
+*1.[1-5]*) 
+	echo " Error: a Java 1.6 or higher JRE is required to run Forge; found [$JAVACMD -version == $JAVAVER]."
+	exit 1
+ ;;
+esac 
+
 
 if [ -z "$JAVA_HOME" ] ; then
   echo "Warning: JAVA_HOME environment variable is not set."
