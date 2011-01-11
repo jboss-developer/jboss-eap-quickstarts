@@ -16,7 +16,8 @@
      is heating up Java EE, and is ready to work it into a full-fledged project.
    </para>
    <para>
-      It's also an incremental enhancement tool that lets you to take an existing 
+      In addition to being a rapid-application generation tool, Forge is also 
+      an incremental enhancement tool that lets you to take an existing 
       Java EE projects and safely work-in new functionality. Forge 
       comprehends your entire project, including the abstract structure of the 
       files, and can make intelligent decisions of how and what to change.
