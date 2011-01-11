@@ -1,10 +1,8 @@
-*.classpath
-*.project
-*.settings
-*.DS_Store
-*/target/*
-*target/*
-*/bin/*
-*bin/*
+.classpath
+.project
+.settings
+.DS_Store
+target/
+bin/
 *.iml
 *.ipr

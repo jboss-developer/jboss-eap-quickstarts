@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+<chapter id="">
+	<title></title>
+	<section id="">
+		<title></title>
+		<section id="">
+			<title></title>
+			<para>
+				<programlisting role="Java"></programlisting>
+				<informaltable>
+					<tgroup cols="3">
+						<colspec colnum="1" colwidth="1*" />
+						<colspec colnum="2" colwidth="1*" />
+						<colspec colnum="3" colwidth="3*" />
+						<thead>
+							<row>
+								<entry>Qualifier</entry>
+								<entry>Type</entry>
+								<entry>Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>@Before</entry>
+								<entry>temporal</entry>
+								<entry>Qualifies events before lifecycle phases</entry>
+							</row>
+							<row>
+								<entry>@After</entry>
+								<entry>temporal</entry>
+								<entry>Qualifies events after lifecycle phases</entry>
+							</row>
+							<row>
+								<entry>@RestoreView</entry>
+								<entry>lifecycle</entry>
+								<entry>Qualifies events from the "restore view" phase</entry>
+							</row>
+							<row>
+								<entry>@ApplyRequestValues</entry>
+								<entry>lifecycle</entry>
+								<entry>Qualifies events from the "apply request values" phase</entry>
+							</row>
+							<row>
+								<entry>@ProcessValidations</entry>
+								<entry>lifecycle</entry>
+								<entry>Qualifies events from the "process validations" phase</entry>
+							</row>
+							<row>
+								<entry>@UpdateModelValues</entry>
+								<entry>lifecycle</entry>
+								<entry>Qualifies events from the "update model values" phase</entry>
+							</row>
+							<row>
+								<entry>@InvokeApplication</entry>
+								<entry>lifecycle</entry>
+								<entry>Qualifies events from the "invoke application" phase</entry>
+							</row>
+							<row>
+								<entry>@RenderResponse</entry>
+								<entry>lifecycle</entry>
+								<entry>Qualifies events from the "render response" phase</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</informaltable>
+			</para>
+		</section>
+      
+      
+         <section id="">
+            <title></title>
+            <para></para>
+            <programlisting role="XML"><![CDATA[]]></programlisting>
+            <para></para>
+         </section>
+      
+	</section>
+</chapter>

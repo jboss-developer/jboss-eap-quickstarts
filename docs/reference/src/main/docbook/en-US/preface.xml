@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+<preface>
+   <title>Introduction</title>
+   <para>
+   Forge: A core framework for rapid-application development in a standards-based 
+   environment. Plugins / incremental project enhancement for Java EE, and more.
+   Intended to provide all the functionality and complex tasks that would be 
+   traditionally difficult in an IDE, including scripting, project generation, 
+   and more.
+   </para>
+
+<!--
+vim:et:ts=3:sw=3:tw=120
+-->
+</preface>

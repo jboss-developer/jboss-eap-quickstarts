@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+
+<bookinfo>
+   <title>Forge</title>
+   <subtitle>Reference Guide</subtitle>
+   <releaseinfo>1.0.0-SNAPSHOT</releaseinfo>
+
+   <xi:include href="author_group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+<!--
+vim:et:ts=3:sw=3:tw=120
+-->
+</bookinfo>
