@@ -3,6 +3,5 @@
 .settings
 .DS_Store
 target/
-bin/
 *.iml
 *.ipr
