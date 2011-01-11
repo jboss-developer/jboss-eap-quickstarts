@@ -4,11 +4,26 @@
 <preface>
    <title>Introduction</title>
    <para>
-   Forge: A core framework for rapid-application development in a standards-based 
-   environment. Plugins / incremental project enhancement for Java EE, and more.
-   Intended to provide all the functionality and complex tasks that would be 
-   traditionally difficult in an IDE, including scripting, project generation, 
-   and more.
+     How many times have you wanted to start a new project in Java EE, but 
+     struggled to put all the pieces together? 
+   </para>
+   <para>
+     Has the Maven archetype syntax 
+     left you scratching your head? Everyone else is talking about cool new tools
+     in other languages or frameworks, and you're left thinking, "I wish it were 
+     that easy for me." Well, there's good news: You don't have to leave Java EE 
+     just to find a developer tool that makes starting out simple. JBoss Forge 
+     is heating up Java EE, and is ready to work it into a full-fledged project.
+   </para>
+   <para>
+      It's also an incremental enhancement tool that lets you to take an existing 
+      Java EE projects and safely work-in new functionality. Forge 
+      comprehends your entire project, including the abstract structure of the 
+      files, and can make intelligent decisions of how and what to change.
+   </para>
+   <para>
+      Whether you want to get your startup going today, or make your big customers 
+      happy tomorrow, Forge is a tool you should be looking at.
    </para>
 
 <!--
