@@ -34,6 +34,12 @@
          <version>${project.version}</version>
       </dependency>
       <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-reference-guide</artifactId>
+         <version>${project.version}</version>
+			<type>war</type>
+      </dependency>
+      <dependency>
          <groupId>org.jboss.logging</groupId>
          <artifactId>jboss-logging</artifactId>
       </dependency>
