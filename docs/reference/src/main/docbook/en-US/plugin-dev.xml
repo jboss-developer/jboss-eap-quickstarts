@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+<chapter id="plugin.dev">
+	<title>Developing a Plugin</title>
+	<para>
+      Part of Forge's architecture is to allow extensions to be created with extreme 
+      ease, using the same programming model that you would use for any CDI or Java EE
+      application; you should quickly recognize the annotation-driven patterns and
+      practices applied.
+   </para>
+   <para>
+      A Forge plugin could be as simple as a tool to print output to the console, or
+      as complex as deploying an application to a server, 'tweet'ing the status of your
+      latest source-code commit, or even sending commands to a home-automation system! 
+      The sky is the limit.
+   </para>
+
+   <section id="plugin.dev.interface">
+      <title>Implementing the Plugin interface</title>
+      <para>
+         Your class must implement the <literal>org.jboss.seam.forge.shell.plugins.Plugin</literal> interface.
+         <programlisting>import org.jboss.seam.forge.shell.plugins.Plugin;
+         
+public class ExamplePlugin implements Plugin
+{
+   // your commands will go here
+}</programlisting>
+      </para>
+   </section>
+   <section id="plugin.dev.naming">
+      <title>Naming your plugin</title>
+      Each plugin should be given a name. This is done by adding the 
+      <literal>@javax.inject.Named</literal> annotation to your plugin class.
+      
+      By default, if no <literal>@Named</literal> annotation is found, the 
+      lower-case Class name will be used; for instance, our <literal>ExamplePlugin</literal>,
+      above, would be executed by typing:
+      
+      <programlisting>$ exampleplugin</programlisting>
+      
+      Now we will add a name to our plugin.
+      <programlisting>@Named("example")
+public class ExamplePlugin implements Plugin
+{
+   // your commands will go here
+}</programlisting>
+               
+      Our named <literal>@Named("example") ExamplePlugin</literal> would be executed by typing:
+      <programlisting>$ example</programlisting>
+   </section>
+   
+   <section id="plugin.dev.classpath">
+      <title>Ensure all required classes are on the CLASSPATH</title>
+      <para>
+         All imports must be available on the <literal>CLASSPATH</literal>. If your Plugin depends 
+         on classes that are not provided by Forge, then you must either package
+         those classes in the JAR file containing your Plugin (for instance, using the
+         maven <ulink url="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</ulink>),
+         or you must ensure that the required dependencies are also placed on the 
+         <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder)
+      </para>
+   </section>
+   
+   <section id="plugin.dev.installing">
+      <title>Make your Plugin available to Forge</title>
+      <para>
+         After following all of the steps in <link linkend="plugin.dev">this section</link>,
+         you should now be ready to install your Plugin into the Forge environment. This
+         is accomplished simply by packaging your Plugin in a JAR file with a CDI activator,
+         otherwise referred to as a <literal>/META-INF/beans.xml</literal> file.
+      </para>
+      <tip>
+         <para>You must include a /META-INF/beans.xml file in your JAR, or none of the 
+         classes in your archive will be discovered; therefore, your Plugin will not be made
+         available to Forge.</para>
+      </tip>
+   </section>
+</chapter>
