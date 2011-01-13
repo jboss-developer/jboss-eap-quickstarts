@@ -51,6 +51,12 @@
          <type>pom</type>
       </dependency>
 
+       <dependency>
+           <groupId>org.jboss.fpak</groupId>
+           <artifactId>fpak</artifactId>
+           <version>1.0-SNAPSHOT</version>
+       </dependency>
+
       <!-- TODO this EL dep should probably be included at a higher level -->
       <dependency>
          <groupId>org.glassfish.web</groupId>
