@@ -3,12 +3,17 @@
 }
 @init:{
   if ($arg.length == 0) {
-     fail("You must specify a class name");
+     fail("You must specifiy a class name");
+     return;
+  }
+
+  if ($arg[0].indexOf('.') == -1) {
+     fail("Please specify a fully qualified class name (eg. foo.bar.MyClass)");
      return;
   }
 
   package = $arg[0].substring(0, $arg[0].lastIndexOf('.'));
-  packageDir = package.replaceAll('\\.', '/');
+  packageDir = package.replaceAll('\\\\.', '/');
   classname = $arg[0].substring(package.length() + 1);
 }
 
