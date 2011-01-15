@@ -24,10 +24,86 @@
          
 public class ExamplePlugin implements Plugin
 {
-   // your commands will go here
 }</programlisting>
       </para>
    </section>
+   
+   <section id="plugin.dev.commands">
+      <title>Add commands to your plugin</title>
+      <para>
+         Now that you have implemented the <literal>Plugin</literal> interface, it's time
+         to add some functionality. This is done by adding "Commands" to your plugin class.
+         Commands are plain Java methods in your plugin Class. Plugin methods must be annotated
+         as either a <literal>@DefaultCommand</literal>, the method to be invoked if the plugin
+         is called by name (with no additional commands), or <literal>@Command(name="...")</literal>,
+         in which case a the plugin name and command name must both be used to invoke the method.
+      </para>
+      <para>
+         Commands also accept <literal>@Options</literal> parameters as arguments. These will
+         be described later on.
+      </para>
+      
+      <section id="plugin.dev.commands.default">
+         <title>Default commands</title>
+         <para>
+            Default commands must be annotated with <literal>@DefaultCommand</literal>, and are
+            not named; you may still provide help text or command metadata.
+         </para>
+         <para>
+            The following default command would be executed by executing the plugin by its name:
+            
+            <programlisting>public class ExamplePlugin implements Plugin
+{
+   @DefaultCommand
+   public void exampleDefaultCommand( @Option String opt )
+   {
+      // this method will be invoked, and 'opt' will be passed from the command line
+   }
+}</programlisting>
+            <programlisting>$ exampleplugin forgeMe</programlisting>
+            In this case, the value of '<literal>opt</literal>' will be "forgeMe".
+        </para>
+      </section>
+      
+      <section id="plugin.dev.commands.named">
+         <title>Named commands</title>
+         <para>
+            Named commands must, to little surprise, be given a name with which they are
+            invoked. This is done by placing the <literal>@Command(name="...")</literal> annotation
+            on a public Java method in your <literal>Plugin</literal> class.
+         </para>
+         <para>
+            The following command would be executed by executing the plugin by its name,
+            followed by the name of the command:
+         
+            <programlisting>public class ExamplePlugin implements Plugin
+{
+   @Command(name="perform")
+   public void exampleCommand( @Option(required=false) String opt, PipeOut out)
+   {
+       out.println(">> the command \"perform\" was invoked with the value: " + opt);
+   }
+}</programlisting>
+            <programlisting>$ exampleplugin perform
+>> the command "perform" was invoked with the value: null</programlisting>
+         </para>
+         <para>
+            Notice that our command method has a parameter called "<literal>PipeOut</literal>,"
+            in addition to our 'opt' parameter. <literal>PipeOut</literal> is a special 
+            parameter, which can be placed in any order, that provides access to a
+            variety of shell output functions, including enabling color and controlling 
+            piping between plugins.
+         </para>
+         <para>
+            Along with <literal>PipeOut</literal>, there is also a 
+            <literal>@PipeIn InputStream stream</literal> annotation,
+            which is used to inject a piped input stream (output from another
+            Plugin's <literal>PipeOut</literal>.) These concepts will be described more in the
+            section on <link linkend="plugin.dev.piping">piping</link>.
+         </para>
+      </section>
+   </section>
+   
    <section id="plugin.dev.naming">
       <title>Naming your plugin</title>
       Each plugin should be given a name. This is done by adding the 
@@ -37,17 +113,149 @@ public class ExamplePlugin implements Plugin
       lower-case Class name will be used; for instance, our <literal>ExamplePlugin</literal>,
       above, would be executed by typing:
       
-      <programlisting>$ exampleplugin</programlisting>
+      <programlisting>$ exampleplugin </programlisting>
       
       Now we will add a name to our plugin.
       <programlisting>@Named("example")
 public class ExamplePlugin implements Plugin
 {
-   // your commands will go here
+   // commands
 }</programlisting>
                
       Our named <literal>@Named("example") ExamplePlugin</literal> would be executed by typing:
-      <programlisting>$ example</programlisting>
+      <programlisting>$ example </programlisting>
+   </section>
+   
+   <section id="plugin.dev.piping">
+      <title>Piping output between plugins</title>
+      
+      <para>
+         Much like a standard UNIX-style shell, the Forge shell supports piping IO between
+         executables; however in the case of forge, piping actually occurs between plugins,
+         commands, for example:
+      </para>
+      
+      <programlisting>$ cat /home/username/.forge/config | grep automatic 
+@/* Automatically generated config file */;</programlisting>
+
+      <para>
+         This might look like a typical BASH command, but if you run forge and try it,
+         you might be surprised to find that the results are the same as on your system
+         command prompt, and in this example, we are demonstrating the pipe.
+      </para>      
+
+      <para>
+         In order to enable piping in your plugins, you must use one or both of the
+         <literal>@PipeIn InputStream stream</literal> or <literal>PipeOut out</literal>
+         command arguments. Notice that <literal>PipeOut</literal> is a java type that 
+         must be used as a Method parameter, whereas <literal>@PipeIn</literal> is 
+         an annotation that must be placed on a Java <literal>InputStream</literal> 
+         Method parameter. 
+      </para>
+      
+      <para>
+         Take the '<literal>grep</literal>' command itself, for example, which supports
+         two methods of invocation: Invocation on one or more <literal>Resource&lt;?&gt;</literal>
+         objects, or invocation on a piped <literal>InputStream</literal>.
+      </para>
+      
+      <para>
+         Notice that if no piping was invoked, the piped <literal>InputStream</literal>
+         will be null.
+      </para>
+      
+      <programlisting><![CDATA[@Named("grep")
+@Topic("File & Resources")
+@Help("print lines matching a pattern")
+public class GrepPlugin implements Plugin
+{
+   @DefaultCommand
+   public void run(
+         @PipeIn final InputStream pipeIn,
+         @Option(name = "ignore-case", shortName = "i", help = "ignore case distinctions in both patterns and input", flagOnly = true)
+         boolean ignoreCase,
+         @Option(name = "regexp", shortName = "e", help = "match using a regular expression")
+         String regExp,
+         @Option(description = "PATTERN") String pattern,
+         @Option(description = "FILE ...") Resource<?>[] resources,
+         final PipeOut pipeOut
+   ) throws IOException
+   {
+      Pattern matchPattern;
+      if (regExp != null)
+      {
+         if (ignoreCase)
+         {
+            regExp = regExp.toLowerCase();
+         }
+         matchPattern = Pattern.compile(regExp);
+      }
+      else if (pattern == null)
+      {
+         throw new RuntimeException("you must specify a pattern");
+      }
+      else
+      {
+         if (ignoreCase)
+         {
+            pattern = pattern.toLowerCase();
+         }
+         matchPattern = Pattern.compile(".*" + pattern + ".*");
+      }
+
+      if (resources != null)
+      {
+         for (Resource<?> r : resources)
+         {
+            InputStream inputStream = r.getResourceInputStream();
+            try
+            {
+               match(inputStream, matchPattern, pipeOut, ignoreCase);
+            }
+            finally
+            {
+               inputStream.close();
+            }
+         }
+      }
+      else if (pipeIn != null)
+      {
+         match(pipeIn, matchPattern, pipeOut, ignoreCase);
+      }
+      else
+      {
+         throw new RuntimeException("arguments required");
+      }
+   }
+
+   private void match(InputStream instream, Pattern pattern, PipeOut out, boolean caseInsensitive) throws IOException
+   {
+      StringAppender buf = new StringAppender();
+
+      int c;
+      while ((c = instream.read()) != -1)
+      {
+         switch (c)
+         {
+         case '\r':
+         case '\n':
+            String s = caseInsensitive ? buf.toString().toLowerCase() : buf.toString();
+
+            if (pattern.matcher(s).matches())
+            {
+               out.println(s);
+            }
+            buf.reset();
+            break;
+         default:
+            buf.append((char) c);
+            break;
+         }
+      }
+   }
+}]]></programlisting>
+      
+
    </section>
    
    <section id="plugin.dev.classpath">
