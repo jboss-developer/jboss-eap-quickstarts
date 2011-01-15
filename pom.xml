@@ -32,6 +32,7 @@
       <module>shell</module>
       <module>j2ee-plugins</module>
       <module>scaffold-plugin</module>
+      <module>docs/reference</module>
    </modules>
 
    <properties>
@@ -263,6 +264,31 @@
          </snapshots>
       </repository>
    </repositories>
+
+   <pluginRepositories>
+      <pluginRepository>
+         <id>jboss-snapshots-repository-group</id>
+         <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>false</enabled>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+         </snapshots>
+      </pluginRepository>
+      <pluginRepository>
+         <id>jboss-public-repository-group</id>
+         <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </pluginRepository>
+   </pluginRepositories>
 
    <build>
       <plugins>
