@@ -109,8 +109,6 @@ public class FSHRuntime
                lastPipe = pipeOut;
             }
 
-//            if (n.next == null || pipeOut.isPiped())
-//            {
             Node x = n;
             while (x instanceof LogicalStatement && (x = ((LogicalStatement) x).nest) != null)
             {
@@ -119,13 +117,6 @@ public class FSHRuntime
                   break;
                }
             }
-
-            if (x instanceof ScriptNode)
-            {
-//               pipeOut.println(Parse.executeScript((ScriptNode) x, this));
-               continue;
-            }
-//            }
 
             String pipeIn = forwardPipe != null ? forwardPipe.getBuffer() : null;
             Execution execution = executionParser.parse(outQueue, pipeIn, pipeOut);

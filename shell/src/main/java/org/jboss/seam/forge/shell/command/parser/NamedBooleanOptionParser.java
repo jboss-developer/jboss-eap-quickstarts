@@ -37,7 +37,6 @@ import java.util.Queue;
  */
 public class NamedBooleanOptionParser implements CommandParser
 {
-
    @Override
    public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
                                      final CommandParserContext ctx)
