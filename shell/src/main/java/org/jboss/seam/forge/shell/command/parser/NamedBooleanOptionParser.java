@@ -31,16 +31,15 @@ import java.util.Queue;
  * Parses named boolean options such as:
  * <p/>
  * <code>[command] {--toggle}</code>
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
 public class NamedBooleanOptionParser implements CommandParser
 {
-
    @Override
    public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
-            final CommandParserContext ctx)
+                                     final CommandParserContext ctx)
    {
       String currentToken = tokens.peek();
       if (currentToken.matches("--?\\S+"))
@@ -53,13 +52,14 @@ public class NamedBooleanOptionParser implements CommandParser
 
                if (command.hasShortOption(shortOption))
                {
-                  processOption(ctx, tokens, command, shortOption);
+                  processOption(ctx, tokens, command, shortOption, true);
                }
                else
                {
                   throw new RuntimeException("unknown option: " + shortOption);
                }
             }
+            tokens.remove();
          }
          else
          {
@@ -67,7 +67,7 @@ public class NamedBooleanOptionParser implements CommandParser
 
             if (command.hasOption(currentToken))
             {
-               processOption(ctx, tokens, command, currentToken);
+               processOption(ctx, tokens, command, currentToken, false);
             }
          }
       }
@@ -75,7 +75,8 @@ public class NamedBooleanOptionParser implements CommandParser
    }
 
    private static void processOption(final CommandParserContext ctx, final Queue<String> tokens,
-                                     final CommandMetadata command, final String currentToken)
+                                     final CommandMetadata command, final String currentToken,
+                                     final boolean shortOption)
    {
       OptionMetadata option = command.getNamedOption(currentToken);
 
@@ -84,7 +85,10 @@ public class NamedBooleanOptionParser implements CommandParser
          String value = "true";
          if (!tokens.isEmpty())
          {
-            tokens.remove();
+            if (!shortOption)
+            {
+               tokens.remove();
+            }
             String nextToken = tokens.peek();
             if (!option.isFlagOnly() && (nextToken != null) && nextToken.matches("true|false"))
             {

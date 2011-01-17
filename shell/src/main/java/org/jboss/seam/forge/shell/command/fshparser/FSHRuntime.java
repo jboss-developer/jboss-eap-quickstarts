@@ -109,21 +109,12 @@ public class FSHRuntime
                lastPipe = pipeOut;
             }
 
-            if (n.next == null || pipeOut.isPiped())
+            Node x = n;
+            while (x instanceof LogicalStatement && (x = ((LogicalStatement) x).nest) != null)
             {
-               Node x = n;
-               while (x instanceof LogicalStatement && (x = ((LogicalStatement) x).nest) != null)
+               if (x instanceof ScriptNode || x.next != null)
                {
-                  if (x instanceof ScriptNode || x.next != null)
-                  {
-                     break;
-                  }
-               }
-
-               if (x instanceof ScriptNode && x.next == null)
-               {
-                  pipeOut.println(Parse.executeScript((ScriptNode) x, this));
-                  continue;
+                  break;
                }
             }
 

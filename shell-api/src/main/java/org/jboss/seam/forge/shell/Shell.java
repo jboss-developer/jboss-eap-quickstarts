@@ -22,17 +22,18 @@
 
 package org.jboss.seam.forge.shell;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
-import java.util.List;
-import java.util.Map;
-
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.util.ShellColor;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -91,6 +92,14 @@ public interface Shell extends ShellPrintWriter
     * @param command
     */
    void execute(String command);
+
+   /**
+    * Execute a shell script from the specified file.
+    * @param file
+    */
+   void execute(File file) throws IOException;
+
+   void execute(File file, String... args) throws IOException;
 
    /**
     * Wait for input. Return as soon as any key is pressed and return the

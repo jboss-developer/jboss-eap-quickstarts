@@ -47,13 +47,15 @@ public class ConcatenatePlugin implements Plugin
          final PipeOut out // pipe out
    ) throws IOException
    {
+      String lastBuf = null;
       if (in != null)
       {
-         writeOutToConsole(in, out);
+         lastBuf = writeOutToConsole(in, out);
       }
 
       if (paths != null)
       {
+
          for (Resource<?> res : paths)
          {
             if (res instanceof FileResource)
@@ -62,7 +64,7 @@ public class ConcatenatePlugin implements Plugin
                try
                {
                   istream = new BufferedInputStream(new FileInputStream(res.getFullyQualifiedName()));
-                  writeOutToConsole(istream, out);
+                  lastBuf = writeOutToConsole(istream, out);
                }
                catch (IOException e)
                {
@@ -78,15 +80,25 @@ public class ConcatenatePlugin implements Plugin
             }
          }
       }
+
+      if (lastBuf == null || lastBuf.charAt(lastBuf.length() - 1) != '\n')
+      {
+         out.println();
+      }
    }
 
-   private void writeOutToConsole(InputStream istream, PipeOut out) throws IOException
+   private static String writeOutToConsole(InputStream istream, PipeOut out) throws IOException
    {
       byte[] buf = new byte[10];
       int read;
+      String s = null;
       while ((read = istream.read(buf)) != -1)
       {
-         out.print(new String(buf, 0, read));
+         out.print(s = new String(buf, 0, read));
       }
+
+      return s;
+
+
    }
 }

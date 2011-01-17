@@ -104,7 +104,7 @@ public class FSHParser
 
          if (isReservedWord(tk))
          {
-            boolean block = "for".equals(tk) || "if".equals(tk) || "while".equals(tk);
+            boolean block = "for".equals(tk) || "if".equals(tk) || "while".equals(tk) || "def".equals(tk);
 
             start = cursor;
             SkipLoop:
@@ -122,7 +122,7 @@ public class FSHParser
                      cursor++;
                      while (cursor != length && Character.isWhitespace(expr[cursor])) cursor++;
 
-                     StringAppender buf = new StringAppender();
+                     StringAppender buf = new StringAppender("def".equals(tk) ? " " : "");
 
                      if (cursor != length)
                      {
@@ -285,7 +285,7 @@ public class FSHParser
       boolean openShellCall = false;
       boolean scriptOnly = false;
 
-      int firstToken = subStmt.indexOf(' ');
+    //  int firstToken = subStmt.indexOf(' ');
 
       Nest nest = new Nest();
 
@@ -300,7 +300,9 @@ public class FSHParser
                break;
             }
 
-            if (!noShellCall && subStmt.charAt(i) != '@' && (firstToken == -1 || !isReservedWord(subStmt.substring(0, firstToken))))
+            int firstToken = getEndOfToken(subStmt, i);
+            String tk = subStmt.substring(i, firstToken).trim();
+            if (!noShellCall && tk.charAt(0) != '@' && (firstToken == -1 || !isReservedWord(tk)))
             {
                buf.append("shell(\"");
                openShellCall = true;
@@ -309,7 +311,7 @@ public class FSHParser
             {
                scriptOnly = true;
                stmtStart = false;
-               if (subStmt.charAt(i) == '@')
+               if (tk.charAt(0) == '@')
                {
                   continue;
                }
@@ -379,6 +381,7 @@ public class FSHParser
                }
 
                stmtStart = true;
+               scriptOnly = false;
             }
 
             buf.append(subStmt.charAt(i));
@@ -435,6 +438,11 @@ public class FSHParser
       }
 
       return buf.toString();
+   }
+
+   private int getEndOfToken(String s, int offset)
+   {
+      return captureToken(offset, s.length(), s.toCharArray());
    }
 
    private String captureToken()
@@ -521,7 +529,19 @@ public class FSHParser
 
    public void skipToEOS()
    {
-      while (cursor < length && expr[cursor] != ';') cursor++;
+      while (cursor < length && expr[cursor] != ';')
+      {
+         switch (expr[cursor])
+         {
+         case '{':
+         case '(':
+         case '"':
+         case '\'':
+            cursor = ParseTools.balancedCapture(expr, cursor, expr[cursor]);
+            break;
+         }
+         cursor++;
+      }
    }
 
    private void addNode(Node n)

@@ -45,8 +45,10 @@ public abstract class Parse
       reservedWords.add("else");
       reservedWords.add("for");
       reservedWords.add("new");
+      reservedWords.add("return");
       reservedWords.add("do");
       reservedWords.add("while");
+      reservedWords.add("def");
 
       operators.add("+");
       operators.add("-");
@@ -78,6 +80,8 @@ public abstract class Parse
       case '~':
       case '#':
       case '$':
+      case '[':
+      case ']':
 
          return true;
       default:
@@ -143,6 +147,8 @@ public abstract class Parse
    public static String executeScript(ScriptNode node, final FSHRuntime runtime)
    {
       String toExec = queueToString(new AutoReducingQueue(node.getNest(), runtime));
+
+     // System.out.println("\n----\n" + toExec + "\n========\n");
 
       Object r = MVEL.eval(toExec, runtime, runtime.getShell().getProperties());
       if (r == null)
