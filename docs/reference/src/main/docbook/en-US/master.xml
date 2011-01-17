@@ -9,6 +9,7 @@
 
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="preface.xml" />
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="installation.xml" />
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="creating-basic-webapp.xml" />
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="plugin-dev.xml" />
    
    <!--
