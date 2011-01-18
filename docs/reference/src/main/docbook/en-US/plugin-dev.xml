@@ -155,6 +155,143 @@ public class ExamplePlugin implements Plugin {
    
    <section id="plugin.dev.options">
       <title>Understanding command @Options</title>
+
+      <para>
+         Once we have a command or two in our Plugin, it's time to give our users some
+         control over what it does; to do this, we use <literal>@Option</literal> params;
+         options enable users to pass information of various types into our commands.
+      </para>
+      <para>
+         Options can be named, in which case they are set by passing the
+         <literal>--name</literal> followed immediately by the value, or if the option
+         is a boolean flag, simply passing the flag will signal a `true` value.
+         
+         Named parameters may be passed into a command in any order, while unnamed 
+         parameters must be passed into the command in the order with which
+         they were defined.
+      </para>
+      
+      <section id="plugin.dev.options.named">
+         <title>--named options</title>
+      
+         <para>
+            As mentioned above, options can be given either a long-name and/or a 
+            short-name.  in which case, they would be defined like this:
+            
+            <programlisting>@Option(name="one", shortName="o")</programlisting>
+            
+            Short named parameters are called using a single dash '-' followed by
+            the letter assigned '-o'; whereas long-named parameters are called using 
+            a double dash '--' immediately followed by the name '--one'. )
+         </para>
+         <para>
+            For example, the following command accepts several options, named 'one', 
+            and 'two':
+            
+            <programlisting>public class ExamplePlugin implements Plugin {
+   @Command(name="perform")
+   public void exampleCommand( 
+                  @Option(name="one", shortName="o") String one,
+                  @Option(name="two") String two,
+                  PipeOut out) {
+       out.println(">> option one equals: " + one);
+       out.println(">> option two equals: " + two);
+   }
+}</programlisting>
+   
+            The above command, when executed, would produce the following output:
+         
+            <programlisting>$ example-plugin perform --one value1 --two value2 
+>> option one equals: value1
+>> option two equals: value2</programlisting>
+         </para>
+         <para>
+            <tip>
+               Named parameters can be called in any order. Notice that we could have also 
+               called the command with options 'one' and 'two' in reverse order, or 
+               by using their short names. These commands are equivalent:
+               <programlisting>$ example-plugin perform --one value1 --two value2
+$ example-plugin perform --two value2 --one value1
+$ example-plugin perform --two value2 -o value1</programlisting>
+            </tip>
+         </para>
+      </section>
+      
+      <section id="plugin.dev.options.ordered">
+         <title>Ordered options</title>
+      </section>
+      
+      <section id="plugin.dev.options.attributes">
+         <title>Option attributes and configuration</title>
+         <para>
+            This table describes all of the available <literal>@Option(...)</literal>
+            attributes and their usage.
+         
+            <informaltable>
+               <tgroup cols="4">
+                  <colspec colnum="1" colwidth="1*" />
+                  <colspec colnum="2" colwidth="1*" />
+                  <colspec colnum="3" colwidth="3*" />
+                  <colspec colnum="4" colwidth="1*" />
+                  <thead>
+                     <row>
+                        <entry>Attribute</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                     </row>
+                  </thead>
+                  <tbody>
+                     <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal>String</literal></entry>
+                        <entry>
+                           If specified, defines the 
+                           <link linkend="plugins.dev.options.named">--name</link> 
+                           with which this option may be passed on the
+                           command line. If left blank, this option will be 
+                           <link linkend="plugins.dev.options.ordered">ordered</link>
+                           (not named,) and will be passed in the order with which
+                           it was written in the Method signature.
+                           <programlisting>@Option(name="exampleName")</programlisting>
+                        </entry>
+                        <entry>none</entry>
+                     </row>
+                     <row>
+                        <entry><literal>required</literal></entry>
+                        <entry><literal>boolean</literal></entry>
+                        <entry>
+                           Options may be declared as required when they must be supplied
+                           in order for proper command execution. The shell will enforce
+                           this requirement by prompting the user for valid input if
+                           the option is omitted when the command is executed. 
+                           <programlisting>@Option(required="false")</programlisting>
+                        </entry>
+                        <entry>false</entry>
+                     </row>
+                     <row>
+                        <entry><literal>shortName</literal></entry>
+                        <entry><literal>String</literal></entry>
+                        <entry>
+                           If specified, defines the short name by which this option
+                           may be called on the command line. Short names must be one
+                           character in length.
+                           <link linkend="plugins.dev.options.named">short name</link>
+                           with which this option may be passed on the command line.
+                        </entry>
+                        <entry>none</entry>
+                     </row>
+                     <row>
+                        <entry></entry>
+                        <entry></entry>
+                        <entry></entry>
+                        <entry></entry>
+                     </row>
+                  </tbody>
+               </tgroup>
+            </informaltable>
+         </para>
+      </section>
    </section>
    
    
