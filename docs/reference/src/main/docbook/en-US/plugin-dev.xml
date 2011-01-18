@@ -5,15 +5,15 @@
 	<title>Developing a Plugin</title>
 	<para>
       Part of Forge's architecture is to allow extensions to be created with extreme 
-      ease, using the same programming model that you would use for any CDI or Java EE
-      application; you should quickly recognize the annotation-driven patterns and
-      practices applied.
+      ease. This is done using the same programming model that you would use for any 
+      CDI or Java EE application, and you should quickly recognize the annotation-driven
+      patterns and practices applied.
    </para>
    <para>
-      A Forge plugin could be as simple as a tool to print output to the console, or
+      A Forge plugin could be as simple as a tool to print files to the console, or
       as complex as deploying an application to a server, 'tweet'ing the status of your
-      latest source-code commit, or even sending commands to a home-automation system! 
-      The sky is the limit.
+      latest source-code commit, or even sending commands to a home-automation system; 
+      the sky is the limitT
    </para>
 
    <section id="plugin.dev.interface">
@@ -22,88 +22,9 @@
          Your class must implement the <literal>org.jboss.seam.forge.shell.plugins.Plugin</literal> interface.
          <programlisting>import org.jboss.seam.forge.shell.plugins.Plugin;
          
-public class ExamplePlugin implements Plugin
-{
+public class ExamplePlugin implements Plugin {
 }</programlisting>
       </para>
-   </section>
-   
-   <section id="plugin.dev.commands">
-      <title>Add commands to your plugin</title>
-      <para>
-         Now that you have implemented the <literal>Plugin</literal> interface, it's time
-         to add some functionality. This is done by adding "Commands" to your plugin class.
-         Commands are plain Java methods in your plugin Class. Plugin methods must be annotated
-         as either a <literal>@DefaultCommand</literal>, the method to be invoked if the plugin
-         is called by name (with no additional commands), or <literal>@Command(name="...")</literal>,
-         in which case a the plugin name and command name must both be used to invoke the method.
-      </para>
-      <para>
-         Commands also accept <literal>@Options</literal> parameters as arguments. These will
-         be described later on.
-      </para>
-      
-      <section id="plugin.dev.commands.default">
-         <title>Default commands</title>
-         <para>
-            Default commands must be annotated with <literal>@DefaultCommand</literal>, and are
-            not named; you may still provide help text or command metadata.
-         </para>
-         <para>
-            The following default command would be executed by executing the plugin by its name:
-            
-            <programlisting>public class ExamplePlugin implements Plugin
-{
-   @DefaultCommand
-   public void exampleDefaultCommand( @Option String opt )
-   {
-      // this method will be invoked, and 'opt' will be passed from the command line
-   }
-}</programlisting>
-            <programlisting>$ exampleplugin forgeMe</programlisting>
-            In this case, the value of '<literal>opt</literal>' will be "forgeMe".
-        </para>
-      </section>
-      
-      <section id="plugin.dev.commands.named">
-         <title>Named commands</title>
-         <para>
-            Named commands must, to little surprise, be given a name with which they are
-            invoked. This is done by placing the <literal>@Command(name="...")</literal> annotation
-            on a public Java method in your <literal>Plugin</literal> class.
-         </para>
-         <para>
-            The following command would be executed by executing the plugin by its name,
-            followed by the name of the command:
-         
-            <programlisting>public class ExamplePlugin implements Plugin
-{
-   @Command(name="perform")
-   public void exampleCommand( @Option(required=false) String opt, PipeOut out)
-   {
-       out.println(">> the command \"perform\" was invoked with the value: " + opt);
-   }
-}</programlisting>
-            <programlisting>$ exampleplugin perform
->> the command "perform" was invoked with the value: null</programlisting>
-         </para>
-         <para>
-            Notice that our command method has a parameter called "<literal>PipeOut</literal>,"
-            in addition to our 'opt' parameter. <literal>PipeOut</literal> is a special 
-            parameter, which can be placed in any order, that provides access to a
-            variety of shell output functions, including enabling color and controlling 
-            piping between plugins.
-         </para>
-         <para>
-            Along with <literal>PipeOut</literal>, there is also a 
-            <literal>@PipeIn InputStream stream</literal> annotation,
-            which is used to inject a piped input stream (output from another
-            Plugin's <literal>PipeOut</literal>.) These concepts will be described more in the
-            section on <link linkend="plugin.dev.piping">piping</link>, but for now, you
-            should just know that <literal>PipeOut</literal> is used to write output
-            to the Forge console.
-         </para>
-      </section>
    </section>
    
    <section id="plugin.dev.naming">
@@ -119,14 +40,123 @@ public class ExamplePlugin implements Plugin
       
       Now we will add a name to our plugin.
       <programlisting>@Named("example")
-public class ExamplePlugin implements Plugin
-{
+public class ExamplePlugin implements Plugin {
    // commands
 }</programlisting>
                
       Our named <literal>@Named("example") ExamplePlugin</literal> would be executed by typing:
       <programlisting>$ example </programlisting>
    </section>
+   
+   <section id="plugin.dev.classpath">
+      <title>Ensure all required classes are on the CLASSPATH</title>
+      <para>
+         All imports must be available on the <literal>CLASSPATH</literal>. If your Plugin depends 
+         on classes that are not provided by Forge, then you must either package
+         those classes in the JAR file containing your Plugin (for instance, using the
+         maven <ulink url="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</ulink>),
+         or you must ensure that the required dependencies are also placed on the 
+         <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder)
+      </para>
+   </section>
+   
+   <section id="plugin.dev.installing">
+      <title>Make your Plugin available to Forge</title>
+      <para>
+         After following all of the steps in <link linkend="plugin.dev">this section</link>,
+         you should now be ready to install your Plugin into the Forge environment. This
+         is accomplished simply by packaging your Plugin in a JAR file with a CDI activator,
+         otherwise referred to as a <literal>/META-INF/beans.xml</literal> file.
+      </para>
+      <tip>
+         <para>You must include a /META-INF/beans.xml file in your JAR, or none of the 
+         classes in your archive will be discovered; therefore, your Plugin will not be made
+         available to Forge.</para>
+      </tip>
+   </section>
+   
+   <section id="plugin.dev.commands">
+      <title>Add commands to your plugin</title>
+      <para>
+         Now that you have implemented the <literal>Plugin</literal> interface, it's time
+         to add some functionality. This is done by adding "Commands" to your plugin class.
+         Commands are plain Java methods in your plugin Class. Plugin methods must be annotated
+         as either a <literal>@DefaultCommand</literal>, the method to be invoked if the plugin
+         is called by name (with no additional commands), or <literal>@Command(name="...")</literal>,
+         in which case a the plugin name and command name must both be used to invoke the method.
+      </para>
+      <para>
+         Commands also accept <literal>@Options</literal> parameters as arguments. These are
+         <link linkend="plugins.dev.options">described in detail</link> later in this section.
+      </para>
+      
+      <section id="plugin.dev.commands.default">
+         <title>Default commands</title>
+         <para>
+            Default commands must be annotated with <literal>@DefaultCommand</literal>, and are
+            not named; you may still provide help text or command metadata.
+         </para>
+         <para>
+            The following default command would be executed by executing the plugin by its name:
+            
+            <programlisting>public class ExamplePlugin implements Plugin {
+   @DefaultCommand
+   public void exampleDefaultCommand( @Option String opt ) {
+      // this method will be invoked, and 'opt' will be passed from the command line
+   }
+}</programlisting>
+            <programlisting>$ exampleplugin some-input</programlisting>
+            In this case, the value of '<literal>opt</literal>' will be "some-input".
+            <literal>@Options</literal> are <link linkend="plugin.dev.options">described
+            in detail</link> later in this section.
+        </para>
+      </section>
+      
+      <section id="plugin.dev.commands.named">
+         <title>Named commands</title>
+         <para>
+            Named commands must, to little surprise, be given a name with which they are
+            invoked. This is done by placing the <literal>@Command(name="...")</literal> annotation
+            on a public Java method in your <literal>Plugin</literal> class.
+         </para>
+         <para>
+            The following command would be executed by executing the plugin by its name,
+            followed by the name of the command:
+         
+            <programlisting>public class ExamplePlugin implements Plugin {
+   @Command(name="perform")
+   public void exampleCommand( @Option(required=false) String opt, PipeOut out) {
+       out.println(">> the command \"perform\" was invoked with the value: " + opt);
+   }
+}</programlisting>
+            <programlisting>$ exampleplugin perform
+>> the command "perform" was invoked with the value: null</programlisting>
+         </para>
+         <para>
+            Notice that our command method has a parameter called "<literal>PipeOut</literal>,"
+            in addition to our 'opt' parameter. <literal>PipeOut</literal> is a special 
+            parameter, which can be placed in any order. It provides access to a
+            variety of shell output functions, including enabling color and controlling 
+            piping between plugins.
+         </para>
+         <para>
+            Along with <literal>PipeOut</literal>, there is also a 
+            <literal>@PipeIn InputStream stream</literal> annotation,
+            which is used to inject a piped input stream (output from another
+            Plugin's <literal>PipeOut</literal>.) These concepts will be described more in the
+            section on <link linkend="plugin.dev.piping">piping</link>, but for now, you
+            should just know that <literal>PipeOut</literal> is used to write output
+            to the Forge console.
+         </para>
+      </section>
+   </section>
+   
+   
+   
+   <section id="plugin.dev.options">
+      <title>Understanding command @Options</title>
+   </section>
+   
    
    <section id="plugin.dev.piping">
       <title>Piping output between plugins</title>
@@ -142,8 +172,8 @@ public class ExamplePlugin implements Plugin
 
       <para>
          This might look like a typical BASH command, but if you run forge and try it,
-         you might be surprised to find that the results are the same as on your system
-         command prompt, and in this example, we are demonstrating the pipe.
+         you may be surprised to find that the results are the same as on your system
+         command prompt, and in this example, we are demonstrating the pipe: '|'
       </para>      
 
       <para>
@@ -152,7 +182,25 @@ public class ExamplePlugin implements Plugin
          command arguments. Notice that <literal>PipeOut</literal> is a java type that 
          must be used as a Method parameter, whereas <literal>@PipeIn</literal> is 
          an annotation that must be placed on a Java <literal>InputStream</literal> 
-         Method parameter. 
+         Method parameter.
+      </para>
+      <para>
+         `<literal>PipeOut out</literal>` - by default - is used to print output to 
+         the shell console; however, if the plugin on the left-hand-side is piped to 
+         a secondary plugin on the command line, the output will be written to the
+         `<literal>@PipeIn InputStream stream</literal>` of the plugin on the 
+         right-hand-side:
+         
+         <programlisting>$ left | right</programlisting>
+         
+         Or in terms of pipes, this could be thought of as a flow of data from left
+         to right:
+         
+         <programlisting>$ PipeOut -> PipeIn</programlisting>
+         
+         Notice that you can pipe output between any number of plugins:
+         
+         <programlisting>$ first command | second command | third command</programlisting>
       </para>
       
       <para>
@@ -161,10 +209,12 @@ public class ExamplePlugin implements Plugin
          objects, or invocation on a piped <literal>InputStream</literal>.
       </para>
       
-      <para>
-         Notice that if no piping was invoked, the piped <literal>InputStream</literal>
-         will be null.
-      </para>
+      <tip>
+         <para>
+            Notice that if no piping was invoked, the piped <literal>InputStream</literal>
+            will be null.
+         </para>
+      </tip>
       
       <programlisting><![CDATA[@Named("grep")
 @Topic("File & Resources")
@@ -258,32 +308,5 @@ public class GrepPlugin implements Plugin
 }]]></programlisting>
       
 
-   </section>
-   
-   <section id="plugin.dev.classpath">
-      <title>Ensure all required classes are on the CLASSPATH</title>
-      <para>
-         All imports must be available on the <literal>CLASSPATH</literal>. If your Plugin depends 
-         on classes that are not provided by Forge, then you must either package
-         those classes in the JAR file containing your Plugin (for instance, using the
-         maven <ulink url="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</ulink>),
-         or you must ensure that the required dependencies are also placed on the 
-         <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder)
-      </para>
-   </section>
-   
-   <section id="plugin.dev.installing">
-      <title>Make your Plugin available to Forge</title>
-      <para>
-         After following all of the steps in <link linkend="plugin.dev">this section</link>,
-         you should now be ready to install your Plugin into the Forge environment. This
-         is accomplished simply by packaging your Plugin in a JAR file with a CDI activator,
-         otherwise referred to as a <literal>/META-INF/beans.xml</literal> file.
-      </para>
-      <tip>
-         <para>You must include a /META-INF/beans.xml file in your JAR, or none of the 
-         classes in your archive will be discovered; therefore, your Plugin will not be made
-         available to Forge.</para>
-      </tip>
    </section>
 </chapter>
