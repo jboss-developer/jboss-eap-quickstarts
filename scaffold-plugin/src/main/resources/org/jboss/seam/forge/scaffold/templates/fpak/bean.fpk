@@ -24,6 +24,8 @@ package @{package};
  * Created on @{new java.util.Date().toString()}.
  */
 public class @{classname} {
-
+    @if{isdef fields}@foreach{field : fields}@{field.render()}@end{}@end{}
+    @if{isdef constructors}@foreach{constructor : constructors}@{constructor.render()}@end{}@end{}
+    @if{isdef methods}@foreach{method : methods}@{method.render()}@end{}@end{}
 }
 }

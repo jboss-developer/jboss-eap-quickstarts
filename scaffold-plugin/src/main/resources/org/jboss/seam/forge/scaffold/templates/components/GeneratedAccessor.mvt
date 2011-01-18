@@ -1,0 +1,12 @@
+@code{upperCasedName = name.substring(0,1).toUpperCase() + name.substring(1)}
+    public void set@{upperCasedName}(@{type} @{name}) {
+        this.@{name} = @{name};
+    }
+    @if{type.toLowerCase() == "boolean"}
+    public @{type} is@{name}() {
+        return this.@{name};
+    }@else{}
+    public @{type} get@{name}() {
+        return this.@{name};
+    }
+    @end{}
