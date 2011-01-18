@@ -13,8 +13,21 @@
       A Forge plugin could be as simple as a tool to print files to the console, or
       as complex as deploying an application to a server, 'tweet'ing the status of your
       latest source-code commit, or even sending commands to a home-automation system; 
-      the sky is the limitT
+      the sky is the limit!
    </para>
+
+   <section id="plugin.dev.maven">
+      <title>Referencing the Forge APIs</title>
+      <para>
+         Because Forge is based on Maven, the easiest way to get started quickly writing
+         a plugin is to create a new maven Java project. This can be done by hand, or
+         using Forge's build in <literal>'PluginFacet'</literal>.
+         <programlisting>import org.jboss.seam.forge.shell.plugins.Plugin;
+         
+public class ExamplePlugin implements Plugin {
+}</programlisting>
+      </para>
+   </section>
 
    <section id="plugin.dev.interface">
       <title>Implementing the Plugin interface</title>
@@ -94,7 +107,8 @@ public class ExamplePlugin implements Plugin {
          <title>Default commands</title>
          <para>
             Default commands must be annotated with <literal>@DefaultCommand</literal>, and are
-            not named; you may still provide help text or command metadata.
+            not named; you may still provide help text or command metadata. Each
+            plugin may have only one <literal>@DefaultCommand</literal>.
          </para>
          <para>
             The following default command would be executed by executing the plugin by its name:
