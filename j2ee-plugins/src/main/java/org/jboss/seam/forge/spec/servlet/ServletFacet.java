@@ -28,7 +28,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
@@ -52,7 +51,7 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("forge.spec.servlet")
-@RequiresFacets({ WebResourceFacet.class, DependencyFacet.class })
+@RequiresFacets({ MetadataFacet.class, WebResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.WAR })
 public class ServletFacet extends BaseFacet
 {
@@ -126,7 +125,7 @@ public class ServletFacet extends BaseFacet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!isInstalled())
       {
@@ -160,7 +159,7 @@ public class ServletFacet extends BaseFacet
                   "</html>");
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
 }

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,55 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.project.packaging;
 
-package org.jboss.seam.forge.project.facets.builtin;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-
+import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.facets.MetadataFacet;
 
 /**
+ * This event is fired when the current {@link Project}'s {@link PackagingType} is changed.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Dependent
-@Named("forge.maven.MetadataFacet")
-@RequiresFacets({ MavenCoreFacet.class })
-public class MavenMetadataFacet implements MetadataFacet
+public class PackagingChanged
 {
-   private Project project;
+   private final PackagingType oldPackagingType;
+   private final PackagingType newPackagingType;
+   private final Project project;
 
-   @Override
-   public String getProjectName()
+   public PackagingChanged(final Project project, final PackagingType old, final PackagingType newType)
    {
-      return project.getFacet(MavenCoreFacet.class).getPOM().getArtifactId();
+      this.project = project;
+      this.oldPackagingType = old;
+      this.newPackagingType = newType;
    }
 
-   @Override
+   public PackagingType getOldPackagingType()
+   {
+      return oldPackagingType;
+   }
+
+   public PackagingType getNewPackagingType()
+   {
+      return newPackagingType;
+   }
+
    public Project getProject()
    {
       return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
-   }
-
-   @Override
-   public boolean install()
-   {
-      project.registerFacet(this);
-      return true;
-   }
-
-   @Override
-   public boolean isInstalled()
-   {
-      return project.hasFacet(MavenCoreFacet.class);
    }
 }

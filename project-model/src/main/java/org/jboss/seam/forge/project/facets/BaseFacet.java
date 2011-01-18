@@ -20,8 +20,9 @@ public abstract class BaseFacet implements Facet
    }
 
    @Override
-   public void setProject(Project project)
+   public void setProject(final Project project)
    {
       this.project = project;
    }
+
 }

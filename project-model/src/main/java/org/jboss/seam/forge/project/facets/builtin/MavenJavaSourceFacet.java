@@ -111,7 +111,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!this.isInstalled())
       {
@@ -133,7 +133,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
          for (Plugin plugin : plugins)
          {
             if ("org.apache.maven.plugins".equals(plugin.getGroupId())
-                  && "maven-compiler-plugin".equals(plugin.getArtifactId()))
+                     && "maven-compiler-plugin".equals(plugin.getArtifactId()))
             {
                javaSourcePlugin = plugin;
             }
@@ -148,9 +148,9 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
             try
             {
                Xpp3Dom dom = Xpp3DomBuilder.build(
-                     new ByteArrayInputStream(
-                           "<configuration><source>1.6</source><target>1.6</target></configuration>".getBytes()),
-                     "UTF-8");
+                        new ByteArrayInputStream(
+                                 "<configuration><source>1.6</source><target>1.6</target></configuration>".getBytes()),
+                        "UTF-8");
 
                javaSourcePlugin.setConfiguration(dom);
             }
@@ -166,7 +166,7 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
    @Override
@@ -193,10 +193,11 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
       return getJavaResource(getTestSourceFolder(), relativePath);
    }
 
-   private JavaResource getJavaResource(DirectoryResource sourceDir, String relativePath) throws FileNotFoundException
+   private JavaResource getJavaResource(final DirectoryResource sourceDir, final String relativePath)
+            throws FileNotFoundException
    {
       String path = relativePath.trim().endsWith(".java")
-            ? relativePath.substring(0, relativePath.lastIndexOf(".java")) : relativePath;
+               ? relativePath.substring(0, relativePath.lastIndexOf(".java")) : relativePath;
 
       path = Packages.toFileSyntax(path) + ".java";
       JavaResource target = sourceDir.getChildOfType(JavaResource.class, path);

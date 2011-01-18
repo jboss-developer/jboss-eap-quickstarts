@@ -23,11 +23,10 @@ package org.jboss.seam.forge.scaffold.plugins;
 
 import javax.inject.Named;
 
-import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jsf.FacesFacet;
@@ -39,33 +38,20 @@ import org.jboss.seam.forge.spec.servlet.ServletFacet;
 @Named("forge.scaffold")
 @RequiresFacets({ ServletFacet.class, CDIFacet.class, FacesFacet.class, PersistenceFacet.class })
 @RequiresPackagingTypes({ PackagingType.WAR })
-public class ScaffoldFacet implements Facet
+public class ScaffoldFacet extends BaseFacet
 {
-   private Project project;
-   
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
-   }
-
    @Override
    public boolean isInstalled()
    {
-      return project.hasFacet(ServletFacet.class) && project.hasFacet(FacesFacet.class) && project.hasFacet(CDIFacet.class);
+      return project.hasFacet(ServletFacet.class) && project.hasFacet(FacesFacet.class)
+               && project.hasFacet(CDIFacet.class);
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
 }

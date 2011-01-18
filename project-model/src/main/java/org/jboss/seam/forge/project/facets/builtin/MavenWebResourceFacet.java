@@ -84,22 +84,21 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
       PackagingType packagingType = project.getFacet(PackagingFacet.class).getPackagingType();
 
       return getWebRootDirectory().exists() && mavenFacet.isInstalled()
-            && packagingType.equals(PackagingType.WAR);
+               && packagingType.equals(PackagingType.WAR);
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!this.isInstalled())
       {
-         project.getFacet(PackagingFacet.class).setPackagingType(PackagingType.WAR);
          for (DirectoryResource folder : this.getWebRootDirectories())
          {
             folder.mkdirs();
          }
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
    @Override
@@ -117,7 +116,7 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
    }
 
    @Override
-   public FileResource<?> createWebResource(String data, String relativePath)
+   public FileResource<?> createWebResource(final String data, final String relativePath)
    {
       return createWebResource(data.toCharArray(), relativePath);
    }

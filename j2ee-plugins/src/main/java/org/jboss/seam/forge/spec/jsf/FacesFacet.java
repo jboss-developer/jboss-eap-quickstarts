@@ -25,7 +25,6 @@ import java.io.File;
 
 import javax.inject.Named;
 
-import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
@@ -56,7 +55,7 @@ public class FacesFacet extends BaseFacet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!isInstalled())
       {
@@ -113,6 +112,6 @@ public class FacesFacet extends BaseFacet
 
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 }

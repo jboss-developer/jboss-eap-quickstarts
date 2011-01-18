@@ -21,6 +21,13 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
@@ -30,18 +37,12 @@ import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
 @Named("forge.maven.ResourceFacet")
-@RequiresFacets({MavenCoreFacet.class})
+@RequiresFacets({ MavenCoreFacet.class })
 public class MavenResourceFacet implements ResourceFacet, Facet
 {
    private Project project;
@@ -59,14 +60,14 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    public DirectoryResource getResourceFolder()
    {
       return project.getProjectRoot().getChildDirectory("src" + File.separator + "main"
-            + File.separator + "resources");
+               + File.separator + "resources");
    }
 
    @Override
    public DirectoryResource getTestResourceFolder()
    {
       return project.getProjectRoot().getChildDirectory("src" + File.separator + "test"
-            + File.separator + "resources");
+               + File.separator + "resources");
    }
 
    @Override
@@ -96,7 +97,7 @@ public class MavenResourceFacet implements ResourceFacet, Facet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!this.isInstalled())
       {
@@ -106,7 +107,7 @@ public class MavenResourceFacet implements ResourceFacet, Facet
          }
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
    @Override

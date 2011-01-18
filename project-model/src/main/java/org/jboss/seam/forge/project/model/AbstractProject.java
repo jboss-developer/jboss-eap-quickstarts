@@ -30,6 +30,7 @@ import java.util.Set;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 
@@ -101,7 +102,8 @@ public abstract class AbstractProject implements Project
       }
       if (result == null)
       {
-         throw new FacetNotFoundException("The requested facet of type [" + type.getName() + "] was not found. The facet is not installed.");
+         throw new FacetNotFoundException("The requested facet of type [" + type.getName()
+                  + "] was not found. The facet is not installed.");
       }
       return (F) result;
    }
@@ -144,7 +146,8 @@ public abstract class AbstractProject implements Project
       {
          if (!hasFacet(type))
          {
-            throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: [" + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
+            throw new IllegalStateException("Attempting to register a Facet that has missing dependencies: ["
+                     + facet.getClass().getSimpleName() + " requires -> " + type.getSimpleName() + "]");
          }
       }
 
@@ -162,8 +165,16 @@ public abstract class AbstractProject implements Project
       facet.setProject(this);
       if (!facet.isInstalled() && !hasFacet(facet.getClass()))
       {
-         facet.install();
-         facets.add(facet);
+         if (facet.install())
+         {
+            facets.add(facet);
+         }
+         else
+         {
+            throw new ProjectModelException("Could not complete installation of " +
+                     "facet: [" + ConstraintInspector.getName(facet.getClass()) + "]. " +
+                           "Installation was aborted by the Facet during installation.");
+         }
       }
       else if (!hasFacet(facet.getClass()))
       {

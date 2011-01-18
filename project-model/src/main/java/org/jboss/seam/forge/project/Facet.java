@@ -55,9 +55,9 @@ public interface Facet
     * installation is successful, the {@link Facet} should be registered in the {@link Project} by calling
     * {@link Project#registerFacet(Facet)}
     * 
-    * @return a builder pattern reference to this {@link Facet}
+    * @return true if installation was successful, false if not.
     */
-   Facet install();
+   boolean install();
 
    /**
     * Return true if the {@link Facet} is available for the given {@link Project}, false if otherwise.

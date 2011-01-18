@@ -23,10 +23,12 @@
 package org.jboss.seam.forge.spec.cdi;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
 import org.junit.Test;
@@ -47,5 +49,23 @@ public class CDIFacetTest extends SingletonAbstractShellTest
       BeansModel config = project.getFacet(CDIFacet.class).getConfig();
 
       assertNotNull(config);
+   }
+
+   @Test
+   public void testBeansXMLMovedWhenPackagingTypeChanged() throws Exception
+   {
+      Project project = initializeJavaProject();
+      getShell().execute("install forge.spec.cdi");
+      assertTrue(project.hasFacet(CDIFacet.class));
+      FileResource<?> config = project.getFacet(CDIFacet.class).getConfigFile();
+
+      queueInputLines("y");
+      getShell().execute("install forge.spec.servlet");
+      FileResource<?> newConfig = project.getFacet(CDIFacet.class).getConfigFile();
+
+      assertNotNull(config);
+      assertNotNull(newConfig);
+      assertNotSame(config.getFullyQualifiedName(), newConfig.getFullyQualifiedName());
+
    }
 }

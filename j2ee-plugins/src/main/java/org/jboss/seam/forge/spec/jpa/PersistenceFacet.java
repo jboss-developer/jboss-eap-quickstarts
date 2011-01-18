@@ -32,7 +32,6 @@ import javax.persistence.Entity;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
-import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
@@ -145,7 +144,7 @@ public class PersistenceFacet extends BaseFacet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!isInstalled())
       {
@@ -167,8 +166,8 @@ public class PersistenceFacet extends BaseFacet
          if (!descriptor.exists())
          {
             PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                  .version("2.0")
-                  .persistenceUnit("default")
+                     .version("2.0")
+                     .persistenceUnit("default")
                      .description("The Seam Forge default Persistence Unit")
                      .transactionType(TransactionType.JTA)
                      .provider(ProviderType.HIBERNATE)
@@ -183,13 +182,14 @@ public class PersistenceFacet extends BaseFacet
          }
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
    private void installUtils()
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(JavaClass.class, loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
+      JavaClass util = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
       JavaClass producer = JavaParser.parse(JavaClass.class,
                loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
 

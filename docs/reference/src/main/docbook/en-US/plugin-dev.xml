@@ -21,11 +21,12 @@
       <para>
          Because Forge is based on Maven, the easiest way to get started quickly writing
          a plugin is to create a new maven Java project. This can be done by hand, or
-         using Forge's build in <literal>'PluginFacet'</literal>.
-         <programlisting>import org.jboss.seam.forge.shell.plugins.Plugin;
-         
-public class ExamplePlugin implements Plugin {
-}</programlisting>
+         using Forge's build in plugin project facet.
+      </para>
+      <para>
+         For purposes of simplicity, we have pasted a sample Maven POM file which can
+         be used as a starting point for a new plugin:
+         <programlisting><![CDATA[]]></programlisting>
       </para>
    </section>
 

@@ -32,6 +32,7 @@
       <module>shell</module>
       <module>j2ee-plugins</module>
       <module>scaffold-plugin</module>
+      <module>dev-plugins</module>
    </modules>
 
    <properties>

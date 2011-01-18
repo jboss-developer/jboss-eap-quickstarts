@@ -23,14 +23,22 @@ package org.jboss.seam.forge.spec.cdi;
 
 import java.io.File;
 
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.packaging.PackagingChanged;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
@@ -42,30 +50,92 @@ import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Named("forge.spec.cdi")
-@RequiresFacets({ WebResourceFacet.class })
+@RequiresFacets({ ResourceFacet.class, PackagingFacet.class })
 public class CDIFacet extends BaseFacet
 {
-   private FileResource<?> getConfigFile()
+   @Inject
+   private Shell shell;
+
+   public void updateConfigLocation(@Observes final PackagingChanged event)
    {
-      // TODO this needs to observe (PackagingChangedEvent) and be able to switch between JAR/WAR
-      DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
-      return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "beans.xml");
+      Project project = event.getProject();
+      if (project.hasFacet(CDIFacet.class))
+      {
+         PackagingType oldType = event.getOldPackagingType();
+         PackagingType newType = event.getNewPackagingType();
+         shell.printlnVerbose("Packaging type change detected; moving beans.xml " +
+                  "from [" + oldType + "] to [" + newType + "]");
+
+         // FIXME this is broken...
+         FileResource<?> configFile = getConfigFile(project, oldType);
+
+         BeansModel config = getConfig(project, configFile);
+         saveConfig(project, config);
+
+         configFile.delete();
+      }
+   }
+
+   public FileResource<?> getConfigFile()
+   {
+      return getConfigFile(project);
+   }
+
+   private FileResource<?> getConfigFile(final Project project)
+   {
+      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+      return getConfigFile(project, packaging.getPackagingType());
+   }
+
+   private FileResource<?> getConfigFile(final Project project, final PackagingType type)
+   {
+      if (PackagingType.WAR.equals(type))
+      {
+         DirectoryResource webRoot = project.getFacet(WebResourceFacet.class).getWebRootDirectory();
+         return (FileResource<?>) webRoot.getChild("WEB-INF" + File.separator + "beans.xml");
+      }
+      else
+      {
+         if (!PackagingType.JAR.equals(type))
+         {
+            printPackTypeWarning(project, type);
+         }
+         DirectoryResource root = project.getFacet(ResourceFacet.class).getResourceFolder();
+         return (FileResource<?>) root.getChild("META-INF" + File.separator + "beans.xml");
+      }
+   }
+
+   private void printPackTypeWarning(final Project project, final PackagingType type)
+   {
+      shell.print(ShellColor.RED, "***WARNING*** ");
+      shell.println("Unsupported packaging type detected [" + type.getType()
+               + "], using default beans.xml location [" + getConfigFile(project).getFullyQualifiedName() + "]");
+   }
+
+   public BeansModel getConfig()
+   {
+      return getConfig(project, getConfigFile(project));
    }
 
    @SuppressWarnings("unchecked")
-   public BeansModel getConfig()
+   private BeansModel getConfig(final Project project, final FileResource<?> file)
    {
       DescriptorImporter<BeansDescriptor> importer = Descriptors.importAs(BeansDescriptor.class);
-      BeansDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
+      BeansDescriptor descriptor = importer.from(file.getResourceInputStream());
       BeansModel model = ((SchemaDescriptorProvider<BeansModel>) descriptor).getSchemaModel();
       return model;
    }
 
    public void saveConfig(final BeansModel model)
    {
+      saveConfig(project, model);
+   }
+
+   private void saveConfig(final Project project, final BeansModel model)
+   {
       BeansDescriptor descriptor = new BeansDescriptorImpl(model);
       String output = descriptor.exportAsString();
-      getConfigFile().setContents(output);
+      getConfigFile(project).setContents(output);
    }
 
    /*
@@ -74,18 +144,24 @@ public class CDIFacet extends BaseFacet
    @Override
    public boolean isInstalled()
    {
-      return getConfigFile().exists();
+      return getConfigFile(project).exists();
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (!isInstalled())
       {
-         FileResource<?> descriptor = getConfigFile();
+         PackagingType type = project.getFacet(PackagingFacet.class).getPackagingType();
+         if (!PackagingType.JAR.equals(type) && !PackagingType.WAR.equals(type))
+         {
+            printPackTypeWarning(project, type);
+         }
+
+         FileResource<?> descriptor = getConfigFile(project);
          if (!descriptor.createNewFile())
          {
-            throw new RuntimeException("Failed to create required [" + getConfigFile().getFullyQualifiedName() + "]");
+            throw new RuntimeException("Failed to create required [" + descriptor.getFullyQualifiedName() + "]");
          }
 
          descriptor.setContents(getClass()
@@ -93,6 +169,6 @@ public class CDIFacet extends BaseFacet
 
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 }

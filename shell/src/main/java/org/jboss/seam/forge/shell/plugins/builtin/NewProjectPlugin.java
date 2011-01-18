@@ -81,7 +81,12 @@ public class NewProjectPlugin implements Plugin
                      type = PromptType.JAVA_PACKAGE) final String groupId,
             @Option(name = "projectFolder",
                      description = "The folder in which to create this project [e.g: \"~/Desktop/...\"] ",
-                     required = false) final Resource<?> projectFolder
+                     required = false) final Resource<?> projectFolder,
+            @Option(name = "createMain",
+                     description = "Toggle creation of a simple Main() script in the root package",
+                     required = false,
+                     defaultValue = "false",
+                     flagOnly = true) final boolean createMain
             ) throws IOException
    {
       DirectoryResource dir = shell.getCurrentDirectory();
@@ -175,15 +180,17 @@ public class NewProjectPlugin implements Plugin
 
       maven.setPOM(pom);
 
-      project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
-               .create(JavaClass.class)
-               .setPackage(groupId)
-               .setName("HelloWorld")
-               .addMethod("public void String sayHello() {}")
-               .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
-                        + ".\");")
-               .getOrigin());
-
+      if (createMain)
+      {
+         project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
+                  .create(JavaClass.class)
+                  .setPackage(groupId)
+                  .setName("Main")
+                  .addMethod("public static void main(String[] args) {}")
+                  .setBody("System.out.println(\"Hi there! I was forged as part of the project you call " + name
+                           + ".\");")
+                  .getOrigin());
+      }
       project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 
       /*

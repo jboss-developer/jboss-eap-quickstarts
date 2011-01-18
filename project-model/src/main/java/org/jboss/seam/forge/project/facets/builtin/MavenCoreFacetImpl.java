@@ -21,6 +21,14 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
@@ -35,13 +43,6 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -55,7 +56,7 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    private final MavenContainer container;
 
    @Inject
-   public MavenCoreFacetImpl(MavenContainer container)
+   public MavenCoreFacetImpl(final MavenContainer container)
    {
       this.container = container;
    }
@@ -73,7 +74,8 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
          {
             // FIXME this should not use the file API if we are going to abstract file APIs
             // there could be complications with this abstraction and Maven's need for operating on a file-system.
-            buildingResult = container.getBuilder().build(getPOMFile().getUnderlyingResourceObject(), container.getRequest());
+            buildingResult = container.getBuilder().build(getPOMFile().getUnderlyingResourceObject(),
+                     container.getRequest());
          }
          return buildingResult;
       }
@@ -177,11 +179,11 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       createPOM();
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
    @Override

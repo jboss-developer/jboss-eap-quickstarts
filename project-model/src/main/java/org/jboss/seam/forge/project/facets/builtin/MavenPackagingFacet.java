@@ -21,35 +21,46 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Named;
+import org.jboss.seam.forge.project.packaging.PackagingChanged;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
 @Named("forge.maven.PackagingFacet")
-@RequiresFacets({MavenCoreFacet.class})
-public class MavenPackagingFacet implements PackagingFacet, Facet
+@RequiresFacets({ MavenCoreFacet.class })
+public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Facet
 {
-   private Project project;
+   @Inject
+   private Event<PackagingChanged> event;
 
    @Override
    public void setPackagingType(final PackagingType type)
    {
-      MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
-      Model pom = mavenFacet.getPOM();
-      pom.setPackaging(type.getType());
-      mavenFacet.setPOM(pom);
+      PackagingType oldType = getPackagingType();
+
+      if (!oldType.equals(type))
+      {
+         MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
+         Model pom = mavenFacet.getPOM();
+         pom.setPackaging(type.getType());
+         mavenFacet.setPOM(pom);
+
+         event.fire(new PackagingChanged(project, oldType, type));
+      }
    }
 
    @Override
@@ -58,18 +69,6 @@ public class MavenPackagingFacet implements PackagingFacet, Facet
       MavenCoreFacet mavenFacet = project.getFacet(MavenCoreFacet.class);
       Model pom = mavenFacet.getPOM();
       return PackagingType.from(pom.getPackaging());
-   }
-
-   @Override
-   public Project getProject()
-   {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
    }
 
    @Override
@@ -87,14 +86,14 @@ public class MavenPackagingFacet implements PackagingFacet, Facet
    }
 
    @Override
-   public Facet install()
+   public boolean install()
    {
       if (PackagingType.NONE.equals(getPackagingType()))
       {
          setPackagingType(PackagingType.BASIC);
       }
       project.registerFacet(this);
-      return this;
+      return true;
    }
 
 }
