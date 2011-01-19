@@ -103,59 +103,15 @@ public class InstallFacetPlugin implements Plugin
             }
          }
 
-         if (!facet.isInstalled())
+         if (!facet.isInstalled() || !project.hasFacet(facet.getClass()))
          {
-            List<PackagingType> types = ConstraintInspector.getCompatiblePackagingTypes(facet.getClass());
-
-            /*
-             * Verify Packaging Dependencies
-             */
-            PackagingType packaging = project.getFacet(PackagingFacet.class).getPackagingType();
-            if (!types.isEmpty() && !types.contains(packaging))
-            {
-               if (types.size() == 1)
-               {
-                  if (shell.promptBoolean("The ["
-                           + facetName
-                           + "] facet requires the following packaging type "
-                           + types
-                           + ", but is currently ["
-                           + packaging
-                           + "], would you like to change the packaging to " + types
-                           + "? (Note: this could break other plugins in your project.)"))
-                  {
-                     project.getFacet(PackagingFacet.class).setPackagingType(types.get(0));
-                     shell.println("Packaging updated to " + types + "");
-                  }
-                  else
-                  {
-                     abort();
-                     return;
-                  }
-               }
-               else if (types.size() > 1)
-               {
-                  if (shell.promptBoolean("The ["
-                           + facetName
-                           + "] plugin requires one of the following packaging types: "
-                           + types
-                           + ", but is currently ["
-                           + packaging
-                           + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
-                  {
-                     PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
-                     project.getFacet(PackagingFacet.class).setPackagingType(type);
-                     shell.println("Packaging updated to [" + type + "]");
-                  }
-                  else
-                  {
-                     abort();
-                     return;
-                  }
-               }
-
-            }
             project.installFacet(facet);
+         }
+
+         if (!updatePackaging(facet))
+         {
+            abort();
+            return;
          }
 
          if (facet.isInstalled())
@@ -173,6 +129,61 @@ public class InstallFacetPlugin implements Plugin
                   + "; you can use the [" + ConstraintInspector.getName(ListFacetsPlugin.class)
                   + "] command to see if the facet is available.");
       }
+   }
+
+   private boolean updatePackaging(final Facet facet)
+   {
+
+      List<PackagingType> types = ConstraintInspector.getCompatiblePackagingTypes(facet.getClass());
+      String facetName = ConstraintInspector.getName(facet.getClass());
+
+      /*
+       * Verify Packaging Dependencies
+       */
+      PackagingType packaging = project.getFacet(PackagingFacet.class).getPackagingType();
+      if (!types.isEmpty() && !types.contains(packaging))
+      {
+         if (types.size() == 1)
+         {
+            if (shell.promptBoolean("The ["
+                     + facetName
+                     + "] facet requires the following packaging type "
+                     + types
+                     + ", but is currently ["
+                     + packaging
+                     + "], would you like to change the packaging to " + types
+                     + "? (Note: this could break other plugins in your project.)"))
+            {
+               project.getFacet(PackagingFacet.class).setPackagingType(types.get(0));
+               shell.println("Packaging updated to " + types + "");
+            }
+            else
+            {
+               return false;
+            }
+         }
+         else if (types.size() > 1)
+         {
+            if (shell.promptBoolean("The ["
+                     + facetName
+                     + "] plugin requires one of the following packaging types: "
+                     + types
+                     + ", but is currently ["
+                     + packaging
+                     + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
+            {
+               PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
+               project.getFacet(PackagingFacet.class).setPackagingType(type);
+               shell.println("Packaging updated to [" + type + "]");
+            }
+            else
+            {
+               return false;
+            }
+         }
+
+      }
+      return true;
    }
 
    private void abort()

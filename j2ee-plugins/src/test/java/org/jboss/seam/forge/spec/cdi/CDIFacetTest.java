@@ -22,8 +22,8 @@
 
 package org.jboss.seam.forge.spec.cdi;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -56,7 +56,6 @@ public class CDIFacetTest extends SingletonAbstractShellTest
    {
       Project project = initializeJavaProject();
       getShell().execute("install forge.spec.cdi");
-      assertTrue(project.hasFacet(CDIFacet.class));
       FileResource<?> config = project.getFacet(CDIFacet.class).getConfigFile();
 
       queueInputLines("y");
@@ -65,7 +64,8 @@ public class CDIFacetTest extends SingletonAbstractShellTest
 
       assertNotNull(config);
       assertNotNull(newConfig);
-      assertNotSame(config.getFullyQualifiedName(), newConfig.getFullyQualifiedName());
-
+      assertTrue(config.getFullyQualifiedName().contains("META-INF"));
+      assertTrue(newConfig.getFullyQualifiedName().contains("WEB-INF"));
+      assertFalse(config.getFullyQualifiedName().equals(newConfig.getFullyQualifiedName()));
    }
 }
