@@ -40,7 +40,6 @@ public class BeanModel
       this.classType.setModifiers(Modifier.PUBLIC);
    }
 
-
    public List<TField> getFields()
    {
       return classType.getFields();
