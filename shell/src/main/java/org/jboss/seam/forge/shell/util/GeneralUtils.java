@@ -22,6 +22,17 @@
 
 package org.jboss.seam.forge.shell.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -29,14 +40,14 @@ import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
+/**
+ * @author Mike Brock .
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
+ */
 public class GeneralUtils
 {
-   public static <T> List<T> concatArraysToList(T[]... arrays)
+   public static <T> List<T> concatArraysToList(final T[]... arrays)
    {
       List<T> newList = new ArrayList<T>();
       for (T[] elArray : arrays)
@@ -47,7 +58,7 @@ public class GeneralUtils
       return newList;
    }
 
-   public static String elementListSimpleTypesToString(List<Class<?>> list)
+   public static String elementListSimpleTypesToString(final List<Class<?>> list)
    {
       StringBuilder sbuild = new StringBuilder();
       for (int i = 0; i < list.size(); i++)
@@ -61,7 +72,7 @@ public class GeneralUtils
       return sbuild.toString();
    }
 
-   public static String elementSetSimpleTypesToString(Set<Class<?>> set)
+   public static String elementSetSimpleTypesToString(final Set<Class<?>> set)
    {
       StringBuilder sbuild = new StringBuilder();
 
@@ -78,7 +89,7 @@ public class GeneralUtils
 
    public static class OutputAttributes
    {
-      public OutputAttributes(int columnSize, int columns)
+      public OutputAttributes(final int columnSize, final int columns)
       {
          this.columnSize = columnSize;
          this.columns = columns;
@@ -88,7 +99,8 @@ public class GeneralUtils
       private final int columns;
    }
 
-   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell, OutputAttributes in)
+   public static OutputAttributes calculateOutputAttributs(final List<String> rawList, final Shell shell,
+            final OutputAttributes in)
    {
       if (in == null)
       {
@@ -98,10 +110,10 @@ public class GeneralUtils
       OutputAttributes newAttr = calculateOutputAttributs(rawList, shell);
 
       return new OutputAttributes(in.columnSize > newAttr.columnSize ? in.columnSize : newAttr.columnSize,
-            in.columns < newAttr.columns ? in.columns : newAttr.columns);
+               in.columns < newAttr.columns ? in.columns : newAttr.columns);
    }
 
-   public static OutputAttributes calculateOutputAttributs(List<String> rawList, Shell shell)
+   public static OutputAttributes calculateOutputAttributs(final List<String> rawList, final Shell shell)
    {
       int width = shell.getWidth();
       int maxLength = 0;
@@ -130,18 +142,22 @@ public class GeneralUtils
       return new OutputAttributes(colSize, cols);
    }
 
-   public static void printOutColumns(List<String> rawList, ShellPrintWriter out, Shell shell, boolean sort)
+   public static void printOutColumns(final List<String> rawList, final ShellPrintWriter out, final Shell shell,
+            final boolean sort)
    {
       printOutColumns(rawList, ShellColor.NONE, out, calculateOutputAttributs(rawList, shell), null, sort);
    }
 
-   public static void printOutColumns(List<String> rawList, ShellPrintWriter out, Shell shell, FormatCallback callback, boolean sort)
+   public static void printOutColumns(final List<String> rawList, final ShellPrintWriter out, final Shell shell,
+            final FormatCallback callback, final boolean sort)
    {
       printOutColumns(rawList, ShellColor.NONE, out, calculateOutputAttributs(rawList, shell), callback, sort);
    }
 
-   public static void printOutColumns(List<String> rawList, ShellColor color, ShellPrintWriter printWriter,
-                                      OutputAttributes attributes, FormatCallback callback, boolean sort)
+   public static void printOutColumns(final List<String> rawList, final ShellColor color,
+            final ShellPrintWriter printWriter,
+                                      final OutputAttributes attributes, final FormatCallback callback,
+            final boolean sort)
    {
       if (sort)
       {
@@ -175,23 +191,24 @@ public class GeneralUtils
             i = 0;
          }
       }
-      if (i != 0 && i != cols)
+      if ((i != 0) && (i != cols))
       {
          printWriter.println();
       }
    }
 
-   public static void printOutTables(List<String> list, int cols, Shell shell)
+   public static void printOutTables(final List<String> list, final int cols, final Shell shell)
    {
       printOutTables(list, new boolean[cols], shell, null);
    }
 
-   public static void printOutTables(List<String> list, boolean[] columns, Shell shell)
+   public static void printOutTables(final List<String> list, final boolean[] columns, final Shell shell)
    {
       printOutTables(list, columns, shell, null);
    }
 
-   public static void printOutTables(List<String> list, boolean[] columns, ShellPrintWriter shell, FormatCallback callback)
+   public static void printOutTables(final List<String> list, final boolean[] columns, final ShellPrintWriter shell,
+            final FormatCallback callback)
    {
       int cols = columns.length;
       int[] colSizes = new int[columns.length];
@@ -266,8 +283,9 @@ public class GeneralUtils
       return new String(padding);
    }
 
-   public static Resource<?>[] parseSystemPathspec(ResourceFactory resourceFactory, Resource<?> lastResource,
-                                                   Resource<?> currentResource, String[] paths)
+   public static Resource<?>[] parseSystemPathspec(final ResourceFactory resourceFactory,
+            final Resource<?> lastResource,
+                                                   final Resource<?> currentResource, final String[] paths)
    {
       List<Resource<?>> result = new LinkedList<Resource<?>>();
 
@@ -290,11 +308,12 @@ public class GeneralUtils
       return result.toArray(new Resource<?>[result.size()]);
    }
 
-   public static int nativeCommandCall(String command, String[] parms, ShellPrintWriter out, Shell shell) throws IOException
+   public static int nativeCommandCallFromPath(final String command, final String[] parms, final ShellPrintWriter out,
+            final DirectoryResource path) throws IOException
    {
       try
       {
-         String[] commandTokens = parms == null ? new String[1] : new String[parms.length+1];
+         String[] commandTokens = parms == null ? new String[1] : new String[parms.length + 1];
          commandTokens[0] = command;
 
          if (commandTokens.length > 1)
@@ -303,7 +322,7 @@ public class GeneralUtils
          }
 
          Process p = Runtime.getRuntime().exec(commandTokens, null,
-               shell.getCurrentDirectory().getUnderlyingResourceObject());
+                  path.getUnderlyingResourceObject());
 
          InputStream stdout = p.getInputStream();
          InputStream stderr = p.getErrorStream();
@@ -334,5 +353,11 @@ public class GeneralUtils
          e.printStackTrace();
          return -1;
       }
+   }
+
+   public static int nativeCommandCall(final String command, final String[] parms, final ShellPrintWriter out,
+            final Shell shell) throws IOException
+   {
+      return nativeCommandCallFromPath(command, parms, out, shell.getCurrentDirectory());
    }
 }

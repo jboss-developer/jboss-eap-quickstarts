@@ -167,13 +167,21 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
    @SuppressWarnings("unchecked")
    private boolean areEquivalent(final Dependency left, final Dependency right)
    {
+      // FIXME version checking needs to be much more robust
       boolean result = false;
       if (left.getGroupId().equals(right.getGroupId()) && left.getArtifactId().equals(right.getArtifactId()))
       {
-         ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
-         ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
+         if ((left.getVersion() != null) && (right.getVersion() != null))
+         {
+            ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
+            ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
 
-         if (lversion.compareTo(rversion) == 0)
+            if (lversion.compareTo(rversion) == 0)
+            {
+               result = true;
+            }
+         }
+         else
          {
             result = true;
          }

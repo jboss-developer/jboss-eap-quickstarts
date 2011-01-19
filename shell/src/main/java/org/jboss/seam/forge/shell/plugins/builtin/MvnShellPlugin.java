@@ -22,15 +22,20 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.constraints.RequiresProject;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
+
+import org.jboss.seam.forge.project.constraints.RequiresProject;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 
 /**
  * @author Mike Brock .
@@ -44,15 +49,18 @@ public class MvnShellPlugin implements Plugin
    private final Shell shell;
 
    @Inject
-   public MvnShellPlugin(Shell shell)
+   public MvnShellPlugin(final Shell shell)
    {
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(final PipeOut out, String... parms) throws IOException
+   public void run(final PipeOut out, final String... parms) throws IOException
    {
-      GeneralUtils.nativeCommandCall("mvn", parms, out, shell);
+      if (shell.getCurrentProject() != null)
+         GeneralUtils.nativeCommandCallFromPath("mvn", parms, out, shell.getCurrentProject().getProjectRoot());
+      else
+         GeneralUtils.nativeCommandCall("mvn", parms, out, shell);
    }
 
 }
