@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.project.resources.builtin;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
@@ -38,11 +39,13 @@ public class UnknownFileResource extends FileResource<UnknownFileResource>
    public UnknownFileResource(final ResourceFactory factory)
    {
       super(factory, null);
+      setFlag(ResourceFlag.Leaf);
    }
 
    public UnknownFileResource(final ResourceFactory factory, final File file)
    {
       super(factory, file);
+      setFlag(ResourceFlag.Leaf);
    }
 
    @Override

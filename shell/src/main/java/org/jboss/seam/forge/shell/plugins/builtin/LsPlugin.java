@@ -42,7 +42,7 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
 /**
  * Lists directory contents for filesystem based directories. This is a
- * simplified version of the UNIX 'ls' command and currently supports the -totalLines and
+ * simplified version of the UNIX 'ls' command and currently supports the - and
  * -a flags, as in unix.
  * 
  * @author Mike Brock
