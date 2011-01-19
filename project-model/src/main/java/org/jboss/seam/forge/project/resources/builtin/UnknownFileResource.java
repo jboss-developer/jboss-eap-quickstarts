@@ -32,6 +32,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Represents any regular file which Forge does not hav any special handler for.
+ *
  * @author Mike Brock
  */
 public class UnknownFileResource extends FileResource<UnknownFileResource>
