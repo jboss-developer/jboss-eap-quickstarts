@@ -30,19 +30,25 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.dependencies.DependencyRepository;
+import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
+import org.jboss.seam.forge.project.resources.builtin.aether.RepositoryLookup;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -50,20 +56,14 @@ import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 @Dependent
 @Named("forge.maven.MavenDependencyFacet")
 @RequiresFacets({ MavenCoreFacet.class })
-public class MavenDependencyFacet implements DependencyFacet, Facet
+public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, Facet
 {
-   private Project project;
+   private final RepositoryLookup lookup;
 
-   @Override
-   public Project getProject()
+   @Inject
+   public MavenDependencyFacet(final RepositoryLookup lookup)
    {
-      return project;
-   }
-
-   @Override
-   public void setProject(final Project project)
-   {
-      this.project = project;
+      this.lookup = lookup;
    }
 
    @Override
@@ -238,4 +238,50 @@ public class MavenDependencyFacet implements DependencyFacet, Facet
       return result;
    }
 
+   @Override
+   public List<Dependency> resolveAvailableVersions(final String gavs)
+   {
+      return resolveAvailableVersions(DependencyBuilder.create(gavs));
+   }
+
+   @Override
+   public List<Dependency> resolveAvailableVersions(final Dependency dep)
+   {
+      List<Dependency> results = new ArrayList<Dependency>();
+
+      List<String> versions = lookup.getAvailableVersions(dep.getGroupId() + ":" + dep.getArtifactId() + ":"
+               + dep.getVersion(), getRepositories());
+      for (String string : versions)
+      {
+         results.add(DependencyBuilder.create(dep.getGroupId() + ":" + dep.getArtifactId() + ":" + string + ":"
+                  + dep.getScopeType()));
+      }
+      return results;
+   }
+
+   @Override
+   public void addRepository(final String name, final String url)
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+      Repository repo = new Repository();
+      repo.setId(name);
+      repo.setUrl(url);
+      pom.getRepositories().add(repo);
+      maven.setPOM(pom);
+   }
+
+   @Override
+   public List<DependencyRepository> getRepositories()
+   {
+      List<DependencyRepository> results = new ArrayList<DependencyRepository>();
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      Model pom = maven.getPOM();
+      List<Repository> repos = pom.getRepositories();
+      for (Repository repo : repos)
+      {
+         results.add(new DependencyRepositoryImpl(repo.getId(), repo.getUrl()));
+      }
+      return Collections.unmodifiableList(results);
+   }
 }

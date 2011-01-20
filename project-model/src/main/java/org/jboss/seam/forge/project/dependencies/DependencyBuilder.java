@@ -21,14 +21,14 @@
  */
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.List;
+
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * Builder to create {@link Dependency} objects. This class implements {@link Dependency} for easy consumption. (I.e.:
  * Use this class wherever you need to create and use a new {@link Dependency})
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class DependencyBuilder implements Dependency
@@ -160,6 +160,12 @@ public class DependencyBuilder implements Dependency
    {
       dep.setPackagingType(type);
       return this;
+   }
+
+   @Override
+   public String toString()
+   {
+      return getGroupId() + ":" + getArtifactId() + ":" + getVersion();
    }
 
    @Override

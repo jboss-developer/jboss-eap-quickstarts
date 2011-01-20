@@ -45,7 +45,6 @@
       <jline.version>2.3</jline.version>
       <junit.version>4.8.1</junit.version>
       <log4j.version>1.2.16</log4j.version>
-      <maven.version>3.0</maven.version>
       <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
       <shrinkwrap.descriptors.version>1.0.0-alpha-1-SNAPSHOT</shrinkwrap.descriptors.version>
       <slf4j.version>1.5.10</slf4j.version>
@@ -157,26 +156,6 @@
             <groupId>org.jboss.shrinkwrap.descriptors</groupId>
             <artifactId>shrinkwrap-descriptors-api</artifactId>
             <version>${shrinkwrap.descriptors.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-model</artifactId>
-            <version>${maven.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-core</artifactId>
-            <version>${maven.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-compat</artifactId>
-            <version>${maven.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-aether-provider</artifactId>
-            <version>${maven.version}</version>
          </dependency>
 
          <dependency>

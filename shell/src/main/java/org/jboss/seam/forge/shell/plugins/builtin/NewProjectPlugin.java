@@ -28,11 +28,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
@@ -165,7 +165,8 @@ public class NewProjectPlugin implements Plugin
          dir.mkdirs();
       }
 
-      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, MetadataFacet.class,
+      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, DependencyFacet.class,
+               MetadataFacet.class,
                JavaSourceFacet.class, ResourceFacet.class);
       MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
       Model pom = maven.getPOM();
@@ -173,10 +174,8 @@ public class NewProjectPlugin implements Plugin
       pom.setGroupId(groupId);
       pom.setPackaging("jar");
 
-      Repository jbossRepo = new Repository();
-      jbossRepo.setId("jboss");
-      jbossRepo.setUrl("https://repository.jboss.org/nexus/content/groups/public/");
-      pom.getRepositories().add(jbossRepo);
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      deps.addRepository("jboss", "https://repository.jboss.org/nexus/content/groups/public/");
 
       maven.setPOM(pom);
 

@@ -74,7 +74,7 @@ public class ListFacetsPlugin implements Plugin
          }
          else
          {
-            shell.println(ShellColor.BLUE, name);
+            shell.println(name);
          }
       }
    }

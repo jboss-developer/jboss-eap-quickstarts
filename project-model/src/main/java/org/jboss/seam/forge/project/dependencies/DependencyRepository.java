@@ -1,6 +1,6 @@
 /*
- * JBoss, by Red Hat.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,33 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.util;
-
-import java.io.File;
+package org.jboss.seam.forge.project.dependencies;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public final class OSUtils
+public interface DependencyRepository
 {
-   private static String operatingSystem = null;
+   String getId();
 
-   public static String getOsName()
-   {
-      if (operatingSystem == null)
-      {
-         operatingSystem = System.getProperty("os.name");
-      }
-      return operatingSystem;
-   }
-
-   public static boolean isWindows()
-   {
-      return getOsName().startsWith("Windows") || getOsName().startsWith("windows");
-   }
-
-   public static File getUserHomeDir()
-   {
-      return new File(System.getProperty("user.home")).getAbsoluteFile();
-   }
+   String getUrl();
 }

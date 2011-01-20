@@ -22,6 +22,12 @@
 
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
 import org.apache.maven.artifact.repository.MavenArtifactRepository;
@@ -30,15 +36,12 @@ import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.codehaus.plexus.DefaultPlexusContainer;
+import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 import org.jboss.seam.forge.project.ProjectModelException;
+import org.jboss.seam.forge.project.util.OSUtils;
 import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
 import org.sonatype.aether.util.DefaultRepositorySystemSession;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -62,18 +65,18 @@ public class MavenContainer
 
          builder = container.lookup(ProjectBuilder.class);
 
-         // TODO this needs to be configurable via the project/.forge //
-         // file.
-         String localRepository = getUserHomeDir().getAbsolutePath() + "/.m2/repository";
+         // TODO this needs to be configurable via .forge
+         // TODO this reference to the M2_REPO should probably be centralized
+         String localRepository = OSUtils.getUserHomeDir().getAbsolutePath() + "/.m2/repository";
 
          request = new DefaultProjectBuildingRequest();
          request.setLocalRepository(new MavenArtifactRepository(
-               "local", new File(localRepository).toURI().toURL().toString(),
-               container.lookup(ArtifactRepositoryLayout.class),
-               new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                     ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
-               new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
-                     ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
+                  "local", new File(localRepository).toURI().toURL().toString(),
+                  container.lookup(ArtifactRepositoryLayout.class),
+                  new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                           ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN),
+                  new ArtifactRepositoryPolicy(true, ArtifactRepositoryPolicy.UPDATE_POLICY_NEVER,
+                           ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN)));
          request.setRemoteRepositories(new ArrayList<ArtifactRepository>());
 
          DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
@@ -87,13 +90,8 @@ public class MavenContainer
       catch (Exception e)
       {
          throw new ProjectModelException(
-               "Could not initialize maven", e);
+                  "Could not initialize maven", e);
       }
-   }
-
-   private File getUserHomeDir()
-   {
-      return new File(System.getProperty("user.home")).getAbsoluteFile();
    }
 
    public ProjectBuildingRequest getRequest()
@@ -104,5 +102,10 @@ public class MavenContainer
    public ProjectBuilder getBuilder()
    {
       return builder;
+   }
+
+   public PlexusContainer getContainer()
+   {
+      return container;
    }
 }

@@ -21,13 +21,14 @@
  */
 package org.jboss.seam.forge.project.facets;
 
+import java.util.List;
+import java.util.Map;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
-
-import java.util.List;
-import java.util.Map;
+import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -108,4 +109,34 @@ public interface DependencyFacet extends Facet
     * and will be expanded during building to their property value.)
     */
    public String removeProperty(String name);
+
+   /**
+    * Add a repository to the project build system. This is where dependencies can be found, downloaded, and installed
+    * to the project build script.
+    */
+   public void addRepository(String name, String url);
+
+   /**
+    * Get the list of repositories for which this project is currently configured to use in dependency resolution.
+    */
+   public List<DependencyRepository> getRepositories();
+
+   /**
+    * Given a groupid:versionid:version-range, identify the available artifacts in all known repositories for this
+    * project. For example:
+    * <p>
+    * <code>dependencyFacet.resolveAvailableVersions("org.jboss.seam:example:[1.0.0,]");</code><br>
+    * <code>dependencyFacet.resolveAvailableVersions("org.jboss.seam:example:[1.0.0,)");</code><br>
+    * <code>dependencyFacet.resolveAvailableVersions("org.jboss.seam:example:(1.0.0,3.0.0]");</code><br>
+    * <code>dependencyFacet.resolveAvailableVersions("org.jboss.seam:example:[1.0.0,3.0.0]");</code><br>
+    */
+   public List<Dependency> resolveAvailableVersions(final String gavs);
+
+   /**
+    * Given a {@link Dependency} with a populated groupId, versionId, and version range, identify the available
+    * artifacts in all known repositories for this project.
+    * 
+    * See {@link DependencyFacet#resolveAvailableVersions(String)}
+    */
+   public List<Dependency> resolveAvailableVersions(final Dependency dep);
 }

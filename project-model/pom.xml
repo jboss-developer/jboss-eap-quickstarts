@@ -13,6 +13,12 @@
    <packaging>jar</packaging>
    <name>Seam Forge - Project Model APIs</name>
 
+   <properties>
+      <maven.version>3.0</maven.version>
+      <aether.version>1.7</aether.version>
+      <wagonVersion>1.0-beta-7</wagonVersion>
+   </properties>
+
    <dependencies>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
@@ -30,24 +36,70 @@
          <artifactId>weld-extensions</artifactId>
       </dependency>
 
+      <!-- Maven -->
       <dependency>
          <groupId>org.apache.maven</groupId>
          <artifactId>maven-model</artifactId>
+         <version>${maven.version}</version>
       </dependency>
       <dependency>
          <groupId>org.apache.maven</groupId>
          <artifactId>maven-core</artifactId>
+         <version>${maven.version}</version>
       </dependency>
       <dependency>
          <groupId>org.apache.maven</groupId>
          <artifactId>maven-compat</artifactId>
+         <version>${maven.version}</version>
       </dependency>
       <dependency>
          <groupId>org.apache.maven</groupId>
          <artifactId>maven-aether-provider</artifactId>
+         <version>${maven.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.sonatype.aether</groupId>
+         <artifactId>aether-connector-wagon</artifactId>
+         <version>${aether.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.sonatype.aether</groupId>
+         <artifactId>aether-util</artifactId>
+         <version>${aether.version}</version>
       </dependency>
 
+      <!-- Wagon -->
+      <dependency>
+         <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-provider-api</artifactId>
+         <version>${wagonVersion}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-file</artifactId>
+         <version>${wagonVersion}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-http-lightweight</artifactId>
+         <version>${wagonVersion}</version>
+         <exclusions>
+            <exclusion>
+               <groupId>nekohtml</groupId>
+               <artifactId>nekohtml</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>nekohtml</groupId>
+               <artifactId>xercesMinimal</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>commons-logging</groupId>
+               <artifactId>commons-logging</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
 
+      <!-- Test -->
       <dependency>
          <groupId>org.jboss.arquillian</groupId>
          <artifactId>arquillian-junit</artifactId>
@@ -82,7 +134,7 @@
          <groupId>org.jboss.spec</groupId>
          <artifactId>jboss-javaee-6.0</artifactId>
          <scope>test</scope>
-			<type>pom</type>
+         <type>pom</type>
       </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
