@@ -22,6 +22,11 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
@@ -33,10 +38,6 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -63,13 +64,17 @@ public class ListFacetsPlugin implements Plugin
       for (Facet facet : facets)
       {
          String name = ConstraintInspector.getName(facet.getClass());
-         if (project.hasFacet(facet.getClass()))
+         if (project.hasFacet(facet.getClass()) && !project.getFacet(facet.getClass()).isInstalled())
+         {
+            shell.println(ShellColor.RED, name + " [ERROR: facet is no longer available]");
+         }
+         else if (project.hasFacet(facet.getClass()))
          {
             shell.println(ShellColor.GREEN, name);
          }
          else
          {
-            shell.println(ShellColor.RED, name);
+            shell.println(ShellColor.BLUE, name);
          }
       }
    }
