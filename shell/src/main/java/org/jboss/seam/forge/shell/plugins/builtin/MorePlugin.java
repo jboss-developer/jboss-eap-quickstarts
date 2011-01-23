@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
- * Implementation of more & less, but called more.
+ * Implementation of more & less, but called more. "More is less".
  *
- * @author Mike Brock .
+ * @author Mike Brock
  */
 @Named("more")
 @Topic("Shell Environment")

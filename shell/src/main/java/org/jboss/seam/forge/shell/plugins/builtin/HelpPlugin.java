@@ -49,128 +49,19 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 public class HelpPlugin implements Plugin
 {
    PluginRegistry registry;
-   private final Shell shell;
 
    @Inject
-   public HelpPlugin(final PluginRegistry registry, final Shell shell)
+   public HelpPlugin(final PluginRegistry registry)
    {
       this.registry = registry;
-      this.shell = shell;
    }
 
    @DefaultCommand
    public void help(@Option final String[] tokens, PipeOut out)
    {
-      if ((tokens == null) || (tokens.length == 0))
-      {
-         out.println("");
-         out.println("Welcome to Seam Forge. Type \"help {plugin} {command}\" to learn more about what this shell can do.");
-         out.println("");
-      }
-      else
-      {
-         String pluginName = tokens[0];
-         PluginMetadata plugin = registry.getPluginMetadataForScopeAndConstraints(pluginName, shell);
-         if (plugin != null)
-         {
-            writePluginHelp(plugin, out);
-
-            if (tokens.length >= 2)
-            {
-               String commandName = tokens[1];
-               if (plugin.hasCommand(commandName, shell))
-               {
-                  CommandMetadata command = plugin.getCommand(commandName, shell);
-                  writeCommandHelp(command, out);
-               }
-               else
-               {
-                  out.println("Unknown command [" + commandName + "]");
-               }
-            }
-            else if (tokens.length >= 1)
-            {
-               List<CommandMetadata> ctxCommands = plugin.getCommands(shell);
-               if (ctxCommands.size() > 0)
-               {
-                  out.println("");
-                  out.println("Commands:");
-                  for (CommandMetadata command : ctxCommands)
-                  {
-                     writeCommandHelp(command, out);
-                  }
-               }
-            }
-         }
-         else
-         {
-            out.println("I couldn't find a help topic for: " + tokens[0]);
-         }
-         out.println("");
-      }
+      out.print("not ready yet.");
 
    }
 
-   private void writePluginHelp(final PluginMetadata plugin, ShellPrintWriter out)
-   {
-      out.println("[" + plugin.getName() + "] " + plugin.getHelp());
-   }
 
-   private void writeCommandHelp(final CommandMetadata command, ShellPrintWriter out)
-   {
-      if (command.isDefault())
-      {
-         out.print("[default] " + command.getName() + " ");
-         writeCommandUsage(command, out);
-         out.println(" - " + command.getHelp());
-      }
-      else
-      {
-         out.print(command.getName() + " ");
-         writeCommandUsage(command, out);
-         out.println(" - " + command.getHelp());
-      }
-      out.println();
-   }
-
-   private void writeCommandUsage(final CommandMetadata command, ShellPrintWriter out)
-   {
-      for (OptionMetadata option : command.getOptions())
-      {
-         if (option.isRequired())
-         {
-            out.print("[");
-         }
-         else
-         {
-            out.print("{");
-         }
-
-         if (option.isBoolean())
-         {
-            out.print("--" + option.getName());
-         }
-         else if (option.isNamed())
-         {
-            out.print("--" + option.getName() + "=...");
-         }
-         else if (option.isVarargs())
-         {
-            out.print(option.getDescription() + " ...");
-         }
-         else
-         {
-            out.print(option.getDescription());
-         }
-
-         if (option.isRequired())
-         {
-            out.print("]");
-         }
-         else
-         {
-            out.print("}");
-         }
-      }
-   }
 }

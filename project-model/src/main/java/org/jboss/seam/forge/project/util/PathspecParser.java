@@ -33,6 +33,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Parser of UNIX-style pathspec. The parser accepts a resource, and provides a result set of resources based on the
+ * relative path provided.<p/>
+ *
+ * Example:<br/>
+ * <code>
+ *    List<Resource<?>> res = new PathspecParser(factoryInstance, relativeResource, "../../foobar");
+ * </code>
+ *
+ * Where <tt>factoryInstance</tt> is an instance of {@link ResourceFactory}, <tt>relativeResource</tt> is a resource,
+ * such as a file or directory, for which the relative result for <tt>../../foobar</tt> will be calculated.<p/>
+ *
+ * Wildcards <tt>*</tt> and <tt>?</tt> are accepted.
+ *
+ * @author Mike Brock
+ */
 public class PathspecParser
 {
    private int cursor;
@@ -63,6 +79,10 @@ public class PathspecParser
       this.cursor = cursor;
    }
 
+   /**
+    * Resolve the results.
+    * @return A list of resources that match the path. Empty if there are no matches.
+    */
    public List<Resource<?>> resolve()
    {
       Resource<?> r = res;
@@ -201,6 +221,11 @@ public class PathspecParser
       return singleResult(r);
    }
 
+   /**
+    * Perform a search, by doing a breadth-first traversal of the resource tree for resources that match the
+    * path string.
+    * @return A list of resources that match the path string. Empty if there are no matches.
+    */
    public List<Resource<?>> search()
    {
       return match(path.split(Pattern.quote(File.separator)), 0, res, new LinkedList<Resource<?>>());
