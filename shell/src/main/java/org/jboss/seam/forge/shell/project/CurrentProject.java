@@ -22,7 +22,6 @@
 
 package org.jboss.seam.forge.shell.project;
 
-import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
@@ -53,7 +52,7 @@ public class CurrentProject
 
    @Produces
    @Default
-   @Dependent
+   @ProjectScoped
    public Project getCurrent()
    {
       return currentProject;
@@ -87,20 +86,7 @@ public class CurrentProject
    public void setCurrentResource(final Resource<?> resource)
    {
       this.currentResource.setCurrent(resource);
-      // if (currentProject != null)
-      // {
-      // Resource<?> projectRoot =
-      // factory.getResourceFrom(currentProject.getProjectRoot());
-      // if (!projectRoot.equals(resource) &&
-      // !ResourceUtil.isChildOf(projectRoot, resource))
-      // {
-      // init.fire(new InitProject());
-      // }
-      // }
-      // else
-      // {
       init.fire(new InitProject());
-      // }
    }
 
    public Resource<?> getCurrentResource()

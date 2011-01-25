@@ -36,13 +36,12 @@ import javax.enterprise.context.NormalScope;
 import org.jboss.seam.forge.project.Project;
 
 /**
- * Declares a bean as being scoped to the current {@link Project}. Beans using
- * this scope will be destroyed when the current {@link Project} is removed. The
- * scope is active as long as there is an active {@link Project}
+ * Declares a bean as being scoped to the current {@link Project}. Beans using this scope will be destroyed when the
+ * current {@link Project} is removed. The scope is active as long as there is an active {@link Project}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@NormalScope
+@NormalScope(passivating = false)
 @Inherited
 @Documented
 @Target({ TYPE, METHOD, FIELD })

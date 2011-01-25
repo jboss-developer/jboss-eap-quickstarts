@@ -21,49 +21,64 @@
  */
 package org.jboss.seam.forge.shell.project;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
+import java.lang.annotation.Annotation;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ContextNotActiveException;
 import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
-import java.lang.annotation.Annotation;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.util.BeanManagerUtils;
+import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
 
 /**
  * This class provides lifecycle management for the {@link Project} scope
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@Singleton
 public class ProjectScopedContext implements Context
 {
    private final static String COMPONENT_MAP_NAME = ProjectScopedContext.class.getName() + ".componentInstanceMap";
    private final static String CREATIONAL_MAP_NAME = ProjectScopedContext.class.getName() + ".creationalInstanceMap";
+
+   private Project context;
+   private final BeanManager manager;
+
+   @Inject
+   public ProjectScopedContext(final BeanManager manager)
+   {
+      this.manager = manager;
+   }
 
    private void assertActive()
    {
       if (!isActive())
       {
          throw new ContextNotActiveException(
-               "Context with scope annotation @ProjectScoped is not active with respect to the current directory.");
+                  "Context with scope annotation @ProjectScoped is not active with respect to the current directory.");
       }
    }
 
-   private Project context;
-
    private Project getCurrentProject()
    {
-      return context;
+      // ensure that we get the currently active context when this method is invoked
+      ProjectScopedContext scopedContext = BeanManagerUtils.getContextualInstance(manager, ProjectScopedContext.class);
+      return scopedContext.context;
    }
 
-   @SuppressWarnings({"rawtypes", "unchecked"})
+   @SuppressWarnings({ "rawtypes", "unchecked" })
    public void destroy(@Observes final ProjectChange event)
    {
-      if (context != null)
+      if (getCurrentProject() != null)
       {
          Map<Contextual<?>, Object> componentInstanceMap = getComponentInstanceMap();
          Map<Contextual<?>, CreationalContext<?>> creationalContextMap = getCreationalContextMap();
@@ -130,7 +145,7 @@ public class ProjectScopedContext implements Context
    @Override
    public boolean isActive()
    {
-      return context != null;
+      return getCurrentProject() != null;
    }
 
    @Override
@@ -146,7 +161,7 @@ public class ProjectScopedContext implements Context
    private Map<Contextual<?>, Object> getComponentInstanceMap()
    {
       ConcurrentHashMap<Contextual<?>, Object> map = (ConcurrentHashMap<Contextual<?>, Object>) getCurrentProject()
-            .getAttribute(COMPONENT_MAP_NAME);
+               .getAttribute(COMPONENT_MAP_NAME);
 
       if (map == null)
       {
@@ -161,7 +176,7 @@ public class ProjectScopedContext implements Context
    private Map<Contextual<?>, CreationalContext<?>> getCreationalContextMap()
    {
       Map<Contextual<?>, CreationalContext<?>> map = (ConcurrentHashMap<Contextual<?>, CreationalContext<?>>) getCurrentProject()
-            .getAttribute(CREATIONAL_MAP_NAME);
+               .getAttribute(CREATIONAL_MAP_NAME);
 
       if (map == null)
       {

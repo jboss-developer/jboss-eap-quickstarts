@@ -23,7 +23,7 @@ package org.jboss.seam.forge.shell.project;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.BeforeBeanDiscovery;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 
 /**
@@ -34,14 +34,9 @@ import javax.enterprise.inject.spi.Extension;
 public class ProjectScopedExtension implements Extension
 {
 
-   public void addScope(@Observes final BeforeBeanDiscovery event)
+   public void registerContext(@Observes final AfterBeanDiscovery event, final BeanManager manager)
    {
-      event.addScope(ProjectScoped.class, true, true);
-   }
-
-   public void registerContext(@Observes final AfterBeanDiscovery event)
-   {
-      event.addContext(new ProjectScopedContext());
+      event.addContext(new ProjectScopedContext(manager));
    }
 
 }
