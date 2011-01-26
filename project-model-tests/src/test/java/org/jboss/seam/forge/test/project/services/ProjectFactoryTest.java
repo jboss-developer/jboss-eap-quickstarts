@@ -22,6 +22,11 @@
 
 package org.jboss.seam.forge.test.project.services;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import javax.inject.Singleton;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -29,11 +34,6 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Singleton;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -48,15 +48,17 @@ public class ProjectFactoryTest extends AbstractShellTest
       Shell shell = getShell();
       initializeJavaProject();
 
-      assertNotNull(getProject());
+      Project project = getProject();
+      assertNotNull(project);
 
       shell.execute("cd /");
 
-      assertNull(getProject());
+      project = getProject();
+      assertNull(project);
 
       shell.execute("cd -");
 
-      Project project = getProject();
+      getProject();
       assertNotNull(project);
       JavaSourceFacet javaSourceFacet = project.getFacet(JavaSourceFacet.class);
 

@@ -33,7 +33,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
@@ -66,8 +65,8 @@ public abstract class AbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addPackages(true, BasePackageMarker.class.getPackage())
-            .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+               .addPackages(true, BasePackageMarker.class.getPackage())
+               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
    }
@@ -85,7 +84,7 @@ public abstract class AbstractShellTest
    private static final String PKG = AbstractShellTest.class.getSimpleName().toLowerCase();
 
    @Inject
-   private Instance<Project> project;
+   private Project project;
 
    @Inject
    private ResourceFactory factory;
@@ -167,7 +166,7 @@ public abstract class AbstractShellTest
 
    protected Project getProject()
    {
-      return project.get();
+      return project;
    }
 
    protected Project initializeJavaProject() throws IOException
