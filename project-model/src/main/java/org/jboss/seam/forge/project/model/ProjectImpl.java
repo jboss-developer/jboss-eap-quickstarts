@@ -22,7 +22,7 @@
 package org.jboss.seam.forge.project.model;
 
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.weld.extensions.core.Veto;
+import org.jboss.seam.solder.core.Veto;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

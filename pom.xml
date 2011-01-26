@@ -37,8 +37,9 @@
 
    <properties>
       <arquillian.version>1.0.0.Alpha4</arquillian.version>
+      <arquillian.container.version>1.1.0.Final</arquillian.container.version>
       <cal10n.version>0.7.2</cal10n.version>
-      <cdi.version>1.0-SP2</cdi.version>
+      <cdi.version>1.0-SP4</cdi.version>
       <groovy.version>1.7.5</groovy.version>
       <jboss.logging.version>3.0.0.Beta4</jboss.logging.version>
       <jboss.javaee.version>1.0.0.CR1</jboss.javaee.version>
@@ -48,9 +49,9 @@
       <shrinkwrap.version>1.0.0-alpha-11</shrinkwrap.version>
       <shrinkwrap.descriptors.version>1.0.0-alpha-1-SNAPSHOT</shrinkwrap.descriptors.version>
       <slf4j.version>1.5.10</slf4j.version>
-      <weld.version>1.1.0.Beta1</weld.version>
-      <weldx.version>1.0.0.Beta1</weldx.version>
-      <weld.bom.version>1.1.0.Beta1</weld.bom.version>
+      <weld.version>1.1.0.Final</weld.version>
+      <weld.bom.version>1.1.0.Final</weld.bom.version>
+      <solder.version>3.0.0.Beta2</solder.version>
    </properties>
 
    <dependencyManagement>
@@ -113,9 +114,9 @@
          </dependency>
 
          <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-extensions</artifactId>
-            <version>${weldx.version}</version>
+            <groupId>org.jboss.seam.solder</groupId>
+            <artifactId>seam-solder</artifactId>
+            <version>${solder.version}</version>
          </dependency>
          <dependency>
             <groupId>org.jboss.logging</groupId>
@@ -140,9 +141,9 @@
             <scope>test</scope>
          </dependency>
          <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
+            <groupId>org.jboss.weld.arquillian.container</groupId>
             <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-            <version>${arquillian.version}</version>
+            <version>${arquillian.container.version}</version>
             <scope>test</scope>
          </dependency>
 

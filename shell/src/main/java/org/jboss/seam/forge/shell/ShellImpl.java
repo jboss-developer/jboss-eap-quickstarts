@@ -22,10 +22,35 @@
 
 package org.jboss.seam.forge.shell;
 
+import static org.mvel2.DataConversion.addConversionHandler;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 import jline.console.history.MemoryHistory;
+
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
@@ -39,7 +64,11 @@ import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.exceptions.*;
+import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.forge.shell.exceptions.CommandParserException;
+import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.plugins.events.PostStartup;
@@ -54,20 +83,10 @@ import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.util.StringAppender;
 
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.*;
-import java.util.*;
-import java.util.Map.Entry;
-
-import static org.mvel2.DataConversion.addConversionHandler;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Singleton
+@ApplicationScoped
 public class ShellImpl implements Shell
 {
    private static final String PROP_PROMPT = "PROMPT";
@@ -123,7 +142,8 @@ public class ShellImpl implements Shell
       @SuppressWarnings("rawtypes")
       public Resource[] convertFrom(final Object obl)
       {
-         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(), obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
+         return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(),
+                  obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
       }
 
       @SuppressWarnings("rawtypes")
@@ -318,7 +338,7 @@ public class ShellImpl implements Shell
       }
    }
 
-   private void writeToHistory(String command)
+   private void writeToHistory(final String command)
    {
       try
       {
@@ -377,21 +397,26 @@ public class ShellImpl implements Shell
 
    private String getDefaultConfig()
    {
-      return "@/* Automatically generated config file */;\n" +
-            "" +
-            "echo \"   ____                          _____                    \";\n" +
-            "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n" +
-            "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n" +
-            "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
-            "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-            "echo \"                                                |___/      \";\n\n" +
-            "" +
-            "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
-            "    echo \"  Windows? Really? Okay...\\n\"\n" +
-            "}\n" +
-            "\n" +
-            "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
-            "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n";
+      return "@/* Automatically generated config file */;\n"
+               +
+               ""
+               +
+               "echo \"   ____                          _____                    \";\n"
+               +
+               "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
+               +
+               "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
+               +
+               "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+               "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+               "echo \"                                                |___/      \";\n\n" +
+               "" +
+               "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
+               "    echo \"  Windows? Really? Okay...\\n\"\n" +
+               "}\n" +
+               "\n" +
+               "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
+               "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n";
 
    }
 
@@ -428,7 +453,7 @@ public class ShellImpl implements Shell
       println();
    }
 
-   private void handleException(Exception original)
+   private void handleException(final Exception original)
    {
       try
       {
@@ -504,7 +529,7 @@ public class ShellImpl implements Shell
       print(new Ansi().eraseLine(Ansi.Erase.ALL).toString());
    }
 
-   public void cursorLeft(int x)
+   public void cursorLeft(final int x)
    {
       print(new Ansi().cursorLeft(x).toString());
    }
@@ -570,9 +595,8 @@ public class ShellImpl implements Shell
       }
    }
 
-
    @Override
-   public void execute(File file) throws IOException
+   public void execute(final File file) throws IOException
    {
       StringBuilder buf = new StringBuilder();
       InputStream instream = new BufferedInputStream(new FileInputStream(file));
@@ -600,7 +624,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void execute(File file, String... args) throws IOException
+   public void execute(final File file, final String... args) throws IOException
    {
       StringBuilder buf = new StringBuilder();
 
@@ -628,7 +652,7 @@ public class ShellImpl implements Shell
          for (int i = 0; i < args.length; i++)
          {
             buf.append("@_vararg[").append(String.valueOf(i)).append("] = ")
-            .append("_").append(String.valueOf(i)).append(";\n");
+                     .append("_").append(String.valueOf(i)).append(";\n");
          }
       }
 
@@ -662,7 +686,7 @@ public class ShellImpl implements Shell
 
          buf.append(");\n");
 
-        //   System.out.println("\nexec:" + buf.toString());
+         // System.out.println("\nexec:" + buf.toString());
 
          execute(buf.toString());
       }
@@ -674,8 +698,8 @@ public class ShellImpl implements Shell
    }
 
    /*
-   * Shell Print Methods
-   */
+    * Shell Print Methods
+    */
    @Override
    public void printlnVerbose(final String line)
    {
@@ -769,7 +793,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public void write(byte b)
+   public void write(final byte b)
    {
       System.out.print((char) b);
    }
@@ -784,7 +808,7 @@ public class ShellImpl implements Shell
    public boolean isVerbose()
    {
       Object s = properties.get(PROP_VERBOSE);
-      return s != null && "true".equals(s);
+      return (s != null) && "true".equals(s);
    }
 
    @Override
@@ -911,7 +935,7 @@ public class ShellImpl implements Shell
    {
       int c;
       StringBuilder buf = new StringBuilder();
-      while ((c = scan()) != '\n' && c != '\r')
+      while (((c = scan()) != '\n') && (c != '\r'))
       {
          if (c == 127)
          {
@@ -986,7 +1010,8 @@ public class ShellImpl implements Shell
    {
       if (!defaultIfEmpty.matches(pattern))
       {
-         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern [" + pattern + "]");
+         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
+                  + pattern + "]");
       }
 
       String input;
@@ -1085,7 +1110,8 @@ public class ShellImpl implements Shell
    {
       if (options == null)
       {
-         throw new IllegalArgumentException("promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+         throw new IllegalArgumentException(
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -1127,7 +1153,8 @@ public class ShellImpl implements Shell
    {
       if (options == null)
       {
-         throw new IllegalArgumentException("promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+         throw new IllegalArgumentException(
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;

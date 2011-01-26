@@ -25,8 +25,6 @@ package org.jboss.seam.forge.test.project.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import javax.inject.Singleton;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -38,7 +36,6 @@ import org.junit.runner.RunWith;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Singleton
 @RunWith(Arquillian.class)
 public class ProjectFactoryTest extends AbstractShellTest
 {
