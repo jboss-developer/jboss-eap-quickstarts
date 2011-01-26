@@ -22,7 +22,6 @@
 package org.jboss.seam.forge.project;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.List;
 
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
@@ -31,7 +30,7 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface Project extends Serializable
+public interface Project
 {
    /**
     * Get an value from this project's internal attributes. If the value is not set, return <code>null</code> instead.

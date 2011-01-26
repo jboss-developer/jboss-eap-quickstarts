@@ -33,6 +33,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
@@ -84,7 +85,7 @@ public abstract class AbstractShellTest
    private static final String PKG = AbstractShellTest.class.getSimpleName().toLowerCase();
 
    @Inject
-   private Project project;
+   private Instance<Project> project;
 
    @Inject
    private ResourceFactory factory;
@@ -166,7 +167,7 @@ public abstract class AbstractShellTest
 
    protected Project getProject()
    {
-      return project;
+      return project.get();
    }
 
    protected Project initializeJavaProject() throws IOException
