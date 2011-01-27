@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * An aliasing wrapper for {@link MorePlugin}
+ *
  * @author Mike Brock .
  */
 @Named("less")
