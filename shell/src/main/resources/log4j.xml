@@ -27,6 +27,7 @@
          <param name="levelMin" value="DEBUG" />
          <param name="levelMax" value="DEBUG" />
       </filter>
+      <!-- 
       <filter class="org.apache.log4j.varia.StringMatchFilter">
          <param name="AcceptOnMatch" value="true" />
          <param name="StringToMatch" value="WELD-000119" />
@@ -35,6 +36,7 @@
          <param name="AcceptOnMatch" value="true" />
          <param name="StringToMatch" value="catching" />
       </filter>
+       -->
       <filter class="org.apache.log4j.varia.StringMatchFilter">
          <param name="AcceptOnMatch" value="false" />
          <param name="StringToMatch" value="" />
