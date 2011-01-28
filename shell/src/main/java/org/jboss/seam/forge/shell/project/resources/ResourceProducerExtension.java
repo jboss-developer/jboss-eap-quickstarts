@@ -22,20 +22,14 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AnnotatedConstructor;
-import javax.enterprise.inject.spi.AnnotatedField;
-import javax.enterprise.inject.spi.AnnotatedParameter;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.ProcessAnnotatedType;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
+
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -46,8 +40,28 @@ public class ResourceProducerExtension implements Extension
 
    public <T> void processAnnotatedType(@Observes final ProcessAnnotatedType<T> event)
    {
-      AnnotatedTypeBuilder<T> builder = new AnnotatedTypeBuilder<T>();
-      builder.readFromType(event.getAnnotatedType());
+//      AnnotatedTypeBuilder<T> builder = new AnnotatedTypeBuilder<T>();
+//      builder.readFromType(event.getAnnotatedType());
+
+      /**
+       * Create a class to lazy load the builder, so it is not created unless needed.
+       * (Performance Fix)  -- Mike Brock (h/t to Stuart Douglas)
+       */
+      class BuilderHolder
+      {
+         private AnnotatedTypeBuilder<T> builder;
+
+         public AnnotatedTypeBuilder<T> getBuilder()
+         {
+            if (builder == null) {
+               builder = new AnnotatedTypeBuilder<T>();
+               builder.readFromType(event.getAnnotatedType());
+            }
+            return builder;
+         }
+      }
+
+      final BuilderHolder builderHolder = new BuilderHolder();
 
       boolean modifiedType = false;
 
@@ -59,7 +73,7 @@ public class ResourceProducerExtension implements Extension
             {
                if (p.getTypeClosure().contains(Resource.class))
                {
-                  builder.overrideConstructorParameterType(c.getJavaMember(), p.getPosition(), Resource.class);
+                  builderHolder.getBuilder().overrideConstructorParameterType(c.getJavaMember(), p.getPosition(), Resource.class);
                   modifiedType = true;
                }
             }
@@ -70,14 +84,14 @@ public class ResourceProducerExtension implements Extension
       {
          if (f.isAnnotationPresent(Current.class))
          {
-            builder.overrideFieldType(f.getJavaMember(), Resource.class);
+            builderHolder.getBuilder().overrideFieldType(f.getJavaMember(), Resource.class);
             modifiedType = true;
          }
       }
 
       if (modifiedType)
       {
-         AnnotatedType<T> replacement = builder.create();
+         AnnotatedType<T> replacement = builderHolder.getBuilder().create();
          typeOverrides.put(replacement.getJavaClass(), replacement);
          event.setAnnotatedType(replacement);
       }
