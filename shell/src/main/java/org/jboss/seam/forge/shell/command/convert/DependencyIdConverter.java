@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+ * JBoss, by Red Hat.
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -20,51 +20,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project.dependencies;
+package org.jboss.seam.forge.shell.command.convert;
+
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.mvel2.ConversionHandler;
 
 /**
- * Represents the various dependency scopes.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public enum ScopeType
+public class DependencyIdConverter implements ConversionHandler
 {
-   COMPILE("compile"),
-   PROVIDED("provided"),
-   RUNTIME("runtime"),
-   TEST("test"),
-   SYSTEM("system"),
-   IMPORT("import"),
-   OTHER("");
-
-   private String scope;
-
-   private ScopeType(final String scope)
+   @Override
+   public Object convertFrom(final Object in)
    {
-      this.scope = scope;
+      return DependencyBuilder.create(in.toString());
    }
 
-   public String getScope()
+   @Override
+   @SuppressWarnings("rawtypes")
+   public boolean canConvertFrom(final Class type)
    {
-      return scope;
-   }
-
-   public static ScopeType from(final String type)
-   {
-      ScopeType result = null;
-
-      if ((type != null) && !type.trim().isEmpty())
-      {
-         result = OTHER;
-         for (ScopeType scopeType : ScopeType.values())
-         {
-            if (scopeType.getScope().equalsIgnoreCase(type.trim()))
-            {
-               result = scopeType;
-            }
-         }
-      }
-      return result;
+      return String.class.isAssignableFrom(type);
    }
 }

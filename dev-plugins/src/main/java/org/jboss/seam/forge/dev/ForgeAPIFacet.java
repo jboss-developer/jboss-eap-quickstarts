@@ -4,12 +4,15 @@
 
 package org.jboss.seam.forge.dev;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingType;
+import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
@@ -25,7 +28,6 @@ import org.jboss.seam.forge.spec.cdi.CDIFacet;
 @RequiresPackagingType(PackagingType.JAR)
 public class ForgeAPIFacet extends BaseFacet
 {
-   private final DependencyBuilder dep = DependencyBuilder.create("org.jboss.seam.forge:forge-shell-api");
 
    @Inject
    private Shell shell;
@@ -35,8 +37,9 @@ public class ForgeAPIFacet extends BaseFacet
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
 
-      // FIXME This needs to dynamically resolve artifact versions from repos
-      deps.setProperty("forge.api.version", "1.0.0-SNAPSHOT");
+      List<Dependency> versions = deps.resolveAvailableVersions("org.jboss.seam.forge:forge-shell-api:[,]");
+      Dependency version = shell.promptChoiceTyped("Install which version of the Forge API?", versions);
+      deps.setProperty("forge.api.version", version.getVersion());
       DependencyBuilder dep = DependencyBuilder.create("org.jboss.seam.forge:forge-shell-api:${forge.api.version}");
       deps.addDependency(dep);
       return true;
@@ -45,6 +48,7 @@ public class ForgeAPIFacet extends BaseFacet
    @Override
    public boolean isInstalled()
    {
+      Dependency dep = DependencyBuilder.create("org.jboss.seam.forge:forge-shell-api");
       PackagingType packagingType = project.getFacet(PackagingFacet.class).getPackagingType();
       return project.getFacet(DependencyFacet.class).hasDependency(dep)
                && PackagingType.JAR.equals(packagingType);

@@ -22,9 +22,9 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.List;
+
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -81,7 +81,19 @@ public class ExcludedDependencyBuilder implements Dependency
     * Not implemented for Exclusions. Always returns <code>null</code>.
     */
    @Override
-   public ScopeType getScopeType()
+   public String getScopeType()
+   {
+      throw new IllegalStateException("Not implemented for Exclusions");
+   }
+
+   @Override
+   public PackagingType getPackagingTypeEnum()
+   {
+      throw new IllegalStateException("Not implemented for Exclusions");
+   }
+
+   @Override
+   public ScopeType getScopeTypeEnum()
    {
       throw new IllegalStateException("Not implemented for Exclusions");
    }
@@ -114,7 +126,7 @@ public class ExcludedDependencyBuilder implements Dependency
    }
 
    @Override
-   public PackagingType getPackagingType()
+   public String getPackagingType()
    {
       throw new IllegalStateException("Not implemented for Exclusions");
    }

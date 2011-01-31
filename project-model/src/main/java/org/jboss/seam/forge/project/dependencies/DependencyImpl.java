@@ -22,23 +22,23 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 /**
  * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class DependencyImpl implements Dependency
 {
-   private ScopeType scopeType;
+   private String scopeType;
    private String version;
    private String groupId;
    private String artifactId;
-   private PackagingType packagingType;
+   private String packagingType;
    private List<Dependency> excludedDependencies = new ArrayList<Dependency>();
 
    DependencyImpl()
@@ -64,14 +64,31 @@ public class DependencyImpl implements Dependency
    }
 
    @Override
-   public ScopeType getScopeType()
+   public String getScopeType()
    {
       return scopeType;
    }
 
+   @Override
+   public PackagingType getPackagingTypeEnum()
+   {
+      return PackagingType.from(getPackagingType());
+   }
+
+   @Override
+   public ScopeType getScopeTypeEnum()
+   {
+      return ScopeType.from(getScopeType());
+   }
+
    public void setScopeType(final ScopeType scope)
    {
-      this.scopeType = scope;
+      this.scopeType = scope == null ? null : scope.getScope();
+   }
+
+   public void setScopeType(final String type)
+   {
+      scopeType = type;
    }
 
    public void setVersion(final String version)
@@ -100,14 +117,19 @@ public class DependencyImpl implements Dependency
       this.excludedDependencies = excludedDependencies;
    }
 
-   public PackagingType getPackagingType()
+   public String getPackagingType()
    {
       return packagingType;
    }
 
    public void setPackagingType(final PackagingType packagingType)
    {
-      this.packagingType = packagingType;
+      this.packagingType = packagingType == null ? null : packagingType.getType();
+   }
+
+   public void setPackagingType(final String type)
+   {
+      packagingType = type;
    }
 
    @Override

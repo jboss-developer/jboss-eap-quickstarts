@@ -22,11 +22,11 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import org.jboss.seam.forge.project.PackagingType;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,7 +41,7 @@ public class DependencyBuilderTest
       assertEquals("org.jboss.seam.forge", dep.getGroupId());
       assertEquals("seam-forge", dep.getArtifactId());
       assertEquals("9", dep.getVersion());
-      assertEquals(ScopeType.TEST, dep.getScopeType());
+      assertEquals(ScopeType.TEST, dep.getScopeTypeEnum());
    }
 
    @Test
@@ -53,7 +53,7 @@ public class DependencyBuilderTest
       assertEquals("seam-forge", dep.getArtifactId());
       assertEquals("9", dep.getVersion());
       assertNull(dep.getScopeType());
-      assertEquals(PackagingType.BASIC, dep.getPackagingType());
+      assertEquals(PackagingType.BASIC, dep.getPackagingTypeEnum());
    }
 
    @Test

@@ -30,32 +30,23 @@ import org.jboss.seam.forge.shell.util.Patterns;
  */
 public enum PromptType
 {
-   ANY(".*", String.class),
-   JAVA_PACKAGE("(?i)(~\\.)?([a-z0-9_]+\\.?)+[a-z0-9_]", String.class),
-   JAVA_VARIABLE_NAME("^(?!(" + Patterns.JAVA_KEYWORDS + "))[A-Za-z0-9$_]+$", String.class),
-   JAVA_CLASS(JAVA_PACKAGE.pattern + "\\.?[a-z0-9$_]", String.class),
-   FILE_PATH(".*", String.class);
+   ANY(".*"),
+   DEPENDENCY_ID("[^:]+:[^:]+:?([^:]+:?){0,3}"),
+   JAVA_PACKAGE("(?i)(~\\.)?([a-z0-9_]+\\.?)+[a-z0-9_]"),
+   JAVA_VARIABLE_NAME("^(?!(" + Patterns.JAVA_KEYWORDS + "))[A-Za-z0-9$_]+$"),
+   JAVA_CLASS(JAVA_PACKAGE.pattern + "\\.?[a-z0-9$_]"),
+   FILE_PATH(".*");
 
    private final String pattern;
-   private final Class<?> type;
 
-   private PromptType(final String pattern, final Class<?> type)
+   private PromptType(final String pattern)
    {
       this.pattern = pattern;
-      this.type = type;
    }
 
    public String getPattern()
    {
       return pattern;
-   }
-
-   /**
-    * The {@link Class} type to which this prompt should be converted.
-    */
-   public Class<?> getConversionType()
-   {
-      return type;
    }
 
 }

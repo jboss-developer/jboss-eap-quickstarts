@@ -22,6 +22,11 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
@@ -29,12 +34,15 @@ import org.jboss.seam.forge.project.resources.builtin.maven.MavenDependencyResou
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenPomResource;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenProfileResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.OverloadedName;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import java.io.FileNotFoundException;
-import java.util.List;
 
 /**
  * LsMavenPomPlugin
@@ -52,9 +60,10 @@ public class LsMavenPomPlugin implements Plugin
    private Shell shell;
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+   public void run(
+            @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "totalLines", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
+                   @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
                    final PipeOut out) throws FileNotFoundException
    {
 
@@ -75,15 +84,26 @@ public class LsMavenPomPlugin implements Plugin
                MavenDependencyResource resource = (MavenDependencyResource) child;
                Dependency dep = resource.getDependency();
                out.println(
-                     out.renderColor(ShellColor.BLUE, dep.getGroupId()) +
-                           out.renderColor(ShellColor.BOLD, " : ") +
-                           out.renderColor(ShellColor.BLUE, dep.getArtifactId()) +
-                           out.renderColor(ShellColor.BOLD, " : ") +
-                           out.renderColor(ShellColor.NONE, dep.getVersion() == null ? "" : dep.getVersion()) +
-                           out.renderColor(ShellColor.BOLD, " : ") +
-                           out.renderColor(ShellColor.NONE, dep.getPackagingType() == null ? "" : dep.getPackagingType().name().toLowerCase()) +
-                           out.renderColor(ShellColor.BOLD, " : ") +
-                           out.renderColor(determineDependencyShellColor(dep.getScopeType()), dep.getScopeType() == null ? "compile" : dep.getScopeType().name().toLowerCase()));
+                        out.renderColor(ShellColor.BLUE, dep.getGroupId())
+                                 +
+                                 out.renderColor(ShellColor.BOLD, " : ")
+                                 +
+                                 out.renderColor(ShellColor.BLUE, dep.getArtifactId())
+                                 +
+                                 out.renderColor(ShellColor.BOLD, " : ")
+                                 +
+                                 out.renderColor(ShellColor.NONE, dep.getVersion() == null ? "" : dep.getVersion())
+                                 +
+                                 out.renderColor(ShellColor.BOLD, " : ")
+                                 +
+                                 out.renderColor(ShellColor.NONE, dep.getPackagingType() == null ? "" : dep
+                                          .getPackagingType().toLowerCase())
+                                 +
+                                 out.renderColor(ShellColor.BOLD, " : ")
+                                 +
+                                 out.renderColor(determineDependencyShellColor(dep.getScopeTypeEnum()),
+                                          dep.getScopeType() == null ? "compile" : dep.getScopeType()
+                                                   .toLowerCase()));
             }
          }
 
@@ -101,7 +121,7 @@ public class LsMavenPomPlugin implements Plugin
       }
    }
 
-   private ShellColor determineDependencyShellColor(ScopeType type)
+   private ShellColor determineDependencyShellColor(final ScopeType type)
    {
       if (type == null)
       {

@@ -71,13 +71,27 @@ public class DependencyBuilder implements Dependency
          }
          if (split.length > 3)
          {
-            ScopeType scopeType = ScopeType.getScopeType(split[3].trim());
-            dependencyBuilder.setScopeType(scopeType == ScopeType.OTHER ? null : scopeType);
+            ScopeType scopeType = ScopeType.from(split[3].trim());
+            if (ScopeType.OTHER.equals(scopeType))
+            {
+               dependencyBuilder.setScopeType(split[3].trim());
+            }
+            else
+            {
+               dependencyBuilder.setScopeType(scopeType);
+            }
          }
          if (split.length > 4)
          {
             PackagingType packaging = PackagingType.from(split[4].trim());
-            dependencyBuilder.setPackagingType(packaging == PackagingType.OTHER ? null : packaging);
+            if (PackagingType.OTHER.equals(packaging))
+            {
+               dependencyBuilder.setPackagingType(split[4].trim());
+            }
+            else
+            {
+               dependencyBuilder.setPackagingType(packaging);
+            }
          }
       }
 
@@ -108,6 +122,24 @@ public class DependencyBuilder implements Dependency
       return this;
    }
 
+   public DependencyBuilder setScopeType(final String scope)
+   {
+      dep.setScopeType(scope);
+      return this;
+   }
+
+   public DependencyBuilder setPackagingType(final PackagingType type)
+   {
+      dep.setPackagingType(type);
+      return this;
+   }
+
+   public DependencyBuilder setPackagingType(final String type)
+   {
+      dep.setPackagingType(type);
+      return this;
+   }
+
    @Override
    public String getArtifactId()
    {
@@ -127,7 +159,7 @@ public class DependencyBuilder implements Dependency
    }
 
    @Override
-   public ScopeType getScopeType()
+   public String getScopeType()
    {
       return dep.getScopeType();
    }
@@ -151,21 +183,36 @@ public class DependencyBuilder implements Dependency
    }
 
    @Override
-   public PackagingType getPackagingType()
+   public String getPackagingType()
    {
       return dep.getPackagingType();
    }
 
-   public DependencyBuilder setPackagingType(final PackagingType type)
+   @Override
+   public PackagingType getPackagingTypeEnum()
    {
-      dep.setPackagingType(type);
-      return this;
+      return dep.getPackagingTypeEnum();
+   }
+
+   @Override
+   public ScopeType getScopeTypeEnum()
+   {
+      return dep.getScopeTypeEnum();
    }
 
    @Override
    public String toString()
    {
-      return getGroupId() + ":" + getArtifactId() + ":" + getVersion();
+      String gav = getGroupId() + ":" + getArtifactId();
+      if (getVersion() != null)
+      {
+         gav += ":" + getVersion();
+      }
+      if (getScopeType() != null)
+      {
+         gav += ":" + getScopeType();
+      }
+      return gav;
    }
 
    @Override

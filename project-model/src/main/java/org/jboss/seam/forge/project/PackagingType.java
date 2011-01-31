@@ -76,7 +76,7 @@ public enum PackagingType
    public static PackagingType from(String type)
    {
       PackagingType result = OTHER;
-      if (type != null)
+      if ((type != null) && !type.trim().isEmpty())
       {
          type = type.trim();
          for (PackagingType p : values())

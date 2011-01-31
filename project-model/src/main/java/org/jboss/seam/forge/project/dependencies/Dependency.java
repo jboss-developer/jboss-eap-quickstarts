@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.List;
+
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * Represents a project library dependency.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public interface Dependency
@@ -49,14 +49,31 @@ public interface Dependency
    String getVersion();
 
    /**
-    * Get the specified packaging type for the given artifact
+    * Get the specified packaging type of this {@link Dependency}
     */
-   PackagingType getPackagingType();
+   String getPackagingType();
 
    /**
-    * Get the {@link ScopeType} of this {@link Dependency}
+    * Get the {@link PackagingType} of this {@link Dependency}, if the type is not one of the default supported types,
+    * {@link PackagingType#OTHER} will be returned;
     */
-   ScopeType getScopeType();
+   PackagingType getPackagingTypeEnum();
 
+   /**
+    * Get the scope type of this {@link Dependency}
+    */
+   String getScopeType();
+
+   /**
+    * Get the {@link ScopeType} of this {@link Dependency}, if the type is not one of the default supported types,
+    * {@link ScopeType#OTHER} will be returned;
+    */
+   ScopeType getScopeTypeEnum();
+
+   /**
+    * Get a list of {@link Dependency} objects to be excluded from this {@link Dependency}'s list of inclusions when it
+    * is included in a project.
+    */
    List<Dependency> getExcludedDependencies();
+
 }

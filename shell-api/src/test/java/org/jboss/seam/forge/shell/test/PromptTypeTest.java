@@ -22,12 +22,12 @@
 
 package org.jboss.seam.forge.shell.test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.util.Patterns;
 import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -62,6 +62,17 @@ public class PromptTypeTest
       assertTrue("class".matches(Patterns.JAVA_KEYWORDS));
       assertTrue("while".matches(Patterns.JAVA_KEYWORDS));
       assertTrue("volatile".matches(Patterns.JAVA_KEYWORDS));
+   }
+
+   @Test
+   public void testDependencyId() throws Exception
+   {
+      assertFalse("group.id".matches(PromptType.DEPENDENCY_ID.getPattern()));
+      assertTrue("group.id:artifact.id".matches(PromptType.DEPENDENCY_ID.getPattern()));
+      assertTrue("group.id:artifact.id:1.0.0".matches(PromptType.DEPENDENCY_ID.getPattern()));
+      assertTrue("group.id:artifact.id:2.0.0-SNAPSHOT:scope".matches(PromptType.DEPENDENCY_ID.getPattern()));
+      assertTrue("group.id:artifact.id:3.0.Final:scope:packaging".matches(PromptType.DEPENDENCY_ID.getPattern()));
+      assertFalse("group.id:artifact.id:3.0.Final:scope:packaging:extra".matches(PromptType.DEPENDENCY_ID.getPattern()));
    }
 
 }

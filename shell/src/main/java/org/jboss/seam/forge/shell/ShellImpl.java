@@ -54,12 +54,15 @@ import jline.console.history.MemoryHistory;
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.OSUtils;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
+import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
@@ -161,6 +164,7 @@ public class ShellImpl implements Shell
       addConversionHandler(boolean.class, booleanConverter);
       addConversionHandler(Boolean.class, booleanConverter);
       addConversionHandler(File.class, new FileConverter());
+      addConversionHandler(Dependency.class, new DependencyIdConverter());
 
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
@@ -199,7 +203,7 @@ public class ShellImpl implements Shell
       // properties.put(PROP_PROMPT, DEFAULT_PROMPT);
       // properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
 
-      properties.put("OS_NAME", System.getProperty("os.name"));
+      properties.put("OS_NAME", OSUtils.getOsName());
       properties.put(PROP_PROMPT, "> ");
       properties.put(PROP_PROMPT_NO_PROJ, "> ");
       loadConfig();

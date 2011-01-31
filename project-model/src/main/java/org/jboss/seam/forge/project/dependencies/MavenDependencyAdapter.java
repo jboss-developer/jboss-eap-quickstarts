@@ -22,11 +22,11 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.apache.maven.model.Exclusion;
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.maven.model.Exclusion;
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -64,8 +64,8 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       this.setArtifactId(dep.getArtifactId());
       this.setGroupId(dep.getGroupId());
       this.setVersion(dep.getVersion());
-      this.setScope(dep.getScopeType() == null ? null : dep.getScopeType().getScope());
-      this.setType(dep.getPackagingType() == null ? null : dep.getPackagingType().getType());
+      this.setScope(dep.getScopeType());
+      this.setType(dep.getPackagingType());
 
       for (Dependency exclusion : dep.getExcludedDependencies())
       {
@@ -83,9 +83,15 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    }
 
    @Override
-   public ScopeType getScopeType()
+   public String getScopeType()
    {
-      return ScopeType.getScopeType(getScope());
+      return getScope();
+   }
+
+   @Override
+   public ScopeType getScopeTypeEnum()
+   {
+      return ScopeType.from(getScope());
    }
 
    @Override
@@ -96,7 +102,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
       for (Exclusion exclusion : exclusions)
       {
          Dependency dep = DependencyBuilder.create().setArtifactId(exclusion.getArtifactId())
-               .setGroupId(exclusion.getGroupId());
+                  .setGroupId(exclusion.getGroupId());
          result.add(dep);
       }
       return result;
@@ -151,9 +157,15 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    }
 
    @Override
-   public PackagingType getPackagingType()
+   public String getPackagingType()
    {
-      return PackagingType.from(getType());
+      return getType();
+   }
+
+   @Override
+   public PackagingType getPackagingTypeEnum()
+   {
+      return PackagingType.from(getPackagingType());
    }
 
    @Override
