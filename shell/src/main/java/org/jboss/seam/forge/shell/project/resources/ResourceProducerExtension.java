@@ -40,9 +40,6 @@ public class ResourceProducerExtension implements Extension
 
    public <T> void processAnnotatedType(@Observes final ProcessAnnotatedType<T> event)
    {
-//      AnnotatedTypeBuilder<T> builder = new AnnotatedTypeBuilder<T>();
-//      builder.readFromType(event.getAnnotatedType());
-
       /**
        * Create a class to lazy load the builder, so it is not created unless needed.
        * (Performance Fix)  -- Mike Brock (h/t to Stuart Douglas)
