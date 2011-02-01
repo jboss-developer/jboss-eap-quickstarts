@@ -22,16 +22,9 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.ShellPrintWriter;
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
-import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -48,7 +41,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @Help("Displays help text for specified plugins & commands.")
 public class HelpPlugin implements Plugin
 {
-   PluginRegistry registry;
+   private final PluginRegistry registry;
 
    @Inject
    public HelpPlugin(final PluginRegistry registry)
@@ -57,11 +50,10 @@ public class HelpPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void help(@Option final String[] tokens, PipeOut out)
+   public void help(@Option final String[] tokens, final PipeOut out)
    {
       out.print("not ready yet.");
-
+      registry.getPlugins();
    }
-
 
 }

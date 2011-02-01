@@ -22,13 +22,18 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author Mike Brock
@@ -39,20 +44,20 @@ import javax.inject.Named;
 @Help("Create a new directory")
 public class MkdirPlugin implements Plugin
 {
-   private Shell shell;
+   private final Shell shell;
 
    @Inject
-   public MkdirPlugin(Shell shell)
+   public MkdirPlugin(final Shell shell)
    {
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void mkdir(@Option(help = "name of directory to be created", required = true) String name)
+   public void mkdir(@Option(help = "name of directory to be created", required = true) final String name)
    {
       DirectoryResource dr = (DirectoryResource) shell.getCurrentResource();
 
-      FileResource newResource = (FileResource) dr.getChild(name);
+      FileResource<?> newResource = (FileResource<?>) dr.getChild(name);
       if (!newResource.mkdir())
       {
          throw new RuntimeException("failed to create directory: " + name);

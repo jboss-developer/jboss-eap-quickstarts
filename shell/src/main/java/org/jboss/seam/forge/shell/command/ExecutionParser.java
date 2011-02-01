@@ -77,6 +77,7 @@ public class ExecutionParser
       return parse(tokenizer.tokenize(line), null, null);
    }
 
+   @SuppressWarnings({ "unchecked", "rawtypes" })
    public Execution parse(final Queue<String> tokens, final String pipeIn, final PipeOut pipeOut)
    {
       Execution execution = executionInstance.get();

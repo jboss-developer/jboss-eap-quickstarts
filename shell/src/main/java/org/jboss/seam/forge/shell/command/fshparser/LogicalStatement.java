@@ -22,8 +22,6 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -32,12 +30,12 @@ import java.util.Queue;
  */
 public class LogicalStatement extends NestedNode
 {
-   public LogicalStatement(Node nest)
+   public LogicalStatement(final Node nest)
    {
       super(nest);
    }
 
-   public Queue<String> getTokens(FSHRuntime runtime)
+   public Queue<String> getTokens(final FSHRuntime runtime)
    {
       Queue<String> newQueue = new LinkedList<String>();
       Node n = nest;

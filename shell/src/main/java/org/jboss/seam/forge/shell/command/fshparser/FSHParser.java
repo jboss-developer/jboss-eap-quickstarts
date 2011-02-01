@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.mvel2.util.ParseTools;
-import org.mvel2.util.StringAppender;
-
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isReservedWord;
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isTokenPart;
 import static org.mvel2.util.ParseTools.balancedCapture;
 import static org.mvel2.util.ParseTools.isWhitespace;
+
+import org.mvel2.util.ParseTools;
+import org.mvel2.util.StringAppender;
 
 /**
  * @author Mike Brock .
@@ -37,19 +37,19 @@ public class FSHParser
 {
    private char[] expr;
    private int cursor;
-   private int length;
+   private final int length;
 
    private Node firstNode;
    private Node node;
 
    private boolean nest = false;
 
-   public FSHParser(String expr)
+   public FSHParser(final String expr)
    {
       this.length = (this.expr = expr.toCharArray()).length;
    }
 
-   public FSHParser(String expr, boolean nest)
+   public FSHParser(final String expr, final boolean nest)
    {
       this.length = (this.expr = expr.toCharArray()).length;
       this.nest = nest;
@@ -89,7 +89,7 @@ public class FSHParser
          String scriptTk = new String(expr, start, cursor - start);
          return new ScriptNode(new TokenNode(scriptTk), true);
 
-      //literals
+         // literals
       case '\'':
       case '"':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
@@ -107,8 +107,7 @@ public class FSHParser
             boolean block = "for".equals(tk) || "if".equals(tk) || "while".equals(tk) || "def".equals(tk);
 
             start = cursor;
-            SkipLoop:
-            while (cursor <= length)
+            SkipLoop: while (cursor <= length)
             {
                switch (expr[cursor])
                {
@@ -120,7 +119,8 @@ public class FSHParser
                   if (block)
                   {
                      cursor++;
-                     while (cursor != length && Character.isWhitespace(expr[cursor])) cursor++;
+                     while ((cursor != length) && Character.isWhitespace(expr[cursor]))
+                        cursor++;
 
                      StringAppender buf = new StringAppender("def".equals(tk) ? " " : "");
 
@@ -149,10 +149,11 @@ public class FSHParser
                            }
                            else
                            {
-                              while (cursor != length && expr[cursor] != ';') cursor++;
+                              while ((cursor != length) && (expr[cursor] != ';'))
+                                 cursor++;
                            }
 
-                           int offset = cursor != length && expr[cursor] == '}' ? -1 : 0;
+                           int offset = (cursor != length) && (expr[cursor] == '}') ? -1 : 0;
 
                            buf.append(shellToMVEL(new String(expr, start, cursor - start).trim(), false));
 
@@ -199,14 +200,15 @@ public class FSHParser
          }
          skipWhitespace();
 
-         if (expr[cursor] == 'e' && expr[cursor + 1] == 'l' && expr[cursor + 2] == 's' && expr[cursor + 3] == 'e'
-               && (isWhitespace(expr[cursor + 4]) || expr[cursor + 4] == '{'))
+         if ((expr[cursor] == 'e') && (expr[cursor + 1] == 'l') && (expr[cursor + 2] == 's')
+                  && (expr[cursor + 3] == 'e')
+                  && (isWhitespace(expr[cursor + 4]) || (expr[cursor + 4] == '{')))
          {
 
             cursor += 4;
             skipWhitespace();
 
-            if ((cursor + 1) < length && expr[cursor] == 'i' && expr[cursor + 1] == 'f')
+            if (((cursor + 1) < length) && (expr[cursor] == 'i') && (expr[cursor + 1] == 'f'))
             {
                cursor += 2;
 
@@ -265,8 +267,7 @@ public class FSHParser
          }
       }
 
-      LogicalStatement logicalStatement
-            = new LogicalStatement(script ? new ScriptNode(start, nocommand) : start);
+      LogicalStatement logicalStatement = new LogicalStatement(script ? new ScriptNode(start, nocommand) : start);
 
       if (pipe)
       {
@@ -277,7 +278,7 @@ public class FSHParser
       return logicalStatement;
    }
 
-   private String shellToMVEL(String subStmt, boolean noShellCall)
+   private String shellToMVEL(final String subStmt, final boolean noShellCall)
    {
       StringAppender buf = new StringAppender();
 
@@ -285,7 +286,7 @@ public class FSHParser
       boolean openShellCall = false;
       boolean scriptOnly = false;
 
-    //  int firstToken = subStmt.indexOf(' ');
+      // int firstToken = subStmt.indexOf(' ');
 
       Nest nest = new Nest();
 
@@ -293,7 +294,8 @@ public class FSHParser
       {
          if (stmtStart)
          {
-            while (i < subStmt.length() && isWhitespace(subStmt.charAt(i))) i++;
+            while ((i < subStmt.length()) && isWhitespace(subStmt.charAt(i)))
+               i++;
 
             if (i >= subStmt.length())
             {
@@ -302,7 +304,7 @@ public class FSHParser
 
             int firstToken = getEndOfToken(subStmt, i);
             String tk = subStmt.substring(i, firstToken).trim();
-            if (!noShellCall && tk.charAt(0) != '@' && (firstToken == -1 || !isReservedWord(tk)))
+            if (!noShellCall && (tk.charAt(0) != '@') && ((firstToken == -1) || !isReservedWord(tk)))
             {
                buf.append("shell(\"");
                openShellCall = true;
@@ -348,7 +350,7 @@ public class FSHParser
             buf.append(subStmt.charAt(i));
             int start = ++i;
             buf.append(shellToMVEL(subStmt.substring(start,
-                  i = balancedCapture(subStmt.toCharArray(), i, '{')), false)).append('}');
+                     i = balancedCapture(subStmt.toCharArray(), i, '{')), false)).append('}');
             break;
 
          case '[':
@@ -440,7 +442,7 @@ public class FSHParser
       return buf.toString();
    }
 
-   private int getEndOfToken(String s, int offset)
+   private int getEndOfToken(final String s, final int offset)
    {
       return captureToken(offset, s.length(), s.toCharArray());
    }
@@ -452,7 +454,7 @@ public class FSHParser
       return new String(expr, start, cursor - start);
    }
 
-   private static int captureToken(int cursor, int length, char[] expr)
+   private static int captureToken(int cursor, final int length, final char[] expr)
    {
       if (cursor >= length)
       {
@@ -467,7 +469,8 @@ public class FSHParser
 
          do
          {
-            while (cursor != length && isTokenPart(expr[cursor])) cursor++;
+            while ((cursor != length) && isTokenPart(expr[cursor]))
+               cursor++;
 
             if (cursor == length)
             {
@@ -476,7 +479,7 @@ public class FSHParser
             else
             {
                int c = nextNonBlank(cursor, expr);
-               if (c == -1 || (expr[cursor] != '(' && expr[cursor] != '['))
+               if ((c == -1) || ((expr[cursor] != '(') && (expr[cursor] != '[')))
                {
                   capturing = false;
                }
@@ -492,8 +495,7 @@ public class FSHParser
       }
       else
       {
-         Skip:
-         while (cursor != length)
+         Skip: while (cursor != length)
          {
             switch (expr[cursor])
             {
@@ -514,7 +516,6 @@ public class FSHParser
          }
       }
 
-
       if (cursor == start)
       {
          cursor++;
@@ -524,12 +525,13 @@ public class FSHParser
 
    private void skipWhitespace()
    {
-      while (cursor < length && ParseTools.isWhitespace(expr[cursor])) cursor++;
+      while ((cursor < length) && ParseTools.isWhitespace(expr[cursor]))
+         cursor++;
    }
 
    public void skipToEOS()
    {
-      while (cursor < length && expr[cursor] != ';')
+      while ((cursor < length) && (expr[cursor] != ';'))
       {
          switch (expr[cursor])
          {
@@ -544,7 +546,7 @@ public class FSHParser
       }
    }
 
-   private void addNode(Node n)
+   private void addNode(final Node n)
    {
       if (node == null)
       {
@@ -556,19 +558,21 @@ public class FSHParser
       }
    }
 
-   private void expectNext(char c)
+   private void expectNext(final char c)
    {
-      while (cursor != length && expr[cursor] != c) cursor++;
+      while ((cursor != length) && (expr[cursor] != c))
+         cursor++;
 
-      if (cursor == length || expr[cursor] != c)
+      if ((cursor == length) || (expr[cursor] != c))
       {
          throw new RuntimeException("expected '('");
       }
    }
 
-   private static char nextNonBlank(int cursor, char[] expr)
+   private static char nextNonBlank(int cursor, final char[] expr)
    {
-      while (cursor != expr.length && isWhitespace(expr[cursor])) cursor++;
+      while ((cursor != expr.length) && isWhitespace(expr[cursor]))
+         cursor++;
 
       if (cursor == expr.length)
       {
@@ -580,28 +584,14 @@ public class FSHParser
       }
    }
 
-   private char firstNonWhite(int pos)
+   private static boolean tokenIsOperator(final Node n)
    {
-      while (pos != length && ParseTools.isWhitespace(expr[pos])) pos++;
-
-      if (pos != length)
-      {
-         return expr[pos];
-      }
-      else
-      {
-         return (char) -1;
-      }
+      return (n instanceof TokenNode) && Parse.isOperator(((TokenNode) n).getValue());
    }
 
-   private static boolean tokenIsOperator(Node n)
+   public static boolean tokenMatch(final Node n, final String text)
    {
-      return n instanceof TokenNode && Parse.isOperator(((TokenNode) n).getValue());
-   }
-
-   public static boolean tokenMatch(Node n, String text)
-   {
-      return n instanceof TokenNode && ((TokenNode) n).getValue().equals(text);
+      return (n instanceof TokenNode) && ((TokenNode) n).getValue().equals(text);
    }
 
    private static class Nest

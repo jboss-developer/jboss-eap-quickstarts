@@ -22,21 +22,28 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.PathspecParser;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * Implementation of UNIX-style "mv" (move) command for use within the Forge Shell.
- *
+ * 
  * @author Mike Brock
  */
 @Named("mv")
@@ -48,16 +55,17 @@ public class MovePlugin implements Plugin
    private final ResourceFactory resourceFactory;
 
    @Inject
-   public MovePlugin(ResourceFactory resourceFactory)
+   public MovePlugin(final ResourceFactory resourceFactory)
    {
       this.resourceFactory = resourceFactory;
    }
 
    @DefaultCommand
-   public void rename(@Option(description = "source", required = true) Resource<?> source,
-                      @Option(description = "target", required = true) String target,
-                      @Option(name = "force", shortName = "f", description = "force operation", flagOnly = true) boolean force,
-                      PipeOut out)
+   public void rename(
+            @Option(description = "source", required = true) final Resource<?> source,
+                      @Option(description = "target", required = true) final String target,
+                      @Option(name = "force", shortName = "f", description = "force operation", flagOnly = true) final boolean force,
+                      final PipeOut out)
    {
       if (source instanceof FileResource)
       {
@@ -78,9 +86,9 @@ public class MovePlugin implements Plugin
                {
                   targetResource = targetResource.getChild(source.getName());
                }
-               else if (force && targetResource instanceof FileResource)
+               else if (force && (targetResource instanceof FileResource))
                {
-                  ((FileResource) targetResource).delete(false);
+                  ((FileResource<?>) targetResource).delete(false);
                }
                else
                {
@@ -89,7 +97,7 @@ public class MovePlugin implements Plugin
                }
             }
 
-            ((FileResource) source).renameTo(targetResource.getFullyQualifiedName());
+            ((FileResource<?>) source).renameTo(targetResource.getFullyQualifiedName());
          }
       }
       else

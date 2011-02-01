@@ -301,4 +301,43 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
       }
       return Collections.unmodifiableList(results);
    }
+
+   @Override
+   public boolean hasRepository(final String url)
+   {
+      if (url != null)
+      {
+         MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+         Model pom = maven.getPOM();
+         List<Repository> repositories = pom.getRepositories();
+         for (Repository repo : repositories)
+         {
+            if (repo.getUrl().trim().equals(url.trim()))
+            {
+               repositories.remove(repo);
+               maven.setPOM(pom);
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
+   @Override
+   public DependencyRepository removeRepository(final String url)
+   {
+      if (url != null)
+      {
+         List<DependencyRepository> repositories = getRepositories();
+         for (DependencyRepository repo : repositories)
+         {
+            if (repo.getUrl().equals(url.trim()))
+            {
+               return repo;
+            }
+         }
+      }
+      return null;
+
+   }
 }

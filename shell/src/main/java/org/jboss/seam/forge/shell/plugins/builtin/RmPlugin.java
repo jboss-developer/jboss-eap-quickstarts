@@ -22,16 +22,19 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author Mike Brock
@@ -43,25 +46,24 @@ import javax.inject.Named;
 public class RmPlugin implements Plugin
 {
    private final Shell shell;
-   private final ResourceFactory factory;
 
    @Inject
-   public RmPlugin(Shell shell, ResourceFactory factory)
+   public RmPlugin(final Shell shell)
    {
       this.shell = shell;
-      this.factory = factory;
    }
 
    @DefaultCommand
-   public void rm(@Option(name = "recursive", shortName = "r", help = "recursively delete files and directories", flagOnly = true) boolean recursive,
-                  @Option(name = "force", shortName = "f", help = "do not prompt to confirm operations", flagOnly = true) boolean force,
-                  @Option(description = "path", required = true) Resource<?>[] paths)
+   public void rm(
+            @Option(name = "recursive", shortName = "r", help = "recursively delete files and directories", flagOnly = true) final boolean recursive,
+                  @Option(name = "force", shortName = "f", help = "do not prompt to confirm operations", flagOnly = true) final boolean force,
+                  @Option(description = "path", required = true) final Resource<?>[] paths)
    {
       for (Resource<?> resource : paths)
       {
          if (resource instanceof FileResource)
          {
-            FileResource fResource = (FileResource) resource;
+            FileResource<?> fResource = (FileResource<?>) resource;
 
             if (force || shell.promptBoolean("delete: " + resource.toString() + ": are you sure?"))
             {

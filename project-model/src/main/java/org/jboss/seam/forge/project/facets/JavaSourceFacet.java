@@ -25,7 +25,7 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.JavaResource;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 
 import java.io.File;
 import java.io.FileNotFoundException;

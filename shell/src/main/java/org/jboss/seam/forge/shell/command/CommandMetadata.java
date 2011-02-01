@@ -48,6 +48,7 @@ public class CommandMetadata
 
    private int parmLength = 0;
 
+   @SuppressWarnings("rawtypes")
    private Set<Class<? extends Resource>> resourceScopes = Collections.emptySet();
 
    public OptionMetadata getNamedOption(final String name) throws IllegalArgumentException
@@ -63,11 +64,10 @@ public class CommandMetadata
    }
 
    /**
-    * Return the option at the given index. This index represents where the
-    * option was defined in the plugin method signature, not the index of the
-    * option on the command line.
+    * Return the option at the given index. This index represents where the option was defined in the plugin method
+    * signature, not the index of the option on the command line.
     */
-   public OptionMetadata getOptionByAbsoluteIndex(int index)
+   public OptionMetadata getOptionByAbsoluteIndex(final int index)
    {
       for (OptionMetadata option : options)
       {
@@ -112,7 +112,7 @@ public class CommandMetadata
       return pipeInMethod;
    }
 
-   public void setPipeInMethod(Method pipeInMethod)
+   public void setPipeInMethod(final Method pipeInMethod)
    {
       this.pipeInMethod = pipeInMethod;
    }
@@ -212,16 +212,19 @@ public class CommandMetadata
       return false;
    }
 
+   @SuppressWarnings("rawtypes")
    public Set<Class<? extends Resource>> getResourceScopes()
    {
       return resourceScopes;
    }
 
+   @SuppressWarnings("rawtypes")
    public void setResourceScopes(final List<Class<? extends Resource>> resourceScopes)
    {
       this.resourceScopes = new HashSet<Class<? extends Resource>>(resourceScopes);
    }
 
+   @SuppressWarnings("rawtypes")
    public boolean usableWithResource(final Class<? extends Resource> resource)
    {
       return (this.resourceScopes.size() == 0) || this.resourceScopes.contains(resource);
@@ -232,7 +235,7 @@ public class CommandMetadata
       return parmLength;
    }
 
-   public void setParmLength(int parmLength)
+   public void setParmLength(final int parmLength)
    {
       this.parmLength = parmLength;
    }

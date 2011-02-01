@@ -22,9 +22,9 @@
 
 package org.jboss.seam.forge.shell.command.convert;
 
-import org.mvel2.ConversionHandler;
-
 import java.io.File;
+
+import org.mvel2.ConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -32,13 +32,14 @@ import java.io.File;
 public class FileConverter implements ConversionHandler
 {
    @Override
-   public Object convertFrom(Object in)
+   public Object convertFrom(final Object in)
    {
       return new File(in.toString());
    }
 
    @Override
-   public boolean canConvertFrom(Class type)
+   @SuppressWarnings("rawtypes")
+   public boolean canConvertFrom(final Class type)
    {
       return String.class.isAssignableFrom(type);
    }

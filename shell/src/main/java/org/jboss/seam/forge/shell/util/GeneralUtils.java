@@ -23,8 +23,6 @@
 package org.jboss.seam.forge.shell.util;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -306,58 +304,5 @@ public class GeneralUtils
       }
 
       return result.toArray(new Resource<?>[result.size()]);
-   }
-
-   public static int nativeCommandCallFromPath(final String command, final String[] parms, final ShellPrintWriter out,
-            final DirectoryResource path) throws IOException
-   {
-      try
-      {
-         String[] commandTokens = parms == null ? new String[1] : new String[parms.length + 1];
-         commandTokens[0] = command;
-
-         if (commandTokens.length > 1)
-         {
-            System.arraycopy(parms, 0, commandTokens, 1, parms.length);
-         }
-
-         Process p = Runtime.getRuntime().exec(commandTokens, null,
-                  path.getUnderlyingResourceObject());
-
-         InputStream stdout = p.getInputStream();
-         InputStream stderr = p.getErrorStream();
-
-         byte[] buf = new byte[10];
-         int read;
-         while ((read = stdout.read(buf)) != -1)
-         {
-            for (int i = 0; i < read; i++)
-            {
-               out.write(buf[i]);
-            }
-         }
-
-         while ((read = stderr.read(buf)) != -1)
-         {
-            for (int i = 0; i < read; i++)
-            {
-               out.write(buf[i]);
-            }
-         }
-
-         return p.waitFor();
-
-      }
-      catch (InterruptedException e)
-      {
-         e.printStackTrace();
-         return -1;
-      }
-   }
-
-   public static int nativeCommandCall(final String command, final String[] parms, final ShellPrintWriter out,
-            final Shell shell) throws IOException
-   {
-      return nativeCommandCallFromPath(command, parms, out, shell.getCurrentDirectory());
    }
 }

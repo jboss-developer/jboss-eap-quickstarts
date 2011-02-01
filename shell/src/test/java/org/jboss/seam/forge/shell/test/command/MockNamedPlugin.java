@@ -21,12 +21,12 @@
  */
 package org.jboss.seam.forge.shell.test.command;
 
+import javax.inject.Named;
+
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-
-import javax.inject.Named;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

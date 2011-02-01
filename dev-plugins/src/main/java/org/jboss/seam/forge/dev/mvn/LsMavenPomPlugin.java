@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.dev.mvn;
 
 import java.io.FileNotFoundException;
 import java.util.List;

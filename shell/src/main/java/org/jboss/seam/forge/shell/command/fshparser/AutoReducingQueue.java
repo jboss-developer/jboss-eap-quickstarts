@@ -35,23 +35,22 @@ public class AutoReducingQueue implements Queue<String>
 
    private String reduceCache;
 
-   private FSHRuntime runtime;
+   private final FSHRuntime runtime;
 
-
-   public AutoReducingQueue(Node startNode, FSHRuntime runtime)
+   public AutoReducingQueue(final Node startNode, final FSHRuntime runtime)
    {
       this.currNode = startNode;
       this.runtime = runtime;
    }
 
    @Override
-   public boolean add(String o)
+   public boolean add(final String o)
    {
       throw new RuntimeException("add() not supported");
    }
 
    @Override
-   public boolean offer(String o)
+   public boolean offer(final String o)
    {
       throw new RuntimeException("offer() not supported");
    }
@@ -94,7 +93,6 @@ public class AutoReducingQueue implements Queue<String>
       return reduceCache;
    }
 
-
    private void reduce()
    {
       if (currNode instanceof ScriptNode)
@@ -115,7 +113,7 @@ public class AutoReducingQueue implements Queue<String>
          StringBuilder sb = new StringBuilder("(");
 
          Iterator<String> iter = new AutoReducingQueue(((LogicalStatement) currNode).getNest(), runtime)
-               .iterator();
+                  .iterator();
 
          while (iter.hasNext())
          {
@@ -142,7 +140,7 @@ public class AutoReducingQueue implements Queue<String>
    private void advance()
    {
       reduceCache = null;
-      if (currNode != null && currNode.next != null)
+      if ((currNode != null) && (currNode.next != null))
       {
          currNode = currNode.next;
       }
@@ -165,7 +163,7 @@ public class AutoReducingQueue implements Queue<String>
    }
 
    @Override
-   public boolean contains(Object o)
+   public boolean contains(final Object o)
    {
       return false;
    }
@@ -201,7 +199,6 @@ public class AutoReducingQueue implements Queue<String>
       };
    }
 
-
    @Override
    public Object[] toArray()
    {
@@ -209,38 +206,38 @@ public class AutoReducingQueue implements Queue<String>
    }
 
    @Override
-   public <T> T[] toArray(T[] a)
+   public <T> T[] toArray(final T[] a)
    {
       return null;
    }
 
    @Override
-   public boolean remove(Object o)
+   public boolean remove(final Object o)
    {
       return false;
    }
 
-
    @Override
-   public boolean containsAll(Collection<?> c)
+   public boolean containsAll(final Collection<?> c)
    {
       throw new RuntimeException("containsAll() not supported");
    }
 
    @Override
-   public boolean addAll(Collection c)
+   @SuppressWarnings("rawtypes")
+   public boolean addAll(final Collection c)
    {
       throw new RuntimeException("addAll() not supported");
    }
 
    @Override
-   public boolean removeAll(Collection<?> c)
+   public boolean removeAll(final Collection<?> c)
    {
       throw new RuntimeException("removeAll() not supported");
    }
 
    @Override
-   public boolean retainAll(Collection<?> c)
+   public boolean retainAll(final Collection<?> c)
    {
       throw new RuntimeException("retainAll() not supported");
    }

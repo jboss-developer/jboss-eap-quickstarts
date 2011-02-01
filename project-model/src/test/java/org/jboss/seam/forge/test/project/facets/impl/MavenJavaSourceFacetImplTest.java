@@ -33,7 +33,7 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.JavaResource;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;

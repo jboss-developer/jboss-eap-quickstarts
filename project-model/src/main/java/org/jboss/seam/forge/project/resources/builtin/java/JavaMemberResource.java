@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project.resources.builtin;
+package org.jboss.seam.forge.project.resources.builtin.java;
 
 import java.util.Collections;
 import java.util.List;

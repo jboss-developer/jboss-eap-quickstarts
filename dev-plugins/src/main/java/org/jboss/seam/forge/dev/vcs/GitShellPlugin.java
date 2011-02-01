@@ -20,16 +20,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.dev.vcs;
 
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
+import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
+
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.NativeSystemCall;
 
 /**
  * @author Mike Brock .
@@ -42,15 +47,15 @@ public class GitShellPlugin implements Plugin
    private final Shell shell;
 
    @Inject
-   public GitShellPlugin(Shell shell)
+   public GitShellPlugin(final Shell shell)
    {
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(final PipeOut out, String... parms) throws IOException
+   public void run(final PipeOut out, final String... parms) throws IOException
    {
-      GeneralUtils.nativeCommandCall("git", parms, out, shell);
+      NativeSystemCall.execFromPath("git", parms, out, shell.getCurrentDirectory());
    }
 
 }

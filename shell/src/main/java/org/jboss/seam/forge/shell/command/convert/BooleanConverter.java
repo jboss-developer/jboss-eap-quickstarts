@@ -22,9 +22,7 @@
 
 package org.jboss.seam.forge.shell.command.convert;
 
-import org.mvel2.ConversionException;
-import org.mvel2.ConversionHandler;
-import org.mvel2.conversion.Converter;
+import static java.lang.String.valueOf;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -32,15 +30,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static java.lang.String.valueOf;
+import org.mvel2.ConversionException;
+import org.mvel2.ConversionHandler;
+import org.mvel2.conversion.Converter;
 
 /**
  * User: christopherbrock Date: 31-Aug-2010 Time: 10:58:26 PM
  */
 public class BooleanConverter implements ConversionHandler
 {
-   private static final Map<Class, Converter> CNV =
-         new HashMap<Class, Converter>();
+   private static final Map<Class<?>, Converter> CNV =
+            new HashMap<Class<?>, Converter>();
 
    private static final Set<Object> TRUE = new HashSet<Object>();
    private static final Set<Object> FALSE = new HashSet<Object>();
@@ -61,7 +61,7 @@ public class BooleanConverter implements ConversionHandler
    private static Converter stringConverter = new Converter()
    {
       @Override
-      public Object convert(Object o)
+      public Object convert(final Object o)
       {
          final String s = ((String) o).toLowerCase();
          if (TRUE.contains(s))
@@ -77,18 +77,19 @@ public class BooleanConverter implements ConversionHandler
    };
 
    @Override
-   public Object convertFrom(Object in)
+   public Object convertFrom(final Object in)
    {
       if (!CNV.containsKey(in.getClass()))
       {
          throw new ConversionException("cannot convert type: "
-               + in.getClass().getName() + " to: " + Boolean.class.getName());
+                  + in.getClass().getName() + " to: " + Boolean.class.getName());
       }
       return CNV.get(in.getClass()).convert(in);
    }
 
    @Override
-   public boolean canConvertFrom(Class cls)
+   @SuppressWarnings("rawtypes")
+   public boolean canConvertFrom(final Class cls)
    {
       return CNV.containsKey(cls);
    }
@@ -96,109 +97,109 @@ public class BooleanConverter implements ConversionHandler
    static
    {
       CNV.put(String.class,
-            stringConverter
-      );
+               stringConverter
+               );
 
       CNV.put(Object.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Object convert(Object o)
+               public Object convert(final Object o)
                {
                   return stringConverter.convert(valueOf(o));
                }
             }
-      );
+               );
 
       CNV.put(Boolean.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Object convert(Object o)
+               public Object convert(final Object o)
                {
                   return o;
                }
             }
-      );
+               );
 
       CNV.put(Integer.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return (((Integer) o) > 0);
                }
             }
-      );
+               );
 
       CNV.put(Float.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return (((Float) o) > 0);
                }
             }
-      );
+               );
 
       CNV.put(Double.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return (((Double) o) > 0);
                }
             }
-      );
+               );
 
       CNV.put(Short.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return (((Short) o) > 0);
                }
             }
-      );
+               );
 
       CNV.put(Long.class,
-            new Converter()
+               new Converter()
             {
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return (((Long) o) > 0);
                }
             }
-      );
+               );
 
       CNV.put(boolean.class,
-            new Converter()
+               new Converter()
             {
 
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return Boolean.valueOf((Boolean) o);
                }
             }
-      );
+               );
 
       CNV.put(BigDecimal.class,
-            new Converter()
+               new Converter()
             {
 
                @Override
-               public Boolean convert(Object o)
+               public Boolean convert(final Object o)
                {
                   return Boolean.valueOf(((BigDecimal) o).doubleValue() > 0);
                }
             }
-      );
+               );
 
    }
 }

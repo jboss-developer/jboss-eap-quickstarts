@@ -20,24 +20,29 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.dev;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.forge.dev.dependencies.DependencyPropertyCompleter;
+import org.jboss.seam.forge.dev.dependencies.RepositoryCompleter;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.completer.DependencyPropertyCompleter;
 import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -51,26 +56,35 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 @Topic("Project")
 @RequiresProject
 @RequiresFacet(DependencyFacet.class)
-public class DependencyUtilsPlugin implements Plugin
+public class ProjectPlugin implements Plugin
 {
    private Project project;
    private Shell shell;
 
-   public DependencyUtilsPlugin()
+   public ProjectPlugin()
    {
    }
 
    @Inject
-   public DependencyUtilsPlugin(final Project project, final Shell shell)
+   public ProjectPlugin(final Project project, final Shell shell)
    {
       this.project = project;
       this.shell = shell;
    }
 
+   @DefaultCommand
+   public void info(final PipeOut out)
+   {
+      out.print(ShellColor.BOLD, "Project name: ");
+      out.println(project.getFacet(MetadataFacet.class).getProjectName());
+      out.print(ShellColor.BOLD, "Project dir:  ");
+      out.println(project.getProjectRoot().getFullyQualifiedName());
+   }
+
    /*
     * Dependency manipulation
     */
-   @Command(value = "add-dependency", help = "Add a dependency to this project.")
+   @Command(value = "dependency-add", help = "Add a dependency to this project.")
    public void addDep(
             @Option(required = true,
                      type = PromptType.DEPENDENCY_ID,
@@ -96,7 +110,7 @@ public class DependencyUtilsPlugin implements Plugin
       }
    }
 
-   @Command(value = "remove-dependency", help = "Remove a dependency from this project")
+   @Command(value = "dependency-remove", help = "Remove a dependency from this project")
    public void removeDep(
             @Option(required = true,
                      type = PromptType.DEPENDENCY_ID,
@@ -117,7 +131,7 @@ public class DependencyUtilsPlugin implements Plugin
       }
    }
 
-   @Command(value = "list-dependencies", help = "List all dependencies this project includes")
+   @Command(value = "dependency-list", help = "List all dependencies this project includes")
    public void listDeps(final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -131,7 +145,7 @@ public class DependencyUtilsPlugin implements Plugin
    /*
     * Property manipulation
     */
-   @Command("set-property")
+   @Command("property-set")
    public void addProp(
             @Option(required = true,
                      name = "name",
@@ -156,7 +170,7 @@ public class DependencyUtilsPlugin implements Plugin
       }
    }
 
-   @Command("remove-property")
+   @Command("property-remove")
    public void removeProp(
             @Option(required = true, description = "propname",
                      completer = DependencyPropertyCompleter.class) final String name,
@@ -174,7 +188,7 @@ public class DependencyUtilsPlugin implements Plugin
       }
    }
 
-   @Command("list-properties")
+   @Command("property-list")
    public void listProps(final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -184,6 +198,58 @@ public class DependencyUtilsPlugin implements Plugin
       {
          out.print(entry.getKey() + "=");
          out.println(ShellColor.BLUE, entry.getValue());
+      }
+   }
+
+   /*
+    * Repositories
+    */
+   @Command("repository-add")
+   public void repoAdd(
+            @Option(required = true, description = "name...") final String name,
+            @Option(required = true, description = "url...") final String url,
+            final PipeOut out)
+   {
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      if (deps.hasRepository(url))
+      {
+         out.println("Repository exists [" + name + "->" + url + "]");
+      }
+      else
+      {
+         deps.addRepository(name, url);
+         out.println("Added repository [" + name + "->" + url + "]");
+      }
+   }
+
+   @Command("repository-remove")
+   public void repoRemove(
+            @Option(required = true, description = "repo url...",
+                     completer = RepositoryCompleter.class) final String url,
+            final PipeOut out)
+   {
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      if (deps.hasRepository(url))
+      {
+         DependencyRepository repo = deps.removeRepository(url);
+         out.println("Removed repository [" + repo.getId() + "->" + repo.getUrl() + "]");
+      }
+      else
+      {
+         out.println("No repository with url [" + url + "]");
+      }
+   }
+
+   @Command("repository-list")
+   public void repoList(final PipeOut out)
+   {
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      List<DependencyRepository> repos = deps.getRepositories();
+
+      for (DependencyRepository repo : repos)
+      {
+         out.print(repo.getId() + "->");
+         out.println(ShellColor.BLUE, repo.getUrl());
       }
    }
 

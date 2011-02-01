@@ -46,7 +46,7 @@ import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.JavaResource;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Help;

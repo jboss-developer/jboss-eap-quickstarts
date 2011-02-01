@@ -126,6 +126,17 @@ public interface DependencyFacet extends Facet
    public void addRepository(String name, String url);
 
    /**
+    * Return true if the given repository URL is already registered in this project's build system.
+    */
+   public boolean hasRepository(String url);
+
+   /**
+    * Remove the given {@link DependencyRepository} from the current project. Return true if the repository was removed;
+    * return false otherwise. Return the removed repository, or null if no repository was removed.
+    */
+   public DependencyRepository removeRepository(String url);
+
+   /**
     * Get the list of repositories for which this project is currently configured to use in dependency resolution.
     */
    public List<DependencyRepository> getRepositories();

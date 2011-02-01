@@ -19,44 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.completer;
+package org.jboss.seam.forge.dev.java;
 
-import java.util.Set;
+import javax.inject.Named;
 
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.shell.plugins.Plugin;
 
 /**
- * Provides completion for project build properties
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class DependencyPropertyCompleter implements CommandCompleter
+@Named("java")
+public class JavaPlugin implements Plugin
 {
-   @Inject
-   private Project project;
-
-   @Override
-   public void complete(final CommandCompleterState state)
-   {
-      DependencyFacet deps = project.getFacet(DependencyFacet.class);
-
-      Set<String> properties = deps.getProperties().keySet();
-      String peek = state.getTokens().peek();
-
-      if ((state.getTokens().size() <= 1))
-      {
-         for (String prop : properties)
-         {
-            if (prop.startsWith(peek == null ? "" : peek))
-            {
-               state.getCandidates().add(prop);
-               state.setIndex(state.getIndex() - (peek == null ? 0 : peek.length()));
-            }
-         }
-      }
-   }
 
 }

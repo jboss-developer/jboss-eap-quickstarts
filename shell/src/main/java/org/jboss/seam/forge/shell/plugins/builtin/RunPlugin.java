@@ -22,6 +22,11 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
@@ -29,10 +34,6 @@ import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.IOException;
 
 /**
  * @author Mike Brock .
@@ -44,20 +45,20 @@ public class RunPlugin implements Plugin
    private final Shell shell;
 
    @Inject
-   public RunPlugin(Shell shell)
+   public RunPlugin(final Shell shell)
    {
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(@Option(description = "file...", required = true) Resource<?> r, String... args)
+   public void run(@Option(description = "file...", required = true) final Resource<?> r, final String... args)
    {
 
       if (r instanceof FileResource)
       {
          try
          {
-            shell.execute(((FileResource) r).getUnderlyingResourceObject(), args);
+            shell.execute(((FileResource<?>) r).getUnderlyingResourceObject(), args);
          }
          catch (IOException e)
          {

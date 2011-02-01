@@ -20,32 +20,33 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project.resources.builtin;
+package org.jboss.seam.forge.project.resources.builtin.java;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
+import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaSource;
-import org.jboss.seam.forge.parser.java.Method;
-import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.ResourceFlag;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaMethodResource extends JavaMemberResource<Method<JavaSource<?>>>
+public class JavaFieldResource extends JavaMemberResource<Field<JavaSource<?>>>
 {
-   private final Method<JavaSource<?>> method;
+   private final Field<JavaSource<?>> field;
 
-   public JavaMethodResource(final Resource<?> parent, final Method<JavaSource<?>> method)
+   public JavaFieldResource(final JavaResource parent, final Field<JavaSource<?>> field)
    {
-      super(parent, method);
-      this.method = method;
+      super(parent, field);
+      this.field = field;
+
+      setFlag(ResourceFlag.Leaf);
    }
 
    @Override
-   public Resource<Method<JavaSource<?>>> createFrom(final Method<JavaSource<?>> file)
+   public Resource<Field<JavaSource<?>>> createFrom(final Field<JavaSource<?>> file)
    {
       throw new RuntimeException("not implemented");
    }
@@ -57,38 +58,20 @@ public class JavaMethodResource extends JavaMemberResource<Method<JavaSource<?>>
    }
 
    @Override
-   public Method<JavaSource<?>> getUnderlyingResourceObject()
+   public Field<JavaSource<?>> getUnderlyingResourceObject()
    {
-      return method;
+      return field;
    }
 
    @Override
    public String getName()
    {
-      String params = "(";
-      List<Parameter<JavaSource<?>>> parameters = method.getParameters();
-
-      Iterator<Parameter<JavaSource<?>>> iterator = parameters.iterator();
-      while (iterator.hasNext())
-      {
-         Parameter<JavaSource<?>> p = iterator.next();
-         params += p.getType();
-
-         if (iterator.hasNext())
-         {
-            params += ",";
-         }
-      }
-
-      params += ")";
-
-      String returnType = method.getReturnType() == null ? "void" : method.getReturnType();
-      return method.getName() + params + "::" + returnType;
+      return field.getName() + "::" + field.getType();
    }
 
    @Override
    public String toString()
    {
-      return method.toString();
+      return field.toString();
    }
 }

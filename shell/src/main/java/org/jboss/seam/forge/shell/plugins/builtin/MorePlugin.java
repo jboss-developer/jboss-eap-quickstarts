@@ -22,21 +22,27 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.ShellColor;
+
 /**
  * Implementation of more & less, but called more. "More is less".
- *
+ * 
  * @author Mike Brock
  */
 @Named("more")
@@ -52,17 +58,17 @@ public class MorePlugin implements Plugin
    private final Shell shell;
 
    @Inject
-   public MorePlugin(Shell shell)
+   public MorePlugin(final Shell shell)
    {
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(@PipeIn InputStream pipeIn,
+   public void run(@PipeIn final InputStream pipeIn,
                    final Resource<?> file,
                    @Option(name = "noautoexit", shortName = "x", flagOnly = true) final boolean noAutoExit,
                    final PipeOut pipeOut)
-         throws IOException
+            throws IOException
    {
       if (file != null)
       {
@@ -86,7 +92,7 @@ public class MorePlugin implements Plugin
       }
    }
 
-   void more(InputStream stream, PipeOut out, boolean noAutoExit) throws IOException
+   void more(final InputStream stream, final PipeOut out, boolean noAutoExit) throws IOException
    {
       byte[] buffer = new byte[128];
       int read;
@@ -105,11 +111,9 @@ public class MorePlugin implements Plugin
 
       do
       {
-         Mainloop:
-         while ((read = lineBuffer.read(buffer)) != -1)
+         Mainloop: while ((read = lineBuffer.read(buffer)) != -1)
          {
-            Bufferloop:
-            for (int i = 0; i < read; i++)
+            Bufferloop: for (int i = 0; i < read; i++)
             {
                if (--lCounter <= -1)
                {
@@ -179,8 +183,8 @@ public class MorePlugin implements Plugin
       while (noAutoExit);
    }
 
-   private int prompt(LineBuffer lineBuffer, PipeOut out, StringBuilder lastPattern)
-         throws IOException
+   private int prompt(final LineBuffer lineBuffer, final PipeOut out, final StringBuilder lastPattern)
+            throws IOException
    {
       boolean backwards = false;
 
@@ -201,7 +205,7 @@ public class MorePlugin implements Plugin
          }
 
          String prompt = MOREPROMPT + "[line:" + lineBuffer.getCurrentLine()
-               + topBottomIndicator + "]--";
+                  + topBottomIndicator + "]--";
 
          out.print(ShellColor.BOLD, prompt);
          int scanCode;
@@ -215,19 +219,19 @@ public class MorePlugin implements Plugin
          case 16:
             lineBuffer.rewindBuffer(shell.getHeight() - 1, lineBuffer.getCurrentLine() - 1);
             lineBuffer.setLineWidth(shell.getWidth());
-            //       y = 0;
+            // y = 0;
             shell.clear();
             return -1;
 
-         //       continue Mainloop;
+            // continue Mainloop;
          case 'u':
          case 'U':
             lineBuffer.rewindBuffer(shell.getHeight() - 1, lineBuffer.getCurrentLine() - shell.getHeight());
             lineBuffer.setLineWidth(shell.getWidth());
-            //        y = 0;
+            // y = 0;
             shell.clear();
             return -1;
-         //     continue Mainloop;
+            // continue Mainloop;
 
          case 'y':
          case 'Y':
@@ -235,28 +239,28 @@ public class MorePlugin implements Plugin
          case 'K':
          case 14:
          case '\n':
-            //   y--;
+            // y--;
             lineBuffer.setLineWidth(shell.getWidth());
 
             shell.cursorLeft(prompt.length());
             shell.clearLine();
             return -2;
-         //     continue Bufferloop;
+            // continue Bufferloop;
          case ' ':
-//            y = 0;
-//            height = shell.getHeight() - 1;
+            // y = 0;
+            // height = shell.getHeight() - 1;
             lineBuffer.setLineWidth(shell.getWidth());
 
             shell.clearLine();
             shell.cursorLeft(prompt.length());
             return -3;
-         //        continue Bufferloop;
+            // continue Bufferloop;
          case 'q':
          case 'Q':
             shell.clearLine();
             shell.cursorLeft(prompt.length());
             return 0;
-//            break Mainloop;
+            // break Mainloop;
 
          case '?':
             backwards = true;
@@ -284,7 +288,7 @@ public class MorePlugin implements Plugin
             out.print(ShellColor.BOLD, prompt);
 
             String p;
-            if (pattern.equals("") && lastPattern.length() != 0)
+            if (pattern.equals("") && (lastPattern.length() != 0))
             {
                p = searched = lineBuffer.toString();
             }
@@ -313,7 +317,7 @@ public class MorePlugin implements Plugin
             else
             {
                lineBuffer.rewindBuffer(shell.getHeight() - 1, result);
-               //        y = 0;
+               // y = 0;
                shell.clear();
                return -1;
             }
@@ -334,14 +338,13 @@ public class MorePlugin implements Plugin
    }
 
    /**
-    * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower
-    * memory usage.
+    * A simple line buffer implementation. Marks every INDEX_MARK_SIZE lines for fast scanning and lower memory usage.
     */
    private static class LineBuffer extends InputStream
    {
-      private InputStream stream;
-      private StringBuilder curr;
-      private ArrayList<Integer> index;
+      private final InputStream stream;
+      private final StringBuilder curr;
+      private final ArrayList<Integer> index;
       private boolean buffered = false;
 
       private int bufferPos;
@@ -355,7 +358,7 @@ public class MorePlugin implements Plugin
 
       int totalLines = 0;
 
-      private LineBuffer(InputStream stream, int lineWidth)
+      private LineBuffer(final InputStream stream, final int lineWidth)
       {
          this.stream = stream;
          curr = new StringBuilder();
@@ -401,7 +404,7 @@ public class MorePlugin implements Plugin
                   if ((c = buffer[i]) != -1)
                   {
                      curr.append((char) c);
-                     if (--lineCounter == 0 || c == '\n')
+                     if ((--lineCounter == 0) || (c == '\n'))
                      {
                         lineCounter = lineWidth - 1;
                         markLine();
@@ -416,14 +419,6 @@ public class MorePlugin implements Plugin
             }
             buffered = true;
             return read();
-         }
-      }
-
-      public void write(byte b)
-      {
-         if (!inBuffer())
-         {
-            curr.append((char) b);
          }
       }
 
@@ -445,12 +440,12 @@ public class MorePlugin implements Plugin
          return bufferLine;
       }
 
-      public void setLineWidth(int lineWidth)
+      public void setLineWidth(final int lineWidth)
       {
          this.lineWidth = lineWidth;
       }
 
-      public int findLine(int line)
+      public int findLine(final int line)
       {
          int idxMark = line / INDEX_MARK_SIZE;
 
@@ -464,7 +459,7 @@ public class MorePlugin implements Plugin
             int currLine = idxMark * INDEX_MARK_SIZE;
             int lCount = lineWidth;
 
-            while (cursor < curr.length() && currLine != line)
+            while ((cursor < curr.length()) && (currLine != line))
             {
                switch (curr.charAt(cursor++))
                {
@@ -488,7 +483,7 @@ public class MorePlugin implements Plugin
          }
       }
 
-      public int findPattern(String pattern, boolean backwards) throws IOException
+      public int findPattern(final String pattern, final boolean backwards) throws IOException
       {
          Pattern p = Pattern.compile(".*" + pattern + ".*");
          int currentBuffer = bufferPos;
@@ -547,8 +542,7 @@ public class MorePlugin implements Plugin
          return -1;
       }
 
-
-      public void rewindBuffer(int height, int toLine)
+      public void rewindBuffer(final int height, final int toLine)
       {
          int renderFrom = toLine - height;
          if (renderFrom < 0)
@@ -566,11 +560,6 @@ public class MorePlugin implements Plugin
       public boolean atEnd()
       {
          return bufferLine >= totalLines;
-      }
-
-      public boolean inBuffer()
-      {
-         return bufferPos < curr.length();
       }
    }
 }

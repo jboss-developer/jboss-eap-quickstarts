@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.dev.mvn;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,7 +50,7 @@ import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.jboss.seam.forge.shell.util.NativeSystemCall;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
@@ -84,7 +84,7 @@ public class MvnShellPlugin implements Plugin
    @DefaultCommand
    public void run(final PipeOut out, final String... parms) throws IOException
    {
-      GeneralUtils.nativeCommandCallFromPath("mvn", parms, out, project.getProjectRoot());
+      NativeSystemCall.execFromPath("mvn", parms, out, project.getProjectRoot());
    }
 
    @Command("set-parent")
