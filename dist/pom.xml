@@ -1,18 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <modelVersion>4.0.0</modelVersion>
-
    <parent>
       <artifactId>forge-parent</artifactId>
       <groupId>org.jboss.seam.forge</groupId>
       <version>1.0.0-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
    </parent>
-
    <artifactId>forge-distribution</artifactId>
    <name>Seam Forge - Distribution</name>
-   <packaging>jar</packaging>
-
    <dependencies>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
@@ -42,19 +39,17 @@
          <groupId>org.jboss.seam.forge</groupId>
          <artifactId>forge-reference-guide</artifactId>
          <version>${project.version}</version>
-			<type>war</type>
+         <type>war</type>
       </dependency>
       <dependency>
          <groupId>org.jboss.logging</groupId>
          <artifactId>jboss-logging</artifactId>
       </dependency>
    </dependencies>
-
    <build>
       <finalName>forge</finalName>
       <plugins>
          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
          </plugin>
          <plugin>
@@ -71,8 +66,6 @@
             <configuration>
                <executable>java</executable>
                <includeProjectDependencies>true</includeProjectDependencies>
-               
-               <!-- <mainClass>org.jboss.weld.environment.se.StartMain</mainClass> -->
                <mainClass>org.jboss.seam.forge.shell.Bootstrap</mainClass>
                <systemProperties>
                   <systemProperty>
@@ -84,7 +77,6 @@
          </plugin>
       </plugins>
    </build>
-
    <profiles>
       <profile>
          <id>colorDisabled</id>
@@ -94,22 +86,21 @@
             </property>
          </activation>
          <build>
-         <plugins>
-            <plugin>
-               <groupId>org.codehaus.mojo</groupId>
-               <artifactId>exec-maven-plugin</artifactId>
-               <configuration>
-                  <systemProperties>
-                     <systemProperty>
-                        <key>seam.forge.shell.colorEnabled</key>
-                        <value>false</value>
-                     </systemProperty>
-                  </systemProperties>
-               </configuration>
-            </plugin>
-         </plugins>
+            <plugins>
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>exec-maven-plugin</artifactId>
+                  <configuration>
+                     <systemProperties>
+                        <systemProperty>
+                           <key>seam.forge.shell.colorEnabled</key>
+                           <value>false</value>
+                        </systemProperty>
+                     </systemProperties>
+                  </configuration>
+               </plugin>
+            </plugins>
          </build>
       </profile>
    </profiles>
-
 </project>

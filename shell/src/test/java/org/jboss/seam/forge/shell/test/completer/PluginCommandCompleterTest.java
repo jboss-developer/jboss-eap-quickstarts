@@ -169,4 +169,31 @@ public class PluginCommandCompleterTest extends AbstractShellTest
       assertEquals(input.length() - 3, index);
    }
 
+   @Test
+   public void testCustomCompleterValue() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command3 --option2 B";
+      int index = completer.complete(input, input.length(), candidates);
+      assertEquals(2, candidates.size());
+      assertTrue(candidates.contains("Bar"));
+      assertTrue(candidates.contains("Baz"));
+      assertEquals(input.length() - 1, index);
+   }
+
+   @Test
+   public void testCustomCompleterUnvalued() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command3 --option2 ";
+      int index = completer.complete(input, input.length(), candidates);
+      assertEquals(5, candidates.size());
+      assertTrue(candidates.contains("Foo"));
+      assertTrue(candidates.contains("Bar"));
+      assertTrue(candidates.contains("Baz"));
+      assertTrue(candidates.contains("Cal"));
+      assertTrue(candidates.contains("Cav"));
+      assertEquals(input.length(), index);
+   }
+
 }

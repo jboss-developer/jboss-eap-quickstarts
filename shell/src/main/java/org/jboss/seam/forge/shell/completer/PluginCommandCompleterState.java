@@ -109,6 +109,9 @@ public class PluginCommandCompleterState implements CommandCompleterState
    /*
     * Modifiers
     */
+   /**
+    * Set the position where completion candidates should begin.
+    */
    public void setIndex(final int newIndex)
    {
       this.index = newIndex;

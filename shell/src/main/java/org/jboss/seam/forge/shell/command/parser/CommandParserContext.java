@@ -37,6 +37,7 @@ public class CommandParserContext
    private int parmCount;
    private final Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
    private OptionMetadata lastParsed;
+   private String lastParsedToken;
 
    public void incrementParmCount()
    {
@@ -78,10 +79,11 @@ public class CommandParserContext
       return result;
    }
 
-   public void put(final OptionMetadata option, final Object value)
+   public void put(final OptionMetadata option, final Object value, final String rawValue)
    {
       lastParsed = option;
       valueMap.put(option, value);
+      lastParsedToken = rawValue;
    }
 
    /**
@@ -100,6 +102,11 @@ public class CommandParserContext
    public boolean isEmpty()
    {
       return valueMap.isEmpty();
+   }
+
+   public String getLastParsedToken()
+   {
+      return lastParsedToken;
    }
 
 }

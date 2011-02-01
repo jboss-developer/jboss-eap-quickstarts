@@ -22,16 +22,16 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Queue;
+
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.Queue;
 
 /**
  * Parses named boolean options such as:
  * <p/>
  * <code>[command] {--toggle}</code>
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
@@ -97,7 +97,7 @@ public class NamedBooleanOptionParser implements CommandParser
             }
          }
 
-         ctx.put(option, value);
+         ctx.put(option, value, null);
       }
    }
 }

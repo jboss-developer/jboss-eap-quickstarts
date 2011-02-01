@@ -1,6 +1,6 @@
 /*
- * JBoss, by Red Hat.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,43 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.shell.test.completer;
 
-package org.jboss.seam.forge.shell.command.parser;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
+import org.jboss.seam.forge.shell.completer.CommandCompleter;
+import org.jboss.seam.forge.shell.completer.CommandCompleterState;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class OrderedValueVarargsOptionParser implements CommandParser
+public class MockValueCompleter implements CommandCompleter
 {
+   private final List<String> values = Arrays.asList("Foo", "Bar", "Baz", "Cal", "Cav");
+
    @Override
-   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
-            final CommandParserContext ctx)
+   public void complete(final CommandCompleterState state)
    {
-      String currentToken = tokens.peek();
-      if (!currentToken.startsWith("--"))
+      String peek = state.getTokens().peek();
+
+      if (peek != null)
       {
-         OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
-         if (option.isVarargs())
+         for (String val : values)
          {
-            List<String> args = new ArrayList<String>();
-            String lastToken = null;
-            while (!tokens.isEmpty() && !tokens.peek().startsWith("--"))
+            if (val.startsWith(peek))
             {
-               lastToken = tokens.remove();
-               args.add(lastToken);
+               state.getCandidates().add(val);
+               state.setIndex(state.getOriginalIndex() - peek.length());
             }
-            ctx.put(option, args.toArray(new String[0]), lastToken);
-            ctx.incrementParmCount();
          }
       }
-      return ctx;
+      else
+      {
+         state.getCandidates().addAll(values);
+      }
    }
 
 }

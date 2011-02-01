@@ -200,17 +200,24 @@ public class DependencyBuilder implements Dependency
       return dep.getScopeTypeEnum();
    }
 
-   @Override
-   public String toString()
+   /**
+    * Convenience method which should be used to convert a {@link Dependency} object into its string representation, for
+    * example: "groupId:artifactId:version:scope:packaging"
+    */
+   public static String toString(final Dependency dep)
    {
-      String gav = getGroupId() + ":" + getArtifactId();
-      if (getVersion() != null)
+      String gav = dep.getGroupId() + ":" + dep.getArtifactId();
+      if (dep.getVersion() != null)
       {
-         gav += ":" + getVersion();
+         gav += ":" + dep.getVersion();
       }
-      if (getScopeType() != null)
+      if (dep.getScopeType() != null)
       {
-         gav += ":" + getScopeType();
+         gav += ":" + dep.getScopeType();
+      }
+      if (dep.getPackagingType() != null)
+      {
+         gav += ":" + dep.getPackagingType();
       }
       return gav;
    }

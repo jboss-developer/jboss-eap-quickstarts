@@ -132,6 +132,12 @@ public class ExcludedDependencyBuilder implements Dependency
    }
 
    @Override
+   public String toString()
+   {
+      return DependencyBuilder.toString(this);
+   }
+
+   @Override
    public int hashCode()
    {
       final int prime = 31;

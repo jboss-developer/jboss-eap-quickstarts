@@ -83,6 +83,11 @@ public class OptionResolverCompleter implements CommandCompleter
             if (!state.isFinalTokenComplete() && !commandContext.isEmpty())
             {
                state.setOption(commandContext.getLastParsed());
+
+               if (commandContext.isLastOptionValued())
+               {
+                  state.getTokens().add(commandContext.getLastParsedToken());
+               }
             }
          }
       }
@@ -166,6 +171,7 @@ public class OptionResolverCompleter implements CommandCompleter
          // add to state
          if (!state.isFinalTokenComplete() && finalTokenIsValue)
          {
+            state.setOption(commandContext.getLastParsed());
             results.clear();
             if (state.isDuplicateBuffer())
             {

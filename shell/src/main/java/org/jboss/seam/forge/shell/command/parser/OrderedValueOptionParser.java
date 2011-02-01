@@ -47,10 +47,7 @@ public class OrderedValueOptionParser implements CommandParser
             OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
             if (!option.isVarargs())
             {
-               ctx.put(option, currentToken); // add the value, should we
-               // return this as a tuple
-               // instead?
-               tokens.remove();
+               ctx.put(option, currentToken, tokens.remove());
 
                ctx.incrementParmCount();
             }

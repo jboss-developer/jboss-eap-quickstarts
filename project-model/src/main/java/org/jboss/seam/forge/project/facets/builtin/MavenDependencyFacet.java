@@ -164,6 +164,23 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
       return Collections.unmodifiableList(dependencies);
    }
 
+   @Override
+   public Dependency getDependency(final Dependency dep)
+   {
+      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+      List<Dependency> dependencies = MavenDependencyAdapter.fromMavenList(maven.getProjectBuildingResult()
+               .getProject().getDependencies());
+
+      for (Dependency dependency : dependencies)
+      {
+         if (areEquivalent(dependency, dep))
+         {
+            return dependency;
+         }
+      }
+      return null;
+   }
+
    @SuppressWarnings("unchecked")
    private boolean areEquivalent(final Dependency left, final Dependency right)
    {

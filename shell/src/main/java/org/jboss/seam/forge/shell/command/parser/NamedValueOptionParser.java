@@ -62,7 +62,7 @@ public class NamedValueOptionParser implements CommandParser
                      tokens.remove(); // increment the chain of tokens
                   }
                }
-               ctx.put(option, value); // add the value, should we return
+               ctx.put(option, value, value); // add the value, should we return
                // this
                // as a tuple instead?
             }

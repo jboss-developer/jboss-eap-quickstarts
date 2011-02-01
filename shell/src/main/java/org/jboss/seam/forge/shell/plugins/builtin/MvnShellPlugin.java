@@ -34,7 +34,6 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
-import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
@@ -86,16 +85,6 @@ public class MvnShellPlugin implements Plugin
    public void run(final PipeOut out, final String... parms) throws IOException
    {
       GeneralUtils.nativeCommandCallFromPath("mvn", parms, out, project.getProjectRoot());
-   }
-
-   @Command("add-dependency")
-   public void addDep(
-            @Option(required = true,
-                     type = PromptType.DEPENDENCY_ID,
-                     help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"") final Dependency gav
-            )
-   {
-      System.out.println(gav);
    }
 
    @Command("set-parent")

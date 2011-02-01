@@ -173,4 +173,10 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    {
       return super.getType() == null ? null : super.getType().toLowerCase().trim();
    }
+
+   @Override
+   public String toString()
+   {
+      return DependencyBuilder.toString(this);
+   }
 }

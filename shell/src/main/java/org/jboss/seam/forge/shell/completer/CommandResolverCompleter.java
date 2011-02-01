@@ -66,6 +66,10 @@ public class CommandResolverCompleter implements CommandCompleter
                addCommandCandidates(plugin, state);
             }
          }
+         else if (plugin.hasCommands())
+         {
+            addCommandCandidates(plugin, state);
+         }
 
          if (plugin.hasDefaultCommand())
          {

@@ -87,6 +87,15 @@ public interface DependencyFacet extends Facet
    public List<Dependency> getDependencies();
 
    /**
+    * Attempt to locate the given {@link Dependency}, if it exists in the {@link Project}, and return it.
+    * <p/>
+    * See also: {@link DependencyBuilder}. See also: {@link #hasDependency(Dependency)}.
+    * 
+    * @return
+    */
+   public Dependency getDependency(Dependency dependency);
+
+   /**
     * Return a list of all build dependency properties.(Build properties such, as ${my.version}, can be used anywhere in
     * a dependency, and will be expanded during building to their property value.)
     */
@@ -139,4 +148,5 @@ public interface DependencyFacet extends Facet
     * See {@link DependencyFacet#resolveAvailableVersions(String)}
     */
    public List<Dependency> resolveAvailableVersions(final Dependency dep);
+
 }

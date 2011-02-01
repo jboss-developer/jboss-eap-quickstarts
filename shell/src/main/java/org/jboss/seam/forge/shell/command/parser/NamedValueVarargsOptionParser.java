@@ -54,13 +54,13 @@ public class NamedValueVarargsOptionParser implements CommandParser
             {
                tokens.remove();
                List<String> args = new ArrayList<String>();
+               String rawValue = null;
                while (!tokens.peek().startsWith("--"))
                {
-                  args.add(tokens.remove());
+                  rawValue = tokens.remove();
+                  args.add(rawValue);
                }
-               ctx.put(option, args.toArray()); // add the value, should we
-               // return this as a tuple
-               // instead?
+               ctx.put(option, args.toArray(), rawValue);
             }
          }
       }
