@@ -35,6 +35,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
@@ -107,6 +108,35 @@ public class ProjectPlugin implements Plugin
             deps.removeDependency(dependency);
             deps.addDependency(gav);
          }
+      }
+   }
+
+   @Command(value = "dependency-search", help = "Search for dependencies in all configured project repositories.")
+   public void searchDep(
+            @Option(required = true,
+                     help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"",
+                     description = "[ groupId :artifactId {:version :scope :packaging} ]",
+                     type = PromptType.DEPENDENCY_ID
+                     ) final Dependency gav,
+            @Option(required = false,
+                     flagOnly = true,
+                     help = "Perform a search only within the locally configured repository",
+                     name = "offlineSearch"
+                        ) final boolean offline,
+            final PipeOut out
+            )
+   {
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      List<Dependency> versions = deps.resolveAvailableVersions(gav);
+
+      for (Dependency dep : versions)
+      {
+         out.println(DependencyBuilder.toString(dep));
+      }
+
+      if (versions.isEmpty())
+      {
+         out.print("No artifacts found for that query...");
       }
    }
 

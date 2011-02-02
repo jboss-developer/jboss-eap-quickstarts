@@ -21,16 +21,53 @@
  */
 package org.jboss.seam.forge.dev.java;
 
+import java.util.Map.Entry;
+
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.constraints.RequiresFacet;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 @Named("java")
+@RequiresFacet(JavaSourceFacet.class)
 public class JavaPlugin implements Plugin
 {
+   @Inject
+   private Project project;
 
+   @DefaultCommand(help = "Prints all Java system property information.")
+   public void info(final PipeOut out)
+   {
+      for (Entry<Object, Object> entry : System.getProperties().entrySet())
+      {
+         if (entry.getKey().toString().startsWith("java"))
+         {
+            out.print(ShellColor.BOLD, entry.getKey().toString() + ": ");
+            out.println(entry.getValue().toString());
+         }
+      }
+   }
+
+   @Command("new-class")
+   public void newClass(
+            @Option(required = true,
+                     type = PromptType.JAVA_CLASS,
+                     description = "class name...") final String entityName)
+   {
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+   }
 }
