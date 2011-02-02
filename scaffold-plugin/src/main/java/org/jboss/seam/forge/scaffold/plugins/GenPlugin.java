@@ -44,6 +44,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,20 +57,16 @@ public class GenPlugin implements Plugin
    private static final String[] DEFAULT_SEARCH_PATHS
          = {"org/jboss/seam/forge/scaffold/templates/fpak/", "~/.forge/plugins/scaffold/templates/fpak/"};
 
-
    private final Shell shell;
-   private final Map<String, URL> registeredProfiles;
 
    @Inject
    public GenPlugin(Shell shell)
    {
       this.shell = shell;
-      this.registeredProfiles = new HashMap<String, URL>();
    }
 
    public void registerProfile(@Observes AdvertiseGenProfile agp)
    {
-      System.out.println("Got advertisement.");
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
@@ -136,6 +133,7 @@ public class GenPlugin implements Plugin
             return inStream;
          }
       }
+
 
       return null;
    }
