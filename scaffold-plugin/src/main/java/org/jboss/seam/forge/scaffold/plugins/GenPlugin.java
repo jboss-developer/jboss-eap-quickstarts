@@ -28,15 +28,21 @@ import org.jboss.fpak.strategy.ParseStrategy;
 import org.jboss.fpak.strategy.RunStrategy;
 import org.jboss.fpak.strategy.builtin.DefaultParseStrategy;
 import org.jboss.fpak.strategy.builtin.DefaultRunStrategy;
+import org.jboss.seam.forge.scaffold.plugins.events.AdvertiseGenProfile;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Mike Brock .
@@ -47,12 +53,20 @@ public class GenPlugin implements Plugin
    private static final String[] DEFAULT_SEARCH_PATHS
          = {"org/jboss/seam/forge/scaffold/templates/fpak/", "~/.forge/plugins/scaffold/templates/fpak/"};
 
+
    private final Shell shell;
+   private final Map<String, URL> registeredProfiles;
 
    @Inject
    public GenPlugin(Shell shell)
    {
       this.shell = shell;
+      this.registeredProfiles = new HashMap<String, URL>();
+   }
+
+   public void registerProfile(@Observes AdvertiseGenProfile agp)
+   {
+      registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
    @DefaultCommand
@@ -95,7 +109,6 @@ public class GenPlugin implements Plugin
             return inStream;
          }
       }
-
 
       return null;
    }
