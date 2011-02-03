@@ -80,12 +80,12 @@ public class NewEntityPlugin implements Plugin
       // TODO this should accept a qualified name as a parameter instead of
       // prompting for the package later
       Project project = projectInstance.get();
-      PersistenceFacet scaffold = project.getFacet(PersistenceFacet.class);
+      PersistenceFacet jpa = project.getFacet(PersistenceFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       String entityPackage = shell.promptCommon(
                "In which package you'd like to create this @Entity, or enter for default:",
-               PromptType.JAVA_PACKAGE, scaffold.getEntityPackage());
+               PromptType.JAVA_PACKAGE, jpa.getEntityPackage());
 
       JavaClass javaClass = JavaParser.create(JavaClass.class)
                .setPackage(entityPackage)
