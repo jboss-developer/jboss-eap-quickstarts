@@ -153,7 +153,7 @@ public class NewProjectPlugin implements Plugin
             {
                temp.mkdirs();
             }
-            newDir = newDir.createFrom(temp);
+            newDir = newDir.createFrom(temp.getUnderlyingResourceObject());
 
             if (projectFactory.containsProject(newDir))
             {
