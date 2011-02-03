@@ -45,9 +45,11 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.Files;
@@ -86,31 +88,39 @@ public class NewProjectPlugin implements Plugin
                      description = "Toggle creation of a simple Main() script in the root package",
                      required = false,
                      defaultValue = "false",
-                     flagOnly = true) final boolean createMain
+                     flagOnly = true) final boolean createMain,
+            final PipeOut out
             ) throws IOException
    {
-      DirectoryResource dir = shell.getCurrentDirectory();
+      DirectoryResource dir = null;
 
       try
       {
          if (projectFolder instanceof FileResource<?>)
          {
-            // FIXME this is ugly
-            if (!((FileResource<?>) projectFolder).exists())
+            if (!projectFolder.exists())
             {
                ((FileResource<?>) projectFolder).mkdirs();
+               dir = projectFolder.reify(DirectoryResource.class);
             }
-            Resource<?> parent = projectFolder.getParent();
-            dir = (DirectoryResource) parent.getChild(projectFolder.getName());
+            else if (projectFolder instanceof DirectoryResource)
+            {
+               dir = (DirectoryResource) projectFolder;
+            }
+            else
+            {
+               ShellMessages.error(out, "File exists but is not a directory [" + projectFolder.getFullyQualifiedName()
+                        + "]");
+            }
          }
-         else
+
+         if (dir == null)
          {
-            dir = dir.getChildDirectory(name);
+            dir = shell.getCurrentDirectory().getChildDirectory(name);
          }
       }
       catch (ResourceException e)
       {
-         // ask
       }
 
       if (projectFactory.containsProject(dir)
@@ -118,51 +128,52 @@ public class NewProjectPlugin implements Plugin
       {
          if (projectFactory.containsProject(dir))
          {
-            shell.println("***ERROR*** [" + dir.getFullyQualifiedName()
+            ShellMessages.error(out, "[" + dir.getFullyQualifiedName()
                      + "] already contains a project; please use a different folder.");
          }
 
-         DirectoryResource defaultDir;
-
          if (shell.getCurrentResource() == null)
          {
-            defaultDir = ResourceUtil.getContextDirectory(factory.getResourceFrom(Files.getWorkingDirectory()));
+            dir = ResourceUtil.getContextDirectory(factory.getResourceFrom(Files.getWorkingDirectory()));
          }
          else
          {
-            defaultDir = shell.getCurrentDirectory();
+            dir = shell.getCurrentDirectory();
          }
 
-         DirectoryResource newDir = shell.getCurrentDirectory();
+         FileResource<?> newDir = shell.getCurrentDirectory();
          do
          {
             shell.println();
-            FileResource<?> temp;
             if (!projectFactory.containsProject(newDir))
             {
-               temp = shell.promptFile(
+               newDir = shell.promptFile(
                         "Where would you like to create the project? [Press ENTER to use the current directory: "
-                                 + newDir + "]", defaultDir);
+                                 + newDir + "]", dir);
             }
             else
             {
-               temp = shell.promptFile("Where would you like to create the project?");
+               newDir = shell.promptFile("Where would you like to create the project?");
             }
 
-            if (!temp.exists())
+            if (!newDir.exists())
             {
-               temp.mkdirs();
+               newDir.mkdirs();
+               newDir = newDir.reify(DirectoryResource.class);
             }
-            newDir = newDir.createFrom(temp.getUnderlyingResourceObject());
-
-            if (projectFactory.containsProject(newDir))
+            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir))
+            {
+               newDir = newDir.reify(DirectoryResource.class);
+            }
+            else
             {
                newDir = null;
             }
+
          }
          while ((newDir == null) || !(newDir instanceof DirectoryResource));
 
-         dir = newDir;
+         dir = (DirectoryResource) newDir;
       }
 
       if (!dir.exists())
@@ -201,6 +212,7 @@ public class NewProjectPlugin implements Plugin
        * Only change the environment after success!
        */
       shell.setCurrentResource(project.getProjectRoot());
-      shell.println("***SUCCESS*** Created project [" + name + "] in new working directory [" + dir + "]");
+      ShellMessages.success(out,
+               "Created project [" + name + "] in new working directory [" + dir.getFullyQualifiedName() + "]");
    }
 }

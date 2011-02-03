@@ -54,6 +54,10 @@ public class OptionMetadata
    private boolean pipeIn;
    private Class<? extends CommandCompleter> completerType;
 
+   public OptionMetadata()
+   {
+   }
+
    /**
     * Get an informational string describing this Option
     */
@@ -78,8 +82,7 @@ public class OptionMetadata
    }
 
    /**
-    * Return whether this option is to be mapped via name or via parameter
-    * order.
+    * Return whether this option is to be mapped via name or via parameter order.
     */
    public boolean isNamed()
    {
@@ -116,7 +119,7 @@ public class OptionMetadata
       return shortName;
    }
 
-   public void setShortName(String shortName)
+   public void setShortName(final String shortName)
    {
       this.shortName = shortName;
    }
@@ -126,7 +129,7 @@ public class OptionMetadata
       return flagOnly;
    }
 
-   public void setFlagOnly(boolean flagOnly)
+   public void setFlagOnly(final boolean flagOnly)
    {
       this.flagOnly = flagOnly;
    }
@@ -156,7 +159,7 @@ public class OptionMetadata
       return effectiveIndex;
    }
 
-   public void setEffectiveIndex(int effectiveIndex)
+   public void setEffectiveIndex(final int effectiveIndex)
    {
       this.effectiveIndex = effectiveIndex;
    }
@@ -227,7 +230,7 @@ public class OptionMetadata
       return promptType;
    }
 
-   public void setPromptType(PromptType type)
+   public void setPromptType(final PromptType type)
    {
       this.promptType = type;
    }
@@ -237,7 +240,7 @@ public class OptionMetadata
       return pipeOut;
    }
 
-   public void setPipeOut(boolean pipeOut)
+   public void setPipeOut(final boolean pipeOut)
    {
       this.pipeOut = pipeOut;
    }
@@ -247,21 +250,22 @@ public class OptionMetadata
       return pipeIn;
    }
 
-   public void setPipeIn(boolean pipeIn)
+   public void setPipeIn(final boolean pipeIn)
    {
       this.pipeIn = pipeIn;
    }
 
-   public boolean notOrdered() {
+   public boolean notOrdered()
+   {
       return pipeIn || pipeOut || isNamed();
    }
 
    public boolean hasCustomCompleter()
    {
-      return completerType != null && !completerType.equals(NullCommandCompleter.class);
+      return (completerType != null) && !completerType.equals(NullCommandCompleter.class);
    }
 
-   public void setCompleterType(Class<? extends CommandCompleter> type)
+   public void setCompleterType(final Class<? extends CommandCompleter> type)
    {
       this.completerType = type;
    }

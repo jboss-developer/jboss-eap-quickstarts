@@ -31,8 +31,8 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
-import org.jboss.seam.forge.shell.plugins.events.Startup;
+import org.jboss.seam.forge.shell.events.AcceptUserInput;
+import org.jboss.seam.forge.shell.events.Startup;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 import org.jboss.weld.environment.se.events.ContainerInitialized;

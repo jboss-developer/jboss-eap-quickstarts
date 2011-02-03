@@ -22,6 +22,16 @@
 
 package org.jboss.seam.forge.project.resources;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.jboss.seam.forge.project.AbstractResource;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.Resource;
@@ -30,11 +40,9 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.OSUtils;
 
-import java.io.*;
-
 /**
  * A standard, built-in resource for representing files on the filesystem.
- *
+ * 
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -66,7 +74,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
 
    /**
     * Get the actual underlying file resource that this resource instance represents, whether existing or non-existing.
-    *
+    * 
     * @return An instance of {@link File}
     */
    @Override
@@ -97,7 +105,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
 
    /**
     * Get the parent of the current resource. Returns null if the current resource is the project root.
-    *
+    * 
     * @return An instance of the resource parent.
     */
    @Override
@@ -115,7 +123,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    /**
     * Create a new {@link Resource} instance for the target file. The new {@link Resource} should be of the same type as
     * <b>this</b>.
-    *
+    * 
     * @param file The file to create the resource instance from.
     * @return A new resource.
     */
@@ -129,8 +137,16 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
+    * Return true if this {@link FileResource} exists and is actually a directory, otherwise return false;
+    */
+   public boolean isDirectory()
+   {
+      return file.isDirectory();
+   }
+
+   /**
     * Returns true if the underlying resource has been modified on the file system since it was initially loaded.
-    *
+    * 
     * @return boolean true if resource is changed.
     */
    public boolean isStale()
@@ -213,7 +229,6 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
 
       return file.delete();
    }
-
 
    public T setContents(String data)
    {
@@ -311,7 +326,22 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       }
    }
 
-   public boolean renameTo(String pathspec)
+   @Override
+   @SuppressWarnings("unchecked")
+   public <R> R reify(final Class<? extends Resource<?>> type)
+   {
+      Resource<?> queryResult = resourceFactory.getResourceFrom(file);
+      if (type.isAssignableFrom(queryResult.getClass()))
+      {
+         return (R) queryResult;
+      }
+      else
+      {
+         return null;
+      }
+   }
+
+   public boolean renameTo(final String pathspec)
    {
       return file.renameTo(new File(pathspec));
    }

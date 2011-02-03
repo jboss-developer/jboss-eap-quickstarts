@@ -33,7 +33,7 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
  * A set of utilities to work with the resources API.
- *
+ * 
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
@@ -41,7 +41,7 @@ public class ResourceUtil
 {
    /**
     * A simple utility method to locate the outermost contextual File reference for the specified resource.
-    *
+    * 
     * @param r resource instance.
     * @return outermost relevant file context.
     */
@@ -61,7 +61,7 @@ public class ResourceUtil
       return null;
    }
 
-   public static DirectoryResource getContextDirectory(Resource<?> r)
+   public static DirectoryResource getContextDirectory(final Resource<?> r)
    {
       Resource<?> temp = r;
       do
@@ -71,11 +71,10 @@ public class ResourceUtil
             return (DirectoryResource) temp;
          }
       }
-      while ((temp = temp.getParent()) != null);
+      while ((temp != null) && ((temp = temp.getParent()) != null));
 
       return null;
    }
-
 
    public static List<Resource<?>> parsePathspec(final ResourceFactory factory, final Resource<?> resource,
                                                  final String pathspec)
@@ -97,13 +96,14 @@ public class ResourceUtil
    }
 
    @SuppressWarnings("unchecked")
-   public static <E extends Resource<?>, R extends Collection<E>, I extends Collection<Resource<?>>> R filterByType(Class<E> type, I list)
+   public static <E extends Resource<?>, R extends Collection<E>, I extends Collection<Resource<?>>> R filterByType(
+            final Class<E> type, final I list)
    {
       ArrayList<E> result = new ArrayList<E>();
-      
+
       for (Resource<?> r : list)
       {
-         if(type.isAssignableFrom(r.getClass()))
+         if (type.isAssignableFrom(r.getClass()))
          {
             result.add((E) r);
          }

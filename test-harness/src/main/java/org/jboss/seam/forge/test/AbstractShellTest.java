@@ -44,7 +44,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.events.Startup;
+import org.jboss.seam.forge.shell.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;

@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,16 +19,47 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.shell.events;
 
-package org.jboss.seam.forge.shell.plugins.events;
-
+import org.jboss.seam.forge.project.Project;
 
 /**
- * An event representing the initialization of the project in the current working directory.
+ * An event that notifies observers when the current {@link Project} has changed.
+ * <p>
+ * <strong>For example:</strong>
+ * <p>
+ * <code>public void myObserver(@Observes {@link ProjectChanged} event)<br/>
+ * {<br/>
+ *    // do something<br/>
+ * }<br/>
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class InitProject
+public final class ProjectChanged
 {
+   private final Project oldProject;
+   private final Project newProject;
+
+   public ProjectChanged(final Project oldProject, final Project newProject)
+   {
+      this.oldProject = oldProject;
+      this.newProject = newProject;
+   }
+
+   /**
+    * @return the old {@link Project}
+    */
+   public Project getOldProject()
+   {
+      return oldProject;
+   }
+
+   /**
+    * @return the new {@link Project}
+    */
+   public Project getNewProject()
+   {
+      return newProject;
+   }
 }

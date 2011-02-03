@@ -55,7 +55,7 @@ public class DependencyPropertyCompleter implements CommandCompleter
             if (prop.startsWith(peek == null ? "" : peek))
             {
                state.getCandidates().add(prop);
-               state.setIndex(state.getIndex() - (peek == null ? 0 : peek.length()));
+               state.setIndex(state.getOriginalIndex() - (peek == null ? 0 : peek.length()));
             }
          }
       }

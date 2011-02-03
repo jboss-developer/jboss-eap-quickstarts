@@ -19,37 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.forge.shell.plugins.builtin;
-
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.forge.shell.events.Shutdown;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+package org.jboss.seam.forge.shell.events;
 
 /**
- * Implements a {@link Plugin} that fires the shell {@link ShutdownStatus#NORMAL} event.
- * 
- * 
+ * Informs the Shell that it should begin accepting User Input
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Named("exit")
-@Topic("Shell Environment")
-@Help("Exits the shell.")
-public class ExitShellPlugin implements Plugin
+public class AcceptUserInput
 {
-   @Inject
-   private Event<Shutdown> shutdown;
 
-   @DefaultCommand
-   public void exit()
-   {
-      shutdown.fire(new Shutdown(Shutdown.Status.NORMAL));
-   }
 }

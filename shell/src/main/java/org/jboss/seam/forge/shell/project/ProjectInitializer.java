@@ -32,8 +32,8 @@ import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.events.InitProject;
-import org.jboss.seam.forge.shell.plugins.events.PostStartup;
+import org.jboss.seam.forge.shell.events.InitProject;
+import org.jboss.seam.forge.shell.events.PostStartup;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

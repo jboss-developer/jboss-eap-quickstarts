@@ -37,7 +37,7 @@ import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.util.BeanManagerUtils;
-import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
+import org.jboss.seam.forge.shell.events.ProjectChanged;
 
 /**
  * This class provides lifecycle management for the {@link Project} scope
@@ -76,7 +76,7 @@ public class ProjectScopedContext implements Context
    }
 
    @SuppressWarnings({ "rawtypes", "unchecked" })
-   public void destroy(@Observes final ProjectChange event)
+   public void destroy(@Observes final ProjectChanged event)
    {
       if (getCurrentProject() != null)
       {

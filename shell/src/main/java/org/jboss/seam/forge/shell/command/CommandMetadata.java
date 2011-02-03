@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.command;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -143,17 +144,45 @@ public class CommandMetadata
       {
          options = new ArrayList<OptionMetadata>();
       }
-      return options;
-   }
+      Collections.sort(options, new Comparator<OptionMetadata>()
+      {
+         @Override
+         public int compare(final OptionMetadata l, final OptionMetadata r)
+         {
+            if (l == r)
+            {
+               return 0;
+            }
+            if ((l != r) && (l == null))
+            {
+               return 1;
+            }
+            if ((l != r) && (r == null))
+            {
+               return -1;
+            }
 
-   public void setOptions(final List<OptionMetadata> options)
-   {
-      this.options = options;
+            if (l.getIndex() == r.getIndex())
+            {
+               return 0;
+            }
+            if (l.getIndex() > r.getIndex())
+            {
+               return 1;
+            }
+            if (l.getIndex() < r.getIndex())
+            {
+               return -1;
+            }
+
+            return 0;
+         }
+      });
+      return options;
    }
 
    public void addOption(final OptionMetadata option)
    {
-
       this.options.add(option);
    }
 

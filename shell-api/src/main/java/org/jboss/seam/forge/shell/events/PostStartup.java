@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+ * JBoss, by Red Hat.
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,40 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins.events;
-
-import org.jboss.seam.forge.project.Project;
+package org.jboss.seam.forge.shell.events;
 
 /**
- * An event that signals when the current {@link Project} has changed.
+ * Fired by the {@link Shell} when it has successfully started up and is ready to accept user input. If plugins need to
+ * take action before the user is given a chance to interact, they should observe this event.
+ * <p>
+ * <strong>For example:</strong>
+ * <p>
+ * <code>public void myObserver(@Observes {@link PostStartup} event)<br/>
+ * {<br/>
+ *    // do something<br/>
+ * }<br/>
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ProjectChange
+public final class PostStartup
 {
-   private final Project oldProject;
-   private final Project newProject;
 
-   public ProjectChange(final Project oldProject, final Project newProject)
-   {
-      this.oldProject = oldProject;
-      this.newProject = newProject;
-   }
-
-   /**
-    * @return the old project
-    */
-   public Project getOldProject()
-   {
-      return oldProject;
-   }
-
-   /**
-    * @return the newProject
-    */
-   public Project getNewProject()
-   {
-      return newProject;
-   }
 }

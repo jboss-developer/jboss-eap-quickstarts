@@ -1,6 +1,6 @@
 /*
- * JBoss, by Red Hat.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,13 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins.events;
+package org.jboss.seam.forge.shell;
+
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
+ * Used to generate properly formatted status messages.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class PostStartup
+public abstract class ShellMessages
 {
+   public static void success(final ShellPrintWriter writer, final String message)
+   {
+      writer.print(ShellColor.GREEN, "***SUCCESS*** ");
+      writer.println(message);
+   }
 
+   public static void error(final ShellPrintWriter writer, final String message)
+   {
+      writer.print(ShellColor.RED, "***ERROR*** ");
+      writer.println(message);
+   }
 }

@@ -57,7 +57,7 @@ public abstract class AbstractResource<T> implements Resource<T>
    }
 
    @Override
-   public void setFlag(ResourceFlag flag)
+   public void setFlag(final ResourceFlag flag)
    {
       if (flags == null)
       {
@@ -70,7 +70,7 @@ public abstract class AbstractResource<T> implements Resource<T>
    }
 
    @Override
-   public void unsetFlag(ResourceFlag flag)
+   public void unsetFlag(final ResourceFlag flag)
    {
       if (flags != null)
       {
@@ -79,7 +79,7 @@ public abstract class AbstractResource<T> implements Resource<T>
    }
 
    @Override
-   public boolean isFlagSet(ResourceFlag flag)
+   public boolean isFlagSet(final ResourceFlag flag)
    {
       return (flags != null) && flags.contains(flag);
    }
@@ -90,4 +90,17 @@ public abstract class AbstractResource<T> implements Resource<T>
       return Collections.unmodifiableSet(flags);
    }
 
+   @Override
+   @SuppressWarnings("unchecked")
+   public <R> R reify(final Class<? extends Resource<?>> type)
+   {
+      if (type.isAssignableFrom(this.getClass()))
+      {
+         return (R) this;
+      }
+      else
+      {
+         return null;
+      }
+   }
 }

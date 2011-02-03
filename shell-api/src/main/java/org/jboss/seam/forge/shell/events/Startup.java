@@ -19,13 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins.events;
+package org.jboss.seam.forge.shell.events;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * Fired as a signal to the shell to bootstrap and accept user input. Should be fired only once per application runtime
+ * unless followed by a subsequent {@link Shutdown} event.
+ * <p>
+ * <strong>For example:</strong>
+ * <p>
+ * <code>@Inject Event&lt;Startup&gt startup; <br/>...<br/>
+ * startup.fire(new Startup());
+ * </code>
  * 
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class Startup
+public final class Startup
 {
 
 }

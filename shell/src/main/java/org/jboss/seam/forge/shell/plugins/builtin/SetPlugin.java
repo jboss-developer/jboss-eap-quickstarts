@@ -1,11 +1,17 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Map;
+
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.completer.ShellEnvCompleter;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author Mike Brock .
@@ -15,17 +21,18 @@ import java.util.Map;
 @Help("Sets and lists environment variables")
 public class SetPlugin implements Plugin
 {
-   private Shell shell;
+   private final Shell shell;
 
    @Inject
-   public SetPlugin(Shell shell)
+   public SetPlugin(final Shell shell)
    {
       this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(@Option(description = "varname") String variable,
-                   @Option(description = "value") String... value)
+   public void run(@Option(description = "varname",
+                        completer = ShellEnvCompleter.class) final String variable,
+                   @Option(description = "value") final String... value)
    {
 
       if (variable == null)

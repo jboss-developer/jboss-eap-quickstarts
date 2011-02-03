@@ -31,8 +31,8 @@ import javax.inject.Singleton;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.shell.plugins.events.InitProject;
-import org.jboss.seam.forge.shell.plugins.events.ProjectChange;
+import org.jboss.seam.forge.shell.events.InitProject;
+import org.jboss.seam.forge.shell.events.ProjectChanged;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -48,7 +48,7 @@ public class CurrentProject
    @Inject
    private Event<InitProject> init;
    @Inject
-   private Event<ProjectChange> projectChanged;
+   private Event<ProjectChanged> projectChanged;
 
    @Produces
    @Default
@@ -78,7 +78,7 @@ public class CurrentProject
 
    private void changeProject(final Project currentProject, final Project project)
    {
-      ProjectChange event = new ProjectChange(currentProject, project);
+      ProjectChanged event = new ProjectChanged(currentProject, project);
       this.currentProject = project;
       projectChanged.fire(event);
    }

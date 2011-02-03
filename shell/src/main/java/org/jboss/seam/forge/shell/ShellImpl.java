@@ -67,16 +67,17 @@ import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
+import org.jboss.seam.forge.shell.events.AcceptUserInput;
+import org.jboss.seam.forge.shell.events.PostStartup;
+import org.jboss.seam.forge.shell.events.PreShutdown;
+import org.jboss.seam.forge.shell.events.Shutdown;
+import org.jboss.seam.forge.shell.events.Startup;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.CommandParserException;
 import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
-import org.jboss.seam.forge.shell.plugins.events.AcceptUserInput;
-import org.jboss.seam.forge.shell.plugins.events.PostStartup;
-import org.jboss.seam.forge.shell.plugins.events.Shutdown;
-import org.jboss.seam.forge.shell.plugins.events.Startup;
 import org.jboss.seam.forge.shell.project.CurrentProject;
 import org.jboss.seam.forge.shell.util.Files;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
@@ -199,9 +200,6 @@ public class ShellImpl implements Shell
       initStreams();
       initCompleters(pluginCompleter);
       initParameters();
-
-      // properties.put(PROP_PROMPT, DEFAULT_PROMPT);
-      // properties.put(PROP_PROMPT_NO_PROJ, DEFAULT_PROMPT_NO_PROJ);
 
       properties.put("OS_NAME", OSUtils.getOsName());
       properties.put(PROP_PROMPT, "> ");
@@ -382,10 +380,7 @@ public class ShellImpl implements Shell
 
    private void initParameters()
    {
-      if (parameters.contains("--verbose"))
-      {
-         properties.put(PROP_VERBOSE, "true");
-      }
+      properties.put(PROP_VERBOSE, String.valueOf(parameters.contains("--verbose")));
 
       if (parameters.contains("--pretend"))
       {
@@ -424,8 +419,9 @@ public class ShellImpl implements Shell
 
    }
 
-   void teardown(@Observes final Shutdown event)
+   void teardown(@Observes final Shutdown shutdown, final Event<PreShutdown> preShutdown)
    {
+      preShutdown.fire(new PreShutdown(shutdown.getStatus()));
       exitRequested = true;
    }
 

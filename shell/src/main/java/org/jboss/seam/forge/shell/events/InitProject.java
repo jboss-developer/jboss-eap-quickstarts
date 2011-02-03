@@ -19,15 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.plugins.events;
+
+package org.jboss.seam.forge.shell.events;
+
 
 /**
- * The shell shutdown event.
+ * An event representing the initialization of the project in the current working directory.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public enum Shutdown
+public class InitProject
 {
-   NORMAL, ERROR
 }

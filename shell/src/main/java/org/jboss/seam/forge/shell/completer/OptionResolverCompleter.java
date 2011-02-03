@@ -69,6 +69,7 @@ public class OptionResolverCompleter implements CommandCompleter
                      else if (!option.isNamed() && !option.isPipeOut() && !option.isPipeIn())
                      {
                         state.setOption(option);
+                        break;
                      }
                   }
                }

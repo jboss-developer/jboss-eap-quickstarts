@@ -19,47 +19,43 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.dev.dependencies;
+package org.jboss.seam.forge.shell.completer;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.dependencies.DependencyRepository;
-import org.jboss.seam.forge.project.facets.DependencyFacet;
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
-import org.jboss.seam.forge.shell.completer.CommandCompleterState;
+import org.jboss.seam.forge.shell.Shell;
 
 /**
- * Provides completion for project build properties
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class RepositoryCompleter implements CommandCompleter
+public class ShellEnvCompleter implements CommandCompleter
 {
    @Inject
-   private Project project;
+   private Shell shell;
 
    @Override
-   public void complete(final CommandCompleterState state)
+   public void complete(final CommandCompleterState st)
    {
-      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
-      List<DependencyRepository> repositories = deps.getRepositories();
+      Map<String, Object> props = shell.getProperties();
+      Set<String> properties = props.keySet();
       String peek = state.getTokens().peek();
 
       if ((state.getTokens().size() <= 1))
       {
-         for (DependencyRepository repo : repositories)
+         for (String prop : properties)
          {
-            if (repo.getUrl().startsWith(peek == null ? "" : peek))
+            if (prop.startsWith(peek == null ? "" : peek))
             {
-               state.getCandidates().add(repo.getUrl());
+               state.getCandidates().add(prop + " ");
                state.setIndex(state.getOriginalIndex() - (peek == null ? 0 : peek.length()));
             }
          }
       }
    }
-
 }
