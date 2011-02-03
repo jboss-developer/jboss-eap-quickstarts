@@ -137,18 +137,23 @@ public class NewProjectPlugin implements Plugin
          do
          {
             shell.println();
+            FileResource<?> temp;
             if (!projectFactory.containsProject(newDir))
             {
-               newDir = ResourceUtil.getContextDirectory(shell.promptFile(
+               temp = shell.promptFile(
                         "Where would you like to create the project? [Press ENTER to use the current directory: "
-                                 + newDir
-                                 + "]", defaultDir));
+                                 + newDir + "]", defaultDir);
             }
             else
             {
-               newDir = ResourceUtil.getContextDirectory(shell
-                        .promptFile("Where would you like to create the project?"));
+               temp = shell.promptFile("Where would you like to create the project?");
             }
+
+            if (!temp.exists())
+            {
+               temp.mkdirs();
+            }
+            newDir = newDir.createFrom(temp);
 
             if (projectFactory.containsProject(newDir))
             {

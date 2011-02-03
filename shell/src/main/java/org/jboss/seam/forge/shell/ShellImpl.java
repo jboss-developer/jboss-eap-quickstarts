@@ -49,6 +49,7 @@ import javax.inject.Inject;
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
+import jline.console.completer.FileNameCompleter;
 import jline.console.history.MemoryHistory;
 
 import org.fusesource.jansi.Ansi;
@@ -65,7 +66,6 @@ import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
-import org.jboss.seam.forge.shell.completer.FileOptionCompleter;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.CommandParserException;
@@ -1255,7 +1255,7 @@ public class ShellImpl implements Shell
       String path = "";
       while ((path == null) || path.trim().isEmpty())
       {
-         path = promptWithCompleter(message, new FileOptionCompleter());
+         path = promptWithCompleter(message, new FileNameCompleter());
       }
 
       path = Files.canonicalize(path);
@@ -1272,7 +1272,7 @@ public class ShellImpl implements Shell
    public FileResource<?> promptFile(final String message, final FileResource<?> defaultIfEmpty)
    {
       FileResource<?> result = defaultIfEmpty;
-      String path = promptWithCompleter(message, new FileOptionCompleter());
+      String path = promptWithCompleter(message, new FileNameCompleter());
       if (!"".equals(path) && (path != null) && !path.trim().isEmpty())
       {
          path = Files.canonicalize(path);

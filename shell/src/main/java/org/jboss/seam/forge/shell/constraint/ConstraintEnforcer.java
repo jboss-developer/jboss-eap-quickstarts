@@ -88,13 +88,15 @@ public class ConstraintEnforcer
       {
          // check to make sure that the project packaging type is appropriate
          List<PackagingType> compatiblePackagingTypes = ConstraintInspector.getCompatiblePackagingTypes(type);
-         PackagingType currentPackagingType = currentProject.getFacet(PackagingFacet.class).getPackagingType();
-         if (!compatiblePackagingTypes.isEmpty()
-                  && !compatiblePackagingTypes.contains(currentPackagingType))
+         if (!compatiblePackagingTypes.isEmpty())
          {
-            throw new UnsatisfiedPackagingTypeException("Oops! The [" + plugin.getName()
-                     + "] plugin requires one of the following packaging types " + compatiblePackagingTypes
-                     + ", but the current packaging type is [" + currentPackagingType + "]");
+            PackagingType currentPackagingType = currentProject.getFacet(PackagingFacet.class).getPackagingType();
+            if (!compatiblePackagingTypes.contains(currentPackagingType))
+            {
+               throw new UnsatisfiedPackagingTypeException("Oops! The [" + plugin.getName()
+                        + "] plugin requires one of the following packaging types " + compatiblePackagingTypes
+                        + ", but the current packaging type is [" + currentPackagingType + "]");
+            }
          }
 
          // check to make sure all required facets are registered in the Project
