@@ -190,7 +190,7 @@ public class ExamplePlugin implements Plugin {
          <title>--named options</title>
       
          <para>
-            As mentioned above, options can be given either a long-name and/or a 
+            As mentioned above, options can be given both a long-name and/or a 
             short-name.  in which case, they would be defined like this:
             
             <programlisting>@Option(name="one", shortName="o")</programlisting>
@@ -216,24 +216,108 @@ public class ExamplePlugin implements Plugin {
    
             The above command, when executed, would produce the following output:
          
-            <programlisting>$ example-plugin perform --one value1 --two value2 
->> option one equals: value1
->> option two equals: value2</programlisting>
+            <programlisting>$ example-plugin perform --one cat --two dog 
+>> option one equals: cat
+>> option two equals: dog</programlisting>
          </para>
          <para>
             <tip>
                Named parameters can be called in any order. Notice that we could have also 
                called the command with options 'one' and 'two' in reverse order, or 
                by using their short names. These commands are equivalent:
-               <programlisting>$ example-plugin perform --one value1 --two value2
-$ example-plugin perform --two value2 --one value1
-$ example-plugin perform --two value2 -o value1</programlisting>
+               <programlisting>$ example-plugin perform --one cat --two dog
+$ example-plugin perform --two dog --one cat
+$ example-plugin perform --two dog -o cat</programlisting>
             </tip>
          </para>
       </section>
       
       <section id="plugin.dev.options.ordered">
          <title>Ordered options</title>
+         <para>
+            In addition to <literal>--named</literal> option parameters, as described
+            <link linkend="plugin.dev.options.named">above</link>, parameters may also
+            be passed on the command line by the order in which they are entered. These
+            are called "ordered option parameters", and do not require any parameters
+            other than help or description information. 
+            
+            <programlisting>@Option String value</programlisting>
+            
+            The order of the options in the method signature controls how values are
+            assigned from parsed Forge shell command statements.
+         </para>
+         <para>
+            For example, the following command accepts several options, named 'one', 
+            and 'two':
+            
+            <programlisting>public class ExamplePlugin implements Plugin {
+   @Command(name="perform")
+   public void exampleCommand( 
+                  @Option String one,
+                  @Option String two,
+                  PipeOut out) {
+       out.println(">> first option equals: " + one);
+       out.println(">> second option equals: " + two);
+   }
+}</programlisting>
+            The above command, when executed, would produce the following output:
+         
+            <programlisting>$ example-plugin cat dog 
+>> option one equals: cat
+>> option two equals: dog</programlisting>
+         </para>
+      </section>
+      
+      <section id="plugin.dev.options.combined">
+         <title>Combining --named and ordered options</title>
+         <para>
+            Both <link linkend="plugin.dev.options.named"><literal>--named</literal></link>
+            and <link linkend="plugin.dev.options.ordered">ordered</link> option
+            parameters can be mixed in the same command; there are some constraints on
+            how commands must be typed, but there is a great deal of flexibility as well.
+            
+            <programlisting>@Option String value,
+@Option(name="num") int number</programlisting>
+            
+            The order of ordered options in the method signature controls how values are
+            assigned from the command line shell, whereas the named options have no 
+            bearing on the order in which inputs are provided on the command line.
+         </para>
+         <para>
+            For example, the following command accepts several options, named 'one', 
+            'two', and several more options that are not named:
+            
+            <programlisting>public class ExamplePlugin implements Plugin {
+   @Command(name="perform")
+   public void exampleCommand( 
+                  @Option(name="one") String one,
+                  @Option(name="two") String two,
+                  @Option String three,
+                  @Option String four,
+                  PipeOut out) {
+       out.println(">> first option equals: " + one);
+       out.println(">> second option equals: " + two);
+       out.println(">> third option equals: " + three);
+       out.println(">> fourth option equals: " + four);
+   }
+}</programlisting>
+            The above command, when executed, would produce the following output:
+         
+            <programlisting>$ example-plugin --one cat --two dog bird lizard  
+>> option one equals: cat
+>> option two equals: dog 
+>> option one equals: bird
+>> option two equals: lizard</programlisting>
+
+            However, we could also achieve the same result by re-arranging parameters,
+            and as long as the name-value pairs remain together, and the ordered values
+            are passed in the correct order, interpretation will remain the same:
+            <programlisting>$ example-plugin --two dog bird --one cat lizard  
+>> option one equals: cat
+>> option two equals: dog 
+>> option one equals: bird
+>> option two equals: lizard</programlisting>
+         </para>
       </section>
       
       <section id="plugin.dev.options.attributes">
@@ -262,10 +346,10 @@ $ example-plugin perform --two value2 -o value1</programlisting>
                         <entry><literal>String</literal></entry>
                         <entry>
                            If specified, defines the 
-                           <link linkend="plugins.dev.options.named">--name</link> 
+                           <link linkend="plugin.dev.options.named">--name</link> 
                            with which this option may be passed on the
                            command line. If left blank, this option will be 
-                           <link linkend="plugins.dev.options.ordered">ordered</link>
+                           <link linkend="plugin.dev.options.ordered">ordered</link>
                            (not named,) and will be passed in the order with which
                            it was written in the Method signature.
                            <programlisting>@Option(name="exampleName")</programlisting>
@@ -291,7 +375,7 @@ $ example-plugin perform --two value2 -o value1</programlisting>
                            If specified, defines the short name by which this option
                            may be called on the command line. Short names must be one
                            character in length.
-                           <link linkend="plugins.dev.options.named">short name</link>
+                           <link linkend="plugin.dev.options.named">short name</link>
                            with which this option may be passed on the command line.
                         </entry>
                         <entry>none</entry>
@@ -348,9 +432,10 @@ $ example-plugin perform --two value2 -o value1</programlisting>
          Or in terms of pipes, this could be thought of as a flow of data from left
          to right:
          
-         <programlisting>$ PipeOut -> PipeIn</programlisting>
+         <programlisting>$ PipeOut out -> @PipeIn InputStream stream</programlisting>
          
-         Notice that you can pipe output between any number of plugins:
+         Notice that you can pipe output between any number of plugins as long as each
+         uses both a <literal>@PipeIn InputStream</literal> and <literal>PipeOut</literal>:
          
          <programlisting>$ first command | second command | third command</programlisting>
       </para>
@@ -363,8 +448,10 @@ $ example-plugin perform --two value2 -o value1</programlisting>
       
       <tip>
          <para>
-            Notice that if no piping was invoked, the piped <literal>InputStream</literal>
-            will be null.
+            If no piping is invoked (e.g: via standalone execution of the plugin), 
+            a piped <literal>InputStream</literal> will be null. In addition, piped
+            <literal>InputStream</literal>s do not need to be closed; Forge will
+            handle cleanup of these streams.
          </para>
       </tip>
       
@@ -376,78 +463,57 @@ public class GrepPlugin implements Plugin
    @DefaultCommand
    public void run(
          @PipeIn final InputStream pipeIn,
-         @Option(name = "ignore-case", shortName = "i", help = "ignore case distinctions in both patterns and input", flagOnly = true)
-         boolean ignoreCase,
-         @Option(name = "regexp", shortName = "e", help = "match using a regular expression")
-         String regExp,
+         @Option(name = "ignore-case", shortName = "i", flagOnly = true) boolean ignoreCase,
+         @Option(name = "regexp", shortName = "e") String regExp,
          @Option(description = "PATTERN") String pattern,
-         @Option(description = "FILE ...") Resource<?>[] resources,
+         @Option(description = "FILE ...") Resource<?>[] resources, 
          final PipeOut pipeOut
    ) throws IOException
    {
-      Pattern matchPattern;
-      if (regExp != null)
-      {
-         if (ignoreCase)
-         {
-            regExp = regExp.toLowerCase();
-         }
-         matchPattern = Pattern.compile(regExp);
-      }
-      else if (pattern == null)
-      {
-         throw new RuntimeException("you must specify a pattern");
-      }
-      else
-      {
-         if (ignoreCase)
-         {
-            pattern = pattern.toLowerCase();
-         }
-         matchPattern = Pattern.compile(".*" + pattern + ".*");
-      }
+      Pattern matchPattern = /* determine pattern (omitted for space) */;
 
-      if (resources != null)
-      {
-         for (Resource<?> r : resources)
-         {
+      if (resources != null) {
+      
+         /* User passed file(s) on the command line; grep those. */
+      
+         for (Resource<?> r : resources) {
             InputStream inputStream = r.getResourceInputStream();
-            try
-            {
+            try {
                match(inputStream, matchPattern, pipeOut, ignoreCase);
             }
-            finally
-            {
+            finally {
                inputStream.close();
             }
          }
       }
-      else if (pipeIn != null)
-      {
+      else if (pipeIn != null) {
+      
+         /* No files were passed on the command line; check for a 
+          * piped InputStream and use that.
+          */
+      
          match(pipeIn, matchPattern, pipeOut, ignoreCase);
       }
-      else
-      {
-         throw new RuntimeException("arguments required");
+      else {
+      
+         /* No input was passed to the plugin. */
+      
+         throw new RuntimeException("Error: arguments required");
       }
    }
 
-   private void match(InputStream instream, Pattern pattern, PipeOut out, boolean caseInsensitive) throws IOException
-   {
+   private void match(InputStream instream, Pattern pattern, PipeOut pipeOut, boolean caseInsensitive) throws IOException {
       StringAppender buf = new StringAppender();
 
       int c;
-      while ((c = instream.read()) != -1)
-      {
-         switch (c)
-         {
+      while ((c = instream.read()) != -1) { /* Read from the given stream. */
+         switch (c) {
          case '\r':
          case '\n':
             String s = caseInsensitive ? buf.toString().toLowerCase() : buf.toString();
 
-            if (pattern.matcher(s).matches())
-            {
-               out.println(s);
+            if (pattern.matcher(s).matches()) {
+               pipeOut.println(s); /* Write to the output pipe. */
             }
             buf.reset();
             break;

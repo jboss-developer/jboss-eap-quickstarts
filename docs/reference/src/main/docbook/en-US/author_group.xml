@@ -7,11 +7,17 @@
       <firstname>Lincoln</firstname>
       <surname>Baxter III</surname>
    </author>
+   <!-- 
    <author>
       <firstname>Mike</firstname>
       <surname>Brock</surname>
    </author>
-
+   <author>
+      <firstname>Koen</firstname>
+      <surname>Aers</surname>
+   </author>
+    -->
+   
    <!--
 vim:et:ts=3:sw=3:tw=120
 -->
