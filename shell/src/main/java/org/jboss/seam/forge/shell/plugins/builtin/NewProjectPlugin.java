@@ -141,9 +141,10 @@ public class NewProjectPlugin implements Plugin
             dir = shell.getCurrentDirectory();
          }
 
-         FileResource<?> newDir = shell.getCurrentDirectory();
+         FileResource<?> newDir;
          do
          {
+            newDir = shell.getCurrentDirectory();
             shell.println();
             if (!projectFactory.containsProject(newDir))
             {
@@ -167,6 +168,8 @@ public class NewProjectPlugin implements Plugin
             }
             else
             {
+               ShellMessages.error(out, "That folder already contains a project [" + newDir.getFullyQualifiedName()
+                        + "], please select a different location.");
                newDir = null;
             }
 

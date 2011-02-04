@@ -22,19 +22,18 @@
 
 package org.jboss.seam.forge.project.resources.builtin;
 
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
-import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
- * A standard, build-in, resource for representing directories on the
- * file-system.
+ * A standard, build-in, resource for representing directories on the file-system.
  * 
  * @author Mike Brock
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -61,9 +60,13 @@ public class DirectoryResource extends FileResource<DirectoryResource>
       {
          listCache = new LinkedList<Resource<?>>();
 
-         for (File f : file.listFiles())
+         File[] files = file.listFiles();
+         if (files != null)
          {
-            listCache.add(resourceFactory.getResourceFrom(f));
+            for (File f : files)
+            {
+               listCache.add(resourceFactory.getResourceFrom(f));
+            }
          }
       }
 
@@ -80,18 +83,18 @@ public class DirectoryResource extends FileResource<DirectoryResource>
    }
 
    /**
-    * Obtain a reference to the child {@link DirectoryResource}. If that
-    * resource does not exist, return a new instance. If the resource exists and
-    * is not a {@link DirectoryResource}, throw {@link ResourceException}
+    * Obtain a reference to the child {@link DirectoryResource}. If that resource does not exist, return a new instance.
+    * If the resource exists and is not a {@link DirectoryResource}, throw {@link ResourceException}
     */
-   public DirectoryResource getChildDirectory(String name) throws ResourceException
+   public DirectoryResource getChildDirectory(final String name) throws ResourceException
    {
       Resource<?> result = getChild(name);
       if (!(result instanceof DirectoryResource))
       {
          if (result.exists())
          {
-            throw new ResourceException("The resource [" + result.getFullyQualifiedName() + "] is not a DirectoryResource");
+            throw new ResourceException("The resource [" + result.getFullyQualifiedName()
+                     + "] is not a DirectoryResource");
          }
       }
 
@@ -103,13 +106,12 @@ public class DirectoryResource extends FileResource<DirectoryResource>
    }
 
    /**
-    * Using the given type, obtain a reference to the child resource of the
-    * given type. If the result is not of the requested type and does not exist,
-    * return null. If the result is not of the requested type and exists, throw
+    * Using the given type, obtain a reference to the child resource of the given type. If the result is not of the
+    * requested type and does not exist, return null. If the result is not of the requested type and exists, throw
     * {@link ResourceException}
     */
    @SuppressWarnings("unchecked")
-   public <E, T extends Resource<E>> T getChildOfType(Class<T> type, String name) throws ResourceException
+   public <E, T extends Resource<E>> T getChildOfType(final Class<T> type, final String name) throws ResourceException
    {
       T result = null;
       Resource<?> child = getChild(name);
@@ -119,7 +121,8 @@ public class DirectoryResource extends FileResource<DirectoryResource>
       }
       else if (child.exists())
       {
-         throw new ResourceException("Requested resource [" + name + "] was not of type [" + type.getName() + "], but was instead [" + child.getClass().getName() + "]");
+         throw new ResourceException("Requested resource [" + name + "] was not of type [" + type.getName()
+                  + "], but was instead [" + child.getClass().getName() + "]");
       }
       else
       {

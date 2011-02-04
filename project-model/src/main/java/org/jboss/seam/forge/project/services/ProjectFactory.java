@@ -21,6 +21,12 @@
  */
 package org.jboss.seam.forge.project.services;
 
+import java.util.List;
+
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
@@ -31,15 +37,9 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.util.Iterators;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import java.io.FileNotFoundException;
-import java.util.List;
-
 /**
  * Responsible for instantiating project instances through CDI.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
@@ -57,7 +57,7 @@ public class ProjectFactory
 
    }
 
-   public DirectoryResource findProjectRootRecusively(DirectoryResource currentDirectory)
+   public DirectoryResource findProjectRootRecusively(final DirectoryResource currentDirectory)
    {
       DirectoryResource root = null;
       List<ProjectLocator> locators = getLocators();
@@ -167,41 +167,34 @@ public class ProjectFactory
    }
 
    /**
-    * An exception-safe method of determining whether a directory contains a
-    * project.
+    * An exception-safe method of determining whether a directory contains a project.
     */
    public boolean containsProject(final FileResource<?> dir)
    {
-      try
-      {
-         findProject(dir);
-         return true;
-      }
-      catch (FileNotFoundException e)
-      {
-         return false;
-      }
+      Project project = findProject(dir);
+      return project != null;
    }
 
-   public Project findProject(final FileResource<?> dir) throws FileNotFoundException
+   public Project findProject(final FileResource<?> dir)
    {
       Project project = null;
-      List<ProjectLocator> locators = getLocators();
-      for (ProjectLocator locator : locators)
+      if (dir != null)
       {
-         project = locator.createProject(ResourceUtil.getContextDirectory(dir));
+         List<ProjectLocator> locators = getLocators();
+         for (ProjectLocator locator : locators)
+         {
+            project = locator.createProject(ResourceUtil.getContextDirectory(dir));
+            if (project != null)
+            {
+               break;
+            }
+         }
+
          if (project != null)
          {
-            break;
+            registerFacets(project);
          }
       }
-
-      if (project == null)
-      {
-         throw new FileNotFoundException("Could not locate project in folder or any of its parents: ["
-               + dir.getFullyQualifiedName() + "]");
-      }
-      registerFacets(project);
       return project;
    }
 
