@@ -10,7 +10,6 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
 
 public class AvailableFacetsCompleter implements CommandCompleter
 {
@@ -21,7 +20,7 @@ public class AvailableFacetsCompleter implements CommandCompleter
    private Shell shell;
 
    @Override
-   public void complete(CommandCompleterState st)
+   public void complete(final CommandCompleterState st)
    {
       PluginCommandCompleterState state = ((PluginCommandCompleterState) st);
 
@@ -37,14 +36,25 @@ public class AvailableFacetsCompleter implements CommandCompleter
          }
       }
 
-      String buf = state.getBuffer().substring(state.getCommand().getName().length() + 1);
-      for (Class<? extends Facet> type : uninstalledFacets)
+      String peek = state.getTokens().peek();
+      if (peek == null)
       {
-         String name = ConstraintInspector.getName(type);
-         if (name.startsWith(buf))
+         for (Class<? extends Facet> type : uninstalledFacets)
          {
+            String name = ConstraintInspector.getName(type);
             state.getCandidates().add(name + " ");
-            state.setIndex(state.getIndex() - buf.length());
+         }
+      }
+      else
+      {
+         for (Class<? extends Facet> type : uninstalledFacets)
+         {
+            String name = ConstraintInspector.getName(type);
+            if (name.startsWith(peek))
+            {
+               state.getCandidates().add(name + " ");
+               state.setIndex(state.getOriginalIndex() - (peek == null ? 0 : peek.length()));
+            }
          }
       }
    }
