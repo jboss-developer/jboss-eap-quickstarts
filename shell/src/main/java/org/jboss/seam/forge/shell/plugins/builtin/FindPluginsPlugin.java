@@ -22,21 +22,14 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.PluginRef;
 import org.jboss.seam.forge.shell.util.PluginRepoUtil;
-import org.yaml.snakeyaml.Yaml;
 
 import javax.inject.Named;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
  * @author Mike Brock .
@@ -56,3 +49,4 @@ public class FindPluginsPlugin implements Plugin
       }
    }
 }
+

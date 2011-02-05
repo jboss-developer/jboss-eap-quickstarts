@@ -294,19 +294,6 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       return (T) this;
    }
 
-   public <T> T reify(Class<? extends FileResource> type)
-   {
-      Resource<?> queryResult = resourceFactory.getResourceFrom(file);
-      if (type.isAssignableFrom(queryResult.getClass()))
-      {
-         return (T) queryResult;
-      }
-      else
-      {
-         return null;
-      }
-   }
-
    /**
     * Create the file in the underlying resource system.
     */
