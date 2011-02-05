@@ -44,7 +44,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,6 +66,7 @@ public class GenPlugin implements Plugin
 
    public void registerProfile(@Observes AdvertiseGenProfile agp)
    {
+      System.out.println("Got advertisement.");
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
