@@ -304,7 +304,7 @@ public class PathspecParser
       return path.substring(start, cursor);
    }
 
-   private static String pathspecToRegEx(final String pathSpec)
+   public static String pathspecToRegEx(final String pathSpec)
    {
       StringBuilder sb = new StringBuilder("^");
       char c;

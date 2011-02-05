@@ -38,16 +38,19 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author Mike Brock .
  */
 @Named("gen")
+@Singleton
 public class GenPlugin implements Plugin
 {
    private static final String[] DEFAULT_SEARCH_PATHS
@@ -66,6 +69,7 @@ public class GenPlugin implements Plugin
 
    public void registerProfile(@Observes AdvertiseGenProfile agp)
    {
+      System.out.println("Got advertisement.");
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
@@ -97,9 +101,32 @@ public class GenPlugin implements Plugin
       runStrategy.doStrategy(ctx, def);
    }
 
-   private static InputStream findProfile(String name)
+   private InputStream findProfile(String name)
    {
       ClassLoader cl = GenPlugin.class.getClassLoader();
+
+      if (registeredProfiles.containsKey(name))
+      {
+         URL url = registeredProfiles.get(name);
+         String path = url.getPath();
+         int idx = path.indexOf('!');
+
+         if (idx != -1)
+         {
+            return cl.getResourceAsStream(path.substring(idx + 2));
+         }
+         else
+         {
+            try
+            {
+               return new FileInputStream(path.substring(path.indexOf(':') + 1));
+            }
+            catch (FileNotFoundException e)
+            {
+               return null;
+            }
+         }
+      }
 
       InputStream inStream;
       for (String path : DEFAULT_SEARCH_PATHS)

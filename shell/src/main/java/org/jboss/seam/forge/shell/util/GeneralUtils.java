@@ -41,7 +41,6 @@ import org.jboss.seam.forge.shell.ShellPrintWriter;
 /**
  * @author Mike Brock .
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public class GeneralUtils
 {
@@ -98,7 +97,7 @@ public class GeneralUtils
    }
 
    public static OutputAttributes calculateOutputAttributs(final List<String> rawList, final Shell shell,
-            final OutputAttributes in)
+                                                           final OutputAttributes in)
    {
       if (in == null)
       {
@@ -108,7 +107,7 @@ public class GeneralUtils
       OutputAttributes newAttr = calculateOutputAttributs(rawList, shell);
 
       return new OutputAttributes(in.columnSize > newAttr.columnSize ? in.columnSize : newAttr.columnSize,
-               in.columns < newAttr.columns ? in.columns : newAttr.columns);
+            in.columns < newAttr.columns ? in.columns : newAttr.columns);
    }
 
    public static OutputAttributes calculateOutputAttributs(final List<String> rawList, final Shell shell)
@@ -141,21 +140,21 @@ public class GeneralUtils
    }
 
    public static void printOutColumns(final List<String> rawList, final ShellPrintWriter out, final Shell shell,
-            final boolean sort)
+                                      final boolean sort)
    {
       printOutColumns(rawList, ShellColor.NONE, out, calculateOutputAttributs(rawList, shell), null, sort);
    }
 
    public static void printOutColumns(final List<String> rawList, final ShellPrintWriter out, final Shell shell,
-            final FormatCallback callback, final boolean sort)
+                                      final FormatCallback callback, final boolean sort)
    {
       printOutColumns(rawList, ShellColor.NONE, out, calculateOutputAttributs(rawList, shell), callback, sort);
    }
 
    public static void printOutColumns(final List<String> rawList, final ShellColor color,
-            final ShellPrintWriter printWriter,
+                                      final ShellPrintWriter printWriter,
                                       final OutputAttributes attributes, final FormatCallback callback,
-            final boolean sort)
+                                      final boolean sort)
    {
       if (sort)
       {
@@ -206,7 +205,7 @@ public class GeneralUtils
    }
 
    public static void printOutTables(final List<String> list, final boolean[] columns, final ShellPrintWriter shell,
-            final FormatCallback callback)
+                                     final FormatCallback callback)
    {
       int cols = columns.length;
       int[] colSizes = new int[columns.length];
@@ -282,7 +281,7 @@ public class GeneralUtils
    }
 
    public static Resource<?>[] parseSystemPathspec(final ResourceFactory resourceFactory,
-            final Resource<?> lastResource,
+                                                   final Resource<?> lastResource,
                                                    final Resource<?> currentResource, final String[] paths)
    {
       List<Resource<?>> result = new LinkedList<Resource<?>>();
@@ -304,5 +303,30 @@ public class GeneralUtils
       }
 
       return result.toArray(new Resource<?>[result.size()]);
+   }
+
+   public static String pathspecToRegEx(final String pathSpec)
+   {
+      StringBuilder sb = new StringBuilder("^");
+      char c;
+      for (int i = 0; i < pathSpec.length(); i++)
+      {
+         switch (c = pathSpec.charAt(i))
+         {
+         case '.':
+            sb.append("\\.");
+            break;
+         case '*':
+            sb.append(".*");
+            break;
+         case '?':
+            sb.append(".");
+            break;
+         default:
+            sb.append(c);
+         }
+      }
+
+      return sb.append("$").toString();
    }
 }
