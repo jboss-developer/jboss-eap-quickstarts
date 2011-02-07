@@ -23,11 +23,80 @@
          a plugin is to create a new maven Java project. This can be done by hand, or
          using Forge's build in plugin project facet.
       </para>
-      <para>
-         For purposes of simplicity, we have pasted a sample Maven POM file which can
-         be used as a starting point for a new plugin:
-         <programlisting><![CDATA[]]></programlisting>
-      </para>
+      <section>
+         <title>Using Forge</title>
+         <para>
+            In two short steps, you can have a new plugin-project up and running; this
+            can be done using Forge itself!
+            <orderedlist>
+               <listitem>
+                  Execute <literal>$ forge</literal> from a command prompt.</listitem>
+               <listitem>
+                  Create a new project:
+                  <programlisting>$ new-project --named {name} --topLevelPackage {com.package} --projectFolder {/directory/path}</programlisting>
+               </listitem>
+               <listitem>
+                  Install the Forge API facet, and press ENTER to confirm 
+                  installation of required facet dependencies:
+                  <programlisting>$ install forge.api</programlisting>
+               </listitem>
+            </orderedlist>
+            That's it! Now your project is ready to be compiled and installed in Forge,
+            but you may still want to <link linkend="plugin.dev.commands">add some 
+            commands</link>.
+         </para>
+      </section>
+      <section>
+         <title>Sample Maven POM</title>
+         <para>
+            If you do not wish to create a new plugin project using Forge itself, you
+            will need to manually include the Forge-API dependencies. For purposes of
+            simplicity, we have pasted a sample Maven POM file which can
+            be used as a starting point for a new plugin:
+            <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd" 
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example.plugin</groupId>
+  <artifactId>example</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <properties>
+    <forge.api.version>[1.0.0-SNAPSHOT,)</forge.api.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.seam.forge</groupId>
+      <artifactId>forge-shell-api</artifactId>
+      <version>${forge.api.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <repositories>
+    <repository>
+      <id>jboss</id>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>]]></programlisting>
+         </para>
+      </section>
    </section>
 
    <section id="plugin.dev.interface">
