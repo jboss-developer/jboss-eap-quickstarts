@@ -61,7 +61,7 @@ public class Annotations
          }
       }
 
-      if (result == false)
+      if (!result)
       {
          result = isAnnotationPresent(m.getDeclaringClass(), type);
       }

@@ -31,13 +31,15 @@ public class PluginRef
    private String author;
    private String description;
    private String artifact;
+   private String homeRepo;
 
-   public PluginRef(String name, String author, String description, String artifact)
+   public PluginRef(String name, String author, String description, String artifact, String homeRepo)
    {
       this.name = name;
       this.author = author;
       this.description = description;
       this.artifact = artifact;
+      this.homeRepo = homeRepo;
    }
 
    public String getName()
@@ -58,5 +60,10 @@ public class PluginRef
    public String getArtifact()
    {
       return artifact;
+   }
+
+   public String getHomeRepo()
+   {
+      return homeRepo;
    }
 }

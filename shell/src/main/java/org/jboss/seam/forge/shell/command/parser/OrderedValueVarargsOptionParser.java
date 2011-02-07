@@ -51,7 +51,7 @@ public class OrderedValueVarargsOptionParser implements CommandParser
                lastToken = tokens.remove();
                args.add(lastToken);
             }
-            ctx.put(option, args.toArray(new String[0]), lastToken);
+            ctx.put(option, args.toArray(new String[args.size()]), lastToken);
             ctx.incrementParmCount();
          }
       }

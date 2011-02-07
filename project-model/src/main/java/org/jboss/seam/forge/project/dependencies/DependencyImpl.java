@@ -189,11 +189,11 @@ public class DependencyImpl implements Dependency
       {
          return false;
       }
-      if (packagingType != other.packagingType)
+      if (!packagingType.equals(other.packagingType))
       {
          return false;
       }
-      if (scopeType != other.scopeType)
+      if (!scopeType.equals(other.scopeType))
       {
          return false;
       }

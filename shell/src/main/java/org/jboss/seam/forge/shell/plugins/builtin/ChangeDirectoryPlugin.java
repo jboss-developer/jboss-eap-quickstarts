@@ -51,7 +51,6 @@ public class ChangeDirectoryPlugin implements Plugin
 
    @DefaultCommand
    public void run(@Option(description = "The new directory", defaultValue = "~") final Resource<?>[] dirs)
-         throws IOException
    {
       Resource<?> r = null;
 

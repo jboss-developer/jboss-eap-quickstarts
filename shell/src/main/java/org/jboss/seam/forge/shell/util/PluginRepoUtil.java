@@ -67,9 +67,18 @@ public class PluginRepoUtil
       return pluginList;
    }
 
+   public static boolean downloadPlugin(PluginRef ref) throws Exception
+   {
+      DefaultHttpClient client = new DefaultHttpClient();
+      HttpGet httpGet = new HttpGet("");
+
+      return true;
+
+   }
+
    private static PluginRef bindToPuginRef(Map map)
    {
       return new PluginRef((String) map.get("name"), (String) map.get("author"),
-            (String) map.get("description"), (String) map.get("artifact"));
+            (String) map.get("description"), (String) map.get("artifact"), (String) map.get("homerepo"));
    }
 }

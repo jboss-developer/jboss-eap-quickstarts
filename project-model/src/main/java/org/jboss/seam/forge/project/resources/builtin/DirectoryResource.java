@@ -113,7 +113,7 @@ public class DirectoryResource extends FileResource<DirectoryResource>
    @SuppressWarnings("unchecked")
    public <E, T extends Resource<E>> T getChildOfType(final Class<T> type, final String name) throws ResourceException
    {
-      T result = null;
+      T result;
       Resource<?> child = getChild(name);
       if (type.isAssignableFrom(child.getClass()))
       {

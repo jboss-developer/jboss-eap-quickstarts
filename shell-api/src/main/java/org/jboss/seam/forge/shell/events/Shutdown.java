@@ -52,7 +52,7 @@ public final class Shutdown
       /**
        * A fatal error has forced the shell to shut down.
        */
-      ERROR;
+      ERROR
    }
 
    /**

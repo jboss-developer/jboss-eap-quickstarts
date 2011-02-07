@@ -99,6 +99,9 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
+   public static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
+   private static final String DEFAULT_PLUGIN_REPO = "http://seamframework.org/service/File/148617";
+
    private static final String PROP_VERBOSE = "VERBOSE";
 
    private static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
@@ -147,7 +150,7 @@ public class ShellImpl implements Shell
       public Resource[] convertFrom(final Object obl)
       {
          return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(),
-                  obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
+               obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
       }
 
       @SuppressWarnings("rawtypes")
@@ -397,25 +400,26 @@ public class ShellImpl implements Shell
    private String getDefaultConfig()
    {
       return "@/* Automatically generated config file */;\n"
-               +
-               ""
-               +
-               "echo \"   ____                          _____                    \";\n"
-               +
-               "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
-               +
-               "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
-               +
-               "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
-               "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-               "echo \"                                                |___/      \";\n\n" +
-               "" +
-               "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
-               "    echo \"  Windows? Really? Okay...\\n\"\n" +
-               "}\n" +
-               "\n" +
-               "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
-               "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n";
+            +
+            ""
+            +
+            "echo \"   ____                          _____                    \";\n"
+            +
+            "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
+            +
+            "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
+            +
+            "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+            "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+            "echo \"                                                |___/      \";\n\n" +
+            "" +
+            "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
+            "    echo \"  Windows? Really? Okay...\\n\"\n" +
+            "}\n" +
+            "\n" +
+            "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
+            "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n" +
+            "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n";
 
    }
 
@@ -427,9 +431,9 @@ public class ShellImpl implements Shell
 
    void doShell(@Observes final AcceptUserInput event)
    {
-      String line = "";
+      String line;
       reader.setPrompt(getPrompt());
-      while ((exitRequested != true))
+      while (!exitRequested)
       {
          try
          {
@@ -652,7 +656,7 @@ public class ShellImpl implements Shell
          for (int i = 0; i < args.length; i++)
          {
             buf.append("@_vararg[").append(String.valueOf(i)).append("] = ")
-                     .append("_").append(String.valueOf(i)).append(";\n");
+                  .append("_").append(String.valueOf(i)).append(";\n");
          }
       }
 
@@ -884,8 +888,7 @@ public class ShellImpl implements Shell
    public DirectoryResource getCurrentDirectory()
    {
       Resource<?> r = getCurrentResource();
-      DirectoryResource curr = ResourceUtil.getContextDirectory(r);
-      return curr;
+      return ResourceUtil.getContextDirectory(r);
    }
 
    @Override
@@ -1011,7 +1014,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-                  + pattern + "]");
+               + pattern + "]");
       }
 
       String input;
@@ -1111,7 +1114,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -1154,7 +1157,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;

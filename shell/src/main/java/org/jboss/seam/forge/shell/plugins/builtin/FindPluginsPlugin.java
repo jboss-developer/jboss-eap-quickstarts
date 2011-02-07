@@ -22,12 +22,16 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellImpl;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.PluginRef;
 import org.jboss.seam.forge.shell.util.PluginRepoUtil;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
@@ -37,15 +41,30 @@ import java.util.List;
 @Named("find-plugins")
 public class FindPluginsPlugin implements Plugin
 {
+   private final Shell shell;
+
+   @Inject
+   public FindPluginsPlugin(Shell shell)
+   {
+      this.shell = shell;
+   }
 
    @DefaultCommand
-   public void find(@Option(description = "search-string") String searchString) throws Exception
+   public void find(@Option(description = "search-string") String searchString, final PipeOut out) throws Exception
    {
-      List<PluginRef> pluginList = PluginRepoUtil.findPlugin("http://seamframework.org/service/File/148617", searchString);
+      String defaultRepo = (String) shell.getProperty(ShellImpl.PROP_DEFAULT_PLUGIN_REPO);
+
+      if (defaultRepo == null) {
+         out.print("no default repository set: (to set, type: set "
+               + ShellImpl.PROP_DEFAULT_PLUGIN_REPO + " <repository>)");
+         return;
+      }
+
+      List<PluginRef> pluginList = PluginRepoUtil.findPlugin(defaultRepo, searchString);
 
       for (PluginRef ref : pluginList)
       {
-         System.out.println(" - " + ref.getName() + " (" + ref.getArtifact() + ")");
+         out.println(" - " + ref.getName() + " (" + ref.getArtifact() + ")");
       }
    }
 }
