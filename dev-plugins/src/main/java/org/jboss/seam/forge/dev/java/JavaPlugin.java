@@ -85,16 +85,17 @@ public class JavaPlugin implements Plugin
                      description = "source package",
                      type = PromptType.JAVA_PACKAGE,
                      name = "package") final String pckg,
-            @Option(required = true,
+            @Option(required = false,
                      help = "the class definition: surround with quotes",
                      description = "class definition") final String... def) throws FileNotFoundException
    {
-      String classDef = Strings.join(Arrays.asList(def), " ");
+
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       JavaClass jc = null;
       if (def != null)
       {
+         String classDef = Strings.join(Arrays.asList(def), " ");
          jc = JavaParser.parse(JavaClass.class, classDef);
       }
       else if (in != null)
