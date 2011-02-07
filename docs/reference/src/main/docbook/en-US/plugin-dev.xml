@@ -139,7 +139,8 @@ public class ExamplePlugin implements Plugin {
          those classes in the JAR file containing your Plugin (for instance, using the
          maven <ulink url="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</ulink>),
          or you must ensure that the required dependencies are also placed on the 
-         <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder)
+         <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder,)
+         otherwise your plugin will *not* be loaded.
       </para>
    </section>
    
