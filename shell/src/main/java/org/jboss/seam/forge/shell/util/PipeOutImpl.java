@@ -30,17 +30,17 @@ import org.jboss.seam.forge.shell.plugins.PipeOut;
  */
 public class PipeOutImpl implements PipeOut
 {
-   private StringBuilder buffer = new StringBuilder();
-   private Shell shell;
+   private final StringBuilder buffer = new StringBuilder();
+   private final Shell shell;
    private boolean piped = false;
 
-   public PipeOutImpl(Shell shell)
+   public PipeOutImpl(final Shell shell)
    {
       this.shell = shell;
    }
 
    @Override
-   public void write(byte b)
+   public void write(final byte b)
    {
       if (piped)
       {
@@ -53,7 +53,7 @@ public class PipeOutImpl implements PipeOut
    }
 
    @Override
-   public void print(String s)
+   public void print(final String s)
    {
       if (piped)
       {
@@ -65,9 +65,8 @@ public class PipeOutImpl implements PipeOut
       }
    }
 
-
    @Override
-   public void println(String s)
+   public void println(final String s)
    {
       if (piped)
       {
@@ -93,19 +92,19 @@ public class PipeOutImpl implements PipeOut
    }
 
    @Override
-   public void print(ShellColor color, String s)
+   public void print(final ShellColor color, final String s)
    {
       print(renderColor(color, s));
    }
 
    @Override
-   public void println(ShellColor color, String s)
+   public void println(final ShellColor color, final String s)
    {
       println(renderColor(color, s));
    }
 
    @Override
-   public String renderColor(ShellColor color, String s)
+   public String renderColor(final ShellColor color, final String s)
    {
       return piped ? s : shell.renderColor(color, s);
    }
@@ -117,7 +116,7 @@ public class PipeOutImpl implements PipeOut
    }
 
    @Override
-   public void setPiped(boolean v)
+   public void setPiped(final boolean v)
    {
       this.piped = v;
    }

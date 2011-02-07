@@ -47,6 +47,17 @@ public class DependencyBuilder implements Dependency
       return new DependencyBuilder();
    }
 
+   public static DependencyBuilder create(final Dependency dep)
+   {
+      DependencyBuilder builder = new DependencyBuilder();
+      builder.setGroupId(dep.getGroupId());
+      builder.setArtifactId(dep.getArtifactId());
+      builder.setVersion(dep.getVersion());
+      builder.setPackagingType(dep.getPackagingType());
+      builder.setScopeType(dep.getScopeType());
+      return builder;
+   }
+
    /**
     * @param identifier of the form "groupId:artifactId:version:scope
     */
@@ -71,10 +82,11 @@ public class DependencyBuilder implements Dependency
          }
          if (split.length > 3)
          {
-            ScopeType scopeType = ScopeType.from(split[3].trim());
+            String trimmed = split[3].trim();
+            ScopeType scopeType = ScopeType.from(trimmed);
             if (ScopeType.OTHER.equals(scopeType))
             {
-               dependencyBuilder.setScopeType(split[3].trim());
+               dependencyBuilder.setScopeType(trimmed == null ? null : trimmed);
             }
             else
             {
@@ -83,10 +95,11 @@ public class DependencyBuilder implements Dependency
          }
          if (split.length > 4)
          {
-            PackagingType packaging = PackagingType.from(split[4].trim());
+            String trimmed = split[4].trim();
+            PackagingType packaging = PackagingType.from(trimmed);
             if (PackagingType.OTHER.equals(packaging))
             {
-               dependencyBuilder.setPackagingType(split[4].trim());
+               dependencyBuilder.setPackagingType(trimmed == null ? null : trimmed);
             }
             else
             {
@@ -220,6 +233,12 @@ public class DependencyBuilder implements Dependency
          gav += ":" + dep.getPackagingType();
       }
       return gav;
+   }
+
+   @Override
+   public String toString()
+   {
+      return DependencyBuilder.toString(dep);
    }
 
    @Override

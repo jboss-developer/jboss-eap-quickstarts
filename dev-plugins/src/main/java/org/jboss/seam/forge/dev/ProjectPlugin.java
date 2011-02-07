@@ -115,9 +115,9 @@ public class ProjectPlugin implements Plugin
    public void searchDep(
             @Option(required = true,
                      help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"",
-                     description = "[ groupId :artifactId {:version :scope :packaging} ]",
+                     description = "[ groupId:artifactId {:version:scope:packaging} ]",
                      type = PromptType.DEPENDENCY_ID
-                     ) final Dependency gav,
+                     ) Dependency gav,
             @Option(required = false,
                      flagOnly = true,
                      help = "Perform a search only within the locally configured repository",
@@ -127,6 +127,10 @@ public class ProjectPlugin implements Plugin
             )
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      if ((gav.getVersion() == null) || gav.getVersion().trim().isEmpty())
+      {
+         gav = DependencyBuilder.create(gav).setVersion("[0,)");
+      }
       List<Dependency> versions = deps.resolveAvailableVersions(gav);
 
       for (Dependency dep : versions)
@@ -136,7 +140,7 @@ public class ProjectPlugin implements Plugin
 
       if (versions.isEmpty())
       {
-         out.print("No artifacts found for that query...");
+         out.println("No artifacts found for that query...");
       }
    }
 

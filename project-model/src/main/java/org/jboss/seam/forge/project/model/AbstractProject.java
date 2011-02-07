@@ -165,21 +165,30 @@ public abstract class AbstractProject implements Project
       facet.setProject(this);
       if (!facet.isInstalled() && !hasFacet(facet.getClass()))
       {
-         if (facet.install())
-         {
-            facets.add(facet);
-         }
-         else
-         {
-            throw new ProjectModelException("Could not complete installation of " +
-                     "facet: [" + ConstraintInspector.getName(facet.getClass()) + "]. " +
-                           "Installation was aborted by the Facet during installation.");
-         }
+         performInstallation(facet);
       }
       else if (!hasFacet(facet.getClass()))
       {
          registerFacet(facet);
       }
+      else if (!facet.isInstalled())
+      {
+         performInstallation(facet);
+      }
       return this;
+   }
+
+   private void performInstallation(final Facet facet)
+   {
+      if (facet.install())
+      {
+         facets.add(facet);
+      }
+      else
+      {
+         throw new ProjectModelException("Could not complete installation of " +
+                  "facet: [" + ConstraintInspector.getName(facet.getClass()) + "]. " +
+                        "Installation was aborted by the Facet during installation.");
+      }
    }
 }

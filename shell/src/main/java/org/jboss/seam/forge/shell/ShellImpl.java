@@ -1156,6 +1156,10 @@ public class ShellImpl implements Shell
          throw new IllegalArgumentException(
                   "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
+      if (options.size() == 1)
+      {
+         return options.get(0);
+      }
 
       int count = 1;
       println(message);
@@ -1172,7 +1176,7 @@ public class ShellImpl implements Shell
          }
          println();
          int input = prompt("Choose an option by typing the number of the selection: ", Integer.class) - 1;
-         if (input < options.size())
+         if ((input >= 0) && (input < options.size()))
          {
             result = options.get(input);
          }

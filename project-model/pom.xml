@@ -14,7 +14,7 @@
    <name>Seam Forge - Project Model APIs</name>
 
    <properties>
-      <maven.version>3.0</maven.version>
+      <maven.version>3.0.2</maven.version>
       <aether.version>1.7</aether.version>
       <wagonVersion>1.0-beta-7</wagonVersion>
    </properties>

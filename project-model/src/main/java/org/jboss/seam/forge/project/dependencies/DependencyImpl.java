@@ -83,7 +83,7 @@ public class DependencyImpl implements Dependency
 
    public void setScopeType(final ScopeType scope)
    {
-      this.scopeType = scope == null ? null : scope.getScope();
+      this.scopeType = (scope == null ? null : scope.getScope());
    }
 
    public void setScopeType(final String type)
@@ -124,7 +124,7 @@ public class DependencyImpl implements Dependency
 
    public void setPackagingType(final PackagingType packagingType)
    {
-      this.packagingType = packagingType == null ? null : packagingType.getType();
+      this.packagingType = (packagingType == null ? null : packagingType.getType());
    }
 
    public void setPackagingType(final String type)
@@ -144,6 +144,7 @@ public class DependencyImpl implements Dependency
       final int prime = 31;
       int result = 1;
       result = prime * result + ((artifactId == null) ? 0 : artifactId.hashCode());
+      result = prime * result + ((excludedDependencies == null) ? 0 : excludedDependencies.hashCode());
       result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
       result = prime * result + ((packagingType == null) ? 0 : packagingType.hashCode());
       result = prime * result + ((scopeType == null) ? 0 : scopeType.hashCode());
@@ -155,59 +156,54 @@ public class DependencyImpl implements Dependency
    public boolean equals(final Object obj)
    {
       if (this == obj)
-      {
          return true;
-      }
       if (obj == null)
-      {
          return false;
-      }
       if (getClass() != obj.getClass())
-      {
          return false;
-      }
       DependencyImpl other = (DependencyImpl) obj;
       if (artifactId == null)
       {
          if (other.artifactId != null)
-         {
             return false;
-         }
       }
       else if (!artifactId.equals(other.artifactId))
-      {
          return false;
+      if (excludedDependencies == null)
+      {
+         if (other.excludedDependencies != null)
+            return false;
       }
+      else if (!excludedDependencies.equals(other.excludedDependencies))
+         return false;
       if (groupId == null)
       {
          if (other.groupId != null)
-         {
             return false;
-         }
       }
       else if (!groupId.equals(other.groupId))
-      {
          return false;
-      }
-      if (packagingType != other.packagingType)
+      if (packagingType == null)
       {
-         return false;
+         if (other.packagingType != null)
+            return false;
       }
-      if (scopeType != other.scopeType)
+      else if (!packagingType.equals(other.packagingType))
+         return false;
+      if (scopeType == null)
       {
-         return false;
+         if (other.scopeType != null)
+            return false;
       }
+      else if (!scopeType.equals(other.scopeType))
+         return false;
       if (version == null)
       {
          if (other.version != null)
-         {
             return false;
-         }
       }
       else if (!version.equals(other.version))
-      {
          return false;
-      }
       return true;
    }
 
