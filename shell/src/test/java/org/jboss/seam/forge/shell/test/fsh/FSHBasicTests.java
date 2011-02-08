@@ -31,7 +31,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
-import java.util.regex.Pattern;
 
 /**
  * @author Mike Brock .
@@ -144,8 +143,18 @@ public class FSHBasicTests extends AbstractShellTest
       System.out.println(s);
    }
 
-   public static void main(String[] args)
-   {
-      System.out.println(Pattern.compile("a(102|103)z").matcher("a103z").matches());
+   @Test
+   public void testLargeNest() {
+      runtime.run("@NO_MOTD = false;\n\n" +
+            "if ($NO_MOTD) {    \n" +
+            "   echo \"   ____                          _____                    \";\n" +
+            "   echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n" +
+            "   echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n" +
+            "   echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+            "   echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+            "   echo \"                                                |___/      \";\n" +
+            "}");
+
    }
+
 }

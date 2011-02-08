@@ -23,47 +23,52 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.ShellImpl;
+import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.PluginRef;
-import org.jboss.seam.forge.shell.util.PluginRepoUtil;
+import org.jboss.seam.forge.shell.util.PluginUtil;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
+import java.io.File;
 import java.util.List;
 
 /**
  * @author Mike Brock .
  */
 @Named("install-plugin")
+@Singleton
 public class InstallPluginPlugin implements Plugin
 {
    private Shell shell;
+   private Event<ReinitializeEnvironment> reinitializeEvent;
 
    @Inject
-   public InstallPluginPlugin(Shell shell)
+   public InstallPluginPlugin(Shell shell, Event<ReinitializeEnvironment> reinitializeEvent)
    {
       this.shell = shell;
+      this.reinitializeEvent = reinitializeEvent;
    }
 
    @DefaultCommand
    public void install(@Option(description = "plugin-name") String pluginName, final PipeOut out) throws Exception
    {
-
-      String defaultRepo = (String) shell.getProperty(ShellImpl.PROP_DEFAULT_PLUGIN_REPO);
+      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
+      String pluginPath = shell.getProperty("FORGE_CONFIG_DIR") + "plugins/";
 
       if (defaultRepo == null)
       {
-         out.println("no default repository set: (to set, type: set "
-               + ShellImpl.PROP_DEFAULT_PLUGIN_REPO + " <repository>)");
+         out.println("no default repository set: (to set, type: set DEFFAULT_PLUGIN_REPO <repository>)");
          return;
       }
 
-      List<PluginRef> plugins = PluginRepoUtil.findPlugin(defaultRepo, pluginName, out);
+      List<PluginRef> plugins = PluginUtil.findPlugin(defaultRepo, pluginName, out);
 
       if (plugins.isEmpty())
       {
@@ -77,7 +82,18 @@ public class InstallPluginPlugin implements Plugin
       {
          PluginRef ref = plugins.get(0);
          out.println(ShellColor.BOLD, "*** Preparing to install plugin: " + ref.getName());
-         PluginRepoUtil.downloadPlugin(ref, out);
+         File file = PluginUtil.downloadPlugin(ref, out, pluginPath);
+         if (file == null)
+         {
+            out.println(ShellColor.RED, "*** Could not install plugin: " + ref.getName());
+            return;
+         }
+         else {
+            PluginUtil.loadPluginJar(file);
+            out.println("*** Reinitializing and installing pluggin (Forge will now restart)");
+
+            reinitializeEvent.fire(new ReinitializeEnvironment());
+         }
       }
    }
 

@@ -22,36 +22,11 @@
 
 package org.jboss.seam.forge.shell;
 
-import static org.mvel2.DataConversion.addConversionHandler;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 import jline.console.completer.FileNameCompleter;
 import jline.console.history.MemoryHistory;
-
 import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
@@ -67,16 +42,9 @@ import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.events.AcceptUserInput;
-import org.jboss.seam.forge.shell.events.PostStartup;
-import org.jboss.seam.forge.shell.events.PreShutdown;
+import org.jboss.seam.forge.shell.events.*;
 import org.jboss.seam.forge.shell.events.Shutdown;
-import org.jboss.seam.forge.shell.events.Startup;
-import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
-import org.jboss.seam.forge.shell.exceptions.CommandParserException;
-import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
-import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
-import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
+import org.jboss.seam.forge.shell.exceptions.*;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.project.CurrentProject;
 import org.jboss.seam.forge.shell.util.Files;
@@ -86,6 +54,16 @@ import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.util.StringAppender;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import java.io.*;
+import java.util.*;
+import java.util.Map.Entry;
+
+import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -99,7 +77,7 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
-   public static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
+   private static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
    private static final String DEFAULT_PLUGIN_REPO = "http://seamframework.org/service/File/148617";
 
    private static final String PROP_VERBOSE = "VERBOSE";
@@ -200,11 +178,25 @@ public class ShellImpl implements Shell
          }
       });
 
+      projectContext.setCurrentResource(resourceFactory.getResourceFrom(event.getWorkingDirectory()));
+      properties.put("CWD", getCurrentDirectory().getFullyQualifiedName());
+
       initStreams();
       initCompleters(pluginCompleter);
       initParameters();
 
+      if (event.isRestart())
+      {
+         // suppress the MOTD if this is a restart.
+         properties.put("NO_MOTD", true);
+      }
+      else
+      {
+         properties.put("NO_MOTD", false);
+      }
+
       properties.put("OS_NAME", OSUtils.getOsName());
+      properties.put("FORGE_CONFIG_DIR", FORGE_CONFIG_DIR);
       properties.put(PROP_PROMPT, "> ");
       properties.put(PROP_PROMPT_NO_PROJ, "> ");
       loadConfig();
@@ -401,18 +393,19 @@ public class ShellImpl implements Shell
    {
       return "@/* Automatically generated config file */;\n"
             +
-            ""
+            "if (!$NO_MOTD) { "
             +
-            "echo \"   ____                          _____                    \";\n"
+            "   echo \"   ____                          _____                    \";\n"
             +
-            "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
+            "   echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
             +
-            "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
+            "   echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
             +
-            "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
-            "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-            "echo \"                                                |___/      \";\n\n" +
-            "" +
+            "   echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+            "   echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+            "   echo \"                                                |___/      \";\n\n" +
+            "}\n" +
+            "\n" +
             "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
             "    echo \"  Windows? Really? Okay...\\n\"\n" +
             "}\n" +

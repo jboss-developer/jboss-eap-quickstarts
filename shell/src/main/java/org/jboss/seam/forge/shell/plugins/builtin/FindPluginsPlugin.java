@@ -23,13 +23,12 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.ShellImpl;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.PluginRef;
-import org.jboss.seam.forge.shell.util.PluginRepoUtil;
+import org.jboss.seam.forge.shell.util.PluginUtil;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -52,15 +51,15 @@ public class FindPluginsPlugin implements Plugin
    @DefaultCommand
    public void find(@Option(description = "search-string") String searchString, final PipeOut out) throws Exception
    {
-      String defaultRepo = (String) shell.getProperty(ShellImpl.PROP_DEFAULT_PLUGIN_REPO);
+      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
 
-      if (defaultRepo == null) {
-         out.println("no default repository set: (to set, type: set "
-               + ShellImpl.PROP_DEFAULT_PLUGIN_REPO + " <repository>)");
+      if (defaultRepo == null)
+      {
+         out.println("no default repository set: (to set, type: set DEFFAULT_PLUGIN_REPO <repository>)");
          return;
       }
 
-      List<PluginRef> pluginList = PluginRepoUtil.findPlugin(defaultRepo, searchString, out);
+      List<PluginRef> pluginList = PluginUtil.findPlugin(defaultRepo, searchString, out);
 
       for (PluginRef ref : pluginList)
       {

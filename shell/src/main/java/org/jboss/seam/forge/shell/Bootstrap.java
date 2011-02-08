@@ -22,20 +22,22 @@
 
 package org.jboss.seam.forge.shell;
 
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.jboss.seam.forge.shell.events.AcceptUserInput;
+import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
+import org.jboss.seam.forge.shell.events.Shutdown;
+import org.jboss.seam.forge.shell.events.Startup;
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
+import org.jboss.weld.environment.se.events.ContainerInitialized;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.jboss.seam.forge.shell.events.AcceptUserInput;
-import org.jboss.seam.forge.shell.events.Startup;
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
-import org.jboss.weld.environment.se.events.ContainerInitialized;
+import java.io.File;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -48,18 +50,32 @@ public class Bootstrap
 
    public static void main(final String[] args)
    {
+      init(new File("").getAbsoluteFile(), false);
+   }
+
+
+   private static void init(File workingDir, boolean restartEvent)
+   {
       initLogging();
       Weld weld = new Weld();
       WeldContainer container = weld.initialize();
       BeanManager manager = container.getBeanManager();
-      manager.fireEvent(new Startup());
+      manager.fireEvent(new Startup(workingDir, restartEvent));
       manager.fireEvent(new AcceptUserInput());
       weld.shutdown();
    }
 
+
+   public void observeReinitialize(@Observes ReinitializeEnvironment event, Shell shell)
+   {
+      manager.fireEvent(new Shutdown());
+      init(shell.getCurrentDirectory().getUnderlyingResourceObject(), true);
+   }
+
+
    private static void initLogging()
    {
-      String[] loggerNames = new String[] { "", "main", Logger.GLOBAL_LOGGER_NAME };
+      String[] loggerNames = new String[]{"", "main", Logger.GLOBAL_LOGGER_NAME};
       for (String loggerName : loggerNames)
       {
          Logger globalLogger = Logger.getLogger(loggerName);

@@ -37,6 +37,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +48,7 @@ import java.util.regex.Pattern;
 /**
  * @author Mike Brock .
  */
-public class PluginRepoUtil
+public class PluginUtil
 {
    public static List<PluginRef> findPlugin(String repoUrl, String searchString, PipeOut out) throws Exception
    {
@@ -96,7 +98,7 @@ public class PluginRepoUtil
       return pluginList;
    }
 
-   public static boolean downloadPlugin(PluginRef ref, PipeOut out) throws Exception
+   public static File downloadPlugin(PluginRef ref, PipeOut out, String targetPath) throws Exception
    {
       DefaultHttpClient client = new DefaultHttpClient();
 
@@ -147,7 +149,7 @@ public class PluginRepoUtil
             if (n == null)
             {
                out.println("failed: could not determine where to find jar file.");
-               return false;
+               return null;
             }
 
             String version = n.getFirstChild().getTextContent();
@@ -164,26 +166,25 @@ public class PluginRepoUtil
 
             try
             {
-               saveFile(fileName, response.getEntity().getContent());
+               File file = saveFile(targetPath + "/" + fileName, response.getEntity().getContent());
+               out.println("done.");
+               return file;
             }
             catch (IOException e)
             {
                out.println("failed to download: " + e.getMessage());
-               return false;
+               return null;
             }
 
-            out.println("done.");
+
 
             // do download of snapshot.
          }
          else
          {
             out.println("error! (maven snapshot not found)");
-            return false;
+            return null;
          }
-
-
-         break;
 
       case 404:
          String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
@@ -193,20 +194,22 @@ public class PluginRepoUtil
          if (response.getStatusLine().getStatusCode() != 200)
          {
             printError(response.getStatusLine().getStatusCode(), requestUrl, out);
-            return false;
+            return null;
          }
          else
          {
+
+            // download regular POM here.
 
          }
          break;
       default:
          out.println("failed! (server returned status code: " + response.getStatusLine().getStatusCode());
-         return false;
+         return null;
       }
 
 
-      return true;
+      return null;
 
    }
 
@@ -222,9 +225,11 @@ public class PluginRepoUtil
       }
    }
 
-   private static void saveFile(String fileName, InputStream stream) throws IOException
+   private static File saveFile(String fileName, InputStream stream) throws IOException
    {
       File file = new File(fileName);
+      new File(fileName.substring(0, fileName.lastIndexOf('/'))).mkdirs();
+
       file.createNewFile();
 
       OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
@@ -238,8 +243,23 @@ public class PluginRepoUtil
 
       outputStream.flush();
       outputStream.close();
+
+      return file;
    }
 
+
+   public static void loadPluginJar(File file) throws Exception
+   {
+      ClassLoader cl = Thread.currentThread().getContextClassLoader();
+      if (cl == null)
+      {
+         cl = PluginUtil.class.getClassLoader();
+      }
+
+      URLClassLoader classLoader = new URLClassLoader(new URL[] { file.toURI().toURL() }, cl);
+
+      Thread.currentThread().setContextClassLoader(classLoader);
+   }
 
    private static PluginRef bindToPuginRef(Map map)
    {

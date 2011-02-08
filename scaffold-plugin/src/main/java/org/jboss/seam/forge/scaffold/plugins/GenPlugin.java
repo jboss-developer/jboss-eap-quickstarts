@@ -57,16 +57,18 @@ public class GenPlugin implements Plugin
          = {"org/jboss/seam/forge/scaffold/templates/fpak/", "~/.forge/plugins/scaffold/templates/fpak/"};
 
    private final Shell shell;
+   private final Map<String, URL> registeredProfiles;
 
    @Inject
    public GenPlugin(Shell shell)
    {
       this.shell = shell;
+      this.registeredProfiles = new HashMap<String, URL>();
    }
 
    public void registerProfile(@Observes AdvertiseGenProfile agp)
    {
-      System.out.println("Got advertisement.");
+      shell.println("loaded gen profile: " + agp.getName());
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
