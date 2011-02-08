@@ -68,7 +68,7 @@ public class GenPlugin implements Plugin
 
    public void registerProfile(@Observes AdvertiseGenProfile agp)
    {
-      shell.println("loaded gen profile: " + agp.getName());
+      shell.println("loaded gen profile: " + agp.getName() + " (" + agp.getUrl() + ")");
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
@@ -102,7 +102,7 @@ public class GenPlugin implements Plugin
 
    private InputStream findProfile(String name)
    {
-      ClassLoader cl = GenPlugin.class.getClassLoader();
+      ClassLoader cl = Thread.currentThread().getContextClassLoader();
 
       if (registeredProfiles.containsKey(name))
       {
