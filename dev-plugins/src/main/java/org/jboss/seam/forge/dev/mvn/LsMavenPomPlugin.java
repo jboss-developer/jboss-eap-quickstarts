@@ -64,7 +64,7 @@ public class LsMavenPomPlugin implements Plugin
             @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "totalLines", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
-                   final PipeOut out) throws FileNotFoundException
+                   final PipeOut out)
    {
 
       // TODO this should not use the shell - rather the paths parameter

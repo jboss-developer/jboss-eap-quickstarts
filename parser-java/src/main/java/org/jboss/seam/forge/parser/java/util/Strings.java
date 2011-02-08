@@ -50,7 +50,7 @@ public class Strings
       String result = null;
       if (value != null)
       {
-         result = value.toString().replaceAll("\"(.*)\"", "$1");
+         result = value.replaceAll("\"(.*)\"", "$1");
       }
       return result;
    }

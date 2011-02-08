@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
+import org.jboss.seam.forge.project.PackagingType;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.
@@ -153,58 +153,28 @@ public class DependencyImpl implements Dependency
    }
 
    @Override
-   public boolean equals(final Object obj)
+   public boolean equals(Object o)
    {
-      if (this == obj)
+      if (this == o)
+      {
          return true;
-      if (obj == null)
-         return false;
-      if (getClass() != obj.getClass())
-         return false;
-      DependencyImpl other = (DependencyImpl) obj;
-      if (artifactId == null)
-      {
-         if (other.artifactId != null)
-            return false;
       }
-      else if (!artifactId.equals(other.artifactId))
-         return false;
-      if (excludedDependencies == null)
+      if (!(o instanceof DependencyImpl))
       {
-         if (other.excludedDependencies != null)
-            return false;
-      }
-      else if (!excludedDependencies.equals(other.excludedDependencies))
          return false;
-      if (groupId == null)
-      {
-         if (other.groupId != null)
-            return false;
       }
-      else if (!groupId.equals(other.groupId))
-         return false;
-      if (packagingType == null)
-      {
-         if (other.packagingType != null)
-            return false;
-      }
-      else if (!packagingType.equals(other.packagingType))
-         return false;
-      if (scopeType == null)
-      {
-         if (other.scopeType != null)
-            return false;
-      }
-      else if (!scopeType.equals(other.scopeType))
-         return false;
-      if (version == null)
-      {
-         if (other.version != null)
-            return false;
-      }
-      else if (!version.equals(other.version))
-         return false;
-      return true;
+
+      DependencyImpl that = (DependencyImpl) o;
+
+      return !(artifactId != null ? !artifactId.equals(that.artifactId) : that.artifactId != null) &&
+            !(excludedDependencies != null ? !excludedDependencies.equals(that.excludedDependencies) : that.excludedDependencies != null) &&
+            !(groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) &&
+            !(packagingType != null ? !packagingType.equals(that.packagingType) : that.packagingType != null) &&
+            !(scopeType != null ? !scopeType.equals(that.scopeType) : that.scopeType != null) &&
+            !(version != null ? !version.equals(that.version) : that.version != null);
+
    }
+
+
 
 }

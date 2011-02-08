@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import org.mvel2.util.ParseTools;
+import org.mvel2.util.StringAppender;
+
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isReservedWord;
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isTokenPart;
 import static org.mvel2.util.ParseTools.balancedCapture;
 import static org.mvel2.util.ParseTools.isWhitespace;
-
-import org.mvel2.util.ParseTools;
-import org.mvel2.util.StringAppender;
 
 /**
  * @author Mike Brock .
@@ -89,7 +89,7 @@ public class FSHParser
          String scriptTk = new String(expr, start, cursor - start);
          return new ScriptNode(new TokenNode(scriptTk), true);
 
-         // literals
+      // literals
       case '\'':
       case '"':
          cursor = balancedCapture(expr, cursor, expr[cursor]);
@@ -107,7 +107,8 @@ public class FSHParser
             boolean block = "for".equals(tk) || "if".equals(tk) || "while".equals(tk) || "def".equals(tk);
 
             start = cursor;
-            SkipLoop: while (cursor <= length)
+            SkipLoop:
+            while (cursor <= length)
             {
                switch (expr[cursor])
                {
@@ -201,8 +202,8 @@ public class FSHParser
          skipWhitespace();
 
          if ((expr[cursor] == 'e') && (expr[cursor + 1] == 'l') && (expr[cursor + 2] == 's')
-                  && (expr[cursor + 3] == 'e')
-                  && (isWhitespace(expr[cursor + 4]) || (expr[cursor + 4] == '{')))
+               && (expr[cursor + 3] == 'e')
+               && (isWhitespace(expr[cursor + 4]) || (expr[cursor + 4] == '{')))
          {
 
             cursor += 4;
@@ -286,8 +287,6 @@ public class FSHParser
       boolean openShellCall = false;
       boolean scriptOnly = false;
 
-      // int firstToken = subStmt.indexOf(' ');
-
       Nest nest = new Nest();
 
       for (int i = 0; i < subStmt.length(); i++)
@@ -324,52 +323,86 @@ public class FSHParser
 
          switch (subStmt.charAt(i))
          {
+         case '\\':
+            buf.append("\\");
+            if (nest.isLiteral())
+            {
+               buf.append("\\");
+            }
+            buf.append(subStmt.charAt(++i));
+            if (subStmt.charAt(i) == '\\')
+            {
+               buf.append("\\");
+            }
+
+            break;
+
          case '\'':
             nest.nestSingleQuote();
             buf.append(subStmt.charAt(i));
             break;
 
          case '"':
+            nest.nestDoubleQuote();
             if (openShellCall)
             {
                buf.append("\\\"");
             }
             else
             {
-               nest.nestDoubleQuote();
                buf.append(subStmt.charAt(i));
             }
             break;
 
          case '(':
-            nest.bracket++;
+            if (!nest.isLiteral())
+            {
+               nest.bracket++;
+            }
             buf.append(subStmt.charAt(i));
             break;
 
          case '{':
             buf.append(subStmt.charAt(i));
-            int start = ++i;
-            buf.append(shellToMVEL(subStmt.substring(start,
+
+            if (!nest.isLiteral())
+            {
+               int start = ++i;
+               buf.append(shellToMVEL(subStmt.substring(start,
                      i = balancedCapture(subStmt.toCharArray(), i, '{')), false)).append('}');
+            }
+
             break;
 
          case '[':
-            nest.square++;
+            if (!nest.isLiteral())
+            {
+               nest.square++;
+            }
             buf.append(subStmt.charAt(i));
             break;
 
          case ')':
-            nest.bracket--;
+            if (!nest.isLiteral())
+            {
+               nest.bracket--;
+            }
             buf.append(subStmt.charAt(i));
             break;
 
          case '}':
-            nest.curly--;
+            if (!nest.isLiteral())
+            {
+               nest.curly--;
+            }
             buf.append(subStmt.charAt(i));
             break;
 
          case ']':
-            nest.square--;
+            if (!nest.isLiteral())
+            {
+               nest.square--;
+            }
             buf.append(subStmt.charAt(i));
             break;
 
@@ -394,7 +427,7 @@ public class FSHParser
             {
                buf.append("\"+");
 
-               start = ++i;
+               int start = ++i;
                i = captureToken(i, subStmt.length(), subStmt.toCharArray());
                buf.append(subStmt.substring(start, i));
 
@@ -495,7 +528,8 @@ public class FSHParser
       }
       else
       {
-         Skip: while (cursor != length)
+         Skip:
+         while (cursor != length)
          {
             switch (expr[cursor])
             {

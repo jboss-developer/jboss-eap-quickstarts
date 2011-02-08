@@ -75,7 +75,7 @@ public class ParameterImpl<O> implements Parameter<O>
    @Override
    public String getType()
    {
-      Object type = "";
+      Object type;
 
       try
       {

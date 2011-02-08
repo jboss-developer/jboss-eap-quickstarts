@@ -21,19 +21,47 @@
  */
 package org.jboss.seam.forge.shell.events;
 
+import java.io.File;
+
 /**
  * Fired as a signal to the shell to bootstrap and accept user input. Should be fired only once per application runtime
  * unless followed by a subsequent {@link Shutdown} event.
- * <p>
+ * <p/>
  * <strong>For example:</strong>
- * <p>
+ * <p/>
  * <code>@Inject Event&lt;Startup&gt startup; <br/>...<br/>
  * startup.fire(new Startup());
  * </code>
- * 
+ *
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public final class Startup
 {
+   private File workingDirectory = new File("").getAbsoluteFile();
+   private boolean restart;
 
+   public Startup()
+   {
+   }
+
+   public Startup(File workingDirectory)
+   {
+      this.workingDirectory = workingDirectory;
+   }
+
+   public Startup(File workingDirectory, boolean restart)
+   {
+      this.workingDirectory = workingDirectory;
+      this.restart = restart;
+   }
+
+   public File getWorkingDirectory()
+   {
+      return workingDirectory;
+   }
+
+   public boolean isRestart()
+   {
+      return restart;
+   }
 }

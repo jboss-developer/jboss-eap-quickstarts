@@ -139,7 +139,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    public <T extends JavaSource<?>> Import<O> addImport(T type)
    {
       return this.addImport(type.getQualifiedName());
-   };
+   }
 
    @Override
    public Import<O> addImport(Import<?> imprt)
@@ -151,7 +151,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    @SuppressWarnings("unchecked")
    public Import<O> addImport(final String className)
    {
-      Import<O> imprt = null;
+      Import<O> imprt;
       if (!hasImport(className))
       {
          imprt = new ImportImpl(this).setName(className);
@@ -525,23 +525,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    @Override
    public boolean equals(final Object obj)
    {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (obj == null)
-      {
-         return false;
-      }
-      if (getClass() != obj.getClass())
-      {
-         return false;
-      }
-      if (!this.toString().equals(obj.toString()))
-      {
-         return false;
-      }
-      return true;
+      return this == obj || obj != null && getClass() == obj.getClass() && this.toString().equals(obj.toString());
    }
 
    @Override

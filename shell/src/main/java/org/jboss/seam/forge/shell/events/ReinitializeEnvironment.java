@@ -20,50 +20,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.util;
+package org.jboss.seam.forge.shell.events;
 
 /**
+ * Causes Forge to re-start Weld and re-initialize plugins.
+ * 
  * @author Mike Brock .
  */
-public class PluginRef
+public class ReinitializeEnvironment
 {
-   private String name;
-   private String author;
-   private String description;
-   private String artifact;
-   private String homeRepo;
-
-   public PluginRef(String name, String author, String description, String artifact, String homeRepo)
-   {
-      this.name = name;
-      this.author = author;
-      this.description = description;
-      this.artifact = artifact;
-      this.homeRepo = homeRepo;
-   }
-
-   public String getName()
-   {
-      return name;
-   }
-
-   public String getAuthor()
-   {
-      return author;
-   }
-
-   public String getDescription()
-   {
-      return description;
-   }
-
-   public String getArtifact()
-   {
-      return artifact;
-   }
-
-   public String getHomeRepo()
-   {
-      return homeRepo;
-   }
 }

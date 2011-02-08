@@ -99,11 +99,14 @@ public class ShellImpl implements Shell
    private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
    private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
 
+   private static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
+   private static final String DEFAULT_PLUGIN_REPO = "http://seamframework.org/service/File/148617";
+
    private static final String PROP_VERBOSE = "VERBOSE";
 
-   private static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
-   private static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
-   private static final String FORGE_CONFIG_FILE = "config";
+   public static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
+   public static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
+   public static final String FORGE_CONFIG_FILE = "config";
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
 
@@ -197,11 +200,25 @@ public class ShellImpl implements Shell
          }
       });
 
+      projectContext.setCurrentResource(resourceFactory.getResourceFrom(event.getWorkingDirectory()));
+      properties.put("CWD", getCurrentDirectory().getFullyQualifiedName());
+
       initStreams();
       initCompleters(pluginCompleter);
       initParameters();
 
+      if (event.isRestart())
+      {
+         // suppress the MOTD if this is a restart.
+         properties.put("NO_MOTD", true);
+      }
+      else
+      {
+         properties.put("NO_MOTD", false);
+      }
+
       properties.put("OS_NAME", OSUtils.getOsName());
+      properties.put("FORGE_CONFIG_DIR", FORGE_CONFIG_DIR);
       properties.put(PROP_PROMPT, "> ");
       properties.put(PROP_PROMPT_NO_PROJ, "> ");
       loadConfig();
@@ -398,24 +415,26 @@ public class ShellImpl implements Shell
    {
       return "@/* Automatically generated config file */;\n"
                +
-               ""
+               "if (!$NO_MOTD) { "
                +
-               "echo \"   ____                          _____                    \";\n"
+               "   echo \"   ____                          _____                    \";\n"
                +
-               "echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
+               "   echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
                +
-               "echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
+               "   echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
                +
-               "echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
-               "echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-               "echo \"                                                |___/      \";\n\n" +
-               "" +
+               "   echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+               "   echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+               "   echo \"                                                |___/      \";\n\n" +
+               "}\n" +
+               "\n" +
                "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
                "    echo \"  Windows? Really? Okay...\\n\"\n" +
                "}\n" +
                "\n" +
                "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
-               "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n";
+               "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n" +
+               "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n";
 
    }
 
@@ -427,9 +446,9 @@ public class ShellImpl implements Shell
 
    void doShell(@Observes final AcceptUserInput event)
    {
-      String line = "";
+      String line;
       reader.setPrompt(getPrompt());
-      while ((exitRequested != true))
+      while (!exitRequested)
       {
          try
          {
@@ -495,11 +514,11 @@ public class ShellImpl implements Shell
       {
          if (!isVerbose())
          {
-            println("Exception encountered: " + e.getMessage() + " (type \"verbose on\" to enable stack traces)");
+            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
          }
          else
          {
-            println("Exception encountered: (type \"verbose false\" to disable stack traces)");
+            println("Exception encountered: (type \"set VERBOSE false\" to disable stack traces)");
             e.printStackTrace();
          }
       }
@@ -884,8 +903,7 @@ public class ShellImpl implements Shell
    public DirectoryResource getCurrentDirectory()
    {
       Resource<?> r = getCurrentResource();
-      DirectoryResource curr = ResourceUtil.getContextDirectory(r);
-      return curr;
+      return ResourceUtil.getContextDirectory(r);
    }
 
    @Override

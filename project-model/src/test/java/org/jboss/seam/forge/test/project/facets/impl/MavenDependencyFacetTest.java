@@ -22,17 +22,6 @@
 
 package org.jboss.seam.forge.test.project.facets.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
@@ -46,6 +35,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -124,8 +121,7 @@ public class MavenDependencyFacetTest extends ProjectModelTest
       assertEquals(version, deps.getProperty("version"));
    }
 
-   @Test
-   @Ignore
+   @Test @Ignore
    public void testResolveVersions() throws Exception
    {
       // FIXME this is not reaching out to external repos

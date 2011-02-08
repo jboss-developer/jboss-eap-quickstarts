@@ -21,12 +21,6 @@
  */
 package org.jboss.seam.forge.test.project.resources.builtin.aether;
 
-import static org.junit.Assert.assertFalse;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
@@ -39,6 +33,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -59,8 +58,7 @@ public class RepositoryLookupTest
    @Inject
    private RepositoryLookup repo;
 
-   @Test
-   @Ignore
+   @Test @Ignore
    public void testLookup()
    {
       // FIXME this is not reaching out to external repos

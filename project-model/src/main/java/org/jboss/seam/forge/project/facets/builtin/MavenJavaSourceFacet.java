@@ -194,7 +194,6 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    }
 
    private JavaResource getJavaResource(final DirectoryResource sourceDir, final String relativePath)
-            throws FileNotFoundException
    {
       String path = relativePath.trim().endsWith(".java")
                ? relativePath.substring(0, relativePath.lastIndexOf(".java")) : relativePath;

@@ -31,12 +31,8 @@ public class Types
    public static boolean areEquivalent(final String longType, final String type)
    {
       String shortType = longType.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
-      if (shortType.equals(type) ||
-               longType.equals(type))
-      {
-         return true;
-      }
-      return false;
+      return shortType.equals(type) ||
+            longType.equals(type);
    }
 
    public static String toSimpleName(final String fieldType)

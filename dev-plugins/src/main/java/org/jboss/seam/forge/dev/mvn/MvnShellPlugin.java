@@ -99,7 +99,7 @@ public class MvnShellPlugin implements Plugin
             @Option(name = "parentProjectRoot",
                      help = "absolute location of a project to use as this project's direct parent",
                      required = false) final Resource<?> path,
-            final PipeOut out) throws Exception
+            final PipeOut out)
    {
       MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
       Parent parent = null;

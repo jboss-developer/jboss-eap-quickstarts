@@ -45,7 +45,7 @@ public class ObserverCaptureExtension implements Extension
    public void scan(@Observes final ProcessAnnotatedType<Object> event)
    {
       AnnotatedType<Object> originalType = event.getAnnotatedType();
-      AnnotatedType<Object> newType = originalType;
+      AnnotatedType<Object> newType;
       List<AnnotatedMethod> obsoleteMethods = new ArrayList<AnnotatedMethod>();
       List<AnnotatedMethod> replacementMethods = new ArrayList<AnnotatedMethod>();
 

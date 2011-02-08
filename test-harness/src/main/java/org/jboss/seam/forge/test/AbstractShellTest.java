@@ -107,7 +107,7 @@ public abstract class AbstractShellTest
 
       shell.setVerbose(true);
       shell.setCurrentResource(factory.getResourceFrom(tempFolder));
-      beanManager.fireEvent(new Startup(), new Annotation[] {});
+      beanManager.fireEvent(new Startup());
 
       resetInputQueue();
       shell.setOutputWriter(new PrintWriter(System.out));

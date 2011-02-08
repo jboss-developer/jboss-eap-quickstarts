@@ -259,29 +259,13 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    @Override
    public boolean equals(final Object obj)
    {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (obj == null)
-      {
-         return false;
-      }
-      if (getClass() != obj.getClass())
-      {
-         return false;
-      }
-      if (!this.toString().equals(obj.toString()))
-      {
-         return false;
-      }
-      return true;
+      return this == obj || obj != null && getClass() == obj.getClass() && this.toString().equals(obj.toString());
    }
 
    @Override
    public String getSuperType()
    {
-      Object superType = ((TypeDeclaration) getBodyDeclaration()).getStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY);
+      Object superType = getBodyDeclaration().getStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY);
       return superType.toString();
    }
 
@@ -305,7 +289,7 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
          addImport(type);
       }
       SimpleType simpleType = unit.getAST().newSimpleType(unit.getAST().newSimpleName(Types.toSimpleName(type)));
-      ((TypeDeclaration) getBodyDeclaration()).setStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY, simpleType);
+       getBodyDeclaration().setStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY, simpleType);
       return this;
    }
 }
