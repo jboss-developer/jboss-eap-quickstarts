@@ -82,9 +82,9 @@ public class ShellImpl implements Shell
 
    private static final String PROP_VERBOSE = "VERBOSE";
 
-   private static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
-   private static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
-   private static final String FORGE_CONFIG_FILE = "config";
+   public static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
+   public static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
+   public static final String FORGE_CONFIG_FILE = "config";
 
    private final Map<String, Object> properties = new HashMap<String, Object>();
 

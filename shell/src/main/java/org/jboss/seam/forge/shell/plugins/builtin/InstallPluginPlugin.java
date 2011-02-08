@@ -90,7 +90,7 @@ public class InstallPluginPlugin implements Plugin
          }
          else {
             PluginUtil.loadPluginJar(file);
-            out.println("*** Reinitializing and installing pluggin (Forge will now restart)");
+            out.println("*** Reinitializing and installing plugin.");
 
             reinitializeEvent.fire(new ReinitializeEnvironment());
          }

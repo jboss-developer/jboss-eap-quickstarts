@@ -35,6 +35,9 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
+import java.io.FilenameFilter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +53,7 @@ public class Bootstrap
 
    public static void main(final String[] args)
    {
+      loadPlugins();
       init(new File("").getAbsoluteFile(), false);
    }
 
@@ -85,6 +89,39 @@ public class Bootstrap
             handler.setLevel(Level.SEVERE);
             globalLogger.removeHandler(handler);
          }
+      }
+   }
+
+   private static void loadPlugins()
+   {
+      try
+      {
+         File pluginsDir = new File(ShellImpl.FORGE_CONFIG_DIR + "/plugins/");
+         if (pluginsDir.exists())
+         {
+            File[] files = pluginsDir.listFiles(new FilenameFilter()
+            {
+               @Override
+               public boolean accept(File dir, String name)
+               {
+                  return name.endsWith(".jar");
+               }
+            });
+
+            URL[] jars = new URL[files.length];
+
+            for (int i = 0; i < files.length; i++)
+            {
+               jars[i] = files[i].toURI().toURL();
+            }
+
+            URLClassLoader classLoader = new URLClassLoader(jars, Bootstrap.class.getClassLoader());
+            Thread.currentThread().setContextClassLoader(classLoader);
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
       }
    }
 
