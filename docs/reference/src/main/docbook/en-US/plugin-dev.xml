@@ -36,8 +36,8 @@
                   <programlisting>$ new-project --named {name} --topLevelPackage {com.package} --projectFolder {/directory/path}</programlisting>
                </listitem>
                <listitem>
-                  Install the Forge API facet, and press ENTER to confirm 
-                  installation of required facet dependencies:
+                  Install the Forge API facet, select the API version you wish to use, and 
+                  press ENTER to confirm installation of required facet dependencies:
                   <programlisting>$ install forge.api</programlisting>
                </listitem>
             </orderedlist>
@@ -47,12 +47,18 @@
          </para>
       </section>
       <section>
-         <title>Sample Maven POM</title>
+         <title>With Maven)</title>
          <para>
             If you do not wish to create a new plugin project using Forge itself, you
             will need to manually include the Forge-API dependencies. For purposes of
             simplicity, we have pasted a sample Maven POM file which can
             be used as a starting point for a new plugin:
+            
+            <tip>
+               <literal>'org.jboss.seam.forge : forge-shell-api : {version}'
+               </literal> is the only dependency you must include in your project. 
+            </tip>
+            
             <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/xsd/maven-4.0.0.xsd" 

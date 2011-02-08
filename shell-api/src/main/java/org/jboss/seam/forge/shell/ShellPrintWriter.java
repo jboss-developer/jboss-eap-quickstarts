@@ -26,20 +26,42 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author Mike Brock .
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public interface ShellPrintWriter
 {
-   public void print(String s);
-
-   public void println(String s);
-
-   public void println();
-
-   public void print(ShellColor color, String s);
-
-   public void println(ShellColor color, String s);
-
-   public String renderColor(ShellColor color, String s);
-
+   /**
+    * Write the given bytes to the console.
+    */
    public void write(byte b);
+
+   /**
+    * Print output to the console.
+    */
+   void print(String output);
+
+   /**
+    * Print output to the console, followed by the newline character.
+    */
+   void println(String output);
+
+   /**
+    * Print a blank line to the console.
+    */
+   void println();
+
+   /**
+    * Print color output to the console.
+    */
+   void print(ShellColor color, String output);
+
+   /**
+    * Print color output to the console, followed by the newline character.
+    */
+   void println(ShellColor color, String output);
+
+   /**
+    * Render a color for the current terminal emulation by encapsulating the string is the appropriate escape codes
+    */
+   public String renderColor(ShellColor color, String output);
 }

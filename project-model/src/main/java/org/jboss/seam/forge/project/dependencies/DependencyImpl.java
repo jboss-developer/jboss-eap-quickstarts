@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.
@@ -144,6 +144,7 @@ public class DependencyImpl implements Dependency
       final int prime = 31;
       int result = 1;
       result = prime * result + ((artifactId == null) ? 0 : artifactId.hashCode());
+      result = prime * result + ((excludedDependencies == null) ? 0 : excludedDependencies.hashCode());
       result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
       result = prime * result + ((packagingType == null) ? 0 : packagingType.hashCode());
       result = prime * result + ((scopeType == null) ? 0 : scopeType.hashCode());
@@ -173,7 +174,5 @@ public class DependencyImpl implements Dependency
             !(version != null ? !version.equals(that.version) : that.version != null);
 
    }
-
-
 
 }

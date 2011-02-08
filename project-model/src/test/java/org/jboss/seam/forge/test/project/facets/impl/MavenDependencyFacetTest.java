@@ -32,7 +32,6 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -121,9 +120,10 @@ public class MavenDependencyFacetTest extends ProjectModelTest
       assertEquals(version, deps.getProperty("version"));
    }
 
-   @Test @Ignore
+   @Test
    public void testResolveVersions() throws Exception
    {
+      // FIXME this is not reaching out to external repos
       Project project = getProject();
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
       deps.addRepository("jboss", "https://repository.jboss.org/nexus/content/groups/public/");

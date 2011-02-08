@@ -268,10 +268,9 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
 
       List<String> versions = lookup.getAvailableVersions(dep.getGroupId() + ":" + dep.getArtifactId() + ":"
                + dep.getVersion(), getRepositories());
-      for (String string : versions)
+      for (String version : versions)
       {
-         results.add(DependencyBuilder.create(dep.getGroupId() + ":" + dep.getArtifactId() + ":" + string + ":"
-                  + dep.getScopeType()));
+         results.add(DependencyBuilder.create(dep).setVersion(version));
       }
       return results;
    }
