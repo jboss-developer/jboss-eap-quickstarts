@@ -27,6 +27,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.yaml.snakeyaml.Yaml;
 
@@ -35,6 +36,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -125,39 +127,119 @@ public class PluginRepoUtil
       {
       case 200:
          out.println("done.");
+
+         Document document
+               = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getEntity().getContent());
+
+         XPath xpath = XPathFactory.newInstance().newXPath();
+         XPathExpression checkSnapshotExpr = xpath.compile("//versioning/snapshot");
+         XPathExpression findJar = xpath.compile("//snapshotVersion[extension='jar']/value");
+
+         NodeList list = (NodeList) checkSnapshotExpr.evaluate(document, XPathConstants.NODESET);
+
+         out.print("Reading manifest ... ");
+
+         if (list.getLength() != 0)
+         {
+
+            Node n = (Node) findJar.evaluate(document, XPathConstants.NODE);
+
+            if (n == null)
+            {
+               out.println("failed: could not determine where to find jar file.");
+               return false;
+            }
+
+            String version = n.getFirstChild().getTextContent();
+
+            // plugin definition points to a snapshot.
+            out.println("good! (maven snapshot found): " + version);
+
+            String fileName = artifactParts[1] + "-" + version + ".jar";
+
+            HttpGet jarGet = new HttpGet(baseUrl + "/" + fileName);
+
+            out.print("Downloading: " + baseUrl + "/" + fileName + " ... ");
+            response = client.execute(jarGet);
+
+            try
+            {
+               saveFile(fileName, response.getEntity().getContent());
+            }
+            catch (IOException e)
+            {
+               out.println("failed to download: " + e.getMessage());
+               return false;
+            }
+
+            out.println("done.");
+
+            // do download of snapshot.
+         }
+         else
+         {
+            out.println("error! (maven snapshot not found)");
+            return false;
+         }
+
+
          break;
 
       case 404:
-         out.println("failed! (manifest not found: " + baseUrl + ")");
-         return false;
+         String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
+         httpGetManifest = new HttpGet(requestUrl);
+         response = client.execute(httpGetManifest);
 
+         if (response.getStatusLine().getStatusCode() != 200)
+         {
+            printError(response.getStatusLine().getStatusCode(), requestUrl, out);
+            return false;
+         }
+         else
+         {
+
+         }
+         break;
       default:
          out.println("failed! (server returned status code: " + response.getStatusLine().getStatusCode());
          return false;
-      }
-
-      Document document
-            = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getEntity().getContent());
-
-      XPath xpath = XPathFactory.newInstance().newXPath();
-      XPathExpression xPathExpression = xpath.compile("//versioning/snapshot");
-
-      NodeList list = (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
-
-      out.print("Reading manifest ... ");
-
-      if (list.getLength() != 0) {
-         // plugin definition points to a snapshot.
-         out.println("good! (maven snapshot found)") ;
-      }
-      else {
-         out.println("good! (maven artifact found)");
       }
 
 
       return true;
 
    }
+
+   private static void printError(int status, String requestUrl, PipeOut out)
+   {
+      switch (status)
+      {
+      case 404:
+         out.println("failed! (file not found in repository: " + requestUrl + ")");
+         break;
+      default:
+         out.println("failed! (server returned status code: " + status);
+      }
+   }
+
+   private static void saveFile(String fileName, InputStream stream) throws IOException
+   {
+      File file = new File(fileName);
+      file.createNewFile();
+
+      OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
+
+      byte[] buf = new byte[127];
+      int read;
+      while ((read = stream.read(buf)) != -1)
+      {
+         outputStream.write(buf, 0, read);
+      }
+
+      outputStream.flush();
+      outputStream.close();
+   }
+
 
    private static PluginRef bindToPuginRef(Map map)
    {
