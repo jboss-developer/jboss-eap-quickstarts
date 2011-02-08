@@ -55,12 +55,12 @@ public class FindPluginsPlugin implements Plugin
       String defaultRepo = (String) shell.getProperty(ShellImpl.PROP_DEFAULT_PLUGIN_REPO);
 
       if (defaultRepo == null) {
-         out.print("no default repository set: (to set, type: set "
+         out.println("no default repository set: (to set, type: set "
                + ShellImpl.PROP_DEFAULT_PLUGIN_REPO + " <repository>)");
          return;
       }
 
-      List<PluginRef> pluginList = PluginRepoUtil.findPlugin(defaultRepo, searchString);
+      List<PluginRef> pluginList = PluginRepoUtil.findPlugin(defaultRepo, searchString, out);
 
       for (PluginRef ref : pluginList)
       {

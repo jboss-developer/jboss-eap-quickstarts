@@ -30,6 +30,7 @@ import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.PluginRef;
 import org.jboss.seam.forge.shell.util.PluginRepoUtil;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,12 +58,12 @@ public class InstallPluginPlugin implements Plugin
 
       if (defaultRepo == null)
       {
-         out.print("no default repository set: (to set, type: set "
+         out.println("no default repository set: (to set, type: set "
                + ShellImpl.PROP_DEFAULT_PLUGIN_REPO + " <repository>)");
          return;
       }
 
-      List<PluginRef> plugins = PluginRepoUtil.findPlugin(defaultRepo, pluginName);
+      List<PluginRef> plugins = PluginRepoUtil.findPlugin(defaultRepo, pluginName, out);
 
       if (plugins.isEmpty())
       {
@@ -75,8 +76,8 @@ public class InstallPluginPlugin implements Plugin
       else
       {
          PluginRef ref = plugins.get(0);
-         out.println("about to install plugin: " + ref.getName());
-         PluginRepoUtil.downloadPlugin(ref);
+         out.println(ShellColor.BOLD, "*** Preparing to install plugin: " + ref.getName());
+         PluginRepoUtil.downloadPlugin(ref, out);
       }
    }
 
