@@ -23,7 +23,6 @@ package org.jboss.seam.forge.spec.jpa;
 
 import java.io.FileNotFoundException;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Column;
@@ -60,14 +59,14 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewEntityPlugin implements Plugin
 {
-   private final Instance<Project> projectInstance;
+   private final Project project;
 
    private final Shell shell;
 
    @Inject
-   public NewEntityPlugin(final Instance<Project> projectInstance, final Shell shell)
+   public NewEntityPlugin(final Project project, final Shell shell)
    {
-      this.projectInstance = projectInstance;
+      this.project = project;
       this.shell = shell;
    }
 
@@ -79,7 +78,6 @@ public class NewEntityPlugin implements Plugin
    {
       // TODO this should accept a qualified name as a parameter instead of
       // prompting for the package later
-      Project project = projectInstance.get();
       PersistenceFacet jpa = project.getFacet(PersistenceFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 

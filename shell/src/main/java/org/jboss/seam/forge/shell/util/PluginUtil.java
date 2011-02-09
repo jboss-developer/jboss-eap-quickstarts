@@ -22,6 +22,26 @@
 
 package org.jboss.seam.forge.shell.util;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -31,26 +51,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.yaml.snakeyaml.Yaml;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-import java.io.*;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
-
 /**
  * @author Mike Brock .
  */
 public class PluginUtil
 {
-   public static List<PluginRef> findPlugin(String repoUrl, String searchString, PipeOut out) throws Exception
+   @SuppressWarnings("rawtypes")
+   public static List<PluginRef> findPlugin(final String repoUrl, final String searchString, final PipeOut out)
+            throws Exception
    {
       DefaultHttpClient client = new DefaultHttpClient();
       HttpGet httpGet = new HttpGet(repoUrl);
@@ -72,7 +80,6 @@ public class PluginUtil
          out.println("failed! (server returned status code: " + httpResponse.getStatusLine().getStatusCode());
          return Collections.emptyList();
       }
-
 
       Pattern pattern = Pattern.compile(GeneralUtils.pathspecToRegEx("*" + searchString + "*"));
 
@@ -98,7 +105,7 @@ public class PluginUtil
       return pluginList;
    }
 
-   public static File downloadPlugin(PluginRef ref, PipeOut out, String targetPath) throws Exception
+   public static File downloadPlugin(final PluginRef ref, final PipeOut out, final String targetPath) throws Exception
    {
       DefaultHttpClient client = new DefaultHttpClient();
 
@@ -107,7 +114,8 @@ public class PluginUtil
       if (artifactParts.length != 3)
       {
          throw new RuntimeException("malformed artifact identifier " +
-               "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: " + ref.getArtifact());
+                  "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: "
+                  + ref.getArtifact());
       }
 
       String packageLocation = artifactParts[0].replaceAll("\\.", "/");
@@ -130,8 +138,8 @@ public class PluginUtil
       case 200:
          out.println("done.");
 
-         Document document
-               = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getEntity().getContent());
+         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                  .parse(response.getEntity().getContent());
 
          XPath xpath = XPathFactory.newInstance().newXPath();
          XPathExpression checkSnapshotExpr = xpath.compile("//versioning/snapshot");
@@ -176,8 +184,6 @@ public class PluginUtil
                return null;
             }
 
-
-
             // do download of snapshot.
          }
          else
@@ -208,12 +214,11 @@ public class PluginUtil
          return null;
       }
 
-
       return null;
 
    }
 
-   private static void printError(int status, String requestUrl, PipeOut out)
+   private static void printError(final int status, final String requestUrl, final PipeOut out)
    {
       switch (status)
       {
@@ -225,7 +230,7 @@ public class PluginUtil
       }
    }
 
-   private static File saveFile(String fileName, InputStream stream) throws IOException
+   private static File saveFile(final String fileName, final InputStream stream) throws IOException
    {
       File file = new File(fileName);
       new File(fileName.substring(0, fileName.lastIndexOf('/'))).mkdirs();
@@ -247,8 +252,7 @@ public class PluginUtil
       return file;
    }
 
-
-   public static void loadPluginJar(File file) throws Exception
+   public static void loadPluginJar(final File file) throws Exception
    {
       ClassLoader cl = Thread.currentThread().getContextClassLoader();
       if (cl == null)
@@ -261,9 +265,10 @@ public class PluginUtil
       Thread.currentThread().setContextClassLoader(classLoader);
    }
 
-   private static PluginRef bindToPuginRef(Map map)
+   @SuppressWarnings("rawtypes")
+   private static PluginRef bindToPuginRef(final Map map)
    {
       return new PluginRef((String) map.get("name"), (String) map.get("author"),
-            (String) map.get("description"), (String) map.get("artifact"), (String) map.get("homerepo"));
+               (String) map.get("description"), (String) map.get("artifact"), (String) map.get("homerepo"));
    }
 }

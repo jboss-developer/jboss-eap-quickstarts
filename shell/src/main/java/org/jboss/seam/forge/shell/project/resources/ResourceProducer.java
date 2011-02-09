@@ -22,24 +22,29 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
+import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.AnnotatedParameter;
 import javax.enterprise.inject.spi.InjectionPoint;
-import java.lang.reflect.*;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Current;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class ResourceProducer
 {
-
-   //   @Produces
-//   @Current
-//   @Dependent
-   @SuppressWarnings({"rawtypes", "unchecked"})
-   public Resource<?> getCurrentResource(InjectionPoint ip, Shell shell)
+   @Produces
+   @Current
+   @SuppressWarnings({ "rawtypes", "unchecked" })
+   public Resource getCurrentResource(final InjectionPoint ip, final Shell shell)
    {
       Resource<?> currentResource = shell.getCurrentResource();
       Type type = null;

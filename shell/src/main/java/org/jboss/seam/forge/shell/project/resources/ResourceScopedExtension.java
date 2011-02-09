@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc., and individual contributors
+ * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,28 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.completer;
+package org.jboss.seam.forge.shell.project.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.shell.Shell;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.Extension;
 
 /**
+ * An extension to provide {@link ResourceScoped} support.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class ShellEnvCompleter extends SimpleTokenCompleter
+public class ResourceScopedExtension implements Extension
 {
-   @Inject
-   private Shell shell;
 
-   @Override
-   public List<Object> getCompletionTokens()
+   public void registerContext(@Observes final AfterBeanDiscovery event, final BeanManager manager)
    {
-      Map<String, Object> props = shell.getProperties();
-      return new ArrayList<Object>(props.keySet());
+      event.addContext(new ResourceScopedContext(manager));
    }
+
 }

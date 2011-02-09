@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,38 +19,47 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.forge.shell.project;
+package org.jboss.seam.forge.shell.events;
 
 import org.jboss.seam.forge.project.Resource;
 
-import javax.inject.Singleton;
-
 /**
- * Contains the current {@link Resource} - not to be used by outsiders.
- *
- * @author Mike Brock <cbrock@redhat.com>
+ * An event that notifies observers immediately after the current {@link Resource} has changed.
+ * <p>
+ * <strong>For example:</strong>
+ * <p>
+ * <code>public void myObserver(@Observes {@link ResourceChanged} event)<br/>
+ * {<br/>
+ *    // do something<br/>
+ * }<br/>
+ * 
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-@Singleton
-public class CurrentResource
+public final class ResourceChanged
 {
-   // FIXME Resource API needs to be separated from project API
-   private Resource<?> current;
+   private final Resource<?> oldResource;
+   private final Resource<?> newResource;
 
-   public Resource<?> getCurrent()
+   public ResourceChanged(final Resource<?> oldResource, final Resource<?> newResource)
    {
-      return current;
+      this.oldResource = oldResource;
+      this.newResource = newResource;
    }
 
-   public void setCurrent(final Resource<?> current)
+   /**
+    * @return the old {@link Resource}
+    */
+   public Resource<?> getOldResource()
    {
-      this.current = current;
+      return oldResource;
    }
 
-   @Override
-   public String toString()
+   /**
+    * @return the new {@link Resource}
+    */
+   public Resource<?> getNewResource()
    {
-      return "ResourceContext [" + current + "]";
+      return newResource;
    }
-
 }

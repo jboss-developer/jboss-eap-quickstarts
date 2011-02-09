@@ -16,7 +16,7 @@ public class ProfileCompleter extends SimpleTokenCompleter
    private GenPlugin gen;
 
    @Override
-   public List<Object> getAllValues()
+   public List<Object> getCompletionTokens()
    {
       return new ArrayList<Object>(gen.getProfiles().keySet());
    }

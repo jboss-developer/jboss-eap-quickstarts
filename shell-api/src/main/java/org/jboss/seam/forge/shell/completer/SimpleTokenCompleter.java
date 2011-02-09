@@ -24,16 +24,25 @@ package org.jboss.seam.forge.shell.completer;
 import java.util.List;
 
 /**
+ * The simplest possible command option completer. Matching of tokens is handled automatically based on comparing the
+ * partial token against the beginning of each candidate, but also provides the least control over how completion
+ * occurs.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 public abstract class SimpleTokenCompleter implements CommandCompleter
 {
+   /**
+    * Return a list of tokens to be considered as possible completions for the current input buffer. Typically, this
+    * should be a list of all possible candidates, but might vary depending on current state.
+    */
+   public abstract List<Object> getCompletionTokens();
 
    @Override
    public void complete(final CommandCompleterState state)
    {
-      List<Object> values = getAllValues();
+      List<Object> values = getCompletionTokens();
       String peek = state.getTokens().peek();
 
       if ((state.getTokens().size() <= 1))
@@ -52,7 +61,5 @@ public abstract class SimpleTokenCompleter implements CommandCompleter
          }
       }
    }
-
-   public abstract List<Object> getAllValues();
 
 }

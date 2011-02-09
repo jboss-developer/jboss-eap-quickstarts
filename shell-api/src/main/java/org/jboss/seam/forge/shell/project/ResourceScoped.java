@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc., and individual contributors
+ * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,28 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.completer;
+package org.jboss.seam.forge.shell.project;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
 
-import javax.inject.Inject;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.jboss.seam.forge.shell.Shell;
+import javax.enterprise.context.NormalScope;
+
+import org.jboss.seam.forge.project.Resource;
 
 /**
+ * Declares a bean as being scoped to the current {@link Resource}. Beans using this scope will be destroyed when the
+ * current {@link Resource} is changed. The scope is active as long as there is an active {@link Resource}
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class ShellEnvCompleter extends SimpleTokenCompleter
+@NormalScope(passivating = false)
+@Inherited
+@Documented
+@Target({ TYPE, METHOD, FIELD })
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface ResourceScoped
 {
-   @Inject
-   private Shell shell;
 
-   @Override
-   public List<Object> getCompletionTokens()
-   {
-      Map<String, Object> props = shell.getProperties();
-      return new ArrayList<Object>(props.keySet());
-   }
 }

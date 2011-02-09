@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Column;
@@ -70,13 +69,13 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewFieldPlugin implements Plugin
 {
-   private final Instance<Project> projectInstance;
+   private final Project project;
    private final Shell shell;
 
    @Inject
-   public NewFieldPlugin(final Instance<Project> project, final Shell shell)
+   public NewFieldPlugin(final Project project, final Shell shell)
    {
-      this.projectInstance = project;
+      this.project = project;
       this.shell = shell;
    }
 
@@ -294,7 +293,6 @@ public class NewFieldPlugin implements Plugin
                      type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
 
-      Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       try
@@ -350,8 +348,6 @@ public class NewFieldPlugin implements Plugin
                      description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
                      type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
-
-      Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       try
@@ -401,8 +397,6 @@ public class NewFieldPlugin implements Plugin
                      description = "Create an bi-directional relationship, using this value as the name of the inverse field.",
                      type = PromptType.JAVA_VARIABLE_NAME) final String inverseFieldName)
    {
-
-      Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       try
@@ -443,7 +437,6 @@ public class NewFieldPlugin implements Plugin
                            final Class<? extends java.lang.annotation.Annotation> annotation)
             throws FileNotFoundException
    {
-      Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -457,7 +450,6 @@ public class NewFieldPlugin implements Plugin
    private void addFieldTo(final JavaClass targetEntity, final String fieldType, final String fieldName,
                            final Class<Column> annotation) throws FileNotFoundException
    {
-      Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -472,7 +464,6 @@ public class NewFieldPlugin implements Plugin
                            final Class<? extends java.lang.annotation.Annotation> annotation)
             throws FileNotFoundException
    {
-      Project project = getCurrentProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -484,11 +475,6 @@ public class NewFieldPlugin implements Plugin
       Refactory.createGetterAndSetter(targetEntity, field);
       java.saveJavaClass(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
-   }
-
-   public Project getCurrentProject()
-   {
-      return projectInstance.get();
    }
 
    private JavaClass getJavaClass() throws FileNotFoundException
@@ -519,7 +505,6 @@ public class NewFieldPlugin implements Plugin
    {
       JavaClass result = null;
 
-      Project project = getCurrentProject();
       PersistenceFacet scaffold = project.getFacet(PersistenceFacet.class);
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
@@ -547,7 +532,6 @@ public class NewFieldPlugin implements Plugin
 
    private JavaClass promptForEntity()
    {
-      Project project = getCurrentProject();
       PersistenceFacet scaffold = project.getFacet(PersistenceFacet.class);
       List<JavaClass> entities = scaffold.getAllEntities();
       List<String> entityNames = new ArrayList<String>();

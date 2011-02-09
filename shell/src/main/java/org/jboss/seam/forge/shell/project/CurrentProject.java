@@ -33,6 +33,7 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.shell.events.InitProject;
 import org.jboss.seam.forge.shell.events.ProjectChanged;
+import org.jboss.seam.forge.shell.project.resources.CurrentResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

@@ -20,56 +20,45 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.plugins.builtin;
+package org.jboss.seam.forge.shell.project.resources;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.events.ResourceChanged;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * @author Mike Brock
+ * Contains the current {@link Resource} - not to be used by outsiders.
+ * 
+ * @author Mike Brock <cbrock@redhat.com>
  */
-@Named("cd")
-@Topic("File & Resources")
-@Help("Change the current directory")
 @Singleton
-public class ChangeDirectoryPlugin implements Plugin
+public class CurrentResource
 {
-   private final Shell shell;
+   // FIXME Resource API needs to be separated from project API
+   private Resource<?> current;
 
    @Inject
-   public ChangeDirectoryPlugin(final Shell shell)
+   private Event<ResourceChanged> event;
+
+   public Resource<?> getCurrent()
    {
-      this.shell = shell;
+      return current;
    }
 
-   @DefaultCommand
-   public void run(@Option(description = "The new directory", defaultValue = "~") final Resource<?>[] dirs)
+   public void setCurrent(final Resource<?> newResource)
    {
-      Resource<?> r = null;
-
-      for (Resource<?> dir : dirs)
-      {
-         r = dir;
-      }
-
-      if (r != null)
-      {
-         if (!r.exists())
-         {
-            throw new RuntimeException("no such resource: " + r.toString());
-         }
-
-         shell.setCurrentResource(r);
-      }
+      ResourceChanged resourceChanged = new ResourceChanged(current, newResource);
+      this.current = newResource;
+      event.fire(resourceChanged);
    }
+
+   @Override
+   public String toString()
+   {
+      return "ResourceContext [" + current + "]";
+   }
+
 }

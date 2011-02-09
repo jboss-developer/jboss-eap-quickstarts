@@ -102,7 +102,5 @@ public class ProjectInitializer
       }
 
       cp.setCurrentProject(newProject);
-
-      // shell.setDefaultPrompt();
    }
 }

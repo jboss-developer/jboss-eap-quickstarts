@@ -14,12 +14,12 @@
     <dependency>
       <groupId>org.jboss.seam.forge</groupId>
       <artifactId>forge-shell-api</artifactId>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.seam.forge</groupId>
       <artifactId>forge-j2ee-plugins</artifactId>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <repositories>

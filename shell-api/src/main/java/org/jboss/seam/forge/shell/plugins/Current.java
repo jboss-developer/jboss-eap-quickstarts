@@ -22,29 +22,34 @@
 
 package org.jboss.seam.forge.shell.plugins;
 
-import org.jboss.seam.forge.project.Resource;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
 
-import javax.inject.Inject;
-import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.*;
+import javax.inject.Inject;
+import javax.inject.Qualifier;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.project.ResourceScoped;
 
 /**
  * Used to @{@link Inject} the current working {@link Resource}, e.g:
  * <p/>
  * <code> @Inject @Current JavaResource resource; </code>
  * <p/>
- * Will inject the current resource if and only if it is a Java Resource;
- * otherwise, the injected value will be null.
+ * Will inject the current resource if and only if it is a Java Resource; otherwise, the injected value will be null.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Qualifier
 @Documented
+@ResourceScoped
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ TYPE, METHOD, FIELD, PARAMETER })
 public @interface Current
