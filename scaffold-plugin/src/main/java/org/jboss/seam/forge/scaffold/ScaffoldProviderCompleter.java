@@ -19,33 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell;
+package org.jboss.seam.forge.scaffold;
 
-import org.jboss.seam.forge.shell.util.ShellColor;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
+import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
 
 /**
- * Used to generate properly formatted status messages.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public abstract class ShellMessages
+public class ScaffoldProviderCompleter extends SimpleTokenCompleter
 {
-   public static void success(final ShellPrintWriter writer, final String message)
+   @Inject
+   private Instance<ScaffoldProvider> impls;
+
+   @Override
+   public List<Object> getCompletionTokens()
    {
-      writer.print(ShellColor.GREEN, "***SUCCESS*** ");
-      writer.println(message);
+      List<Object> result = new ArrayList<Object>();
+      for (ScaffoldProvider impl : impls)
+      {
+         result.add(ConstraintInspector.getName(impl.getClass()));
+      }
+      return result;
    }
 
-   public static void error(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.RED, "***ERROR*** ");
-      writer.println(message);
-   }
-
-   public static void info(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.YELLOW, "***INFO*** ");
-      writer.println(message);
-   }
 }

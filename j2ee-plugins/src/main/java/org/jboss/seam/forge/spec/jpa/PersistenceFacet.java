@@ -29,7 +29,6 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.Entity;
 
-import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.PackagingType;
@@ -160,8 +159,6 @@ public class PersistenceFacet extends BaseFacet
             entityRoot.mkdirs();
          }
 
-         installUtils();
-
          FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
@@ -183,27 +180,6 @@ public class PersistenceFacet extends BaseFacet
       }
       project.registerFacet(this);
       return true;
-   }
-
-   private void installUtils()
-   {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
-      JavaClass producer = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
-
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      try
-      {
-         java.saveJavaClass(producer);
-         java.saveJavaClass(util);
-      }
-      catch (FileNotFoundException e)
-      {
-         throw new RuntimeException(e);
-      }
    }
 
    @Override
