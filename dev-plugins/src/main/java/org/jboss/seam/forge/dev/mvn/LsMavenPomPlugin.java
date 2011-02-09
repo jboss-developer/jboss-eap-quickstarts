@@ -22,7 +22,8 @@
 
 package org.jboss.seam.forge.dev.mvn;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenDependencyResource;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenPomResource;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenProfileResource;
-import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -57,22 +58,30 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 public class LsMavenPomPlugin implements Plugin
 {
    @Inject
-   private Shell shell;
+   @Current
+   private MavenPomResource pom;
 
    @DefaultCommand
    public void run(
             @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
                    @Option(flagOnly = true, name = "list", shortName = "totalLines", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
-                   final PipeOut out)
+                   final PipeOut out) throws IOException
    {
-
-      // TODO this should not use the shell - rather the paths parameter
-      Resource<?> currentResource = shell.getCurrentResource();
-
-      if (currentResource instanceof MavenPomResource)
+      if (showAll)
       {
-         MavenPomResource pom = (MavenPomResource) currentResource;
+         InputStream stream = pom.getResourceInputStream();
+         StringBuilder buf = new StringBuilder();
+
+         int c;
+         while ((c = stream.read()) != -1)
+         {
+            buf.append((char) c);
+         }
+         out.println(buf.toString());
+      }
+      else
+      {
 
          out.println();
          out.println(out.renderColor(ShellColor.RED, "[dependencies] "));
