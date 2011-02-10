@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc., and individual contributors
+ * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,33 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell;
+package org.jboss.seam.forge.shell.project;
 
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.project.Resource;
+
+import javax.enterprise.context.NormalScope;
+import java.lang.annotation.*;
+
+import static java.lang.annotation.ElementType.*;
 
 /**
- * Used to generate properly formatted status messages.
+ * Declares a bean as being scoped to the current {@link Resource}. Beans using this scope will be destroyed when the
+ * current {@link Resource} is changed. The scope is active as long as there is an active {@link Resource}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public abstract class ShellMessages
+@NormalScope(passivating = false)
+@Inherited
+@Documented
+@Target({ TYPE, METHOD, FIELD })
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface ResourceScoped
 {
-   public static void success(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.GREEN, "***SUCCESS*** ");
-      writer.println(message);
-   }
 
-   public static void error(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.RED, "***ERROR*** ");
-      writer.println(message);
-   }
-
-   public static void info(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.YELLOW, "***INFO*** ");
-      writer.println(message);
-   }
 }

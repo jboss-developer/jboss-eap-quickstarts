@@ -21,15 +21,6 @@
  */
 package org.jboss.seam.forge.spec.jpa;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Named;
-import javax.persistence.Entity;
-
-import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.PackagingType;
@@ -47,14 +38,17 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.*;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
+
+import javax.inject.Named;
+import javax.persistence.Entity;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -160,8 +154,6 @@ public class PersistenceFacet extends BaseFacet
             entityRoot.mkdirs();
          }
 
-         installUtils();
-
          FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
@@ -183,27 +175,6 @@ public class PersistenceFacet extends BaseFacet
       }
       project.registerFacet(this);
       return true;
-   }
-
-   private void installUtils()
-   {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
-      JavaClass producer = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
-
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      try
-      {
-         java.saveJavaClass(producer);
-         java.saveJavaClass(util);
-      }
-      catch (FileNotFoundException e)
-      {
-         throw new RuntimeException(e);
-      }
    }
 
    @Override

@@ -23,6 +23,8 @@
 package org.jboss.seam.forge.shell.events;
 
 /**
+ * Causes Forge to re-start Weld and re-initialize plugins.
+ * 
  * @author Mike Brock .
  */
 public class ReinitializeEnvironment

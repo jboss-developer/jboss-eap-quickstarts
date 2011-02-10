@@ -128,7 +128,7 @@ public class ShellImpl implements Shell
       public Resource[] convertFrom(final Object obl)
       {
          return GeneralUtils.parseSystemPathspec(resourceFactory, lastResource, getCurrentResource(),
-               obl instanceof String[] ? (String[]) obl : new String[]{obl.toString()});
+                  obl instanceof String[] ? (String[]) obl : new String[] { obl.toString() });
       }
 
       @SuppressWarnings("rawtypes")
@@ -392,27 +392,27 @@ public class ShellImpl implements Shell
    private String getDefaultConfig()
    {
       return "@/* Automatically generated config file */;\n"
-            +
-            "if (!$NO_MOTD) { "
-            +
-            "   echo \"   ____                          _____                    \";\n"
-            +
-            "   echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
-            +
-            "   echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
-            +
-            "   echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
-            "   echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-            "   echo \"                                                |___/      \";\n\n" +
-            "}\n" +
-            "\n" +
-            "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
-            "    echo \"  Windows? Really? Okay...\\n\"\n" +
-            "}\n" +
-            "\n" +
-            "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
-            "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n" +
-            "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n";
+               +
+               "if (!$NO_MOTD) { "
+               +
+               "   echo \"   ____                          _____                    \";\n"
+               +
+               "   echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
+               +
+               "   echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
+               +
+               "   echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
+               "   echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
+               "   echo \"                                                |___/      \";\n\n" +
+               "}\n" +
+               "\n" +
+               "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
+               "    echo \"  Windows? Really? Okay...\\n\"\n" +
+               "}\n" +
+               "\n" +
+               "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
+               "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n" +
+               "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n";
 
    }
 
@@ -492,11 +492,11 @@ public class ShellImpl implements Shell
       {
          if (!isVerbose())
          {
-            println("Exception encountered: " + e.getMessage() + " (type \"verbose on\" to enable stack traces)");
+            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
          }
          else
          {
-            println("Exception encountered: (type \"verbose false\" to disable stack traces)");
+            println("Exception encountered: (type \"set VERBOSE false\" to disable stack traces)");
             e.printStackTrace();
          }
       }
@@ -649,7 +649,7 @@ public class ShellImpl implements Shell
          for (int i = 0; i < args.length; i++)
          {
             buf.append("@_vararg[").append(String.valueOf(i)).append("] = ")
-                  .append("_").append(String.valueOf(i)).append(";\n");
+                     .append("_").append(String.valueOf(i)).append(";\n");
          }
       }
 
@@ -1007,7 +1007,7 @@ public class ShellImpl implements Shell
       if (!defaultIfEmpty.matches(pattern))
       {
          throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-               + pattern + "]");
+                  + pattern + "]");
       }
 
       String input;
@@ -1107,7 +1107,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
 
       int count = 1;
@@ -1150,7 +1150,7 @@ public class ShellImpl implements Shell
       if (options == null)
       {
          throw new IllegalArgumentException(
-               "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
       }
       if (options.size() == 1)
       {

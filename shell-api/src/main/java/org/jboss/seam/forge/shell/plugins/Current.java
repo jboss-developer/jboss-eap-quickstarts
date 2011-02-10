@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.shell.plugins;
 
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.project.ResourceScoped;
 
 import javax.inject.Inject;
 import javax.inject.Qualifier;
@@ -38,13 +39,13 @@ import static java.lang.annotation.ElementType.*;
  * <p/>
  * <code> @Inject @Current JavaResource resource; </code>
  * <p/>
- * Will inject the current resource if and only if it is a Java Resource;
- * otherwise, the injected value will be null.
+ * Will inject the current resource if and only if it is a Java Resource; otherwise, the injected value will be null.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Qualifier
 @Documented
+@ResourceScoped
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ TYPE, METHOD, FIELD, PARAMETER })
 public @interface Current

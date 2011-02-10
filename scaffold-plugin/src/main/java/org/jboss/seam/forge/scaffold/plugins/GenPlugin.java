@@ -53,20 +53,26 @@ import java.util.Map;
 @Singleton
 public class GenPlugin implements Plugin
 {
-   private static final String[] DEFAULT_SEARCH_PATHS
-         = {"org/jboss/seam/forge/scaffold/templates/fpak/", "~/.forge/plugins/scaffold/templates/fpak/"};
+
+   private static final String[] DEFAULT_SEARCH_PATHS = { "org/jboss/seam/forge/scaffold/templates/fpak/",
+            "~/.forge/plugins/scaffold/templates/fpak/" };
 
    private final Shell shell;
    private final Map<String, URL> registeredProfiles;
 
    @Inject
-   public GenPlugin(Shell shell)
+   public GenPlugin(final Shell shell)
    {
       this.shell = shell;
       this.registeredProfiles = new HashMap<String, URL>();
    }
 
-   public void registerProfile(@Observes AdvertiseGenProfile agp)
+   public Map<String, URL> getProfiles()
+   {
+      return registeredProfiles;
+   }
+
+   public void registerProfile(@Observes final AdvertiseGenProfile agp)
    {
       shell.println("loaded gen profile: " + agp.getName() + " (" + agp.getUrl() + ")");
       registeredProfiles.put(agp.getName(), agp.getUrl());
@@ -74,9 +80,11 @@ public class GenPlugin implements Plugin
 
    @DefaultCommand
    public void gen(
-         PipeOut out,
-         @Option(description = "profile", required = true) String profile,
-         @Option(description = "args...") String... args)
+            final PipeOut out,
+            @Option(description = "profile",
+                     completer = ProfileCompleter.class,
+                     required = true) final String profile,
+            @Option(description = "args...") final String... args)
    {
 
       InputStream profileStream = findProfile(profile);
@@ -100,7 +108,7 @@ public class GenPlugin implements Plugin
       runStrategy.doStrategy(ctx, def);
    }
 
-   private InputStream findProfile(String name)
+   private InputStream findProfile(final String name)
    {
       ClassLoader cl = Thread.currentThread().getContextClassLoader();
 
@@ -135,7 +143,6 @@ public class GenPlugin implements Plugin
             return inStream;
          }
       }
-
 
       return null;
    }

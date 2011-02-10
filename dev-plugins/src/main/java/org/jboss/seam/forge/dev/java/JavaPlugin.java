@@ -21,31 +21,27 @@
  */
 package org.jboss.seam.forge.dev.java;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Map.Entry;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.SyntaxError;
 import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.PipeIn;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Map.Entry;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -55,6 +51,10 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 @RequiresFacet(JavaSourceFacet.class)
 public class JavaPlugin implements Plugin
 {
+   @Inject
+   @Current
+   private JavaResource resource;
+
    @Inject
    private Project project;
 
@@ -129,6 +129,40 @@ public class JavaPlugin implements Plugin
          {
             java.saveJavaClass(jc);
          }
+      }
+   }
+
+   @Command("new-field")
+   @ResourceScope(JavaResource.class)
+   public void newField(
+            @PipeIn final String in,
+            final PipeOut out,
+            @Option(required = false,
+                     help = "the class definition: surround with quotes",
+                     description = "class definition") final String... def) throws FileNotFoundException
+   {
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      String fieldDef = null;
+      if (def != null)
+      {
+         fieldDef = Strings.join(Arrays.asList(def), " ");
+      }
+      else if (in != null)
+      {
+         fieldDef = in;
+      }
+      else
+      {
+         throw new RuntimeException("arguments required");
+      }
+
+      JavaSource<?> source = resource.getJavaSource();
+      if (source instanceof JavaClass)
+      {
+         JavaClass clazz = ((JavaClass) source);
+         clazz.addField(fieldDef);
+         java.saveJavaClass(clazz);
       }
    }
 }

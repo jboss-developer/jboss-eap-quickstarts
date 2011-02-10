@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc., and individual contributors
+ * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,33 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell;
+package org.jboss.seam.forge.shell.project.resources;
 
-import org.jboss.seam.forge.shell.util.ShellColor;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.Extension;
 
 /**
- * Used to generate properly formatted status messages.
+ * An extension to provide {@link ResourceScoped} support.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public abstract class ShellMessages
+public class ResourceScopedExtension implements Extension
 {
-   public static void success(final ShellPrintWriter writer, final String message)
+
+   public void registerContext(@Observes final AfterBeanDiscovery event, final BeanManager manager)
    {
-      writer.print(ShellColor.GREEN, "***SUCCESS*** ");
-      writer.println(message);
+      event.addContext(new ResourceScopedContext(manager));
    }
 
-   public static void error(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.RED, "***ERROR*** ");
-      writer.println(message);
-   }
-
-   public static void info(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.YELLOW, "***INFO*** ");
-      writer.println(message);
-   }
 }

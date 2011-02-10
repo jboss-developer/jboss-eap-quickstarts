@@ -98,7 +98,7 @@ public class PluginUtil
       return pluginList;
    }
 
-   public static File downloadPlugin(PluginRef ref, PipeOut out, String targetPath) throws Exception
+   public static File downloadPlugin(final PluginRef ref, final PipeOut out, final String targetPath) throws Exception
    {
       DefaultHttpClient client = new DefaultHttpClient();
 
@@ -107,7 +107,8 @@ public class PluginUtil
       if (artifactParts.length != 3)
       {
          throw new RuntimeException("malformed artifact identifier " +
-               "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: " + ref.getArtifact());
+                  "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: "
+                  + ref.getArtifact());
       }
 
       String packageLocation = artifactParts[0].replaceAll("\\.", "/");
@@ -130,11 +131,12 @@ public class PluginUtil
       case 200:
          out.println("done.");
 
-         Document document
-               = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.getEntity().getContent());
+         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                  .parse(response.getEntity().getContent());
 
          XPath xpath = XPathFactory.newInstance().newXPath();
          XPathExpression checkSnapshotExpr = xpath.compile("//versioning/snapshot");
+         XPathExpression findJar = xpath.compile("//snapshotVersion[extension='jar']/value");
 
          NodeList list = (NodeList) checkSnapshotExpr.evaluate(document, XPathConstants.NODESET);
 
@@ -142,7 +144,7 @@ public class PluginUtil
 
          if (list.getLength() != 0)
          {
-            XPathExpression findJar = xpath.compile("//snapshotVersion[extension='jar']/value");
+
             Node n = (Node) findJar.evaluate(document, XPathConstants.NODE);
 
             if (n == null)
@@ -177,6 +179,7 @@ public class PluginUtil
 
 
 
+            // do download of snapshot.
          }
          else
          {

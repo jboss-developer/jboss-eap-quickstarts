@@ -21,16 +21,15 @@
  */
 package org.jboss.seam.forge.spec.jsf;
 
-import java.io.File;
-
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
+
+import javax.inject.Named;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -66,50 +65,6 @@ public class FacesFacet extends BaseFacet
          }
          getConfigFile().setContents(getClass()
                   .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
-
-         // Set up index redirect
-         WebResourceFacet web = project.getFacet(WebResourceFacet.class);
-         FileResource<?> index = web.getWebResource("index.html");
-         if (!index.exists())
-         {
-            index.createNewFile();
-            project.getFacet(ServletFacet.class).getConfig().getWelcomeFiles().add("index.html");
-         }
-         index.setContents(getClass()
-                  .getResourceAsStream("/org/jboss/seam/forge/jsf/index.html"));
-
-         // Set up JSF index page
-         index = web.getWebResource("index.xhtml");
-         if (!index.exists())
-         {
-            index.createNewFile();
-            index.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/index.xhtml"));
-         }
-
-         // Add template
-         FileResource<?> template = web.getWebResource("/resources/forge-template.xhtml");
-         if (!template.exists())
-         {
-            template.createNewFile();
-            template.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge-template.xhtml"));
-         }
-
-         // Add css
-         FileResource<?> css = web.getWebResource("/resources/forge.css");
-         if (!css.exists())
-         {
-            css.createNewFile();
-            css.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge.css"));
-         }
-
-         // Add favicon
-         FileResource<?> favicon = web.getWebResource("/resources/favicon.ico");
-         if (!favicon.exists())
-         {
-            favicon.createNewFile();
-            favicon.setContents(getClass().getResourceAsStream("/org/jboss/seam/forge/web/favicon.ico"));
-         }
-
       }
       project.registerFacet(this);
       return true;

@@ -24,7 +24,9 @@ package org.jboss.seam.forge.shell.project.resources;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Current;
 
+import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.AnnotatedParameter;
 import javax.enterprise.inject.spi.InjectionPoint;
 import java.lang.reflect.*;
@@ -34,12 +36,10 @@ import java.lang.reflect.*;
  */
 public class ResourceProducer
 {
-
-   //   @Produces
-//   @Current
-//   @Dependent
-   @SuppressWarnings({"rawtypes", "unchecked"})
-   public Resource<?> getCurrentResource(InjectionPoint ip, Shell shell)
+   @Produces
+   @Current
+   @SuppressWarnings({ "rawtypes", "unchecked" })
+   public Resource getCurrentResource(final InjectionPoint ip, final Shell shell)
    {
       Resource<?> currentResource = shell.getCurrentResource();
       Type type = null;

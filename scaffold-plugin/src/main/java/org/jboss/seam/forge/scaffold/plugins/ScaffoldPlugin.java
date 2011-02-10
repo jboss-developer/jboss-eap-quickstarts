@@ -22,22 +22,12 @@
 
 package org.jboss.seam.forge.scaffold.plugins;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.Entity;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
-import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.dependencies.Dependency;
@@ -46,21 +36,28 @@ import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
+import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.scaffold.ScaffoldProvider;
+import org.jboss.seam.forge.scaffold.ScaffoldProviderCompleter;
+import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.shell.ShellPrompt;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jsf.FacesFacet;
-import org.jboss.seam.render.TemplateCompiler;
-import org.jboss.seam.render.template.CompiledTemplateResource;
+import org.jboss.seam.forge.spec.servlet.ServletFacet;
 import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.Entity;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -70,50 +67,102 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
 @Topic("UI Generation & Scaffolding")
 @Help("Metawidget UI scaffolding")
 @RequiresFacets({ MavenWebResourceFacet.class,
-      PersistenceFacet.class,
-      CDIFacet.class,
-      FacesFacet.class })
+         PersistenceFacet.class,
+         CDIFacet.class,
+         FacesFacet.class })
 @RequiresProject
 public class ScaffoldPlugin implements Plugin
 {
-   private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jtpl";
-   private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
-   private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
-   private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
+   @Inject
+   @Current
+   private Resource<?> currentResource;
 
    @Inject
-   private Shell shell;
+   private Project project;
+   @Inject
+   private ShellPrintWriter writer;
+   @Inject
+   private ShellPrompt prompt;
 
    @Inject
-   private TemplateCompiler compiler;
+   private Instance<ScaffoldProvider> impls;
+
+   @Inject
+   private ForgeDefaultScaffold defaultScaffold;
+
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
-   private final Dependency seamPersist = DependencyBuilder.create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta1");
-   private final Dependency weldX = DependencyBuilder.create("org.jboss.weld:weld-extensions:1.0.0.Beta1");
+   private final Dependency seamPersist = DependencyBuilder
+            .create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta4");
 
-   private CompiledTemplateResource viewTemplate;
-   private CompiledTemplateResource createTemplate;
-   private CompiledTemplateResource listTemplate;
-
-   @PostConstruct
-   public void init()
+   @Command("create-persistence-utils")
+   public void createPersistenceUtils(
+            @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
    {
-      viewTemplate = compiler.compile(VIEW_TEMPLATE);
-      createTemplate = compiler.compile(CREATE_TEMPLATE);
-      listTemplate = compiler.compile(LIST_TEMPLATE);
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      JavaClass util = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
+      JavaClass producer = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
 
-      // TODO remove this once seamPersist no longer pulls in bad WeldX dep
-      seamPersist.getExcludedDependencies().add(weldX);
-      weldX.getExcludedDependencies().add(DependencyBuilder.create("javax.el:el-api"));
-      weldX.getExcludedDependencies().add(DependencyBuilder.create("javax.transaction:jta"));
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         JavaResource producerResource = java.getJavaResource(producer);
+         JavaResource utilResource = java.getJavaResource(util);
+
+         createOrOverwrite(writer, producerResource, producer.toString(), overwrite);
+         createOrOverwrite(writer, utilResource, util.toString(), overwrite);
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
-   @Command("generate-metawidget-jsf")
-   public void generateUI(
-         @Option(required = false) Resource<?>[] targets, PipeOut out) throws FileNotFoundException
+   @Command("create-indexes")
+   public void createIndex(
+            @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
    {
-      Resource<?> currentResource = shell.getCurrentResource();
+      WebResourceFacet web = project.getFacet(WebResourceFacet.class);
+
+      project.getFacet(ServletFacet.class).getConfig().getWelcomeFiles().add("index.html");
+
+      createOrOverwrite(writer, web.getWebResource("index.html"), getClass()
+               .getResourceAsStream("/org/jboss/seam/forge/jsf/index.html"), overwrite);
+
+      createOrOverwrite(writer, web.getWebResource("index.xhtml"),
+               getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/index.xhtml"), overwrite);
+
+      createDefaultTemplate(overwrite);
+   }
+
+   @Command("create-default-template")
+   public void createDefaultTemplate(
+            @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
+   {
+      WebResourceFacet web = project.getFacet(WebResourceFacet.class);
+
+      createOrOverwrite(writer, web.getWebResource("/resources/forge-template.xhtml"),
+               getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge-template.xhtml"), overwrite);
+
+      createOrOverwrite(writer, web.getWebResource("/resources/forge.css"),
+               getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge.css"), overwrite);
+
+      createOrOverwrite(writer, web.getWebResource("/resources/favicon.ico"),
+               getClass().getResourceAsStream("/org/jboss/seam/forge/web/favicon.ico"), overwrite);
+   }
+
+   @Command("from-entity")
+   public void generateFromEntity(
+            @Option(name = "scaffoldType", required = false,
+                     completer = ScaffoldProviderCompleter.class) final String scaffoldType,
+            @Option(flagOnly = true, name = "overwrite") final boolean overwrite,
+            @Option(required = false) Resource<?>[] targets,
+            final PipeOut out) throws FileNotFoundException
+   {
       if (((targets == null) || (targets.length < 1))
-            && (currentResource instanceof JavaResource))
+               && (currentResource instanceof JavaResource))
       {
          targets = new JavaResource[] { (JavaResource) currentResource };
       }
@@ -123,25 +172,58 @@ public class ScaffoldPlugin implements Plugin
       {
          if (!out.isPiped())
          {
-            out.println("***ERROR*** Must specify a domain entity on which to operate.");
+            ShellMessages.error(out, "Must specify a domain entity on which to operate.");
          }
          return;
       }
 
+      ScaffoldProvider scaffoldImpl = getScaffoldType(scaffoldType);
+
+      if (scaffoldImpl == null)
+      {
+         ShellMessages.error(out, "Aborted - no scaffold type selected.");
+         return;
+      }
+
+      createDefaultTemplate(overwrite);
+      createPersistenceUtils(overwrite);
       addDependencies();
 
       for (JavaResource jr : javaTargets)
       {
          JavaClass entity = (JavaClass) (jr).getJavaSource();
-         createViews(entity);
-         out.println("***SUCCESS*** Generated UI for [" + entity.getQualifiedName() + "]");
+         scaffoldImpl.fromEntity(entity, overwrite);
+         ShellMessages.success(out, "Generated UI for [" + entity.getQualifiedName() + "]");
       }
 
    }
 
+   private ScaffoldProvider getScaffoldType(final String scaffoldType)
+   {
+      ScaffoldProvider scaffoldImpl = null;
+      for (ScaffoldProvider type : impls)
+      {
+         if (ConstraintInspector.getName(type.getClass()).equals(scaffoldType))
+         {
+            scaffoldImpl = type;
+         }
+      }
+
+      if ((scaffoldImpl == null) && (scaffoldType != null)
+               && prompt.promptBoolean("No scaffold found for [" + scaffoldType + "], use Forge default?", true))
+      {
+         scaffoldImpl = defaultScaffold;
+      }
+      else if ((scaffoldImpl == null)
+               && prompt.promptBoolean("No scaffold type was provided, use Forge default?", true))
+      {
+         scaffoldImpl = defaultScaffold;
+      }
+      return scaffoldImpl;
+   }
+
    public Project addDependencies()
    {
-      Project project = shell.getCurrentProject();
       DependencyFacet df = project.getFacet(DependencyFacet.class);
       CDIFacet cdi = project.getFacet(CDIFacet.class);
       if (!df.hasDependency(metawidget))
@@ -160,16 +242,17 @@ public class ScaffoldPlugin implements Plugin
          }
          cdi.saveConfig(config);
       }
-      if (!df.hasDependency(weldX))
-      {
-         df.addDependency(weldX);
-      }
       return project;
    }
 
-   private List<JavaResource> selectTargets(PipeOut out, Resource<?>[] targets) throws FileNotFoundException
+   private List<JavaResource> selectTargets(final PipeOut out, Resource<?>[] targets)
+            throws FileNotFoundException
    {
       List<JavaResource> results = new ArrayList<JavaResource>();
+      if (targets == null)
+      {
+         targets = new Resource<?>[] {};
+      }
       for (Resource<?> r : targets)
       {
          if (r instanceof JavaResource)
@@ -195,46 +278,44 @@ public class ScaffoldPlugin implements Plugin
       return results;
    }
 
-   private void createViews(JavaClass entity) throws FileNotFoundException
-   {
-      Project project = shell.getCurrentProject();
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-      WebResourceFacet web = project.getFacet(WebResourceFacet.class);
-
-      if (!entity.hasMethod("toString"))
-      {
-         Refactory.createToStringFromFields(entity);
-         java.saveJavaClass(entity);
-      }
-
-      CompiledTemplateResource backingBeanTemplate = compiler.compile(BACKING_BEAN_TEMPLATE);
-      HashMap<Object, Object> context = new HashMap<Object, Object>();
-      context.put("entity", entity);
-
-      // Create the Backing Bean for this entity
-      JavaClass viewBean = JavaParser.parse(JavaClass.class, backingBeanTemplate.render(context));
-      viewBean.setPackage(java.getBasePackage() + ".view");
-      java.saveJavaClass(viewBean);
-
-      // Set context for view generation
-      context = new HashMap<Object, Object>();
-      String name = viewBean.getName();
-      name = name.substring(0, 1).toLowerCase() + name.substring(1);
-      context.put("beanName", name);
-      context.put("entity", entity);
-
-      // Generate views
-      String type = entity.getName().toLowerCase();
-      web.createWebResource(viewTemplate.render(context), "scaffold/" + type + "/view.xhtml");
-      web.createWebResource(createTemplate.render(context), "scaffold/" + type + "/create.xhtml");
-      web.createWebResource(listTemplate.render(context), "scaffold/" + type + "/list.xhtml");
-   }
-
-   private void displaySkippingResourceMsg(PipeOut out, JavaSource<?> entity)
+   private void displaySkippingResourceMsg(final PipeOut out, final JavaSource<?> entity)
    {
       if (!out.isPiped())
       {
-         out.println(out.renderColor(ShellColor.RED, "Notice:") + " skipped non-@Entity class [" + entity.getQualifiedName() + "]");
+         ShellMessages.info(out, "Skipped non-@Entity Java resource ["
+                  + entity.getQualifiedName() + "]");
+      }
+   }
+
+   public static void createOrOverwrite(final ShellPrintWriter writer, final FileResource<?> resource,
+            final InputStream contents,
+            final boolean overwrite)
+   {
+      if (!resource.exists() || overwrite)
+      {
+         resource.createNewFile();
+         resource.setContents(contents);
+      }
+      else
+      {
+         ShellMessages.info(writer, "[" + resource.getFullyQualifiedName()
+                           + "] File exists, re-run with `--overwrite` to replace existing files.");
+      }
+   }
+
+   public static void createOrOverwrite(final ShellPrintWriter writer, final FileResource<?> resource,
+            final String contents,
+            final boolean overwrite)
+   {
+      if (!resource.exists() || overwrite)
+      {
+         resource.createNewFile();
+         resource.setContents(contents);
+      }
+      else
+      {
+         ShellMessages.info(writer, "[" + resource.getFullyQualifiedName()
+                           + "] File exists, re-run with `--overwrite` to replace existing files.");
       }
    }
 }

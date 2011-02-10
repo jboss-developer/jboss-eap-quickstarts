@@ -1,6 +1,6 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat, Inc., and individual contributors
+ * JBoss, by Red Hat.
+ * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,27 +19,46 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.completer;
 
-import org.jboss.seam.forge.shell.Shell;
+package org.jboss.seam.forge.shell.project.resources;
 
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.events.ResourceChanged;
+
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import javax.inject.Singleton;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * Contains the current {@link Resource} - not to be used by outsiders.
+ * 
+ * @author Mike Brock <cbrock@redhat.com>
  */
-public class ShellEnvCompleter extends SimpleTokenCompleter
+@Singleton
+public class CurrentResource
 {
+   // FIXME Resource API needs to be separated from project API
+   private Resource<?> current;
+
    @Inject
-   private Shell shell;
+   private Event<ResourceChanged> event;
+
+   public Resource<?> getCurrent()
+   {
+      return current;
+   }
+
+   public void setCurrent(final Resource<?> newResource)
+   {
+      ResourceChanged resourceChanged = new ResourceChanged(current, newResource);
+      this.current = newResource;
+      event.fire(resourceChanged);
+   }
 
    @Override
-   public List<Object> getCompletionTokens()
+   public String toString()
    {
-      Map<String, Object> props = shell.getProperties();
-      return new ArrayList<Object>(props.keySet());
+      return "ResourceContext [" + current + "]";
    }
+
 }

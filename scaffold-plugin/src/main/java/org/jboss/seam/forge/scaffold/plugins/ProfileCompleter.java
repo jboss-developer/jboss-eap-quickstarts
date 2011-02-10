@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+ * JBoss, by Red Hat.
  * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,33 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell;
 
-import org.jboss.seam.forge.shell.util.ShellColor;
+package org.jboss.seam.forge.scaffold.plugins;
+
+import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Used to generate properly formatted status messages.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public abstract class ShellMessages
+public class ProfileCompleter extends SimpleTokenCompleter
 {
-   public static void success(final ShellPrintWriter writer, final String message)
+   @Inject
+   private GenPlugin gen;
+
+   @Override
+   public List<Object> getCompletionTokens()
    {
-      writer.print(ShellColor.GREEN, "***SUCCESS*** ");
-      writer.println(message);
+      return new ArrayList<Object>(gen.getProfiles().keySet());
    }
 
-   public static void error(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.RED, "***ERROR*** ");
-      writer.println(message);
-   }
-
-   public static void info(final ShellPrintWriter writer, final String message)
-   {
-      writer.print(ShellColor.YELLOW, "***INFO*** ");
-      writer.println(message);
-   }
 }

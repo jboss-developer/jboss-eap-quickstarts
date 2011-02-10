@@ -24,7 +24,7 @@ package org.jboss.seam.forge.shell.events;
 import org.jboss.seam.forge.project.Project;
 
 /**
- * An event that notifies observers when the current {@link Project} has changed.
+ * An event that notifies observers immediately after the current {@link Project} has changed.
  * <p>
  * <strong>For example:</strong>
  * <p>
