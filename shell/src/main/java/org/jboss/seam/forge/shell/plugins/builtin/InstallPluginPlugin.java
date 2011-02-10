@@ -64,7 +64,7 @@ public class InstallPluginPlugin implements Plugin
 
       if (defaultRepo == null)
       {
-         out.println("no default repository set: (to set, type: set DEFFAULT_PLUGIN_REPO <repository>)");
+         out.println("no default repository set: (to set, type: set DEFAULT_PLUGIN_REPO <repository>)");
          return;
       }
 
@@ -86,7 +86,6 @@ public class InstallPluginPlugin implements Plugin
          if (file == null)
          {
             out.println(ShellColor.RED, "*** Could not install plugin: " + ref.getName());
-            return;
          }
          else {
             PluginUtil.loadPluginJar(file);

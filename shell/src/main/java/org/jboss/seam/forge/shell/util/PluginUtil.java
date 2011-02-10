@@ -135,7 +135,6 @@ public class PluginUtil
 
          XPath xpath = XPathFactory.newInstance().newXPath();
          XPathExpression checkSnapshotExpr = xpath.compile("//versioning/snapshot");
-         XPathExpression findJar = xpath.compile("//snapshotVersion[extension='jar']/value");
 
          NodeList list = (NodeList) checkSnapshotExpr.evaluate(document, XPathConstants.NODESET);
 
@@ -143,7 +142,7 @@ public class PluginUtil
 
          if (list.getLength() != 0)
          {
-
+            XPathExpression findJar = xpath.compile("//snapshotVersion[extension='jar']/value");
             Node n = (Node) findJar.evaluate(document, XPathConstants.NODE);
 
             if (n == null)
@@ -178,7 +177,6 @@ public class PluginUtil
 
 
 
-            // do download of snapshot.
          }
          else
          {
