@@ -47,10 +47,6 @@ import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.ProviderType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.SchemaGenerationModeType;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
@@ -162,20 +158,11 @@ public class PersistenceFacet extends BaseFacet
          FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
-            PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                     .version("2.0")
-                     .persistenceUnit("default")
-                     .description("The Seam Forge default Persistence Unit")
-                     .transactionType(TransactionType.JTA)
-                     .provider(ProviderType.HIBERNATE)
-                     .jtaDataSource("java:/DefaultDS")
-                     .includeUnlistedClasses()
-                     .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
-                     .showSql()
-                     .formatSql()
-                     .property("hibernate.transaction.flush_before_completion", true);
 
-            descriptor.setContents(unit.exportAsString());
+            PersistenceDescriptor descriptorContents = Descriptors.create(PersistenceDescriptor.class)
+                     .version("2.0");
+            descriptor.setContents(descriptorContents.exportAsString());
+
          }
       }
       project.registerFacet(this);
