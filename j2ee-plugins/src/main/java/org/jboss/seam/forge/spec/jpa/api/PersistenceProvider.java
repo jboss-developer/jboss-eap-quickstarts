@@ -25,7 +25,6 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceMode
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 public interface PersistenceProvider
 {
