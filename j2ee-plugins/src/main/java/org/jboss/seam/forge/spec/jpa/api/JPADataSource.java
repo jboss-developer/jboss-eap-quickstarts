@@ -27,6 +27,7 @@ package org.jboss.seam.forge.spec.jpa.api;
  */
 public interface JPADataSource
 {
+   DatabaseType getDatabase();
 
    String getDatabaseURL();
 
@@ -37,5 +38,7 @@ public interface JPADataSource
    String getPassword();
 
    String getUsername();
+
+   void setDatabase(DatabaseType database);
 
 }

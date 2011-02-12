@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
+import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 
 /**
@@ -35,14 +36,23 @@ public class JPADataSourceImpl implements JPADataSource
    private final String databaseURL;
    private final String username;
    private final String password;
+   private DatabaseType database;
 
-   public JPADataSourceImpl(String jndiName, String jdbcDriver, String databaseURL, String username, String password)
+   public JPADataSourceImpl(String jndiName, DatabaseType database, String jdbcDriver, String databaseURL, String username,
+            String password)
    {
       this.jndiName = jndiName;
+      this.database = database;
       this.jdbcDriver = jdbcDriver;
       this.databaseURL = databaseURL;
       this.username = username;
       this.password = password;
+   }
+
+   @Override
+   public DatabaseType getDatabase()
+   {
+      return database;
    }
 
    @Override
@@ -73,6 +83,12 @@ public class JPADataSourceImpl implements JPADataSource
    public String getPassword()
    {
       return password;
+   }
+
+   @Override
+   public void setDatabase(DatabaseType database)
+   {
+      this.database = database;
    }
 
 }

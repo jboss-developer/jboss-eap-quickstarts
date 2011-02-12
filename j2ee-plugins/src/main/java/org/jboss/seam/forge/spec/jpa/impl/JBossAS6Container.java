@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
+import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
@@ -43,6 +44,7 @@ public class JBossAS6Container implements PersistenceContainer
       else
       {
          unit.setJtaDataSource("java:/DefaultDS");
+         dataSource.setDatabase(DatabaseType.HSQLDB);
       }
       return unit;
    }

@@ -21,31 +21,21 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
-import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class GlassFish3Container implements PersistenceContainer
+public class NonJTAContainer implements PersistenceContainer
 {
+
    @Override
    public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
-      unit.setTransactionType(TransactionType.JTA);
-      if (dataSource.getJndiName() != null)
-      {
-         unit.setJtaDataSource(dataSource.getJndiName());
-      }
-      else
-      {
-         unit.setJtaDataSource("jdbc/__default");
-         dataSource.setDatabase(DatabaseType.DERBY);
-      }
-      return unit;
+      return null;
    }
+
 }

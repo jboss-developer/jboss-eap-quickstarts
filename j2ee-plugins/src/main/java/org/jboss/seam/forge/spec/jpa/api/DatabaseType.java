@@ -19,33 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.impl;
-
-import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
-import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
-import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+package org.jboss.seam.forge.spec.jpa.api;
 
 /**
+ * Relational database instance types.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class GlassFish3Container implements PersistenceContainer
+public enum DatabaseType
 {
-   @Override
-   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
-   {
-      unit.setTransactionType(TransactionType.JTA);
-      if (dataSource.getJndiName() != null)
-      {
-         unit.setJtaDataSource(dataSource.getJndiName());
-      }
-      else
-      {
-         unit.setJtaDataSource("jdbc/__default");
-         dataSource.setDatabase(DatabaseType.DERBY);
-      }
-      return unit;
-   }
+   MYSQL,
+   ORACLE,
+   DERBY,
+   DB2,
+   POSTGRES,
+   DEFAULT,
+   DB2_AS400,
+   DB2_OS390,
+   MYSQL_INNODB,
+   MYSQL_ISAM,
+   ORACLE_9I,
+   ORACLE_10G,
+   SYBASE,
+   SYBASE_ANYWHERE,
+   SQL_SERVER,
+   SAP_DB,
+   INFORMIX,
+   HSQLDB,
+   INGRES,
+   PROGRESS,
+   MCKOI,
+   INTERBASE,
+   POINTBASE,
+   FRONTBASE,
+   FIREBIRD,
+   HSQLDB_IN_MEMORY,
+   ORACLE_11G
 }

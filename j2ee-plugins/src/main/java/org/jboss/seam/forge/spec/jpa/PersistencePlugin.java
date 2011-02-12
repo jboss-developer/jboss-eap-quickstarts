@@ -27,10 +27,10 @@ import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPAContainer;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.JPAProvider;
@@ -56,15 +56,13 @@ public class PersistencePlugin implements Plugin
    private Project project;
 
    @Inject
-   private ShellPrompt prompt;
-
-   @Inject
    private BeanManager manager;
 
    @Command("setup")
    public void setup(
             @Option(name = "provider", required = true) JPAProvider jpap,
             @Option(name = "container", required = true) JPAContainer jpac,
+            @Option(name = "database", defaultValue = "DEFAULT") DatabaseType databaseType,
             @Option(name = "unitName", defaultValue = DEFAULT_UNIT_NAME) String unitName,
             @Option(name = "unitDesc", defaultValue = DEFAULT_UNIT_DESC) String unitDescription,
             @Option(name = "jndiName") String jndiName,
@@ -80,7 +78,8 @@ public class PersistencePlugin implements Plugin
       PersistenceUnit unit = null;
       for (PersistenceUnit u : config.getPersistenceUnits())
       {
-         if (unitName != null && unitName.equals(u.getName()))
+         if (DEFAULT_UNIT_NAME.equals(u.getName())
+                  || (unitName != null && unitName.equals(u.getName())))
          {
             unit = u;
          }
@@ -94,12 +93,13 @@ public class PersistencePlugin implements Plugin
          config.getPersistenceUnits().add(unit);
       }
 
-      JPADataSource ds = new JPADataSourceImpl(jndiName, jdbcDriver, databaseURL, username, password);
+      JPADataSource ds = new JPADataSourceImpl(jndiName, databaseType, jdbcDriver, databaseURL, username, password);
 
-      PersistenceProvider provider = jpap.getProvider(manager);
       PersistenceContainer container = jpac.getContainer(manager);
-      provider.setup(unit);
+      PersistenceProvider provider = jpap.getProvider(manager);
+
       container.setupConnection(unit, ds);
+      provider.setup(unit, ds);
 
       jpa.saveConfig(config);
    }

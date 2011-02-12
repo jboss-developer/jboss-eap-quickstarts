@@ -28,5 +28,5 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  */
 public interface PersistenceProvider
 {
-   PersistenceUnit setup(PersistenceUnit unit);
+   PersistenceUnit setup(PersistenceUnit unit, JPADataSource ds);
 }
