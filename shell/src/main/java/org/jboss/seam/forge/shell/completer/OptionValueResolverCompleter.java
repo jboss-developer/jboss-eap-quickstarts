@@ -2,7 +2,6 @@ package org.jboss.seam.forge.shell.completer;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.inject.spi.BeanManager;
@@ -36,7 +35,6 @@ public class OptionValueResolverCompleter implements CommandCompleter
       OptionMetadata option = state.getOption();
       if ((option != null) && (state.getCommandContext() != null))
       {
-         ArrayList<String> results = new ArrayList<String>();
 
          CommandParserContext commandContext = state.getCommandContext();
          Map<OptionMetadata, Object> valueMap = commandContext.getValueMap();
@@ -45,16 +43,17 @@ public class OptionValueResolverCompleter implements CommandCompleter
             if (option.hasCustomCompleter())
             {
                CommandCompleter completer = BeanManagerUtils.getContextualInstance(manager, option.getCompleterType());
-               final List<CharSequence> candidates = new ArrayList<CharSequence>();
-
                completer.complete(state);
-               for (CharSequence c : candidates)
-               {
-                  results.add(c.toString());
-               }
+            }
+            if (option.isEnum())
+            {
+               @SuppressWarnings("unchecked")
+               EnumCompleter completer = new EnumCompleter((Class<Enum<?>>) option.getType());
+               completer.complete(state);
             }
             else if (isResourceAssignable(option))
             {
+               ArrayList<String> results = new ArrayList<String>();
                String[] values;
 
                if (valueMap.isEmpty())
@@ -92,9 +91,9 @@ public class OptionValueResolverCompleter implements CommandCompleter
                // the separator char
                // set the value ahead by 1.
                state.setIndex(state.getIndex() - val.length() + (lastNest != -1 ? lastNest + 1 : 0));
+               state.getCandidates().addAll(results);
             }
          }
-         state.getCandidates().addAll(results);
       }
    }
 

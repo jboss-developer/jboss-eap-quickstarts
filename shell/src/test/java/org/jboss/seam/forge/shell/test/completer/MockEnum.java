@@ -19,14 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.api;
-
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+package org.jboss.seam.forge.shell.test.completer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface PersistenceProvider
+public enum MockEnum
 {
-   PersistenceUnit setup(PersistenceUnit unit);
+   FOO,
+   BAR,
+   BAZ,
+   CAT,
+   DOG
 }

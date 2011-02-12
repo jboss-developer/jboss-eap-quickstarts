@@ -31,7 +31,6 @@ import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -74,16 +73,6 @@ public class PersistenceFacetTest extends AbstractJPATest
       assertNotNull(persistence);
 
       PersistenceModel model = persistence.getConfig();
-      PersistenceUnit unit = model.getPersistenceUnits().get(0);
-
-      assertEquals("default", unit.getName());
-      unit.setName("not-default");
-
-      persistence.saveConfig(model);
-
-      unit = model.getPersistenceUnits().get(0);
-      assertEquals("not-default", unit.getName());
-
-      assertEquals("2.0", persistence.getConfig().getVersion());
+      assertEquals("2.0", model.getVersion());
    }
 }

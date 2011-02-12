@@ -19,14 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.api;
+package org.jboss.seam.forge.spec.jpa.impl;
 
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface PersistenceProvider
+public class GlassFish3Container implements PersistenceContainer
 {
-   PersistenceUnit setup(PersistenceUnit unit);
+   @Override
+   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
+   {
+      unit.setTransactionType(TransactionType.JTA);
+      if (dataSource.getJndiName() != null)
+      {
+         unit.setJtaDataSource(dataSource.getJndiName());
+      }
+      else
+      {
+         unit.setJtaDataSource("jdbc/__default");
+      }
+      return unit;
+   }
 }

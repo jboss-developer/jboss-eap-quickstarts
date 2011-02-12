@@ -21,12 +21,14 @@
  */
 package org.jboss.seam.forge.spec.jpa.api;
 
+import org.jboss.seam.forge.shell.completer.Completable;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface PersistenceProvider
+public interface PersistenceContainer extends Completable
 {
-   PersistenceUnit setup(PersistenceUnit unit);
+   PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource);
 }

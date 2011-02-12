@@ -19,14 +19,60 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.api;
+package org.jboss.seam.forge.spec.jpa.impl;
 
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface PersistenceProvider
+public class JPADataSourceImpl implements JPADataSource
 {
-   PersistenceUnit setup(PersistenceUnit unit);
+
+   private final String jndiName;
+   private final String jdbcDriver;
+   private final String databaseURL;
+   private final String username;
+   private final String password;
+
+   public JPADataSourceImpl(String jndiName, String jdbcDriver, String databaseURL, String username, String password)
+   {
+      this.jndiName = jndiName;
+      this.jdbcDriver = jdbcDriver;
+      this.databaseURL = databaseURL;
+      this.username = username;
+      this.password = password;
+   }
+
+   @Override
+   public String getJndiName()
+   {
+      return jndiName;
+   }
+
+   @Override
+   public String getJdbcDriver()
+   {
+      return jdbcDriver;
+   }
+
+   @Override
+   public String getDatabaseURL()
+   {
+      return databaseURL;
+   }
+
+   @Override
+   public String getUsername()
+   {
+      return username;
+   }
+
+   @Override
+   public String getPassword()
+   {
+      return password;
+   }
+
 }

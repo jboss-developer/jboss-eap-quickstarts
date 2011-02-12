@@ -21,10 +21,7 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
-import org.jboss.seam.forge.spec.jpa.api.ContainerType;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
 
@@ -34,49 +31,16 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
  */
 public class HibernateProvider implements PersistenceProvider
 {
-
    @Override
-   public String getName()
+   public PersistenceUnit setup(PersistenceUnit unit)
    {
-      return "HIBERNATE";
-   }
+      unit.setProvider("org.hibernate.ejb.HibernatePersistence");
 
-   @Override
-   public boolean isActive(final PersistenceModel config)
-   {
-      return false;
-   }
-
-   @Override
-   public PersistenceModel setup(final PersistenceModel config, final ContainerType container)
-   {
-      PersistenceUnit unit = null;
-
-      for (PersistenceUnit u : config.getPersistenceUnits())
-      {
-         if (PersistenceProvider.DEFAULT_UNIT_NAME.equals(u.getName()))
-         {
-            unit = u;
-         }
-      }
-
-      if ((unit != null) || config.getPersistenceUnits().isEmpty())
-      {
-         unit = new PersistenceUnit();
-         unit.setDescription("Forge Default Persistence Unit");
-         unit.setName(PersistenceProvider.DEFAULT_UNIT_NAME);
-         unit.setJtaDataSource(container.getDefaultDataSource());
-         unit.setTransactionType(TransactionType.JTA);
-
-         unit.setExcludeUnlistedClasses(false);
-         unit.getProperties().add(new Property("hibernate.hbm2ddl.auto", "create-drop"));
-         unit.getProperties().add(new Property("hibernate.show_sql", "true"));
-         unit.getProperties().add(new Property("hibernate.format_sql", "true"));
-         unit.getProperties().add(new Property("hibernate.transaction.flush_before_completion", "true"));
-
-         config.getPersistenceUnits().add(unit);
-      }
-
-      return config;
+      unit.setExcludeUnlistedClasses(false);
+      unit.getProperties().add(new Property("hibernate.hbm2ddl.auto", "create-drop"));
+      unit.getProperties().add(new Property("hibernate.show_sql", "true"));
+      unit.getProperties().add(new Property("hibernate.format_sql", "true"));
+      unit.getProperties().add(new Property("hibernate.transaction.flush_before_completion", "true"));
+      return unit;
    }
 }

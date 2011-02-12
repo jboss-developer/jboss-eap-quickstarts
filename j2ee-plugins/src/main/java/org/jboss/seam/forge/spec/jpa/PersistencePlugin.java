@@ -21,10 +21,7 @@
  */
 package org.jboss.seam.forge.spec.jpa;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -32,10 +29,16 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.spec.jpa.api.ContainerType;
+import org.jboss.seam.forge.spec.jpa.api.JPAContainer;
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.JPAProvider;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
+import org.jboss.seam.forge.spec.jpa.impl.JPADataSourceImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -45,63 +48,59 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceMode
 @RequiresFacet(PersistenceFacet.class)
 public class PersistencePlugin implements Plugin
 {
+   public static final String DEFAULT_UNIT_NAME = "forge-default";
+
+   private static final String DEFAULT_UNIT_DESC = "Forge Persistence Unit";
+
    @Inject
    private Project project;
 
    @Inject
-   private Instance<PersistenceProvider> providers;
-
-   @Inject
-   private Instance<ContainerType> containers;
-
-   @Inject
    private ShellPrompt prompt;
 
+   @Inject
+   private BeanManager manager;
+
    @Command("setup")
-   public void setup()
+   public void setup(
+            @Option(name = "provider", required = true) JPAProvider jpap,
+            @Option(name = "container", required = true) JPAContainer jpac,
+            @Option(name = "unitName", defaultValue = DEFAULT_UNIT_NAME) String unitName,
+            @Option(name = "unitDesc", defaultValue = DEFAULT_UNIT_DESC) String unitDescription,
+            @Option(name = "jndiName") String jndiName,
+            @Option(name = "jdbcDriver") String jdbcDriver,
+            @Option(name = "databaseURL") String databaseURL,
+            @Option(name = "username") String username,
+            @Option(name = "password") String password)
    {
+
       PersistenceFacet jpa = project.getFacet(PersistenceFacet.class);
+      PersistenceModel config = jpa.getConfig();
 
-      /*
-       * Ask user for their preferred container/provider.
-       */
-      PersistenceProvider provider = getPersistenceProvider();
-      ContainerType container = getContainerType();
+      PersistenceUnit unit = null;
+      for (PersistenceUnit u : config.getPersistenceUnits())
+      {
+         if (unitName != null && unitName.equals(u.getName()))
+         {
+            unit = u;
+         }
+      }
 
-      // Perform installation
-      PersistenceModel config = provider.setup(jpa.getConfig(), container);
+      if (unit == null)
+      {
+         unit = new PersistenceUnit();
+         unit.setName(unitName);
+         unit.setDescription(unitDescription);
+         config.getPersistenceUnits().add(unit);
+      }
+
+      JPADataSource ds = new JPADataSourceImpl(jndiName, jdbcDriver, databaseURL, username, password);
+
+      PersistenceProvider provider = jpap.getProvider(manager);
+      PersistenceContainer container = jpac.getContainer(manager);
+      provider.setup(unit);
+      container.setupConnection(unit, ds);
+
       jpa.saveConfig(config);
-   }
-
-   private ContainerType getContainerType()
-   {
-      // Select a persistence provider
-      List<String> providerNames = new ArrayList<String>();
-      List<ContainerType> providerList = new ArrayList<ContainerType>();
-      for (ContainerType provider : containers)
-      {
-         providerList.add(provider);
-         providerNames.add(provider.getName());
-      }
-
-      int promptChoice = prompt.promptChoice("Select a target Container.", providerNames);
-      ContainerType provider = providerList.get(promptChoice);
-      return provider;
-   }
-
-   private PersistenceProvider getPersistenceProvider()
-   {
-      // Select a persistence provider
-      List<String> providerNames = new ArrayList<String>();
-      List<PersistenceProvider> providerList = new ArrayList<PersistenceProvider>();
-      for (PersistenceProvider provider : providers)
-      {
-         providerList.add(provider);
-         providerNames.add(provider.getName());
-      }
-
-      int promptChoice = prompt.promptChoice("Select a JPA provider.", providerNames);
-      PersistenceProvider provider = providerList.get(promptChoice);
-      return provider;
    }
 }

@@ -19,26 +19,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.impl;
+package org.jboss.seam.forge.shell.completer;
 
-import org.jboss.seam.forge.spec.jpa.api.ContainerType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class GlassFish31Container implements ContainerType
+public class EnumCompleter extends SimpleTokenCompleter
 {
-   @Override
-   public String getDefaultDataSource()
+   private final Class<Enum<?>> enumClass;
+
+   public EnumCompleter(Class<Enum<?>> enumClass)
    {
-      return "jdbc/__default";
+      this.enumClass = enumClass;
    }
 
    @Override
-   public String getName()
+   public List<Object> getCompletionTokens()
    {
-      return "GLASSFISH_v3";
+      List<Object> result = new ArrayList<Object>();
+      Enum<?>[] constants = enumClass.getEnumConstants();
+      if (constants != null)
+      {
+         List<Enum<?>> list = Arrays.asList(constants);
+         for (Enum<?> e : list)
+         {
+            result.add(e.toString());
+         }
+      }
+      return result;
    }
 
 }

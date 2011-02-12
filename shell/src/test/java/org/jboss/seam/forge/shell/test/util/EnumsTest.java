@@ -19,14 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.api;
+package org.jboss.seam.forge.shell.test.util;
 
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import static org.junit.Assert.assertEquals;
+
+import org.jboss.seam.forge.shell.test.completer.MockEnum;
+import org.jboss.seam.forge.shell.util.Enums;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface PersistenceProvider
+public class EnumsTest
 {
-   PersistenceUnit setup(PersistenceUnit unit);
+
+   /**
+    * Test method for {@link org.jboss.seam.forge.shell.util.Enums#valueOf(java.lang.Class, java.lang.Object)}.
+    */
+   @Test
+   public void testValueOf()
+   {
+      Enum<?> e = Enums.valueOf(MockEnum.class, "FOO");
+      assertEquals(MockEnum.FOO, e);
+   }
+
 }

@@ -37,6 +37,7 @@ import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.Enums;
 import org.mvel2.DataConversion;
 import org.mvel2.util.ParseTools;
 
@@ -94,17 +95,24 @@ public class Execution
          {
             try
             {
-               paramStaging[i] = DataConversion.convert(parameterArray[i], parmTypes[i]);
-               if (isBooleanOption(parmTypes[i]) && (null == paramStaging[i]))
+               if (parmTypes[i].isEnum())
                {
-                  paramStaging[i] = false;
+                  paramStaging[i] = Enums.valueOf(parmTypes[i], parameterArray[i]);
+               }
+               else
+               {
+                  paramStaging[i] = DataConversion.convert(parameterArray[i], parmTypes[i]);
+                  if (isBooleanOption(parmTypes[i]) && (null == paramStaging[i]))
+                  {
+                     paramStaging[i] = false;
+                  }
                }
             }
             catch (Exception e)
             {
                throw new CommandExecutionException(command, "command option '"
-                     + command.getOptionByAbsoluteIndex(i).getDescription()
-                     + "' must be of type '" + parmTypes[i].getSimpleName() + "'", e);
+                        + command.getOptionByAbsoluteIndex(i).getDescription()
+                        + "' must be of type '" + parmTypes[i].getSimpleName() + "'", e);
             }
          }
 
@@ -112,7 +120,7 @@ public class Execution
          if (bean != null)
          {
             CreationalContext<? extends Plugin> context = (CreationalContext<? extends Plugin>) manager
-                  .createCreationalContext(bean);
+                     .createCreationalContext(bean);
             if (context != null)
             {
                plugin = (Plugin) manager.getReference(bean, pluginType, context);

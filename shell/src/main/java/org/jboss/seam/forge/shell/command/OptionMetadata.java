@@ -25,6 +25,8 @@ package org.jboss.seam.forge.shell.command;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.completer.CommandCompleter;
 import org.jboss.seam.forge.shell.completer.NullCommandCompleter;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.util.Types;
 import org.mvel2.util.ParseTools;
 import org.mvel2.util.StringAppender;
@@ -38,7 +40,6 @@ public class OptionMetadata
    private CommandMetadata parent;
    private Class<?> type;
    private int index;
-   private int effectiveIndex;
 
    private String name = "";
    private String shortName = "";
@@ -89,11 +90,18 @@ public class OptionMetadata
       return (name != null) && !"".equals(name);
    }
 
+   /**
+    * Return the Boxed type of this Option, e.g: If the option is actual an <code>int.class</code>, return
+    * <code>Integer.class</code> instead.
+    */
    public Class<?> getBoxedType()
    {
       return ParseTools.boxPrimitive(getType());
    }
 
+   /**
+    * Return the literal type represented by this Option, e.g: the actual method parameter type.
+    */
    public Class<?> getType()
    {
       return type;
@@ -104,6 +112,9 @@ public class OptionMetadata
       this.type = type;
    }
 
+   /**
+    * Return the name of this Option, if it has one
+    */
    public String getName()
    {
       return name;
@@ -114,6 +125,9 @@ public class OptionMetadata
       this.name = name;
    }
 
+   /**
+    * Get the short name of this option, if it has one.
+    */
    public String getShortName()
    {
       return shortName;
@@ -124,6 +138,9 @@ public class OptionMetadata
       this.shortName = shortName;
    }
 
+   /**
+    * Return whether or not this option is purely a boolean flag.
+    */
    public boolean isFlagOnly()
    {
       return flagOnly;
@@ -134,6 +151,9 @@ public class OptionMetadata
       this.flagOnly = flagOnly;
    }
 
+   /**
+    * Return the description of this Option
+    */
    public String getDescription()
    {
       return description;
@@ -144,6 +164,9 @@ public class OptionMetadata
       this.description = description;
    }
 
+   /**
+    * Get the index of this Option in the receiving method parameter list.
+    */
    public int getIndex()
    {
       return index;
@@ -154,16 +177,9 @@ public class OptionMetadata
       this.index = index;
    }
 
-   public int getEffectiveIndex()
-   {
-      return effectiveIndex;
-   }
-
-   public void setEffectiveIndex(final int effectiveIndex)
-   {
-      this.effectiveIndex = effectiveIndex;
-   }
-
+   /**
+    * Get the help text for this Option
+    */
    public String getHelp()
    {
       return help;
@@ -174,6 +190,9 @@ public class OptionMetadata
       this.help = help;
    }
 
+   /**
+    * Return whether or not this option requires a value at execution time.
+    */
    public boolean isRequired()
    {
       return required;
@@ -190,6 +209,9 @@ public class OptionMetadata
       return name + ":" + description;
    }
 
+   /**
+    * Get the parent Command of this Option
+    */
    public CommandMetadata getParent()
    {
       return parent;
@@ -200,16 +222,33 @@ public class OptionMetadata
       this.parent = parent;
    }
 
+   /**
+    * Return whether or not this option represents a {@link Boolean} type
+    */
    public boolean isBoolean()
    {
       return (Boolean.TYPE.equals(getType()) || Boolean.class.equals(getType()));
    }
 
+   /**
+    * Return whether or not this option represents an {@link Enum} type.
+    */
+   public boolean isEnum()
+   {
+      return getType() != null && getType().isEnum();
+   }
+
+   /**
+    * Return whether or not this option represents a Varargs parameter type
+    */
    public boolean isVarargs()
    {
       return getType().isArray();
    }
 
+   /**
+    * Return the default value for this Option, if specified
+    */
    public String getDefaultValue()
    {
       return defaultValue;
@@ -220,11 +259,17 @@ public class OptionMetadata
       this.defaultValue = defaultValue;
    }
 
+   /**
+    * Return whether or not this Option provides a default value
+    */
    public boolean hasDefaultValue()
    {
       return (defaultValue != null) && !"".equals(defaultValue);
    }
 
+   /**
+    * Return the selected {@link PromptType} for this Option.
+    */
    public PromptType getPromptType()
    {
       return promptType;
@@ -235,6 +280,9 @@ public class OptionMetadata
       this.promptType = type;
    }
 
+   /**
+    * Return whether or not this Option is a {@link PipeOut}
+    */
    public boolean isPipeOut()
    {
       return pipeOut;
@@ -245,6 +293,9 @@ public class OptionMetadata
       this.pipeOut = pipeOut;
    }
 
+   /**
+    * Return whether or not this Option is a {@link PipeIn}
+    */
    public boolean isPipeIn()
    {
       return pipeIn;
@@ -255,11 +306,17 @@ public class OptionMetadata
       this.pipeIn = pipeIn;
    }
 
+   /**
+    * Return whether or not this Option is not ordered, e.g: It might have a name, or be an input/output pipe.
+    */
    public boolean notOrdered()
    {
       return pipeIn || pipeOut || isNamed();
    }
 
+   /**
+    * Return whether or not this option has specified a custom {@link CommandCompleter}
+    */
    public boolean hasCustomCompleter()
    {
       return (completerType != null) && !completerType.equals(NullCommandCompleter.class);
@@ -270,6 +327,9 @@ public class OptionMetadata
       this.completerType = type;
    }
 
+   /**
+    * Get the custom {@link CommandCompleter} for this Option, if specified.
+    */
    public Class<? extends CommandCompleter> getCompleterType()
    {
       return completerType;

@@ -25,9 +25,17 @@ package org.jboss.seam.forge.spec.jpa.api;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface ContainerType
+public interface JPADataSource
 {
-   String getDefaultDataSource();
 
-   String getName();
+   String getDatabaseURL();
+
+   String getJdbcDriver();
+
+   String getJndiName();
+
+   String getPassword();
+
+   String getUsername();
+
 }

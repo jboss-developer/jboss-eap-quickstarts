@@ -21,24 +21,29 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
-import org.jboss.seam.forge.spec.jpa.api.ContainerType;
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class JBossAS6Container implements ContainerType
+public class JBossAS6Container implements PersistenceContainer
 {
    @Override
-   public String getDefaultDataSource()
+   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
-      return "java:/DefaultDS";
+      unit.setTransactionType(TransactionType.JTA);
+      if (dataSource.getJndiName() != null)
+      {
+         unit.setJtaDataSource(dataSource.getJndiName());
+      }
+      else
+      {
+         unit.setJtaDataSource("java:/DefaultDS");
+      }
+      return unit;
    }
-
-   @Override
-   public String getName()
-   {
-      return "JBOSS_AS";
-   }
-
 }
