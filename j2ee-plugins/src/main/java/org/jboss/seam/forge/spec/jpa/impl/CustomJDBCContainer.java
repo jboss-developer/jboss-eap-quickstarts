@@ -23,6 +23,7 @@ package org.jboss.seam.forge.spec.jpa.impl;
 
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
@@ -48,9 +49,22 @@ public class CustomJDBCContainer implements PersistenceContainer
       {
          ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
       }
+
       if (!dataSource.hasNonDefaultDatabase())
       {
          throw new RuntimeException("Must specify database type for JDBC connections.");
+      }
+      if (Strings.isNullOrEmpty(dataSource.getDatabaseURL()))
+      {
+         throw new RuntimeException("Must specify database URL for JDBC connections.");
+      }
+      if (Strings.isNullOrEmpty(dataSource.getUsername()))
+      {
+         throw new RuntimeException("Must specify username for JDBC connections.");
+      }
+      if (Strings.isNullOrEmpty(dataSource.getPassword()))
+      {
+         throw new RuntimeException("Must specify password for JDBC connections.");
       }
 
       unit.setNonJtaDataSource(null);

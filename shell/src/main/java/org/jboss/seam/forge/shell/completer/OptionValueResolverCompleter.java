@@ -45,7 +45,7 @@ public class OptionValueResolverCompleter implements CommandCompleter
                CommandCompleter completer = BeanManagerUtils.getContextualInstance(manager, option.getCompleterType());
                completer.complete(state);
             }
-            if (option.isEnum())
+            else if (option.isEnum())
             {
                @SuppressWarnings("unchecked")
                EnumCompleter completer = new EnumCompleter((Class<Enum<?>>) option.getType());

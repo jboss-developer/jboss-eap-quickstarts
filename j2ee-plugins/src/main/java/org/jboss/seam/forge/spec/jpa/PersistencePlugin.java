@@ -62,14 +62,13 @@ public class PersistencePlugin implements Plugin
             @Option(name = "provider", required = true) JPAProvider jpap,
             @Option(name = "container", required = true) JPAContainer jpac,
             @Option(name = "database", defaultValue = "DEFAULT") DatabaseType databaseType,
-            @Option(name = "unitName", defaultValue = DEFAULT_UNIT_NAME) String unitName,
-            @Option(name = "description", defaultValue = DEFAULT_UNIT_DESC) String unitDescription,
-            @Option(name = "jtaDataSource") String jtaDataSource,
-            @Option(name = "nonJtaDataSource") String nonJtaDataSource,
+            @Option(name = "jndiDataSource") String jtaDataSource,
             @Option(name = "jdbcDriver") String jdbcDriver,
             @Option(name = "databaseURL") String databaseURL,
             @Option(name = "username") String username,
-            @Option(name = "password") String password)
+            @Option(name = "password") String password,
+            @Option(name = "unitName", defaultValue = DEFAULT_UNIT_NAME) String unitName,
+            @Option(name = "unitDesc", defaultValue = DEFAULT_UNIT_DESC) String unitDescription)
    {
 
       PersistenceFacet jpa = project.getFacet(PersistenceFacet.class);
