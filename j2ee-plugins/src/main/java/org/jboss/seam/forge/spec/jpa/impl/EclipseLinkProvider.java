@@ -71,7 +71,7 @@ public class EclipseLinkProvider implements PersistenceProvider
          String platform = platforms.get(ds.getDatabase());
          if (platform == null)
          {
-            throw new RuntimeException("Unknown database type for Eclipselink [" + ds.getDatabase() + "]");
+            throw new RuntimeException("Unsupported database type for Eclipselink [" + ds.getDatabase() + "]");
          }
          unit.getProperties().add(new Property("eclipselink.target-database", platform));
       }

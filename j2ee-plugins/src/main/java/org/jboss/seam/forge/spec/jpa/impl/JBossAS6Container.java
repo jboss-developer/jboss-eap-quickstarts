@@ -22,8 +22,6 @@
 package org.jboss.seam.forge.spec.jpa.impl;
 
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
-import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
-import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
@@ -31,21 +29,15 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class JBossAS6Container implements PersistenceContainer
+public class JBossAS6Container extends JavaEEDefaultContainer
 {
+   private static final String DEFAULT_DS = "java:/DefaultDS";
+
    @Override
-   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
+   public DatabaseType setup(PersistenceUnit unit)
    {
       unit.setTransactionType(TransactionType.JTA);
-      if (dataSource.getJndiName() != null)
-      {
-         unit.setJtaDataSource(dataSource.getJndiName());
-      }
-      else
-      {
-         unit.setJtaDataSource("java:/DefaultDS");
-         dataSource.setDatabase(DatabaseType.HSQLDB);
-      }
-      return unit;
+      unit.setJtaDataSource(DEFAULT_DS);
+      return DatabaseType.HSQLDB;
    }
 }

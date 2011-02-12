@@ -74,7 +74,6 @@ import org.jboss.seam.forge.shell.events.Shutdown;
 import org.jboss.seam.forge.shell.events.Startup;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.CommandParserException;
-import org.jboss.seam.forge.shell.exceptions.NoSuchCommandException;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
@@ -480,7 +479,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandExecutionException e)
       {
-         println("[" + e.getCommand() + "] " + e.getMessage());
+         ShellMessages.error(this, formatSourcedError(e.getCommand()) + e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -488,7 +487,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandParserException e)
       {
-         println("[" + e.getCommand() + "] " + e.getMessage());
+         ShellMessages.error(this, "[" + formatSourcedError(e.getCommand()) + "] " + e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -496,7 +495,7 @@ public class ShellImpl implements Shell
       }
       catch (PluginExecutionException e)
       {
-         println("[" + e.getPlugin() + "] " + e.getMessage());
+         ShellMessages.error(this, "[" + formatSourcedError(e.getPlugin()) + "] " + e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -504,7 +503,7 @@ public class ShellImpl implements Shell
       }
       catch (ShellExecutionException e)
       {
-         println(e.getMessage());
+         ShellMessages.error(this, e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -514,14 +513,20 @@ public class ShellImpl implements Shell
       {
          if (!isVerbose())
          {
-            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
+            ShellMessages.error(this, "Exception encountered: " + e.getMessage()
+                     + " (type \"set VERBOSE true\" to enable stack traces)");
          }
          else
          {
-            println("Exception encountered: (type \"set VERBOSE false\" to disable stack traces)");
+            ShellMessages.error(this, "Exception encountered: (type \"set VERBOSE false\" to disable stack traces)");
             e.printStackTrace();
          }
       }
+   }
+
+   private String formatSourcedError(Object obj)
+   {
+      return (obj == null ? "" : ("[" + obj.toString() + "] "));
    }
 
    @Override
@@ -543,11 +548,13 @@ public class ShellImpl implements Shell
       }
    }
 
+   @Override
    public void clearLine()
    {
       print(new Ansi().eraseLine(Ansi.Erase.ALL).toString());
    }
 
+   @Override
    public void cursorLeft(final int x)
    {
       print(new Ansi().cursorLeft(x).toString());
@@ -560,57 +567,9 @@ public class ShellImpl implements Shell
       {
          fshRuntime.run(line);
       }
-      catch (NoSuchCommandException e)
-      {
-         println("[" + e.getCommand() + "]" + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (CommandExecutionException e)
-      {
-         println("[" + e.getCommand() + "] " + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (CommandParserException e)
-      {
-         println("[" + e.getCommand() + "] " + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (PluginExecutionException e)
-      {
-         println("[" + e.getPlugin() + "] " + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (ShellExecutionException e)
-      {
-         println(e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
       catch (Exception e)
       {
-         if (!isVerbose())
-         {
-            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
-         }
-         else
-         {
-            println("Exception encountered: (type \"verbose false\" to disable stack traces)");
-            e.printStackTrace();
-         }
+         handleException(e);
       }
    }
 
@@ -949,6 +908,7 @@ public class ShellImpl implements Shell
       return prompt("");
    }
 
+   @Override
    public String promptAndSwallowCR()
    {
       int c;

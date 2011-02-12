@@ -36,7 +36,6 @@ import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.JPAProvider;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
-import org.jboss.seam.forge.spec.jpa.impl.JPADataSourceImpl;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
@@ -64,8 +63,9 @@ public class PersistencePlugin implements Plugin
             @Option(name = "container", required = true) JPAContainer jpac,
             @Option(name = "database", defaultValue = "DEFAULT") DatabaseType databaseType,
             @Option(name = "unitName", defaultValue = DEFAULT_UNIT_NAME) String unitName,
-            @Option(name = "unitDesc", defaultValue = DEFAULT_UNIT_DESC) String unitDescription,
-            @Option(name = "jndiName") String jndiName,
+            @Option(name = "description", defaultValue = DEFAULT_UNIT_DESC) String unitDescription,
+            @Option(name = "jtaDataSource") String jtaDataSource,
+            @Option(name = "nonJtaDataSource") String nonJtaDataSource,
             @Option(name = "jdbcDriver") String jdbcDriver,
             @Option(name = "databaseURL") String databaseURL,
             @Option(name = "username") String username,
@@ -92,8 +92,15 @@ public class PersistencePlugin implements Plugin
          unit.setDescription(unitDescription);
          config.getPersistenceUnits().add(unit);
       }
+      unit.getProperties().clear();
 
-      JPADataSource ds = new JPADataSourceImpl(jndiName, databaseType, jdbcDriver, databaseURL, username, password);
+      JPADataSource ds = new JPADataSource()
+               .setJndiDataSource(jtaDataSource)
+               .setDatabaseType(databaseType)
+               .setJdbcDriver(jdbcDriver)
+               .setDatabaseURL(databaseURL)
+               .setUsername(username)
+               .setPassword(password);
 
       PersistenceContainer container = jpac.getContainer(manager);
       PersistenceProvider provider = jpap.getProvider(manager);

@@ -23,19 +23,19 @@ package org.jboss.seam.forge.spec.jpa.impl;
 
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class NonJTAContainer implements PersistenceContainer
+public class CustomJDBCContainer implements PersistenceContainer
 {
    @Inject
    private ShellPrintWriter writer;
@@ -44,18 +44,24 @@ public class NonJTAContainer implements PersistenceContainer
    public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
       unit.setTransactionType(TransactionType.RESOURCE_LOCAL);
-      if (Strings.isNullOrEmpty(dataSource.getJndiDataSource()))
+      if (dataSource.getJndiDataSource() != null)
       {
-         throw new RuntimeException("Must specify a JNDI data-source.");
+         ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
       }
-      if (dataSource.hasJdbcConnectionInfo())
+      if (!dataSource.hasNonDefaultDatabase())
       {
-         ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
+         throw new RuntimeException("Must specify database type for JDBC connections.");
       }
 
-      unit.setNonJtaDataSource(dataSource.getJndiDataSource());
+      unit.setNonJtaDataSource(null);
       unit.setJtaDataSource(null);
+
+      unit.getProperties().add(new Property("javax.persistence.jdbc.driver", dataSource.getJdbcDriver()));
+      unit.getProperties().add(new Property("javax.persistence.jdbc.url", dataSource.getDatabaseURL()));
+      unit.getProperties().add(new Property("javax.persistence.jdbc.user", dataSource.getUsername()));
+      unit.getProperties().add(new Property("javax.persistence.jdbc.password", dataSource.getPassword()));
 
       return unit;
    }
+
 }

@@ -21,24 +21,114 @@
  */
 package org.jboss.seam.forge.spec.jpa.api;
 
+import org.jboss.seam.forge.parser.java.util.Strings;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface JPADataSource
+public class JPADataSource
 {
-   DatabaseType getDatabase();
 
-   String getDatabaseURL();
+   private String jdbcDriver;
+   private String databaseURL;
+   private String username;
+   private String password;
+   private DatabaseType database;
+   private String jndiDataSource;
 
-   String getJdbcDriver();
+   public DatabaseType getDatabase()
+   {
+      return database == null ? DatabaseType.DEFAULT : database;
+   }
 
-   String getJndiName();
+   public String getJndiDataSource()
+   {
+      return jndiDataSource;
+   }
 
-   String getPassword();
+   public String getJdbcDriver()
+   {
+      return jdbcDriver;
+   }
 
-   String getUsername();
+   public String getDatabaseURL()
+   {
+      return databaseURL;
+   }
 
-   void setDatabase(DatabaseType database);
+   public String getUsername()
+   {
+      return username;
+   }
+
+   public String getPassword()
+   {
+      return password;
+   }
+
+   public JPADataSource setDatabase(DatabaseType database)
+   {
+      this.database = database;
+      return this;
+   }
+
+   public JPADataSource setJndiDataSource(String jtaDataSource)
+   {
+      this.jndiDataSource = jtaDataSource;
+      return this;
+   }
+
+   public JPADataSource setDatabaseType(DatabaseType databaseType)
+   {
+      this.database = databaseType;
+      return this;
+   }
+
+   public JPADataSource setJdbcDriver(String jdbcDriver)
+   {
+      this.jdbcDriver = jdbcDriver;
+      return this;
+   }
+
+   public JPADataSource setDatabaseURL(String databaseURL)
+   {
+      this.databaseURL = databaseURL;
+      return this;
+   }
+
+   public JPADataSource setUsername(String username)
+   {
+      this.username = username;
+      return this;
+   }
+
+   public JPADataSource setPassword(String password)
+   {
+      this.password = password;
+      return this;
+   }
+
+   public boolean hasNonDefaultDatabase()
+   {
+      return !DatabaseType.DEFAULT.equals(getDatabase());
+   }
+
+   public boolean hasJdbcConnectionInfo()
+   {
+      return !Strings.isNullOrEmpty(databaseURL)
+               || !Strings.isNullOrEmpty(jdbcDriver)
+               || !Strings.isNullOrEmpty(username)
+               || !Strings.isNullOrEmpty(password);
+   }
+
+   public String getJdbcConnectionInfo()
+   {
+      String result = jdbcDriver == null ? "" : jdbcDriver;
+      result += databaseURL == null ? "" : (", " + databaseURL);
+      result += username == null ? "" : (", " + username);
+      result += password == null ? "" : (", " + password);
+      return result;
+   }
 
 }

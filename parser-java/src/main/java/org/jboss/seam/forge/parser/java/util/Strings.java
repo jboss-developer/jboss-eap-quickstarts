@@ -80,4 +80,9 @@ public class Strings
       return buffer.toString();
    }
 
+   public static boolean isNullOrEmpty(String string)
+   {
+      return string == null || string.isEmpty();
+   }
+
 }

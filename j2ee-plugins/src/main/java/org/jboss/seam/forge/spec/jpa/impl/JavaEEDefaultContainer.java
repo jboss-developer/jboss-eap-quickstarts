@@ -21,74 +21,44 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public class JPADataSourceImpl implements JPADataSource
+public abstract class JavaEEDefaultContainer implements PersistenceContainer
 {
-
-   private final String jndiName;
-   private final String jdbcDriver;
-   private final String databaseURL;
-   private final String username;
-   private final String password;
-   private DatabaseType database;
-
-   public JPADataSourceImpl(String jndiName, DatabaseType database, String jdbcDriver, String databaseURL, String username,
-            String password)
-   {
-      this.jndiName = jndiName;
-      this.database = database;
-      this.jdbcDriver = jdbcDriver;
-      this.databaseURL = databaseURL;
-      this.username = username;
-      this.password = password;
-   }
+   @Inject
+   private ShellPrintWriter writer;
 
    @Override
-   public DatabaseType getDatabase()
+   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
-      return database;
+      unit.setTransactionType(TransactionType.JTA);
+      if (dataSource.getJndiDataSource() != null)
+      {
+         ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
+      }
+      if (dataSource.hasNonDefaultDatabase())
+      {
+         ShellMessages.info(writer, "Ignoring database [" + dataSource.getDatabase() + "]");
+      }
+      if (dataSource.hasJdbcConnectionInfo())
+      {
+         ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
+      }
+
+      dataSource.setDatabase(setup(unit));
+      return unit;
    }
 
-   @Override
-   public String getJndiName()
-   {
-      return jndiName;
-   }
-
-   @Override
-   public String getJdbcDriver()
-   {
-      return jdbcDriver;
-   }
-
-   @Override
-   public String getDatabaseURL()
-   {
-      return databaseURL;
-   }
-
-   @Override
-   public String getUsername()
-   {
-      return username;
-   }
-
-   @Override
-   public String getPassword()
-   {
-      return password;
-   }
-
-   @Override
-   public void setDatabase(DatabaseType database)
-   {
-      this.database = database;
-   }
-
+   public abstract DatabaseType setup(PersistenceUnit unit);
 }

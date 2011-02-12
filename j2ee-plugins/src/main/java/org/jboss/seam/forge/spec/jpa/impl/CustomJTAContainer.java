@@ -21,7 +21,12 @@
  */
 package org.jboss.seam.forge.spec.jpa.impl;
 
-import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
@@ -29,15 +34,29 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class GlassFish3Container extends JavaEEDefaultContainer
+public class CustomJTAContainer implements PersistenceContainer
 {
-   private static final String DEFAULT_DS = "jdbc/__default";
+   @Inject
+   private ShellPrintWriter writer;
 
    @Override
-   public DatabaseType setup(PersistenceUnit unit)
+   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
       unit.setTransactionType(TransactionType.JTA);
-      unit.setJtaDataSource(DEFAULT_DS);
-      return DatabaseType.DERBY;
+      if (dataSource.getJndiDataSource() == null || dataSource.getJndiDataSource().trim().isEmpty())
+      {
+         throw new RuntimeException("Must specify a JTA data-source.");
+      }
+
+      if (dataSource.hasJdbcConnectionInfo())
+      {
+         ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
+      }
+
+      unit.setJtaDataSource(dataSource.getJndiDataSource());
+      unit.setNonJtaDataSource(null);
+
+      return unit;
    }
+
 }

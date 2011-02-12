@@ -84,7 +84,7 @@ public class HibernateProvider implements PersistenceProvider
          String dialect = dialects.get(ds.getDatabase());
          if (dialect == null)
          {
-            throw new RuntimeException("Unknown database type for Hibernate [" + ds.getDatabase() + "]");
+            throw new RuntimeException("Unsupported database type for Hibernate [" + ds.getDatabase() + "]");
          }
          unit.getProperties().add(new Property("hibernate.dialect", dialect));
       }
