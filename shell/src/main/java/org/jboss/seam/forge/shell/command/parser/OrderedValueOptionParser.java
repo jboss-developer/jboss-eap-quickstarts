@@ -54,7 +54,8 @@ public class OrderedValueOptionParser implements CommandParser
       catch (IllegalArgumentException e)
       {
          ctx.addWarning("The command [" + command + "] takes ["
-                  + command.getNumOrderedOptions() + "] argument(s), but found [" + (numberOrderedParams + 1) + "].");
+                  + command.getNumOrderedOptions() + "] unnamed argument(s), but found [" + (numberOrderedParams + 1)
+                  + "].");
       }
       return ctx;
    }
