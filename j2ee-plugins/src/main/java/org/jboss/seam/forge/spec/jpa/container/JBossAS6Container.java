@@ -19,46 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.impl;
+package org.jboss.seam.forge.spec.jpa.container;
 
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.shell.ShellMessages;
-import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
-import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
-import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public abstract class JavaEEDefaultContainer implements PersistenceContainer
+public class JBossAS6Container extends JavaEEDefaultContainer
 {
-   @Inject
-   private ShellPrintWriter writer;
+   private static final String DEFAULT_DS = "java:/DefaultDS";
 
    @Override
-   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
+   public DatabaseType setup(PersistenceUnit unit)
    {
       unit.setTransactionType(TransactionType.JTA);
-      if (dataSource.getJndiDataSource() != null)
-      {
-         ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
-      }
-      if (dataSource.hasNonDefaultDatabase())
-      {
-         ShellMessages.info(writer, "Ignoring database [" + dataSource.getDatabase() + "]");
-      }
-      if (dataSource.hasJdbcConnectionInfo())
-      {
-         ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
-      }
-
-      dataSource.setDatabase(setup(unit));
-      return unit;
+      unit.setJtaDataSource(DEFAULT_DS);
+      unit.setNonJtaDataSource(null);
+      return DatabaseType.HSQLDB;
    }
-
-   public abstract DatabaseType setup(PersistenceUnit unit);
 }

@@ -55,5 +55,6 @@ public enum DatabaseType
    FRONTBASE,
    FIREBIRD,
    HSQLDB_IN_MEMORY,
-   ORACLE_11G
+   ORACLE_11G,
+   ACCESS
 }

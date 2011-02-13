@@ -3,11 +3,11 @@ package org.jboss.seam.forge.spec.jpa.api;
 import javax.enterprise.inject.spi.BeanManager;
 
 import org.jboss.seam.forge.project.util.BeanManagerUtils;
-import org.jboss.seam.forge.spec.jpa.impl.CustomJDBCContainer;
-import org.jboss.seam.forge.spec.jpa.impl.CustomJTAContainer;
-import org.jboss.seam.forge.spec.jpa.impl.GlassFish3Container;
-import org.jboss.seam.forge.spec.jpa.impl.JBossAS6Container;
-import org.jboss.seam.forge.spec.jpa.impl.NonJTAContainer;
+import org.jboss.seam.forge.spec.jpa.container.CustomJDBCContainer;
+import org.jboss.seam.forge.spec.jpa.container.CustomJTAContainer;
+import org.jboss.seam.forge.spec.jpa.container.GlassFish3Container;
+import org.jboss.seam.forge.spec.jpa.container.JBossAS6Container;
+import org.jboss.seam.forge.spec.jpa.container.NonJTAContainer;
 
 public enum JPAContainer
 {

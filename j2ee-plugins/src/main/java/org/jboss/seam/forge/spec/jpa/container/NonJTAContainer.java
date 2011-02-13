@@ -19,9 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.impl;
+package org.jboss.seam.forge.spec.jpa.container;
 
-import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
@@ -29,15 +35,27 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class JBossAS6Container extends JavaEEDefaultContainer
+public class NonJTAContainer implements PersistenceContainer
 {
-   private static final String DEFAULT_DS = "java:/DefaultDS";
+   @Inject
+   private ShellPrintWriter writer;
 
    @Override
-   public DatabaseType setup(PersistenceUnit unit)
+   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
-      unit.setTransactionType(TransactionType.JTA);
-      unit.setJtaDataSource(DEFAULT_DS);
-      return DatabaseType.HSQLDB;
+      unit.setTransactionType(TransactionType.RESOURCE_LOCAL);
+      if (Strings.isNullOrEmpty(dataSource.getJndiDataSource()))
+      {
+         throw new RuntimeException("Must specify a JNDI data-source.");
+      }
+      if (dataSource.hasJdbcConnectionInfo())
+      {
+         ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
+      }
+
+      unit.setNonJtaDataSource(dataSource.getJndiDataSource());
+      unit.setJtaDataSource(null);
+
+      return unit;
    }
 }

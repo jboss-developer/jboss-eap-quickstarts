@@ -19,24 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.spec.jpa.impl;
+package org.jboss.seam.forge.spec.jpa.container;
 
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
 import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class CustomJDBCContainer implements PersistenceContainer
+public class CustomJTAContainer implements PersistenceContainer
 {
    @Inject
    private ShellPrintWriter writer;
@@ -44,36 +42,19 @@ public class CustomJDBCContainer implements PersistenceContainer
    @Override
    public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
    {
-      unit.setTransactionType(TransactionType.RESOURCE_LOCAL);
-      if (dataSource.getJndiDataSource() != null)
+      unit.setTransactionType(TransactionType.JTA);
+      if (dataSource.getJndiDataSource() == null || dataSource.getJndiDataSource().trim().isEmpty())
       {
-         ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
+         throw new RuntimeException("Must specify a JTA data-source.");
       }
 
-      if (!dataSource.hasNonDefaultDatabase())
+      if (dataSource.hasJdbcConnectionInfo())
       {
-         throw new RuntimeException("Must specify database type for JDBC connections.");
-      }
-      if (Strings.isNullOrEmpty(dataSource.getDatabaseURL()))
-      {
-         throw new RuntimeException("Must specify database URL for JDBC connections.");
-      }
-      if (Strings.isNullOrEmpty(dataSource.getUsername()))
-      {
-         throw new RuntimeException("Must specify username for JDBC connections.");
-      }
-      if (Strings.isNullOrEmpty(dataSource.getPassword()))
-      {
-         throw new RuntimeException("Must specify password for JDBC connections.");
+         ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
       }
 
+      unit.setJtaDataSource(dataSource.getJndiDataSource());
       unit.setNonJtaDataSource(null);
-      unit.setJtaDataSource(null);
-
-      unit.getProperties().add(new Property("javax.persistence.jdbc.driver", dataSource.getJdbcDriver()));
-      unit.getProperties().add(new Property("javax.persistence.jdbc.url", dataSource.getDatabaseURL()));
-      unit.getProperties().add(new Property("javax.persistence.jdbc.user", dataSource.getUsername()));
-      unit.getProperties().add(new Property("javax.persistence.jdbc.password", dataSource.getPassword()));
 
       return unit;
    }

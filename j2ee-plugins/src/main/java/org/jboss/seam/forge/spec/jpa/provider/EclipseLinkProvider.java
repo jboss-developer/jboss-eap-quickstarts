@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.spec.jpa.impl;
+package org.jboss.seam.forge.spec.jpa.provider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +30,7 @@ public class EclipseLinkProvider implements PersistenceProvider
       // JavaDBPlatform
       // TimesTen7Platform for TimesTen 7 database
 
+      platforms.put(DatabaseType.ACCESS, "org.eclipse.persistence.platform.database.AccessPlatform");
       platforms.put(DatabaseType.DERBY, "org.eclipse.persistence.platform.database.DerbyPlatform");
       platforms.put(DatabaseType.DB2, "org.eclipse.persistence.platform.database.DB2Platform");
       platforms.put(DatabaseType.DB2_AS400, "org.eclipse.persistence.platform.database.DB2MainframePlatform");
