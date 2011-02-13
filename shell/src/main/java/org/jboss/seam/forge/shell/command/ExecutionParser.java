@@ -34,15 +34,16 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.command.parser.CommandParser;
 import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
 import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
 import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
 import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
 import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
+import org.jboss.seam.forge.shell.command.parser.NullTokenOptionParser;
 import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
 import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.ParseErrorParser;
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
@@ -148,10 +149,16 @@ public class ExecutionParser
    {
       CommandParser commandParser = new CompositeCommandParser(new NamedBooleanOptionParser(),
                new NamedValueOptionParser(), new NamedValueVarargsOptionParser(), new OrderedValueOptionParser(),
-               new OrderedValueVarargsOptionParser(), new ParseErrorParser());
+               new OrderedValueVarargsOptionParser(), new NullTokenOptionParser());
 
-      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens, new CommandParserContext())
+      CommandParserContext context = new CommandParserContext();
+      Map<OptionMetadata, Object> valueMap = commandParser.parse(command, tokens, context)
                .getValueMap();
+
+      for (String warning : context.getWarnings())
+      {
+         ShellMessages.info(shell, warning);
+      }
 
       Object[] parameters = new Object[command.getOptions().size()];
       for (OptionMetadata option : command.getOptions())
@@ -203,7 +210,7 @@ public class ExecutionParser
             if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
             {
                // make sure the current option value is OK
-               shell.println("Could not parse [" + value + "]... please try again...");
+               ShellMessages.info(shell, "Could not parse [" + value + "]... please try again...");
                value = shell.promptCommon(optionDescriptor, promptType);
             }
             else if (option.isRequired() && (value == null) && (!option.hasDefaultValue()))
@@ -230,7 +237,7 @@ public class ExecutionParser
 
                   if (String.valueOf(value).trim().length() == 0)
                   {
-                     shell.println("The option is required to execute this command.");
+                     ShellMessages.info(shell, "The option is required to execute this command.");
                      value = null;
                   }
                }

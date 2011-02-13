@@ -22,8 +22,10 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jboss.seam.forge.shell.command.OptionMetadata;
@@ -34,25 +36,38 @@ import org.jboss.seam.forge.shell.command.OptionMetadata;
  */
 public class CommandParserContext
 {
-   private int parmCount;
+   private int paramCount;
    private final Map<OptionMetadata, Object> valueMap = new HashMap<OptionMetadata, Object>();
    private OptionMetadata lastParsed;
    private String lastParsedToken;
+   private final List<String> warnings = new ArrayList<String>();
+   private final List<String> ignoredTokens = new ArrayList<String>();
 
    public void incrementParmCount()
    {
-      parmCount++;
+      paramCount++;
    }
 
-   public int getParmCount()
+   public void addWarning(String message)
    {
-      return parmCount;
+      if (!warnings.contains(message))
+         warnings.add(message);
+   }
+
+   public void addIgnoredToken(String token)
+   {
+      ignoredTokens.add(token);
+   }
+
+   public int getParamCount()
+   {
+      return paramCount;
    }
 
    @Override
    public String toString()
    {
-      return "CommandParserContext [parmCount=" + parmCount + "]";
+      return "CommandParserContext [paramCount=" + paramCount + "]";
    }
 
    /**
@@ -63,15 +78,25 @@ public class CommandParserContext
       return Collections.unmodifiableMap(valueMap);
    }
 
+   public List<String> getWarnings()
+   {
+      return Collections.unmodifiableList(warnings);
+   }
+
+   public List<String> getIgnoredTokens()
+   {
+      return Collections.unmodifiableList(ignoredTokens);
+   }
+
    /**
     * Return a count of how many ordered params have already been parsed.
     */
-   public int getNumberOrderedParams()
+   public int getOrderedParamCount()
    {
       int result = 0;
       for (OptionMetadata option : valueMap.keySet())
       {
-         if (option.notOrdered())
+         if (option.isOrdered())
          {
             result++;
          }

@@ -19,7 +19,6 @@ import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser
 
 public class OptionResolverCompleter implements CommandCompleter
 {
-
    private final CommandParser commandParser = new CompositeCommandParser(
             new NamedBooleanOptionParser(),
             new NamedValueOptionParser(),

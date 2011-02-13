@@ -26,7 +26,6 @@ import java.util.Queue;
 
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-import org.jboss.seam.forge.shell.exceptions.CommandParserException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -38,25 +37,24 @@ public class OrderedValueOptionParser implements CommandParser
    public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
             final CommandParserContext ctx)
    {
-      int numberOrderedParams = ctx.getNumberOrderedParams();
+      int numberOrderedParams = ctx.getOrderedParamCount();
       try
       {
          String currentToken = tokens.peek();
-         if (!currentToken.startsWith("--"))
+         if (!currentToken.startsWith("-"))
          {
-            OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
+            OptionMetadata option = command.getOrderedOptionByIndex(numberOrderedParams);
             if (!option.isVarargs())
             {
                ctx.put(option, currentToken, tokens.remove());
-
                ctx.incrementParmCount();
             }
          }
       }
       catch (IllegalArgumentException e)
       {
-         throw new CommandParserException(command, "The command " + command.getName() + " takes ["
-                  + numberOrderedParams + "] argument(s).");
+         ctx.addWarning("The command [" + command + "] takes ["
+                  + command.getNumOrderedOptions() + "] argument(s), but found [" + (numberOrderedParams + 1) + "].");
       }
       return ctx;
    }

@@ -86,16 +86,29 @@ public class CommandMetadata
       int currentIndex = 0;
       for (OptionMetadata option : options)
       {
-         if (!option.notOrdered() && (index == currentIndex))
+         if (option.isOrdered() && (index == currentIndex))
          {
             return option;
          }
-         else if (!option.notOrdered())
+         else if (option.isOrdered())
          {
             currentIndex++;
          }
       }
       throw new IllegalArgumentException("No option with index [" + index + "] exists for command: " + this);
+   }
+
+   public int getNumOrderedOptions()
+   {
+      int count = 0;
+      for (OptionMetadata option : options)
+      {
+         if (option.isOrdered())
+         {
+            count++;
+         }
+      }
+      return count;
    }
 
    public Method getMethod()

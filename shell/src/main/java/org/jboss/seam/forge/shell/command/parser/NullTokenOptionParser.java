@@ -32,16 +32,17 @@ import org.jboss.seam.forge.shell.command.CommandMetadata;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class ParseErrorParser implements CommandParser
+public class NullTokenOptionParser implements CommandParser
 {
 
    @Override
    public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
             final CommandParserContext ctx)
    {
-      String token = tokens.peek();
-      // TODO should probably display the entire statement with the offending token highlighted
-      throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());
+      String token = tokens.remove();
+      ctx.addWarning("Swallowed unknown token [" + token + "] for command [" + command + "].");
+      ctx.addIgnoredToken(token);
+      return ctx;
    }
 
 }

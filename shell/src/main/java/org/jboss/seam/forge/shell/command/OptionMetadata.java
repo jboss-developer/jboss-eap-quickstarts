@@ -314,6 +314,11 @@ public class OptionMetadata
       return pipeIn || pipeOut || isNamed();
    }
 
+   public boolean isOrdered()
+   {
+      return !notOrdered();
+   }
+
    /**
     * Return whether or not this option has specified a custom {@link CommandCompleter}
     */

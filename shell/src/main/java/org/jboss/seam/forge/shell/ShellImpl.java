@@ -66,6 +66,8 @@ import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
+import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
+import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
 import org.jboss.seam.forge.shell.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.events.PostStartup;
@@ -128,6 +130,9 @@ public class ShellImpl implements Shell
 
    @Inject
    private PromptTypeConverter promptTypeConverter;
+
+   @Inject
+   private CompletedCommandHolder optionColorHandler;
 
    private ConsoleReader reader;
    private Completer completer;
@@ -378,6 +383,7 @@ public class ShellImpl implements Shell
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);
+      this.reader.setCompletionHandler(new OptionAwareCompletionHandler(optionColorHandler, this));
    }
 
    private void initStreams() throws IOException

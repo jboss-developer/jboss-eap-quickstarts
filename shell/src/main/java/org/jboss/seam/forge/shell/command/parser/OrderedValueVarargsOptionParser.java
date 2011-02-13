@@ -41,18 +41,27 @@ public class OrderedValueVarargsOptionParser implements CommandParser
       String currentToken = tokens.peek();
       if (!currentToken.startsWith("--"))
       {
-         OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
-         if (option.isVarargs())
+         try
          {
-            List<String> args = new ArrayList<String>();
-            String lastToken = null;
-            while (!tokens.isEmpty() && !tokens.peek().startsWith("--"))
+            OptionMetadata option = command.getOrderedOptionByIndex(ctx.getOrderedParamCount());
+            if (option.isVarargs())
             {
-               lastToken = tokens.remove();
-               args.add(lastToken);
+               List<String> args = new ArrayList<String>();
+               String lastToken = null;
+               while (!tokens.isEmpty() && !tokens.peek().startsWith("--"))
+               {
+                  lastToken = tokens.remove();
+                  args.add(lastToken);
+               }
+               ctx.put(option, args.toArray(new String[args.size()]), lastToken);
+               ctx.incrementParmCount();
             }
-            ctx.put(option, args.toArray(new String[args.size()]), lastToken);
-            ctx.incrementParmCount();
+         }
+         catch (IllegalArgumentException e)
+         {
+            ctx.addWarning("The command [" + command + "] takes ["
+                     + command.getNumOrderedOptions() + "] argument(s), but found [" + (ctx.getOrderedParamCount() + 1)
+                     + "].");
          }
       }
       return ctx;
