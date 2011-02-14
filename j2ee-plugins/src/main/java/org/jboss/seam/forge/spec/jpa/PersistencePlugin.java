@@ -21,12 +21,16 @@
  */
 package org.jboss.seam.forge.spec.jpa;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
+import org.jboss.seam.forge.project.constraints.RequiresProject;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.shell.events.InstallFacet;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -44,7 +48,8 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  * 
  */
 @Named("persistence")
-@RequiresFacet(PersistenceFacet.class)
+@RequiresProject
+@RequiresFacet(JavaSourceFacet.class)
 public class PersistencePlugin implements Plugin
 {
    public static final String DEFAULT_UNIT_NAME = "forge-default";
@@ -53,6 +58,9 @@ public class PersistencePlugin implements Plugin
 
    @Inject
    private Project project;
+
+   @Inject
+   private Event<InstallFacet> request;
 
    @Inject
    private BeanManager manager;
@@ -64,12 +72,12 @@ public class PersistencePlugin implements Plugin
             @Option(name = "database", defaultValue = "DEFAULT") DatabaseType databaseType,
             @Option(name = "jndiDataSource") String jtaDataSource,
             @Option(name = "jdbcDriver") String jdbcDriver,
-            @Option(name = "databaseURL") String databaseURL,
-            @Option(name = "username") String username,
-            @Option(name = "password") String password,
-            @Option(name = "unitName", defaultValue = DEFAULT_UNIT_NAME) String unitName,
-            @Option(name = "unitDesc", defaultValue = DEFAULT_UNIT_DESC) String unitDescription)
+            @Option(name = "jdbcURL") String jdbcURL,
+            @Option(name = "jdbcUsername") String jdbcUsername,
+            @Option(name = "jdbcPassword") String jdbcPassword,
+            @Option(name = "named", defaultValue = DEFAULT_UNIT_NAME) String unitName)
    {
+      installPersistence();
 
       PersistenceFacet jpa = project.getFacet(PersistenceFacet.class);
       PersistenceModel config = jpa.getConfig();
@@ -88,7 +96,7 @@ public class PersistencePlugin implements Plugin
       {
          unit = new PersistenceUnit();
          unit.setName(unitName);
-         unit.setDescription(unitDescription);
+         unit.setDescription(DEFAULT_UNIT_DESC);
          config.getPersistenceUnits().add(unit);
       }
       unit.getProperties().clear();
@@ -97,9 +105,9 @@ public class PersistencePlugin implements Plugin
                .setJndiDataSource(jtaDataSource)
                .setDatabaseType(databaseType)
                .setJdbcDriver(jdbcDriver)
-               .setDatabaseURL(databaseURL)
-               .setUsername(username)
-               .setPassword(password);
+               .setDatabaseURL(jdbcURL)
+               .setUsername(jdbcUsername)
+               .setPassword(jdbcPassword);
 
       PersistenceContainer container = jpac.getContainer(manager);
       PersistenceProvider provider = jpap.getProvider(manager);
@@ -108,5 +116,13 @@ public class PersistencePlugin implements Plugin
       provider.setup(unit, ds);
 
       jpa.saveConfig(config);
+   }
+
+   private void installPersistence()
+   {
+      if (!project.hasFacet(PersistenceFacet.class))
+      {
+         request.fire(new InstallFacet(PersistenceFacet.class));
+      }
    }
 }

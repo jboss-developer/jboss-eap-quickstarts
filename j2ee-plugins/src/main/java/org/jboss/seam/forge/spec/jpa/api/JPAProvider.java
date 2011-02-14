@@ -11,7 +11,7 @@ public enum JPAProvider
 {
    HIBERNATE(HibernateProvider.class),
    OPENJPA(OpenJPAProvider.class),
-   ECLIPSE_LINK(EclipseLinkProvider.class);
+   ECLIPSELINK(EclipseLinkProvider.class);
 
    private Class<? extends PersistenceProvider> type;
 
