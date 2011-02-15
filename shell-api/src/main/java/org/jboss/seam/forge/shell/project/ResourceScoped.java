@@ -21,19 +21,12 @@
  */
 package org.jboss.seam.forge.shell.project;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.jboss.seam.forge.project.Resource;
 
 import javax.enterprise.context.NormalScope;
+import java.lang.annotation.*;
 
-import org.jboss.seam.forge.project.Resource;
+import static java.lang.annotation.ElementType.*;
 
 /**
  * Declares a bean as being scoped to the current {@link Resource}. Beans using this scope will be destroyed when the

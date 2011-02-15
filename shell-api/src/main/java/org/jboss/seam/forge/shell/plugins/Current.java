@@ -22,21 +22,17 @@
 
 package org.jboss.seam.forge.shell.plugins;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.project.ResourceScoped;
 
+import javax.inject.Inject;
+import javax.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.inject.Inject;
-import javax.inject.Qualifier;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.project.ResourceScoped;
+import static java.lang.annotation.ElementType.*;
 
 /**
  * Used to @{@link Inject} the current working {@link Resource}, e.g:

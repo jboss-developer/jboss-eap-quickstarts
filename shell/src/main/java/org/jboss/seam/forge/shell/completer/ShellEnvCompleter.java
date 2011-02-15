@@ -21,13 +21,12 @@
  */
 package org.jboss.seam.forge.shell.completer;
 
+import org.jboss.seam.forge.shell.Shell;
+
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.shell.Shell;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

@@ -21,16 +21,15 @@
  */
 package org.jboss.seam.forge.spec.jsf;
 
-import java.io.File;
-
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
+
+import javax.inject.Named;
+import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

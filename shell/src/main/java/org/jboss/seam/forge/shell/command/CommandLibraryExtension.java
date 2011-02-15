@@ -22,32 +22,18 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.util.Annotations;
+import org.jboss.seam.forge.shell.plugins.*;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.inject.Named;
-
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.util.Annotations;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.OverloadedName;
-import org.jboss.seam.forge.shell.plugins.PipeIn;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

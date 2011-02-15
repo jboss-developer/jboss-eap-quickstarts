@@ -21,10 +21,10 @@
  */
 package org.jboss.seam.forge.shell.project.resources;
 
-import java.lang.annotation.Annotation;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.util.BeanManagerUtils;
+import org.jboss.seam.forge.shell.events.ResourceChanged;
+import org.jboss.seam.forge.shell.project.ResourceScoped;
 
 import javax.enterprise.context.ContextNotActiveException;
 import javax.enterprise.context.spi.Context;
@@ -34,11 +34,10 @@ import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.util.BeanManagerUtils;
-import org.jboss.seam.forge.shell.events.ResourceChanged;
-import org.jboss.seam.forge.shell.project.ResourceScoped;
+import java.lang.annotation.Annotation;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class provides lifecycle management for the {@link Project} scope

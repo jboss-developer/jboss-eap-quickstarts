@@ -22,28 +22,19 @@
 
 package org.jboss.seam.forge.dev.mvn;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenDependencyResource;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenPomResource;
 import org.jboss.seam.forge.project.resources.builtin.maven.MavenProfileResource;
-import org.jboss.seam.forge.shell.plugins.Current;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.OverloadedName;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.ShellColor;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * LsMavenPomPlugin

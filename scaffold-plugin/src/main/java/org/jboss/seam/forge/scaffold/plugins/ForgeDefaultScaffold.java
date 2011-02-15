@@ -21,11 +21,6 @@
  */
 package org.jboss.seam.forge.scaffold.plugins;
 
-import java.util.HashMap;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Refactory;
@@ -36,6 +31,10 @@ import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.render.TemplateCompiler;
 import org.jboss.seam.render.template.CompiledTemplateResource;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.util.HashMap;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

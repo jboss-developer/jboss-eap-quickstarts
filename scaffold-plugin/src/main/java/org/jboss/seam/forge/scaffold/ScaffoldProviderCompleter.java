@@ -21,14 +21,13 @@
  */
 package org.jboss.seam.forge.scaffold;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
+import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
-import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

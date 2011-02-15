@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.project.dependencies;
 
-import org.jboss.seam.forge.project.PackagingType;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.seam.forge.project.PackagingType;
 
 /**
  * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.
@@ -83,7 +83,7 @@ public class DependencyImpl implements Dependency
 
    public void setScopeType(final ScopeType scope)
    {
-      this.scopeType = (scope == null ? null : scope.getScope());
+      this.scopeType = scope == null ? null : scope.getScope();
    }
 
    public void setScopeType(final String type)
@@ -124,7 +124,7 @@ public class DependencyImpl implements Dependency
 
    public void setPackagingType(final PackagingType packagingType)
    {
-      this.packagingType = (packagingType == null ? null : packagingType.getType());
+      this.packagingType = packagingType == null ? null : packagingType.getType();
    }
 
    public void setPackagingType(final String type)
@@ -174,7 +174,5 @@ public class DependencyImpl implements Dependency
             !(version != null ? !version.equals(that.version) : that.version != null);
 
    }
-
-
 
 }
