@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+import org.jboss.seam.forge.project.resources.ResourceFilter;
+
 /**
  * A Resource is an abstraction on top of usable items within a Forge project. For instance, files, source code, etc.
  * Like a simplified virtual file system, a Resource is represented hierarchically with a parent and children. This
@@ -80,10 +82,13 @@ public interface Resource<T>
 
    /**
     * Return a list of child resources of the current resource.
-    * 
-    * @return A list of child resources.
     */
    public List<Resource<?>> listResources();
+
+   /**
+    * Return a list of child resources of the current resource matching the given {@link ResourceFilter}.
+    */
+   public List<Resource<?>> listResources(ResourceFilter filter);
 
    public T getUnderlyingResourceObject();
 

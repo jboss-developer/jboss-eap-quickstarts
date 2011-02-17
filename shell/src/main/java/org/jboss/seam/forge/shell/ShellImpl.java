@@ -56,9 +56,12 @@ import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.JavaPathspecParser;
 import org.jboss.seam.forge.project.util.OSUtils;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
@@ -165,6 +168,46 @@ public class ShellImpl implements Shell
       }
    };
 
+   private final ConversionHandler javaResourceConversionHandler = new ConversionHandler()
+   {
+      @Override
+      public JavaResource[] convertFrom(final Object obj)
+      {
+         if (getCurrentProject().hasFacet(JavaSourceFacet.class))
+         {
+            String[] strings = obj instanceof String[] ? (String[]) obj : new String[] { obj.toString() };
+            List<Resource<?>> resources = new ArrayList<Resource<?>>();
+            for (String string : strings)
+            {
+               resources.addAll(new JavaPathspecParser(getCurrentProject().getFacet(JavaSourceFacet.class),
+                        string).resolve());
+            }
+
+            List<JavaResource> filtered = new ArrayList<JavaResource>();
+            for (Resource<?> resource : resources)
+            {
+               if (resource instanceof JavaResource)
+               {
+                  filtered.add((JavaResource) resource);
+               }
+            }
+
+            JavaResource[] result = new JavaResource[filtered.size()];
+            result = filtered.toArray(result);
+            return result;
+         }
+         else
+            return null;
+      }
+
+      @SuppressWarnings("rawtypes")
+      @Override
+      public boolean canConvertFrom(final Class aClass)
+      {
+         return true;
+      }
+   };
+
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
       BooleanConverter booleanConverter = new BooleanConverter();
@@ -174,6 +217,7 @@ public class ShellImpl implements Shell
       addConversionHandler(File.class, new FileConverter());
       addConversionHandler(Dependency.class, new DependencyIdConverter());
 
+      addConversionHandler(JavaResource[].class, javaResourceConversionHandler);
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
 

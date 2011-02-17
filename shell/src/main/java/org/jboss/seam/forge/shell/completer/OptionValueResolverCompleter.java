@@ -7,11 +7,18 @@ import java.util.Map;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.resources.ResourceFilter;
+import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.BeanManagerUtils;
+import org.jboss.seam.forge.project.util.JavaPathspecParser;
 import org.jboss.seam.forge.project.util.PathspecParser;
+import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
@@ -51,53 +58,140 @@ public class OptionValueResolverCompleter implements CommandCompleter
                EnumCompleter completer = new EnumCompleter((Class<Enum<?>>) option.getType());
                completer.complete(state);
             }
-            else if (isResourceAssignable(option))
+            else if (isJavaResourceAssignable(option))
             {
-               ArrayList<String> results = new ArrayList<String>();
-               String[] values;
-
-               if (valueMap.isEmpty())
+               completeJavaPaths(state, option, valueMap, new ResourceFilter()
                {
-                  values = new String[] { "" };
-               }
-               else if (valueMap.get(option) instanceof String[])
+                  @Override
+                  public boolean accept(Resource<?> resource)
+                  {
+                     return (resource instanceof DirectoryResource || resource instanceof JavaResource);
+                  }
+               });
+            }
+            else if (isJavaPackageAssignable(option))
+            {
+               completeJavaPaths(state, option, valueMap, new ResourceFilter()
                {
-                  values = (String[]) valueMap.get(option);
-               }
-               else if (valueMap.get(option) == null)
-               {
-                  values = new String[] { "" };
-               }
-               else
-               {
-                  values = new String[] { String.valueOf(valueMap.get(option)) };
-               }
-
-               String val = values[values.length - 1];
-
-               for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*")
-                        .resolve())
-               {
-                  // Add result to the results list, and append a '/' if the
-                  // resource has children.
-                  String name = ("~".equals(val) ? "~/" : "") + r.getName()
-                           + (r.isFlagSet(ResourceFlag.Node) ? "/" : "");
-                  results.add(name);
-               }
-
-               int lastNest = val.lastIndexOf(File.separatorChar);
-
-               // Record the current index point in the buffer. If we're at
-               // the separator char
-               // set the value ahead by 1.
-               state.setIndex(state.getIndex() - val.length() + (lastNest != -1 ? lastNest + 1 : 0));
-               state.getCandidates().addAll(results);
+                  @Override
+                  public boolean accept(Resource<?> resource)
+                  {
+                     return (resource instanceof DirectoryResource);
+                  }
+               });
+            }
+            else if (isFileResourceAssignable(option))
+            {
+               completeFilenames(state, option, valueMap);
             }
          }
       }
    }
 
-   private boolean isResourceAssignable(final OptionMetadata option)
+   private void completeJavaPaths(PluginCommandCompleterState state, OptionMetadata option,
+            Map<OptionMetadata, Object> valueMap, ResourceFilter filter)
+   {
+      Project project = shell.getCurrentProject();
+      if (project != null && project.hasFacet(JavaSourceFacet.class))
+      {
+         ArrayList<String> results = new ArrayList<String>();
+         String[] values;
+
+         if (valueMap.isEmpty())
+         {
+            values = new String[] { "" };
+         }
+         else if (valueMap.get(option) instanceof String[])
+         {
+            values = (String[]) valueMap.get(option);
+         }
+         else if (valueMap.get(option) == null)
+         {
+            values = new String[] { "" };
+         }
+         else
+         {
+            values = new String[] { String.valueOf(valueMap.get(option)) };
+         }
+
+         String val = values[values.length - 1];
+         for (Resource<?> r : new JavaPathspecParser(project.getFacet(JavaSourceFacet.class), val + "*")
+                  .resolve(filter))
+         {
+            // Add result to the results list, and append a '.' if the
+            // resource has children.
+            String name = ("~".equals(val) ? "~." : "") + r.getName()
+                     + ((!r.listResources(filter).isEmpty() && r.isFlagSet(ResourceFlag.Node)) ? "." : "");
+            results.add(name);
+         }
+
+         // Record the current index point in the buffer. If we're at
+         // the separator char
+         // set the value ahead by 1.
+         int lastNest = val.lastIndexOf(".");
+         state.setIndex(state.getOriginalIndex() - val.length() + (lastNest != -1 ? lastNest + 1 : 0));
+
+         state.getCandidates().addAll(results);
+      }
+   }
+
+   private boolean isJavaPackageAssignable(OptionMetadata option)
+   {
+      return PromptType.JAVA_PACKAGE.equals(option.getPromptType());
+   }
+
+   private boolean isJavaResourceAssignable(OptionMetadata option)
+   {
+      return JavaResource[].class.isAssignableFrom(option.getBoxedType())
+               || JavaResource.class.isAssignableFrom(option.getBoxedType())
+               || PromptType.JAVA_CLASS.equals(option.getPromptType());
+   }
+
+   private void completeFilenames(PluginCommandCompleterState state, OptionMetadata option,
+            Map<OptionMetadata, Object> valueMap)
+   {
+      ArrayList<String> results = new ArrayList<String>();
+      String[] values;
+
+      if (valueMap.isEmpty())
+      {
+         values = new String[] { "" };
+      }
+      else if (valueMap.get(option) instanceof String[])
+      {
+         values = (String[]) valueMap.get(option);
+      }
+      else if (valueMap.get(option) == null)
+      {
+         values = new String[] { "" };
+      }
+      else
+      {
+         values = new String[] { String.valueOf(valueMap.get(option)) };
+      }
+
+      String val = values[values.length - 1];
+
+      for (Resource<?> r : new PathspecParser(resourceFactory, shell.getCurrentResource(), val + "*")
+               .resolve())
+      {
+         // Add result to the results list, and append a '/' if the
+         // resource has children.
+         String name = ("~".equals(val) ? "~/" : "") + r.getName()
+                  + (r.isFlagSet(ResourceFlag.Node) ? "/" : "");
+         results.add(name);
+      }
+
+      int lastNest = val.lastIndexOf(File.separatorChar);
+
+      // Record the current index point in the buffer. If we're at
+      // the separator char
+      // set the value ahead by 1.
+      state.setIndex(state.getOriginalIndex() - val.length() + (lastNest != -1 ? lastNest + 1 : 0));
+      state.getCandidates().addAll(results);
+   }
+
+   private boolean isFileResourceAssignable(final OptionMetadata option)
    {
       return Resource[].class.isAssignableFrom(option.getBoxedType())
                || Resource.class.isAssignableFrom(option.getBoxedType());

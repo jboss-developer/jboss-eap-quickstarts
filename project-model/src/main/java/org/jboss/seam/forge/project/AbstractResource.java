@@ -22,10 +22,13 @@
 
 package org.jboss.seam.forge.project;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
+import org.jboss.seam.forge.project.resources.ResourceFilter;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
@@ -102,5 +105,19 @@ public abstract class AbstractResource<T> implements Resource<T>
       {
          return null;
       }
+   }
+
+   @Override
+   public synchronized List<Resource<?>> listResources(ResourceFilter filter)
+   {
+      List<Resource<?>> result = new ArrayList<Resource<?>>();
+      for (Resource<?> resource : listResources())
+      {
+         if (filter.accept(resource))
+         {
+            result.add(resource);
+         }
+      }
+      return result;
    }
 }
