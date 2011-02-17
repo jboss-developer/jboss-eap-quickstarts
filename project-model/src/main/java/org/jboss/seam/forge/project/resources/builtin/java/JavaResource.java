@@ -32,7 +32,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.project.Resource;
@@ -119,9 +118,9 @@ public class JavaResource extends FileResource<JavaResource>
       return list;
    }
 
-   public JavaResource setContents(final JavaClass javaClass)
+   public JavaResource setContents(final JavaSource<?> source)
    {
-      setContents(javaClass.toString());
+      setContents(source.toString());
       return this;
    }
 
@@ -158,6 +157,10 @@ public class JavaResource extends FileResource<JavaResource>
       catch (FileNotFoundException e)
       {
          throw new ResourceException(e);
+      }
+      catch (Exception e)
+      {
+         return getName();
       }
    }
 }

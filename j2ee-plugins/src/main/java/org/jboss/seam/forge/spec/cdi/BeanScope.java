@@ -21,43 +21,27 @@
  */
 package org.jboss.seam.forge.spec.cdi;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.shell.ShellMessages;
-import org.jboss.seam.forge.shell.events.InstallFacet;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-@Named("beans")
-public class CDIPlugin implements Plugin
+public enum BeanScope
 {
-   @Inject
-   private Event<InstallFacet> install;
+   DEPENDENT(""),
+   APPLICATION("javax.enterprise.context.ApplicationScoped"),
+   SESSION("javax.enterprise.context.SessionScoped"),
+   CONVERSATION("javax.enterprise.context.ConversationScoped"),
+   REQUEST("javax.enterprise.context.RequestScoped"),
+   CUSTOM(null);
 
-   @Inject
-   private Project project;
+   private String annotation;
 
-   @Command("setup")
-   public void setup(PipeOut out)
+   private BeanScope(String annotation)
    {
-      if (!project.hasFacet(CDIFacet.class))
-      {
-         install.fire(new InstallFacet(CDIFacet.class));
-      }
-      ShellMessages.success(out, "CDI is installed.");
+      this.annotation = annotation;
    }
 
-   @Command("new-bean")
-   public void newBean()
+   public String getAnnotation()
    {
-
+      return annotation;
    }
 }

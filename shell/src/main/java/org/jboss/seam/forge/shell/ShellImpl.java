@@ -28,6 +28,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -218,6 +219,47 @@ public class ShellImpl implements Shell
       addConversionHandler(Dependency.class, new DependencyIdConverter());
 
       addConversionHandler(JavaResource[].class, javaResourceConversionHandler);
+      addConversionHandler(JavaResource.class, new ConversionHandler()
+      {
+
+         @Override
+         public Object convertFrom(Object obj)
+         {
+            JavaResource[] res = (JavaResource[]) javaResourceConversionHandler.convertFrom(obj);
+            if (res.length > 1)
+            {
+               throw new RuntimeException("ambiguous paths");
+            }
+            else if (res.length == 0)
+            {
+               if (getCurrentProject().hasFacet(JavaSourceFacet.class))
+               {
+                  JavaSourceFacet java = getCurrentProject().getFacet(JavaSourceFacet.class);
+                  try
+                  {
+                     JavaResource resource = java.getJavaResource(obj.toString());
+                     return resource;
+                  }
+                  catch (FileNotFoundException e)
+                  {
+                     throw new RuntimeException(e);
+                  }
+               }
+               return null;
+            }
+            else
+            {
+               return res[0];
+            }
+         }
+
+         @Override
+         @SuppressWarnings("rawtypes")
+         public boolean canConvertFrom(Class type)
+         {
+            return javaResourceConversionHandler.canConvertFrom(type);
+         }
+      });
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
 
@@ -240,8 +282,8 @@ public class ShellImpl implements Shell
             }
          }
 
-         @SuppressWarnings("rawtypes")
          @Override
+         @SuppressWarnings("rawtypes")
          public boolean canConvertFrom(final Class aClass)
          {
             return resourceConversionHandler.canConvertFrom(aClass);

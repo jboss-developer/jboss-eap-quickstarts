@@ -36,6 +36,7 @@ import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
@@ -62,6 +63,31 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
       List<DirectoryResource> result = new ArrayList<DirectoryResource>();
       result.add(getSourceFolder());
       result.add(getTestSourceFolder());
+      return result;
+   }
+
+   @Override
+   public String calculateName(JavaResource resource)
+   {
+      String fullPath = Packages.fromFileSyntax(resource.getFullyQualifiedName());
+      String pkg = calculatePackage(resource);
+      String name = fullPath.substring(fullPath.lastIndexOf(pkg) + pkg.length() + 1);
+      name = name.substring(0, name.lastIndexOf(".java"));
+      return name;
+   }
+
+   @Override
+   public String calculatePackage(JavaResource resource)
+   {
+      String pkg = resource.getParent().getFullyQualifiedName();
+      pkg = Packages.fromFileSyntax(pkg);
+
+      String result = pkg;
+      if (result.contains(getBasePackage()))
+      {
+         result = pkg.substring(pkg.lastIndexOf(getBasePackage()));
+      }
+
       return result;
    }
 
@@ -204,14 +230,14 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
    }
 
    @Override
-   public JavaResource saveJavaClass(final JavaClass javaClass) throws FileNotFoundException
+   public JavaResource saveJavaSource(final JavaSource<?> source) throws FileNotFoundException
    {
-      return getJavaResource(javaClass.getQualifiedName()).setContents(javaClass);
+      return getJavaResource(source.getQualifiedName()).setContents(source);
    }
 
    @Override
-   public JavaResource saveTestJavaClass(final JavaClass javaClass) throws FileNotFoundException
+   public JavaResource saveTestJavaSource(final JavaSource<?> source) throws FileNotFoundException
    {
-      return getTestJavaResource(javaClass.getQualifiedName()).setContents(javaClass);
+      return getTestJavaResource(source.getQualifiedName()).setContents(source);
    }
 }

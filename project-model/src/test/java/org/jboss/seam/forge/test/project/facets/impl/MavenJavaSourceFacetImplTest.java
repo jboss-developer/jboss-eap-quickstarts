@@ -54,7 +54,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
-      JavaResource file = project.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      JavaResource file = project.getFacet(JavaSourceFacet.class).saveJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaSource<?> result = file.getJavaSource();
@@ -72,7 +72,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
-      JavaResource file = java.saveJavaClass(clazz);
+      JavaResource file = java.saveJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaSource<?> parsed = java.getJavaResource(clazz).getJavaSource();
@@ -89,7 +89,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
-      JavaResource file = java.saveTestJavaClass(clazz);
+      JavaResource file = java.saveTestJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaSource<?> parsed = java.getTestJavaResource(clazz).getJavaSource();

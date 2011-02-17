@@ -200,7 +200,7 @@ public class NewProjectPlugin implements Plugin
 
       if (createMain)
       {
-         project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
+         project.getFacet(JavaSourceFacet.class).saveJavaSource(JavaParser
                   .create(JavaClass.class)
                   .setPackage(groupId)
                   .setName("Main")

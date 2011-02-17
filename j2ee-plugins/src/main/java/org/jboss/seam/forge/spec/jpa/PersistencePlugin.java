@@ -28,7 +28,6 @@ import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.events.InstallFacet;
 import org.jboss.seam.forge.shell.plugins.Command;
@@ -48,7 +47,6 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  * 
  */
 @Named("persistence")
-@RequiresProject
 @RequiresFacet(JavaSourceFacet.class)
 public class PersistencePlugin implements Plugin
 {

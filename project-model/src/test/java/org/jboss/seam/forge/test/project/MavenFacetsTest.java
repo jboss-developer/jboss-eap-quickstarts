@@ -117,7 +117,7 @@ public class MavenFacetsTest extends ProjectModelTest
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
       clazz.getOrigin();
-      JavaResource file = getProject().getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      JavaResource file = getProject().getFacet(JavaSourceFacet.class).saveJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaClass result = (JavaClass) file.getJavaSource();

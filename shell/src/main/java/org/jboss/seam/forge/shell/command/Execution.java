@@ -110,8 +110,18 @@ public class Execution
             }
             catch (Exception e)
             {
+               OptionMetadata option = command.getOptionByAbsoluteIndex(i);
+               String name = null;
+               if (option.isNamed())
+               {
+                  name = "--" + option.getName();
+               }
+               else
+               {
+                  name = "at index [" + option.getIndex() + "]";
+               }
                throw new CommandExecutionException(command, "command option '"
-                        + command.getOptionByAbsoluteIndex(i).getDescription()
+                        + name
                         + "' must be of type '" + parmTypes[i].getSimpleName() + "'", e);
             }
          }

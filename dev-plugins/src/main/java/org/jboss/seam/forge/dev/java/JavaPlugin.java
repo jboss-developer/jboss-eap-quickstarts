@@ -21,6 +21,14 @@
  */
 package org.jboss.seam.forge.dev.java;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Map.Entry;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
@@ -33,15 +41,15 @@ import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.Current;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Map.Entry;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -114,7 +122,7 @@ public class JavaPlugin implements Plugin
 
       if (!jc.hasSyntaxErrors())
       {
-         java.saveJavaClass(jc);
+         java.saveJavaSource(jc);
       }
       else
       {
@@ -127,7 +135,7 @@ public class JavaPlugin implements Plugin
 
          if (prompt.promptBoolean("Your class has syntax errors, create anyway?", true))
          {
-            java.saveJavaClass(jc);
+            java.saveJavaSource(jc);
          }
       }
    }
@@ -162,7 +170,7 @@ public class JavaPlugin implements Plugin
       {
          JavaClass clazz = ((JavaClass) source);
          clazz.addField(fieldDef);
-         java.saveJavaClass(clazz);
+         java.saveJavaSource(clazz);
       }
    }
 }
