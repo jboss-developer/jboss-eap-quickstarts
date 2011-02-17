@@ -38,6 +38,7 @@ import org.junit.Test;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class MethodTest
 {
    private InputStream stream;

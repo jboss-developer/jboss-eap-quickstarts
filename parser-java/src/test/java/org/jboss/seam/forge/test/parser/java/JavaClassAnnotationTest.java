@@ -30,6 +30,7 @@ import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class JavaClassAnnotationTest extends AnnotationTest
 {
    @Override

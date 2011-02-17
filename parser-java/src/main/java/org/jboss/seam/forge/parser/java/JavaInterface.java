@@ -25,6 +25,7 @@ package org.jboss.seam.forge.parser.java;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@SuppressWarnings("rawtypes")
 public interface JavaInterface extends JavaType<JavaInterface>,
          MemberHolder<JavaInterface, Member>,
          FieldHolder<JavaInterface>,

@@ -53,6 +53,7 @@ import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@SuppressWarnings("unchecked")
 public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
          JavaSource<O>
 {
@@ -148,7 +149,6 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   @SuppressWarnings("unchecked")
    public Import<O> addImport(final String className)
    {
       Import<O> imprt;
@@ -175,7 +175,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public <T extends JavaSource<?>> O addImports(T[] types)
+   public <T extends JavaSource<?>> O addImports(T... types)
    {
       for (T t : types)
       {
@@ -195,7 +195,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public O addImports(Import<?>[] imprt)
+   public O addImports(Import<?>... imprt)
    {
       for (Import<?> i : imprt)
       {
@@ -237,7 +237,6 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   @SuppressWarnings("unchecked")
    public List<Import<O>> getImports()
    {
       List<Import<O>> results = new ArrayList<Import<O>>();
@@ -350,8 +349,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    /**
-    * Call-back to allow updating of any necessary internal names with the given
-    * name.
+    * Call-back to allow updating of any necessary internal names with the given name.
     */
    protected abstract O updateTypeNames(String name);
 

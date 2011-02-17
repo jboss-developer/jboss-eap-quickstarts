@@ -34,6 +34,7 @@ import org.jboss.seam.forge.test.parser.java.common.VisibilityTest;
 public class MethodVisibilityTest extends VisibilityTest
 {
    @Override
+   @SuppressWarnings("rawtypes")
    public void resetTests()
    {
       InputStream stream = MethodVisibilityTest.class
