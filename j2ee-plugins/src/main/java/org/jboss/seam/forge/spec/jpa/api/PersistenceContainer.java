@@ -22,7 +22,7 @@
 package org.jboss.seam.forge.spec.jpa.api;
 
 import org.jboss.seam.forge.shell.completer.Completable;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -30,5 +30,5 @@ import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit
  */
 public interface PersistenceContainer extends Completable
 {
-   PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource);
+   PersistenceUnitDef setupConnection(PersistenceUnitDef unit, JPADataSource dataSource);
 }

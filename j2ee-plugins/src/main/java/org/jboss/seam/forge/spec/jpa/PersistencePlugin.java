@@ -39,8 +39,8 @@ import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.JPAProvider;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -78,26 +78,11 @@ public class PersistencePlugin implements Plugin
       installPersistence();
 
       PersistenceFacet jpa = project.getFacet(PersistenceFacet.class);
-      PersistenceModel config = jpa.getConfig();
+      PersistenceDescriptor config = jpa.getConfig();
 
-      PersistenceUnit unit = null;
-      for (PersistenceUnit u : config.getPersistenceUnits())
-      {
-         if (DEFAULT_UNIT_NAME.equals(u.getName())
-                  || (unitName != null && unitName.equals(u.getName())))
-         {
-            unit = u;
-         }
-      }
+      PersistenceUnitDef unit = config.persistenceUnit(unitName);
 
-      if (unit == null)
-      {
-         unit = new PersistenceUnit();
-         unit.setName(unitName);
-         unit.setDescription(DEFAULT_UNIT_DESC);
-         config.getPersistenceUnits().add(unit);
-      }
-      unit.getProperties().clear();
+      unit.name(unitName).description(DEFAULT_UNIT_DESC);
 
       JPADataSource ds = new JPADataSource()
                .setJndiDataSource(jtaDataSource)

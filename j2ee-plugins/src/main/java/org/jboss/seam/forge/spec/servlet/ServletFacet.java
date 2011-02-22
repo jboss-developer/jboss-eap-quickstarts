@@ -43,9 +43,6 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
-import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppDescriptorImpl;
-import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppModel;
-import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -59,18 +56,15 @@ public class ServletFacet extends BaseFacet
    private static final Dependency dep =
             DependencyBuilder.create("org.jboss.spec:jboss-javaee-6.0:1.0.0.CR1:provided:basic");
 
-   @SuppressWarnings("unchecked")
-   public WebAppModel getConfig()
+   public WebAppDescriptor getConfig()
    {
       DescriptorImporter<WebAppDescriptor> importer = Descriptors.importAs(WebAppDescriptor.class);
       WebAppDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
-      WebAppModel model = ((SchemaDescriptorProvider<WebAppModel>) descriptor).getSchemaModel();
-      return model;
+      return descriptor;
    }
 
-   public void saveConfig(final WebAppModel model)
+   public void saveConfig(final WebAppDescriptor descriptor)
    {
-      WebAppDescriptor descriptor = new WebAppDescriptorImpl(model);
       String output = descriptor.exportAsString();
       getConfigFile().setContents(output);
    }

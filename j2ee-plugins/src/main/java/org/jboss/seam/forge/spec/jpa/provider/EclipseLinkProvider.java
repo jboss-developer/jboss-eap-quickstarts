@@ -6,8 +6,7 @@ import java.util.Map;
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 public class EclipseLinkProvider implements PersistenceProvider
 {
@@ -60,12 +59,12 @@ public class EclipseLinkProvider implements PersistenceProvider
    }
 
    @Override
-   public PersistenceUnit setup(PersistenceUnit unit, JPADataSource ds)
+   public PersistenceUnitDef setup(PersistenceUnitDef unit, JPADataSource ds)
    {
-      unit.setProvider("org.eclipse.persistence.jpa.PersistenceProvider");
+      unit.provider("org.eclipse.persistence.jpa.PersistenceProvider");
 
-      unit.setExcludeUnlistedClasses(false);
-      unit.getProperties().add(new Property("eclipselink.ddl-generation", "drop-and-create-tables"));
+      unit.includeUnlistedClasses();
+      unit.property("eclipselink.ddl-generation", "drop-and-create-tables");
 
       if (!DatabaseType.DEFAULT.equals(ds.getDatabase()))
       {
@@ -74,7 +73,7 @@ public class EclipseLinkProvider implements PersistenceProvider
          {
             throw new RuntimeException("Unsupported database type for Eclipselink [" + ds.getDatabase() + "]");
          }
-         unit.getProperties().add(new Property("eclipselink.target-database", platform));
+         unit.property("eclipselink.target-database", platform);
       }
 
       return unit;

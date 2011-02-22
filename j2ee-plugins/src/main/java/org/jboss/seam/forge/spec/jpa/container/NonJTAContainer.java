@@ -28,8 +28,8 @@ import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,9 +41,9 @@ public class NonJTAContainer implements PersistenceContainer
    private ShellPrintWriter writer;
 
    @Override
-   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
+   public PersistenceUnitDef setupConnection(PersistenceUnitDef unit, JPADataSource dataSource)
    {
-      unit.setTransactionType(TransactionType.RESOURCE_LOCAL);
+      unit.transactionType(TransactionType.RESOURCE_LOCAL);
       if (Strings.isNullOrEmpty(dataSource.getJndiDataSource()))
       {
          throw new RuntimeException("Must specify a JNDI data-source.");
@@ -53,8 +53,8 @@ public class NonJTAContainer implements PersistenceContainer
          ShellMessages.info(writer, "Ignoring jdbc connection info [" + dataSource.getJdbcConnectionInfo() + "]");
       }
 
-      unit.setNonJtaDataSource(dataSource.getJndiDataSource());
-      unit.setJtaDataSource(null);
+      unit.nonJtaDataSource(dataSource.getJndiDataSource());
+      unit.jtaDataSource(null);
 
       return unit;
    }

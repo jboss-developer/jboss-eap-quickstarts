@@ -21,12 +21,12 @@
  */
 package org.jboss.seam.forge.spec.jpa.api;
 
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public interface PersistenceProvider
 {
-   PersistenceUnit setup(PersistenceUnit unit, JPADataSource ds);
+   PersistenceUnitDef setup(PersistenceUnitDef unit, JPADataSource ds);
 }

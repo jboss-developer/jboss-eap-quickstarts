@@ -28,8 +28,8 @@ import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -40,9 +40,9 @@ public abstract class JavaEEDefaultContainer implements PersistenceContainer
    private ShellPrintWriter writer;
 
    @Override
-   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
+   public PersistenceUnitDef setupConnection(PersistenceUnitDef unit, JPADataSource dataSource)
    {
-      unit.setTransactionType(TransactionType.JTA);
+      unit.transactionType(TransactionType.JTA);
       if (dataSource.getJndiDataSource() != null)
       {
          ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
@@ -60,5 +60,5 @@ public abstract class JavaEEDefaultContainer implements PersistenceContainer
       return unit;
    }
 
-   public abstract DatabaseType setup(PersistenceUnit unit);
+   public abstract DatabaseType setup(PersistenceUnitDef unit);
 }

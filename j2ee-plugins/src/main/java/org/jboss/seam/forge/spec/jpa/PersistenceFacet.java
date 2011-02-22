@@ -47,9 +47,6 @@ import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
-import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -74,18 +71,15 @@ public class PersistenceFacet extends BaseFacet
       return sourceFacet.getBasePackageResource().getChildDirectory("domain");
    }
 
-   @SuppressWarnings("unchecked")
-   public PersistenceModel getConfig()
+   public PersistenceDescriptor getConfig()
    {
       DescriptorImporter<PersistenceDescriptor> importer = Descriptors.importAs(PersistenceDescriptor.class);
       PersistenceDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
-      PersistenceModel model = ((SchemaDescriptorProvider<PersistenceModel>) descriptor).getSchemaModel();
-      return model;
+      return descriptor;
    }
 
-   public void saveConfig(final PersistenceModel model)
+   public void saveConfig(final PersistenceDescriptor descriptor)
    {
-      PersistenceDescriptor descriptor = new PersistenceDescriptorImpl(model);
       String output = descriptor.exportAsString();
       getConfigFile().setContents(output);
    }

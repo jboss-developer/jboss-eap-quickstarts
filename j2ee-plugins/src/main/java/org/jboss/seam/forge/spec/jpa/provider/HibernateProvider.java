@@ -27,8 +27,7 @@ import java.util.Map;
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -69,15 +68,15 @@ public class HibernateProvider implements PersistenceProvider
    }
 
    @Override
-   public PersistenceUnit setup(PersistenceUnit unit, JPADataSource ds)
+   public PersistenceUnitDef setup(PersistenceUnitDef unit, JPADataSource ds)
    {
-      unit.setProvider("org.hibernate.ejb.HibernatePersistence");
+      unit.provider("org.hibernate.ejb.HibernatePersistence");
 
-      unit.setExcludeUnlistedClasses(false);
-      unit.getProperties().add(new Property("hibernate.hbm2ddl.auto", "create-drop"));
-      unit.getProperties().add(new Property("hibernate.show_sql", "true"));
-      unit.getProperties().add(new Property("hibernate.format_sql", "true"));
-      unit.getProperties().add(new Property("hibernate.transaction.flush_before_completion", "true"));
+      unit.includeUnlistedClasses();
+      unit.property("hibernate.hbm2ddl.auto", "create-drop");
+      unit.property("hibernate.show_sql", "true");
+      unit.property("hibernate.format_sql", "true");
+      unit.property("hibernate.transaction.flush_before_completion", "true");
 
       if (!DatabaseType.DEFAULT.equals(ds.getDatabase()))
       {
@@ -86,7 +85,7 @@ public class HibernateProvider implements PersistenceProvider
          {
             throw new RuntimeException("Unsupported database type for Hibernate [" + ds.getDatabase() + "]");
          }
-         unit.getProperties().add(new Property("hibernate.dialect", dialect));
+         unit.property("hibernate.dialect", dialect);
       }
 
       return unit;

@@ -30,7 +30,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
-import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,7 +46,7 @@ public class CDIFacetTest extends SingletonAbstractShellTest
       Project project = initializeJavaProject();
       getShell().execute("install forge.spec.cdi");
       assertTrue(project.hasFacet(CDIFacet.class));
-      BeansModel config = project.getFacet(CDIFacet.class).getConfig();
+      BeansDescriptor config = project.getFacet(CDIFacet.class).getConfig();
 
       assertNotNull(config);
    }

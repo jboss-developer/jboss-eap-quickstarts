@@ -22,7 +22,6 @@
 package org.jboss.seam.forge.spec.cdi;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -42,7 +41,6 @@ import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.Alternatives;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -72,53 +70,67 @@ public class BeansPlugin implements Plugin
       {
          ShellMessages.success(out, "CDI [JSR-299] is installed.");
       }
+
    }
 
-   @Command("list-interceptors")
-   public void listInterceptors(PipeOut out)
-   {
-      CDIFacet cdi = project.getFacet(CDIFacet.class);
-      List<String> interceptors = cdi.getConfig().getInterceptors();
-      for (String i : interceptors)
-      {
-         out.println(i);
-      }
-   }
-
-   @Command("list-decorators")
-   public void listDecorators(PipeOut out)
-   {
-      CDIFacet cdi = project.getFacet(CDIFacet.class);
-      List<String> decorators = cdi.getConfig().getDecorators();
-      for (String d : decorators)
-      {
-         out.println(d);
-      }
-   }
-
-   @Command("list-alternatives")
-   public void listAlternatives(PipeOut out)
-   {
-      CDIFacet cdi = project.getFacet(CDIFacet.class);
-      Alternatives alternatives = cdi.getConfig().getAlternatives();
-      List<String> classes = alternatives.getClasses();
-      List<String> stereotypes = alternatives.getStereotypes();
-      for (int i = 0; i < classes.size() && i < stereotypes.size(); i++)
-      {
-         out.println(stereotypes.get(i) + " --> " + classes.get(i));
-      }
-   }
-
-   @Command("list-extensions")
-   public void listExtensions(PipeOut out)
-   {
-      CDIFacet cdi = project.getFacet(CDIFacet.class);
-      List<Object> extensions = cdi.getConfig().getExtensions();
-      for (Object e : extensions)
-      {
-         out.println(e.toString());
-      }
-   }
+   //
+   // @Command("list-interceptors")
+   // public void listInterceptors(PipeOut out)
+   // {
+   // CDIFacet cdi = project.getFacet(CDIFacet.class);
+   // List<String> interceptors = cdi.getConfig().getInterceptors();
+   // for (String i : interceptors)
+   // {
+   // out.println(i);
+   // }
+   // }
+   //
+   // @Command("list-decorators")
+   // public void listDecorators(PipeOut out)
+   // {
+   // CDIFacet cdi = project.getFacet(CDIFacet.class);
+   // List<String> decorators = cdi.getConfig().getDecorators();
+   // for (String d : decorators)
+   // {
+   // out.println(d);
+   // }
+   // }
+   //
+   // @Command("list-alternatives")
+   // public void listAlternatives(PipeOut out)
+   // {
+   // CDIFacet cdi = project.getFacet(CDIFacet.class);
+   // Alternatives alternatives = cdi.getConfig().getAlternatives();
+   // List<String> classes = alternatives.getClasses();
+   // List<String> stereotypes = alternatives.getStereotypes();
+   //
+   // if (!out.isPiped())
+   // out.println(ShellColor.BOLD, "Stereotypes:");
+   //
+   // for (String s : stereotypes)
+   // {
+   // out.println(s);
+   // }
+   //
+   // if (!out.isPiped())
+   // out.println(ShellColor.BOLD, "Classes:");
+   //
+   // for (String c : classes)
+   // {
+   // out.println(c);
+   // }
+   // }
+   //
+   // @Command("list-extensions")
+   // public void listExtensions(PipeOut out)
+   // {
+   // CDIFacet cdi = project.getFacet(CDIFacet.class);
+   // List<Object> extensions = cdi.getConfig().getExtensions();
+   // for (Object e : extensions)
+   // {
+   // out.println(e.toString());
+   // }
+   // }
 
    @Command("new-bean")
    public void newBean(

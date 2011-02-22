@@ -27,8 +27,7 @@ import java.util.Map;
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -70,11 +69,11 @@ public class OpenJPAProvider implements PersistenceProvider
    }
 
    @Override
-   public PersistenceUnit setup(PersistenceUnit unit, JPADataSource ds)
+   public PersistenceUnitDef setup(PersistenceUnitDef unit, JPADataSource ds)
    {
-      unit.setProvider("org.apache.openjpa.persistence.PersistenceProviderImpl");
+      unit.provider("org.apache.openjpa.persistence.PersistenceProviderImpl");
 
-      unit.setExcludeUnlistedClasses(false);
+      unit.includeUnlistedClasses();
 
       if (!DatabaseType.DEFAULT.equals(ds.getDatabase()))
       {
@@ -83,7 +82,7 @@ public class OpenJPAProvider implements PersistenceProvider
          {
             throw new RuntimeException("Unsupported database type for OpenJPA [" + ds.getDatabase() + "]");
          }
-         unit.getProperties().add(new Property("openjpa.jdbc.DBDictionary", dialect));
+         unit.property("openjpa.jdbc.DBDictionary", dialect);
       }
 
       return unit;

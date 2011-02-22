@@ -28,9 +28,8 @@ import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.Property;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -42,9 +41,9 @@ public class CustomJDBCContainer implements PersistenceContainer
    private ShellPrintWriter writer;
 
    @Override
-   public PersistenceUnit setupConnection(PersistenceUnit unit, JPADataSource dataSource)
+   public PersistenceUnitDef setupConnection(PersistenceUnitDef unit, JPADataSource dataSource)
    {
-      unit.setTransactionType(TransactionType.RESOURCE_LOCAL);
+      unit.transactionType(TransactionType.RESOURCE_LOCAL);
       if (dataSource.getJndiDataSource() != null)
       {
          ShellMessages.info(writer, "Ignoring JNDI data-source [" + dataSource.getJndiDataSource() + "]");
@@ -67,13 +66,13 @@ public class CustomJDBCContainer implements PersistenceContainer
          throw new RuntimeException("Must specify password for JDBC connections.");
       }
 
-      unit.setNonJtaDataSource(null);
-      unit.setJtaDataSource(null);
+      unit.nonJtaDataSource(null);
+      unit.jtaDataSource(null);
 
-      unit.getProperties().add(new Property("javax.persistence.jdbc.driver", dataSource.getJdbcDriver()));
-      unit.getProperties().add(new Property("javax.persistence.jdbc.url", dataSource.getDatabaseURL()));
-      unit.getProperties().add(new Property("javax.persistence.jdbc.user", dataSource.getUsername()));
-      unit.getProperties().add(new Property("javax.persistence.jdbc.password", dataSource.getPassword()));
+      unit.property("javax.persistence.jdbc.driver", dataSource.getJdbcDriver());
+      unit.property("javax.persistence.jdbc.url", dataSource.getDatabaseURL());
+      unit.property("javax.persistence.jdbc.user", dataSource.getUsername());
+      unit.property("javax.persistence.jdbc.password", dataSource.getPassword());
 
       return unit;
    }

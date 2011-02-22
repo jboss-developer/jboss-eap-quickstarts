@@ -22,7 +22,6 @@
 
 package org.jboss.seam.forge.spec.jpa;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -30,7 +29,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -72,7 +71,7 @@ public class PersistenceFacetTest extends AbstractJPATest
       PersistenceFacet persistence = project.getFacet(PersistenceFacet.class);
       assertNotNull(persistence);
 
-      PersistenceModel model = persistence.getConfig();
-      assertEquals("2.0", model.getVersion());
+      PersistenceDescriptor model = persistence.getConfig();
+      model.exportAsString().contains("2.0");
    }
 }

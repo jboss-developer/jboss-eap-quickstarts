@@ -42,9 +42,6 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
-import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansDescriptorImpl;
-import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
-import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -69,7 +66,7 @@ public class CDIFacet extends BaseFacet
          // FIXME this is broken...
          FileResource<?> configFile = getConfigFile(project, oldType);
 
-         BeansModel config = getConfig(project, configFile);
+         BeansDescriptor config = getConfig(project, configFile);
          saveConfig(project, config);
 
          configFile.delete();
@@ -112,28 +109,25 @@ public class CDIFacet extends BaseFacet
                + "], using default beans.xml location [" + getConfigFile(project).getFullyQualifiedName() + "]");
    }
 
-   public BeansModel getConfig()
+   public BeansDescriptor getConfig()
    {
       return getConfig(project, getConfigFile(project));
    }
 
-   @SuppressWarnings("unchecked")
-   private BeansModel getConfig(final Project project, final FileResource<?> file)
+   private BeansDescriptor getConfig(final Project project, final FileResource<?> file)
    {
       DescriptorImporter<BeansDescriptor> importer = Descriptors.importAs(BeansDescriptor.class);
       BeansDescriptor descriptor = importer.from(file.getResourceInputStream());
-      BeansModel model = ((SchemaDescriptorProvider<BeansModel>) descriptor).getSchemaModel();
-      return model;
+      return descriptor;
    }
 
-   public void saveConfig(final BeansModel model)
+   public void saveConfig(final BeansDescriptor model)
    {
       saveConfig(project, model);
    }
 
-   private void saveConfig(final Project project, final BeansModel model)
+   private void saveConfig(final Project project, final BeansDescriptor descriptor)
    {
-      BeansDescriptor descriptor = new BeansDescriptorImpl(model);
       String output = descriptor.exportAsString();
       getConfigFile(project).setContents(output);
    }

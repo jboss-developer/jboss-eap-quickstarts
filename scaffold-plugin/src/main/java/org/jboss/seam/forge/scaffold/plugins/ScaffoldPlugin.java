@@ -64,7 +64,7 @@ import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jsf.FacesFacet;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
-import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -133,7 +133,7 @@ public class ScaffoldPlugin implements Plugin
    {
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
-      project.getFacet(ServletFacet.class).getConfig().getWelcomeFiles().add("index.html");
+      project.getFacet(ServletFacet.class).getConfig().welcomeFile("index.html");
 
       createOrOverwrite(writer, web.getWebResource("index.html"), getClass()
                .getResourceAsStream("/org/jboss/seam/forge/jsf/index.html"), overwrite);
@@ -240,13 +240,9 @@ public class ScaffoldPlugin implements Plugin
       if (!df.hasDependency(seamPersist))
       {
          df.addDependency(seamPersist);
-         BeansModel config = cdi.getConfig();
-         String persistenceInterceptor = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
-         List<String> interceptors = config.getInterceptors();
-         if (!interceptors.contains(persistenceInterceptor))
-         {
-            interceptors.add(persistenceInterceptor);
-         }
+         BeansDescriptor config = cdi.getConfig();
+         // String persistenceInterceptor = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
+         // config.interceptor(persistenceInterceptor);
          cdi.saveConfig(config);
       }
       return project;
