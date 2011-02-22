@@ -7,6 +7,7 @@
       <artifactId>forge-parent</artifactId>
       <groupId>org.jboss.seam.forge</groupId>
       <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
    </parent>
    <artifactId>forge-distribution</artifactId>
    <name>Seam Forge - Distribution</name>
