@@ -85,4 +85,30 @@ public class Strings
       return string == null || string.isEmpty();
    }
 
+   public static boolean isTrue(String value)
+   {
+      return value == null ? false : "true".equalsIgnoreCase(value.trim());
+   }
+
+   public static boolean areEqual(String left, String right)
+   {
+      if (left == null && right == null)
+      {
+         return true;
+      }
+      else if (left == null || right == null)
+      {
+         return false;
+      }
+      return left.equals(right);
+   }
+
+   public static boolean areEqualTrimmed(String left, String right)
+   {
+      if (left != null && right != null)
+      {
+         return left.trim().equals(right.trim());
+      }
+      return areEqual(left, right);
+   }
 }

@@ -241,8 +241,7 @@ public class ScaffoldPlugin implements Plugin
       {
          df.addDependency(seamPersist);
          BeansDescriptor config = cdi.getConfig();
-         // String persistenceInterceptor = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
-         // config.interceptor(persistenceInterceptor);
+         config.interceptor("org.jboss.seam.persistence.transaction.TransactionInterceptor");
          cdi.saveConfig(config);
       }
       return project;
