@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,35 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.parser.java.impl;
-
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jface.text.Document;
-import org.jboss.seam.forge.parser.java.JavaAnnotation;
-import org.jboss.seam.forge.parser.java.SourceType;
+package org.jboss.seam.forge.parser.java;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class JavaAnnotationImpl extends AbstractJavaSource<JavaAnnotation> implements JavaAnnotation
+public enum SourceType
 {
-
-   public JavaAnnotationImpl(final Document document, final CompilationUnit unit)
-   {
-      super(document, unit);
-   }
-
-   @Override
-   protected JavaAnnotation updateTypeNames(final String name)
-   {
-      return this;
-   }
-
-   @Override
-   public SourceType getSourceType()
-   {
-      return SourceType.ANNOTATION;
-   }
-
+   CLASS, INTERFACE, ENUM, ANNOTATION
 }

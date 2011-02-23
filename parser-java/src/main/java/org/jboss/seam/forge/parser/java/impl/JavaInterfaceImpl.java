@@ -36,6 +36,7 @@ import org.jboss.seam.forge.parser.java.JavaInterface;
 import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.SourceType;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 
 /**
@@ -142,7 +143,7 @@ public class JavaInterfaceImpl extends AbstractJavaSource<JavaInterface> impleme
    }
 
    @Override
-   public boolean hasMethod(String name)
+   public boolean hasMethod(final String name)
    {
       for (Method<JavaInterface> method : getMethods())
       {
@@ -155,7 +156,7 @@ public class JavaInterfaceImpl extends AbstractJavaSource<JavaInterface> impleme
    }
 
    @Override
-   public Method<JavaInterface> getMethod(String name)
+   public Method<JavaInterface> getMethod(final String name)
    {
       for (Method<JavaInterface> method : getMethods())
       {
@@ -218,21 +219,26 @@ public class JavaInterfaceImpl extends AbstractJavaSource<JavaInterface> impleme
    }
 
    @Override
-   public <T extends JavaType<?>> JavaClass setSuperType(T type)
+   public <T extends JavaType<?>> JavaClass setSuperType(final T type)
    {
       return null;
    }
 
    @Override
-   public JavaClass setSuperType(String type)
+   public JavaClass setSuperType(final String type)
    {
       return null;
    }
 
    @Override
-   public JavaClass setSuperType(Class<?> type)
+   public JavaClass setSuperType(final Class<?> type)
    {
       return null;
    }
 
+   @Override
+   public SourceType getSourceType()
+   {
+      return SourceType.INTERFACE;
+   }
 }

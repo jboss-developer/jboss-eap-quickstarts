@@ -22,16 +22,23 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.List;
+
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import java.util.List;
+import org.jboss.seam.forge.shell.events.PickupResource;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
@@ -40,16 +47,21 @@ import java.util.List;
 @Topic("File & Resources")
 @Help("Picks up a specific resource to work with.")
 @Singleton
-public class PickupResource implements Plugin
+public class PickupResourcePlugin implements Plugin
 {
    private final Shell shell;
    private final ResourceFactory resourceFactory;
 
    @Inject
-   public PickupResource(Shell shell, ResourceFactory factory)
+   public PickupResourcePlugin(final Shell shell, final ResourceFactory factory)
    {
       this.shell = shell;
       this.resourceFactory = factory;
+   }
+
+   void pickup(@Observes final PickupResource event)
+   {
+      run(event.getResource(), null);
    }
 
    @DefaultCommand

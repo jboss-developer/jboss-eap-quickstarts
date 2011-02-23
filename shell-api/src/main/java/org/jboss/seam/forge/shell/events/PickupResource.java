@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,35 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.parser.java.impl;
+package org.jboss.seam.forge.shell.events;
 
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jface.text.Document;
-import org.jboss.seam.forge.parser.java.JavaAnnotation;
-import org.jboss.seam.forge.parser.java.SourceType;
+import org.jboss.seam.forge.project.Resource;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * Signal the Shell to pick up the given resource.
  * 
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaAnnotationImpl extends AbstractJavaSource<JavaAnnotation> implements JavaAnnotation
+public class PickupResource
 {
+   private final Resource<?> resource;
 
-   public JavaAnnotationImpl(final Document document, final CompilationUnit unit)
+   public PickupResource(final Resource<?> resource)
    {
-      super(document, unit);
+      this.resource = resource;
    }
 
-   @Override
-   protected JavaAnnotation updateTypeNames(final String name)
+   public Resource<?> getResource()
    {
-      return this;
+      return resource;
    }
-
-   @Override
-   public SourceType getSourceType()
-   {
-      return SourceType.ANNOTATION;
-   }
-
 }

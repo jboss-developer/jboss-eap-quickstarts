@@ -24,12 +24,15 @@ package org.jboss.seam.forge.spec.cdi;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import javax.enterprise.context.Conversation;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.SyntaxError;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -38,10 +41,13 @@ import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.events.InstallFacet;
+import org.jboss.seam.forge.shell.events.PickupResource;
 import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
@@ -56,10 +62,17 @@ public class BeansPlugin implements Plugin
    private Event<InstallFacet> install;
 
    @Inject
+   private Event<PickupResource> pickup;
+
+   @Inject
    private Project project;
 
    @Inject
    private ShellPrompt prompt;
+
+   @Inject
+   @Current
+   private JavaResource resource;
 
    @Command("setup")
    public void setup(final PipeOut out)
@@ -121,6 +134,55 @@ public class BeansPlugin implements Plugin
       }
    }
 
+   @Command("new-conversation")
+   @ResourceScope(JavaResource.class)
+   public void newConversation(
+            @Option(name = "timeout") final Long timeout,
+            @Option(name = "named", defaultValue = "") final String name,
+            @Option(name = "beginMethodName", defaultValue = "beginConversation") final String beginName,
+            @Option(name = "endMethodName", defaultValue = "endConversation") final String endName,
+            @Option(name = "conversationFieldName", defaultValue = "conversation") final String fieldName,
+            final PipeOut out) throws FileNotFoundException
+   {
+      if (resource.exists())
+      {
+         if (resource.getJavaSource().isClass())
+         {
+            JavaClass javaClass = (JavaClass) resource.getJavaSource();
+
+            javaClass.addField().setPrivate().setName(fieldName).setType(Conversation.class)
+                     .addAnnotation(Inject.class);
+
+            Method<JavaClass> beginMethod = javaClass.addMethod().setName(beginName).setReturnTypeVoid().setPublic()
+                     .setBody(fieldName + ".begin(" + name + ");");
+
+            if (timeout != null)
+            {
+               beginMethod.setBody(beginMethod.getBody() + "\n" + fieldName + ".setTimeout(" + timeout + ");");
+            }
+
+            javaClass.addMethod().setName(endName).setReturnTypeVoid().setPublic()
+                     .setBody(fieldName + ".end();");
+
+            if (javaClass.hasSyntaxErrors())
+            {
+               ShellMessages.info(out, "Modified Java class contains syntax errors:");
+               for (SyntaxError error : javaClass.getSyntaxErrors())
+               {
+                  out.print(error.getDescription());
+               }
+            }
+
+            resource.setContents(javaClass);
+         }
+         else
+         {
+            ShellMessages.error(out, "Must operate on a Java Class file, not an ["
+                     + resource.getJavaSource().getSourceType() + "]");
+         }
+      }
+   }
+
    @Command("new-bean")
    public void newBean(
             @Option(required = true,
@@ -148,6 +210,7 @@ public class BeansPlugin implements Plugin
                javaClass.addAnnotation(scope.getAnnotation());
             }
             resource.setContents(javaClass);
+            pickup.fire(new PickupResource(resource));
          }
       }
       else
