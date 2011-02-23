@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.spec.cdi;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -41,6 +42,7 @@ import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -60,7 +62,7 @@ public class BeansPlugin implements Plugin
    private ShellPrompt prompt;
 
    @Command("setup")
-   public void setup(PipeOut out)
+   public void setup(final PipeOut out)
    {
       if (!project.hasFacet(CDIFacet.class))
       {
@@ -73,71 +75,58 @@ public class BeansPlugin implements Plugin
 
    }
 
-   //
-   // @Command("list-interceptors")
-   // public void listInterceptors(PipeOut out)
-   // {
-   // CDIFacet cdi = project.getFacet(CDIFacet.class);
-   // List<String> interceptors = cdi.getConfig().getInterceptors();
-   // for (String i : interceptors)
-   // {
-   // out.println(i);
-   // }
-   // }
-   //
-   // @Command("list-decorators")
-   // public void listDecorators(PipeOut out)
-   // {
-   // CDIFacet cdi = project.getFacet(CDIFacet.class);
-   // List<String> decorators = cdi.getConfig().getDecorators();
-   // for (String d : decorators)
-   // {
-   // out.println(d);
-   // }
-   // }
-   //
-   // @Command("list-alternatives")
-   // public void listAlternatives(PipeOut out)
-   // {
-   // CDIFacet cdi = project.getFacet(CDIFacet.class);
-   // Alternatives alternatives = cdi.getConfig().getAlternatives();
-   // List<String> classes = alternatives.getClasses();
-   // List<String> stereotypes = alternatives.getStereotypes();
-   //
-   // if (!out.isPiped())
-   // out.println(ShellColor.BOLD, "Stereotypes:");
-   //
-   // for (String s : stereotypes)
-   // {
-   // out.println(s);
-   // }
-   //
-   // if (!out.isPiped())
-   // out.println(ShellColor.BOLD, "Classes:");
-   //
-   // for (String c : classes)
-   // {
-   // out.println(c);
-   // }
-   // }
-   //
-   // @Command("list-extensions")
-   // public void listExtensions(PipeOut out)
-   // {
-   // CDIFacet cdi = project.getFacet(CDIFacet.class);
-   // List<Object> extensions = cdi.getConfig().getExtensions();
-   // for (Object e : extensions)
-   // {
-   // out.println(e.toString());
-   // }
-   // }
+   @Command("list-interceptors")
+   public void listInterceptors(final PipeOut out)
+   {
+      CDIFacet cdi = project.getFacet(CDIFacet.class);
+      List<String> interceptors = cdi.getConfig().getInterceptors();
+      for (String i : interceptors)
+      {
+         out.println(i);
+      }
+   }
+
+   @Command("list-decorators")
+   public void listDecorators(final PipeOut out)
+   {
+      CDIFacet cdi = project.getFacet(CDIFacet.class);
+      List<String> decorators = cdi.getConfig().getDecorators();
+      for (String d : decorators)
+      {
+         out.println(d);
+      }
+   }
+
+   @Command("list-alternatives")
+   public void listAlternatives(final PipeOut out)
+   {
+      CDIFacet cdi = project.getFacet(CDIFacet.class);
+      List<String> classes = cdi.getConfig().getAlternativeClasses();
+      List<String> stereotypes = cdi.getConfig().getAlternativeStereotypes();
+
+      if (!out.isPiped())
+         out.println(ShellColor.BOLD, "Stereotypes:");
+
+      for (String s : stereotypes)
+      {
+         out.println(s);
+      }
+
+      if (!out.isPiped())
+         out.println(ShellColor.BOLD, "Classes:");
+
+      for (String c : classes)
+      {
+         out.println(c);
+      }
+   }
 
    @Command("new-bean")
    public void newBean(
             @Option(required = true,
                      name = "type") final JavaResource resource,
-            @Option(required = true, name = "scoped") BeanScope scope,
-            @Option(required = false, name = "overwrite") boolean overwrite
+            @Option(required = true, name = "scoped") final BeanScope scope,
+            @Option(required = false, name = "overwrite") final boolean overwrite
             ) throws FileNotFoundException
    {
       if (!resource.exists() || overwrite)
