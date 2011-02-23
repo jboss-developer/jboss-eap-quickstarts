@@ -37,6 +37,7 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.SourceType;
 import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.util.Types;
@@ -147,7 +148,7 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    }
 
    @Override
-   public boolean hasMethod(String name)
+   public boolean hasMethod(final String name)
    {
       for (Method<JavaClass> method : getMethods())
       {
@@ -160,7 +161,7 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    }
 
    @Override
-   public Method<JavaClass> getMethod(String name)
+   public Method<JavaClass> getMethod(final String name)
    {
       for (Method<JavaClass> method : getMethods())
       {
@@ -259,7 +260,8 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    @Override
    public boolean equals(final Object obj)
    {
-      return this == obj || obj != null && getClass() == obj.getClass() && this.toString().equals(obj.toString());
+      return (this == obj)
+               || ((obj != null) && (getClass() == obj.getClass()) && this.toString().equals(obj.toString()));
    }
 
    @Override
@@ -270,26 +272,32 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    }
 
    @Override
-   public <T extends JavaType<?>> JavaClass setSuperType(T type)
+   public <T extends JavaType<?>> JavaClass setSuperType(final T type)
    {
       return setSuperType(type.getQualifiedName());
    }
 
    @Override
-   public JavaClass setSuperType(Class<?> type)
+   public JavaClass setSuperType(final Class<?> type)
    {
       return setSuperType(type.getName());
    }
 
    @Override
-   public JavaClass setSuperType(String type)
+   public JavaClass setSuperType(final String type)
    {
       if (!hasImport(type))
       {
          addImport(type);
       }
       SimpleType simpleType = unit.getAST().newSimpleType(unit.getAST().newSimpleName(Types.toSimpleName(type)));
-       getBodyDeclaration().setStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY, simpleType);
+      getBodyDeclaration().setStructuralProperty(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY, simpleType);
       return this;
+   }
+
+   @Override
+   public SourceType getSourceType()
+   {
+      return SourceType.CLASS;
    }
 }

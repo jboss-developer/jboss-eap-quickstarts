@@ -79,4 +79,9 @@ public interface JavaSource<T extends JavaSource<T>> extends
     * Return true if this {@link JavaSource} represents a {@link JavaAnnotation}
     */
    public boolean isAnnotation();
+
+   /**
+    * Return the {@link SourceType} of this {@link JavaSource} instance.
+    */
+   public SourceType getSourceType();
 }

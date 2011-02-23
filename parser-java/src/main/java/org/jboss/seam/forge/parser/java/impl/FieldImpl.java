@@ -282,11 +282,12 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
    @Override
    public Field<O> setType(final Class<?> clazz)
    {
+      parent.addImport(clazz);
       return setType(clazz.getSimpleName());
    }
 
    @Override
-   public Field<O> setType(JavaSource<?> source)
+   public Field<O> setType(final JavaSource<?> source)
    {
       return setType(source.getName());
    }
