@@ -121,7 +121,7 @@ public class OptionValueResolverCompleter implements CommandCompleter
             // Add result to the results list, and append a '.' if the
             // resource has children.
             String name = ("~".equals(val) ? "~." : "") + r.getName()
-                     + ((!r.listResources(filter).isEmpty() && r.isFlagSet(ResourceFlag.Node)) ? "." : "");
+                     + ((r.isFlagSet(ResourceFlag.Node) && !r.listResources(filter).isEmpty()) ? "." : "");
             results.add(name);
          }
 

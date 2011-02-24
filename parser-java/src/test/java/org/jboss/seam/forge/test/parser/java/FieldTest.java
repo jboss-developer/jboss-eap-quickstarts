@@ -69,6 +69,31 @@ public class FieldTest
    }
 
    @Test
+   public void testIsTypeChecksImports() throws Exception
+   {
+      Field<JavaClass> field = javaClass.addField().setType(FieldTest.class).setPublic().setName("test");
+      assertTrue(field.isType(FieldTest.class));
+      assertTrue(javaClass.hasImport(FieldTest.class));
+   }
+
+   @Test
+   public void testIsTypeStringChecksImports() throws Exception
+   {
+      Field<JavaClass> field = javaClass.addField().setType(FieldTest.class.getName()).setPublic().setName("test");
+      assertTrue(field.isType(FieldTest.class.getSimpleName()));
+      assertTrue(javaClass.hasImport(FieldTest.class));
+   }
+
+   @Test
+   public void testSetTypeSimpleNameDoesNotAddImport() throws Exception
+   {
+      Field<JavaClass> field = javaClass.addField().setType(FieldTest.class.getSimpleName()).setPublic()
+               .setName("test");
+      assertFalse(field.isType(FieldTest.class));
+      assertFalse(javaClass.hasImport(FieldTest.class));
+   }
+
+   @Test
    public void testSetType() throws Exception
    {
       assertEquals("field", field.getName());
@@ -180,11 +205,12 @@ public class FieldTest
       Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       fld.getOrigin();
 
-      assertEquals(String.class.getName(), fld.getType());
+      assertEquals(String.class.getSimpleName(), fld.getType());
+      assertFalse(javaClass.hasImport(String.class));
       assertEquals("flag", fld.getName());
       assertEquals("\"american\"", fld.getLiteralInitializer());
       assertEquals("american", fld.getStringInitializer());
-      assertEquals("private java.lang.String flag=\"american\";", fld.toString().trim());
+      assertEquals("private String flag=\"american\";", fld.toString().trim());
    }
 
    @Test
@@ -195,7 +221,8 @@ public class FieldTest
       Field<JavaClass> fld = javaClass.getFields().get(javaClass.getFields().size() - 1);
       assertTrue(javaClass.hasField(fld));
 
-      Field<JavaClass> notFld = JavaParser.parse(JavaClass.class, "public class Foo {}").addField("private int foobar;");
+      Field<JavaClass> notFld = JavaParser.parse(JavaClass.class, "public class Foo {}")
+               .addField("private int foobar;");
       assertFalse(javaClass.hasField(notFld));
 
    }

@@ -7,10 +7,6 @@ public class MockClass
    private String field;
    private URL urlField;
    
-   public MockClass()
-   {
-   }
-   
    public String valueOf(URL url)
    {
       return url.getPath();

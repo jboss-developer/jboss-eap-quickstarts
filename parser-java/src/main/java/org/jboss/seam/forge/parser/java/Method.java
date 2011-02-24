@@ -37,9 +37,8 @@ public interface Method<O> extends Abstractable<Method<O>>, Member<O, Method<O>>
    public Method<O> setBody(final String body);
 
    /**
-    * Toggle this method as a constructor. If true, and the name of the
-    * {@link Method} is not the same as the name of its parent {@link JavaClass}
-    * , update the name of the to match.
+    * Toggle this method as a constructor. If true, and the name of the {@link Method} is not the same as the name of
+    * its parent {@link JavaClass} , update the name of the to match.
     */
    public Method<O> setConstructor(final boolean constructor);
 
@@ -50,8 +49,7 @@ public interface Method<O> extends Abstractable<Method<O>>, Member<O, Method<O>>
    public Method<O> setName(final String name);
 
    /**
-    * Get the return type of this {@link Method} or return null if the return
-    * type is void.
+    * Get the return type of this {@link Method} or return null if the return type is void.
     */
    public String getReturnType();
 
@@ -65,6 +63,6 @@ public interface Method<O> extends Abstractable<Method<O>>, Member<O, Method<O>>
 
    public Method<O> setParameters(String string);
 
-   public List<Parameter<O>> getParameters();
+   public List<Parameter> getParameters();
 
 }

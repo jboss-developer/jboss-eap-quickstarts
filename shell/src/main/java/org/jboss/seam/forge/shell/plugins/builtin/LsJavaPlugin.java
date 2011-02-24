@@ -133,7 +133,7 @@ public class LsJavaPlugin implements Plugin
                      String entry = out.renderColor(ShellColor.BLUE, method.getVisibility().scope());
                      String parameterString = "(";
 
-                     for (Parameter<JavaClass> param : method.getParameters())
+                     for (Parameter param : method.getParameters())
                      {
                         parameterString += param.toString();
                      }

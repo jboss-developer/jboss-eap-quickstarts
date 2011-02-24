@@ -114,6 +114,12 @@ public class JavaClassTest
       assertTrue(javaClass.isDefaultPackage());
    }
 
+   @Test(expected = IllegalArgumentException.class)
+   public void testAddImportPrimitiveThrowsException() throws Exception
+   {
+      javaClass.addImport(boolean.class);
+   }
+
    @Test
    public void testAddImport() throws Exception
    {
@@ -194,6 +200,26 @@ public class JavaClassTest
 
       javaClass.removeImport(javaClass.getImports().get(0));
       assertEquals(0, javaClass.getImports().size());
+   }
+
+   @Test
+   public void testRequiresImport() throws Exception
+   {
+      assertFalse(javaClass.hasImport(JavaClassTest.class));
+      assertTrue(javaClass.requiresImport(JavaClassTest.class));
+      javaClass.addImport(JavaClassTest.class);
+      assertTrue(javaClass.hasImport(JavaClassTest.class));
+      assertFalse(javaClass.requiresImport(JavaClassTest.class));
+   }
+
+   @Test
+   public void testAddImportAcceptsJavaLangPackage() throws Exception
+   {
+      assertFalse(javaClass.hasImport(String.class));
+      assertFalse(javaClass.requiresImport(String.class));
+      javaClass.addImport(String.class);
+      assertTrue(javaClass.hasImport(String.class));
+      assertFalse(javaClass.requiresImport(String.class));
    }
 
    @Test

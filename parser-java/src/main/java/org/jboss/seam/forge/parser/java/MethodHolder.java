@@ -47,16 +47,44 @@ public interface MethodHolder<T> extends MemberHolder<T, Member>
    public Method<T> addMethod(final String method);
 
    /**
-    * Return true if this {@link T} has a method with the given name; otherwise return false.
+    * Return true if this {@link T} has a method with the given name and zero parameters; otherwise return false.
     */
-   public boolean hasMethod(final String name);
+   public boolean hasMethod(final Method<T> name);
 
    /**
-    * Return the {@link Method} with the given name; otherwise return null.
-    * <p>
-    * FIXME this should probably use a signature instead
+    * Return true if this {@link T} has a method with signature matching the given method's signature.
+    */
+   public boolean hasMethodSignature(final Method<?> method);
+
+   /**
+    * Return true if this {@link T} has a method with the given name and zero parameters; otherwise return false.
+    */
+   public boolean hasMethodSignature(final String name);
+
+   /**
+    * Return true if this {@link T} has a method with the given name and signature types; otherwise return false.
+    */
+   public boolean hasMethodSignature(final String name, String... paramTypes);
+
+   /**
+    * Return true if this {@link T} has a method with the given name and signature types; otherwise return false.
+    */
+   public boolean hasMethodSignature(final String name, Class<?>... paramTypes);
+
+   /**
+    * Return the {@link Method} with the given name and zero parameters; otherwise return null.
     */
    public Method<T> getMethod(final String name);
+
+   /**
+    * Return the {@link Method} with the given name and signature types; otherwise return null.
+    */
+   public Method<T> getMethod(final String name, String... paramTypes);
+
+   /**
+    * Return the {@link Method} with the given name and signature types; otherwise return null.
+    */
+   public Method<T> getMethod(final String name, Class<?>... paramTypes);
 
    /**
     * Get a {@link List} of all {@link Method}s declared by this {@link T} instance, if any; otherwise, return an empty

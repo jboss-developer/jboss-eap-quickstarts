@@ -142,6 +142,7 @@ public class BeansPlugin implements Plugin
             @Option(name = "beginMethodName", defaultValue = "beginConversation") final String beginName,
             @Option(name = "endMethodName", defaultValue = "endConversation") final String endName,
             @Option(name = "conversationFieldName", defaultValue = "conversation") final String fieldName,
+            @Option(name = "overwrite") boolean overwrite,
             final PipeOut out) throws FileNotFoundException
    {
       if (resource.exists())
@@ -149,6 +150,41 @@ public class BeansPlugin implements Plugin
          if (resource.getJavaSource().isClass())
          {
             JavaClass javaClass = (JavaClass) resource.getJavaSource();
+
+            if (javaClass.hasField(fieldName) && !javaClass.getField(fieldName).isType(Conversation.class))
+            {
+               if (overwrite)
+               {
+                  javaClass.removeField(javaClass.getField(fieldName));
+               }
+               else
+               {
+                  throw new RuntimeException("Field [" + fieldName + "] exists. Re-run with '--overwrite' to continue.");
+               }
+            }
+            if (javaClass.hasMethodSignature(beginName) && javaClass.getMethod(beginName).getParameters().size() == 0)
+            {
+               if (overwrite)
+               {
+                  javaClass.removeMethod(javaClass.getMethod(beginName));
+               }
+               else
+               {
+                  throw new RuntimeException("Method [" + beginName
+                           + "] exists. Re-run with '--overwrite' to continue.");
+               }
+            }
+            if (javaClass.hasMethodSignature(endName) && javaClass.getMethod(endName).getParameters().size() == 0)
+            {
+               if (overwrite)
+               {
+                  javaClass.removeMethod(javaClass.getMethod(endName));
+               }
+               else
+               {
+                  throw new RuntimeException("Method [" + endName + "] exists. Re-run with '--overwrite' to continue.");
+               }
+            }
 
             javaClass.addField().setPrivate().setName(fieldName).setType(Conversation.class)
                      .addAnnotation(Inject.class);
@@ -215,7 +251,8 @@ public class BeansPlugin implements Plugin
       }
       else
       {
-         throw new RuntimeException("Type already exists [" + resource.getFullyQualifiedName() + "]");
+         throw new RuntimeException("Type already exists [" + resource.getFullyQualifiedName()
+                  + "] Re-run with '--overwrite' to continue.");
       }
    }
 }

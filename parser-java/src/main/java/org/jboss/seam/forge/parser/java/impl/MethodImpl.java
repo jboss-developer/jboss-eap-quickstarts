@@ -313,13 +313,13 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
 
    @Override
    @SuppressWarnings("unchecked")
-   public List<Parameter<O>> getParameters()
+   public List<Parameter> getParameters()
    {
-      List<Parameter<O>> results = new ArrayList<Parameter<O>>();
+      List<Parameter> results = new ArrayList<Parameter>();
       List<VariableDeclaration> parameters = method.parameters();
       for (VariableDeclaration param : parameters)
       {
-         results.add(new ParameterImpl<O>(this, param));
+         results.add(new ParameterImpl(param));
       }
       return results;
    }

@@ -152,14 +152,18 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    public Import<O> addImport(final String className)
    {
       Import<O> imprt;
-      if (!hasImport(className))
+      if (!hasImport(className) && validImport(className))
       {
          imprt = new ImportImpl(this).setName(className);
          unit.imports().add(imprt.getInternal());
       }
-      else
+      else if (hasImport(className))
       {
          imprt = getImport(className);
+      }
+      else
+      {
+         throw new IllegalArgumentException("Attempted to import the illegal type [" + className + "]");
       }
       return imprt;
    }
@@ -271,6 +275,29 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    public boolean hasImport(final String type)
    {
       return getImport(type) != null;
+   }
+
+   @Override
+   public boolean requiresImport(Class<?> type)
+   {
+      return requiresImport(type.getName());
+   }
+
+   @Override
+   public boolean requiresImport(String type)
+   {
+      if (!validImport(type)
+               || hasImport(type)
+               || type.startsWith("java.lang."))
+      {
+         return false;
+      }
+      return true;
+   }
+
+   private boolean validImport(String type)
+   {
+      return type != null && !type.matches("byte|short|int|long|float|double|char|boolean");
    }
 
    @Override

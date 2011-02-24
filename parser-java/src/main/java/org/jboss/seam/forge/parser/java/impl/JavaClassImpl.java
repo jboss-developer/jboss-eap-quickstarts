@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -38,7 +37,6 @@ import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.SourceType;
-import org.jboss.seam.forge.parser.java.ast.MethodFinderVisitor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.util.Types;
 
@@ -47,7 +45,7 @@ import org.jboss.seam.forge.parser.java.util.Types;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements JavaClass
+public class JavaClassImpl extends AbstractJavaSourceMethodHolder<JavaClass> implements JavaClass
 {
    private final ModifierAccessor modifiers = new ModifierAccessor();
 
@@ -126,73 +124,6 @@ public class JavaClassImpl extends AbstractJavaSource<JavaClass> implements Java
    public JavaClass removeField(final Field<JavaClass> field)
    {
       getBodyDeclaration().bodyDeclarations().remove(field.getInternal());
-      return this;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public Method<JavaClass> addMethod()
-   {
-      Method<JavaClass> m = new MethodImpl<JavaClass>(this);
-      getBodyDeclaration().bodyDeclarations().add(m.getInternal());
-      return m;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public Method<JavaClass> addMethod(final String method)
-   {
-      Method<JavaClass> m = new MethodImpl<JavaClass>(this, method);
-      getBodyDeclaration().bodyDeclarations().add(m.getInternal());
-      return m;
-   }
-
-   @Override
-   public boolean hasMethod(final String name)
-   {
-      for (Method<JavaClass> method : getMethods())
-      {
-         if (method.getName().equals(name))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
-
-   @Override
-   public Method<JavaClass> getMethod(final String name)
-   {
-      for (Method<JavaClass> method : getMethods())
-      {
-         if (method.getName().equals(name))
-         {
-            return method;
-         }
-      }
-      return null;
-   }
-
-   @Override
-   public List<Method<JavaClass>> getMethods()
-   {
-      List<Method<JavaClass>> result = new ArrayList<Method<JavaClass>>();
-
-      MethodFinderVisitor methodFinderVisitor = new MethodFinderVisitor();
-      unit.accept(methodFinderVisitor);
-
-      List<MethodDeclaration> methods = methodFinderVisitor.getMethods();
-      for (MethodDeclaration methodDeclaration : methods)
-      {
-         result.add(new MethodImpl<JavaClass>(this, methodDeclaration));
-      }
-      return Collections.unmodifiableList(result);
-   }
-
-   @Override
-   public JavaClass removeMethod(final Method<JavaClass> method)
-   {
-      getBodyDeclaration().bodyDeclarations().remove(method.getInternal());
       return this;
    }
 

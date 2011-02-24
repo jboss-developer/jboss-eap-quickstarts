@@ -33,24 +33,31 @@ public interface Field<O> extends Member<O, Field<O>>
    String getType();
 
    /**
-    * Set the type of this {@link Field} to the given {@link Class} type.
-    * Attempt to add an import statement to this field's base {@link O} if
-    * required.
+    * Attempt to determine if this field is of the same type as the given type.
+    */
+   boolean isType(Class<?> type);
+
+   /**
+    * Attempt to determine if this field is of the same type as the given type.
+    */
+   boolean isType(String type);
+
+   /**
+    * Set the type of this {@link Field} to the given {@link Class} type. Attempt to add an import statement to this
+    * field's base {@link O} if required.
     */
    Field<O> setType(Class<?> clazz);
 
    /**
-    * Set the type of this {@link Field} to the given type. Attempt to add an
-    * import statement to this field's base {@link O} if required. (Note that
-    * the given className must be fully-qualified in order to properly import
-    * required classes)
+    * Set the type of this {@link Field} to the given type. Attempt to add an import statement to this field's base
+    * {@link O} if required. (Note that the given className must be fully-qualified in order to properly import required
+    * classes)
     */
    Field<O> setType(String type);
 
    /**
-    * Set the type of this {@link Field} to the given {@link JavaSource<?>}
-    * type. Attempt to add an import statement to this field's base {@link O} if
-    * required.
+    * Set the type of this {@link Field} to the given {@link JavaSource<?>} type. Attempt to add an import statement to
+    * this field's base {@link O} if required.
     */
    Field<O> setType(JavaSource<?> entity);
 

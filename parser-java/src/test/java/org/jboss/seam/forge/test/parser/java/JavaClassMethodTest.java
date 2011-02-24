@@ -39,7 +39,7 @@ import org.junit.Test;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class MethodTest
+public class JavaClassMethodTest
 {
    private InputStream stream;
    private JavaClass javaClass;
@@ -48,7 +48,7 @@ public class MethodTest
    @Before
    public void reset()
    {
-      stream = MethodTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockClass.java");
+      stream = JavaClassMethodTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockClass.java");
       javaClass = JavaParser.parse(JavaClass.class, stream);
       javaClass.addMethod("public URL rewriteURL(String pattern, String replacement) { return null; }");
       method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
@@ -114,5 +114,19 @@ public class MethodTest
       assertEquals(2, parameters.size());
       assertEquals("int", parameters.get(0).getType());
       assertEquals("String", parameters.get(1).getType());
+      assertFalse(javaClass.hasMethodSignature(method.getName()));
+   }
+
+   @Test
+   public void testHasMethodZeroParametersIgnoresMethodWithParameters() throws Exception
+   {
+      assertTrue(javaClass.hasMethodSignature(method));
+      assertFalse(javaClass.hasMethodSignature(method.getName()));
+   }
+
+   @Test
+   public void testHasMethodZeroParameters() throws Exception
+   {
+
    }
 }

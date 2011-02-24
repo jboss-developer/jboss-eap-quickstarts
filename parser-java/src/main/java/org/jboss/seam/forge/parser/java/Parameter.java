@@ -21,14 +21,12 @@
  */
 package org.jboss.seam.forge.parser.java;
 
-import org.jboss.seam.forge.parser.Internal;
-import org.jboss.seam.forge.parser.Origin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Parameter<O> extends Internal, Origin<O>
+public interface Parameter
 {
    String getName();
 

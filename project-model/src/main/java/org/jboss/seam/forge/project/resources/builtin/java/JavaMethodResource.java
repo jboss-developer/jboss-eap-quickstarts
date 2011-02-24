@@ -66,12 +66,12 @@ public class JavaMethodResource extends JavaMemberResource<Method<JavaSource<?>>
    public String getName()
    {
       String params = "(";
-      List<Parameter<JavaSource<?>>> parameters = method.getParameters();
+      List<Parameter> parameters = method.getParameters();
 
-      Iterator<Parameter<JavaSource<?>>> iterator = parameters.iterator();
+      Iterator<Parameter> iterator = parameters.iterator();
       while (iterator.hasNext())
       {
-         Parameter<JavaSource<?>> p = iterator.next();
+         Parameter p = iterator.next();
          params += p.getType();
 
          if (iterator.hasNext())
