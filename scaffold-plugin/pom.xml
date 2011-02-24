@@ -19,6 +19,13 @@
          <url>http://download.java.net/maven/2/</url>
       </repository>
    </repositories>
+   
+   <properties>
+   		<el.version>2.2</el.version>
+   		<fpak.version>1.0-SNAPSHOT</fpak.version>
+   		<metawidget.version>1.0.5</metawidget.version>
+   		<seam.render.version>1.0.0.Alpha1</seam.render.version>
+   </properties>
 
    <dependencies>
       <dependency>
@@ -29,7 +36,7 @@
       <dependency>
          <groupId>org.jboss.seam.render</groupId>
          <artifactId>seam-render</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
+         <version>${seam.render.version}</version>
       </dependency>
 
       <dependency>
@@ -41,13 +48,12 @@
       <dependency>
          <groupId>org.metawidget</groupId>
          <artifactId>metawidget</artifactId>
-         <version>1.0.5</version>
+         <version>${metawidget.version}</version>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.spec</groupId>
          <artifactId>jboss-javaee-6.0</artifactId>
-         <version>1.0.0.CR1</version>
          <scope>compile</scope>
          <type>pom</type>
       </dependency>
@@ -55,14 +61,14 @@
        <dependency>
            <groupId>org.jboss.fpak</groupId>
            <artifactId>fpak</artifactId>
-           <version>1.0-SNAPSHOT</version>
+           <version>${fpak.version}</version>
        </dependency>
 
       <!-- TODO this EL dep should probably be included at a higher level -->
       <dependency>
          <groupId>org.glassfish.web</groupId>
          <artifactId>el-impl</artifactId>
-         <version>2.2</version>
+         <version>${el.version}</version>
          <scope>compile</scope>
       </dependency>
 

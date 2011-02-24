@@ -28,8 +28,7 @@
       <dependency>
          <groupId>org.jboss.spec</groupId>
          <artifactId>jboss-javaee-6.0</artifactId>
-         <version>1.0.0.CR1</version>
-         <scope>compile</scope>
+         <scope>provided</scope>
          <type>pom</type>
       </dependency>
 
