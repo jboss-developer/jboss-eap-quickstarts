@@ -67,7 +67,7 @@ public class JavaClassTest
    public void testParse() throws Exception
    {
       assertEquals(URL.class.getName(), javaClass.getImports().get(0).getQualifiedName());
-      assertEquals(2, javaClass.getMethods().size());
+      assertEquals(1, javaClass.getMethods().size());
       assertEquals("MockClass", javaClass.getName());
       assertTrue(javaClass.isPublic());
       assertFalse(javaClass.isAbstract());
@@ -84,11 +84,12 @@ public class JavaClassTest
    @Test
    public void testSetNameUpdatesConstructorNames() throws Exception
    {
+      Method<JavaClass> constructor = javaClass.addMethod().setConstructor(true).setPublic();
       assertEquals("MockClass", javaClass.getName());
-      assertEquals("MockClass", javaClass.getMethods().get(0).getName());
+      assertEquals("MockClass", constructor.getName());
       javaClass.setName("Telephone");
       assertEquals("Telephone", javaClass.getName());
-      assertEquals("Telephone", javaClass.getMethods().get(0).getName());
+      assertEquals("Telephone", constructor.getName());
    }
 
    @Test
@@ -225,42 +226,47 @@ public class JavaClassTest
    @Test
    public void testAddMethod() throws Exception
    {
-      javaClass.addMethod().setName("testMethod").setReturnTypeVoid().setBody("").getOrigin();
+      int size = javaClass.getMethods().size();
+      Method<JavaClass> method = javaClass.addMethod().setName("testMethod").setReturnTypeVoid().setBody("");
       List<Method<JavaClass>> methods = javaClass.getMethods();
-      assertEquals(3, methods.size());
-      assertNull(methods.get(2).getReturnType());
+      assertEquals(size + 1, methods.size());
+      assertNull(method.getReturnType());
    }
 
    @Test
    public void testAddMethodFromString() throws Exception
    {
-      javaClass.addMethod("public URL rewriteURL(String pattern, String replacement) { return null; }")
-               .setPackagePrivate().getOrigin();
+      int size = javaClass.getMethods().size();
+      Method<JavaClass> method = javaClass.addMethod(
+               "public URL rewriteURL(String pattern, String replacement) { return null; }")
+               .setPackagePrivate();
       List<Method<JavaClass>> methods = javaClass.getMethods();
-      assertEquals(3, methods.size());
-      assertEquals("URL", methods.get(2).getReturnType());
-      assertEquals("rewriteURL", methods.get(2).getName());
+      assertEquals(size + 1, methods.size());
+      assertEquals("URL", method.getReturnType());
+      assertEquals("rewriteURL", method.getName());
 
-      String body = methods.get(2).getBody();
+      String body = method.getBody();
       assertEquals("return null;".replaceAll("\\s+", ""), body.replaceAll("\\s+", ""));
    }
 
    @Test
    public void testRemoveMethod() throws Exception
    {
+      int size = javaClass.getMethods().size();
       List<Method<JavaClass>> methods = javaClass.getMethods();
-      javaClass.removeMethod(methods.get(0)).getOrigin();
+      javaClass.removeMethod(methods.get(0));
       methods = javaClass.getMethods();
-      assertEquals(1, methods.size());
+      assertEquals(size - 1, methods.size());
    }
 
    @Test
    public void testAddConstructor() throws Exception
    {
-      javaClass.addMethod().setName("testMethod").setConstructor(true).setProtected().setReturnType(String.class)
-               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
-      Method<JavaClass> method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
-      assertEquals(3, javaClass.getMethods().size());
+      int size = javaClass.getMethods().size();
+      Method<JavaClass> method = javaClass.addMethod().setName("testMethod").setConstructor(true).setProtected()
+               .setReturnType(String.class)
+               .setBody("System.out.println(\"I am a constructor!\");");
+      assertEquals(size + 1, javaClass.getMethods().size());
       assertEquals(javaClass.getName(), method.getName());
       assertTrue(method.isProtected());
       assertTrue(method.isConstructor());
@@ -272,10 +278,11 @@ public class JavaClassTest
    @Test
    public void testAddConstructorIngoresReturnTypeAndName() throws Exception
    {
-      javaClass.addMethod().setName("testMethod").setConstructor(true).setPrivate().setReturnType(String.class)
-               .setBody("System.out.println(\"I am a constructor!\");").getOrigin();
-      Method<JavaClass> method = javaClass.getMethods().get(javaClass.getMethods().size() - 1);
-      assertEquals(3, javaClass.getMethods().size());
+      int size = javaClass.getMethods().size();
+      Method<JavaClass> method = javaClass.addMethod().setName("testMethod").setConstructor(true).setPrivate()
+               .setReturnType(String.class)
+               .setBody("System.out.println(\"I am a constructor!\");");
+      assertEquals(size + 1, javaClass.getMethods().size());
       assertTrue(method.isPrivate());
       assertTrue(method.isConstructor());
       assertNull(method.getReturnType());
