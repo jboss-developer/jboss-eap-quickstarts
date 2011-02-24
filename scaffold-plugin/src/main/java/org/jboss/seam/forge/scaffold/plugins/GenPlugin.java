@@ -22,6 +22,18 @@
 
 package org.jboss.seam.forge.scaffold.plugins;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.jboss.fpak.GenerationContext;
 import org.jboss.fpak.model.Definition;
 import org.jboss.fpak.strategy.ParseStrategy;
@@ -34,17 +46,6 @@ import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Mike Brock .
@@ -74,7 +75,7 @@ public class GenPlugin implements Plugin
 
    public void registerProfile(@Observes final AdvertiseGenProfile agp)
    {
-      shell.println("loaded gen profile: " + agp.getName() + " (" + agp.getUrl() + ")");
+      shell.printlnVerbose("loaded gen profile: " + agp.getName() + " (" + agp.getUrl() + ")");
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 
