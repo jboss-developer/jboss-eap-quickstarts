@@ -114,7 +114,7 @@ public class JavaPlugin implements Plugin
 
       if (!jc.hasSyntaxErrors())
       {
-         java.saveJavaClass(jc);
+         java.saveJavaSource(jc);
       }
       else
       {
@@ -127,7 +127,7 @@ public class JavaPlugin implements Plugin
 
          if (prompt.promptBoolean("Your class has syntax errors, create anyway?", true))
          {
-            java.saveJavaClass(jc);
+            java.saveJavaSource(jc);
          }
       }
    }
@@ -162,7 +162,7 @@ public class JavaPlugin implements Plugin
       {
          JavaClass clazz = ((JavaClass) source);
          clazz.addField(fieldDef);
-         java.saveJavaClass(clazz);
+         java.saveJavaSource(clazz);
       }
    }
 }

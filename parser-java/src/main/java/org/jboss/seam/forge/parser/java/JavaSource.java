@@ -22,14 +22,15 @@
 
 package org.jboss.seam.forge.parser.java;
 
-import java.util.List;
-
 import org.jboss.seam.forge.parser.Origin;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@SuppressWarnings("rawtypes")
 public interface JavaSource<T extends JavaSource<T>> extends
          Packaged<T>,
          Importer<T>,

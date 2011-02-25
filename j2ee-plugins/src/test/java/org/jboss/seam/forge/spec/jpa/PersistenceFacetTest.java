@@ -22,18 +22,16 @@
 
 package org.jboss.seam.forge.spec.jpa;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceUnit;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -73,17 +71,7 @@ public class PersistenceFacetTest extends AbstractJPATest
       PersistenceFacet persistence = project.getFacet(PersistenceFacet.class);
       assertNotNull(persistence);
 
-      PersistenceModel model = persistence.getConfig();
-      PersistenceUnit unit = model.getPersistenceUnits().get(0);
-
-      assertEquals("default", unit.getName());
-      unit.setName("not-default");
-
-      persistence.saveConfig(model);
-
-      unit = model.getPersistenceUnits().get(0);
-      assertEquals("not-default", unit.getName());
-
-      assertEquals("2.0", persistence.getConfig().getVersion());
+      PersistenceDescriptor model = persistence.getConfig();
+      model.exportAsString().contains("2.0");
    }
 }

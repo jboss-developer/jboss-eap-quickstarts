@@ -21,15 +21,16 @@
  */
 package org.jboss.seam.forge.test.parser.java;
 
-import java.io.InputStream;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.test.parser.java.common.AnnotationTest;
 
+import java.io.InputStream;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class JavaClassAnnotationTest extends AnnotationTest
 {
    @Override

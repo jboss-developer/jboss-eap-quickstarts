@@ -32,6 +32,7 @@ import org.jboss.seam.forge.parser.java.util.Types;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@SuppressWarnings("rawtypes")
 public class ImportImpl implements Import
 {
    private JavaSource<?> parent;

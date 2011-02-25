@@ -48,7 +48,7 @@ import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jsf.FacesFacet;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
-import org.jboss.shrinkwrap.descriptor.impl.spec.cdi.beans.BeansModel;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -126,7 +126,7 @@ public class ScaffoldPlugin implements Plugin
    {
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
-      project.getFacet(ServletFacet.class).getConfig().getWelcomeFiles().add("index.html");
+      project.getFacet(ServletFacet.class).getConfig().welcomeFile("index.html");
 
       createOrOverwrite(writer, web.getWebResource("index.html"), getClass()
                .getResourceAsStream("/org/jboss/seam/forge/jsf/index.html"), overwrite);
@@ -158,7 +158,7 @@ public class ScaffoldPlugin implements Plugin
             @Option(name = "scaffoldType", required = false,
                      completer = ScaffoldProviderCompleter.class) final String scaffoldType,
             @Option(flagOnly = true, name = "overwrite") final boolean overwrite,
-            @Option(required = false) Resource<?>[] targets,
+            @Option(required = false) JavaResource[] targets,
             final PipeOut out) throws FileNotFoundException
    {
       if (((targets == null) || (targets.length < 1))
@@ -233,13 +233,8 @@ public class ScaffoldPlugin implements Plugin
       if (!df.hasDependency(seamPersist))
       {
          df.addDependency(seamPersist);
-         BeansModel config = cdi.getConfig();
-         String persistenceInterceptor = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
-         List<String> interceptors = config.getInterceptors();
-         if (!interceptors.contains(persistenceInterceptor))
-         {
-            interceptors.add(persistenceInterceptor);
-         }
+         BeansDescriptor config = cdi.getConfig();
+         config.interceptor("org.jboss.seam.persistence.transaction.TransactionInterceptor");
          cdi.saveConfig(config);
       }
       return project;

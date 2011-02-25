@@ -46,6 +46,7 @@ import java.util.logging.Logger;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock
  */
 @Singleton
 public class Bootstrap
@@ -53,50 +54,14 @@ public class Bootstrap
    @Inject
    private BeanManager manager;
 
-   static {
-      try {
-         // check to see if we have something to work with.
-         Class.forName("sun.misc.SignalHandler");
-
-         SignalHandler signalHandler = new SignalHandler()
-         {
-            @Override
-            public void handle(Signal signal)
-            {
-               if (signal.getName().equals("INT")) {
-                  System.out.println("CTRL-C TRAPPED BITCHES!");
-               }
-            }
-
-         };
-
-         Signal.handle(new Signal("INT"), signalHandler);
-      }
-      catch (ClassNotFoundException e) {
-        // signal trapping not supported. Oh well, switch to a Sun-based JVM, loser!
-      }
-   }
-
    public static void main(final String[] args)
    {
       loadPlugins();
       init(new File("").getAbsoluteFile(), false);
    }
 
-
-   private static void init(final File workingDir, final boolean restartEvent)
+   private static void init(File workingDir, boolean restartEvent)
    {
-
-      System.out.println("foo");
-      Runtime.getRuntime().addShutdownHook(new Thread()
-      {
-         @Override
-         public void run()
-         {
-            System.out.println("WTF!");
-            init(workingDir, true);
-         }
-      });
       initLogging();
       Weld weld = new Weld();
       WeldContainer container = weld.initialize();
@@ -106,6 +71,29 @@ public class Bootstrap
       weld.shutdown();
    }
 
+   private static void initSignalHandlers()
+   {
+      try
+      {
+         // check to see if we have something to work with.
+         Class.forName("sun.misc.SignalHandler");
+
+         SignalHandler signalHandler = new SignalHandler()
+         {
+            @Override
+            public void handle(Signal signal)
+            {
+               System.out.println("CTRL-C TRAPPED");
+            }
+         };
+
+         Signal.handle(new Signal("INT"), signalHandler);
+      }
+      catch (ClassNotFoundException e)
+      {
+         // signal trapping not supported.
+      }
+   }
 
    public void observeReinitialize(@Observes ReinitializeEnvironment event, Shell shell)
    {
@@ -113,10 +101,9 @@ public class Bootstrap
       init(shell.getCurrentDirectory().getUnderlyingResourceObject(), true);
    }
 
-
    private static void initLogging()
    {
-      String[] loggerNames = new String[]{"", "main", Logger.GLOBAL_LOGGER_NAME};
+      String[] loggerNames = new String[] { "", "main", Logger.GLOBAL_LOGGER_NAME };
       for (String loggerName : loggerNames)
       {
          Logger globalLogger = Logger.getLogger(loggerName);

@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.shell.test.completer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
@@ -35,6 +28,12 @@ import org.jboss.seam.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -55,7 +54,8 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    public void testCompleteNothing() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
-      int index = completer.complete("", 0, candidates);
+      String input = "";
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(0, index);
       assertTrue(candidates.contains("mockcompleterplugin "));
       assertTrue(candidates.contains("mockcompleterplugin2 "));
@@ -65,7 +65,8 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    public void testPartialCompletion() throws Exception
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
-      int index = completer.complete("mock", 0, candidates);
+      String input = "mock";
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(0, index);
       assertTrue(candidates.contains("mockcompleterplugin "));
    }
@@ -75,7 +76,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin2";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(0, index);
       assertTrue(candidates.contains("mockcompleterplugin2 "));
    }
@@ -85,7 +86,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin2 ";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(input.length(), index);
       assertTrue(candidates.isEmpty());
    }
@@ -95,7 +96,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin ";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(input.length(), index);
       assertTrue(candidates.contains("command1 "));
       assertTrue(candidates.contains("command2 "));
@@ -106,7 +107,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin comm";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(input.indexOf("comm"), index);
       assertTrue(candidates.contains("command1 "));
       assertTrue(candidates.contains("command2 "));
@@ -117,9 +118,20 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin command2 ";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(input.length(), index);
       assertTrue(candidates.contains("--option "));
+   }
+
+   @Test
+   public void testEnumCompletion() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin command4 --option ";
+
+      int index = completer.complete(input, input.length(), candidates);
+      assertEquals(5, candidates.size());
+      assertEquals(input.length(), index);
    }
 
    @Test
@@ -128,7 +140,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin command3 --option foo";
 
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertTrue(candidates.isEmpty());
       assertEquals(input.length(), index);
    }
@@ -139,7 +151,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin command3 --option foo ";
 
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(input.length(), index);
       assertEquals(1, candidates.size());
       assertTrue(candidates.contains("--option2 "));
@@ -150,7 +162,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin command3 --";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(2, candidates.size());
       assertTrue(candidates.contains("--option "));
       assertTrue(candidates.contains("--option2 "));
@@ -162,7 +174,7 @@ public class PluginCommandCompleterTest extends AbstractShellTest
    {
       ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
       String input = "mockcompleterplugin command3 -- ";
-      int index = completer.complete(input, 0, candidates);
+      int index = completer.complete(input, input.length(), candidates);
       assertEquals(2, candidates.size());
       assertTrue(candidates.contains("--option "));
       assertTrue(candidates.contains("--option2 "));

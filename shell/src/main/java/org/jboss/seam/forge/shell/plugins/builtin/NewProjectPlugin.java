@@ -22,21 +22,12 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.DependencyFacet;
-import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.facets.MetadataFacet;
-import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.facets.*;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
@@ -46,13 +37,12 @@ import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.plugins.*;
 import org.jboss.seam.forge.shell.util.Files;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -200,7 +190,7 @@ public class NewProjectPlugin implements Plugin
 
       if (createMain)
       {
-         project.getFacet(JavaSourceFacet.class).saveJavaClass(JavaParser
+         project.getFacet(JavaSourceFacet.class).saveJavaSource(JavaParser
                   .create(JavaClass.class)
                   .setPackage(groupId)
                   .setName("Main")

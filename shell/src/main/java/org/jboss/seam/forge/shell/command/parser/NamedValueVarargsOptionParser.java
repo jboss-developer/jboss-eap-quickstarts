@@ -22,12 +22,12 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
 
 /**
  * Parses named varargs options such as:
@@ -49,18 +49,25 @@ public class NamedValueVarargsOptionParser implements CommandParser
          currentToken = currentToken.substring(2);
          if (command.hasOption(currentToken))
          {
-            OptionMetadata option = command.getNamedOption(currentToken);
-            if (option.isVarargs())
+            try
             {
-               tokens.remove();
-               List<String> args = new ArrayList<String>();
-               String rawValue = null;
-               while (!tokens.peek().startsWith("--"))
+               OptionMetadata option = command.getNamedOption(currentToken);
+               if (option.isVarargs())
                {
-                  rawValue = tokens.remove();
-                  args.add(rawValue);
+                  tokens.remove();
+                  List<String> args = new ArrayList<String>();
+                  String rawValue = null;
+                  while (!tokens.peek().startsWith("--"))
+                  {
+                     rawValue = tokens.remove();
+                     args.add(rawValue);
+                  }
+                  ctx.put(option, args.toArray(), rawValue);
                }
-               ctx.put(option, args.toArray(), rawValue);
+            }
+            catch (IllegalArgumentException e)
+            {
+               ctx.addWarning("No such option [--" + currentToken + "] for command [" + command + "].");
             }
          }
       }

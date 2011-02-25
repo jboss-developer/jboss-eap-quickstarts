@@ -38,10 +38,7 @@ import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.*;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceDescriptorImpl;
-import org.jboss.shrinkwrap.descriptor.impl.spec.jpa.persistence.PersistenceModel;
-import org.jboss.shrinkwrap.descriptor.spi.SchemaDescriptorProvider;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
 
 import javax.inject.Named;
 import javax.persistence.Entity;
@@ -73,18 +70,15 @@ public class PersistenceFacet extends BaseFacet
       return sourceFacet.getBasePackageResource().getChildDirectory("domain");
    }
 
-   @SuppressWarnings("unchecked")
-   public PersistenceModel getConfig()
+   public PersistenceDescriptor getConfig()
    {
       DescriptorImporter<PersistenceDescriptor> importer = Descriptors.importAs(PersistenceDescriptor.class);
       PersistenceDescriptor descriptor = importer.from(getConfigFile().getResourceInputStream());
-      PersistenceModel model = ((SchemaDescriptorProvider<PersistenceModel>) descriptor).getSchemaModel();
-      return model;
+      return descriptor;
    }
 
-   public void saveConfig(final PersistenceModel model)
+   public void saveConfig(final PersistenceDescriptor descriptor)
    {
-      PersistenceDescriptor descriptor = new PersistenceDescriptorImpl(model);
       String output = descriptor.exportAsString();
       getConfigFile().setContents(output);
    }
@@ -157,20 +151,11 @@ public class PersistenceFacet extends BaseFacet
          FileResource<?> descriptor = getConfigFile();
          if (!descriptor.exists())
          {
-            PersistenceUnitDef unit = Descriptors.create(PersistenceDescriptor.class)
-                     .version("2.0")
-                     .persistenceUnit("default")
-                     .description("The Seam Forge default Persistence Unit")
-                     .transactionType(TransactionType.JTA)
-                     .provider(ProviderType.HIBERNATE)
-                     .jtaDataSource("java:/DefaultDS")
-                     .includeUnlistedClasses()
-                     .schemaGenerationMode(SchemaGenerationModeType.CREATE_DROP)
-                     .showSql()
-                     .formatSql()
-                     .property("hibernate.transaction.flush_before_completion", true);
 
-            descriptor.setContents(unit.exportAsString());
+            PersistenceDescriptor descriptorContents = Descriptors.create(PersistenceDescriptor.class)
+                     .version("2.0");
+            descriptor.setContents(descriptorContents.exportAsString());
+
          }
       }
       project.registerFacet(this);

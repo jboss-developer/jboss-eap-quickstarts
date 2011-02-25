@@ -5,3 +5,5 @@
 target/
 *.iml
 *.ipr
+/*/src/main/java/META-INF
+.gitignore.swp

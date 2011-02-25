@@ -35,6 +35,8 @@ public class MockCompleterPlugin implements Plugin
    private boolean defaultInvoked = false;
    private boolean command1Invoked = false;
    private boolean command2Invoked = false;
+   private boolean command3Invoked = false;
+   private boolean command4Invoked = false;
 
    @DefaultCommand
    public void defaultCommand()
@@ -66,7 +68,14 @@ public class MockCompleterPlugin implements Plugin
                      completer = MockValueCompleter.class) final int number2,
             @Option(required = false) final String optional)
    {
-      command2Invoked = true;
+      command3Invoked = true;
+   }
+
+   @Command("command4")
+   public void command4(
+            @Option(name = "option", description = "Option One", required = true) final MockEnum number)
+   {
+      command4Invoked = true;
    }
 
    public boolean isCommand1Invoked()
@@ -77,6 +86,16 @@ public class MockCompleterPlugin implements Plugin
    public boolean isCommand2Invoked()
    {
       return command2Invoked;
+   }
+
+   public boolean isCommand3Invoked()
+   {
+      return command3Invoked;
+   }
+
+   public boolean isCommand4Invoked()
+   {
+      return command4Invoked;
    }
 
    public boolean isDefaultInvoked()

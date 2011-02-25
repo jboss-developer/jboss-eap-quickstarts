@@ -28,6 +28,7 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@SuppressWarnings("rawtypes")
 public interface FieldHolder<T> extends MemberHolder<T, Member>
 {
    /**

@@ -22,13 +22,12 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.util.ArrayList;
-import java.util.List;
+import jline.console.completer.Completer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import jline.console.completer.Completer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,12 +40,16 @@ public class PluginCommandCompleter implements Completer
 
    private String lastBuffer = null;
 
+   private final CompletedCommandHolder optionHolder;
+
    @Inject
    public PluginCommandCompleter(final PluginResolverCompleter plugin,
             final CommandResolverCompleter command,
             final OptionResolverCompleter option,
-            final OptionValueResolverCompleter value)
+            final OptionValueResolverCompleter value,
+            final CompletedCommandHolder optionHolder)
    {
+      this.optionHolder = optionHolder;
       completers.add(plugin);
       completers.add(command);
       completers.add(option);
@@ -56,7 +59,10 @@ public class PluginCommandCompleter implements Completer
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
+      optionHolder.setCommandMetadata(null);
+
       PluginCommandCompleterState state = new PluginCommandCompleterState(buffer, lastBuffer, cursor);
+
       // TODO replace lastBuffer with a lastState object?
       lastBuffer = buffer;
 
@@ -75,6 +81,8 @@ public class PluginCommandCompleter implements Completer
       }
 
       candidates.addAll(state.getCandidates());
+
+      optionHolder.setCommandMetadata(state.getCommand());
 
       return state.getIndex();
    }

@@ -1,25 +1,17 @@
 package org.jboss.seam.forge.shell.completer;
 
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
+import org.jboss.seam.forge.shell.command.parser.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
-import org.jboss.seam.forge.shell.command.parser.CommandParser;
-import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
-import org.jboss.seam.forge.shell.command.parser.CompositeCommandParser;
-import org.jboss.seam.forge.shell.command.parser.NamedBooleanOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.NamedValueVarargsOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueOptionParser;
-import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser;
-
 public class OptionResolverCompleter implements CommandCompleter
 {
-
    private final CommandParser commandParser = new CompositeCommandParser(
             new NamedBooleanOptionParser(),
             new NamedValueOptionParser(),

@@ -28,17 +28,18 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
+@SuppressWarnings("rawtypes")
 public interface MethodHolder<T> extends MemberHolder<T, Member>
 {
    /**
-    * Add an uninitialized {@link Method} declaration to this {@link T}
-    * instance. This {@link Method} will be a stub until further modified.
+    * Add an uninitialized {@link Method} declaration to this {@link T} instance. This {@link Method} will be a stub
+    * until further modified.
     */
    public Method<T> addMethod();
 
    /**
-    * Add a new {@link Method} declaration to this {@link T} instance, using the
-    * given {@link String} as the method declaration.
+    * Add a new {@link Method} declaration to this {@link T} instance, using the given {@link String} as the method
+    * declaration.
     * <p/>
     * <strong>For example:</strong><br>
     * <code>Method m = javaClass.addMethod("public String method() {return \"hello!\";}")</code>
@@ -46,8 +47,7 @@ public interface MethodHolder<T> extends MemberHolder<T, Member>
    public Method<T> addMethod(final String method);
 
    /**
-    * Return true if this {@link T} has a method with the given name; otherwise
-    * return false.
+    * Return true if this {@link T} has a method with the given name; otherwise return false.
     */
    public boolean hasMethod(final String name);
 
@@ -59,14 +59,13 @@ public interface MethodHolder<T> extends MemberHolder<T, Member>
    public Method<T> getMethod(final String name);
 
    /**
-    * Get a {@link List} of all {@link Method}s declared by this {@link T}
-    * instance, if any; otherwise, return an empty {@link List}
+    * Get a {@link List} of all {@link Method}s declared by this {@link T} instance, if any; otherwise, return an empty
+    * {@link List}
     */
    public List<Method<T>> getMethods();
 
    /**
-    * Remove the given {@link Method} declaration from this {@link T} instance,
-    * if it exists; otherwise, do nothing.
+    * Remove the given {@link Method} declaration from this {@link T} instance, if it exists; otherwise, do nothing.
     */
    public T removeMethod(final Method<T> method);
 

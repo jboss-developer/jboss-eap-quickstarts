@@ -307,9 +307,9 @@ public class NewFieldPlugin implements Plugin
             otherField.addAnnotation(ManyToMany.class);
             Refactory.createGetterAndSetter(otherEntity, otherField);
 
-            java.saveJavaClass(otherEntity);
+            java.saveJavaSource(otherEntity);
          }
-         java.saveJavaClass(entity);
+         java.saveJavaSource(entity);
       }
       catch (FileNotFoundException e)
       {
@@ -357,9 +357,9 @@ public class NewFieldPlugin implements Plugin
                      + one.getName() + "();");
             manyField.addAnnotation(ManyToOne.class);
             Refactory.createGetterAndSetter(many, manyField);
-            java.saveJavaClass(many);
+            java.saveJavaSource(many);
          }
-         java.saveJavaClass(one);
+         java.saveJavaSource(one);
       }
       catch (FileNotFoundException e)
       {
@@ -405,9 +405,9 @@ public class NewFieldPlugin implements Plugin
                      + many.getName() + ">();");
             oneField.addAnnotation(OneToMany.class).setStringValue("mappedBy", fieldName);
             Refactory.createGetterAndSetter(one, oneField);
-            java.saveJavaClass(one);
+            java.saveJavaSource(one);
          }
-         java.saveJavaClass(many);
+         java.saveJavaSource(many);
       }
       catch (FileNotFoundException e)
       {
@@ -428,7 +428,7 @@ public class NewFieldPlugin implements Plugin
       field.setName(fieldName).setPrivate().setType(fieldEntity.getName()).addAnnotation(annotation);
       targetEntity.addImport(fieldEntity.getQualifiedName());
       Refactory.createGetterAndSetter(targetEntity, field);
-      java.saveJavaClass(targetEntity);
+      java.saveJavaSource(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }
 
@@ -441,7 +441,7 @@ public class NewFieldPlugin implements Plugin
       field.setName(fieldName).setPrivate().setType(Types.toSimpleName(fieldType)).addAnnotation(annotation);
       targetEntity.addImport(fieldType);
       Refactory.createGetterAndSetter(targetEntity, field);
-      java.saveJavaClass(targetEntity);
+      java.saveJavaSource(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }
 
@@ -458,7 +458,7 @@ public class NewFieldPlugin implements Plugin
          targetEntity.addImport(fieldType);
       }
       Refactory.createGetterAndSetter(targetEntity, field);
-      java.saveJavaClass(targetEntity);
+      java.saveJavaSource(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
    }
 

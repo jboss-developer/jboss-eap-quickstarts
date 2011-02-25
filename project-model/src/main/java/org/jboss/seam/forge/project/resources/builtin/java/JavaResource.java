@@ -22,17 +22,7 @@
 
 package org.jboss.seam.forge.project.resources.builtin.java;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.project.Resource;
@@ -41,6 +31,14 @@ import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.ResourceException;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+
+import javax.inject.Inject;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Mike Brock
@@ -119,9 +117,9 @@ public class JavaResource extends FileResource<JavaResource>
       return list;
    }
 
-   public JavaResource setContents(final JavaClass javaClass)
+   public JavaResource setContents(final JavaSource<?> source)
    {
-      setContents(javaClass.toString());
+      setContents(source.toString());
       return this;
    }
 
@@ -158,6 +156,10 @@ public class JavaResource extends FileResource<JavaResource>
       catch (FileNotFoundException e)
       {
          throw new ResourceException(e);
+      }
+      catch (Exception e)
+      {
+         return getName();
       }
    }
 }

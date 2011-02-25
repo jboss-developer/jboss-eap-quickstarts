@@ -169,14 +169,12 @@ public class CommandLibraryExtension implements Extension
             Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
             int i = 0;
-            int effectiveIndex = 0;
             for (Class<?> clazz : parameterTypes)
             {
                OptionMetadata optionMeta = new OptionMetadata();
 
                optionMeta.setType(clazz);
                optionMeta.setIndex(i);
-               optionMeta.setEffectiveIndex(effectiveIndex);
 
                if (PipeOut.class.isAssignableFrom(clazz))
                {
@@ -198,8 +196,6 @@ public class CommandLibraryExtension implements Extension
                      optionMeta.setRequired(option.required());
                      optionMeta.setPromptType(option.type());
                      optionMeta.setCompleterType(option.completer());
-
-                     effectiveIndex++;
 
                   }
                   else if (annotation instanceof PipeIn)

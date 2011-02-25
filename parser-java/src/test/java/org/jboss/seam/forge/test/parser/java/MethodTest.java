@@ -21,13 +21,6 @@
  */
 package org.jboss.seam.forge.test.parser.java;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.InputStream;
-import java.util.List;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
@@ -35,9 +28,15 @@ import org.jboss.seam.forge.parser.java.Parameter;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.InputStream;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class MethodTest
 {
    private InputStream stream;

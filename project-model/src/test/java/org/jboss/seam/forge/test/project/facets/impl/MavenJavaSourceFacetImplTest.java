@@ -22,11 +22,6 @@
 
 package org.jboss.seam.forge.test.project.facets.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import javax.inject.Singleton;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -37,6 +32,11 @@ import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Singleton;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -54,7 +54,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
-      JavaResource file = project.getFacet(JavaSourceFacet.class).saveJavaClass(clazz);
+      JavaResource file = project.getFacet(JavaSourceFacet.class).saveJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaSource<?> result = file.getJavaSource();
@@ -72,7 +72,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
-      JavaResource file = java.saveJavaClass(clazz);
+      JavaResource file = java.saveJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaSource<?> parsed = java.getJavaResource(clazz).getJavaSource();
@@ -89,7 +89,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
-      JavaResource file = java.saveTestJavaClass(clazz);
+      JavaResource file = java.saveTestJavaSource(clazz);
       assertEquals(name + ".java", file.getName());
 
       JavaSource<?> parsed = java.getTestJavaResource(clazz).getJavaSource();

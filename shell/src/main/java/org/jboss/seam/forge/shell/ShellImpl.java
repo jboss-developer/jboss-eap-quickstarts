@@ -31,9 +31,12 @@ import org.fusesource.jansi.Ansi;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.project.util.JavaPathspecParser;
 import org.jboss.seam.forge.project.util.OSUtils;
 import org.jboss.seam.forge.project.util.ResourceUtil;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
@@ -41,10 +44,15 @@ import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
+import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
+import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
 import org.jboss.seam.forge.shell.events.*;
 import org.jboss.seam.forge.shell.events.Shutdown;
-import org.jboss.seam.forge.shell.exceptions.*;
+import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.forge.shell.exceptions.CommandParserException;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.project.CurrentProject;
 import org.jboss.seam.forge.shell.util.Files;
@@ -108,6 +116,9 @@ public class ShellImpl implements Shell
    @Inject
    private PromptTypeConverter promptTypeConverter;
 
+   @Inject
+   private CompletedCommandHolder optionColorHandler;
+
    private ConsoleReader reader;
    private Completer completer;
 
@@ -139,6 +150,46 @@ public class ShellImpl implements Shell
       }
    };
 
+   private final ConversionHandler javaResourceConversionHandler = new ConversionHandler()
+   {
+      @Override
+      public JavaResource[] convertFrom(final Object obj)
+      {
+         if (getCurrentProject().hasFacet(JavaSourceFacet.class))
+         {
+            String[] strings = obj instanceof String[] ? (String[]) obj : new String[] { obj.toString() };
+            List<Resource<?>> resources = new ArrayList<Resource<?>>();
+            for (String string : strings)
+            {
+               resources.addAll(new JavaPathspecParser(getCurrentProject().getFacet(JavaSourceFacet.class),
+                        string).resolve());
+            }
+
+            List<JavaResource> filtered = new ArrayList<JavaResource>();
+            for (Resource<?> resource : resources)
+            {
+               if (resource instanceof JavaResource)
+               {
+                  filtered.add((JavaResource) resource);
+               }
+            }
+
+            JavaResource[] result = new JavaResource[filtered.size()];
+            result = filtered.toArray(result);
+            return result;
+         }
+         else
+            return null;
+      }
+
+      @SuppressWarnings("rawtypes")
+      @Override
+      public boolean canConvertFrom(final Class aClass)
+      {
+         return true;
+      }
+   };
+
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
       BooleanConverter booleanConverter = new BooleanConverter();
@@ -148,6 +199,48 @@ public class ShellImpl implements Shell
       addConversionHandler(File.class, new FileConverter());
       addConversionHandler(Dependency.class, new DependencyIdConverter());
 
+      addConversionHandler(JavaResource[].class, javaResourceConversionHandler);
+      addConversionHandler(JavaResource.class, new ConversionHandler()
+      {
+
+         @Override
+         public Object convertFrom(Object obj)
+         {
+            JavaResource[] res = (JavaResource[]) javaResourceConversionHandler.convertFrom(obj);
+            if (res.length > 1)
+            {
+               throw new RuntimeException("ambiguous paths");
+            }
+            else if (res.length == 0)
+            {
+               if (getCurrentProject().hasFacet(JavaSourceFacet.class))
+               {
+                  JavaSourceFacet java = getCurrentProject().getFacet(JavaSourceFacet.class);
+                  try
+                  {
+                     JavaResource resource = java.getJavaResource(obj.toString());
+                     return resource;
+                  }
+                  catch (FileNotFoundException e)
+                  {
+                     throw new RuntimeException(e);
+                  }
+               }
+               return null;
+            }
+            else
+            {
+               return res[0];
+            }
+         }
+
+         @Override
+         @SuppressWarnings("rawtypes")
+         public boolean canConvertFrom(Class type)
+         {
+            return javaResourceConversionHandler.canConvertFrom(type);
+         }
+      });
       addConversionHandler(Resource[].class, resourceConversionHandler);
       addConversionHandler(Resource.class, new ConversionHandler()
 
@@ -170,8 +263,8 @@ public class ShellImpl implements Shell
             }
          }
 
-         @SuppressWarnings("rawtypes")
          @Override
+         @SuppressWarnings("rawtypes")
          public boolean canConvertFrom(final Class aClass)
          {
             return resourceConversionHandler.canConvertFrom(aClass);
@@ -357,6 +450,7 @@ public class ShellImpl implements Shell
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);
+      this.reader.setCompletionHandler(new OptionAwareCompletionHandler(optionColorHandler, this));
    }
 
    private void initStreams() throws IOException
@@ -458,7 +552,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandExecutionException e)
       {
-         println("[" + e.getCommand() + "] " + e.getMessage());
+         ShellMessages.error(this, formatSourcedError(e.getCommand()) + e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -466,7 +560,7 @@ public class ShellImpl implements Shell
       }
       catch (CommandParserException e)
       {
-         println("[" + e.getCommand() + "] " + e.getMessage());
+         ShellMessages.error(this, "[" + formatSourcedError(e.getCommand()) + "] " + e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -474,7 +568,7 @@ public class ShellImpl implements Shell
       }
       catch (PluginExecutionException e)
       {
-         println("[" + e.getPlugin() + "] " + e.getMessage());
+         ShellMessages.error(this, "[" + formatSourcedError(e.getPlugin()) + "] " + e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -482,7 +576,7 @@ public class ShellImpl implements Shell
       }
       catch (ShellExecutionException e)
       {
-         println(e.getMessage());
+         ShellMessages.error(this, e.getMessage());
          if (isVerbose())
          {
             e.printStackTrace();
@@ -492,14 +586,20 @@ public class ShellImpl implements Shell
       {
          if (!isVerbose())
          {
-            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
+            ShellMessages.error(this, "Exception encountered: " + e.getMessage()
+                     + " (type \"set VERBOSE true\" to enable stack traces)");
          }
          else
          {
-            println("Exception encountered: (type \"set VERBOSE false\" to disable stack traces)");
+            ShellMessages.error(this, "Exception encountered: (type \"set VERBOSE false\" to disable stack traces)");
             e.printStackTrace();
          }
       }
+   }
+
+   private String formatSourcedError(Object obj)
+   {
+      return (obj == null ? "" : ("[" + obj.toString() + "] "));
    }
 
    @Override
@@ -521,11 +621,13 @@ public class ShellImpl implements Shell
       }
    }
 
+   @Override
    public void clearLine()
    {
       print(new Ansi().eraseLine(Ansi.Erase.ALL).toString());
    }
 
+   @Override
    public void cursorLeft(final int x)
    {
       print(new Ansi().cursorLeft(x).toString());
@@ -538,57 +640,9 @@ public class ShellImpl implements Shell
       {
          fshRuntime.run(line);
       }
-      catch (NoSuchCommandException e)
-      {
-         println("[" + e.getCommand() + "]" + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (CommandExecutionException e)
-      {
-         println("[" + e.getCommand() + "] " + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (CommandParserException e)
-      {
-         println("[" + e.getCommand() + "] " + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (PluginExecutionException e)
-      {
-         println("[" + e.getPlugin() + "] " + e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
-      catch (ShellExecutionException e)
-      {
-         println(e.getMessage());
-         if (isVerbose())
-         {
-            e.printStackTrace();
-         }
-      }
       catch (Exception e)
       {
-         if (!isVerbose())
-         {
-            println("Exception encountered: " + e.getMessage() + " (type \"set VERBOSE true\" to enable stack traces)");
-         }
-         else
-         {
-            println("Exception encountered: (type \"verbose false\" to disable stack traces)");
-            e.printStackTrace();
-         }
+         handleException(e);
       }
    }
 
@@ -927,6 +981,7 @@ public class ShellImpl implements Shell
       return prompt("");
    }
 
+   @Override
    public String promptAndSwallowCR()
    {
       int c;

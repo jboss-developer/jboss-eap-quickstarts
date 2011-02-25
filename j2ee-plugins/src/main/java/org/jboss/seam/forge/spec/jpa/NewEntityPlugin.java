@@ -27,7 +27,6 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
@@ -44,7 +43,6 @@ import java.io.FileNotFoundException;
  */
 @Named("new-entity")
 @Topic("Project")
-@RequiresProject
 @RequiresFacet(PersistenceFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewEntityPlugin implements Plugin
@@ -98,7 +96,7 @@ public class NewEntityPlugin implements Plugin
       Refactory.createGetterAndSetter(javaClass, id);
       Refactory.createGetterAndSetter(javaClass, version);
 
-      JavaResource javaFileLocation = java.saveJavaClass(javaClass);
+      JavaResource javaFileLocation = java.saveJavaSource(javaClass);
 
       shell.println("Created @Entity [" + javaClass.getQualifiedName() + "]");
 

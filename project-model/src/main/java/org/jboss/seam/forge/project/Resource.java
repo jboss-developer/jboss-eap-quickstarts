@@ -22,6 +22,8 @@
 
 package org.jboss.seam.forge.project;
 
+import org.jboss.seam.forge.project.resources.ResourceFilter;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
@@ -80,10 +82,13 @@ public interface Resource<T>
 
    /**
     * Return a list of child resources of the current resource.
-    * 
-    * @return A list of child resources.
     */
    public List<Resource<?>> listResources();
+
+   /**
+    * Return a list of child resources of the current resource matching the given {@link ResourceFilter}.
+    */
+   public List<Resource<?>> listResources(ResourceFilter filter);
 
    public T getUnderlyingResourceObject();
 

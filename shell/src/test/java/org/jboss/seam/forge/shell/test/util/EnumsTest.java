@@ -1,6 +1,6 @@
 /*
- * JBoss, by Red Hat.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,29 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.shell.test.util;
 
-package org.jboss.seam.forge.shell.command.parser;
+import org.jboss.seam.forge.shell.test.completer.MockEnum;
+import org.jboss.seam.forge.shell.util.Enums;
+import org.junit.Test;
 
-import java.util.Queue;
-
-import org.jboss.seam.forge.shell.command.CommandMetadata;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Used at the end of the {@link CommandParser} chain to signal with an {@link IllegalStateException} that an invalid
- * token was encountered.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class ParseErrorParser implements CommandParser
+public class EnumsTest
 {
 
-   @Override
-   public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
-            final CommandParserContext ctx)
+   /**
+    * Test method for {@link org.jboss.seam.forge.shell.util.Enums#valueOf(java.lang.Class, java.lang.Object)}.
+    */
+   @Test
+   public void testValueOf()
    {
-      String token = tokens.peek();
-      // TODO should probably display the entire statement with the offending token highlighted
-      throw new IllegalStateException("Error parsing token [" + token + "] for command: " + command.getName());
+      Enum<?> e = Enums.valueOf(MockEnum.class, "FOO");
+      assertEquals(MockEnum.FOO, e);
    }
 
 }

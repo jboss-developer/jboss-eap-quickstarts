@@ -34,12 +34,18 @@ public class Packages
    /**
     * Convert a package name to file directory syntax.
     * <p>
-    * Example: "com.example.package" becomes "com/example/package", using the
-    * directory separators correct for the underlying operation system.
+    * Example: "com.example.package" becomes "com/example/package", using the directory separators correct for the
+    * underlying operation system.
     */
-   public static String toFileSyntax(String packg)
+   public static String toFileSyntax(String pkg)
    {
-      return packg.replace(".", File.separator);
+      return pkg.replace(".", File.separator);
+   }
+
+   public static String fromFileSyntax(String pkg)
+   {
+
+      return pkg.replace(File.separator, ".");
    }
 
 }

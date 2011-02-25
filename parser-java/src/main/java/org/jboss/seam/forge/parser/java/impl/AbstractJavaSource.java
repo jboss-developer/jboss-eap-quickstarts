@@ -21,38 +21,29 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.jdt.core.compiler.IProblem;
-import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
-import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.EnumDeclaration;
-import org.eclipse.jdt.core.dom.ImportDeclaration;
+import org.eclipse.jdt.core.dom.*;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
-import org.eclipse.jdt.core.dom.PackageDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
 import org.jboss.seam.forge.parser.java.Annotation;
-import org.jboss.seam.forge.parser.java.Import;
-import org.jboss.seam.forge.parser.java.JavaSource;
-import org.jboss.seam.forge.parser.java.Member;
-import org.jboss.seam.forge.parser.java.SyntaxError;
-import org.jboss.seam.forge.parser.java.Visibility;
+import org.jboss.seam.forge.parser.java.*;
 import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
 import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a Java Source File
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@SuppressWarnings("unchecked")
 public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
          JavaSource<O>
 {
@@ -148,7 +139,6 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   @SuppressWarnings("unchecked")
    public Import<O> addImport(final String className)
    {
       Import<O> imprt;
@@ -175,7 +165,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public <T extends JavaSource<?>> O addImports(T[] types)
+   public <T extends JavaSource<?>> O addImports(T... types)
    {
       for (T t : types)
       {
@@ -195,7 +185,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public O addImports(Import<?>[] imprt)
+   public O addImports(Import<?>... imprt)
    {
       for (Import<?> i : imprt)
       {
@@ -237,7 +227,6 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   @SuppressWarnings("unchecked")
    public List<Import<O>> getImports()
    {
       List<Import<O>> results = new ArrayList<Import<O>>();
@@ -350,8 +339,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    /**
-    * Call-back to allow updating of any necessary internal names with the given
-    * name.
+    * Call-back to allow updating of any necessary internal names with the given name.
     */
    protected abstract O updateTypeNames(String name);
 

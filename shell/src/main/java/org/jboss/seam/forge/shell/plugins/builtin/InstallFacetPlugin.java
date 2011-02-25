@@ -22,12 +22,6 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
@@ -38,12 +32,16 @@ import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.events.InstallFacet;
+import org.jboss.seam.forge.shell.plugins.*;
+
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -66,6 +64,13 @@ public class InstallFacetPlugin implements Plugin
    @Inject
    private Project project;
 
+   public void installRequest(@Observes InstallFacet request)
+   {
+      shell.printlnVerbose("Received Facet installation request [" + request.getFacetType().getName() + "]");
+      Facet facet = factory.getFacet(request.getFacetType());
+      performInstallation(facet);
+   }
+
    @DefaultCommand
    public void install(@Option(required = true,
             completer = AvailableFacetsCompleter.class,
@@ -74,60 +79,66 @@ public class InstallFacetPlugin implements Plugin
       try
       {
          Facet facet = factory.getFacetByName(facetName);
-         facet.setProject(project);
-
-         /*
-          * Verify Facet Dependencies
-          */
-         List<Class<? extends Facet>> deps = ConstraintInspector.getFacetDependencies(facet.getClass());
-         if (!project.hasAllFacets(deps))
-         {
-            List<String> facetNames = new ArrayList<String>();
-            for (Class<? extends Facet> f : deps)
-            {
-               facetNames.add(ConstraintInspector.getName(f));
-            }
-
-            if (shell.promptBoolean("The ["
-                     + facetName
-                     + "] facet depends on the following missing facets: "
-                     + facetNames
-                     + ". Would you like to attempt installation of these facets as well?"))
-            {
-               projectFactory.installSingleFacet(project, facet.getClass());
-            }
-            else
-            {
-               abort();
-               return;
-            }
-         }
-
-         if (!facet.isInstalled() || !project.hasFacet(facet.getClass()))
-         {
-            project.installFacet(facet);
-         }
-
-         if (!updatePackaging(facet))
-         {
-            abort();
-            return;
-         }
-
-         if (facet.isInstalled())
-         {
-            shell.println("Installation completed successfully.");
-         }
-         else
-         {
-            shell.println("Installation failed! Please check your project; there may be a mess!");
-         }
+         performInstallation(facet);
       }
       catch (FacetNotFoundException e)
       {
          shell.println("Could not find a facet with the name: " + facetName
                   + "; you can use the [" + ConstraintInspector.getName(ListFacetsPlugin.class)
                   + "] command to see if the facet is available.");
+      }
+   }
+
+   private void performInstallation(Facet facet)
+   {
+      facet.setProject(project);
+
+      /*
+       * Verify Facet Dependencies
+       */
+      List<Class<? extends Facet>> deps = ConstraintInspector.getFacetDependencies(facet.getClass());
+      String facetName = ConstraintInspector.getName(facet.getClass());
+      if (!project.hasAllFacets(deps))
+      {
+         List<String> facetNames = new ArrayList<String>();
+         for (Class<? extends Facet> f : deps)
+         {
+            facetNames.add(ConstraintInspector.getName(f));
+         }
+
+         if (shell.promptBoolean("The ["
+                  + facetName
+                  + "] facet depends on the following missing facets: "
+                  + facetNames
+                  + ". Would you like to attempt installation of these facets as well?"))
+         {
+            projectFactory.installSingleFacet(project, facet.getClass());
+         }
+         else
+         {
+            abort();
+            return;
+         }
+      }
+
+      if (!facet.isInstalled() || !project.hasFacet(facet.getClass()))
+      {
+         project.installFacet(facet);
+      }
+
+      if (!updatePackaging(facet))
+      {
+         abort();
+         return;
+      }
+
+      if (facet.isInstalled())
+      {
+         ShellMessages.success(shell, "Installed [" + facetName + "] successfully.");
+      }
+      else
+      {
+         ShellMessages.error(shell, "Failed to install [" + facetName + "]; there may be a mess!");
       }
    }
 

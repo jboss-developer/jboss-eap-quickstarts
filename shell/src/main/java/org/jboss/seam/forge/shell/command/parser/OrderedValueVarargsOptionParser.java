@@ -22,12 +22,12 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,18 +41,28 @@ public class OrderedValueVarargsOptionParser implements CommandParser
       String currentToken = tokens.peek();
       if (!currentToken.startsWith("--"))
       {
-         OptionMetadata option = command.getOrderedOptionByIndex(ctx.getParmCount());
-         if (option.isVarargs())
+         try
          {
-            List<String> args = new ArrayList<String>();
-            String lastToken = null;
-            while (!tokens.isEmpty() && !tokens.peek().startsWith("--"))
+            OptionMetadata option = command.getOrderedOptionByIndex(ctx.getOrderedParamCount());
+            if (option.isVarargs())
             {
-               lastToken = tokens.remove();
-               args.add(lastToken);
+               List<String> args = new ArrayList<String>();
+               String lastToken = null;
+               while (!tokens.isEmpty() && !tokens.peek().startsWith("--"))
+               {
+                  lastToken = tokens.remove();
+                  args.add(lastToken);
+               }
+               ctx.put(option, args.toArray(new String[args.size()]), lastToken);
+               ctx.incrementParmCount();
             }
-            ctx.put(option, args.toArray(new String[args.size()]), lastToken);
-            ctx.incrementParmCount();
+         }
+         catch (IllegalArgumentException e)
+         {
+            ctx.addWarning("The command [" + command + "] takes ["
+                     + command.getNumOrderedOptions() + "] unnamed argument(s), but found ["
+                     + (ctx.getOrderedParamCount() + 1)
+                     + "].");
          }
       }
       return ctx;

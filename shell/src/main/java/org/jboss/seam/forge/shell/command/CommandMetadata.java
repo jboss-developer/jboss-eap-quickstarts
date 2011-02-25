@@ -22,15 +22,10 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.jboss.seam.forge.project.Resource;
+
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -86,16 +81,29 @@ public class CommandMetadata
       int currentIndex = 0;
       for (OptionMetadata option : options)
       {
-         if (!option.notOrdered() && (index == currentIndex))
+         if (option.isOrdered() && (index == currentIndex))
          {
             return option;
          }
-         else if (!option.notOrdered())
+         else if (option.isOrdered())
          {
             currentIndex++;
          }
       }
       throw new IllegalArgumentException("No option with index [" + index + "] exists for command: " + this);
+   }
+
+   public int getNumOrderedOptions()
+   {
+      int count = 0;
+      for (OptionMetadata option : options)
+      {
+         if (option.isOrdered())
+         {
+            count++;
+         }
+      }
+      return count;
    }
 
    public Method getMethod()

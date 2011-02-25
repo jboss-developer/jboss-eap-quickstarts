@@ -21,45 +21,38 @@
  */
 package org.jboss.seam.forge.dev.dependencies;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
-import org.jboss.seam.forge.shell.completer.CommandCompleter;
-import org.jboss.seam.forge.shell.completer.CommandCompleterState;
+import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides completion for project build properties
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class RepositoryCompleter implements CommandCompleter
+public class RepositoryCompleter extends SimpleTokenCompleter
 {
    @Inject
    private Project project;
 
    @Override
-   public void complete(final CommandCompleterState state)
+   public List<Object> getCompletionTokens()
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-
       List<DependencyRepository> repositories = deps.getRepositories();
-      String peek = state.getTokens().peek();
 
-      if ((state.getTokens().size() <= 1))
+      List<Object> result = new ArrayList<Object>();
+      for (DependencyRepository dependencyRepository : repositories)
       {
-         for (DependencyRepository repo : repositories)
-         {
-            if (repo.getUrl().startsWith(peek == null ? "" : peek))
-            {
-               state.getCandidates().add(repo.getUrl());
-               state.setIndex(state.getOriginalIndex() - (peek == null ? 0 : peek.length()));
-            }
-         }
+         result.add(dependencyRepository.getUrl());
       }
+
+      return result;
    }
 
 }
