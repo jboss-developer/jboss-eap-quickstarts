@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+ * JBoss, by Red Hat.
  * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,30 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.events;
 
-import org.jboss.seam.forge.parser.java.util.Assert;
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
+package org.jboss.seam.forge.scaffold.shell;
+
+import org.jboss.seam.forge.scaffold.plugins.GenPlugin;
+import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Instruct Forge to install the given {@link Facet} into the current {@link Project}
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
-public class InstallFacet
+public class ProfileCompleter extends SimpleTokenCompleter
 {
-   private final Class<? extends Facet> facetType;
+   @Inject
+   private GenPlugin gen;
 
-   public InstallFacet(Class<? extends Facet> facetType)
+   @Override
+   public List<Object> getCompletionTokens()
    {
-      Assert.notNull(facetType, "Facet type must not be null.");
-      this.facetType = facetType;
+      return new ArrayList<Object>(gen.getProfiles().keySet());
    }
 
-   public Class<? extends Facet> getFacetType()
-   {
-      return facetType;
-   }
 }

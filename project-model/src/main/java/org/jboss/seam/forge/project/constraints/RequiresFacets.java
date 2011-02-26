@@ -21,18 +21,23 @@
  */
 package org.jboss.seam.forge.project.constraints;
 
-import org.jboss.seam.forge.project.Facet;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.lang.annotation.*;
+import org.jboss.seam.forge.project.Facet;
 
 /**
  * The annotated element requires the given {@link Facet}s.
- *
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@RequiresProject
 public @interface RequiresFacets
 {
    /**

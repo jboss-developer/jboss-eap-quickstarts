@@ -41,7 +41,7 @@ import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
-import org.jboss.seam.forge.shell.events.InstallFacet;
+import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -69,11 +69,21 @@ public class InstallFacetPlugin implements Plugin
    @Inject
    private Project project;
 
-   public void installRequest(@Observes InstallFacet request)
+   public void installRequest(@Observes InstallFacets request)
    {
-      shell.printlnVerbose("Received Facet installation request [" + request.getFacetType().getName() + "]");
-      Facet facet = factory.getFacet(request.getFacetType());
-      performInstallation(facet);
+      shell.printlnVerbose("Received Facet installation request " + request.getFacetTypes());
+      for (Class<? extends Facet> type : request.getFacetTypes())
+      {
+         Facet facet = factory.getFacet(type);
+         if (!project.hasFacet(type))
+         {
+            performInstallation(facet);
+         }
+         else
+         {
+            shell.printlnVerbose("Facet type already installed" + type);
+         }
+      }
    }
 
    @DefaultCommand

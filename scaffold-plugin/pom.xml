@@ -22,7 +22,7 @@
    
    <properties>
    		<el.version>2.2</el.version>
-   		<fpak.version>1.0-SNAPSHOT</fpak.version>
+   		<fpak.version>1.0.Alpha2</fpak.version>
    		<metawidget.version>1.0.5</metawidget.version>
    		<seam.render.version>1.0.0.Alpha1</seam.render.version>
    </properties>

@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,27 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.scaffold.shell;
 
-package org.jboss.seam.forge.scaffold.plugins;
-
+import org.jboss.seam.forge.project.constraints.ConstraintInspector;
+import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class ProfileCompleter extends SimpleTokenCompleter
+public class ScaffoldProviderCompleter extends SimpleTokenCompleter
 {
    @Inject
-   private GenPlugin gen;
+   private Instance<ScaffoldProvider> impls;
 
    @Override
    public List<Object> getCompletionTokens()
    {
-      return new ArrayList<Object>(gen.getProfiles().keySet());
+      List<Object> result = new ArrayList<Object>();
+      for (ScaffoldProvider impl : impls)
+      {
+         result.add(ConstraintInspector.getName(impl.getClass()));
+      }
+      return result;
    }
 
 }

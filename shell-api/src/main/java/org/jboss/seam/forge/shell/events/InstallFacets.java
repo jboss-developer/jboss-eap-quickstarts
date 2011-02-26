@@ -19,34 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.scaffold;
+package org.jboss.seam.forge.shell.events;
 
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
-import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.jboss.seam.forge.parser.java.util.Assert;
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.Project;
+
 /**
+ * Instruct Forge to install the given {@link Facet} into the current {@link Project}
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ScaffoldProviderCompleter extends SimpleTokenCompleter
+public class InstallFacets
 {
-   @Inject
-   private Instance<ScaffoldProvider> impls;
+   private final List<Class<? extends Facet>> facetTypes;
 
-   @Override
-   public List<Object> getCompletionTokens()
+   public InstallFacets(Class<? extends Facet> facetType)
    {
-      List<Object> result = new ArrayList<Object>();
-      for (ScaffoldProvider impl : impls)
-      {
-         result.add(ConstraintInspector.getName(impl.getClass()));
-      }
-      return result;
+      Assert.notNull(facetType, "Facet type may not be null.");
+      this.facetTypes = new ArrayList<Class<? extends Facet>>();
+      facetTypes.add(facetType);
    }
 
+   public InstallFacets(Class<? extends Facet>... facetTypes)
+   {
+      // FIXME This method causes warnings when used as intended... fix?
+      Assert.notNull(facetTypes, "Facet types may not be null.");
+      this.facetTypes = Arrays.asList(facetTypes);
+   }
+
+   public List<Class<? extends Facet>> getFacetTypes()
+   {
+      return facetTypes;
+   }
 }

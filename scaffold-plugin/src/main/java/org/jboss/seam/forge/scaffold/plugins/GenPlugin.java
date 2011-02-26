@@ -41,6 +41,7 @@ import org.jboss.fpak.strategy.RunStrategy;
 import org.jboss.fpak.strategy.builtin.DefaultParseStrategy;
 import org.jboss.fpak.strategy.builtin.DefaultRunStrategy;
 import org.jboss.seam.forge.scaffold.plugins.events.AdvertiseGenProfile;
+import org.jboss.seam.forge.scaffold.shell.ProfileCompleter;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;

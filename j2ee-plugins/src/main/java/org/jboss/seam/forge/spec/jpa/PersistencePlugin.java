@@ -29,7 +29,7 @@ import javax.inject.Named;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.shell.events.InstallFacet;
+import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -58,7 +58,7 @@ public class PersistencePlugin implements Plugin
    private Project project;
 
    @Inject
-   private Event<InstallFacet> request;
+   private Event<InstallFacets> request;
 
    @Inject
    private BeanManager manager;
@@ -105,7 +105,7 @@ public class PersistencePlugin implements Plugin
    {
       if (!project.hasFacet(PersistenceFacet.class))
       {
-         request.fire(new InstallFacet(PersistenceFacet.class));
+         request.fire(new InstallFacets(PersistenceFacet.class));
       }
    }
 }

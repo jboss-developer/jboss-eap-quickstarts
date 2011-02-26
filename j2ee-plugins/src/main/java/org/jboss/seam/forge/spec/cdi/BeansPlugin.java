@@ -40,7 +40,7 @@ import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrompt;
-import org.jboss.seam.forge.shell.events.InstallFacet;
+import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.events.PickupResource;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Current;
@@ -59,7 +59,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 public class BeansPlugin implements Plugin
 {
    @Inject
-   private Event<InstallFacet> install;
+   private Event<InstallFacets> install;
 
    @Inject
    private Event<PickupResource> pickup;
@@ -79,11 +79,7 @@ public class BeansPlugin implements Plugin
    {
       if (!project.hasFacet(CDIFacet.class))
       {
-         install.fire(new InstallFacet(CDIFacet.class));
-      }
-      if (project.hasFacet(CDIFacet.class))
-      {
-         ShellMessages.success(out, "CDI [JSR-299] is installed.");
+         install.fire(new InstallFacets(CDIFacet.class));
       }
 
    }

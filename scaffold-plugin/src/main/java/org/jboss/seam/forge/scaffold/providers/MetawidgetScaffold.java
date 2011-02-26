@@ -19,34 +19,49 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.scaffold.plugins;
+package org.jboss.seam.forge.scaffold.providers;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
+import org.jboss.seam.forge.scaffold.plugins.ScaffoldPlugin;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.render.TemplateCompiler;
 import org.jboss.seam.render.template.CompiledTemplateResource;
+import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ForgeDefaultScaffold implements ScaffoldProvider
+@Named("metawidget")
+public class MetawidgetScaffold implements ScaffoldProvider
 {
+   private static final String SEAM_PERSIST_INTERCEPTOR = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
    private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jtpl";
    private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
    private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
+
+   private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
+   private final Dependency seamPersist = DependencyBuilder
+            .create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta4");
 
    private CompiledTemplateResource viewTemplate;
    private CompiledTemplateResource createTemplate;
@@ -66,11 +81,8 @@ public class ForgeDefaultScaffold implements ScaffoldProvider
       listTemplate = compiler.compile(LIST_TEMPLATE);
    }
 
-   @Inject
-   private Project project;
-
    @Override
-   public void fromEntity(final JavaClass entity, final boolean overwrite)
+   public void fromEntity(Project project, final JavaClass entity, final boolean overwrite)
    {
       try
       {
@@ -113,6 +125,59 @@ public class ForgeDefaultScaffold implements ScaffoldProvider
       {
          throw new RuntimeException("Error generating default scaffolding.", e);
       }
+   }
+
+   public void createPersistenceUtils(Project project, final boolean overwrite)
+   {
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      JavaClass util = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
+      JavaClass producer = JavaParser.parse(JavaClass.class,
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
+
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      try
+      {
+         JavaResource producerResource = java.getJavaResource(producer);
+         JavaResource utilResource = java.getJavaResource(util);
+
+         ScaffoldPlugin.createOrOverwrite(writer, producerResource, producer.toString(), overwrite);
+         ScaffoldPlugin.createOrOverwrite(writer, utilResource, util.toString(), overwrite);
+      }
+      catch (FileNotFoundException e)
+      {
+         throw new RuntimeException(e);
+      }
+   }
+
+   @Override
+   public void installInto(Project project)
+   {
+      DependencyFacet df = project.getFacet(DependencyFacet.class);
+      CDIFacet cdi = project.getFacet(CDIFacet.class);
+      if (!df.hasDependency(metawidget))
+      {
+         df.addDependency(metawidget);
+      }
+      if (!df.hasDependency(seamPersist))
+      {
+         df.addDependency(seamPersist);
+         BeansDescriptor config = cdi.getConfig();
+         config.interceptor(SEAM_PERSIST_INTERCEPTOR);
+         cdi.saveConfig(config);
+      }
+      createPersistenceUtils(project, true);
+   }
+
+   @Override
+   public boolean isInstalledIn(Project project)
+   {
+      DependencyFacet df = project.getFacet(DependencyFacet.class);
+      CDIFacet cdi = project.getFacet(CDIFacet.class);
+
+      return df.hasDependency(metawidget) && df.hasDependency(seamPersist)
+               && cdi.getConfig().getInterceptors().contains(SEAM_PERSIST_INTERCEPTOR);
    }
 
 }

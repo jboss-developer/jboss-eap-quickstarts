@@ -27,32 +27,29 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Entity;
 
-import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
-import org.jboss.seam.forge.project.dependencies.Dependency;
-import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
-import org.jboss.seam.forge.project.facets.DependencyFacet;
-import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
 import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
-import org.jboss.seam.forge.scaffold.ScaffoldProviderCompleter;
+import org.jboss.seam.forge.scaffold.providers.MetawidgetScaffold;
+import org.jboss.seam.forge.scaffold.shell.ScaffoldProviderCompleter;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
+import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -64,7 +61,6 @@ import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jsf.FacesFacet;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
-import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -73,10 +69,6 @@ import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 @Named("scaffold")
 @Topic("UI Generation & Scaffolding")
 @Help("Metawidget UI scaffolding")
-@RequiresFacets({ MavenWebResourceFacet.class,
-         PersistenceFacet.class,
-         CDIFacet.class,
-         FacesFacet.class })
 @RequiresProject
 public class ScaffoldPlugin implements Plugin
 {
@@ -95,42 +87,35 @@ public class ScaffoldPlugin implements Plugin
    private Instance<ScaffoldProvider> impls;
 
    @Inject
-   private ForgeDefaultScaffold defaultScaffold;
+   private MetawidgetScaffold defaultScaffold;
 
-   private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
-   private final Dependency seamPersist = DependencyBuilder
-            .create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta4");
+   @Inject
+   private Event<InstallFacets> install;
 
-   @Command("create-persistence-utils")
-   public void createPersistenceUtils(
-            @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
+   @Command("setup")
+   @SuppressWarnings("unchecked")
+   public void setup(PipeOut out)
    {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      JavaClass util = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
-      JavaClass producer = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
+      /*
+       * TODO this should probably accept a scaffold type object itself other methods should check to see if any
+       * scaffold providers have been installed
+       */
+      install.fire(new InstallFacets(MavenWebResourceFacet.class, PersistenceFacet.class, CDIFacet.class,
+                  FacesFacet.class));
 
-      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
-
-      try
+      if (project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
+               && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class))
       {
-         JavaResource producerResource = java.getJavaResource(producer);
-         JavaResource utilResource = java.getJavaResource(util);
-
-         createOrOverwrite(writer, producerResource, producer.toString(), overwrite);
-         createOrOverwrite(writer, utilResource, util.toString(), overwrite);
-      }
-      catch (FileNotFoundException e)
-      {
-         throw new RuntimeException(e);
+         ShellMessages.success(out, "Scaffolding installed.");
       }
    }
 
    @Command("create-indexes")
    public void createIndex(
+            PipeOut out,
             @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
    {
+      setup(out);
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
       project.getFacet(ServletFacet.class).getConfig().welcomeFile("index.html");
@@ -141,13 +126,15 @@ public class ScaffoldPlugin implements Plugin
       createOrOverwrite(writer, web.getWebResource("index.xhtml"),
                getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/index.xhtml"), overwrite);
 
-      createDefaultTemplate(overwrite);
+      createDefaultTemplate(out, overwrite);
    }
 
    @Command("create-default-template")
    public void createDefaultTemplate(
+            final PipeOut out,
             @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
    {
+      setup(out);
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
       createOrOverwrite(writer, web.getWebResource("/resources/forge-template.xhtml"),
@@ -168,6 +155,7 @@ public class ScaffoldPlugin implements Plugin
             @Option(required = false) JavaResource[] targets,
             final PipeOut out) throws FileNotFoundException
    {
+      setup(out);
       if (((targets == null) || (targets.length < 1))
                && (currentResource instanceof JavaResource))
       {
@@ -177,29 +165,28 @@ public class ScaffoldPlugin implements Plugin
       List<JavaResource> javaTargets = selectTargets(out, targets);
       if (javaTargets.isEmpty())
       {
-         if (!out.isPiped())
-         {
-            ShellMessages.error(out, "Must specify a domain entity on which to operate.");
-         }
+         ShellMessages.error(out, "Must specify a domain entity on which to operate.");
          return;
       }
 
-      ScaffoldProvider scaffoldImpl = getScaffoldType(scaffoldType);
-
-      if (scaffoldImpl == null)
+      ScaffoldProvider provider = getScaffoldType(scaffoldType);
+      if (provider == null)
       {
          ShellMessages.error(out, "Aborted - no scaffold type selected.");
          return;
       }
 
-      createDefaultTemplate(overwrite);
-      createPersistenceUtils(overwrite);
-      addDependencies();
+      if (!provider.isInstalledIn(project))
+      {
+         provider.installInto(project);
+      }
+
+      createDefaultTemplate(out, overwrite);
 
       for (JavaResource jr : javaTargets)
       {
          JavaClass entity = (JavaClass) (jr).getJavaSource();
-         scaffoldImpl.fromEntity(entity, overwrite);
+         provider.fromEntity(project, entity, overwrite);
          ShellMessages.success(out, "Generated UI for [" + entity.getQualifiedName() + "]");
       }
 
@@ -227,24 +214,6 @@ public class ScaffoldPlugin implements Plugin
          scaffoldImpl = defaultScaffold;
       }
       return scaffoldImpl;
-   }
-
-   public Project addDependencies()
-   {
-      DependencyFacet df = project.getFacet(DependencyFacet.class);
-      CDIFacet cdi = project.getFacet(CDIFacet.class);
-      if (!df.hasDependency(metawidget))
-      {
-         df.addDependency(metawidget);
-      }
-      if (!df.hasDependency(seamPersist))
-      {
-         df.addDependency(seamPersist);
-         BeansDescriptor config = cdi.getConfig();
-         config.interceptor("org.jboss.seam.persistence.transaction.TransactionInterceptor");
-         cdi.saveConfig(config);
-      }
-      return project;
    }
 
    private List<JavaResource> selectTargets(final PipeOut out, Resource<?>[] targets)
