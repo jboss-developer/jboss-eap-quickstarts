@@ -105,12 +105,12 @@ public class ScaffoldPlugin implements Plugin
       {
          install.fire(new InstallFacets(MavenWebResourceFacet.class, PersistenceFacet.class, CDIFacet.class,
                   FacesFacet.class));
-      }
 
-      if (project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
-               && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class))
-      {
-         ShellMessages.success(out, "Scaffolding installed.");
+         if (project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
+                  && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class))
+         {
+            ShellMessages.success(out, "Scaffolding installed.");
+         }
       }
    }
 
