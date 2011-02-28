@@ -100,8 +100,12 @@ public class ScaffoldPlugin implements Plugin
        * TODO this should probably accept a scaffold type object itself other methods should check to see if any
        * scaffold providers have been installed
        */
-      install.fire(new InstallFacets(MavenWebResourceFacet.class, PersistenceFacet.class, CDIFacet.class,
+      if (!(project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
+               && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class)))
+      {
+         install.fire(new InstallFacets(MavenWebResourceFacet.class, PersistenceFacet.class, CDIFacet.class,
                   FacesFacet.class));
+      }
 
       if (project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
                && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class))

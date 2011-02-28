@@ -133,6 +133,12 @@ public class JavaColorizer
          }
       }
 
+      if (capture)
+      {
+         doCapture(writer, arr, output, start, arr.length);
+         capture = false;
+      }
+
       return output.toString();
 
    }

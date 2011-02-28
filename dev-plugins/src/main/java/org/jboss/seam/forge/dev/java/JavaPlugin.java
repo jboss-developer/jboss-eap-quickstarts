@@ -24,12 +24,14 @@ package org.jboss.seam.forge.dev.java;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.SyntaxError;
@@ -41,6 +43,7 @@ import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
+import org.jboss.seam.forge.shell.color.JavaColorizer;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
@@ -140,13 +143,27 @@ public class JavaPlugin implements Plugin
       }
    }
 
+   @Command("list-imports")
+   @ResourceScope(JavaResource.class)
+   public void listImports(
+            final PipeOut out) throws FileNotFoundException
+   {
+      List<Import> imports = resource.getJavaSource().getImports();
+      for (Import i : imports)
+      {
+         String str = "import " + (i.isStatic() ? "static " : "") + i.getQualifiedName() + ";";
+         str = JavaColorizer.format(out, str);
+         out.println(str);
+      }
+   }
+
    @Command("new-field")
    @ResourceScope(JavaResource.class)
    public void newField(
             @PipeIn final String in,
             final PipeOut out,
             @Option(required = false,
-                     help = "the class definition: surround with quotes",
+                     help = "the method definition: surround with single quotes",
                      description = "class definition") final String... def) throws FileNotFoundException
    {
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
