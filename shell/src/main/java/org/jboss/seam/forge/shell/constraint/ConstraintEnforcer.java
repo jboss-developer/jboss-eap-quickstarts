@@ -134,4 +134,17 @@ public class ConstraintEnforcer
       }
       return true;
    }
+
+   public boolean isAvailable(Project currentProject, CommandMetadata commandMetadata)
+   {
+      try
+      {
+         verifyAvailable(currentProject, commandMetadata);
+      }
+      catch (ConstraintException e)
+      {
+         return false;
+      }
+      return true;
+   }
 }

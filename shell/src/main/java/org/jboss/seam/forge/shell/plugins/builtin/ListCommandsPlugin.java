@@ -178,18 +178,25 @@ public class ListCommandsPlugin implements Plugin
 
       if (showAll)
       {
-         if (!cmdMeta.isDefault())
+         if (cmdMeta.isDefault())
          {
-            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + (contextual ? "*" : ""));
+            return (cmdMeta.getName() + (contextual ? "*" : ""));
          }
          else
          {
-            return (cmdMeta.getName() + (contextual ? "*" : ""));
+            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + (contextual ? "*" : ""));
          }
       }
       else if (contextual)
       {
-         return cmdMeta.getName();
+         if (cmdMeta.isDefault())
+         {
+            return (cmdMeta.getName() + "*");
+         }
+         else
+         {
+            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + "*");
+         }
       }
 
       return "";
