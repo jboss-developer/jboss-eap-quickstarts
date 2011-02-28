@@ -145,7 +145,7 @@ public class JavaClassTest
    public void testAddImportStatic() throws Exception
    {
       assertEquals(1, javaClass.getImports().size());
-      javaClass.addImport(List.class).setStatic(true).getOrigin();
+      javaClass.addImport(List.class).setStatic(true);
       assertEquals(2, javaClass.getImports().size());
       assertTrue(javaClass.getImports().get(1).isStatic());
    }
@@ -155,7 +155,7 @@ public class JavaClassTest
    {
       assertEquals(1, javaClass.getImports().size());
       assertFalse(javaClass.hasImport(List.class));
-      javaClass.addImport(List.class).getOrigin();
+      javaClass.addImport(List.class);
       assertEquals(2, javaClass.getImports().size());
       assertTrue(javaClass.hasImport(List.class));
    }
@@ -165,8 +165,8 @@ public class JavaClassTest
    {
       assertEquals(1, javaClass.getImports().size());
       assertFalse(javaClass.hasImport(List.class));
-      javaClass.addImport(List.class).getOrigin();
-      javaClass.addImport(List.class).getOrigin();
+      javaClass.addImport(List.class);
+      javaClass.addImport(List.class);
       assertEquals(2, javaClass.getImports().size());
       assertTrue(javaClass.hasImport(List.class));
    }
@@ -174,7 +174,7 @@ public class JavaClassTest
    @Test
    public void testRemoveImportByClass() throws Exception
    {
-      List<Import<JavaClass>> imports = javaClass.getImports();
+      List<Import> imports = javaClass.getImports();
       assertEquals(1, imports.size());
       assertEquals(URL.class.getName(), imports.get(0).getQualifiedName());
 

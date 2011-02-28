@@ -23,20 +23,19 @@
 package org.jboss.seam.forge.parser.java;
 
 import org.jboss.seam.forge.parser.Internal;
-import org.jboss.seam.forge.parser.Origin;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Import<O> extends Internal, Origin<O>
+public interface Import extends Internal
 {
    public String getQualifiedName();
 
-   public Import<O> setName(final String name);
+   public Import setName(final String name);
 
    public boolean isStatic();
 
-   public Import<O> setStatic(final boolean value);
+   public Import setStatic(final boolean value);
 
 }

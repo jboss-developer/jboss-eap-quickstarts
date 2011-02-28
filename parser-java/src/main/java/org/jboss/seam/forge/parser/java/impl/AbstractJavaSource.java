@@ -131,27 +131,27 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
     */
 
    @Override
-   public Import<O> addImport(final Class<?> type)
+   public Import addImport(final Class<?> type)
    {
       return addImport(type.getName());
    }
 
    @Override
-   public <T extends JavaSource<?>> Import<O> addImport(T type)
+   public <T extends JavaSource<?>> Import addImport(T type)
    {
       return this.addImport(type.getQualifiedName());
    }
 
    @Override
-   public Import<O> addImport(Import<?> imprt)
+   public Import addImport(Import imprt)
    {
       return addImport(imprt.getQualifiedName()).setStatic(imprt.isStatic());
    }
 
    @Override
-   public Import<O> addImport(final String className)
+   public Import addImport(final String className)
    {
-      Import<O> imprt;
+      Import imprt;
       if (!hasImport(className) && validImport(className))
       {
          imprt = new ImportImpl(this).setName(className);
@@ -199,9 +199,9 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public O addImports(Import<?>... imprt)
+   public O addImports(Import... imprt)
    {
-      for (Import<?> i : imprt)
+      for (Import i : imprt)
       {
          addImport(i);
       }
@@ -209,10 +209,10 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    };
 
    @Override
-   public Import<O> getImport(final String className)
+   public Import getImport(final String className)
    {
-      List<Import<O>> imports = getImports();
-      for (Import<O> imprt : imports)
+      List<Import> imports = getImports();
+      for (Import imprt : imports)
       {
          if (imprt.getQualifiedName().equals(className))
          {
@@ -223,27 +223,27 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public Import<O> getImport(final Class<?> type)
+   public Import getImport(final Class<?> type)
    {
       return getImport(type.getName());
    }
 
    @Override
-   public <T extends JavaSource<?>> Import<O> getImport(T type)
+   public <T extends JavaSource<?>> Import getImport(T type)
    {
       return getImport(type.getQualifiedName());
    };
 
    @Override
-   public Import<O> getImport(Import<?> imprt)
+   public Import getImport(Import imprt)
    {
       return getImport(imprt.getQualifiedName());
    }
 
    @Override
-   public List<Import<O>> getImports()
+   public List<Import> getImports()
    {
-      List<Import<O>> results = new ArrayList<Import<O>>();
+      List<Import> results = new ArrayList<Import>();
 
       for (ImportDeclaration i : (List<ImportDeclaration>) unit.imports())
       {
@@ -266,7 +266,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    };
 
    @Override
-   public boolean hasImport(Import<?> imprt)
+   public boolean hasImport(Import imprt)
    {
       return hasImport(imprt.getQualifiedName());
    }
@@ -303,7 +303,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    @Override
    public O removeImport(final String name)
    {
-      for (Import<O> i : getImports())
+      for (Import i : getImports())
       {
          if (i.getQualifiedName().equals(name))
          {
@@ -327,7 +327,7 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    };
 
    @Override
-   public O removeImport(final Import<O> imprt)
+   public O removeImport(final Import imprt)
    {
       Object internal = imprt.getInternal();
       if (unit.imports().contains(internal))

@@ -28,28 +28,28 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Importer<O>
+public interface Importer<O extends JavaSource<?>>
 {
    /**
     * Add an import by qualified class name. (E.g: "com.example.Imported") unless it is in the provided 'java.lang.*'
     * package.
     */
-   public Import<O> addImport(final String className);
+   public Import addImport(final String className);
 
    /**
     * Add an import for the given {@link Class} type.
     */
-   public Import<O> addImport(final Class<?> type);
+   public Import addImport(final Class<?> type);
 
    /**
     * Add an import for the given {@link Import} type.
     */
-   public Import<O> addImport(Import<?> imprt);
+   public Import addImport(Import imprt);
 
    /**
     * Add an import for the given {@link JavaSource} type.
     */
-   public <T extends JavaSource<?>> Import<O> addImport(T type);
+   public <T extends JavaSource<?>> Import addImport(T type);
 
    /**
     * Add an import for each given {@link Class} type.
@@ -59,7 +59,7 @@ public interface Importer<O>
    /**
     * Add an import for each given {@link Import} type.
     */
-   public O addImports(Import<?>... imprt);
+   public O addImports(Import... imprt);
 
    /**
     * Add an import for each given {@link JavaSource} type.
@@ -99,27 +99,27 @@ public interface Importer<O>
    /**
     * Return whether or not this {@link O} has the given {@link Import} type.
     */
-   public boolean hasImport(Import<?> imprt);
+   public boolean hasImport(Import imprt);
 
    /**
     * Get the {@link Import} for the given fully-qualified class name, if it exists; otherwise, return null;
     */
-   public Import<O> getImport(String literalValue);
+   public Import getImport(String literalValue);
 
    /**
     * Get the {@link Import} for the given {@link Class} type, if it exists; otherwise, return null;
     */
-   public Import<O> getImport(Class<?> type);
+   public Import getImport(Class<?> type);
 
    /**
     * Get the {@link Import} for the given {@link T} type, if it exists; otherwise, return null;
     */
-   public <T extends JavaSource<?>> Import<O> getImport(T type);
+   public <T extends JavaSource<?>> Import getImport(T type);
 
    /**
     * Get the {@link Import} of the given {@link Import} type, if it exists; otherwise, return null;
     */
-   public Import<O> getImport(Import<?> imprt);
+   public Import getImport(Import imprt);
 
    /**
     * Remove any {@link Import} for the given fully-qualified class name, if it exists; otherwise, do nothing;
@@ -139,10 +139,10 @@ public interface Importer<O>
    /**
     * Remove the given {@link Import} from this {@link O} instance, if it exists; otherwise, do nothing;
     */
-   public O removeImport(Import<O> imprt);
+   public O removeImport(Import imprt);
 
    /**
     * Get an immutable list of all {@link Import}s currently imported by this {@link O}
     */
-   public List<Import<O>> getImports();
+   public List<Import> getImports();
 }

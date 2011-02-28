@@ -32,17 +32,14 @@ import org.jboss.seam.forge.parser.java.util.Types;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@SuppressWarnings("rawtypes")
 public class ImportImpl implements Import
 {
-   private JavaSource<?> parent;
    private AST ast = null;
    private CompilationUnit cu = null;
    private ImportDeclaration imprt = null;
 
    private void init(final JavaSource<?> parent)
    {
-      this.parent = parent;
       cu = (CompilationUnit) parent.getInternal();
       ast = cu.getAST();
    }
@@ -83,12 +80,6 @@ public class ImportImpl implements Import
    {
       imprt.setStatic(value);
       return this;
-   }
-
-   @Override
-   public JavaSource<?> getOrigin()
-   {
-      return parent.getOrigin();
    }
 
    @Override
