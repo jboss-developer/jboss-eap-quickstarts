@@ -24,7 +24,6 @@ package org.jboss.seam.forge.spec.jpa;
 import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,9 +39,10 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -52,7 +52,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("new-entity")
+@Alias("new-entity")
 @Topic("Project")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)

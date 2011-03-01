@@ -22,19 +22,19 @@
 
 package org.jboss.seam.forge.shell.test.project.resources;
 
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("inject")
+@Alias("inject")
 @Singleton
 @ResourceScope(DirectoryResource.class)
 public class MockResourceInjectionPlugin implements Plugin

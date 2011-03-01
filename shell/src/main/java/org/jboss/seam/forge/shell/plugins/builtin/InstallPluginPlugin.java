@@ -22,8 +22,16 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.io.File;
+import java.util.List;
+
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
@@ -32,17 +40,10 @@ import org.jboss.seam.forge.shell.util.PluginRef;
 import org.jboss.seam.forge.shell.util.PluginUtil;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import java.io.File;
-import java.util.List;
-
 /**
  * @author Mike Brock .
  */
-@Named("install-plugin")
+@Alias("install-plugin")
 @Singleton
 public class InstallPluginPlugin implements Plugin
 {

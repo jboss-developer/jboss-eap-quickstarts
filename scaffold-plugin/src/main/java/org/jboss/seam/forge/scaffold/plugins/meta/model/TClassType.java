@@ -22,10 +22,15 @@
 
 package org.jboss.seam.forge.scaffold.plugins.meta.model;
 
-import org.jboss.seam.forge.scaffold.plugins.meta.Renderable;
-
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.jboss.seam.forge.scaffold.plugins.meta.Renderable;
 
 /**
  * @author Mike Brock .
@@ -248,7 +253,6 @@ public class TClassType implements Renderable
       return sb.toString();
    }
 
-
    @Override
    public String render()
    {
@@ -319,7 +323,7 @@ public class TClassType implements Renderable
       {
          try
          {
-            Class tryClass = Class.forName(className);
+            Class<?> tryClass = Class.forName(className);
             if (tryClass.getSuperclass() == null)
             {
                superClass = null;
@@ -334,13 +338,12 @@ public class TClassType implements Renderable
             superClass = "java.lang.Object";
          }
 
-         typeCache.put(className, type = new TClassType(className, superClass!= null ? getClass(superClass) : null));
+         typeCache.put(className, type = new TClassType(className, superClass != null ? getClass(superClass) : null));
       }
       else
       {
          type = typeCache.get(className);
       }
-
 
       return type;
    }

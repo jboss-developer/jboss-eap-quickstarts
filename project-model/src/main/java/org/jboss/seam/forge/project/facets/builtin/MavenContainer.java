@@ -39,7 +39,7 @@ import org.codehaus.plexus.DefaultPlexusContainer;
 import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 import org.jboss.seam.forge.project.ProjectModelException;
-import org.jboss.seam.forge.project.util.OSUtils;
+import org.jboss.seam.forge.shell.util.OSUtils;
 import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
 import org.sonatype.aether.util.DefaultRepositorySystemSession;
 

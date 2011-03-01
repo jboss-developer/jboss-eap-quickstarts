@@ -22,8 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import javax.inject.Named;
-
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -33,7 +32,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("remove")
+@Alias("remove")
 @Topic("Project")
 @Help("Remove a plugin from the current project.")
 public class RemoveFacetPlugin implements Plugin

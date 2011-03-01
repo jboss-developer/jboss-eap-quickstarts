@@ -26,6 +26,8 @@ import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 
+import org.jboss.seam.forge.shell.project.ResourceScoped;
+
 /**
  * An extension to provide {@link ResourceScoped} support.
  * 

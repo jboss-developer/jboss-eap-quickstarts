@@ -30,7 +30,7 @@ import java.util.Map;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**

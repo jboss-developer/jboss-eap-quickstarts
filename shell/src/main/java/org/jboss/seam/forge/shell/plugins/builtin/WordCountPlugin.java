@@ -1,22 +1,28 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
 
 /**
  * A simple port of the unix 'wc' command for forge.
  * 
  * @author Mike Brock .
  */
-@Named("wc")
+@Alias("wc")
 @Topic("File & Resources")
 @Help("word, line, character and byte count")
 public class WordCountPlugin implements Plugin

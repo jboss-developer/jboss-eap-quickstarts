@@ -22,18 +22,18 @@
 
 package org.jboss.seam.forge.shell.project;
 
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.MetadataFacet;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.services.ProjectFactory;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.events.InitProject;
-import org.jboss.seam.forge.shell.events.PostStartup;
-
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.project.services.ProjectFactory;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.events.InitProject;
+import org.jboss.seam.forge.shell.events.PostStartup;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

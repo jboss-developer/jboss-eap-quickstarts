@@ -25,11 +25,11 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -38,7 +38,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author Mike Brock .
  */
-@Named("run")
+@Alias("run")
 @Topic("Shell Environment")
 public class RunPlugin implements Plugin
 {

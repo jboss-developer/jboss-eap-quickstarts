@@ -22,19 +22,19 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("clear")
+@Alias("clear")
 @Topic("Shell Environment")
 @Help("Clears the console output.")
 public class ClearPlugin implements Plugin

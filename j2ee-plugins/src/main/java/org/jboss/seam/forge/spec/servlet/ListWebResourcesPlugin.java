@@ -24,13 +24,13 @@ package org.jboss.seam.forge.spec.servlet;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -40,7 +40,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("list-web-resources")
+@Alias("list-web-resources")
 @Topic("File & Resources")
 @RequiresProject
 @RequiresFacet(ServletFacet.class)

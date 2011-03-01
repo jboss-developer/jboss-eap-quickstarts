@@ -25,7 +25,7 @@ package org.jboss.seam.forge.spec.jpa.test.plugins;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.util.Packages;
+import org.jboss.seam.forge.shell.util.Packages;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
 import org.junit.Test;

@@ -22,12 +22,12 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.spi.CreationalContext;
@@ -35,7 +35,13 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.*;
+
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
 
 /**
  * Stores the current registry of all installed & loaded plugins.

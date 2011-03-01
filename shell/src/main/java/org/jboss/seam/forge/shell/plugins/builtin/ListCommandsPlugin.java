@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
@@ -38,6 +37,7 @@ import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -51,7 +51,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
 /**
  * @author Mike Brock
  */
-@Named("list-commands")
+@Alias("list-commands")
 @Topic("Shell Environment")
 @Help("Lists executable shell commands")
 public class ListCommandsPlugin implements Plugin

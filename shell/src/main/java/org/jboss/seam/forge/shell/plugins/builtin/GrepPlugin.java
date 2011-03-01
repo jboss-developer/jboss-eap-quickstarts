@@ -22,21 +22,27 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.mvel2.util.StringAppender;
-
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.regex.Pattern;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.mvel2.util.StringAppender;
 
 /**
  * A simple port of the Unix grep command.
  *
  * @author Mike Brock .
  */
-@Named("grep")
+@Alias("grep")
 @Topic("File & Resources")
 @Help("print lines matching a pattern")
 public class GrepPlugin implements Plugin

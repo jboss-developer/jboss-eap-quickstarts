@@ -30,7 +30,6 @@ import java.util.List;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.Entity;
 
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -40,9 +39,8 @@ import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.facets.builtin.MavenWebResourceFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.scaffold.providers.MetawidgetScaffold;
 import org.jboss.seam.forge.scaffold.shell.ScaffoldProviderCompleter;
@@ -50,6 +48,7 @@ import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.events.InstallFacets;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -66,7 +65,7 @@ import org.jboss.seam.forge.spec.servlet.ServletFacet;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Named("scaffold")
+@Alias("scaffold")
 @Topic("UI Generation & Scaffolding")
 @Help("Metawidget UI scaffolding")
 @RequiresProject
@@ -100,13 +99,13 @@ public class ScaffoldPlugin implements Plugin
        * TODO this should probably accept a scaffold type object itself other methods should check to see if any
        * scaffold providers have been installed
        */
-      if (!(project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
+      if (!(project.hasFacet(WebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
                && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class)))
       {
-         install.fire(new InstallFacets(MavenWebResourceFacet.class, PersistenceFacet.class, CDIFacet.class,
+         install.fire(new InstallFacets(WebResourceFacet.class, PersistenceFacet.class, CDIFacet.class,
                   FacesFacet.class));
 
-         if (project.hasFacet(MavenWebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
+         if (project.hasFacet(WebResourceFacet.class) && project.hasFacet(PersistenceFacet.class)
                   && project.hasFacet(CDIFacet.class) && project.hasFacet(FacesFacet.class))
          {
             ShellMessages.success(out, "Scaffolding installed.");

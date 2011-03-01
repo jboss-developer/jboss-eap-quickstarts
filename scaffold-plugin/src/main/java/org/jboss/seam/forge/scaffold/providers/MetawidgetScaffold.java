@@ -26,7 +26,6 @@ import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -37,10 +36,11 @@ import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.scaffold.plugins.ScaffoldPlugin;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.render.TemplateCompiler;
 import org.jboss.seam.render.template.CompiledTemplateResource;
@@ -50,7 +50,7 @@ import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Named("metawidget")
+@Alias("metawidget")
 public class MetawidgetScaffold implements ScaffoldProvider
 {
    private static final String SEAM_PERSIST_INTERCEPTOR = "org.jboss.seam.persistence.transaction.TransactionInterceptor";

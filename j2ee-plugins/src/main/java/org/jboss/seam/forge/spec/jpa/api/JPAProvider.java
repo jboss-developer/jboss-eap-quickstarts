@@ -2,7 +2,7 @@ package org.jboss.seam.forge.spec.jpa.api;
 
 import javax.enterprise.inject.spi.BeanManager;
 
-import org.jboss.seam.forge.project.util.BeanManagerUtils;
+import org.jboss.seam.forge.shell.util.BeanManagerUtils;
 import org.jboss.seam.forge.spec.jpa.provider.EclipseLinkProvider;
 import org.jboss.seam.forge.spec.jpa.provider.HibernateProvider;
 import org.jboss.seam.forge.spec.jpa.provider.OpenJPAProvider;

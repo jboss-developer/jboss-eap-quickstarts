@@ -1,32 +1,59 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.jboss.seam.forge</groupId>
-      <artifactId>forge-parent</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
-   </parent>
+	<parent>
+		<groupId>org.jboss.seam.forge</groupId>
+		<artifactId>forge-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 
-   <artifactId>forge-shell-api</artifactId>
-   <name>Seam Forge - Shell API</name>
-   <packaging>jar</packaging>
+	<artifactId>forge-shell-api</artifactId>
+	<name>Seam Forge - Shell API</name>
+	<packaging>jar</packaging>
 
-   <dependencies>
+	<properties>
+		<maven.version>3.0.2</maven.version>
+		<aether.version>1.7</aether.version>
+		<wagonVersion>1.0-beta-7</wagonVersion>
+	</properties>
 
-      <dependency>
-         <groupId>org.jboss.seam.forge</groupId>
-         <artifactId>forge-project-model</artifactId>
-      </dependency>
+	<dependencies>
+		<dependency>
+			<artifactId>forge-parser-java</artifactId>
+			<groupId>org.jboss.seam.forge</groupId>
+		</dependency>
 
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.seam.solder</groupId>
-         <artifactId>seam-solder</artifactId>
-      </dependency>
-   </dependencies>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.solder</groupId>
+			<artifactId>seam-solder</artifactId>
+		</dependency>
+
+		<!-- Maven -->
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<version>${maven.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>${maven.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-compat</artifactId>
+			<version>${maven.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-aether-provider</artifactId>
+			<version>${maven.version}</version>
+		</dependency>
+	</dependencies>
 </project>

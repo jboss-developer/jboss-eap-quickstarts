@@ -11,17 +11,17 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.resources.ResourceFilter;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.BeanManagerUtils;
-import org.jboss.seam.forge.project.util.JavaPathspecParser;
-import org.jboss.seam.forge.project.util.PathspecParser;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.ResourceFilter;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
+import org.jboss.seam.forge.shell.util.BeanManagerUtils;
+import org.jboss.seam.forge.shell.util.JavaPathspecParser;
+import org.jboss.seam.forge.shell.util.PathspecParser;
 
 public class OptionValueResolverCompleter implements CommandCompleter
 {

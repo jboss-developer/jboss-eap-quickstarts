@@ -43,11 +43,11 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
+import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -164,7 +164,8 @@ public class MavenFacetsTest extends ProjectModelTest
       DirectoryResource temp = new DirectoryResource(resourceFactory, File.createTempFile(PKG, null));
       temp.delete();
       temp.mkdirs();
-      assertNull(projectFactory.findProjectRecursively(temp));
+      Project project = projectFactory.findProjectRecursively(temp);
+      assertNull(project);
    }
 
    @Test

@@ -26,7 +26,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Named;
 import javax.persistence.Entity;
 
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -41,9 +40,10 @@ import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
@@ -51,7 +51,7 @@ import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescr
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.spec.jpa")
+@Alias("forge.spec.jpa")
 @RequiresFacets({ JavaSourceFacet.class, ResourceFacet.class, DependencyFacet.class })
 @RequiresPackagingTypes({ PackagingType.JAR, PackagingType.WAR })
 public class PersistenceFacet extends BaseFacet

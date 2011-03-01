@@ -1,14 +1,15 @@
 package org.jboss.seam.forge.shell.completer;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
-
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AvailableFacetsCompleter extends SimpleTokenCompleter
 {

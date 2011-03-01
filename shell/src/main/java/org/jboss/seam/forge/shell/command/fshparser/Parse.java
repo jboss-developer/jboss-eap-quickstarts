@@ -22,14 +22,14 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.mvel2.MVEL;
+import static java.lang.Character.isJavaIdentifierPart;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.Set;
 
-import static java.lang.Character.isJavaIdentifierPart;
+import org.mvel2.MVEL;
 
 /**
  * @author Mike Brock .

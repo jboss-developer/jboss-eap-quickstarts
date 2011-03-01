@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
-import javax.inject.Named;
 
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
@@ -43,15 +42,16 @@ import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
-import org.jboss.seam.forge.project.util.Packages;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.util.Packages;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.JavaSourceFacet")
+@Alias("forge.maven.JavaSourceFacet")
 @RequiresFacets({ MavenCoreFacet.class })
 public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 {

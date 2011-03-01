@@ -24,7 +24,7 @@ package org.jboss.seam.forge.shell.util;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 
 /**

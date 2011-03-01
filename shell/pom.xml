@@ -38,6 +38,10 @@
    <dependencies>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-project-model</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
          <artifactId>forge-shell-api</artifactId>
       </dependency>
       <dependency>

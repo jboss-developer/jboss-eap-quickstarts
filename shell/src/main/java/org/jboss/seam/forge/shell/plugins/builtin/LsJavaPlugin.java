@@ -36,16 +36,16 @@ import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaFieldResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaMemberResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaMethodResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.java.JavaFieldResource;
+import org.jboss.seam.forge.resources.java.JavaMemberResource;
+import org.jboss.seam.forge.resources.java.JavaMethodResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.color.JavaColorizer;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
@@ -57,7 +57,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
-@OverloadedName("ls")
+@Alias("ls")
 @ResourceScope({ JavaResource.class, JavaMethodResource.class, JavaFieldResource.class })
 @Topic("File & Resources")
 @Help("Prints the contents current Java file")

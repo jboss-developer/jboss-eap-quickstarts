@@ -21,12 +21,11 @@
  */
 package org.jboss.seam.forge.scaffold;
 
-import javax.inject.Named;
-
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
 import org.jboss.seam.forge.project.facets.BaseFacet;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jsf.FacesFacet;
@@ -35,7 +34,7 @@ import org.jboss.seam.forge.spec.servlet.ServletFacet;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.scaffold")
+@Alias("forge.scaffold")
 @RequiresFacets({ ServletFacet.class, CDIFacet.class, FacesFacet.class, PersistenceFacet.class })
 @RequiresPackagingTypes({ PackagingType.WAR })
 public class ScaffoldFacet extends BaseFacet

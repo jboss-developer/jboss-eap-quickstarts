@@ -22,25 +22,8 @@
 
 package org.jboss.seam.forge.test;
 
-import org.jboss.arquillian.api.Deployment;
-import org.jboss.seam.forge.BasePackageMarker;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.events.Startup;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
+import static org.junit.Assert.assertTrue;
 
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,7 +33,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import static org.junit.Assert.assertTrue;
+import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+
+import org.jboss.arquillian.api.Deployment;
+import org.jboss.seam.forge.BasePackageMarker;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.events.Startup;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -62,8 +63,8 @@ public abstract class SingletonAbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addPackages(true, BasePackageMarker.class.getPackage())
-            .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
+               .addPackages(true, BasePackageMarker.class.getPackage())
+               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
    }
@@ -72,11 +73,11 @@ public abstract class SingletonAbstractShellTest
    private BeanManager beanManager;
    @Inject
    private Shell shell;
-   @Inject 
+   @Inject
    private ResourceFactory factory;
 
    private DirectoryResource tempFolder;
-   private static final List<FileResource> tempFolders = new ArrayList<FileResource>();
+   private static final List<FileResource<?>> tempFolders = new ArrayList<FileResource<?>>();
    private static final String PKG = SingletonAbstractShellTest.class.getSimpleName().toLowerCase();
    private static Queue<String> inputQueue = new LinkedList<String>();
 
@@ -90,11 +91,11 @@ public abstract class SingletonAbstractShellTest
       {
          throw new IllegalStateException("Failed to initialize Shell instance for test.");
       }
-      
+
       if (tempFolder == null)
       {
          shell.setVerbose(true);
-         beanManager.fireEvent(new Startup(), new Annotation[]{});
+         beanManager.fireEvent(new Startup(), new Annotation[] {});
 
          resetInputQueue();
          shell.setOutputWriter(new PrintWriter(System.out));
@@ -110,7 +111,7 @@ public abstract class SingletonAbstractShellTest
    @AfterClass
    public static void afterClass() throws IOException
    {
-      for (FileResource file : tempFolders)
+      for (FileResource<?> file : tempFolders)
       {
          if (file.exists())
          {
@@ -166,7 +167,7 @@ public abstract class SingletonAbstractShellTest
    protected Project initializeJavaProject() throws IOException
    {
       File folder = createTempFolder();
-      FileResource resource = (FileResource) factory.getResourceFrom(folder);
+      FileResource<?> resource = (FileResource<?>) factory.getResourceFrom(folder);
       tempFolders.add(resource);
       getShell().setCurrentResource(resource);
       queueInputLines("", "");

@@ -22,18 +22,19 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.command.Execution;
 import org.jboss.seam.forge.shell.command.ExecutionParser;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.util.PipeOutImpl;
-
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * @author Mike Brock .

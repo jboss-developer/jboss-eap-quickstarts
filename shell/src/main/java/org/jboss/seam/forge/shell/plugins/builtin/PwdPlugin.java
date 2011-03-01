@@ -23,9 +23,9 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -34,7 +34,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("pwd")
+@Alias("pwd")
 @Topic("File & Resources")
 @Help("Prints the current directory.")
 public class PwdPlugin implements Plugin

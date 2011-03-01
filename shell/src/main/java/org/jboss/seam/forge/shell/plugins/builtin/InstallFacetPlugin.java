@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.PackagingType;
@@ -42,6 +41,7 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
 import org.jboss.seam.forge.shell.events.InstallFacets;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -51,7 +51,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("install")
+@Alias("install")
 @Help("Installs a facet into a project.")
 @Topic("Project")
 @RequiresProject

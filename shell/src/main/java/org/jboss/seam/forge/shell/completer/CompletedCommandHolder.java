@@ -23,8 +23,6 @@ package org.jboss.seam.forge.shell.completer;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -32,15 +30,15 @@ import org.jboss.seam.forge.shell.command.CommandMetadata;
 @ApplicationScoped
 public class CompletedCommandHolder
 {
-   private CommandMetadata commandMetadata;
+   private PluginCommandCompleterState state;
 
-   public void setCommandMetadata(CommandMetadata command)
+   public void setState(PluginCommandCompleterState state)
    {
-      this.commandMetadata = command;
+      this.state = state;
    }
 
-   public CommandMetadata getCommandMetadata()
+   public PluginCommandCompleterState getState()
    {
-      return commandMetadata;
+      return state;
    }
 }

@@ -22,6 +22,8 @@
 
 package org.jboss.seam.forge.shell.test.fsh;
 
+import javax.inject.Inject;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.shell.command.fshparser.FSHParser;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
@@ -29,8 +31,6 @@ import org.jboss.seam.forge.shell.command.fshparser.Parse;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
 
 /**
  * @author Mike Brock .

@@ -22,23 +22,38 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
+import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
-import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
 /**
  * Lists directory contents for filesystem based directories. This is a
@@ -47,7 +62,7 @@ import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
  * 
  * @author Mike Brock
  */
-@Named("ls")
+@Alias("ls")
 @Topic("File & Resources")
 @ResourceScope(DirectoryResource.class)
 @Help("Prints the contents current directory.")

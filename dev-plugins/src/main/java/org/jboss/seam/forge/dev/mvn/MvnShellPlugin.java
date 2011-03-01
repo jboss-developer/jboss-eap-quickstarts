@@ -25,13 +25,13 @@ package org.jboss.seam.forge.dev.mvn;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -43,7 +43,7 @@ import org.jboss.seam.forge.shell.util.NativeSystemCall;
  * @author Mike Brock .
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("mvn")
+@Alias("mvn")
 @Topic("Project")
 @RequiresProject
 @RequiresFacet(MavenCoreFacet.class)

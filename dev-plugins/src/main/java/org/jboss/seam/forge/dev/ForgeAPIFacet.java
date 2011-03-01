@@ -7,7 +7,6 @@ package org.jboss.seam.forge.dev;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
@@ -18,12 +17,13 @@ import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.api")
+@Alias("forge.api")
 @RequiresFacets({ DependencyFacet.class, PackagingFacet.class, CDIFacet.class })
 @RequiresPackagingType(PackagingType.JAR)
 public class ForgeAPIFacet extends BaseFacet

@@ -25,14 +25,13 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.PathspecParser;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -40,13 +39,14 @@ import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.ResourceScope;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.PathspecParser;
 
 /**
  * Implementation of UNIX-style "mv" (move) command for use within the Forge Shell.
  * 
  * @author Mike Brock
  */
-@Named("mv")
+@Alias("mv")
 @Topic("File & Resources")
 @ResourceScope(DirectoryResource.class)
 @Help("Renames a file or directory")

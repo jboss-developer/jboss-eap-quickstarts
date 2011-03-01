@@ -22,22 +22,29 @@
 
 package org.jboss.seam.forge.test.project.util;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.api.Deployment;
+import org.jboss.seam.forge.BasePackageMarker;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.facets.*;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.facets.MavenCoreFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
+import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.MavenFacetsTest;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
-
-import javax.inject.Inject;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -49,9 +56,10 @@ public abstract class ProjectModelTest
    public static JavaArchive createTestArchive()
    {
       return ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addPackages(true, Project.class.getPackage())
-            .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"))
-            .addManifestResource("META-INF/services/javax.enterprise.inject.spi.Extension");
+               .addPackages(true, BasePackageMarker.class.getPackage())
+               .addClass(ResourceFactory.class)
+               .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"))
+               .addManifestResource("META-INF/services/javax.enterprise.inject.spi.Extension");
    }
 
    private static final String PKG = MavenFacetsTest.class.getSimpleName().toLowerCase();
@@ -76,8 +84,9 @@ public abstract class ProjectModelTest
          tempFolder.mkdirs();
 
          project = projectFactory.createProject(
-               ResourceUtil.getContextDirectory(resourceFactory.getResourceFrom(tempFolder)), 
-               MavenCoreFacet.class, JavaSourceFacet.class, ResourceFacet.class, WebResourceFacet.class, DependencyFacet.class, PackagingFacet.class);
+                  ResourceUtil.getContextDirectory(resourceFactory.getResourceFrom(tempFolder)),
+                  MavenCoreFacet.class, JavaSourceFacet.class, ResourceFacet.class, WebResourceFacet.class,
+                  DependencyFacet.class, PackagingFacet.class);
       }
    }
 

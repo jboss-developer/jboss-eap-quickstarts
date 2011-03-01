@@ -26,24 +26,24 @@ import java.util.List;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.PathspecParser;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.events.PickupResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.PathspecParser;
 
 /**
  * @author Mike Brock <cbrock@redhat.com>
  */
-@Named("pick-up")
+@Alias("pick-up")
 @Topic("File & Resources")
 @Help("Picks up a specific resource to work with.")
 @Singleton

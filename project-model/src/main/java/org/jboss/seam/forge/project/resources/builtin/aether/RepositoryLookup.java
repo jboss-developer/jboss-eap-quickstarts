@@ -11,7 +11,7 @@ import org.codehaus.plexus.PlexusContainer;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
-import org.jboss.seam.forge.project.util.OSUtils;
+import org.jboss.seam.forge.shell.util.OSUtils;
 import org.sonatype.aether.RepositoryException;
 import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.repository.LocalRepository;

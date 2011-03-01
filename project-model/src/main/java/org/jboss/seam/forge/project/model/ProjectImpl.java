@@ -21,7 +21,7 @@
  */
 package org.jboss.seam.forge.project.model;
 
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.solder.core.Veto;
 
 /**
@@ -47,7 +47,7 @@ public class ProjectImpl extends AbstractProject
    @Override
    public boolean exists()
    {
-      return projectRoot != null;
+      return projectRoot != null && projectRoot.exists();
    }
 
    @Override

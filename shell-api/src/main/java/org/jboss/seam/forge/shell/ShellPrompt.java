@@ -25,7 +25,7 @@ package org.jboss.seam.forge.shell;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.resources.FileResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

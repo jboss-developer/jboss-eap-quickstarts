@@ -21,11 +21,11 @@
  */
 package org.jboss.seam.forge.shell.test.completer;
 
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-
-import javax.inject.Singleton;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

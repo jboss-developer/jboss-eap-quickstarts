@@ -31,7 +31,6 @@ import java.util.Properties;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
@@ -49,12 +48,13 @@ import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.resources.builtin.aether.RepositoryLookup;
+import org.jboss.seam.forge.shell.plugins.Alias;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.MavenDependencyFacet")
+@Alias("forge.maven.MavenDependencyFacet")
 @RequiresFacets({ MavenCoreFacet.class })
 public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, Facet
 {

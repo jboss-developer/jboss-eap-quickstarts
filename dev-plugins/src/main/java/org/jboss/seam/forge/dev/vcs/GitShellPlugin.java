@@ -25,10 +25,10 @@ package org.jboss.seam.forge.dev.vcs;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
@@ -39,7 +39,7 @@ import org.jboss.seam.forge.shell.util.NativeSystemCall;
 /**
  * @author Mike Brock .
  */
-@Named("git")
+@Alias("git")
 @Topic("Version Control")
 @ResourceScope(DirectoryResource.class)
 public class GitShellPlugin implements Plugin

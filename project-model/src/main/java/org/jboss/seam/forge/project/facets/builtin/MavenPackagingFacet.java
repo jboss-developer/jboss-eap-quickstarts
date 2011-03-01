@@ -24,7 +24,6 @@ package org.jboss.seam.forge.project.facets.builtin;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
@@ -34,13 +33,14 @@ import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
-import org.jboss.seam.forge.project.packaging.PackagingChanged;
+import org.jboss.seam.forge.shell.events.PackagingChanged;
+import org.jboss.seam.forge.shell.plugins.Alias;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.PackagingFacet")
+@Alias("forge.maven.PackagingFacet")
 @RequiresFacets({ MavenCoreFacet.class })
 public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Facet
 {

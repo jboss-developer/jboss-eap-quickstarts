@@ -23,18 +23,18 @@
 package org.jboss.seam.forge.project.facets.builtin;
 
 import javax.enterprise.context.Dependent;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.shell.plugins.Alias;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.MetadataFacet")
+@Alias("forge.maven.MetadataFacet")
 @RequiresFacets({ MavenCoreFacet.class })
 public class MavenMetadataFacet implements MetadataFacet
 {

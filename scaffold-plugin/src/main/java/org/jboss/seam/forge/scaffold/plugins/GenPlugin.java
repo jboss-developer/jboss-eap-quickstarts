@@ -31,7 +31,6 @@ import java.util.Map;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.jboss.fpak.GenerationContext;
@@ -43,6 +42,7 @@ import org.jboss.fpak.strategy.builtin.DefaultRunStrategy;
 import org.jboss.seam.forge.scaffold.plugins.events.AdvertiseGenProfile;
 import org.jboss.seam.forge.scaffold.shell.ProfileCompleter;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
@@ -51,7 +51,7 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 /**
  * @author Mike Brock .
  */
-@Named("gen")
+@Alias("gen")
 @Singleton
 public class GenPlugin implements Plugin
 {

@@ -22,20 +22,24 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.mvel2.util.StringAppender;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import static java.lang.String.valueOf;
 import static org.mvel2.MVEL.eval;
+
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.mvel2.util.StringAppender;
 
 /**
  * @author Mike Brock
  */
-@Named("exec")
+@Alias("exec")
 @Topic("Shell Environment")
 @Help("Executes an expression")
 public class ScriptExecPlugin implements Plugin

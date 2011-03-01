@@ -29,7 +29,7 @@ import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
+import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
 import org.junit.Ignore;

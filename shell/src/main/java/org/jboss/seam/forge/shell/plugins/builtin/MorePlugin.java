@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeIn;
@@ -45,7 +45,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
  * 
  * @author Mike Brock
  */
-@Named("more")
+@Alias("more")
 @Topic("Shell Environment")
 public class MorePlugin implements Plugin
 {

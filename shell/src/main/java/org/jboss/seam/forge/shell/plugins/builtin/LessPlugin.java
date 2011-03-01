@@ -22,20 +22,25 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * An aliasing wrapper for {@link MorePlugin}
  *
  * @author Mike Brock .
  */
-@Named("less")
+@Alias("less")
 @Topic("Shell Environment")
 public class LessPlugin implements Plugin
 {
