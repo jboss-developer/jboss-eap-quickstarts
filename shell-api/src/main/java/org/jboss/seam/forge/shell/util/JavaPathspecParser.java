@@ -28,10 +28,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.seam.forge.parser.java.util.Strings;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.ResourceFilter;
 import org.jboss.seam.forge.resources.UnknownFileResource;
 

@@ -27,8 +27,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;

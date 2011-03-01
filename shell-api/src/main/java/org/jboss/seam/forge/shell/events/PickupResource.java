@@ -21,7 +21,7 @@
  */
 package org.jboss.seam.forge.shell.events;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 
 /**
  * Signal the Shell to pick up the given resource.

@@ -33,7 +33,7 @@ import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
 

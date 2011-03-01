@@ -25,7 +25,7 @@ package org.jboss.seam.forge.project.dependencies;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
  * This class is internal; instead use {@link DependencyBuilder} for {@link Dependency} creation & instantiation.

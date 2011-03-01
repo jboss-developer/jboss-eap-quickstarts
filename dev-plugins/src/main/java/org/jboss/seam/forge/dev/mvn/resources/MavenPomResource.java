@@ -26,13 +26,13 @@ import javax.inject.Inject;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
+import org.jboss.seam.forge.resources.ResourceHandles;
 
 /**
  * MavenPomResource

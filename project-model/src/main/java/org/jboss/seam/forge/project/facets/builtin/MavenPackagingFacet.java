@@ -27,21 +27,21 @@ import javax.inject.Inject;
 
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.shell.events.PackagingChanged;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
 @Alias("forge.maven.PackagingFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacet(MavenCoreFacet.class)
 public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Facet
 {
    @Inject

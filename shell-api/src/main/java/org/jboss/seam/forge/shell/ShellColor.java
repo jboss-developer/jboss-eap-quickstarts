@@ -19,31 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.constraints;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
+package org.jboss.seam.forge.shell;
 
 /**
- * The annotated element requires the given {@link PackagingType}s
- * 
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * @author Mike Brock .
  */
-
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@RequiresProject
-public @interface RequiresPackagingTypes
+public enum ShellColor
 {
-   /**
-    * The array of {@link PackagingType}s required by the annotated {@link Facet} or {@link Plugin}
-    */
-   PackagingType[] value() default {};
+   NONE, BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, YELLOW,  WHITE, BOLD, ITALIC
 }

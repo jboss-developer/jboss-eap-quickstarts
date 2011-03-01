@@ -2,9 +2,9 @@ package org.jboss.seam.forge.test.project.resources;
 
 import junit.framework.Assert;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.util.PathspecParser;
 import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;

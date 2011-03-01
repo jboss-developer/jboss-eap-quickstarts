@@ -31,8 +31,8 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 /**
  * Responsible for instantiating {@link Facet}s through CDI.

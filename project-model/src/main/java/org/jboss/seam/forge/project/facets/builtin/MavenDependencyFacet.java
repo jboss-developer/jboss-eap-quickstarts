@@ -37,7 +37,6 @@ import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
@@ -49,13 +48,14 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.resources.builtin.aether.RepositoryLookup;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
 @Alias("forge.maven.MavenDependencyFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacet(MavenCoreFacet.class)
 public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, Facet
 {
    private final RepositoryLookup lookup;
@@ -181,7 +181,6 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
       return null;
    }
 
-   @SuppressWarnings("unchecked")
    private boolean areEquivalent(final Dependency left, final Dependency right)
    {
       // FIXME version checking needs to be much more robust

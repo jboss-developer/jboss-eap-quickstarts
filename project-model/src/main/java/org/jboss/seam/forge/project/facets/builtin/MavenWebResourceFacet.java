@@ -28,17 +28,17 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.constraints.RequiresPackagingType;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresPackagingType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -46,7 +46,7 @@ import org.jboss.seam.forge.shell.plugins.Alias;
 @Dependent
 @Alias("forge.maven.WebResourceFacet")
 @RequiresPackagingType(PackagingType.WAR)
-@RequiresFacets({ JavaSourceFacet.class, PackagingFacet.class })
+@RequiresFacet({ JavaSourceFacet.class, PackagingFacet.class })
 public class MavenWebResourceFacet implements WebResourceFacet, Facet
 {
    private Project project;

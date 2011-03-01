@@ -20,12 +20,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.util;
+package org.jboss.seam.forge.resources;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+
 
 /**
- * @author Mike Brock .
+ * Declares a resource handler for specified wildcards.  For example:
+ * <tt><code>
+ *
+ * @ResourceHandles({"*.txt", "*.text", "README"})
+ * public class TextResource extends Resource {
+ * ...
+ * }
+ * </code></tt>
+ *
+ * @author Mike Brock <cbrock@redhat.com>
  */
-public enum ShellColor
+@Target(TYPE)
+@Retention(RUNTIME)
+public @interface ResourceHandles
 {
-   NONE, BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, YELLOW,  WHITE, BOLD, ITALIC
+   String[] value();
 }

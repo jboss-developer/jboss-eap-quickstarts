@@ -36,13 +36,12 @@ import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.SyntaxError;
 import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
-import org.jboss.seam.forge.shell.color.JavaColorizer;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Current;
@@ -51,8 +50,9 @@ import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeIn;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
+import org.jboss.seam.forge.shell.util.JavaColorizer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -144,7 +144,7 @@ public class JavaPlugin implements Plugin
    }
 
    @Command("list-imports")
-   @ResourceScope(JavaResource.class)
+   @RequiresResource(JavaResource.class)
    public void listImports(
             final PipeOut out) throws FileNotFoundException
    {
@@ -158,7 +158,7 @@ public class JavaPlugin implements Plugin
    }
 
    @Command("new-field")
-   @ResourceScope(JavaResource.class)
+   @RequiresResource(JavaResource.class)
    public void newField(
             @PipeIn final String in,
             final PipeOut out,

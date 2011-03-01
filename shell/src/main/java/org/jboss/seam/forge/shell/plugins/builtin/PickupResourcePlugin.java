@@ -28,8 +28,8 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.events.PickupResource;
 import org.jboss.seam.forge.shell.plugins.Alias;

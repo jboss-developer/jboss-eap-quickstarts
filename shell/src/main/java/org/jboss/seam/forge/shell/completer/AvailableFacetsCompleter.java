@@ -7,9 +7,9 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 public class AvailableFacetsCompleter extends SimpleTokenCompleter
 {

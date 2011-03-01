@@ -23,19 +23,19 @@ package org.jboss.seam.forge.spec.jsf;
 
 import java.io.File;
 
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Alias("forge.spec.jsf")
-@RequiresFacets({ ServletFacet.class })
+@RequiresFacet(ServletFacet.class)
 public class FacesFacet extends BaseFacet
 {
    public FileResource<?> getConfigFile()

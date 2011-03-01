@@ -24,8 +24,6 @@ package org.jboss.seam.forge.resources;
 
 import java.io.InputStream;
 
-import org.jboss.seam.forge.project.AbstractResource;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**

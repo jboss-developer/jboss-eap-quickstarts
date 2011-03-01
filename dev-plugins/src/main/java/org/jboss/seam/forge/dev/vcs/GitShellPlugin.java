@@ -32,7 +32,7 @@ import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.NativeSystemCall;
 
@@ -41,7 +41,7 @@ import org.jboss.seam.forge.shell.util.NativeSystemCall;
  */
 @Alias("git")
 @Topic("Version Control")
-@ResourceScope(DirectoryResource.class)
+@RequiresResource(DirectoryResource.class)
 public class GitShellPlugin implements Plugin
 {
    private final Shell shell;

@@ -20,13 +20,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.jboss.seam.forge.shell.color;
+package org.jboss.seam.forge.shell.util;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * Should be used to colorize a Java Source file or Java Source string snippit.

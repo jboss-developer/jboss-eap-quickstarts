@@ -22,7 +22,7 @@
 package org.jboss.seam.forge.project.facets;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
  * A Facet representing this project's Packaging (JAR, WAR, EAR, etc...)

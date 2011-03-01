@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.model;
+package org.jboss.seam.forge.project;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,16 +28,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.ProjectModelException;
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 /**
+ * Convenience base class for {@link Project} implementations.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class AbstractProject implements Project
+public abstract class BaseProject implements Project
 {
    private final Set<Facet> facets = new HashSet<Facet>();
    private final Map<String, Object> attributes = new HashMap<String, Object>();

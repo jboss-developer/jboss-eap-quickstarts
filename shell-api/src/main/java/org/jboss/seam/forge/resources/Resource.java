@@ -20,13 +20,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project;
+package org.jboss.seam.forge.resources;
 
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.seam.forge.resources.ResourceFilter;
 
 /**
  * A Resource is an abstraction on top of usable items within a Forge project. For instance, files, source code, etc.

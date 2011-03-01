@@ -21,8 +21,8 @@
  */
 package org.jboss.seam.forge.shell.events;
 
-import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
  * This event is fired when the current {@link Project}'s {@link PackagingType} is changed.

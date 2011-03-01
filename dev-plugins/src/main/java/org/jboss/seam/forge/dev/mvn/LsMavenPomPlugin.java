@@ -31,9 +31,10 @@ import javax.inject.Inject;
 import org.jboss.seam.forge.dev.mvn.resources.MavenDependencyResource;
 import org.jboss.seam.forge.dev.mvn.resources.MavenPomResource;
 import org.jboss.seam.forge.dev.mvn.resources.MavenProfileResource;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
@@ -41,9 +42,8 @@ import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * LsMavenPomPlugin
@@ -52,7 +52,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
  * @version $Revision: $
  */
 @Alias("ls")
-@ResourceScope(MavenPomResource.class)
+@RequiresResource(MavenPomResource.class)
 @Topic("File & Resources")
 @Help("Prints the contents current pom file")
 public class LsMavenPomPlugin implements Plugin

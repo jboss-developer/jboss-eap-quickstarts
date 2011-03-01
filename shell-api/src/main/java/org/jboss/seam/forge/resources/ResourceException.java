@@ -23,7 +23,6 @@
 package org.jboss.seam.forge.resources;
 
 import org.jboss.seam.forge.project.ProjectModelException;
-import org.jboss.seam.forge.project.Resource;
 
 /**
  * Represents a generic Exception thrown by the Forge {@link Resource} API

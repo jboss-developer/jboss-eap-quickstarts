@@ -19,31 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.constraints;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
+package org.jboss.seam.forge.shell.plugins;
+
+import org.jboss.seam.forge.resources.Resource;
+
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * The annotated element requires the given {@link PackagingType}s
- * 
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * Signals to the framework that in order for the annotated element to be
+ * visible, applicable, or "in scope," the current resource or any parent in its
+ * hierarchy must be of the declared {@link Resource} type.
  */
-
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@RequiresProject
-public @interface RequiresPackagingType
+@Retention(RUNTIME)
+@Target({TYPE, METHOD})
+public @interface RequiresResource
 {
-   /**
-    * The array of {@link PackagingType}s required by the annotated {@link Facet} or {@link Plugin}
-    */
-   PackagingType value();
+   Class<? extends Resource<?>>[] value();
 }

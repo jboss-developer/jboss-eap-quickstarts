@@ -39,21 +39,21 @@ import java.util.TreeMap;
 
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * Lists directory contents for filesystem based directories. This is a
@@ -64,7 +64,7 @@ import org.jboss.seam.forge.shell.util.ShellColor;
  */
 @Alias("ls")
 @Topic("File & Resources")
-@ResourceScope(DirectoryResource.class)
+@RequiresResource(DirectoryResource.class)
 @Help("Prints the contents current directory.")
 public class LsPlugin implements Plugin
 {

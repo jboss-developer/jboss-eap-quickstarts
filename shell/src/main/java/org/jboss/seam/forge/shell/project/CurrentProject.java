@@ -29,8 +29,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.events.InitProject;
 import org.jboss.seam.forge.shell.events.ProjectChanged;
 import org.jboss.seam.forge.shell.project.resources.CurrentResource;

@@ -21,6 +21,7 @@
  */
 package org.jboss.seam.forge.project.model;
 
+import org.jboss.seam.forge.project.BaseProject;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.solder.core.Veto;
 
@@ -29,7 +30,7 @@ import org.jboss.seam.solder.core.Veto;
  * 
  */
 @Veto
-public class ProjectImpl extends AbstractProject
+public class ProjectImpl extends BaseProject
 {
    private DirectoryResource projectRoot = null;
 

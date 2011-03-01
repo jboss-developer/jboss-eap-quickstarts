@@ -29,9 +29,8 @@ import java.io.Writer;
 import java.util.Map;
 
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.resources.DirectoryResource;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.resources.Resource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

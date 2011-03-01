@@ -27,12 +27,12 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
 import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
 import org.jboss.seam.forge.project.locator.ProjectLocator;
 import org.jboss.seam.forge.project.model.ProjectImpl;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.plugins.Alias;
 
 /**

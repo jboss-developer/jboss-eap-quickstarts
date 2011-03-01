@@ -26,8 +26,6 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
@@ -35,7 +33,9 @@ import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresProject;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.NativeSystemCall;
 
@@ -47,7 +47,7 @@ import org.jboss.seam.forge.shell.util.NativeSystemCall;
 @Topic("Project")
 @RequiresProject
 @RequiresFacet(MavenCoreFacet.class)
-@ResourceScope(DirectoryResource.class)
+@RequiresResource(DirectoryResource.class)
 public class MvnShellPlugin implements Plugin
 {
    private final Shell shell;

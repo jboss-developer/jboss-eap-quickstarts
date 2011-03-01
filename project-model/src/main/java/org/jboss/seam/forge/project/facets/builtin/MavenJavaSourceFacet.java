@@ -39,12 +39,12 @@ import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.shell.util.Packages;
 
 /**
@@ -52,7 +52,7 @@ import org.jboss.seam.forge.shell.util.Packages;
  */
 @Dependent
 @Alias("forge.maven.JavaSourceFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@RequiresFacet(MavenCoreFacet.class)
 public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
 {
    private Project project;

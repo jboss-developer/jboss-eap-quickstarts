@@ -20,46 +20,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.project;
+package org.jboss.seam.forge.resources;
 
 /**
- * @author Mike Brock .
+ * @author Mike Brock <cbrock@redhat.com>
  */
-public enum ResourceFlag
+public class ResourceIOException extends RuntimeException
 {
-   /**
-    * The resource instance is a Prototype (a factory instance).  This instance is maintained by the framework
-    * to spawn new instances, but does not actually represent a real resource.
-    */
-   Prototype,
+   private static final long serialVersionUID = -6669530557926742097L;
 
-   /**
-    * The resource was qualified by an ambiguous qualifier (a wildcard) as opposed to being uniquely qualified.
-    */
-   AmbiguouslyQualified,
+   public ResourceIOException()
+   {
+   }
 
-   /**
-    * The resource represents a node, which contains or is at least capable of having children..
-    */
-   Node,
+   public ResourceIOException(final String message)
+   {
+      super(message);
+   }
 
-   /**
-    * The resource is a leaf, and therefore has no children.
-    */
-   Leaf,
+   public ResourceIOException(final String message, final Throwable cause)
+   {
+      super(message, cause);
+   }
 
-   /**
-    * The resource is a physical file.
-    */
-   File,
-
-   /**
-    * The resource is a project source file.
-    */
-   ProjectSourceFile,
-
-   /**
-    * The resource is a test source file for the current project.
-    */
-   ProjectTestSourceFile
+   public ResourceIOException(final Throwable cause)
+   {
+      super(cause);
+   }
 }

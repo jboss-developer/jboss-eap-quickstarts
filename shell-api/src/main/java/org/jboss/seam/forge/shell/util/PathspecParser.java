@@ -22,10 +22,10 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
 
 import java.io.File;
 import java.util.Collections;

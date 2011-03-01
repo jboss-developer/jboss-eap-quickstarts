@@ -37,11 +37,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.project.packaging.PackagingType;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 
 /**
  * Stores the current registry of all installed & loaded plugins.
@@ -125,7 +125,7 @@ public class PluginRegistry
    }
 
    /**
-    * Get {@link PluginMetadata} matching the given name, {@link ResourceScope},
+    * Get {@link PluginMetadata} matching the given name, {@link RequiresResource},
     * {@link org.jboss.seam.forge.project.Project}, {@link PackagingType}, and {@link Facet} constraints.
     * Return null if no match for the given constraints can be found.
     */

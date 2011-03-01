@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.constraints;
+package org.jboss.seam.forge.shell.plugins;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -30,18 +30,20 @@ import java.lang.annotation.Target;
 import org.jboss.seam.forge.project.Facet;
 
 /**
- * The annotated element requires the given {@link Facet}s.
+ * The annotated element requires the given {@link Facet}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+// TODO implement handling strategy for this annotation metadata
+
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @RequiresProject
-public @interface RequiresFacets
+public @interface RequiresFacet
 {
    /**
-    * The array of {@link Facet}s required by the annotated {@link Plugin}
+    * The {@link Facet}s required by the annotated {@link Plugin}
     */
-   Class<? extends Facet>[] value() default {};
+   Class<? extends Facet>[] value();
 }

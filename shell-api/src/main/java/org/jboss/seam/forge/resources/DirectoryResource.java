@@ -26,8 +26,6 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**

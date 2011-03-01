@@ -22,29 +22,35 @@
 
 package org.jboss.seam.forge.shell.plugins;
 
-import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
+
 /**
- * Signals to the framework that the annotated class should be accessed using the given alias (given name).
+ * Most commonly, {@link Alias} is used when naming a {@link Plugin} or a {@link Facet}, but it can also be used for
+ * custom implementations when combined with the {@link ConstraintInspector#getName(Class)}.
  * <p/>
- * If two or more plugins share an alias, they must declare different {@link ResourceScope})s. The shell determines
- * which plugin to invoke when a {@link Resource} of the type requested by a {@link ResourceScope} is currently in
- * scope.
+ * If two or more {@link Plugin} types share an alias, they must each declare a different {@link RequiresResource}). The
+ * shell determines which {@link Plugin} to invoke when a {@link Resource} of the type requested by a
+ * {@link RequiresResource} is currently in scope.
  * <p/>
  * Scopes and overloads are checked at boot time; if conflicts are detected, the shell will fail to boot. (No two
- * plugins or commands can declare the same {@link Alias} and {@link ResourceScope}). Similarly, no two facets may
- * declare the same alias.
+ * {@link Plugin} types or commands may declare the same {@link Alias} and {@link RequiresResource}). Similarly, no two
+ * {@link Facet} types may use the same {@link Alias}.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock .
  */
+@Documented
+@Target({ TYPE })
 @Retention(RUNTIME)
-@Target({ TYPE, METHOD })
 public @interface Alias
 {
    String value();

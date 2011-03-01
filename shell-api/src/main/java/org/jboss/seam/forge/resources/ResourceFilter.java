@@ -21,7 +21,6 @@
  */
 package org.jboss.seam.forge.resources;
 
-import org.jboss.seam.forge.project.Resource;
 
 /**
  * Used to filter {@link Resource} instances during a given operation.

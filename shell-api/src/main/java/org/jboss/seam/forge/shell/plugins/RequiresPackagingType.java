@@ -19,32 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.shell.plugins;
 
-package org.jboss.seam.forge.project;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
- * @author Mike Brock <cbrock@redhat.com>
+ * The annotated element requires the given {@link PackagingType}s
+ * 
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class ResourceIOException extends RuntimeException
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@RequiresProject
+public @interface RequiresPackagingType
 {
-   private static final long serialVersionUID = -6669530557926742097L;
-
-   public ResourceIOException()
-   {
-   }
-
-   public ResourceIOException(final String message)
-   {
-      super(message);
-   }
-
-   public ResourceIOException(final String message, final Throwable cause)
-   {
-      super(message, cause);
-   }
-
-   public ResourceIOException(final Throwable cause)
-   {
-      super(cause);
-   }
+   /**
+    * The array of {@link PackagingType}s required by the annotated {@link Facet} or {@link Plugin}
+    */
+   PackagingType[] value();
 }

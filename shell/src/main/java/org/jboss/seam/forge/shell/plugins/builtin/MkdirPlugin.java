@@ -32,7 +32,7 @@ import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
@@ -40,7 +40,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
  */
 @Alias("mkdir")
 @Topic("File & Resources")
-@ResourceScope(DirectoryResource.class)
+@RequiresResource(DirectoryResource.class)
 @Help("Create a new directory")
 public class MkdirPlugin implements Plugin
 {

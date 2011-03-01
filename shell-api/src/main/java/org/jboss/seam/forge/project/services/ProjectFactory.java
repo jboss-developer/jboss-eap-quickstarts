@@ -31,10 +31,10 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.locator.ProjectLocator;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 import org.jboss.seam.forge.shell.util.ResourceUtil;
 
 /**

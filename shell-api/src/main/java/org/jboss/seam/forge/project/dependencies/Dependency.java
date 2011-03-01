@@ -24,7 +24,7 @@ package org.jboss.seam.forge.project.dependencies;
 
 import java.util.List;
 
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
  * Represents a project library dependency.

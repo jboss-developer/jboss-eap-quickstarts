@@ -22,8 +22,6 @@
 
 package org.jboss.seam.forge.resources;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 import java.io.File;

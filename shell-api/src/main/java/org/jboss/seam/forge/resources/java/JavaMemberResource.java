@@ -26,8 +26,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jboss.seam.forge.parser.java.Member;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
 import org.jboss.seam.forge.resources.VirtualResource;
 
 /**

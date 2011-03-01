@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.model.Profile;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.VirtualResource;
 
 /**

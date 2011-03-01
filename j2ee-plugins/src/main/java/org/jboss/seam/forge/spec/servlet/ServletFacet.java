@@ -26,19 +26,19 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresPackagingType;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
@@ -47,8 +47,8 @@ import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Alias("forge.spec.servlet")
-@RequiresFacets({ MetadataFacet.class, WebResourceFacet.class, DependencyFacet.class })
-@RequiresPackagingTypes({ PackagingType.WAR })
+@RequiresFacet({ MetadataFacet.class, WebResourceFacet.class, DependencyFacet.class })
+@RequiresPackagingType(PackagingType.WAR)
 public class ServletFacet extends BaseFacet
 {
 

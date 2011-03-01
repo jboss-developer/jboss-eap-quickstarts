@@ -19,16 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.project.constraints;
+package org.jboss.seam.forge.shell.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.shell.plugins.Alias;
-import org.jboss.seam.forge.shell.util.Annotations;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresPackagingType;
+import org.jboss.seam.forge.shell.plugins.RequiresProject;
 
 /**
  * Used to inspect types that may or may not depend on {@link Facet}s or {@link PackagingType}s
@@ -68,15 +70,6 @@ public abstract class ConstraintInspector
          RequiresFacet requires = Annotations.getAnnotation(type, RequiresFacet.class);
          if (requires.value() != null)
          {
-            result.add(requires.value());
-         }
-      }
-
-      if (Annotations.isAnnotationPresent(type, RequiresFacets.class))
-      {
-         RequiresFacets requires = Annotations.getAnnotation(type, RequiresFacets.class);
-         if (requires.value() != null)
-         {
             result.addAll(Arrays.asList(requires.value()));
          }
       }
@@ -94,15 +87,6 @@ public abstract class ConstraintInspector
       if (Annotations.isAnnotationPresent(type, RequiresPackagingType.class))
       {
          RequiresPackagingType requires = Annotations.getAnnotation(type, RequiresPackagingType.class);
-         if (requires.value() != null)
-         {
-            result.add(requires.value());
-         }
-      }
-
-      if (Annotations.isAnnotationPresent(type, RequiresPackagingTypes.class))
-      {
-         RequiresPackagingTypes requires = Annotations.getAnnotation(type, RequiresPackagingTypes.class);
          if (requires.value() != null)
          {
             result.addAll(Arrays.asList(requires.value()));

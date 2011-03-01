@@ -23,7 +23,7 @@ package org.jboss.seam.forge.project.dependencies;
 
 import java.util.List;
 
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
  * Builder to create {@link Dependency} objects. This class implements {@link Dependency} for easy consumption. (I.e.:

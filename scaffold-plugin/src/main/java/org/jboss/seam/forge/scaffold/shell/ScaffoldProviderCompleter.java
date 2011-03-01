@@ -21,9 +21,9 @@
  */
 package org.jboss.seam.forge.scaffold.shell;
 
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;

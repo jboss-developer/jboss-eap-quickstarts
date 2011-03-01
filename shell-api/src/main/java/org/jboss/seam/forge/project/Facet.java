@@ -21,18 +21,16 @@
  */
 package org.jboss.seam.forge.project;
 
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
-import org.jboss.seam.forge.project.constraints.RequiresPackagingType;
-import org.jboss.seam.forge.project.constraints.RequiresPackagingTypes;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresPackagingType;
 
 /**
- * Represents a standardized piece of a project, on which certain plugins may rely for a set of domain-specific
- * operations. Facets are an access point to common functionality, file manipulations, descriptors that extend a basic
- * {@link Project}.
+ * Represents a standardized piece of a project on which certain {@link Plugin} types may rely for a set of
+ * domain-specific operations. A {@link Facet} is an access point to common functionality, file manipulations,
+ * descriptors that extend a {@link Project} instance.
  * <p>
  * Facets may be annotated with any of the following constraints in order to ensure proper dependencies are satisfied at
- * runtime: {@link RequiresFacet}, {@link RequiresFacets}, {@link RequiresPackagingTypes}, {@link RequiresPackagingType}
+ * runtime: {@link RequiresFacet}, {@link RequiresPackagingType}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 

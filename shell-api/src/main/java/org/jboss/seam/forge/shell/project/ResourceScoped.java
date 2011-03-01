@@ -21,7 +21,7 @@
  */
 package org.jboss.seam.forge.shell.project;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 
 import javax.enterprise.context.NormalScope;
 import java.lang.annotation.*;

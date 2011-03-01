@@ -23,7 +23,7 @@
 package org.jboss.seam.forge.project.dependencies;
 
 import org.apache.maven.model.Exclusion;
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

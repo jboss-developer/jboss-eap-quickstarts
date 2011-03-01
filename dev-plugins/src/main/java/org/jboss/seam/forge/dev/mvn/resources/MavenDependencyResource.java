@@ -19,9 +19,9 @@ package org.jboss.seam.forge.dev.mvn.resources;
 import java.util.Collections;
 import java.util.List;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
 import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
 import org.jboss.seam.forge.resources.VirtualResource;
 
 /**

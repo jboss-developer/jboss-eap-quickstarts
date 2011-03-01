@@ -34,12 +34,12 @@ import javax.inject.Inject;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.ResourceHandles;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.ResourceException;
+import org.jboss.seam.forge.resources.ResourceFlag;
+import org.jboss.seam.forge.resources.ResourceHandles;
 
 /**
  * @author Mike Brock
