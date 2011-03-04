@@ -207,8 +207,10 @@ public class HelpPlugin implements Plugin
          {
             if (opt.isOrdered())
             {
-               out.print(ShellColor.BOLD, "\t[Arg #" + i + "] ");
-               out.println(opt.getDescription());
+               out.print(ShellColor.BOLD, "\t[" + (opt.isVarargs() ? "Args..." : "Arg #" + i) + "]");
+               out.print(Strings.isNullOrEmpty(opt.getDescription()) ? " - " : " - " + opt.getDescription() + " - ");
+               out.println((!Strings.isNullOrEmpty(opt.getHelp()) ? opt.getHelp() : out.renderColor(ShellColor.ITALIC,
+                        "no help text available")));
                i++;
             }
          }
