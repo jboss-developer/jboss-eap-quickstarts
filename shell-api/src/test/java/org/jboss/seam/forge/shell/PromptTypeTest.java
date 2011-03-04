@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.test;
+package org.jboss.seam.forge.shell;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

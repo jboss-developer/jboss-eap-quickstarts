@@ -16,8 +16,11 @@
  */
 package org.jboss.seam.forge.shell.test.plugins.builtin;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
@@ -28,17 +31,20 @@ import org.junit.Test;
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-public class LsMavenPomPluginTestCase extends AbstractShellTest
+public class NewProjectPluginTest extends AbstractShellTest
 {
    @Test
-   public void testShouldBeAbleToLsPomFile() throws Exception
+   public void testCreateProject() throws Exception
    {
       Shell shell = getShell();
+      DirectoryResource origin = shell.getCurrentDirectory();
 
-      File moduleDir = new File("");
-      shell.execute("cd " + moduleDir.getAbsolutePath());
+      initializeJavaProject();
+      Project project = getProject();
 
-      shell.execute("cd pom.xml");
-      shell.execute("ls");
+      DirectoryResource created = shell.getCurrentDirectory();
+
+      assertEquals(created, project.getProjectRoot());
+      assertNotSame(origin, created);
    }
 }

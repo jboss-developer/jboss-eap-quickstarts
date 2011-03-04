@@ -34,7 +34,6 @@ import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
-import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
@@ -108,9 +107,9 @@ public class MavenPlugin implements Plugin
          pom.setParent(parent);
          mvn.setPOM(pom);
       }
-      else if ((path != null) && factory.containsProject((FileResource<?>) path))
+      else if ((path != null) && factory.containsProject(path.reify(DirectoryResource.class)))
       {
-         Project parentProject = factory.findProject((FileResource<?>) path);
+         Project parentProject = factory.findProject(path.reify(DirectoryResource.class));
          MavenCoreFacet parentCore = parentProject.getFacet(MavenCoreFacet.class);
 
          parent = new Parent();
@@ -131,9 +130,10 @@ public class MavenPlugin implements Plugin
       {
          PathspecParser parser = new PathspecParser(resources, shell.getCurrentProject().getProjectRoot(), relativePath);
          List<Resource<?>> resolvedResources = parser.resolve();
-         if (!resolvedResources.isEmpty() && factory.containsProject((FileResource<?>) resolvedResources.get(0)))
+         if (!resolvedResources.isEmpty()
+                  && factory.containsProject(resolvedResources.get(0).reify(DirectoryResource.class)))
          {
-            Project parentProject = factory.findProject((FileResource<?>) resolvedResources.get(0));
+            Project parentProject = factory.findProject(resolvedResources.get(0).reify(DirectoryResource.class));
             MavenCoreFacet parentCore = parentProject.getFacet(MavenCoreFacet.class);
 
             parent = new Parent();

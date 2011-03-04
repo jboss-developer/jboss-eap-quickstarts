@@ -22,8 +22,8 @@
 package org.jboss.seam.forge.project.locators;
 
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.ProjectImpl;
 import org.jboss.seam.forge.project.locator.ProjectLocator;
-import org.jboss.seam.forge.project.model.ProjectImpl;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.shell.plugins.Alias;
 

@@ -27,7 +27,7 @@ package org.jboss.seam.forge;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface BasePackageMarker
+public interface Root
 {
 
 }

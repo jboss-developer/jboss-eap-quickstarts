@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.dev.project;
+package org.jboss.seam.forge.shell.plugins.builtin;
 
 import java.io.IOException;
 
@@ -146,7 +146,7 @@ public class NewProjectPlugin implements Plugin
          {
             newDir = shell.getCurrentDirectory();
             shell.println();
-            if (!projectFactory.containsProject(newDir))
+            if (!projectFactory.containsProject(newDir.reify(DirectoryResource.class)))
             {
                newDir = shell.promptFile(
                         "Where would you like to create the project? [Press ENTER to use the current directory: "
@@ -162,7 +162,7 @@ public class NewProjectPlugin implements Plugin
                newDir.mkdirs();
                newDir = newDir.reify(DirectoryResource.class);
             }
-            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir))
+            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir.reify(DirectoryResource.class)))
             {
                newDir = newDir.reify(DirectoryResource.class);
             }

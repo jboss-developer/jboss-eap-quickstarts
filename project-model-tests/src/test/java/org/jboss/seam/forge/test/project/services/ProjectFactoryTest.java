@@ -29,7 +29,6 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,8 +39,6 @@ import org.junit.runner.RunWith;
 public class ProjectFactoryTest extends AbstractShellTest
 {
    @Test
-   @Ignore
-   // FIXME this test no longer runs
    public void testCDintoProjectRegistersFacets() throws Exception
    {
       Shell shell = getShell();

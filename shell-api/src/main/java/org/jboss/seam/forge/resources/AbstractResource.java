@@ -94,7 +94,7 @@ public abstract class AbstractResource<T> implements Resource<T>
 
    @Override
    @SuppressWarnings("unchecked")
-   public <R> R reify(final Class<? extends Resource<?>> type)
+   public <R extends Resource<?>> R reify(final Class<R> type)
    {
       if (type.isAssignableFrom(this.getClass()))
       {
@@ -107,7 +107,7 @@ public abstract class AbstractResource<T> implements Resource<T>
    }
 
    @Override
-   public synchronized List<Resource<?>> listResources(ResourceFilter filter)
+   public synchronized List<Resource<?>> listResources(final ResourceFilter filter)
    {
       List<Resource<?>> result = new ArrayList<Resource<?>>();
       for (Resource<?> resource : listResources())

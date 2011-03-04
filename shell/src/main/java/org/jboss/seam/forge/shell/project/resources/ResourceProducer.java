@@ -26,6 +26,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import javax.enterprise.inject.Produces;
@@ -68,14 +69,23 @@ public class ResourceProducer
       try
       {
          Class<? extends Resource> resourceClass = currentResource.getClass();
-         if ((type != null) && ((Class) type).isAssignableFrom(resourceClass))
+         if ((type instanceof Class) && ((Class) type).isAssignableFrom(resourceClass))
          {
             return currentResource;
+         }
+         else if (type instanceof ParameterizedType)
+         {
+            ParameterizedType t = (ParameterizedType) type;
+            Type rawType = t.getRawType();
+            if ((rawType instanceof Class) && ((Class) rawType).isAssignableFrom(resourceClass))
+            {
+               return currentResource;
+            }
          }
       }
       catch (Exception e)
       {
-         throw new IllegalStateException("Could not @Inject Resource type into InjectionPoint:" + ip);
+         throw new IllegalStateException("Could not @Inject Resource type into InjectionPoint:" + ip, e);
       }
 
       return null;
