@@ -23,11 +23,8 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import javax.inject.Inject;
 
@@ -68,25 +65,24 @@ public class HelpPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void help(@Option final String[] tokens,
-            @Option(name = "all", shortName = "a") final boolean all,
+   public void help(@Option(help = "The plugin name", description = "plugin name...") final String plugin,
+            @Option(help = "The command name", description = "command name...") final String command,
+            @Option(name = "all", shortName = "a", help = "show all...") final boolean all,
             final PipeOut out)
    {
-      Queue<String> q = new LinkedList<String>(Arrays.asList(tokens == null ? new String[] {} : tokens));
 
-      if (q.isEmpty())
+      if (Strings.isNullOrEmpty(plugin) && Strings.isNullOrEmpty(command))
       {
          printGeneralHelp(out);
       }
       else
       {
          Map<String, List<PluginMetadata>> plugins = registry.getPlugins();
-         String tok = q.remove();
 
-         List<PluginMetadata> list = plugins.get(tok.trim());
-         if (q.isEmpty())
+         List<PluginMetadata> list = plugins.get(plugin);
+         if (Strings.isNullOrEmpty(command))
          {
-            printAllMessage(all, out, tok, list);
+            printAllMessage(all, out, plugin, list);
 
             if (all)
             {
@@ -97,7 +93,7 @@ public class HelpPlugin implements Plugin
             }
             else
             {
-               PluginMetadata p = registry.getPluginMetadataForScopeAndConstraints(tok, shell);
+               PluginMetadata p = registry.getPluginMetadataForScopeAndConstraints(plugin, shell);
                if (p == null)
                {
                   p = list.get(0);
@@ -106,20 +102,18 @@ public class HelpPlugin implements Plugin
             }
          }
 
-         if (!q.isEmpty())
+         if (!Strings.isNullOrEmpty(command))
          {
-            PluginMetadata p = registry.getPluginMetadataForScopeAndConstraints(tok, shell);
+            PluginMetadata p = registry.getPluginMetadataForScopeAndConstraints(plugin, shell);
             if (p == null)
             {
                p = list.get(0);
             }
 
-            tok = q.remove();
-
             out.println();
-            if (p.hasCommand(tok, shell))
+            if (p.hasCommand(command, shell))
             {
-               CommandMetadata c = p.getCommand(tok);
+               CommandMetadata c = p.getCommand(command);
                out.print(ShellColor.BOLD, "[" + p.getName() + " " + c.getName() + "] ");
                out.println("- "
                         + (!Strings.isNullOrEmpty(c.getHelp()) ? c.getHelp() : out.renderColor(ShellColor.ITALIC,
@@ -129,7 +123,7 @@ public class HelpPlugin implements Plugin
             }
             else
             {
-               out.println("No such command [" + tok + "] for the active Resource scope.");
+               out.println("No such command [" + command + "] for the active Resource scope.");
             }
             out.println();
          }

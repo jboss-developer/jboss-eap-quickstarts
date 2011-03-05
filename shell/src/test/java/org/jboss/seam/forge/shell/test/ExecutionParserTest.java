@@ -61,6 +61,13 @@ public class ExecutionParserTest extends AbstractShellTest
    }
 
    @Test
+   public void testDefaultCommandPassedExecutedLiterallyTreatedAsArg() throws Exception
+   {
+      getShell().execute("motp motp");
+      assertEquals("motp", plugin.getDefaultCommandArg());
+   }
+
+   @Test
    public void testOmittedOptionalBooleanDefaultsToFalse() throws Exception
    {
       assertNull(plugin.getBooleanOptionOmitted());

@@ -56,13 +56,11 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.shell.plugins.RequiresProject;
 import org.jboss.seam.forge.shell.plugins.RequiresResource;
-import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Alias("new-field")
-@Topic("File & Resources")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
 @RequiresResource(JavaResource.class)

@@ -47,13 +47,11 @@ import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.shell.plugins.RequiresProject;
-import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Alias("new-entity")
-@Topic("Project")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
