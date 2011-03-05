@@ -80,6 +80,12 @@ public class HelpPlugin implements Plugin
          Map<String, List<PluginMetadata>> plugins = registry.getPlugins();
 
          List<PluginMetadata> list = plugins.get(plugin);
+
+         if ((list == null) || list.isEmpty())
+         {
+            throw new RuntimeException("No such command [" + plugin + "]");
+         }
+
          if (Strings.isNullOrEmpty(command))
          {
             printAllMessage(all, out, plugin, list);
