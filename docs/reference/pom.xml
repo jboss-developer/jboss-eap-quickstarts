@@ -56,12 +56,12 @@
                <execution>
                   <phase>generate-sources</phase>
                   <configuration>
-                     <tasks>
+                     <target>
                         <echo
                            file="${project.basedir}/src/main/docbook/en-US/version_info.xml">
-                           <releaseinfo>${project.version}</releaseinfo>
+                           <![CDATA[<releaseinfo>${project.version}</releaseinfo>]]>
                         </echo>
-                     </tasks>
+                     </target>
                   </configuration>
                   <goals>
                      <goal>run</goal>
