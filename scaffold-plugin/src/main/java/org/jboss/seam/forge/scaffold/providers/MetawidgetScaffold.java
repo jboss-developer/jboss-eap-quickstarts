@@ -54,7 +54,7 @@ import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 public class MetawidgetScaffold implements ScaffoldProvider
 {
    private static final String SEAM_PERSIST_INTERCEPTOR = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
-   private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jtpl";
+   private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jv";
    private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
    private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
@@ -131,10 +131,9 @@ public class MetawidgetScaffold implements ScaffoldProvider
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
       JavaClass util = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jtpl"));
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/PersistenceUtil.jv"));
       JavaClass producer = JavaParser.parse(JavaClass.class,
-               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jtpl"));
-
+               loader.getResourceAsStream("org/jboss/seam/forge/jpa/DatasourceProducer.jv"));
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       try
