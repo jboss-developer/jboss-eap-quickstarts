@@ -19,7 +19,7 @@
          Follow these steps to install a Forge distribution:
          <orderedlist>
             <listitem>Ensure that you have already installed a <ulink url="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 6+ JDK</ulink> and <ulink url="http://maven.apache.org/download.html">Apache Maven 3.0+</ulink></listitem>
-            <listitem><ulink url="http://sourceforge.net/projects/jboss/files/Forge/">Download</ulink> and Un-zip Forge into a folder on your hard-disk, this folder will be your <literal>FORGE_HOME</literal></listitem>
+            <listitem><ulink url="http://sourceforge.net/projects/jboss/files/Forge/">Download</ulink> and Un-zip Forge (or a recent <ulink url="http://repository.jboss.org/nexus/content/groups/public/org/jboss/seam/forge/forge-distribution/">snapshot build</ulink>) into a folder on your hard-disk, this folder will be your <literal>FORGE_HOME</literal></listitem>
             <listitem>Add '<literal>$FORGE_HOME/bin</literal>' to your path (<ulink url="http://www.google.com/search?q=windows+edit+path">windows</ulink>, <ulink url="http://www.google.com/search?q=linux+set+path">linux</ulink>, <ulink url="http://www.google.com/search?q=mac+osx+edit+path">mac osx</ulink>)</listitem>
             <listitem>Open a command prompt and run 'forge'</listitem>
          </orderedlist>
@@ -33,6 +33,9 @@
          Forge built-in commands, you may either press &lt;TAB&gt; to see a list of the 
          currently available commands, or get a more descriptive list by typing:
          <programlisting>$ list-commands --all</programlisting>
+         You may also use the 'help' command for more detailed information about available
+         Forge, a plugin, or a command.
+         <programlisting>$ help {plugin-name} {command-name}</programlisting>
       </para>
    </section>
 </chapter>
