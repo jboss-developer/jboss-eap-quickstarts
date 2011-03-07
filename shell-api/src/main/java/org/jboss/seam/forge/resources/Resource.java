@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * A Resource is an abstraction on top of usable items within a Forge project. For instance, files, source code, etc.
  * Like a simplified virtual file system, a Resource is represented hierarchically with a parent and children. This
@@ -112,5 +111,5 @@ public interface Resource<T>
     * Ask this {@link Resource} if it is actually a resource of the given type; if it is, return a new reference to the
     * resource as the given type, otherwise return null.
     */
-   <R> R reify(Class<? extends Resource<?>> type);
+   public <R extends Resource<?>> R reify(final Class<R> type);
 }

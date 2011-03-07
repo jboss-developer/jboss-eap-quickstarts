@@ -164,7 +164,7 @@ public class JavaPlugin implements Plugin
             final PipeOut out,
             @Option(required = false,
                      help = "the method definition: surround with single quotes",
-                     description = "class definition") final String... def) throws FileNotFoundException
+                     description = "method  definition") final String... def) throws FileNotFoundException
    {
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 

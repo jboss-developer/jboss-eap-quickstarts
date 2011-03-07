@@ -33,7 +33,6 @@ import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.locator.ProjectLocator;
 import org.jboss.seam.forge.resources.DirectoryResource;
-import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.util.ConstraintInspector;
 import org.jboss.seam.forge.shell.util.ResourceUtil;
 
@@ -79,7 +78,7 @@ public class ProjectFactory
       return root;
    }
 
-   public DirectoryResource locateRecursively(final DirectoryResource startingDirectory, ProjectLocator locator)
+   public DirectoryResource locateRecursively(final DirectoryResource startingDirectory, final ProjectLocator locator)
    {
       DirectoryResource root = startingDirectory;
 
@@ -106,7 +105,7 @@ public class ProjectFactory
       {
          DirectoryResource root = locateRecursively(startingPath, locator);
 
-         if (root != null && locator.containsProject(root))
+         if ((root != null) && locator.containsProject(root))
          {
             project = locator.createProject(root);
             if (project != null)
@@ -207,13 +206,13 @@ public class ProjectFactory
    /**
     * An exception-safe method of determining whether a directory contains a project.
     */
-   public boolean containsProject(final FileResource<?> dir)
+   public boolean containsProject(final DirectoryResource dir)
    {
       Project project = findProject(dir);
       return project != null;
    }
 
-   public Project findProject(final FileResource<?> dir)
+   public Project findProject(final DirectoryResource dir)
    {
       Project project = null;
       if (dir != null)
@@ -221,9 +220,9 @@ public class ProjectFactory
          List<ProjectLocator> locators = getLocators();
          for (ProjectLocator locator : locators)
          {
-            project = locator.createProject(ResourceUtil.getContextDirectory(dir));
-            if (project != null)
+            if (locator.containsProject(ResourceUtil.getContextDirectory(dir)))
             {
+               project = locator.createProject(dir);
                break;
             }
          }

@@ -69,6 +69,14 @@ public class FieldTest
    }
 
    @Test
+   public void testSetNameWithReservedWordPart() throws Exception
+   {
+      assertEquals("field", field.getName());
+      field.setName("privateIpAddress");
+      assertTrue(javaClass.hasField("privateIpAddress"));
+   }
+
+   @Test
    public void testIsTypeChecksImports() throws Exception
    {
       Field<JavaClass> field = javaClass.addField().setType(FieldTest.class).setPublic().setName("test");
@@ -144,6 +152,13 @@ public class FieldTest
       assertEquals("Boolean", fld.getType());
       assertEquals("flag", fld.getName());
       assertEquals("false", fld.getLiteralInitializer());
+   }
+
+   @Test
+   public void testAddFieldWithVisibilityScope() throws Exception
+   {
+      javaClass.addField("private String privateIpAddress;");
+      assertTrue(javaClass.hasField("privateIpAddress"));
    }
 
    @Test

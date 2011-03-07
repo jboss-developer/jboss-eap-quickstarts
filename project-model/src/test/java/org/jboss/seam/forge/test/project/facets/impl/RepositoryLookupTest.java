@@ -19,13 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.test.project.resources.builtin.aether;
+package org.jboss.seam.forge.test.project.facets.impl;
+
+import static org.junit.Assert.assertFalse;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
-import org.jboss.seam.forge.project.resources.builtin.aether.RepositoryLookup;
+import org.jboss.seam.forge.project.facets.builtin.RepositoryLookup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
@@ -34,14 +40,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
-import java.util.List;
-
-import static org.junit.Assert.assertFalse;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
  */
 @RunWith(Arquillian.class)
 public class RepositoryLookupTest
@@ -58,7 +58,8 @@ public class RepositoryLookupTest
    @Inject
    private RepositoryLookup repo;
 
-   @Test @Ignore
+   @Test
+   @Ignore
    public void testLookup()
    {
       // FIXME this is not reaching out to external repos

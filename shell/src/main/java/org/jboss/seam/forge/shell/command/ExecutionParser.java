@@ -100,7 +100,10 @@ public class ExecutionParser
 
                if (command != null)
                {
-                  tokens.remove();
+                  if (!command.isDefault())
+                  {
+                     tokens.remove();
+                  }
                }
                else if (plugin.hasDefaultCommand())
                {

@@ -20,12 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.test;
+package org.jboss.seam.forge.shell;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.util.Patterns;
 import org.junit.Test;
 
@@ -51,6 +50,7 @@ public class PromptTypeTest
       assertTrue("gamesPlayed".matches(PromptType.JAVA_VARIABLE_NAME.getPattern()));
       assertFalse("(*#$%".matches(PromptType.JAVA_VARIABLE_NAME.getPattern()));
       assertFalse("public".matches(PromptType.JAVA_VARIABLE_NAME.getPattern()));
+      assertTrue("privateIpAddress".matches(PromptType.JAVA_VARIABLE_NAME.getPattern()));
    }
 
    @Test

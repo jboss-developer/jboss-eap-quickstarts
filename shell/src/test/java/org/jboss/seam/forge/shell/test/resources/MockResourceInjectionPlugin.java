@@ -20,13 +20,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.shell.test.project.resources;
+package org.jboss.seam.forge.shell.test.resources;
 
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.Current;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.RequiresResource;
@@ -39,17 +43,17 @@ import org.jboss.seam.forge.shell.plugins.RequiresResource;
 @RequiresResource(DirectoryResource.class)
 public class MockResourceInjectionPlugin implements Plugin
 {
-//   @Inject
-//   @Current
-//   private Resource r;
+   @Inject
+   @Current
+   private Resource<?> r;
 
-//   @Inject
-//   @Current
-//   private JavaResource j;
+   @Inject
+   @Current
+   private JavaResource j;
 
-//   @Inject
-//   @Current
-//   private DirectoryResource d;
+   @Inject
+   @Current
+   private DirectoryResource d;
 
    private Resource<?> observedResource;
 
@@ -59,48 +63,48 @@ public class MockResourceInjectionPlugin implements Plugin
 
    }
 
-//   public void observe(@Observes MockEvent event, @Current Resource resource)
-//   {
-//      this.observedResource = resource;
-//   }
+   public void observe(@Observes final MockEvent event, @Current final Resource<?> resource)
+   {
+      this.observedResource = resource;
+   }
 
-//   public Resource getR()
-//   {
-//      return r;
-//   }
-//
-//   public void setR(Resource r)
-//   {
-//      this.r = r;
-//   }
+   public Resource<?> getR()
+   {
+      return r;
+   }
 
-//   public JavaResource getJ()
-//   {
-//
-//      return j;
-//   }
-//
-//   public void setJ(JavaResource j)
-//   {
-//      this.j = j;
-//   }
-//
-//   public DirectoryResource getD()
-//   {
-//      return d;
-//   }
-//
-//   public void setD(DirectoryResource d)
-//   {
-//      this.d = d;
-//   }
+   public void setR(final Resource<?> r)
+   {
+      this.r = r;
+   }
+
+   public JavaResource getJ()
+   {
+
+      return j;
+   }
+
+   public void setJ(final JavaResource j)
+   {
+      this.j = j;
+   }
+
+   public DirectoryResource getD()
+   {
+      return d;
+   }
+
+   public void setD(final DirectoryResource d)
+   {
+      this.d = d;
+   }
 
    public Resource<?> getObservedResource()
    {
       return observedResource;
    }
 
-   public void setObservedResource(Resource<?> observedResource)
+   public void setObservedResource(final Resource<?> observedResource)
    {
       this.observedResource = observedResource;
    }

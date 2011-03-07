@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.project.resources.builtin.aether;
+package org.jboss.seam.forge.project.facets.builtin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,6 @@ import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.PlexusContainer;
 import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
-import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
 import org.jboss.seam.forge.shell.util.OSUtils;
 import org.sonatype.aether.RepositoryException;
 import org.sonatype.aether.RepositorySystem;

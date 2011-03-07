@@ -20,21 +20,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.dev.project;
+package org.jboss.seam.forge.shell.plugins.builtin;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
 
-import org.apache.maven.model.Model;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
@@ -146,7 +146,7 @@ public class NewProjectPlugin implements Plugin
          {
             newDir = shell.getCurrentDirectory();
             shell.println();
-            if (!projectFactory.containsProject(newDir))
+            if (!projectFactory.containsProject(newDir.reify(DirectoryResource.class)))
             {
                newDir = shell.promptFile(
                         "Where would you like to create the project? [Press ENTER to use the current directory: "
@@ -162,7 +162,7 @@ public class NewProjectPlugin implements Plugin
                newDir.mkdirs();
                newDir = newDir.reify(DirectoryResource.class);
             }
-            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir))
+            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir.reify(DirectoryResource.class)))
             {
                newDir = newDir.reify(DirectoryResource.class);
             }
@@ -184,19 +184,19 @@ public class NewProjectPlugin implements Plugin
          dir.mkdirs();
       }
 
-      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, DependencyFacet.class,
+      Project project = projectFactory.createProject(dir, DependencyFacet.class,
                MetadataFacet.class,
                JavaSourceFacet.class, ResourceFacet.class);
-      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
-      Model pom = maven.getPOM();
-      pom.setArtifactId(name);
-      pom.setGroupId(groupId);
-      pom.setPackaging("jar");
+
+      MetadataFacet meta = project.getFacet(MetadataFacet.class);
+      meta.setProjectName(name);
+      meta.setGroupId(groupId);
+
+      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+      packaging.setPackagingType(PackagingType.JAR);
 
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
       deps.addRepository("jboss", "https://repository.jboss.org/nexus/content/groups/public/");
-
-      maven.setPOM(pom);
 
       if (createMain)
       {
@@ -209,6 +209,7 @@ public class NewProjectPlugin implements Plugin
                            + ".\");")
                   .getOrigin());
       }
+
       project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 
       /*

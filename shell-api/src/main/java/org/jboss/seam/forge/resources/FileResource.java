@@ -324,7 +324,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
 
    @Override
    @SuppressWarnings("unchecked")
-   public <R> R reify(final Class<? extends Resource<?>> type)
+   public <R extends Resource<?>> R reify(final Class<R> type)
    {
       Resource<?> queryResult = resourceFactory.getResourceFrom(file);
       if (type.isAssignableFrom(queryResult.getClass()))

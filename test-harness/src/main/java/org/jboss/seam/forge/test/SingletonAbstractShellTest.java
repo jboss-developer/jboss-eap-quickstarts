@@ -38,7 +38,7 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.seam.forge.BasePackageMarker;
+import org.jboss.seam.forge.Root;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
@@ -63,7 +63,7 @@ public abstract class SingletonAbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-               .addPackages(true, BasePackageMarker.class.getPackage())
+               .addPackages(true, Root.class.getPackage())
                .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
