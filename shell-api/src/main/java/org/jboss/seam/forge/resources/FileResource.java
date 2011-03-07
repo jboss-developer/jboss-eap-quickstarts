@@ -166,11 +166,11 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
    }
 
    /**
-    * Delete this file, recursively. TODO this should not be recursive?
+    * Delete this file, non-recursively.
     */
    public boolean delete()
    {
-      return delete(true);
+      return delete(false);
    }
 
    public boolean delete(final boolean recursive)

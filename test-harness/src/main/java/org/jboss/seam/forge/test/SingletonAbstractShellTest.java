@@ -115,7 +115,7 @@ public abstract class SingletonAbstractShellTest
       {
          if (file.exists())
          {
-            assertTrue(file.delete());
+            assertTrue(file.delete(true));
          }
       }
    }

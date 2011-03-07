@@ -141,7 +141,7 @@ public abstract class AbstractShellTest
       {
          if (file.exists())
          {
-            assertTrue(file.delete());
+            assertTrue(file.delete(true));
          }
       }
    }

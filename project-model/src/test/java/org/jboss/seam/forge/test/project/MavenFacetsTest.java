@@ -162,7 +162,7 @@ public class MavenFacetsTest extends ProjectModelTest
    public void testAbsoluteUnknownProjectCannotInstantiate() throws Exception
    {
       DirectoryResource temp = new DirectoryResource(resourceFactory, File.createTempFile(PKG, null));
-      temp.delete();
+      temp.delete(true);
       temp.mkdirs();
       Project project = projectFactory.findProjectRecursively(temp);
       assertNull(project);
@@ -173,7 +173,7 @@ public class MavenFacetsTest extends ProjectModelTest
    public void testAbsoluteUnknownProjectInstantiatesWithCreateTrue() throws Exception
    {
       DirectoryResource temp = new DirectoryResource(resourceFactory, File.createTempFile(PKG, null));
-      temp.delete();
+      temp.delete(true);
       temp.mkdirs();
       assertNotNull(projectFactory.createProject(temp, MavenCoreFacet.class, JavaSourceFacet.class));
       assertNotNull(projectFactory.findProjectRecursively(temp));
