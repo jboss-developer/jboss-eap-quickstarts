@@ -32,8 +32,8 @@
             </listitem>
             <listitem>
                Install the web-scaffold facet, and press ENTER to confirm 
-               installation of required facet dependencies:
-               <programlisting>$ install forge.scaffold</programlisting>
+               installation of required facet dependencies and/or packaging types:
+               <programlisting>$ scaffold setup </programlisting>
             </listitem>
             <listitem>
                That's it! Now in a separate command shell, build your project using

@@ -16,6 +16,13 @@
          <outputDirectory>.</outputDirectory>
          <includes>
             <include>bin/*</include>
+         </includes>
+      </fileSet>
+      <fileSet>
+         <directory>src/main/assembly</directory>
+         <outputDirectory>.</outputDirectory>
+         <filtered>true</filtered>
+         <includes>
             <include>readme.txt</include>
             <include>licence.txt</include>
          </includes>
@@ -47,7 +54,7 @@
          </excludes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
-      
+
       <!-- Add necessary javadoc jars -->
       <dependencySet>
          <outputDirectory>doc/javadoc</outputDirectory>
@@ -66,21 +73,13 @@
          </includes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
-      
-      
-      <!-- Pull in the example projects 
-      <dependencySet>
-         <outputDirectory>examples</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.faces:seam-faces-examples-short-ly</include>
-            <include>org.jboss.seam.xml:seam-xml-examples-princess-rescue</include>
-            <include>org.jboss.seam.remoting:seam-remoting-model-example</include>
-            <include>org.jboss.seam.remoting:seam-remoting-helloworld-example</include>
-         </includes>
-      </dependencySet>
-      -->
+
+
+      <!-- Pull in the example projects <dependencySet> <outputDirectory>examples</outputDirectory> 
+         <unpack>true</unpack> <useProjectArtifact>false</useProjectArtifact> <includes> 
+         <include>org.jboss.seam.faces:seam-faces-examples-short-ly</include> <include>org.jboss.seam.xml:seam-xml-examples-princess-rescue</include> 
+         <include>org.jboss.seam.remoting:seam-remoting-model-example</include> <include>org.jboss.seam.remoting:seam-remoting-helloworld-example</include> 
+         </includes> </dependencySet> -->
       <dependencySet>
          <outputDirectory>doc/reference</outputDirectory>
          <unpack>true</unpack>
@@ -93,7 +92,7 @@
                <exclude>META-INF/</exclude>
             </excludes>
          </unpackOptions>
-      </dependencySet> 
+      </dependencySet>
    </dependencySets>
 
 </assembly>

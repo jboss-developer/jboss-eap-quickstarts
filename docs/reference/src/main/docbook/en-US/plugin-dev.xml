@@ -23,7 +23,7 @@
          a plugin is to create a new maven Java project. This can be done by hand, or
          using Forge's build in plugin project facet.
       </para>
-      <section>
+      <section> 
          <title>Using Forge</title>
          <para>
             In two short steps, you can have a new plugin-project up and running; this
@@ -119,21 +119,21 @@ public class ExamplePlugin implements Plugin {
    <section id="plugin.dev.naming">
       <title>Naming your plugin</title>
       Each plugin should be given a name. This is done by adding the 
-      <literal>@javax.inject.Named</literal> annotation to your plugin class.
+      <literal>@org.jboss.seam.forge.shell.plugins.Alias</literal> annotation to your plugin class.
       
-      By default, if no <literal>@Named</literal> annotation is found, the 
+      By default, if no <literal>@Alias</literal> annotation is found, the 
       lower-case Class name will be used; for instance, our <literal>ExamplePlugin</literal>,
       above, would be executed by typing:
       
       <programlisting>$ exampleplugin </programlisting>
       
       Now we will add a name to our plugin.
-      <programlisting>@Named("example")
+      <programlisting>@Alias("example")
 public class ExamplePlugin implements Plugin {
    // commands
 }</programlisting>
                
-      Our named <literal>@Named("example") ExamplePlugin</literal> would be executed by typing:
+      Our named <literal>@Alias("example") ExamplePlugin</literal> would be executed by typing:
       <programlisting>$ example </programlisting>
    </section>
    
@@ -531,7 +531,7 @@ $ example-plugin perform --two dog -o cat</programlisting>
          </para>
       </tip>
       
-      <programlisting><![CDATA[@Named("grep")
+      <programlisting><![CDATA[@Alias("grep")
 @Topic("File & Resources")
 @Help("print lines matching a pattern")
 public class GrepPlugin implements Plugin
