@@ -226,7 +226,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    @Command(value = "string", help = "Add a String field to an existing @Entity class")
-   public void newLongField(
+   public void newStringField(
             @Option(name = "fieldName",
                      required = true,
                      description = "The field name",
