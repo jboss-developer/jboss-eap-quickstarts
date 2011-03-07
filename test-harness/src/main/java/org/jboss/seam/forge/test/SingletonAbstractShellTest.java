@@ -95,6 +95,7 @@ public abstract class SingletonAbstractShellTest
       if (tempFolder == null)
       {
          shell.setVerbose(true);
+         shell.setCurrentResource(createTempFolder());
          beanManager.fireEvent(new Startup(), new Annotation[] {});
 
          resetInputQueue();
@@ -120,15 +121,14 @@ public abstract class SingletonAbstractShellTest
       }
    }
 
-   /**
-    * @throws IOException
-    */
-   protected static File createTempFolder() throws IOException
+   protected DirectoryResource createTempFolder() throws IOException
    {
       File tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      return tempFolder;
+      DirectoryResource resource = factory.getResourceFrom(tempFolder).reify(DirectoryResource.class);
+      tempFolders.add(resource);
+      return resource;
    }
 
    /**
@@ -166,10 +166,7 @@ public abstract class SingletonAbstractShellTest
 
    protected Project initializeJavaProject() throws IOException
    {
-      File folder = createTempFolder();
-      FileResource<?> resource = (FileResource<?>) factory.getResourceFrom(folder);
-      tempFolders.add(resource);
-      getShell().setCurrentResource(resource);
+      getShell().setCurrentResource(createTempFolder());
       queueInputLines("", "");
       getShell().execute("new-project --named test --topLevelPackage com.test");
 

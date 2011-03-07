@@ -41,6 +41,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.Root;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.events.Startup;
@@ -102,26 +103,22 @@ public abstract class AbstractShellTest
    @Before
    public void beforeTest() throws IOException
    {
-      File tempFolder = createTempFolder();
-
       shell.setVerbose(true);
-      shell.setCurrentResource(factory.getResourceFrom(tempFolder));
+      shell.setCurrentResource(createTempFolder());
       beanManager.fireEvent(new Startup());
 
       resetInputQueue();
       shell.setOutputWriter(new PrintWriter(System.out));
    }
 
-   /**
-    * @throws IOException
-    */
-   protected File createTempFolder() throws IOException
+   protected DirectoryResource createTempFolder() throws IOException
    {
       File tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      tempFolders.add((FileResource<?>) factory.getResourceFrom(tempFolder));
-      return tempFolder;
+      DirectoryResource resource = factory.getResourceFrom(tempFolder).reify(DirectoryResource.class);
+      tempFolders.add(resource);
+      return resource;
    }
 
    /**
@@ -171,8 +168,7 @@ public abstract class AbstractShellTest
 
    protected Project initializeJavaProject() throws IOException
    {
-      File folder = createTempFolder();
-      getShell().execute("cd " + folder.getAbsolutePath());
+      getShell().setCurrentResource(createTempFolder());
       queueInputLines("", "");
       getShell().execute("new-project --named test --topLevelPackage com.test");
       return getProject();
