@@ -28,7 +28,7 @@
    
    <properties>
 		<mvel.version>2.1.beta1</mvel.version>
-		<jansi.version>1.2.1</jansi.version>
+		<jansi.version>1.5</jansi.version>
 		<httpclient.version>4.0.1</httpclient.version>
 		<yaml.version>1.7</yaml.version>
    </properties>
