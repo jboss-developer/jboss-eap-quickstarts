@@ -45,6 +45,19 @@
                      </artifacts>
                   </configuration>
                </execution>
+               
+               <execution>
+                 <id>attach-source</id>
+                 <phase>generate-sources</phase>
+                 <goals>
+                   <goal>add-source</goal>
+                 </goals>
+                 <configuration>
+                   <sources>
+                     <source>src/main/docbook/en-US</source>
+                   </sources>
+                 </configuration>
+               </execution>                
             </executions>
          </plugin>
          <plugin>

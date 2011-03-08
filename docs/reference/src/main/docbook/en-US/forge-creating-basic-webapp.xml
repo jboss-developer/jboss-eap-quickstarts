@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
-<chapter id="generate.webapp.javaee">
+<chapter id="forge-generate.webapp.javaee">
 	<title>Generating a basic Java EE web-application</title>
 	<para>
       For the most part, people interested in Forge are likely interested in creating
