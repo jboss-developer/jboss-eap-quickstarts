@@ -23,13 +23,12 @@
 package org.jboss.seam.forge.parser.java;
 
 /**
- * Represents a {@link JavaType} that can extend other types. (Java inheritance
- * and interfaces.)
+ * Represents a {@link JavaSource} that can extend other types. (Java inheritance and interfaces.)
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Extendable<O extends JavaType<?>>
+public interface Extendable<O extends JavaSource<O>>
 {
    /**
     * Get this type's super class.
@@ -43,7 +42,7 @@ public interface Extendable<O extends JavaType<?>>
     * 
     * @see #setSuperType(String)
     */
-   public <T extends JavaType<?>> O setSuperType(T type);
+   public O setSuperType(O type);
 
    /**
     * Set this type's super class.
@@ -56,13 +55,11 @@ public interface Extendable<O extends JavaType<?>>
     * Set this type's super class.
     * <p>
     * <strong>For example:</strong><br/>
-    * In the case of " <code>public class Foo extends Bar {}</code>" -
-    * <code>Foo</code> is the base type, and <code>Bar</code> is the super
-    * class.)
+    * In the case of " <code>public class Foo extends Bar {}</code>" - <code>Foo</code> is the base type, and
+    * <code>Bar</code> is the super class.)
     * <p>
-    * Attempt to add an import statement to this object's {@link O} if required.
-    * (Note that the given className must be fully-qualified in order to
-    * properly import required classes)
+    * Attempt to add an import statement to this object's {@link O} if required. (Note that the given className must be
+    * fully-qualified in order to properly import required classes)
     */
    public O setSuperType(String type);
 }

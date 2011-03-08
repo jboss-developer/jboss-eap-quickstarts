@@ -33,7 +33,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.SourceType;
@@ -203,7 +202,7 @@ public class JavaClassImpl extends AbstractJavaSourceMethodHolder<JavaClass> imp
    }
 
    @Override
-   public <T extends JavaType<?>> JavaClass setSuperType(final T type)
+   public JavaClass setSuperType(final JavaClass type)
    {
       return setSuperType(type.getQualifiedName());
    }
@@ -211,6 +210,10 @@ public class JavaClassImpl extends AbstractJavaSourceMethodHolder<JavaClass> imp
    @Override
    public JavaClass setSuperType(final Class<?> type)
    {
+      if (type.isAnnotation() || type.isEnum() || type.isInterface() || type.isPrimitive())
+      {
+         throw new IllegalArgumentException("Super-type must be a Class type, but was [" + type.getName() + "]");
+      }
       return setSuperType(type.getName());
    }
 

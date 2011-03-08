@@ -28,11 +28,34 @@ package org.jboss.seam.forge.parser.java.util;
  */
 public class Types
 {
-   public static boolean areEquivalent(final String longType, final String type)
+   public static boolean areEquivalent(String left, String right)
    {
-      String shortType = longType.replaceFirst("^(.*\\.)?([^.]+)$", "$2");
-      return shortType.equals(type) ||
-            longType.equals(type);
+      if ((left == null) && (right == null))
+         return true;
+      if ((left == null) || (right == null))
+         return false;
+      if (left.equals(right))
+         return true;
+
+      left = left.replaceAll("^(.*)<.*>$", "$1");
+      right = right.replaceAll("^(.*)<.*>$", "$1");
+
+      String l = toSimpleName(left);
+      String r = toSimpleName(right);
+
+      String lp = getPackage(left);
+      String rp = getPackage(right);
+
+      if (l.equals(r))
+      {
+         if (!lp.isEmpty() && !rp.isEmpty())
+         {
+            return false;
+         }
+         return true;
+      }
+
+      return false;
    }
 
    public static String toSimpleName(final String fieldType)
@@ -59,9 +82,23 @@ public class Types
       return result;
    }
 
-   public static boolean isQualified(String className)
+   public static boolean isQualified(final String className)
    {
       String[] tokens = tokenizeClassName(className);
       return (tokens != null) && (tokens.length > 1);
+   }
+
+   public static String getPackage(final String className)
+   {
+      if (className.indexOf(".") > -1)
+      {
+         return className.substring(0, className.lastIndexOf("."));
+      }
+      return "";
+   }
+
+   public static boolean isSimpleName(final String name)
+   {
+      return (name != null) && name.matches("(?i)(?![0-9])[a-z0-9$_]+");
    }
 }

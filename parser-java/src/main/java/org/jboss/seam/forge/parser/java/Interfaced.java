@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,24 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jboss.seam.forge.parser.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
+import java.util.List;
 
 /**
- * Represents a Java {@link Class} or interface source file as an in-memory modifiable element. See {@link JavaParser}
- * for various options in generating {@link JavaClass} instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public interface JavaClass extends
-         JavaType<JavaClass>,
-         Interfaced<JavaClass>,
-         Extendable<JavaClass>,
-         Abstractable<JavaClass>,
-         FieldHolder<JavaClass>,
-         MethodHolder<JavaClass>
+public interface Interfaced<T extends JavaSource<T>>
 {
+   List<String> getInterfaces();
 
+   T addInterface(String type);
+
+   T addInterface(Class<?> type);
+
+   T addInterface(JavaInterface type);
+
+   boolean hasInterface(String type);
+
+   boolean hasInterface(Class<?> type);
+
+   boolean hasInterface(JavaInterface type);
+
+   T removeInterface(String type);
+
+   T removeInterface(Class<?> type);
+
+   T removeInterface(JavaInterface type);
 }

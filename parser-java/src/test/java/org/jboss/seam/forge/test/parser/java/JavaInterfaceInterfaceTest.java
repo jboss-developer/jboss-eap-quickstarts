@@ -19,24 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.forge.parser.java;
+package org.jboss.seam.forge.test.parser.java;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaInterface;
+import org.jboss.seam.forge.parser.java.JavaType;
+import org.jboss.seam.forge.test.parser.java.common.InterfacedTestBase;
 
 /**
- * Represents a Java {@link Class} or interface source file as an in-memory modifiable element. See {@link JavaParser}
- * for various options in generating {@link JavaClass} instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface JavaClass extends
-         JavaType<JavaClass>,
-         Interfaced<JavaClass>,
-         Extendable<JavaClass>,
-         Abstractable<JavaClass>,
-         FieldHolder<JavaClass>,
-         MethodHolder<JavaClass>
+public class JavaInterfaceInterfaceTest extends InterfacedTestBase<JavaInterface>
 {
-
+   @Override
+   protected JavaType<JavaInterface> getSource()
+   {
+      return JavaParser.parse(JavaInterface.class, "public interface MockInterface {}");
+   }
 }

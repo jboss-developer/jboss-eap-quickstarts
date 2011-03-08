@@ -27,9 +27,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
-import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaInterface;
-import org.jboss.seam.forge.parser.java.JavaType;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.SourceType;
 
@@ -64,30 +62,6 @@ public class JavaInterfaceImpl extends AbstractJavaSourceMethodHolder<JavaInterf
    protected JavaInterface updateTypeNames(final String name)
    {
       return this;
-   }
-
-   @Override
-   public String getSuperType()
-   {
-      return null;
-   }
-
-   @Override
-   public <T extends JavaType<?>> JavaClass setSuperType(final T type)
-   {
-      return null;
-   }
-
-   @Override
-   public JavaClass setSuperType(final String type)
-   {
-      return null;
-   }
-
-   @Override
-   public JavaClass setSuperType(final Class<?> type)
-   {
-      return null;
    }
 
    @Override

@@ -57,6 +57,12 @@ public class ImportImpl implements Import
    }
 
    @Override
+   public String getSimpleName()
+   {
+      return Types.toSimpleName(imprt.getName().getFullyQualifiedName());
+   }
+
+   @Override
    public String getQualifiedName()
    {
       return imprt.getName().getFullyQualifiedName();
@@ -131,5 +137,11 @@ public class ImportImpl implements Import
    public String toString()
    {
       return "Import [" + getQualifiedName() + "]";
+   }
+
+   @Override
+   public String getPackage()
+   {
+      return Types.getPackage(getQualifiedName());
    }
 }

@@ -131,11 +131,12 @@ public class JavaClassTest
    }
 
    @Test
-   public void testAddImportsClasses() throws Exception
+   public void testAddImportClasses() throws Exception
    {
       assertEquals(1, javaClass.getImports().size());
 
-      javaClass.addImports(List.class, Map.class);
+      javaClass.addImport(List.class);
+      javaClass.addImport(Map.class);
 
       assertEquals(3, javaClass.getImports().size());
       assertEquals(Map.class.getName(), javaClass.getImports().get(2).getQualifiedName());

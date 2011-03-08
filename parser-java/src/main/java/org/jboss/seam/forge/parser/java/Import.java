@@ -30,6 +30,10 @@ import org.jboss.seam.forge.parser.Internal;
  */
 public interface Import extends Internal
 {
+   public String getPackage();
+
+   public String getSimpleName();
+
    public String getQualifiedName();
 
    public Import setName(final String name);

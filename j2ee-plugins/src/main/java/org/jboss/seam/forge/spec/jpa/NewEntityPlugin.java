@@ -87,8 +87,7 @@ public class NewEntityPlugin implements Plugin
                .setPackage(entityPackage)
                .setName(entityName)
                .setPublic()
-               .addAnnotation(Entity.class)
-               .getOrigin();
+               .addAnnotation(Entity.class).getOrigin();
 
       Field<JavaClass> id = javaClass.addField("private long id = 0;");
       id.addAnnotation(Id.class);

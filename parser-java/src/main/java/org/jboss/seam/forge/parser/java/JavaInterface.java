@@ -27,6 +27,7 @@ package org.jboss.seam.forge.parser.java;
  */
 @SuppressWarnings("rawtypes")
 public interface JavaInterface extends JavaType<JavaInterface>,
+         Interfaced<JavaInterface>,
          MemberHolder<JavaInterface, Member>,
          FieldHolder<JavaInterface>,
          MethodHolder<JavaInterface>

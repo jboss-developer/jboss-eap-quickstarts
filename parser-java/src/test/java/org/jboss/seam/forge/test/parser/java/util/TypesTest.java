@@ -22,6 +22,7 @@
 
 package org.jboss.seam.forge.test.parser.java.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -35,9 +36,39 @@ import org.junit.Test;
 public class TypesTest
 {
    @Test
+   public void testAreEquivalent() throws Exception
+   {
+      assertTrue(Types.areEquivalent("com.example.Domain", "com.example.Domain"));
+      assertTrue(Types.areEquivalent("Domain", "com.example.Domain"));
+      assertTrue(Types.areEquivalent("com.example.Domain", "Domain"));
+      assertTrue(Types.areEquivalent("Domain", "Domain"));
+      assertFalse(Types.areEquivalent("com.example.Domain", "com.other.Domain"));
+      assertTrue(Types.areEquivalent("com.example.Domain<T>", "Domain"));
+      assertTrue(Types.areEquivalent("Domain<T>", "com.example.Domain"));
+   }
+
+   @Test
    public void testIsQualified() throws Exception
    {
       assertTrue(Types.isQualified("org.jboss.seam.forge.parser.JavaParser"));
       assertFalse(Types.isQualified("JavaParser"));
+   }
+
+   @Test
+   public void testGetPackage() throws Exception
+   {
+      assertEquals("com.example", Types.getPackage("com.example.Domain"));
+      assertEquals("", Types.getPackage("Domain"));
+   }
+
+   @Test
+   public void testIsSimpleName() throws Exception
+   {
+      assertTrue(Types.isSimpleName("Domain$"));
+      assertFalse(Types.isSimpleName("9Domain$"));
+      assertFalse(Types.isSimpleName("com.Domain$"));
+      assertFalse(Types.isSimpleName("99"));
+      assertFalse(Types.isSimpleName(""));
+      assertFalse(Types.isSimpleName("Foo-bar"));
    }
 }

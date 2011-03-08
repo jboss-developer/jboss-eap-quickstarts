@@ -52,26 +52,6 @@ public interface Importer<O extends JavaSource<?>>
    public <T extends JavaSource<?>> Import addImport(T type);
 
    /**
-    * Add an import for each given {@link Class} type.
-    */
-   public O addImports(final Class<?>... types);
-
-   /**
-    * Add an import for each given {@link Import} type.
-    */
-   public O addImports(Import... imprt);
-
-   /**
-    * Add an import for each given {@link JavaSource} type.
-    */
-   public <T extends JavaSource<?>> O addImports(T... types);
-
-   /**
-    * Add an import for each given fully-qualified class name.
-    */
-   public O addImports(final String... types);
-
-   /**
     * Return whether or not this {@link O} has an import for the given {@link Class} type.
     */
    boolean hasImport(Class<?> type);
@@ -94,7 +74,7 @@ public interface Importer<O extends JavaSource<?>>
    /**
     * Return whether or not this {@link O} has an import for the given {@link T} type.
     */
-   public <T extends JavaSource<?>> boolean hasImport(T type);
+   public <T extends JavaSource<T>> boolean hasImport(T type);
 
    /**
     * Return whether or not this {@link O} has the given {@link Import} type.
