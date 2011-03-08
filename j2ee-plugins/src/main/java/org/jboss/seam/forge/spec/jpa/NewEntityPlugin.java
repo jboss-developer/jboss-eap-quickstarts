@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.spec.jpa;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 
 import javax.inject.Inject;
 import javax.persistence.Column;
@@ -87,7 +88,8 @@ public class NewEntityPlugin implements Plugin
                .setPackage(entityPackage)
                .setName(entityName)
                .setPublic()
-               .addAnnotation(Entity.class).getOrigin();
+               .addAnnotation(Entity.class).getOrigin()
+               .addInterface(Serializable.class);
 
       Field<JavaClass> id = javaClass.addField("private long id = 0;");
       id.addAnnotation(Id.class);
