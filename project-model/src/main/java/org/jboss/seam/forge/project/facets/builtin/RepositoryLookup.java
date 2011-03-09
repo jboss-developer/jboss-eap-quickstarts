@@ -59,6 +59,7 @@ public class RepositoryLookup
       // TODO this reference to the M2_REPO should probably be centralized
       LocalRepository localRepo = new LocalRepository(OSUtils.getUserHomeDir().getAbsolutePath() + "/.m2/repository");
       session.setLocalRepositoryManager(repoSystem.newLocalRepositoryManager(localRepo));
+      session.setOffline(false);
 
       VersionRangeRequest rangeRequest = new VersionRangeRequest();
       rangeRequest.setArtifact(new DefaultArtifact(gavs));

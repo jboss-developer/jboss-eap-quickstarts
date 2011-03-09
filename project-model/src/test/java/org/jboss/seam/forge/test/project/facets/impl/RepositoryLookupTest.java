@@ -21,7 +21,7 @@
  */
 package org.jboss.seam.forge.test.project.facets.impl;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -36,7 +36,6 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -59,14 +58,13 @@ public class RepositoryLookupTest
    private RepositoryLookup repo;
 
    @Test
-   @Ignore
    public void testLookup()
    {
       // FIXME this is not reaching out to external repos
-      List<String> versions = repo.getAvailableVersions("com.ocpsoft:prettyfaces-jsf2:[0,)",
+      List<String> versions = repo.getAvailableVersions("com.ocpsoft:ocpsoft-pretty-faces:[,)",
                new DependencyRepositoryImpl("central",
                         "http://repo1.maven.org/maven2/"));
-      assertFalse(versions.isEmpty());
+      assertTrue(versions.size() > 10);
    }
 
 }

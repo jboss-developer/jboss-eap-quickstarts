@@ -135,7 +135,7 @@ public class ShellImpl implements Shell
    private PromptTypeConverter promptTypeConverter;
 
    @Inject
-   private CompletedCommandHolder optionColorHandler;
+   private CompletedCommandHolder commandHolder;
 
    private ConsoleReader reader;
    private Completer completer;
@@ -222,7 +222,7 @@ public class ShellImpl implements Shell
       {
 
          @Override
-         public Object convertFrom(Object obj)
+         public Object convertFrom(final Object obj)
          {
             JavaResource[] res = (JavaResource[]) javaResourceConversionHandler.convertFrom(obj);
             if (res.length > 1)
@@ -254,7 +254,7 @@ public class ShellImpl implements Shell
 
          @Override
          @SuppressWarnings("rawtypes")
-         public boolean canConvertFrom(Class type)
+         public boolean canConvertFrom(final Class type)
          {
             return javaResourceConversionHandler.canConvertFrom(type);
          }
@@ -468,7 +468,7 @@ public class ShellImpl implements Shell
 
       completer = new AggregateCompleter(completers);
       this.reader.addCompleter(completer);
-      this.reader.setCompletionHandler(new OptionAwareCompletionHandler(optionColorHandler, this));
+      this.reader.setCompletionHandler(new OptionAwareCompletionHandler(commandHolder, this));
    }
 
    private void initStreams() throws IOException
@@ -483,6 +483,7 @@ public class ShellImpl implements Shell
       }
       this.reader = new ConsoleReader(inputStream, outputWriter);
       this.reader.setHistoryEnabled(true);
+      this.reader.setBellEnabled(false);
    }
 
    private void initParameters()
@@ -615,7 +616,7 @@ public class ShellImpl implements Shell
       }
    }
 
-   private String formatSourcedError(Object obj)
+   private String formatSourcedError(final Object obj)
    {
       return (obj == null ? "" : ("[" + obj.toString() + "] "));
    }

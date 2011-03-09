@@ -63,7 +63,7 @@ public class Bootstrap
       init(new File("").getAbsoluteFile(), false);
    }
 
-   private static void init(File workingDir, boolean restartEvent)
+   private static void init(final File workingDir, final boolean restartEvent)
    {
       initSignalHandlers();
 
@@ -86,9 +86,9 @@ public class Bootstrap
          SignalHandler signalHandler = new SignalHandler()
          {
             @Override
-            public void handle(Signal signal)
+            public void handle(final Signal signal)
             {
-               System.out.println("CTRL-C TRAPPED B****es, use 'exit' instead!");
+               // TODO implement command abort
             }
          };
 
@@ -100,7 +100,7 @@ public class Bootstrap
       }
    }
 
-   public void observeReinitialize(@Observes ReinitializeEnvironment event, Shell shell)
+   public void observeReinitialize(@Observes final ReinitializeEnvironment event, final Shell shell)
    {
       manager.fireEvent(new Shutdown());
       init(shell.getCurrentDirectory().getUnderlyingResourceObject(), true);
@@ -131,7 +131,7 @@ public class Bootstrap
             File[] files = pluginsDir.listFiles(new FilenameFilter()
             {
                @Override
-               public boolean accept(File dir, String name)
+               public boolean accept(final File dir, final String name)
                {
                   return name.endsWith(".jar");
                }
