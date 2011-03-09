@@ -47,6 +47,7 @@ import org.jboss.seam.forge.shell.command.parser.OrderedValueVarargsOptionParser
 import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.util.Enums;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.mvel2.util.ParseTools;
 
@@ -147,6 +148,7 @@ public class ExecutionParser
       return execution;
    }
 
+   @SuppressWarnings({ "rawtypes", "unchecked" })
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, final String pipeIn,
             final PipeOut pipeOut)
    {
@@ -210,7 +212,13 @@ public class ExecutionParser
             // TODO Is this really where we want to do PromptType conversion?
             value = doPromptTypeConversions(value, promptType);
 
-            if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
+            if ((value != null) && option.getBoxedType().isEnum() && !Enums.hasValue(option.getType(), value))
+            {
+               ShellMessages.info(shell, "Could not parse [" + value + "]... please try again...");
+               value = shell.promptChoiceTyped(optionDescriptor, Enums.getValues((Class<Enum>) option.getType()))
+                        .toString();
+            }
+            else if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
             {
                // make sure the current option value is OK
                ShellMessages.info(shell, "Could not parse [" + value + "]... please try again...");

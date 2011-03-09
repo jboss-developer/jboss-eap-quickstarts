@@ -22,6 +22,10 @@
 package org.jboss.seam.forge.shell.test.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.jboss.seam.forge.shell.test.completer.MockEnum;
 import org.jboss.seam.forge.shell.util.Enums;
@@ -42,6 +46,25 @@ public class EnumsTest
    {
       Enum<?> e = Enums.valueOf(MockEnum.class, "FOO");
       assertEquals(MockEnum.FOO, e);
+   }
+
+   @Test
+   public void testHasValue() throws Exception
+   {
+      assertTrue(Enums.hasValue(MockEnum.class, "FOO"));
+      assertFalse(Enums.hasValue(MockEnum.class, "WOO"));
+   }
+
+   @Test
+   public void testGetValues() throws Exception
+   {
+      List<MockEnum> list = Enums.getValues(MockEnum.class);
+      assertTrue(list.contains(MockEnum.BAR));
+      assertTrue(list.contains(MockEnum.BAZ));
+      assertTrue(list.contains(MockEnum.CAT));
+      assertTrue(list.contains(MockEnum.DOG));
+      assertTrue(list.contains(MockEnum.FOO));
+      assertEquals(5, list.size());
    }
 
 }

@@ -25,12 +25,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Utility methods for enum types.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 public class Enums
 {
-   public static Enum<?> valueOf(Class<?> type, Object value)
+   public static Enum<?> valueOf(final Class<?> type, final Object value)
    {
       List<?> enums = Arrays.asList(type.getEnumConstants());
       for (Object e : enums)
@@ -41,5 +43,15 @@ public class Enums
          }
       }
       return null;
+   }
+
+   public static boolean hasValue(final Class<?> type, final Object value)
+   {
+      return valueOf(type, value) != null;
+   }
+
+   public static <T extends Enum<T>> List<T> getValues(final Class<T> type)
+   {
+      return Arrays.asList(type.getEnumConstants());
    }
 }

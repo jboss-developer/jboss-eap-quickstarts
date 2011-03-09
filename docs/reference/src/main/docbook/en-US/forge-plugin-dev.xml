@@ -332,8 +332,8 @@ $ example-plugin perform --two dog -o cat</programlisting>
                   @Option String one,
                   @Option String two,
                   PipeOut out) {
-       out.println(">> first option equals: " + one);
-       out.println(">> second option equals: " + two);
+       out.println(">> option one equals: " + one);
+       out.println(">> option two equals: " + two);
    }
 }</programlisting>
             The above command, when executed, would produce the following output:
@@ -371,10 +371,10 @@ $ example-plugin perform --two dog -o cat</programlisting>
                   @Option String three,
                   @Option String four,
                   PipeOut out) {
-       out.println(">> first option equals: " + one);
-       out.println(">> second option equals: " + two);
-       out.println(">> third option equals: " + three);
-       out.println(">> fourth option equals: " + four);
+       out.println(">> option one equals: " + one);
+       out.println(">> option two equals: " + two);
+       out.println(">> option three equals: " + three);
+       out.println(">> option four equals: " + four);
    }
 }</programlisting>
             The above command, when executed, would produce the following output:
@@ -382,8 +382,8 @@ $ example-plugin perform --two dog -o cat</programlisting>
             <programlisting>$ example-plugin --one cat --two dog bird lizard  
 >> option one equals: cat
 >> option two equals: dog 
->> option one equals: bird
->> option two equals: lizard</programlisting>
+>> option three equals: bird
+>> option four equals: lizard</programlisting>
 
             However, we could also achieve the same result by re-arranging parameters,
             and as long as the name-value pairs remain together, and the ordered values
@@ -391,8 +391,8 @@ $ example-plugin perform --two dog -o cat</programlisting>
             <programlisting>$ example-plugin --two dog bird --one cat lizard  
 >> option one equals: cat
 >> option two equals: dog 
->> option one equals: bird
->> option two equals: lizard</programlisting>
+>> option three equals: bird
+>> option four equals: lizard</programlisting>
          </para>
       </section>
       
