@@ -212,6 +212,7 @@ public class ShellImpl implements Shell
          return true;
       }
    };
+   private boolean exitOnNextSignal = false;
 
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
@@ -680,6 +681,8 @@ public class ShellImpl implements Shell
          reader.flush();
          throw new AbortedException();
       }
+
+      exitOnNextSignal = false;
       return line;
    }
 
@@ -688,8 +691,22 @@ public class ShellImpl implements Shell
       String line = reader.readLine();
       if (line == null)
       {
-         println();
+         if (this.exitOnNextSignal == false)
+         {
+            println();
+            println("(Press CTRL-D again or type 'exit' to quit.)");
+            this.exitOnNextSignal = true;
+         }
+         else
+         {
+            print("exit");
+            this.exitRequested = true;
+         }
          reader.flush();
+      }
+      else
+      {
+         exitOnNextSignal = false;
       }
       return line;
    }
