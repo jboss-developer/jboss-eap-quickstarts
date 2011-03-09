@@ -25,6 +25,7 @@ package org.jboss.seam.forge.shell.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,7 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @RunWith(Arquillian.class)
-public class ShellImplTest extends AbstractShellTest
+public class ShellPromptTest extends AbstractShellTest
 {
    @Test
    public void testPromptBoolean() throws Exception
@@ -85,6 +86,22 @@ public class ShellImplTest extends AbstractShellTest
       assertEquals(1, choice);
    }
 
+   @Test(expected = IllegalArgumentException.class)
+   public void testPromptChoiceListEmpty() throws Exception
+   {
+      List<String> choices = Arrays.asList();
+      getShell().promptChoice("What is your favorite color?", choices);
+      fail();
+   }
+
+   @Test(expected = IllegalArgumentException.class)
+   public void testPromptChoiceListNull() throws Exception
+   {
+      List<String> choices = null;
+      getShell().promptChoice("What is your favorite color?", choices);
+      fail();
+   }
+
    @Test
    public void testPromptChoiceListTyped() throws Exception
    {
@@ -95,13 +112,19 @@ public class ShellImplTest extends AbstractShellTest
       assertEquals(choices.get(1), choice);
    }
 
-//   @Test
-//   public void testExecuteCommand() throws Exception
-//   {
-//      getShell().setVerbose(true);
-//      assertTrue(getShell().isVerbose());
-//      getShell().execute("verbose off");
-//      assertFalse(getShell().isVerbose());
-//      getShell().setVerbose(true);
-//   }
+   @Test(expected = IllegalArgumentException.class)
+   public void testPromptChoiceTypedListEmpty() throws Exception
+   {
+      List<String> choices = Arrays.asList();
+      getShell().promptChoiceTyped("What is your favorite color?", choices);
+      fail();
+   }
+
+   @Test(expected = IllegalArgumentException.class)
+   public void testPromptChoiceTypedListNull() throws Exception
+   {
+      List<String> choices = null;
+      getShell().promptChoiceTyped("What is your favorite color?", choices);
+      fail();
+   }
 }

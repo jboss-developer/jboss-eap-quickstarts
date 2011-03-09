@@ -1178,7 +1178,7 @@ public class ShellImpl implements Shell
    @Override
    public int promptChoice(final String message, final List<?> options)
    {
-      if (options == null)
+      if ((options == null) || options.isEmpty())
       {
          throw new IllegalArgumentException(
                   "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
@@ -1221,7 +1221,7 @@ public class ShellImpl implements Shell
    @SuppressWarnings("unchecked")
    public <T> T promptChoiceTyped(final String message, final List<T> options)
    {
-      if (options == null)
+      if ((options == null) || options.isEmpty())
       {
          throw new IllegalArgumentException(
                   "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
