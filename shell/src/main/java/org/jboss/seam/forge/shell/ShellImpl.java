@@ -75,6 +75,7 @@ import org.jboss.seam.forge.shell.events.PostStartup;
 import org.jboss.seam.forge.shell.events.PreShutdown;
 import org.jboss.seam.forge.shell.events.Shutdown;
 import org.jboss.seam.forge.shell.events.Startup;
+import org.jboss.seam.forge.shell.exceptions.AbortedException;
 import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
 import org.jboss.seam.forge.shell.exceptions.CommandParserException;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
@@ -91,10 +92,14 @@ import org.mvel2.ConversionHandler;
 import org.mvel2.DataConversion;
 import org.mvel2.util.StringAppender;
 
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @ApplicationScoped
+@SuppressWarnings("restriction")
 public class ShellImpl implements Shell
 {
    private static final String PROP_PROMPT = "PROMPT";
@@ -295,6 +300,7 @@ public class ShellImpl implements Shell
       initStreams();
       initCompleters(pluginCompleter);
       initParameters();
+      initSignalHandlers();
 
       if (event.isRestart())
       {
@@ -313,6 +319,30 @@ public class ShellImpl implements Shell
       loadConfig();
 
       postStartup.fire(new PostStartup());
+   }
+
+   private static void initSignalHandlers()
+   {
+      try
+      {
+         // check to see if we have something to work with.
+         Class.forName("sun.misc.SignalHandler");
+
+         SignalHandler signalHandler = new SignalHandler()
+         {
+            @Override
+            public void handle(final Signal signal)
+            {
+               // TODO implement command abort
+            }
+         };
+
+         Signal.handle(new Signal("INT"), signalHandler);
+      }
+      catch (ClassNotFoundException e)
+      {
+         // signal trapping not supported. Oh well, switch to a Sun-based JVM, loser!
+      }
    }
 
    private void loadConfig()
@@ -543,7 +573,7 @@ public class ShellImpl implements Shell
       {
          try
          {
-            line = readLine();
+            line = readLineShell();
 
             if (line != null)
             {
@@ -567,7 +597,25 @@ public class ShellImpl implements Shell
    {
       try
       {
+         // unwrap any aborted exceptions
+         Throwable cause = original;
+         while (cause != null)
+         {
+            if (cause instanceof AbortedException)
+               throw (AbortedException) cause;
+
+            cause = cause.getCause();
+         }
+
          throw original;
+      }
+      catch (AbortedException e)
+      {
+         ShellMessages.info(this, "Aborted.");
+         if (isVerbose())
+         {
+            e.printStackTrace();
+         }
       }
       catch (CommandExecutionException e)
       {
@@ -624,7 +672,26 @@ public class ShellImpl implements Shell
    @Override
    public String readLine() throws IOException
    {
-      return reader.readLine();
+      String line = reader.readLine();
+
+      if (line == null)
+      {
+         reader.println();
+         reader.flush();
+         throw new AbortedException();
+      }
+      return line;
+   }
+
+   private String readLineShell() throws IOException
+   {
+      String line = reader.readLine();
+      if (line == null)
+      {
+         println();
+         reader.flush();
+      }
+      return line;
    }
 
    @Override
@@ -1048,6 +1115,14 @@ public class ShellImpl implements Shell
          reader.setHistoryEnabled(false);
          reader.setPrompt(message);
          String line = readLine();
+         return line;
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException("Shell input stream failure", e);
+      }
+      finally
+      {
          if (tempCompleter != null)
          {
             reader.removeCompleter(tempCompleter);
@@ -1055,11 +1130,6 @@ public class ShellImpl implements Shell
          reader.addCompleter(this.completer);
          reader.setHistoryEnabled(true);
          reader.setPrompt("");
-         return line;
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException("Shell input stream failure", e);
       }
    }
 

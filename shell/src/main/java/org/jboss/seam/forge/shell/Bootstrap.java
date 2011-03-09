@@ -43,9 +43,6 @@ import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
@@ -65,8 +62,6 @@ public class Bootstrap
 
    private static void init(final File workingDir, final boolean restartEvent)
    {
-      initSignalHandlers();
-
       initLogging();
       Weld weld = new Weld();
       WeldContainer container = weld.initialize();
@@ -74,30 +69,6 @@ public class Bootstrap
       manager.fireEvent(new Startup(workingDir, restartEvent));
       manager.fireEvent(new AcceptUserInput());
       weld.shutdown();
-   }
-
-   private static void initSignalHandlers()
-   {
-      try
-      {
-         // check to see if we have something to work with.
-         Class.forName("sun.misc.SignalHandler");
-
-         SignalHandler signalHandler = new SignalHandler()
-         {
-            @Override
-            public void handle(final Signal signal)
-            {
-               // TODO implement command abort
-            }
-         };
-
-         Signal.handle(new Signal("INT"), signalHandler);
-      }
-      catch (ClassNotFoundException e)
-      {
-         // signal trapping not supported. Oh well, switch to a Sun-based JVM, loser!
-      }
    }
 
    public void observeReinitialize(@Observes final ReinitializeEnvironment event, final Shell shell)
