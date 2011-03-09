@@ -333,7 +333,7 @@ public class ShellImpl implements Shell
             @Override
             public void handle(final Signal signal)
             {
-               // TODO implement command abort
+               // TODO implement smart shutdown (if they keep pressing CTRL-C)
             }
          };
 

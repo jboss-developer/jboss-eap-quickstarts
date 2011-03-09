@@ -39,8 +39,8 @@ public interface ShellPrompt
    String prompt();
 
    /**
-    * This works like prompt, however when a CR is received, the method returns the value, but does produce a CR in the
-    * actual terminal buffer. This is useful when a plugin is using manual cursor control.
+    * This works like prompt, however when a CR is received, the method returns the value, but does not produce a CR in
+    * the actual terminal buffer. This is useful when a plugin is using manual cursor control.
     * 
     * @return
     */
