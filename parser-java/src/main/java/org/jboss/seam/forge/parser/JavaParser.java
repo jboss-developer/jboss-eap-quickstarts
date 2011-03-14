@@ -78,7 +78,7 @@ public abstract class JavaParser
          char[] source = Util.getInputStreamAsCharArray(data, data.available(), "ISO8859_1");
          return parse(source);
       }
-      catch (Exception e)
+      catch (IOException e)
       {
          throw new IllegalArgumentException("InputStream must be a parsable java file: ", e);
       }

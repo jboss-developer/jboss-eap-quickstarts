@@ -22,7 +22,9 @@
 
 package org.jboss.seam.forge.shell.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.enterprise.event.Observes;
@@ -57,14 +59,12 @@ public class ShellIgnoreEOFTest extends AbstractShellTest
    private MockAbortingPlugin plugin;
 
    @Test
-   public void testIgnoreEOF() throws Exception
+   public void testIgnoreEOFDefaultsToOne() throws Exception
    {
       assertFalse(shutdown);
       queueInputLines(null, null, null, null, null);
-      getShell().readLine();
-      getShell().readLine();
-      getShell().readLine();
-      getShell().readLine();
+      assertNull(getShell().readLine());
+      assertNull(getShell().readLine());
       assertTrue(shutdown);
    }
 
@@ -75,12 +75,26 @@ public class ShellIgnoreEOFTest extends AbstractShellTest
       getShell().execute("set IGNOREEOF 7");
       queueInputLines("", null, null, null, null, null);
       getShell().readLine();
-      getShell().readLine();
-      getShell().readLine();
-      getShell().readLine();
-      getShell().readLine();
-      getShell().readLine();
+      assertNull(getShell().readLine());
+      assertNull(getShell().readLine());
+      assertNull(getShell().readLine());
+      assertNull(getShell().readLine());
+      assertNull(getShell().readLine());
       assertFalse(shutdown);
+   }
+
+   @Test
+   public void testSetIgnoreEOFBadValueDefaultsToOne() throws Exception
+   {
+      assertFalse(shutdown);
+      getShell().execute("set IGNOREEOF foo");
+      queueInputLines("", null, null, null, null, null);
+
+      assertEquals("", getShell().readLine());
+      assertNull(getShell().readLine());
+      assertNull(getShell().readLine());
+
+      assertTrue(shutdown);
    }
 
    @Test

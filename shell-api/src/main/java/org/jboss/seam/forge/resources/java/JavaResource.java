@@ -32,6 +32,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.ParserException;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -102,6 +103,10 @@ public class JavaResource extends FileResource<JavaResource>
       try
       {
          lazyInitialize();
+      }
+      catch (ParserException e)
+      {
+         return Collections.emptyList();
       }
       catch (FileNotFoundException e)
       {
