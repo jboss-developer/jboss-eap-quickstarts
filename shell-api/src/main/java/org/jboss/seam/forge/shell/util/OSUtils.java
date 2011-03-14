@@ -44,6 +44,16 @@ public final class OSUtils
       return getOsName().startsWith("Windows") || getOsName().startsWith("windows");
    }
 
+   public static boolean isOSX()
+   {
+      return getOsName().startsWith("Mac") || getOsName().startsWith("mac");
+   }
+
+   public static boolean isLinux()
+   {
+      return getOsName().startsWith("Linux") || getOsName().startsWith("linux");
+   }
+
    public static File getUserHomeDir()
    {
       return new File(System.getProperty("user.home")).getAbsoluteFile();

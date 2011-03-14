@@ -22,52 +22,60 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
-import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.NativeSystemCall;
+import org.jboss.seam.forge.shell.util.OSUtils;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
-@Alias("cd")
+@Alias("edit")
 @Topic("File & Resources")
-@Help("Change the current directory")
-public class ChangeDirectoryPlugin implements Plugin
+@Help("Edit files with the default system editor")
+public class EditPlugin implements Plugin
 {
-   private final Shell shell;
-
    @Inject
-   public ChangeDirectoryPlugin(final Shell shell)
+   public EditPlugin()
    {
-      this.shell = shell;
    }
 
    @DefaultCommand
-   public void run(@Option(description = "The new directory", defaultValue = "~") final Resource<?>[] dirs)
+   public void run(@Option(description = "The files to edit", defaultValue = ".") final Resource<?>[] dirs)
+            throws IOException
    {
-      Resource<?> r = null;
-
-      for (Resource<?> dir : dirs)
+      for (Resource<?> resource : dirs)
       {
-         r = dir;
-      }
-
-      if (r != null)
-      {
-         if (!r.exists())
+         if (resource instanceof FileResource<?>)
          {
-            throw new RuntimeException("no such resource: " + r.toString());
+            Desktop dt = Desktop.getDesktop();
+            try
+            {
+               dt.edit((File) resource.getUnderlyingResourceObject());
+            }
+            catch (UnsupportedOperationException e)
+            {
+               if (OSUtils.isLinux())
+               {
+                  NativeSystemCall.exec(true, "gedit", resource.getFullyQualifiedName());
+               }
+               else
+                  throw e;
+            }
          }
-
-         shell.setCurrentResource(r);
       }
    }
 }

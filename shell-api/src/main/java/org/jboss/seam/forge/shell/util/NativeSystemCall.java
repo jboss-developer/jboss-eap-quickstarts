@@ -89,4 +89,18 @@ public class NativeSystemCall
          return -1;
       }
    }
+
+   public static void exec(boolean wait, String command, final String... parms)
+            throws IOException
+   {
+      String[] commandTokens = parms == null ? new String[1] : new String[parms.length + 1];
+      commandTokens[0] = command;
+
+      if (commandTokens.length > 1)
+      {
+         System.arraycopy(parms, 0, commandTokens, 1, parms.length);
+      }
+
+      Runtime.getRuntime().exec(commandTokens, null);
+   }
 }

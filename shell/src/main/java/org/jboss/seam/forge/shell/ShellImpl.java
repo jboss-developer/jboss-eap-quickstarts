@@ -212,7 +212,9 @@ public class ShellImpl implements Shell
          return true;
       }
    };
+
    private boolean exitOnNextSignal = false;
+   private boolean executing;
 
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
@@ -322,7 +324,7 @@ public class ShellImpl implements Shell
       postStartup.fire(new PostStartup());
    }
 
-   private static void initSignalHandlers()
+   private void initSignalHandlers()
    {
       try
       {
@@ -334,7 +336,17 @@ public class ShellImpl implements Shell
             @Override
             public void handle(final Signal signal)
             {
-               // TODO implement smart shutdown (if they keep pressing CTRL-C)
+               try
+               {
+                  reader.println();
+                  reader.drawLine();
+                  reader.resetPromptLine(reader.getPrompt(), "", -1);
+               }
+               catch (IOException e)
+               {
+                  if (isVerbose())
+                     e.printStackTrace();
+               }
             }
          };
 
@@ -580,8 +592,10 @@ public class ShellImpl implements Shell
             {
                if (!"".equals(line.trim()))
                {
+                  executing = true;
                   writeToHistory(line);
                   execute(line);
+                  executing = false;
                }
                reader.setPrompt(getPrompt());
             }
@@ -975,6 +989,12 @@ public class ShellImpl implements Shell
    public boolean isPretend()
    {
       return pretend;
+   }
+
+   @Override
+   public boolean isExecuting()
+   {
+      return executing;
    }
 
    @Override

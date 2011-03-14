@@ -195,4 +195,9 @@ public interface Shell extends ShellPrintWriter, ShellPrompt
     * @throws IOException on error
     */
    String readLine() throws IOException;
+
+   /**
+    * Return true if the {@link Shell} is currently executing a plugin; otherwise, return false.
+    */
+   boolean isExecuting();
 }
