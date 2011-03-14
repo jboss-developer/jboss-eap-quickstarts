@@ -105,13 +105,16 @@ public class ShellImpl implements Shell
    private static final String PROP_PROMPT = "PROMPT";
    private static final String PROP_PROMPT_NO_PROJ = "PROMPT_NOPROJ";
 
-   private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{white}\\W\\c \\c{green}\\$\\c ";
-   private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{white}\\W\\c \\c{red}\\$\\c ";
+   private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{blue}\\W\\c \\c{green}\\$\\c ";
+   private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{blue}\\W\\c \\c{red}\\$\\c ";
 
    private static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
    private static final String DEFAULT_PLUGIN_REPO = "http://seamframework.org/service/File/148617";
 
    private static final String PROP_VERBOSE = "VERBOSE";
+
+   private static final String PROP_IGNORE_EOF = "IGNOREEOF";
+   private static final int DEFAULT_IGNORE_EOF = 1;
 
    public static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
    public static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
@@ -125,6 +128,9 @@ public class ShellImpl implements Shell
 
    @Inject
    private Event<PostStartup> postStartup;
+
+   @Inject
+   private Event<Shutdown> shutdown;
 
    @Inject
    private CurrentProject projectContext;
@@ -213,7 +219,7 @@ public class ShellImpl implements Shell
       }
    };
 
-   private boolean exitOnNextSignal = false;
+   private int numEOF = 0;
    private boolean executing;
 
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
@@ -568,7 +574,8 @@ public class ShellImpl implements Shell
                "\n" +
                "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
                "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n" +
-               "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n";
+               "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n" +
+               "set " + PROP_IGNORE_EOF + " " + DEFAULT_IGNORE_EOF + "\n";
 
    }
 
@@ -586,16 +593,14 @@ public class ShellImpl implements Shell
       {
          try
          {
-            line = readLineShell();
+            line = readLine();
 
             if (line != null)
             {
                if (!"".equals(line.trim()))
                {
-                  executing = true;
                   writeToHistory(line);
                   execute(line);
-                  executing = false;
                }
                reader.setPrompt(getPrompt());
             }
@@ -689,38 +694,45 @@ public class ShellImpl implements Shell
    {
       String line = reader.readLine();
 
-      if (line == null)
+      if (isExecuting() && line == null)
       {
          reader.println();
          reader.flush();
          throw new AbortedException();
       }
-
-      exitOnNextSignal = false;
-      return line;
-   }
-
-   private String readLineShell() throws IOException
-   {
-      String line = reader.readLine();
-      if (line == null)
+      else if (line == null)
       {
-         if (this.exitOnNextSignal == false)
+         String eofs = (String) getProperty(PROP_IGNORE_EOF);
+
+         int propEOFs;
+         try
+         {
+            propEOFs = Integer.parseInt(eofs);
+         }
+         catch (NumberFormatException e)
+         {
+            if (isVerbose())
+               ShellMessages.info(this, "Unable to parse Shell property [" + PROP_IGNORE_EOF + "]");
+
+            propEOFs = DEFAULT_IGNORE_EOF;
+         }
+
+         if (this.numEOF < propEOFs)
          {
             println();
             println("(Press CTRL-D again or type 'exit' to quit.)");
-            this.exitOnNextSignal = true;
+            this.numEOF++;
          }
          else
          {
             print("exit");
-            this.exitRequested = true;
+            shutdown.fire(new Shutdown());
          }
          reader.flush();
       }
       else
       {
-         exitOnNextSignal = false;
+         numEOF = 0;
       }
       return line;
    }
@@ -755,11 +767,16 @@ public class ShellImpl implements Shell
    {
       try
       {
+         executing = true;
          fshRuntime.run(line);
       }
       catch (Exception e)
       {
          handleException(e);
+      }
+      finally
+      {
+         executing = false;
       }
    }
 
@@ -853,8 +870,6 @@ public class ShellImpl implements Shell
          }
 
          buf.append(");\n");
-
-         // System.out.println("\nexec:" + buf.toString());
 
          execute(buf.toString());
       }
@@ -952,9 +967,11 @@ public class ShellImpl implements Shell
       case BOLD:
          ansi.a(Ansi.Attribute.INTENSITY_BOLD);
          break;
+      case ITALIC:
+         ansi.a(Ansi.Attribute.ITALIC);
+         break;
 
       default:
-         ansi.fg(Ansi.Color.WHITE);
       }
 
       return ansi.render(output).reset().toString();

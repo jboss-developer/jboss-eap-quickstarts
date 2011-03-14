@@ -147,7 +147,12 @@ public abstract class AbstractShellTest
    {
       for (String input : inputs)
       {
-         inputQueue.add(input + "\n");
+         if (input == null || "\0".equals(input))
+         {
+            inputQueue.add(input);
+         }
+         else
+            inputQueue.add(input + "\n");
       }
    }
 

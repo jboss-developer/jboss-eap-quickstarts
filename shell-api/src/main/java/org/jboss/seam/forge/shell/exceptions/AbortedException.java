@@ -1,6 +1,6 @@
 /*
- * JBoss, by Red Hat.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,16 +19,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.util;
+package org.jboss.seam.forge.shell.exceptions;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import org.jboss.seam.forge.shell.Shell;
 
 /**
- * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * Thrown when one of a running {@link Plugin} or a command running with {@link Shell#execute(String)} are aborted.
  * 
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public final class Iterators
+public class AbortedException extends RuntimeException
 {
+   private static final long serialVersionUID = -1320216827975900122L;
+
+   public AbortedException()
+   {
+      super();
+   }
+
+   public AbortedException(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
+
+   public AbortedException(String message)
+   {
+      super(message);
+   }
+
+   public AbortedException(Throwable cause)
+   {
+      super(cause);
+   }
 }
