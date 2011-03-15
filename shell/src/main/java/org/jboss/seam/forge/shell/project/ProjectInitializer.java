@@ -91,13 +91,6 @@ public class ProjectInitializer
 
       if (newProject != null)
       {
-         shell.printlnVerbose("Current project: " + newProject.getProjectRoot().getFullyQualifiedName());
-         shell.printlnVerbose("Registered Facets:");
-         for (Facet facet : newProject.getFacets())
-         {
-            shell.printlnVerbose("\t- " + facet);
-         }
-
          shell.setProperty("PROJECT_NAME", newProject.getFacet(MetadataFacet.class).getProjectName());
       }
 

@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.forge.shell.test.completer.MockEnum;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -112,6 +113,16 @@ public class ShellPromptTest extends AbstractShellTest
       assertEquals(choices.get(1), choice);
    }
 
+   @Test
+   public void testPromptChoiceListTypedDefault() throws Exception
+   {
+      List<String> choices = Arrays.asList("blue", "green", "red", "yellow");
+
+      queueInputLines("foo", "");
+      String choice = getShell().promptChoiceTyped("What is your favorite color?", choices, "yellow");
+      assertEquals(choices.get(3), choice);
+   }
+
    @Test(expected = IllegalArgumentException.class)
    public void testPromptChoiceTypedListEmpty() throws Exception
    {
@@ -126,5 +137,57 @@ public class ShellPromptTest extends AbstractShellTest
       List<String> choices = null;
       getShell().promptChoiceTyped("What is your favorite color?", choices);
       fail();
+   }
+
+   @Test
+   public void testPromptEnum() throws Exception
+   {
+      queueInputLines("BAR");
+      assertEquals(MockEnum.BAR, getShell().promptEnum("Enummy?", MockEnum.class));
+   }
+
+   @Test(expected = IllegalStateException.class)
+   public void testPromptEnumFallbackToListAsksForChoice() throws Exception
+   {
+      queueInputLines("");
+      getShell().promptEnum("Enummy?", MockEnum.class);
+      fail();
+   }
+
+   @Test
+   public void testPromptEnumFallbackToList() throws Exception
+   {
+      queueInputLines("not-a-value", "2");
+      assertEquals(MockEnum.BAR, getShell().promptEnum("Enummy?", MockEnum.class));
+
+      queueInputLines("not-a-value", "", "", "", "3");
+      assertEquals(MockEnum.BAZ, getShell().promptEnum("Enummy?", MockEnum.class));
+
+      queueInputLines("not-a-value", "4");
+      assertEquals(MockEnum.CAT, getShell().promptEnum("Enummy?", MockEnum.class));
+   }
+
+   @Test
+   public void testPromptEnumDefault() throws Exception
+   {
+      queueInputLines("");
+      assertEquals(MockEnum.CAT, getShell().promptEnum("Enummy?", MockEnum.class, MockEnum.CAT));
+
+      queueInputLines("");
+      assertEquals(MockEnum.CAT, getShell().promptEnum("Enummy?", MockEnum.class, MockEnum.CAT));
+   }
+
+   @Test
+   public void testPromptEnumDefaultFallbackToList() throws Exception
+   {
+      queueInputLines("not-a-value", "");
+      assertEquals(MockEnum.BAR, getShell().promptEnum("Enummy?", MockEnum.class, MockEnum.BAR));
+   }
+
+   @Test
+   public void testPromptEnumDefaultFallbackToListWithDefault() throws Exception
+   {
+      queueInputLines("not-a-value", "eeee", "aaa", "");
+      assertEquals(MockEnum.BAR, getShell().promptEnum("Enummy?", MockEnum.class, MockEnum.BAR));
    }
 }

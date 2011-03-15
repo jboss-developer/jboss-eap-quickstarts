@@ -21,37 +21,31 @@
  */
 package org.jboss.seam.forge.shell.completer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import jline.console.completer.Completer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class EnumCompleter extends SimpleTokenCompleter
+public class CompleterAdaptor implements Completer
 {
-   private final Class<? extends Enum<?>> type;
+   private final CommandCompleter wrapped;
 
-   public EnumCompleter(Class<? extends Enum<?>> type)
+   public CompleterAdaptor(CommandCompleter wrapped)
    {
-      this.type = type;
+      this.wrapped = wrapped;
    }
 
    @Override
-   public List<Object> getCompletionTokens()
+   public int complete(String buffer, int cursor, List<CharSequence> candidates)
    {
-      List<Object> result = new ArrayList<Object>();
-      Enum<?>[] constants = type.getEnumConstants();
-      if (constants != null)
-      {
-         List<Enum<?>> list = Arrays.asList(constants);
-         for (Enum<?> e : list)
-         {
-            result.add(e.toString());
-         }
-      }
-      return result;
-   }
+      CommandCompleterState state = new BaseCommandCompleterState(buffer, null, cursor);
 
+      wrapped.complete(state);
+      candidates.addAll(state.getCandidates());
+
+      return state.getIndex();
+   }
 }

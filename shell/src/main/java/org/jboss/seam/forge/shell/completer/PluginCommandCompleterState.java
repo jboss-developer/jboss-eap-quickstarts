@@ -21,15 +21,10 @@
  */
 package org.jboss.seam.forge.shell.completer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
-import org.jboss.seam.forge.shell.command.parser.Tokenizer;
 
 /**
  * Holds state during TAB completion.
@@ -37,84 +32,17 @@ import org.jboss.seam.forge.shell.command.parser.Tokenizer;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class PluginCommandCompleterState implements CommandCompleterState
+public class PluginCommandCompleterState extends BaseCommandCompleterState
 {
-   /*
-    * Immutable state
-    */
-   private final String buffer;
-   private final String lastBuffer;
-   private final int originalIndex;
-   private final boolean tokenComplete;
-
-   /*
-    * Mutable State
-    */
-   private final Queue<String> tokens;
 
    private PluginMetadata plugin;
    private CommandMetadata command;
    private OptionMetadata option;
    private CommandParserContext commandContext;
 
-   private final List<String> candidates = new ArrayList<String>();
-   private int index;
-
    public PluginCommandCompleterState(final String initialBuffer, final String lastBuffer, final int initialIndex)
    {
-      this.buffer = initialBuffer;
-      this.lastBuffer = lastBuffer;
-      this.index = initialIndex;
-      this.originalIndex = initialIndex;
-      this.tokens = new Tokenizer().tokenize(initialBuffer);
-      this.tokenComplete = buffer.matches("^.*\\s+$");
-   }
-
-   /*
-    * Immutable State
-    */
-   public int getOriginalIndex()
-   {
-      return originalIndex;
-   }
-
-   public Queue<String> getOriginalTokens()
-   {
-      return new Tokenizer().tokenize(buffer);
-   }
-
-   public String getBuffer()
-   {
-      return buffer;
-   }
-
-   public String getLastBuffer()
-   {
-      return lastBuffer;
-   }
-
-   public boolean isFinalTokenComplete()
-   {
-      return tokenComplete;
-   }
-
-   /*
-    * Inquisitors
-    */
-   public boolean hasSuggestions()
-   {
-      return !candidates.isEmpty();
-   }
-
-   /*
-    * Modifiers
-    */
-   /**
-    * Set the position where completion candidates should begin.
-    */
-   public void setIndex(final int newIndex)
-   {
-      this.index = newIndex;
+      super(initialBuffer, lastBuffer, initialIndex);
    }
 
    /*
@@ -150,21 +78,6 @@ public class PluginCommandCompleterState implements CommandCompleterState
       this.option = option;
    }
 
-   public int getIndex()
-   {
-      return index;
-   }
-
-   public Queue<String> getTokens()
-   {
-      return tokens;
-   }
-
-   public List<String> getCandidates()
-   {
-      return candidates;
-   }
-
    public CommandParserContext getCommandContext()
    {
       return commandContext;
@@ -173,10 +86,5 @@ public class PluginCommandCompleterState implements CommandCompleterState
    public void setCommandContext(final CommandParserContext commandContext)
    {
       this.commandContext = commandContext;
-   }
-
-   public boolean isDuplicateBuffer()
-   {
-      return (buffer != null) && buffer.equals(lastBuffer);
    }
 }

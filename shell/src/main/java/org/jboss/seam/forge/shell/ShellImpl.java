@@ -54,6 +54,7 @@ import jline.console.completer.FileNameCompleter;
 import jline.console.history.MemoryHistory;
 
 import org.fusesource.jansi.Ansi;
+import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -68,6 +69,8 @@ import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
+import org.jboss.seam.forge.shell.completer.CompleterAdaptor;
+import org.jboss.seam.forge.shell.completer.EnumCompleter;
 import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
 import org.jboss.seam.forge.shell.events.AcceptUserInput;
@@ -82,6 +85,7 @@ import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.project.CurrentProject;
+import org.jboss.seam.forge.shell.util.Enums;
 import org.jboss.seam.forge.shell.util.Files;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.JavaPathspecParser;
@@ -1152,75 +1156,6 @@ public class ShellImpl implements Shell
       return promptWithCompleter(message, null);
    }
 
-   private String promptWithCompleter(String message, final Completer tempCompleter)
-   {
-      if (!message.isEmpty() && message.matches("^.*\\S$"))
-      {
-         message = message + " ";
-      }
-
-      try
-      {
-         reader.removeCompleter(this.completer);
-         if (tempCompleter != null)
-         {
-            reader.addCompleter(tempCompleter);
-         }
-         reader.setHistoryEnabled(false);
-         reader.setPrompt(message);
-         String line = readLine();
-         return line;
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException("Shell input stream failure", e);
-      }
-      finally
-      {
-         if (tempCompleter != null)
-         {
-            reader.removeCompleter(tempCompleter);
-         }
-         reader.addCompleter(this.completer);
-         reader.setHistoryEnabled(true);
-         reader.setPrompt("");
-      }
-   }
-
-   @Override
-   public String promptRegex(final String message, final String regex)
-   {
-      String input;
-      do
-      {
-         input = prompt(message);
-      }
-      while (!input.matches(regex));
-      return input;
-   }
-
-   @Override
-   public String promptRegex(final String message, final String pattern, final String defaultIfEmpty)
-   {
-      if (!defaultIfEmpty.matches(pattern))
-      {
-         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-                  + pattern + "]");
-      }
-
-      String input;
-      do
-      {
-         input = prompt(message + " [" + defaultIfEmpty + "]");
-         if ("".equals(input.trim()))
-         {
-            input = defaultIfEmpty;
-         }
-      }
-      while (!input.matches(pattern));
-      return input;
-   }
-
    @Override
    @SuppressWarnings("unchecked")
    public <T> T prompt(final String message, final Class<T> clazz)
@@ -1336,12 +1271,6 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   public <T> T promptChoiceTyped(final String message, final T... options)
-   {
-      return promptChoiceTyped(message, Arrays.asList(options));
-   }
-
-   @Override
    @SuppressWarnings("unchecked")
    public <T> T promptChoiceTyped(final String message, final List<T> options)
    {
@@ -1373,6 +1302,57 @@ public class ShellImpl implements Shell
          if ((input >= 0) && (input < options.size()))
          {
             result = options.get(input);
+         }
+         else
+         {
+            println("Invalid selection, please try again.");
+         }
+      }
+      return (T) result;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T> T promptChoiceTyped(final String message, final List<T> options, T defaultIfEmpty)
+   {
+      if ((options == null) || options.isEmpty())
+      {
+         throw new IllegalArgumentException(
+                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
+      }
+      if (options.size() == 1)
+      {
+         return options.get(0);
+      }
+
+      int count = 1;
+      println(message);
+
+      Object result = InvalidInput.INSTANCE;
+
+      while (result instanceof InvalidInput)
+      {
+         println();
+         for (T entry : options)
+         {
+            print("  " + count + " - [" + entry + "]");
+            if (entry.equals(defaultIfEmpty))
+            {
+               print("*");
+            }
+            println();
+            count++;
+         }
+         println();
+         int input = prompt("Choose an option by typing the number of the selection [*-default]: ",
+                  Integer.class, 0) - 1;
+         if ((input >= 0) && (input < options.size()))
+         {
+            result = options.get(input);
+         }
+         else if (input == -1)
+         {
+            result = defaultIfEmpty;
          }
          else
          {
@@ -1438,8 +1418,62 @@ public class ShellImpl implements Shell
    @Override
    public String promptCommon(final String message, final PromptType type, final String defaultIfEmpty)
    {
+      if (!type.matches(defaultIfEmpty))
+      {
+         throw new IllegalArgumentException("Default value [" + defaultIfEmpty
+                  + "] is not a valid match for the given prompt type ["
+                  + type.name() + ", " + type.getPattern() + "]");
+      }
+
       String result = promptRegex(message, type.getPattern(), defaultIfEmpty);
       result = promptTypeConverter.convert(type, result);
+      return result;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T extends Enum<T>> T promptEnum(String message, Class<T> type)
+   {
+      String value = "";
+      while ((value == null) || value.trim().isEmpty())
+      {
+         value = promptWithCompleter(message, new CompleterAdaptor(new EnumCompleter(type)));
+      }
+
+      T result = (T) Enums.valueOf(type, value);
+      if (result == null)
+      {
+         result = promptChoiceTyped(message, Arrays.asList(type.getEnumConstants()));
+      }
+      return result;
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T extends Enum<T>> T promptEnum(String message, Class<T> type, T defaultIfEmpty)
+   {
+      T result;
+      do
+      {
+         String value = promptWithCompleter(message, new CompleterAdaptor(
+                  new EnumCompleter(type)));
+
+         if (Strings.isNullOrEmpty(value))
+         {
+            result = defaultIfEmpty;
+         }
+         else
+         {
+            result = (T) Enums.valueOf(type, value);
+            if (result == null)
+            {
+               result = (T) promptChoiceTyped(message, Arrays.asList(type.getEnumConstants()),
+                        defaultIfEmpty);
+            }
+         }
+      }
+      while (result == null);
+
       return result;
    }
 
@@ -1467,7 +1501,7 @@ public class ShellImpl implements Shell
    {
       FileResource<?> result = defaultIfEmpty;
       String path = promptWithCompleter(message, new FileNameCompleter());
-      if (!"".equals(path) && (path != null) && !path.trim().isEmpty())
+      if ((path != null) && !path.trim().isEmpty())
       {
          path = Files.canonicalize(path);
          Resource<File> resource = resourceFactory.getResourceFrom(new File(path));
@@ -1482,5 +1516,74 @@ public class ShellImpl implements Shell
          }
       }
       return result;
+   }
+
+   @Override
+   public String promptRegex(final String message, final String regex)
+   {
+      String input;
+      do
+      {
+         input = prompt(message);
+      }
+      while (!input.matches(regex));
+      return input;
+   }
+
+   @Override
+   public String promptRegex(final String message, final String pattern, final String defaultIfEmpty)
+   {
+      if (!defaultIfEmpty.matches(pattern))
+      {
+         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
+                  + pattern + "]");
+      }
+
+      String input;
+      do
+      {
+         input = prompt(message + " [" + defaultIfEmpty + "]");
+         if ("".equals(input.trim()))
+         {
+            input = defaultIfEmpty;
+         }
+      }
+      while (!input.matches(pattern));
+      return input;
+   }
+
+   private String promptWithCompleter(String message, final Completer tempCompleter)
+   {
+      if (!message.isEmpty() && message.matches("^.*\\S$"))
+      {
+         message = message + " ";
+      }
+
+      try
+      {
+         reader.removeCompleter(this.completer);
+         if (tempCompleter != null)
+         {
+            reader.addCompleter(tempCompleter);
+         }
+         reader.setHistoryEnabled(false);
+         reader.setPrompt(message);
+         String line = readLine();
+         return line;
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException("Shell input stream failure", e);
+      }
+      finally
+      {
+         if (tempCompleter != null)
+         {
+            reader.removeCompleter(tempCompleter);
+         }
+         reader.addCompleter(this.completer);
+         reader.setHistoryEnabled(true);
+         reader.setPrompt("");
+      }
    }
 }

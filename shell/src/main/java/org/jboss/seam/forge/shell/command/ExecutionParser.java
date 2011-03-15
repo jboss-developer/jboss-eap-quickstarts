@@ -215,8 +215,7 @@ public class ExecutionParser
             if ((value != null) && option.getBoxedType().isEnum() && !Enums.hasValue(option.getType(), value))
             {
                ShellMessages.info(shell, "Could not parse [" + value + "]... please try again...");
-               value = shell.promptChoiceTyped(optionDescriptor, Enums.getValues((Class<Enum>) option.getType()))
-                        .toString();
+               value = shell.promptEnum(optionDescriptor, (Class<Enum>) option.getType());
             }
             else if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
             {
@@ -228,7 +227,11 @@ public class ExecutionParser
             {
                while (value == null)
                {
-                  if (isBooleanOption(option))
+                  if (option.isEnum())
+                  {
+                     value = shell.promptEnum(optionDescriptor, (Class<Enum>) option.getType());
+                  }
+                  else if (isBooleanOption(option))
                   {
                      value = shell.promptBoolean(optionDescriptor);
                   }
@@ -236,7 +239,7 @@ public class ExecutionParser
                   {
                      value = shell.promptFile(optionDescriptor);
                   }
-                  else if (promptType != null)
+                  else if (promptType != null && !PromptType.ANY.equals(promptType))
                   {
                      // make sure an omitted required option value is OK
                      value = shell.promptCommon(optionDescriptor, promptType);
