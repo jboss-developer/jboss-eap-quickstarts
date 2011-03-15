@@ -35,7 +35,7 @@ import org.jboss.seam.forge.resources.Resource;
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface Shell extends ShellPrintWriter, ShellPrompt
+public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
 {
    /**
     * Return the current working directory resource of the shell. Start with {@link #getCurrentResource()} and move up

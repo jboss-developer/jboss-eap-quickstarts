@@ -25,22 +25,18 @@ package org.jboss.seam.forge.shell;
 import static org.mvel2.DataConversion.addConversionHandler;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
@@ -50,17 +46,14 @@ import javax.inject.Inject;
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
-import jline.console.completer.FileNameCompleter;
 import jline.console.history.MemoryHistory;
 
 import org.fusesource.jansi.Ansi;
-import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
-import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
@@ -69,8 +62,6 @@ import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
-import org.jboss.seam.forge.shell.completer.CompleterAdaptor;
-import org.jboss.seam.forge.shell.completer.EnumCompleter;
 import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
 import org.jboss.seam.forge.shell.events.AcceptUserInput;
@@ -85,7 +76,6 @@ import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.project.CurrentProject;
-import org.jboss.seam.forge.shell.util.Enums;
 import org.jboss.seam.forge.shell.util.Files;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.jboss.seam.forge.shell.util.JavaPathspecParser;
@@ -93,8 +83,6 @@ import org.jboss.seam.forge.shell.util.OSUtils;
 import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
-import org.mvel2.DataConversion;
-import org.mvel2.util.StringAppender;
 
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
@@ -104,21 +92,22 @@ import sun.misc.SignalHandler;
  */
 @ApplicationScoped
 @SuppressWarnings("restriction")
-public class ShellImpl implements Shell
+public class ShellImpl extends AbstractShellPrompt implements Shell
 {
-   private static final String PROP_PROMPT = "PROMPT";
-   private static final String PROP_PROMPT_NO_PROJ = "PROMPT_NOPROJ";
+   static final String PROP_FORGE_CONFIG_DIR = "FORGE_CONFIG_DIR";
+   static final String PROP_PROMPT = "PROMPT";
+   static final String PROP_PROMPT_NO_PROJ = "PROMPT_NOPROJ";
 
-   private static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{blue}\\W\\c \\c{green}\\$\\c ";
-   private static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{blue}\\W\\c \\c{red}\\$\\c ";
+   static final String DEFAULT_PROMPT = "[\\c{green}$PROJECT_NAME\\c] \\c{blue}\\W\\c \\c{green}\\$\\c ";
+   static final String DEFAULT_PROMPT_NO_PROJ = "[\\c{red}no project\\c] \\c{blue}\\W\\c \\c{red}\\$\\c ";
 
-   private static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
-   private static final String DEFAULT_PLUGIN_REPO = "http://seamframework.org/service/File/148617";
+   static final String PROP_DEFAULT_PLUGIN_REPO = "DEFFAULT_PLUGIN_REPO";
+   static final String DEFAULT_PLUGIN_REPO = "http://seamframework.org/service/File/148617";
 
-   private static final String PROP_VERBOSE = "VERBOSE";
+   static final String PROP_VERBOSE = "VERBOSE";
 
-   private static final String PROP_IGNORE_EOF = "IGNOREEOF";
-   private static final int DEFAULT_IGNORE_EOF = 1;
+   static final String PROP_IGNORE_EOF = "IGNOREEOF";
+   static final int DEFAULT_IGNORE_EOF = 1;
 
    public static final String FORGE_CONFIG_DIR = System.getProperty("user.home") + "/.forge/";
    public static final String FORGE_COMMAND_HISTORY_FILE = "cmd_history";
@@ -140,14 +129,14 @@ public class ShellImpl implements Shell
    private CurrentProject projectContext;
 
    @Inject
-   private ResourceFactory resourceFactory;
+   ResourceFactory resourceFactory;
    private Resource<?> lastResource;
 
    @Inject
    private FSHRuntime fshRuntime;
 
    @Inject
-   private PromptTypeConverter promptTypeConverter;
+   PromptTypeConverter promptTypeConverter;
 
    @Inject
    private CompletedCommandHolder commandHolder;
@@ -225,6 +214,9 @@ public class ShellImpl implements Shell
 
    private int numEOF = 0;
    private boolean executing;
+
+   @Inject
+   private ShellConfig shellConfig;
 
    void init(@Observes final Startup event, final PluginCommandCompleter pluginCompleter) throws Exception
    {
@@ -326,10 +318,11 @@ public class ShellImpl implements Shell
       }
 
       properties.put("OS_NAME", OSUtils.getOsName());
-      properties.put("FORGE_CONFIG_DIR", FORGE_CONFIG_DIR);
+      properties.put(PROP_FORGE_CONFIG_DIR, FORGE_CONFIG_DIR);
       properties.put(PROP_PROMPT, "> ");
       properties.put(PROP_PROMPT_NO_PROJ, "> ");
-      loadConfig();
+
+      shellConfig.loadConfig(this);
 
       postStartup.fire(new PostStartup());
    }
@@ -368,138 +361,8 @@ public class ShellImpl implements Shell
       }
    }
 
-   private void loadConfig()
-   {
-      File configDir = new File(FORGE_CONFIG_DIR);
-
-      if (!configDir.exists())
-      {
-         if (!configDir.mkdirs())
-         {
-            System.err.println("could not create config directory: " + configDir.getAbsolutePath());
-            return;
-         }
-      }
-
-      File historyFile = new File(configDir.getPath() + "/" + FORGE_COMMAND_HISTORY_FILE);
-
-      try
-      {
-         if (!historyFile.exists())
-         {
-            if (!historyFile.createNewFile())
-            {
-               System.err.println("could not create config file: " + historyFile.getAbsolutePath());
-            }
-
-         }
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException("could not create config file: " + historyFile.getAbsolutePath());
-      }
-
-      MemoryHistory history = new MemoryHistory();
-      try
-      {
-         StringAppender buf = new StringAppender();
-         InputStream instream = new BufferedInputStream(new FileInputStream(historyFile));
-
-         byte[] b = new byte[25];
-         int read;
-
-         while ((read = instream.read(b)) != -1)
-         {
-            for (int i = 0; i < read; i++)
-            {
-               if (b[i] == '\n')
-               {
-                  history.add(buf.toString());
-                  buf.reset();
-               }
-               else
-               {
-                  buf.append(b[i]);
-               }
-            }
-         }
-
-         instream.close();
-
-         reader.setHistory(history);
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
-      }
-
-      File configFile = new File(configDir.getPath() + "/" + FORGE_CONFIG_FILE);
-
-      if (!configFile.exists())
-      {
-         try
-         {
-            /**
-             * Create a default config file.
-             */
-
-            configFile.createNewFile();
-            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(configFile));
-            String defaultConfig = getDefaultConfig();
-            for (int i = 0; i < defaultConfig.length(); i++)
-            {
-               outputStream.write(defaultConfig.charAt(i));
-            }
-            outputStream.flush();
-            outputStream.close();
-
-         }
-         catch (IOException e)
-         {
-            e.printStackTrace();
-            throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
-         }
-      }
-
-      try
-      {
-         /**
-          * Load the config file script.
-          */
-         execute(configFile);
-      }
-      catch (IOException e)
-      {
-         e.printStackTrace();
-         throw new RuntimeException("error loading file: " + historyFile.getAbsolutePath());
-      }
-
-      try
-      {
-         historyOutstream = new BufferedOutputStream(new FileOutputStream(historyFile, true));
-
-         Runtime.getRuntime().addShutdownHook(new Thread()
-         {
-            @Override
-            public void run()
-            {
-               try
-               {
-                  historyOutstream.flush();
-                  historyOutstream.close();
-               }
-               catch (Exception e)
-               {
-               }
-            }
-         });
-      }
-      catch (IOException e)
-      {
-      }
-   }
-
-   private void writeToHistory(final String command)
+   @Override
+   public void writeToHistory(final String command)
    {
       try
       {
@@ -512,6 +375,40 @@ public class ShellImpl implements Shell
       catch (IOException e)
       {
       }
+   }
+
+   @Override
+   public void setHistoryOutputStream(OutputStream stream)
+   {
+      historyOutstream = stream;
+      Runtime.getRuntime().addShutdownHook(new Thread()
+      {
+         @Override
+         public void run()
+         {
+            try
+            {
+               historyOutstream.flush();
+               historyOutstream.close();
+            }
+            catch (Exception e)
+            {
+            }
+         }
+      });
+   }
+
+   @Override
+   public void setHistory(List<String> lines)
+   {
+      MemoryHistory history = new MemoryHistory();
+
+      for (String line : lines)
+      {
+         history.add(line);
+      }
+
+      reader.setHistory(history);
    }
 
    private void initCompleters(final PluginCommandCompleter pluginCompleter)
@@ -553,34 +450,6 @@ public class ShellImpl implements Shell
          // this is where we will initialize other parameters... e.g. accepting
          // a path
       }
-   }
-
-   private String getDefaultConfig()
-   {
-      return "@/* Automatically generated config file */;\n"
-               +
-               "if (!$NO_MOTD) { "
-               +
-               "   echo \"   ____                          _____                    \";\n"
-               +
-               "   echo \"  / ___|  ___  __ _ _ __ ___    |  ___|__  _ __ __ _  ___ \";\n"
-               +
-               "   echo \"  \\\\___ \\\\ / _ \\\\/ _` | '_ ` _ \\\\   | |_ / _ \\\\| '__/ _` |/ _ \\\\  \\c{yellow}\\\\\\\\\\c\";\n"
-               +
-               "   echo \"   ___) |  __/ (_| | | | | | |  |  _| (_) | | | (_| |  __/  \\c{yellow}//\\c\";\n" +
-               "   echo \"  |____/ \\\\___|\\\\__,_|_| |_| |_|  |_|  \\\\___/|_|  \\\\__, |\\\\___| \";\n" +
-               "   echo \"                                                |___/      \";\n\n" +
-               "}\n" +
-               "\n" +
-               "if ($OS_NAME.startsWith(\"Windows\")) {\n" +
-               "    echo \"  Windows? Really? Okay...\\n\"\n" +
-               "}\n" +
-               "\n" +
-               "set " + PROP_PROMPT + " \"" + DEFAULT_PROMPT + "\";\n" +
-               "set " + PROP_PROMPT_NO_PROJ + " \"" + DEFAULT_PROMPT_NO_PROJ + "\";\n" +
-               "set " + PROP_DEFAULT_PLUGIN_REPO + " \"" + DEFAULT_PLUGIN_REPO + "\"\n" +
-               "set " + PROP_IGNORE_EOF + " " + DEFAULT_IGNORE_EOF + "\n";
-
    }
 
    void teardown(@Observes final Shutdown shutdown, final Event<PreShutdown> preShutdown)
@@ -1116,252 +985,6 @@ public class ShellImpl implements Shell
       return this.projectContext.getCurrent();
    }
 
-   /*
-    * Shell Prompts
-    */
-   @Override
-   public String prompt()
-   {
-      return prompt("");
-   }
-
-   @Override
-   public String promptAndSwallowCR()
-   {
-      int c;
-      StringBuilder buf = new StringBuilder();
-      while (((c = scan()) != '\n') && (c != '\r'))
-      {
-         if (c == 127)
-         {
-            if (buf.length() > 0)
-            {
-               buf.deleteCharAt(buf.length() - 1);
-               cursorLeft(1);
-               print(" ");
-               cursorLeft(1);
-            }
-            continue;
-         }
-
-         write((byte) c);
-         buf.append((char) c);
-      }
-      return buf.toString();
-   }
-
-   @Override
-   public String prompt(final String message)
-   {
-      return promptWithCompleter(message, null);
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T> T prompt(final String message, final Class<T> clazz)
-   {
-      Object result;
-      Object input;
-      do
-      {
-         input = prompt(message);
-         try
-         {
-            result = DataConversion.convert(input, clazz);
-         }
-         catch (Exception e)
-         {
-            result = InvalidInput.INSTANCE;
-         }
-      }
-      while ((result instanceof InvalidInput));
-
-      return (T) result;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T> T prompt(final String message, final Class<T> clazz, final T defaultIfEmpty)
-   {
-      Object result;
-      String input;
-      do
-      {
-         input = prompt(message);
-         if ((input == null) || "".equals(input.trim()))
-         {
-            result = defaultIfEmpty;
-         }
-         else
-         {
-            input = input.trim();
-            try
-            {
-               result = DataConversion.convert(input, clazz);
-            }
-            catch (Exception e)
-            {
-               result = InvalidInput.INSTANCE;
-            }
-         }
-      }
-      while ((result instanceof InvalidInput));
-
-      return (T) result;
-   }
-
-   @Override
-   public boolean promptBoolean(final String message)
-   {
-      return promptBoolean(message, true);
-   }
-
-   @Override
-   public boolean promptBoolean(final String message, final boolean defaultIfEmpty)
-   {
-      String query = " [Y/n] ";
-      if (!defaultIfEmpty)
-      {
-         query = " [y/N] ";
-      }
-
-      return prompt(message + query, Boolean.class, defaultIfEmpty);
-   }
-
-   @Override
-   public int promptChoice(final String message, final Object... options)
-   {
-      return promptChoice(message, Arrays.asList(options));
-   }
-
-   @Override
-   public int promptChoice(final String message, final List<?> options)
-   {
-      if ((options == null) || options.isEmpty())
-      {
-         throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
-      }
-
-      int count = 1;
-      println(message);
-
-      Object result = InvalidInput.INSTANCE;
-
-      while (result instanceof InvalidInput)
-      {
-         println();
-         for (Object entry : options)
-         {
-            println("  " + count + " - [" + entry + "]");
-            count++;
-         }
-         println();
-         int input = prompt("Choose an option by typing the number of the selection: ", Integer.class) - 1;
-         if (input < options.size())
-         {
-            return input;
-         }
-         else
-         {
-            println("Invalid selection, please try again.");
-         }
-      }
-      return -1;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T> T promptChoiceTyped(final String message, final List<T> options)
-   {
-      if ((options == null) || options.isEmpty())
-      {
-         throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
-      }
-      if (options.size() == 1)
-      {
-         return options.get(0);
-      }
-
-      int count = 1;
-      println(message);
-
-      Object result = InvalidInput.INSTANCE;
-
-      while (result instanceof InvalidInput)
-      {
-         println();
-         for (T entry : options)
-         {
-            println("  " + count + " - [" + entry + "]");
-            count++;
-         }
-         println();
-         int input = prompt("Choose an option by typing the number of the selection: ", Integer.class) - 1;
-         if ((input >= 0) && (input < options.size()))
-         {
-            result = options.get(input);
-         }
-         else
-         {
-            println("Invalid selection, please try again.");
-         }
-      }
-      return (T) result;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T> T promptChoiceTyped(final String message, final List<T> options, T defaultIfEmpty)
-   {
-      if ((options == null) || options.isEmpty())
-      {
-         throw new IllegalArgumentException(
-                  "promptChoice() Cannot ask user to select from a list of nothing. Ensure you have values in your options list.");
-      }
-      if (options.size() == 1)
-      {
-         return options.get(0);
-      }
-
-      int count = 1;
-      println(message);
-
-      Object result = InvalidInput.INSTANCE;
-
-      while (result instanceof InvalidInput)
-      {
-         println();
-         for (T entry : options)
-         {
-            print("  " + count + " - [" + entry + "]");
-            if (entry.equals(defaultIfEmpty))
-            {
-               print("*");
-            }
-            println();
-            count++;
-         }
-         println();
-         int input = prompt("Choose an option by typing the number of the selection [*-default]: ",
-                  Integer.class, 0) - 1;
-         if ((input >= 0) && (input < options.size()))
-         {
-            result = options.get(input);
-         }
-         else if (input == -1)
-         {
-            result = defaultIfEmpty;
-         }
-         else
-         {
-            println("Invalid selection, please try again.");
-         }
-      }
-      return (T) result;
-   }
-
    @Override
    public int getHeight()
    {
@@ -1380,179 +1003,7 @@ public class ShellImpl implements Shell
    }
 
    @Override
-   @SuppressWarnings("unchecked")
-   public <T> T promptChoice(final String message, final Map<String, T> options)
-   {
-      int count = 1;
-      println(message);
-      List<Entry<String, T>> entries = new ArrayList<Map.Entry<String, T>>();
-      entries.addAll(options.entrySet());
-
-      Object result = InvalidInput.INSTANCE;
-      while (result instanceof InvalidInput)
-      {
-         println();
-         for (Entry<String, T> entry : entries)
-         {
-            println("  " + count + " - [" + entry.getKey() + "]");
-            count++;
-         }
-         println();
-         String input = prompt("Choose an option by typing the name or number of the selection: ");
-         if (options.containsKey(input))
-         {
-            result = options.get(input);
-         }
-      }
-      return (T) result;
-   }
-
-   @Override
-   public String promptCommon(final String message, final PromptType type)
-   {
-      String result = promptRegex(message, type.getPattern());
-      result = promptTypeConverter.convert(type, result);
-      return result;
-   }
-
-   @Override
-   public String promptCommon(final String message, final PromptType type, final String defaultIfEmpty)
-   {
-      if (!type.matches(defaultIfEmpty))
-      {
-         throw new IllegalArgumentException("Default value [" + defaultIfEmpty
-                  + "] is not a valid match for the given prompt type ["
-                  + type.name() + ", " + type.getPattern() + "]");
-      }
-
-      String result = promptRegex(message, type.getPattern(), defaultIfEmpty);
-      result = promptTypeConverter.convert(type, result);
-      return result;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T extends Enum<T>> T promptEnum(String message, Class<T> type)
-   {
-      String value = "";
-      while ((value == null) || value.trim().isEmpty())
-      {
-         value = promptWithCompleter(message, new CompleterAdaptor(new EnumCompleter(type)));
-      }
-
-      T result = (T) Enums.valueOf(type, value);
-      if (result == null)
-      {
-         result = promptChoiceTyped(message, Arrays.asList(type.getEnumConstants()));
-      }
-      return result;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public <T extends Enum<T>> T promptEnum(String message, Class<T> type, T defaultIfEmpty)
-   {
-      T result;
-      do
-      {
-         String value = promptWithCompleter(message, new CompleterAdaptor(
-                  new EnumCompleter(type)));
-
-         if (Strings.isNullOrEmpty(value))
-         {
-            result = defaultIfEmpty;
-         }
-         else
-         {
-            result = (T) Enums.valueOf(type, value);
-            if (result == null)
-            {
-               result = (T) promptChoiceTyped(message, Arrays.asList(type.getEnumConstants()),
-                        defaultIfEmpty);
-            }
-         }
-      }
-      while (result == null);
-
-      return result;
-   }
-
-   @Override
-   public FileResource<?> promptFile(final String message)
-   {
-      String path = "";
-      while ((path == null) || path.trim().isEmpty())
-      {
-         path = promptWithCompleter(message, new FileNameCompleter());
-      }
-
-      path = Files.canonicalize(path);
-      Resource<File> resource = resourceFactory.getResourceFrom(new File(path));
-
-      if (resource instanceof FileResource)
-      {
-         return (FileResource<?>) resource;
-      }
-      return null;
-   }
-
-   @Override
-   public FileResource<?> promptFile(final String message, final FileResource<?> defaultIfEmpty)
-   {
-      FileResource<?> result = defaultIfEmpty;
-      String path = promptWithCompleter(message, new FileNameCompleter());
-      if ((path != null) && !path.trim().isEmpty())
-      {
-         path = Files.canonicalize(path);
-         Resource<File> resource = resourceFactory.getResourceFrom(new File(path));
-
-         if (resource instanceof FileResource)
-         {
-            result = (FileResource<?>) resource;
-         }
-         else
-         {
-            result = null;
-         }
-      }
-      return result;
-   }
-
-   @Override
-   public String promptRegex(final String message, final String regex)
-   {
-      String input;
-      do
-      {
-         input = prompt(message);
-      }
-      while (!input.matches(regex));
-      return input;
-   }
-
-   @Override
-   public String promptRegex(final String message, final String pattern, final String defaultIfEmpty)
-   {
-      if (!defaultIfEmpty.matches(pattern))
-      {
-         throw new IllegalArgumentException("Default value [" + defaultIfEmpty + "] does not match required pattern ["
-                  + pattern + "]");
-      }
-
-      String input;
-      do
-      {
-         input = prompt(message + " [" + defaultIfEmpty + "]");
-         if ("".equals(input.trim()))
-         {
-            input = defaultIfEmpty;
-         }
-      }
-      while (!input.matches(pattern));
-      return input;
-   }
-
-   private String promptWithCompleter(String message, final Completer tempCompleter)
+   protected String promptWithCompleter(String message, final Completer tempCompleter)
    {
       if (!message.isEmpty() && message.matches("^.*\\S$"))
       {
@@ -1585,5 +1036,17 @@ public class ShellImpl implements Shell
          reader.setHistoryEnabled(true);
          reader.setPrompt("");
       }
+   }
+
+   @Override
+   protected PromptTypeConverter getPromptTypeConverter()
+   {
+      return promptTypeConverter;
+   }
+
+   @Override
+   protected ResourceFactory getResourceFactory()
+   {
+      return resourceFactory;
    }
 }
