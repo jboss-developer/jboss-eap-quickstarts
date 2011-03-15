@@ -49,4 +49,9 @@ public enum PromptType
       return pattern;
    }
 
+   public boolean matches(String value)
+   {
+      return (value != null) && value.matches(pattern);
+   }
+
 }

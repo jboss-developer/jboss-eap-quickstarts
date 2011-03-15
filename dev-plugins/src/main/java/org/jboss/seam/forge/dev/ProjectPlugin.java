@@ -36,6 +36,7 @@ import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
@@ -59,6 +60,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @RequiresFacet(DependencyFacet.class)
 public class ProjectPlugin implements Plugin
 {
+
    private Project project;
    private Shell shell;
 
@@ -240,19 +242,36 @@ public class ProjectPlugin implements Plugin
     */
    @Command("repository-add")
    public void repoAdd(
-            @Option(required = true, description = "name...") final String name,
-            @Option(required = true, description = "url...") final String url,
+            @Option(description = "type...", required = true) final KnownRepository repo,
             final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      if (deps.hasRepository(url))
+
+      if (KnownRepository.CUSTOM.equals(repo))
       {
-         out.println("Repository exists [" + name + "->" + url + "]");
+         String name = shell.prompt("What is the name of the repository?");
+         String url = shell.prompt("What is the URL of the repository?");
+         if (deps.hasRepository(url))
+         {
+            out.println("Repository exists [" + url + "]");
+         }
+         else
+         {
+            deps.addRepository(name, url);
+            out.println("Added repository [" + name + "->" + url + "]");
+         }
       }
       else
       {
-         deps.addRepository(name, url);
-         out.println("Added repository [" + name + "->" + url + "]");
+         if (deps.hasRepository(repo))
+         {
+            out.println("Repository exists [" + repo.name() + "->" + repo.getUrl() + "]");
+         }
+         else
+         {
+            deps.addRepository(repo);
+            out.println("Added repository [" + repo.name() + "->" + repo.getUrl() + "]");
+         }
       }
    }
 
@@ -263,10 +282,11 @@ public class ProjectPlugin implements Plugin
             final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      if (deps.hasRepository(url))
+
+      DependencyRepository rep;
+      if ((rep = deps.removeRepository(url)) != null)
       {
-         DependencyRepository repo = deps.removeRepository(url);
-         out.println("Removed repository [" + repo.getId() + "->" + repo.getUrl() + "]");
+         out.println("Removed repository [" + rep.getId() + "->" + rep.getUrl() + "]");
       }
       else
       {

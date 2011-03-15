@@ -30,6 +30,7 @@ import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
@@ -196,7 +197,7 @@ public class NewProjectPlugin implements Plugin
       packaging.setPackagingType(PackagingType.JAR);
 
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      deps.addRepository("jboss", "https://repository.jboss.org/nexus/content/groups/public/");
+      deps.addRepository(KnownRepository.JBOSS_NEXUS);
 
       if (createMain)
       {

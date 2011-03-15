@@ -35,6 +35,27 @@ import org.jboss.seam.forge.project.dependencies.DependencyRepository;
  */
 public interface DependencyFacet extends Facet
 {
+   public enum KnownRepository
+   {
+      CENTRAL("http://repo1.maven.org"),
+      JBOSS_NEXUS("http://repository.jboss.org/nexus/content/groups/public"),
+      JBOSS_LEGACY("http://repository.jboss.org/maven2"),
+      JAVA_NET("http://download.java.net/maven/2/"),
+      CUSTOM(null);
+
+      private final String url;
+
+      private KnownRepository(String url)
+      {
+         this.url = url;
+      }
+
+      public String getUrl()
+      {
+         return url;
+      }
+   }
+
    /**
     * Return true if this {@link Project} contains a dependency matching the given {@link Dependency} at any level of
     * the project hierarchy; return false otherwise. This method ignores {@link Dependency#getScopeType()}
@@ -120,10 +141,21 @@ public interface DependencyFacet extends Facet
    public String removeProperty(String name);
 
    /**
+    * Add a {@link KnownRepository} to the project build system. This is where dependencies can be found, downloaded,
+    * and installed to the project build script.
+    */
+   public void addRepository(KnownRepository repository);
+
+   /**
     * Add a repository to the project build system. This is where dependencies can be found, downloaded, and installed
     * to the project build script.
     */
    public void addRepository(String name, String url);
+
+   /**
+    * Return true if the given {@link KnownRepository} is already registered in this project's build system.
+    */
+   public boolean hasRepository(KnownRepository repository);
 
    /**
     * Return true if the given repository URL is already registered in this project's build system.

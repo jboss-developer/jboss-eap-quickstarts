@@ -111,9 +111,10 @@ public interface ShellPrompt
     * @param <T> The type of the objects contained in the list
     * @param message The prompt message to display until valid input is entered
     * @param options The list of selection options
+    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
     * @return the selected option
     */
-   <T> T promptChoiceTyped(String message, T... options);
+   <T> T promptChoiceTyped(String message, List<T> options, T defaultIfEmpty);
 
    /**
     * Prompt for user input, first printing the given message, followed by a keyed list of options. Loop until the user
@@ -134,6 +135,23 @@ public interface ShellPrompt
     * @param type The prompt type to which valid input must be matched
     */
    String promptCommon(String message, PromptType type);
+
+   /**
+    * Prompt for user input in the form of an {@link Enum}, first printing the given message, then returning user input
+    * as a {@link Enum}. The prompt will repeat until input matching the prompt type is entered.
+    * 
+    * @param message The prompt message to display until valid input is entered
+    */
+   <T extends Enum<T>> T promptEnum(String message, Class<T> type);
+
+   /**
+    * Prompt for user input in the form of an {@link Enum}, first printing the given message, then returning user input
+    * as a {@link Enum}. The prompt will repeat until input matching the prompt type is entered.
+    * 
+    * @param message The prompt message to display until valid input is entered
+    * @param defaultIfEmpty The value to be returned when an empty or whitespace-only user input is read.
+    */
+   <T extends Enum<T>> T promptEnum(String message, Class<T> type, T defaultIfEmpty);
 
    /**
     * Prompt for user input in the form of a file path, first printing the given message, then returning user input as a

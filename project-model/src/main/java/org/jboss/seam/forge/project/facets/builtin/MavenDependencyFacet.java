@@ -286,6 +286,12 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    }
 
    @Override
+   public void addRepository(KnownRepository repository)
+   {
+      addRepository(repository.name(), repository.getUrl());
+   }
+
+   @Override
    public List<DependencyRepository> getRepositories()
    {
       List<DependencyRepository> results = new ArrayList<DependencyRepository>();
@@ -321,16 +327,26 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    }
 
    @Override
+   public boolean hasRepository(KnownRepository repository)
+   {
+      return hasRepository(repository.getUrl());
+   }
+
+   @Override
    public DependencyRepository removeRepository(final String url)
    {
       if (url != null)
       {
-         List<DependencyRepository> repositories = getRepositories();
-         for (DependencyRepository repo : repositories)
+         MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+         Model pom = maven.getPOM();
+         List<Repository> repos = pom.getRepositories();
+         for (Repository repo : repos)
          {
             if (repo.getUrl().equals(url.trim()))
             {
-               return repo;
+               repos.remove(repo);
+               maven.setPOM(pom);
+               return new DependencyRepositoryImpl(repo.getId(), repo.getUrl());
             }
          }
       }
