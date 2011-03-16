@@ -18,6 +18,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam.forge</groupId>
+			<artifactId>forge-project-model</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.forge</groupId>
 			<artifactId>forge-j2ee-plugins</artifactId>
 			<scope>provided</scope>
 		</dependency>

@@ -21,15 +21,15 @@
  */
 package org.jboss.seam.forge.project;
 
-import org.jboss.seam.forge.project.BaseProject;
+import javax.enterprise.inject.Typed;
+
 import org.jboss.seam.forge.resources.DirectoryResource;
-import org.jboss.seam.solder.core.Veto;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Veto
+@Typed()
 public class ProjectImpl extends BaseProject
 {
    private DirectoryResource projectRoot = null;

@@ -341,7 +341,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
             {
                try
                {
-                  reader.println();
+                  reader.println("^C");
                   reader.drawLine();
                   reader.resetPromptLine(reader.getPrompt(), "", -1);
                }
