@@ -31,6 +31,7 @@ import javax.inject.Inject;
 import org.jboss.seam.forge.dev.mvn.resources.MavenDependencyResource;
 import org.jboss.seam.forge.dev.mvn.resources.MavenPomResource;
 import org.jboss.seam.forge.dev.mvn.resources.MavenProfileResource;
+import org.jboss.seam.forge.dev.mvn.resources.MavenRepositoryResource;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.resources.Resource;
@@ -123,10 +124,22 @@ public class LsMavenPomPlugin implements Plugin
          {
             if (child instanceof MavenProfileResource)
             {
-               MavenProfileResource resource = (MavenProfileResource) child;
-               out.println(out.renderColor(ShellColor.BLUE, resource.getName()));
+               out.println(out.renderColor(ShellColor.BLUE, child.getName()));
             }
          }
+
+         out.println();
+         out.println(out.renderColor(ShellColor.RED, "[repositories] "));
+
+         for (Resource<?> child : children)
+         {
+            if (child instanceof MavenRepositoryResource)
+            {
+               out.println(out.renderColor(ShellColor.BLUE, child.getName()) + " -> "
+                        + ((MavenRepositoryResource) child).getURL());
+            }
+         }
+
       }
    }
 

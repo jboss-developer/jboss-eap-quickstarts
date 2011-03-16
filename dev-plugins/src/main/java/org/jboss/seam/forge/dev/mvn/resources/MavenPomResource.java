@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
+import org.apache.maven.model.Repository;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
@@ -77,7 +78,17 @@ public class MavenPomResource extends FileResource<MavenPomResource>
       List<Resource<?>> children = new ArrayList<Resource<?>>();
       listDependencies(children);
       listProfiles(children);
+      listRepositories(children);
       return children;
+   }
+
+   private void listRepositories(List<Resource<?>> children)
+   {
+      List<Repository> repositories = getCurrentModel().getRepositories();
+      for (Repository repository : repositories)
+      {
+         children.add(new MavenRepositoryResource(parent, repository));
+      }
    }
 
    private void listDependencies(List<Resource<?>> children)

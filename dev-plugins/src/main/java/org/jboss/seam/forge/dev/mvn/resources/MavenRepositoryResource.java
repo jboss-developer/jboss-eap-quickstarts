@@ -16,64 +16,48 @@
  */
 package org.jboss.seam.forge.dev.mvn.resources;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.resources.Resource;
-import org.jboss.seam.forge.resources.ResourceFlag;
 import org.jboss.seam.forge.resources.VirtualResource;
 
 /**
- * MavenDependencyResource
- * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-public class MavenDependencyResource extends VirtualResource<Dependency>
+public class MavenRepositoryResource extends VirtualResource<Repository>
 {
-   private final Dependency dependency;
+   private final Repository repo;
 
-   public MavenDependencyResource(Resource<?> parent, Dependency dependency)
+   public MavenRepositoryResource(Resource<?> parent, Repository repo)
    {
-      super(null, parent);
-      this.dependency = dependency;
-      setFlag(ResourceFlag.Leaf);
-   }
-
-   /**
-    * @return the dependency
-    */
-   public Dependency getDependency()
-   {
-      return dependency;
+      super(parent);
+      this.repo = repo;
    }
 
    @Override
    public String getName()
    {
-      return dependency.getGroupId() + ":" + dependency.getArtifactId();
+      return repo.getId();
+   }
+
+   public String getURL()
+   {
+      return repo.getUrl();
    }
 
    @Override
    public List<Resource<?>> listResources()
    {
-      return Collections.emptyList();
+      List<Resource<?>> children = new ArrayList<Resource<?>>();
+      return children;
    }
 
    @Override
-   public Dependency getUnderlyingResourceObject()
+   public Repository getUnderlyingResourceObject()
    {
-      return dependency;
-   }
-
-   @Override
-   public String toString()
-   {
-      return dependency.getGroupId() + ":" +
-               dependency.getArtifactId() + ":" +
-               dependency.getVersion() + ":" +
-               dependency.getPackagingType() + ":" +
-               dependency.getScopeType();
+      return repo;
    }
 }
