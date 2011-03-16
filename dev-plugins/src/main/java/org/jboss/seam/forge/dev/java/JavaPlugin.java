@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.FieldHolder;
 import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
@@ -183,11 +184,18 @@ public class JavaPlugin implements Plugin
       }
 
       JavaSource<?> source = resource.getJavaSource();
-      if (source instanceof JavaClass)
+      if (source instanceof FieldHolder)
       {
-         JavaClass clazz = ((JavaClass) source);
+         FieldHolder<?> clazz = ((FieldHolder<?>) source);
+
+         String name = JavaParser.parse(JavaClass.class, "public class Temp{}").addField(fieldDef).getName();
+         if (clazz.hasField(name))
+         {
+            throw new IllegalStateException("Field named [" + name + "] already exists.");
+         }
+
          clazz.addField(fieldDef);
-         java.saveJavaSource(clazz);
+         java.saveJavaSource(source);
       }
    }
 }

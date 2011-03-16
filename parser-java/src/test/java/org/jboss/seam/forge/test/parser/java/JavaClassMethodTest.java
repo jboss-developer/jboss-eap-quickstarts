@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 import org.junit.Before;
@@ -127,6 +128,16 @@ public class JavaClassMethodTest
    @Test
    public void testHasMethodZeroParameters() throws Exception
    {
+      javaClass.addMethod("public void doSomething(){/*done*/}");
+      assertTrue(javaClass.hasMethodSignature("doSomething"));
+   }
 
+   @Test
+   public void testGetMembers() throws Exception
+   {
+      JavaClass javaClass = JavaParser.create(JavaClass.class).addMethod("public void doSomething();").getOrigin()
+               .addField("private int id;").getOrigin();
+      List<Member<JavaClass, ?>> members = javaClass.getMembers();
+      assertEquals(2, members.size());
    }
 }

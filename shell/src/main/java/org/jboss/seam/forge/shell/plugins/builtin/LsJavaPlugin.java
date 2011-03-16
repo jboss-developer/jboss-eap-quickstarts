@@ -69,10 +69,11 @@ public class LsJavaPlugin implements Plugin
    private Shell shell;
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
-                   final PipeOut out) throws FileNotFoundException
+   public void run(
+            @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
+            @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+            @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+            final PipeOut out) throws FileNotFoundException
    {
 
       for (Resource<?> resource : paths)

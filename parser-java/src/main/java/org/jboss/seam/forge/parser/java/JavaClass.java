@@ -32,11 +32,8 @@ import org.jboss.seam.forge.parser.JavaParser;
  */
 public interface JavaClass extends
          JavaType<JavaClass>,
-         Interfaced<JavaClass>,
          Extendable<JavaClass>,
-         Abstractable<JavaClass>,
-         FieldHolder<JavaClass>,
-         MethodHolder<JavaClass>
+         Abstractable<JavaClass>
 {
 
 }

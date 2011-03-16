@@ -435,6 +435,11 @@ public class NewFieldPlugin implements Plugin
                            final Class<? extends java.lang.annotation.Annotation> annotation)
             throws FileNotFoundException
    {
+      if (targetEntity.hasField(fieldName))
+      {
+         throw new IllegalStateException("Entity already has a field named [" + fieldName + "]");
+      }
+
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -448,6 +453,11 @@ public class NewFieldPlugin implements Plugin
    private void addFieldTo(final JavaClass targetEntity, final String fieldType, final String fieldName,
                            final Class<Column> annotation) throws FileNotFoundException
    {
+      if (targetEntity.hasField(fieldName))
+      {
+         throw new IllegalStateException("Entity already has a field named [" + fieldName + "]");
+      }
+
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -462,6 +472,10 @@ public class NewFieldPlugin implements Plugin
                            final Class<? extends java.lang.annotation.Annotation> annotation)
             throws FileNotFoundException
    {
+      if (targetEntity.hasField(fieldName))
+      {
+         throw new IllegalStateException("Entity already has a field named [" + fieldName + "]");
+      }
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -473,6 +487,7 @@ public class NewFieldPlugin implements Plugin
       Refactory.createGetterAndSetter(targetEntity, field);
       java.saveJavaSource(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
+
    }
 
    private JavaClass getJavaClass() throws FileNotFoundException

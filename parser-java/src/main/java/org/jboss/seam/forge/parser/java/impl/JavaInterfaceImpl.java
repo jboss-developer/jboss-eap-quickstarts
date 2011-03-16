@@ -21,41 +21,21 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
-import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaInterface;
-import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.SourceType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class JavaInterfaceImpl extends AbstractJavaSourceMethodHolder<JavaInterface> implements JavaInterface
+public class JavaInterfaceImpl extends AbstractJavaSourceMemberHolder<JavaInterface> implements JavaInterface
 {
 
    public JavaInterfaceImpl(final Document document, final CompilationUnit unit)
    {
       super(document, unit);
-   }
-
-   @Override
-   public List<Member<JavaInterface, ?>> getMembers()
-   {
-      List<Member<JavaInterface, ?>> result = new ArrayList<Member<JavaInterface, ?>>();
-
-      for (Field<JavaInterface> member : getFields())
-      {
-         result.add(member);
-      }
-      result.addAll(getFields());
-      result.addAll(getMethods());
-
-      return result;
    }
 
    @Override

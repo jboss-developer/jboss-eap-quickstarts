@@ -33,8 +33,10 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.ParserException;
+import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
+import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
@@ -117,7 +119,18 @@ public class JavaResource extends FileResource<JavaResource>
 
       for (Member<?, ?> member : source.getMembers())
       {
-         list.add(new JavaMemberResource(this, member));
+         if (member instanceof Field)
+         {
+            list.add(new JavaFieldResource(null, (Field<JavaSource<?>>) member));
+         }
+         else if (member instanceof Method)
+         {
+            list.add(new JavaMethodResource(null, (Method<JavaSource<?>>) member));
+         }
+         else
+         {
+            list.add(new JavaMemberResource(this, member));
+         }
       }
 
       return list;

@@ -56,9 +56,8 @@ import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 
 /**
- * Lists directory contents for filesystem based directories. This is a
- * simplified version of the UNIX 'ls' command and currently supports the - and
- * -a flags, as in unix.
+ * Lists directory contents for filesystem based directories. This is a simplified version of the UNIX 'ls' command and
+ * currently supports the - and -a flags, as in unix.
  * 
  * @author Mike Brock
  */
@@ -95,10 +94,11 @@ public class LsPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
-                   final PipeOut out)
+   public void run(
+            @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
+            @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+            @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+            final PipeOut out)
    {
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
@@ -109,10 +109,8 @@ public class LsPlugin implements Plugin
          List<Resource<?>> childResources;
 
          /**
-          * Check to see if the way this resource was resolved was by a
-          * wildcard, in which case we don't expand into it's children.
-          * Otherwise, if it's fully qualified we recurse into that directory
-          * and list all those files.
+          * Check to see if the way this resource was resolved was by a wildcard, in which case we don't expand into
+          * it's children. Otherwise, if it's fully qualified we recurse into that directory and list all those files.
           */
          if (!resource.isFlagSet(ResourceFlag.AmbiguouslyQualified) && resource.isFlagSet(ResourceFlag.Node))
          {
@@ -154,10 +152,10 @@ public class LsPlugin implements Plugin
                if (showAll || !el.startsWith("."))
                {
                   StringBuilder permissions = new StringBuilder(dir ? "d" : "-")
-                        .append(file.canRead() ? 'r' : '-')
-                        .append(file.canWrite() ? 'w' : '-')
-                        .append(file.canExecute() ? 'x' : '-')
-                        .append("------");
+                           .append(file.canRead() ? 'r' : '-')
+                           .append(file.canWrite() ? 'w' : '-')
+                           .append(file.canExecute() ? 'x' : '-')
+                           .append("------");
 
                   subList.add(permissions.toString());
                   subList.add("owner"); // not supported
@@ -222,10 +220,10 @@ public class LsPlugin implements Plugin
          };
 
          printOutTables(
-               listBuild,
-               new boolean[] { false, false, false, true, false, false, true, false },
-               out,
-               formatCallback);
+                  listBuild,
+                  new boolean[] { false, false, false, true, false, false, true, false },
+                  out,
+                  formatCallback);
       }
       else
       {

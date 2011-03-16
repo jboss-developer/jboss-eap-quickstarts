@@ -33,6 +33,7 @@ import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.FieldHolder;
 import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.MethodHolder;
 import org.jboss.seam.forge.parser.java.Parameter;
@@ -43,10 +44,10 @@ import org.jboss.seam.forge.parser.java.util.Strings;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public abstract class AbstractJavaSourceMethodHolder<O extends JavaSource<O>> extends AbstractJavaSource<O> implements
+public abstract class AbstractJavaSourceMemberHolder<O extends JavaSource<O>> extends AbstractJavaSource<O> implements
          MethodHolder<O>, FieldHolder<O>
 {
-   public AbstractJavaSourceMethodHolder(Document document, CompilationUnit unit)
+   public AbstractJavaSourceMemberHolder(Document document, CompilationUnit unit)
    {
       super(document, unit);
    }
@@ -70,6 +71,17 @@ public abstract class AbstractJavaSourceMethodHolder<O extends JavaSource<O>> ex
       Field<O> field = new FieldImpl<O>((O) this, declaration);
       getBodyDeclaration().bodyDeclarations().add(field.getInternal());
       return field;
+   }
+
+   @Override
+   public List<Member<O, ?>> getMembers()
+   {
+      List<Member<O, ?>> result = new ArrayList<Member<O, ?>>();
+
+      result.addAll(getFields());
+      result.addAll(getMethods());
+
+      return result;
    }
 
    @Override

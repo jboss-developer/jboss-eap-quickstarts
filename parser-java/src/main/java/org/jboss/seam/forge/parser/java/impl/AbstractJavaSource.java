@@ -36,14 +36,11 @@ import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
-import org.eclipse.text.edits.MalformedTreeException;
-import org.eclipse.text.edits.TextEdit;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Import;
-import org.jboss.seam.forge.parser.java.Interfaced;
+import org.jboss.seam.forge.parser.java.InterfaceCapable;
 import org.jboss.seam.forge.parser.java.JavaInterface;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Member;
@@ -62,7 +59,7 @@ import org.jboss.seam.forge.parser.java.util.Types;
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
-         JavaSource<O>, Interfaced<O>
+         JavaSource<O>, InterfaceCapable<O>
 {
    private final AnnotationAccessor<O, O> annotations = new AnnotationAccessor<O, O>();
    private final ModifierAccessor modifiers = new ModifierAccessor();
@@ -497,19 +494,19 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    @Override
    public O getOrigin()
    {
-      try
-      {
-         TextEdit edit = unit.rewrite(document, null);
-         edit.apply(document);
-      }
-      catch (MalformedTreeException e)
-      {
-         throw new RuntimeException(e);
-      }
-      catch (BadLocationException e)
-      {
-         throw new RuntimeException(e);
-      }
+      // try
+      // {
+      // TextEdit edit = unit.rewrite(document, null);
+      // edit.apply(document);
+      // }
+      // catch (MalformedTreeException e)
+      // {
+      // throw new RuntimeException(e);
+      // }
+      // catch (BadLocationException e)
+      // {
+      // throw new RuntimeException(e);
+      // }
 
       return (O) this;
    }

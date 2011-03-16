@@ -33,7 +33,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.Member;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.SourceType;
 import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
@@ -44,7 +43,7 @@ import org.jboss.seam.forge.parser.java.util.Types;
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public class JavaClassImpl extends AbstractJavaSourceMethodHolder<JavaClass> implements JavaClass
+public class JavaClassImpl extends AbstractJavaSourceMemberHolder<JavaClass> implements JavaClass
 {
    private final ModifierAccessor modifiers = new ModifierAccessor();
 
@@ -124,21 +123,6 @@ public class JavaClassImpl extends AbstractJavaSourceMethodHolder<JavaClass> imp
    {
       getBodyDeclaration().bodyDeclarations().remove(field.getInternal());
       return this;
-   }
-
-   @Override
-   public List<Member<JavaClass, ?>> getMembers()
-   {
-      List<Member<JavaClass, ?>> result = new ArrayList<Member<JavaClass, ?>>();
-
-      for (Field<JavaClass> member : getFields())
-      {
-         result.add(member);
-      }
-      result.addAll(getFields());
-      result.addAll(getMethods());
-
-      return result;
    }
 
    @Override

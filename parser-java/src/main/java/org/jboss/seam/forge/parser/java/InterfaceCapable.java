@@ -27,7 +27,7 @@ import java.util.List;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface Interfaced<T extends JavaSource<T>>
+public interface InterfaceCapable<T extends JavaSource<T>>
 {
    List<String> getInterfaces();
 
