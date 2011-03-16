@@ -31,7 +31,6 @@ import java.util.Map.Entry;
 import jline.console.completer.Completer;
 import jline.console.completer.FileNameCompleter;
 
-import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
@@ -364,7 +363,7 @@ public abstract class AbstractShellPrompt implements Shell
          value = promptWithCompleter(message, new CompleterAdaptor(new EnumCompleter(type)));
       }
 
-      T result = (T) Enums.valueOf(type, value);
+      T result = (T) Enums.valueOf(type, value.trim());
       if (result == null)
       {
          result = promptChoiceTyped(message, Arrays.asList(type.getEnumConstants()));
@@ -382,13 +381,13 @@ public abstract class AbstractShellPrompt implements Shell
          String value = promptWithCompleter(message, new CompleterAdaptor(
                   new EnumCompleter(type)));
 
-         if (Strings.isNullOrEmpty(value))
+         if (value == null || value.trim().isEmpty())
          {
             result = defaultIfEmpty;
          }
          else
          {
-            result = (T) Enums.valueOf(type, value);
+            result = (T) Enums.valueOf(type, value.trim());
             if (result == null)
             {
                result = promptChoiceTyped(message, Arrays.asList(type.getEnumConstants()),
