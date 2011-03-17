@@ -34,7 +34,7 @@ import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.resources.java.JavaResource;
-import org.jboss.seam.forge.test.project.util.ProjectModelTest;
+import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -43,14 +43,14 @@ import org.junit.runner.RunWith;
  */
 @Singleton
 @RunWith(Arquillian.class)
-public class MavenJavaSourceFacetImplTest extends ProjectModelTest
+public class MavenJavaSourceFacetImplTest extends AbstractShellTest
 {
    private static final String PKG = "com.test";
 
    @Test
    public void testCreateJavaFile() throws Exception
    {
-      Project project = getProject();
+      Project project = initializeJavaProject();
 
       String name = "JustCreated";
       JavaClass clazz = JavaParser.create(JavaClass.class).setName(name).setPackage(PKG);
@@ -67,7 +67,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
    @Test
    public void testGetJavaClassReparsesJavaClass() throws Exception
    {
-      Project project = getProject();
+      Project project = initializeJavaProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       String name = "JustCreated";
@@ -84,7 +84,7 @@ public class MavenJavaSourceFacetImplTest extends ProjectModelTest
    @Test
    public void testGetTestJavaClassReparsesJavaClass() throws Exception
    {
-      Project project = getProject();
+      Project project = initializeJavaProject();
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       String name = "JustCreated";

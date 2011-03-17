@@ -147,7 +147,7 @@ public class MavenFacetsTest extends ProjectModelTest
    public void testProjectIsCurrentProject() throws Exception
    {
       Model pom = thisProject.getFacet(MavenCoreFacet.class).getPOM();
-      assertEquals("forge-project-model", pom.getArtifactId());
+      assertEquals("forge-project-model-tests", pom.getArtifactId());
    }
 
    @Test

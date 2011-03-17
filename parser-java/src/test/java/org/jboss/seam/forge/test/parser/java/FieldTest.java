@@ -241,5 +241,4 @@ public class FieldTest
       assertFalse(javaClass.hasField(notFld));
 
    }
-
 }

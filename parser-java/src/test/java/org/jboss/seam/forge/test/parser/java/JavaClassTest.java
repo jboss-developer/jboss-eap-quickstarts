@@ -302,5 +302,4 @@ public class JavaClassTest
       assertEquals(getClass().getSimpleName(), source.getSuperType());
       assertTrue(source.hasImport(getClass()));
    }
-
 }

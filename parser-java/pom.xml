@@ -13,6 +13,11 @@
     <name>Seam Forge - Parser/Java</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-parser-java-api</artifactId>
+        </dependency>
+    
         <!-- Eclipse Java Development Tools (JDT) parser and its (many) required
        libraries -->
         <dependency>

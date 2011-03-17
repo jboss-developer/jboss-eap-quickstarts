@@ -45,6 +45,10 @@
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-parser-java</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
          <artifactId>forge-test-harness</artifactId>
          <scope>test</scope>
       </dependency>

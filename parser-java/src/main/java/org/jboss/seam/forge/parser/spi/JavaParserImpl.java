@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.parser;
+package org.jboss.seam.forge.parser.spi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,6 +40,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.util.Util;
 import org.eclipse.jface.text.Document;
+import org.jboss.seam.forge.parser.ParserException;
 import org.jboss.seam.forge.parser.java.JavaAnnotation;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaEnum;
@@ -52,26 +53,20 @@ import org.jboss.seam.forge.parser.java.impl.JavaEnumImpl;
 import org.jboss.seam.forge.parser.java.impl.JavaInterfaceImpl;
 
 /**
- * Responsible for parsing data into new {@link JavaClass} instances.
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public abstract class JavaParser
+public class JavaParserImpl implements JavaParserProvider
 {
 
-   /**
-    * Open the given {@link File}, parsing its contents into a new {@link JavaClass} instance.
-    */
-   public static JavaSource<?> parse(final File file) throws FileNotFoundException
+   @Override
+   public JavaSource<?> parse(final File file) throws FileNotFoundException
    {
       FileInputStream stream = new FileInputStream(file);
       return parse(stream);
    }
 
-   /**
-    * Read the given {@link InputStream} and parse the data into a new {@link JavaClass} instance.
-    */
-   public static JavaSource<?> parse(final InputStream data)
+   @Override
+   public JavaSource<?> parse(final InputStream data)
    {
       try
       {
@@ -98,19 +93,15 @@ public abstract class JavaParser
       }
    }
 
-   /**
-    * Parse the given character array into a new {@link JavaClass} instance.
-    */
-   public static JavaSource<?> parse(final char[] data)
+   @Override
+   public JavaSource<?> parse(final char[] data)
    {
       return parse(new String(data));
    }
 
-   /**
-    * Parse the given String data into a new {@link JavaClass} instance.
-    */
+   @Override
    @SuppressWarnings({ "rawtypes", "unchecked" })
-   public static JavaSource<?> parse(final String data)
+   public JavaSource<?> parse(final String data)
    {
       Document document = new Document(data);
       ASTParser parser = ASTParser.newParser(AST.JLS3);
@@ -154,11 +145,9 @@ public abstract class JavaParser
       }
    }
 
-   /**
-    * Create a new empty {@link JavaClass} instance.
-    */
+   @Override
    @SuppressWarnings("unchecked")
-   public static <T extends JavaSource<?>> T create(final Class<T> type)
+   public <T extends JavaSource<?>> T create(final Class<T> type)
    {
       if (JavaClass.class.isAssignableFrom(type))
          return (T) parse("public class JavaClass { }");
@@ -175,8 +164,9 @@ public abstract class JavaParser
       throw new ParserException("Unknown JavaSource type [" + type.getName() + "]");
    }
 
+   @Override
    @SuppressWarnings("unchecked")
-   public static <T extends JavaSource<?>> T parse(final Class<T> type, final InputStream data)
+   public <T extends JavaSource<?>> T parse(final Class<T> type, final InputStream data)
    {
 
       JavaSource<?> source = parse(data);
@@ -188,8 +178,9 @@ public abstract class JavaParser
                + source.getClass().getSimpleName() + "] - Cannot convert.");
    }
 
+   @Override
    @SuppressWarnings("unchecked")
-   public static <T extends JavaSource<?>> T parse(final Class<T> type, final char[] data)
+   public <T extends JavaSource<?>> T parse(final Class<T> type, final char[] data)
    {
       JavaSource<?> source = parse(data);
       if (type.isAssignableFrom(source.getClass()))
@@ -200,10 +191,24 @@ public abstract class JavaParser
                + source.getClass().getSimpleName() + "] - Cannot convert.");
    }
 
+   @Override
    @SuppressWarnings("unchecked")
-   public static <T extends JavaSource<?>> T parse(final Class<T> type, final String data)
+   public <T extends JavaSource<?>> T parse(final Class<T> type, final String data)
    {
       JavaSource<?> source = parse(data);
+      if (type.isAssignableFrom(source.getClass()))
+      {
+         return (T) source;
+      }
+      throw new ParserException("Source does not represent a [" + type.getSimpleName() + "], instead was ["
+               + source.getClass().getSimpleName() + "] - Cannot convert.");
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public <T extends JavaSource<?>> T parse(Class<T> type, File file) throws FileNotFoundException
+   {
+      JavaSource<?> source = parse(file);
       if (type.isAssignableFrom(source.getClass()))
       {
          return (T) source;

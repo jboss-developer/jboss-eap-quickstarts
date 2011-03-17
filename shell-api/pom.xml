@@ -15,7 +15,7 @@
 
    <dependencies>
       <dependency>
-         <artifactId>forge-parser-java</artifactId>
+         <artifactId>forge-parser-java-api</artifactId>
          <groupId>org.jboss.seam.forge</groupId>
       </dependency>
 

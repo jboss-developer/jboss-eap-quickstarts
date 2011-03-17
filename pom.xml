@@ -23,6 +23,7 @@
 
 	<modules>
 		<module>event-bus</module>
+		<module>parser-java-api</module>
 		<module>parser-java</module>
 		<module>project-model</module>
 		<module>project-model-tests</module>
@@ -69,6 +70,11 @@
 				<type>pom</type>
 			</dependency>
 
+			<dependency>
+				<groupId>org.jboss.seam.forge</groupId>
+				<artifactId>forge-parser-java-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.jboss.seam.forge</groupId>
 				<artifactId>forge-parser-java</artifactId>

@@ -26,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.InputStream;
 
 import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaEnum;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.junit.Test;
 
@@ -38,8 +39,8 @@ public class JavaEnumTest
    public void testCanParseEnum() throws Exception
    {
       InputStream stream =
-            JavaEnumTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockEnum.java");
-      JavaSource<?> javaClass = JavaParser.parse(stream);
+               JavaEnumTest.class.getResourceAsStream("/org/jboss/seam/forge/grammar/java/MockEnum.java");
+      JavaSource<?> javaClass = JavaParser.parse(JavaEnum.class, stream);
       String name = javaClass.getName();
       assertEquals("MockEnum", name);
    }
