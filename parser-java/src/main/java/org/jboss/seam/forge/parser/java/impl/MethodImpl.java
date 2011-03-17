@@ -88,6 +88,27 @@ public class MethodImpl<O extends JavaSource<O>> implements Method<O>
       this.method = subtree;
    }
 
+   @Override
+   public String toSignature()
+   {
+      String signature = (Visibility.PACKAGE_PRIVATE.equals(this.getVisibility().scope()) ? "" : this.getVisibility()
+               .scope()) + " ";
+      signature += this.getName() + "(";
+
+      List<Parameter> parameters = this.getParameters();
+      for (Parameter p : parameters)
+      {
+         signature += p.getType();
+         if (parameters.indexOf(p) < parameters.size() - 1)
+         {
+            signature += ", ";
+         }
+      }
+
+      signature += ") : " + (this.getReturnType() == null ? "null" : this.getReturnType());
+      return signature;
+   }
+
    /*
     * Annotation<O> Modifiers
     */

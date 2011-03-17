@@ -33,7 +33,7 @@ public enum Visibility
    PUBLIC("public"),
    PROTECTED("protected"),
    PRIVATE("private"),
-   PACKAGE_PRIVATE("package private");
+   PACKAGE_PRIVATE("");
 
    private Visibility(String scope)
    {
@@ -42,6 +42,9 @@ public enum Visibility
 
    private String scope;
 
+   /**
+    * private, public, protected, package private("")
+    */
    public String scope()
    {
       return scope;
@@ -51,15 +54,20 @@ public enum Visibility
    {
       Assert.notNull(target, "VisibilityScoped<T> target must not be null.");
 
-      if (target.isPackagePrivate()) return PACKAGE_PRIVATE;
-      if (target.isPrivate()) return PRIVATE;
-      if (target.isPublic()) return PUBLIC;
+      if (target.isPackagePrivate())
+         return PACKAGE_PRIVATE;
+      if (target.isPrivate())
+         return PRIVATE;
+      if (target.isPublic())
+         return PUBLIC;
       if (target.isProtected())
          return PROTECTED;
 
       else
       {
-         throw new IllegalStateException(VisibilityScoped.class.getSimpleName() + " target does not comply with visibility scoping. Must be one of " + Visibility.values() + "[ " + target + "]");
+         throw new IllegalStateException(VisibilityScoped.class.getSimpleName()
+                  + " target does not comply with visibility scoping. Must be one of " + Visibility.values() + "[ "
+                  + target + "]");
       }
    }
 
@@ -74,9 +82,12 @@ public enum Visibility
       Assert.notNull(target, "VisibilityScoped<T> target must not be null.");
       Assert.notNull(scope, "Visibility scope must not be null");
 
-      if (PRIVATE.equals(scope)) target.setPrivate();
-      if (PACKAGE_PRIVATE.equals(scope)) target.setPackagePrivate();
-      if (PROTECTED.equals(scope)) target.setProtected();
+      if (PRIVATE.equals(scope))
+         target.setPrivate();
+      if (PACKAGE_PRIVATE.equals(scope))
+         target.setPackagePrivate();
+      if (PROTECTED.equals(scope))
+         target.setProtected();
       if (PUBLIC.equals(scope))
          target.setPublic();
 

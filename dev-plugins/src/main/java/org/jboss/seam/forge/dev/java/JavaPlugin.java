@@ -35,6 +35,8 @@ import org.jboss.seam.forge.parser.java.FieldHolder;
 import org.jboss.seam.forge.parser.java.Import;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.MethodHolder;
 import org.jboss.seam.forge.parser.java.SyntaxError;
 import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.Project;
@@ -171,8 +173,8 @@ public class JavaPlugin implements Plugin
             @PipeIn final String in,
             final PipeOut out,
             @Option(required = false,
-                     help = "the method definition: surround with single quotes",
-                     description = "method  definition") final String... def) throws FileNotFoundException
+                     help = "the field definition: surround with single quotes",
+                     description = "field definition") final String... def) throws FileNotFoundException
    {
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
@@ -202,6 +204,48 @@ public class JavaPlugin implements Plugin
          }
 
          clazz.addField(fieldDef);
+         java.saveJavaSource(source);
+      }
+   }
+
+   @Command("new-method")
+   @RequiresResource(JavaResource.class)
+   public void newMethod(
+            @PipeIn final String in,
+            final PipeOut out,
+            @Option(required = false,
+                     help = "the method definition: surround with single quotes",
+                     description = "method definition") final String... def) throws FileNotFoundException
+   {
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      String methodDef = null;
+      if (def != null)
+      {
+         methodDef = Strings.join(Arrays.asList(def), " ");
+      }
+      else if (in != null)
+      {
+         methodDef = in;
+      }
+      else
+      {
+         throw new RuntimeException("arguments required");
+      }
+
+      JavaSource<?> source = resource.getJavaSource();
+      if (source instanceof MethodHolder)
+      {
+         MethodHolder<?> clazz = ((MethodHolder<?>) source);
+
+         Method<JavaClass> method = JavaParser.parse(JavaClass.class, "public class Temp{}").addMethod(methodDef);
+         if (clazz.hasMethodSignature(method))
+         {
+            throw new IllegalStateException("Method with signature [" + method.toSignature()
+                     + "] already exists.");
+         }
+
+         clazz.addMethod(methodDef);
          java.saveJavaSource(source);
       }
    }

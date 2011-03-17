@@ -65,4 +65,6 @@ public interface Method<O> extends Abstractable<Method<O>>, Member<O, Method<O>>
 
    public List<Parameter> getParameters();
 
+   public String toSignature();
+
 }

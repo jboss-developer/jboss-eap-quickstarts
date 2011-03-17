@@ -21,17 +21,11 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jface.text.Document;
-import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.SourceType;
@@ -50,79 +44,6 @@ public class JavaClassImpl extends AbstractJavaSourceMemberHolder<JavaClass> imp
    public JavaClassImpl(final Document document, final CompilationUnit unit)
    {
       super(document, unit);
-   }
-
-   /*
-    * Field & Method modifiers
-    */
-   @Override
-   @SuppressWarnings("unchecked")
-   public Field<JavaClass> addField()
-   {
-      Field<JavaClass> field = new FieldImpl<JavaClass>(this);
-      getBodyDeclaration().bodyDeclarations().add(field.getInternal());
-      return field;
-   }
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public Field<JavaClass> addField(final String declaration)
-   {
-      Field<JavaClass> field = new FieldImpl<JavaClass>(this, declaration);
-      getBodyDeclaration().bodyDeclarations().add(field.getInternal());
-      return field;
-   }
-
-   @Override
-   public List<Field<JavaClass>> getFields()
-   {
-      List<Field<JavaClass>> result = new ArrayList<Field<JavaClass>>();
-
-      for (FieldDeclaration field : ((TypeDeclaration) getBodyDeclaration()).getFields())
-      {
-         result.add(new FieldImpl<JavaClass>(this, field));
-      }
-
-      return Collections.unmodifiableList(result);
-   }
-
-   @Override
-   public Field<JavaClass> getField(final String name)
-   {
-      for (Field<JavaClass> field : getFields())
-      {
-         if (field.getName().equals(name))
-         {
-            return field;
-         }
-      }
-      return null;
-   }
-
-   @Override
-   public boolean hasField(final String name)
-   {
-      for (Field<JavaClass> field : getFields())
-      {
-         if (field.getName().equals(name))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
-
-   @Override
-   public boolean hasField(final Field<JavaClass> field)
-   {
-      return getFields().contains(field);
-   }
-
-   @Override
-   public JavaClass removeField(final Field<JavaClass> field)
-   {
-      getBodyDeclaration().bodyDeclarations().remove(field.getInternal());
-      return this;
    }
 
    @Override

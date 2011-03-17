@@ -1,5 +1,5 @@
 /*
- * JBoss, by Red Hat.
+ * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,40 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.seam.forge.test.parser.java;
 
-package org.jboss.seam.forge.dev.vcs;
+import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.Alias;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.util.NativeSystemCall;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.Method;
+import org.junit.Test;
 
 /**
- * @author Mike Brock .
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Alias("git")
-@Topic("Version Control")
-public class GitShellPlugin implements Plugin
+public class MethodSignatureTest
 {
-   private final Shell shell;
-
-   @Inject
-   public GitShellPlugin(final Shell shell)
+   @Test
+   public void testEmptyMethodSignature() throws Exception
    {
-      this.shell = shell;
+      Method<JavaClass> method = JavaParser.create(JavaClass.class).addMethod("public void hello()");
+      String signature = method.toSignature();
+      assertEquals("public hello() : void", signature);
    }
 
-   @DefaultCommand
-   public void run(final PipeOut out, final String... parms) throws IOException
+   @Test
+   public void testMethodSignatureParams() throws Exception
    {
-      NativeSystemCall.execFromPath("git", parms, out, shell.getCurrentDirectory());
+      Method<JavaClass> method = JavaParser.create(JavaClass.class).addMethod("public void hello(String foo, int bar)");
+      String signature = method.toSignature();
+      assertEquals("public hello(String, int) : void", signature);
    }
-
 }
