@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.parser.JavaParser;
@@ -43,6 +44,7 @@ import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
+import org.jboss.seam.forge.shell.events.PickupResource;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.Current;
@@ -75,6 +77,9 @@ public class JavaPlugin implements Plugin
 
    @Inject
    private ShellPrintWriter writer;
+
+   @Inject
+   private Event<PickupResource> pickUp;
 
    @DefaultCommand(help = "Prints all Java system property information.")
    public void info(final PipeOut out)
@@ -142,6 +147,8 @@ public class JavaPlugin implements Plugin
             java.saveJavaSource(jc);
          }
       }
+
+      pickUp.fire(new PickupResource(java.getJavaResource(jc)));
    }
 
    @Command("list-imports")

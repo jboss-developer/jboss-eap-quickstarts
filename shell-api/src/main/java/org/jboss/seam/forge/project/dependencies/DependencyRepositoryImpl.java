@@ -49,6 +49,12 @@ public class DependencyRepositoryImpl implements DependencyRepository
    }
 
    @Override
+   public String toString()
+   {
+      return "DependencyRepositoryImpl [id=" + id + ", url=" + url + "]";
+   }
+
+   @Override
    public int hashCode()
    {
       final int prime = 31;

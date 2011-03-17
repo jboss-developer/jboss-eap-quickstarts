@@ -92,11 +92,25 @@ public class ProjectPlugin implements Plugin
             @Option(required = true,
                      type = PromptType.DEPENDENCY_ID,
                      description = "[ groupId :artifactId {:version :scope :packaging} ]",
-                     help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"") final Dependency gav,
+                     help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"") Dependency gav,
             final PipeOut out
             )
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      List<Dependency> availableVersions = deps.resolveAvailableVersions(gav);
+      if (availableVersions.isEmpty())
+      {
+         throw new RuntimeException("No available versions resolved for dependency [" + gav + "]");
+      }
+      else if (availableVersions.size() > 1)
+      {
+         gav = shell.promptChoiceTyped("Add which version?", availableVersions);
+      }
+      else
+      {
+         gav = availableVersions.get(0);
+      }
+
       if (!deps.hasDependency(gav))
       {
          deps.addDependency(gav);
