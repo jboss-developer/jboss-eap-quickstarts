@@ -41,6 +41,7 @@ import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
@@ -97,33 +98,47 @@ public class ProjectPlugin implements Plugin
             )
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      List<Dependency> availableVersions = deps.resolveAvailableVersions(gav);
-      if (availableVersions.isEmpty())
-      {
-         throw new RuntimeException("No available versions resolved for dependency [" + gav + "]");
-      }
-      else if (availableVersions.size() > 1)
-      {
-         gav = shell.promptChoiceTyped("Add which version?", availableVersions);
-      }
-      else
-      {
-         gav = availableVersions.get(0);
-      }
 
-      if (!deps.hasDependency(gav))
+      if (!deps.hasDependency(gav)
+               || shell.promptBoolean("Dependency already exists [" + gav.getGroupId() + ":" + gav.getArtifactId()
+                        + "], continue?", true))
       {
+         DependencyBuilder search = DependencyBuilder.create(gav).setVersion("[0,)");
+         List<Dependency> availableVersions = deps.resolveAvailableVersions(search);
+
+         if (availableVersions.isEmpty())
+         {
+            throw new RuntimeException("No available versions resolved for dependency [" + gav + "]");
+         }
+
+         if (!availableVersions.contains(gav))
+         {
+            ShellMessages.info(out, "No artifact found for dependency [" + gav + "]");
+            if (availableVersions.size() > 1)
+            {
+               gav = shell.promptChoiceTyped("Add which version?", availableVersions);
+            }
+            else if (shell.promptBoolean("Use [" + availableVersions.get(0) + "] instead?", true))
+            {
+               gav = availableVersions.get(0);
+            }
+            else
+            {
+               throw new RuntimeException("Could not add dependency [" + gav + "]");
+            }
+         }
+
+         if (deps.hasDependency(gav))
+         {
+            Dependency dependency = deps.getDependency(gav);
+            deps.removeDependency(dependency);
+         }
          deps.addDependency(gav);
          out.println("Added dependency [" + gav + "]");
       }
       else
       {
-         Dependency dependency = deps.getDependency(gav);
-         if (shell.promptBoolean("Dependency already exists [" + dependency + "], replace with [" + gav + "]?", false))
-         {
-            deps.removeDependency(dependency);
-            deps.addDependency(gav);
-         }
+         ShellMessages.info(out, "Aborted.");
       }
    }
 
