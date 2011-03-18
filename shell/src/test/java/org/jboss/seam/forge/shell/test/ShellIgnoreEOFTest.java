@@ -63,8 +63,10 @@ public class ShellIgnoreEOFTest extends AbstractShellTest
    {
       assertFalse(shutdown);
       queueInputLines(null, null, null, null, null);
-      assertNull(getShell().readLine());
-      assertNull(getShell().readLine());
+      String line = getShell().readLine();
+      assertNull(line);
+      line = getShell().readLine();
+      assertNull(line);
       assertTrue(shutdown);
    }
 

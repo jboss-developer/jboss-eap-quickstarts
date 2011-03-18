@@ -200,4 +200,15 @@ public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
     * Return true if the {@link Shell} is currently executing a plugin; otherwise, return false.
     */
    boolean isExecuting();
+
+   /**
+    * Controls the shell's usage of ANSI escape code support. This method does not guarantee ANSI will function
+    * properly, as the underlying Terminal must also support it.
+    */
+   void setAnsiSupported(boolean value);
+
+   /**
+    * Returns whether or not this shell supports ANSI escape codes.
+    */
+   boolean isAnsiSupported();
 }

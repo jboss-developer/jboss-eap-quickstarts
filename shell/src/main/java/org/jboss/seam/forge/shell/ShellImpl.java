@@ -43,6 +43,8 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import jline.TerminalFactory;
+import jline.TerminalFactory.Type;
 import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
@@ -302,6 +304,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       projectContext.setCurrentResource(resourceFactory.getResourceFrom(event.getWorkingDirectory()));
       properties.put("CWD", getCurrentDirectory().getFullyQualifiedName());
 
+      configureOSTerminal();
       initStreams();
       initCompleters(pluginCompleter);
       initParameters();
@@ -1048,5 +1051,56 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    protected ResourceFactory getResourceFactory()
    {
       return resourceFactory;
+   }
+
+   @Override
+   public void setAnsiSupported(boolean value)
+   {
+      if (value != isAnsiSupported())
+      {
+         try
+         {
+            if (value)
+            {
+               configureOSTerminal();
+            }
+            else
+            {
+               TerminalFactory.configure(Type.NONE);
+               TerminalFactory.reset();
+            }
+            initStreams();
+         }
+         catch (IOException e)
+         {
+            throw new RuntimeException("Failed to reset Terminal instance for ANSI configuration", e);
+         }
+      }
+   }
+
+   private void configureOSTerminal() throws IOException
+   {
+      if (OSUtils.isLinux() || OSUtils.isOSX())
+      {
+         TerminalFactory.configure(Type.UNIX);
+         TerminalFactory.reset();
+      }
+      else if (OSUtils.isWindows())
+      {
+         TerminalFactory.configure(Type.WINDOWS);
+         TerminalFactory.reset();
+      }
+      else
+      {
+         TerminalFactory.configure(Type.NONE);
+         TerminalFactory.reset();
+      }
+      initStreams();
+   }
+
+   @Override
+   public boolean isAnsiSupported()
+   {
+      return reader.getTerminal().isAnsiSupported();
    }
 }

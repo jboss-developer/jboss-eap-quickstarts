@@ -109,6 +109,7 @@ public abstract class AbstractShellTest
 
       resetInputQueue();
       shell.setOutputWriter(new PrintWriter(System.out));
+      shell.setAnsiSupported(false);
    }
 
    protected DirectoryResource createTempFolder() throws IOException
