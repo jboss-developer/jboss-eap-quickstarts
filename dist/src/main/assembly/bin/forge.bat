@@ -140,7 +140,7 @@ goto runForge
 @REM Start Forge
 :runForge
 set FORGE_MAIN_CLASS=org.jboss.seam.forge.shell.Bootstrap
-%FORGE_JAVA_EXE% %FORGE_OPTS% -classpath %FORGE_JARS% "-Dforge.home=%FORGE_HOME%" %FORGE_MAIN_CLASS% %FORGE_CMD_LINE_ARGS% -Dseam.forge.shell.colorEnabled=false
+%FORGE_JAVA_EXE% %FORGE_OPTS% -classpath %FORGE_JARS% "-Dforge.home=%FORGE_HOME%" -DWindowsTerminal.ansi=true %FORGE_MAIN_CLASS% %FORGE_CMD_LINE_ARGS%
 if ERRORLEVEL 1 goto error
 goto end
 

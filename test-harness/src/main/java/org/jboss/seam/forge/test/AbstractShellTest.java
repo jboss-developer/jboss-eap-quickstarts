@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -108,7 +107,7 @@ public abstract class AbstractShellTest
       beanManager.fireEvent(new Startup());
 
       resetInputQueue();
-      shell.setOutputWriter(new PrintWriter(System.out));
+      shell.setOutputStream(System.out);
       shell.setAnsiSupported(false);
    }
 

@@ -67,6 +67,15 @@ public class ForgePlugin implements Plugin
       out.println("Seam Forge, version [ " + version + " ] - JBoss, by Red Hat, Inc. [ http://jboss.org ]");
    }
 
+   @Command(value = "ansi-test", help = "Display a list of all known ANSI color codes, in their corresponding color")
+   public void run(PipeOut out)
+   {
+      for (ShellColor c : ShellColor.values())
+      {
+         out.println(c, c.name());
+      }
+   }
+
    @Command("info")
    public void info(PipeOut out)
    {

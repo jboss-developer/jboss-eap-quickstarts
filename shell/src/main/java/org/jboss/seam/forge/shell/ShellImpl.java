@@ -31,8 +31,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +43,7 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import jline.Terminal;
 import jline.TerminalFactory;
 import jline.TerminalFactory.Type;
 import jline.console.ConsoleReader;
@@ -51,6 +52,7 @@ import jline.console.completer.Completer;
 import jline.console.history.MemoryHistory;
 
 import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -150,7 +152,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    private boolean exitRequested = false;
 
    private InputStream inputStream;
-   private Writer outputWriter;
+   private OutputStream outputStream;
 
    private OutputStream historyOutstream;
 
@@ -305,7 +307,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       properties.put("CWD", getCurrentDirectory().getFullyQualifiedName());
 
       configureOSTerminal();
-      initStreams();
+      initReaderAndStreams();
       initCompleters(pluginCompleter);
       initParameters();
       initSignalHandlers();
@@ -424,17 +426,22 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       this.reader.setCompletionHandler(new OptionAwareCompletionHandler(commandHolder, this));
    }
 
-   private void initStreams() throws IOException
+   private void initReaderAndStreams() throws IOException
    {
       if (inputStream == null)
       {
          inputStream = System.in;
       }
-      if (outputWriter == null)
+      if (outputStream == null)
       {
-         outputWriter = new PrintWriter(System.out);
+         outputStream = System.out;
       }
-      this.reader = new ConsoleReader(inputStream, outputWriter);
+      if (OSUtils.isWindows())
+      {
+         this.reader = setupReaderForWindows(inputStream, outputStream);
+      }
+      else
+         this.reader = new ConsoleReader(inputStream, new OutputStreamWriter(outputStream));
       this.reader.setHistoryEnabled(true);
       this.reader.setBellEnabled(false);
    }
@@ -764,26 +771,54 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    {
       if (isVerbose())
       {
-         System.out.println(line);
+         try
+         {
+            reader.println(line);
+         }
+         catch (IOException e)
+         {
+            throw new RuntimeException(e);
+         }
       }
    }
 
    @Override
    public void print(final String output)
    {
-      System.out.print(output);
+      try
+      {
+         reader.print(output);
+      }
+      catch (IOException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override
-   public void println(final String output)
+   public void println(final String line)
    {
-      System.out.println(output);
+      try
+      {
+         reader.println(line);
+      }
+      catch (IOException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override
    public void println()
    {
-      System.out.println();
+      try
+      {
+         reader.println();
+      }
+      catch (IOException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override
@@ -848,6 +883,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
          break;
 
       default:
+         return output;
       }
 
       return ansi.render(output).reset().toString();
@@ -856,7 +892,14 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    @Override
    public void write(final byte b)
    {
-      System.out.print((char) b);
+      try
+      {
+         reader.print(new String(new byte[] { b }));
+      }
+      catch (IOException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override
@@ -894,14 +937,14 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    public void setInputStream(final InputStream is) throws IOException
    {
       this.inputStream = is;
-      initStreams();
+      initReaderAndStreams();
    }
 
    @Override
-   public void setOutputWriter(final Writer os) throws IOException
+   public void setOutputStream(final OutputStream stream) throws IOException
    {
-      this.outputWriter = os;
-      initStreams();
+      this.outputStream = stream;
+      initReaderAndStreams();
    }
 
    @Override
@@ -1069,7 +1112,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
                TerminalFactory.configure(Type.NONE);
                TerminalFactory.reset();
             }
-            initStreams();
+            initReaderAndStreams();
          }
          catch (IOException e)
          {
@@ -1095,7 +1138,27 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
          TerminalFactory.configure(Type.NONE);
          TerminalFactory.reset();
       }
-      initStreams();
+      initReaderAndStreams();
+   }
+
+   private ConsoleReader setupReaderForWindows(InputStream inputStream, OutputStream outputStream)
+   {
+      try
+      {
+         final OutputStream ansiOut = AnsiConsole.wrapOutputStream(outputStream);
+
+         TerminalFactory.configure(Type.WINDOWS);
+         Terminal terminal = TerminalFactory.get();
+         ConsoleReader consoleReader = new ConsoleReader(inputStream, new PrintWriter(
+                             new OutputStreamWriter(ansiOut, System.getProperty(
+                                      "jline.WindowsTerminal.output.encoding", System.getProperty("file.encoding")))),
+                    null, terminal);
+         return consoleReader;
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 
    @Override

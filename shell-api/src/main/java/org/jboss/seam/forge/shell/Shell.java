@@ -25,7 +25,7 @@ package org.jboss.seam.forge.shell;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Writer;
+import java.io.OutputStream;
 import java.util.Map;
 
 import org.jboss.seam.forge.project.Project;
@@ -170,9 +170,9 @@ public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
    void setInputStream(InputStream inputStream) throws IOException;
 
    /**
-    * Set the writer to which the shell should print output.
+    * Set the stream to which the shell should print output.
     */
-   void setOutputWriter(Writer writer) throws IOException;
+   void setOutputStream(OutputStream stream) throws IOException;
 
    /**
     * Return the current height, in characters, of the current shell console. (<strong>Warning:</strong> This may change

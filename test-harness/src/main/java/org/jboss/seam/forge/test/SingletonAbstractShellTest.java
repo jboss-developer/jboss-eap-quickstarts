@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -99,7 +98,7 @@ public abstract class SingletonAbstractShellTest
          beanManager.fireEvent(new Startup(), new Annotation[] {});
 
          resetInputQueue();
-         shell.setOutputWriter(new PrintWriter(System.out));
+         shell.setOutputStream(System.out);
       }
    }
 
