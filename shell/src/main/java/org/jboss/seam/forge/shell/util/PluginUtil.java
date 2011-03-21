@@ -63,6 +63,8 @@ public class PluginUtil
    private static final String PROP_DESCRIPTION = "description";
    private static final String PROP_AUTHOR = "author";
    private static final String PROP_NAME = "name";
+   private static final Object PROP_GIT_TAG = "tag";
+   private static final Object PROP_GIT_BRANCH = "branch";
 
    @SuppressWarnings("unchecked")
    public static List<PluginRef> findPlugin(String repoUrl, String searchString, PipeOut out) throws Exception
@@ -276,8 +278,13 @@ public class PluginUtil
 
    private static PluginRef bindToPuginRef(Map<String, String> map)
    {
-      return new PluginRef(map.get(PROP_NAME), map.get(PROP_AUTHOR),
-               map.get(PROP_DESCRIPTION), map.get(PROP_ARTIFACT),
-               map.get(PROP_HOME_MAVEN_REPO), map.get(PROP_GIT_REPOSITORY));
+      return new PluginRef(map.get(PROP_NAME),
+               map.get(PROP_AUTHOR),
+               map.get(PROP_DESCRIPTION),
+               map.get(PROP_ARTIFACT),
+               map.get(PROP_HOME_MAVEN_REPO),
+               map.get(PROP_GIT_REPOSITORY),
+               map.get(PROP_GIT_TAG),
+               map.get(PROP_GIT_BRANCH));
    }
 }

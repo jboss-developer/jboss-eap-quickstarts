@@ -38,6 +38,7 @@ import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellColor;
@@ -83,6 +84,13 @@ public class ProjectPlugin implements Plugin
       out.println(project.getFacet(MetadataFacet.class).getProjectName());
       out.print(ShellColor.BOLD, "Project dir:  ");
       out.println(project.getProjectRoot().getFullyQualifiedName());
+   }
+
+   @Command("build")
+   public void build(PipeOut out)
+   {
+      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+      packaging.executeBuild();
    }
 
    /*

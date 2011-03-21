@@ -86,6 +86,7 @@ public class MavenContainer
          request.setRepositorySession(repositorySession);
          request.setProcessPlugins(true);
          request.setResolveDependencies(true);
+
       }
       catch (Exception e)
       {

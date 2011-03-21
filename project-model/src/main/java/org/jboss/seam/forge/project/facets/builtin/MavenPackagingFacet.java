@@ -22,12 +22,12 @@
 package org.jboss.seam.forge.project.facets.builtin;
 
 import java.io.File;
-import java.util.Arrays;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import org.apache.maven.cli.MavenCli;
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.facets.BaseFacet;
@@ -38,6 +38,7 @@ import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.events.PackagingChanged;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.RequiresFacet;
@@ -55,10 +56,13 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
    private Event<PackagingChanged> event;
 
    @Inject
-   ResourceFactory factory;
+   private MavenContainer container;
 
    @Inject
-   Shell shell;
+   private ResourceFactory factory;
+
+   @Inject
+   private Shell shell;
 
    @Override
    public void setPackagingType(final PackagingType type)
@@ -130,12 +134,17 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
    @Override
    public void executeBuild(String... args)
    {
-      // FIXME this references an upstream shell function from dev-plugins. should build via java
-      if (args == null)
+      MavenCli cli = new MavenCli();
+      int i = cli.doMain(new String[] { "clean", "install" }, project.getProjectRoot().getFullyQualifiedName(),
+               System.out, System.err);
+      if (i == 0)
       {
-         args = new String[] {};
+         ShellMessages.success(shell, "Build successful.");
       }
-      shell.execute("mvn clean package " + Strings.join(Arrays.asList(args), " "));
+      else
+      {
+         ShellMessages.error(shell, "Build failed.");
+      }
    }
 
 }

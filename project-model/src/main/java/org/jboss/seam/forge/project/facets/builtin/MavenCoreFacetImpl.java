@@ -154,7 +154,8 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       return pom;
    }
 
-   private FileResource<?> getPOMFile()
+   @Override
+   public FileResource<?> getPOMFile()
    {
       Resource<?> file = project.getProjectRoot().getChild("pom.xml");
       return (FileResource<?>) file;

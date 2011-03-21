@@ -214,6 +214,6 @@ public class InstallFacetPlugin implements Plugin
 
    private void abort()
    {
-      shell.println("Installation cancelled!");
+      ShellMessages.info(shell, "Installation cancelled!");
    }
 }

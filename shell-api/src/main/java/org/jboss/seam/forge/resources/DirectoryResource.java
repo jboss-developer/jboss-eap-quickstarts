@@ -23,9 +23,11 @@
 package org.jboss.seam.forge.resources;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jboss.seam.forge.project.ProjectModelException;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 
 /**
@@ -139,11 +141,30 @@ public class DirectoryResource extends FileResource<DirectoryResource>
    }
 
    @Override
+   public DirectoryResource createTempResource()
+   {
+      try
+      {
+         File tempFile = File.createTempFile("forgetemp", "");
+         tempFile.delete();
+         return createFrom(tempFile);
+      }
+      catch (IOException e)
+      {
+         throw new ProjectModelException(e);
+      }
+   }
+
+   @Override
    public DirectoryResource createFrom(final File file)
    {
-      if (!file.isDirectory())
+      if (file.exists() && !file.isDirectory())
       {
          throw new ResourceException("File reference is not a directory: " + file.getAbsolutePath());
+      }
+      else if (!file.exists())
+      {
+         file.mkdirs();
       }
 
       return new DirectoryResource(resourceFactory, file);

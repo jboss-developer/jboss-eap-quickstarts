@@ -26,10 +26,11 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.resources.FileResource;
 
 /**
- * Provides *DIRECT* access to a Project's Maven POM and Build artifacts. Should
- * only be used by extremely low-level operations.
+ * Provides *DIRECT* access to a Project's Maven POM and Build artifacts. Should only be used by extremely low-level
+ * operations.
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -42,6 +43,11 @@ public interface MavenCoreFacet extends Facet
    public Model getPOM();
 
    /**
+    * Get the current Maven POM file.
+    */
+   public FileResource<?> getPOMFile();
+
+   /**
     * Set the current Maven POM file (overwriting any existing POM)
     */
    public void setPOM(Model pom);
@@ -49,14 +55,12 @@ public interface MavenCoreFacet extends Facet
    /**
     * Ask Maven to process this project's POM and return the resulting metadata.
     * <p>
-    * <b>**Warning!**</b> Calling this method has serious performance
-    * implications! Avoid whenever possible!
+    * <b>**Warning!**</b> Calling this method has serious performance implications! Avoid whenever possible!
     */
    public ProjectBuildingResult getProjectBuildingResult();
 
    /**
-    * Return the fully-resolved POM/{@link MavenProject} for this Maven enabled
-    * {@link Project}
+    * Return the fully-resolved POM/{@link MavenProject} for this Maven enabled {@link Project}
     */
    public MavenProject getMavenProject();
 
