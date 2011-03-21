@@ -31,6 +31,7 @@ import java.util.Map;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -52,10 +53,28 @@ public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
     */
    Resource<?> getCurrentResource();
 
+   /**
+    * Return the type of the {@link Resource} on which the Shell is currently operating.
+    * 
+    * @see {@link RequiresResource}
+    */
    Class<? extends Resource<?>> getCurrentResourceScope();
 
+   /**
+    * Set the {@link Resource} on which the shell should operate.
+    * <p>
+    * Note: This may change the current {@link Shell#getCurrentDirectory()}
+    */
    void setCurrentResource(Resource<?> resource);
 
+   /**
+    * Return the file-system directory currently in use as the configuration directory. (Usually "~/.forge/")
+    */
+   DirectoryResource getConfigDir();
+
+   /**
+    * Return the {@link Project} on which this shell instance is currently operating.
+    */
    Project getCurrentProject();
 
    /**
@@ -105,6 +124,12 @@ public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
     */
    void execute(File file) throws IOException;
 
+   /**
+    * Execute a shell script from the specified file, passing the given arguments as input.
+    * 
+    * @param file
+    * @param args
+    */
    void execute(File file, String... args) throws IOException;
 
    /**

@@ -132,6 +132,12 @@ public class ExcludedDependencyBuilder implements Dependency
    }
 
    @Override
+   public String toIdentifier()
+   {
+      return DependencyBuilder.toId(this);
+   }
+
+   @Override
    public String toString()
    {
       return DependencyBuilder.toString(this);

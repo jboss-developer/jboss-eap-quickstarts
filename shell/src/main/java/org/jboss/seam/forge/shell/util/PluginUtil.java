@@ -45,6 +45,7 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -56,18 +57,26 @@ import org.yaml.snakeyaml.Yaml;
  */
 public class PluginUtil
 {
+   private static final String PROP_GIT_REPOSITORY = "gitrepo";
+   private static final String PROP_HOME_MAVEN_REPO = "homerepo";
+   private static final String PROP_ARTIFACT = "artifact";
+   private static final String PROP_DESCRIPTION = "description";
+   private static final String PROP_AUTHOR = "author";
+   private static final String PROP_NAME = "name";
+
+   @SuppressWarnings("unchecked")
    public static List<PluginRef> findPlugin(String repoUrl, String searchString, PipeOut out) throws Exception
    {
       DefaultHttpClient client = new DefaultHttpClient();
       HttpGet httpGet = new HttpGet(repoUrl);
 
-      out.print("Connecting to remote repository ... ");
+      out.print("Connecting to remote repository [" + repoUrl + "]... ");
       HttpResponse httpResponse = client.execute(httpGet);
 
       switch (httpResponse.getStatusLine().getStatusCode())
       {
       case 200:
-         out.println("found!");
+         out.println("connected!");
          break;
 
       case 404:
@@ -78,7 +87,6 @@ public class PluginUtil
          out.println("failed! (server returned status code: " + httpResponse.getStatusLine().getStatusCode());
          return Collections.emptyList();
       }
-
 
       Pattern pattern = Pattern.compile(GeneralUtils.pathspecToRegEx("*" + searchString + "*"));
 
@@ -92,8 +100,8 @@ public class PluginUtil
             continue;
          }
 
-         Map map = (Map) o;
-         String name = (String) map.get("name");
+         Map<String, String> map = (Map<String, String>) o;
+         String name = map.get(PROP_NAME);
 
          if (pattern.matcher(name).matches())
          {
@@ -108,26 +116,28 @@ public class PluginUtil
    {
       DefaultHttpClient client = new DefaultHttpClient();
 
-      String[] artifactParts = ref.getArtifact().split(":");
+      Dependency artifact = ref.getArtifact();
+      String groupId = artifact.getGroupId();
+      String artifactId = artifact.getArtifactId();
+      String version = artifact.getVersion();
 
-      if (artifactParts.length != 3)
+      String[] id = artifact.toIdentifier().split(":");
+      if (id.length != 3)
       {
          throw new RuntimeException("malformed artifact identifier " +
                   "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: "
-                  + ref.getArtifact());
+                  + artifact);
       }
 
-      String packageLocation = artifactParts[0].replaceAll("\\.", "/");
-      String baseUrl;
-      if (ref.getHomeRepo().endsWith("/"))
+      String packageLocation = Packages.toFileSyntax(groupId);
+      String homeRepo = ref.getHomeRepo();
+
+      if (!homeRepo.endsWith("/"))
       {
-         baseUrl = ref.getHomeRepo() + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
-      }
-      else
-      {
-         baseUrl = ref.getHomeRepo() + "/" + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
+         homeRepo += "/";
       }
 
+      String baseUrl = homeRepo + packageLocation + "/" + artifactId + "/" + version;
       HttpGet httpGetManifest = new HttpGet(baseUrl + "/maven-metadata.xml");
       out.print("Retrieving artifact manifest ... ");
 
@@ -159,12 +169,12 @@ public class PluginUtil
                return null;
             }
 
-            String version = n.getFirstChild().getTextContent();
+            String snapshotVersion = n.getFirstChild().getTextContent();
 
             // plugin definition points to a snapshot.
-            out.println("good! (maven snapshot found): " + version);
+            out.println("good! (maven snapshot found): " + snapshotVersion);
 
-            String fileName = artifactParts[1] + "-" + version + ".jar";
+            String fileName = artifactId + "-" + snapshotVersion + ".jar";
 
             HttpGet jarGet = new HttpGet(baseUrl + "/" + fileName);
 
@@ -183,8 +193,6 @@ public class PluginUtil
                return null;
             }
 
-
-
             // do download of snapshot.
          }
          else
@@ -194,7 +202,7 @@ public class PluginUtil
          }
 
       case 404:
-         String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
+         String requestUrl = baseUrl + "/" + version + ".pom";
          httpGetManifest = new HttpGet(requestUrl);
          response = client.execute(httpGetManifest);
 
@@ -215,7 +223,6 @@ public class PluginUtil
          return null;
       }
 
-
       return null;
 
    }
@@ -232,7 +239,7 @@ public class PluginUtil
       }
    }
 
-   private static File saveFile(String fileName, InputStream stream) throws IOException
+   public static File saveFile(String fileName, InputStream stream) throws IOException
    {
       File file = new File(fileName);
       new File(fileName.substring(0, fileName.lastIndexOf('/'))).mkdirs();
@@ -254,7 +261,6 @@ public class PluginUtil
       return file;
    }
 
-
    public static void loadPluginJar(File file) throws Exception
    {
       ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -268,9 +274,10 @@ public class PluginUtil
       Thread.currentThread().setContextClassLoader(classLoader);
    }
 
-   private static PluginRef bindToPuginRef(Map map)
+   private static PluginRef bindToPuginRef(Map<String, String> map)
    {
-      return new PluginRef((String) map.get("name"), (String) map.get("author"),
-            (String) map.get("description"), (String) map.get("artifact"), (String) map.get("homerepo"));
+      return new PluginRef(map.get(PROP_NAME), map.get(PROP_AUTHOR),
+               map.get(PROP_DESCRIPTION), map.get(PROP_ARTIFACT),
+               map.get(PROP_HOME_MAVEN_REPO), map.get(PROP_GIT_REPOSITORY));
    }
 }

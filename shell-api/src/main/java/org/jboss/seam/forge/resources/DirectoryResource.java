@@ -101,6 +101,16 @@ public class DirectoryResource extends FileResource<DirectoryResource>
       return (DirectoryResource) result;
    }
 
+   public DirectoryResource getOrCreateChildDirectory(String name)
+   {
+      DirectoryResource child = getChildDirectory(name);
+      if (!child.exists())
+      {
+         child.mkdir();
+      }
+      return child;
+   }
+
    /**
     * Using the given type, obtain a reference to the child resource of the given type. If the result is not of the
     * requested type and does not exist, return null. If the result is not of the requested type and exists, throw

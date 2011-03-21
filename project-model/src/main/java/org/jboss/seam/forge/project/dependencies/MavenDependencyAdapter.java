@@ -179,4 +179,10 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    {
       return DependencyBuilder.toString(this);
    }
+
+   @Override
+   public String toIdentifier()
+   {
+      return DependencyBuilder.toId(this);
+   }
 }

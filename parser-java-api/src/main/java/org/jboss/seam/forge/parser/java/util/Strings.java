@@ -111,4 +111,15 @@ public class Strings
       }
       return areEqual(left, right);
    }
+
+   public static String stripQuotes(String value)
+   {
+      if (value != null && (value.startsWith("'") && value.endsWith("'")
+               || value.startsWith("\"") && value.endsWith("\""))
+               && value.length() > 2)
+      {
+         value = value.substring(1, value.length() - 2);
+      }
+      return value;
+   }
 }

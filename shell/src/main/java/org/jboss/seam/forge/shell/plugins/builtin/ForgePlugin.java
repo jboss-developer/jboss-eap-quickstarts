@@ -22,18 +22,32 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.io.File;
+import java.util.List;
+
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.PluginRef;
+import org.jboss.seam.forge.shell.util.PluginUtil;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -44,11 +58,13 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 public class ForgePlugin implements Plugin
 {
    private final Event<ReinitializeEnvironment> reinitializeEvent;
+   private final Shell shell;
 
    @Inject
-   public ForgePlugin(Event<ReinitializeEnvironment> reinitializeEvent)
+   public ForgePlugin(Event<ReinitializeEnvironment> reinitializeEvent, Shell shell)
    {
       this.reinitializeEvent = reinitializeEvent;
+      this.shell = shell;
    }
 
    @DefaultCommand
@@ -88,4 +104,123 @@ public class ForgePlugin implements Plugin
       reinitializeEvent.fire(new ReinitializeEnvironment());
    }
 
+   @Command("plugin-search")
+   public void find(@Option(description = "search string") String searchString, final PipeOut out) throws Exception
+   {
+      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
+
+      if (defaultRepo == null)
+      {
+         out.println("no default repository set: (to set, type: set DEFFAULT_PLUGIN_REPO <repository>)");
+         return;
+      }
+
+      List<PluginRef> pluginList = PluginUtil.findPlugin(defaultRepo, searchString, out);
+
+      for (PluginRef ref : pluginList)
+      {
+         out.println(" - " + ref.getName() + " (" + ref.getArtifact() + ")");
+      }
+   }
+
+   @Command("plugin-install")
+   public void install(@Option(description = "plugin-name") String pluginName, final PipeOut out) throws Exception
+   {
+      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
+      String pluginPath = shell.getProperty("FORGE_CONFIG_DIR") + "plugins/";
+
+      if (defaultRepo == null)
+      {
+         throw new RuntimeException("no default repository set: (to set, type: set DEFAULT_PLUGIN_REPO <repository>)");
+      }
+
+      List<PluginRef> plugins = PluginUtil.findPlugin(defaultRepo, pluginName, out);
+
+      if (plugins.isEmpty())
+      {
+         throw new RuntimeException("no plugin found with name [" + pluginName + "]");
+      }
+      else if (plugins.size() > 1)
+      {
+         throw new RuntimeException("ambiguous plugin query: multiple matches for [" + pluginName + "]");
+      }
+      else
+      {
+         PluginRef ref = plugins.get(0);
+         Dependency plugin = ref.getArtifact();
+         ShellMessages.info(out, "Preparing to install plugin: " + ref.getName());
+
+         if (!ref.isGit())
+         {
+            File file = PluginUtil.downloadPlugin(ref, out, pluginPath);
+            if (file == null)
+            {
+               throw new RuntimeException("Could not install plugin [" + ref.getName() + "]");
+            }
+            else
+            {
+               PluginUtil.loadPluginJar(file);
+            }
+         }
+         else if (ref.isGit())
+         {
+            DirectoryResource savedLocation = shell.getCurrentDirectory();
+            try
+            {
+               DirectoryResource workspace = shell.getConfigDir().getOrCreateChildDirectory("workspace")
+                        .getOrCreateChildDirectory(plugin.getGroupId())
+                        .getOrCreateChildDirectory(plugin.getArtifactId());
+
+               shell.setCurrentResource(workspace);
+               DirectoryResource buildDir = shell.getCurrentDirectory().getChildDirectory(plugin.getVersion());
+
+               if (buildDir.exists())
+               {
+                  buildDir.delete(true);
+               }
+
+               String gitCommand = "git clone '" + ref.getGitRepo() + "' " + plugin.getVersion() + " '--depth' 1";
+               ShellMessages.info(out, "Checking out plugin source files via 'git':" + ref.getName());
+               out.println(gitCommand);
+
+               shell.execute(gitCommand);
+               shell.setCurrentResource(buildDir);
+
+               if (!buildDir.getChild(".git").exists())
+               {
+                  throw new RuntimeException("Failed to clone git repository to workspace ["
+                           + workspace.getFullyQualifiedName() + "]");
+               }
+
+               Project project = shell.getCurrentProject();
+               PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+               ShellMessages.info(out, "Invoking build with underlying build system.");
+               packaging.executeBuild();
+               Resource<?> artifact = packaging.getFinalArtifact();
+               if (artifact.exists())
+               {
+                  if (artifact instanceof FileResource<?>)
+                  {
+                     ShellMessages.info(out, "Copying build artifact to: " + pluginPath + artifact.getName());
+                     PluginUtil.saveFile(pluginPath + artifact.getName(), artifact.getResourceInputStream());
+                     PluginUtil.loadPluginJar((File) artifact.getUnderlyingResourceObject());
+                  }
+               }
+               else
+               {
+                  throw new IllegalStateException("Build artifact is missing [" + artifact.getFullyQualifiedName()
+                           + "]; cannot install. Please resolve build errors and try again.");
+               }
+            }
+            finally
+            {
+               shell.setCurrentResource(savedLocation);
+            }
+         }
+
+         ShellMessages.info(out, "Reinitializing and installing [" + ref.getName() + "]");
+         reinitializeEvent.fire(new ReinitializeEnvironment());
+         ShellMessages.success(out, "Installed successfully.");
+      }
+   }
 }

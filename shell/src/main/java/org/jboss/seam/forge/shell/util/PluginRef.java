@@ -22,24 +22,31 @@
 
 package org.jboss.seam.forge.shell.util;
 
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+
 /**
  * @author Mike Brock .
+ * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 public class PluginRef
 {
-   private String name;
-   private String author;
-   private String description;
-   private String artifact;
-   private String homeRepo;
+   private final String name;
+   private final String author;
+   private final String description;
+   private final String artifact;
+   private final String gitRepo;
+   private final String homeRepo;
 
-   public PluginRef(String name, String author, String description, String artifact, String homeRepo)
+   public PluginRef(String name, String author, String description, String artifact, String homeRepo, String gitRepo)
    {
       this.name = name;
       this.author = author;
       this.description = description;
       this.artifact = artifact;
       this.homeRepo = homeRepo;
+      this.gitRepo = gitRepo;
    }
 
    public String getName()
@@ -57,13 +64,23 @@ public class PluginRef
       return description;
    }
 
-   public String getArtifact()
+   public Dependency getArtifact()
    {
-      return artifact;
+      return DependencyBuilder.create(artifact);
    }
 
    public String getHomeRepo()
    {
       return homeRepo;
+   }
+
+   public String getGitRepo()
+   {
+      return gitRepo;
+   }
+
+   public boolean isGit()
+   {
+      return !Strings.isNullOrEmpty(gitRepo);
    }
 }

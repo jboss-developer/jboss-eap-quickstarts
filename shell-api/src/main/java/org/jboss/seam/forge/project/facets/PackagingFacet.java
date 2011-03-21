@@ -23,6 +23,7 @@ package org.jboss.seam.forge.project.facets;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.packaging.PackagingType;
+import org.jboss.seam.forge.resources.Resource;
 
 /**
  * A Facet representing this project's Packaging (JAR, WAR, EAR, etc...)
@@ -32,7 +33,24 @@ import org.jboss.seam.forge.project.packaging.PackagingType;
  */
 public interface PackagingFacet extends Facet
 {
+   /**
+    * Set the packaging type currently in use by this project. For example, JAR, WAR,... etc.
+    */
    void setPackagingType(PackagingType type);
 
+   /**
+    * Get the packaging type currently in use by this project. For example, JAR, WAR,... etc.
+    */
    PackagingType getPackagingType();
+
+   /**
+    * Return the resource representing the fully built output artifact of this project. For example, if the project
+    * builds a JAR file, this method must return the {@link Resource} representing that JAR file.
+    */
+   Resource<?> getFinalArtifact();
+
+   /**
+    * Trigger the underlying build system to perform a build with the given arguments or flags
+    */
+   void executeBuild(String... args);
 }

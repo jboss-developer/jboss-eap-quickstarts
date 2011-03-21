@@ -76,4 +76,10 @@ public interface Dependency
     */
    List<Dependency> getExcludedDependencies();
 
+   /**
+    * Return a string represenging this dependency in the form of a standard identifier. E.g:
+    * "groupId : artifactId : version"
+    */
+   String toIdentifier();
+
 }

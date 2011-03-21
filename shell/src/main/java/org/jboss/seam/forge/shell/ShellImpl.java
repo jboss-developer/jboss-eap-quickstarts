@@ -774,6 +774,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
          try
          {
             reader.println(line);
+            reader.flush();
          }
          catch (IOException e)
          {
@@ -801,6 +802,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       try
       {
          reader.println(line);
+         reader.flush();
       }
       catch (IOException e)
       {
@@ -814,6 +816,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       try
       {
          reader.println();
+         reader.flush();
       }
       catch (IOException e)
       {
@@ -995,6 +998,13 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    {
       Resource<?> r = getCurrentResource();
       return ResourceUtil.getContextDirectory(r);
+   }
+
+   @Override
+   public DirectoryResource getConfigDir()
+   {
+      return resourceFactory.getResourceFrom(new File((String) getProperty(PROP_FORGE_CONFIG_DIR))).reify(
+               DirectoryResource.class);
    }
 
    @Override

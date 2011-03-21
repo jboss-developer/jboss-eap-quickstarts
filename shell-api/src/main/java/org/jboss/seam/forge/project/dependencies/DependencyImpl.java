@@ -117,6 +117,7 @@ public class DependencyImpl implements Dependency
       this.excludedDependencies = excludedDependencies;
    }
 
+   @Override
    public String getPackagingType()
    {
       return packagingType;
@@ -130,6 +131,12 @@ public class DependencyImpl implements Dependency
    public void setPackagingType(final String type)
    {
       packagingType = type;
+   }
+
+   @Override
+   public String toIdentifier()
+   {
+      return DependencyBuilder.toId(this);
    }
 
    @Override
@@ -166,12 +173,14 @@ public class DependencyImpl implements Dependency
 
       DependencyImpl that = (DependencyImpl) o;
 
-      return !(artifactId != null ? !artifactId.equals(that.artifactId) : that.artifactId != null) &&
-            !(excludedDependencies != null ? !excludedDependencies.equals(that.excludedDependencies) : that.excludedDependencies != null) &&
-            !(groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) &&
-            !(packagingType != null ? !packagingType.equals(that.packagingType) : that.packagingType != null) &&
-            !(scopeType != null ? !scopeType.equals(that.scopeType) : that.scopeType != null) &&
-            !(version != null ? !version.equals(that.version) : that.version != null);
+      return !(artifactId != null ? !artifactId.equals(that.artifactId) : that.artifactId != null)
+               &&
+               !(excludedDependencies != null ? !excludedDependencies.equals(that.excludedDependencies)
+                        : that.excludedDependencies != null) &&
+               !(groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) &&
+               !(packagingType != null ? !packagingType.equals(that.packagingType) : that.packagingType != null) &&
+               !(scopeType != null ? !scopeType.equals(that.scopeType) : that.scopeType != null) &&
+               !(version != null ? !version.equals(that.version) : that.version != null);
 
    }
 
