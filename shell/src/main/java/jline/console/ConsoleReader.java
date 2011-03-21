@@ -1585,6 +1585,7 @@ public class ConsoleReader
       {
          int i = in.read();
 
+         // LB3 TODO this needs to be fixed in JLINE, null must be returned for EOF
          if (i == -1)
          {
             return null;

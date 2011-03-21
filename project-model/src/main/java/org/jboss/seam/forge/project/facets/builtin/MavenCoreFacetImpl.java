@@ -182,7 +182,6 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    public boolean install()
    {
       createPOM();
-      project.registerFacet(this);
       return true;
    }
 

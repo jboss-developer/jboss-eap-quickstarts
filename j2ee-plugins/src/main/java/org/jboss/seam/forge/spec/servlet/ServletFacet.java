@@ -151,7 +151,6 @@ public class ServletFacet extends BaseFacet
                   "</body>" +
                   "</html>");
       }
-      project.registerFacet(this);
       return true;
    }
 

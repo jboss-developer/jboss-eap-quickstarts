@@ -92,7 +92,6 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
       {
          setPackagingType(PackagingType.BASIC);
       }
-      project.registerFacet(this);
       return true;
    }
 

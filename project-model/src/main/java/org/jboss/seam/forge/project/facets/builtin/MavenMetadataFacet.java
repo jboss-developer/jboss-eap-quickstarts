@@ -62,7 +62,6 @@ public class MavenMetadataFacet implements MetadataFacet
    @Override
    public boolean install()
    {
-      project.registerFacet(this);
       return true;
    }
 

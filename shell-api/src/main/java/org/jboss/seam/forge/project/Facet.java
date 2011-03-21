@@ -21,19 +21,22 @@
  */
 package org.jboss.seam.forge.project;
 
+import org.jboss.seam.forge.project.facets.BaseFacet;
+import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.shell.plugins.RequiresPackagingType;
 
 /**
  * Represents a standardized piece of a project on which certain {@link Plugin} types may rely for a set of
  * domain-specific operations. A {@link Facet} is an access point to common functionality, file manipulations,
- * descriptors that extend a {@link Project} instance.
+ * descriptors that extend a {@link Project} instance. When implementing this interface, consider extending
+ * {@link BaseFacet} for convenience.
  * <p>
  * Facets may be annotated with any of the following constraints in order to ensure proper dependencies are satisfied at
  * runtime: {@link RequiresFacet}, {@link RequiresPackagingType}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
+ * @see {@link BaseFacet}
  */
 public interface Facet
 {
@@ -49,9 +52,8 @@ public interface Facet
    void setProject(Project project);
 
    /**
-    * Perform necessary setup for this {@link Facet} to be considered installed in the given {@link Project}. If
-    * installation is successful, the {@link Facet} should be registered in the {@link Project} by calling
-    * {@link Project#registerFacet(Facet)}
+    * Perform necessary setup for this {@link Facet} to be considered installed in the given {@link Project}. This
+    * method should NOT register the facet; facet registration is handled by the project if installation is successful.
     * 
     * @return true if installation was successful, false if not.
     */

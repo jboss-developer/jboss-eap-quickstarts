@@ -80,7 +80,6 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    @Override
    public boolean install()
    {
-      project.registerFacet(this);
       return true;
    }
 

@@ -66,7 +66,6 @@ public class FacesFacet extends BaseFacet
          getConfigFile().setContents(getClass()
                   .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
       }
-      project.registerFacet(this);
       return true;
    }
 }

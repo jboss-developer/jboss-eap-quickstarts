@@ -159,7 +159,6 @@ public class PersistenceFacet extends BaseFacet
 
          }
       }
-      project.registerFacet(this);
       return true;
    }
 

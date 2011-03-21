@@ -106,7 +106,6 @@ public class MavenResourceFacet implements ResourceFacet, Facet
             folder.mkdirs();
          }
       }
-      project.registerFacet(this);
       return true;
    }
 

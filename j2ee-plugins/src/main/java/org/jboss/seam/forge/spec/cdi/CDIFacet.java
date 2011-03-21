@@ -162,7 +162,6 @@ public class CDIFacet extends BaseFacet
                      .getResourceAsStream("/org/jboss/seam/forge/web/beans.xml"));
 
       }
-      project.registerFacet(this);
       return true;
    }
 }

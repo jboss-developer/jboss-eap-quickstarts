@@ -97,7 +97,6 @@ public class MavenWebResourceFacet implements WebResourceFacet, Facet
             folder.mkdirs();
          }
       }
-      project.registerFacet(this);
       return true;
    }
 

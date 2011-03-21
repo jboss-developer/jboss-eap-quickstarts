@@ -191,7 +191,6 @@ public class MavenJavaSourceFacet implements JavaSourceFacet, Facet
          maven.setPOM(pom);
 
       }
-      project.registerFacet(this);
       return true;
    }
 
