@@ -223,11 +223,16 @@ public class ForgePlugin implements Plugin
 
          if (tagName != null)
          {
-            shell.execute("git checkout -b " + tagName + "_branch origin/" + tagName);
+            String tagCommand = "git checkout -b '" + tagName + "_branch' 'origin/" + tagName + "'";
+            shell.println(tagCommand);
+            shell.execute(tagCommand);
          }
          else if (branchName != null)
          {
-            shell.execute("git checkout -b " + branchName + "_branch origin/" + branchName);
+            String branchCommand = "git checkout -b '" + branchName + "_branch' 'origin/" + branchName + "'";
+            shell.println(branchCommand);
+            shell.execute(branchCommand);
+            ;
          }
 
          if (!buildDir.getChild(".git").exists())
