@@ -171,7 +171,7 @@ public class ProjectPlugin implements Plugin
 
       if (versions.isEmpty())
       {
-         out.println("No artifacts found for that query...");
+         out.println("No artifacts found for the query [" + gav + "]");
       }
    }
 
@@ -192,7 +192,7 @@ public class ProjectPlugin implements Plugin
       }
       else
       {
-         out.println("Dependency not found in project... ");
+         out.println("Dependency [" + gav + "] not found in project... ");
       }
    }
 
