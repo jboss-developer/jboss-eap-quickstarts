@@ -38,11 +38,10 @@ public class PluginRef
    private final String artifact;
    private final String gitRepo;
    private final String homeRepo;
-   private final String gitTag;
-   private final String gitBranch;
+   private final String gitRef;
 
    public PluginRef(String name, String author, String description, String artifact, String homeRepo, String gitRepo,
-            String gitTag, String gitBranch)
+            String gitRef)
    {
       this.name = name;
       this.author = author;
@@ -50,18 +49,12 @@ public class PluginRef
       this.artifact = artifact;
       this.homeRepo = homeRepo;
       this.gitRepo = gitRepo;
-      this.gitTag = gitTag;
-      this.gitBranch = gitBranch;
+      this.gitRef = gitRef;
    }
 
-   public String getGitTag()
+   public String getGitRef()
    {
-      return gitTag;
-   }
-
-   public String getGitBranch()
-   {
-      return gitBranch;
+      return gitRef;
    }
 
    public String getName()

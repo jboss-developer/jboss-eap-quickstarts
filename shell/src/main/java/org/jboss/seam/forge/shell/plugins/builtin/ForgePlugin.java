@@ -171,7 +171,7 @@ public class ForgePlugin implements Plugin
          }
          else if (ref.isGit())
          {
-            installGit(ref.getGitRepo(), ref.getGitTag(), ref.getGitBranch(), null, out);
+            installGit(ref.getGitRepo(), ref.getGitRef(), null, out);
          }
       }
    }

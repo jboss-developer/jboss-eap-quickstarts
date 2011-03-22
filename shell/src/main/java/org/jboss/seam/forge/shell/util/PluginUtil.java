@@ -63,8 +63,7 @@ public class PluginUtil
    private static final String PROP_DESCRIPTION = "description";
    private static final String PROP_AUTHOR = "author";
    private static final String PROP_NAME = "name";
-   private static final Object PROP_GIT_TAG = "tag";
-   private static final Object PROP_GIT_BRANCH = "branch";
+   private static final Object PROP_GIT_REF = "gitref";
 
    @SuppressWarnings("unchecked")
    public static List<PluginRef> findPlugin(String repoUrl, String searchString, PipeOut out) throws Exception
@@ -284,7 +283,6 @@ public class PluginUtil
                map.get(PROP_ARTIFACT),
                map.get(PROP_HOME_MAVEN_REPO),
                map.get(PROP_GIT_REPOSITORY),
-               map.get(PROP_GIT_TAG),
-               map.get(PROP_GIT_BRANCH));
+               map.get(PROP_GIT_REF));
    }
 }
