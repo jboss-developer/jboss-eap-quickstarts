@@ -135,8 +135,15 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
    public void executeBuild(String... args)
    {
       MavenCli cli = new MavenCli();
-      int i = cli.doMain(new String[] { "clean", "install" }, project.getProjectRoot().getFullyQualifiedName(),
+      String[] defaults = new String[] { "clean", "package" };
+      String[] selected = defaults;
+      if (args != null && args.length > 0)
+      {
+         selected = args;
+      }
+      int i = cli.doMain(selected, project.getProjectRoot().getFullyQualifiedName(),
                System.out, System.err);
+
       if (i == 0)
       {
          ShellMessages.success(shell, "Build successful.");

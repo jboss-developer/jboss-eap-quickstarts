@@ -23,6 +23,7 @@
 
 	<modules>
 		<module>event-bus</module>
+		<module>git-tools</module>
 		<module>parser-java-api</module>
 		<module>parser-java</module>
 		<module>project-model</module>
@@ -78,6 +79,11 @@
 			<dependency>
 				<groupId>org.jboss.seam.forge</groupId>
 				<artifactId>forge-parser-java</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.seam.forge</groupId>
+				<artifactId>forge-git-tools</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

@@ -28,6 +28,7 @@ import java.util.List;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.git.GitUtils;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
@@ -176,6 +177,34 @@ public class ForgePlugin implements Plugin
       }
    }
 
+   @Command("git-clone")
+   public void gitClone(PipeOut out,
+            @Option String uri,
+            @Option Resource<?> folder) throws Exception
+   {
+      if (folder instanceof FileResource<?>)
+      {
+         if (!folder.exists())
+         {
+            ((FileResource<?>) folder).mkdirs();
+            folder = folder.reify(DirectoryResource.class);
+         }
+         GitUtils.clone((DirectoryResource) folder, uri);
+         shell.setCurrentResource(folder);
+      }
+      else
+      {
+         throw new RuntimeException();
+      }
+   }
+
+   @Command("git-checkout")
+   public void gitCheckout(PipeOut out,
+            @Option String ref) throws Exception
+   {
+      GitUtils.checkout(GitUtils.db(shell.getCurrentProject().getProjectRoot()), ref, true);
+   }
+
    @Command(value = "plugin-git", help = "Install a plugin from a git repository")
    public void installGit(
             @Option(description = "git repo") String gitRepo,
@@ -208,11 +237,9 @@ public class ForgePlugin implements Plugin
             buildDir.mkdir();
          }
 
-         String gitCommand = "git clone '" + gitRepo + "' " + buildDir.getFullyQualifiedName() + " '--depth' 1";
-         ShellMessages.info(out, "Checking out plugin source files via 'git'...");
-         out.println(gitCommand);
+         ShellMessages.info(out, "Checking out plugin source files to [" + buildDir + "] via 'git'");
+         GitUtils.clone(buildDir, gitRepo);
 
-         shell.execute(gitCommand);
          shell.setCurrentResource(buildDir);
 
          if (ref != null)

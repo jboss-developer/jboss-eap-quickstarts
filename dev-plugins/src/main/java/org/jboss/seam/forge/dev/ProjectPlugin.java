@@ -87,10 +87,11 @@ public class ProjectPlugin implements Plugin
    }
 
    @Command("build")
-   public void build(PipeOut out)
+   public void build(PipeOut out,
+            @Option(description = "build arguments") String... args)
    {
       PackagingFacet packaging = project.getFacet(PackagingFacet.class);
-      packaging.executeBuild();
+      packaging.executeBuild(args);
    }
 
    /*
