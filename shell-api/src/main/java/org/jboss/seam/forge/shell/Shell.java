@@ -78,6 +78,11 @@ public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
    Project getCurrentProject();
 
    /**
+    * Return the directory this shell is using to store and load third-party plugins.
+    */
+   DirectoryResource getPluginDirectory();
+
+   /**
     * Return true if this shell is currently running in pretend mode.
     * <p/>
     * Modifications to files made while running in pretend mode are made in a temporary directory, and the output is

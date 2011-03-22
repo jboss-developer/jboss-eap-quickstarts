@@ -90,7 +90,7 @@ public class MavenMetadataFacet implements MetadataFacet
    }
 
    @Override
-   public String getGroupId()
+   public String getTopLevelPackage()
    {
       return project.getFacet(MavenCoreFacet.class).getPOM().getGroupId();
    }

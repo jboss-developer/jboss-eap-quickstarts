@@ -37,5 +37,5 @@ public interface MetadataFacet extends Facet
 
    void setGroupId(String groupId);
 
-   String getGroupId();
+   String getTopLevelPackage();
 }

@@ -45,7 +45,6 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -117,28 +116,26 @@ public class PluginUtil
    {
       DefaultHttpClient client = new DefaultHttpClient();
 
-      Dependency artifact = ref.getArtifact();
-      String groupId = artifact.getGroupId();
-      String artifactId = artifact.getArtifactId();
-      String version = artifact.getVersion();
+      String[] artifactParts = ref.getArtifact().toIdentifier().split(":");
 
-      String[] id = artifact.toIdentifier().split(":");
-      if (id.length != 3)
+      if (artifactParts.length != 3)
       {
          throw new RuntimeException("malformed artifact identifier " +
                   "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: "
-                  + artifact);
+                  + ref.getArtifact());
       }
 
-      String packageLocation = Packages.toFileSyntax(groupId);
-      String homeRepo = ref.getHomeRepo();
-
-      if (!homeRepo.endsWith("/"))
+      String packageLocation = artifactParts[0].replaceAll("\\.", "/");
+      String baseUrl;
+      if (ref.getHomeRepo().endsWith("/"))
       {
-         homeRepo += "/";
+         baseUrl = ref.getHomeRepo() + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
+      }
+      else
+      {
+         baseUrl = ref.getHomeRepo() + "/" + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
       }
 
-      String baseUrl = homeRepo + packageLocation + "/" + artifactId + "/" + version;
       HttpGet httpGetManifest = new HttpGet(baseUrl + "/maven-metadata.xml");
       out.print("Retrieving artifact manifest ... ");
 
@@ -170,12 +167,12 @@ public class PluginUtil
                return null;
             }
 
-            String snapshotVersion = n.getFirstChild().getTextContent();
+            String version = n.getFirstChild().getTextContent();
 
             // plugin definition points to a snapshot.
-            out.println("good! (maven snapshot found): " + snapshotVersion);
+            out.println("good! (maven snapshot found): " + version);
 
-            String fileName = artifactId + "-" + snapshotVersion + ".jar";
+            String fileName = artifactParts[1] + "-" + version + ".jar";
 
             HttpGet jarGet = new HttpGet(baseUrl + "/" + fileName);
 
@@ -203,7 +200,7 @@ public class PluginUtil
          }
 
       case 404:
-         String requestUrl = baseUrl + "/" + version + ".pom";
+         String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
          httpGetManifest = new HttpGet(requestUrl);
          response = client.execute(httpGetManifest);
 

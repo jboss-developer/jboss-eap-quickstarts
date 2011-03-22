@@ -58,6 +58,7 @@ import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
@@ -1175,5 +1176,17 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    public boolean isAnsiSupported()
    {
       return reader.getTerminal().isAnsiSupported();
+   }
+
+   @Override
+   public DirectoryResource getPluginDirectory()
+   {
+      String pluginPath = getProperty("FORGE_CONFIG_DIR") + "plugins/";
+      FileResource<?> resource = (FileResource<?>) resourceFactory.getResourceFrom(new File(pluginPath));
+      if (!resource.exists())
+      {
+         resource.mkdirs();
+      }
+      return resource.reify(DirectoryResource.class);
    }
 }
