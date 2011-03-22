@@ -179,8 +179,7 @@ public class ForgePlugin implements Plugin
    @Command(value = "plugin-git", help = "Install a plugin from a git repository")
    public void installGit(
             @Option(description = "git repo") String gitRepo,
-            @Option(name = "tag", description = "git tag to build") String tagName,
-            @Option(name = "branch", description = "git branch to build") String branchName,
+            @Option(name = "ref", description = "branch or tag to build") String ref,
             @Option(name = "checkoutDir", description = "directory to check out sources into") Resource<?> checkoutDir,
             final PipeOut out) throws Exception
    {
@@ -213,26 +212,14 @@ public class ForgePlugin implements Plugin
          ShellMessages.info(out, "Checking out plugin source files via 'git'...");
          out.println(gitCommand);
 
-         if (tagName != null && branchName != null)
-         {
-            throw new IllegalStateException("Cannot specify both a branch and a tag reference.");
-         }
-
          shell.execute(gitCommand);
          shell.setCurrentResource(buildDir);
 
-         if (tagName != null)
+         if (ref != null)
          {
-            String tagCommand = "git checkout -b '" + tagName + "_branch' 'origin/" + tagName + "'";
+            String tagCommand = "git checkout -b '" + ref + "_branch' 'origin/" + ref + "'";
             shell.println(tagCommand);
             shell.execute(tagCommand);
-         }
-         else if (branchName != null)
-         {
-            String branchCommand = "git checkout -b '" + branchName + "_branch' 'origin/" + branchName + "'";
-            shell.println(branchCommand);
-            shell.execute(branchCommand);
-            ;
          }
 
          if (!buildDir.getChild(".git").exists())
