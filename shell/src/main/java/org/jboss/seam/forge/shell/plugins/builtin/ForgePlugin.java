@@ -32,8 +32,10 @@ import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode;
 import org.eclipse.jgit.api.Git;
 import org.jboss.seam.forge.git.GitUtils;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.resources.DirectoryResource;
@@ -72,6 +74,10 @@ public class ForgePlugin implements Plugin
       this.shell = shell;
    }
 
+   /*
+    * General methods
+    */
+
    @DefaultCommand
    public void about(PipeOut out)
    {
@@ -88,26 +94,15 @@ public class ForgePlugin implements Plugin
       out.println("Seam Forge, version [ " + version + " ] - JBoss, by Red Hat, Inc. [ http://jboss.org ]");
    }
 
-   @Command(value = "ansi-test", help = "Display a list of all known ANSI color codes, in their corresponding color")
-   public void run(PipeOut out)
-   {
-      for (ShellColor c : ShellColor.values())
-      {
-         out.println(c, c.name());
-      }
-   }
-
-   @Command("info")
-   public void info(PipeOut out)
-   {
-      about(out);
-   }
-
    @Command("restart")
-   public void restart(final PipeOut out) throws Exception
+   public void restart() throws Exception
    {
       reinitializeEvent.fire(new ReinitializeEnvironment());
    }
+
+   /*
+    * Plugin installation
+    */
 
    @Command(value = "find-plugin",
             help = "Searches the configured Forge plugin index for a plugin matching the given search text")
@@ -119,6 +114,16 @@ public class ForgePlugin implements Plugin
       {
          out.println(" - " + out.renderColor(ShellColor.BOLD, ref.getName()) + " (" + ref.getArtifact() + ")");
       }
+   }
+
+   @Command(value = "mvn-plugin",
+            help = "Download and install a plugin from a maven repository")
+   public void installFromMvnRepo(@Option(description = "plugin-identifier", required = true) Dependency plugin,
+            @Option(description = "target repository") KnownRepository repo,
+            final PipeOut out) throws Exception
+   {
+      // TODO implement
+      throw new RuntimeException("Not yet implemented...");
    }
 
    @Command(value = "install-plugin",
@@ -154,7 +159,7 @@ public class ForgePlugin implements Plugin
             }
 
             ShellMessages.success(out, "Installed [" + ref.getName() + "] successfully.");
-            reinitializeEvent.fire(new ReinitializeEnvironment());
+            restart();
          }
          else if (ref.isGit())
          {
@@ -184,7 +189,7 @@ public class ForgePlugin implements Plugin
          PluginUtil.loadPluginJarResource(jar);
 
          ShellMessages.success(out, "Installed from [" + url.toExternalForm() + "] successfully.");
-         reinitializeEvent.fire(new ReinitializeEnvironment());
+         restart();
       }
       else
          throw new RuntimeException("Aborted.");
@@ -193,7 +198,7 @@ public class ForgePlugin implements Plugin
    @Command(value = "source-plugin",
             help = "Install a plugin from a local project folder")
    public void installFromFilesystem(
-            @Option(description = "project directory", required = true) DirectoryResource projectFolder,
+            @Option(description = "project directory", required = true) Resource<?> projectFolder,
             final PipeOut out) throws Exception
    {
       DirectoryResource workspace = projectFolder.reify(DirectoryResource.class);
@@ -205,7 +210,7 @@ public class ForgePlugin implements Plugin
       buildFromCurrentProject(out, workspace);
 
       ShellMessages.success(out, "Installed from [" + workspace + "] successfully.");
-      reinitializeEvent.fire(new ReinitializeEnvironment());
+      restart();
    }
 
    @Command(value = "git-plugin",
@@ -213,7 +218,7 @@ public class ForgePlugin implements Plugin
    public void installFromGit(
             @Option(description = "git repo", required = true) String gitRepo,
             @Option(name = "ref", description = "branch or tag to build") String ref,
-            @Option(name = "checkoutDir", description = "directory to check out sources into") Resource<?> checkoutDir,
+            @Option(name = "checkoutDir", description = "directory in which to clone the repository") Resource<?> checkoutDir,
             final PipeOut out) throws Exception
    {
 
@@ -261,9 +266,12 @@ public class ForgePlugin implements Plugin
       }
 
       ShellMessages.success(out, "Installed from [" + gitRepo + "] successfully.");
-      reinitializeEvent.fire(new ReinitializeEnvironment());
+      restart();
    }
 
+   /*
+    * Helpers
+    */
    private void buildFromCurrentProject(final PipeOut out, DirectoryResource buildDir)
             throws Exception
    {
@@ -287,10 +295,8 @@ public class ForgePlugin implements Plugin
             throw new RuntimeException();
          }
 
-         PackagingFacet packaging = project.getFacet(PackagingFacet.class);
          ShellMessages.info(out, "Invoking build with underlying build system.");
-         Resource<?> artifact = packaging.executeBuild();
-
+         Resource<?> artifact = project.getFacet(PackagingFacet.class).executeBuild();
          if (artifact.exists())
          {
             MetadataFacet meta = project.getFacet(MetadataFacet.class);
@@ -309,7 +315,7 @@ public class ForgePlugin implements Plugin
                jar.delete();
             }
 
-            ShellMessages.info(out, "Installing plugin artifact to [" + jar.getFullyQualifiedName() + "]");
+            ShellMessages.info(out, "Installing plugin artifact.");
 
             jar.setContents(artifact.getResourceInputStream());
             PluginUtil.loadPluginJarResource(jar);

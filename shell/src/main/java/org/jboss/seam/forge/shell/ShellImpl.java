@@ -380,6 +380,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
             historyOutstream.write(command.charAt(i));
          }
          historyOutstream.write('\n');
+         historyOutstream.flush();
       }
       catch (IOException e)
       {

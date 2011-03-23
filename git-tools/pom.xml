@@ -10,6 +10,7 @@
   </parent>
   <groupId>org.jboss.seam.forge</groupId>
   <artifactId>forge-git-tools</artifactId>
+   <name>Seam Forge - Git Integration</name>
   <description>Isolates Forge build from the addition of another Maven repository for Git</description>
   <properties>
     <forge.api.version>1.0.0-SNAPSHOT</forge.api.version>

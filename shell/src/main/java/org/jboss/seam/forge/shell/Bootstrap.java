@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.jboss.seam.forge.shell.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
@@ -41,15 +40,15 @@ import org.jboss.seam.forge.shell.events.Shutdown;
 import org.jboss.seam.forge.shell.events.Startup;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
-import org.jboss.weld.environment.se.events.ContainerInitialized;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
-@Singleton
 public class Bootstrap
 {
+   private static Thread currentShell = null;
+   private static boolean restartRequested = false;
 
    @Inject
    private BeanManager manager;
@@ -57,24 +56,48 @@ public class Bootstrap
    public static void main(final String[] args)
    {
       loadPlugins();
-      init(new File("").getAbsoluteFile(), false);
+      init(new File("").getAbsoluteFile());
    }
 
-   private static void init(final File workingDir, final boolean restartEvent)
+   private static void init(final File workingDir)
    {
-      initLogging();
-      Weld weld = new Weld();
-      WeldContainer container = weld.initialize();
-      BeanManager manager = container.getBeanManager();
-      manager.fireEvent(new Startup(workingDir, restartEvent));
-      manager.fireEvent(new AcceptUserInput());
-      weld.shutdown();
+      do
+      {
+         currentShell = new Thread(new Runnable()
+         {
+            @Override
+            public void run()
+            {
+               boolean restarting = restartRequested;
+               restartRequested = false;
+
+               initLogging();
+               Weld weld = new Weld();
+               WeldContainer container = weld.initialize();
+               BeanManager manager = container.getBeanManager();
+               manager.fireEvent(new Startup(workingDir, restarting));
+               manager.fireEvent(new AcceptUserInput());
+               weld.shutdown();
+            }
+         });
+
+         currentShell.start();
+         try
+         {
+            currentShell.join();
+         }
+         catch (InterruptedException e)
+         {
+            throw new RuntimeException(e);
+         }
+      }
+      while (restartRequested);
    }
 
    public void observeReinitialize(@Observes final ReinitializeEnvironment event, final Shell shell)
    {
       manager.fireEvent(new Shutdown());
-      init(shell.getCurrentDirectory().getUnderlyingResourceObject(), true);
+      restartRequested = true;
    }
 
    private static void initLogging()
@@ -123,12 +146,5 @@ public class Bootstrap
       {
          e.printStackTrace();
       }
-   }
-
-   @Deprecated
-   public void observeStartup(@Observes final ContainerInitialized event)
-   {
-      manager.fireEvent(new Startup());
-      manager.fireEvent(new AcceptUserInput());
    }
 }
