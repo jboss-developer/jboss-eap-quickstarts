@@ -498,7 +498,6 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
             handleException(e);
          }
       }
-      println();
    }
 
    private void handleException(final Exception original)
