@@ -49,20 +49,21 @@ public class Bootstrap
 {
    private static Thread currentShell = null;
    private static boolean restartRequested = false;
+   private static File workingDir = new File("").getAbsoluteFile();
 
    @Inject
    private BeanManager manager;
 
    public static void main(final String[] args)
    {
-      loadPlugins();
-      init(new File("").getAbsoluteFile());
+      init();
    }
 
-   private static void init(final File workingDir)
+   private static void init()
    {
       do
       {
+         loadPlugins();
          currentShell = new Thread(new Runnable()
          {
             @Override
@@ -96,6 +97,7 @@ public class Bootstrap
 
    public void observeReinitialize(@Observes final ReinitializeEnvironment event, final Shell shell)
    {
+      workingDir = shell.getCurrentDirectory().getUnderlyingResourceObject();
       manager.fireEvent(new Shutdown());
       restartRequested = true;
    }

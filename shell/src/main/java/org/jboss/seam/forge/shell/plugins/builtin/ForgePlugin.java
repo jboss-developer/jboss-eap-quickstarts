@@ -306,7 +306,7 @@ public class ForgePlugin implements Plugin
                      + meta.getProjectName() + ".jar");
 
             if (jar.exists() && !shell.promptBoolean(
-                              "An existing version of this plugin was found. Replace it? (forces restart)", true))
+                              "An existing version of this plugin was found. Replace it?", true))
             {
                throw new RuntimeException("Aborted.");
             }
