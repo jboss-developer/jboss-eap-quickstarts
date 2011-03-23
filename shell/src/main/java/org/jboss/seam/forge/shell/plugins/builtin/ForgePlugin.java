@@ -22,8 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import java.io.File;
-import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import javax.enterprise.event.Event;
@@ -114,15 +113,7 @@ public class ForgePlugin implements Plugin
             help = "Searches the configured Forge plugin index for a plugin matching the given search text")
    public void find(@Option(description = "search string") String searchString, final PipeOut out) throws Exception
    {
-      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
-
-      if (defaultRepo == null)
-      {
-         out.println("no default repository set: (to set, type: set DEFFAULT_PLUGIN_REPO <repository>)");
-         return;
-      }
-
-      List<PluginRef> pluginList = PluginUtil.findPlugin(defaultRepo, searchString, out);
+      List<PluginRef> pluginList = PluginUtil.findPlugin(shell, searchString, out);
 
       for (PluginRef ref : pluginList)
       {
@@ -135,15 +126,7 @@ public class ForgePlugin implements Plugin
    public void installFromIndex(@Option(description = "plugin-name") String pluginName,
             final PipeOut out) throws Exception
    {
-      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
-      String pluginPath = shell.getProperty("FORGE_CONFIG_DIR") + "plugins/";
-
-      if (defaultRepo == null)
-      {
-         throw new RuntimeException("no default repository set: (to set, type: set DEFAULT_PLUGIN_REPO <repository>)");
-      }
-
-      List<PluginRef> plugins = PluginUtil.findPlugin(defaultRepo, pluginName, out);
+      List<PluginRef> plugins = PluginUtil.findPlugin(shell, pluginName, out);
 
       if (plugins.isEmpty())
       {
@@ -160,31 +143,75 @@ public class ForgePlugin implements Plugin
 
          if (!ref.isGit())
          {
-            File file = PluginUtil.downloadPlugin(ref, out, pluginPath);
-            if (file == null)
+            FileResource<?> jar = PluginUtil.downloadFromIndexRef(ref, out, shell.getPluginDirectory());
+            if (jar == null)
             {
                throw new RuntimeException("Could not install plugin [" + ref.getName() + "]");
             }
             else
             {
-               PluginUtil.loadPluginJar(file);
+               PluginUtil.loadPluginJarResource(jar);
             }
 
-            ShellMessages.info(out, "Reinitializing and installing [" + ref.getName() + "]");
+            ShellMessages.success(out, "Installed [" + ref.getName() + "] successfully.");
             reinitializeEvent.fire(new ReinitializeEnvironment());
-            ShellMessages.success(out, "Installed successfully.");
          }
          else if (ref.isGit())
          {
-            installWithGit(ref.getGitRepo(), ref.getGitRef(), null, out);
+            installFromGit(ref.getGitRepo(), ref.getGitRef(), null, out);
          }
       }
    }
 
+   @Command(value = "remote-plugin",
+            help = "Download and install a plugin from the given URL")
+   public void installFromRemoteURL(
+            @Option(description = "project directory", required = true) URL url,
+            @Option(description = "plugin name", required = true) String name,
+            final PipeOut out) throws Exception
+   {
+      if (url == null)
+      {
+         throw new IllegalArgumentException("Project folder must be specified.");
+      }
+
+      ShellMessages.info(out, "WARNING!");
+      if (shell.promptBoolean(
+               "Installing plugins from remote sources is dangerous, and can leave untracked plugins. Continue?", true))
+      {
+         FileResource<?> jar = shell.getPluginDirectory().getChild(name).reify(FileResource.class);
+         PluginUtil.downloadFromURL(out, url, jar);
+         PluginUtil.loadPluginJarResource(jar);
+
+         ShellMessages.success(out, "Installed from [" + url.toExternalForm() + "] successfully.");
+         reinitializeEvent.fire(new ReinitializeEnvironment());
+      }
+      else
+         throw new RuntimeException("Aborted.");
+   }
+
+   @Command(value = "source-plugin",
+            help = "Install a plugin from a local project folder")
+   public void installFromFilesystem(
+            @Option(description = "project directory", required = true) DirectoryResource projectFolder,
+            final PipeOut out) throws Exception
+   {
+      DirectoryResource workspace = projectFolder.reify(DirectoryResource.class);
+      if (workspace == null || !workspace.exists())
+      {
+         throw new IllegalArgumentException("Project folder must be specified.");
+      }
+
+      buildFromCurrentProject(out, workspace);
+
+      ShellMessages.success(out, "Installed from [" + workspace + "] successfully.");
+      reinitializeEvent.fire(new ReinitializeEnvironment());
+   }
+
    @Command(value = "git-plugin",
             help = "Install a plugin from a public git repository")
-   public void installWithGit(
-            @Option(description = "git repo") String gitRepo,
+   public void installFromGit(
+            @Option(description = "git repo", required = true) String gitRepo,
             @Option(name = "ref", description = "branch or tag to build") String ref,
             @Option(name = "checkoutDir", description = "directory to check out sources into") Resource<?> checkoutDir,
             final PipeOut out) throws Exception
@@ -195,8 +222,6 @@ public class ForgePlugin implements Plugin
 
       try
       {
-         shell.setCurrentResource(workspace);
-
          DirectoryResource buildDir = workspace.getChildDirectory("repo");
          if (checkoutDir != null)
          {
@@ -216,20 +241,16 @@ public class ForgePlugin implements Plugin
          ShellMessages.info(out, "Checking out plugin source files to [" + buildDir + "] via 'git'");
          Git repo = GitUtils.clone(buildDir, gitRepo);
 
-         shell.setCurrentResource(buildDir);
-
          if (ref != null)
          {
             ShellMessages.info(out, "Switching to branch/tag [" + ref + "]");
             GitUtils.checkout(repo, ref, false, SetupUpstreamMode.SET_UPSTREAM, false);
          }
 
-         Resource<?> artifact = buildPlugin(out, buildDir);
-         installArtifact(out, artifact);
+         buildFromCurrentProject(out, buildDir);
       }
       finally
       {
-         shell.setCurrentResource(savedLocation);
          if (checkoutDir != null)
          {
             ShellMessages.info(out,
@@ -239,30 +260,46 @@ public class ForgePlugin implements Plugin
          }
       }
 
+      ShellMessages.success(out, "Installed from [" + gitRepo + "] successfully.");
       reinitializeEvent.fire(new ReinitializeEnvironment());
-      ShellMessages.success(out, "Installed successfully.");
    }
 
-   /**
-    * Install the artifact.
-    * 
-    * @return true if a manual restart is required, false if not
-    */
-   private void installArtifact(final PipeOut out, Resource<?> artifact) throws IOException, Exception
+   private void buildFromCurrentProject(final PipeOut out, DirectoryResource buildDir)
+            throws Exception
    {
-      if (artifact.exists())
+      DirectoryResource savedLocation = shell.getCurrentDirectory();
+      try
       {
-         if (artifact instanceof FileResource<?>)
+         shell.setCurrentResource(buildDir);
+         Project project = shell.getCurrentProject();
+         if (project == null)
          {
-            Project project = shell.getCurrentProject();
+            throw new IllegalStateException("Unable to recognise plugin project in ["
+                     + buildDir.getFullyQualifiedName() + "]");
+         }
+
+         DependencyFacet deps = project.getFacet(DependencyFacet.class);
+         if (!deps.hasDependency(DependencyBuilder.create("org.jboss.seam.forge:forge-shell-api"))
+                  && !shell.promptBoolean("The project does not appear to be a Forge Plugin Project, install anyway?",
+                           false))
+         {
+            ShellMessages.info(out, "Aborted installation.");
+            throw new RuntimeException();
+         }
+
+         PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+         ShellMessages.info(out, "Invoking build with underlying build system.");
+         Resource<?> artifact = packaging.executeBuild();
+
+         if (artifact.exists())
+         {
             MetadataFacet meta = project.getFacet(MetadataFacet.class);
             DirectoryResource pluginDir = shell.getPluginDirectory();
 
             FileResource<?> jar = (FileResource<?>) pluginDir.getChild(meta.getTopLevelPackage() + "_"
                      + meta.getProjectName() + ".jar");
 
-            if (jar.exists()
-                     && !shell.promptBoolean(
+            if (jar.exists() && !shell.promptBoolean(
                               "An existing version of this plugin was found. Replace it? (forces restart)", true))
             {
                throw new RuntimeException("Aborted.");
@@ -272,41 +309,20 @@ public class ForgePlugin implements Plugin
                jar.delete();
             }
 
-            ShellMessages.info(out, "Copying build artifact to [" + jar.getFullyQualifiedName() + "]");
+            ShellMessages.info(out, "Installing plugin artifact to [" + jar.getFullyQualifiedName() + "]");
 
-            PluginUtil.saveFile(jar.getFullyQualifiedName(), artifact.getResourceInputStream());
-            PluginUtil.loadPluginJar(jar.getUnderlyingResourceObject());
+            jar.setContents(artifact.getResourceInputStream());
+            PluginUtil.loadPluginJarResource(jar);
+         }
+         else
+         {
+            throw new IllegalStateException("Build artifact [" + artifact.getFullyQualifiedName()
+                        + "] is missing and cannot be installed. Please resolve build errors and try again.");
          }
       }
-      else
+      finally
       {
-         throw new IllegalStateException("Build artifact [" + artifact.getFullyQualifiedName()
-                        + "] is missing and cannot be installed. Please resolve build errors and try again.");
+         shell.setCurrentResource(savedLocation);
       }
-   }
-
-   private Resource<?> buildPlugin(final PipeOut out, DirectoryResource buildDir)
-            throws Exception
-   {
-      Project project = shell.getCurrentProject();
-      if (project == null)
-      {
-         throw new IllegalStateException("Unable to recognise plugin project in ["
-                  + buildDir.getFullyQualifiedName() + "]");
-      }
-
-      DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      if (!deps.hasDependency(DependencyBuilder.create("org.jboss.seam.forge:forge-shell-api"))
-               && !shell.promptBoolean("The project does not appear to be a Forge Plugin Project, install anyway?",
-                        false))
-      {
-         ShellMessages.info(out, "Aborted installation.");
-         throw new RuntimeException();
-      }
-
-      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
-      ShellMessages.info(out, "Invoking build with underlying build system.");
-      packaging.executeBuild();
-      return packaging.getFinalArtifact();
    }
 }

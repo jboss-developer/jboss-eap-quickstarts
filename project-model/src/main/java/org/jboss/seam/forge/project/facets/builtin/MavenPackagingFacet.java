@@ -56,9 +56,6 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
    private Event<PackagingChanged> event;
 
    @Inject
-   private MavenContainer container;
-
-   @Inject
    private ResourceFactory factory;
 
    @Inject
@@ -132,7 +129,7 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
    }
 
    @Override
-   public void executeBuild(String... args)
+   public Resource<?> executeBuild(String... args)
    {
       MavenCli cli = new MavenCli();
       String[] defaults = new String[] { "clean", "package" };
@@ -147,10 +144,12 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
       if (i == 0)
       {
          ShellMessages.success(shell, "Build successful.");
+         return getFinalArtifact();
       }
       else
       {
          ShellMessages.error(shell, "Build failed.");
+         return null;
       }
    }
 

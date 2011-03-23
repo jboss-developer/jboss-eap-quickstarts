@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +66,7 @@ import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
+import org.jboss.seam.forge.shell.command.convert.URLConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
 import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
@@ -231,6 +233,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       addConversionHandler(Boolean.class, booleanConverter);
       addConversionHandler(File.class, new FileConverter());
       addConversionHandler(Dependency.class, new DependencyIdConverter());
+      addConversionHandler(URL.class, new URLConverter());
 
       addConversionHandler(JavaResource[].class, javaResourceConversionHandler);
       addConversionHandler(JavaResource.class, new ConversionHandler()

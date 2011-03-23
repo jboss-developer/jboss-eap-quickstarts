@@ -271,6 +271,7 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
          finally
          {
             data.close();
+            out.flush();
             out.close();
          }
 
