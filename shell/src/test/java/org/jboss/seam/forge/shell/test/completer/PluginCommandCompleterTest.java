@@ -21,6 +21,13 @@
  */
 package org.jboss.seam.forge.shell.test.completer;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
@@ -28,12 +35,6 @@ import org.jboss.seam.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
-import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -121,6 +122,17 @@ public class PluginCommandCompleterTest extends AbstractShellTest
       int index = completer.complete(input, input.length(), candidates);
       assertEquals(input.length(), index);
       assertTrue(candidates.contains("--option "));
+   }
+
+   @Test
+   public void testRequiredNamedOptionAutoSelectedFromMultipleNamedOptions() throws Exception
+   {
+      ArrayList<CharSequence> candidates = new ArrayList<CharSequence>();
+      String input = "mockcompleterplugin3 ";
+      int index = completer.complete(input, input.length(), candidates);
+      assertEquals(input.length(), index);
+      assertEquals(1, candidates.size());
+      assertTrue(candidates.contains("--two "));
    }
 
    @Test

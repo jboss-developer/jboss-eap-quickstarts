@@ -35,7 +35,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
- * 
+ * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  */
 public class XMLParser
 {
