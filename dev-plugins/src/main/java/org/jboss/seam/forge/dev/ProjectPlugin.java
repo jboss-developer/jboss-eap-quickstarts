@@ -27,38 +27,42 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.dev.dependencies.DependencyPropertyCompleter;
 import org.jboss.seam.forge.dev.dependencies.RepositoryCompleter;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresProject;
 import org.jboss.seam.forge.shell.plugins.Topic;
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("project")
+@Alias("project")
 @Topic("Project")
 @RequiresProject
 @RequiresFacet(DependencyFacet.class)
 public class ProjectPlugin implements Plugin
 {
+
    private Project project;
    private Shell shell;
 
@@ -82,6 +86,14 @@ public class ProjectPlugin implements Plugin
       out.println(project.getProjectRoot().getFullyQualifiedName());
    }
 
+   @Command("build")
+   public void build(PipeOut out,
+            @Option(description = "build arguments") String... args)
+   {
+      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+      packaging.executeBuild(args);
+   }
+
    /*
     * Dependency manipulation
     */
@@ -90,24 +102,52 @@ public class ProjectPlugin implements Plugin
             @Option(required = true,
                      type = PromptType.DEPENDENCY_ID,
                      description = "[ groupId :artifactId {:version :scope :packaging} ]",
-                     help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"") final Dependency gav,
+                     help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"") Dependency gav,
             final PipeOut out
             )
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      if (!deps.hasDependency(gav))
+
+      if (!deps.hasDependency(gav)
+               || shell.promptBoolean("Dependency already exists [" + gav.getGroupId() + ":" + gav.getArtifactId()
+                        + "], continue?", true))
       {
+         DependencyBuilder search = DependencyBuilder.create(gav).setVersion("[0,)");
+         List<Dependency> availableVersions = deps.resolveAvailableVersions(search);
+
+         if (availableVersions.isEmpty())
+         {
+            throw new RuntimeException("No available versions resolved for dependency [" + gav + "]");
+         }
+
+         if (!availableVersions.contains(gav))
+         {
+            ShellMessages.info(out, "No artifact found for dependency [" + gav + "]");
+            if (availableVersions.size() > 1)
+            {
+               gav = shell.promptChoiceTyped("Add which version?", availableVersions);
+            }
+            else if (shell.promptBoolean("Use [" + availableVersions.get(0) + "] instead?", true))
+            {
+               gav = availableVersions.get(0);
+            }
+            else
+            {
+               throw new RuntimeException("Could not add dependency [" + gav + "]");
+            }
+         }
+
+         if (deps.hasDependency(gav))
+         {
+            Dependency dependency = deps.getDependency(gav);
+            deps.removeDependency(dependency);
+         }
          deps.addDependency(gav);
          out.println("Added dependency [" + gav + "]");
       }
       else
       {
-         Dependency dependency = deps.getDependency(gav);
-         if (shell.promptBoolean("Dependency already exists [" + dependency + "], replace with [" + gav + "]?", false))
-         {
-            deps.removeDependency(dependency);
-            deps.addDependency(gav);
-         }
+         ShellMessages.info(out, "Aborted.");
       }
    }
 
@@ -140,7 +180,7 @@ public class ProjectPlugin implements Plugin
 
       if (versions.isEmpty())
       {
-         out.println("No artifacts found for that query...");
+         out.println("No artifacts found for the query [" + gav + "]");
       }
    }
 
@@ -161,7 +201,7 @@ public class ProjectPlugin implements Plugin
       }
       else
       {
-         out.println("Dependency not found in project... ");
+         out.println("Dependency [" + gav + "] not found in project... ");
       }
    }
 
@@ -240,19 +280,36 @@ public class ProjectPlugin implements Plugin
     */
    @Command("repository-add")
    public void repoAdd(
-            @Option(required = true, description = "name...") final String name,
-            @Option(required = true, description = "url...") final String url,
+            @Option(description = "type...", required = true) final KnownRepository repo,
             final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      if (deps.hasRepository(url))
+
+      if (KnownRepository.CUSTOM.equals(repo))
       {
-         out.println("Repository exists [" + name + "->" + url + "]");
+         String name = shell.prompt("What is the name of the repository?");
+         String url = shell.prompt("What is the URL of the repository?");
+         if (deps.hasRepository(url))
+         {
+            out.println("Repository exists [" + url + "]");
+         }
+         else
+         {
+            deps.addRepository(name, url);
+            out.println("Added repository [" + name + "->" + url + "]");
+         }
       }
       else
       {
-         deps.addRepository(name, url);
-         out.println("Added repository [" + name + "->" + url + "]");
+         if (deps.hasRepository(repo))
+         {
+            out.println("Repository exists [" + repo.name() + "->" + repo.getUrl() + "]");
+         }
+         else
+         {
+            deps.addRepository(repo);
+            out.println("Added repository [" + repo.name() + "->" + repo.getUrl() + "]");
+         }
       }
    }
 
@@ -263,10 +320,11 @@ public class ProjectPlugin implements Plugin
             final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      if (deps.hasRepository(url))
+
+      DependencyRepository rep;
+      if ((rep = deps.removeRepository(url)) != null)
       {
-         DependencyRepository repo = deps.removeRepository(url);
-         out.println("Removed repository [" + repo.getId() + "->" + repo.getUrl() + "]");
+         out.println("Removed repository [" + rep.getId() + "->" + rep.getUrl() + "]");
       }
       else
       {

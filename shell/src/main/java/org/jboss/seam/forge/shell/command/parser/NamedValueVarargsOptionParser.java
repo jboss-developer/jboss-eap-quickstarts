@@ -22,12 +22,13 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
 
 /**
  * Parses named varargs options such as:
@@ -57,12 +58,13 @@ public class NamedValueVarargsOptionParser implements CommandParser
                   tokens.remove();
                   List<String> args = new ArrayList<String>();
                   String rawValue = null;
-                  while (!tokens.peek().startsWith("--"))
+                  // this has to be the last parameter... gobble the rest
+                  while (!tokens.isEmpty())
                   {
                      rawValue = tokens.remove();
-                     args.add(rawValue);
+                     args.add(Strings.stripQuotes(rawValue));
                   }
-                  ctx.put(option, args.toArray(), rawValue);
+                  ctx.put(option, args.toArray(), Strings.stripQuotes(rawValue));
                }
             }
             catch (IllegalArgumentException e)

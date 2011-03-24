@@ -1,13 +1,17 @@
 package org.jboss.seam.forge.spec.jpa.api;
 
-import org.jboss.seam.forge.project.util.BeanManagerUtils;
-import org.jboss.seam.forge.spec.jpa.container.*;
-
 import javax.enterprise.inject.spi.BeanManager;
+
+import org.jboss.seam.forge.shell.util.BeanManagerUtils;
+import org.jboss.seam.forge.spec.jpa.container.CustomJDBCContainer;
+import org.jboss.seam.forge.spec.jpa.container.CustomJTAContainer;
+import org.jboss.seam.forge.spec.jpa.container.GlassFish3Container;
+import org.jboss.seam.forge.spec.jpa.container.JBossAS6Container;
+import org.jboss.seam.forge.spec.jpa.container.NonJTAContainer;
 
 public enum JPAContainer
 {
-   JBOSS_6(JBossAS6Container.class),
+   JBOSS_AS6(JBossAS6Container.class),
    GLASSFISH_3(GlassFish3Container.class),
    CUSTOM_JDBC(CustomJDBCContainer.class),
    CUSTOM_JTA(CustomJTAContainer.class),

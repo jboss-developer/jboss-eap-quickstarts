@@ -111,7 +111,7 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
    @Override
    public Annotation<O> addAnnotation(final Class<? extends java.lang.annotation.Annotation> clazz)
    {
-      if (!parent.hasImport(clazz))
+      if (parent.requiresImport(clazz))
       {
          parent.addImport(clazz);
       }
@@ -280,20 +280,67 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
    }
 
    @Override
+   public boolean isType(Class<?> type)
+   {
+      if (Strings.areEqual(type.getName(), getType()))
+      {
+         return true;
+      }
+
+      String simpleName = type.getSimpleName();
+      if (Strings.areEqual(simpleName, getType()) && getOrigin().hasImport(type))
+      {
+         return true;
+      }
+      return false;
+   }
+
+   @Override
+   public boolean isType(String name)
+   {
+      if (Strings.areEqual(name, getType()))
+      {
+         return true;
+      }
+
+      String simpleName = Types.toSimpleName(name);
+      if (Strings.areEqual(simpleName, Types.toSimpleName(getType())))
+      {
+         if (Types.toSimpleName(getType()).equals(getType()) || getOrigin().hasImport(getType()))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   @Override
    public Field<O> setType(final Class<?> clazz)
    {
+      if (parent.requiresImport(clazz))
+      {
+         parent.addImport(clazz);
+      }
       return setType(clazz.getSimpleName());
    }
 
    @Override
-   public Field<O> setType(JavaSource<?> source)
+   public Field<O> setType(final JavaSource<?> source)
    {
-      return setType(source.getName());
+      return setType(source.getQualifiedName());
    }
 
    @Override
    public Field<O> setType(final String typeName)
    {
+      String simpleName = Types.toSimpleName(typeName);
+
+      O origin = getOrigin();
+      if (!Strings.areEqual(typeName, simpleName) && origin.requiresImport(typeName))
+      {
+         origin.addImport(typeName);
+      }
+
       Code primitive = PrimitiveType.toCode(typeName);
 
       Type type = null;
@@ -303,9 +350,17 @@ public class FieldImpl<O extends JavaSource<O>> implements Field<O>
       }
       else
       {
-         String[] className = Types.tokenizeClassName(typeName);
-         Name name = ast.newName(className);
-         type = ast.newSimpleType(name);
+         if (!origin.requiresImport(typeName))
+         {
+            Name name = ast.newSimpleName(simpleName);
+            type = ast.newSimpleType(name);
+         }
+         else
+         {
+            String[] className = Types.tokenizeClassName(typeName);
+            Name name = ast.newName(className);
+            type = ast.newSimpleType(name);
+         }
       }
       field.setType(type);
       return this;

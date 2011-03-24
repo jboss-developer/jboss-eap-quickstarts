@@ -22,9 +22,9 @@
 
 package org.jboss.seam.forge.scaffold.plugins.meta;
 
-import org.mvel2.templates.TemplateRuntime;
-
 import java.io.InputStream;
+
+import org.mvel2.templates.TemplateRuntime;
 
 /**
  * @author Mike Brock .
@@ -34,9 +34,9 @@ public class GeneratedAccessor implements Renderable
    private static final String TEMPLATE = "org/jboss/seam/forge/scaffold/templates/components/GeneratedAccessor.mvt";
 
    private final String name;
-   private final Class type;
+   private final Class<?> type;
 
-   public GeneratedAccessor(String name, Class type)
+   public GeneratedAccessor(String name, Class<?> type)
    {
       this.name = name;
       this.type = type;
@@ -49,7 +49,7 @@ public class GeneratedAccessor implements Renderable
       return String.valueOf(TemplateRuntime.eval(template, this));
    }
 
-   public Class getType()
+   public Class<?> getType()
    {
       return type;
    }

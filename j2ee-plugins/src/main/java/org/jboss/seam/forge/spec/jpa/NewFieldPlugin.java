@@ -21,6 +21,20 @@
  */
 package org.jboss.seam.forge.spec.jpa;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import org.jboss.seam.forge.parser.java.Annotation;
 import org.jboss.seam.forge.parser.java.Field;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -28,29 +42,28 @@ import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.util.Refactory;
 import org.jboss.seam.forge.parser.java.util.Types;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.*;
-import java.io.FileNotFoundException;
-import java.util.*;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresProject;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("new-field")
-@Topic("File & Resources")
+@Alias("new-field")
 @RequiresProject
 @RequiresFacet(PersistenceFacet.class)
-@ResourceScope(JavaResource.class)
+@RequiresResource(JavaResource.class)
 @Help("A plugin to manage simple @Entity and View creation; a basic MVC framework plugin.")
 public class NewFieldPlugin implements Plugin
 {
@@ -213,7 +226,7 @@ public class NewFieldPlugin implements Plugin
    }
 
    @Command(value = "string", help = "Add a String field to an existing @Entity class")
-   public void newLongField(
+   public void newStringField(
             @Option(name = "fieldName",
                      required = true,
                      description = "The field name",
@@ -422,6 +435,11 @@ public class NewFieldPlugin implements Plugin
                            final Class<? extends java.lang.annotation.Annotation> annotation)
             throws FileNotFoundException
    {
+      if (targetEntity.hasField(fieldName))
+      {
+         throw new IllegalStateException("Entity already has a field named [" + fieldName + "]");
+      }
+
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -435,6 +453,11 @@ public class NewFieldPlugin implements Plugin
    private void addFieldTo(final JavaClass targetEntity, final String fieldType, final String fieldName,
                            final Class<Column> annotation) throws FileNotFoundException
    {
+      if (targetEntity.hasField(fieldName))
+      {
+         throw new IllegalStateException("Entity already has a field named [" + fieldName + "]");
+      }
+
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -449,6 +472,10 @@ public class NewFieldPlugin implements Plugin
                            final Class<? extends java.lang.annotation.Annotation> annotation)
             throws FileNotFoundException
    {
+      if (targetEntity.hasField(fieldName))
+      {
+         throw new IllegalStateException("Entity already has a field named [" + fieldName + "]");
+      }
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
       Field<JavaClass> field = targetEntity.addField();
@@ -460,6 +487,7 @@ public class NewFieldPlugin implements Plugin
       Refactory.createGetterAndSetter(targetEntity, field);
       java.saveJavaSource(targetEntity);
       shell.println("Added field to " + targetEntity.getQualifiedName() + ": " + field);
+
    }
 
    private JavaClass getJavaClass() throws FileNotFoundException

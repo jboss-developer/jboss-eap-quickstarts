@@ -21,31 +21,48 @@
  */
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
+
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.inject.Named;
 
+import org.apache.maven.cli.MavenCli;
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
-import org.jboss.seam.forge.project.packaging.PackagingChanged;
+import org.jboss.seam.forge.project.packaging.PackagingType;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.events.PackagingChanged;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.shrinkwrap.descriptor.impl.base.Strings;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.PackagingFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@Alias("forge.maven.PackagingFacet")
+@RequiresFacet(MavenCoreFacet.class)
 public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Facet
 {
    @Inject
    private Event<PackagingChanged> event;
+
+   @Inject
+   private MavenContainer container;
+
+   @Inject
+   private ResourceFactory factory;
+
+   @Inject
+   private Shell shell;
 
    @Override
    public void setPackagingType(final PackagingType type)
@@ -92,8 +109,49 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
       {
          setPackagingType(PackagingType.BASIC);
       }
-      project.registerFacet(this);
       return true;
+   }
+
+   @Override
+   public Resource<?> getFinalArtifact()
+   {
+      MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
+      String directory = mvn.getProjectBuildingResult().getProject().getBuild().getDirectory();
+      String finalName = mvn.getProjectBuildingResult().getProject().getBuild().getFinalName();
+
+      if (Strings.isNullOrEmpty(directory))
+      {
+         throw new IllegalStateException("Project build directory is not configured");
+      }
+      if (Strings.isNullOrEmpty(finalName))
+      {
+         throw new IllegalStateException("Project final artifact name is not configured");
+      }
+      return factory.getResourceFrom(new File(directory.trim() + "/" + finalName + "."
+               + getPackagingType().name().toLowerCase()));
+   }
+
+   @Override
+   public void executeBuild(String... args)
+   {
+      MavenCli cli = new MavenCli();
+      String[] defaults = new String[] { "clean", "package" };
+      String[] selected = defaults;
+      if (args != null && args.length > 0)
+      {
+         selected = args;
+      }
+      int i = cli.doMain(selected, project.getProjectRoot().getFullyQualifiedName(),
+               System.out, System.err);
+
+      if (i == 0)
+      {
+         ShellMessages.success(shell, "Build successful.");
+      }
+      else
+      {
+         ShellMessages.error(shell, "Build failed.");
+      }
    }
 
 }

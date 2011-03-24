@@ -21,22 +21,36 @@
  */
 package org.jboss.seam.forge.parser.java.impl;
 
-import org.eclipse.jdt.core.compiler.IProblem;
-import org.eclipse.jdt.core.dom.*;
-import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.Document;
-import org.eclipse.text.edits.MalformedTreeException;
-import org.eclipse.text.edits.TextEdit;
-import org.jboss.seam.forge.parser.java.Annotation;
-import org.jboss.seam.forge.parser.java.*;
-import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
-import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
-import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.eclipse.jdt.core.compiler.IProblem;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
+import org.eclipse.jdt.core.dom.ImportDeclaration;
+import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
+import org.eclipse.jdt.core.dom.Type;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jface.text.Document;
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.Annotation;
+import org.jboss.seam.forge.parser.java.Import;
+import org.jboss.seam.forge.parser.java.InterfaceCapable;
+import org.jboss.seam.forge.parser.java.JavaInterface;
+import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.parser.java.Member;
+import org.jboss.seam.forge.parser.java.SyntaxError;
+import org.jboss.seam.forge.parser.java.Visibility;
+import org.jboss.seam.forge.parser.java.ast.AnnotationAccessor;
+import org.jboss.seam.forge.parser.java.ast.ModifierAccessor;
+import org.jboss.seam.forge.parser.java.ast.TypeDeclarationFinderVisitor;
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.parser.java.util.Types;
 
 /**
  * Represents a Java Source File
@@ -45,7 +59,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
-         JavaSource<O>
+         JavaSource<O>, InterfaceCapable<O>
 {
    private final AnnotationAccessor<O, O> annotations = new AnnotationAccessor<O, O>();
    private final ModifierAccessor modifiers = new ModifierAccessor();
@@ -121,86 +135,59 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
     */
 
    @Override
-   public Import<O> addImport(final Class<?> type)
+   public Import addImport(final Class<?> type)
    {
       return addImport(type.getName());
    }
 
    @Override
-   public <T extends JavaSource<?>> Import<O> addImport(T type)
+   public <T extends JavaSource<?>> Import addImport(final T type)
    {
       return this.addImport(type.getQualifiedName());
    }
 
    @Override
-   public Import<O> addImport(Import<?> imprt)
+   public Import addImport(final Import imprt)
    {
       return addImport(imprt.getQualifiedName()).setStatic(imprt.isStatic());
    }
 
    @Override
-   public Import<O> addImport(final String className)
+   public Import addImport(final String className)
    {
-      Import<O> imprt;
-      if (!hasImport(className))
+      Import imprt;
+      String simpleName = Types.toSimpleName(className);
+      if (!hasImport(simpleName) && validImport(className))
       {
          imprt = new ImportImpl(this).setName(className);
          unit.imports().add(imprt.getInternal());
       }
-      else
+      else if (hasImport(className))
       {
          imprt = getImport(className);
+      }
+      else
+      {
+         if (hasImport(simpleName))
+         {
+            throw new IllegalStateException("Cannot import [" + className
+                     + "] because of existing conflicting import [" + getImport(simpleName) + "].");
+         }
+         else
+         {
+            throw new IllegalArgumentException("Attempted to import the illegal type [" + className + "]");
+         }
       }
       return imprt;
    }
 
    @Override
-   public O addImports(final Class<?>... types)
+   public Import getImport(final String className)
    {
-      for (Class<?> type : types)
+      List<Import> imports = getImports();
+      for (Import imprt : imports)
       {
-         addImport(type.getName());
-      }
-      return (O) this;
-   }
-
-   @Override
-   public <T extends JavaSource<?>> O addImports(T... types)
-   {
-      for (T t : types)
-      {
-         addImport(t);
-      }
-      return (O) this;
-   };
-
-   @Override
-   public O addImports(final String... types)
-   {
-      for (String type : types)
-      {
-         addImport(type);
-      }
-      return (O) this;
-   }
-
-   @Override
-   public O addImports(Import<?>... imprt)
-   {
-      for (Import<?> i : imprt)
-      {
-         addImport(i);
-      }
-      return (O) this;
-   };
-
-   @Override
-   public Import<O> getImport(final String className)
-   {
-      List<Import<O>> imports = getImports();
-      for (Import<O> imprt : imports)
-      {
-         if (imprt.getQualifiedName().equals(className))
+         if (imprt.getQualifiedName().equals(className) || imprt.getSimpleName().equals(className))
          {
             return imprt;
          }
@@ -209,27 +196,27 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public Import<O> getImport(final Class<?> type)
+   public Import getImport(final Class<?> type)
    {
       return getImport(type.getName());
    }
 
    @Override
-   public <T extends JavaSource<?>> Import<O> getImport(T type)
+   public <T extends JavaSource<?>> Import getImport(final T type)
    {
       return getImport(type.getQualifiedName());
    };
 
    @Override
-   public Import<O> getImport(Import<?> imprt)
+   public Import getImport(final Import imprt)
    {
       return getImport(imprt.getQualifiedName());
    }
 
    @Override
-   public List<Import<O>> getImports()
+   public List<Import> getImports()
    {
-      List<Import<O>> results = new ArrayList<Import<O>>();
+      List<Import> results = new ArrayList<Import>();
 
       for (ImportDeclaration i : (List<ImportDeclaration>) unit.imports())
       {
@@ -246,13 +233,13 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public <T extends JavaSource<?>> boolean hasImport(T type)
+   public <T extends JavaSource<T>> boolean hasImport(final T type)
    {
       return hasImport(type.getQualifiedName());
    };
 
    @Override
-   public boolean hasImport(Import<?> imprt)
+   public boolean hasImport(final Import imprt)
    {
       return hasImport(imprt.getQualifiedName());
    }
@@ -264,9 +251,32 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
+   public boolean requiresImport(final Class<?> type)
+   {
+      return requiresImport(type.getName());
+   }
+
+   @Override
+   public boolean requiresImport(final String type)
+   {
+      if (!validImport(type)
+               || hasImport(type)
+               || type.startsWith("java.lang."))
+      {
+         return false;
+      }
+      return true;
+   }
+
+   private boolean validImport(final String type)
+   {
+      return (type != null) && !type.matches("byte|short|int|long|float|double|char|boolean");
+   }
+
+   @Override
    public O removeImport(final String name)
    {
-      for (Import<O> i : getImports())
+      for (Import i : getImports())
       {
          if (i.getQualifiedName().equals(name))
          {
@@ -284,13 +294,13 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    }
 
    @Override
-   public <T extends JavaSource<?>> O removeImport(T type)
+   public <T extends JavaSource<?>> O removeImport(final T type)
    {
       return removeImport(type.getQualifiedName());
    };
 
    @Override
-   public O removeImport(final Import<O> imprt)
+   public O removeImport(final Import imprt)
    {
       Object internal = imprt.getInternal();
       if (unit.imports().contains(internal))
@@ -484,19 +494,19 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    @Override
    public O getOrigin()
    {
-      try
-      {
-         TextEdit edit = unit.rewrite(document, null);
-         edit.apply(document);
-      }
-      catch (MalformedTreeException e)
-      {
-         throw new RuntimeException(e);
-      }
-      catch (BadLocationException e)
-      {
-         throw new RuntimeException(e);
-      }
+      // try
+      // {
+      // TextEdit edit = unit.rewrite(document, null);
+      // edit.apply(document);
+      // }
+      // catch (MalformedTreeException e)
+      // {
+      // throw new RuntimeException(e);
+      // }
+      // catch (BadLocationException e)
+      // {
+      // throw new RuntimeException(e);
+      // }
 
       return (O) this;
    }
@@ -513,7 +523,8 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    @Override
    public boolean equals(final Object obj)
    {
-      return this == obj || obj != null && getClass() == obj.getClass() && this.toString().equals(obj.toString());
+      return (this == obj)
+               || ((obj != null) && (getClass() == obj.getClass()) && this.toString().equals(obj.toString()));
    }
 
    @Override
@@ -567,5 +578,120 @@ public abstract class AbstractJavaSource<O extends JavaSource<O>> implements
    {
       AbstractTypeDeclaration declaration = getBodyDeclaration();
       return declaration instanceof AnnotationTypeDeclaration;
+   }
+
+   /*
+    * Interfaced Methods
+    */
+
+   @Override
+   public List<String> getInterfaces()
+   {
+      List<String> result = new ArrayList<String>();
+      List<Type> superTypes = JDTHelper.getInterfaces(getBodyDeclaration());
+      for (Type type : superTypes)
+      {
+         String name = JDTHelper.getTypeName(type);
+         if (Types.isSimpleName(name) && this.hasImport(name))
+         {
+            Import imprt = this.getImport(name);
+            String pkg = imprt.getPackage();
+            if (!Strings.isNullOrEmpty(pkg))
+            {
+               name = pkg + "." + name;
+            }
+         }
+         result.add(name);
+      }
+      return result;
+   }
+
+   @Override
+   public O addInterface(final String type)
+   {
+      List<Type> interfaces = JDTHelper.getInterfaces(
+               JavaParser.parse(JavaInterfaceImpl.class, "public interface Mock extends " + type
+                        + " {}").getBodyDeclaration());
+
+      if (!interfaces.isEmpty())
+      {
+         if (!this.hasImport(Types.toSimpleName(type)))
+         {
+            this.addImport(type);
+         }
+
+         Type t = interfaces.get(0);
+         ASTNode node = ASTNode.copySubtree(unit.getAST(), t);
+         JDTHelper.getInterfaces(getBodyDeclaration()).add((Type) node);
+      }
+      else
+      {
+         throw new IllegalArgumentException("Could not parse interface declaration [" + type + "]");
+      }
+      return (O) this;
+   }
+
+   @Override
+   public O addInterface(final Class<?> type)
+   {
+      return addInterface(type.getName());
+   }
+
+   @Override
+   public O addInterface(final JavaInterface type)
+   {
+      return addInterface(type.getQualifiedName());
+   }
+
+   @Override
+   public boolean hasInterface(final String type)
+   {
+      for (String name : getInterfaces())
+      {
+         if (Types.areEquivalent(name, type))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   @Override
+   public boolean hasInterface(final Class<?> type)
+   {
+      return hasInterface(type.getName());
+   }
+
+   @Override
+   public boolean hasInterface(final JavaInterface type)
+   {
+      return hasInterface(type.getQualifiedName());
+   }
+
+   @Override
+   public O removeInterface(final String type)
+   {
+      List<Type> interfaces = JDTHelper.getInterfaces(getBodyDeclaration());
+      for (Type i : interfaces)
+      {
+         if (Types.areEquivalent(i.toString(), type))
+         {
+            interfaces.remove(i);
+            break;
+         }
+      }
+      return (O) this;
+   }
+
+   @Override
+   public O removeInterface(final Class<?> type)
+   {
+      return removeInterface(type.getName());
+   }
+
+   @Override
+   public O removeInterface(final JavaInterface type)
+   {
+      return removeInterface(type.getQualifiedName());
    }
 }

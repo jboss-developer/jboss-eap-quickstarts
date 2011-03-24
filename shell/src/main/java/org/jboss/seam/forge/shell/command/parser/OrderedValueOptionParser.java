@@ -22,10 +22,11 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Queue;
+
+import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.Queue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -46,7 +47,7 @@ public class OrderedValueOptionParser implements CommandParser
             OptionMetadata option = command.getOrderedOptionByIndex(numberOrderedParams);
             if (!option.isVarargs())
             {
-               ctx.put(option, currentToken, tokens.remove());
+               ctx.put(option, Strings.stripQuotes(currentToken), Strings.stripQuotes(tokens.remove()));
                ctx.incrementParmCount();
             }
          }

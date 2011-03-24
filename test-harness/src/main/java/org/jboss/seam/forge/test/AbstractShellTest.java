@@ -26,8 +26,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,10 +37,11 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.BasePackageMarker;
+import org.jboss.seam.forge.Root;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.resources.FileResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.events.Startup;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -66,7 +65,7 @@ public abstract class AbstractShellTest
    {
 
       JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "test.jar")
-               .addPackages(true, BasePackageMarker.class.getPackage())
+               .addPackages(true, Root.class.getPackage())
                .addManifestResource(new ByteArrayAsset("<beans/>".getBytes()), ArchivePaths.create("beans.xml"));
 
       return archive;
@@ -103,26 +102,23 @@ public abstract class AbstractShellTest
    @Before
    public void beforeTest() throws IOException
    {
-      File tempFolder = createTempFolder();
-
       shell.setVerbose(true);
-      shell.setCurrentResource(factory.getResourceFrom(tempFolder));
+      shell.setCurrentResource(createTempFolder());
       beanManager.fireEvent(new Startup());
 
       resetInputQueue();
-      shell.setOutputWriter(new PrintWriter(System.out));
+      shell.setOutputStream(System.out);
+      shell.setAnsiSupported(false);
    }
 
-   /**
-    * @throws IOException
-    */
-   protected File createTempFolder() throws IOException
+   protected DirectoryResource createTempFolder() throws IOException
    {
       File tempFolder = File.createTempFile(PKG, null);
       tempFolder.delete();
       tempFolder.mkdirs();
-      tempFolders.add((FileResource<?>) factory.getResourceFrom(tempFolder));
-      return tempFolder;
+      DirectoryResource resource = factory.getResourceFrom(tempFolder).reify(DirectoryResource.class);
+      tempFolders.add(resource);
+      return resource;
    }
 
    /**
@@ -142,7 +138,7 @@ public abstract class AbstractShellTest
       {
          if (file.exists())
          {
-            assertTrue(file.delete());
+            assertTrue(file.delete(true));
          }
       }
    }
@@ -151,7 +147,12 @@ public abstract class AbstractShellTest
    {
       for (String input : inputs)
       {
-         inputQueue.add(input + "\n");
+         if (input == null || "\0".equals(input))
+         {
+            inputQueue.add(input);
+         }
+         else
+            inputQueue.add(input + "\n");
       }
    }
 
@@ -172,8 +173,7 @@ public abstract class AbstractShellTest
 
    protected Project initializeJavaProject() throws IOException
    {
-      File folder = createTempFolder();
-      getShell().execute("cd " + folder.getAbsolutePath());
+      getShell().setCurrentResource(createTempFolder());
       queueInputLines("", "");
       getShell().execute("new-project --named test --topLevelPackage com.test");
       return getProject();

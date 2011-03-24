@@ -24,13 +24,13 @@ package org.jboss.seam.forge.shell.constraint;
 import java.util.List;
 
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -127,6 +127,19 @@ public class ConstraintEnforcer
       try
       {
          verifyAvailable(currentProject, plugin);
+      }
+      catch (ConstraintException e)
+      {
+         return false;
+      }
+      return true;
+   }
+
+   public boolean isAvailable(Project currentProject, CommandMetadata commandMetadata)
+   {
+      try
+      {
+         verifyAvailable(currentProject, commandMetadata);
       }
       catch (ConstraintException e)
       {

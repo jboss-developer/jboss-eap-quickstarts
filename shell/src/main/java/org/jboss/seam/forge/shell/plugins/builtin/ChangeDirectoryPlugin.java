@@ -22,22 +22,24 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
+
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
-@Named("cd")
+@Alias("cd")
 @Topic("File & Resources")
 @Help("Change the current directory")
-@Singleton
 public class ChangeDirectoryPlugin implements Plugin
 {
    private final Shell shell;

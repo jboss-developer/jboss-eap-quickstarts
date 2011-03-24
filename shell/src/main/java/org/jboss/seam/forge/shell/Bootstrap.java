@@ -22,20 +22,6 @@
 
 package org.jboss.seam.forge.shell;
 
-import org.jboss.seam.forge.shell.events.AcceptUserInput;
-import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
-import org.jboss.seam.forge.shell.events.Shutdown;
-import org.jboss.seam.forge.shell.events.Startup;
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
-import org.jboss.weld.environment.se.events.ContainerInitialized;
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
-
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.net.URL;
@@ -44,6 +30,19 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.jboss.seam.forge.shell.events.AcceptUserInput;
+import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
+import org.jboss.seam.forge.shell.events.Shutdown;
+import org.jboss.seam.forge.shell.events.Startup;
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
+import org.jboss.weld.environment.se.events.ContainerInitialized;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
@@ -51,6 +50,7 @@ import java.util.logging.Logger;
 @Singleton
 public class Bootstrap
 {
+
    @Inject
    private BeanManager manager;
 
@@ -60,7 +60,7 @@ public class Bootstrap
       init(new File("").getAbsoluteFile(), false);
    }
 
-   private static void init(File workingDir, boolean restartEvent)
+   private static void init(final File workingDir, final boolean restartEvent)
    {
       initLogging();
       Weld weld = new Weld();
@@ -71,31 +71,7 @@ public class Bootstrap
       weld.shutdown();
    }
 
-   private static void initSignalHandlers()
-   {
-      try
-      {
-         // check to see if we have something to work with.
-         Class.forName("sun.misc.SignalHandler");
-
-         SignalHandler signalHandler = new SignalHandler()
-         {
-            @Override
-            public void handle(Signal signal)
-            {
-               System.out.println("CTRL-C TRAPPED");
-            }
-         };
-
-         Signal.handle(new Signal("INT"), signalHandler);
-      }
-      catch (ClassNotFoundException e)
-      {
-         // signal trapping not supported.
-      }
-   }
-
-   public void observeReinitialize(@Observes ReinitializeEnvironment event, Shell shell)
+   public void observeReinitialize(@Observes final ReinitializeEnvironment event, final Shell shell)
    {
       manager.fireEvent(new Shutdown());
       init(shell.getCurrentDirectory().getUnderlyingResourceObject(), true);
@@ -126,7 +102,7 @@ public class Bootstrap
             File[] files = pluginsDir.listFiles(new FilenameFilter()
             {
                @Override
-               public boolean accept(File dir, String name)
+               public boolean accept(final File dir, final String name)
                {
                   return name.endsWith(".jar");
                }

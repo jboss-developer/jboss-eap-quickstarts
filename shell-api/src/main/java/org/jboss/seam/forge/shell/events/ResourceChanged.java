@@ -21,7 +21,7 @@
  */
 package org.jboss.seam.forge.shell.events;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 
 /**
  * An event that notifies observers immediately after the current {@link Resource} has changed.

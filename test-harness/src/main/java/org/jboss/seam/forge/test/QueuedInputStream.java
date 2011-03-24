@@ -83,7 +83,12 @@ public class QueuedInputStream extends InputStream
          {
             if (!inputQueue.isEmpty())
             {
-               byte[] bytes = inputQueue.remove().getBytes();
+               String line = inputQueue.remove();
+               byte[] bytes = new byte[] {};
+
+               if (line != null)
+                  bytes = line.getBytes();
+
                current = new BufferedInputStream(new ByteArrayInputStream(bytes));
             }
             else

@@ -22,12 +22,13 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.command.OptionMetadata;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -38,32 +39,35 @@ public class OrderedValueVarargsOptionParser implements CommandParser
    public CommandParserContext parse(final CommandMetadata command, final Queue<String> tokens,
             final CommandParserContext ctx)
    {
-      String currentToken = tokens.peek();
-      if (!currentToken.startsWith("--"))
+      try
       {
-         try
+         OptionMetadata option = command.getOrderedOptionByIndex(ctx.getOrderedParamCount());
+         if (option.isVarargs())
          {
-            OptionMetadata option = command.getOrderedOptionByIndex(ctx.getOrderedParamCount());
-            if (option.isVarargs())
+            List<String> args = new ArrayList<String>();
+            String lastToken = null;
+            // gobble unless we hit a named token
+            while (!tokens.isEmpty())
             {
-               List<String> args = new ArrayList<String>();
-               String lastToken = null;
-               while (!tokens.isEmpty() && !tokens.peek().startsWith("--"))
+               lastToken = tokens.peek();
+               if (lastToken.startsWith("-") && command.hasOption(lastToken.replaceAll("^--?", "")))
                {
-                  lastToken = tokens.remove();
-                  args.add(lastToken);
+                  break;
                }
-               ctx.put(option, args.toArray(new String[args.size()]), lastToken);
-               ctx.incrementParmCount();
+               lastToken = tokens.remove();
+               lastToken = Strings.stripQuotes(lastToken);
+               args.add(lastToken);
             }
+            ctx.put(option, args.toArray(new String[args.size()]), Strings.stripQuotes(lastToken));
+            ctx.incrementParmCount();
          }
-         catch (IllegalArgumentException e)
-         {
-            ctx.addWarning("The command [" + command + "] takes ["
+      }
+      catch (IllegalArgumentException e)
+      {
+         ctx.addWarning("The command [" + command + "] takes ["
                      + command.getNumOrderedOptions() + "] unnamed argument(s), but found ["
                      + (ctx.getOrderedParamCount() + 1)
                      + "].");
-         }
       }
       return ctx;
    }

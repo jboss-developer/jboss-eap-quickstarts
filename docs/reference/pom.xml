@@ -45,6 +45,39 @@
                      </artifacts>
                   </configuration>
                </execution>
+               
+               <execution>
+                 <id>attach-source</id>
+                 <phase>generate-sources</phase>
+                 <goals>
+                   <goal>add-source</goal>
+                 </goals>
+                 <configuration>
+                   <sources>
+                     <source>src/main/docbook/en-US</source>
+                   </sources>
+                 </configuration>
+               </execution>                
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+               <execution>
+                  <phase>generate-sources</phase>
+                  <configuration>
+                     <target>
+                        <echo file="${project.basedir}/src/main/docbook/en-US/version_info.xml">
+                           <![CDATA[<releaseinfo>${project.version}</releaseinfo>]]>
+                        </echo>
+                     </target>
+                  </configuration>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+               </execution>
             </executions>
          </plugin>
       </plugins>

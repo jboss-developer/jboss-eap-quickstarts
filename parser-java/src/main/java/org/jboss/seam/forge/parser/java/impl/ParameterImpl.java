@@ -25,34 +25,19 @@ import java.lang.reflect.Field;
 
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.VariableDeclaration;
-import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public class ParameterImpl<O> implements Parameter<O>
+public class ParameterImpl implements Parameter
 {
    private final VariableDeclaration param;
-   private final Method<O> method;
 
-   public ParameterImpl(final Method<O> method, final Object internal)
+   public ParameterImpl(final Object internal)
    {
-      this.method = method;
       this.param = (VariableDeclaration) internal;
-   }
-
-   @Override
-   public Object getInternal()
-   {
-      return this.param;
-   }
-
-   @Override
-   public O getOrigin()
-   {
-      return method.getOrigin();
    }
 
    @Override

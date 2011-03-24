@@ -22,20 +22,26 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
-@Named("echo")
+@Alias("echo")
 @Help("Writes input to output.")
 @Topic("Shell Environment")
 public class Echo implements Plugin
@@ -45,8 +51,8 @@ public class Echo implements Plugin
 
    @DefaultCommand
    public void run(
-         @Option(help = "The text to be echoed") final String[] tokens,
-         final PipeOut out)
+            @Option(help = "The text to be echoed") final String[] tokens,
+            final PipeOut out)
    {
       if (tokens == null || tokens.length == 0)
       {
@@ -162,7 +168,8 @@ public class Echo implements Plugin
                         builder.append(new String(expr, start, i - start - 2));
 
                         start = i;
-                        while (i < input.length() && input.charAt(i) != '}') i++;
+                        while (i < input.length() && input.charAt(i) != '}')
+                           i++;
 
                         if (i == input.length() && input.charAt(i) != '}')
                         {
@@ -174,8 +181,7 @@ public class Echo implements Plugin
 
                            start = ++i;
 
-                           Capture:
-                           while (i < expr.length)
+                           Capture: while (i < expr.length)
                            {
                               switch (expr[i])
                               {
@@ -202,45 +208,14 @@ public class Echo implements Plugin
                               builder.append(shell.renderColor(ShellColor.NONE, ""));
                            }
 
-                           if ("red".equals(color))
+                           c = ShellColor.NONE;
+                           for (ShellColor sc : ShellColor.values())
                            {
-                              c = ShellColor.RED;
-                           }
-                           else if ("white".equals(color))
-                           {
-                              c = ShellColor.WHITE;
-                           }
-                           else if ("blue".equals(color))
-                           {
-                              c = ShellColor.BLUE;
-                           }
-                           else if ("yellow".equals(color))
-                           {
-                              c = ShellColor.YELLOW;
-                           }
-                           else if ("bold".equals(color))
-                           {
-                              c = ShellColor.BOLD;
-                           }
-                           else if ("black".equals(color))
-                           {
-                              c = ShellColor.BLACK;
-                           }
-                           else if ("cyan".equals(color))
-                           {
-                              c = ShellColor.CYAN;
-                           }
-                           else if ("green".equals(color))
-                           {
-                              c = ShellColor.GREEN;
-                           }
-                           else if ("magenta".equals(color))
-                           {
-                              c = ShellColor.MAGENTA;
-                           }
-                           else
-                           {
-                              c = ShellColor.NONE;
+                              if (sc.name().equalsIgnoreCase(color == null ? "" : color.trim()))
+                              {
+                                 c = sc;
+                                 break;
+                              }
                            }
 
                            String toColorize = promptExpressionParser(shell, new String(expr, start, i - start));

@@ -23,19 +23,20 @@
 package org.jboss.seam.forge.project.facets.builtin;
 
 import javax.enterprise.context.Dependent;
-import javax.inject.Named;
 
+import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.MetadataFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@Alias("forge.maven.MetadataFacet")
+@RequiresFacet(MavenCoreFacet.class)
 public class MavenMetadataFacet implements MetadataFacet
 {
    private Project project;
@@ -61,7 +62,6 @@ public class MavenMetadataFacet implements MetadataFacet
    @Override
    public boolean install()
    {
-      project.registerFacet(this);
       return true;
    }
 
@@ -69,5 +69,29 @@ public class MavenMetadataFacet implements MetadataFacet
    public boolean isInstalled()
    {
       return project.hasFacet(MavenCoreFacet.class);
+   }
+
+   @Override
+   public void setProjectName(final String name)
+   {
+      MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
+      Model pom = mvn.getPOM();
+      pom.setArtifactId(name);
+      mvn.setPOM(pom);
+   }
+
+   @Override
+   public void setGroupId(final String groupId)
+   {
+      MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
+      Model pom = mvn.getPOM();
+      pom.setGroupId(groupId);
+      mvn.setPOM(pom);
+   }
+
+   @Override
+   public String getGroupId()
+   {
+      return project.getFacet(MavenCoreFacet.class).getPOM().getGroupId();
    }
 }

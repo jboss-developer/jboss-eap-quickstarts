@@ -23,24 +23,24 @@
 package org.jboss.seam.forge.shell.plugins.builtin;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * @author Mike Brock
  */
-@Named("mkdir")
+@Alias("mkdir")
 @Topic("File & Resources")
-@ResourceScope(DirectoryResource.class)
+@RequiresResource(DirectoryResource.class)
 @Help("Create a new directory")
 public class MkdirPlugin implements Plugin
 {

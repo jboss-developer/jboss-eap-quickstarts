@@ -21,12 +21,17 @@
  */
 package org.jboss.seam.forge.shell.plugins;
 
-
 /**
  * A custom {@link Plugin} must implement this interface in order to be detected and installed at framework boot-time.
  * In order to create plugin shell-commands, one must create a method annotated with @{@link Command}. Any command
  * method parameters to be provided as input through the shell must be individually annotated with the @{@link Option}
  * annotation; other (non-annotated) command parameters are ignored.
+ * <p/>
+ * In order to control the name of a custom plugin, the {@link Alias} annotation may be added to any {@link Plugin}
+ * type.
+ * <p/>
+ * Plugin types may be annotated with any of the following constraints in order to ensure proper dependencies are
+ * satisfied at runtime: {@link RequiresFacet}, {@link RequiresPackagingType}, {@link RequiresResource}
  * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 

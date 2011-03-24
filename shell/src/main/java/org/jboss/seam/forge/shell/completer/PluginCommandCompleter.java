@@ -59,7 +59,7 @@ public class PluginCommandCompleter implements Completer
    @Override
    public int complete(final String buffer, final int cursor, final List<CharSequence> candidates)
    {
-      optionHolder.setCommandMetadata(null);
+      optionHolder.setState(null);
 
       PluginCommandCompleterState state = new PluginCommandCompleterState(buffer, lastBuffer, cursor);
 
@@ -82,7 +82,14 @@ public class PluginCommandCompleter implements Completer
 
       candidates.addAll(state.getCandidates());
 
-      optionHolder.setCommandMetadata(state.getCommand());
+      // ensure the completer is triggered always
+      if ((state.getPlugin() != null) && state.isFinalTokenComplete() && !state.hasSuggestions()
+               && state.isDuplicateBuffer() && state.getCandidates().isEmpty())
+      {
+         candidates.add("");
+      }
+
+      optionHolder.setState(state);
 
       return state.getIndex();
    }

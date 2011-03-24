@@ -22,34 +22,48 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.ResourceFlag;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.FormatCallback;
-import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutColumns;
 import static org.jboss.seam.forge.shell.util.GeneralUtils.printOutTables;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.FormatCallback;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
+
 /**
- * Lists directory contents for filesystem based directories. This is a
- * simplified version of the UNIX 'ls' command and currently supports the - and
- * -a flags, as in unix.
+ * Lists directory contents for filesystem based directories. This is a simplified version of the UNIX 'ls' command and
+ * currently supports the - and -a flags, as in unix.
  * 
  * @author Mike Brock
  */
-@Named("ls")
+@Alias("ls")
 @Topic("File & Resources")
-@ResourceScope(DirectoryResource.class)
+@RequiresResource(DirectoryResource.class)
 @Help("Prints the contents current directory.")
 public class LsPlugin implements Plugin
 {
@@ -80,10 +94,11 @@ public class LsPlugin implements Plugin
    }
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
-                   final PipeOut out)
+   public void run(
+            @Option(description = "path", defaultValue = ".") Resource<?>[] paths,
+            @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+            @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+            final PipeOut out)
    {
 
       Map<String, List<String>> sortMap = new TreeMap<String, List<String>>();
@@ -94,10 +109,8 @@ public class LsPlugin implements Plugin
          List<Resource<?>> childResources;
 
          /**
-          * Check to see if the way this resource was resolved was by a
-          * wildcard, in which case we don't expand into it's children.
-          * Otherwise, if it's fully qualified we recurse into that directory
-          * and list all those files.
+          * Check to see if the way this resource was resolved was by a wildcard, in which case we don't expand into
+          * it's children. Otherwise, if it's fully qualified we recurse into that directory and list all those files.
           */
          if (!resource.isFlagSet(ResourceFlag.AmbiguouslyQualified) && resource.isFlagSet(ResourceFlag.Node))
          {
@@ -139,10 +152,10 @@ public class LsPlugin implements Plugin
                if (showAll || !el.startsWith("."))
                {
                   StringBuilder permissions = new StringBuilder(dir ? "d" : "-")
-                        .append(file.canRead() ? 'r' : '-')
-                        .append(file.canWrite() ? 'w' : '-')
-                        .append(file.canExecute() ? 'x' : '-')
-                        .append("------");
+                           .append(file.canRead() ? 'r' : '-')
+                           .append(file.canWrite() ? 'w' : '-')
+                           .append(file.canExecute() ? 'x' : '-')
+                           .append("------");
 
                   subList.add(permissions.toString());
                   subList.add("owner"); // not supported
@@ -207,10 +220,10 @@ public class LsPlugin implements Plugin
          };
 
          printOutTables(
-               listBuild,
-               new boolean[] { false, false, false, true, false, false, true, false },
-               out,
-               formatCallback);
+                  listBuild,
+                  new boolean[] { false, false, false, true, false, false, true, false },
+                  out,
+                  formatCallback);
       }
       else
       {

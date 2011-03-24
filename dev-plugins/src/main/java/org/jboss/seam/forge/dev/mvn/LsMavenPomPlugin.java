@@ -22,19 +22,29 @@
 
 package org.jboss.seam.forge.dev.mvn;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.dependencies.Dependency;
-import org.jboss.seam.forge.project.dependencies.ScopeType;
-import org.jboss.seam.forge.project.resources.builtin.maven.MavenDependencyResource;
-import org.jboss.seam.forge.project.resources.builtin.maven.MavenPomResource;
-import org.jboss.seam.forge.project.resources.builtin.maven.MavenProfileResource;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.dev.mvn.resources.MavenDependencyResource;
+import org.jboss.seam.forge.dev.mvn.resources.MavenPomResource;
+import org.jboss.seam.forge.dev.mvn.resources.MavenProfileResource;
+import org.jboss.seam.forge.dev.mvn.resources.MavenRepositoryResource;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.ScopeType;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.Current;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
+import org.jboss.seam.forge.shell.plugins.Topic;
 
 /**
  * LsMavenPomPlugin
@@ -42,8 +52,8 @@ import java.util.List;
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
-@OverloadedName("ls")
-@ResourceScope(MavenPomResource.class)
+@Alias("ls")
+@RequiresResource(MavenPomResource.class)
 @Topic("File & Resources")
 @Help("Prints the contents current pom file")
 public class LsMavenPomPlugin implements Plugin
@@ -55,7 +65,7 @@ public class LsMavenPomPlugin implements Plugin
    @DefaultCommand
    public void run(
             @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "totalLines", required = false) final boolean list,
+                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
                    @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
                    final PipeOut out) throws IOException
    {
@@ -114,10 +124,22 @@ public class LsMavenPomPlugin implements Plugin
          {
             if (child instanceof MavenProfileResource)
             {
-               MavenProfileResource resource = (MavenProfileResource) child;
-               out.println(out.renderColor(ShellColor.BLUE, resource.getName()));
+               out.println(out.renderColor(ShellColor.BLUE, child.getName()));
             }
          }
+
+         out.println();
+         out.println(out.renderColor(ShellColor.RED, "[repositories] "));
+
+         for (Resource<?> child : children)
+         {
+            if (child instanceof MavenRepositoryResource)
+            {
+               out.println(out.renderColor(ShellColor.BLUE, child.getName()) + " -> "
+                        + ((MavenRepositoryResource) child).getURL());
+            }
+         }
+
       }
    }
 

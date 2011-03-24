@@ -21,7 +21,6 @@
  */
 package org.jboss.seam.forge.shell;
 
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * Used to generate properly formatted status messages.

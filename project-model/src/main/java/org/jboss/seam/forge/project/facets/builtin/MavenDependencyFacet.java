@@ -31,14 +31,10 @@ import java.util.Properties;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.apache.maven.artifact.versioning.ArtifactVersion;
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
@@ -48,14 +44,15 @@ import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.builtin.aether.RepositoryLookup;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.MavenDependencyFacet")
-@RequiresFacets({ MavenCoreFacet.class })
+@Alias("forge.maven.MavenDependencyFacet")
+@RequiresFacet(MavenCoreFacet.class)
 public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, Facet
 {
    private final RepositoryLookup lookup;
@@ -83,7 +80,6 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    @Override
    public boolean install()
    {
-      project.registerFacet(this);
       return true;
    }
 
@@ -181,27 +177,13 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
       return null;
    }
 
-   @SuppressWarnings("unchecked")
    private boolean areEquivalent(final Dependency left, final Dependency right)
    {
       // FIXME version checking needs to be much more robust
       boolean result = false;
       if (left.getGroupId().equals(right.getGroupId()) && left.getArtifactId().equals(right.getArtifactId()))
       {
-         if ((left.getVersion() != null) && (right.getVersion() != null))
-         {
-            ArtifactVersion lversion = new DefaultArtifactVersion(left.getVersion());
-            ArtifactVersion rversion = new DefaultArtifactVersion(right.getVersion());
-
-            if (lversion.compareTo(rversion) == 0)
-            {
-               result = true;
-            }
-         }
-         else
-         {
-            result = true;
-         }
+         result = true;
       }
       return result;
    }
@@ -266,11 +248,21 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    {
       List<Dependency> results = new ArrayList<Dependency>();
 
-      List<String> versions = lookup.getAvailableVersions(dep.getGroupId() + ":" + dep.getArtifactId() + ":"
-               + dep.getVersion(), getRepositories());
-      for (String version : versions)
+      String groupId = dep.getGroupId();
+      String artifactId = dep.getArtifactId();
+      String version = dep.getVersion();
+
+      if (version == null || version.trim().isEmpty())
       {
-         results.add(DependencyBuilder.create(dep).setVersion(version));
+         version = "[0,)";
+      }
+
+      List<String> versions = lookup.getAvailableVersions(groupId + ":" + artifactId + ":"
+               + version, getRepositories());
+
+      for (String v : versions)
+      {
+         results.add(DependencyBuilder.create(dep).setVersion(v));
       }
       return results;
    }
@@ -285,6 +277,12 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
       repo.setUrl(url);
       pom.getRepositories().add(repo);
       maven.setPOM(pom);
+   }
+
+   @Override
+   public void addRepository(KnownRepository repository)
+   {
+      addRepository(repository.name(), repository.getUrl());
    }
 
    @Override
@@ -323,16 +321,26 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    }
 
    @Override
+   public boolean hasRepository(KnownRepository repository)
+   {
+      return hasRepository(repository.getUrl());
+   }
+
+   @Override
    public DependencyRepository removeRepository(final String url)
    {
       if (url != null)
       {
-         List<DependencyRepository> repositories = getRepositories();
-         for (DependencyRepository repo : repositories)
+         MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+         Model pom = maven.getPOM();
+         List<Repository> repos = pom.getRepositories();
+         for (Repository repo : repos)
          {
             if (repo.getUrl().equals(url.trim()))
             {
-               return repo;
+               repos.remove(repo);
+               maven.setPOM(pom);
+               return new DependencyRepositoryImpl(repo.getId(), repo.getUrl());
             }
          }
       }

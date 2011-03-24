@@ -21,26 +21,28 @@
  */
 package org.jboss.seam.forge.project.locators;
 
-import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
-import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
-import org.jboss.seam.forge.project.model.ProjectImpl;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-
-import javax.inject.Inject;
 import java.io.File;
 
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.ProjectImpl;
+import org.jboss.seam.forge.project.facets.builtin.MavenContainer;
+import org.jboss.seam.forge.project.facets.builtin.MavenCoreFacetImpl;
+import org.jboss.seam.forge.project.locator.ProjectLocator;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+
 /**
- * Locate a Maven project starting in the current directory, and progressing up
- * the chain of parent directories until a project is found, or the root
- * directory is found. If a project is found, return the {@link File} referring
- * to the directory containing that project, or return null if no projects were
- * found.
- *
+ * Locate a Maven project starting in the current directory, and progressing up the chain of parent directories until a
+ * project is found, or the root directory is found. If a project is found, return the {@link File} referring to the
+ * directory containing that project, or return null if no projects were found.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
+@Alias("maven-project-locator")
 public class MavenProjectLocator implements ProjectLocator
 {
    private final MavenContainer container;
@@ -68,22 +70,9 @@ public class MavenProjectLocator implements ProjectLocator
    }
 
    @Override
-   public DirectoryResource findProjectRootRecursively(final DirectoryResource startingDirectory)
+   public boolean containsProject(final DirectoryResource dir)
    {
-      DirectoryResource root = startingDirectory;
-
-      Project project = createProject(root);
-      while ((project == null) && (root.getParent() instanceof DirectoryResource))
-      {
-         root = (DirectoryResource) root.getParent();
-         project = createProject(root);
-      }
-
-      if (project == null)
-      {
-         return null;
-      }
-
-      return root;
+      Resource<?> pom = dir.getChild("pom.xml");
+      return pom.exists();
    }
 }

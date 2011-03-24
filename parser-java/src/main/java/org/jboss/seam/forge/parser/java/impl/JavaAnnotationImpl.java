@@ -24,6 +24,7 @@ package org.jboss.seam.forge.parser.java.impl;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.JavaAnnotation;
+import org.jboss.seam.forge.parser.java.SourceType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -41,6 +42,12 @@ public class JavaAnnotationImpl extends AbstractJavaSource<JavaAnnotation> imple
    protected JavaAnnotation updateTypeNames(final String name)
    {
       return this;
+   }
+
+   @Override
+   public SourceType getSourceType()
+   {
+      return SourceType.ANNOTATION;
    }
 
 }

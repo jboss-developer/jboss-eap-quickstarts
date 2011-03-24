@@ -21,32 +21,33 @@
  */
 package org.jboss.seam.forge.spec.cdi;
 
-import org.jboss.seam.forge.project.PackagingType;
+import java.io.File;
+
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.packaging.PackagingChanged;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.packaging.PackagingType;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.events.PackagingChanged;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImporter;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.spec.cdi")
-@RequiresFacets({ ResourceFacet.class, PackagingFacet.class })
+@Alias("forge.spec.cdi")
+@RequiresFacet({ ResourceFacet.class, PackagingFacet.class })
 public class CDIFacet extends BaseFacet
 {
    @Inject
@@ -161,7 +162,6 @@ public class CDIFacet extends BaseFacet
                      .getResourceAsStream("/org/jboss/seam/forge/web/beans.xml"));
 
       }
-      project.registerFacet(this);
       return true;
    }
 }

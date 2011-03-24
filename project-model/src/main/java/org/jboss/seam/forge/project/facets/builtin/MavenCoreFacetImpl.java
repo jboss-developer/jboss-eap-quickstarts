@@ -27,7 +27,6 @@ import java.io.IOException;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -39,15 +38,16 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.ProjectModelException;
-import org.jboss.seam.forge.project.Resource;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.plugins.Alias;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @Dependent
-@Named("forge.maven.MavenCoreFacet")
+@Alias("forge.maven.MavenCoreFacet")
 public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
 {
 
@@ -154,7 +154,8 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
       return pom;
    }
 
-   private FileResource<?> getPOMFile()
+   @Override
+   public FileResource<?> getPOMFile()
    {
       Resource<?> file = project.getProjectRoot().getChild("pom.xml");
       return (FileResource<?>) file;
@@ -182,7 +183,6 @@ public class MavenCoreFacetImpl implements MavenCoreFacet, Facet
    public boolean install()
    {
       createPOM();
-      project.registerFacet(this);
       return true;
    }
 

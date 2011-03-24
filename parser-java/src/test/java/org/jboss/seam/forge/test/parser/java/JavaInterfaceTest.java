@@ -71,7 +71,7 @@ public class JavaInterfaceTest
       assertFalse(foo.hasImport(bar));
       assertFalse(bar.hasImport(foo));
 
-      Import<JavaInterface> importBar = foo.addImport(bar);
+      Import importBar = foo.addImport(bar);
       assertTrue(foo.hasImport(bar));
       assertFalse(bar.hasImport(foo));
 
@@ -87,10 +87,10 @@ public class JavaInterfaceTest
    public void testImportImport() throws Exception
    {
       JavaInterface foo = JavaParser.parse(JavaInterface.class, "public interface Foo{}");
-      Import<JavaInterface> i = foo.addImport(getClass());
+      Import i = foo.addImport(getClass());
 
       foo.removeImport(getClass());
-      Import<JavaInterface> i2 = foo.addImport(i);
+      Import i2 = foo.addImport(i);
       assertNotSame(i, i2);
       assertEquals(i.getQualifiedName(), i2.getQualifiedName());
    }

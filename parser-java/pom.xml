@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -14,6 +13,11 @@
     <name>Seam Forge - Parser/Java</name>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jboss.seam.forge</groupId>
+            <artifactId>forge-parser-java-api</artifactId>
+        </dependency>
+    
         <!-- Eclipse Java Development Tools (JDT) parser and its (many) required
        libraries -->
         <dependency>
@@ -51,26 +55,21 @@
                     <groupId>org.eclipse.equinox</groupId>
                     <artifactId>app</artifactId>
                 </exclusion>
-
                 <exclusion>
                     <groupId>org.eclipse.core</groupId>
                     <artifactId>filesystem</artifactId>
                 </exclusion>
-
                 <exclusion>
                     <groupId>org.eclipse.core</groupId>
                     <artifactId>text</artifactId>
                 </exclusion>
-
-
                 <exclusion>
                     <groupId>org.eclipse.core</groupId>
                     <artifactId>common</artifactId>
                 </exclusion>
-
             </exclusions>
-
         </dependency>
+        
         <dependency>
             <groupId>org.eclipse.core</groupId>
             <artifactId>filesystem</artifactId>

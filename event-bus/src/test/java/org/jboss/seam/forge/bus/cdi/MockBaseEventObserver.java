@@ -21,10 +21,10 @@
  */
 package org.jboss.seam.forge.bus.cdi;
 
-import org.jboss.seam.forge.bus.event.BaseEvent;
-
 import javax.enterprise.event.Observes;
 import javax.inject.Singleton;
+
+import org.jboss.seam.forge.bus.event.BaseEvent;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

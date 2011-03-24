@@ -22,18 +22,31 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.util.Annotations;
-import org.jboss.seam.forge.shell.plugins.*;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
-import javax.inject.Named;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.*;
+
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.Annotations;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -84,10 +97,10 @@ public class CommandLibraryExtension implements Extension
          pluginMeta.setHelp("");
       }
 
-      if (Annotations.isAnnotationPresent(plugin, ResourceScope.class))
+      if (Annotations.isAnnotationPresent(plugin, RequiresResource.class))
       {
          List<Class<? extends Resource<?>>> resourceTypes = Arrays.asList(Annotations.getAnnotation(plugin,
-                  ResourceScope.class).value());
+                  RequiresResource.class).value());
 
          pluginMeta.setResourceScopes(resourceTypes);
       }
@@ -149,12 +162,12 @@ public class CommandLibraryExtension implements Extension
                }
             }
 
-            if (Annotations.isAnnotationPresent(method, ResourceScope.class))
+            if (Annotations.isAnnotationPresent(method, RequiresResource.class))
             {
                List<Class<? extends Resource>> resourceTypes = new ArrayList<Class<? extends Resource>>(
                         pluginMeta.getResourceScopes());
 
-               resourceTypes.addAll(Arrays.asList(Annotations.getAnnotation(method, ResourceScope.class).value()));
+               resourceTypes.addAll(Arrays.asList(Annotations.getAnnotation(method, RequiresResource.class).value()));
 
                commandMeta.setResourceScopes(resourceTypes);
             }
@@ -222,29 +235,18 @@ public class CommandLibraryExtension implements Extension
    {
       String name = null;
 
-      if (Annotations.isAnnotationPresent(plugin, OverloadedName.class))
+      if (Annotations.isAnnotationPresent(plugin, Alias.class))
       {
-         OverloadedName named = Annotations.getAnnotation(plugin, OverloadedName.class);
+         Alias named = Annotations.getAnnotation(plugin, Alias.class);
          if (named != null)
          {
             name = named.value();
-         }
-         if ((name == null) || "".equals(name.trim()))
-         {
-            name = plugin.getSimpleName();
          }
       }
-      else
+
+      if ((name == null) || "".equals(name.trim()))
       {
-         Named named = Annotations.getAnnotation(plugin, Named.class);
-         if (named != null)
-         {
-            name = named.value();
-         }
-         if ((name == null) || "".equals(name.trim()))
-         {
-            name = plugin.getSimpleName();
-         }
+         name = plugin.getSimpleName();
       }
       return name.toLowerCase();
    }

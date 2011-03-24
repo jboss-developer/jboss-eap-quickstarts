@@ -29,7 +29,7 @@ import java.io.IOException;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.util.Packages;
+import org.jboss.seam.forge.shell.util.Packages;
 import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.junit.Before;

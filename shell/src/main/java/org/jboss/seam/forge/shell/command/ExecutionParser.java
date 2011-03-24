@@ -28,6 +28,7 @@ import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.command.parser.*;
 import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.util.Enums;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
 import org.mvel2.util.ParseTools;
 
@@ -90,7 +91,10 @@ public class ExecutionParser
 
                if (command != null)
                {
-                  tokens.remove();
+                  if (!command.isDefault())
+                  {
+                     tokens.remove();
+                  }
                }
                else if (plugin.hasDefaultCommand())
                {
@@ -134,6 +138,7 @@ public class ExecutionParser
       return execution;
    }
 
+   @SuppressWarnings({ "rawtypes", "unchecked" })
    private Object[] parseParameters(final CommandMetadata command, final Queue<String> tokens, final String pipeIn,
             final PipeOut pipeOut)
    {
@@ -197,7 +202,12 @@ public class ExecutionParser
             // TODO Is this really where we want to do PromptType conversion?
             value = doPromptTypeConversions(value, promptType);
 
-            if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
+            if ((value != null) && option.getBoxedType().isEnum() && !Enums.hasValue(option.getType(), value))
+            {
+               ShellMessages.info(shell, "Could not parse [" + value + "]... please try again...");
+               value = shell.promptEnum(optionDescriptor, (Class<Enum>) option.getType());
+            }
+            else if (((value != null) && (promptType != null)) && !value.toString().matches(promptType.getPattern()))
             {
                // make sure the current option value is OK
                ShellMessages.info(shell, "Could not parse [" + value + "]... please try again...");
@@ -207,7 +217,11 @@ public class ExecutionParser
             {
                while (value == null)
                {
-                  if (isBooleanOption(option))
+                  if (option.isEnum())
+                  {
+                     value = shell.promptEnum(optionDescriptor, (Class<Enum>) option.getType());
+                  }
+                  else if (isBooleanOption(option))
                   {
                      value = shell.promptBoolean(optionDescriptor);
                   }
@@ -215,7 +229,7 @@ public class ExecutionParser
                   {
                      value = shell.promptFile(optionDescriptor);
                   }
-                  else if (promptType != null)
+                  else if (promptType != null && !PromptType.ANY.equals(promptType))
                   {
                      // make sure an omitted required option value is OK
                      value = shell.promptCommon(optionDescriptor, promptType);

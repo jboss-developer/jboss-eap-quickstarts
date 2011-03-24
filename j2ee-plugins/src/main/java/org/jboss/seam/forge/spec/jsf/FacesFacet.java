@@ -21,21 +21,21 @@
  */
 package org.jboss.seam.forge.spec.jsf;
 
-import org.jboss.seam.forge.project.constraints.RequiresFacets;
+import java.io.File;
+
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.WebResourceFacet;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.spec.servlet.ServletFacet;
-
-import javax.inject.Named;
-import java.io.File;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("forge.spec.jsf")
-@RequiresFacets({ ServletFacet.class })
+@Alias("forge.spec.jsf")
+@RequiresFacet(ServletFacet.class)
 public class FacesFacet extends BaseFacet
 {
    public FileResource<?> getConfigFile()
@@ -66,7 +66,6 @@ public class FacesFacet extends BaseFacet
          getConfigFile().setContents(getClass()
                   .getResourceAsStream("/org/jboss/seam/forge/web/faces-config.xml"));
       }
-      project.registerFacet(this);
       return true;
    }
 }

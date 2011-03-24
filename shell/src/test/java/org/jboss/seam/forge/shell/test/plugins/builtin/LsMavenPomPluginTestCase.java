@@ -22,23 +22,22 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 
-
 /**
  * LsMavenPomPluginTestCase
- *
+ * 
  * @author <a href="mailto:aslak@redhat.com">Aslak Knutsen</a>
  * @version $Revision: $
  */
 public class LsMavenPomPluginTestCase extends AbstractShellTest
 {
    @Test
-   public void shouldBeAbleToLsPomFile() throws Exception
+   public void testShouldBeAbleToLsPomFile() throws Exception
    {
       Shell shell = getShell();
 
       File moduleDir = new File("");
       shell.execute("cd " + moduleDir.getAbsolutePath());
-      
+
       shell.execute("cd pom.xml");
       shell.execute("ls");
    }

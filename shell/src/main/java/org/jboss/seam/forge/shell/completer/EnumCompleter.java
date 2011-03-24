@@ -31,18 +31,18 @@ import java.util.List;
  */
 public class EnumCompleter extends SimpleTokenCompleter
 {
-   private final Class<Enum<?>> enumClass;
+   private final Class<? extends Enum<?>> type;
 
-   public EnumCompleter(Class<Enum<?>> enumClass)
+   public EnumCompleter(Class<? extends Enum<?>> type)
    {
-      this.enumClass = enumClass;
+      this.type = type;
    }
 
    @Override
    public List<Object> getCompletionTokens()
    {
       List<Object> result = new ArrayList<Object>();
-      Enum<?>[] constants = enumClass.getEnumConstants();
+      Enum<?>[] constants = type.getEnumConstants();
       if (constants != null)
       {
          List<Enum<?>> list = Arrays.asList(constants);

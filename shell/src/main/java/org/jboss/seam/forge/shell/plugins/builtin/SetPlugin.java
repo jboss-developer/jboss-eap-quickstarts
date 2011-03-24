@@ -3,10 +3,10 @@ package org.jboss.seam.forge.shell.plugins.builtin;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.completer.ShellEnvCompleter;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -16,7 +16,7 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 /**
  * @author Mike Brock .
  */
-@Named("set")
+@Alias("set")
 @Topic("Shell Environment")
 @Help("Sets and lists environment variables")
 public class SetPlugin implements Plugin

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.model.Exclusion;
-import org.jboss.seam.forge.project.PackagingType;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -178,5 +178,11 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    public String toString()
    {
       return DependencyBuilder.toString(this);
+   }
+
+   @Override
+   public String toIdentifier()
+   {
+      return DependencyBuilder.toId(this);
    }
 }

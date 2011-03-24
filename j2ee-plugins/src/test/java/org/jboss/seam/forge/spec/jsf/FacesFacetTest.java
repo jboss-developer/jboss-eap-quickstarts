@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.resources.FileResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;

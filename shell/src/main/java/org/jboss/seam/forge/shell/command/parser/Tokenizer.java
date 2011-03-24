@@ -38,12 +38,16 @@ public class Tokenizer
       Queue<String> tokens = new LinkedList<String>();
 
       // -------------------------------(0-(1------)---(2---))----------
-      Matcher matcher = Pattern.compile("\"([^\"]*?)\"|(\\S+)").matcher(line);
+      Matcher matcher = Pattern.compile("'([^']*?)'|\"([^\"]*?)\"|(\\S+)").matcher(line);
       while (matcher.find())
       {
          if (matcher.group(1) != null)
          {
             tokens.add(matcher.group(1));
+         }
+         if (matcher.group(2) != null)
+         {
+            tokens.add(matcher.group(2));
          }
          else
          {

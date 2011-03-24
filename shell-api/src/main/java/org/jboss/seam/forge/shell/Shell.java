@@ -25,18 +25,18 @@ package org.jboss.seam.forge.shell;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Writer;
+import java.io.OutputStream;
 import java.util.Map;
 
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public interface Shell extends ShellPrintWriter, ShellPrompt
+public interface Shell extends ShellPrintWriter, ShellPrompt, ShellHistory
 {
    /**
     * Return the current working directory resource of the shell. Start with {@link #getCurrentResource()} and move up
@@ -53,10 +53,28 @@ public interface Shell extends ShellPrintWriter, ShellPrompt
     */
    Resource<?> getCurrentResource();
 
+   /**
+    * Return the type of the {@link Resource} on which the Shell is currently operating.
+    * 
+    * @see {@link RequiresResource}
+    */
    Class<? extends Resource<?>> getCurrentResourceScope();
 
+   /**
+    * Set the {@link Resource} on which the shell should operate.
+    * <p>
+    * Note: This may change the current {@link Shell#getCurrentDirectory()}
+    */
    void setCurrentResource(Resource<?> resource);
 
+   /**
+    * Return the file-system directory currently in use as the configuration directory. (Usually "~/.forge/")
+    */
+   DirectoryResource getConfigDir();
+
+   /**
+    * Return the {@link Project} on which this shell instance is currently operating.
+    */
    Project getCurrentProject();
 
    /**
@@ -106,6 +124,12 @@ public interface Shell extends ShellPrintWriter, ShellPrompt
     */
    void execute(File file) throws IOException;
 
+   /**
+    * Execute a shell script from the specified file, passing the given arguments as input.
+    * 
+    * @param file
+    * @param args
+    */
    void execute(File file, String... args) throws IOException;
 
    /**
@@ -171,9 +195,9 @@ public interface Shell extends ShellPrintWriter, ShellPrompt
    void setInputStream(InputStream inputStream) throws IOException;
 
    /**
-    * Set the writer to which the shell should print output.
+    * Set the stream to which the shell should print output.
     */
-   void setOutputWriter(Writer writer) throws IOException;
+   void setOutputStream(OutputStream stream) throws IOException;
 
    /**
     * Return the current height, in characters, of the current shell console. (<strong>Warning:</strong> This may change
@@ -196,4 +220,20 @@ public interface Shell extends ShellPrintWriter, ShellPrompt
     * @throws IOException on error
     */
    String readLine() throws IOException;
+
+   /**
+    * Return true if the {@link Shell} is currently executing a plugin; otherwise, return false.
+    */
+   boolean isExecuting();
+
+   /**
+    * Controls the shell's usage of ANSI escape code support. This method does not guarantee ANSI will function
+    * properly, as the underlying Terminal must also support it.
+    */
+   void setAnsiSupported(boolean value);
+
+   /**
+    * Returns whether or not this shell supports ANSI escape codes.
+    */
+   boolean isAnsiSupported();
 }

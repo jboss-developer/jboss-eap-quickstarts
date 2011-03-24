@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.scaffold;
 
 import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.project.Project;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -29,7 +30,9 @@ import org.jboss.seam.forge.parser.java.JavaClass;
  */
 public interface ScaffoldProvider
 {
+   void fromEntity(Project project, JavaClass entity, boolean overwrite);
 
-   void fromEntity(JavaClass entity, boolean overwrite);
+   void installInto(Project project);
 
+   boolean isInstalledIn(Project project);
 }

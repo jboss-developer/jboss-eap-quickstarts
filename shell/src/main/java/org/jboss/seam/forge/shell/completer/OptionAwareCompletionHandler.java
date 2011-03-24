@@ -26,8 +26,9 @@ import jline.console.CursorBuffer;
 import jline.console.completer.CandidateListCompletionHandler;
 import jline.console.completer.CompletionHandler;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.shell.command.OptionMetadata;
 
 import java.io.IOException;
 import java.util.*;
@@ -42,7 +43,7 @@ public class OptionAwareCompletionHandler implements CompletionHandler
    private final CompletedCommandHolder commandHolder;
    private final Shell shell;
 
-   public OptionAwareCompletionHandler(CompletedCommandHolder commandHolder, Shell shell)
+   public OptionAwareCompletionHandler(final CompletedCommandHolder commandHolder, final Shell shell)
    {
       this.commandHolder = commandHolder;
       this.shell = shell;
@@ -53,6 +54,27 @@ public class OptionAwareCompletionHandler implements CompletionHandler
             IOException
    {
       CursorBuffer buf = reader.getCursorBuffer();
+
+      PluginCommandCompleterState state = commandHolder.getState();
+      if (state != null)
+      {
+         if (((candidates.size() == 1) && "".equals(candidates.get(0)))
+                  || (state.isDuplicateBuffer() && state.isFinalTokenComplete()))
+         {
+            if (commandHolder.getState().getOption() != null)
+            {
+               OptionMetadata option = commandHolder.getState().getOption();
+               reader.println();
+               reader.println(option.getOptionDescriptor());
+               if (candidates.size() == 1)
+               {
+                  reader.println();
+                  reader.drawLine();
+                  return true;
+               }
+            }
+         }
+      }
 
       // if there is only one completion, then fill in the buffer
       if (candidates.size() == 1)
@@ -161,8 +183,8 @@ public class OptionAwareCompletionHandler implements CompletionHandler
       for (CharSequence seq : candidates)
       {
          boolean processed = false;
-         CommandMetadata command = commandHolder.getCommandMetadata();
-         if (command != null && seq.toString().startsWith("--"))
+         CommandMetadata command = commandHolder.getState().getCommand();
+         if ((command != null) && seq.toString().startsWith("--"))
          {
             String str = seq.toString().trim();
             if (str.startsWith("--"))
@@ -194,7 +216,7 @@ public class OptionAwareCompletionHandler implements CompletionHandler
     */
    private String getUnambiguousCompletions(final List<CharSequence> candidates)
    {
-      if (candidates == null || candidates.isEmpty())
+      if ((candidates == null) || candidates.isEmpty())
       {
          return null;
       }

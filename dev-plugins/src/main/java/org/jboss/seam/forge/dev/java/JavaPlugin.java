@@ -21,33 +21,49 @@
  */
 package org.jboss.seam.forge.dev.java;
 
-import org.jboss.seam.forge.parser.JavaParser;
-import org.jboss.seam.forge.parser.java.JavaClass;
-import org.jboss.seam.forge.parser.java.JavaSource;
-import org.jboss.seam.forge.parser.java.SyntaxError;
-import org.jboss.seam.forge.parser.java.util.Strings;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
-import org.jboss.seam.forge.shell.PromptType;
-import org.jboss.seam.forge.shell.ShellPrintWriter;
-import org.jboss.seam.forge.shell.ShellPrompt;
-import org.jboss.seam.forge.shell.plugins.*;
-import org.jboss.seam.forge.shell.util.ShellColor;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map.Entry;
+
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+
+import org.jboss.seam.forge.parser.JavaParser;
+import org.jboss.seam.forge.parser.java.FieldHolder;
+import org.jboss.seam.forge.parser.java.Import;
+import org.jboss.seam.forge.parser.java.JavaClass;
+import org.jboss.seam.forge.parser.java.JavaSource;
+import org.jboss.seam.forge.parser.java.Method;
+import org.jboss.seam.forge.parser.java.MethodHolder;
+import org.jboss.seam.forge.parser.java.SyntaxError;
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.resources.java.JavaResource;
+import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.shell.ShellPrompt;
+import org.jboss.seam.forge.shell.events.PickupResource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.Current;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
+import org.jboss.seam.forge.shell.util.JavaColorizer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Named("java")
+@Alias("java")
 @RequiresFacet(JavaSourceFacet.class)
 public class JavaPlugin implements Plugin
 {
@@ -63,6 +79,9 @@ public class JavaPlugin implements Plugin
 
    @Inject
    private ShellPrintWriter writer;
+
+   @Inject
+   private Event<PickupResource> pickUp;
 
    @DefaultCommand(help = "Prints all Java system property information.")
    public void info(final PipeOut out)
@@ -130,16 +149,32 @@ public class JavaPlugin implements Plugin
             java.saveJavaSource(jc);
          }
       }
+
+      pickUp.fire(new PickupResource(java.getJavaResource(jc)));
+   }
+
+   @Command("list-imports")
+   @RequiresResource(JavaResource.class)
+   public void listImports(
+            final PipeOut out) throws FileNotFoundException
+   {
+      List<Import> imports = resource.getJavaSource().getImports();
+      for (Import i : imports)
+      {
+         String str = "import " + (i.isStatic() ? "static " : "") + i.getQualifiedName() + ";";
+         str = JavaColorizer.format(out, str);
+         out.println(str);
+      }
    }
 
    @Command("new-field")
-   @ResourceScope(JavaResource.class)
+   @RequiresResource(JavaResource.class)
    public void newField(
             @PipeIn final String in,
             final PipeOut out,
             @Option(required = false,
-                     help = "the class definition: surround with quotes",
-                     description = "class definition") final String... def) throws FileNotFoundException
+                     help = "the field definition: surround with single quotes",
+                     description = "field definition") final String... def) throws FileNotFoundException
    {
       JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
 
@@ -158,11 +193,60 @@ public class JavaPlugin implements Plugin
       }
 
       JavaSource<?> source = resource.getJavaSource();
-      if (source instanceof JavaClass)
+      if (source instanceof FieldHolder)
       {
-         JavaClass clazz = ((JavaClass) source);
+         FieldHolder<?> clazz = ((FieldHolder<?>) source);
+
+         String name = JavaParser.parse(JavaClass.class, "public class Temp{}").addField(fieldDef).getName();
+         if (clazz.hasField(name))
+         {
+            throw new IllegalStateException("Field named [" + name + "] already exists.");
+         }
+
          clazz.addField(fieldDef);
-         java.saveJavaSource(clazz);
+         java.saveJavaSource(source);
+      }
+   }
+
+   @Command("new-method")
+   @RequiresResource(JavaResource.class)
+   public void newMethod(
+            @PipeIn final String in,
+            final PipeOut out,
+            @Option(required = false,
+                     help = "the method definition: surround with single quotes",
+                     description = "method definition") final String... def) throws FileNotFoundException
+   {
+      JavaSourceFacet java = project.getFacet(JavaSourceFacet.class);
+
+      String methodDef = null;
+      if (def != null)
+      {
+         methodDef = Strings.join(Arrays.asList(def), " ");
+      }
+      else if (in != null)
+      {
+         methodDef = in;
+      }
+      else
+      {
+         throw new RuntimeException("arguments required");
+      }
+
+      JavaSource<?> source = resource.getJavaSource();
+      if (source instanceof MethodHolder)
+      {
+         MethodHolder<?> clazz = ((MethodHolder<?>) source);
+
+         Method<JavaClass> method = JavaParser.parse(JavaClass.class, "public class Temp{}").addMethod(methodDef);
+         if (clazz.hasMethodSignature(method))
+         {
+            throw new IllegalStateException("Method with signature [" + method.toSignature()
+                     + "] already exists.");
+         }
+
+         clazz.addMethod(methodDef);
+         java.saveJavaSource(source);
       }
    }
 }

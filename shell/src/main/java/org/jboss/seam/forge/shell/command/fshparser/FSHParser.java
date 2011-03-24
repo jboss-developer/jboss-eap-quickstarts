@@ -22,13 +22,13 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import org.mvel2.util.ParseTools;
-import org.mvel2.util.StringAppender;
-
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isReservedWord;
 import static org.jboss.seam.forge.shell.command.fshparser.Parse.isTokenPart;
 import static org.mvel2.util.ParseTools.balancedCapture;
 import static org.mvel2.util.ParseTools.isWhitespace;
+
+import org.mvel2.util.ParseTools;
+import org.mvel2.util.StringAppender;
 
 /**
  * @author Mike Brock .

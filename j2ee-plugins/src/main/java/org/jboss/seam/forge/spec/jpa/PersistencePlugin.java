@@ -21,27 +21,32 @@
  */
 package org.jboss.seam.forge.spec.jpa;
 
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.RequiresFacet;
-import org.jboss.seam.forge.project.facets.JavaSourceFacet;
-import org.jboss.seam.forge.shell.events.InstallFacet;
-import org.jboss.seam.forge.shell.plugins.Command;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.spec.jpa.api.*;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
-import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
-
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-import javax.inject.Named;
+
+import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.shell.events.InstallFacets;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresFacet;
+import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
+import org.jboss.seam.forge.spec.jpa.api.JPAContainer;
+import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
+import org.jboss.seam.forge.spec.jpa.api.JPAProvider;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
+import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@Named("persistence")
+@Alias("persistence")
 @RequiresFacet(JavaSourceFacet.class)
 public class PersistencePlugin implements Plugin
 {
@@ -53,7 +58,7 @@ public class PersistencePlugin implements Plugin
    private Project project;
 
    @Inject
-   private Event<InstallFacet> request;
+   private Event<InstallFacets> request;
 
    @Inject
    private BeanManager manager;
@@ -100,7 +105,7 @@ public class PersistencePlugin implements Plugin
    {
       if (!project.hasFacet(PersistenceFacet.class))
       {
-         request.fire(new InstallFacet(PersistenceFacet.class));
+         request.fire(new InstallFacets(PersistenceFacet.class));
       }
    }
 }

@@ -72,12 +72,14 @@ public class OptionMetadata
 
       if (getDescription().equals(""))
       {
-         appender.append("ARG").append(" (").append(Types.getTypeDescriptor(type)).append(")");
+         appender.append("ARG");
       }
       else
       {
-         appender.append(description).append(" (").append(Types.getTypeDescriptor(type)).append(")");
+         appender.append(description);
       }
+
+      appender.append(" (of type ").append(Types.getTypeDescriptor(type)).append(")");
 
       return appender.append(']').toString();
    }

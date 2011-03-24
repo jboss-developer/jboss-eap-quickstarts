@@ -22,31 +22,36 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.project.Facet;
-import org.jboss.seam.forge.project.PackagingType;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.constraints.ConstraintInspector;
-import org.jboss.seam.forge.project.constraints.RequiresProject;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
-import org.jboss.seam.forge.shell.events.InstallFacet;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.seam.forge.shell.events.InstallFacets;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.RequiresProject;
+import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("install")
+@Alias("install")
 @Help("Installs a facet into a project.")
 @Topic("Project")
 @RequiresProject
@@ -64,11 +69,21 @@ public class InstallFacetPlugin implements Plugin
    @Inject
    private Project project;
 
-   public void installRequest(@Observes InstallFacet request)
+   public void installRequest(@Observes InstallFacets request)
    {
-      shell.printlnVerbose("Received Facet installation request [" + request.getFacetType().getName() + "]");
-      Facet facet = factory.getFacet(request.getFacetType());
-      performInstallation(facet);
+      shell.printlnVerbose("Received Facet installation request " + request.getFacetTypes());
+      for (Class<? extends Facet> type : request.getFacetTypes())
+      {
+         Facet facet = factory.getFacet(type);
+         if (!project.hasFacet(type))
+         {
+            performInstallation(facet);
+         }
+         else
+         {
+            shell.printlnVerbose("Facet type already installed" + type);
+         }
+      }
    }
 
    @DefaultCommand
@@ -199,6 +214,6 @@ public class InstallFacetPlugin implements Plugin
 
    private void abort()
    {
-      shell.println("Installation cancelled!");
+      ShellMessages.info(shell, "Installation cancelled!");
    }
 }

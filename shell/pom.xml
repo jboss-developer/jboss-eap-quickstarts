@@ -12,9 +12,7 @@
    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA ~ 02110-1301 USA, 
    or see the FSF site: http://www.fsf.org. -->
 
-<project
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
@@ -27,11 +25,31 @@
    <artifactId>forge-shell</artifactId>
    <packaging>jar</packaging>
    <name>Seam Forge - Shell</name>
+   
+   <properties>
+		<mvel.version>2.1.beta1</mvel.version>
+		<jansi.version>1.5</jansi.version>
+		<jline.version>2.5</jline.version>
+		<httpclient.version>4.0.1</httpclient.version>
+		<yaml.version>1.7</yaml.version>
+   </properties>
 
    <dependencies>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-project-model</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
          <artifactId>forge-shell-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-parser-java</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.seam.forge</groupId>
+         <artifactId>forge-git-tools</artifactId>
       </dependency>
       <dependency>
          <groupId>org.jboss.seam.forge</groupId>
@@ -73,30 +91,32 @@
       <dependency>
          <groupId>org.sonatype.jline</groupId>
          <artifactId>jline</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.mvel</groupId>
-         <artifactId>mvel2</artifactId>
-         <version>2.0.20-SNAPSHOT</version>
+         <version>${jline.version}</version>
       </dependency>
       <dependency>
          <groupId>org.fusesource.jansi</groupId>
          <artifactId>jansi</artifactId>
-         <version>1.2.1</version>
+         <version>${jansi.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.mvel</groupId>
+         <artifactId>mvel2</artifactId>
+         <version>${mvel.version}</version>
       </dependency>
 
+
+	<!-- Repository deps -->
        <dependency>
            <groupId>org.apache.httpcomponents</groupId>
            <artifactId>httpclient</artifactId>
-           <version>4.0.1</version>
+           <version>${httpclient.version}</version>
        </dependency>
-
        <dependency>
            <groupId>org.yaml</groupId>
            <artifactId>snakeyaml</artifactId>
-           <version>1.7</version>
-       </dependency>
-
+           <version>${yaml.version}</version>
+       </dependency>    
+       
 
       <!-- Test Deps -->
 

@@ -22,29 +22,35 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.shell.plugins.*;
-
-import javax.inject.Named;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeIn;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
+
 /**
  * @author Mike Brock .
  */
-@Named("cat")
+@Alias("cat")
 @Topic("File & Resources")
 @Help("Concatenate and print files")
 public class ConcatenatePlugin implements Plugin
 {
    @DefaultCommand
    public void run(
-         @PipeIn final InputStream in, // pipe in
-         @Option(description = "path", required = false) Resource<?>[] paths, // params
-         final PipeOut out // pipe out
+            @PipeIn final InputStream in, // pipe in
+            @Option(description = "path", required = false) Resource<?>[] paths, // params
+            final PipeOut out // pipe out
    ) throws IOException
    {
       String lastBuf = null;
@@ -98,7 +104,6 @@ public class ConcatenatePlugin implements Plugin
       }
 
       return s;
-
 
    }
 }

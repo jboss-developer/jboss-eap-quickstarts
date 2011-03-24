@@ -22,14 +22,20 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.Current;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.AnnotatedParameter;
 import javax.enterprise.inject.spi.InjectionPoint;
-import java.lang.reflect.*;
+
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Current;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -63,14 +69,23 @@ public class ResourceProducer
       try
       {
          Class<? extends Resource> resourceClass = currentResource.getClass();
-         if ((type != null) && ((Class) type).isAssignableFrom(resourceClass))
+         if ((type instanceof Class) && ((Class) type).isAssignableFrom(resourceClass))
          {
             return currentResource;
+         }
+         else if (type instanceof ParameterizedType)
+         {
+            ParameterizedType t = (ParameterizedType) type;
+            Type rawType = t.getRawType();
+            if ((rawType instanceof Class) && ((Class) rawType).isAssignableFrom(resourceClass))
+            {
+               return currentResource;
+            }
          }
       }
       catch (Exception e)
       {
-         throw new IllegalStateException("Could not @Inject Resource type into InjectionPoint:" + ip);
+         throw new IllegalStateException("Could not @Inject Resource type into InjectionPoint:" + ip, e);
       }
 
       return null;

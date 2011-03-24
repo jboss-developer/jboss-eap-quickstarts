@@ -22,17 +22,21 @@
 
 package org.jboss.seam.forge.scaffold.plugins.meta;
 
-import org.jboss.seam.forge.scaffold.plugins.meta.model.*;
-
 import java.lang.reflect.Modifier;
 import java.util.List;
+
+import org.jboss.seam.forge.scaffold.plugins.meta.model.RenderUtil;
+import org.jboss.seam.forge.scaffold.plugins.meta.model.TClassType;
+import org.jboss.seam.forge.scaffold.plugins.meta.model.TConstructor;
+import org.jboss.seam.forge.scaffold.plugins.meta.model.TField;
+import org.jboss.seam.forge.scaffold.plugins.meta.model.TMethod;
 
 /**
  * @author Mike Brock .
  */
 public class BeanModel
 {
-   private TClassType classType;
+   private final TClassType classType;
 
    public BeanModel(String beanName)
    {
@@ -55,7 +59,7 @@ public class BeanModel
       return classType.getInterfaces();
    }
 
-   public void addBeanField(String name, Class type)
+   public void addBeanField(String name, Class<?> type)
    {
       addBeanField(name, TClassType.getClass(type.getName()));
    }
@@ -79,10 +83,10 @@ public class BeanModel
       classType.getMethods().add(setterMethod);
    }
 
-   public String render() {
+   public String render()
+   {
       return classType.render();
    }
-
 
    public static void main(String[] args)
    {

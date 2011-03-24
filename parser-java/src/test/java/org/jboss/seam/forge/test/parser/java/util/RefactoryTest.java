@@ -66,9 +66,9 @@ public class RefactoryTest
    @Test
    public void testCreateToSrtingFromFields() throws Exception
    {
-      assertFalse(javaClass.hasMethod("toString"));
+      assertFalse(javaClass.hasMethodSignature("toString"));
       Refactory.createToStringFromFields(javaClass);
-      assertTrue(javaClass.hasMethod("toString"));
+      assertTrue(javaClass.hasMethodSignature("toString"));
       assertTrue(javaClass.getMethod("toString").getBody().contains("return"));
    }
 }

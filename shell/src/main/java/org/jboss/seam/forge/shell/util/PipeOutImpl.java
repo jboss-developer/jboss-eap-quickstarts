@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.shell.util;
 
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 
 /**

@@ -22,23 +22,6 @@
 
 package org.jboss.seam.forge.scaffold.plugins;
 
-import org.jboss.fpak.GenerationContext;
-import org.jboss.fpak.model.Definition;
-import org.jboss.fpak.strategy.ParseStrategy;
-import org.jboss.fpak.strategy.RunStrategy;
-import org.jboss.fpak.strategy.builtin.DefaultParseStrategy;
-import org.jboss.fpak.strategy.builtin.DefaultRunStrategy;
-import org.jboss.seam.forge.scaffold.plugins.events.AdvertiseGenProfile;
-import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
-import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.jboss.seam.forge.shell.plugins.Plugin;
-
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -46,10 +29,29 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.jboss.fpak.GenerationContext;
+import org.jboss.fpak.model.Definition;
+import org.jboss.fpak.strategy.ParseStrategy;
+import org.jboss.fpak.strategy.RunStrategy;
+import org.jboss.fpak.strategy.builtin.DefaultParseStrategy;
+import org.jboss.fpak.strategy.builtin.DefaultRunStrategy;
+import org.jboss.seam.forge.scaffold.plugins.events.AdvertiseGenProfile;
+import org.jboss.seam.forge.scaffold.shell.ProfileCompleter;
+import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+
 /**
  * @author Mike Brock .
  */
-@Named("gen")
+@Alias("gen")
 @Singleton
 public class GenPlugin implements Plugin
 {
@@ -74,7 +76,7 @@ public class GenPlugin implements Plugin
 
    public void registerProfile(@Observes final AdvertiseGenProfile agp)
    {
-      shell.println("loaded gen profile: " + agp.getName() + " (" + agp.getUrl() + ")");
+      shell.printlnVerbose("loaded gen profile: " + agp.getName() + " (" + agp.getUrl() + ")");
       registeredProfiles.put(agp.getName(), agp.getUrl());
    }
 

@@ -30,9 +30,9 @@ import java.io.File;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;

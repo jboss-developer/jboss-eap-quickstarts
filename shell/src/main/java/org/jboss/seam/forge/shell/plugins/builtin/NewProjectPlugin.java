@@ -22,32 +22,43 @@
 
 package org.jboss.seam.forge.shell.plugins.builtin;
 
-import org.apache.maven.model.Model;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.facets.*;
-import org.jboss.seam.forge.project.resources.FileResource;
-import org.jboss.seam.forge.project.resources.ResourceException;
-import org.jboss.seam.forge.project.resources.builtin.DirectoryResource;
+import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
+import org.jboss.seam.forge.project.facets.JavaSourceFacet;
+import org.jboss.seam.forge.project.facets.MetadataFacet;
+import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.facets.ResourceFacet;
+import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.project.util.ResourceUtil;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceException;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
-import org.jboss.seam.forge.shell.plugins.*;
+import org.jboss.seam.forge.shell.plugins.Alias;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
+import org.jboss.seam.forge.shell.plugins.Option;
+import org.jboss.seam.forge.shell.plugins.PipeOut;
+import org.jboss.seam.forge.shell.plugins.Plugin;
+import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.Files;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.IOException;
+import org.jboss.seam.forge.shell.util.ResourceUtil;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("new-project")
+@Alias("new-project")
 @Topic("Project")
 @Help("Create a new project in an empty directory.")
 public class NewProjectPlugin implements Plugin
@@ -136,7 +147,7 @@ public class NewProjectPlugin implements Plugin
          {
             newDir = shell.getCurrentDirectory();
             shell.println();
-            if (!projectFactory.containsProject(newDir))
+            if (!projectFactory.containsProject(newDir.reify(DirectoryResource.class)))
             {
                newDir = shell.promptFile(
                         "Where would you like to create the project? [Press ENTER to use the current directory: "
@@ -152,7 +163,7 @@ public class NewProjectPlugin implements Plugin
                newDir.mkdirs();
                newDir = newDir.reify(DirectoryResource.class);
             }
-            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir))
+            else if (newDir.isDirectory() && !projectFactory.containsProject(newDir.reify(DirectoryResource.class)))
             {
                newDir = newDir.reify(DirectoryResource.class);
             }
@@ -174,19 +185,19 @@ public class NewProjectPlugin implements Plugin
          dir.mkdirs();
       }
 
-      Project project = projectFactory.createProject(dir, MavenCoreFacet.class, DependencyFacet.class,
+      Project project = projectFactory.createProject(dir, DependencyFacet.class,
                MetadataFacet.class,
                JavaSourceFacet.class, ResourceFacet.class);
-      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
-      Model pom = maven.getPOM();
-      pom.setArtifactId(name);
-      pom.setGroupId(groupId);
-      pom.setPackaging("jar");
+
+      MetadataFacet meta = project.getFacet(MetadataFacet.class);
+      meta.setProjectName(name);
+      meta.setGroupId(groupId);
+
+      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
+      packaging.setPackagingType(PackagingType.JAR);
 
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      deps.addRepository("jboss", "https://repository.jboss.org/nexus/content/groups/public/");
-
-      maven.setPOM(pom);
+      deps.addRepository(KnownRepository.JBOSS_NEXUS);
 
       if (createMain)
       {
@@ -199,6 +210,7 @@ public class NewProjectPlugin implements Plugin
                            + ".\");")
                   .getOrigin());
       }
+
       project.getFacet(ResourceFacet.class).createResource("<forge/>".toCharArray(), "META-INF/forge.xml");
 
       /*

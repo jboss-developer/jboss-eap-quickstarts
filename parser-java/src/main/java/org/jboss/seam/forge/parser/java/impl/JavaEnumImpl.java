@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
 import org.jboss.seam.forge.parser.java.JavaEnum;
 import org.jboss.seam.forge.parser.java.Member;
+import org.jboss.seam.forge.parser.java.SourceType;
 
 /**
  * Represents a Java Source File
@@ -53,6 +54,12 @@ public class JavaEnumImpl extends AbstractJavaSource<JavaEnum> implements JavaEn
    protected JavaEnum updateTypeNames(final String newName)
    {
       return this;
+   }
+
+   @Override
+   public SourceType getSourceType()
+   {
+      return SourceType.ENUM;
    }
 
 }

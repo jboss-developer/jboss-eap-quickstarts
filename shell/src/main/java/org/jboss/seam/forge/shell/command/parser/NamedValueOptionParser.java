@@ -22,10 +22,11 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
+import java.util.Queue;
+
+import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
-
-import java.util.Queue;
 
 /**
  * Parses named value options such as:
@@ -64,7 +65,8 @@ public class NamedValueOptionParser implements CommandParser
                         tokens.remove(); // increment the chain of tokens
                      }
                   }
-                  ctx.put(option, value, value); // add the value, should we return
+                  ctx.put(option, Strings.stripQuotes(value), Strings.stripQuotes(value)); // add the value, should we
+                                                                                           // return
                   // this
                   // as a tuple instead?
                }

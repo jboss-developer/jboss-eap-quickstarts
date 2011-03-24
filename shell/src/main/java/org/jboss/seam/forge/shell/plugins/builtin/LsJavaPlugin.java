@@ -35,30 +35,30 @@ import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.parser.java.Method;
 import org.jboss.seam.forge.parser.java.Parameter;
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaFieldResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaMemberResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaMethodResource;
-import org.jboss.seam.forge.project.resources.builtin.java.JavaResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.java.JavaFieldResource;
+import org.jboss.seam.forge.resources.java.JavaMemberResource;
+import org.jboss.seam.forge.resources.java.JavaMethodResource;
+import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.Shell;
-import org.jboss.seam.forge.shell.color.JavaColorizer;
+import org.jboss.seam.forge.shell.ShellColor;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
-import org.jboss.seam.forge.shell.plugins.OverloadedName;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-import org.jboss.seam.forge.shell.plugins.ResourceScope;
+import org.jboss.seam.forge.shell.plugins.RequiresResource;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.jboss.seam.forge.shell.util.ShellColor;
+import org.jboss.seam.forge.shell.util.JavaColorizer;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * @author Mike Brock
  */
-@OverloadedName("ls")
-@ResourceScope({ JavaResource.class, JavaMethodResource.class, JavaFieldResource.class })
+@Alias("ls")
+@RequiresResource({ JavaResource.class, JavaMethodResource.class, JavaFieldResource.class })
 @Topic("File & Resources")
 @Help("Prints the contents current Java file")
 public class LsJavaPlugin implements Plugin
@@ -69,10 +69,11 @@ public class LsJavaPlugin implements Plugin
    private Shell shell;
 
    @DefaultCommand
-   public void run(@Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
-                   @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
-                   @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
-                   final PipeOut out) throws FileNotFoundException
+   public void run(
+            @Option(description = "path", defaultValue = ".") final Resource<?>[] paths,
+            @Option(flagOnly = true, name = "all", shortName = "a", required = false) final boolean showAll,
+            @Option(flagOnly = true, name = "list", shortName = "l", required = false) final boolean list,
+            final PipeOut out) throws FileNotFoundException
    {
 
       for (Resource<?> resource : paths)
@@ -133,7 +134,7 @@ public class LsJavaPlugin implements Plugin
                      String entry = out.renderColor(ShellColor.BLUE, method.getVisibility().scope());
                      String parameterString = "(";
 
-                     for (Parameter<JavaClass> param : method.getParameters())
+                     for (Parameter param : method.getParameters())
                      {
                         parameterString += param.toString();
                      }

@@ -22,7 +22,7 @@
 
 package org.jboss.seam.forge.shell.plugins;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.project.ResourceScoped;
 
 import javax.inject.Inject;

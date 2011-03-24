@@ -33,7 +33,7 @@ public enum PromptType
    ANY(".*"),
    DEPENDENCY_ID("[^:]+:[^:]+:?([^:]+:?){0,3}"),
    JAVA_PACKAGE("(?i)(~\\.)?([a-z0-9_]+\\.?)+[a-z0-9_]"),
-   JAVA_VARIABLE_NAME("^(?!(" + Patterns.JAVA_KEYWORDS + "))[A-Za-z0-9$_]+$"),
+   JAVA_VARIABLE_NAME("^(?!(" + Patterns.JAVA_KEYWORDS + ")$)[A-Za-z0-9$_]+$"),
    JAVA_CLASS(JAVA_PACKAGE.pattern + "\\.?[a-z0-9$_]"),
    FILE_PATH(".*");
 
@@ -47,6 +47,11 @@ public enum PromptType
    public String getPattern()
    {
       return pattern;
+   }
+
+   public boolean matches(String value)
+   {
+      return (value != null) && value.matches(pattern);
    }
 
 }

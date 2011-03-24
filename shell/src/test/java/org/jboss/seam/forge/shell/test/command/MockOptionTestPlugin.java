@@ -21,45 +21,53 @@
  */
 package org.jboss.seam.forge.shell.test.command;
 
+import javax.inject.Singleton;
+
 import org.jboss.seam.forge.shell.PromptType;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
-
-import javax.inject.Named;
-import javax.inject.Singleton;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@Named("motp")
+@Alias("motp")
 @Singleton
 public class MockOptionTestPlugin implements Plugin
 {
    private String suppliedOption = "";
    private String requiredOption = "";
    private Boolean booleanOptionOmitted = null;
+   private String defaultCommandArg;
+
+   @DefaultCommand
+   public void defaultCommand(@Option(required = true) final String args)
+   {
+      setDefaultCommandArg(args);
+   }
 
    @Command("suppliedOption")
    public void suppliedOption(@Option(name = "package",
-         description = "Your java package",
-         type = PromptType.JAVA_PACKAGE) final String option)
+            description = "Your java package",
+            type = PromptType.JAVA_PACKAGE) final String option)
    {
       suppliedOption = option;
    }
 
    @Command("requiredOption")
    public void requiredOption(@Option(name = "package",
-         required = true,
-         description = "Your java package",
-         type = PromptType.JAVA_PACKAGE) final String option)
+            required = true,
+            description = "Your java package",
+            type = PromptType.JAVA_PACKAGE) final String option)
    {
       requiredOption = option;
    }
 
    @Command("booleanOptionOmitted")
    public void booleanOptionOmitted(@Option(required = false,
-         description = "Some boolean flag") final boolean option)
+            description = "Some boolean flag") final boolean option)
    {
       booleanOptionOmitted = option;
    }
@@ -69,7 +77,7 @@ public class MockOptionTestPlugin implements Plugin
       return suppliedOption;
    }
 
-   public void setSuppliedOption(String suppliedOption)
+   public void setSuppliedOption(final String suppliedOption)
    {
       this.suppliedOption = suppliedOption;
    }
@@ -79,7 +87,7 @@ public class MockOptionTestPlugin implements Plugin
       return requiredOption;
    }
 
-   public void setRequiredOption(String requiredOption)
+   public void setRequiredOption(final String requiredOption)
    {
       this.requiredOption = requiredOption;
    }
@@ -89,8 +97,18 @@ public class MockOptionTestPlugin implements Plugin
       return booleanOptionOmitted;
    }
 
-   public void setBooleanOptionOmitted(Boolean booleanOptionOmitted)
+   public void setBooleanOptionOmitted(final Boolean booleanOptionOmitted)
    {
       this.booleanOptionOmitted = booleanOptionOmitted;
+   }
+
+   public void setDefaultCommandArg(final String defaultCommandArg)
+   {
+      this.defaultCommandArg = defaultCommandArg;
+   }
+
+   public String getDefaultCommandArg()
+   {
+      return defaultCommandArg;
    }
 }

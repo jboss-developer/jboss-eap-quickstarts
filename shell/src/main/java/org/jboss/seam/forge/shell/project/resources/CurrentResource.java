@@ -22,12 +22,12 @@
 
 package org.jboss.seam.forge.shell.project.resources;
 
-import org.jboss.seam.forge.project.Resource;
-import org.jboss.seam.forge.shell.events.ResourceChanged;
-
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.shell.events.ResourceChanged;
 
 /**
  * Contains the current {@link Resource} - not to be used by outsiders.

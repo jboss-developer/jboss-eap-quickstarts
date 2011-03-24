@@ -36,8 +36,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.util.BeanManagerUtils;
 import org.jboss.seam.forge.shell.events.ProjectChanged;
+import org.jboss.seam.forge.shell.util.BeanManagerUtils;
 
 /**
  * This class provides lifecycle management for the {@link Project} scope

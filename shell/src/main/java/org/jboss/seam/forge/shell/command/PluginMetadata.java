@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
 import org.jboss.seam.forge.shell.constraint.ConstraintException;

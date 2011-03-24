@@ -30,14 +30,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.jboss.seam.forge.project.Resource;
+import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.shell.Shell;
+import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PluginRegistry;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
+import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
@@ -46,12 +47,11 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.Topic;
 import org.jboss.seam.forge.shell.util.FormatCallback;
 import org.jboss.seam.forge.shell.util.GeneralUtils;
-import org.jboss.seam.forge.shell.util.ShellColor;
 
 /**
  * @author Mike Brock
  */
-@Named("list-commands")
+@Alias("list-commands")
 @Topic("Shell Environment")
 @Help("Lists executable shell commands")
 public class ListCommandsPlugin implements Plugin
@@ -178,18 +178,25 @@ public class ListCommandsPlugin implements Plugin
 
       if (showAll)
       {
-         if (!cmdMeta.isDefault())
+         if (cmdMeta.isDefault())
          {
-            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + (contextual ? "*" : ""));
+            return (cmdMeta.getName() + (contextual ? "*" : ""));
          }
          else
          {
-            return (cmdMeta.getName() + (contextual ? "*" : ""));
+            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + (contextual ? "*" : ""));
          }
       }
       else if (contextual)
       {
-         return cmdMeta.getName();
+         if (cmdMeta.isDefault())
+         {
+            return (cmdMeta.getName() + "*");
+         }
+         else
+         {
+            return (cmdMeta.getPluginMetadata().getName() + ":" + cmdMeta.getName() + "*");
+         }
       }
 
       return "";
