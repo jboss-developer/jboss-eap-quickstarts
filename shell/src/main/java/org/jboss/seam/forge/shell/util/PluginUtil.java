@@ -149,8 +149,6 @@ public class PluginUtil
    public static FileResource<?> downloadFromIndexRef(final PluginRef ref, final PipeOut out,
             final DirectoryResource pluginDir) throws Exception
    {
-      DefaultHttpClient client = new DefaultHttpClient();
-
       String[] artifactParts = ref.getArtifact().toIdentifier().split(":");
 
       if (artifactParts.length != 3)

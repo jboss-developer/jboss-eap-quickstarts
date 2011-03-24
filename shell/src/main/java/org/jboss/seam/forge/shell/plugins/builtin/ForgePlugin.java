@@ -61,7 +61,7 @@ import org.jboss.seam.forge.shell.util.PluginUtil;
  */
 @Alias("forge")
 @Topic("Shell Environment")
-@Help("Forge control and shell environment commands.")
+@Help("Forge control and shell environment commands. Manage plugins and other forge addons.")
 public class ForgePlugin implements Plugin
 {
    private final Event<ReinitializeEnvironment> reinitializeEvent;
@@ -94,10 +94,16 @@ public class ForgePlugin implements Plugin
       out.println("Seam Forge, version [ " + version + " ] - JBoss, by Red Hat, Inc. [ http://jboss.org ]");
    }
 
-   @Command("restart")
+   @Command(value = "restart", help = "Reload all plugins and default configurations")
    public void restart() throws Exception
    {
       reinitializeEvent.fire(new ReinitializeEnvironment());
+   }
+
+   @Command(value = "list-plugins", help = "List all installed plugin JAR files.")
+   public void listInstalled()
+   {
+      shell.execute("find " + shell.getPluginDirectory().getFullyQualifiedName());
    }
 
    /*
@@ -108,6 +114,8 @@ public class ForgePlugin implements Plugin
             help = "Searches the configured Forge plugin index for a plugin matching the given search text")
    public void find(@Option(description = "search string") String searchString, final PipeOut out) throws Exception
    {
+      // TODO remove this message once stabilized.
+      ShellMessages.info(out, "This is a prototype feature and has limited functionality.");
       List<PluginRef> pluginList = PluginUtil.findPlugin(shell, searchString, out);
 
       for (PluginRef ref : pluginList)
@@ -116,21 +124,13 @@ public class ForgePlugin implements Plugin
       }
    }
 
-   @Command(value = "mvn-plugin",
-            help = "Download and install a plugin from a maven repository")
-   public void installFromMvnRepos(@Option(description = "plugin-identifier", required = true) Dependency plugin,
-            @Option(description = "target repository") KnownRepository repo,
-            final PipeOut out) throws Exception
-   {
-      // TODO implement
-      throw new RuntimeException("Not yet implemented...");
-   }
-
    @Command(value = "install-plugin",
             help = "Installs a plugin from the configured Forge plugin index")
    public void installFromIndex(@Option(description = "plugin-name") String pluginName,
             final PipeOut out) throws Exception
    {
+      // TODO remove this message once stabilized.
+      ShellMessages.info(out, "This is a prototype feature and has limited functionality.");
       List<PluginRef> plugins = PluginUtil.findPlugin(shell, pluginName, out);
 
       if (plugins.isEmpty())
@@ -164,10 +164,20 @@ public class ForgePlugin implements Plugin
       }
    }
 
-   @Command(value = "remote-plugin",
+   @Command(value = "mvn-plugin",
+            help = "Download and install a plugin from a maven repository")
+   public void installFromMvnRepos(@Option(description = "plugin-identifier", required = true) Dependency plugin,
+            @Option(description = "target repository") KnownRepository repo,
+            final PipeOut out) throws Exception
+   {
+      // TODO implement - this will be pretty useful for drag&drop plugin installation.
+      throw new RuntimeException("Not yet implemented... use 'forge url-plugin' isntead.");
+   }
+
+   @Command(value = "url-plugin",
             help = "Download and install a plugin from the given URL")
    public void installFromRemoteURL(
-            @Option(description = "project directory", required = true) URL url,
+            @Option(description = "URL of jar file", required = true) URL url,
             @Option(description = "plugin name", required = true) String name,
             final PipeOut out) throws Exception
    {

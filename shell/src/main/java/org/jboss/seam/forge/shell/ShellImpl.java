@@ -907,6 +907,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
          break;
       case ITALIC:
          ansi.a(Ansi.Attribute.ITALIC);
+         ansi.a(Ansi.Attribute.INTENSITY_FAINT);
          break;
 
       default:

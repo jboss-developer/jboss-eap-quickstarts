@@ -54,6 +54,8 @@ import org.jboss.seam.forge.shell.util.GeneralUtils;
 @Help("Displays help text for specified plugins & commands.")
 public class HelpPlugin implements Plugin
 {
+   private static final String NO_HELP = "no help text available";
+
    private final PluginRegistry registry;
    private final Shell shell;
 
@@ -123,7 +125,7 @@ public class HelpPlugin implements Plugin
                out.print(ShellColor.BOLD, "[" + p.getName() + " " + c.getName() + "] ");
                out.println("- "
                         + (!Strings.isNullOrEmpty(c.getHelp()) ? c.getHelp() : out.renderColor(ShellColor.ITALIC,
-                                 "no help text available")));
+                                 NO_HELP)));
 
                printOptions(out, c);
             }
@@ -163,7 +165,7 @@ public class HelpPlugin implements Plugin
       out.println();
       out.println(out.renderColor(ShellColor.BOLD, "[" + p.getName() + "]")
                + " - "
-               + (Strings.isNullOrEmpty(p.getHelp()) ? out.renderColor(ShellColor.ITALIC, "no help text available") : p
+               + (Strings.isNullOrEmpty(p.getHelp()) ? out.renderColor(ShellColor.ITALIC, NO_HELP) : p
                         .getHelp()));
       if (!p.getResourceScopes().isEmpty() && all)
       {
@@ -210,7 +212,7 @@ public class HelpPlugin implements Plugin
                out.print(ShellColor.BOLD, "\t[" + (opt.isVarargs() ? "Args..." : "Arg #" + i) + "]");
                out.print(Strings.isNullOrEmpty(opt.getDescription()) ? " - " : " - " + opt.getDescription() + " - ");
                out.println((!Strings.isNullOrEmpty(opt.getHelp()) ? opt.getHelp() : out.renderColor(ShellColor.ITALIC,
-                        "no help text available")));
+                        NO_HELP)));
                i++;
             }
          }
@@ -224,8 +226,10 @@ public class HelpPlugin implements Plugin
                {
                   out.print(", " + out.renderColor(ShellColor.BOLD, "-" + opt.getShortName()));
                }
-               out.print(ShellColor.BOLD, "] ");
-               out.println(opt.getDescription());
+               out.print(ShellColor.BOLD, "]");
+               out.print(Strings.isNullOrEmpty(opt.getDescription()) ? " - " : " - " + opt.getDescription() + " - ");
+               out.println((!Strings.isNullOrEmpty(opt.getHelp()) ? opt.getHelp() : out.renderColor(ShellColor.ITALIC,
+                        NO_HELP)));
             }
          }
       }
