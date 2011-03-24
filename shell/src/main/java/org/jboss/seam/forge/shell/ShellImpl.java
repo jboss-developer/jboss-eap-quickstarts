@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,12 +59,14 @@ import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
 import org.jboss.seam.forge.shell.command.convert.FileConverter;
+import org.jboss.seam.forge.shell.command.convert.URLConverter;
 import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
 import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
@@ -230,6 +233,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       addConversionHandler(Boolean.class, booleanConverter);
       addConversionHandler(File.class, new FileConverter());
       addConversionHandler(Dependency.class, new DependencyIdConverter());
+      addConversionHandler(URL.class, new URLConverter());
 
       addConversionHandler(JavaResource[].class, javaResourceConversionHandler);
       addConversionHandler(JavaResource.class, new ConversionHandler()
@@ -376,6 +380,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
             historyOutstream.write(command.charAt(i));
          }
          historyOutstream.write('\n');
+         historyOutstream.flush();
       }
       catch (IOException e)
       {
@@ -493,7 +498,6 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
             handleException(e);
          }
       }
-      println();
    }
 
    private void handleException(final Exception original)
@@ -1175,5 +1179,17 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    public boolean isAnsiSupported()
    {
       return reader.getTerminal().isAnsiSupported();
+   }
+
+   @Override
+   public DirectoryResource getPluginDirectory()
+   {
+      String pluginPath = getProperty("FORGE_CONFIG_DIR") + "plugins/";
+      FileResource<?> resource = (FileResource<?>) resourceFactory.getResourceFrom(new File(pluginPath));
+      if (!resource.exists())
+      {
+         resource.mkdirs();
+      }
+      return resource.reify(DirectoryResource.class);
    }
 }

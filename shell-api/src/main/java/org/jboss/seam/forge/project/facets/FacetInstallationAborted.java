@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,23 +19,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.jboss.seam.forge.project.facets;
 
-import org.jboss.seam.forge.project.Facet;
-
 /**
+ * Thrown when a user aborts installation of a given Facet.
+ * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-public interface MetadataFacet extends Facet
+public class FacetInstallationAborted extends RuntimeException
 {
+   private static final long serialVersionUID = -1271812418795623520L;
 
-   void setProjectName(String name);
+   public FacetInstallationAborted()
+   {
+      super();
+   }
 
-   String getProjectName();
+   public FacetInstallationAborted(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
 
-   void setGroupId(String groupId);
+   public FacetInstallationAborted(String message)
+   {
+      super(message);
+   }
 
-   String getTopLevelPackage();
+   public FacetInstallationAborted(Throwable cause)
+   {
+      super(cause);
+   }
+
 }

@@ -19,8 +19,8 @@
 			<groupId>org.jboss.seam.forge</groupId>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.shrinkwrap.descriptors</groupId>
-			<artifactId>shrinkwrap-descriptors-api</artifactId>
+			<artifactId>forge-parser-xml</artifactId>
+			<groupId>org.jboss.seam.forge</groupId>
 		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>

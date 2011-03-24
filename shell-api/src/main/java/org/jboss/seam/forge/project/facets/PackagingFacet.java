@@ -50,7 +50,10 @@ public interface PackagingFacet extends Facet
    Resource<?> getFinalArtifact();
 
    /**
-    * Trigger the underlying build system to perform a build with the given arguments or flags
+    * Trigger the underlying build system to perform a build with the given arguments or flags.
+    * 
+    * @return The final build artifact if building succeeded, otherwise return null
+    * @see {@link #getFinalArtifact()}
     */
-   void executeBuild(String... args);
+   Resource<?> executeBuild(String... args);
 }

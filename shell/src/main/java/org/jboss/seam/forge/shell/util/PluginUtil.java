@@ -22,14 +22,8 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +39,9 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.FileResource;
+import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -65,13 +61,24 @@ public class PluginUtil
    private static final String PROP_NAME = "name";
    private static final Object PROP_GIT_REF = "gitref";
 
+   private static String getDefaultRepo(Shell shell)
+   {
+      String defaultRepo = (String) shell.getProperty("DEFFAULT_PLUGIN_REPO");
+      if (defaultRepo == null)
+      {
+         throw new RuntimeException("no default repository set: (to set, type: set DEFAULT_PLUGIN_REPO <repository>)");
+      }
+      return defaultRepo;
+   }
+
    @SuppressWarnings("unchecked")
-   public static List<PluginRef> findPlugin(String repoUrl, String searchString, PipeOut out) throws Exception
+   public static List<PluginRef> findPlugin(Shell sh, String searchString, PipeOut out) throws Exception
    {
       DefaultHttpClient client = new DefaultHttpClient();
-      HttpGet httpGet = new HttpGet(repoUrl);
+      String defaultRepo = getDefaultRepo(sh);
+      HttpGet httpGet = new HttpGet(defaultRepo);
 
-      out.print("Connecting to remote repository [" + repoUrl + "]... ");
+      out.print("Connecting to remote repository [" + defaultRepo + "]... ");
       HttpResponse httpResponse = client.execute(httpGet);
 
       switch (httpResponse.getStatusLine().getStatusCode())
@@ -81,7 +88,7 @@ public class PluginUtil
          break;
 
       case 404:
-         out.println("failed! (plugin index not found: " + repoUrl + ")");
+         out.println("failed! (plugin index not found: " + defaultRepo + ")");
          return Collections.emptyList();
 
       default:
@@ -113,32 +120,59 @@ public class PluginUtil
       return pluginList;
    }
 
-   public static File downloadPlugin(final PluginRef ref, final PipeOut out, final String targetPath) throws Exception
+   public static void downloadFromURL(final PipeOut out, final URL url, final FileResource<?> resource)
+            throws IOException
    {
       DefaultHttpClient client = new DefaultHttpClient();
 
-      Dependency artifact = ref.getArtifact();
-      String groupId = artifact.getGroupId();
-      String artifactId = artifact.getArtifactId();
-      String version = artifact.getVersion();
+      HttpGet httpGetManifest = new HttpGet(url.toExternalForm());
+      out.print("Retrieving artifact ... ");
 
-      String[] id = artifact.toIdentifier().split(":");
-      if (id.length != 3)
+      HttpResponse response = client.execute(httpGetManifest);
+      switch (response.getStatusLine().getStatusCode())
+      {
+      case 200:
+         out.println("done.");
+         try
+         {
+            resource.setContents(response.getEntity().getContent());
+            out.println("done.");
+         }
+         catch (IOException e)
+         {
+            out.println("failed to download: " + e.getMessage());
+         }
+
+      default:
+         out.println("failed! (server returned status code: " + response.getStatusLine().getStatusCode());
+      }
+   }
+
+   public static FileResource<?> downloadFromIndexRef(final PluginRef ref, final PipeOut out,
+            final DirectoryResource pluginDir) throws Exception
+   {
+      DefaultHttpClient client = new DefaultHttpClient();
+
+      String[] artifactParts = ref.getArtifact().toIdentifier().split(":");
+
+      if (artifactParts.length != 3)
       {
          throw new RuntimeException("malformed artifact identifier " +
                   "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: "
-                  + artifact);
+                  + ref.getArtifact());
       }
 
-      String packageLocation = Packages.toFileSyntax(groupId);
-      String homeRepo = ref.getHomeRepo();
-
-      if (!homeRepo.endsWith("/"))
+      String packageLocation = artifactParts[0].replaceAll("\\.", "/");
+      String baseUrl;
+      if (ref.getHomeRepo().endsWith("/"))
       {
-         homeRepo += "/";
+         baseUrl = ref.getHomeRepo() + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
+      }
+      else
+      {
+         baseUrl = ref.getHomeRepo() + "/" + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
       }
 
-      String baseUrl = homeRepo + packageLocation + "/" + artifactId + "/" + version;
       HttpGet httpGetManifest = new HttpGet(baseUrl + "/maven-metadata.xml");
       out.print("Retrieving artifact manifest ... ");
 
@@ -170,13 +204,12 @@ public class PluginUtil
                return null;
             }
 
-            String snapshotVersion = n.getFirstChild().getTextContent();
+            String version = n.getFirstChild().getTextContent();
 
             // plugin definition points to a snapshot.
-            out.println("good! (maven snapshot found): " + snapshotVersion);
+            out.println("good! (maven snapshot found): " + version);
 
-            String fileName = artifactId + "-" + snapshotVersion + ".jar";
-
+            String fileName = artifactParts[1] + "-" + version + ".jar";
             HttpGet jarGet = new HttpGet(baseUrl + "/" + fileName);
 
             out.print("Downloading: " + baseUrl + "/" + fileName + " ... ");
@@ -184,17 +217,24 @@ public class PluginUtil
 
             try
             {
-               File file = saveFile(targetPath + "/" + fileName, response.getEntity().getContent());
-               out.println("done.");
-               return file;
+               FileResource<?> target = (FileResource<?>) pluginDir.getChild(fileName);
+               if (!target.exists() && target.createNewFile())
+               {
+                  target.setContents(response.getEntity().getContent());
+                  out.println("done.");
+                  return target;
+               }
+               else
+               {
+                  throw new IllegalStateException("Could not create target file [" + target.getFullyQualifiedName()
+                           + "]");
+               }
             }
             catch (IOException e)
             {
                out.println("failed to download: " + e.getMessage());
                return null;
             }
-
-            // do download of snapshot.
          }
          else
          {
@@ -203,7 +243,7 @@ public class PluginUtil
          }
 
       case 404:
-         String requestUrl = baseUrl + "/" + version + ".pom";
+         String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
          httpGetManifest = new HttpGet(requestUrl);
          response = client.execute(httpGetManifest);
 
@@ -238,41 +278,6 @@ public class PluginUtil
       default:
          out.println("failed! (server returned status code: " + status);
       }
-   }
-
-   public static File saveFile(String fileName, InputStream stream) throws IOException
-   {
-      File file = new File(fileName);
-      new File(fileName.substring(0, fileName.lastIndexOf('/'))).mkdirs();
-
-      file.createNewFile();
-
-      OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
-
-      byte[] buf = new byte[127];
-      int read;
-      while ((read = stream.read(buf)) != -1)
-      {
-         outputStream.write(buf, 0, read);
-      }
-
-      outputStream.flush();
-      outputStream.close();
-
-      return file;
-   }
-
-   public static void loadPluginJar(File file) throws Exception
-   {
-      ClassLoader cl = Thread.currentThread().getContextClassLoader();
-      if (cl == null)
-      {
-         cl = PluginUtil.class.getClassLoader();
-      }
-
-      URLClassLoader classLoader = new URLClassLoader(new URL[] { file.toURI().toURL() }, cl);
-
-      Thread.currentThread().setContextClassLoader(classLoader);
    }
 
    private static PluginRef bindToPuginRef(Map<String, String> map)
