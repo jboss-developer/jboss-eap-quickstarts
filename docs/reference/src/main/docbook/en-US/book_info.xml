@@ -3,7 +3,7 @@
    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 
 <bookinfo>
-   <title>Forge Reference Guide</title>
+   <title>SeamForge Reference Guide</title>
 
    <subtitle>Authors &amp; Contributors</subtitle>
    <xi:include href="author_group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />

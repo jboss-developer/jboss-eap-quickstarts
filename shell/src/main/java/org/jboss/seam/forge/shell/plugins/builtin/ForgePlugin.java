@@ -45,6 +45,7 @@ import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
+import org.jboss.seam.forge.shell.exceptions.Abort;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
@@ -296,8 +297,7 @@ public class ForgePlugin implements Plugin
    /*
     * Helpers
     */
-   private void buildFromCurrentProject(final PipeOut out, DirectoryResource buildDir)
-            throws Exception
+   private void buildFromCurrentProject(final PipeOut out, DirectoryResource buildDir) throws Abort
    {
       DirectoryResource savedLocation = shell.getCurrentDirectory();
       try
@@ -315,8 +315,7 @@ public class ForgePlugin implements Plugin
                   && !shell.promptBoolean("The project does not appear to be a Forge Plugin Project, install anyway?",
                            false))
          {
-            ShellMessages.info(out, "Aborted installation.");
-            throw new RuntimeException();
+            throw new Abort("Installation aborted");
          }
 
          ShellMessages.info(out, "Invoking build with underlying build system.");

@@ -36,14 +36,39 @@
                   <programlisting>$ new-project --named {name} --topLevelPackage {com.package} --projectFolder {/directory/path}</programlisting>
                </listitem>
                <listitem>
-                  Install the Forge API facet, select the API version you wish to use, and 
-                  press ENTER to confirm installation of required facet dependencies:
-                  <programlisting>$ install forge.api</programlisting>
+                  Install the Forge API facet, press ENTER to confirm installation of 
+                  required facet dependencies, and select the API version you wish to use. 
+                  <programlisting>$ project install-facet forge.api</programlisting>
                </listitem>
             </orderedlist>
             That's it! Now your project is ready to be compiled and installed in Forge,
-            but you may still want to <link linkend="plugin.dev.commands">add some 
-            commands</link>.
+            but you may still want to <link linkend="plugin.dev.interface">create some
+            Plugins</link>.
+         </para>
+         <para>
+         	<example>
+         		<title>Creating a new Forge Plugin Project</title>
+				<programlisting>
+[no project] Desktop $
+[no project] Desktop $ new-project --named example-plugin --topLevelPackage com.example.forge.plugin
+Use [~/Desktop/example-plugin] as project directory? [Y/n] Y
+Wrote ~/Desktop/example-plugin/src/main/resources/META-INF/forge.xml
+***SUCCESS*** Created project [example-plugin] in new working directory [~/Desktop/example-plugin]
+[example-plugin] example-plugin $
+[example-plugin] example-plugin $ 
+[example-plugin] example-plugin $ project install-facet forge.api
+The [forge.api] facet depends on the following missing facet(s): [forge.spec.cdi]. Install as well? [Y/n] Y
+Wrote ~/Desktop/example-plugin/src/main/resources/META-INF/beans.xml
+***SUCCESS*** Installed [forge.spec.cdi] successfully.
+Install which version of the Forge API?
+
+  1 - [org.jboss.seam.forge:forge-shell-api:1.0.0-SNAPSHOT]
+  2 - [org.jboss.seam.forge:forge-shell-api:1.0.0.Alpha2]
+
+Choose an option by typing the number of the selection: 1
+***SUCCESS*** Installed [forge.api] successfully.
+[example-plugin] example-plugin $</programlisting>         	
+         	</example>
          </para>
       </section>
       <section>
@@ -53,7 +78,12 @@
             will need to manually include the Forge-API dependencies. For purposes of
             simplicity, we have pasted a sample Maven POM file which can
             be used as a starting point for a new plugin:
-            
+         </para>
+         <para>
+	         NOTE: You must also create a <literal>beans.xml</literal> file in the 
+	         <literal>src/main/resources/META-INF/</literal> directory of your
+	         project, or your plugin will not be detected by Forge.
+	         
             <tip>
                <literal>'org.jboss.seam.forge : forge-shell-api : {version}'
                </literal> is the only dependency you must include in your project. 
@@ -108,7 +138,10 @@
    <section id="plugin.dev.interface">
       <title>Implementing the Plugin interface</title>
       <para>
-         Your class must implement the <literal>org.jboss.seam.forge.shell.plugins.Plugin</literal> interface.
+      	The first thing you must do in order to create a forge plugin, is create a new class
+      	and implement the <literal>org.jboss.seam.forge.shell.plugins.Plugin</literal> interface.
+      	Notice that the interface has no methods, this is because you will be adding your own
+      	custom commands later.
          <programlisting>import org.jboss.seam.forge.shell.plugins.Plugin;
          
 public class ExamplePlugin implements Plugin {
