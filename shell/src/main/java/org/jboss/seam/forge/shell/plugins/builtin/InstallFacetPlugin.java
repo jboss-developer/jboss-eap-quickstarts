@@ -31,19 +31,15 @@ import javax.inject.Inject;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.FacetInstallationAborted;
-import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
-import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
 import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.exceptions.Abort;
 import org.jboss.seam.forge.shell.plugins.Alias;
-import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
-import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.RequiresProject;
 import org.jboss.seam.forge.shell.plugins.Topic;
@@ -90,24 +86,6 @@ public class InstallFacetPlugin implements Plugin
       else if (request.promptRequested())
       {
          throw new FacetInstallationAborted("Facet installation aborted.");
-      }
-   }
-
-   @DefaultCommand
-   public void install(@Option(required = true,
-            completer = AvailableFacetsCompleter.class,
-            description = "Name of the facet to install") final String facetName)
-   {
-      try
-      {
-         Facet facet = factory.getFacetByName(facetName);
-         beginInstallation(facet);
-      }
-      catch (FacetNotFoundException e)
-      {
-         throw new RuntimeException("Could not find a facet with the name: " + facetName
-                  + "; you can use the [" + ConstraintInspector.getName(ListFacetsPlugin.class)
-                  + "] command to see if the facet is available.", e);
       }
    }
 

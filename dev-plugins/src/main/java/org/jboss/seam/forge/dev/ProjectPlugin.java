@@ -26,10 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.jboss.seam.forge.dev.dependencies.DependencyPropertyCompleter;
 import org.jboss.seam.forge.dev.dependencies.RepositoryCompleter;
+import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
@@ -37,21 +39,26 @@ import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.dependencies.ScopeType;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
+import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
+import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.PromptType;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.ShellMessages;
+import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.Command;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
+import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
 import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 import org.jboss.seam.forge.shell.plugins.RequiresProject;
 import org.jboss.seam.forge.shell.plugins.Topic;
+import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -59,30 +66,42 @@ import org.jboss.seam.forge.shell.plugins.Topic;
 @Alias("project")
 @Topic("Project")
 @RequiresProject
-@RequiresFacet(DependencyFacet.class)
+@RequiresFacet({ DependencyFacet.class, PackagingFacet.class })
+@Help("Perform actions involving the project status, build system, or dependency management system.")
 public class ProjectPlugin implements Plugin
 {
 
    private Project project;
    private Shell shell;
+   private FacetFactory factory;
+   private Event<InstallFacets> installFacets;
 
    public ProjectPlugin()
    {
    }
 
    @Inject
-   public ProjectPlugin(final Project project, final Shell shell)
+   public ProjectPlugin(final Project project, final Shell shell, FacetFactory factory,
+            Event<InstallFacets> installFacets)
    {
       this.project = project;
       this.shell = shell;
+      this.factory = factory;
+      this.installFacets = installFacets;
    }
 
    @DefaultCommand
    public void info(final PipeOut out)
    {
-      out.print(ShellColor.BOLD, "Project name: ");
+      out.print(ShellColor.BOLD, " name: ");
       out.println(project.getFacet(MetadataFacet.class).getProjectName());
-      out.print(ShellColor.BOLD, "Project dir:  ");
+      out.print(ShellColor.BOLD, " groupId:  ");
+      out.println(project.getFacet(MetadataFacet.class).getTopLevelPackage());
+      out.print(ShellColor.BOLD, " final artifact:  ");
+      out.println(project.getFacet(PackagingFacet.class).getFinalArtifact().getName());
+      out.print(ShellColor.BOLD, " packaging:  ");
+      out.println(project.getFacet(PackagingFacet.class).getPackagingType().getType());
+      out.print(ShellColor.BOLD, " dir:  ");
       out.println(project.getProjectRoot().getFullyQualifiedName());
    }
 
@@ -94,10 +113,27 @@ public class ProjectPlugin implements Plugin
       packaging.executeBuild(args);
    }
 
+   @Command("install-facet")
+   public void install(@Option(required = true,
+            completer = AvailableFacetsCompleter.class,
+            description = "Name of the facet to install") final String facetName)
+   {
+      try
+      {
+         Facet facet = factory.getFacetByName(facetName);
+         installFacets.fire(new InstallFacets(facet.getClass()));
+      }
+      catch (FacetNotFoundException e)
+      {
+         throw new RuntimeException("Could not find a facet with the name: " + facetName
+                  + "; use 'project list-facets' to list all available facets.", e);
+      }
+   }
+
    /*
     * Dependency manipulation
     */
-   @Command(value = "dependency-add", help = "Add a dependency to this project.")
+   @Command(value = "add-dependency", help = "Add a dependency to this project.")
    public void addDep(
             @Option(required = true,
                      type = PromptType.DEPENDENCY_ID,
@@ -151,7 +187,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command(value = "dependency-search", help = "Search for dependencies in all configured project repositories.")
+   @Command(value = "find-dependency", help = "Search for dependencies in all configured project repositories.")
    public void searchDep(
             @Option(required = true,
                      help = "dependency identifier, ex: \"org.jboss.seam.forge:forge-api:1.0.0\"",
@@ -184,7 +220,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command(value = "dependency-remove", help = "Remove a dependency from this project")
+   @Command(value = "remove-dependency", help = "Remove a dependency from this project")
    public void removeDep(
             @Option(required = true,
                      type = PromptType.DEPENDENCY_ID,
@@ -205,7 +241,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command(value = "dependency-list", help = "List all dependencies this project includes")
+   @Command(value = "list-dependencies", help = "List all dependencies this project includes")
    public void listDeps(final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -219,7 +255,7 @@ public class ProjectPlugin implements Plugin
    /*
     * Property manipulation
     */
-   @Command("property-set")
+   @Command("set-property")
    public void addProp(
             @Option(required = true,
                      name = "name",
@@ -244,7 +280,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command("property-remove")
+   @Command("remove-property")
    public void removeProp(
             @Option(required = true, description = "propname",
                      completer = DependencyPropertyCompleter.class) final String name,
@@ -262,7 +298,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command("property-list")
+   @Command("list-properties")
    public void listProps(final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
@@ -275,10 +311,32 @@ public class ProjectPlugin implements Plugin
       }
    }
 
+   @Command("list-facets")
+   public void list()
+   {
+      List<Facet> facets = factory.getFacets();
+      for (Facet facet : facets)
+      {
+         String name = ConstraintInspector.getName(facet.getClass());
+         if (project.hasFacet(facet.getClass()) && !project.getFacet(facet.getClass()).isInstalled())
+         {
+            shell.println(ShellColor.RED, name + " [ERROR: facet is no longer available]");
+         }
+         else if (project.hasFacet(facet.getClass()))
+         {
+            shell.println(ShellColor.GREEN, name);
+         }
+         else
+         {
+            shell.println(name);
+         }
+      }
+   }
+
    /*
     * Repositories
     */
-   @Command("repository-add")
+   @Command("add-repository")
    public void repoAdd(
             @Option(description = "type...", required = true) final KnownRepository repo,
             final PipeOut out)
@@ -313,7 +371,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command("repository-remove")
+   @Command("remove-repository")
    public void repoRemove(
             @Option(required = true, description = "repo url...",
                      completer = RepositoryCompleter.class) final String url,
@@ -332,7 +390,7 @@ public class ProjectPlugin implements Plugin
       }
    }
 
-   @Command("repository-list")
+   @Command("list-repositories")
    public void repoList(final PipeOut out)
    {
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
