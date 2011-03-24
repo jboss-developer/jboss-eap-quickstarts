@@ -170,34 +170,6 @@ public class ExamplePlugin implements Plugin {
       <programlisting>$ example </programlisting>
    </section>
    
-   <section id="plugin.dev.classpath">
-      <title>Ensure all required classes are on the CLASSPATH</title>
-      <para>
-         All imports must be available on the <literal>CLASSPATH</literal>. If your Plugin depends 
-         on classes that are not provided by Forge, then you must either package
-         those classes in the JAR file containing your Plugin (for instance, using the
-         maven <ulink url="http://maven.apache.org/plugins/maven-shade-plugin/">shade plugin</ulink>),
-         or you must ensure that the required dependencies are also placed on the 
-         <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder,)
-         otherwise your plugin will *not* be loaded.
-      </para>
-   </section>
-   
-   <section id="plugin.dev.installing">
-      <title>Make your Plugin available to Forge</title>
-      <para>
-         After following all of the steps in <link linkend="forge.plugin.dev">this section</link>,
-         you should now be ready to install your Plugin into the Forge environment. This
-         is accomplished simply by packaging your Plugin in a JAR file with a CDI activator,
-         otherwise referred to as a <literal>/META-INF/beans.xml</literal> file.
-      </para>
-      <tip>
-         <para>You must include a /META-INF/beans.xml file in your JAR, or none of the 
-         classes in your archive will be discovered; therefore, your Plugin will not be made
-         available to Forge.</para>
-      </tip>
-   </section>
-   
    <section id="plugin.dev.commands">
       <title>Add commands to your plugin</title>
       <para>
@@ -428,78 +400,6 @@ $ example-plugin perform --two dog -o cat</programlisting>
 >> option four equals: lizard</programlisting>
          </para>
       </section>
-      
-      <section id="plugin.dev.options.attributes">
-         <title>Option attributes and configuration</title>
-         <para>
-            This table describes all of the available <literal>@Option(...)</literal>
-            attributes and their usage.
-         
-            <informaltable>
-               <tgroup cols="4">
-                  <colspec colnum="1" colwidth="1*" />
-                  <colspec colnum="2" colwidth="1*" />
-                  <colspec colnum="3" colwidth="3*" />
-                  <colspec colnum="4" colwidth="1*" />
-                  <thead>
-                     <row>
-                        <entry>Attribute</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                     </row>
-                  </thead>
-                  <tbody>
-                     <row>
-                        <entry><literal>name</literal></entry>
-                        <entry><literal>String</literal></entry>
-                        <entry>
-                           If specified, defines the 
-                           <link linkend="plugin.dev.options.named">--name</link> 
-                           with which this option may be passed on the
-                           command line. If left blank, this option will be 
-                           <link linkend="plugin.dev.options.ordered">ordered</link>
-                           (not named,) and will be passed in the order with which
-                           it was written in the Method signature.
-                           <programlisting>@Option(name="exampleName")</programlisting>
-                        </entry>
-                        <entry>none</entry>
-                     </row>
-                     <row>
-                        <entry><literal>required</literal></entry>
-                        <entry><literal>boolean</literal></entry>
-                        <entry>
-                           Options may be declared as required when they must be supplied
-                           in order for proper command execution. The shell will enforce
-                           this requirement by prompting the user for valid input if
-                           the option is omitted when the command is executed. 
-                           <programlisting>@Option(required="false")</programlisting>
-                        </entry>
-                        <entry>false</entry>
-                     </row>
-                     <row>
-                        <entry><literal>shortName</literal></entry>
-                        <entry><literal>String</literal></entry>
-                        <entry>
-                           If specified, defines the short name by which this option
-                           may be called on the command line. Short names must be one
-                           character in length.
-                           <link linkend="plugin.dev.options.named">short name</link>
-                           with which this option may be passed on the command line.
-                        </entry>
-                        <entry>none</entry>
-                     </row>
-                     <row>
-                        <entry></entry>
-                        <entry></entry>
-                        <entry></entry>
-                        <entry></entry>
-                     </row>
-                  </tbody>
-               </tgroup>
-            </informaltable>
-         </para>
-      </section>
    </section>
    
    
@@ -526,9 +426,10 @@ $ example-plugin perform --two dog -o cat</programlisting>
          <literal>@PipeIn InputStream stream</literal> or <literal>PipeOut out</literal>
          command arguments. Notice that <literal>PipeOut</literal> is a java type that 
          must be used as a Method parameter, whereas <literal>@PipeIn</literal> is 
-         an annotation that must be placed on a Java <literal>InputStream</literal> 
-         Method parameter.
+         an annotation that must be placed on a Java <literal>@PipeIn InputStream 
+         stream</literal> or <literal>@PipeIn String in</literal> Method parameter.
       </para>
+      
       <para>
          `<literal>PipeOut out</literal>` - by default - is used to print output to 
          the shell console; however, if the plugin on the left-hand-side is piped to 
@@ -548,6 +449,28 @@ $ example-plugin perform --two dog -o cat</programlisting>
          
          <programlisting>$ first command | second command | third command</programlisting>
       </para>
+      
+      <example>
+      	<title>@PipeIn InputStream stream</title>
+      	<programlisting>
+   @Command("example-command")
+   public void exampleCommand(
+            @PipeIn final InputStream in,
+            @Option(required = false) final boolean option,
+            PipeOut out)
+   { ... }</programlisting>
+      </example>
+      
+      <example>
+      	<title>@PipeIn String in</title>
+      	<programlisting>
+   @Command("example-command")
+   public void exampleCommand(
+            @PipeIn final String in,
+            @Option(required = false) final boolean option,
+            PipeOut out)
+   { ... }</programlisting>
+      </example>
       
       <para>
          Take the '<literal>grep</literal>' command itself, for example, which supports
@@ -577,7 +500,7 @@ public class GrepPlugin implements Plugin
          @Option(description = "PATTERN") String pattern,
          @Option(description = "FILE ...") Resource<?>[] resources, 
          final PipeOut pipeOut
-   ) throws IOException
+   ) throws IOException 
    {
       Pattern matchPattern = /* determine pattern (omitted for space) */;
 
@@ -633,7 +556,129 @@ public class GrepPlugin implements Plugin
       }
    }
 }]]></programlisting>
+   </section>
+   
+   <section id="plugin.dev.classpath">
+      <title>Ensure all referenced libraries are on the CLASSPATH</title>
+      <para>
+         If your Plugin depends on classes or libraries that are not provided by Forge, 
+         then you must either package those classes in the JAR file containing your Plugin 
+         (for instance, using the maven <ulink url="http://maven.apache.org/plugins/maven-shade-plugin/">
+         shade plugin</ulink>), or you must ensure that the required dependencies are also placed 
+         on the <literal>CLASSPATH</literal> (typically in the <literal>$FORGE_HOME/lib</literal> folder,)
+         otherwise your plugin will *not* be loaded.
+      </para>
       
-
+      <warning>
+      	<para>
+      		NOTE: This is required even if dependencies are specified directly in your pom.xml file.
+      		Transitive dependencies WILL NOT BE INSTALLED with your plugin; they must be packaged via shade.
+        </para>
+     </warning>
+      
+      <example>
+      	<title>Using Forge to set up Shading</title>
+      	<programlisting>[example-plugin] example-plugin $ shade setup
+***SUCCESS*** Shade plugin is installed.
+[example-plugin] example-plugin $</programlisting>
+		<para>
+			Notice that the pom.xml file has been modified and now includes the default
+			shade configuration (defaults to bundle all required dependencies)
+		</para>
+		<programlisting><![CDATA[      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration></configuration>
+          </execution>
+        </executions>
+      </plugin>
+		]]></programlisting>
+      </example>
+      <para>
+	      It it also recommended, however, to relocate shaded class files to a new package.
+	      Your code will access the bundled code at this new location, and will prevent version
+	      conflicts if another plugin bundles a different version of the same library. For this,
+	      we use the following command.
+	      <programlisting>$ shade relocate --pattern {ORIGINAL PGK} --shadedPattern {NEW PKG} --excludes {EXCLUDED PKGS...}</programlisting>
+      </para>
+      <para>
+      	For the purposes of this example, let us assume that our Plugin depends on the Apache
+      	Commons Collections library (<literal>org.apache.commons.collections</literal>), and we 
+      	want to make sure that no conflicts occur.
+      	<programlisting>[example-plugin] example-plugin $ shade relocate --pattern org.apache.commons.collections --shadedPattern ~.shaded.apache.collections
+***SUCCESS*** Relocating [org.apache.commons.collections] to [com.example.forge.plugin.shaded.apache.collections]
+[example-plugin] example-plugin $ 
+      	</programlisting>
+      	This should be repeated for each dependency as necessary. Notice that our POM has been updated
+      	with the configuration:
+      	<programlisting><![CDATA[   <plugin>
+     <artifactId>maven-shade-plugin</artifactId>
+     <version>1.4</version>
+     <executions>
+       <execution>
+         <phase>package</phase>
+         <goals>
+           <goal>shade</goal>
+         </goals>
+         <configuration>
+           <relocations>
+             <relocation>
+               <pattern>org.apache.commons.collections</pattern>
+               <shadedPattern>com.example.forge.plugin.shaded.apache.collections</shadedPattern>
+             </relocation>
+           </relocations>
+         </configuration>
+       </execution>
+     </executions>
+   </plugin>]]></programlisting>
+      </para>
+   </section>
+   
+   <section id="plugin.dev.installing">
+      <title>Make your Plugin available to Forge</title>
+      <para>
+         After following all of the steps in <link linkend="forge.plugin.dev">this section</link>,
+         you should now be ready to install your Plugin into the Forge environment. There are
+         several methods for installing and distributing your plugin; these methods are described 
+         in this section.
+      </para>
+      <para>
+      	 All plugin installation should take place using the '<literal>$ forge</literal>'
+      	 meta-command. For more information on this command, type:
+      	 <programlisting>$ help forge</programlisting>
+      </para>
+      
+      <section id="plugin.dev.installing.locally">
+      	<title>As local source files (for development)</title>
+      	<para>
+      		Perhaps the simplest form of plugin installation is when the plugin source files are
+      		stored locally on the developers computer itself. This is accomplished by executing:
+      		<programlisting>$ forge source-plugin {PATH}</programlisting>
+      	</para>
+      </section>
+      
+      <section id="plugin.dev.installing.git">
+      </section>
+      
+      <section id="plugin.dev.installing.jar">
+      	<title>As a distributable JAR file</title>
+      	<para>
+      		The 
+      	</para>
+      	
+        <tip>
+          <para>
+          	You must include a /META-INF/beans.xml file in your JAR, or none of the 
+         	classes in your archive will be discovered; therefore, your Plugin will not be made
+         	available to Forge.
+          </para>
+        </tip>
+      </section>
    </section>
 </chapter>
