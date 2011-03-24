@@ -63,8 +63,9 @@ import org.jboss.shrinkwrap.descriptor.api.Node;
 @Topic("Project")
 @RequiresProject
 @RequiresFacet({ MavenCoreFacet.class, JavaSourceFacet.class })
-@Help("Provides quick configurations for the maven-shade-plugin - " +
-         "http://maven.apache.org/plugins/maven-shade-plugin/")
+@Help("Provides quick configurations for the maven-shade-plugin. " +
+         "Find more information at the project homepage ( " +
+         "http://maven.apache.org/plugins/maven-shade-plugin/ )")
 public class MavenShadePlugin implements Plugin
 {
    private final Shell shell;
@@ -92,12 +93,64 @@ public class MavenShadePlugin implements Plugin
       }
    }
 
+   @Command(help = "Add a dependency to the uber-jar")
+   public void include(@Option(completer = InstalledDependencyCompleter.class,
+            description = "the dependency pattern to include [e.g: com.example.*:*]") final Dependency dep)
+   {
+      modifyConfiguration(new ModifyNode()
+      {
+         @Override
+         public void modify(Node configuration)
+         {
+            Node excludes = configuration
+                     .getOrCreate("artifactSet")
+                     .getOrCreate("includes");
+
+            for (Node n : excludes.get("include"))
+            {
+               if (DependencyBuilder.areEquivalent(DependencyBuilder.create(n.text()), dep))
+               {
+                  return;
+               }
+            }
+
+            excludes.create("include").text(dep.getGroupId() + ":" + dep.getArtifactId());
+         }
+      });
+   }
+
+   @Command(help = "Exclude a dependency from the uber-jar")
+   public void exclude(@Option(completer = InstalledDependencyCompleter.class) final Dependency dep)
+   {
+      modifyConfiguration(new ModifyNode()
+      {
+         @Override
+         public void modify(Node configuration)
+         {
+            Node excludes = configuration
+                     .getOrCreate("artifactSet")
+                     .getOrCreate("excludes");
+
+            for (Node n : excludes.get("exclude"))
+            {
+               if (DependencyBuilder.areEquivalent(DependencyBuilder.create(n.text()), dep))
+               {
+                  return;
+               }
+            }
+
+            excludes.create("exclude").text(dep.getGroupId() + ":" + dep.getArtifactId());
+         }
+      });
+   }
+
    @Command(help = "Reset the current shade configuration (includes all dependencies).")
    public void reset() throws XmlPullParserException, IOException
    {
       assertInstalled();
-      if (shell.promptBoolean("Really reset configuration?", false))
+      if (shell.promptBoolean("Really reset configuration?"))
       {
+         removeShadePlugin();
          install();
       }
    }
@@ -106,13 +159,9 @@ public class MavenShadePlugin implements Plugin
    public void remove() throws XmlPullParserException, IOException
    {
       assertInstalled();
-      if (shell.promptBoolean("Really remove all shade configuration?", false))
+      if (shell.promptBoolean("Really remove all shade configuration?"))
       {
-         MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
-         Model pom = mvn.getPOM();
-
-         pom.getBuild().removePlugin(getPlugin(pom));
-         mvn.setPOM(pom);
+         removeShadePlugin();
          ShellMessages.info(shell, "Removed all shade configuration from POM.");
       }
       else if (!isInstalled())
@@ -126,44 +175,40 @@ public class MavenShadePlugin implements Plugin
             @Option(name = "pattern",
                      help = "the original package",
                      type = PromptType.JAVA_PACKAGE,
-                     required = true) String pattern,
+                     required = true) final String pattern,
             @Option(name = "shadedPattern",
                      help = "the renamed \"shaded\" package",
                      type = PromptType.JAVA_PACKAGE,
-                     required = true) String shadedPattern,
+                     required = true) final String shadedPattern,
             @Option(name = "excludes",
                      help = "packages to exclude from shading",
-                     type = PromptType.JAVA_PACKAGE) String... excludes)
+                     type = PromptType.JAVA_PACKAGE) final String... excludes)
             throws DescriptorExportException, XmlPullParserException, IOException
    {
-      assertInstalled();
 
-      MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
-      Model pom = mvn.getPOM();
-
-      org.apache.maven.model.Plugin plugin = getPlugin(pom);
-      PluginExecution execution = plugin.getExecutions().get(0);
-
-      Node configuration = getConfiguration(execution);
-      Node relocationNode = configuration.getOrCreate("relocations").create("relocation");
-      relocationNode.create("pattern").text(pattern);
-      relocationNode.create("shadedPattern").text(shadedPattern);
-
-      String excludeMsg = "";
-      if (excludes != null && excludes.length > 0)
+      modifyConfiguration(new ModifyNode()
       {
-         Node excludesNode = relocationNode.create("excludes");
-         for (String e : excludes)
+         @Override
+         public void modify(Node configuration)
          {
-            excludesNode.create("exclude").text(e);
+            Node relocationNode = configuration.getOrCreate("relocations").create("relocation");
+            relocationNode.create("pattern").text(pattern);
+            relocationNode.create("shadedPattern").text(shadedPattern);
+
+            String excludeMsg = "";
+            if (excludes != null && excludes.length > 0)
+            {
+               Node excludesNode = relocationNode.create("excludes");
+               for (String e : excludes)
+               {
+                  excludesNode.create("exclude").text(e);
+               }
+               excludeMsg = ", excluding " + Arrays.asList(excludes);
+            }
+            ShellMessages.info(shell, "Relocating [" + pattern + "] to [" + shadedPattern + "]" + excludeMsg);
          }
-         excludeMsg = ", excluding " + Arrays.asList(excludes);
-      }
 
-      setConfiguration(execution, configuration);
-
-      mvn.setPOM(pom);
-      ShellMessages.success(shell, "Relocating [" + pattern + "] to [" + shadedPattern + "]" + excludeMsg);
+      });
    }
 
    @Command(value = "make-executable", help = "Make the resulting jar executable by specifying the target Main class")
@@ -171,29 +216,58 @@ public class MavenShadePlugin implements Plugin
             @Option(name = "mainClass",
                      description = "the fully qualified main class [e.g: com.example.Main]",
                      type = PromptType.JAVA_CLASS,
-                     required = true) String mainClass) throws XmlPullParserException, IOException
+                     required = true) final String mainClass) throws XmlPullParserException, IOException
    {
-      assertInstalled();
+      modifyConfiguration(new ModifyNode()
+      {
+         @Override
+         public void modify(Node configuration)
+         {
+            Node relocationNode = configuration
+                     .getOrCreate("transformers")
+                     .getOrCreate(
+                              "transformer@implementation=org.apache.maven.plugins.shade.resource.ManifestResourceTransformer");
+            relocationNode.getOrCreate("mainClass").text(mainClass);
+         }
+      });
 
-      MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
-      Model pom = mvn.getPOM();
-
-      org.apache.maven.model.Plugin plugin = getPlugin(pom);
-      PluginExecution execution = plugin.getExecutions().get(0);
-
-      Node configuration = getConfiguration(execution);
-      Node relocationNode = configuration.getOrCreate("transformers").getOrCreate("transformer")
-               .attribute("implementation", "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer");
-      relocationNode.getOrCreate("mainClass").text(mainClass);
-
-      setConfiguration(execution, configuration);
-
-      mvn.setPOM(pom);
    }
 
    /*
     * Helpers
     */
+   private void modifyConfiguration(ModifyNode command)
+   {
+      try
+      {
+         assertInstalled();
+
+         MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
+         Model pom = mvn.getPOM();
+
+         org.apache.maven.model.Plugin plugin = getPlugin(pom);
+         PluginExecution execution = plugin.getExecutions().get(0);
+         Node configuration = XMLParser.parse(((Xpp3Dom) execution.getConfiguration()).toUnescapedString());
+
+         command.modify(configuration);
+
+         execution.setConfiguration(Xpp3DomBuilder.build(XMLParser.toXMLInputStream(configuration), "UTF-8"));
+         mvn.setPOM(pom);
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException("Error updating configuration", e);
+      }
+   }
+
+   private void removeShadePlugin()
+   {
+      MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
+      Model pom = mvn.getPOM();
+
+      pom.getBuild().removePlugin(getPlugin(pom));
+      mvn.setPOM(pom);
+   }
 
    private void assertInstalled()
    {
@@ -201,17 +275,6 @@ public class MavenShadePlugin implements Plugin
       {
          throw new RuntimeException("Shade plugin not installed. Run 'shade setup' to continue.");
       }
-   }
-
-   private Node getConfiguration(PluginExecution execution)
-   {
-      return XMLParser.parse(((Xpp3Dom) execution.getConfiguration()).toUnescapedString());
-   }
-
-   private void setConfiguration(PluginExecution execution, Node node)
-            throws XmlPullParserException, IOException
-   {
-      execution.setConfiguration(Xpp3DomBuilder.build(XMLParser.toXMLInputStream(node), "UTF-8"));
    }
 
    private void install() throws XmlPullParserException, IOException
@@ -256,5 +319,10 @@ public class MavenShadePlugin implements Plugin
          }
       }
       return null;
+   }
+
+   private interface ModifyNode
+   {
+      void modify(Node node);
    }
 }

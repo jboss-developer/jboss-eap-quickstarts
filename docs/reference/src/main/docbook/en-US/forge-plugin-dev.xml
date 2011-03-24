@@ -580,10 +580,12 @@ public class GrepPlugin implements Plugin
       	<title>Using Forge to set up Shading</title>
       	<programlisting>[example-plugin] example-plugin $ shade setup
 ***SUCCESS*** Shade plugin is installed.
-[example-plugin] example-plugin $</programlisting>
+[example-plugin] example-plugin $              
+[example-plugin] example-plugin $ shade include commons-collections:commons-collections:3.2.1
+</programlisting>
 		<para>
-			Notice that the pom.xml file has been modified and now includes the default
-			shade configuration (defaults to bundle all required dependencies)
+			Notice that the pom.xml file has been modified and now includes a shade
+			configuration including commons-collections.
 		</para>
 		<programlisting><![CDATA[      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -594,12 +596,26 @@ public class GrepPlugin implements Plugin
             <goals>
               <goal>shade</goal>
             </goals>
-            <configuration></configuration>
+            <configuration>
+              <artifactSet>
+                <includes>
+                  <include>commons-collections:commons-collections</include>
+                </includes>
+              </artifactSet>
+            </configuration>
           </execution>
         </executions>
       </plugin>
 		]]></programlisting>
       </example>
+      
+      <warning>
+      	<para>
+      		Do NOT include Forge provided libraries with shade, or you will very likely create a
+      		non-functional plugin.
+        </para>
+     </warning>
+     
       <para>
 	      It it also recommended, however, to relocate shaded class files to a new package.
 	      Your code will access the bundled code at this new location, and will prevent version
@@ -658,12 +674,18 @@ public class GrepPlugin implements Plugin
       	<title>As local source files (for development)</title>
       	<para>
       		Perhaps the simplest form of plugin installation is when the plugin source files are
-      		stored locally on the developers computer itself. This is accomplished by executing:
+      		stored locally in a project on the local computer. If a plugin project is already
+      		checked out locally, it may be built and installed using the following command:
       		<programlisting>$ forge source-plugin {PATH}</programlisting>
       	</para>
+      	<example>
+      		<title>Installing a local plugin project</title>
+      		<programlisting></programlisting>
+      	</example>
       </section>
       
       <section id="plugin.dev.installing.git">
+      	<title>As a git repository</title>
       </section>
       
       <section id="plugin.dev.installing.jar">

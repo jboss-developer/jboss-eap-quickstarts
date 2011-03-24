@@ -125,7 +125,7 @@ public class MavenPackagingFacet extends BaseFacet implements PackagingFacet, Fa
          throw new IllegalStateException("Project final artifact name is not configured");
       }
       return factory.getResourceFrom(new File(directory.trim() + "/" + finalName + "."
-               + getPackagingType().name().toLowerCase()));
+               + getPackagingType().getType().toLowerCase()));
    }
 
    @Override

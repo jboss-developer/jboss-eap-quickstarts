@@ -59,6 +59,29 @@ public class DependencyBuilder implements Dependency
    }
 
    /**
+    * Return true if the groupId and artifactId of the two given dependencies are equal.
+    */
+   public static boolean areEquivalent(Dependency l, Dependency r)
+   {
+      if (l == r)
+      {
+         return true;
+      }
+      if (l == null && r == null)
+      {
+         return true;
+      }
+      else if (l == null || r == null)
+      {
+         return false;
+      }
+
+      return !(l.getArtifactId() != null ? !l.getArtifactId().equals(r.getArtifactId()) : r.getArtifactId() != null) &&
+               !(l.getGroupId() != null ? !l.getGroupId().equals(r.getGroupId()) : r.getGroupId() != null);
+
+   }
+
+   /**
     * @param identifier of the form "groupId:artifactId:version:scope
     */
    public static DependencyBuilder create(final String identifier)
