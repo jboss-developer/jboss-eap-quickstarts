@@ -205,7 +205,7 @@ public class MavenShadePlugin implements Plugin
                }
                excludeMsg = ", excluding " + Arrays.asList(excludes);
             }
-            ShellMessages.info(shell, "Relocating [" + pattern + "] to [" + shadedPattern + "]" + excludeMsg);
+            ShellMessages.success(shell, "Relocating [" + pattern + "] to [" + shadedPattern + "]" + excludeMsg);
          }
 
       });
