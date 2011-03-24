@@ -74,12 +74,11 @@ public class PluginUtil
    @SuppressWarnings("unchecked")
    public static List<PluginRef> findPlugin(Shell sh, String searchString, PipeOut out) throws Exception
    {
-      DefaultHttpClient client = new DefaultHttpClient();
       String defaultRepo = getDefaultRepo(sh);
       HttpGet httpGet = new HttpGet(defaultRepo);
 
       out.print("Connecting to remote repository [" + defaultRepo + "]... ");
-      HttpResponse httpResponse = client.execute(httpGet);
+      HttpResponse httpResponse = new DefaultHttpClient().execute(httpGet);
 
       switch (httpResponse.getStatusLine().getStatusCode())
       {
@@ -123,12 +122,11 @@ public class PluginUtil
    public static void downloadFromURL(final PipeOut out, final URL url, final FileResource<?> resource)
             throws IOException
    {
-      DefaultHttpClient client = new DefaultHttpClient();
 
       HttpGet httpGetManifest = new HttpGet(url.toExternalForm());
       out.print("Retrieving artifact ... ");
 
-      HttpResponse response = client.execute(httpGetManifest);
+      HttpResponse response = new DefaultHttpClient().execute(httpGetManifest);
       switch (response.getStatusLine().getStatusCode())
       {
       case 200:
@@ -176,7 +174,7 @@ public class PluginUtil
       HttpGet httpGetManifest = new HttpGet(baseUrl + "/maven-metadata.xml");
       out.print("Retrieving artifact manifest ... ");
 
-      HttpResponse response = client.execute(httpGetManifest);
+      HttpResponse response = new DefaultHttpClient().execute(httpGetManifest);
       switch (response.getStatusLine().getStatusCode())
       {
       case 200:
@@ -213,7 +211,8 @@ public class PluginUtil
             HttpGet jarGet = new HttpGet(baseUrl + "/" + fileName);
 
             out.print("Downloading: " + baseUrl + "/" + fileName + " ... ");
-            response = client.execute(jarGet);
+
+            response = new DefaultHttpClient().execute(jarGet);
 
             try
             {
@@ -245,7 +244,7 @@ public class PluginUtil
       case 404:
          String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
          httpGetManifest = new HttpGet(requestUrl);
-         response = client.execute(httpGetManifest);
+         response = new DefaultHttpClient().execute(httpGetManifest);
 
          if (response.getStatusLine().getStatusCode() != 200)
          {

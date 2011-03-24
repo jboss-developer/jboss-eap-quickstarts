@@ -34,12 +34,15 @@ public class Enums
 {
    public static Enum<?> valueOf(final Class<?> type, final Object value)
    {
-      List<?> enums = Arrays.asList(type.getEnumConstants());
-      for (Object e : enums)
+      if (value != null)
       {
-         if (e.toString().equals(value.toString()))
+         List<?> enums = Arrays.asList(type.getEnumConstants());
+         for (Object e : enums)
          {
-            return (Enum<?>) e;
+            if (e.toString().equals(value.toString()))
+            {
+               return (Enum<?>) e;
+            }
          }
       }
       return null;

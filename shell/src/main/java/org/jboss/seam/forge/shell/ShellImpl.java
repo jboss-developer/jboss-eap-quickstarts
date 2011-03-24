@@ -22,6 +22,28 @@
 
 package org.jboss.seam.forge.shell;
 
+import static org.mvel2.DataConversion.addConversionHandler;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
 import jline.Terminal;
 import jline.TerminalFactory;
 import jline.TerminalFactory.Type;
@@ -29,6 +51,7 @@ import jline.console.ConsoleReader;
 import jline.console.completer.AggregateCompleter;
 import jline.console.completer.Completer;
 import jline.console.history.MemoryHistory;
+
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 import org.jboss.seam.forge.project.Project;
@@ -39,6 +62,8 @@ import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.java.JavaResource;
+import org.jboss.seam.forge.shell.command.CommandMetadata;
+import org.jboss.seam.forge.shell.command.PluginMetadata;
 import org.jboss.seam.forge.shell.command.PromptTypeConverter;
 import org.jboss.seam.forge.shell.command.convert.BooleanConverter;
 import org.jboss.seam.forge.shell.command.convert.DependencyIdConverter;
@@ -48,29 +73,28 @@ import org.jboss.seam.forge.shell.command.fshparser.FSHRuntime;
 import org.jboss.seam.forge.shell.completer.CompletedCommandHolder;
 import org.jboss.seam.forge.shell.completer.OptionAwareCompletionHandler;
 import org.jboss.seam.forge.shell.completer.PluginCommandCompleter;
-import org.jboss.seam.forge.shell.events.*;
+import org.jboss.seam.forge.shell.events.AcceptUserInput;
+import org.jboss.seam.forge.shell.events.PostStartup;
+import org.jboss.seam.forge.shell.events.PreShutdown;
 import org.jboss.seam.forge.shell.events.Shutdown;
-import org.jboss.seam.forge.shell.exceptions.*;
+import org.jboss.seam.forge.shell.events.Startup;
+import org.jboss.seam.forge.shell.exceptions.AbortedException;
+import org.jboss.seam.forge.shell.exceptions.CommandExecutionException;
+import org.jboss.seam.forge.shell.exceptions.CommandParserException;
+import org.jboss.seam.forge.shell.exceptions.PluginExecutionException;
+import org.jboss.seam.forge.shell.exceptions.ShellExecutionException;
 import org.jboss.seam.forge.shell.plugins.builtin.Echo;
 import org.jboss.seam.forge.shell.project.CurrentProject;
-import org.jboss.seam.forge.shell.util.*;
+import org.jboss.seam.forge.shell.util.Files;
+import org.jboss.seam.forge.shell.util.GeneralUtils;
+import org.jboss.seam.forge.shell.util.JavaPathspecParser;
+import org.jboss.seam.forge.shell.util.OSUtils;
+import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.weld.environment.se.bindings.Parameters;
 import org.mvel2.ConversionHandler;
+
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.mvel2.DataConversion.addConversionHandler;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -549,9 +573,26 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       }
    }
 
-   private String formatSourcedError(final Object obj)
+   private String formatSourcedError(PluginMetadata plugin)
    {
-      return (obj == null ? "" : ("[" + obj.toString() + "] "));
+      return (plugin == null ? "" : ("[" + plugin.toString() + "] "));
+   }
+
+   private String formatSourcedError(final CommandMetadata cmd)
+   {
+      String out = null;
+      if (cmd != null)
+      {
+         out = cmd.getPluginMetadata().getName();
+         if (!cmd.isDefault())
+            out += " " + cmd.getName();
+
+         out = "[" + out + "] ";
+      }
+      else
+         out = "";
+
+      return out;
    }
 
    @Override
