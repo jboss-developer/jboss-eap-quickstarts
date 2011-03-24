@@ -43,7 +43,7 @@ public class ServletFacetTest extends SingletonAbstractShellTest
    {
       Project project = initializeJavaProject();
       queueInputLines("", "");
-      getShell().execute("install forge.spec.servlet");
+      getShell().execute("project install-facet forge.spec.servlet");
       assertTrue(project.hasFacet(ServletFacet.class));
       WebAppDescriptor config = project.getFacet(ServletFacet.class).getConfig();
 

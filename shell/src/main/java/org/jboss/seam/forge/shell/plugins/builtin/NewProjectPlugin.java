@@ -191,7 +191,7 @@ public class NewProjectPlugin implements Plugin
 
       MetadataFacet meta = project.getFacet(MetadataFacet.class);
       meta.setProjectName(name);
-      meta.setGroupId(groupId);
+      meta.setTopLevelPackage(groupId);
 
       PackagingFacet packaging = project.getFacet(PackagingFacet.class);
       packaging.setPackagingType(PackagingType.JAR);

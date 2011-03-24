@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.dev;
+package org.jboss.seam.forge.shell.plugins.builtin.project;
 
 import java.util.List;
 import java.util.Map;
@@ -29,8 +29,6 @@ import java.util.Map.Entry;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.jboss.seam.forge.dev.dependencies.DependencyPropertyCompleter;
-import org.jboss.seam.forge.dev.dependencies.RepositoryCompleter;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;

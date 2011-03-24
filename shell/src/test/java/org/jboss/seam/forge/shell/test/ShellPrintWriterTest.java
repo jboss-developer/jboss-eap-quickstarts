@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+ * JBoss, by Red Hat.
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -20,15 +20,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.seam.forge.spec.jsf;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+package org.jboss.seam.forge.shell.test;
 
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.resources.FileResource;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
+import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,18 +31,49 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
 @RunWith(Arquillian.class)
-public class FacesFacetTest extends SingletonAbstractShellTest
+public class ShellPrintWriterTest extends AbstractShellTest
 {
    @Test
-   public void testFacesConfigCreatedWhenInstalled() throws Exception
+   public void testPrintNullDoesNotCrash() throws Exception
    {
-      Project project = initializeJavaProject();
-      queueInputLines("", "", "");
-      getShell().execute("project install-facet forge.spec.jsf");
-      assertTrue(project.hasFacet(FacesFacet.class));
-      FileResource<?> config = project.getFacet(FacesFacet.class).getConfigFile();
+      getShell().print(null);
+   }
 
-      assertNotNull(config);
-      assertTrue(config.exists());
+   @Test
+   public void testPrintColorNullDoesNotCrash() throws Exception
+   {
+      getShell().print(null, null);
+   }
+
+   @Test
+   public void testPrintlnNullDoesNotCrash() throws Exception
+   {
+      getShell().println(null);
+   }
+
+   @Test
+   public void testPrintlnColorNullDoesNotCrash() throws Exception
+   {
+      getShell().println(null, null);
+   }
+
+   @Test
+   public void testPrintlnVerboseNullDoesNotCrash() throws Exception
+   {
+      getShell().setVerbose(true);
+      getShell().printlnVerbose(null);
+   }
+
+   @Test
+   public void testPrintlnVerboseColorNullDoesNotCrash() throws Exception
+   {
+      getShell().setVerbose(true);
+      getShell().printlnVerbose(null, null);
+   }
+
+   @Test
+   public void testRenderColorNullDoesNotCrash() throws Exception
+   {
+      getShell().renderColor(null, null);
    }
 }

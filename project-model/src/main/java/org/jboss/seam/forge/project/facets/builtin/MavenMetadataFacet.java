@@ -82,7 +82,7 @@ public class MavenMetadataFacet extends BaseFacet implements MetadataFacet
    }
 
    @Override
-   public void setGroupId(final String groupId)
+   public void setTopLevelPackage(final String groupId)
    {
       MavenCoreFacet mvn = project.getFacet(MavenCoreFacet.class);
       Model pom = mvn.getPOM();

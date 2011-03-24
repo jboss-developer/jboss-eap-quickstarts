@@ -30,12 +30,11 @@ import org.jboss.seam.forge.project.Facet;
  */
 public interface MetadataFacet extends Facet
 {
-
    void setProjectName(String name);
 
    String getProjectName();
 
-   void setGroupId(String groupId);
+   void setTopLevelPackage(String groupId);
 
    String getTopLevelPackage();
 }

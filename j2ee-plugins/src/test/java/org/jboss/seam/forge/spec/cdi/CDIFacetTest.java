@@ -44,7 +44,7 @@ public class CDIFacetTest extends SingletonAbstractShellTest
    public void testBeansXMLCreatedWhenInstalled() throws Exception
    {
       Project project = initializeJavaProject();
-      getShell().execute("install forge.spec.cdi");
+      getShell().execute("beans setup");
       assertTrue(project.hasFacet(CDIFacet.class));
       BeansDescriptor config = project.getFacet(CDIFacet.class).getConfig();
 
@@ -55,11 +55,12 @@ public class CDIFacetTest extends SingletonAbstractShellTest
    public void testBeansXMLMovedWhenPackagingTypeChanged() throws Exception
    {
       Project project = initializeJavaProject();
-      getShell().execute("install forge.spec.cdi");
+      getShell().execute("beans setup");
       FileResource<?> config = project.getFacet(CDIFacet.class).getConfigFile();
 
       queueInputLines("y", "");
-      getShell().execute("install forge.spec.servlet");
+      // FIXME replace with ServletPlugin "servlet setup"
+      getShell().execute("project install-facet forge.spec.servlet");
       FileResource<?> newConfig = project.getFacet(CDIFacet.class).getConfigFile();
 
       assertNotNull(config);

@@ -24,6 +24,7 @@ package org.jboss.seam.forge.dev.mvn;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -112,10 +113,12 @@ public class MavenShadePlugin implements Plugin
 
          pom.getBuild().removePlugin(getPlugin(pom));
          mvn.setPOM(pom);
+         ShellMessages.info(shell, "Removed all shade configuration from POM.");
       }
-
-      if (!isInstalled())
+      else if (!isInstalled())
          ShellMessages.success(shell, "Shade is not configured.");
+      else
+         ShellMessages.info(shell, "Aborted.");
    }
 
    @Command(help = "Relocates bundled dependency classes to a new package")
@@ -146,6 +149,7 @@ public class MavenShadePlugin implements Plugin
       relocationNode.create("pattern").text(pattern);
       relocationNode.create("shadedPattern").text(shadedPattern);
 
+      String excludeMsg = "";
       if (excludes != null && excludes.length > 0)
       {
          Node excludesNode = relocationNode.create("excludes");
@@ -153,11 +157,13 @@ public class MavenShadePlugin implements Plugin
          {
             excludesNode.create("exclude").text(e);
          }
+         excludeMsg = ", excluding " + Arrays.asList(excludes);
       }
 
       setConfiguration(execution, configuration);
 
       mvn.setPOM(pom);
+      ShellMessages.success(shell, "Relocating [" + pattern + "] to [" + shadedPattern + "]" + excludeMsg);
    }
 
    @Command(value = "make-executable", help = "Make the resulting jar executable by specifying the target Main class")
@@ -165,7 +171,7 @@ public class MavenShadePlugin implements Plugin
             @Option(name = "mainClass",
                      description = "the fully qualified main class [e.g: com.example.Main]",
                      type = PromptType.JAVA_CLASS,
-                     required = true) String mainClass)
+                     required = true) String mainClass) throws XmlPullParserException, IOException
    {
       assertInstalled();
 
@@ -179,6 +185,8 @@ public class MavenShadePlugin implements Plugin
       Node relocationNode = configuration.getOrCreate("transformers").getOrCreate("transformer")
                .attribute("implementation", "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer");
       relocationNode.getOrCreate("mainClass").text(mainClass);
+
+      setConfiguration(execution, configuration);
 
       mvn.setPOM(pom);
    }
@@ -203,8 +211,7 @@ public class MavenShadePlugin implements Plugin
    private void setConfiguration(PluginExecution execution, Node node)
             throws XmlPullParserException, IOException
    {
-      execution.setConfiguration(Xpp3DomBuilder.build(new ByteArrayInputStream(node.toString().getBytes()),
-               "UTF-8"));
+      execution.setConfiguration(Xpp3DomBuilder.build(XMLParser.toXMLInputStream(node), "UTF-8"));
    }
 
    private void install() throws XmlPullParserException, IOException

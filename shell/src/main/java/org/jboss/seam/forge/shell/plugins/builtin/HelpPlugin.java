@@ -175,7 +175,8 @@ public class HelpPlugin implements Plugin
       if (p.hasDefaultCommand())
       {
          CommandMetadata def = p.getDefaultCommand();
-         printOptions(out, def);
+         if (def.hasOptions())
+            printOptions(out, def);
       }
 
       List<CommandMetadata> commands = p.getCommands();

@@ -1,4 +1,4 @@
-package org.jboss.seam.forge.dev;
+package org.jboss.seam.forge.shell.plugins.builtin.project;
 
 import java.util.ArrayList;
 import java.util.List;
