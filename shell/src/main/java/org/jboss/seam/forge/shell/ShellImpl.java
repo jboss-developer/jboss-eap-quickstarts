@@ -792,7 +792,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    @Override
    public void printlnVerbose(final String line)
    {
-      if (isVerbose())
+      if (line != null && isVerbose())
       {
          try
          {
@@ -809,28 +809,34 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
    @Override
    public void print(final String output)
    {
-      try
+      if (output != null)
       {
-         reader.print(output);
-         reader.flush();
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException(e);
+         try
+         {
+            reader.print(output);
+            reader.flush();
+         }
+         catch (IOException e)
+         {
+            throw new RuntimeException(e);
+         }
       }
    }
 
    @Override
    public void println(final String line)
    {
-      try
+      if (line != null)
       {
-         reader.println(line);
-         reader.flush();
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException(e);
+         try
+         {
+            reader.println(line);
+            reader.flush();
+         }
+         catch (IOException e)
+         {
+            throw new RuntimeException(e);
+         }
       }
    }
 

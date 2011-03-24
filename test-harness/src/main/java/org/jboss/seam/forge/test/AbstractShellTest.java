@@ -24,6 +24,7 @@ package org.jboss.seam.forge.test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,6 +90,8 @@ public abstract class AbstractShellTest
    @Inject
    private ResourceFactory factory;
 
+   private ByteArrayOutputStream stream;
+
    @BeforeClass
    public static void before() throws IOException
    {
@@ -107,8 +110,26 @@ public abstract class AbstractShellTest
       beanManager.fireEvent(new Startup());
 
       resetInputQueue();
-      shell.setOutputStream(System.out);
+      stream = new ByteArrayOutputStream();
+      shell.setOutputStream(stream);
       shell.setAnsiSupported(false);
+   }
+
+   @After
+   public void afterTest() throws IOException
+   {
+      for (FileResource<?> file : tempFolders)
+      {
+         if (file.exists())
+         {
+            assertTrue(file.delete(true));
+         }
+      }
+
+      if (stream != null)
+      {
+         // System.out.print(stream.toString());
+      }
    }
 
    protected DirectoryResource createTempFolder() throws IOException
@@ -129,18 +150,6 @@ public abstract class AbstractShellTest
       inputQueue = new LinkedList<String>();
       QueuedInputStream is = new QueuedInputStream(inputQueue);
       shell.setInputStream(is);
-   }
-
-   @After
-   public void afterTest() throws IOException
-   {
-      for (FileResource<?> file : tempFolders)
-      {
-         if (file.exists())
-         {
-            assertTrue(file.delete(true));
-         }
-      }
    }
 
    protected void queueInputLines(final String... inputs)
@@ -169,6 +178,11 @@ public abstract class AbstractShellTest
    protected Project getProject()
    {
       return project.get();
+   }
+
+   public ByteArrayOutputStream getOutputStream()
+   {
+      return stream;
    }
 
    protected Project initializeJavaProject() throws IOException
