@@ -21,16 +21,16 @@
  */
 package org.jboss.seam.forge.project.facets;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-
 import org.jboss.seam.forge.parser.java.JavaClass;
 import org.jboss.seam.forge.parser.java.JavaSource;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.java.JavaResource;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

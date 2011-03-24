@@ -22,18 +22,6 @@
 
 package org.jboss.seam.forge.test.project;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.jboss.arquillian.junit.Arquillian;
@@ -52,6 +40,14 @@ import org.jboss.seam.forge.test.project.util.ProjectModelTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

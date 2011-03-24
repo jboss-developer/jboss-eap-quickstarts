@@ -21,8 +21,6 @@
  */
 package org.jboss.seam.forge.spec.jpa.container;
 
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
@@ -30,6 +28,8 @@ import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceContainer;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.TransactionType;
+
+import javax.inject.Inject;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

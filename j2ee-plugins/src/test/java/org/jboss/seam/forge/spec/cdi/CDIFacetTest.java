@@ -22,10 +22,6 @@
 
 package org.jboss.seam.forge.spec.cdi;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.resources.FileResource;
@@ -33,6 +29,8 @@ import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

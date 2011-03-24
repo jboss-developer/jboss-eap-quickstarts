@@ -22,13 +22,12 @@
 
 package org.jboss.seam.forge.shell.completer;
 
-import java.util.ArrayList;
-import java.util.List;
+import jline.console.completer.Completer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import jline.console.completer.Completer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

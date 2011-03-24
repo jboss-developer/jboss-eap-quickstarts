@@ -110,7 +110,7 @@ public class PathspecParser
       else if (isWindows && path.matches("^[a-zA-Z]{1,1}:/.*"))
       {
          int idx = path.indexOf('/') + 1;
-         r = new DirectoryResource(factory, new File(path.substring(0, idx)));
+         r = new DirectoryResource(factory, new File(path.substring(0, idx)).getAbsoluteFile());
          cursor = idx;
       }
 
@@ -123,7 +123,7 @@ public class PathspecParser
          case '/':
             if (cursor - 1 == 0)
             {
-               r = factory.getResourceFrom(new File("/"));
+               r = factory.getResourceFrom(new File("/").getAbsoluteFile());
             }
             continue;
 

@@ -22,11 +22,6 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.jboss.seam.forge.parser.java.util.Strings;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -34,6 +29,11 @@ import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.ResourceFilter;
 import org.jboss.seam.forge.resources.UnknownFileResource;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Parser accepts a Java path, and provides a result set of resources based on the relative path provided.

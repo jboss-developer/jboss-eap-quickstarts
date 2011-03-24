@@ -1,12 +1,5 @@
 package org.jboss.seam.forge.shell.completer;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Map;
-
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -22,6 +15,12 @@ import org.jboss.seam.forge.shell.command.parser.CommandParserContext;
 import org.jboss.seam.forge.shell.util.BeanManagerUtils;
 import org.jboss.seam.forge.shell.util.JavaPathspecParser;
 import org.jboss.seam.forge.shell.util.PathspecParser;
+
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class OptionValueResolverCompleter implements CommandCompleter
 {

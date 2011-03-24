@@ -22,15 +22,6 @@
 
 package org.jboss.seam.forge.resources.java;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.ParserException;
 import org.jboss.seam.forge.parser.java.Field;
@@ -43,6 +34,14 @@ import org.jboss.seam.forge.resources.Resource;
 import org.jboss.seam.forge.resources.ResourceException;
 import org.jboss.seam.forge.resources.ResourceFlag;
 import org.jboss.seam.forge.resources.ResourceHandles;
+
+import javax.inject.Inject;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Mike Brock

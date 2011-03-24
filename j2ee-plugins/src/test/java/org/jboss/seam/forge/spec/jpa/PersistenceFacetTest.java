@@ -22,8 +22,6 @@
 
 package org.jboss.seam.forge.spec.jpa;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -32,6 +30,8 @@ import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

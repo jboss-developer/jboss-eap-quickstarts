@@ -22,14 +22,6 @@
 
 package org.jboss.seam.forge.shell.command;
 
-import java.lang.reflect.Method;
-import java.util.Set;
-
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.constraint.ConstraintEnforcer;
 import org.jboss.seam.forge.shell.constraint.ConstraintException;
@@ -40,6 +32,13 @@ import org.jboss.seam.forge.shell.plugins.Plugin;
 import org.jboss.seam.forge.shell.util.Enums;
 import org.mvel2.DataConversion;
 import org.mvel2.util.ParseTools;
+
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.inject.Inject;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

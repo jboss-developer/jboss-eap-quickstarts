@@ -21,13 +21,13 @@
  */
 package org.jboss.seam.forge.spec.jpa.provider;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

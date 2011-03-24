@@ -21,23 +21,17 @@
  */
 package org.jboss.seam.forge.shell.completer;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
-
 import jline.console.ConsoleReader;
 import jline.console.CursorBuffer;
 import jline.console.completer.CandidateListCompletionHandler;
 import jline.console.completer.CompletionHandler;
-
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellColor;
 import org.jboss.seam.forge.shell.command.CommandMetadata;
 import org.jboss.seam.forge.shell.command.OptionMetadata;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

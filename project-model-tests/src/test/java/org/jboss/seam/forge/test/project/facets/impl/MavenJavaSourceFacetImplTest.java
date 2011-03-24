@@ -22,11 +22,6 @@
 
 package org.jboss.seam.forge.test.project.facets.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import javax.inject.Singleton;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.parser.JavaParser;
 import org.jboss.seam.forge.parser.java.JavaClass;
@@ -37,6 +32,11 @@ import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.test.AbstractShellTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Singleton;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>

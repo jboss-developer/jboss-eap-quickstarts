@@ -1,12 +1,12 @@
 package org.jboss.seam.forge.spec.jpa.provider;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jboss.seam.forge.spec.jpa.api.DatabaseType;
 import org.jboss.seam.forge.spec.jpa.api.JPADataSource;
 import org.jboss.seam.forge.spec.jpa.api.PersistenceProvider;
 import org.jboss.shrinkwrap.descriptor.api.spec.jpa.persistence.PersistenceUnitDef;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EclipseLinkProvider implements PersistenceProvider
 {

@@ -21,15 +21,14 @@
  */
 package org.jboss.seam.forge.dev.dependencies;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides completion for project build properties

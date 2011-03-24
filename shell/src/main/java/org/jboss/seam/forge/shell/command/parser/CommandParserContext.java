@@ -22,13 +22,9 @@
 
 package org.jboss.seam.forge.shell.command.parser;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.jboss.seam.forge.shell.command.OptionMetadata;
+
+import java.util.*;
 
 /**
  * @author Mike Brock .
