@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
-<chapter id="forge-plugin.dev">
+<chapter id="forge.plugin.dev">
 	<title>Developing a Plugin</title>
 	<para>
       Part of Forge's architecture is to allow extensions to be created with extreme 
@@ -47,7 +47,7 @@
          </para>
       </section>
       <section>
-         <title>With Maven)</title>
+         <title>With Maven</title>
          <para>
             If you do not wish to create a new plugin project using Forge itself, you
             will need to manually include the Forge-API dependencies. For purposes of
@@ -153,7 +153,7 @@ public class ExamplePlugin implements Plugin {
    <section id="plugin.dev.installing">
       <title>Make your Plugin available to Forge</title>
       <para>
-         After following all of the steps in <link linkend="plugin.dev">this section</link>,
+         After following all of the steps in <link linkend="forge.plugin.dev">this section</link>,
          you should now be ready to install your Plugin into the Forge environment. This
          is accomplished simply by packaging your Plugin in a JAR file with a CDI activator,
          otherwise referred to as a <literal>/META-INF/beans.xml</literal> file.
@@ -173,7 +173,7 @@ public class ExamplePlugin implements Plugin {
          Commands are plain Java methods in your plugin Class. Plugin methods must be annotated
          as either a <literal>@DefaultCommand</literal>, the method to be invoked if the plugin
          is called by name (with no additional commands), or <literal>@Command(name="...")</literal>,
-         in which case a the plugin name and command name must both be used to invoke the method.
+         in which case the plugin name and command name must both be used to invoke the method.
       </para>
       <para>
          Commands also accept <literal>@Options</literal> parameters as arguments. These are

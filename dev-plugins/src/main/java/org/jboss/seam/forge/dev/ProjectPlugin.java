@@ -114,7 +114,7 @@ public class ProjectPlugin implements Plugin
    }
 
    @Command("install-facet")
-   public void install(@Option(required = true,
+   public void installFacet(@Option(required = true,
             completer = AvailableFacetsCompleter.class,
             description = "Name of the facet to install") final String facetName)
    {
@@ -128,6 +128,15 @@ public class ProjectPlugin implements Plugin
          throw new RuntimeException("Could not find a facet with the name: " + facetName
                   + "; use 'project list-facets' to list all available facets.", e);
       }
+   }
+
+   @Command("remove-facet")
+   public void removeFacet(@Option(required = true,
+            completer = InstalledFacetsCompleter.class,
+            description = "Name of the facet to install") final String facetName)
+   {
+      // TODO implement facet removal SEAMFORGE-90
+      throw new RuntimeException("Removing facets is not yet implemented");
    }
 
    /*
