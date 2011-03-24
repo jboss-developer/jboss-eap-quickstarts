@@ -22,13 +22,22 @@
 package org.jboss.seam.forge.parser.xml;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.jboss.shrinkwrap.descriptor.api.DescriptorExportException;
 import org.jboss.shrinkwrap.descriptor.api.DescriptorImportException;
 import org.jboss.shrinkwrap.descriptor.api.Node;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
@@ -39,6 +48,43 @@ import org.w3c.dom.NodeList;
  */
 public class XMLParser
 {
+   public static InputStream toXMLInputStream(Node node)
+   {
+      return new ByteArrayInputStream(toXMLByteArray(node));
+   }
+
+   public static String toXMLString(Node node)
+   {
+      return new String(toXMLByteArray(node));
+   }
+
+   public static byte[] toXMLByteArray(Node node)
+   {
+      try
+      {
+         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+         factory.setNamespaceAware(true);
+         DocumentBuilder builder = factory.newDocumentBuilder();
+         Document root = builder.newDocument();
+
+         writeRecursive(root, node);
+
+         Transformer transformer = TransformerFactory.newInstance().newTransformer();
+         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+         StreamResult result = new StreamResult(stream);
+         transformer.transform(new DOMSource(root), result);
+
+         return stream.toByteArray();
+      }
+      catch (Exception e)
+      {
+         throw new DescriptorExportException("Could not export Node strcuture to XML", e);
+      }
+   }
+
    public static Node parse(byte[] xml)
    {
       return parse(new ByteArrayInputStream(xml));
@@ -97,6 +143,39 @@ public class XMLParser
                }
             }
          }
+      }
+   }
+
+   private static void writeRecursive(org.w3c.dom.Node target, Node source)
+   {
+      Document owned = target.getOwnerDocument();
+      if (owned == null)
+      {
+         owned = (Document) target;
+      }
+      org.w3c.dom.Node targetChild = null;
+      if (source.text() != null)
+      {
+         targetChild = owned.createElement(source.name());
+         targetChild.appendChild(owned.createTextNode(source.text()));
+      }
+      else
+      {
+         targetChild = owned.createElement(source.name());
+      }
+
+      target.appendChild(targetChild);
+
+      for (Map.Entry<String, String> attribute : source.attributes().entrySet())
+      {
+         Attr attr = owned.createAttribute(attribute.getKey());
+         attr.setValue(attribute.getValue());
+
+         targetChild.getAttributes().setNamedItem(attr);
+      }
+      for (Node sourceChild : source.children())
+      {
+         writeRecursive(targetChild, sourceChild);
       }
    }
 
