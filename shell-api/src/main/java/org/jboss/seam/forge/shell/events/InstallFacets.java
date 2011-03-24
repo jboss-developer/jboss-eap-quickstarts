@@ -28,6 +28,7 @@ import java.util.List;
 import org.jboss.seam.forge.parser.java.util.Assert;
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.FacetInstallationAborted;
 
 /**
  * Instruct Forge to install the given {@link Facet} into the current {@link Project}
@@ -38,7 +39,11 @@ import org.jboss.seam.forge.project.Project;
 public class InstallFacets
 {
    private final List<Class<? extends Facet>> facetTypes;
+   private boolean prompt = false;
 
+   /**
+    * Install the given facet without prompting for confirmation
+    */
    public InstallFacets(Class<? extends Facet> facetType)
    {
       Assert.notNull(facetType, "Facet type may not be null.");
@@ -46,6 +51,19 @@ public class InstallFacets
       facetTypes.add(facetType);
    }
 
+   /**
+    * Install the given facet but first prompt for confirmation. If the user aborts, a {@link FacetInstallationAborted}
+    * will be thrown.
+    */
+   public InstallFacets(boolean prompt, Class<? extends Facet> facetType)
+   {
+      this(facetType);
+      this.prompt = prompt;
+   }
+
+   /**
+    * Install the given facets without prompting for confirmation
+    */
    public InstallFacets(Class<? extends Facet>... facetTypes)
    {
       // FIXME This method causes warnings when used as intended... fix?
@@ -53,8 +71,29 @@ public class InstallFacets
       this.facetTypes = Arrays.asList(facetTypes);
    }
 
+   /**
+    * Install the given facets but first prompt for confirmation. If the user aborts, a {@link FacetInstallationAborted}
+    * will be thrown.
+    */
+   public InstallFacets(boolean prompt, Class<? extends Facet>... facetTypes)
+   {
+      this(facetTypes);
+      this.prompt = prompt;
+   }
+
+   /**
+    * Get the facet types to be installed
+    */
    public List<Class<? extends Facet>> getFacetTypes()
    {
       return facetTypes;
+   }
+
+   /**
+    * Return whether or not the caller has requested to prompt the user for confirmation
+    */
+   public boolean promptRequested()
+   {
+      return prompt;
    }
 }

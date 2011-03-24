@@ -26,6 +26,7 @@
 		<module>git-tools</module>
 		<module>parser-java-api</module>
 		<module>parser-java</module>
+		<module>parser-xml</module>
 		<module>project-model</module>
 		<module>project-model-tests</module>
 		<module>shell-api</module>
@@ -79,6 +80,11 @@
 			<dependency>
 				<groupId>org.jboss.seam.forge</groupId>
 				<artifactId>forge-parser-java</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<artifactId>forge-parser-xml</artifactId>
+				<groupId>org.jboss.seam.forge</groupId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

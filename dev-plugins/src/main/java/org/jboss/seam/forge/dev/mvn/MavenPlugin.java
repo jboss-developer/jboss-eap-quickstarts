@@ -28,8 +28,9 @@ import javax.inject.Inject;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
+import org.jboss.seam.forge.parser.java.util.Assert;
 import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
@@ -77,14 +78,14 @@ public class MavenPlugin implements Plugin
    @Command("set-parent")
    public void setParent(
             @Option(name = "parentId",
-                     help = "dependency identifier of parent, ex: \"org.jboss.seam.forge:forge-parent:1.0.0\"",
-                     required = false) final String gav,
+                     description = "dependency identifier of parent, ex: \"org.jboss.seam.forge:forge-parent:1.0.0\"",
+                     required = false) final Dependency gav,
             @Option(name = "parentRelativePath",
-                     help = "relative location from the current project to the parent project root folder",
+                     description = "relative location from the current project to the parent project root folder",
                      type = PromptType.FILE_PATH,
                      required = false) final String relativePath,
             @Option(name = "parentProjectRoot",
-                     help = "absolute location of a project to use as this project's direct parent",
+                     description = "absolute location of a project to use as this project's direct parent",
                      required = false) final Resource<?> path,
             final PipeOut out)
    {
@@ -92,11 +93,14 @@ public class MavenPlugin implements Plugin
       Parent parent = null;
       if (gav != null)
       {
-         DependencyBuilder dep = DependencyBuilder.create(gav);
+         Assert.notNull(gav.getArtifactId(), "ArtifactId must not be null [" + gav.toIdentifier() + "]");
+         Assert.notNull(gav.getGroupId(), "GroupId must not be null [" + gav.toIdentifier() + "]");
+         Assert.notNull(gav.getVersion(), "Version must not be null [" + gav.toIdentifier() + "]");
+
          parent = new Parent();
-         parent.setArtifactId(dep.getArtifactId());
-         parent.setGroupId(dep.getGroupId());
-         parent.setVersion(dep.getVersion());
+         parent.setArtifactId(gav.getArtifactId());
+         parent.setGroupId(gav.getGroupId());
+         parent.setVersion(gav.getVersion());
 
          if (relativePath != null)
          {

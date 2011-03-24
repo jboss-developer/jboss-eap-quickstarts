@@ -24,7 +24,6 @@ package org.jboss.seam.forge.shell.util;
 
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -279,19 +278,6 @@ public class PluginUtil
       default:
          out.println("failed! (server returned status code: " + status);
       }
-   }
-
-   public static void loadPluginJarResource(FileResource<?> resource) throws Exception
-   {
-      ClassLoader cl = Thread.currentThread().getContextClassLoader();
-      if (cl == null)
-      {
-         cl = PluginUtil.class.getClassLoader();
-      }
-
-      URLClassLoader classLoader = new URLClassLoader(new URL[] { resource.getUnderlyingResourceObject().toURI()
-               .toURL() }, cl);
-      Thread.currentThread().setContextClassLoader(classLoader);
    }
 
    private static PluginRef bindToPuginRef(Map<String, String> map)

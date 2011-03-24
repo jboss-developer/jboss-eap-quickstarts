@@ -118,7 +118,7 @@ public class ForgePlugin implements Plugin
 
    @Command(value = "mvn-plugin",
             help = "Download and install a plugin from a maven repository")
-   public void installFromMvnRepo(@Option(description = "plugin-identifier", required = true) Dependency plugin,
+   public void installFromMvnRepos(@Option(description = "plugin-identifier", required = true) Dependency plugin,
             @Option(description = "target repository") KnownRepository repo,
             final PipeOut out) throws Exception
    {
@@ -153,10 +153,6 @@ public class ForgePlugin implements Plugin
             {
                throw new RuntimeException("Could not install plugin [" + ref.getName() + "]");
             }
-            else
-            {
-               PluginUtil.loadPluginJarResource(jar);
-            }
 
             ShellMessages.success(out, "Installed [" + ref.getName() + "] successfully.");
             restart();
@@ -186,7 +182,6 @@ public class ForgePlugin implements Plugin
       {
          FileResource<?> jar = shell.getPluginDirectory().getChild(name).reify(FileResource.class);
          PluginUtil.downloadFromURL(out, url, jar);
-         PluginUtil.loadPluginJarResource(jar);
 
          ShellMessages.success(out, "Installed from [" + url.toExternalForm() + "] successfully.");
          restart();
@@ -197,7 +192,25 @@ public class ForgePlugin implements Plugin
 
    @Command(value = "source-plugin",
             help = "Install a plugin from a local project folder")
-   public void installFromFilesystem(
+   public void installFromLocalProject(
+            @Option(description = "project directory", required = true) Resource<?> projectFolder,
+            final PipeOut out) throws Exception
+   {
+      DirectoryResource workspace = projectFolder.reify(DirectoryResource.class);
+      if (workspace == null || !workspace.exists())
+      {
+         throw new IllegalArgumentException("Project folder must be specified.");
+      }
+
+      buildFromCurrentProject(out, workspace);
+
+      ShellMessages.success(out, "Installed from [" + workspace + "] successfully.");
+      restart();
+   }
+
+   @Command(value = "jar-plugin",
+            help = "Install a plugin from a local project folder")
+   public void installFromLocalJar(
             @Option(description = "project directory", required = true) Resource<?> projectFolder,
             final PipeOut out) throws Exception
    {
@@ -243,7 +256,8 @@ public class ForgePlugin implements Plugin
             buildDir.mkdir();
          }
 
-         ShellMessages.info(out, "Checking out plugin source files to [" + buildDir + "] via 'git'");
+         ShellMessages.info(out, "Checking out plugin source files to [" + buildDir.getFullyQualifiedName()
+                  + "] via 'git'");
          Git repo = GitUtils.clone(buildDir, gitRepo);
 
          if (ref != null)
@@ -318,7 +332,6 @@ public class ForgePlugin implements Plugin
             ShellMessages.info(out, "Installing plugin artifact.");
 
             jar.setContents(artifact.getResourceInputStream());
-            PluginUtil.loadPluginJarResource(jar);
          }
          else
          {

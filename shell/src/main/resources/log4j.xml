@@ -27,7 +27,6 @@
          <param name="levelMin" value="FATAL" />
          <param name="levelMax" value="FATAL" />
       </filter>
-      <!-- 
       <filter class="org.apache.log4j.varia.StringMatchFilter">
          <param name="AcceptOnMatch" value="true" />
          <param name="StringToMatch" value="WELD-000119" />
@@ -40,6 +39,7 @@
          <param name="AcceptOnMatch" value="false" />
          <param name="StringToMatch" value="" />
       </filter>
+      <!-- 
        -->
    </appender>
 

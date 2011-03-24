@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.FacetInstallationAborted;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.packaging.PackagingType;
@@ -72,17 +73,26 @@ public class InstallFacetPlugin implements Plugin
    public void installRequest(@Observes InstallFacets request)
    {
       shell.printlnVerbose("Received Facet installation request " + request.getFacetTypes());
-      for (Class<? extends Facet> type : request.getFacetTypes())
+      if (!request.promptRequested()
+               || shell.promptBoolean("An action has requested to install the following facets into your project "
+                        + request.getFacetTypes() + " continue?", true))
       {
-         Facet facet = factory.getFacet(type);
-         if (!project.hasFacet(type))
+         for (Class<? extends Facet> type : request.getFacetTypes())
          {
-            performInstallation(facet);
+            Facet facet = factory.getFacet(type);
+            if (!project.hasFacet(type))
+            {
+               performInstallation(facet);
+            }
+            else
+            {
+               shell.printlnVerbose("Facet type already installed" + type);
+            }
          }
-         else
-         {
-            shell.printlnVerbose("Facet type already installed" + type);
-         }
+      }
+      else if (request.promptRequested())
+      {
+         throw new FacetInstallationAborted("Facet installation aborted.");
       }
    }
 
