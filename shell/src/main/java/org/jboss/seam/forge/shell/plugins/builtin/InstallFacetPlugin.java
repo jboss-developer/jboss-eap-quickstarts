@@ -35,11 +35,11 @@ import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.project.packaging.PackagingType;
 import org.jboss.seam.forge.project.services.FacetFactory;
-import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.ShellMessages;
 import org.jboss.seam.forge.shell.completer.AvailableFacetsCompleter;
 import org.jboss.seam.forge.shell.events.InstallFacets;
+import org.jboss.seam.forge.shell.exceptions.Abort;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
@@ -62,9 +62,6 @@ public class InstallFacetPlugin implements Plugin
    private FacetFactory factory;
 
    @Inject
-   private ProjectFactory projectFactory;
-
-   @Inject
    private Shell shell;
 
    @Inject
@@ -82,7 +79,7 @@ public class InstallFacetPlugin implements Plugin
             Facet facet = factory.getFacet(type);
             if (!project.hasFacet(type))
             {
-               performInstallation(facet);
+               beginInstallation(facet);
             }
             else
             {
@@ -104,125 +101,153 @@ public class InstallFacetPlugin implements Plugin
       try
       {
          Facet facet = factory.getFacetByName(facetName);
-         performInstallation(facet);
+         beginInstallation(facet);
       }
       catch (FacetNotFoundException e)
       {
-         shell.println("Could not find a facet with the name: " + facetName
+         throw new RuntimeException("Could not find a facet with the name: " + facetName
                   + "; you can use the [" + ConstraintInspector.getName(ListFacetsPlugin.class)
-                  + "] command to see if the facet is available.");
+                  + "] command to see if the facet is available.", e);
       }
    }
 
-   private void performInstallation(Facet facet)
+   private void beginInstallation(Facet facet)
    {
-      facet.setProject(project);
-
-      /*
-       * Verify Facet Dependencies
-       */
-      List<Class<? extends Facet>> deps = ConstraintInspector.getFacetDependencies(facet.getClass());
-      String facetName = ConstraintInspector.getName(facet.getClass());
-      if (!project.hasAllFacets(deps))
+      if (!performInstallation(facet))
       {
-         List<String> facetNames = new ArrayList<String>();
-         for (Class<? extends Facet> f : deps)
-         {
-            facetNames.add(ConstraintInspector.getName(f));
-         }
-
-         if (shell.promptBoolean("The ["
-                  + facetName
-                  + "] facet depends on the following missing facets: "
-                  + facetNames
-                  + ". Would you like to attempt installation of these facets as well?"))
-         {
-            for (Class<? extends Facet> d : deps)
-            {
-               performInstallation(factory.getFacet(d));
-            }
-         }
-         else
-         {
-            abort();
-            return;
-         }
+         ShellMessages.error(shell, "Failed to install [" + ConstraintInspector.getName(facet.getClass())
+                  + "]; there may be a mess!");
       }
+   }
 
-      if (!facet.isInstalled() || !project.hasFacet(facet.getClass()))
+   private boolean performInstallation(Facet facet)
+   {
+      if (project.hasFacet(facet.getClass()))
       {
-         project.installFacet(facet);
-      }
-
-      if (!updatePackaging(facet))
-      {
-         abort();
-         return;
-      }
-
-      if (facet.isInstalled())
-      {
-         ShellMessages.success(shell, "Installed [" + facetName + "] successfully.");
+         return true;
       }
       else
       {
-         ShellMessages.error(shell, "Failed to install [" + facetName + "]; there may be a mess!");
+         facet.setProject(project);
+
+         try
+         {
+            installDependencies(facet);
+            PackagingType type = updatePackaging(facet);
+
+            if (!facet.isInstalled() || !project.hasFacet(facet.getClass()))
+            {
+               project.installFacet(facet);
+            }
+
+            if (type != null)
+            {
+               project.getFacet(PackagingFacet.class).setPackagingType(type);
+            }
+
+            if (facet.isInstalled())
+            {
+               ShellMessages.success(shell, "Installed [" + ConstraintInspector.getName(facet.getClass())
+                           + "] successfully.");
+               return true;
+            }
+         }
+         catch (Abort e)
+         {
+            abort();
+         }
+      }
+      return false;
+   }
+
+   private void installDependencies(Facet facet) throws Abort
+   {
+      List<Class<? extends Facet>> deps = ConstraintInspector.getFacetDependencies(facet.getClass());
+
+      if (!project.hasAllFacets(deps))
+      {
+         List<Class<? extends Facet>> missingDeps = new ArrayList<Class<? extends Facet>>();
+         List<String> facetNames = new ArrayList<String>();
+         for (Class<? extends Facet> f : deps)
+         {
+            if (!project.hasFacet(f))
+            {
+               facetNames.add(ConstraintInspector.getName(f));
+               missingDeps.add(f);
+            }
+         }
+
+         if (!shell.promptBoolean("The ["
+                  + ConstraintInspector.getName(facet.getClass())
+                  + "] facet depends on the following missing facet(s): "
+                  + facetNames
+                  + ". Install as well?"))
+         {
+            throw new Abort();
+         }
+         else
+         {
+            List<Facet> installed = new ArrayList<Facet>();
+            for (Class<? extends Facet> d : missingDeps)
+            {
+               Facet instance = factory.getFacet(d);
+               if (performInstallation(instance))
+               {
+                  installed.add(instance);
+               }
+               else
+               {
+                  // attempt to undo everything we've done so far
+                  for (Facet f : installed)
+                  {
+                     if (!f.uninstall())
+                     {
+                        ShellMessages.info(shell,
+                                    "Could not uninstall [" + ConstraintInspector.getName(f.getClass())
+                                             + "]. Must be cleaned up manually.");
+                     }
+                     else
+                     {
+                        ShellMessages.info(shell,
+                                    "Uninstalled facet [" + ConstraintInspector.getName(f.getClass())
+                                             + "].");
+                     }
+                  }
+                  throw new Abort();
+               }
+            }
+         }
       }
    }
 
-   private boolean updatePackaging(final Facet facet)
+   private PackagingType updatePackaging(final Facet facet) throws Abort
    {
-
       List<PackagingType> types = ConstraintInspector.getCompatiblePackagingTypes(facet.getClass());
       String facetName = ConstraintInspector.getName(facet.getClass());
 
-      /*
-       * Verify Packaging Dependencies
-       */
       PackagingType packaging = project.getFacet(PackagingFacet.class).getPackagingType();
-      if (!types.isEmpty() && !types.contains(packaging))
+      if (types.isEmpty() || types.contains(packaging))
+      {
+         return null;
+      }
+      else if (shell.promptBoolean("Facet ["
+                     + facetName + "] requires packaging type(s) " + types
+                     + ", but is currently [" + packaging
+                     + "]. Update packaging? (Note: this could deactivate other plugins in your project.)"))
       {
          if (types.size() == 1)
          {
-            if (shell.promptBoolean("The ["
-                     + facetName
-                     + "] facet requires the following packaging type "
-                     + types
-                     + ", but is currently ["
-                     + packaging
-                     + "], would you like to change the packaging to " + types
-                     + "? (Note: this could break other plugins in your project.)"))
-            {
-               project.getFacet(PackagingFacet.class).setPackagingType(types.get(0));
-               shell.println("Packaging updated to " + types + "");
-            }
-            else
-            {
-               return false;
-            }
+            return types.get(0);
          }
-         else if (types.size() > 1)
+         else
          {
-            if (shell.promptBoolean("The ["
-                     + facetName
-                     + "] plugin requires one of the following packaging types: "
-                     + types
-                     + ", but is currently ["
-                     + packaging
-                     + "], would you like to change the packaging? (Note: this could break other plugins in your project.)"))
-            {
-               PackagingType type = shell.promptChoiceTyped("Select a new packaging type:", types);
-               project.getFacet(PackagingFacet.class).setPackagingType(type);
-               shell.println("Packaging updated to [" + type + "]");
-            }
-            else
-            {
-               return false;
-            }
+            return shell.promptChoiceTyped("Select a new packaging type:", types);
          }
-
       }
-      return true;
+      else
+      {
+         throw new Abort();
+      }
    }
 
    private void abort()

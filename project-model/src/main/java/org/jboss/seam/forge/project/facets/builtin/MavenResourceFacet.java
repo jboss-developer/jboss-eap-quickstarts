@@ -29,6 +29,7 @@ import javax.enterprise.context.Dependent;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.FacetNotFoundException;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.ResourceFacet;
@@ -43,7 +44,7 @@ import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 @Dependent
 @Alias("forge.maven.ResourceFacet")
 @RequiresFacet(MavenCoreFacet.class)
-public class MavenResourceFacet implements ResourceFacet, Facet
+public class MavenResourceFacet extends BaseFacet implements ResourceFacet, Facet
 {
    private Project project;
 

@@ -64,4 +64,8 @@ public interface Facet
     */
    boolean isInstalled();
 
+   /**
+    * Remove this {@link Facet} from its {@link Project}, and perform any necessary cleanup.
+    */
+   boolean uninstall();
 }

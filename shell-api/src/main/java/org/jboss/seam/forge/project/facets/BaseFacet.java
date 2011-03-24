@@ -25,4 +25,10 @@ public abstract class BaseFacet implements Facet
       this.project = project;
    }
 
+   @Override
+   public boolean uninstall()
+   {
+      return false;
+   }
+
 }

@@ -29,6 +29,7 @@ import javax.enterprise.context.Dependent;
 
 import org.jboss.seam.forge.project.Facet;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
@@ -47,7 +48,7 @@ import org.jboss.seam.forge.shell.plugins.RequiresPackagingType;
 @Alias("forge.maven.WebResourceFacet")
 @RequiresPackagingType(PackagingType.WAR)
 @RequiresFacet({ JavaSourceFacet.class, PackagingFacet.class })
-public class MavenWebResourceFacet implements WebResourceFacet, Facet
+public class MavenWebResourceFacet extends BaseFacet implements WebResourceFacet, Facet
 {
    private Project project;
 

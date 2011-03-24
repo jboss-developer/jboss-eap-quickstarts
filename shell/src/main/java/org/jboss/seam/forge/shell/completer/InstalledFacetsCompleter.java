@@ -11,7 +11,7 @@ import org.jboss.seam.forge.project.services.FacetFactory;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.util.ConstraintInspector;
 
-public class AvailableFacetsCompleter extends SimpleTokenCompleter
+public class InstalledFacetsCompleter extends SimpleTokenCompleter
 {
    @Inject
    private FacetFactory factory;
@@ -28,7 +28,7 @@ public class AvailableFacetsCompleter extends SimpleTokenCompleter
       List<Facet> allFacets = factory.getFacets();
       for (Facet facet : allFacets)
       {
-         if (!project.hasFacet(facet.getClass()))
+         if (project.hasFacet(facet.getClass()))
          {
             result.add(ConstraintInspector.getName(facet.getClass()));
          }

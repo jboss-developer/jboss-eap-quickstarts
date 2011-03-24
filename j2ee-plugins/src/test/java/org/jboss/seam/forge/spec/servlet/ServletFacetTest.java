@@ -22,15 +22,15 @@
 
 package org.jboss.seam.forge.spec.servlet;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.test.SingletonAbstractShellTest;
 import org.jboss.shrinkwrap.descriptor.api.spec.servlet.web.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -42,6 +42,7 @@ public class ServletFacetTest extends SingletonAbstractShellTest
    public void testWebXMLCreatedWhenInstalled() throws Exception
    {
       Project project = initializeJavaProject();
+      queueInputLines("", "");
       getShell().execute("install forge.spec.servlet");
       assertTrue(project.hasFacet(ServletFacet.class));
       WebAppDescriptor config = project.getFacet(ServletFacet.class).getConfig();

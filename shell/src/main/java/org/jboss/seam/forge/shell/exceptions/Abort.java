@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright 2011, Red Hat, Inc., and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,35 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.seam.forge.spec.jsf;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.resources.FileResource;
-import org.jboss.seam.forge.test.SingletonAbstractShellTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+package org.jboss.seam.forge.shell.exceptions;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-@RunWith(Arquillian.class)
-public class FacesFacetTest extends SingletonAbstractShellTest
+public class Abort extends Exception
 {
-   @Test
-   public void testFacesConfigCreatedWhenInstalled() throws Exception
-   {
-      Project project = initializeJavaProject();
-      queueInputLines("", "", "");
-      getShell().execute("install forge.spec.jsf");
-      assertTrue(project.hasFacet(FacesFacet.class));
-      FileResource<?> config = project.getFacet(FacesFacet.class).getConfigFile();
+   private static final long serialVersionUID = -9071142076645705877L;
 
-      assertNotNull(config);
-      assertTrue(config.exists());
+   public Abort()
+   {
+      super();
    }
+
+   public Abort(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
+
+   public Abort(String message)
+   {
+      super(message);
+   }
+
+   public Abort(Throwable cause)
+   {
+      super(cause);
+   }
+
 }

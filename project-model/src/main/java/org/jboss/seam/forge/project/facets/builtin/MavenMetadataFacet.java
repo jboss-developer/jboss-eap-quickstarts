@@ -26,6 +26,7 @@ import javax.enterprise.context.Dependent;
 
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
 import org.jboss.seam.forge.shell.plugins.Alias;
@@ -37,7 +38,7 @@ import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 @Dependent
 @Alias("forge.maven.MetadataFacet")
 @RequiresFacet(MavenCoreFacet.class)
-public class MavenMetadataFacet implements MetadataFacet
+public class MavenMetadataFacet extends BaseFacet implements MetadataFacet
 {
    private Project project;
 
