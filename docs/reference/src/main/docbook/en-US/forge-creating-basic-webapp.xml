@@ -12,10 +12,10 @@
    <section id="generate.webapp.javaee.steps">
       <title>First steps with Scaffolding</title>
       <para>
-         Assuming you have already completed the steps to <link linkend="installation">
+         Assuming you have already completed the steps to <link linkend="forge.installation">
          install Forge</link>, the first thing you'll need to do is download and install 
          <ulink url="http://www.jboss.org/jbossas/downloads.html">JBoss Application 
-         Server 6.0</ulink>. This server will host your application once is is built.
+         Server 6.0</ulink>. This server will host your application once it is built.
       </para>
       <para>
          Next, follow these steps to create your skeleton web-application; be sure to
@@ -25,19 +25,20 @@
       
          <orderedlist>
             <listitem>
-               Execute <literal>$ forge</literal> from a command prompt.</listitem>
+            	Execute <literal>$ forge</literal> from a command prompt.
+            </listitem>
             <listitem>
                Create a new project:
                <programlisting>$ new-project --named {name} --topLevelPackage {com.package} --projectFolder {/directory/path}</programlisting>
             </listitem>
             <listitem>
-               Install the web-scaffold facet, and press ENTER to confirm 
-               installation of required facet dependencies and/or packaging types:
+               Install scaffolding, and press ENTER to confirm 
+               installation of any required facet dependencies and/or packaging types:
                <programlisting>$ scaffold setup </programlisting>
             </listitem>
             <listitem>
-               That's it! Now in a separate command shell, build your project using
-               Maven, and deploy it onto your JBoss Application Server instance:
+               That's it! Now build your project using Maven, and deploy it onto 
+               your JBoss Application Server instance:
                
                <programlisting>$ mvn clean package
 $ mvn jboss:hard-deploy
