@@ -140,7 +140,14 @@ public class Bootstrap
                jars[i] = files[i].toURI().toURL();
             }
 
-            URLClassLoader classLoader = new URLClassLoader(jars, Bootstrap.class.getClassLoader());
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+
+            if (cl == null)
+            {
+               cl = Bootstrap.class.getClassLoader();
+            }
+
+            URLClassLoader classLoader = new URLClassLoader(jars, cl);
             Thread.currentThread().setContextClassLoader(classLoader);
          }
       }

@@ -137,7 +137,10 @@ public class InstallFacetPlugin implements Plugin
                   + facetNames
                   + ". Would you like to attempt installation of these facets as well?"))
          {
-            projectFactory.installSingleFacet(project, facet.getClass());
+            for (Class<? extends Facet> d : deps)
+            {
+               performInstallation(factory.getFacet(d));
+            }
          }
          else
          {
