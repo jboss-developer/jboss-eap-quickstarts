@@ -15,7 +15,7 @@
          Assuming you have already completed the steps to <link linkend="forge.installation">
          install Forge</link>, the first thing you'll need to do is download and install 
          <ulink url="http://www.jboss.org/jbossas/downloads.html">JBoss Application 
-         Server 6.0</ulink>. This server will host your application once it is built.
+         Server 6.0 or 7.0</ulink>. This server will host your application once it is built.
       </para>
       <para>
          Next, follow these steps to create your skeleton web-application; be sure to
