@@ -929,6 +929,7 @@ public class ShellImpl extends AbstractShellPrompt implements Shell
       try
       {
          reader.print(new String(new byte[] { b }));
+         reader.flush();
       }
       catch (IOException e)
       {

@@ -58,7 +58,7 @@ public class PathspecParser
    private final Resource<?> res;
    private final String path;
 
-   private static boolean isWindows = OSUtils.isWindows();
+   private boolean isWindows = OSUtils.isWindows();
 
    List<Resource<?>> results = new LinkedList<Resource<?>>();
 
@@ -88,6 +88,9 @@ public class PathspecParser
       Resource<?> r = res;
       String tk;
 
+      char slashChar = isWindows ? '\\' : '/';
+      String slashString = String.valueOf(slashChar);
+
       if (".".equals(path))
       {
         return singleResult(r);
@@ -107,9 +110,9 @@ public class PathspecParser
          }
       }
       // for windows, support drive letter prefixes here.
-      else if (isWindows && path.matches("^[a-zA-Z]{1,1}:/.*"))
+      else if (isWindows && path.matches("^[a-zA-Z]{1,1}:(/|\\\\).*"))
       {
-         int idx = path.indexOf('/') + 1;
+         int idx = path.indexOf(slashChar) + 1;
          r = new DirectoryResource(factory, new File(path.substring(0, idx)).getAbsoluteFile());
          cursor = idx;
       }
@@ -119,11 +122,11 @@ public class PathspecParser
          SW:
          switch (path.charAt(cursor++))
          {
-
+         case '\\':
          case '/':
             if (cursor - 1 == 0)
             {
-               r = factory.getResourceFrom(new File("/").getAbsoluteFile());
+               r = factory.getResourceFrom(new File(slashString).getAbsoluteFile());
             }
             continue;
 
@@ -140,7 +143,7 @@ public class PathspecParser
                break SW;
 
             default:
-               if (cursor < length && path.charAt(cursor) == '/')
+               if (cursor < length && path.charAt(cursor) == slashChar)
                {
                   cursor++;
                   break SW;
@@ -154,7 +157,7 @@ public class PathspecParser
             if (tk.matches(".*(\\?|\\*)+.*"))
             {
                boolean startDot = tk.startsWith(".");
-               String regex = pathspecToRegEx(tk.startsWith("/") ? tk.substring(1) : tk);
+               String regex = pathspecToRegEx(tk.startsWith(slashString) ? tk.substring(1) : tk);
                Pattern p = Pattern.compile(regex);
 
                List<Resource<?>> res = new LinkedList<Resource<?>>();
@@ -194,7 +197,7 @@ public class PathspecParser
                return results;
             }
 
-            if (tk.startsWith("/"))
+            if (tk.startsWith(slashString))
             {
                if (first)
                {

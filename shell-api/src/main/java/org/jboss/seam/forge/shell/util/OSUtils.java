@@ -28,6 +28,8 @@ import java.io.File;
  */
 public final class OSUtils
 {
+   private static boolean PRETEND_WINDOWS = Boolean.getBoolean("forge.pretend_windows");
+
    private static String operatingSystem = null;
 
    public static String getOsName()
@@ -41,7 +43,7 @@ public final class OSUtils
 
    public static boolean isWindows()
    {
-      return getOsName().startsWith("Windows") || getOsName().startsWith("windows");
+      return PRETEND_WINDOWS || getOsName().startsWith("Windows") || getOsName().startsWith("windows");
    }
 
    public static boolean isOSX()
@@ -57,5 +59,10 @@ public final class OSUtils
    public static File getUserHomeDir()
    {
       return new File(System.getProperty("user.home")).getAbsoluteFile();
+   }
+
+   public static void setPretendWindows(boolean value)
+   {
+      PRETEND_WINDOWS = value;
    }
 }
