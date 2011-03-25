@@ -643,6 +643,11 @@ public class GrepPlugin implements Plugin
            <goal>shade</goal>
          </goals>
          <configuration>
+           <artifactSet>
+             <includes>
+               <include>commons-collections:commons-collections</include>
+             </includes>
+           </artifactSet>
            <relocations>
              <relocation>
                <pattern>org.apache.commons.collections</pattern>
