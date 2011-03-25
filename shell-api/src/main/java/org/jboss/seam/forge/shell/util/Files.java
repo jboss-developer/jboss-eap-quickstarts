@@ -38,7 +38,8 @@ public class Files
    {
       if (target.startsWith(Files.HOME_ALIAS))
       {
-         target = target.replaceFirst(Files.HOME_ALIAS, System.getProperty("user.home"));
+         String homePath = OSUtils.getUserHomePath();
+         target = target.replaceFirst(Files.HOME_ALIAS, homePath);
       }
 
       return target;

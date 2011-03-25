@@ -65,4 +65,14 @@ public final class OSUtils
    {
       PRETEND_WINDOWS = value;
    }
+
+   public static String getUserHomePath()
+   {
+      String homePath = getUserHomeDir().getAbsolutePath();
+      if (OSUtils.isWindows())
+      {
+         homePath = homePath.replaceAll("\\\\", "/");
+      }
+      return homePath;
+   }
 }
