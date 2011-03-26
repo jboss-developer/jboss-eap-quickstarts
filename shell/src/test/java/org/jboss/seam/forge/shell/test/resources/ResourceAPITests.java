@@ -72,6 +72,23 @@ public class ResourceAPITests extends AbstractShellTest
    }
 
    @Test
+   public void testUnixPathsOnWindows()
+   {
+      OSUtils.setPretendWindows(true);
+
+      DirectoryResource expect = new DirectoryResource(factory, new File("").getAbsoluteFile().getParentFile());
+
+      String name = expect.getName();
+
+      DirectoryResource r = new DirectoryResource(factory, new File("").getAbsoluteFile());
+
+      Assert.assertEquals(expect, ResourceUtil.parsePathspec(factory, r, "../../" + name).iterator().next());
+
+      OSUtils.setPretendWindows(false);
+   }
+
+
+   @Test
    public void testWildCards()
    {
 

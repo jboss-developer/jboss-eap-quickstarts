@@ -22,14 +22,14 @@
 
 package org.jboss.seam.forge.shell.command.fshparser;
 
-import static java.lang.Character.isJavaIdentifierPart;
+import org.mvel2.MVEL;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Queue;
 import java.util.Set;
 
-import org.mvel2.MVEL;
+import static java.lang.Character.isJavaIdentifierPart;
 
 /**
  * @author Mike Brock .
@@ -72,6 +72,7 @@ public abstract class Parse
       case ':':
       case '.':
       case '-':
+      case '\\':
       case '/':
       case '%':
       case '+':
