@@ -24,8 +24,9 @@ package org.jboss.seam.forge.shell;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.net.URL;
-import java.net.URLClassLoader;
+import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,7 @@ import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 
+import org.jboss.seam.forge.shell.PluginJar.IllegalNameException;
 import org.jboss.seam.forge.shell.events.AcceptUserInput;
 import org.jboss.seam.forge.shell.events.ReinitializeEnvironment;
 import org.jboss.seam.forge.shell.events.Shutdown;
@@ -50,6 +52,16 @@ public class Bootstrap
    private static Thread currentShell = null;
    private static boolean restartRequested = false;
    private static File workingDir = new File("").getAbsoluteFile();
+   private static CompositePluginClassLoader pluginLoader;
+
+   private static FilenameFilter jarFileFilter = new FilenameFilter()
+   {
+      @Override
+      public boolean accept(final File dir, final String name)
+      {
+         return name.endsWith(".jar");
+      }
+   };
 
    @Inject
    private BeanManager manager;
@@ -117,43 +129,41 @@ public class Bootstrap
       }
    }
 
-   private static void loadPlugins()
+   synchronized private static void loadPlugins()
    {
-      try
+      ClassLoader cl = Thread.currentThread().getContextClassLoader();
+      if (cl == null)
       {
-         File pluginsDir = new File(ShellImpl.FORGE_CONFIG_DIR + "/plugins/");
-         if (pluginsDir.exists())
-         {
-            File[] files = pluginsDir.listFiles(new FilenameFilter()
-            {
-               @Override
-               public boolean accept(final File dir, final String name)
-               {
-                  return name.endsWith(".jar");
-               }
-            });
-
-            URL[] jars = new URL[files.length];
-
-            for (int i = 0; i < files.length; i++)
-            {
-               jars[i] = files[i].toURI().toURL();
-            }
-
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
-
-            if (cl == null)
-            {
-               cl = Bootstrap.class.getClassLoader();
-            }
-
-            URLClassLoader classLoader = new URLClassLoader(jars, cl);
-            Thread.currentThread().setContextClassLoader(classLoader);
-         }
+         cl = Bootstrap.class.getClassLoader();
       }
-      catch (Exception e)
+
+      if (pluginLoader == null)
       {
-         e.printStackTrace();
+         pluginLoader = new CompositePluginClassLoader(cl);
+         Thread.currentThread().setContextClassLoader(pluginLoader);
+      }
+
+      File pluginsDir = new File(ShellImpl.FORGE_CONFIG_DIR + "/plugins/");
+      if (pluginsDir.exists())
+      {
+         List<File> found = Arrays.asList(pluginsDir.listFiles(jarFileFilter));
+
+         for (File file : found)
+         {
+            try
+            {
+               PluginClassLoader loader = new PluginClassLoader(file, pluginLoader.getParent());
+               pluginLoader.add(loader);
+            }
+            catch (IllegalNameException e)
+            {
+               System.err.println("JAR with invalid plugin name [" + file.getAbsolutePath() + "] will not be loaded.");
+            }
+            catch (MalformedURLException e)
+            {
+               throw new RuntimeException(e);
+            }
+         }
       }
    }
 }

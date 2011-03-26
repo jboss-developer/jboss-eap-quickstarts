@@ -40,6 +40,7 @@ import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.scaffold.plugins.ScaffoldPlugin;
 import org.jboss.seam.forge.shell.ShellPrintWriter;
+import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
 import org.jboss.seam.render.TemplateCompiler;
@@ -59,9 +60,9 @@ public class MetawidgetScaffold implements ScaffoldProvider
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
    private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
 
-   private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget:1.0.5");
+   private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget");
    private final Dependency seamPersist = DependencyBuilder
-            .create("org.jboss.seam.persistence:seam-persistence-impl:3.0.0.Beta4");
+            .create("org.jboss.seam.persistence:seam-persistence");
 
    private CompiledTemplateResource viewTemplate;
    private CompiledTemplateResource createTemplate;
@@ -69,6 +70,9 @@ public class MetawidgetScaffold implements ScaffoldProvider
 
    @Inject
    private ShellPrintWriter writer;
+
+   @Inject
+   private ShellPrompt prompt;
 
    @Inject
    private TemplateCompiler compiler;
@@ -157,11 +161,14 @@ public class MetawidgetScaffold implements ScaffoldProvider
       CDIFacet cdi = project.getFacet(CDIFacet.class);
       if (!df.hasDependency(metawidget))
       {
-         df.addDependency(metawidget);
+         df.addDependency(prompt.promptChoiceTyped("Install which version of Metawidget?",
+                  df.resolveAvailableVersions(metawidget)));
       }
       if (!df.hasDependency(seamPersist))
       {
-         df.addDependency(seamPersist);
+         df.addDependency(prompt.promptChoiceTyped("Install which version of Metawidget?",
+                  df.resolveAvailableVersions(seamPersist)));
+
          BeansDescriptor config = cdi.getConfig();
          config.interceptor(SEAM_PERSIST_INTERCEPTOR);
          cdi.saveConfig(config);

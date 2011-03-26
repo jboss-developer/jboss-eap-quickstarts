@@ -93,9 +93,9 @@ public class MavenPlugin implements Plugin
       Parent parent = null;
       if (gav != null)
       {
-         Assert.notNull(gav.getArtifactId(), "ArtifactId must not be null [" + gav.toIdentifier() + "]");
-         Assert.notNull(gav.getGroupId(), "GroupId must not be null [" + gav.toIdentifier() + "]");
-         Assert.notNull(gav.getVersion(), "Version must not be null [" + gav.toIdentifier() + "]");
+         Assert.notNull(gav.getArtifactId(), "ArtifactId must not be null [" + gav.toCoordinates() + "]");
+         Assert.notNull(gav.getGroupId(), "GroupId must not be null [" + gav.toCoordinates() + "]");
+         Assert.notNull(gav.getVersion(), "Version must not be null [" + gav.toCoordinates() + "]");
 
          parent = new Parent();
          parent.setArtifactId(gav.getArtifactId());

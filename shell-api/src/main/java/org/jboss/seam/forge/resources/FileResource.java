@@ -192,6 +192,17 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
       return file.delete();
    }
 
+   /**
+    * Requests that the file or directory denoted by this resource be deleted when the virtual machine terminates.
+    * <p>
+    * Once deletion has been requested, it is not possible to cancel the request. This method should therefore be used
+    * with care.
+    */
+   public void deleteOnExit()
+   {
+      file.deleteOnExit();
+   }
+
    private static boolean _deleteRecursive(final File file, final boolean collect)
    {
       if (collect && OSUtils.isWindows())
@@ -273,6 +284,10 @@ public abstract class FileResource<T extends FileResource<?>> extends AbstractRe
             data.close();
             out.flush();
             out.close();
+            if (OSUtils.isWindows())
+            {
+               System.gc();
+            }
          }
 
          System.out.println("Wrote " + getFullyQualifiedName());

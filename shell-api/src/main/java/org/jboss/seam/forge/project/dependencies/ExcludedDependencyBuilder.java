@@ -132,7 +132,7 @@ public class ExcludedDependencyBuilder implements Dependency
    }
 
    @Override
-   public String toIdentifier()
+   public String toCoordinates()
    {
       return DependencyBuilder.toId(this);
    }

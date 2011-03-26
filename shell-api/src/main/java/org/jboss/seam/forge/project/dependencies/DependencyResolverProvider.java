@@ -19,40 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.dev.mvn;
+package org.jboss.seam.forge.project.dependencies;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.jboss.seam.forge.project.Project;
-import org.jboss.seam.forge.project.dependencies.Dependency;
-import org.jboss.seam.forge.project.facets.DependencyFacet;
-import org.jboss.seam.forge.shell.completer.SimpleTokenCompleter;
+import org.jboss.seam.forge.resources.DependencyResource;
 
 /**
- * Provides completion for project build properties
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
+ * 
  */
-public class InstalledDependencyCompleter extends SimpleTokenCompleter
+public interface DependencyResolverProvider
 {
-   @Inject
-   private Project project;
+   List<DependencyResource> resolveArtifacts(final Dependency dep, final List<DependencyRepository> repositories);
 
-   @Override
-   public List<Object> getCompletionTokens()
-   {
-      List<Object> result = new ArrayList<Object>();
-
-      DependencyFacet deps = project.getFacet(DependencyFacet.class);
-      List<Dependency> dependencies = deps.getDependencies();
-      for (Dependency d : dependencies)
-      {
-         result.add(d.toCoordinates());
-      }
-      return result;
-   }
-
+   List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories);
 }

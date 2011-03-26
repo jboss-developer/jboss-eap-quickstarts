@@ -30,6 +30,7 @@ import java.io.File;
 public class Files
 {
    public static final String HOME_ALIAS = "~";
+   public static final String SLASH = File.separator;
 
    /**
     * Replace instances of internal tokens with actual file equivalents.
@@ -39,7 +40,7 @@ public class Files
       if (target.startsWith(Files.HOME_ALIAS))
       {
          String homePath = OSUtils.getUserHomePath();
-         target = target.replaceFirst(Files.HOME_ALIAS, homePath);
+         target = homePath + target.substring(1, target.length());
       }
 
       return target;

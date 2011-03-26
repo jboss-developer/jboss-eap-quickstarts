@@ -26,6 +26,8 @@ import javax.enterprise.context.Dependent;
 
 import org.apache.maven.model.Model;
 import org.jboss.seam.forge.project.Project;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.MavenCoreFacet;
 import org.jboss.seam.forge.project.facets.MetadataFacet;
@@ -45,7 +47,13 @@ public class MavenMetadataFacet extends BaseFacet implements MetadataFacet
    @Override
    public String getProjectName()
    {
-      return project.getFacet(MavenCoreFacet.class).getPOM().getArtifactId();
+      return project.getFacet(MavenCoreFacet.class).getProjectBuildingResult().getProject().getArtifactId();
+   }
+
+   @Override
+   public String getProjectVersion()
+   {
+      return project.getFacet(MavenCoreFacet.class).getProjectBuildingResult().getProject().getVersion();
    }
 
    @Override
@@ -94,5 +102,12 @@ public class MavenMetadataFacet extends BaseFacet implements MetadataFacet
    public String getTopLevelPackage()
    {
       return project.getFacet(MavenCoreFacet.class).getPOM().getGroupId();
+   }
+
+   @Override
+   public Dependency getOutputDependency()
+   {
+      return DependencyBuilder.create().setGroupId(getTopLevelPackage()).setArtifactId(getProjectName())
+               .setVersion(getProjectVersion());
    }
 }

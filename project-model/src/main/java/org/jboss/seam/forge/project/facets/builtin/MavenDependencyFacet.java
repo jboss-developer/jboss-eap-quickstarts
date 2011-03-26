@@ -244,27 +244,16 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    }
 
    @Override
-   public List<Dependency> resolveAvailableVersions(final Dependency dep)
+   public List<Dependency> resolveAvailableVersions(Dependency dep)
    {
-      List<Dependency> results = new ArrayList<Dependency>();
 
-      String groupId = dep.getGroupId();
-      String artifactId = dep.getArtifactId();
-      String version = dep.getVersion();
-
-      if (version == null || version.trim().isEmpty())
+      if (dep.getVersion() == null || dep.getVersion().trim().isEmpty())
       {
-         version = "[0,)";
+         dep = DependencyBuilder.create(dep).setVersion("[0,)");
       }
 
-      List<String> versions = lookup.getAvailableVersions(groupId + ":" + artifactId + ":"
-               + version, getRepositories());
-
-      for (String v : versions)
-      {
-         results.add(DependencyBuilder.create(dep).setVersion(v));
-      }
-      return results;
+      List<Dependency> versions = lookup.resolveVersions(dep, getRepositories());
+      return versions;
    }
 
    @Override

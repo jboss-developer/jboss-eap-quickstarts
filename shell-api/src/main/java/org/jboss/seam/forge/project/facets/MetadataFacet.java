@@ -23,6 +23,7 @@
 package org.jboss.seam.forge.project.facets;
 
 import org.jboss.seam.forge.project.Facet;
+import org.jboss.seam.forge.project.dependencies.Dependency;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -37,4 +38,9 @@ public interface MetadataFacet extends Facet
    void setTopLevelPackage(String groupId);
 
    String getTopLevelPackage();
+
+   String getProjectVersion();
+
+   Dependency getOutputDependency();
+
 }

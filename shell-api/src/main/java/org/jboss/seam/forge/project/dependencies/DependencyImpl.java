@@ -134,7 +134,7 @@ public class DependencyImpl implements Dependency
    }
 
    @Override
-   public String toIdentifier()
+   public String toCoordinates()
    {
       return DependencyBuilder.toId(this);
    }

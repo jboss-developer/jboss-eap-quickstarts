@@ -29,7 +29,6 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
-import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -59,11 +58,6 @@ public interface DependencyFacet extends Facet
       public String getId()
       {
          return this.name();
-      }
-
-      public DependencyRepository toRepository()
-      {
-         return new DependencyRepositoryImpl(this.getId(), url);
       }
    }
 

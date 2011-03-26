@@ -19,55 +19,55 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.seam.forge.shell.util;
+package org.jboss.seam.forge.shell;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+import org.jboss.seam.forge.shell.PluginJar.IllegalNameException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  */
-public final class OSUtils
+public class PluginClassLoader extends URLClassLoader
 {
-   private static boolean PRETEND_WINDOWS = Boolean.getBoolean("forge.pretend_windows");
+   private final File file;
+   private final PluginJar jar;
 
-   private static String operatingSystem = null;
-
-   public static String getOsName()
+   public PluginClassLoader(File file) throws MalformedURLException
    {
-      if (operatingSystem == null)
-      {
-         operatingSystem = System.getProperty("os.name");
-      }
-      return operatingSystem;
+      this(file, null);
    }
 
-   public static boolean isWindows()
+   public PluginClassLoader(File file, ClassLoader parent) throws IllegalNameException, MalformedURLException
    {
-      return PRETEND_WINDOWS || getOsName().startsWith("Windows") || getOsName().startsWith("windows");
+      super(new URL[] { file.toURI().toURL() }, parent);
+
+      this.file = file;
+
+      this.jar = new PluginJar(file.getName());
    }
 
-   public static boolean isOSX()
+   public File getFile()
    {
-      return getOsName().startsWith("Mac") || getOsName().startsWith("mac");
+      return file;
    }
 
-   public static boolean isLinux()
+   public String getPluginName()
    {
-      return getOsName().startsWith("Linux") || getOsName().startsWith("linux");
+      return jar.getName();
    }
 
-   public static File getUserHomeDir()
+   public int getPluginVersion()
    {
-      return new File(System.getProperty("user.home")).getAbsoluteFile();
+      return jar.getVersion();
    }
 
-   public static String getUserHomePath()
+   @Override
+   public String toString()
    {
-      return getUserHomeDir().getAbsolutePath();
-   }
-
-   public static void setPretendWindows(boolean value)
-   {
-      PRETEND_WINDOWS = value;
+      return jar.getFullName();
    }
 }

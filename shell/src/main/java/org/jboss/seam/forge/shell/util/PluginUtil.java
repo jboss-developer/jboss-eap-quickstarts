@@ -30,22 +30,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.jboss.seam.forge.resources.DirectoryResource;
 import org.jboss.seam.forge.resources.FileResource;
 import org.jboss.seam.forge.shell.Shell;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.yaml.snakeyaml.Yaml;
 
 /**
@@ -143,137 +133,6 @@ public class PluginUtil
 
       default:
          out.println("failed! (server returned status code: " + response.getStatusLine().getStatusCode());
-      }
-   }
-
-   public static FileResource<?> downloadFromIndexRef(final PluginRef ref, final PipeOut out,
-            final DirectoryResource pluginDir) throws Exception
-   {
-      String[] artifactParts = ref.getArtifact().toIdentifier().split(":");
-
-      if (artifactParts.length != 3)
-      {
-         throw new RuntimeException("malformed artifact identifier " +
-                  "(format should be: <maven.group>:<maven.artifact>:<maven.version>) encountered: "
-                  + ref.getArtifact());
-      }
-
-      String packageLocation = artifactParts[0].replaceAll("\\.", "/");
-      String baseUrl;
-      if (ref.getHomeRepo().endsWith("/"))
-      {
-         baseUrl = ref.getHomeRepo() + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
-      }
-      else
-      {
-         baseUrl = ref.getHomeRepo() + "/" + packageLocation + "/" + artifactParts[1] + "/" + artifactParts[2];
-      }
-
-      HttpGet httpGetManifest = new HttpGet(baseUrl + "/maven-metadata.xml");
-      out.print("Retrieving artifact manifest ... ");
-
-      HttpResponse response = new DefaultHttpClient().execute(httpGetManifest);
-      switch (response.getStatusLine().getStatusCode())
-      {
-      case 200:
-         out.println("done.");
-
-         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                  .parse(response.getEntity().getContent());
-
-         XPath xpath = XPathFactory.newInstance().newXPath();
-         XPathExpression checkSnapshotExpr = xpath.compile("//versioning/snapshot");
-         XPathExpression findJar = xpath.compile("//snapshotVersion[extension='jar']/value");
-
-         NodeList list = (NodeList) checkSnapshotExpr.evaluate(document, XPathConstants.NODESET);
-
-         out.print("Reading manifest ... ");
-
-         if (list.getLength() != 0)
-         {
-
-            Node n = (Node) findJar.evaluate(document, XPathConstants.NODE);
-
-            if (n == null)
-            {
-               out.println("failed: could not determine where to find jar file.");
-               return null;
-            }
-
-            String version = n.getFirstChild().getTextContent();
-
-            // plugin definition points to a snapshot.
-            out.println("good! (maven snapshot found): " + version);
-
-            String fileName = artifactParts[1] + "-" + version + ".jar";
-            HttpGet jarGet = new HttpGet(baseUrl + "/" + fileName);
-
-            out.print("Downloading: " + baseUrl + "/" + fileName + " ... ");
-
-            response = new DefaultHttpClient().execute(jarGet);
-
-            try
-            {
-               FileResource<?> target = (FileResource<?>) pluginDir.getChild(fileName);
-               if (!target.exists() && target.createNewFile())
-               {
-                  target.setContents(response.getEntity().getContent());
-                  out.println("done.");
-                  return target;
-               }
-               else
-               {
-                  throw new IllegalStateException("Could not create target file [" + target.getFullyQualifiedName()
-                           + "]");
-               }
-            }
-            catch (IOException e)
-            {
-               out.println("failed to download: " + e.getMessage());
-               return null;
-            }
-         }
-         else
-         {
-            out.println("error! (maven snapshot not found)");
-            return null;
-         }
-
-      case 404:
-         String requestUrl = baseUrl + "/" + artifactParts[2] + ".pom";
-         httpGetManifest = new HttpGet(requestUrl);
-         response = new DefaultHttpClient().execute(httpGetManifest);
-
-         if (response.getStatusLine().getStatusCode() != 200)
-         {
-            printError(response.getStatusLine().getStatusCode(), requestUrl, out);
-            return null;
-         }
-         else
-         {
-
-            // download regular POM here.
-
-         }
-         break;
-      default:
-         out.println("failed! (server returned status code: " + response.getStatusLine().getStatusCode());
-         return null;
-      }
-
-      return null;
-
-   }
-
-   private static void printError(int status, String requestUrl, PipeOut out)
-   {
-      switch (status)
-      {
-      case 404:
-         out.println("failed! (file not found in repository: " + requestUrl + ")");
-         break;
-      default:
-         out.println("failed! (server returned status code: " + status);
       }
    }
 

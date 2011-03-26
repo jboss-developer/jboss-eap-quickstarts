@@ -177,7 +177,7 @@ public class ExamplePlugin implements Plugin {
          to add some functionality. This is done by adding "Commands" to your plugin class.
          Commands are plain Java methods in your plugin Class. Plugin methods must be annotated
          as either a <literal>@DefaultCommand</literal>, the method to be invoked if the plugin
-         is called by name (with no additional commands), or <literal>@Command(name="...")</literal>,
+         is called by name (with no additional commands), or <literal>@Command("...")</literal>,
          in which case the plugin name and command name must both be used to invoke the method.
       </para>
       <para>
@@ -198,7 +198,9 @@ public class ExamplePlugin implements Plugin {
             <programlisting>public class ExamplePlugin implements Plugin {
    @DefaultCommand
    public void exampleDefaultCommand( @Option String opt ) {
+      out.println(">> invoked default command with option value: " + opt);
       // this method will be invoked, and 'opt' will be passed from the command line
+      // 'out' is your handle to this plugin's output stream.
    }
 }</programlisting>
             <programlisting>$ exampleplugin some-input</programlisting>
@@ -212,7 +214,7 @@ public class ExamplePlugin implements Plugin {
          <title>Named commands</title>
          <para>
             Named commands must, to little surprise, be given a name with which they are
-            invoked. This is done by placing the <literal>@Command(name="...")</literal> annotation
+            invoked. This is done by placing the <literal>@Command("...")</literal> annotation
             on a public Java method in your <literal>Plugin</literal> class.
          </para>
          <para>
@@ -220,8 +222,8 @@ public class ExamplePlugin implements Plugin {
             followed by the name of the command:
          
             <programlisting>public class ExamplePlugin implements Plugin {
-   @Command(name="perform")
-   public void exampleCommand( @Option(required=false) String opt, PipeOut out) {
+   @Command("perform")
+   public void exampleCommand( @Option String opt, PipeOut out) {
        out.println(">> the command \"perform\" was invoked with the value: " + opt);
    }
 }</programlisting>
@@ -285,7 +287,7 @@ public class ExamplePlugin implements Plugin {
             and 'two':
             
             <programlisting>public class ExamplePlugin implements Plugin {
-   @Command(name="perform")
+   @Command("perform")
    public void exampleCommand( 
                   @Option(name="one", shortName="o") String one,
                   @Option(name="two") String two,
@@ -297,7 +299,7 @@ public class ExamplePlugin implements Plugin {
    
             The above command, when executed, would produce the following output:
          
-            <programlisting>$ example-plugin perform --one cat --two dog 
+            <programlisting>$ exampleplugin perform --one cat --two dog 
 >> option one equals: cat
 >> option two equals: dog</programlisting>
          </para>
@@ -306,9 +308,9 @@ public class ExamplePlugin implements Plugin {
                Named parameters can be called in any order. Notice that we could have also 
                called the command with options 'one' and 'two' in reverse order, or 
                by using their short names. These commands are equivalent:
-               <programlisting>$ example-plugin perform --one cat --two dog
-$ example-plugin perform --two dog --one cat
-$ example-plugin perform --two dog -o cat</programlisting>
+               <programlisting>$ exampleplugin perform --one cat --two dog
+$ exampleplugin perform --two dog --one cat
+$ exampleplugin perform --two dog -o cat</programlisting>
             </tip>
          </para>
       </section>
@@ -332,7 +334,7 @@ $ example-plugin perform --two dog -o cat</programlisting>
             and 'two':
             
             <programlisting>public class ExamplePlugin implements Plugin {
-   @Command(name="perform")
+   @Command("perform")
    public void exampleCommand( 
                   @Option String one,
                   @Option String two,
@@ -343,7 +345,7 @@ $ example-plugin perform --two dog -o cat</programlisting>
 }</programlisting>
             The above command, when executed, would produce the following output:
          
-            <programlisting>$ example-plugin cat dog 
+            <programlisting>$ exampleplugin perform cat dog 
 >> option one equals: cat
 >> option two equals: dog</programlisting>
          </para>
@@ -369,7 +371,7 @@ $ example-plugin perform --two dog -o cat</programlisting>
             'two', and several more options that are not named:
             
             <programlisting>public class ExamplePlugin implements Plugin {
-   @Command(name="perform")
+   @Command("perform")
    public void exampleCommand( 
                   @Option(name="one") String one,
                   @Option(name="two") String two,
@@ -384,7 +386,7 @@ $ example-plugin perform --two dog -o cat</programlisting>
 }</programlisting>
             The above command, when executed, would produce the following output:
          
-            <programlisting>$ example-plugin --one cat --two dog bird lizard  
+            <programlisting>$ exampleplugin perform --one cat --two dog bird lizard  
 >> option one equals: cat
 >> option two equals: dog 
 >> option three equals: bird
@@ -393,7 +395,7 @@ $ example-plugin perform --two dog -o cat</programlisting>
             However, we could also achieve the same result by re-arranging parameters,
             and as long as the name-value pairs remain together, and the ordered values
             are passed in the correct order, interpretation will remain the same:
-            <programlisting>$ example-plugin --two dog bird --one cat lizard  
+            <programlisting>$ exampleplugin --two dog bird --one cat lizard  
 >> option one equals: cat
 >> option two equals: dog 
 >> option three equals: bird
@@ -605,8 +607,7 @@ public class GrepPlugin implements Plugin
             </configuration>
           </execution>
         </executions>
-      </plugin>
-		]]></programlisting>
+      </plugin>]]></programlisting>
       </example>
       
       <warning>
@@ -659,6 +660,28 @@ public class GrepPlugin implements Plugin
      </executions>
    </plugin>]]></programlisting>
       </para>
+      
+      When you build your plugin, you should see confirmation output from the Maven Shade Plugin
+      looking something like this:
+      
+      <programlisting>[INFO] --- maven-shade-plugin:1.4:shade (default) @ example-plugin ---
+[INFO] Excluding org.jboss.seam.forge:forge-shell-api:jar:{version} from the shaded jar.
+[INFO] Excluding org.jboss.seam.forge:forge-parser-java-api:jar:{version} from the shaded jar.
+[INFO] Excluding org.jboss.seam.forge:forge-parser-xml:jar:{version} from the shaded jar.
+[INFO] Excluding org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api:jar:{version} from the shaded jar.
+[INFO] Excluding javax.enterprise:cdi-api:jar:{version} from the shaded jar.
+[INFO] Excluding org.jboss.spec.javax.interceptor:jboss-interceptors-api:jar:{version} from the shaded jar.
+[INFO] Excluding javax.annotation:jsr250-api:jar:{version} from the shaded jar.
+[INFO] Excluding javax.inject:javax.inject:jar:{version} from the shaded jar.
+
+[INFO] Including commons-collections:commons-collections:jar:3.2.1 in the shaded jar.
+
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing ~/Desktop/example-plugin/target/example-plugin-1.0.0-SNAPSHOT.jar 
+   with ~/Desktop/example-plugin/target/example-plugin-1.0.0-SNAPSHOT-shaded.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------</programlisting>
    </section>
    
    <section id="plugin.dev.installing">
@@ -675,7 +698,14 @@ public class GrepPlugin implements Plugin
       	 <programlisting>$ help forge</programlisting>
       </para>
       
-      <section id="plugin.dev.installing.locally">
+      <tip>
+      	<para>
+			After installation, Forge automatically hot-loads plugin classes and makes them available
+			for use. There is no need to restart Forge when installing or updating plugins.
+      	</para>
+      </tip>
+      
+      <section id="plugin.dev.installing.local.project">
       	<title>As local source files (for development)</title>
       	<para>
       		Perhaps the simplest form of plugin installation is when the plugin source files are
@@ -685,27 +715,162 @@ public class GrepPlugin implements Plugin
       	</para>
       	<example>
       		<title>Installing a local plugin project</title>
-      		<programlisting></programlisting>
+      		<programlisting>[no project] Desktop $ forge source-plugin ~/Desktop/example-plugin/
+***INFO*** Invoking build with underlying build system.
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building example-plugin 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] Compiling 1 source file to ~/Desktop/example-plugin/target/classes
+[INFO] 
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+There are no tests to run.
+
+[INFO] --- maven-jar-plugin:2.3.1:jar (default-jar) @ example-plugin ---
+[INFO] Building jar: /home/lb3/Desktop/example-plugin/target/example-plugin-1.0.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-shade-plugin:1.4:shade (default) @ example-plugin ---
+[INFO] Excluding org.jboss.seam.forge:forge-shell-api:jar:1.0.0-SNAPSHOT from the shaded jar.
+[INFO] Excluding org.jboss.seam.forge:forge-parser-java-api:jar:1.0.0-SNAPSHOT from the shaded jar.
+[INFO] Excluding org.jboss.seam.forge:forge-parser-xml:jar:1.0.0-SNAPSHOT from the shaded jar.
+[INFO] Excluding org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-api:jar:0.1.4 from the shaded jar.
+[INFO] Excluding javax.enterprise:cdi-api:jar:1.0-SP4 from the shaded jar.
+[INFO] Excluding org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:jar:1.0.0.Beta1 from the shaded jar.
+[INFO] Excluding javax.annotation:jsr250-api:jar:1.0 from the shaded jar.
+[INFO] Excluding javax.inject:javax.inject:jar:1 from the shaded jar.
+[INFO] Including commons-collections:commons-collections:jar:3.2.1 in the shaded jar.
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing /home/lb3/Desktop/example-plugin/target/example-plugin-1.0.0-SNAPSHOT.jar with /home/lb3/Desktop/example-plugin/target/example-plugin-1.0.0-SNAPSHOT-shaded.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+***SUCCESS*** Build successful.</programlisting>
+	
+			If you are installing an updated version of an existing plugin, Forge will prompt for confirmation
+			to continue installation.
+
+	<programlisting>
+An existing version of this plugin was found. Replace it? [Y/n] y
+***INFO*** Installing plugin artifact.
+Wrote ~/.forge/plugins/com.example.forge.plugin$example-plugin$1$1.0.0-SNAPSHOT.jar
+***SUCCESS*** Installed from [example-plugin] successfully.
+[no project] Desktop $</programlisting>
+
+			Your plugin is now installed and ready to use:
+			
+			<programlisting>$ exampleplugin perform --one cat --two dog bird lizard
+>> option one equals: cat
+>> option two equals: dog 
+>> option three equals: bird
+>> option four equals: lizard</programlisting>
+
       	</example>
       </section>
       
-      <section id="plugin.dev.installing.git">
+      <section id="plugin.dev.installing.remote.git">
       	<title>As a git repository</title>
+      	<para>
+      		Plugins may be installed directly from a Git repository. This feature simply automates the
+      		source code checkout and installation, much like the 
+      		<link linkend="plugin.dev.installing.local.project">$ forge source-plugin</link> command.
+      		Your plugin will be built and installed while Forge runs.
+      		
+      		<programlisting>$ forge git-plugin git://github.com/username/repository.git --ref 1.0.0.Alpha1</programlisting>
+      		
+      		Notice that a --ref may be specified if a specific branch or tag should be built. This is
+      		recommended, since snapshots are more likelty to contain unstable code.
+      	</para>
       </section>
       
-      <section id="plugin.dev.installing.jar">
-      	<title>As a distributable JAR file</title>
+      <section id="plugin.dev.installing.mvn">
+      	<title>As a Maven artifact</title>
       	<para>
-      		The 
+      		One of the most convenient methods for installing plugins is via Maven.
+      		
+      		<programlisting>$ forge mvn-plugin com.example:example-plugin:{version}</programlisting>
+      	</para>
+      	<para>
+      		Be sure to check the identifier thoroughly before installing. If a {version} is not specified,
+      		Forge will allow the user to choose from a list of available plugin versions. The version
+      		selected will be installed while Forge runs.
+      	</para>
+      </section>
+      
+      <section id="plugin.dev.installing.local.jar">
+      	<title>As a local distributable JAR file</title>
+      	<para>
+      		In addition to automated installation of plugin projects on the local disk, Forge is also
+      		able to install a JAR file directly as a plugin; this JAR is installed while Forge runs.
+      		
+      		<programlisting>$ forge jar-plugin ~/Downloads/plugin.jar --id com.example:example-plugin</programlisting>
+      		
+      		Notice that you must specify a Dependency ID for the plugin. Forge uses these identifiers to
+      		track installed versions of plugins. This means that if you use an incorrect identifier and 
+      		attempt to ugprade the plugin, Forge may not detect the duplicate version. If this occurs,
+      		it could prevent Forge from running, in which case, a manual cleanup of plugin files is required.
+      	</para>
+      	<para>
+      		It is not recommended to install plugins directly as JAR files unless you are certain that the
+      		content of the JAR file may be trusted.
       	</para>
       	
         <tip>
           <para>
-          	You must include a /META-INF/beans.xml file in your JAR, or none of the 
-         	classes in your archive will be discovered; therefore, your Plugin will not be made
+          	The JAR must include a /META-INF/beans.xml file, or none of the 
+         	classes in the archive will be discovered; therefore, the Plugin will not be made
          	available to Forge.
           </para>
         </tip>
       </section>
+      
+      <section id="plugin.dev.installing.remote.jar">
+      	<title>As a remote distributable JAR file</title>
+      	<para>
+      		In addition to automated installation of plugin projects on the local disk, Forge is also
+      		able to install a JAR file from a URL; this JAR is installed while Forge runs.
+      		
+      		<programlisting>$ forge url-plugin http://example.com/forge/plugin.jar --id com.example:example-plugin</programlisting>
+      		
+      		Notice that you must specify a Dependency ID for the plugin. Forge uses these identifiers to
+      		track installed versions of plugins. This means that if you use an incorrect identifier and 
+      		attempt to ugprade the plugin, Forge may not detect the duplicate version. If this occurs,
+      		it could prevent Forge from running, in which case, a manual cleanup of plugin files is required.
+      	</para>
+      	<para>
+      		It is not recommended to install plugins directly as JAR files unless you are certain that the
+      		content of the JAR file may be trusted.
+      	</para>
+      	
+        <tip>
+          <para>
+          	The JAR must include a /META-INF/beans.xml file, or none of the 
+         	classes in the archive will be discovered; therefore, the Plugin will not be made
+         	available to Forge.
+          </para>
+        </tip>
+      </section>
+   </section>
+   
+   <section id="plugin.dev.removing">
+      <title>Removing a plugin from Forge</title>
+      <para>
+      	 In order to remove plugins, you must shut down Forge and delete the plugin files
+      	 from the forge plugin directory (usually <literal>~/.forge/plugins/</literal>). 
+      	 To see a list of which plugins are installed, and where they are stored, type
+      	 the following command:
+      	 <programlisting>[no project] Desktop $ forge list-plugins --all
+
+[installed plugins]
+org.jboss.errai.forge : forge-errai : 1.0.0-SNAPSHOT
+com.ocpsoft.forge.prettyfaces : prettyfaces-forge-plugin : 1.0.0.Alpha2
+com.example.forge.plugin : example-plugin : 1.0.0-SNAPSHOT
+
+[no project] Desktop $</programlisting>
+      </para>
    </section>
 </chapter>

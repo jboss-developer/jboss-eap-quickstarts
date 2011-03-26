@@ -181,7 +181,7 @@ public class MavenDependencyAdapter extends org.apache.maven.model.Dependency im
    }
 
    @Override
-   public String toIdentifier()
+   public String toCoordinates()
    {
       return DependencyBuilder.toId(this);
    }

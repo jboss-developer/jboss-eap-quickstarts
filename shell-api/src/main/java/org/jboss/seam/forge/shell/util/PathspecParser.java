@@ -22,31 +22,33 @@
 
 package org.jboss.seam.forge.shell.util;
 
-import org.jboss.seam.forge.project.services.ResourceFactory;
-import org.jboss.seam.forge.resources.DirectoryResource;
-import org.jboss.seam.forge.resources.Resource;
-import org.jboss.seam.forge.resources.ResourceFlag;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DirectoryResource;
+import org.jboss.seam.forge.resources.Resource;
+import org.jboss.seam.forge.resources.ResourceFlag;
+
 /**
  * Parser of UNIX-style pathspec. The parser accepts a resource, and provides a result set of resources based on the
- * relative path provided.<p/>
- *
+ * relative path provided.
+ * <p/>
+ * 
  * Example:<br/>
  * <code>
  *    List<Resource<?>> res = new PathspecParser(factoryInstance, relativeResource, "../../foobar");
  * </code>
- *
+ * 
  * Where <tt>factoryInstance</tt> is an instance of {@link ResourceFactory}, <tt>relativeResource</tt> is a resource,
- * such as a file or directory, for which the relative result for <tt>../../foobar</tt> will be calculated.<p/>
- *
+ * such as a file or directory, for which the relative result for <tt>../../foobar</tt> will be calculated.
+ * <p/>
+ * 
  * Wildcards <tt>*</tt> and <tt>?</tt> are accepted.
- *
+ * 
  * @author Mike Brock
  */
 public class PathspecParser
@@ -58,7 +60,7 @@ public class PathspecParser
    private final Resource<?> res;
    private final String path;
 
-   private boolean isWindows = OSUtils.isWindows();
+   private final boolean isWindows = OSUtils.isWindows();
 
    List<Resource<?>> results = new LinkedList<Resource<?>>();
 
@@ -81,6 +83,7 @@ public class PathspecParser
 
    /**
     * Resolve the results.
+    * 
     * @return A list of resources that match the path. Empty if there are no matches.
     */
    public List<Resource<?>> resolve()
@@ -88,12 +91,12 @@ public class PathspecParser
       Resource<?> r = res;
       String tk;
 
-      char slashChar = isWindows ? '\\' : '/';
-      String slashString = String.valueOf(slashChar);
+      char slashChar = File.separatorChar;
+      String slashString = File.separator;
 
       if (".".equals(path))
       {
-        return singleResult(r);
+         return singleResult(r);
       }
       else if (path.startsWith("~"))
       {
@@ -119,8 +122,7 @@ public class PathspecParser
 
       while (cursor < length)
       {
-         SW:
-         switch (path.charAt(cursor++))
+         SW: switch (path.charAt(cursor++))
          {
          case '\\':
          case '/':
@@ -225,8 +227,9 @@ public class PathspecParser
    }
 
    /**
-    * Perform a search, by doing a breadth-first traversal of the resource tree for resources that match the
-    * path string.
+    * Perform a search, by doing a breadth-first traversal of the resource tree for resources that match the path
+    * string.
+    * 
     * @return A list of resources that match the path string. Empty if there are no matches.
     */
    public List<Resource<?>> search()
@@ -256,8 +259,8 @@ public class PathspecParser
       }
 
       /**
-       * Check to see if this type of node can have children, or if we're
-       * exhausted the nest match depth. Otherwise, bail.
+       * Check to see if this type of node can have children, or if we're exhausted the nest match depth. Otherwise,
+       * bail.
        */
       if (!res.isFlagSet(ResourceFlag.Node) || (nestStart == matchLevels.length))
       {
@@ -277,7 +280,7 @@ public class PathspecParser
 
    private static List<Resource<?>> singleResult(Resource<?> item)
    {
-      return Collections.<Resource<?>>singletonList(item);
+      return Collections.<Resource<?>> singletonList(item);
    }
 
    private char read()

@@ -1,7 +1,8 @@
 package org.jboss.seam.forge.project.facets.builtin;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -10,66 +11,133 @@ import javax.inject.Inject;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.PlexusContainer;
 import org.jboss.seam.forge.project.ProjectModelException;
+import org.jboss.seam.forge.project.dependencies.Dependency;
+import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
-import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
+import org.jboss.seam.forge.project.dependencies.DependencyResolverProvider;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
+import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DependencyResource;
 import org.jboss.seam.forge.shell.util.OSUtils;
-import org.sonatype.aether.RepositoryException;
 import org.sonatype.aether.RepositorySystem;
+import org.sonatype.aether.artifact.Artifact;
+import org.sonatype.aether.collection.CollectRequest;
 import org.sonatype.aether.repository.LocalRepository;
 import org.sonatype.aether.repository.RemoteRepository;
+import org.sonatype.aether.resolution.ArtifactResult;
+import org.sonatype.aether.resolution.DependencyRequest;
+import org.sonatype.aether.resolution.DependencyResult;
 import org.sonatype.aether.resolution.VersionRangeRequest;
 import org.sonatype.aether.resolution.VersionRangeResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sonatype.aether.version.Version;
 
 @Dependent
-public class RepositoryLookup
+public class RepositoryLookup implements DependencyResolverProvider
 {
-   private final PlexusContainer container;
+   private PlexusContainer container;
+   private ResourceFactory factory;
 
-   @Inject
-   public RepositoryLookup(final MavenContainer container)
+   public RepositoryLookup()
    {
-      this.container = container.getContainer();
    }
 
-   public List<String> getAvailableVersions(final String gavs, final List<DependencyRepository> repositories)
+   @Inject
+   public RepositoryLookup(final MavenContainer container, ResourceFactory factory)
    {
-      List<DependencyRepository> internal = new ArrayList<DependencyRepository>();
-      internal.addAll(repositories);
+      this.container = container.getContainer();
+      this.factory = factory;
+   }
+
+   @Override
+   public List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories)
+   {
+      List<RemoteRepository> remoteRepos = convertToMavenRepos(repositories);
+      List<String> versions = getVersions(dep, remoteRepos);
+
+      List<Dependency> result = new ArrayList<Dependency>();
+      for (String version : versions)
+      {
+         result.add(DependencyBuilder.create(dep).setVersion(version));
+      }
+
+      return result;
+   }
+
+   @Override
+   public List<DependencyResource> resolveArtifacts(final Dependency dep, final List<DependencyRepository> repositories)
+   {
+      List<DependencyResource> result = new ArrayList<DependencyResource>();
 
       try
       {
-         if (!internal.contains(DependencyFacet.KnownRepository.CENTRAL.toRepository()))
+         RepositorySystem system = container.lookup(RepositorySystem.class);
+         MavenRepositorySystemSession session = setupRepoSession(system);
+
+         DependencyRequest request = new DependencyRequest(new CollectRequest(new org.sonatype.aether.graph.Dependency(
+                  new DefaultArtifact(
+                           dep.toCoordinates()), null), convertToMavenRepos(repositories)), null);
+
+         DependencyResult artifacts = system.resolveDependencies(session, request);
+         Collection<File> files = new ArrayList<File>();
+         for (ArtifactResult artifact : artifacts.getArtifactResults())
          {
-            internal.add(DependencyFacet.KnownRepository.CENTRAL.toRepository());
+            Artifact a = artifact.getArtifact();
+            if ("pom".equals(a.getExtension()))
+            {
+               continue;
+            }
+            files.add(a.getFile());
          }
 
-         List<RemoteRepository> remoteRepos = new ArrayList<RemoteRepository>();
-         for (DependencyRepository deprep : internal)
+         for (ArtifactResult a : artifacts.getArtifactResults())
          {
-            remoteRepos.add(new RemoteRepository(deprep.getId(), "default", deprep.getUrl()));
+            File file = a.getArtifact().getFile();
+            DependencyResource resource = new DependencyResource(factory, file, dep);
+            result.add(resource);
          }
-
-         RepositorySystem repoSystem = container.lookup(RepositorySystem.class);
-         return getVersions(repoSystem, gavs, remoteRepos);
+         return result;
       }
       catch (Exception e)
       {
-         throw new ProjectModelException("Failed to look up versions for [" + gavs + "]", e);
+         throw new ProjectModelException("Unable to resolve an artifact", e);
       }
    }
 
-   public List<String> getAvailableVersions(final String gavs, final DependencyRepository... dependencyRepos)
+   private List<String> getVersions(final Dependency dep, final List<RemoteRepository> repositories)
    {
-      return getAvailableVersions(gavs, Arrays.asList(dependencyRepos));
+      try
+      {
+         RepositorySystem maven = container.lookup(RepositorySystem.class);
+         MavenRepositorySystemSession session = setupRepoSession(maven);
+
+         // FIXME session.getCache() might need to be fussed with. reporequests cache data between projects.
+
+         VersionRangeRequest rangeRequest = new VersionRangeRequest();
+         rangeRequest.setArtifact(new DefaultArtifact(dep.toCoordinates()));
+         for (RemoteRepository repository : repositories)
+         {
+            rangeRequest.addRepository(repository);
+         }
+
+         VersionRangeResult rangeResult = maven.resolveVersionRange(session, rangeRequest);
+
+         List<String> results = new ArrayList<String>();
+         for (Version version : rangeResult.getVersions())
+         {
+            results.add(version.toString());
+         }
+         return results;
+      }
+      catch (Exception e)
+      {
+         throw new ProjectModelException("Failed to look up versions for [" + dep + "]", e);
+      }
    }
 
-   private List<String> getVersions(final RepositorySystem repoSystem, final String gavs,
-            final List<RemoteRepository> repositories)
-            throws RepositoryException
+   private MavenRepositorySystemSession setupRepoSession(RepositorySystem repoSystem)
    {
-
       MavenRepositorySystemSession session = new MavenRepositorySystemSession();
 
       // TODO this reference to the M2_REPO should probably be centralized
@@ -79,24 +147,27 @@ public class RepositoryLookup
 
       session.setTransferErrorCachingEnabled(false);
       session.setNotFoundCachingEnabled(false);
+      return session;
+   }
 
-      // FIXME session.getCache() might need to be fussed with. reporequests cache data between projects.
+   private List<RemoteRepository> convertToMavenRepos(final List<DependencyRepository> repositories)
+   {
+      List<DependencyRepository> temp = new ArrayList<DependencyRepository>();
+      temp.addAll(repositories);
+      DependencyRepository central = new DependencyRepositoryImpl(KnownRepository.CENTRAL.getId(),
+                  KnownRepository.CENTRAL.getUrl());
 
-      VersionRangeRequest rangeRequest = new VersionRangeRequest();
-      rangeRequest.setArtifact(new DefaultArtifact(gavs));
-      for (RemoteRepository repository : repositories)
+      if (!temp.contains(central))
       {
-         rangeRequest.addRepository(repository);
+         temp.add(central);
       }
 
-      VersionRangeResult rangeResult = repoSystem.resolveVersionRange(session, rangeRequest);
-
-      List<String> results = new ArrayList<String>();
-      for (Version version : rangeResult.getVersions())
+      List<RemoteRepository> remoteRepos = new ArrayList<RemoteRepository>();
+      for (DependencyRepository deprep : temp)
       {
-         results.add(version.toString());
+         remoteRepos.add(new RemoteRepository(deprep.getId(), "default", deprep.getUrl()));
       }
-      return results;
+      return remoteRepos;
    }
 
 }
