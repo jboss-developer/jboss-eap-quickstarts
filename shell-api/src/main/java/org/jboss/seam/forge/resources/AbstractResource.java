@@ -119,4 +119,25 @@ public abstract class AbstractResource<T> implements Resource<T>
       }
       return result;
    }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj == this)
+      {
+         return true;
+      }
+
+      if (obj instanceof Resource<?>)
+      {
+         return ((Resource<?>) obj).getFullyQualifiedName().equals(getFullyQualifiedName());
+      }
+      return false;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return getFullyQualifiedName().hashCode();
+   }
 }

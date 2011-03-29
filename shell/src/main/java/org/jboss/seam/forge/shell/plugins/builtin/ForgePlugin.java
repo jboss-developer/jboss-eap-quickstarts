@@ -37,6 +37,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
+import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
 import org.jboss.seam.forge.project.dependencies.DependencyResolver;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
@@ -127,13 +128,12 @@ public class ForgePlugin implements Plugin
 
       if (!list.isEmpty())
       {
-         for (Resource<?> res : list)
+         RES: for (Resource<?> res : list)
          {
             try
             {
                PluginJar jar = new PluginJar(res.getName());
 
-               boolean found = false;
                for (PluginJar p : installed)
                {
                   if (p.isSamePlugin(jar))
@@ -142,15 +142,11 @@ public class ForgePlugin implements Plugin
                      {
                         installed.remove(p);
                         installed.add(jar);
-                        found = true;
-                        break;
                      }
+                     continue RES;
                   }
                }
-               if (!found)
-               {
-                  installed.add(jar);
-               }
+               installed.add(jar);
             }
             catch (IllegalNameException e)
             {
@@ -241,7 +237,7 @@ public class ForgePlugin implements Plugin
 
          if (!ref.isGit())
          {
-            installFromMvnRepos(ref.getArtifact(), ref.getHomeRepo(), out);
+            installFromMvnRepos(ref.getArtifact(), out, new DependencyRepositoryImpl("custom", ref.getHomeRepo()));
          }
          else if (ref.isGit())
          {
@@ -250,24 +246,25 @@ public class ForgePlugin implements Plugin
       }
    }
 
-   private void installFromMvnRepos(Dependency dep, final String repo, PipeOut out) throws Exception
+   private void installFromMvnRepos(Dependency dep, PipeOut out, final DependencyRepository... repoList)
+            throws Exception
    {
-      DependencyRepository repository = new DependencyRepository()
+      installFromMvnRepos(dep, out, Arrays.asList(repoList));
+   }
+
+   private void installFromMvnRepos(Dependency dep, PipeOut out, final List<DependencyRepository> repoList)
+            throws Exception
+   {
+      List<DependencyResource> temp = resolver.resolveArtifacts(dep, repoList);
+      List<DependencyResource> artifacts = new ArrayList<DependencyResource>();
+
+      for (DependencyResource d : temp)
       {
-         @Override
-         public String getUrl()
+         if (d.exists())
          {
-            return repo;
+            artifacts.add(d);
          }
-
-         @Override
-         public String getId()
-         {
-            return "";
-         }
-      };
-
-      List<DependencyResource> artifacts = resolver.resolveArtifacts(dep, Arrays.asList(repository));
+      }
 
       DependencyResource artifact = null;
       if (artifacts.isEmpty())
@@ -276,13 +273,13 @@ public class ForgePlugin implements Plugin
       }
       else if (artifacts.size() > 1)
       {
-         shell.promptChoiceTyped("Install which version?", artifacts, artifacts.get(artifacts.size() - 1));
+         artifact = shell.promptChoiceTyped("Install which version?", artifacts, artifacts.get(artifacts.size() - 1));
       }
       else
       {
          artifact = artifacts.get(0);
       }
-      FileResource<?> jar = createIncrementedPluginJarFile(dep);
+      FileResource<?> jar = createIncrementedPluginJarFile(artifact.getDependency());
       jar.setContents(artifact.getResourceInputStream());
       ShellMessages.success(out, "Installed from [" + dep.toCoordinates() + "] successfully.");
 
@@ -295,7 +292,25 @@ public class ForgePlugin implements Plugin
             @Option(description = "target repository") KnownRepository repo,
             final PipeOut out) throws Exception
    {
-      installFromMvnRepos(dep, repo.getUrl(), out);
+      if (KnownRepository.CUSTOM.equals(repo))
+      {
+         installFromMvnRepos(dep, out,
+                  new DependencyRepositoryImpl("custom", shell.prompt("What is the repository URL?")));
+      }
+      else if (repo == null)
+      {
+         List<DependencyRepository> repos = new ArrayList<DependencyRepository>();
+         for (KnownRepository r : KnownRepository.values())
+         {
+            if (!KnownRepository.CUSTOM.equals(r))
+            {
+               repos.add(new DependencyRepositoryImpl(r.getId(), r.getUrl()));
+            }
+         }
+         installFromMvnRepos(dep, out, repos);
+      }
+      else
+         installFromMvnRepos(dep, out, new DependencyRepositoryImpl("custom", repo.getUrl()));
    }
 
    @Command(value = "jar-plugin",

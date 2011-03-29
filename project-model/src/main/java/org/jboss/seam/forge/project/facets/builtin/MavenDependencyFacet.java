@@ -39,6 +39,7 @@ import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
 import org.jboss.seam.forge.project.dependencies.DependencyRepository;
 import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
+import org.jboss.seam.forge.project.dependencies.DependencyResolver;
 import org.jboss.seam.forge.project.dependencies.MavenDependencyAdapter;
 import org.jboss.seam.forge.project.facets.BaseFacet;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
@@ -55,12 +56,12 @@ import org.jboss.seam.forge.shell.plugins.RequiresFacet;
 @RequiresFacet(MavenCoreFacet.class)
 public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, Facet
 {
-   private final RepositoryLookup lookup;
+   private final DependencyResolver resolver;
 
    @Inject
-   public MavenDependencyFacet(final RepositoryLookup lookup)
+   public MavenDependencyFacet(final DependencyResolver resolver)
    {
-      this.lookup = lookup;
+      this.resolver = resolver;
    }
 
    @Override
@@ -246,13 +247,7 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    @Override
    public List<Dependency> resolveAvailableVersions(Dependency dep)
    {
-
-      if (dep.getVersion() == null || dep.getVersion().trim().isEmpty())
-      {
-         dep = DependencyBuilder.create(dep).setVersion("[0,)");
-      }
-
-      List<Dependency> versions = lookup.resolveVersions(dep, getRepositories());
+      List<Dependency> versions = resolver.resolveVersions(dep, getRepositories());
       return versions;
    }
 

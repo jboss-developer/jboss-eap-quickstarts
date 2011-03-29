@@ -34,4 +34,6 @@ public interface DependencyResolverProvider
    List<DependencyResource> resolveArtifacts(final Dependency dep, final List<DependencyRepository> repositories);
 
    List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories);
+
+   List<DependencyResource> resolveDependencies(final Dependency dep, final List<DependencyRepository> repositories);
 }

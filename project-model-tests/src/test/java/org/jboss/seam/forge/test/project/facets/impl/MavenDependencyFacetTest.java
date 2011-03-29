@@ -28,19 +28,28 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.dependencies.Dependency;
 import org.jboss.seam.forge.project.dependencies.DependencyBuilder;
+import org.jboss.seam.forge.project.dependencies.DependencyRepository;
+import org.jboss.seam.forge.project.dependencies.DependencyRepositoryImpl;
+import org.jboss.seam.forge.project.dependencies.DependencyResolver;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
 import org.jboss.seam.forge.project.services.ProjectFactory;
 import org.jboss.seam.forge.project.services.ResourceFactory;
+import org.jboss.seam.forge.resources.DependencyResource;
 import org.jboss.seam.forge.shell.util.ResourceUtil;
 import org.jboss.seam.forge.test.project.util.ProjectModelTest;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,11 +61,22 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MavenDependencyFacetTest extends ProjectModelTest
 {
+   @Deployment
+   public static JavaArchive getTestArchive()
+   {
+      return createTestArchive()
+               .addManifestResource(
+                        "META-INF/services/org.jboss.seam.forge.project.dependencies.DependencyResolverProvider");
+   }
+
    @Inject
    private ProjectFactory projectFactory;
 
    @Inject
    private ResourceFactory resourceFactory;
+
+   @Inject
+   private DependencyResolver resolver;
 
    private static Project testProject;
 
@@ -120,5 +140,32 @@ public class MavenDependencyFacetTest extends ProjectModelTest
       DependencyFacet deps = project.getFacet(DependencyFacet.class);
       deps.setProperty("version", version);
       assertEquals(version, deps.getProperty("version"));
+   }
+
+   @Test
+   public void testResolveArtifactsWithResolver() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("com.ocpsoft:prettyfaces-jsf2");
+      DependencyRepository repo = new DependencyRepositoryImpl("", KnownRepository.CENTRAL.getUrl());
+      List<DependencyResource> artifacts = resolver.resolveArtifacts(dep, Arrays.asList(repo));
+      assertTrue(artifacts.size() >= 4);
+   }
+
+   @Test
+   public void testResolveVersions() throws Exception
+   {
+      Project project = getProject();
+      DependencyFacet deps = project.getFacet(DependencyFacet.class);
+      List<Dependency> versions = deps.resolveAvailableVersions("com.ocpsoft:prettyfaces-jsf2");
+      assertTrue(versions.size() > 4);
+   }
+
+   @Test
+   public void testResolveVersionsWithResolver() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("com.ocpsoft:prettyfaces-jsf2");
+      DependencyRepository repo = new DependencyRepositoryImpl("", KnownRepository.CENTRAL.getUrl());
+      List<Dependency> versions = resolver.resolveVersions(dep, Arrays.asList(repo));
+      assertTrue(versions.size() > 4);
    }
 }

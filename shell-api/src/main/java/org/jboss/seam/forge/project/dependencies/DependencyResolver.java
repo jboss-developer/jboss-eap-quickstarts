@@ -37,7 +37,7 @@ import org.jboss.seam.forge.shell.util.BeanManagerUtils;
  * 
  */
 @ApplicationScoped
-public class DependencyResolver
+public class DependencyResolver implements DependencyResolverProvider
 {
    @Inject
    private BeanManager manager;
@@ -63,8 +63,15 @@ public class DependencyResolver
             this.providers.add(BeanManagerUtils.getContextualInstance(manager, p.getClass()));
          }
       }
+      if (this.providers == null || this.providers.isEmpty())
+      {
+         throw new IllegalStateException(
+                  "No configured implementations for [" + DependencyResolverProvider.class.getName()
+                           + "] could be found.");
+      }
    }
 
+   @Override
    public List<DependencyResource> resolveArtifacts(final Dependency dep, final List<DependencyRepository> repositories)
    {
       init();
@@ -79,6 +86,23 @@ public class DependencyResolver
       return new ArrayList<DependencyResource>();
    }
 
+   @Override
+   public List<DependencyResource> resolveDependencies(final Dependency dep,
+            final List<DependencyRepository> repositories)
+   {
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<DependencyResource> artifacts = p.resolveDependencies(dep, repositories);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<DependencyResource>();
+   }
+
+   @Override
    public List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories)
    {
       init();
