@@ -143,15 +143,6 @@ public class MavenDependencyFacetTest extends ProjectModelTest
    }
 
    @Test
-   public void testResolveArtifactsWithResolver() throws Exception
-   {
-      Dependency dep = DependencyBuilder.create("com.ocpsoft:prettyfaces-jsf2");
-      DependencyRepository repo = new DependencyRepositoryImpl("", KnownRepository.CENTRAL.getUrl());
-      List<DependencyResource> artifacts = resolver.resolveArtifacts(dep, Arrays.asList(repo));
-      assertTrue(artifacts.size() >= 4);
-   }
-
-   @Test
    public void testResolveVersions() throws Exception
    {
       Project project = getProject();
@@ -164,8 +155,53 @@ public class MavenDependencyFacetTest extends ProjectModelTest
    public void testResolveVersionsWithResolver() throws Exception
    {
       Dependency dep = DependencyBuilder.create("com.ocpsoft:prettyfaces-jsf2");
-      DependencyRepository repo = new DependencyRepositoryImpl("", KnownRepository.CENTRAL.getUrl());
+      DependencyRepository repo = new DependencyRepositoryImpl(KnownRepository.CENTRAL);
       List<Dependency> versions = resolver.resolveVersions(dep, Arrays.asList(repo));
       assertTrue(versions.size() > 4);
+   }
+
+   @Test
+   public void testResolveVersionsWithResolverStaticVersion() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("com.ocpsoft:prettyfaces-jsf2:3.2.0");
+      DependencyRepository repo = new DependencyRepositoryImpl(KnownRepository.CENTRAL);
+      List<Dependency> versions = resolver.resolveVersions(dep, Arrays.asList(repo));
+      assertTrue(versions.size() >= 1);
+   }
+
+   @Test
+   public void testResolveVersionsWithResolverStaticVersionSnapshot() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("org.jboss.errai.forge:forge-errai:1.0-SNAPSHOT");
+      DependencyRepository repo = new DependencyRepositoryImpl(KnownRepository.JBOSS_NEXUS);
+      List<Dependency> versions = resolver.resolveVersions(dep, repo);
+      assertTrue(versions.size() >= 1);
+   }
+
+   @Test
+   public void testResolveArtifactsWithResolver() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("org.jboss.errai.forge:forge-errai");
+      DependencyRepository repo = new DependencyRepositoryImpl(KnownRepository.JBOSS_NEXUS);
+      List<DependencyResource> artifacts = resolver.resolveArtifacts(dep, Arrays.asList(repo));
+      assertTrue(artifacts.size() >= 1);
+   }
+
+   @Test
+   public void testResolveArtifactsWithResolverSnapshotStaticVersion() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("org.jboss.errai.forge:forge-errai:[1.0-SNAPSHOT]");
+      DependencyRepository repo = new DependencyRepositoryImpl(KnownRepository.JBOSS_NEXUS);
+      List<DependencyResource> artifacts = resolver.resolveArtifacts(dep, Arrays.asList(repo));
+      assertTrue(artifacts.size() >= 1);
+   }
+
+   @Test
+   public void testResolveArtifactsWithResolverStaticVersion() throws Exception
+   {
+      Dependency dep = DependencyBuilder.create("com.ocpsoft:prettyfaces-jsf2:[3.2.0]");
+      DependencyRepository repo = new DependencyRepositoryImpl(KnownRepository.CENTRAL);
+      List<DependencyResource> artifacts = resolver.resolveArtifacts(dep, Arrays.asList(repo));
+      assertTrue(artifacts.size() >= 1);
    }
 }

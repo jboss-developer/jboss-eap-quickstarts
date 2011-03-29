@@ -177,9 +177,14 @@ public class RepositoryLookup implements DependencyResolverProvider
    {
       try
       {
-         if (Strings.isNullOrEmpty(dep.getVersion()))
+         String version = dep.getVersion();
+         if (Strings.isNullOrEmpty(version))
          {
             dep = DependencyBuilder.create(dep).setVersion("[,)");
+         }
+         else if (!version.matches("(\\(|\\[).*?(\\)|\\])"))
+         {
+            dep = DependencyBuilder.create(dep).setVersion("[" + version + "]");
          }
 
          RepositorySystem maven = container.lookup(RepositorySystem.class);

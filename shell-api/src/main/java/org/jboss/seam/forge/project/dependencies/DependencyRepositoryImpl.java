@@ -21,6 +21,9 @@
  */
 package org.jboss.seam.forge.project.dependencies;
 
+import org.jboss.seam.forge.parser.java.util.Strings;
+import org.jboss.seam.forge.project.facets.DependencyFacet.KnownRepository;
+
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
@@ -32,8 +35,21 @@ public class DependencyRepositoryImpl implements DependencyRepository
 
    public DependencyRepositoryImpl(final String id, final String url)
    {
+      if (Strings.isNullOrEmpty(id))
+      {
+         throw new IllegalArgumentException("must specify repository id");
+      }
+      if (Strings.isNullOrEmpty(url))
+      {
+         throw new IllegalArgumentException("must specify repository url");
+      }
       this.id = id;
       this.url = url;
+   }
+
+   public DependencyRepositoryImpl(KnownRepository repo)
+   {
+      this(repo.getId(), repo.getUrl());
    }
 
    @Override

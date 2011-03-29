@@ -22,6 +22,7 @@
 package org.jboss.seam.forge.project.dependencies;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -37,7 +38,7 @@ import org.jboss.seam.forge.shell.util.BeanManagerUtils;
  * 
  */
 @ApplicationScoped
-public class DependencyResolver implements DependencyResolverProvider
+public class DependencyResolver
 {
    @Inject
    private BeanManager manager;
@@ -71,7 +72,11 @@ public class DependencyResolver implements DependencyResolverProvider
       }
    }
 
-   @Override
+   public List<DependencyResource> resolveArtifacts(final Dependency dep, final DependencyRepository repository)
+   {
+      return resolveArtifacts(dep, Arrays.asList(repository));
+   }
+
    public List<DependencyResource> resolveArtifacts(final Dependency dep, final List<DependencyRepository> repositories)
    {
       init();
@@ -86,7 +91,6 @@ public class DependencyResolver implements DependencyResolverProvider
       return new ArrayList<DependencyResource>();
    }
 
-   @Override
    public List<DependencyResource> resolveDependencies(final Dependency dep,
             final List<DependencyRepository> repositories)
    {
@@ -102,7 +106,11 @@ public class DependencyResolver implements DependencyResolverProvider
       return new ArrayList<DependencyResource>();
    }
 
-   @Override
+   public List<Dependency> resolveVersions(final Dependency dep, final DependencyRepository repository)
+   {
+      return resolveVersions(dep, Arrays.asList(repository));
+   }
+
    public List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories)
    {
       init();
