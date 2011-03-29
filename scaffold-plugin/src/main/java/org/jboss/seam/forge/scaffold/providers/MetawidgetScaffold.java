@@ -59,14 +59,15 @@ public class MetawidgetScaffold implements ScaffoldProvider
    private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
    private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
+   private static final String CONFIG_TEMPLATE = "org/metawidget/metawidget.xml";
 
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget");
-   private final Dependency seamPersist = DependencyBuilder
-            .create("org.jboss.seam.persistence:seam-persistence");
+   private final Dependency seamPersist = DependencyBuilder.create("org.jboss.seam.persistence:seam-persistence");
 
    private CompiledTemplateResource viewTemplate;
    private CompiledTemplateResource createTemplate;
    private CompiledTemplateResource listTemplate;
+   private CompiledTemplateResource configTemplate;
 
    @Inject
    private ShellPrintWriter writer;
@@ -83,6 +84,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
       viewTemplate = compiler.compile(VIEW_TEMPLATE);
       createTemplate = compiler.compile(CREATE_TEMPLATE);
       listTemplate = compiler.compile(LIST_TEMPLATE);
+      configTemplate = compiler.compile(CONFIG_TEMPLATE);
    }
 
    @Override
@@ -131,6 +133,14 @@ public class MetawidgetScaffold implements ScaffoldProvider
       }
    }
 
+   public void createMetawidgetConfig(Project project, final boolean overwrite)
+   {
+      WebResourceFacet web = project.getFacet(WebResourceFacet.class);
+
+      ScaffoldPlugin.createOrOverwrite(writer, web.getWebResource("WEB-INF/metawidget.xml"),
+               configTemplate.render(new HashMap<Object, Object>()), overwrite);
+   }
+
    public void createPersistenceUtils(Project project, final boolean overwrite)
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -174,6 +184,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
          cdi.saveConfig(config);
       }
       createPersistenceUtils(project, true);
+      createMetawidgetConfig(project, true);
    }
 
    @Override
@@ -181,9 +192,11 @@ public class MetawidgetScaffold implements ScaffoldProvider
    {
       DependencyFacet df = project.getFacet(DependencyFacet.class);
       CDIFacet cdi = project.getFacet(CDIFacet.class);
+      WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
       return df.hasDependency(metawidget) && df.hasDependency(seamPersist)
-               && cdi.getConfig().getInterceptors().contains(SEAM_PERSIST_INTERCEPTOR);
+               && cdi.getConfig().getInterceptors().contains(SEAM_PERSIST_INTERCEPTOR)
+               && web.getWebResource("/WEB-INF/metawidget.xml").exists();
    }
 
 }

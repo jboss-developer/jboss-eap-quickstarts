@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<metawidget xmlns="http://metawidget.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://metawidget.org http://metawidget.org/xsd/metawidget-1.0.xsd" version="1.0">
+
+	<htmlMetawidget xmlns="java:org.metawidget.faces.component.html">
+		<inspector>		
+			<compositeInspector xmlns="java:org.metawidget.inspector.composite" config="CompositeInspectorConfig">
+				<inspectors>
+					<array>
+						<propertyTypeInspector xmlns="java:org.metawidget.inspector.propertytype"/>
+						<metawidgetAnnotationInspector xmlns="java:org.metawidget.inspector.annotation"/>
+						<java5Inspector xmlns="java:org.metawidget.inspector.java5"/>
+						<facesInspector xmlns="java:org.metawidget.inspector.faces"/>
+						
+						<!-- Only if using JPA
+						
+						<jpaInspector xmlns="java:org.metawidget.inspector.jpa" config="JpaInspectorConfig">
+						
+							<!-- Only if you want to annotate the private fields, not the getters
+							<propertyStyle>
+								<javaBeanPropertyStyle xmlns="java:org.metawidget.inspector.impl.propertystyle.javabean" config="JavaBeanPropertyStyleConfig">
+									<privateFieldConvention>
+										<format>{0}</format>
+									</privateFieldConvention>								
+								</javaBeanPropertyStyle>
+							</propertyStyle> -->
+							
+						</jpaInspector> -->
+						
+						<!-- Only if using Bean Validation
+						
+						<beanValidationInspector xmlns=\"java:org.metawidget.inspector.beanvalidation\">
+						
+							<!-- Only if you want to annotate the private fields, not the getters
+							<propertyStyle>
+								<javaBeanPropertyStyle xmlns="java:org.metawidget.inspector.impl.propertystyle.javabean" config="JavaBeanPropertyStyleConfig">
+									<privateFieldConvention>
+										<format>{0}</format>
+									</privateFieldConvention>								
+								</javaBeanPropertyStyle>
+							</propertyStyle> -->
+						
+						</beanValidationInspector -->
+
+					</array>
+				</inspectors>
+			</compositeInspector>
+		</inspector>
+		
+		<widgetBuilder>
+			<compositeWidgetBuilder xmlns="java:org.metawidget.widgetbuilder.composite" config="CompositeWidgetBuilderConfig">
+				<widgetBuilders>
+					<array>
+						<overriddenWidgetBuilder xmlns="java:org.metawidget.faces.component.widgetbuilder"/>
+						<readOnlyWidgetBuilder xmlns="java:org.metawidget.faces.component.html.widgetbuilder"/>
+						
+						<!-- Only if using RichFaces
+						
+						<richFacesWidgetBuilder xmlns="java:org.metawidget.faces.component.html.widgetbuilder.richfaces"/>-->
+						
+						<htmlWidgetBuilder xmlns="java:org.metawidget.faces.component.html.widgetbuilder" config="HtmlWidgetBuilderConfig"/>
+					</array>
+				</widgetBuilders>
+			</compositeWidgetBuilder>
+		</widgetBuilder>
+		
+		<!-- Only if using RichFaces
+		
+		<layout>
+			<tabPanelLayoutDecorator xmlns="java:org.metawidget.faces.component.html.layout.richfaces" config="TabPanelLayoutDecoratorConfig">
+				<layout>
+					<simpleLayout xmlns="java:org.metawidget.faces.component.layout"/>
+				</layout>
+			</tabPanelLayoutDecorator>-->
+		</layout>
+	</htmlMetawidget>
+
+</metawidget>
