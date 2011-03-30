@@ -74,6 +74,7 @@ Customer.java $</programlisting>
                Once you have created fields in the entity, it's time to generate some scaffolding.
                For now, use the Forge default scaffold; you'll also need to confirm installation of a few libraries/dependencies.
                <programlisting>Customer.java $ scaffold from-entity 
+               
 No scaffold type was provided, use Forge default? [Y/n] 
 Install which version of Metawidget?
 
