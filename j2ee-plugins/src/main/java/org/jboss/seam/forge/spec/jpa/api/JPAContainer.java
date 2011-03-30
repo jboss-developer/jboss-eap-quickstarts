@@ -12,6 +12,7 @@ import org.jboss.seam.forge.spec.jpa.container.NonJTAContainer;
 public enum JPAContainer
 {
    JBOSS_AS6(JBossAS6Container.class),
+   JBOSS_AS7(JBossAS6Container.class),
    GLASSFISH_3(GlassFish3Container.class),
    CUSTOM_JDBC(CustomJDBCContainer.class),
    CUSTOM_JTA(CustomJTAContainer.class),
@@ -19,12 +20,12 @@ public enum JPAContainer
 
    private Class<? extends PersistenceContainer> containerType;
 
-   private JPAContainer(Class<? extends PersistenceContainer> containerType)
+   private JPAContainer(final Class<? extends PersistenceContainer> containerType)
    {
       this.containerType = containerType;
    }
 
-   public PersistenceContainer getContainer(BeanManager manager)
+   public PersistenceContainer getContainer(final BeanManager manager)
    {
       return BeanManagerUtils.getContextualInstance(manager, containerType);
    }
