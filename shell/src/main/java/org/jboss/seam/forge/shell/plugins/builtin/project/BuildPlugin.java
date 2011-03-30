@@ -28,7 +28,7 @@ import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.DependencyFacet;
 import org.jboss.seam.forge.project.facets.PackagingFacet;
 import org.jboss.seam.forge.shell.plugins.Alias;
-import org.jboss.seam.forge.shell.plugins.Command;
+import org.jboss.seam.forge.shell.plugins.DefaultCommand;
 import org.jboss.seam.forge.shell.plugins.Help;
 import org.jboss.seam.forge.shell.plugins.Option;
 import org.jboss.seam.forge.shell.plugins.PipeOut;
@@ -60,7 +60,7 @@ public class BuildPlugin implements Plugin
       this.project = project;
    }
 
-   @Command("build")
+   @DefaultCommand
    public void build(final PipeOut out,
             @Option(description = "build arguments") final String... args)
    {
