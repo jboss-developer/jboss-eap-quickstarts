@@ -26,9 +26,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.jboss.seam.forge.resources.DependencyResource;
 import org.jboss.seam.forge.shell.util.BeanManagerUtils;
@@ -37,7 +37,7 @@ import org.jboss.seam.forge.shell.util.BeanManagerUtils;
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
-@ApplicationScoped
+@Singleton
 public class DependencyResolver
 {
    @Inject
