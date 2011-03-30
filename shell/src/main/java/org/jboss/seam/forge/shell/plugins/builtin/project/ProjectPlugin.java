@@ -79,8 +79,8 @@ public class ProjectPlugin implements Plugin
    }
 
    @Inject
-   public ProjectPlugin(final Project project, final Shell shell, FacetFactory factory,
-            Event<InstallFacets> installFacets)
+   public ProjectPlugin(final Project project, final Shell shell, final FacetFactory factory,
+            final Event<InstallFacets> installFacets)
    {
       this.project = project;
       this.shell = shell;
@@ -101,14 +101,6 @@ public class ProjectPlugin implements Plugin
       out.println(project.getFacet(PackagingFacet.class).getPackagingType().getType());
       out.print(ShellColor.BOLD, " dir:  ");
       out.println(project.getProjectRoot().getFullyQualifiedName());
-   }
-
-   @Command("build")
-   public void build(PipeOut out,
-            @Option(description = "build arguments") String... args)
-   {
-      PackagingFacet packaging = project.getFacet(PackagingFacet.class);
-      packaging.executeBuild(args);
    }
 
    @Command("install-facet")
