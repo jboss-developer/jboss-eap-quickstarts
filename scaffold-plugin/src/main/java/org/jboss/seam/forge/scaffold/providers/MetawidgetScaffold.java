@@ -54,7 +54,8 @@ import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 @Alias("metawidget")
 public class MetawidgetScaffold implements ScaffoldProvider
 {
-   private static final String SEAM_PERSIST_INTERCEPTOR = "org.jboss.seam.persistence.transaction.TransactionInterceptor";
+   private static final String SEAM_PERSIST_TRANSACTIONAL_ANNO = "org.jboss.seam.transaction.Transactional";
+   private static final String SEAM_PERSIST_INTERCEPTOR = "org.jboss.seam.transaction.TransactionInterceptor";
    private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jv";
    private static final String VIEW_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/view.xhtml";
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
@@ -88,7 +89,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
    }
 
    @Override
-   public void fromEntity(Project project, final JavaClass entity, final boolean overwrite)
+   public void fromEntity(final Project project, final JavaClass entity, final boolean overwrite)
    {
       try
       {
@@ -108,6 +109,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
          // Create the Backing Bean for this entity
          JavaClass viewBean = JavaParser.parse(JavaClass.class, backingBeanTemplate.render(context));
          viewBean.setPackage(java.getBasePackage() + ".view");
+         viewBean.addAnnotation(SEAM_PERSIST_TRANSACTIONAL_ANNO);
          ScaffoldPlugin.createOrOverwrite(writer, java.getJavaResource(viewBean), viewBean.toString(), overwrite);
 
          // Set context for view generation
@@ -133,7 +135,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
       }
    }
 
-   public void createMetawidgetConfig(Project project, final boolean overwrite)
+   public void createMetawidgetConfig(final Project project, final boolean overwrite)
    {
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
@@ -141,7 +143,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
                configTemplate.render(new HashMap<Object, Object>()), overwrite);
    }
 
-   public void createPersistenceUtils(Project project, final boolean overwrite)
+   public void createPersistenceUtils(final Project project, final boolean overwrite)
    {
       ClassLoader loader = Thread.currentThread().getContextClassLoader();
       JavaClass util = JavaParser.parse(JavaClass.class,
@@ -165,7 +167,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
    }
 
    @Override
-   public void installInto(Project project)
+   public void installInto(final Project project)
    {
       DependencyFacet df = project.getFacet(DependencyFacet.class);
       CDIFacet cdi = project.getFacet(CDIFacet.class);
@@ -188,7 +190,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
    }
 
    @Override
-   public boolean isInstalledIn(Project project)
+   public boolean isInstalledIn(final Project project)
    {
       DependencyFacet df = project.getFacet(DependencyFacet.class);
       CDIFacet cdi = project.getFacet(CDIFacet.class);

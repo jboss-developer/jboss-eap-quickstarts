@@ -45,7 +45,7 @@ public class RefactoryTest
    @Before
    public void before()
    {
-      javaClass = JavaParser.parse(JavaClass.class, "public class Foo { private int foo; }");
+      javaClass = JavaParser.parse(JavaClass.class, "public class Foo { private int foo; private String firstName; }");
    }
 
    @Test
@@ -61,6 +61,21 @@ public class RefactoryTest
       assertEquals("getFoo", getter.getName());
       assertTrue(getter.getParameters().isEmpty());
       assertEquals("setFoo", setter.getName());
+   }
+
+   @Test
+   public void testAddGettersAndSettersCamelCase() throws Exception
+   {
+      Field<JavaClass> field = javaClass.getField("firstName");
+      Refactory.createGetterAndSetter(javaClass, field);
+
+      List<Method<JavaClass>> methods = javaClass.getMethods();
+      Method<JavaClass> getter = methods.get(0);
+      Method<JavaClass> setter = methods.get(1);
+
+      assertEquals("getFirstName", getter.getName());
+      assertTrue(getter.getParameters().isEmpty());
+      assertEquals("setFirstName", setter.getName());
    }
 
    @Test

@@ -6,12 +6,10 @@ import javax.inject.Named;
 
 import @{entity.getQualifiedName()};
 import org.jboss.seam.forge.persistence.PersistenceUtil;
-import org.jboss.seam.persistence.transaction.Transactional;
 
 @Named
 @Stateful
 @RequestScoped
-@Transactional
 public class @{entity.getName()}Bean extends PersistenceUtil
 {
    private List<@{entity.getName()}> list = null;

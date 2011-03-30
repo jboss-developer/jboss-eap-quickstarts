@@ -42,7 +42,7 @@ public class Strings
       {
          return input;
       }
-      return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+      return input.substring(0, 1).toUpperCase() + input.substring(1);
    }
 
    public static String unquote(final String value)
@@ -65,7 +65,7 @@ public class Strings
       return result;
    }
 
-   public static String join(Collection<?> collection, String delimiter)
+   public static String join(final Collection<?> collection, final String delimiter)
    {
       StringBuffer buffer = new StringBuffer();
       Iterator<?> iter = collection.iterator();
@@ -80,32 +80,32 @@ public class Strings
       return buffer.toString();
    }
 
-   public static boolean isNullOrEmpty(String string)
+   public static boolean isNullOrEmpty(final String string)
    {
-      return string == null || string.isEmpty();
+      return (string == null) || string.isEmpty();
    }
 
-   public static boolean isTrue(String value)
+   public static boolean isTrue(final String value)
    {
       return value == null ? false : "true".equalsIgnoreCase(value.trim());
    }
 
-   public static boolean areEqual(String left, String right)
+   public static boolean areEqual(final String left, final String right)
    {
-      if (left == null && right == null)
+      if ((left == null) && (right == null))
       {
          return true;
       }
-      else if (left == null || right == null)
+      else if ((left == null) || (right == null))
       {
          return false;
       }
       return left.equals(right);
    }
 
-   public static boolean areEqualTrimmed(String left, String right)
+   public static boolean areEqualTrimmed(final String left, final String right)
    {
-      if (left != null && right != null)
+      if ((left != null) && (right != null))
       {
          return left.trim().equals(right.trim());
       }
@@ -114,9 +114,9 @@ public class Strings
 
    public static String stripQuotes(String value)
    {
-      if (value != null && (value.startsWith("'") && value.endsWith("'")
-               || value.startsWith("\"") && value.endsWith("\""))
-               && value.length() > 2)
+      if ((value != null) && ((value.startsWith("'") && value.endsWith("'"))
+               || (value.startsWith("\"") && value.endsWith("\"")))
+               && (value.length() > 2))
       {
          value = value.substring(1, value.length() - 2);
       }

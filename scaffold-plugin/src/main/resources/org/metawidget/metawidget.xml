@@ -13,20 +13,17 @@
 						<java5Inspector xmlns="java:org.metawidget.inspector.java5"/>
 						<facesInspector xmlns="java:org.metawidget.inspector.faces"/>
 						
-						<!-- Only if using JPA
-						
 						<jpaInspector xmlns="java:org.metawidget.inspector.jpa" config="JpaInspectorConfig">
 						
-							<!-- Only if you want to annotate the private fields, not the getters
 							<propertyStyle>
 								<javaBeanPropertyStyle xmlns="java:org.metawidget.inspector.impl.propertystyle.javabean" config="JavaBeanPropertyStyleConfig">
 									<privateFieldConvention>
 										<format>{0}</format>
 									</privateFieldConvention>								
 								</javaBeanPropertyStyle>
-							</propertyStyle> -->
+							</propertyStyle>
 							
-						</jpaInspector> -->
+						</jpaInspector>
 						
 						<!-- Only if using Bean Validation
 						
