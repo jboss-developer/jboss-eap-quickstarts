@@ -37,7 +37,7 @@
                <programlisting>$ scaffold setup </programlisting>
                Then set up default index files, a default template and home-page. This creates the page
                that users will first see when accessing your application.
-               <programlisting>$ scaffold create-indexes</programlisting>
+               <programlisting>$ scaffold create-indexes --overwrite</programlisting>
             </listitem>
             <listitem>
                Set up persistence (JPA), and press ENTER to confirm 
