@@ -43,7 +43,7 @@
                Set up persistence (JPA), and press ENTER to confirm 
                installation of any required facet dependencies and/or packaging types,
                and remember to press TAB if you are not sure what comes next.
-               <programlisting>$ persistence setup --container {your container} --provider {your JPA implementation}</programlisting>
+               <programlisting>$ persistence setup --provider {your JPA implementation} --container {your container}</programlisting>
                If you do not wish to use a Java EE container default data-source, you can also specify additional connection parameters 
                such as JNDI data-source names, JDBC connection information, and data-source types. Note, however, that this
                means you will probably need configure your application server to provide this new data-source and/or database connection.
