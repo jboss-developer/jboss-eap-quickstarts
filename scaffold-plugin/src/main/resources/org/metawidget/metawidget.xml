@@ -26,9 +26,9 @@
 						</jpaInspector>
 						
 						<!-- Only if using Bean Validation
-						
 						<beanValidationInspector xmlns=\"java:org.metawidget.inspector.beanvalidation\">
-						
+                        -->
+
 							<!-- Only if you want to annotate the private fields, not the getters
 							<propertyStyle>
 								<javaBeanPropertyStyle xmlns="java:org.metawidget.inspector.impl.propertystyle.javabean" config="JavaBeanPropertyStyleConfig">
@@ -38,7 +38,9 @@
 								</javaBeanPropertyStyle>
 							</propertyStyle> -->
 						
-						</beanValidationInspector -->
+						<!-- 
+                        </beanValidationInspector 
+                        -->
 
 					</array>
 				</inspectors>
@@ -69,8 +71,9 @@
 				<layout>
 					<simpleLayout xmlns="java:org.metawidget.faces.component.layout"/>
 				</layout>
-			</tabPanelLayoutDecorator>-->
+			</tabPanelLayoutDecorator>
 		</layout>
+      -->
 	</htmlMetawidget>
 
 </metawidget>

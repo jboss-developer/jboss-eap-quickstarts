@@ -43,7 +43,6 @@ import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.scaffold.providers.MetawidgetScaffold;
 import org.jboss.seam.forge.scaffold.shell.ScaffoldProviderCompleter;
 import org.jboss.seam.forge.shell.ShellMessages;
-import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.events.InstallFacets;
 import org.jboss.seam.forge.shell.plugins.Alias;
@@ -78,8 +77,6 @@ public class ScaffoldPlugin implements Plugin
    @Inject
    private Project project;
    @Inject
-   private ShellPrintWriter writer;
-   @Inject
    private ShellPrompt prompt;
 
    @Inject
@@ -93,7 +90,7 @@ public class ScaffoldPlugin implements Plugin
 
    @Command("setup")
    @SuppressWarnings("unchecked")
-   public void setup(PipeOut out)
+   public void setup(final PipeOut out)
    {
       /*
        * TODO this should probably accept a scaffold type object itself other methods should check to see if any
@@ -115,7 +112,7 @@ public class ScaffoldPlugin implements Plugin
 
    @Command("create-indexes")
    public void createIndex(
-            PipeOut out,
+            final PipeOut out,
             @Option(flagOnly = true, name = "overwrite") final boolean overwrite)
    {
       setup(out);
@@ -123,10 +120,10 @@ public class ScaffoldPlugin implements Plugin
 
       project.getFacet(ServletFacet.class).getConfig().welcomeFile("index.html");
 
-      createOrOverwrite(writer, web.getWebResource("index.html"), getClass()
+      createOrOverwrite(prompt, web.getWebResource("index.html"), getClass()
                .getResourceAsStream("/org/jboss/seam/forge/jsf/index.html"), overwrite);
 
-      createOrOverwrite(writer, web.getWebResource("index.xhtml"),
+      createOrOverwrite(prompt, web.getWebResource("index.xhtml"),
                getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/index.xhtml"), overwrite);
 
       createDefaultTemplate(out, overwrite);
@@ -140,13 +137,13 @@ public class ScaffoldPlugin implements Plugin
       setup(out);
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
-      createOrOverwrite(writer, web.getWebResource("/resources/forge-template.xhtml"),
+      createOrOverwrite(prompt, web.getWebResource("/resources/forge-template.xhtml"),
                getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge-template.xhtml"), overwrite);
 
-      createOrOverwrite(writer, web.getWebResource("/resources/forge.css"),
+      createOrOverwrite(prompt, web.getWebResource("/resources/forge.css"),
                getClass().getResourceAsStream("/org/jboss/seam/forge/jsf/forge.css"), overwrite);
 
-      createOrOverwrite(writer, web.getWebResource("/resources/favicon.ico"),
+      createOrOverwrite(prompt, web.getWebResource("/resources/favicon.ico"),
                getClass().getResourceAsStream("/org/jboss/seam/forge/web/favicon.ico"), overwrite);
    }
 
@@ -261,35 +258,27 @@ public class ScaffoldPlugin implements Plugin
       }
    }
 
-   public static void createOrOverwrite(final ShellPrintWriter writer, final FileResource<?> resource,
+   public static void createOrOverwrite(final ShellPrompt prompt, final FileResource<?> resource,
             final InputStream contents,
             final boolean overwrite)
    {
-      if (!resource.exists() || overwrite)
+      if (!resource.exists() || overwrite
+               || prompt.promptBoolean("[" + resource.getFullyQualifiedName() + "] File exists, overwrite?"))
       {
          resource.createNewFile();
          resource.setContents(contents);
-      }
-      else
-      {
-         ShellMessages.info(writer, "[" + resource.getFullyQualifiedName()
-                           + "] File exists, re-run with `--overwrite` to replace existing files.");
       }
    }
 
-   public static void createOrOverwrite(final ShellPrintWriter writer, final FileResource<?> resource,
+   public static void createOrOverwrite(final ShellPrompt prompt, final FileResource<?> resource,
             final String contents,
             final boolean overwrite)
    {
-      if (!resource.exists() || overwrite)
+      if (!resource.exists() || overwrite
+               || prompt.promptBoolean("[" + resource.getFullyQualifiedName() + "] File exists, overwrite?"))
       {
          resource.createNewFile();
          resource.setContents(contents);
-      }
-      else
-      {
-         ShellMessages.info(writer, "[" + resource.getFullyQualifiedName()
-                           + "] File exists, re-run with `--overwrite` to replace existing files.");
       }
    }
 }

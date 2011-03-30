@@ -39,7 +39,6 @@ import org.jboss.seam.forge.project.facets.WebResourceFacet;
 import org.jboss.seam.forge.resources.java.JavaResource;
 import org.jboss.seam.forge.scaffold.ScaffoldProvider;
 import org.jboss.seam.forge.scaffold.plugins.ScaffoldPlugin;
-import org.jboss.seam.forge.shell.ShellPrintWriter;
 import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
@@ -63,15 +62,13 @@ public class MetawidgetScaffold implements ScaffoldProvider
    private static final String CONFIG_TEMPLATE = "org/metawidget/metawidget.xml";
 
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget");
-   private final Dependency seamPersist = DependencyBuilder.create("org.jboss.seam.persistence:seam-persistence");
+   private final Dependency seamPersist = DependencyBuilder
+            .create("org.jboss.seam.persistence:seam-persistence:[3.0.0-SNAPSHOT],[3.0.0.CR4,)");
 
    private CompiledTemplateResource viewTemplate;
    private CompiledTemplateResource createTemplate;
    private CompiledTemplateResource listTemplate;
    private CompiledTemplateResource configTemplate;
-
-   @Inject
-   private ShellPrintWriter writer;
 
    @Inject
    private ShellPrompt prompt;
@@ -99,7 +96,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
          if (!entity.hasMethodSignature("toString"))
          {
             Refactory.createToStringFromFields(entity);
-            ScaffoldPlugin.createOrOverwrite(writer, java.getJavaResource(entity), entity.toString(), overwrite);
+            ScaffoldPlugin.createOrOverwrite(prompt, java.getJavaResource(entity), entity.toString(), overwrite);
          }
 
          CompiledTemplateResource backingBeanTemplate = compiler.compile(BACKING_BEAN_TEMPLATE);
@@ -110,7 +107,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
          JavaClass viewBean = JavaParser.parse(JavaClass.class, backingBeanTemplate.render(context));
          viewBean.setPackage(java.getBasePackage() + ".view");
          viewBean.addAnnotation(SEAM_PERSIST_TRANSACTIONAL_ANNO);
-         ScaffoldPlugin.createOrOverwrite(writer, java.getJavaResource(viewBean), viewBean.toString(), overwrite);
+         ScaffoldPlugin.createOrOverwrite(prompt, java.getJavaResource(viewBean), viewBean.toString(), overwrite);
 
          // Set context for view generation
          context = new HashMap<Object, Object>();
@@ -121,12 +118,12 @@ public class MetawidgetScaffold implements ScaffoldProvider
 
          // Generate views
          String type = entity.getName().toLowerCase();
-         ScaffoldPlugin.createOrOverwrite(writer, web.getWebResource("scaffold/" + type + "/view.xhtml"),
+         ScaffoldPlugin.createOrOverwrite(prompt, web.getWebResource("scaffold/" + type + "/view.xhtml"),
                   viewTemplate.render(context), overwrite);
-         ScaffoldPlugin.createOrOverwrite(writer, web.getWebResource("scaffold/" + type + "/create.xhtml"),
+         ScaffoldPlugin.createOrOverwrite(prompt, web.getWebResource("scaffold/" + type + "/create.xhtml"),
                   createTemplate.render(context),
                   overwrite);
-         ScaffoldPlugin.createOrOverwrite(writer, web.getWebResource("scaffold/" + type + "/list.xhtml"),
+         ScaffoldPlugin.createOrOverwrite(prompt, web.getWebResource("scaffold/" + type + "/list.xhtml"),
                   listTemplate.render(context), overwrite);
       }
       catch (Exception e)
@@ -139,7 +136,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
    {
       WebResourceFacet web = project.getFacet(WebResourceFacet.class);
 
-      ScaffoldPlugin.createOrOverwrite(writer, web.getWebResource("WEB-INF/metawidget.xml"),
+      ScaffoldPlugin.createOrOverwrite(prompt, web.getWebResource("WEB-INF/metawidget.xml"),
                configTemplate.render(new HashMap<Object, Object>()), overwrite);
    }
 
@@ -157,8 +154,8 @@ public class MetawidgetScaffold implements ScaffoldProvider
          JavaResource producerResource = java.getJavaResource(producer);
          JavaResource utilResource = java.getJavaResource(util);
 
-         ScaffoldPlugin.createOrOverwrite(writer, producerResource, producer.toString(), overwrite);
-         ScaffoldPlugin.createOrOverwrite(writer, utilResource, util.toString(), overwrite);
+         ScaffoldPlugin.createOrOverwrite(prompt, producerResource, producer.toString(), overwrite);
+         ScaffoldPlugin.createOrOverwrite(prompt, utilResource, util.toString(), overwrite);
       }
       catch (FileNotFoundException e)
       {
@@ -178,7 +175,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
       }
       if (!df.hasDependency(seamPersist))
       {
-         df.addDependency(prompt.promptChoiceTyped("Install which version of Metawidget?",
+         df.addDependency(prompt.promptChoiceTyped("Install which version of Seam Persistence?",
                   df.resolveAvailableVersions(seamPersist)));
 
          BeansDescriptor config = cdi.getConfig();
