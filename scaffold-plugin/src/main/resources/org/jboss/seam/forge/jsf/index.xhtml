@@ -33,6 +33,8 @@
 		<ul>
 			<li>Seam 3: <a href="http://seamframework.org/Seam3">Home</a></li>
 			<li>JBoss.org: <a href="http://jboss.org">Home</a></li>
+			<li>Forge Reference Guide: <a href="http://docs.jboss.org/forge/snapshot/reference/en-US/html/">html</a>, 
+			<a href="http://docs.jboss.org/forge/snapshot/reference/en-US/html_single/">printer-friendly</a></li>
 		</ul>
 	</ui:define>
 
@@ -47,22 +49,6 @@
 		using:</p>
 		<ol>
 			<li><code>list-commands --all</code></li>
-		</ol>
-		<p>To build a barebones scaffolding project, you can follow these
-		steps:</p>
-		<ol>
-			<li><code>new-project --named <b>{projectname}</b>
-			--topLevelPackage <b>{com.yourpackage}</b></code></li>
-			<li><code>install forge.scaffold</code></li>
-			<li><code>new-entity --named Person</code></li>
-			<li><code>new-field string --fieldName firstName</code></li>
-			<li><code>new-field string --fieldName lastName</code></li>
-			<li><code>cd ..</code></li>
-			<li><code>scaffold generate-metawidget-jsf *.java</code></li>
-		</ol>
-		<p>Now refresh or redeploy your application and visit:</p>
-		<ol>
-			<li><code>http://localhost:8080/<b>{projectname}</b>/faces/scaffold/person/view.xhtml</code></li>
 		</ol>
 	</ui:define>
 

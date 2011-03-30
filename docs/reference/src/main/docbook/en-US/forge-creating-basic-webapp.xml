@@ -124,6 +124,7 @@ $ mvn jboss:stop</programlisting>
             <listitem>
                Access your application at: <literal>http://localhost:8080/{name}-1.0.0-SNAPSHOT/</literal>
             </listitem>
+            <listitem>Access scaffolded entities at: <literal>http://localhost:8080/<b>{projectname}</b>/faces/scaffold/customer/view.xhtml</literal></listitem>
          </orderedlist>
       </para>
    </section>
