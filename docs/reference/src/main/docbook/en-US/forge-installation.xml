@@ -12,6 +12,8 @@
 		 mailing list, or if you think something is wrong with this guide,
 		 <ulink url="http://bit.ly/forgeissues">report a defect</ulink> under "Documentation".
    </para>
+   <para>If you would like to get involved, stop by the <ulink url="https://lists.jboss.org/mailman/listinfo/forge-dev">Forge Dev</ulink>
+   mailing list, <ulink url="http://bit.ly/forgeissues">file an issue</ulink>, or come find us on irc.freenode.net, in channel #seam-dev.</para>
 
    <section id="forge.distribution">
       <title>Installing a distribution download</title>
@@ -22,7 +24,12 @@
             <listitem><ulink url="http://sourceforge.net/projects/jboss/files/Forge/">Download</ulink> and Un-zip Forge (or a recent <ulink url="http://repository.jboss.org/nexus/content/groups/public/org/jboss/seam/forge/forge-distribution/">snapshot build</ulink>) into a folder on your hard-disk, this folder will be your <literal>FORGE_HOME</literal></listitem>
             <listitem>Add '<literal>$FORGE_HOME/bin</literal>' to your path (<ulink url="http://www.google.com/search?q=windows+edit+path">windows</ulink>, <ulink url="http://www.google.com/search?q=linux+set+path">linux</ulink>, <ulink url="http://www.google.com/search?q=mac+osx+edit+path">mac osx</ulink>)</listitem>
             <listitem>Consider installing <ulink url="http://git-scm.com/">Git</ulink> and <ulink url="http://maven.apache.org/">Maven 3</ulink> (both optional) </listitem>
-            <listitem>Open a command prompt and run 'forge'</listitem>
+            <listitem>Open a command prompt and run 'forge'
+            
+            <literallayout class="monospaced">localhost:~ $ forge      
+[no project] ~ $</literallayout>
+            
+            </listitem>
          </orderedlist>
       </para>
       <para>

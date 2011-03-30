@@ -22,6 +22,8 @@ package org.jboss.seam.forge.spec.jpa.test.plugins;
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import java.io.FileNotFoundException;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.forge.project.Project;
 import org.jboss.seam.forge.project.facets.JavaSourceFacet;
@@ -30,8 +32,6 @@ import org.jboss.seam.forge.spec.jpa.PersistenceFacet;
 import org.jboss.seam.forge.spec.jpa.test.plugins.util.AbstractJPATest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.FileNotFoundException;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -47,7 +47,7 @@ public class NewFieldPluginNegativeTest extends AbstractJPATest
       String entityName = "Goofy";
 
       queueInputLines(entityName);
-      getShell().execute("new-field int --fieldName gamesPlayed");
+      getShell().execute("new-field int --named gamesPlayed");
 
       String pkg = project.getFacet(PersistenceFacet.class).getEntityPackage() + "." + entityName;
       String path = Packages.toFileSyntax(pkg) + ".java";

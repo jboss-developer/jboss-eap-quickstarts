@@ -25,25 +25,100 @@
       
          <orderedlist>
             <listitem>
-            	Execute <literal>$ forge</literal> from a command prompt.
+            	Execute <literal>'forge'</literal> from a command prompt.
             </listitem>
             <listitem>
                Create a new project:
                <programlisting>$ new-project --named {name} --topLevelPackage {com.package} --projectFolder {/directory/path}</programlisting>
             </listitem>
             <listitem>
-               Install scaffolding, and press ENTER to confirm 
+               Set up scaffolding, and press ENTER to confirm 
                installation of any required facet dependencies and/or packaging types:
                <programlisting>$ scaffold setup </programlisting>
+               Then set up default index files, a default template and home-page. This creates the page
+               that users will first see when accessing your application.
+               <programlisting>$ scaffold create-indexes</programlisting>
             </listitem>
             <listitem>
-               That's it! Now build your project using Maven, and deploy it onto 
+               Set up persistence (JPA), and press ENTER to confirm 
+               installation of any required facet dependencies and/or packaging types,
+               and remember to press TAB if you are not sure what comes next.
+               <programlisting>$ persistence setup --container {your container} --provider {your JPA implementation}</programlisting>
+               If you do not wish to use a Java EE container default data-source, you can also specify additional connection parameters 
+               such as JNDI data-source names, JDBC connection information, and data-source types. Note, however, that this
+               means you will probably need configure your application server to provide this new data-source and/or database connection.
+            </listitem>
+            <listitem>
+               Create some JPA entities:
+               <programlisting>$ new-entity --named Customer</programlisting>
+               At which point Forge should automatically pick-up the newly created entity, and will be ready to add fields.
+               <programlisting>Customer.java $ new-field string --named firstName
+Customer.java $ new-field string --named lastName</programlisting>
+               You may inspect the entity using 'ls'.
+               <programlisting>Customer.java $ ls
+
+[fields]
+private::String::firstName;       private::String::lastName;
+private::int::version;               private::long::id;
+
+[methods]
+public::getFirstName()::String                                               public::getId()::long
+public::getLastName()::String                                                public::getVersion()::int
+public::setFirstName(final String firstName)::void                    public::setId(final long id)::void
+public::setLastName(final String lastName)::void                     public::setVersion(final int version)::void
+public::toString()::String                                                          
+
+Customer.java $</programlisting>
+            </listitem>
+            <listitem>
+               Once you have created fields in the entity, it's time to generate some scaffolding.
+               For now, use the Forge default scaffold; you'll also need to confirm installation of a few libraries/dependencies.
+               <programlisting>Customer.java $ scaffold from-entity 
+No scaffold type was provided, use Forge default? [Y/n] 
+Install which version of Metawidget?
+
+  1 - [org.metawidget:metawidget:1.0.5]
+  2 - [org.metawidget:metawidget:1.10]
+
+Choose an option by typing the number of the selection: 2
+Install which version of Seam Persistence?
+
+  1 - [org.jboss.seam.persistence:seam-persistence:3.0.0-SNAPSHOT]
+  2 - [org.jboss.seam.persistence:seam-persistence:3.0.0.Final]
+
+Choose an option by typing the number of the selection: 2
+ 
+Wrote /src/main/webapp/resources/forge-template.xhtml
+Wrote /src/main/webapp/resources/forge.css
+Wrote /src/main/webapp/resources/favicon.ico
+Wrote /src/main/java/com/scaffold/domain/Customer.java
+Wrote /src/main/java/com/scaffold/view/CustomerBean.java
+Wrote /src/main/webapp/scaffold/customer/view.xhtml
+Wrote /src/main/webapp/scaffold/customer/create.xhtml
+Wrote /src/main/webapp/scaffold/customer/list.xhtml
+***SUCCESS*** Generated UI for [com.scaffold.domain.Customer]
+
+Customer.java $</programlisting>
+
+            </listitem>
+            <listitem>
+               That's it! Now build your project and deploy it onto 
                your JBoss Application Server instance:
                
+               <programlisting>$ build</programlisting>
+               
+               If you have installed <ulink url="http://maven.apache.org/download.html">Apache Maven 3.0+</ulink>,
+               and set your JBOSS_HOME environment variable to the location of your JBOSS server installation folder,
+               you can also build and deploy your application with the following commands.
+            
                <programlisting>$ mvn clean package
 $ mvn jboss:hard-deploy
 $ mvn jboss:start</programlisting>
-            
+
+               Your project can correspondingly be undeployed using:
+               
+               <programlisting>$ mvn jboss:hard-undeploy
+$ mvn jboss:stop</programlisting>
             </listitem>
             <listitem>
                Access your application at: <literal>http://localhost:8080/{name}-1.0.0-SNAPSHOT/</literal>
