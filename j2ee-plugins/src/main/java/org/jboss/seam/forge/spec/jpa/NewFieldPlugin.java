@@ -86,7 +86,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "custom", help = "Add a custom field to an existing @Entity class")
    public void newCustomField(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -109,7 +109,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "boolean", help = "Add a boolean field to an existing @Entity class")
    public void newBooleanField(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -139,7 +139,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "int", help = "Add an int field to an existing @Entity class")
    public void newIntField(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -170,7 +170,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "long", help = "Add a long field to an existing @Entity class")
    public void newLongField(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -200,7 +200,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "number", help = "Add a number field to an existing @Entity class")
    public void newNumberField(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -227,7 +227,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "string", help = "Add a String field to an existing @Entity class")
    public void newStringField(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName)
@@ -245,7 +245,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "oneToOne", help = "Add a One-to-one relationship field to an existing @Entity class")
    public void newOneToOneRelationship(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -277,7 +277,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "manyToMany", help = "Add a many-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
    public void newManyToManyRelationship(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -333,7 +333,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "oneToMany", help = "Add a one-to-many relationship field (java.lang.Set<?>) to an existing @Entity class")
    public void newOneToManyRelationship(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
@@ -382,7 +382,7 @@ public class NewFieldPlugin implements Plugin
 
    @Command(value = "manyToOne", help = "Add a many-to-one relationship field to an existing @Entity class")
    public void newManyToOneRelationship(
-            @Option(name = "fieldName",
+            @Option(name = "named",
                      required = true,
                      description = "The field name",
                      type = PromptType.JAVA_VARIABLE_NAME) final String fieldName,
