@@ -22,6 +22,7 @@ import org.sonatype.aether.collection.CollectRequest;
 import org.sonatype.aether.repository.ArtifactRepository;
 import org.sonatype.aether.repository.LocalRepository;
 import org.sonatype.aether.repository.RemoteRepository;
+import org.sonatype.aether.repository.RepositoryPolicy;
 import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
@@ -219,18 +220,23 @@ public class RepositoryLookup implements DependencyResolverProvider
    {
       List<DependencyRepository> temp = new ArrayList<DependencyRepository>();
       temp.addAll(repositories);
-      DependencyRepository central = new DependencyRepositoryImpl(KnownRepository.CENTRAL.getId(),
-                  KnownRepository.CENTRAL.getUrl());
-
-      if (temp.isEmpty())
-      {
-         temp.add(central);
-      }
 
       List<RemoteRepository> remoteRepos = new ArrayList<RemoteRepository>();
+      boolean hasCentral = false;
       for (DependencyRepository deprep : temp)
       {
          remoteRepos.add(convertToMavenRepo(deprep));
+         if (KnownRepository.CENTRAL.getUrl().equals(deprep.getUrl()))
+         {
+            hasCentral = true;
+         }
+      }
+      if (!hasCentral)
+      {
+         RemoteRepository central = convertToMavenRepo(new DependencyRepositoryImpl(KnownRepository.CENTRAL.getId(),
+                  KnownRepository.CENTRAL.getUrl()));
+         central.setPolicy(true, new RepositoryPolicy().setEnabled(false));
+         remoteRepos.add(central);
       }
       return remoteRepos;
    }
