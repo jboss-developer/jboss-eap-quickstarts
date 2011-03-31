@@ -40,8 +40,7 @@ public interface DependencyFacet extends Facet
       CENTRAL("http://repo1.maven.org/maven2/"),
       JBOSS_NEXUS("http://repository.jboss.org/nexus/content/groups/public"),
       JBOSS_LEGACY("http://repository.jboss.org/maven2"),
-      JAVA_NET("http://download.java.net/maven/2/"),
-      CUSTOM(null);
+      JAVA_NET("http://download.java.net/maven/2/");
 
       private final String url;
 

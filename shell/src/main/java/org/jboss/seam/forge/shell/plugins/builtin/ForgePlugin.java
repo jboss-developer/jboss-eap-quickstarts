@@ -289,28 +289,26 @@ public class ForgePlugin implements Plugin
    @Command(value = "mvn-plugin",
             help = "Download and install a plugin from a maven repository")
    public void installFromMvnRepos(@Option(description = "plugin-identifier", required = true) Dependency dep,
-            @Option(description = "target repository") KnownRepository repo,
+            @Option(name = "knownRepo", description = "target repository") KnownRepository repo,
+            @Option(name = "repoUrl", description = "target repository URL") String repoURL,
             final PipeOut out) throws Exception
    {
-      if (KnownRepository.CUSTOM.equals(repo))
+      if (repoURL != null)
       {
          installFromMvnRepos(dep, out,
-                  new DependencyRepositoryImpl("custom", shell.prompt("What is the repository URL?")));
+                  new DependencyRepositoryImpl("custom", repoURL));
       }
       else if (repo == null)
       {
          List<DependencyRepository> repos = new ArrayList<DependencyRepository>();
          for (KnownRepository r : KnownRepository.values())
          {
-            if (!KnownRepository.CUSTOM.equals(r))
-            {
-               repos.add(new DependencyRepositoryImpl(r.getId(), r.getUrl()));
-            }
+            repos.add(new DependencyRepositoryImpl(r));
          }
          installFromMvnRepos(dep, out, repos);
       }
       else
-         installFromMvnRepos(dep, out, new DependencyRepositoryImpl("custom", repo.getUrl()));
+         installFromMvnRepos(dep, out, new DependencyRepositoryImpl(repo));
    }
 
    @Command(value = "jar-plugin",
