@@ -9,7 +9,7 @@
 
 	<groupId>org.jboss.seam.forge</groupId>
 	<artifactId>forge-parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0.Alpha3</version>
 	<packaging>pom</packaging>
 
 	<name>Seam Forge - Parent</name>
