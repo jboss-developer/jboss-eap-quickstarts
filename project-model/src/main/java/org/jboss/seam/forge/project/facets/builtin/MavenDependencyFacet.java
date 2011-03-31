@@ -254,13 +254,16 @@ public class MavenDependencyFacet extends BaseFacet implements DependencyFacet, 
    @Override
    public void addRepository(final String name, final String url)
    {
-      MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
-      Model pom = maven.getPOM();
-      Repository repo = new Repository();
-      repo.setId(name);
-      repo.setUrl(url);
-      pom.getRepositories().add(repo);
-      maven.setPOM(pom);
+      if (!hasRepository(url))
+      {
+         MavenCoreFacet maven = project.getFacet(MavenCoreFacet.class);
+         Model pom = maven.getPOM();
+         Repository repo = new Repository();
+         repo.setId(name);
+         repo.setUrl(url);
+         pom.getRepositories().add(repo);
+         maven.setPOM(pom);
+      }
    }
 
    @Override
