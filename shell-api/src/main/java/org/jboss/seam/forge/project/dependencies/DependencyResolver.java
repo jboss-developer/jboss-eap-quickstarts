@@ -22,7 +22,6 @@
 package org.jboss.seam.forge.project.dependencies;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -34,53 +33,11 @@ import org.jboss.seam.forge.resources.DependencyResource;
 import org.jboss.seam.forge.shell.util.BeanManagerUtils;
 
 /**
- * Used to resolve {@link Dependency} versions, {@link DependencyResource} artifacts, and dependencies of a given
- * {@link Dependency}
- * <p>
- * <b>Example usage:</b>
- * <p>
- * 
- * <pre>
- * &#064;Inject
- * DepenencyResolver resolver;
- * 
- * Dependency query =
- *          DependencyBuilder.create(&quot;com.example:example:[1.0],[2.0,)&quot;);
- * 
- * List&lt;Dependency&gt; versions = resolver.resolveVersions(query);
- * List&lt;DependencyResource&gt; artifacts = resolver.resolveArtifacts(query);
- * List&lt;DependencyResource&gt; dependencies = resolver.resolveDependencies(query);
- * </pre>
- * <p>
- * <b>Version query syntax is as follows:</b>
- * <table>
- * <tr>
- * <td>1.0</td>
- * <td>version == 1.0</td>
- * </tr>
- * <tr>
- * <td>[1.0,2.0)</td>
- * <td>1.0 &lt;= version &lt; 2.0</td>
- * </tr>
- * <tr>
- * <td>[1.0,2.0]</td>
- * <td>1.0 &lt;= version &lt;= 2.0</td>
- * </tr>
- * <tr>
- * <td>[1.5,)</td>
- * <td>1.5 &lt;= version</td>
- * </tr>
- * <tr>
- * <td>(,1.0],[1.2,)</td>
- * <td>version &lt;= 1.0, and version &gt;= 2.0</td>
- * </tr>
- * </table>
- * 
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
  * 
  */
 @Singleton
-public class DependencyResolver
+public class DependencyResolver implements DependencyResolverProvider
 {
    @Inject
    private BeanManager manager;
@@ -114,28 +71,37 @@ public class DependencyResolver
       }
    }
 
-   /**
-    * Resolve a set of {@link DependencyResource} artifacts matching the given query, searching in the default
-    * repository.
-    */
+   @Override
    public List<DependencyResource> resolveArtifacts(Dependency query)
    {
-      return resolveArtifacts(query, new ArrayList<DependencyRepository>());
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<DependencyResource> artifacts = p.resolveArtifacts(query);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<DependencyResource>();
    }
 
-   /**
-    * Resolve a set of {@link DependencyResource} artifacts matching the given query, searching in only the given
-    * {@link DependencyRepository}.
-    */
+   @Override
    public List<DependencyResource> resolveArtifacts(final Dependency query, final DependencyRepository repository)
    {
-      return resolveArtifacts(query, Arrays.asList(repository));
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<DependencyResource> artifacts = p.resolveArtifacts(query, repository);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<DependencyResource>();
    }
 
-   /**
-    * Resolve a set of {@link DependencyResource} artifacts matching the given query, searching in only the given list
-    * of {@link DependencyRepository} instances.
-    */
+   @Override
    public List<DependencyResource> resolveArtifacts(final Dependency query,
             final List<DependencyRepository> repositories)
    {
@@ -151,37 +117,38 @@ public class DependencyResolver
       return new ArrayList<DependencyResource>();
    }
 
-   /**
-    * Resolve a set of {@link DependencyResource} dependencies for the given query, searching in the default repository.
-    * <p>
-    * 
-    * @return a list of {@link DependencyResource} dependencies on which the given query artifact depends.
-    */
+   @Override
    public List<DependencyResource> resolveDependencies(final Dependency query)
    {
-      return resolveDependencies(query, new ArrayList<DependencyRepository>());
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<DependencyResource> artifacts = p.resolveDependencies(query);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<DependencyResource>();
    }
 
-   /**
-    * Resolve a set of {@link DependencyResource} dependencies for the given query, searching in only the given
-    * {@link DependencyRepository}.
-    * <p>
-    * 
-    * @return a list of {@link DependencyResource} dependencies on which the given query artifact depends.
-    */
+   @Override
    public List<DependencyResource> resolveDependencies(final Dependency query,
             final DependencyRepository repository)
    {
-      return resolveDependencies(query, Arrays.asList(repository));
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<DependencyResource> artifacts = p.resolveDependencies(query, repository);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<DependencyResource>();
    }
 
-   /**
-    * Resolve a set of {@link DependencyResource} dependencies for the given query, searching in only the given list of
-    * {@link DependencyRepository} instances.
-    * <p>
-    * 
-    * @return a list of {@link DependencyResource} dependencies on which the given query artifact depends.
-    */
+   @Override
    public List<DependencyResource> resolveDependencies(final Dependency query,
             final List<DependencyRepository> repositories)
    {
@@ -197,27 +164,82 @@ public class DependencyResolver
       return new ArrayList<DependencyResource>();
    }
 
-   /**
-    * Resolve a set of {@link Dependency} versions matching the given query, searching in the default repository.
-    */
+   @Override
+   public DependencyMetadata resolveDependencyMetadata(Dependency query)
+   {
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         DependencyMetadata meta = p.resolveDependencyMetadata(query);
+         if (meta != null)
+         {
+            return meta;
+         }
+      }
+      return null;
+   }
+
+   @Override
+   public DependencyMetadata resolveDependencyMetadata(Dependency query, DependencyRepository repository)
+   {
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         DependencyMetadata meta = p.resolveDependencyMetadata(query, repository);
+         if (meta != null)
+         {
+            return meta;
+         }
+      }
+      return null;
+   }
+
+   @Override
+   public DependencyMetadata resolveDependencyMetadata(Dependency query, List<DependencyRepository> repositories)
+   {
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         DependencyMetadata meta = p.resolveDependencyMetadata(query, repositories);
+         if (meta != null)
+         {
+            return meta;
+         }
+      }
+      return null;
+   }
+
+   @Override
    public List<Dependency> resolveVersions(final Dependency query)
    {
-      return resolveVersions(query);
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<Dependency> artifacts = p.resolveVersions(query);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<Dependency>();
    }
 
-   /**
-    * Resolve a set of {@link Dependency} versions matching the given query, searching in only the given
-    * {@link DependencyRepository}.
-    */
+   @Override
    public List<Dependency> resolveVersions(final Dependency query, final DependencyRepository repository)
    {
-      return resolveVersions(query, Arrays.asList(repository));
+      init();
+      for (DependencyResolverProvider p : providers)
+      {
+         List<Dependency> artifacts = p.resolveVersions(query, repository);
+         if (artifacts != null && !artifacts.isEmpty())
+         {
+            return artifacts;
+         }
+      }
+      return new ArrayList<Dependency>();
    }
 
-   /**
-    * Resolve a set of {@link Dependency} versions matching the given query, searching in only the given list of
-    * {@link DependencyRepository} instances.
-    */
+   @Override
    public List<Dependency> resolveVersions(final Dependency query, final List<DependencyRepository> repositories)
    {
       init();

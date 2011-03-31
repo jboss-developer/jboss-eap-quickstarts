@@ -2,6 +2,7 @@ package org.jboss.seam.forge.project.dependencies;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
@@ -18,11 +19,14 @@ import org.jboss.seam.forge.project.services.ResourceFactory;
 import org.jboss.seam.forge.resources.DependencyResource;
 import org.jboss.seam.forge.shell.util.OSUtils;
 import org.sonatype.aether.RepositorySystem;
+import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.collection.CollectRequest;
 import org.sonatype.aether.repository.ArtifactRepository;
 import org.sonatype.aether.repository.LocalRepository;
 import org.sonatype.aether.repository.RemoteRepository;
 import org.sonatype.aether.repository.RepositoryPolicy;
+import org.sonatype.aether.resolution.ArtifactDescriptorRequest;
+import org.sonatype.aether.resolution.ArtifactDescriptorResult;
 import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
@@ -68,19 +72,15 @@ public class RepositoryLookup implements DependencyResolverProvider
    }
 
    @Override
-   public List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories)
+   public List<DependencyResource> resolveArtifacts(Dependency query)
    {
-      List<Dependency> result = new ArrayList<Dependency>();
+      return resolveArtifacts(query, new ArrayList<DependencyRepository>());
+   }
 
-      List<RemoteRepository> remoteRepos = convertToMavenRepos(repositories);
-      VersionRangeResult r = getVersions(dep, remoteRepos);
-
-      for (Version v : r.getVersions())
-      {
-         result.add(DependencyBuilder.create(dep).setVersion(v.toString()));
-      }
-
-      return result;
+   @Override
+   public List<DependencyResource> resolveArtifacts(final Dependency query, final DependencyRepository repository)
+   {
+      return resolveArtifacts(query, Arrays.asList(repository));
    }
 
    @Override
@@ -137,6 +137,19 @@ public class RepositoryLookup implements DependencyResolverProvider
    }
 
    @Override
+   public List<DependencyResource> resolveDependencies(final Dependency query)
+   {
+      return resolveDependencies(query, new ArrayList<DependencyRepository>());
+   }
+
+   @Override
+   public List<DependencyResource> resolveDependencies(final Dependency query,
+            final DependencyRepository repository)
+   {
+      return resolveDependencies(query, Arrays.asList(repository));
+   }
+
+   @Override
    public List<DependencyResource> resolveDependencies(Dependency dep, final List<DependencyRepository> repositories)
    {
       List<DependencyResource> result = new ArrayList<DependencyResource>();
@@ -151,9 +164,10 @@ public class RepositoryLookup implements DependencyResolverProvider
          RepositorySystem system = container.lookup(RepositorySystem.class);
          MavenRepositorySystemSession session = setupRepoSession(system);
 
-         DependencyRequest request = new DependencyRequest(new CollectRequest(new org.sonatype.aether.graph.Dependency(
-                  new DefaultArtifact(
-                           dep.toCoordinates()), null), convertToMavenRepos(repositories)), null);
+         DefaultArtifact artifact = new DefaultArtifact(dep.toCoordinates());
+         CollectRequest collectRequest = new CollectRequest(new org.sonatype.aether.graph.Dependency(
+                  artifact, null), convertToMavenRepos(repositories));
+         DependencyRequest request = new DependencyRequest(collectRequest, null);
 
          DependencyResult artifacts = system.resolveDependencies(session, request);
 
@@ -172,6 +186,121 @@ public class RepositoryLookup implements DependencyResolverProvider
       {
          throw new ProjectModelException("Unable to resolve an artifact", e);
       }
+   }
+
+   @Override
+   public DependencyMetadata resolveDependencyMetadata(Dependency query)
+   {
+      return resolveDependencyMetadata(query, new ArrayList<DependencyRepository>());
+   }
+
+   @Override
+   public DependencyMetadata resolveDependencyMetadata(Dependency query, DependencyRepository repository)
+   {
+      return resolveDependencyMetadata(query, Arrays.asList(repository));
+   }
+
+   @Override
+   public DependencyMetadata resolveDependencyMetadata(Dependency query,
+            final List<DependencyRepository> repositories)
+   {
+      try
+      {
+         if (Strings.isNullOrEmpty(query.getVersion()))
+         {
+            query = DependencyBuilder.create(query).setVersion("[,)");
+         }
+
+         RepositorySystem system = container.lookup(RepositorySystem.class);
+         MavenRepositorySystemSession session = setupRepoSession(system);
+
+         DefaultArtifact artifact = new DefaultArtifact(query.toCoordinates());
+
+         ArtifactDescriptorRequest ar = new ArtifactDescriptorRequest(artifact, convertToMavenRepos(repositories), null);
+         ArtifactDescriptorResult results = system.readArtifactDescriptor(session, ar);
+
+         Artifact a = results.getArtifact();
+         Dependency d = DependencyBuilder.create().setArtifactId(a.getArtifactId())
+                     .setGroupId(a.getGroupId())
+                     .setVersion(a.getVersion());
+
+         return new DependencyMetadataImpl(d, results);
+      }
+      catch (Exception e)
+      {
+         throw new ProjectModelException("Unable to resolve any artifacts for query [" + query + "]", e);
+      }
+   }
+
+   @Override
+   public List<Dependency> resolveVersions(final Dependency query)
+   {
+      return resolveVersions(query);
+   }
+
+   @Override
+   public List<Dependency> resolveVersions(final Dependency query, final DependencyRepository repository)
+   {
+      return resolveVersions(query, Arrays.asList(repository));
+   }
+
+   @Override
+   public List<Dependency> resolveVersions(final Dependency dep, final List<DependencyRepository> repositories)
+   {
+      List<Dependency> result = new ArrayList<Dependency>();
+
+      List<RemoteRepository> remoteRepos = convertToMavenRepos(repositories);
+      VersionRangeResult r = getVersions(dep, remoteRepos);
+
+      for (Version v : r.getVersions())
+      {
+         result.add(DependencyBuilder.create(dep).setVersion(v.toString()));
+      }
+
+      return result;
+   }
+
+   private MavenRepositorySystemSession setupRepoSession(RepositorySystem repoSystem)
+   {
+      MavenRepositorySystemSession session = new MavenRepositorySystemSession();
+
+      LocalRepository localRepo = new LocalRepository(OSUtils.getUserHomeDir().getAbsolutePath() + "/.m2/repository");
+      session.setLocalRepositoryManager(repoSystem.newLocalRepositoryManager(localRepo));
+      session.setOffline(false);
+
+      session.setTransferErrorCachingEnabled(false);
+      session.setNotFoundCachingEnabled(false);
+      return session;
+   }
+
+   private RemoteRepository convertToMavenRepo(DependencyRepository repo)
+   {
+      return new RemoteRepository(repo.getId(), "default", repo.getUrl());
+   }
+
+   private List<RemoteRepository> convertToMavenRepos(final List<DependencyRepository> repositories)
+   {
+      List<DependencyRepository> temp = new ArrayList<DependencyRepository>();
+      temp.addAll(repositories);
+
+      List<RemoteRepository> remoteRepos = new ArrayList<RemoteRepository>();
+      boolean hasCentral = false;
+      for (DependencyRepository deprep : temp)
+      {
+         remoteRepos.add(convertToMavenRepo(deprep));
+         if (KnownRepository.CENTRAL.getUrl().equals(deprep.getUrl()))
+         {
+            hasCentral = true;
+         }
+      }
+      if (!hasCentral)
+      {
+         RemoteRepository central = convertToMavenRepo(new DependencyRepositoryImpl(KnownRepository.CENTRAL.getId(),
+                  KnownRepository.CENTRAL.getUrl()));
+         central.setPolicy(true, new RepositoryPolicy().setEnabled(false));
+         remoteRepos.add(central);
+      }
+      return remoteRepos;
    }
 
    private VersionRangeResult getVersions(Dependency dep, final List<RemoteRepository> repositories)
@@ -201,49 +330,6 @@ public class RepositoryLookup implements DependencyResolverProvider
       {
          throw new ProjectModelException("Failed to look up versions for [" + dep + "]", e);
       }
-   }
-
-   private MavenRepositorySystemSession setupRepoSession(RepositorySystem repoSystem)
-   {
-      MavenRepositorySystemSession session = new MavenRepositorySystemSession();
-
-      LocalRepository localRepo = new LocalRepository(OSUtils.getUserHomeDir().getAbsolutePath() + "/.m2/repository");
-      session.setLocalRepositoryManager(repoSystem.newLocalRepositoryManager(localRepo));
-      session.setOffline(false);
-
-      session.setTransferErrorCachingEnabled(false);
-      session.setNotFoundCachingEnabled(false);
-      return session;
-   }
-
-   private List<RemoteRepository> convertToMavenRepos(final List<DependencyRepository> repositories)
-   {
-      List<DependencyRepository> temp = new ArrayList<DependencyRepository>();
-      temp.addAll(repositories);
-
-      List<RemoteRepository> remoteRepos = new ArrayList<RemoteRepository>();
-      boolean hasCentral = false;
-      for (DependencyRepository deprep : temp)
-      {
-         remoteRepos.add(convertToMavenRepo(deprep));
-         if (KnownRepository.CENTRAL.getUrl().equals(deprep.getUrl()))
-         {
-            hasCentral = true;
-         }
-      }
-      if (!hasCentral)
-      {
-         RemoteRepository central = convertToMavenRepo(new DependencyRepositoryImpl(KnownRepository.CENTRAL.getId(),
-                  KnownRepository.CENTRAL.getUrl()));
-         central.setPolicy(true, new RepositoryPolicy().setEnabled(false));
-         remoteRepos.add(central);
-      }
-      return remoteRepos;
-   }
-
-   private RemoteRepository convertToMavenRepo(DependencyRepository repo)
-   {
-      return new RemoteRepository(repo.getId(), "default", repo.getUrl());
    }
 
 }
