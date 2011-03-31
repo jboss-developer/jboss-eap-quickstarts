@@ -23,6 +23,7 @@ package org.jboss.seam.forge.scaffold.providers;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -42,9 +43,12 @@ import org.jboss.seam.forge.scaffold.plugins.ScaffoldPlugin;
 import org.jboss.seam.forge.shell.ShellPrompt;
 import org.jboss.seam.forge.shell.plugins.Alias;
 import org.jboss.seam.forge.spec.cdi.CDIFacet;
+import org.jboss.seam.forge.spec.servlet.ServletFacet;
 import org.jboss.seam.render.TemplateCompiler;
 import org.jboss.seam.render.template.CompiledTemplateResource;
+import org.jboss.shrinkwrap.descriptor.api.Node;
 import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
+import org.jboss.shrinkwrap.descriptor.impl.spec.servlet.web.WebAppDescriptorImpl;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -53,6 +57,7 @@ import org.jboss.shrinkwrap.descriptor.api.spec.cdi.beans.BeansDescriptor;
 @Alias("metawidget")
 public class MetawidgetScaffold implements ScaffoldProvider
 {
+   private static final String PARTIAL_STATE_SAVING = "javax.faces.PARTIAL_STATE_SAVING";
    private static final String SEAM_PERSIST_TRANSACTIONAL_ANNO = "org.jboss.seam.transaction.Transactional";
    private static final String SEAM_PERSIST_INTERCEPTOR = "org.jboss.seam.transaction.TransactionInterceptor";
    private static final String BACKING_BEAN_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/BackingBean.jv";
@@ -60,6 +65,7 @@ public class MetawidgetScaffold implements ScaffoldProvider
    private static final String CREATE_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/create.xhtml";
    private static final String LIST_TEMPLATE = "org/jboss/seam/forge/scaffold/templates/list.xhtml";
    private static final String CONFIG_TEMPLATE = "org/metawidget/metawidget.xml";
+   private static final String METAWIDGET_DISABLE_EVENT = "org.metawidget.faces.component.DONT_USE_PRERENDER_VIEW_EVENT";
 
    private final Dependency metawidget = DependencyBuilder.create("org.metawidget:metawidget");
    private final Dependency seamPersist = DependencyBuilder
@@ -168,11 +174,45 @@ public class MetawidgetScaffold implements ScaffoldProvider
    {
       DependencyFacet df = project.getFacet(DependencyFacet.class);
       CDIFacet cdi = project.getFacet(CDIFacet.class);
+      ServletFacet servlet = project.getFacet(ServletFacet.class);
       if (!df.hasDependency(metawidget))
       {
          df.addDependency(prompt.promptChoiceTyped("Install which version of Metawidget?",
                   df.resolveAvailableVersions(metawidget)));
       }
+
+      // fixme this needs to be fixed in SHRINKDESC
+      WebAppDescriptorImpl webxml = (WebAppDescriptorImpl) servlet.getConfig();
+
+      List<Node> list = webxml.getRootNode().get("context-param/param-name");
+
+      // Hack to support JSF2 and metawidget
+      boolean pssUpdated = false;
+      boolean mweUpdated = false;
+      for (Node node : list)
+      {
+         if (PARTIAL_STATE_SAVING.equals(node.text()))
+         {
+            node.parent().getOrCreate("param-value").text("false");
+            pssUpdated = true;
+            continue;
+         }
+         if (METAWIDGET_DISABLE_EVENT.equals(node.text()))
+         {
+            node.parent().getOrCreate("param-value").text("true");
+            continue;
+         }
+      }
+      if (!mweUpdated)
+      {
+         webxml.contextParam(METAWIDGET_DISABLE_EVENT, "true");
+      }
+      if (!pssUpdated)
+      {
+         webxml.contextParam(PARTIAL_STATE_SAVING, "false");
+      }
+      servlet.saveConfig(webxml);
+
       if (!df.hasDependency(seamPersist))
       {
          df.addDependency(prompt.promptChoiceTyped("Install which version of Seam Persistence?",

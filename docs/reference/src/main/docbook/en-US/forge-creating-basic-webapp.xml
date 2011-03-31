@@ -108,11 +108,12 @@ Customer.java $</programlisting>
                
                <programlisting>$ build</programlisting>
                
-               If you have installed <ulink url="http://maven.apache.org/download.html">Apache Maven 3.0+</ulink>,
-               and set your JBOSS_HOME environment variable to the location of your JBOSS server installation folder,
+               Or, if you have installed <ulink url="http://maven.apache.org/download.html">Apache Maven 3.0+</ulink>,
+               and set your JBOSS_HOME environment variable to the location of your JBoss AS server installation folder,
                you can also build and deploy your application with the following commands.
             
-               <programlisting>$ mvn clean package
+               <programlisting>$ cd -
+$ mvn clean package
 $ mvn jboss:hard-deploy
 $ mvn jboss:start</programlisting>
 
@@ -124,7 +125,7 @@ $ mvn jboss:stop</programlisting>
             <listitem>
                Access your application at: <literal>http://localhost:8080/{name}-1.0.0-SNAPSHOT/</literal>
             </listitem>
-            <listitem>Access scaffolded entities at: <literal>http://localhost:8080/<b>{projectname}</b>/faces/scaffold/customer/view.xhtml</literal></listitem>
+            <listitem>Access scaffolded entities at: <literal>http://localhost:8080/{projectname}/faces/scaffold/{entity}/view.xhtml</literal></listitem>
          </orderedlist>
       </para>
    </section>
