@@ -235,7 +235,7 @@ public class RepositoryLookup implements DependencyResolverProvider
    @Override
    public List<Dependency> resolveVersions(final Dependency query)
    {
-      return resolveVersions(query);
+      return resolveVersions(query, new ArrayList<DependencyRepository>());
    }
 
    @Override
