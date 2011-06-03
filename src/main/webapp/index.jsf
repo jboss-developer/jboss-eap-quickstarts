@@ -1,0 +1,8 @@
+The contents of this file will not be displayed!
+
+Having this file is a trick to get JBoss AS to redirect to the path index.jsf
+when the root application URL is requested (or any subdirectory).
+
+See https://issues.jboss.org/browse/JBAS-8224
+
+If you are using other containers, such as Glassfish, this file will be ignored and you may delete at will.

@@ -1,0 +1,12 @@
+*.swp
+.classpath
+.git
+.gitignore
+.project
+.settings
+.svn
+archetype-pom.xml
+archetype-excludes.txt
+WORKLOG
+eclipse-dot-files
+release-procedure.txt

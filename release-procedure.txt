@@ -1,0 +1,25 @@
+(Assume Q is the qualifier of the release, e.g., Beta1)
+./create-archetype.sh
+cd target/archetype
+vim pom.xml (change 1.0.1-SNAPSHOT to 1.0.1.Q)
+svn import https://svn.jboss.org/repos/weld/archetypes/javaee6-webapp/tags/1.0.1.Q -m "prepare 1.0.1.Q release"
+cd -
+cd ../tags
+svn update
+cd 1.0.1.Q
+vim pom.xml (uncomment distributionManagement section and nexus-maven-plugin section) 
+make sure your $HOME/.m2/settings.xml has a server defined as follows:
+   <server>
+      <id>central-releases-repository</id>
+      <username>%sonatype-username%</username>
+      <password>%sonatype-password%</password>
+   </server>
+svn commit pom.xml -m "use central as dist repo"
+vim pom.xml (change 1.0.1.Q to 1.0.1-SNAPSHOT)
+mvn release:prepare --batch-mode -Drelease -DdevelopmentVersion=1.0.1-SNAPSHOT -DreleaseVersion=1.0.1.Q -Dtag=1.0.1.Q -DdryRun=true
+cp pom.xml.tag pom.xml
+svn commit pom.xml -m "update tag version"
+cp pom.xml.releaseBackup pom.xml
+mvn release:perform nexus:staging-close -Drelease
+svn revert pom.xml
+mvn clean

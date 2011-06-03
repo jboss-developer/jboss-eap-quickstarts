@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.weld</groupId>
+        <artifactId>weld-parent</artifactId>
+        <version>17</version>
+    </parent>
+
+    <groupId>org.jboss.weld.archetypes</groupId>
+    <artifactId>jboss-javaee6-webapp</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>maven-archetype</packaging>
+
+    <name>JBoss Java EE 6 Webapp</name>
+
+    <description>An archetype that generates a starter Java EE 6 webapp project</description>
+
+    <url>http://tinyurl.com/gojavaee</url>
+
+    <developers>
+        <developer>
+            <name>Steven Boscarine</name>
+            <roles>
+                <role>Weld archetypes co-lead</role>
+            </roles>
+            <email>stevenboscarine@gmail.com</email>
+            <organization>Community Volunteer</organization>
+        </developer>
+        <developer>
+            <name>Dan Allen</name>
+            <roles>
+                <role>Weld archetypes co-lead</role>
+            </roles>
+            <email>dan.j.allen@gmail.com</email>
+            <organization>JBoss, by Red Hat</organization>
+            <organizationUrl>http://redhat.com/jboss</organizationUrl>
+            <url>http://community.jboss.org/people/dan.j.allen</url>
+        </developer>
+        <developer>
+            <name>Pete Muir</name>
+            <roles>
+                <role>Weld project lead</role>
+            </roles>
+            <email>pete.muir@jboss.org</email>
+            <organization>Red Hat Inc.</organization>
+            <organizationUrl>http://redhat.com/jboss</organizationUrl>
+            <url>http://in.relation.to/Bloggers/Pete</url>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>2.0-alpha-5</version>
+            </extension>
+        </extensions>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-archetype-plugin</artifactId>
+                    <version>2.0-alpha-5</version>
+                    <extensions>true</extensions>
+                </plugin>
+                <!-- Uncomment to deploy to central -->
+                <!--
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-maven-plugin</artifactId>
+                    <configuration>
+                        <nexusUrl>https://oss.sonatype.org</nexusUrl>
+                        <serverAuthId>central-releases-repository</serverAuthId>
+                    </configuration>
+                </plugin>
+                -->
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/weld/archetypes/javaee6-webapp/trunk</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/weld/archetypes/javaee6-webapp/trunk</developerConnection>
+        <url>http://fisheye.jboss.org/browse/weld/archetypes/javaee6-webapp/trunk</url>
+    </scm>
+
+    <!-- Uncomment to deploy to central -->
+    <!--
+    <distributionManagement>
+        <repository>
+            <id>central-releases-repository</id>
+            <name>Sonatype Nexus Maven Repository</name> 
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+    -->
+</project>
