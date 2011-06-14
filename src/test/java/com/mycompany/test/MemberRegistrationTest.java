@@ -1,6 +1,6 @@
 package com.mycompany.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -17,16 +17,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.mycompany.controller.MemberRegistration;
-import com.mycompany.data.MemberRepository;
-import com.mycompany.data.MemberRepositoryProducer;
 import com.mycompany.model.Member;
+import com.mycompany.util.Resources;
 
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Member.class, MemberRegistration.class, MemberRepository.class, MemberRepositoryProducer.class)
+                .addClasses(Member.class, MemberRegistration.class, Resources.class)
                 // addAsManifestResource is incorrectly targeting /META-INF
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

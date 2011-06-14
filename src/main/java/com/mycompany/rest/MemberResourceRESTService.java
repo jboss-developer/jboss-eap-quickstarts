@@ -1,14 +1,15 @@
 package com.mycompany.rest;
 
-import com.mycompany.model.Member;
-import com.mycompany.data.MemberRepository;
 import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
+import com.mycompany.model.Member;
 
 /**
  * JAX-RS Example
@@ -19,7 +20,6 @@ import javax.ws.rs.PathParam;
 @RequestScoped
 public class MemberResourceRESTService {
     @Inject
-    @MemberRepository
     private EntityManager em;
 
     @GET
@@ -33,7 +33,7 @@ public class MemberResourceRESTService {
     }
 
     @GET
-    @Path("/{id:[1-9][0-9]*}")
+    @Path("/{id:[0-9][0-9]*}")
     public Member lookupMemberById(@PathParam("id") long id) {
         return em.find(Member.class, id);
     }

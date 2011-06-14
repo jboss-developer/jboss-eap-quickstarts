@@ -15,11 +15,5 @@
    <container qualifier="jbossas-remote" default="true">
        <property name="httpPort">8080</property>
    </container>
-   
-   <!-- Required configuration for an embedded GlassFish instance -->
-   <container qualifier="glassfish-embedded">
-       <property name="bindHttpPort">7070</property>
-       <property name="sunResourcesXml">src/test/resources-glassfish-embedded/sun-resources.xml</property>
-   </container>
 
 </arquillian>

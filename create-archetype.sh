@@ -13,10 +13,10 @@ ARCHETYPE_DIR=target/archetype
 ARCHETYPE_RESOURCES_DIR=$ARCHETYPE_DIR/src/main/resources/archetype-resources
 
 echo Generating archetype from project into $ARCHETYPE_BUILD_DIR...
-if [ ! -z `which txt2html` ]; then
-    txt2html -pb 1 -p 2 readme.txt > readme.html
+if [ ! -z `which markdown` ]; then
+    markdown readme.md -f readme.html
 else
-    echo txt2html cannot be found, skipping generation of readme.html
+    echo markdown cannot be found, skipping generation of readme.html
 fi
 mvn clean archetype:create-from-project -Darchetype.properties=archetype.properties
 echo Relocating generated archetype project to $ARCHETYPE_DIR...
@@ -26,7 +26,7 @@ mvn -f $ARCHETYPE_DIR/pom.xml clean
 echo Patching generated archetype...
 # could also use col -b
 sed -i 's;;;' $ARCHETYPE_RESOURCES_DIR/pom.xml
-sed -i 's;;;' $ARCHETYPE_RESOURCES_DIR/readme.txt
+sed -i 's;;;' $ARCHETYPE_RESOURCES_DIR/readme.md
 sed -i 's;<name>jboss-javaee6-webapp-src</name>;<name>${name}</name>;' $ARCHETYPE_RESOURCES_DIR/pom.xml
 sed -i 's;eclipse-dot-files/\?;;' $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
 #sed -i 's;\(<jndi-name>\)[^<]\+\(</jndi-name>\);\1jdbc/${artifactId}\2;' $ARCHETYPE_RESOURCES_DIR/src/main/resources-jbossas/default-ds.xml
@@ -49,6 +49,6 @@ if [ ! -z $1 ] && [ "$1" = "generate" ]; then
     echo Generating project from archetype...
     cd target
     mvn archetype:generate -B -DarchetypeCatalog=local \
-        -DarchetypeArtifactId=jboss-javaee6-webapp -DarchetypeGroupId=org.jboss.weld.archetypes -DarchetypeVersion=1.0.1-SNAPSHOT \
+        -DarchetypeArtifactId=jboss-javaee6-webapp -DarchetypeGroupId=org.jboss.spec.archetypes -DarchetypeVersion=7.0.0-SNAPSHOT \
         -DartifactId=example-project -DgroupId=com.acme -Dpackage=com.acme.example -Dversion=1.0.0-SNAPSHOT -Dname="Java EE 6 webapp project"
 fi

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -23,13 +24,26 @@ public class Member implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String name;
-    private String email;
-    private String phoneNumber;
-
     @Id
     @GeneratedValue
+    private Long id;
+    
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    private String name;
+    
+    @NotNull
+    @NotEmpty
+    @Email
+    private String email;
+    
+    @NotNull
+    @Size(min = 10, max = 12)
+    @Digits(fraction = 0, integer = 12)
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     public Long getId() {
         return id;
     }
@@ -37,10 +51,7 @@ public class Member implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    
     public String getName() {
         return name;
     }
@@ -49,9 +60,6 @@ public class Member implements Serializable {
         this.name = name;
     }
 
-    @NotNull
-    @NotEmpty
-    @Email
     public String getEmail() {
         return email;
     }
@@ -60,10 +68,6 @@ public class Member implements Serializable {
         this.email = email;
     }
 
-    @NotNull
-    @Size(min = 10, max = 12)
-    @Digits(fraction = 0, integer = 12)
-    @Column(name = "phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
