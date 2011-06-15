@@ -40,10 +40,10 @@
          <!-- These optional flags are designed to speed up your builds by 
             reducing remote server calls -->
          <releases>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
          </releases>
          <snapshots>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
          </snapshots>
       </repository>
    </repositories>
