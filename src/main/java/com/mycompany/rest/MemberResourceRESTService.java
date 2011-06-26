@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import com.mycompany.model.Member;
 
@@ -19,22 +20,27 @@ import com.mycompany.model.Member;
 @Path("/members")
 @RequestScoped
 public class MemberResourceRESTService {
-    @Inject
-    private EntityManager em;
+   @Inject
+   private EntityManager em;
 
-    @GET
-    public List<Member> listAllMembers() {
-        // Use @SupressWarnings to force IDE to ignore warnings about "genericizing" the results of this query
-        @SuppressWarnings("unchecked")
-        // We recommend centralizing inline queries such as this one into @NamedQuery annotations on the @Entity class
-        // as described in the named query blueprint: https://blueprints.dev.java.net/bpcatalog/ee5/persistence/namedquery.html
-        final List<Member> results = em.createQuery("select m from Member m order by m.name").getResultList();
-        return results;
-    }
+   @GET
+   @Produces("text/xml")
+   public List<Member> listAllMembers() {
+      // Use @SupressWarnings to force IDE to ignore warnings about "genericizing" the results of
+      // this query
+      @SuppressWarnings("unchecked")
+      // We recommend centralizing inline queries such as this one into @NamedQuery annotations on
+      // the @Entity class
+      // as described in the named query blueprint:
+      // https://blueprints.dev.java.net/bpcatalog/ee5/persistence/namedquery.html
+      final List<Member> results = em.createQuery("select m from Member m order by m.name").getResultList();
+      return results;
+   }
 
-    @GET
-    @Path("/{id:[0-9][0-9]*}")
-    public Member lookupMemberById(@PathParam("id") long id) {
-        return em.find(Member.class, id);
-    }
+   @GET
+   @Path("/{id:[0-9][0-9]*}")
+   @Produces("text/xml")
+   public Member lookupMemberById(@PathParam("id") long id) {
+      return em.find(Member.class, id);
+   }
 }

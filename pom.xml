@@ -24,9 +24,6 @@
       <!-- Specify the JBoss AS directory to be the JBOSS_HOME environment 
          variable -->
       <jboss.home>${env.JBOSS_HOME}</jboss.home>
-      <!-- externalize versions we need to refer to more than once -->
-      <arquillian.version>1.0.0.Alpha5</arquillian.version>
-      <jboss-javaee6-spec.version>2.0.0.Beta1</jboss-javaee6-spec.version>
    </properties>
 
    <repositories>
@@ -43,7 +40,7 @@
             <enabled>true</enabled>
          </releases>
          <snapshots>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
          </snapshots>
       </repository>
    </repositories>
@@ -54,7 +51,7 @@
          <name>JBoss Repository</name>
          <url>http://repository.jboss.org/nexus/content/groups/public</url>
          <releases>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
          </releases>
          <snapshots>
             <enabled>false</enabled>
@@ -115,10 +112,27 @@
       <!-- Arquillian allows you to test enterprise code such as EJBs and 
          Transactional(JTA) JPA from JUnit/TestNG -->
       <dependency>
-         <groupId>org.jboss.arquillian</groupId>
-         <artifactId>arquillian-junit</artifactId>
-         <version>${arquillian.version}</version>
+         <groupId>org.jboss.arquillian.junit</groupId>
+         <artifactId>arquillian-junit-container</artifactId>
+         <version>1.0.0.CR1</version>
          <scope>test</scope>
+      </dependency>
+      
+      <!-- Include the JBoss' Java EE 6 APIs -->
+      <!-- JBoss distributes a complete set of Java EE 6 APIs including a 
+         Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or a 
+         collection) of artifacts. We use this here so that we always get the correct 
+         versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
+         read this as the JBoss stack of the Java EE 6 Web Profile APIs), and we use 
+         version 2.0.0.Beta1 which is the latest release of the stack. You can actually 
+         use this stack with any version of JBoss AS that implements Java EE 6, not 
+         just JBoss AS 7! -->
+      <dependency>
+         <groupId>org.jboss.spec</groupId>
+         <artifactId>jboss-javaee-web-6.0</artifactId>
+         <version>2.0.0.CR1</version>
+         <type>pom</type>
+         <scope>provided</scope>
       </dependency>
    </dependencies>
 
@@ -159,18 +173,6 @@
          <activation>
             <activeByDefault>true</activeByDefault>
          </activation>
-         <dependencies>
-            <!-- Java EE 6 API dependency -->
-            <!-- This one dependency imports all APIs available for a Java 
-               EE 6.0 application -->
-            <dependency>
-               <groupId>org.jboss.spec</groupId>
-               <artifactId>jboss-javaee-6.0</artifactId>
-               <version>${jboss-javaee6-spec.version}</version>
-               <type>pom</type>
-               <scope>provided</scope>
-            </dependency>
-         </dependencies>
          <build>
             <plugins>
                <plugin>
@@ -187,20 +189,29 @@
                <plugin>
                   <groupId>org.jboss.as.plugins</groupId>
                   <artifactId>jboss-as-maven-plugin</artifactId>
-                  <version>7.0.0.Beta4</version>
-                  <executions>
-                     <execution>
-                        <phase>install</phase>
-                        <goals>
-                           <goal>deploy</goal>
-                        </goals>
-                     </execution>
-                  </executions>
+                  <version>7.0.0.Beta5-SNAPSHOT</version>
                </plugin>
             </plugins>
          </build>
       </profile>
-
+      
+      <profile>
+         <!-- An optional Arquillian testing profile that executes tests 
+            in your JBoss AS instance -->
+         <!-- This profile will start a new JBoss AS instance, and execute the
+              test, shutting it down when done -->
+         <!-- Run with: mvn clean test -Parq-jbossas-managed -->
+         <id>arq-jbossas-managed</id>
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.as</groupId>
+               <artifactId>jboss-as-arquillian-container-managed</artifactId>
+               <version>7.0.0.Beta4-SNAPSHOT</version>
+               <scope>test</scope>
+            </dependency>
+         </dependencies>
+      </profile>
+      
       <profile>
          <!-- An optional Arquillian testing profile that executes tests 
             in a remote JBoss AS instance -->
@@ -208,23 +219,15 @@
          <id>arq-jbossas-remote</id>
          <dependencies>
             <dependency>
-               <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-jbossas-remote-7</artifactId>
-               <version>${arquillian.version}</version>
+               <groupId>org.jboss.as</groupId>
+               <artifactId>jboss-as-arquillian-container-remote</artifactId>
+               <version>7.0.0.Beta4-SNAPSHOT</version>
                <scope>test</scope>
-            </dependency>
-            <!-- Java EE 6 API dependency -->
-            <!-- This one dependency imports all APIs available for a Java 
-               EE 6.0 application -->
-            <dependency>
-               <groupId>org.jboss.spec</groupId>
-               <artifactId>jboss-javaee-6.0</artifactId>
-               <version>${jboss-javaee6-spec.version}</version>
-               <type>pom</type>
-               <scope>provided</scope>
             </dependency>
          </dependencies>
       </profile>
+      
+      
 
    </profiles>
 </project>

@@ -43,7 +43,7 @@ the following Maven goal:
 
 You can now deploy the artifact to JBoss AS by executing the following command:
 
-    mvn jboss-as-deploy:deploy
+    mvn jboss-as:deploy
 
 This will deploy `target/jboss-javaee6-webapp-src.war`.
  
@@ -51,7 +51,7 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 To undeploy from JBoss AS, run this command:
 
-    mvn jboss:hard-undeploy
+    mvn jboss-as:undeploy
 
 You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
 Getting Started Guide for Developers for more information.
