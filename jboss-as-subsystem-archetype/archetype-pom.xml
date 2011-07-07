@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
+        <groupId>org.jboss.as</groupId>
+        <artifactId>jboss-as-parent</artifactId>
         <version>7.0.0.CR2-SNAPSHOT</version>
     </parent>
 
@@ -14,9 +14,9 @@
     <version>7.0.0.CR2-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>
 
-    <name>JBoss AS 7 / Java EE 6 Webapp</name>
+    <name>JBoss AS 7 Subsystem</name>
 
-    <description>An archetype that generates a starter Java EE 6 webapp project for JBoss AS 7</description>
+    <description>An archetype that generates a skeleton project for implementing a JBoss AS 7 subsystem</description>
 
     <url>http://jboss.org/jbossas</url>
 
@@ -25,13 +25,6 @@
             <name>Kabir Khan</name>
             <email>kabir.khan@jboss.com</email>
             <organization>JBoss, by Red Hat</organization>
-            <organizationUrl>http://redhat.com/jboss</organizationUrl>
-            <url>http://community.jboss.org/people/dan.j.allen</url>
-        </developer>
-        <developer>
-            <name>Pete Muir</name>
-            <email>pete.muir@jboss.org</email>
-            <organization>Red Hat Inc.</organization>
             <organizationUrl>http://redhat.com/jboss</organizationUrl>
             <url>http://kabir-khan.blogspot.com/</url>
         </developer>

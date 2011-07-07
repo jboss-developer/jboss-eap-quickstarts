@@ -18,23 +18,24 @@ if [ ! -z `which markdown` ]; then
 else
     echo markdown cannot be found, skipping generation of readme.html
 fi
+
 mvn clean archetype:create-from-project -Darchetype.properties=archetype.properties
 echo Relocating generated archetype project to $ARCHETYPE_DIR...
 rsync -az --exclude `basename $0` --exclude-from=archetype-excludes.txt $ARCHETYPE_BUILD_DIR/src $ARCHETYPE_DIR/
+
 cp -f archetype-pom.xml $ARCHETYPE_DIR/pom.xml
 mvn -f $ARCHETYPE_DIR/pom.xml clean
+
 echo Patching generated archetype...
 # could also use col -b
-sed -i 's;;;' $ARCHETYPE_RESOURCES_DIR/pom.xml
-sed -i 's;;;' $ARCHETYPE_RESOURCES_DIR/readme.md
-sed -i 's;<name>jboss-javaee6-webapp-src</name>;<name>${name}</name>;' $ARCHETYPE_RESOURCES_DIR/pom.xml
-sed -i 's;eclipse-dot-files/\?;;' $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
-#sed -i 's;\(<jndi-name>\)[^<]\+\(</jndi-name>\);\1jdbc/${artifactId}\2;' $ARCHETYPE_RESOURCES_DIR/src/main/resources-jbossas/default-ds.xml
-#sed -i 's;\(<jta-data-source>\)[^<]\+\(</jta-data-source>\);\1jdbc/${artifactId}\2;' $ARCHETYPE_RESOURCES_DIR/src/main/resources/META-INF/persistence.xml
-#mv $ARCHETYPE_RESOURCES_DIR/src/main/resources-jbossas/default-ds.xml $ARCHETYPE_RESOURCES_DIR/src/main/resources-jbossas/__artifactId__-ds.xml
-rsync -az --exclude .svn eclipse-dot-files/ $ARCHETYPE_RESOURCES_DIR/
+touch $ARCHETYPE_RESOURCES_DIR/pom.xml
+touch $ARCHETYPE_RESOURCES_DIR/readme.md
+sed -i -e 's;<name>jboss-as-subsystem-src</name>;<name>${name}</name>;' $ARCHETYPE_RESOURCES_DIR/pom.xml
+sed -i -e 's;eclipse-dot-files/\?;;' $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
+
+#rsync -az --exclude .svn eclipse-dot-files/ $ARCHETYPE_RESOURCES_DIR/
 # fix the archetype plugin being an idiot
-find $ARCHETYPE_RESOURCES_DIR -type f -exec sed -i 's;packageInPathFormat;package;g' {} \;
+find $ARCHETYPE_RESOURCES_DIR -type f -exec sed -i -e 's;packageInPathFormat;package;g' {} \;
 # remove local file that NetBeans add to source project
 rm -f $ARCHETYPE_RESOURCES_DIR/src/main/webapp/WEB-INF/sun-web.xml
 rm -f readme.html
