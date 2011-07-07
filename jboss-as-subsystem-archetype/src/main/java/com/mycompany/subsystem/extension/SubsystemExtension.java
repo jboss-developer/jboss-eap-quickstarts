@@ -59,7 +59,7 @@ import com.mycompany.subsystem.handlers.SubsystemAdd;
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  * @version $Revision: 1.1 $
  */
-public class MyExtension implements Extension {
+public class SubsystemExtension implements Extension {
 
     public static final String NAMESPACE = "urn:mycompany:subsystem:1.0";
     public static final String SUBSYSTEM_NAME = "mysubsystem";
@@ -96,7 +96,7 @@ public class MyExtension implements Extension {
         }
 
         private void writeEmptySubsystemContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
-            context.startSubsystemElement(MyExtension.NAMESPACE, false);
+            context.startSubsystemElement(SubsystemExtension.NAMESPACE, false);
             writer.writeEndElement();
         }
 

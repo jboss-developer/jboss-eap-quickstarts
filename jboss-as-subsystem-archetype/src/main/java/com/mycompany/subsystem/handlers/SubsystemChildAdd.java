@@ -27,24 +27,20 @@ import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.ServiceVerificationHandler;
-import org.jboss.as.server.AbstractDeploymentChainStep;
-import org.jboss.as.server.DeploymentProcessorTarget;
-import org.jboss.as.server.deployment.Phase;
-import org.jboss.as.server.deployment.SubDeploymentProcessor;
 import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.ServiceController;
 
 /**
- * Handler responsible for adding the subsystem resource to the model
+ * Handler responsible for adding the subsystem child resource to the model
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  * @version $Revision: 1.1 $
  */
-public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
+public class SubsystemChildAdd extends AbstractBoottimeAddStepHandler {
 
-    public static final SubsystemAdd INSTANCE = new SubsystemAdd();
+    public static final SubsystemChildAdd INSTANCE = new SubsystemChildAdd();
 
-    private SubsystemAdd() {
+    private SubsystemChildAdd() {
     }
 
     /** {@inheritDoc} */
@@ -55,16 +51,22 @@ public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
         ////////////////////////////////////////////
         // Children
 
-        //In this example we have a child called 'subsystem-child', so we need to initialize it in the model:
-        model.get("subsystem-child");
+        //This resource does not have any children
 
-        //If we had no children, we would need to do this instead:
-        //model.setEmptyObject();
 
         ////////////////////////////////////////////
         //Attributes
 
-        //In this example we have no attributes. See SubsystemChildAdd for an example involving attributes
+        //This resource has an optional boolean attribute called 'enabled', we can set it as follows:
+        //Default to 'true' if not passed in as part of the parameters
+        boolean enabled = operation.get("enabled").asBoolean(true);
+        //And then set it in the model!
+        model.get("enabled").set(enabled);
+
+        //Or if the attribute was compulsory we would do (the require() method throws
+        //an error if there is no 'enabled' attribute in the operation)
+        //boolean enabled = operation.require("enabled");
+        //model.get("enabled").set(enabled);
     }
 
     /** {@inheritDoc} */
@@ -72,16 +74,6 @@ public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
     public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
             ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers)
             throws OperationFailedException {
-
-        //Add a deployment processor here
-        //Remove this if you don't need to hook into the deployers, or you can add as many as you like
-        //see SubDeploymentProcessor for explanation of the phases
-        context.addStep(new AbstractDeploymentChainStep() {
-            public void execute(DeploymentProcessorTarget processorTarget) {
-                processorTarget.addDeploymentProcessor(Phase.DEPENDENCIES, Phase.STRUCTURE_SAR_SUB_DEPLOY_CHECK, new SubDeploymentProcessor());
-
-            }
-        }, OperationContext.Stage.RUNTIME);
-
+        //Don't do anything
     }
 }

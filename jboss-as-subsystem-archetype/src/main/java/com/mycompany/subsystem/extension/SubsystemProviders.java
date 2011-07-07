@@ -51,7 +51,7 @@ public class SubsystemProviders {
             subsystem.get(DESCRIPTION).set("This is my subsystem");
             subsystem.get(HEAD_COMMENT_ALLOWED).set(true);
             subsystem.get(TAIL_COMMENT_ALLOWED).set(true);
-            subsystem.get(NAMESPACE).set(MyExtension.NAMESPACE);
+            subsystem.get(NAMESPACE).set(SubsystemExtension.NAMESPACE);
 
             return subsystem;
         }

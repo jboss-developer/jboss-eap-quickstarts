@@ -21,6 +21,7 @@
 */
 package com.mycompany.subsystem.deployment;
 
+import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
@@ -31,7 +32,7 @@ import com.mycompany.subsystem.handlers.SubsystemAdd;
 
 /**
  * An example deployment unit processor that does nothing. To add more deployment
- * processors copy this class, and add to the Abst
+ * processors copy this class, and add to the {@link AbstractDeploymentChainStep}
  * {@link SubsystemAdd#performBoottime(org.jboss.as.controller.OperationContext, org.jboss.dmr.ModelNode, org.jboss.dmr.ModelNode, org.jboss.as.controller.ServiceVerificationHandler, java.util.List)}
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
