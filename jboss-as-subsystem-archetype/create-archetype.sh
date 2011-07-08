@@ -30,8 +30,12 @@ echo Patching generated archetype...
 # could also use col -b
 touch $ARCHETYPE_RESOURCES_DIR/pom.xml
 touch $ARCHETYPE_RESOURCES_DIR/readme.md
-sed -i -e 's;<name>jboss-as-subsystem-src</name>;<name>${name}</name>;' $ARCHETYPE_RESOURCES_DIR/pom.xml
-sed -i -e 's;eclipse-dot-files/\?;;' $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
+#sed -i 's;<name>jboss-as-subsystem-src</name>;<name>${name}</name>;' $ARCHETYPE_RESOURCES_DIR/pom.xml
+touch $ARCHETYPE_RESOURCES_DIR/pom.xml
+#sed -i 's;eclipse-dot-files/\?;;' $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
+cp -f archetype-metadata.xml $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
+touch $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
+
 
 #rsync -az --exclude .svn eclipse-dot-files/ $ARCHETYPE_RESOURCES_DIR/
 # fix the archetype plugin being an idiot

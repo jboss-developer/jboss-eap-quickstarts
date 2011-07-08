@@ -61,22 +61,33 @@ import com.mycompany.subsystem.handlers.SubsystemAdd;
  */
 public class SubsystemExtension implements Extension {
 
-    public static final String NAMESPACE = "urn:mycompany:subsystem:1.0";
+    /** The name space used for the {@code substystem} element */
+    public static final String NAMESPACE = "urn:mycompany:mysubsystem:1.0";
+
+    /** The name of our subsystem within the model. */
     public static final String SUBSYSTEM_NAME = "mysubsystem";
 
+    /** The parser used for parsing our subsystem */
     private final SubsystemParser parser = new SubsystemParser();
+
+    @Override
+    public void initializeParsers(ExtensionParsingContext context) {
+        context.setSubsystemXmlMapping(NAMESPACE, parser);
+    }
+
 
     @Override
     public void initialize(ExtensionContext context) {
         final SubsystemRegistration subsystem = context.registerSubsystem(SUBSYSTEM_NAME);
         final ManagementResourceRegistration registration = subsystem.registerSubsystemModel(SubsystemProviders.SUBSYSTEM);
+        //We always need to add an 'add' operation
         registration.registerOperationHandler(ADD, SubsystemAdd.INSTANCE, SubsystemProviders.SUBSYSTEM_ADD, false);
+        //We always need to add a 'describe' operation
         registration.registerOperationHandler(DESCRIBE, SubsystemDescribeHandler.INSTANCE, SubsystemDescribeHandler.INSTANCE, false, OperationEntry.EntryType.PRIVATE);
-        subsystem.registerXMLElementWriter(parser);
-    }
 
-    @Override
-    public void initializeParsers(ExtensionParsingContext context) {
+        //Since we have children, we need to register add/remove operations for those
+
+        subsystem.registerXMLElementWriter(parser);
     }
 
     private static ModelNode createAddOperation() {
@@ -86,18 +97,14 @@ public class SubsystemExtension implements Extension {
         return subsystem;
     }
 
+    /**
+     * The subsystem parser, which uses stax to read and write to and from xml
+     */
     private static class SubsystemParser implements XMLStreamConstants, XMLElementReader<List<ModelNode>>, XMLElementWriter<SubsystemMarshallingContext> {
 
         /** {@inheritDoc} */
         @Override
         public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
-            //If you
-            writeEmptySubsystemContent(writer, context);
-        }
-
-        private void writeEmptySubsystemContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
-            context.startSubsystemElement(SubsystemExtension.NAMESPACE, false);
-            writer.writeEndElement();
         }
 
         /** {@inheritDoc} */
@@ -107,13 +114,12 @@ public class SubsystemExtension implements Extension {
             ParseUtils.requireNoContent(reader);
             list.add(createAddOperation());
         }
-
     }
 
 
     /**
-     * Recreate the steps to put the subsystem in the same state it was in
-     *
+     * Recreate the steps to put the subsystem in the same state it was in.
+     * This is used when the su
      */
     private static class SubsystemDescribeHandler implements OperationStepHandler, DescriptionProvider {
         static final SubsystemDescribeHandler INSTANCE = new SubsystemDescribeHandler();
