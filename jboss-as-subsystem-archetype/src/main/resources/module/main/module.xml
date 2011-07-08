@@ -3,7 +3,7 @@
 #set( $symbol_escape = '\' )
 <module xmlns="urn:jboss:module:1.0" name="${module}">
     <resources>
-        <resource-root path="${artifactId}-${version}.jar"/>
+        <resource-root path="${artifactId}.jar"/>
     </resources>
     
     <dependencies>

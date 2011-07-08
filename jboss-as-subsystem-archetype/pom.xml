@@ -42,6 +42,7 @@
     <properties>
         <version.jboss.as>7.0.0.CR2-SNAPSHOT</version.jboss.as>
         <version.junit>4.8.2</version.junit>
+        <module.name>${module}</module.name>
     </properties>
     
 
@@ -61,6 +62,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.8.1</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <enableAssertions>true</enableAssertions>
@@ -76,6 +78,51 @@
                     </includes>
                     <forkMode>once</forkMode>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <filters>
+                        <filter>src/assemble/filter.properties</filter>
+                    </filters>
+                    <descriptors>
+                        <descriptor>src/assemble/distribution.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <inherited>false</inherited>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>build-dist</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                           <target>
+                               <!-- Replace the '.' in ${module.name} with '/' to get its path  -->
+                               <tempfile property="temp.file"/>
+                               <echo message="${module.name}" file="${temp.file}"/>
+                               <replace file="${temp.file}" token="." value="/"/>
+                               <loadfile srcfile="${temp.file}" property="module.path"/>
+                               <delete file="${temp.file}"/>
+                               
+                               <delete dir="target/module"/>
+                               <property name="module.dir" value="target/module/${module.path}/main"/>
+                               
+                               <copy file="src/main/resources/module/main/module.xml" tofile="${module.dir}/module.xml"/>
+                               <copy file="target/${project.artifactId}.jar" todir="${module.dir}"/>
+                               
+                               <echo>Module ${module.name} has been created in the target/module directory. Copy to your JBoss AS 7 installation.</echo>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -113,6 +160,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>       
     </dependencies>
 </project>
