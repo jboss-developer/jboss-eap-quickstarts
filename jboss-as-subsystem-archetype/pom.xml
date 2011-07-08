@@ -77,28 +77,6 @@
                     <forkMode>once</forkMode>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>maven-replacer-plugin</artifactId>
-                <version>1.3.8</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>                   
-                    </execution>
-                </executions>
-                <configuration>
-                    <file>target/classes/META-INF/services/org.jboss.as.controller.Extension</file>
-                    <replacements>
-                        <replacement>
-                            <token>com.mycompany.subsystem</token>
-                            <value>${package}</value>
-                        </replacement>         
-                    </replacements>
-                </configuration>
-            </plugin>            
         </plugins>
     </build>
     

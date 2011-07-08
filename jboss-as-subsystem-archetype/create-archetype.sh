@@ -35,7 +35,7 @@ touch $ARCHETYPE_RESOURCES_DIR/pom.xml
 #sed -i 's;eclipse-dot-files/\?;;' $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
 cp -f archetype-metadata.xml $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
 touch $ARCHETYPE_DIR/src/main/resources/META-INF/maven/archetype-metadata.xml
-
+cp archetype-test.properties $ARCHETYPE_DIR/src/test/resources/projects/basic/archetype.properties
 
 #rsync -az --exclude .svn eclipse-dot-files/ $ARCHETYPE_RESOURCES_DIR/
 # fix the archetype plugin being an idiot

@@ -6,6 +6,7 @@
     <requiredProperty key="name">
       <defaultValue>JBoss AS 7 subsystem project</defaultValue>
     </requiredProperty>
+    <requiredProperty key="module"/>    
   </requiredProperties>
   <fileSets>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
@@ -18,6 +19,7 @@
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.Extension</include>
+        <include>**/module.xml</include>
       </includes>
     </fileSet>
     <!--
