@@ -57,7 +57,6 @@ import com.mycompany.subsystem.handlers.SubsystemAdd;
 /**
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
- * @version $Revision: 1.1 $
  */
 public class SubsystemExtension implements Extension {
 

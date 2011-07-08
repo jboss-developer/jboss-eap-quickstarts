@@ -41,7 +41,6 @@ import com.mycompany.subsystem.deployment.SubsystemDeploymentProcessor;
  * Handler responsible for adding the subsystem resource to the model
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
- * @version $Revision: 1.1 $
  */
 public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
 

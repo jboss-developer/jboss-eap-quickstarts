@@ -1,5 +1,4 @@
-jboss-as-subsystem-src
+${artifactId}
 ========================
 
 
-<xml

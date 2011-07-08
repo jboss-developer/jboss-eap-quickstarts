@@ -36,7 +36,6 @@ import org.jboss.dmr.ModelNode;
  * information when you execute the {@code read-resource-description} operation.
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
- * @version $Revision: 1.1 $
  */
 public class SubsystemProviders {
 

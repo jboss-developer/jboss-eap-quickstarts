@@ -37,7 +37,6 @@ import com.mycompany.subsystem.handlers.SubsystemAdd;
  * {@link SubsystemAdd#performBoottime(org.jboss.as.controller.OperationContext, org.jboss.dmr.ModelNode, org.jboss.dmr.ModelNode, org.jboss.as.controller.ServiceVerificationHandler, java.util.List)}
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
- * @version $Revision: 1.1 $
  */
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
 

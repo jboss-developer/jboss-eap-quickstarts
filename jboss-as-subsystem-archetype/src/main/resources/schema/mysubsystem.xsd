@@ -27,7 +27,7 @@
             attributeFormDefault="unqualified"
             version="1.0">
 
-    <!-- The sar subsystem root element -->
+    <!-- The subsystem root element -->
     <xs:element name="subsystem" type="subsystemType"/>
 
     <xs:complexType name="subsystemType">
