@@ -29,8 +29,6 @@ import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.logging.Logger;
 
-import com.mycompany.subsystem.handlers.SubsystemAdd;
-
 /**
  * An example deployment unit processor that does nothing. To add more deployment
  * processors copy this class, and add to the {@link AbstractDeploymentChainStep}

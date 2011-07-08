@@ -19,7 +19,7 @@
 * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 */
-package com.mycompany.subsystem.handlers;
+package com.mycompany.subsystem.extension;
 
 import java.util.List;
 
@@ -35,14 +35,14 @@ import org.jboss.dmr.ModelNode;
 import org.jboss.logging.Logger;
 import org.jboss.msc.service.ServiceController;
 
-import com.mycompany.subsystem.deployment.SubsystemDeploymentProcessor;
-
 /**
  * Handler responsible for adding the subsystem resource to the model
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
-public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
+class SubsystemAdd extends AbstractBoottimeAddStepHandler {
+
+    Logger log = Logger.getLogger(SubsystemAdd.class);
 
     public static final SubsystemAdd INSTANCE = new SubsystemAdd();
 
@@ -52,7 +52,7 @@ public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
     /** {@inheritDoc} */
     @Override
     protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
-        Logger log = Logger.getLogger(SubsystemDeploymentProcessor.class);
+        log.info("Populating the model");
         model.setEmptyObject();
     }
 
@@ -61,6 +61,8 @@ public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
     public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
             ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers)
             throws OperationFailedException {
+
+        log.info("Populating the model");
 
         //Add deployment processors here
         //Remove this if you don't need to hook into the deployers, or you can add as many as you like

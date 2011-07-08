@@ -52,7 +52,6 @@ import org.jboss.staxmapper.XMLElementWriter;
 import org.jboss.staxmapper.XMLExtendedStreamReader;
 import org.jboss.staxmapper.XMLExtendedStreamWriter;
 
-import com.mycompany.subsystem.handlers.SubsystemAdd;
 
 /**
  *
