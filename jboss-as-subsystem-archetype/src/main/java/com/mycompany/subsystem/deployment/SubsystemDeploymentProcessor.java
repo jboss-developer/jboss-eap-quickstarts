@@ -27,6 +27,7 @@ import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.as.server.deployment.Phase;
+import org.jboss.logging.Logger;
 
 import com.mycompany.subsystem.handlers.SubsystemAdd;
 
@@ -39,6 +40,8 @@ import com.mycompany.subsystem.handlers.SubsystemAdd;
  * @version $Revision: 1.1 $
  */
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
+
+    Logger log = Logger.getLogger(SubsystemDeploymentProcessor.class);
 
     /**
      * See {@link Phase} for a description of the different phases
@@ -54,7 +57,7 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
 
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
-
+        log.info("Deploy");
     }
 
     @Override

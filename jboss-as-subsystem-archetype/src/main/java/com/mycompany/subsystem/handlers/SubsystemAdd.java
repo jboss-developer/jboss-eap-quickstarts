@@ -32,7 +32,10 @@ import org.jboss.as.server.DeploymentProcessorTarget;
 import org.jboss.as.server.deployment.Phase;
 import org.jboss.as.server.deployment.SubDeploymentProcessor;
 import org.jboss.dmr.ModelNode;
+import org.jboss.logging.Logger;
 import org.jboss.msc.service.ServiceController;
+
+import com.mycompany.subsystem.deployment.SubsystemDeploymentProcessor;
 
 /**
  * Handler responsible for adding the subsystem resource to the model
@@ -50,21 +53,8 @@ public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
     /** {@inheritDoc} */
     @Override
     protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
-        //We need to initialize the model with the expected elements here
-
-        ////////////////////////////////////////////
-        // Children
-
-        //In this example we have a child called 'subsystem-child', so we need to initialize it in the model:
-        model.get("subsystem-child");
-
-        //If we had no children, we would need to do this instead:
-        //model.setEmptyObject();
-
-        ////////////////////////////////////////////
-        //Attributes
-
-        //In this example we have no attributes. See SubsystemChildAdd for an example involving attributes
+        Logger log = Logger.getLogger(SubsystemDeploymentProcessor.class);
+        model.setEmptyObject();
     }
 
     /** {@inheritDoc} */
@@ -73,7 +63,7 @@ public class SubsystemAdd extends AbstractBoottimeAddStepHandler {
             ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers)
             throws OperationFailedException {
 
-        //Add a deployment processor here
+        //Add deployment processors here
         //Remove this if you don't need to hook into the deployers, or you can add as many as you like
         //see SubDeploymentProcessor for explanation of the phases
         context.addStep(new AbstractDeploymentChainStep() {

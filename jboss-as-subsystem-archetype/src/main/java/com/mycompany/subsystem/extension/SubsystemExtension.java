@@ -85,12 +85,10 @@ public class SubsystemExtension implements Extension {
         //We always need to add a 'describe' operation
         registration.registerOperationHandler(DESCRIBE, SubsystemDescribeHandler.INSTANCE, SubsystemDescribeHandler.INSTANCE, false, OperationEntry.EntryType.PRIVATE);
 
-        //Since we have children, we need to register add/remove operations for those
-
         subsystem.registerXMLElementWriter(parser);
     }
 
-    private static ModelNode createAddOperation() {
+    private static ModelNode createAddSubsystemOperation() {
         final ModelNode subsystem = new ModelNode();
         subsystem.get(OP).set(ADD);
         subsystem.get(OP_ADDR).add(SUBSYSTEM, SUBSYSTEM_NAME);
@@ -105,6 +103,8 @@ public class SubsystemExtension implements Extension {
         /** {@inheritDoc} */
         @Override
         public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
+            context.startSubsystemElement(SubsystemExtension.NAMESPACE, false);
+            writer.writeEndElement();
         }
 
         /** {@inheritDoc} */
@@ -112,20 +112,21 @@ public class SubsystemExtension implements Extension {
         public void readElement(XMLExtendedStreamReader reader, List<ModelNode> list) throws XMLStreamException {
             // Require no content
             ParseUtils.requireNoContent(reader);
-            list.add(createAddOperation());
+            list.add(createAddSubsystemOperation());
         }
     }
 
 
     /**
      * Recreate the steps to put the subsystem in the same state it was in.
-     * This is used when the su
+     * This is used in domain mode to query the profile being used, in order to
+     * get the steps needed to create the servers
      */
     private static class SubsystemDescribeHandler implements OperationStepHandler, DescriptionProvider {
         static final SubsystemDescribeHandler INSTANCE = new SubsystemDescribeHandler();
 
         public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
-            context.getResult().add(createAddOperation());
+            context.getResult().add(createAddSubsystemOperation());
             context.completeStep();
         }
 
