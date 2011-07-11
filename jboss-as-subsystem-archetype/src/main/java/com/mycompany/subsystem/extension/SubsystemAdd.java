@@ -1,6 +1,6 @@
 /*
 * JBoss, Home of Professional Open Source.
-* Copyright 2006, Red Hat Middleware LLC, and individual contributors
+* Copyright 2011, Red Hat Middleware LLC, and individual contributors
 * as indicated by the @author tags. See the copyright.txt file in the
 * distribution for a full listing of individual contributors.
 *
@@ -29,11 +29,11 @@ import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.ServiceVerificationHandler;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
-import org.jboss.as.server.deployment.Phase;
-import org.jboss.as.server.deployment.SubDeploymentProcessor;
 import org.jboss.dmr.ModelNode;
 import org.jboss.logging.Logger;
 import org.jboss.msc.service.ServiceController;
+
+import com.mycompany.subsystem.deployment.SubsystemDeploymentProcessor;
 
 /**
  * Handler responsible for adding the subsystem resource to the model
@@ -42,9 +42,9 @@ import org.jboss.msc.service.ServiceController;
  */
 class SubsystemAdd extends AbstractBoottimeAddStepHandler {
 
-    Logger log = Logger.getLogger(SubsystemAdd.class);
+    static final SubsystemAdd INSTANCE = new SubsystemAdd();
 
-    public static final SubsystemAdd INSTANCE = new SubsystemAdd();
+    private final Logger log = Logger.getLogger(SubsystemAdd.class);
 
     private SubsystemAdd() {
     }
@@ -69,7 +69,7 @@ class SubsystemAdd extends AbstractBoottimeAddStepHandler {
         //see SubDeploymentProcessor for explanation of the phases
         context.addStep(new AbstractDeploymentChainStep() {
             public void execute(DeploymentProcessorTarget processorTarget) {
-                processorTarget.addDeploymentProcessor(Phase.DEPENDENCIES, Phase.STRUCTURE_SAR_SUB_DEPLOY_CHECK, new SubDeploymentProcessor());
+                processorTarget.addDeploymentProcessor(SubsystemDeploymentProcessor.PHASE, SubsystemDeploymentProcessor.priority, new SubsystemDeploymentProcessor());
 
             }
         }, OperationContext.Stage.RUNTIME);
