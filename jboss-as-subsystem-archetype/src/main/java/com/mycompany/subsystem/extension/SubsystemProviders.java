@@ -37,7 +37,7 @@ import org.jboss.dmr.ModelNode;
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
-public class SubsystemProviders {
+class SubsystemProviders {
 
     /**
      * Used to create the description of the subsystem

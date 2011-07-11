@@ -50,7 +50,7 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
      * The current number is large enough for it to happen after all
      * the standard deployment unit processors that come with JBoss AS.
      */
-    public static final int priority = 0x4000;
+    public static final int PRIORITY = 0x4000;
 
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
