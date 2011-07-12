@@ -33,14 +33,14 @@
 
     <groupId>org.jboss.as.archetypes</groupId>
     <artifactId>jboss-as-subsystem-src</artifactId>
-    <version>7.0.0.CR2-SNAPSHOT</version>
+    <version>7.0.0.Final</version>
 
     <name>JBoss Application Server: Subsystem Artifact</name>
 
     <packaging>jar</packaging>
     
     <properties>
-        <version.jboss.as>7.0.0.CR2-SNAPSHOT</version.jboss.as>
+        <version.jboss.as>7.0.0.Final</version.jboss.as>
         <version.junit>4.8.2</version.junit>
         <module.name>${module}</module.name>
     </properties>

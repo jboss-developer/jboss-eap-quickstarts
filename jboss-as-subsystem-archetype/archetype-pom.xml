@@ -6,12 +6,12 @@
     <parent>
         <groupId>org.jboss.as</groupId>
         <artifactId>jboss-as-parent</artifactId>
-        <version>7.0.0.CR2-SNAPSHOT</version>
+        <version>7.0.0.Final</version>
     </parent>
 
     <groupId>org.jboss.as.archetypes</groupId>
     <artifactId>jboss-as-subsystem</artifactId>
-    <version>7.0.0.CR2-SNAPSHOT</version>
+    <version>7.0.0.Final</version>
     <packaging>maven-archetype</packaging>
 
     <name>JBoss AS 7 Subsystem</name>
