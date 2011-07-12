@@ -11,7 +11,7 @@
 
     <groupId>org.jboss.spec.archetypes</groupId>
     <artifactId>jboss-javaee6-webapp</artifactId>
-    <version>7.0.0.Final</version>
+    <version>7.0.1-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>
 
     <name>JBoss AS 7 / Java EE 6 Webapp</name>
