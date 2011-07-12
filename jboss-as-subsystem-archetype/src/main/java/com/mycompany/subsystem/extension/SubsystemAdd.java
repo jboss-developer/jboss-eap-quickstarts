@@ -41,8 +41,6 @@ class SubsystemAdd extends AbstractBoottimeAddStepHandler {
             ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers)
             throws OperationFailedException {
 
-        log.info("Populating the model");
-
         //Add deployment processors here
         //Remove this if you don't need to hook into the deployers, or you can add as many as you like
         //see SubDeploymentProcessor for explanation of the phases
