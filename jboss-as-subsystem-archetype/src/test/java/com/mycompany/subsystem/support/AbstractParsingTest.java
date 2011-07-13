@@ -85,7 +85,7 @@ public class AbstractParsingTest {
 
     private final String TEST_NAMESPACE = "urn.org.jboss.test:1.0";
 
-    private XMLMapper mapper;
+    private ExtensionParsingContextImpl parsingContext;
 
     private List<KernelServices> kernelServices = new ArrayList<KernelServices>();
 
@@ -94,11 +94,11 @@ public class AbstractParsingTest {
     @Before
     public void initializeParser() throws Exception {
         //Initialize the parser
-        mapper = XMLMapper.Factory.create();
+        XMLMapper mapper = XMLMapper.Factory.create();
         mapper.registerRootElement(new QName(TEST_NAMESPACE, "test"), TestParser.INSTANCE);
         SubsystemExtension extension = new SubsystemExtension();
-        ExtensionParsingContext context = new ExtensionParsingContextImpl();
-        extension.initializeParsers(context);
+        parsingContext = new ExtensionParsingContextImpl(mapper);
+        extension.initializeParsers(parsingContext);
     }
 
     @After
@@ -110,7 +110,7 @@ public class AbstractParsingTest {
             }
         }
         kernelServices.clear();
-        mapper = null;
+        parsingContext = null;
     }
 
     /**
@@ -120,12 +120,27 @@ public class AbstractParsingTest {
      * @return the created operations
      */
     protected List<ModelNode> parse(String subsystemXml) throws XMLStreamException {
+        return parse(null, subsystemXml);
+    }
+
+    /**
+     * Parse the subsystem xml and create the operations that will be passed into the controller
+     *
+     * @param allows Additional steps that should be done to the controller before initializing our extension
+     * @param subsystemXml the subsystem xml to be parsed
+     * @return the created operations
+     */
+    protected List<ModelNode> parse(AdditionalParsers additionalParsers, String subsystemXml) throws XMLStreamException {
+        if (parsingContext != null) {
+            additionalParsers.addParsers(parsingContext);
+        }
+
         String xml = "<test xmlns=\"" + TEST_NAMESPACE + "\">" +
                 subsystemXml +
                 "</test>";
         final XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xml));
         final List<ModelNode> operationList = new ArrayList<ModelNode>();
-        mapper.parseDocument(operationList, reader);
+        parsingContext.getMapper().parseDocument(operationList, reader);
         return operationList;
     }
 
@@ -136,8 +151,19 @@ public class AbstractParsingTest {
      * @return the kernel services allowing access to the controller and service container
      */
     protected KernelServices installInController(String subsystemXml) throws Exception {
-        List<ModelNode> operations = parse(subsystemXml);
-        KernelServices services = initializeController(operations);
+        return installInController(null, subsystemXml);
+    }
+
+    /**
+     * Initializes the controller and populates the subsystem model from the passed in xml
+     *
+     * @param additionalInit Additional initialization that should be done to the parsers, controller and service container before initializing our extension
+     * @param subsystemXml the subsystem xml to be parsed
+     * @return the kernel services allowing access to the controller and service container
+     */
+    protected KernelServices installInController(AdditionalInitialization additionalInit, String subsystemXml) throws Exception {
+        List<ModelNode> operations = parse(additionalInit, subsystemXml);
+        KernelServices services = initializeController(additionalInit, operations);
         return services;
     }
 
@@ -200,15 +226,20 @@ public class AbstractParsingTest {
         }
     }
 
-    private KernelServices initializeController(List<ModelNode> bootOperations) throws Exception {
+    private KernelServices initializeController(AdditionalInitialization additionalInit, List<ModelNode> bootOperations) throws Exception {
         //Initialize the controller
         ServiceContainer container = ServiceContainer.Factory.create("test" + counter.incrementAndGet());
         ServiceTarget target = container.subTarget();
         ControlledProcessState processState = new ControlledProcessState(true);
         StringConfigurationPersister persister = new StringConfigurationPersister(bootOperations, TestParser.INSTANCE);
-        ModelControllerService svc = new ModelControllerService(processState, persister);
+        ModelControllerService svc = new ModelControllerService(additionalInit, processState, persister);
         ServiceBuilder<ModelController> builder = target.addService(ServiceName.of("ModelController"), svc);
         builder.install();
+
+        if (additionalInit != null) {
+            additionalInit.addExtraServices(target);
+        }
+
         //sharedState = svc.state;
         svc.latch.await();
         ModelController controller = svc.getValue();
@@ -222,6 +253,12 @@ public class AbstractParsingTest {
     }
 
     private final class ExtensionParsingContextImpl implements ExtensionParsingContext {
+        private final XMLMapper mapper;
+
+        public ExtensionParsingContextImpl(XMLMapper mapper) {
+            this.mapper = mapper;
+        }
+
         @Override
         public void setSubsystemXmlMapping(final String namespaceUri, final XMLElementReader<List<ModelNode>> reader) {
             mapper.registerRootElement(new QName(namespaceUri, SUBSYSTEM), reader);
@@ -229,6 +266,10 @@ public class AbstractParsingTest {
 
         @Override
         public void setDeploymentXmlMapping(final String namespaceUri, final XMLElementReader<ModelNode> reader) {
+        }
+
+        private XMLMapper getMapper() {
+            return mapper;
         }
     }
 
@@ -278,10 +319,12 @@ public class AbstractParsingTest {
         final AtomicBoolean state = new AtomicBoolean(true);
         final CountDownLatch latch = new CountDownLatch(1);
         final StringConfigurationPersister persister;
+        final AdditionalInitialization additionalInit;
 
-        ModelControllerService(final ControlledProcessState processState, final StringConfigurationPersister persister) {
+        ModelControllerService(final AdditionalInitialization additionalPreStep, final ControlledProcessState processState, final StringConfigurationPersister persister) {
             super(OperationContext.Type.SERVER, persister, processState, DESC_PROVIDER, null);
             this.persister = persister;
+            this.additionalInit = additionalPreStep;
         }
 
         @Override
@@ -298,6 +341,9 @@ public class AbstractParsingTest {
             rootRegistration.registerOperationHandler(WRITE_ATTRIBUTE_OPERATION, GlobalOperationHandlers.WRITE_ATTRIBUTE, CommonProviders.WRITE_ATTRIBUTE_PROVIDER, true);
 
             ExtensionContext context = new ExtensionContextImpl(rootRegistration, null, persister);
+            if (additionalInit != null) {
+                additionalInit.initializeExtraSubystemsAndModel(context, rootResource, rootRegistration);
+            }
             SubsystemExtension extension = new SubsystemExtension();
             extension.initialize(context);
         }
