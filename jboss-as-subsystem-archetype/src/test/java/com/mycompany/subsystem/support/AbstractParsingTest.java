@@ -131,7 +131,7 @@ public class AbstractParsingTest {
      * @return the created operations
      */
     protected List<ModelNode> parse(AdditionalParsers additionalParsers, String subsystemXml) throws XMLStreamException {
-        if (parsingContext != null) {
+        if (additionalParsers != null) {
             additionalParsers.addParsers(parsingContext);
         }
 
@@ -163,9 +163,48 @@ public class AbstractParsingTest {
      */
     protected KernelServices installInController(AdditionalInitialization additionalInit, String subsystemXml) throws Exception {
         List<ModelNode> operations = parse(additionalInit, subsystemXml);
-        KernelServices services = initializeController(additionalInit, operations);
+        KernelServices services = installInController(additionalInit, operations);
         return services;
     }
+
+    /**
+     * Create a new controller with the passed in operations
+     * @param bootOperations the operations
+     */
+    protected KernelServices installInController(List<ModelNode> bootOperations) throws Exception {
+        return installInController(null, bootOperations);
+    }
+
+    /**
+     * Create a new controller with the passed in operations
+     * @param bootOperations the operations
+     */
+    protected KernelServices installInController(AdditionalInitialization additionalInit, List<ModelNode> bootOperations) throws Exception {
+        //Initialize the controller
+        ServiceContainer container = ServiceContainer.Factory.create("test" + counter.incrementAndGet());
+        ServiceTarget target = container.subTarget();
+        ControlledProcessState processState = new ControlledProcessState(true);
+        StringConfigurationPersister persister = new StringConfigurationPersister(bootOperations, TestParser.INSTANCE);
+        ModelControllerService svc = new ModelControllerService(additionalInit, processState, persister);
+        ServiceBuilder<ModelController> builder = target.addService(ServiceName.of("ModelController"), svc);
+        builder.install();
+
+        if (additionalInit != null) {
+            additionalInit.addExtraServices(target);
+        }
+
+        //sharedState = svc.state;
+        svc.latch.await();
+        ModelController controller = svc.getValue();
+        ModelNode setup = Util.getEmptyOperation("setup", new ModelNode());
+        controller.execute(setup, null, null, null);
+        processState.setRunning();
+
+        KernelServices kernelServices = new KernelServices(container, controller, persister);
+        this.kernelServices.add(kernelServices);
+        return kernelServices;
+    }
+
 
     /**
      * Checks that the result was successful and gets the real result contents
@@ -226,31 +265,6 @@ public class AbstractParsingTest {
         }
     }
 
-    private KernelServices initializeController(AdditionalInitialization additionalInit, List<ModelNode> bootOperations) throws Exception {
-        //Initialize the controller
-        ServiceContainer container = ServiceContainer.Factory.create("test" + counter.incrementAndGet());
-        ServiceTarget target = container.subTarget();
-        ControlledProcessState processState = new ControlledProcessState(true);
-        StringConfigurationPersister persister = new StringConfigurationPersister(bootOperations, TestParser.INSTANCE);
-        ModelControllerService svc = new ModelControllerService(additionalInit, processState, persister);
-        ServiceBuilder<ModelController> builder = target.addService(ServiceName.of("ModelController"), svc);
-        builder.install();
-
-        if (additionalInit != null) {
-            additionalInit.addExtraServices(target);
-        }
-
-        //sharedState = svc.state;
-        svc.latch.await();
-        ModelController controller = svc.getValue();
-        ModelNode setup = Util.getEmptyOperation("setup", new ModelNode());
-        controller.execute(setup, null, null, null);
-        processState.setRunning();
-
-        KernelServices kernelServices = new KernelServices(container, controller, persister);
-        this.kernelServices.add(kernelServices);
-        return kernelServices;
-    }
 
     private final class ExtensionParsingContextImpl implements ExtensionParsingContext {
         private final XMLMapper mapper;
