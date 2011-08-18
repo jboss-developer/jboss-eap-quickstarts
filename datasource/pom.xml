@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jboss.as.quickstarts</groupId>
+    <artifactId>jboss-as-datasources</artifactId>
+    <version>7.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JBoss AS Quickstarts: Datasources</name>
+
+    <url>http://jboss.org/jbossas</url>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License</name>
+            <url>http://www.gnu.org/copyleft/lesser.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <datasource.name>java:jboss/datasources/MyDatasource</datasource.name>
+        <database.name>myDatabase</database.name>
+        <server.name>localhost</server.name>
+        <username>username</username>
+        <password>password</password>
+        <pool.name>myPool</pool.name>
+        <!-- Database driver versions-->
+        <postgresql.version>8.4-702.jdbc4</postgresql.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- TODO move to parent-->
+                    <groupId>org.jboss.as.plugins</groupId>
+                    <artifactId>jboss-as-maven-plugin</artifactId>
+                    <version>7.0.1.Final</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>postgresql</id>
+            <dependencies>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deploy-driver</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <groupId>postgresql</groupId>
+                                    <artifactId>postgresql</artifactId>
+                                    <name>postgresql.jar</name>
+                                </configuration>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>add-datasource</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <address>subsystem=datasources,data-source=${datasource.name}</address>
+                                    <properties>
+                                        <connection-url>jdbc:postgresql://${server.name}/${database.name}</connection-url>
+                                        <jndi-name>${datasource.name}</jndi-name>
+                                        <enabled>true</enabled>
+                                        <pool-name>${pool.name}</pool-name>
+                                        <user-name>${username}</user-name>
+                                        <password>${password}</password>
+                                        <driver-name>postgresql.jar</driver-name>
+                                    </properties>
+                                </configuration>
+                                <goals>
+                                    <goal>add-resource</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>postgresql-xa</id>
+            <dependencies>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deploy-driver</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <groupId>postgresql</groupId>
+                                    <artifactId>postgresql</artifactId>
+                                    <name>postgresql.jar</name>
+                                </configuration>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>add-datasource</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <address>subsystem=datasources,xa-data-source=${datasource.name}</address>
+                                    <properties>
+                                        <xa-data-source-class>org.postgresql.xa.PGXADataSource</xa-data-source-class>
+                                        <xa-data-source-properties>!![("DatabaseName"=>"${database.name}"),("ServerName"=>"${server.name}"),("User"=>"${username}"),("Password"=>"${password}")]</xa-data-source-properties>
+                                        <jndi-name>${datasource.name}</jndi-name>
+                                        <enabled>true</enabled>
+                                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                                        <pool-name>${pool.name}</pool-name>
+                                        <security.user>${username}</security.user>
+                                        <security.password>${password}</security.password>
+                                        <driver-name>postgresql.jar</driver-name>
+                                    </properties>
+                                </configuration>
+                                <goals>
+                                    <goal>add-resource</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+
+</project>
