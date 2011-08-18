@@ -9,6 +9,16 @@
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts: Datasources</name>
 
+    <description>
+        The pom provides example datasource configurations that can be deployed using the jboss-as maven
+        plugin. To deploy a datasource modify the database properties below (or specify them using -D) and
+        run maven with the appropriate profile for the database you wish to connect to. For example, to deploy
+        a postgresql XA datasource you would run:
+
+        mvn install -Ppostgresql-xa
+
+    </description>
+
     <url>http://jboss.org/jbossas</url>
     <licenses>
         <license>
@@ -27,6 +37,7 @@
         <pool.name>myPool</pool.name>
         <!-- Database driver versions-->
         <postgresql.version>8.4-702.jdbc4</postgresql.version>
+        <mysql.version>5.1.15</mysql.version>
     </properties>
 
     <build>
@@ -132,11 +143,116 @@
                                         <xa-data-source-properties>!![("DatabaseName"=>"${database.name}"),("ServerName"=>"${server.name}"),("User"=>"${username}"),("Password"=>"${password}")]</xa-data-source-properties>
                                         <jndi-name>${datasource.name}</jndi-name>
                                         <enabled>true</enabled>
-                                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
                                         <pool-name>${pool.name}</pool-name>
                                         <security.user>${username}</security.user>
                                         <security.password>${password}</security.password>
                                         <driver-name>postgresql.jar</driver-name>
+                                    </properties>
+                                </configuration>
+                                <goals>
+                                    <goal>add-resource</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <id>mysql</id>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deploy-driver</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <groupId>mysql</groupId>
+                                    <artifactId>mysql</artifactId>
+                                    <name>mysql.jar</name>
+                                </configuration>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>add-datasource</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <address>subsystem=datasources,data-source=${datasource.name}</address>
+                                    <properties>
+                                        <connection-url>jdbc:mysql://${server.name}/${database.name}</connection-url>
+                                        <jndi-name>${datasource.name}</jndi-name>
+                                        <enabled>true</enabled>
+                                        <pool-name>${pool.name}</pool-name>
+                                        <user-name>${username}</user-name>
+                                        <password>${password}</password>
+                                        <driver-name>mysql.jar</driver-name>
+                                    </properties>
+                                </configuration>
+                                <goals>
+                                    <goal>add-resource</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>mysql-xa</id>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deploy-driver</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <groupId>mysql</groupId>
+                                    <artifactId>mysql</artifactId>
+                                    <name>mysql.jar</name>
+                                </configuration>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>add-datasource</id>
+                                <phase>install</phase>
+                                <configuration>
+                                    <address>subsystem=datasources,xa-data-source=${datasource.name}</address>
+                                    <properties>
+                                        <xa-data-source-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-data-source-class>
+                                        <xa-data-source-properties>!![("DatabaseName"=>"${database.name}"),("ServerName"=>"${server.name}"),("User"=>"${username}"),("Password"=>"${password}")]</xa-data-source-properties>
+                                        <jndi-name>${datasource.name}</jndi-name>
+                                        <enabled>true</enabled>
+                                        <pool-name>${pool.name}</pool-name>
+                                        <security.user>${username}</security.user>
+                                        <security.password>${password}</security.password>
+                                        <driver-name>mysql.jar</driver-name>
                                     </properties>
                                 </configuration>
                                 <goals>
