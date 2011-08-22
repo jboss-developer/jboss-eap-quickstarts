@@ -33,14 +33,14 @@
 
     <groupId>org.jboss.as.archetypes</groupId>
     <artifactId>jboss-as-subsystem-src</artifactId>
-    <version>7.0.0.Final</version>
+    <version>7.0.1.Final</version>
 
     <name>JBoss Application Server: Subsystem Artifact</name>
 
     <packaging>jar</packaging>
     
     <properties>
-        <version.jboss.as>7.0.0.Final</version.jboss.as>
+        <version.jboss.as>7.0.1.Final</version.jboss.as>
         <version.junit>4.8.2</version.junit>
         <module.name>${module}</module.name>
     </properties>
@@ -140,6 +140,12 @@
               <version>${version.jboss.as}</version>
           </dependency>
           <dependency>
+              <groupId>org.jboss.as</groupId>
+              <artifactId>jboss-as-subsystem-test</artifactId>
+              <version>${version.jboss.as}</version>
+              <scope>test</scope>
+          </dependency>
+          <dependency>
               <groupId>junit</groupId>
               <artifactId>junit</artifactId>
               <scope>test</scope>
@@ -156,6 +162,11 @@
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-subsystem-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

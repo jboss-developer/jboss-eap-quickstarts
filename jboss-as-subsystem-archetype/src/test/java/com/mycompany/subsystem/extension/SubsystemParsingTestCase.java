@@ -13,18 +13,23 @@ import junit.framework.Assert;
 
 import org.jboss.as.controller.PathAddress;
 import org.jboss.as.controller.PathElement;
+import org.jboss.as.subsystem.test.AbstractSubsystemTest;
+import org.jboss.as.subsystem.test.KernelServices;
 import org.jboss.dmr.ModelNode;
 import org.junit.Test;
 
-import com.mycompany.subsystem.support.AbstractParsingTest;
-import com.mycompany.subsystem.support.KernelServices;
+
 
 /**
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
-public class SubsystemParsingTestCase extends AbstractParsingTest {
+public class SubsystemParsingTestCase extends AbstractSubsystemTest {
 
+    public SubsystemParsingTestCase() {
+        // FIXME SubsystemParsingTestCase constructor
+        super(SubsystemExtension.SUBSYSTEM_NAME, new SubsystemExtension());
+    }
     /**
      * Tests that the xml is parsed into the correct operations
      */
