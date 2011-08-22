@@ -1,5 +1,6 @@
-To release this artifact for a new AS 7 version, change the following files:
+To release this archetype for a new AS 7 version
 
+1)change the following files:
 /pom.xml: 
 -set project/version to the target AS 7 version
 -set project/properties/version.jboss.as to the target AS 7 version
@@ -11,3 +12,8 @@ To release this artifact for a new AS 7 version, change the following files:
 /archetype.properties:
 - set archetype.version to the target AS 7 version
 
+2) Run './create-archetype.sh install'
+
+3) Deploy the archetype by:
+$ cd target/archetype
+$ mvn deploy
