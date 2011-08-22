@@ -1,0 +1,13 @@
+To release this artifact for a new AS 7 version, change the following files:
+
+/pom.xml: 
+-set project/version to the target AS 7 version
+-set project/properties/version.jboss.as to the target AS 7 version
+
+/archetype-pom.xml:
+-set project/version/parent to the target AS 7 version
+-set project/version to the target AS 7 version
+
+/archetype.properties:
+- set archetype.version to the target AS 7 version
+

@@ -54,6 +54,6 @@ if [ ! -z $1 ] && [ "$1" = "generate" ]; then
     echo Generating project from archetype...
     cd target
     mvn archetype:generate -B -DarchetypeCatalog=local \
-        -DarchetypeArtifactId=jboss-javaee6-webapp -DarchetypeGroupId=org.jboss.spec.archetypes -DarchetypeVersion=7.0.0-SNAPSHOT \
-        -DartifactId=example-project -DgroupId=com.acme -Dpackage=com.acme.example -Dversion=1.0.0-SNAPSHOT -Dname="Java EE 6 webapp project"
+        -DarchetypeArtifactId=jboss-javaee6-webapp -DarchetypeGroupId=org.jboss.spec.archetypes -DarchetypeVersion=7.0.1.Final \
+        -DartifactId=example-project -DgroupId=com.acme -Dpackage=com.acme.example -Dversion=1.0.0-SNAPSHOT -Dname="Java EE 6 subsystem project"
 fi
