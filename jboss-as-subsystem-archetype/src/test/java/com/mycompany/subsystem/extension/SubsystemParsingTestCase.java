@@ -27,7 +27,6 @@ import org.junit.Test;
 public class SubsystemParsingTestCase extends AbstractSubsystemTest {
 
     public SubsystemParsingTestCase() {
-        // FIXME SubsystemParsingTestCase constructor
         super(SubsystemExtension.SUBSYSTEM_NAME, new SubsystemExtension());
     }
     /**
