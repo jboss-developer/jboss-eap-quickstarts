@@ -29,7 +29,7 @@
     </licenses>
 
     <properties>
-        <datasource.name>java:jboss/datasources/MyDatasource</datasource.name>
+        <datasource.name>java:jboss/datasources/ExampleDS</datasource.name>
         <database.name>myDatabase</database.name>
         <server.name>localhost</server.name>
         <username>username</username>
