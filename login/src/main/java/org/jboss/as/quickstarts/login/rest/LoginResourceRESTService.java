@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.jboss.as.quickstarts.login.AuthenticationRequired;
 import org.jboss.as.quickstarts.login.Login;
 import org.jboss.as.quickstarts.login.User;
 
@@ -20,6 +21,7 @@ import org.jboss.as.quickstarts.login.User;
  */
 @Path("/logins")
 @RequestScoped
+@AuthenticationRequired
 public class LoginResourceRESTService {
    @Inject
    private EntityManager em;
