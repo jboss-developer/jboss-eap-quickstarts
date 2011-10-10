@@ -14,7 +14,7 @@ import org.jboss.as.quickstarts.kitchensink.model.Member;
 
 /**
  * JAX-RS Example
- * 
+ *
  * This class produces a RESTful service to read the contents of the members table.
  */
 @Path("/members")
@@ -37,10 +37,4 @@ public class MemberResourceRESTService {
       return results;
    }
 
-   @GET
-   @Path("/{id:[0-9][0-9]*}")
-   @Produces("text/xml")
-   public Member lookupMemberById(@PathParam("id") long id) {
-      return em.find(Member.class, id);
-   }
 }
