@@ -4,10 +4,12 @@ Generates a *very basic* multi module Java EE 6 project composed of a parent pom
     cd multi-javaee6-archetype
     mvn clean install
 
-In command line
+In command line :
+
    mvn archetype:generate -Dfilter=multi-javaee6-archetype -U
 
-In Eclipse, 
+In Eclipse : 
+
    create new Maven Project
    Select "Default local catalog"
    Check "Include snapshot archetypes"
