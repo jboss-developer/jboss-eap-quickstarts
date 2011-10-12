@@ -9,17 +9,18 @@ To install in your local repository :
 
 To use in command line :
 
-   mvn archetype:generate -Dfilter=multi-javaee6-archetype -U
+    mvn archetype:generate -Dfilter=multi-javaee6-archetype -U
    
   Fill in the required properties and proceed
 
 To use in Eclipse : 
 
-   create new Maven Project
-   Next
-   Select "Default local catalog"
-   Check "Include snapshot archetypes"
-   Select multi-javaee6-archetype
-   Next
+    create new Maven Project  
+    Next
+    Select "Default local catalog"
+    Check "Include snapshot archetypes"
+    Select multi-javaee6-archetype
+    Next
+   
    Fill in the required properties and proceed
    
