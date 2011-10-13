@@ -99,6 +99,8 @@
   	</dependencies>
   </dependencyManagement>
   <repositories>
+  <!-- You should seriously consider using a repository manager or declare repositories in your settings.xml.
+       See http://www.sonatype.com/people/2009/02/why-putting-repositories-in-your-poms-is-a-bad-idea/   -->
     <repository>
       <id>jboss-public-repository-group</id>
       <name>JBoss Public Maven Repository Group</name>

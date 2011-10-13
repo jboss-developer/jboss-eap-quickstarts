@@ -55,7 +55,6 @@ body {
 			</div>
 		</form>
 		<hr />
-		<jsp:useBean id="greeting" class="java.lang.String" scope="request" />
 		<c:if test="${symbol_dollar}{not empty requestScope.greeting}">
 			<div class="alert-message success">
 				<p>${symbol_dollar}{requestScope.greeting}</p>
