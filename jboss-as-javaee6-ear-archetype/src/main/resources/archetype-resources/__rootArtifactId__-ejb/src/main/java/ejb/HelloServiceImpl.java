@@ -4,9 +4,10 @@
 package ${package}.ejb;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 /**
  * Session Bean implementation class HelloServiceImpl
@@ -14,14 +15,15 @@ import org.apache.log4j.Logger;
 @Stateless(mappedName = "helloService")
 public class HelloServiceImpl implements HelloService {
 
-	private static Logger LOG = Logger.getLogger(HelloServiceImpl.class);
+	@Inject
+	Logger log;
 
 	private static String DEFAULT_NAME = "World"; 
 	
 	public String greet(String name) {
 		String finalName = StringUtils.defaultIfEmpty(name, DEFAULT_NAME);
 		String greeting =  "Hello "+finalName;
-		LOG.debug(greeting);
+		log.debug(greeting);
 		return greeting;
 	}
 }

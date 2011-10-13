@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
 public class HelloServiceTest {
 
@@ -15,7 +16,9 @@ public class HelloServiceTest {
 	
 	@Before
 	public void setUp() {
-		helloService = new HelloServiceImpl();
+		HelloServiceImpl service = new HelloServiceImpl();
+		service.log = LoggerFactory.getLogger(getClass());
+		helloService = service;
 	}
 	
 	@Test

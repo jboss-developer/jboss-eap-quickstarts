@@ -3,14 +3,14 @@
 #set( $symbol_escape = '\' )
 package ${package}.util;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VersionTest {
 
-	private static Logger LOG = Logger.getLogger(VersionTest.class);
+	private static Logger LOG = LoggerFactory.getLogger(VersionTest.class);
 	
 	@Test
 	public void testVersion()

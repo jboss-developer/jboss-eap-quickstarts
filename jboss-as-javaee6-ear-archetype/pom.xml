@@ -34,15 +34,18 @@
       <extension>
         <groupId>org.apache.maven.archetype</groupId>
         <artifactId>archetype-packaging</artifactId>
-        <version>2.0-alpha-4</version>
+        <version>${archetype.version}</version>
       </extension>
     </extensions>
     <plugins>
       <plugin>
         <artifactId>maven-archetype-plugin</artifactId>
-        <version>2.0-alpha-4</version>
+        <version>${archetype.version}</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
   </build>
+  <properties>
+  	<archetype.version>2.1</archetype.version>
+  </properties>
 </project>
