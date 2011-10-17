@@ -98,6 +98,7 @@
   		</dependency>
   	</dependencies>
   </dependencyManagement>
+   #if( $useJBossRepositories == "true" || $useJBossRepositories == "y" || $useJBossRepositories == "yes" )
   <repositories>
   <!-- You should seriously consider using a repository manager or declare repositories in your settings.xml.
        See http://www.sonatype.com/people/2009/02/why-putting-repositories-in-your-poms-is-a-bad-idea/   -->
@@ -132,6 +133,7 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
+  #end
   <properties>
   	<java.version>1.6</java.version>
   	<app.version>${symbol_dollar}{project.version}</app.version>

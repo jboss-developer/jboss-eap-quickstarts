@@ -13,6 +13,11 @@
     limitations under the License.
 -->
 <archetype-descriptor name="multi-javaee5-archetype">
+  <requiredProperties>
+    <requiredProperty key="useJBossRepositories">
+		<defaultValue>true</defaultValue>
+	</requiredProperty> 
+  </requiredProperties>
   <modules>
     <module id="${rootArtifactId}-util" dir="__rootArtifactId__-util" name="${rootArtifactId}-util">
       <fileSets>
