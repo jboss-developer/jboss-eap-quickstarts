@@ -1,5 +1,7 @@
 package com.mycompany.controller;
 
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
@@ -8,9 +10,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-
-import org.jboss.logging.Logger;
-import org.jboss.seam.solder.logging.Category;
 
 import com.mycompany.model.Member;
 
@@ -24,7 +23,6 @@ import com.mycompany.model.Member;
 public class MemberRegistration {
 
    @Inject
-   @Category("jboss-javaee6-webapp-src")
    private Logger log;
 
    @Inject
