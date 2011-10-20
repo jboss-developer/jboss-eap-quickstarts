@@ -1,79 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>6-beta-2</version>
-    </parent>
+   <parent>
+      <groupId>org.jboss</groupId>
+      <artifactId>jboss-parent</artifactId>
+      <version>6-beta-2</version>
+   </parent>
 
-    <groupId>org.jboss.spec.archetypes</groupId>
-    <artifactId>jboss-javaee6-webapp</artifactId>
-    <version>7.0.1-SNAPSHOT</version>
-    <packaging>maven-archetype</packaging>
+   <groupId>org.jboss.spec.archetypes</groupId>
+   <artifactId>jboss-javaee6-webapp</artifactId>
+   <version>7.0.1-SNAPSHOT</version>
+   <packaging>maven-archetype</packaging>
 
-    <name>JBoss AS 7 / Java EE 6 Webapp</name>
+   <name>JBoss AS 7 / Java EE 6 Webapp</name>
 
-    <description>An archetype that generates a starter Java EE 6 webapp project for JBoss AS 7</description>
+   <description>An archetype that generates a starter Java EE 6 webapp project for JBoss AS 7</description>
 
-    <url>http://jboss.org/jbossas</url>
+   <url>http://jboss.org/jbossas</url>
 
-    <developers>
-        <developer>
-            <name>Steven Boscarine</name>
-            <email>stevenboscarine@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Dan Allen</name>
-            <email>dan.j.allen@gmail.com</email>
-            <organization>JBoss, by Red Hat</organization>
-            <organizationUrl>http://redhat.com/jboss</organizationUrl>
-            <url>http://community.jboss.org/people/dan.j.allen</url>
-        </developer>
-        <developer>
-            <name>Pete Muir</name>
-            <email>pete.muir@jboss.org</email>
-            <organization>Red Hat Inc.</organization>
-            <organizationUrl>http://redhat.com/jboss</organizationUrl>
-            <url>http://in.relation.to/Bloggers/Pete</url>
-        </developer>
-    </developers>
+   <developers>
+      <developer>
+         <name>Steven Boscarine</name>
+         <email>stevenboscarine@gmail.com</email>
+      </developer>
+      <developer>
+         <id>fbricon</id>
+         <name>Fred Bricon</name>
+         <email>fbricon@gmail.com</email>
+         <roles>
+            <role>Developer</role>
+         </roles>
+         <organization>Red Hat</organization>
+         <timezone>+1</timezone>
+      </developer>
+      <developer>
+         <name>Dan Allen</name>
+         <email>dan.j.allen@gmail.com</email>
+         <organization>JBoss, by Red Hat</organization>
+         <organizationUrl>http://redhat.com/jboss</organizationUrl>
+         <url>http://community.jboss.org/people/dan.j.allen</url>
+      </developer>
+      <developer>
+         <name>Pete Muir</name>
+         <email>pete.muir@jboss.org</email>
+         <organization>Red Hat, Inc.</organization>
+         <organizationUrl>http://redhat.com/jboss</organizationUrl>
+         <url>http://in.relation.to/Bloggers/Pete</url>
+      </developer>
+   </developers>
 
-    <repositories>
-        <repository>
-            <id>jboss-public-repository</id>
-            <name>JBoss Repository</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public</url>
-            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+   <repositories>
+      <repository>
+         <id>jboss-public-repository</id>
+         <name>JBoss Repository</name>
+         <url>http://repository.jboss.org/nexus/content/groups/public</url>
+         <!-- These optional flags are designed to speed up your builds by 
+            reducing remote server calls -->
+         <releases>
+            <enabled>true</enabled>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+      </repository>
+   </repositories>
 
-    <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>2.0-alpha-5</version>
-            </extension>
-        </extensions>
+   <build>
+      <extensions>
+         <extension>
+            <groupId>org.apache.maven.archetype</groupId>
+            <artifactId>archetype-packaging</artifactId>
+            <version>2.1</version>
+         </extension>
+      </extensions>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <version>2.0-alpha-5</version>
-                    <extensions>true</extensions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+      <pluginManagement>
+         <plugins>
+            <plugin>
+               <artifactId>maven-archetype-plugin</artifactId>
+               <version>2.1</version>
+               <extensions>true</extensions>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+   </build>
 
 </project>
