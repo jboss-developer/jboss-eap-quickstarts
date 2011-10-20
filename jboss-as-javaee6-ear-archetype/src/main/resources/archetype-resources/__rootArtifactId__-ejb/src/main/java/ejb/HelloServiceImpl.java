@@ -6,8 +6,7 @@ package ${package}.ejb;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
+import java.util.logging.Logger;
 
 /**
  * Session Bean implementation class HelloServiceImpl
@@ -21,9 +20,9 @@ public class HelloServiceImpl implements HelloService {
 	private static String DEFAULT_NAME = "World"; 
 	
 	public String greet(String name) {
-		String finalName = StringUtils.defaultIfEmpty(name, DEFAULT_NAME);
+		String finalName = (name == null) || name.isEmpty() ? DEFAULT_NAME : name;
 		String greeting =  "Hello "+finalName;
-		log.debug(greeting);
+		log.fine(greeting);
 		return greeting;
 	}
 }

@@ -15,11 +15,6 @@
 <archetype>
   <id>demo</id>
   <resources>
-    <resource>demo-util\pom.xml</resource>
-    <resource>demo-util\src\main\java\foo\bar\util\Version.java</resource>
-    <resource>demo-util\src\main\resources\demo-util.properties</resource>
-    <resource>demo-util\src\test\java\foo\bar\util\VersionTest.java</resource>
-    <resource>demo-util\src\test\resources\log4j.properties</resource>
     <resource>demo-ear\pom.xml</resource>
     <resource>demo-ejb\pom.xml</resource>
     <resource>demo-ejb\src\main\java\foo\bar\ejb\HelloService.java</resource>

@@ -19,34 +19,6 @@
 	</requiredProperty> 
   </requiredProperties>
   <modules>
-    <module id="${rootArtifactId}-util" dir="__rootArtifactId__-util" name="${rootArtifactId}-util">
-      <fileSets>
-        <fileSet filtered="true" packaged="true" encoding="UTF-8">
-          <directory>src/main/java</directory>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-          <directory>src/main/resources</directory>
-          <includes>
-            <include>**/*.properties</include>
-          </includes>
-        </fileSet>
-        <fileSet filtered="true" packaged="true" encoding="UTF-8">
-          <directory>src/test/java</directory>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-        </fileSet>
-        <fileSet filtered="true" encoding="UTF-8">
-          <directory>src/test/resources</directory>
-          <includes>
-            <include>**/*.properties</include>
-          </includes>
-        </fileSet>
-      </fileSets>
-    </module>
     <module id="${rootArtifactId}-ejb" dir="__rootArtifactId__-ejb" name="${rootArtifactId}-ejb">
       <fileSets>
         <fileSet filtered="true" packaged="true" encoding="UTF-8">
