@@ -29,10 +29,9 @@
          <id>fbricon</id>
          <name>Fred Bricon</name>
          <email>fbricon@gmail.com</email>
-         <roles>
-            <role>Developer</role>
-         </roles>
-         <organization>Red Hat</organization>
+         <organization>Red Hat, Inc.</organization>
+         <organizationUrl>http://redhat.com/jboss</organizationUrl>
+         <url>http://community.jboss.org/people/fbricon</url>
          <timezone>+1</timezone>
       </developer>
       <developer>

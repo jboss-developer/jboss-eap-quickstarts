@@ -46,6 +46,15 @@
          <organizationUrl>http://redhat.com/jboss</organizationUrl>
          <url>http://in.relation.to/Bloggers/Pete</url>
       </developer>
+      <developer>
+         <id>fbricon</id>
+         <name>Fred Bricon</name>
+         <email>fbricon@gmail.com</email>
+         <organization>Red Hat, Inc.</organization>
+         <organizationUrl>http://redhat.com/jboss</organizationUrl>
+         <url>http://community.jboss.org/people/fbricon</url>
+         <timezone>+1</timezone>
+      </developer>
    </developers>
 
    <licenses>
