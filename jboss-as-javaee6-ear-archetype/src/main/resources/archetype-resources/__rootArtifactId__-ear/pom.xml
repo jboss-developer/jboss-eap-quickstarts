@@ -43,7 +43,8 @@
                   have any modules (EJB-JARs and WARs) use them -->
                <defaultLibBundleDir>lib</defaultLibBundleDir>
                <modules>
-                  <!-- Register our War as a web module, and set the context root -->
+                  <!-- Register our War as a web module, and set the context 
+                     root -->
                   <webModule>
                      <groupId>${groupId}</groupId>
                      <artifactId>${rootArtifactId}-web</artifactId>
@@ -53,6 +54,10 @@
                </modules>
             </configuration>
          </plugin>
+         <plugin>
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+         </plugin>       
       </plugins>
    </build>
 

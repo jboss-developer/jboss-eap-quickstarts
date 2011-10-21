@@ -24,7 +24,7 @@ $symbol_escape = '\' )
 
    #if( $useJBossRepositories == "true" || $useJBossRepositories == "y"
    || $useJBossRepositories == "yes" )
-   
+
    <repositories>
       <!-- The JBoss Community public repository is a composite repository 
          of several major repositories -->
@@ -60,16 +60,18 @@ $symbol_escape = '\' )
    #end
    <dependencyManagement>
       <dependencies>
-      
-         <!-- Define the version of the EJB jar so that we don't need to repeat ourselves in every module -->
+
+         <!-- Define the version of the EJB jar so that we don't need to 
+            repeat ourselves in every module -->
          <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-ejb</artifactId>
             <version>${version}</version>
             <type>ejb</type>
          </dependency>
-         
-         <!-- Define the version of the WAR so that we don't need to repeat ourselves in every module -->
+
+         <!-- Define the version of the WAR so that we don't need to repeat 
+            ourselves in every module -->
          <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-web</artifactId>
@@ -121,6 +123,14 @@ $symbol_escape = '\' )
                   <source>1.6</source>
                   <target>1.6</target>
                </configuration>
+            </plugin>
+            <!-- The JBoss AS plugin deploys your war to a local JBoss AS 
+               container -->
+            <!-- To use, set the JBOSS_HOME environment variable and run: 
+               mvn package jboss-as:deploy -->
+            <plugin>
+               <groupId>org.jboss.as.plugins</groupId>
+               <artifactId>jboss-as-maven-plugin</artifactId>
             </plugin>
          </plugins>
       </pluginManagement>

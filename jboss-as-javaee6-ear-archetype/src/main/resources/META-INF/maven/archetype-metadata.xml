@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +34,12 @@
             <include>**/*.xml</include>
           </includes>
         </fileSet>
+        <fileSet filtered="false"  encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.sql</include>
+          </includes>
+        </fileSet>
         <fileSet filtered="true" packaged="true" encoding="UTF-8">
           <directory>src/test/java</directory>
           <includes>
@@ -58,8 +65,16 @@
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/webapp</directory>
           <includes>
-            <include>**/*.jsp</include>
             <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="false" encoding="UTF-8">
+          <directory>src/main/webapp</directory>
+          <includes>
+            <include>**/*.html</include>
+            <include>**/*.css</include>
+            <include>**/*.png</include>
+            <include>**/*.xhtml</include>
           </includes>
         </fileSet>
       </fileSets>
