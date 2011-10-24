@@ -12,12 +12,15 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<archetype-descriptor name="multi-javaee5-archetype">
-  <requiredProperties>
-    <requiredProperty key="useJBossRepositories">
-		<defaultValue>true</defaultValue>
-	</requiredProperty> 
-  </requiredProperties>
+<archetype-descriptor name="multi-javaee6-archetype">
+   <fileSets>
+    <fileSet filtered="true" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>README.md</include>
+      </includes>
+    </fileSet>
+  </fileSets>
   <modules>
     <module id="${rootArtifactId}-ejb" dir="__rootArtifactId__-ejb" name="${rootArtifactId}-ejb">
       <fileSets>
