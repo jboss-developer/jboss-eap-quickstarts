@@ -25,7 +25,7 @@
          variable -->
       <jboss.home>${env.JBOSS_HOME}</jboss.home>
    </properties>
-   
+
    <dependencyManagement>
       <dependencies>
          <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
@@ -50,10 +50,10 @@
    </dependencyManagement>
 
    <dependencies>
-   
-      <!-- First declare the APIs we depend on and need for compilation.
+
+      <!-- First declare the APIs we depend on and need for compilation. 
          All of them are provided by JBoss AS 7 -->
-   
+
       <!-- Import the CDI API, we use provided scope as the API is included 
          in JBoss AS 7 -->
       <dependency>
@@ -69,9 +69,9 @@
          <artifactId>jboss-annotations-api_1.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-      
-      <!-- Import the JAX-RS API, we use provided scope 
-         as the API is included in JBoss AS 7 -->
+
+      <!-- Import the JAX-RS API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
       <dependency>
          <groupId>org.jboss.spec.javax.ws.rs</groupId>
          <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
@@ -85,7 +85,7 @@
          <artifactId>hibernate-jpa-2.0-api</artifactId>
          <scope>provided</scope>
       </dependency>
-      
+
       <!-- Import the EJB API, we use provided scope as the API is included 
          in JBoss AS 7 -->
       <dependency>
@@ -93,7 +93,7 @@
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-      
+
       <!-- JSR-303 (Bean Validation) Implementation -->
       <!-- Provides portable constraints such as @Email -->
       <!-- Hibernate Validator is shipped in JBoss AS 7 -->
@@ -109,9 +109,9 @@
             </exclusion>
          </exclusions>
       </dependency>
-   
+
       <!-- Now we declare any tools needed -->
-   
+
       <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
          for typesafe criteria queries -->
       <dependency>
@@ -138,7 +138,7 @@
          <version>1.0.0.CR4</version>
          <scope>test</scope>
       </dependency>
-      
+
    </dependencies>
 
    <build>
@@ -210,8 +210,8 @@
                <id>jboss-public-repository</id>
                <name>JBoss Repository</name>
                <url>http://repository.jboss.org/nexus/content/groups/public</url>
-               <!-- These optional flags are designed to speed up your builds by 
-                  reducing remote server calls -->
+               <!-- These optional flags are designed to speed up your builds 
+                  by reducing remote server calls -->
                <releases>
                   <enabled>true</enabled>
                </releases>
@@ -220,7 +220,7 @@
                </snapshots>
             </repository>
          </repositories>
-      
+
          <pluginRepositories>
             <pluginRepository>
                <id>jboss-public-repository</id>
@@ -234,11 +234,11 @@
                </snapshots>
             </pluginRepository>
          </pluginRepositories>
-      
+
          <!-- An optional Arquillian testing profile that executes tests 
             in your JBoss AS instance -->
-         <!-- This profile will start a new JBoss AS instance, and execute the
-              test, shutting it down when done -->
+         <!-- This profile will start a new JBoss AS instance, and execute 
+            the test, shutting it down when done -->
          <!-- Run with: mvn clean test -Parq-jbossas-managed -->
          <id>arq-jbossas-managed</id>
          <dependencies>
@@ -250,9 +250,10 @@
             </dependency>
          </dependencies>
       </profile>
-      
+
       <profile>
-         <!-- We add the JBoss repository as we need the JBoss AS connectors for Arquillian -->
+         <!-- We add the JBoss repository as we need the JBoss AS connectors 
+            for Arquillian -->
          <repositories>
             <!-- The JBoss Community public repository is a composite repository 
                of several major repositories -->
@@ -261,8 +262,8 @@
                <id>jboss-public-repository</id>
                <name>JBoss Repository</name>
                <url>http://repository.jboss.org/nexus/content/groups/public</url>
-               <!-- These optional flags are designed to speed up your builds by 
-                  reducing remote server calls -->
+               <!-- These optional flags are designed to speed up your builds 
+                  by reducing remote server calls -->
                <releases>
                   <enabled>true</enabled>
                </releases>
@@ -271,7 +272,7 @@
                </snapshots>
             </repository>
          </repositories>
-      
+
          <pluginRepositories>
             <pluginRepository>
                <id>jboss-public-repository</id>
@@ -285,7 +286,7 @@
                </snapshots>
             </pluginRepository>
          </pluginRepositories>
-      
+
          <!-- An optional Arquillian testing profile that executes tests 
             in a remote JBoss AS instance -->
          <!-- Run with: mvn clean test -Parq-jbossas-remote -->
