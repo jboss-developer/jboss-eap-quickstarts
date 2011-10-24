@@ -2,8 +2,15 @@ package org.jboss.as.quickstarts.login;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The user entity. As user is a reserved word in some databases we change the table name in the database
+ */
 @Entity
+@Table(name = "person")
+@XmlRootElement
 public class User {
    @Id
    private String username;
