@@ -165,6 +165,14 @@
                <failOnMissingWebXml>false</failOnMissingWebXml>
             </configuration>
          </plugin>
+         <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
+         <!-- To use, set the JBOSS_HOME environment variable and run: mvn 
+            package jboss-as:deploy -->
+         <plugin>
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+            <version>7.0.2.Final</version>
+         </plugin>
       </plugins>
    </build>
 
@@ -187,21 +195,13 @@
                      <skip>true</skip>
                   </configuration>
                </plugin>
-               <!-- The JBoss AS plugin deploys your war to a local JBoss 
-                  AS container -->
-               <!-- To use, set the JBOSS_HOME environment variable and run: 
-                  mvn package jboss-as:deploy -->
-               <plugin>
-                  <groupId>org.jboss.as.plugins</groupId>
-                  <artifactId>jboss-as-maven-plugin</artifactId>
-                  <version>7.0.2.Final</version>
-               </plugin>
             </plugins>
          </build>
       </profile>
-      
+
       <profile>
-         <!-- We add the JBoss repository as we need the JBoss AS connectors for Arquillian -->
+         <!-- We add the JBoss repository as we need the JBoss AS connectors 
+            for Arquillian -->
          <repositories>
             <!-- The JBoss Community public repository is a composite repository 
                of several major repositories -->
