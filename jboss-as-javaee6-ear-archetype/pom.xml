@@ -19,7 +19,7 @@
 
    <groupId>org.jboss.spec.archetypes</groupId>
    <artifactId>jboss-javaee6-ear-webapp</artifactId>
-   <version>7.1.0-SNAPSHOT</version>
+   <version>7.0.2-SNAPSHOT</version>
    <packaging>maven-archetype</packaging>
 
    <name>JBoss AS 7 / Java EE 6 EAR Webapp</name>
