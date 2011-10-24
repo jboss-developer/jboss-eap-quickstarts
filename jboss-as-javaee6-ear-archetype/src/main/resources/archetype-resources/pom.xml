@@ -124,13 +124,19 @@ $symbol_escape = '\' )
                   <target>1.6</target>
                </configuration>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss AS 
+            <!-- The JBoss AS plugin deploys your ear to a local JBoss AS 
                container -->
-            <!-- To use, set the JBOSS_HOME environment variable and run: 
-               mvn package jboss-as:deploy -->
+            <!-- Due to Maven's lack of intelligence with EARs we need to 
+               configure the jboss-as maven plugin to skip deployment for all modules. We 
+               then enable it specifically in the ear module. -->
             <plugin>
                <groupId>org.jboss.as.plugins</groupId>
                <artifactId>jboss-as-maven-plugin</artifactId>
+               <version>7.0.2.Final</version>
+               <inherited>true</inherited>
+               <configuration>
+                  <skip>true</skip>
+               </configuration>
             </plugin>
          </plugins>
       </pluginManagement>

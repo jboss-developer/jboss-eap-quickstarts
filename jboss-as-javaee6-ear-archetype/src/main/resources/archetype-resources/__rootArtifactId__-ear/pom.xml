@@ -54,10 +54,17 @@
                </modules>
             </configuration>
          </plugin>
+         <!-- The JBoss AS plugin deploys your ear to a local JBoss AS container -->
+         <!-- Due to Maven's lack of intelligence with EARs we need to configure 
+            the jboss-as maven plugin to skip deployment for all modules. We then enable 
+            it specifically in the ear module. -->
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-         </plugin>       
+            <configuration>
+               <skip>false</skip>
+            </configuration>
+         </plugin>
       </plugins>
    </build>
 
