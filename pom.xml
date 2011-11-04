@@ -28,6 +28,7 @@
       <module>kitchensink</module>
       <module>helloworld-osgi</module>
       <module>rs-helloworld</module>
-   </modules>
+      <module>kitchensink-ear</module>
+  </modules>
    
 </project>
