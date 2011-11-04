@@ -29,6 +29,7 @@
       <module>numberguess</module>
       <module>login</module>
       <module>kitchensink</module>
+      <module>kitchensink-ear</module>
       <module>helloworld-osgi</module>
       <module>rs-helloworld</module>
       <module>servlet-async</module>
@@ -47,5 +48,4 @@
       <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
       <url>http://github.com/jbossas/quickstart</url>
    </scm>
-    
 </project>
