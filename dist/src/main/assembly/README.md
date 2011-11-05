@@ -10,6 +10,8 @@ The Getting Started Developing Applications Guide -
 contains tutorials for:
 
 * `helloworld` - CDI + Servlet
+* `servlet-async` - CDI + Asynchronous Servlet + Asynchronous EJB 
+* `servlet-filterlistener` - Servlet Filter and Listener
 * `numberguess` - CDI + JSF
 * `login` - CDI + JSF + JPA + EJB + JTA
 * `kitchensink` - CDI + JSF + JPA + EJB + JPA + JAX-RS + BV
