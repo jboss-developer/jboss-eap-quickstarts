@@ -11,6 +11,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import org.jboss.as.quickstarts.servlet.HelloWorldMDBServletClient;
+
 /**
  * <p>
  * A simple Message Driven Bean that asynchronously receives and processes the
