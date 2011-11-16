@@ -7,7 +7,7 @@ jboss-as-helloworld-mdb
 What is it?
 -----------
 
-This example demonstrates the use of *JMS 1.1* and *EJB 3.1 Message-Driven Bean* in JBoss AS 7.
+This example demonstrates the use of *JMS 1.1* and *EJB 3.1 Message-Driven Bean* in JBoss AS 7.1.0.
 
 System requirements
 -------------------
@@ -15,7 +15,7 @@ System requirements
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
 3.0 or better.
 
-The application this project produces is designed to be run on a JBoss AS 7. 
+The application this project produces is designed to be run on a JBoss AS 7.1.0. 
  
 NOTE:
 This project retrieves artifacts from the JBoss Community Maven repository, a
@@ -26,7 +26,7 @@ With the prerequisites out of the way, you're ready to build and deploy.
 Deploying the application
 -------------------------
  
-First you need to start JBoss AS 7. To do this, run
+First you need to start JBoss AS 7.1.0. To do this, run
   
     $JBOSS_HOME/bin/standalone.sh
   
