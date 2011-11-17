@@ -18,8 +18,8 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
 The application this project produces is designed to be run on a JBoss AS 7.1.0. 
  
 NOTE:
-This project retrieves artifacts from the JBoss Community Maven repository, a
-superset of the Maven central repository.
+This Project will use the already default configured connection factory named "InVmConnectionFactory" with the jndi "java:/ConnectionFactory" and a queue named "testQueue" with the jndi "queue/test".
+The artifacts will come from the JBoss Community Maven repository, a superset of the Maven central repository.
 
 With the prerequisites out of the way, you're ready to build and deploy.
 
