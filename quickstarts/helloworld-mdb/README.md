@@ -1,7 +1,4 @@
-HelloworldMDB Example
-==================
-
-jboss-as-helloworld-mdb
+jboss-as-helloworld-mdb Example
 ===============================
 
 What is it?
@@ -25,8 +22,8 @@ With the prerequisites out of the way, you're ready to build and deploy.
 
 Deploying the application
 -------------------------
- 
-First you need to start JBoss AS 7.1.0. To do this, run
+
+First of all you need to enable the "admin" user from $JBOSS_HOME/standalone/configuration/mgmt-users.properties file, and then start JBoss AS 7.1.0. by running this script
   
     $JBOSS_HOME/bin/standalone.sh
   
