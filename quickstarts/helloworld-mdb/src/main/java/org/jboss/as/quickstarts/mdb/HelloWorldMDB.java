@@ -11,7 +11,6 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import org.jboss.as.quickstarts.servlet.HelloWorldMDBServletClient;
 
 /**
  * <p>
