@@ -12,8 +12,6 @@
    <version>7.0.0-SNAPSHOT</version>
    <packaging>pom</packaging>
    <name>JBoss AS Quickstarts Parent</name>
-   
-   
    <modules>
       <module>helloworld</module>
       <module>numberguess</module>
@@ -22,5 +20,4 @@
       <module>helloworld-osgi</module>
       <module>helloworld-mdb</module>
    </modules>
-   
 </project>
