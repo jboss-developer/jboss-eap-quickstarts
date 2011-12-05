@@ -1,11 +1,8 @@
 package org.jboss.as.quickstarts.mdb;
 
 import java.util.logging.Logger;
-
-import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -30,15 +27,11 @@ public class HelloWorldMDB implements MessageListener {
 	private final static Logger LOGGER = Logger.getLogger(HelloWorldMDB.class
 			.toString());
 
-	@Resource
-	private MessageDrivenContext mdc;
-
 	/**
 	 * @see MessageListener#onMessage(Message)
 	 */
 	public void onMessage(Message rcvMessage) {
 		TextMessage msg = null;
-
 		try {
 			if (rcvMessage instanceof TextMessage) {
 				msg = (TextMessage) rcvMessage;
@@ -48,10 +41,7 @@ public class HelloWorldMDB implements MessageListener {
 						+ rcvMessage.getClass().getName());
 			}
 		} catch (JMSException e) {
-			e.printStackTrace();
-			mdc.setRollbackOnly();
-		} catch (Throwable te) {
-			te.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 }
