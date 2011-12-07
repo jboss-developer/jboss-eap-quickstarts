@@ -8,9 +8,18 @@ commandline, or from the Eclipse environment.
 
 To run the example from the commandline simply type:
 
-mvn compile
-mvn exec:java
+mvn compile exec:java
 
+For the example to work JBoss7 must be running in either the standalone or domain configuration. 
+
+**Deployment Note**
+By default, the JMS messaging provider is not deployed with the standalone JBoss7 server. You will either need to run
+a domain server, or configure the standalone server for JMS message. Please refer to the JBoss7 Documentation for further
+details.
+
+
+Customization
+=============
 The example provides for a certain amount of customization for the mvn:exec plugin via system properties explained below:
 
 Required Properties
@@ -47,10 +56,6 @@ message.count
 	The number of JMS messages you want to produce and consume.
 	Default 1
 	
-**Deployment Note**
-By default, the JMS messaging provider is not deployed with the standalone JBoss7 server. You will either need to run
-a domain server, or configure the standalone server for JMS message. Please refer to the JBoss7 Documentation for further
-details.
 
 
 	
