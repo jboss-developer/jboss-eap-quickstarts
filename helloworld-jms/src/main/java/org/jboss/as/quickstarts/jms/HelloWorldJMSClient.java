@@ -17,7 +17,7 @@ public class HelloWorldJMSClient
     private static final String DEFAULT_MESSAGE = "Hello, World!";
     private static final int DEFAULT_MESSAGE_COUNT = 1;
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
 
         ConnectionFactory connectionFactory = null;
@@ -60,6 +60,7 @@ public class HelloWorldJMSClient
         catch(Exception e)
         {
             log.severe(e.getMessage());
+            throw e;
         }
         finally
         {

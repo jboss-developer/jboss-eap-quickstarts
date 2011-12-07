@@ -10,15 +10,37 @@ To run the example from the commandline simply type:
 
 mvn compile exec:java
 
-For the example to work JBoss7 must be running in either the standalone or domain configuration. 
+For the example to work JBoss7 must be running. 
+
+Assuming the compilation phase executed correctly, you should see the following messages printed to the console:
+
+Dec 7, 2011 6:45:02 PM org.jboss.as.quickstarts.jms.JMSClientUtil getConnectionFactory
+INFO: Attempting to acquire ConnectionFactory with a connection type of: netty
+Dec 7, 2011 6:45:02 PM org.jboss.as.quickstarts.jms.JMSClientUtil getConnectionFactory
+INFO: Creating Netty Based ConnectionFactory.
+Dec 7, 2011 6:45:02 PM org.jboss.as.quickstarts.jms.JMSClientUtil getDestination
+INFO: Attempting to acquire Destination with a connection type of: netty
+Dec 7, 2011 6:45:02 PM org.jboss.as.quickstarts.jms.JMSClientUtil getDestination
+INFO: HornetQ Destination testQueue
+Dec 7, 2011 6:45:02 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+INFO: Sending 1 messages with content: Hello, World!
+Dec 7, 2011 6:45:02 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+INFO: Received message with content Hello, World!
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.856s
+
+Any exception in the code will result in build failure. Typically failures are the result of a misconfiguration on
+the server or the server not running. 
 
 **Deployment Note**
 By default, the JMS messaging provider is not deployed with the standalone JBoss7 server. You will either need to run
 a domain server, or configure the standalone server for JMS message. Please refer to the JBoss7 Documentation for further
 details.
 
-
-Customization
+Example Customization
 =============
 The example provides for a certain amount of customization for the mvn:exec plugin via system properties explained below:
 
