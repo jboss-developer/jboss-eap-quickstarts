@@ -26,8 +26,8 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       
 	  <!-- test artifacts versions -->
-      <arquillian.core.version>1.0.0.CR5</arquillian.core.version>
-      <arquillian.jboss7.version>7.0.2.Final</arquillian.jboss7.version>
+      <arquillian.core.version>1.0.0.CR6</arquillian.core.version>
+      <arquillian.jboss7.version>7.1.0.Beta1</arquillian.jboss7.version>
       <junit.version>4.8.2-redhat-1</junit.version>
    </properties>
 
@@ -121,7 +121,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.0.2.Final</version>
+            <version>7.1.0.Beta1</version>
          </plugin>
          <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
             annotation processors -->
