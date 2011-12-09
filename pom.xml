@@ -25,6 +25,7 @@
 
    <modules>
       <module>helloworld</module>
+      <module>helloworld-jsp</module>
       <module>numberguess</module>
       <module>login</module>
       <module>kitchensink</module>
@@ -35,6 +36,7 @@
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
       <module>helloworld-mdb</module>
+     
    </modules>
 
    <scm>
