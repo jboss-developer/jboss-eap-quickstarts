@@ -9,7 +9,7 @@
    </parent>
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-quickstarts-dist</artifactId>
-   <version>7.1.0.Beta1</version>
+   <version>7.0.2.CR2</version>
    <packaging>pom</packaging>
    <name>JBoss AS Quickstarts Distribution</name>
    <description>JBoss AS Quickstarts Distribution</description>
@@ -45,19 +45,5 @@
          </plugin>
       </plugins>
    </build>
-
-
-   <developers>
-       <developer>
-           <name>Pete Muir</name>
-           <organization>Red Hat</organization>
-       </developer>
-   </developers>
-
-   <scm>
-      <connection>scm:git://github.com/jbossas/quickstart.git</connection>
-      <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
-      <url>http://github.com/jbossas/quickstart</url>
-   </scm>
-
+   
 </project>

@@ -3,8 +3,8 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>rs-helloworld</artifactId>
-   <version>7.1.0.Beta1</version>
+   <artifactId>jboss-as-rs-helloworld</artifactId>
+   <version>7.0.2.CR2</version>
    <packaging>war</packaging>
    <name>JBoss AS Quickstarts: rs-helloworld</name>
    <description>JBoss AS Quickstarts: rs-helloworld</description>
@@ -31,17 +31,16 @@
          <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
             Any dependencies from org.jboss.spec will have their version defined by this 
             BOM -->
-         <!-- JBoss distributes a complete set of Java EE 6 APIs including 
-            a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-            a collection) of artifacts. We use this here so that we always get the correct 
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE Web Profile 6 APIs), and we use 
-            version 2.0.0.Beta1 which is the latest release of the stack. You can actually 
-            use this stack with any version of JBoss AS that implements Java EE 6, not 
+         <!-- JBoss distributes a complete set of Java EE 6 APIs including
+            a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+            a collection) of artifacts. We use this here so that we always get the correct
+            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+            read this as the JBoss stack of the Java EE 6 APIs). You can actually
+            use this stack with any version of JBoss AS that implements Java EE 6, not
             just JBoss AS 7! -->
          <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <artifactId>jboss-javaee-6.0</artifactId>
             <version>3.0.0.Beta1-redhat-1</version>
             <type>pom</type>
             <scope>import</scope>
@@ -79,7 +78,7 @@
    <build>
       <!-- Set the name of the war, used as the context root when the app 
          is deployed -->
-      <finalName>rs-helloworld</finalName>
+      <finalName>${artifactId}</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-war-plugin</artifactId>
@@ -94,7 +93,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Beta1</version>
+            <version>7.1.0.Beta1b</version>
          </plugin>
          <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
             annotation processors -->
@@ -108,20 +107,6 @@
          </plugin>
       </plugins>
    </build>
-
-
-   <developers>
-       <developer>
-           <name>Pete Muir</name>
-           <organization>Red Hat</organization>
-       </developer>
-   </developers>
-
-   <scm>
-      <connection>scm:git://github.com/jbossas/quickstart.git</connection>
-      <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
-      <url>http://github.com/jbossas/quickstart</url>
-   </scm>
 
 </project>
 

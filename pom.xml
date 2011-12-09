@@ -9,12 +9,11 @@
    </parent>
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-quickstarts-parent</artifactId>
-   <version>7.1.0.Beta1</version>
+   <version>7.0.2.CR2</version>
    <packaging>pom</packaging>
    <name>JBoss AS Quickstarts Parent</name>
    <description>JBoss AS Quickstarts Parent</description>
    <url>http://github.com/jbossas/quickstart</url>
-
 
     <licenses>
        <license>
@@ -29,23 +28,35 @@
       <module>numberguess</module>
       <module>login</module>
       <module>kitchensink</module>
+      <module>html5-mobile</module>
+      <module>kitchensink-ear</module>
       <module>helloworld-osgi</module>
       <module>rs-helloworld</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
    </modules>
 
-   <developers>
-       <developer>
-           <name>Pete Muir</name>
-           <organization>Red Hat</organization>
-       </developer>
-   </developers>
-
    <scm>
       <connection>scm:git://github.com/jbossas/quickstart.git</connection>
       <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
       <url>http://github.com/jbossas/quickstart</url>
    </scm>
-    
+
+   <build>
+      <plugins>
+            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
+               container -->
+            <!-- Disabling it here means that we don't try to deploy this POM! -->
+            <plugin>
+               <groupId>org.jboss.as.plugins</groupId>
+               <artifactId>jboss-as-maven-plugin</artifactId>
+               <version>7.1.0.Beta1b</version>
+               <inherited>true</inherited>
+               <configuration>
+                  <skip>true</skip>
+               </configuration>
+            </plugin>
+         </plugins>
+   </build>
+
 </project>
