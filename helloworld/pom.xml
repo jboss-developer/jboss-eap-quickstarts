@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-helloworld</artifactId>
-   <version>7.0.1-SNAPSHOT</version>
+   <version>7.1.0.Beta1</version>
    <packaging>war</packaging>
    <name>JBoss AS Quickstarts: Helloworld</name>
+   <description>JBoss AS Quickstarts: Helloworld</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -140,5 +140,19 @@
          </plugin>
       </plugins>
    </build>
+
+
+   <developers>
+       <developer>
+           <name>Pete Muir</name>
+           <organization>Red Hat</organization>
+       </developer>
+   </developers>
+
+   <scm>
+      <connection>scm:git://github.com/jbossas/quickstart.git</connection>
+      <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
+      <url>http://github.com/jbossas/quickstart</url>
+   </scm>
 
 </project>

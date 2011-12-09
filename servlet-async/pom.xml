@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-login</artifactId>
+   <artifactId>jboss-as-servlet-async</artifactId>
    <version>7.1.0.Beta1</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: Login</name>
-   <description>JBoss AS Quickstarts: Login</description>
+   <name>JBoss AS Quickstarts: Asynchronous Servlet</name>
+   <description>JBoss AS Quickstarts: Asynchronous Servlet</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -28,21 +29,19 @@
 
    <dependencyManagement>
       <dependencies>
-         <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
-            Any dependencies from org.jboss.spec will have their version defined by this 
-            BOM -->
+         <!-- Define the version of JBoss' Java EE 6 APIs we want to use -->
          <!-- JBoss distributes a complete set of Java EE 6 APIs including 
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
             a collection) of artifacts. We use this here so that we always get the correct 
             versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE Web Profile 6 APIs), and we use 
+            read this as the JBoss stack of the Java EE 6 Web Profile APIs), and we use 
             version 2.0.0.Beta1 which is the latest release of the stack. You can actually 
             use this stack with any version of JBoss AS that implements Java EE 6, not 
             just JBoss AS 7! -->
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <version>2.0.0.Final</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -67,44 +66,27 @@
          <scope>provided</scope>
       </dependency>
 
-      <!-- Import the JSF API, we use provided scope as the API is included 
+      <!-- Import the Servlet API, we use provided scope as the API is included 
          in JBoss AS 7 -->
       <dependency>
-         <groupId>org.jboss.spec.javax.faces</groupId>
-         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-
-      <!-- Import the JPA API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.0-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-
-      <!-- Import the JPA API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.jboss.spec.javax.transaction</groupId>
-         <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
-
-      <!-- Import the EJB API, we use provided scope as the API is included 
+      
+       <!-- Import the EJB API, we use provided scope as the API is included 
          in JBoss AS 7 -->
       <dependency>
          <groupId>org.jboss.spec.javax.ejb</groupId>
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-
    </dependencies>
 
    <build>
       <!-- Set the name of the war, used as the context root when the app 
          is deployed -->
-      <finalName>jboss-as-login</finalName>
+      <finalName>jboss-as-servlet-async</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-war-plugin</artifactId>
@@ -149,4 +131,3 @@
    </scm>
 
 </project>
-

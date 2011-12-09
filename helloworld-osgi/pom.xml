@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-   http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0    http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-helloworld-osgi</artifactId>
-   <version>7.0.1-SNAPSHOT</version>
+   <version>7.1.0.Beta1</version>
    <packaging>bundle</packaging>
    <name>JBoss AS Quickstarts: Helloworld OSGi</name>
+   <description>JBoss AS Quickstarts: Helloworld OSGi</description>
 
    <url>http://jboss.org/jbossas/osgi</url>
    <licenses>
@@ -25,37 +24,6 @@
            resources, i.e. build is platform dependent! -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
-
-   <!-- Include the JBoss Maven repository so we can access JBoss artifacts -->
-   <repositories>
-      <repository>
-         <id>jboss-public-repository</id>
-         <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public
-         </url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </repository>
-   </repositories>
-
-   <pluginRepositories>
-      <pluginRepository>
-         <id>jboss-public-repository</id>
-         <name>JBoss Repository</name>
-         <url>https://repository.jboss.org/nexus/content/groups/public
-         </url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </pluginRepository>
-   </pluginRepositories>
 
    <dependencies>
       <dependency>
@@ -88,7 +56,7 @@
                   <Import-Package>*</Import-Package>
 
                   <!-- This bundle does not export any packages -->
-                  <Export-Package/>
+                  <Export-Package />
 
                   <!-- Packages that are not exported but need to be included 
                        need to be listed as Private-Package -->
@@ -101,7 +69,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.0.0.Final</version>
+            <version>7.1.0.Beta1</version>
             <configuration>
                <filename>${project.build.finalName}.jar</filename>
             </configuration>
@@ -120,4 +88,19 @@
          
       </plugins>
    </build>
+
+
+   <developers>
+       <developer>
+           <name>Pete Muir</name>
+           <organization>Red Hat</organization>
+       </developer>
+   </developers>
+
+   <scm>
+      <connection>scm:git://github.com/jbossas/quickstart.git</connection>
+      <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
+      <url>http://github.com/jbossas/quickstart</url>
+   </scm>
+    
 </project>
