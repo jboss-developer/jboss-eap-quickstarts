@@ -25,9 +25,9 @@
 
    <modules>
       <module>helloworld</module>
-      <module>helloworld-jsp</module>
       <module>numberguess</module>
-      <module>login</module>
+      <module>helloworld-jsp</module>
+       <module>login</module>
       <module>kitchensink</module>
       <module>html5-mobile</module>
       <module>kitchensink-ear</module>
