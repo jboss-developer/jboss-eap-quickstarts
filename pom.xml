@@ -9,7 +9,7 @@
    </parent>
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-quickstarts-parent</artifactId>
-   <version>7.1.0.CR1-SNAPSHOT</version>
+   <version>7.0.2-SNAPSHOT</version>
    <packaging>pom</packaging>
    <name>JBoss AS Quickstarts Parent</name>
    <description>JBoss AS Quickstarts Parent</description>
@@ -34,6 +34,7 @@
       <module>rs-helloworld</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
+      <module>helloworld-mdb</module>
    </modules>
 
    <scm>
@@ -41,5 +42,22 @@
       <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
       <url>http://github.com/jbossas/quickstart</url>
    </scm>
+
+   <build>
+      <plugins>
+            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
+               container -->
+            <!-- Disabling it here means that we don't try to deploy this POM! -->
+            <plugin>
+               <groupId>org.jboss.as.plugins</groupId>
+               <artifactId>jboss-as-maven-plugin</artifactId>
+               <version>7.1.0.Beta1b</version>
+               <inherited>true</inherited>
+               <configuration>
+                  <skip>true</skip>
+               </configuration>
+            </plugin>
+         </plugins>
+   </build>
 
 </project>

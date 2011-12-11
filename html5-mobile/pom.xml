@@ -4,21 +4,12 @@
 
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-html5-mobile</artifactId>
-   <version>7.1.0.CR1-SNAPSHOT</version>
+   <version>7.0.2-SNAPSHOT</version>
    <packaging>war</packaging>
 
    <name>JBoss AS Quickstarts: HTML5 Mobile</name>
    <description>A Java EE 6 HTML5 mobile web application for use with JBoss, generated from the jboss-javaee6-html5-mobile-archetype</description>
-   <url>http://github.com/jbossas/quickstart</url>
-   
-   <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <distribution>repo</distribution>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      </license>
-   </licenses>
-   
+
    <properties>
       <!-- Explicitly declaring the source encoding eliminates the following 
          message: -->
@@ -28,12 +19,12 @@
       <!-- Timestamp format for the maven.build.timestamp property -->
       <!-- You can reference property in pom.xml or filtered resources (must 
          enable third-party plugin if using Maven < 2.1) -->
-      <javaee6.web.spec.version>2.0.0.Final</javaee6.web.spec.version>
+      <javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version>
       <!-- Alternatively, comment out the above line, and un-comment the line below to 
         use version 3.0.0.Beta1-redhat-1 which is a release certified 
       to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
       <!-- 
-      <javaee6.web.spec.version>3.0.0.Beta1-redhat-1</javaee6.web.spec.version> 
+      <javaee6.spec.version>3.0.0.Beta1-redhat-1</javaee6.spec.version> 
       -->
    </properties>
 
@@ -42,12 +33,12 @@
          <!-- JBoss distributes a complete set of Java EE 6 APIs including 
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
             a collection) of artifacts. We use this here so that we always get the correct 
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE Web Profile 6 APIs) -->
+            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can 
+            read this as the JBoss stack of the Java EE 6 APIs) -->
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${javaee6.web.spec.version}</version>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>${javaee6.spec.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -143,6 +134,13 @@
          <version>1.0.0.CR4</version>
          <scope>test</scope>
       </dependency>
+            
+      <dependency>
+         <groupId>org.jboss.arquillian.protocol</groupId>
+         <artifactId>arquillian-protocol-servlet</artifactId>
+         <version>1.0.0.CR4</version>
+         <scope>test</scope>               
+      </dependency>
 
    </dependencies>
 
@@ -176,23 +174,10 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.0.2.Final</version>
+            <version>7.1.0.Beta1b</version>
          </plugin>
       </plugins>
    </build>
-   
-   <developers>
-       <developer>
-           <name>Jay Balunas</name>
-           <organization>Red Hat</organization>
-       </developer>
-   </developers>
-
-   <scm>
-      <connection>scm:git://github.com/jbossas/quickstart.git</connection>
-      <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
-      <url>http://github.com/jbossas/quickstart</url>
-   </scm>
 
    <profiles>
       <profile>
@@ -261,7 +246,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-               <version>7.1.0.Beta1</version>
+               <version>7.1.0.Beta1b</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -309,10 +294,30 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-               <version>7.1.0.Beta1</version>
+               <version>7.1.0.Beta1b</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
+      </profile>
+
+      <profile>
+         <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+         <!-- Use this profile for any OpenShift specific customization your app will need. -->
+         <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
+         <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+         <id>openshift</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-war-plugin</artifactId>
+                  <version>2.1.1</version>
+                  <configuration>
+                     <outputDirectory>deployments</outputDirectory>
+                     <warName>ROOT</warName>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
       </profile>
 
    </profiles>

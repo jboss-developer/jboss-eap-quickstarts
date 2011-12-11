@@ -6,13 +6,13 @@
    <parent>
       <artifactId>jboss-as-kitchensink-ear</artifactId>
       <groupId>org.jboss.as.quickstarts</groupId>
-      <version>7.1.0.CR1-SNAPSHOT</version>
+      <version>7.0.2-SNAPSHOT</version>
    </parent>
 
    <artifactId>jboss-as-kitchensink-ear-ejb</artifactId>
    <packaging>ejb</packaging>
 
-   <name>jboss-as-kitchensink-ear EJB module</name>
+   <name>JBoss AS Quickstarts: Kitchensink EAR: EJB Module</name>
 
    <dependencies>
 
@@ -67,6 +67,13 @@
          <artifactId>arquillian-junit-container</artifactId>
          <version>1.0.0.CR4</version>
          <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.jboss.arquillian.protocol</groupId>
+         <artifactId>arquillian-protocol-servlet</artifactId>
+         <version>1.0.0.CR4</version>
+         <scope>test</scope>               
       </dependency>
 
    </dependencies>
@@ -153,7 +160,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-               <version>7.0.2.Final</version>
+               <version>7.1.0.Beta1b</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -203,7 +210,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-               <version>7.0.2.Final</version>
+               <version>7.1.0.Beta1b</version>
                <scope>test</scope>
             </dependency>
          </dependencies>

@@ -6,13 +6,13 @@
    <parent>
       <artifactId>jboss-as-kitchensink-ear</artifactId>
       <groupId>org.jboss.as.quickstarts</groupId>
-      <version>7.1.0.CR1-SNAPSHOT</version>
+      <version>7.0.2-SNAPSHOT</version>
    </parent>
 
    <artifactId>jboss-as-kitchensink-ear-web</artifactId>
    <packaging>war</packaging>
 
-   <name>jboss-as-kitchensink-ear Web module</name>
+   <name>JBoss AS Quickstarts: Kitchensink EAR: WAR Module</name>
 
    <dependencies>
 
