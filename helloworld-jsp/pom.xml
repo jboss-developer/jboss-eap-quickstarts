@@ -64,6 +64,14 @@
          <artifactId>jboss-annotations-api_1.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
+      
+       <!-- Import the Servlet API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
       <!-- Import the JAX-RS API, we use provided scope as the API is included 
          in JBoss AS 7 -->
@@ -88,6 +96,14 @@
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
+      
+      <!-- JSTL 1.2 or + -->
+		<dependency>
+		<groupId>javax.servlet</groupId>
+  		<artifactId>jstl</artifactId>
+ 		 <version>1.2</version>
+ 		 <scope>runtime</scope>
+		</dependency>
 
       <!-- JSR-303 (Bean Validation) Implementation -->
       <!-- Provides portable constraints such as @Email -->

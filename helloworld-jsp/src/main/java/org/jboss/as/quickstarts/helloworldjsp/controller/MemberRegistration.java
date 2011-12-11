@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.kitchensink.controller;
+package org.jboss.as.quickstarts.helloworldjsp.controller;
 
 import java.util.logging.Logger;
 
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.jboss.as.quickstarts.helloworldjsp.model.Member;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful

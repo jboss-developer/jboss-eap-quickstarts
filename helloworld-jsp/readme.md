@@ -7,15 +7,14 @@ What is it?
 This is your project! It's a sample, deployable Maven 3 project to help you
 get your foot in the door developing with Java EE 6 on JBoss AS 7 or EAP 6. This 
 project is setup to allow you to create a compliant Java EE 6 application 
-using *JSP 2.0* *EL 2.0*  *CDI 1.0*, *EJB 3.1*, *JPA 2.0* and Bean Validation 1.0. 
+using *JSP 2.0* *EL 2.0* *JSTL 1.2* *CDI 1.0*, *EJB 3.1*, *JPA 2.0* and Bean Validation 1.0. 
 
 This project rebuilds the presentation tier of the kitchensink quickstart app
- using JSP instead of JSF 
+ using JSP and JSTL instead of JSF features.
 
 It is another  app based on JSP that reused all other components from the
 Member Registration template.
-It includes
-a persistence unit and some sample persistence and transaction code to help 
+It reused the persistence unit and some sample persistence and transaction code to help 
 you get your feet wet with database access in enterprise Java. 
 
 System requirements

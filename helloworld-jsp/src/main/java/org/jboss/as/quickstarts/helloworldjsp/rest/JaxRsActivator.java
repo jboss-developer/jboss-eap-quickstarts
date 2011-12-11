@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.kitchensink.rest;
+package org.jboss.as.quickstarts.helloworldjsp.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

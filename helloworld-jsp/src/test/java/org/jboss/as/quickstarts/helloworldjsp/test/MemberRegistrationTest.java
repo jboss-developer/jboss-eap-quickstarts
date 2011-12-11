@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.kitchensink.test;
+package org.jboss.as.quickstarts.helloworldjsp.test;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -15,9 +15,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration;
-import org.jboss.as.quickstarts.kitchensink.model.Member;
-import org.jboss.as.quickstarts.kitchensink.util.Resources;
+import org.jboss.as.quickstarts.helloworldjsp.controller.MemberRegistration;
+import org.jboss.as.quickstarts.helloworldjsp.model.Member;
+import org.jboss.as.quickstarts.helloworldjsp.util.Resources;
 
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
