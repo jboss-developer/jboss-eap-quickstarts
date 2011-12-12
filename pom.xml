@@ -26,7 +26,7 @@
    <modules>
       <module>helloworld</module>
       <module>numberguess</module>
-      <module>helloworld-jsp</module>
+      <module>kitchensink-jsp</module>
        <module>login</module>
       <module>kitchensink</module>
       <module>html5-mobile</module>
