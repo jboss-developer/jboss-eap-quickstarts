@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>registrationPage.jsp</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
                <th style="text-align: right;">
                <label  for="name">Name:</label>
                </th>
-               <td><input type="text" id=name name="name" placeholder="your name" />
+               <td><input type="text" id=name name="name" value="${newMember.name}"/>
                </td>
             </tr>
             <tr>
@@ -28,8 +28,7 @@
                	<label for="email">Email:</label>
                 </th>
                 
-               <td><input type="text" id="email" name="email" placeholder="jboss@jboss.org" 
-                     value="${newMember.email}" /> 
+               <td><input type="text" id="email" name="email" value="${newMember.email}"/> 
                 <!-- <h:message  for="email" errorClass="invalid" />-->
                 </td>
             </tr>
@@ -38,7 +37,7 @@
                <label for="phoneNumber">Phone</label>
                </th>
                <td>
-               <input  id="phoneNumber" name="phoneNumber" placeholder="333 555 4444"  type="text"/>
+               <input  id="phoneNumber" name="phoneNumber" type="text" value="${newMember.phoneNumber}"/>
                 </td>
             </tr>
          </table>

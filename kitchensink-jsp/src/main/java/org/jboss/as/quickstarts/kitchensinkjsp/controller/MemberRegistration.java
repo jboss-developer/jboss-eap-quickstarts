@@ -10,6 +10,8 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 import org.jboss.as.quickstarts.kitchensinkjsp.model.Member;
 
@@ -36,18 +38,43 @@ public class MemberRegistration {
    @Produces
    @Named
    public Member getNewMember() {
-      return newMember;
+
+	   log.info("getNewMember: called"+newMember);
+	   return newMember;
+  
    }
 
    public void register() throws Exception {
+	   
+	  try{
+		  
       log.info("Registering " + newMember.getName());
       em.persist(newMember);
       memberEventSrc.fire(newMember);
       initNewMember();
+	  }
+	  catch(ConstraintViolationException ve)
+	  {
+		  System.out.println("EXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
+		  throw new Exception(ve.getMessage());
+
+	  }
+	  catch(PersistenceException pe)
+	  {
+	      
+		  throw new Exception(pe.getMessage());
+	  }
+	  catch (Exception e) {
+
+		  //propagate the exception to the next layer so as the message can be display
+	  throw (e);
+	}
+	  
    }
 
    @PostConstruct
    public void initNewMember() {
       newMember = new Member();
+      log.info("@PostConstruct:initNewMember called");
    }
 }

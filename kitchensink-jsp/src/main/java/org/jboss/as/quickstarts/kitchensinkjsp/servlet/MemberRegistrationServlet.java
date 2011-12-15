@@ -41,27 +41,63 @@ public class MemberRegistrationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	try {	
-		   Member member=registrationService.getNewMember();
-		   member.setEmail(request.getParameter("email"));
-		   member.setName(request.getParameter("name"));
-		   member.setPhoneNumber(request.getParameter("phoneNumber"));
-		   registrationService.register();
-		   request.setAttribute("infoMessage", member.getName()+" Registered!");
-		   request.setAttribute("errorMessage", "");
+		StringBuilder errorMessage= new StringBuilder();
 
+		try {	
 		   
+		System.out.println("EMAIL='"+request.getParameter("email")+"'");
+			Member member;
+			//create a new member, remember :) the memberservice do not 
+			 //call the initMethod if an error occur during the previous persist request
+			
+			while((member=registrationService.getNewMember())==null)
+			{	registrationService.initNewMember();
+			}
 		   
+			String value;
+			
+				if((value=request.getParameter("name")).length()<=1)
+				{
+					 errorMessage.append("Name can not be null\n");
+				}
+				else
+				{
+					member.setName(value);
+			
+					if((value=request.getParameter("email")).length()<1)
+					{
+						errorMessage.append("email can not be null\n");
+					}
+					else
+					{
+						member.setEmail(value);
+						
+						if((value=request.getParameter("phoneNumber")).length()<1){
+							errorMessage.append("phoneNumber can not be empty\n");
+						}
+						else     // all parameters are filled, register
+						{
+							member.setPhoneNumber(value);
+
+							log("\n*****************Try Registration of Member="+member);
+							registrationService.register();
+							request.setAttribute("infoMessage", member.getName()+" Registered!");
+						}
+					}
+				}
+
 		} catch (Exception e) {
+
+			errorMessage.append(e.getLocalizedMessage());
+			request.setAttribute("infoMessage", "");
 			e.printStackTrace();
-			request.setAttribute("errorMessage", e.getMessage());
 		}
 		finally
 		{
+		 request.setAttribute("errorMessage", errorMessage.toString());
 		 RequestDispatcher resultView = request.getRequestDispatcher("index.jsp");
 		 resultView.forward(request,response);
 		}
-	
 	}
 
 }
