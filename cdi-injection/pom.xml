@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-helloworld</artifactId>
+   <artifactId>jboss-as-cdi-injection</artifactId>
    <version>7.0.2-SNAPSHOT</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: Helloworld Translate</name>
-   <description>JBoss AS Quickstarts: Helloworld Translate</description>
+   <name>JBoss AS Quickstarts: CDI-Injection</name>
+   <description>JBoss AS Quickstarts: CDI-Injection</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -77,7 +77,7 @@
    <build>
       <!-- Set the name of the war, used as the context root when the app 
          is deployed -->
-      <finalName>jboss-as-helloworld-translate</finalName>
+      <finalName>jboss-as-cdi-injection</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-war-plugin</artifactId>
