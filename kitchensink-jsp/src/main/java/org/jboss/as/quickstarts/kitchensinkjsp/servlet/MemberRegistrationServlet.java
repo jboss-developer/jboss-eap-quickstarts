@@ -56,7 +56,7 @@ public class MemberRegistrationServlet extends HttpServlet {
 		   
 			String value;
 			
-				if((value=request.getParameter("name")).length()<=1)
+				if((value=request.getParameter("name")).length()<1)
 				{
 					 errorMessage.append("Name can not be null\n");
 				}
@@ -66,14 +66,14 @@ public class MemberRegistrationServlet extends HttpServlet {
 			
 					if((value=request.getParameter("email")).length()<1)
 					{
-						errorMessage.append("email can not be null\n");
+						errorMessage.append("email required!\n");
 					}
 					else
 					{
 						member.setEmail(value);
 						
 						if((value=request.getParameter("phoneNumber")).length()<1){
-							errorMessage.append("phoneNumber can not be empty\n");
+							errorMessage.append("phoneNumber required \n");
 						}
 						else     // all parameters are filled, register
 						{
@@ -88,7 +88,11 @@ public class MemberRegistrationServlet extends HttpServlet {
 
 		} catch (Exception e) {
 
-			errorMessage.append(e.getLocalizedMessage());
+			 
+			Throwable t=e;
+			while((t.getCause())!=null){ t=t.getCause();}
+
+			errorMessage.append("Error========>"+t.getMessage());
 			request.setAttribute("infoMessage", "");
 			e.printStackTrace();
 		}

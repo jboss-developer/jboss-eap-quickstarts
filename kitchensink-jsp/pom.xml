@@ -96,7 +96,7 @@
          <scope>provided</scope>
       </dependency>
       
-      <!-- JSTL 1.2 or + -->
+        <!-- JSTL 1.2 or + -->
 		<dependency>
 		<groupId>javax.servlet</groupId>
   		<artifactId>jstl</artifactId>
