@@ -26,6 +26,27 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
 
+   <repositories>
+      <!-- Define the maven repositories where the RichFaces artifacts can be found.
+      You should consider using a repository manager or declare repositories in your settings.xml.
+      See http://www.sonatype.com/people/2009/02/why-putting-repositories-in-your-poms-is-a-bad-idea/
+      -->
+      <repository>
+         <id>jboss-public-repository-group</id>
+         <name>JBoss Public Maven Repository Group</name>
+         <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+         <layout>default</layout>
+         <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+         </releases>
+         <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+         </snapshots>
+      </repository>
+    </repositories>
+
    <dependencyManagement>
       <dependencies>
          <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
@@ -45,6 +66,16 @@
             <type>pom</type>
             <scope>import</scope>
          </dependency>
+         <!-- Similarly to the JBoss Java EE 6 BOM above, the RichFaces BOM specifies the
+           versions of artifacts required for using RichFaces in your project. -->
+         <dependency>
+              <groupId>org.richfaces</groupId>
+              <artifactId>richfaces-bom</artifactId>
+              <version>4.1.0.Final</version>
+              <type>pom</type>
+              <scope>import</scope>
+         </dependency>
+
       </dependencies>
    </dependencyManagement>
 
@@ -72,6 +103,17 @@
          <groupId>org.jboss.spec.javax.faces</groupId>
          <artifactId>jboss-jsf-api_2.0_spec</artifactId>
          <scope>provided</scope>
+      </dependency>
+
+      <!-- Import the RichFaces core library -->
+      <dependency>
+         <groupId>org.richfaces.core</groupId>
+         <artifactId>richfaces-core-impl</artifactId>
+      </dependency>
+      <!-- Import the RichFaces components -->
+      <dependency>
+         <groupId>org.richfaces.ui</groupId>
+         <artifactId>richfaces-components-ui</artifactId>
       </dependency>
 
    </dependencies>
