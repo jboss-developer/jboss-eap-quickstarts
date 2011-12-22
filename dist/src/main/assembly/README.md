@@ -17,4 +17,4 @@ contains tutorials for:
 * `kitchensink` - CDI + JSF + JPA + EJB + JPA + JAX-RS + BV
 * `helloworld-rs` - CDI + JAX-RS
 * `helloworld-osgi` - OSGi
-
+* `ejb-in-war` - EJB + JSF deployed as a war
