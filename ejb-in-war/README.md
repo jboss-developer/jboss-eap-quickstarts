@@ -1,6 +1,8 @@
 ejb-in-war Example
 ===================
 
+@author paul.robinson@redhat.com
+
 This example demonstrates the deployment of an *EJB 3.1* bean bundled in a war archive for deployment to *JBoss AS 7*.
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
