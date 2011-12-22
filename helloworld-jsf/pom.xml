@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-numberguess</artifactId>
+   <artifactId>jboss-as-helloworld-jsf</artifactId>
    <version>7.0.2-SNAPSHOT</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: Numberguess</name>
-   <description>JBoss AS Quickstarts: Numberguess</description>
+   <name>JBoss AS Quickstarts: Hello world JSF</name>
+   <description>JBoss AS Quickstarts: Hello world JSF</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -79,7 +79,7 @@
    <build>
       <!-- Set the name of the war, used as the context root when the app 
          is deployed -->
-      <finalName>jboss-as-numberguess</finalName>
+      <finalName>jboss-as-helloworld-jsf</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-war-plugin</artifactId>
