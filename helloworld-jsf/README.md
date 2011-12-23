@@ -1,7 +1,11 @@
-Numberguess Example
+Hello world JSF Example
 ===================
 
 This example demonstrates the use of *CDI 1.0*, *JSF 2.0*, and *RichFaces* in *JBoss AS 7*.
+
+In this example, a standard JSF h:inputText component is ajax enabled using the RichFaces
+a4j:ajax tag, triggering the application server to re-render a sub-section of the page on
+a browser event.
 
 The example can be deployed using Maven from the command line or from Eclipse using
 JBoss Tools.

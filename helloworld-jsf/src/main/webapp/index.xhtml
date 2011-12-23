@@ -13,16 +13,35 @@
     <ui:define name="title">Hello world JSF</ui:define>
 
     <ui:define name="body">
-        <h:form id="helloWorldJsf">
-            <h:outputLabel value="Name:" for="nameInput"/>
-            <h:inputText id="nameInput" value="#{richBean.name}">
-                <a4j:ajax event="keyup" render="output"/>
-            </h:inputText>
-            <h:panelGroup id="output">
-                <h:outputText value="Hello #{richBean.name}!"
-                              rendered="#{not empty richBean.name}"/>
-            </h:panelGroup>
-        </h:form>
+        <fieldset style="width:500px">
+            <legend>Helloworld using JSF and RichFaces</legend>
+            <p>
+                This example demonstrates adding ajax processing and updating to a standard JSF component.
+            </p>
+
+            <p>
+                In the example below, we have a standard JSF inputText with a nested RichFaces ajax tag. This ajax tag
+                triggers an ajax request on every "keyup" event from the input box. The value of the input box is sent
+                to the server where the backing bean is updated, and the "output" panelGroup is re-rendered, without
+                requiring a full-page refresh.
+            </p>
+            <p>
+                To see this example in action, begin typing in the input box, and watch as your text is echoed with
+                html generated from the application server using an ajax call.
+            </p>
+            <rich:panel header="Ajax enabled inputText">
+                <h:form id="helloWorldJsf">
+                    <h:outputLabel value="Name:" for="nameInput"/>
+                    <h:inputText id="nameInput" value="#{richBean.name}">
+                        <a4j:ajax event="keyup" render="output"/>
+                    </h:inputText>
+                    <h:panelGroup id="output">
+                        <h:outputText value="Hello #{richBean.name}!"
+                                      rendered="#{not empty richBean.name}"/>
+                    </h:panelGroup>
+                </h:form>
+            </rich:panel>
+        </fieldset>
     </ui:define>
 </ui:composition>
 </body>
