@@ -70,15 +70,8 @@
                 <version>7.1.0.Beta1b</version>
                 <configuration>
                     <filename>jboss-as-ejb-in-ear.ear</filename>
+                    <skip>false</skip>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <!-- Compiler plugin enforces Java 1.6 compatibility and activates
           annotation processors -->
