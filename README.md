@@ -19,3 +19,4 @@ The 'dist' folder contains Maven scripts to build a zip of the quickstarts.
 
 The quickstart code is licensed under the Apache License, Version 2.0:
 <http://www.apache.org/licenses/LICENSE-2.0.html>
+
