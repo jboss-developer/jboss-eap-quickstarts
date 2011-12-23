@@ -19,7 +19,7 @@
  * @author JBoss, by Red Hat.
  */
 
-package org.jboss.as.quickstarts.ejbinwar.jsf;
+package org.jboss.as.quickstarts.ejbinwar.controller;
 
 import org.jboss.as.quickstarts.ejbinwar.ejb.GreeterEJB;
 import javax.ejb.EJB;
