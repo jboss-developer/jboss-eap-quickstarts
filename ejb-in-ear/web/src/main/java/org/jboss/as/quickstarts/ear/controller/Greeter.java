@@ -19,7 +19,7 @@
  * @author JBoss, by Red Hat.
  */
 
-package org.jboss.as.quickstarts.ear.jsf;
+package org.jboss.as.quickstarts.ear.controller;
 
 import org.jboss.as.quickstarts.ear.ejb.GreeterEJB;
 import javax.ejb.EJB;
