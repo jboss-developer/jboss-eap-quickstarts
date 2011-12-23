@@ -21,11 +21,15 @@
 
 package org.jboss.as.quickstarts.ear.ejb;
 
+import javax.ejb.Stateful;
+
 /**
  * @author paul.robinson@redhat.com, 2011-12-21
  */
-public interface GreeterEJB {
+@Stateful
+public class GreeterEJB {
 
-	public String sayHello(String name);
-
+	public String sayHello(String name) {
+		return "Hello " + name;
+	}
 }

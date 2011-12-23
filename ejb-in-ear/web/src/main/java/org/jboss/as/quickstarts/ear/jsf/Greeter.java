@@ -22,7 +22,6 @@
 package org.jboss.as.quickstarts.ear.jsf;
 
 import org.jboss.as.quickstarts.ear.ejb.GreeterEJB;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
