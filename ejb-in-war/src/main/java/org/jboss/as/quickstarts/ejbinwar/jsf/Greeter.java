@@ -22,13 +22,9 @@
 package org.jboss.as.quickstarts.ejbinwar.jsf;
 
 import org.jboss.as.quickstarts.ejbinwar.ejb.GreeterEJB;
-import org.jboss.as.quickstarts.ejbinwar.ejb.GreeterEJBImpl;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-
 import java.io.Serializable;
 
 /**
