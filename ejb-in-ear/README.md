@@ -1,4 +1,4 @@
-Ear Example
+EJB in Ear Example
 ===================
 
 @author paul.robinson@redhat.com
