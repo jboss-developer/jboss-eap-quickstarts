@@ -3,18 +3,18 @@
              version="6"
              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd">
 
-    <application-name>jboss-as-ear</application-name>
+    <application-name>jboss-as-ejb-in-ear</application-name>
 
     <initialize-in-order>true</initialize-in-order>
 
     <module>
-        <ejb>jboss-as-ear.jar</ejb>
+        <ejb>jboss-as-ejb-in-ear.jar</ejb>
     </module>
 
     <module>
         <web>
-            <web-uri>jboss-as-ear.war</web-uri>
-            <context-root>jboss-as-ear</context-root>
+            <web-uri>jboss-as-ejb-in-ear.war</web-uri>
+            <context-root>jboss-as-ejb-in-ear</context-root>
         </web>
     </module>
 

@@ -9,14 +9,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-ear-ear</artifactId>
+    <artifactId>jboss-as-ejb-in-ear-ear</artifactId>
     <packaging>ear</packaging>
-    <name>JBoss AS Quickstarts: EJB and War in an Ear</name>
-    <description>JBoss AS Quickstarts: EJB and WAR in an EAR</description>
+    <name>JBoss AS Quickstarts: EJB and War in an Ear - EAR</name>
+    <description>JBoss AS Quickstarts: EJB and WAR in an EAR - EAR</description>
 
     <parent>
         <groupId>org.jboss.as.quickstarts</groupId>
-        <artifactId>jboss-as-ear</artifactId>
+        <artifactId>jboss-as-ejb-in-ear</artifactId>
         <version>7.1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -25,13 +25,13 @@
         <!-- Dependencies on the ejb and web modules so that they can be found by the ear plugin -->
         <dependency>
             <groupId>org.jboss.as.quickstarts</groupId>
-            <artifactId>jboss-as-ear-ejb</artifactId>
+            <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
             <version>7.1.0-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.as.quickstarts</groupId>
-            <artifactId>jboss-as-ear-web</artifactId>
+            <artifactId>jboss-as-ejb-in-ear-web</artifactId>
             <version>7.1.0-SNAPSHOT</version>
             <type>war</type>
         </dependency>
@@ -48,17 +48,17 @@
                 <!-- configuring the ear plugin -->
                 <configuration>
                     <!-- Specify the artifact name for the EAR -->
-                    <finalName>jboss-as-ear</finalName>
+                    <finalName>jboss-as-ejb-in-ear</finalName>
                     <modules>
                         <!-- specify which web modules to include in the EAR -->
                         <webModule>
                             <groupId>org.jboss.as.quickstarts</groupId>
-                            <artifactId>jboss-as-ear-web</artifactId>
+                            <artifactId>jboss-as-ejb-in-ear-web</artifactId>
                         </webModule>
                         <!-- specify which EJB modules to include in the EAR -->
                         <ejbModule>
                             <groupId>org.jboss.as.quickstarts</groupId>
-                            <artifactId>jboss-as-ear-ejb</artifactId>
+                            <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
                         </ejbModule>
                     </modules>
                 </configuration>
@@ -69,7 +69,7 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>7.1.0.Beta1b</version>
                 <configuration>
-                    <filename>jboss-as-ear.ear</filename>
+                    <filename>jboss-as-ejb-in-ear.ear</filename>
                 </configuration>
                 <executions>
                     <execution>
