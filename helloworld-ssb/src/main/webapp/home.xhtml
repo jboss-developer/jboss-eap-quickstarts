@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+	<ui:composition template="/template.xhtml">
+            <ui:define name="title">
+                Please to check, if the singleton bean work fine, please choose between "Consume A" and "Consume B", and then click to the link below you chosen.
+            </ui:define>
+            <ui:define name="body">
+            	<center>
+                <table>
+                	<tr>
+                		<td><h:link value="Consume A" outcome="resultA"/></td>
+                		<td></td>
+                		<td></td>
+                		<td></td>
+                		<td><h:link value="Consume B" outcome="resultB"/></td>
+                	</tr>
+                </table>
+                </center>
+            </ui:define>            
+        </ui:composition>
+</body>
+</html>
