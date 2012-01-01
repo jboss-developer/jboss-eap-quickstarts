@@ -53,19 +53,6 @@ To undeploy from JBoss AS, run this command:
 You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
 Getting Started Guide for Developers for more information.
  
-Running the Arquillian tests
-============================
-
-By default, tests are configured to be skipped. The reason is that the sample
-test is an Arquillian test, which requires the use of a container. You can
-activate this test by selecting one of the container configuration provided 
-for JBoss AS 7 (remote).
-
-To run the test in JBoss AS 7, first start a JBoss AS 7 instance. Then, run the
-test goal with the following profile activated:
-
-    mvn clean test -Parq-jbossas-remote
-
 Importing the project into an IDE
 =================================
 
