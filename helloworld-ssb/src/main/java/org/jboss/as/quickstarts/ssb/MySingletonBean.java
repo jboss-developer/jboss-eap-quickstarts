@@ -12,14 +12,14 @@ import javax.ejb.Singleton;
 @Singleton
 public class MySingletonBean {
 
-	private int consumeA = 1;
-	private int consumeB = 1;
+	private int incrementA = 1;
+	private int incrementB = 1;
 
-	public int consumeA() {
-		return consumeA++;
+	public int incrementA() {
+		return incrementA++;
 	}
 
-	public int consumeB() {
-		return consumeB++;
+	public int incrementB() {
+		return incrementB++;
 	}
 }

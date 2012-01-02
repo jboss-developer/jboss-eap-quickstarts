@@ -3,5 +3,5 @@
    "-//JBoss//DTD Web Application 5.0//EN"
    "http://www.jboss.org/j2ee/dtd/jboss-web_5_0.dtd">
 <jboss-web>
-	<context-root>/consume</context-root>
+	<context-root>/increment</context-root>
 </jboss-web>	

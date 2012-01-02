@@ -25,7 +25,7 @@ public class MyManagedBean implements Serializable {
 	}
 
 	public int getaCounter() {
-		aCounter = mySingletonBean.consumeA();
+		aCounter = mySingletonBean.incrementA();
 		return aCounter;
 	}
 
@@ -34,7 +34,7 @@ public class MyManagedBean implements Serializable {
 	}
 
 	public int getbCounter() {
-		bCounter = mySingletonBean.consumeB();
+		bCounter = mySingletonBean.incrementB();
 		return bCounter;
 	}
 
