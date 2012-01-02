@@ -40,7 +40,7 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
 This will deploy `target/jboss-as-helloworld-ssb.war`.
  
-The application will be running at the following URL <http://localhost:8080/increment>.
+The application will be running at the following URL <http://localhost:8080/singleton-bean>.
 
 From the home site choose between "Increment A" and "increment B", and then click to the link below you chosen. The link will route you to a corresponding result page. To check if the singleton session bean work fine, from the result page go back to the home page and repeat the same action.
 
