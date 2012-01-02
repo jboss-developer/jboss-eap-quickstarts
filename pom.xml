@@ -35,6 +35,7 @@
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
       <module>helloworld-mdb</module>
+      <module>helloworld-ssb</module>
    </modules>
 
    <scm>
