@@ -135,6 +135,24 @@
          <artifactId>hibernate-core</artifactId>
          <version>4.0.0.CR6</version>
          <scope>provided</scope>
+	 <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml</groupId>
+                        <artifactId>classmate</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.transaction</groupId>
+                        <artifactId>jta</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+         </exclusions>
       </dependency>
 
       <!-- Needed for running tests (you may also use TestNG) -->
