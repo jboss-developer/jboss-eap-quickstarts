@@ -17,7 +17,7 @@ import javax.transaction.*;
 /**
  * <p>
  * A servlet which shows how to manually manage transactions and database resources using
- * both managed (session bean) and non-managed (simple CDI pojo) components. Reasons
+ * both managed (session bean) and non-managed (simple pojo) components. Reasons
  * why the developer might want to control transaction demarcation are various, for example
  * application requirements may need to access synchronizations or there may be XAResources
  * that are not supported by the JEE container.
@@ -25,7 +25,7 @@ import javax.transaction.*;
  *
  * <p>
  * The servlet is registered and mapped to /BMT using the {@linkplain WebServlet
- * @HttpServlet}. The {@link ManagedComponent} and {@link UnManagedComponent} are injected by CDI.
+ * @HttpServlet}. The {@link ManagedComponent} and {@link UserTransaction} are injected by CDI.
  * </p>
  *
  * @author Mike Musgrove
@@ -35,16 +35,22 @@ import javax.transaction.*;
 @WebServlet("/BMT")
 public class TransactionServlet extends HttpServlet {
     static String PAGE_HEADER = "<html><head /><body>";
-
-    static String PAGE_CONTENT = "<h1>Stepping Outside the Container (with JPA and JTA)</h1>"
-            + "<form>"
-            + "<input checked type=\"checkbox\" name=\"strategy\" value=\"managed\" /> Use bean managed Entity Managers <br />"
-            + "Key: <input type=\"text\" name=\"key\" /><br />"
-            + "Value: <input type=\"text\" name=\"value\" /><br />"
-            + "<input type=\"submit\" value=\"Submit\" /><br />"
-            + "</form>";
-
     static String PAGE_FOOTER = "</body></html>";
+
+    /*
+     * A Servlet is a managed component so we can inject other components into it. Since
+     * the  EntityManagerFactory is thread-safe it is OK to inject it into a servlet
+     * (contrast this with an EntityManager which is not thread-safe)
+     *
+     * Specify a persistence unit name (perhaps the application may want to interact with multiple
+     * databases).
+     */
+    @PersistenceUnit(unitName = "bmtDatabase")
+    private EntityManagerFactory entityManagerFactory;
+
+    // Inject a UserTransaction for manual transaction demarcation (this object is thread safe)
+    @Resource
+    private UserTransaction userTransaction;
 
     /*
      * Inject a stateless bean. Although stateless beans are thread safe it is probably not a
@@ -53,18 +59,15 @@ public class TransactionServlet extends HttpServlet {
     @Inject
     ManagedComponent managedBean;
 
-    /*
-     * Create a CDI POJO that will manage both transactions and the JPA EntityManager itself
-     */
-    @Inject
-    UnManagedComponent unManagedBean;
+    // Create a POJO that will manage transactions and the JPA EntityManager itself
+    UnManagedComponent unManagedBean = new UnManagedComponent();
 
     /**
      * <p>Servlet entry point.
      * </p>
-     * <p>The behaviour of the servlet is controlled by servlet query parameter or form parameters.
+     * <p>The behaviour of the servlet is controlled by servlet query parameters.
      * If parameters named "key" and "value" are present then that pair is added (or the key is updated if it already
-     * exists) to the database. If the form parameter "strategy" is not set to the value "managed" then
+     * exists) to the database. If the parameter "strategy" is part of the request and has the value "unmanaged" then
      * both the transaction and the EntityManager are controlled manually. Otherwise the Entity Manager is controlled
      * by the container and the transaction is controlled by the developer.
      * </p>
@@ -79,16 +82,15 @@ public class TransactionServlet extends HttpServlet {
         String responseText;
         String key = req.getParameter("key");
         String value = req.getParameter("value");
-        String txStrategy = req.getParameter("strategy");
+        String txStrategy =  req.getParameter("strategy");
 
-        if ("managed".equalsIgnoreCase(txStrategy))
-            responseText = managedBean.updateKeyValueDatabase(key, value);
+        if ("unmanaged".equalsIgnoreCase(txStrategy))
+            responseText = unManagedBean.updateKeyValueDatabase(entityManagerFactory, userTransaction, key, value);
         else
-            responseText = unManagedBean.updateKeyValueDatabase(key, value);
+            responseText = managedBean.updateKeyValueDatabase(key, value);
 
         writer.println(PAGE_HEADER);
-        writer.println(PAGE_CONTENT);
-        writer.println("<p>" + responseText + "</p>");
+        writer.println("<h1>" + responseText + "</h1>");
         writer.println(PAGE_FOOTER);
 
         writer.close();

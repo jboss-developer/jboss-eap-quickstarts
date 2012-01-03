@@ -1,45 +1,28 @@
 package org.jboss.as.quickstarts.bmt;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.transaction.RollbackException;
 import javax.transaction.Status;
 import javax.transaction.UserTransaction;
 import java.util.List;
 
 /**
- *  A class for updating a database table within a JTA transaction. Since the class is only a simple CDI bean the
- *  developer is responsible for both controlling the life cycle of the Entity Manager and for transaction demarcation.
+ *  An un-managed class for updating a database table within a JTA transaction. Since the class is not managed the developer
+ *  is responsible for both controlling the life cycle of the Entity Manager and for transaction demarcation.
  *
  * @author Mike Musgrove
  */
 public class UnManagedComponent {
-    /*
-     * Inject an entity manager factory. The reason we do not inject an entity manager (as we do in ManagedComponent)
-     * is that the factory is thread safe whereas the entity manager is not.
-     *
-     * Specify a persistence unit name (perhaps the application may want to interact with multiple
-     * databases).
-     */
-    @PersistenceUnit(unitName = "bmtDatabase")
-    private EntityManagerFactory entityManagerFactory;
 
-    /*
-     * Inject a UserTransaction for manual transaction demarcation (this object is thread safe)
-     */
-    @Inject
-    private UserTransaction userTransaction;
-
-    public String updateKeyValueDatabase(String key, String value) {
+    public String updateKeyValueDatabase(EntityManagerFactory entityManagerFactory, UserTransaction userTransaction, String key, String value) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
             userTransaction.begin();
 
             /*
-             * Since the Entity Manager (EM) is not managed by the container the developer must explicitly tell the EM
+             * Since the bean is not managed by the container the developer must explicitly tell the Entity Manager (EM)
              * to join the transaction. Compare this with ManagedComponent where the container automatically
              * enlists the EM with the transaction. The persistence context managed by the EM will then be scoped
              * to the JTA transaction which means that all entities will be detached when the transaction commits.
@@ -66,7 +49,6 @@ public class UnManagedComponent {
             /*
              * An application cannot handle any of the other exceptions raised by begin and commit so we just
              * catch the generic exception. The meaning of the other exceptions is:
-             *
              * NotSupportedException - the thread is already associated with a transaction
              * HeuristicRollbackException - should not happen since the example is interacting with a single database
              * HeuristicMixedException -  should not happen since the example is interacting with a single database
@@ -91,17 +73,16 @@ public class UnManagedComponent {
     }
 
     /**
-     * Utility method for updating a key value database.
-     *
+     * Update a key value database.
      * @param entityManager an open JPA entity manager
-     * @param key if null or zero length then list all pairs
+     * @param key if null then list all pairs
      * @param value if key exists then associate value with it, otherwise create a new pair
-     * @return the new value of the key value pair or all pairs if key was null (or zero length).
+     * @return the new value of the key value pair or all pairs if key was null.
      */
-    public String updateKeyValueDatabase(EntityManager entityManager, String key, String value) {
+    public static String updateKeyValueDatabase(EntityManager entityManager, String key, String value) {
         StringBuilder sb = new StringBuilder();
 
-        if (key == null || key.length() == 0) {
+        if (key == null) {
             // list all key value pairs
             final List<KVPair> list = entityManager.createQuery("select k from KVPair k").getResultList();
 
@@ -124,7 +105,7 @@ public class UnManagedComponent {
                     kvPair = new KVPair(key, value);
                     entityManager.persist(kvPair);
                 }  else {
-                    // update an existing row in the key/value table
+                    // update an exist row in the key/value table
                     kvPair.setValue(value);
                     entityManager.persist(kvPair);
                 }
