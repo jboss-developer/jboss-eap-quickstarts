@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /*The Model uses JPA Entity as well as Hibernate Validators
- * @author Madhumita Sadhukhan
+ * 
  */
 
 @Entity

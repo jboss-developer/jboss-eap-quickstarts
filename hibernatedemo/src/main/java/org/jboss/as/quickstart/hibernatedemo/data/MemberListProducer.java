@@ -41,8 +41,8 @@ public class MemberListProducer {
    @PostConstruct
    public void retrieveAllMembersOrderedByName() {
 	   
-	  //using Hibernate Session and Criteria Query via Hibernate Native API 
-	  Session session = (Session) em.getDelegate();
+      //using Hibernate Session and Criteria Query via Hibernate Native API 
+      Session session = (Session) em.getDelegate();
       Criteria cb = session.createCriteria(Member.class);
       cb.addOrder(Order.asc("name"));
       members = (List<Member>)cb.list();
