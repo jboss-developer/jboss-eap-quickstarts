@@ -1,0 +1,21 @@
+<jboss-deployment-structure> 
+   <deployment>
+        <exclusions>
+          <!-- Exclude container version of hibernate. By default its v4, we want bundled v3 loaded -->
+          <module name="org.hibernate" slot="main"/>
+        </exclusions>
+        <dependencies>
+          <!-- Add dependencies, since 'org.hibernate' is excluded, we need those defined explicitly 
+
+          -->
+          <module name="org.apache.commons.logging" />
+          <module name="org.apache.commons.collections" />
+          <module name="org.apache.log4j" />
+          <module name="org.dom4j" />
+          <module name="org.slf4j" />
+          <module name="org.antlr"/>
+          <module name="asm.asm"/>
+          <module name="org.javassist"/>
+        </dependencies>
+    </deployment>   
+</jboss-deployment-structure>
