@@ -20,6 +20,8 @@ All you need to follow these instructions is Java 6.0 (Java SDK 1.6) or better, 
 The application this project produces is designed to be run on a JBoss AS 7 or EAP 6. 
 The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.
 
+Note: Unlike most of the quickstarts, you will require JBoss AS 7.1.x or later to use this quickstart.
+
 Finally, you'll need the H2 Console. You can download it from <http://www.h2database.com/html/download.html>. We recommend using the platform independent zip.
  
 With the prerequisites out of the way, you're ready to build and deploy.
