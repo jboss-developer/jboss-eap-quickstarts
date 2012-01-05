@@ -24,18 +24,24 @@
     </licenses>
 
    <modules>
+      <module>cdi-injection</module>
+      <module>ejb-in-ear</module>
+      <module>ejb-in-war</module>
+      <module>greeter</module>
       <module>helloworld</module>
-      <module>numberguess</module>
-      <module>login</module>
-      <module>kitchensink</module>
-      <module>html5-mobile</module>
-      <module>kitchensink-ear</module>
+      <module>helloworld-gwt</module>
+      <module>helloworld-jsf</module>
+      <module>helloworld-mdb</module>
       <module>helloworld-osgi</module>
-      <module>rs-helloworld</module>
+      <module>helloworld-rs</module>
+      <module>helloworld-ssb</module>
+      <module>html5-mobile</module>
+      <module>kitchensink</module>
+      <module>kitchensink-ear</module>
+      <module>kitchensink-jsp</module>
+      <module>numberguess</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
-      <module>helloworld-mdb</module>
-      <module>helloworld-ssb</module>
    </modules>
 
    <scm>
