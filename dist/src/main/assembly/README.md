@@ -26,4 +26,5 @@ contains tutorials for:
 * `servlet-async` - CDI + Asynchronous Servlet + Asynchronous EJB 
 * `servlet-filterlistener` - Servlet Filter and Listener
 * `ejb-remote` - shows how to access EJBs remotely (EJB + JNDI)
+* `bmt` - programatic management of JTA and JPA (JTA + JPA + CDI + EJB)
 
