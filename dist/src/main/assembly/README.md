@@ -25,4 +25,5 @@ contains tutorials for:
 * `numberguess` - CDI + JSF
 * `servlet-async` - CDI + Asynchronous Servlet + Asynchronous EJB 
 * `servlet-filterlistener` - Servlet Filter and Listener
+* `bmt` - programatic management of JTA and JPA (JTA + JPA + CDI + EJB)
 
