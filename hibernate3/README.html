@@ -1,10 +1,89 @@
-<h1>Numberguess Example</h1>
-<p>This example demonstrates how to include different version of library provided by <em>JBoss AS 7</em>.</p>
-<p>This example is a simple application which uses <em>CDI 1.0</em>, <em>JSF 2.0</em>, <em>Hibernate 3.x</em> and <em>JPA 2.0</em> in<em>JBoss AS 7</em>.</p> 
+<h1>jboss-as-hibernate3</h1>
 
-<p>The example can be deployed using Maven from the command line or from Eclipse using
-JBoss Tools.</p>
-<p>To set up Maven or JBoss Tools in Eclipse, refer to the <em>Getting Started Guide</em>.</p>
-<p>To deploy to JBoss AS 7, start JBoss AS 7, and type <code>mvn package jboss-as:deploy</code>. 
-The application is deployed to <a href="http://localhost:8080/jboss-as-hibernate3">http://localhost:8080/jboss-as-hibernate3</a>. You
-can read more details in the <em>Getting Started Guide</em>.</p>
+<h2>What is it?</h2>
+
+<p>This is a simple JSF 2.0 example based on 'numberguess' quickstart. Its purpose is to demonstrate
+how you can include custom library in your application.
+</p>
+<p>In some cases you can find it useful to include third party library directly in Java EE application
+deployment unit. There are different cases when above is true, for instance:
+<ul>
+<li>to provide fully portable application package</li>
+<li>when container has no module defined for binary dependency</li>
+<li>when container has module with different version of binary dependency</li>
+</ul>
+
+This example falls into third category. It shows how to include and configure Hibernate 3.x.
+To better understand how it is done, its good to get acquainted with 'log4jdemo' quickstart.
+</p>
+
+<p>
+ Even thought this examples java code is simple, it is quite complicated example. As shown in 'log4jdemo' defining dependency is quite easy.
+ This example, however goes a bit beyond simple module dependency.<br>
+ There are three aspects of this example that play a role here:
+ <ul>
+ 	<li>assembly</li> - the Maven script and maven-war-plugin create 'war' which includes ONLY Hibernate 3.x binaries. To understand better how its 
+ 	achieved, please refer to this examples 'pom.xml' and <a href="http://maven.apache.org/plugins/maven-war-plugin/">http://maven.apache.org/plugins/maven-war-plugin/</a> documentation.
+ 	<li>module exclusion and inclusion</li> - this example alters runtime dependency on container provided modules. It declares dependency on container provided modules which are dependencies of Hibernate binaries included 
+ 	in application deployment unit. It also excludes implicit dependency on container default Hibernate module (which is version 4.x).
+ 	This is achieved with JBoss AS7 specific file, the <b>jboss-deployment-structure.xml</b>. For more details about this file, please refer to <a href="https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile">https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile</a>
+ 	<li>persistence configuration</li> - specific configuration is required to instruct container to ensure it loads proper JPA/Hibernate.
+  </ul>
+</p>
+
+<h2>System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
+3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on a JBoss AS 7 or EAP 6.
+The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.</p>
+
+<p>With the prerequisites out of the way, you're ready to build and deploy.</p>
+
+<h2>Deploying the application</h2>
+
+<p>First you need to start JBoss AS 7 (or EAP 6). To do this, run</p>
+
+<pre><code>$JBOSS_HOME/bin/standalone.sh
+</code></pre>
+
+<p>or if you are using windows</p>
+
+<pre><code>$JBOSS_HOME/bin/standalone.bat
+</code></pre>
+
+<p>To deploy the application, you first need to produce the archive to deploy using
+the following Maven goal:</p>
+
+<pre><code>mvn package
+</code></pre>
+
+<p>You can now deploy the artifact to JBoss AS by executing the following command:</p>
+
+<pre><code>mvn jboss-as:deploy
+</code></pre>
+
+<p>This will deploy <code>target/jboss-as-hibernate3.war</code>.</p>
+
+<p>The application will be running at the following URL
+<a href="http://localhost:8080/jboss-as-hibernate3/">http://localhost:8080/jboss-as-hibernate3/</a>.</p>
+
+<p>To undeploy from JBoss AS, run this command:</p>
+
+<pre><code>mvn jboss-as:undeploy
+</code></pre>
+
+<p>You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
+Getting Started Guide for Developers for more information.</p>
+
+<h1>Downloading the sources and Javadocs</h1>
+
+<p>If you want to be able to debug into the source code or look at the Javadocs
+of any library in the project, you can run either of the following two
+commands to pull them into your local repository. The IDE should then detect
+them.</p>
+
+<pre><code>mvn dependency:sources
+mvn dependency:resolve -Dclassifier=javadoc
+</code></pre>

@@ -41,8 +41,8 @@
 	<!-- NOTE: -->
 	<dependencyManagement>
 		<dependencies>
-			<!--  Define hiberante artifacts   -->
-			<!-- Define dependency on hibernate-core 
+			<!--  Define hiberante artifacts versions  -->
+			<!-- Define dependency version of hibernate-core 
 			    NOTE! that scope is	not "provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -81,7 +81,7 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Define dependency on hibernate-entitymanager: NOTE! that scope is 
+			<!-- Define dependency version of hibernate-entitymanager: NOTE! that scope is 
 				not "provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -115,7 +115,7 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Define dependency on hibernate-validator: NOTE! that scope is not 
+			<!-- Define dependency version of hibernate-validator: NOTE! that scope is not 
 				"provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -133,7 +133,7 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Define dependency on hibernate-commons-annotations: NOTE! that scope 
+			<!-- Define dependency version of hibernate-commons-annotations: NOTE! that scope 
 				is not "provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
