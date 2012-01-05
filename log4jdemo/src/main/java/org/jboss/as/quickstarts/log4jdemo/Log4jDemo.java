@@ -32,6 +32,7 @@ public class Log4jDemo implements Serializable {
 	public void log()
 	{
 		log4jLogger.info(this.getText());
+		this.setText(null);
 	}
    
 }

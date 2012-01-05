@@ -31,7 +31,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- Define Log4j dependency -->
+			<!-- Define Log4j dependency and its version -->
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
@@ -95,7 +95,7 @@
 	<build>
 		<!-- Set the name of the war, used as the context root when the app is 
 			deployed -->
-		<finalName>jboss-as-log4jdemo</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
