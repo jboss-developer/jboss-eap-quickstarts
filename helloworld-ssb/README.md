@@ -19,7 +19,7 @@ With the prerequisites out of the way, you're ready to build and deploy.
 Deploying the application
 -------------------------
 
-First of all you need to enable the "admin" user from $JBOSS_HOME/standalone/configuration/mgmt-users.properties file, and then start JBoss AS 7.1.0. by running this script
+First of all you need to enable the "admin" user from $JBOSS_HOME/standalone/configuration/mgmt-users.properties file, and then start JBoss AS 7 (or EAP 6). To do this, run this script
   
     $JBOSS_HOME/bin/standalone.sh
   
@@ -40,7 +40,7 @@ This will deploy `target/jboss-as-helloworld-ssb.war`.
  
 The application will be running at the following URL <http://localhost:8080/jboss-as-helloworld-ssb>.
 
-From the home site choose between "Increment A" and "increment B", and then click to the link below you chosen. The link will route you to a corresponding result page. To check if the singleton session bean work fine, from the result page go back to the home page and repeat the same action.
+This example demonstrates a singleton session bean that maintains state information for 2 variables: "Increment A" and "Increment B". A counter is incremented when you click on the link to the variable name. If you close and restart your browser, or if you have multiple browsers, you can see that the counter always increments the last value. These values are maintained until you restart the server. To test the singleton bean, on the home page, click on either "Increment A" or "Increment B". The result page will give you the current value of the variable.
 
 To undeploy from JBoss AS, run this command:
 
