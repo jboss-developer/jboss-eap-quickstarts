@@ -14,8 +14,6 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
 
 The application this project produces is designed to be run on a JBoss AS 7.1.0 or EAP 6. 
  
-NOTE: The artifacts will come from the JBoss Community Maven repository, a superset of the Maven central repository.
-
 With the prerequisites out of the way, you're ready to build and deploy.
 
 Deploying the application
@@ -40,7 +38,7 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
 This will deploy `target/jboss-as-helloworld-ssb.war`.
  
-The application will be running at the following URL <http://localhost:8080/singleton-bean>.
+The application will be running at the following URL <http://localhost:8080/jboss-as-helloworld-ssb>.
 
 From the home site choose between "Increment A" and "increment B", and then click to the link below you chosen. The link will route you to a corresponding result page. To check if the singleton session bean work fine, from the result page go back to the home page and repeat the same action.
 

@@ -7,7 +7,7 @@
 	<artifactId>jboss-as-helloworld-ssb</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
-	<name>JBoss AS Quickstarts: Helloworld Message-Driven Bean with Servlet 3.0 as client</name>
+	<name>JBoss AS Quickstarts: Helloworld Singleton Session Bean with JSF 2.0 as client</name>
 
 	<url>http://jboss.org/jbossas</url>
 	<licenses>
@@ -60,25 +60,12 @@
 			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
-			as the API is included in JBoss AS 7 -->
-		<dependency>
-			<groupId>org.jboss.spec.javax.annotation</groupId>
-			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.faces</groupId>
-			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<!-- Set the name of the war, used as the context root when the app is 
 			deployed -->
-		<finalName>jboss-as-helloworld-ssb</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
@@ -92,11 +79,7 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.1.0.Beta1b</version>
-				<configuration>
-					<username>admin</username>
-					<password>admin</password>
-				</configuration>
+				<version>7.1.0.CR1</version>
 			</plugin>
 			<!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation 
 				processors -->
