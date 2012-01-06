@@ -43,15 +43,13 @@
 		<dependencies>
 			<!--  Define hiberante artifacts versions  -->
 			<!-- Define dependency version of hibernate-core 
-			    NOTE! that scope is	not "provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
+			    NOTE! that scope is	not "provided", this will make Maven war plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>${hibernate.core.version}</version>
 				
-				<!-- Define exclusion of artifacts. Those artifacts have scope set to 'compile', to avoid
-					inclusion in WEB-INF/lib, we have to exclude them -->
-				<!-- Those artifacts are include as modules in jboss-deployment-structure.xml -->
+				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
 				<exclusions>
 					<!-- Exclude antlr artifact -->
 					<exclusion>
@@ -82,14 +80,12 @@
 			</dependency>
 
 			<!-- Define dependency version of hibernate-entitymanager: NOTE! that scope is 
-				not "provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
+				not "provided", this will make Maven war plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>${hibernate.entitymanager.version}</version>
-				<!-- Define exclusion of artifacts. Those artifacts have scope set to 'compile', to avoid
-					inclusion in WEB-INF/lib, we have to exclude them -->
-				<!-- Those artifacts are include as modules in jboss-deployment-structure.xml -->
+				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
 				<exclusions>
 					<!-- Exclude asm artifact -->
 					<exclusion>
@@ -116,14 +112,12 @@
 			</dependency>
 
 			<!-- Define dependency version of hibernate-validator: NOTE! that scope is not 
-				"provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
+				"provided", this will make Maven war plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>${hibernate.validator.version}</version>
-				<!-- Define exclusion of artifacts. Those artifacts have scope set to 'compile', to avoid
-					inclusion in WEB-INF/lib, we have to exclude them -->
-				<!-- Those artifacts are include as modules in jboss-deployment-structure.xml -->
+				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
 				<exclusions>
 					<!-- Exclude slf4j-api artifact -->
 					<exclusion>
@@ -134,14 +128,12 @@
 			</dependency>
 
 			<!-- Define dependency version of hibernate-commons-annotations: NOTE! that scope 
-				is not "provided", this will make maven.war.plugin to include it in WEB-INF/lib -->
+				is not "provided", this will make Maven war plugin to include it in WEB-INF/lib -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-commons-annotations</artifactId>
 				<version>${hibernate.commons.annotations.version}</version>
-				<!-- Define exclusion of artifacts. Those artifacts have scope set to 'compile', to avoid
-					inclusion in WEB-INF/lib, we have to exclude them -->
-				<!-- Those artifacts are include as modules in jboss-deployment-structure.xml -->
+				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
 				<exclusions>
 					<!-- Exclude slf4j-api artifact -->
 					<exclusion>
@@ -174,45 +166,55 @@
 
 	<dependencies>
 
-		<!-- Import the CDI API, we use provided scope as the API is included in 
-			JBoss AS 7 -->
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+		<!-- First declare the APIs we depend on and need for compilation. 
+         All of them are provided by JBoss AS 7 -->
 
-		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
-			as the API is included in JBoss AS 7 -->
-		<dependency>
-			<groupId>org.jboss.spec.javax.annotation</groupId>
-			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+      <!-- Import the CDI API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
-		<!-- Import the JSF API, we use provided scope as the API is included in 
-			JBoss AS 7 -->
-		<dependency>
-			<groupId>org.jboss.spec.javax.faces</groupId>
-			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+      <!-- Import the Common Annotations API (JSR-250), we use provided scope 
+         as the API is included in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.annotation</groupId>
+         <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      
+      <!-- dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency-->
+      
 
-		<!-- Import the JPA API, we use provided scope as the API is included in 
-			JBoss AS 7 -->
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+      <!-- Import the JAX-RS API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.ws.rs</groupId>
+         <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
-		<!-- Import the JPA API, we use provided scope as the API is included in 
-			JBoss AS 7 -->
-		<dependency>
-			<groupId>org.jboss.spec.javax.transaction</groupId>
-			<artifactId>jboss-transaction-api_1.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+      <!-- Import the JPA API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.hibernate.javax.persistence</groupId>
+         <artifactId>hibernate-jpa-2.0-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Import the EJB API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.ejb</groupId>
+         <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
 
 
 
@@ -241,7 +243,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
