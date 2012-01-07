@@ -9,7 +9,7 @@
    </parent>
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-quickstarts-parent</artifactId>
-   <version>7.0.2.CR2</version>
+   <version>7.0.2.CR3</version>
    <packaging>pom</packaging>
    <name>JBoss AS Quickstarts Parent</name>
    <description>JBoss AS Quickstarts Parent</description>
@@ -24,14 +24,27 @@
     </licenses>
 
    <modules>
+      <module>bmt</module>
+      <module>cdi-injection</module>
+      <module>ejb-in-ear</module>
+      <module>ejb-in-war</module>
+      <module>ejb-remote</module>
+      <module>greeter</module>
+      <module>h2-console</module>
       <module>helloworld</module>
-      <module>numberguess</module>
-      <module>login</module>
-      <module>kitchensink</module>
-      <module>html5-mobile</module>
-      <module>kitchensink-ear</module>
+      <module>helloworld-gwt</module>
+      <module>helloworld-jsf</module>
+      <module>helloworld-mdb</module>
       <module>helloworld-osgi</module>
-      <module>rs-helloworld</module>
+      <module>helloworld-rs</module>
+      <module>helloworld-singleton</module>
+      <module>html5-mobile</module>
+      <module>kitchensink</module>
+      <module>kitchensink-ear</module>
+      <module>kitchensink-jsp</module>
+      <module>kitchensink-ear</module>
+      <module>log4jdemo</module>
+      <module>numberguess</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
    </modules>
