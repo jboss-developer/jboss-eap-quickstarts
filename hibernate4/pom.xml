@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstart</groupId>
-   <artifactId>hibernatedemo</artifactId>
+   <artifactId>hibernate4</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <packaging>war</packaging>
    <name>Java EE 6 webapp project</name>
@@ -113,27 +113,23 @@
       </dependency>
 
       <!-- Now we declare any tools needed -->
-
+      <!--Commenting the following dependency as we are using the Hibernate4 Core Native API Criterion queries in this example-->
       <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
          for typesafe criteria queries -->
-      <dependency>
+      <!--dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-jpamodelgen</artifactId>
          <version>1.1.1.Final</version>
          <scope>provided</scope>
-      </dependency>
+      </dependency-->
       
-      <dependency>
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-entitymanager</artifactId>
-         <version>4.0.0.CR6</version>
-         <scope>provided</scope>
-      </dependency>
+      <!--Import dependencies to hibernate packages(eg. hibernate-core) depending on features you want to use like Hibernate Session used in the 	quickstart-->
+      <!--please note that scope is provided as these jars are shipped with as7-->
       
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>
-         <version>4.0.0.CR6</version>
+         <version>4.0.0.Final</version>
          <scope>provided</scope>
 	 <exclusions>
                     <exclusion>

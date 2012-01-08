@@ -1,4 +1,4 @@
-package org.jboss.as.quickstart.hibernatedemo.controller;
+package org.jboss.as.quickstart.hibernate4.controller;
 
 import java.util.logging.Logger;
 
@@ -12,7 +12,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 
-import org.jboss.as.quickstart.hibernatedemo.model.Member;
+import org.jboss.as.quickstart.hibernate4.model.Member;
 
 /**
  * @author Madhumita Sadhukhan

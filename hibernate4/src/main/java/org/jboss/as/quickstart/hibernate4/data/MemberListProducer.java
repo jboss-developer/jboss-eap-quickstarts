@@ -1,9 +1,9 @@
-package org.jboss.as.quickstart.hibernatedemo.data;
+package org.jboss.as.quickstart.hibernate4.data;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import org.jboss.as.quickstart.hibernatedemo.model.Member;
+import org.jboss.as.quickstart.hibernate4.model.Member;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
