@@ -1,11 +1,12 @@
-hibernatedemo
+hibernate4
 ========================
 
 What is it?
 -----------
 
-This is your project! It's a sample, deployable Maven 3 project to help you
-get your foot in the door developing with Java EE 6 on JBoss AS 7 or EAP 6. This 
+This is a quickstart built upon kitchensink additionally demonstrating how to use Hibernate4 as ORM over JPA in AS7(or EAP6)! 
+It's a sample, deployable Maven 3 project to help you
+get your foot in the door developing with Java EE 6 and Hibernate 4 on JBoss AS 7 or EAP 6. This 
 project is setup to allow you to create a compliant Java EE 6 application 
 using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 , Hibernate-Core and Hibernate Bean Validation. 
 It includes a persistence unit associated with Hibernate session and some sample persistence and transaction code 
