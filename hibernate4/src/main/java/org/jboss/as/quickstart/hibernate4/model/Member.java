@@ -1,4 +1,4 @@
-package org.jboss.as.quickstart.hibernatedemo.model;
+package org.jboss.as.quickstart.hibernate4.model;
 
 import java.io.Serializable;
 
@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/*use hibernate4 specific validators*/
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -23,7 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+@Table(name = "MemberHibernate4Demo",uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Member implements Serializable {
    /** Default value included to remove warning. Remove or modify at will. **/
    private static final long serialVersionUID = 1L;
@@ -36,6 +37,7 @@ public class Member implements Serializable {
    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
    private String name;
 
+   /**using hibernate4 validators**/
    @NotNull
    @NotEmpty
    @Email

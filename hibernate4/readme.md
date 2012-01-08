@@ -22,6 +22,31 @@ The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6
  
 With the prerequisites out of the way, you're ready to build and deploy.
 
+
+Adding correct Dependencies
+---------------------------
+
+AS7 (or EAP 6) provides JPA API and several ORM implementations like OpenJPA,Hibernate4 etc.
+If you choose to use Hibernate packaged within AS7(or EAP6) you will need to first import the JPA API.
+This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
+You will also need to add dependencies to the required Hibernate modules for using these features in pom.xml with scope as provided.
+for eg .
+
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-validator</artifactId>
+         <version>4.2.0.Final</version>
+         <scope>provided</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+
+
+
 Deploying the application
 -------------------------
  
@@ -42,9 +67,9 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
     mvn jboss-as:deploy
 
-This will deploy `target/hibernatedemo.war`.
+This will deploy `target/hibernate4.war`.
  
-The application will be running at the following URL <http://localhost:8080/hibernatedemo/>.
+The application will be running at the following URL <http://localhost:8080/hibernate4/>.
 
 To undeploy from JBoss AS, run this command:
 

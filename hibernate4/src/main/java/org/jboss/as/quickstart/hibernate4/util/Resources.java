@@ -1,4 +1,4 @@
-package org.jboss.as.quickstart.hibernatedemo.util;
+package org.jboss.as.quickstart.hibernate4.util;
 
 import java.util.logging.Logger;
 
