@@ -46,6 +46,11 @@ for eg .
          </exclusions>
       </dependency>
 
+You may refer "Adding a new external dependency" located at http://community.jboss.org/wiki/HackingOnAS7 for further help on adding dependencies.
+
+Please note that if you are working with Hibernate 3 the process is different as you will need to bundle the jars since AS7(or EAP6)
+does not ship with hibernate 3.
+Please refer to the quickstart demonstrating hibernate3 for details on how to bundle the jars in such cases.
 
 
 Deploying the application
@@ -68,9 +73,9 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
     mvn jboss-as:deploy
 
-This will deploy `target/hibernate4.war`.
+This will deploy `target/jboss-as-hibernate4.war`.
  
-The application will be running at the following URL <http://localhost:8080/hibernate4/>.
+The application will be running at the following URL <http://localhost:8080/jboss-as-hibernate4/>.
 
 To undeploy from JBoss AS, run this command:
 
