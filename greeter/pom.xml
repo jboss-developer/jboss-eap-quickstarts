@@ -24,18 +24,7 @@
       <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
          resources, i.e. build is platform dependent! -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
-        Any dependencies from org.jboss.spec will have their version defined by this 
-        BOM -->
-      <!--
-      <javaee6.web.spec.version>2.0.0.Final</javaee6.web.spec.version>
-      -->
-      <!-- Alternatively, comment out the above line, and un-comment the line below to 
-        use version 3.0.0.Beta1-redhat-1 which is a release certified 
-      to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
-      <javaee6.web.spec.version>3.0.0.Beta1-redhat-1</javaee6.web.spec.version> 
-            
-   	  <!-- test artifacts versions -->
+      <!-- test artifacts versions -->
       <arquillian.core.version>1.0.0.CR6</arquillian.core.version>
       <arquillian.jboss7.version>7.1.0.Beta1</arquillian.jboss7.version>
       <junit.version>4.8.2-redhat-1</junit.version>      
