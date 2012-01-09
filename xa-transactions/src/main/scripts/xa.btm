@@ -1,0 +1,21 @@
+
+RULE Start a count down when 2PC starts
+CLASS com.arjuna.ats.arjuna.coordinator.BasicAction
+METHOD End
+AT ENTRY
+# if there are 2 XA resources per txn then set the countDown such that during
+# the 2nd transaction the VM will halt when the 2nd participant is asked to commit
+IF TRUE
+DO traceln("Staring countdown at 4"), createCountDown("xahalt",1)
+ENDRULE
+ 
+RULE Generate an XA Recovery Record
+CLASS com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord
+METHOD topLevelCommit
+AT ENTRY
+# if the count down started at 2 and there are 2 XA resources then it should fire when the
+# second participant commits
+IF countDown("xahalt")
+DO traceln("Halting JVM because Byteman countDown has reached zero"), killJVM()
+ENDRULE
+
