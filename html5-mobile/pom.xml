@@ -19,7 +19,7 @@
       <!-- Timestamp format for the maven.build.timestamp property -->
       <!-- You can reference property in pom.xml or filtered resources (must 
          enable third-party plugin if using Maven < 2.1) -->
-      <javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version>
+      <javaee6.spec.version>3.0.0.Beta1-redhat-1</javaee6.spec.version>
       <!-- Alternatively, comment out the above line, and un-comment the line below to 
         use version 3.0.0.Beta1-redhat-1 which is a release certified 
       to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
@@ -38,7 +38,7 @@
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${javaee6.spec.version}</version>
+                <version>3.0.0.Beta1-redhat-1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
