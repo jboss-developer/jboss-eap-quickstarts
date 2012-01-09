@@ -1,16 +1,36 @@
 <h1>jboss-as-hibernate3</h1>
 
 <h2>What is it?</h2>
+<<<<<<< HEAD
 <p>
 This is a simple JSF 2.0 example based on hibernate4 quickstart. Its purpose is to demonstrate how you can use Hibernate 3 in your application.
+=======
+
+<p>This is a simple JSF 2.0 example based on 'hibernatedemo' quickstart.  Its purpose is to demonstrate how you can use Hibernate 3 in your application,
+instead of <em>JBoss AS7</em> default, Hibernate4.
+>>>>>>> df93770c2e965d53f74e1a3d588ddbdf611d8fea
 </p>
 <p>
+<<<<<<< HEAD
 This quickstart, like log4j quickstart, demonstrates how to define a module dependency. However, this quickstart goes beyond that and also demonstrates the following:
  	<ul>
  		<li>WAR creation</li> - The Maven script and Maven WAR plugin create a <b>WAR</b> archive that includes ONLY the Hibernate 3.x binaries. To understand better how this is achieved, please refer to the "pom.xml" in the root directory of this quickstart. Additional information can be found in the <a href="http://maven.apache.org/plugins/maven-war-plugin">http://maven.apache.org/plugins/maven-war-plugin</a> documentation.
     	<li>Module exclusion and inclusion</li> - This example demonstrates how to control class loading using <i>dependencies</i> and <i>exclusions</i> in the <b>jboss-deployment-structure.xml</b> file. For more information about this file, please refer to <a href="https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile">https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile</a>
     	<li>Persistence configuration</li> - Configuration is required to tell the container how to load JPA/Hibernate.
     </ul>
+=======
+ As shown in 'log4jdemo' defining dependency is quite easy.
+ This example, however goes a bit beyond simple module dependency.<br>
+ There are three aspects of this example that play a role here:
+ <ul>
+ 	<li>war creation</li> - the Maven script and maven-war-plugin create 'war' which includes ONLY Hibernate 3.x binaries. To understand better how its 
+ 	achieved, please refer to this examples 'pom.xml' and <a href="http://maven.apache.org/plugins/maven-war-plugin/">http://maven.apache.org/plugins/maven-war-plugin/</a> documentation.
+ 	<li>module exclusion and inclusion</li> - this example alters runtime dependency on container provided modules. It declares dependency on container provided modules which are dependencies of Hibernate binaries included 
+ 	in application deployment unit. It also excludes implicit dependency on container default Hibernate module (which is version 4.x).
+ 	This is achieved with JBoss AS7 specific file, the <b>jboss-deployment-structure.xml</b>. For more details about this file, please refer to <a href="https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile">https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile</a>
+ 	<li>persistence configuration</li> - specific configuration is required to instruct container to ensure it loads proper JPA/Hibernate.
+  </ul>
+>>>>>>> df93770c2e965d53f74e1a3d588ddbdf611d8fea
 </p>
 
 <h2>System requirements</h2>
