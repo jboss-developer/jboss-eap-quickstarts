@@ -47,6 +47,7 @@
       <module>numberguess</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
+      <module>xa-transactions</module>
    </modules>
 
    <scm>
