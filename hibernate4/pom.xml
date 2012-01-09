@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstart</groupId>
-   <artifactId>hibernate4</artifactId>
+   <artifactId>jboss-as-hibernate4</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <packaging>war</packaging>
    <name>Java EE 6 webapp project</name>
@@ -125,7 +125,7 @@
       
       <!--Import dependencies to hibernate packages(eg. hibernate-core) depending on features you want to use like Hibernate Session used in the 	quickstart-->
       <!--please note that scope is provided as these jars are shipped with as7-->
-      
+      <!-- Exclusion of artifacts which have transitive dependencies -->
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>

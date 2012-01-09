@@ -14,7 +14,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/*use hibernate4 specific validators*/
+/*use hibernate4 specific validators
+ *please note for hibernate3 these imports will differ 
+ *for eg import org.hibernate.validator.Email
+*/
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
