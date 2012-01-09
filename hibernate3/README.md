@@ -4,7 +4,6 @@ jboss-as-hibernate3
 What is it?
 -----------
 
-
 This is a simple JSF 2.0 example based on hibernate4 quickstart. Its purpose is to demonstrate how you can use Hibernate 3 in your application.
 
 This quickstart, like log4jquickstart , demonstrates how to define a module dependency. However, this quickstart goes beyond that and also demonstrates the following:
