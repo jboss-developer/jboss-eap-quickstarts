@@ -34,6 +34,7 @@ to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven r
         <!--
           <javaee6.spec.version>3.0.0.Beta1-redhat-1</javaee6.spec.version>
         -->
+<byteman.version>2.0.0</byteman.version>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +55,25 @@ read this as the JBoss stack of the Java EE 6 Web Profile APIs) -->
 
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+          <!-- Add the JBoss repository for org.jboss</groupId:jboss-ejb-client 
+                  this will not be necessary if it has been uploaded to central -->
+        <repository>
+          <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+              <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+                <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+              <updatePolicy>never</updatePolicy>
+                </releases>
+          <snapshots>
+            <enabled>true</enabled>
+              <updatePolicy>never</updatePolicy>
+                </snapshots>
+      </repository>
+          </repositories>
 
     <dependencies>
 
@@ -93,6 +113,11 @@ as the API is included in JBoss AS 7 -->
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jboss.byteman</groupId>
+            <artifactId>byteman</artifactId>
+            <version>${byteman.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -124,6 +149,57 @@ as the API is included in JBoss AS 7 -->
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+            </plugin>
+<!--
+            <plugin>
+              <inherited>true</inherited>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>copy-dependencies</id>
+                  <phase>initialize</phase>
+                  <goals>
+                    <goal>copy-dependencies</goal>
+                  </goals>
+                  <configuration>
+                    <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                    <overWriteIfNewer>false</overWriteIfNewer>
+                    <includes>byteman${byteman.version}.jar</includes>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+    -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <version>2.4</version>
+              <executions>
+                <execution>
+                  <id>copy-dependencies</id>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                    <artifactItems>
+                      <artifactItem>
+		        <groupId>org.jboss.byteman</groupId>
+                        <artifactId>byteman</artifactId>
+                        <version>${byteman.version}</version>
+                        <type>jar</type>
+                        <overWrite>false</overWrite>
+                        <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                      </artifactItem>
+                    </artifactItems>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                  </configuration>
+                </execution>
+              </executions>
             </plugin>
         </plugins>
     </build>
