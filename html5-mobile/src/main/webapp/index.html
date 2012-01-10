@@ -21,7 +21,7 @@
       },{
           test: ( Modernizr.mq( "only screen and (min-width: 768px) and (max-width: 1024px)" ) || Modernizr.mq( "only screen and (max-width: 480px)" ) ) && Modernizr.touch,
           yep: {
-              "jqmcss": "resources/css/jquery.mobile-1.0rc2.min.css",
+              "jqmcss": "resources/css/jquery.mobile-1.0.min.css",
               "mcss": "resources/css/m.screen.css"
           },
           nope: {
@@ -29,7 +29,14 @@
           },
           callback: {
               "jqmcss": function( url, result, key ) {
-            	  Modernizr.load( "resources/js/jquery.mobile-1.0rc2.min.js" );
+            	  Modernizr.load({
+                  	  load: "http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js",
+                  	  complete: function() {
+                      	  if ( !$.mobile ) {
+                          	  Modernizr.load( "resources/js/jquery.mobile-1.0.min.js" );
+                          }
+                      }
+            	  });
               },
               "scss": function( url, result, key ) {
                   $( document ).ready( function() {
