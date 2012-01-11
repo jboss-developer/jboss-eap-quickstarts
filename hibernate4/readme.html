@@ -14,14 +14,14 @@ to help you get your feet wet with database access in enterprise Java. </p>
 The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.</p>
 <p>With the prerequisites out of the way, you're ready to build and deploy.</p>
 <h2>Adding correct Dependencies</h2>
-<p>AS7 (or EAP 6) provides JPA API and several ORM implementations like OpenJPA,Hibernate4 etc.
-If you choose to use Hibernate packaged within AS7(or EAP6) you will need to first import the JPA API.
+<p>JBoss AS7 (or EAP 6) provides both JPA as well as Hibernate4(as ORM) and also supports Hibernate3 etc.
+If you choose to use Hibernate4 packaged within JBoss AS7(or EAP6) you will need to first import the JPA API.
 This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
 You will also need to add dependencies to the required Hibernate modules for using these features in pom.xml with scope as provided.
 for eg . check dependency for hibernate-validator in pom.xml</p>
-<p>Please note that if you are working with Hibernate 3 the process is different as you will need to bundle the jars since AS7(or EAP6)
-does not ship with hibernate 3.
-Please refer to the quickstart demonstrating hibernate3 for details on how to bundle the jars in such cases. </p>
+<p>Please note that if you are working with Hibernate 3 the process is different as you will need to bundle the jars since JBoss AS7(or EAP6)
+does not ship with Hibernate 3.
+Please refer to the quickstart demonstrating Hibernate3 for details on how to bundle the jars in such cases. </p>
 <h2>Deploying the application</h2>
 <p>First you need to start JBoss AS 7 (or EAP 6). To do this, run</p>
 <pre><code>$JBOSS_HOME/bin/standalone.sh
