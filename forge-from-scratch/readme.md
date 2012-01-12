@@ -40,7 +40,7 @@ or by pressing CTRL-4.
 Notice that there is a file called `generate.fsh` in this directory; run from Forge
 using the `run` command:
 
-   `$ run generate.fsh`
+     $ run generate.fsh
 
 This command will prompt you for the {project-name} (E.g: 'example'),
 and will also prompt for the top level package. This should be the domain for your
@@ -57,7 +57,7 @@ or if you are using windows
 To build the application, type 'build', then to deploy the application, use the 
 'as7' Forge plugin; just type:
 
-    `$ as7 deploy`
+     $ as7 deploy
 
 This will deploy `target/{project-name}.war`.
  
@@ -67,14 +67,14 @@ project you chose when running the script.
 
 To undeploy from JBoss AS, run this command:
 
-    `$ as7 undeploy`
+     $ as7 undeploy
 
 You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
 Getting Started Guide for Developers for more information.
  
 Next Steps
 ============================
-Open 'generate.fsh' and take a look inside! There is not much magic happening here. All of the
+Open `generate.fsh` and take a look inside! There is not much magic happening here. All of the
 commands used to generate this project are clearly listed just as if they were typed by your
 own hands.
 
@@ -88,7 +88,7 @@ Use the Forge Openshift Express plugin: http://github.com/forge/plugin-openshift
 
 To see a full list of avaialable plugins, make sure that you have an active internet connection and type:
 
-   `$ forge find-plugin *`
+     $ forge find-plugin *
 
 Importing the project into an IDE
 =================================
