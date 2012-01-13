@@ -19,7 +19,7 @@ quick start to demonstrate more advanced features. In particular:
 
 For a more complete example, please see the XTS demonstrator application that ships with the JBossTS project: http://www.jboss.org/jbosstm.
 
-It is also assumed tht you have an understanding of WS-BusinessActivity. For more details, read the XTS documentation
+It is also assumed that you have an understanding of WS-BusinessActivity. For more details, read the XTS documentation
 that ships with the JBossTS project, which can be downloaded here: http://www.jboss.org/jbosstm/downloads/JBOSSTS_4_16_0_Final
 
 The application consists of a single JAX-WS web service that is deployed within a war archive. It is tested with a JBoss
