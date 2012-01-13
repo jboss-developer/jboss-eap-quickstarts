@@ -25,7 +25,6 @@ import com.arjuna.wst.FaultedException;
 import com.arjuna.wst.SystemException;
 import com.arjuna.wst.WrongStateException;
 import com.arjuna.wst11.ConfirmCompletedParticipant;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -33,7 +32,7 @@ import java.util.List;
 
 /**
  * An adapter class that exposes the SetManager as a WS-BA participant using the 'Coordinator Completion' protocol.
- * 
+ * <p/>
  * The Set Service can be invoked multiple times to add many items to the set within a single BA. The service waits for the
  * coordinator to tell it to complete. This has the advantage that the client can continue calling methods on the service right
  * up until it calls 'close'. However, any resources held by the service need to be held for this duration, unless the service
@@ -43,16 +42,12 @@ import java.util.List;
  */
 public class SetParticipantBA implements BusinessAgreementWithCoordinatorCompletionParticipant, ConfirmCompletedParticipant,
         Serializable {
-
     private static final long serialVersionUID = 1L;
-
     // The ID of the corresponding transaction
     private String txID;
-
     // A list of values added to the set. These are removed from the set at
     // compensation time.
     private List<String> values = new LinkedList<String>();
-
     // table of currently active participants
     private static HashMap<String, SetParticipantBA> participants = new HashMap<String, SetParticipantBA>();
 
@@ -60,7 +55,6 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
      * Participant instances are related to business method calls in a one to one manner.
      * 
      * @param txID The ID of the current Business Activity
-     * 
      * @param value the value to remove from the set during compensation
      */
     public SetParticipantBA(String txID, String value) {
@@ -84,10 +78,10 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
      * @throws WrongStateException never in this implementation.
      * @throws SystemException never in this implementation.
      */
-
     public void close() throws WrongStateException, SystemException {
         // nothing to do here as the item has already been added to the set
-        System.out.println("SetParticipantBA.close");
+        System.out
+                .println("[SERVICE] Participant.close (The participant knows that this BA is now finished and can throw away any temporary state)");
         removeParticipant(txID);
     }
 
@@ -98,9 +92,8 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
      * @throws WrongStateException never in this implementation.
      * @throws SystemException never in this implementation.
      */
-
     public void cancel() throws WrongStateException, SystemException {
-        System.out.println("SetParticipantBA.cancel");
+        System.out.println("[SERVICE] Participant.cancel (The participant should compensate any work done within this BA)");
         doCompensate();
         removeParticipant(txID);
     }
@@ -112,9 +105,8 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
      * @throws WrongStateException never in this implementation.
      * @throws SystemException if unable to perform the compensating transaction.
      */
-
     public void compensate() throws FaultedException, WrongStateException, SystemException {
-        System.out.println("SetParticipantBA.compensate");
+        System.out.println("[SERVICE] Participant.compensate");
         doCompensate();
         removeParticipant(txID);
     }
@@ -128,13 +120,13 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
     }
 
     public void error() throws SystemException {
-        System.out.println("SetParticipantBA.error");
+        System.out.println("[SERVICE] Participant.error");
         doCompensate();
         removeParticipant(txID);
     }
 
     private void doCompensate() {
-        System.out.println("SetParticipantBA: Carrying out compensation action");
+        System.out.println("[SERVICE] SetParticipantBA: Carrying out compensation action");
         for (String value : values) {
             MockSetManager.rollback(value);
         }
@@ -142,8 +134,8 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
 
     @Override
     public void complete() throws WrongStateException, SystemException {
-        System.out.println("SetParticipantBA.complete");
-        removeParticipant(txID);
+        System.out
+                .println("[SERVICE] Participant.complete (This tells the participant that the BA completed, but may be compensated later)");
     }
 
     /**
@@ -154,8 +146,11 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
      *        been written and changes should be rolled back
      */
     public void confirmCompleted(boolean confirmed) {
-        System.out.println("SetParticipantBA.confirmCompleted('" + confirmed + "')");
         if (confirmed) {
+            System.out
+                    .println("[SERVICE] Participant.confirmCompleted('"
+                            + confirmed
+                            + "') (This tells the participant that compensation information has been logged and that it is safe to commit any changes.)");
             MockSetManager.commit();
         } else {
             doCompensate();

@@ -22,9 +22,7 @@ package org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple;
 
 import com.arjuna.mw.wst11.UserBusinessActivity;
 import com.arjuna.mw.wst11.UserBusinessActivityFactory;
-
 import junit.framework.Assert;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple.jaxws.SetServiceBA;
@@ -35,12 +33,10 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import javax.inject.Inject;
 
 @RunWith(Arquillian.class)
 public class ClientTest {
-
     @Inject
     @ClientStub
     public SetServiceBA client;
@@ -71,16 +67,25 @@ public class ClientTest {
      */
     @Test
     public void testSuccess() throws Exception {
+
+        System.out
+                .println("\n\nStarting 'testSuccess'. This test invokes a WS twice within a BA. The BA is later closes, which causes these WS calls to complete successfully.");
+        System.out.println("[CLIENT] Creating a new Business Activity");
         UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
         try {
             String value1 = "1";
             String value2 = "2";
 
+            System.out
+                    .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA wil be included in this activity)");
             uba.begin();
 
+            System.out.println("[CLIENT] invoking addValueToSet(1) on WS");
             client.addValueToSet(value1);
+            System.out.println("[CLIENT] invoking addValueToSet(2) on WS");
             client.addValueToSet(value2);
 
+            System.out.println("[CLIENT] Closing Business Activity (This will cause the BA to complete successfully)");
             uba.close();
 
             Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value1));
@@ -101,47 +106,32 @@ public class ClientTest {
      */
     @Test
     public void testCancel() throws Exception {
+
+        System.out
+                .println("\n\nStarting 'testCancel'. This test invokes a WS twice within a BA. The BA is later cancelled, which causes these WS calls to be compensated.");
+        System.out.println("[CLIENT] Creating a new Business Activity");
         UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
         try {
             String value1 = "1";
             String value2 = "2";
 
+            System.out
+                    .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA will be included in this activity)");
             uba.begin();
 
+            System.out.println("[CLIENT] invoking addValueToSet(1) on WS");
             client.addValueToSet(value1);
+            System.out.println("[CLIENT] invoking addValueToSet(2) on WS");
             client.addValueToSet(value2);
 
             Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value1));
             Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value2));
 
+            System.out.println("[CLIENT] Cancelling Business Activity (This will cause the work to be compensated)");
             uba.cancel();
 
             Assert.assertTrue("Expected value to not be in the set, but it was", !client.isInSet(value1));
             Assert.assertTrue("Expected value to not be in the set, but it was", !client.isInSet(value2));
-
-        } finally {
-            cancelIfActive(uba);
-            client.clear();
-        }
-
-    }
-
-    /**
-     * This test attempts to add the same item to the set twice. An application exception is thrown and the Business Activity is
-     * cancelled by the client.
-     * 
-     * @throws Exception
-     */
-    @Test(expected = AlreadyInSetException.class)
-    public void testApplicationException() throws Exception {
-
-        UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
-        String value = "1";
-        try {
-            uba.begin();
-
-            client.addValueToSet(value);
-            client.addValueToSet(value);
 
         } finally {
             cancelIfActive(uba);

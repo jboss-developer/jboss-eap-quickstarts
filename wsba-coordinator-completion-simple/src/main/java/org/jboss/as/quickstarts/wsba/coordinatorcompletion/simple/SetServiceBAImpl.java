@@ -24,9 +24,7 @@ import com.arjuna.ats.arjuna.common.Uid;
 import com.arjuna.mw.wst11.BusinessActivityManager;
 import com.arjuna.mw.wst11.BusinessActivityManagerFactory;
 import com.arjuna.wst.SystemException;
-
 import org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple.jaxws.SetServiceBA;
-
 import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -41,20 +39,17 @@ import javax.jws.soap.SOAPBinding;
 @HandlerChain(file = "/context-handlers.xml", name = "Context Handlers")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class SetServiceBAImpl implements SetServiceBA {
-
     /**
      * Add an item to a set and enroll a Participant if necessary then pass the call through to the business logic.
      * 
      * @param value the value to add to the set.
-     * 
      * @throws AlreadyInSetException if value is already in the set
-     * 
      * @throws SetServiceException if an error occurred when attempting to add the item to the set.
      */
     @WebMethod
     public void addValueToSet(String value) throws AlreadyInSetException, SetServiceException {
 
-        System.out.println("SetServiceBAImpl.add('" + value + "')");
+        System.out.println("[SERVICE] invoked addValueToSet('" + value + "')");
 
         BusinessActivityManager activityManager = BusinessActivityManagerFactory.businessActivityManager();
 
@@ -79,6 +74,7 @@ public class SetServiceBAImpl implements SetServiceBA {
                 SetParticipantBA participant = new SetParticipantBA(transactionId, value);
                 SetParticipantBA.recordParticipant(transactionId, participant);
 
+                System.out.println("[SERVICE] Enlisting a participant into the BA");
                 activityManager.enlistForBusinessAgreementWithCoordinatorCompletion(participant, "SetServiceBAImpl:"
                         + new Uid().toString());
             } catch (Exception e) {
@@ -86,10 +82,12 @@ public class SetServiceBAImpl implements SetServiceBA {
                 throw new SetServiceException("Error enlisting participant", e);
             }
         } else {
+            System.out.println("[SERVICE] Re-using the existing participant, already registered for this BA");
             participantBA.addValue(value);
         }
 
         // invoke the back-end business logic
+        System.out.println("[SERVICE] Invoking the back-end business logic");
         MockSetManager.add(value);
     }
 
@@ -106,7 +104,7 @@ public class SetServiceBAImpl implements SetServiceBA {
 
     /**
      * Empty the set
-     * 
+     * <p/>
      * Note: To simplify this example, this method is not part of the compensation logic, so will not be undone if the BA is
      * compensated. It can also be invoked outside of an active BA.
      */

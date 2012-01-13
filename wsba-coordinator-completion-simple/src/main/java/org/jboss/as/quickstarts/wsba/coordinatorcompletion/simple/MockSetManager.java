@@ -62,7 +62,6 @@ public class MockSetManager {
      * @return true if the SetManager is able to commit and the required state was persisted. False otherwise.
      */
     public static boolean prepare() {
-        System.out.println("MockSetManager.prepare");
         return true;
     }
 
@@ -72,7 +71,8 @@ public class MockSetManager {
      * As this is a mock implementation, the method does nothing.
      */
     public static void commit() {
-        System.out.println("MockSetManager.commit");
+        System.out
+                .println("[SERVICE] Commit the backend resource (e.g. commit any changes to databases so that they are visible to others)");
     }
 
     /**
@@ -84,7 +84,8 @@ public class MockSetManager {
      * @param item The item to remove from the set in order to undo the effects of the add operation.
      */
     public static void rollback(String item) {
-        System.out.println("MockSetManager.rollback");
+        System.out.println("[SERVICE] Compensate the backend resource by removing '" + item
+                + "' from the set (e.g. undo any changes to databases that were previously made visible to others)");
         synchronized (set) {
 
             set.remove(item);
