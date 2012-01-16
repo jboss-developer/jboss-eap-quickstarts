@@ -1,19 +1,19 @@
-@/* Example Forge Script - Generates a Point-of-sale Style Application */
+@/* Example Forge Script - Generates a Point-of-sale Style Application */;
 
-@/* Clear the screen */
+@/* Clear the screen */;
 clear;
 
-@/* Create a new project in the current directory */
+@/* Create a new project in the current directory */;
 new-project;
 
-@/* This means less typing. If a script is automated, or is not meant to be interactive, use this command */
+@/* This means less typing. If a script is automated, or is not meant to be interactive, use this command */;
 set ACCEPT_DEFAULTS true;
 
-@/* Turn our Java project into a Web project with JSF, CDI, EJB, and JPA  */
+@/* Turn our Java project into a Web project with JSF, CDI, EJB, and JPA  */;
 scaffold setup --scaffoldType faces;
 persistence setup --provider HIBERNATE --container JBOSS_AS7 ;
 
-@/* Create some JPA @Entities on which to base our application */
+@/* Create some JPA @Entities on which to base our application */;
 entity --named Customer --package ~.domain;
 field string --named firstName;
 field string --named lastName;
@@ -24,7 +24,7 @@ field number --named price --type java.lang.Double;
 field int --named stock;
 cd ..;
 
-@/* Create more entities, also add a relationship between Customer and their Orders */
+@/* Create more entities, also add a relationship between Customer and their Orders */;
 entity --named ProductOrder;
 field manyToOne --named customer --fieldType ~.domain.Customer.java --inverseFieldName orders;
 cd ../Customer.java;
@@ -39,7 +39,7 @@ entity --named ZipCode;
 field int --named code;
 cd ../Address.java;
 
-@/* Add more relationships between our @Entities */
+@/* Add more relationships between our @Entities */;
 field manyToOne --named zip --fieldType ~.domain.ZipCode.java;
 cd ..;
 cd Customer.java;
@@ -56,17 +56,17 @@ cd ProductOrder.java;
 field manyToOne --named shippingAddress --fieldType ~.domain.Address.java;
 cd ..;
 
-@/* Generate the UI for all of our @Entities at once */
+@/* Generate the UI for all of our @Entities at once */;
 scaffold from-entity ~.domain.* --scaffoldType faces --overwrite;
 cd ~~;
 
-@/* Setup JAX-RS, and create CRUD endpoints */
+@/* Setup JAX-RS, and create CRUD endpoints */;
 rest setup;
 rest endpoint-from-entity ~.domain.*;
 
-@/* Build the project and disable ACCEPT_DEFAULTS */
+@/* Build the project and disable ACCEPT_DEFAULTS */;
 build;
 set ACCEPT_DEFAULTS false;
 
-@/* Return to the project root directory and leave it in your hands */
+@/* Return to the project root directory and leave it in your hands */;
 cd ~~;
