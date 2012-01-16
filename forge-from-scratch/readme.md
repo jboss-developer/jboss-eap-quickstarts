@@ -4,10 +4,10 @@ Forge From Scratch
 What is it?
 -----------
 
-This is an example of creating a fully `Java EE compliant` project `using nothing
-but JBoss Forge.` Once generated, the sample project will be a standard Maven 3
-Java Web project with `JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.0` views for creating, reading, updating
-and deleting records, and complete `JAX-RS` endpoints for all data Entities.
+This is an example of creating a fully **Java EE compliant** project **using nothing
+but JBoss Forge.** Once generated, the sample project will be a standard Maven 3
+Java Web project with **JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.0** views for creating, reading, updating
+and deleting records, and complete **JAX-RS** endpoints for all data Entities.
 
 But that is not all! You can use Forge on your new or existing projects
 to continue enhancing any application.
