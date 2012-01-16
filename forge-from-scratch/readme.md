@@ -55,9 +55,11 @@ or if you are using windows
     $JBOSS_HOME/bin/standalone.bat
 
 To build the application, type 'build', then to deploy the application, use the 
-'as7' Forge plugin; just type:
+'jboss-as-7' Forge plugin; just type:
 
-     $ as7 deploy
+     $ forge install-plugin jboss-as-7
+	 $ as7 setup
+	 $ as7 deploy
 
 This will deploy `target/{project-name}.war`.
  
