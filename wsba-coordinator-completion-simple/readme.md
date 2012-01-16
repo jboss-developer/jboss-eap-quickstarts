@@ -19,7 +19,7 @@ quick start to demonstrate more advanced features. In particular:
 
 For a more complete example, please see the XTS demonstrator application that ships with the JBossTS project: http://www.jboss.org/jbosstm.
 
-It is also assumed that you have an understanding of WS-BusinessActivity. For more details, read the XTS documentation
+It is also assumed thacp t you have an understanding of WS-BusinessActivity. For more details, read the XTS documentation
 that ships with the JBossTS project, which can be downloaded here: http://www.jboss.org/jbosstm/downloads/JBOSSTS_4_16_0_Final
 
 The application consists of a single JAX-WS web service that is deployed within a war archive. It is tested with a JBoss
@@ -57,15 +57,15 @@ With the prerequisites out of the way, you're ready to build and deploy.
 Deploying the application
 -------------------------
 
-First you need to start JBoss AS 7 (7.1.0.CR1 or above, or EAP 6), with the XTS sub system enabled. To do this, run
-
-    $JBOSS_HOME/bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml | egrep "started|stdout"
+First you need to start JBoss AS 7 (7.1.0.CR1 or above, or EAP 6), with the XTS sub system enabled, this is enabled through an optional server configuration (standalone-xts.xml). To do this, run the following commands, from within the top-level directory of JBossAS:
+    
+    ./bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml | egrep "started|stdout"
 
 Note, the pipe to egrep (| egrep "started|stdout") is useful to just show when the server has started and the output from these tests. For normal operation, this pipe can be removed.
 
 or if you are using windows
 
-    $JBOSS_HOME/bin/standalone.bat --server-config=../../docs/examples/configs/standalone-xts.xml
+    ./bin/standalone.bat --server-config=../../docs/examples/configs/standalone-xts.xml
 
 To test the application run:
 
