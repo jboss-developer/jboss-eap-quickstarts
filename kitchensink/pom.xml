@@ -129,14 +129,14 @@
       <dependency>
          <groupId>org.jboss.arquillian.junit</groupId>
          <artifactId>arquillian-junit-container</artifactId>
-         <version>1.0.0.CR6</version>
+         <version>1.0.0.CR7</version>
          <scope>test</scope>
       </dependency>
       
       <dependency>
          <groupId>org.jboss.arquillian.protocol</groupId>
          <artifactId>arquillian-protocol-servlet</artifactId>
-         <version>1.0.0.CR6</version>
+         <version>1.0.0.CR7</version>
          <scope>test</scope>               
       </dependency>
 
@@ -172,7 +172,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Beta1</version>
+            <version>7.1.0.Beta1b</version>
          </plugin>
       </plugins>
    </build>
@@ -211,7 +211,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-               <version>7.1.0.Beta1</version>
+               <version>7.1.0.Beta1b</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -226,7 +226,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-               <version>7.1.0.Beta1</version>
+               <version>7.1.0.Beta1b</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
