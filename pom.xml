@@ -31,7 +31,6 @@
       <module>ejb-in-war</module>
       <module>ejb-remote</module>
       <module>greeter</module>
-      <!-- <module>h2-console</module> -->
       <module>helloworld</module>
       <module>helloworld-gwt</module>
       <module>helloworld-jsf</module>
@@ -63,7 +62,7 @@
             <plugin>
                <groupId>org.jboss.as.plugins</groupId>
                <artifactId>jboss-as-maven-plugin</artifactId>
-               <version>7.1.0.Beta1b</version>
+               <version>7.1.0.CR1</version>
                <inherited>true</inherited>
                <configuration>
                   <skip>true</skip>
