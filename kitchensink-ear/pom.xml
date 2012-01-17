@@ -29,7 +29,6 @@
 
    <dependencyManagement>
       <dependencies>
-
          <!-- Define the version of the EJB jar so that we don't need to 
             repeat ourselves in every module -->
          <dependency>
@@ -57,7 +56,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <version>${javaee6.spec.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

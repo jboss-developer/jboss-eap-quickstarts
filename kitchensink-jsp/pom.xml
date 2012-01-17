@@ -24,7 +24,7 @@
       <!-- <javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version> -->
    </properties>
 
-    <dependencyManagement>
+   <dependencyManagement>
       <dependencies>
          <!-- JBoss distributes a complete set of Java EE 6 APIs including 
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <version>${javaee6.spec.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
