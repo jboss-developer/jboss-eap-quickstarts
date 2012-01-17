@@ -5,9 +5,9 @@
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-quickstarts-ejb-remote</artifactId>
-    <version>7.1.0.CR1-SNAPSHOT</version>
+    <version>7.0.2.CR4</version>
     <packaging>pom</packaging>
-    <name>JBoss AS EJB Remote Quickstart Parent</name>
+    <name>JBoss AS Quickstarts: Parent for remote EJB and Java client</name>
 
     <licenses>
         <license>
@@ -25,5 +25,22 @@
         <module>server-side</module>
         <module>client</module>
     </modules>
+
+   <build>
+      <plugins>
+            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
+               container -->
+            <!-- Disabling it here means that we don't try to deploy this POM! -->
+            <plugin>
+               <groupId>org.jboss.as.plugins</groupId>
+               <artifactId>jboss-as-maven-plugin</artifactId>
+               <version>7.1.0.CR1</version>
+               <inherited>true</inherited>
+               <configuration>
+                  <skip>true</skip>
+               </configuration>
+            </plugin>
+         </plugins>
+   </build>
 
 </project>

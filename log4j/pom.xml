@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jboss.as.quickstarts</groupId>
-	<artifactId>jboss-as-log4jdemo</artifactId>
-	<version>7.0.2.CR3</version>
+	<artifactId>jboss-as-log4j</artifactId>
+	<version>7.0.2.CR4</version>
 	<packaging>war</packaging>
-	<name>JBoss AS Quickstarts: Log4jdemo</name>
-	<description>JBoss AS Quickstarts: Log4jdemo</description>
+	<name>JBoss AS Quickstarts: log4j</name>
+	<description>JBoss AS Quickstarts: Logging using log4j</description>
 
 	<url>http://jboss.org/jbossas</url>
 	<licenses>
@@ -109,7 +109,7 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.1.0.Beta1b</version>
+				<version>7.1.0.CR1</version>
 			</plugin>
 			<!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation 
 				processors -->

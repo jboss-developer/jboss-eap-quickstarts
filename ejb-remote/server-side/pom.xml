@@ -5,9 +5,9 @@
  
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-ejb-remote-server-side</artifactId>
-   <version>7.1.0.CR1-SNAPSHOT</version>
+   <version>7.0.2.CR4</version>
    <packaging>jar</packaging>
-   <name>JBoss AS Quickstarts: EJB Remote Server Side</name>
+   <name>JBoss AS Quickstarts: Server side of remote EJB</name>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -32,9 +32,8 @@
          <!-- JBoss distributes a complete set of Java EE 6 APIs including 
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
             a collection) of artifacts. We use this here so that we always get the correct 
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE 6 Web Profile APIs), and we use 
-            version 2.0.0.Beta1 which is the latest release of the stack. You can actually 
+            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+            read this as the JBoss stack of the Java EE 6 APIs). You can actually
             use this stack with any version of JBoss AS that implements Java EE 6, not 
             just JBoss AS 7! -->
          <dependency>
@@ -75,7 +74,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Beta1b</version>
+            <version>7.1.0.CR1</version>
             <configuration>
                 <filename>${project.build.finalName}.jar</filename>
             </configuration>

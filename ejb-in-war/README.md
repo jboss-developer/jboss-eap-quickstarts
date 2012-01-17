@@ -46,16 +46,17 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
     mvn jboss-as:deploy
 
-This will deploy `target/jboss-as-ejbinwar.war`.
+This will deploy `target/jboss-as-ejb-in-war.war`.
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-ejbinwar>.
+The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-in-war>.
 
 To undeploy from JBoss AS, run this command:
 
     mvn jboss-as:undeploy
 
 You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
-Getting Started Guide for Developers for more information.
+<a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> 
+for more information.
 
 Importing the project into an IDE
 =================================
@@ -65,7 +66,7 @@ If you created the project using the Maven archetype wizard in your IDE
 already have an IDE project.
 
 Detailed instructions for using Eclipse with JBoss AS 7 are provided in the
-JBoss AS 7 Getting Started Guide for Developers.
+JBoss AS 7 <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.
 
 If you created the project from the commandline using archetype:generate, then
 you need to import the project into your IDE. If you are using NetBeans 6.8 or

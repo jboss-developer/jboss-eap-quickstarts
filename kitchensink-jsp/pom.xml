@@ -3,9 +3,9 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.kitchensink-jsp</groupId>
-   <version>7.1.0-SNAPSHOT</version>
+   <version>7.0.2.CR4</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: kitchensink JSP</name>
+   <name>JBoss AS Quickstarts: Kitchensink with JSP front end</name>
 
    <properties>
       <!-- Explicitly declaring the source encoding eliminates the following 
@@ -22,6 +22,7 @@
            use version 3.0.0.Beta1 which is a release design for JBoss AS 7 (community version).
            It requires you have access to the JBoss EAP 6 maven repository. -->
       <!-- <javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version> -->
+      <javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version>
    </properties>
 
    <dependencyManagement>
@@ -29,8 +30,8 @@
          <!-- JBoss distributes a complete set of Java EE 6 APIs including 
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
             a collection) of artifacts. We use this here so that we always get the correct 
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE Web Profile 6 APIs) -->
+            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can 
+            read this as the JBoss stack of the Java EE 6 APIs) -->
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
@@ -143,14 +144,14 @@
       <dependency>
          <groupId>org.jboss.arquillian.junit</groupId>
          <artifactId>arquillian-junit-container</artifactId>
-         <version>1.0.0.CR4</version>
+         <version>1.0.0.CR7</version>
          <scope>test</scope>
       </dependency>
       
       <dependency>
          <groupId>org.jboss.arquillian.protocol</groupId>
          <artifactId>arquillian-protocol-servlet</artifactId>
-         <version>1.0.0.CR4</version>
+         <version>1.0.0.CR7</version>
          <scope>test</scope>               
       </dependency>
 
@@ -181,12 +182,11 @@
             </configuration>
          </plugin>
          <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
-         <!-- To use, set the JBOSS_HOME environment variable and run: mvn 
-            package jboss-as:deploy -->
+         <!-- To use, run: mvn package jboss-as:deploy -->
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Beta1b</version>
+            <version>7.1.0.CR1</version>
          </plugin>
       </plugins>
    </build>
@@ -258,7 +258,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-               <version>7.1.0.Beta1b</version>
+               <version>7.1.0.CR1</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -306,7 +306,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-               <version>7.1.0.Beta1b</version>
+               <version>7.1.0.CR1</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
