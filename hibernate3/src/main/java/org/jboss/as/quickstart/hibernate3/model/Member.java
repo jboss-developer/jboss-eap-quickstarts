@@ -20,7 +20,7 @@ import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Pattern;
 import org.hibernate.validator.Size;
 
-//NOTE: those are Hiberante v4 imports and dependencies ie. validation-api. v3 does not
+//NOTE: those are Hiberante4 imports and dependencies ie. validation-api. Hibernate3 does not
 //import org.hibernate.validator.constraints.Email;
 //import org.hibernate.validator.constraints.NotEmpty;
 //import javax.validation.constraints.Digits;
@@ -33,7 +33,7 @@ import org.hibernate.validator.Size;
 
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"), name="MemberHibernate3")
 public class Member implements Serializable {
    /** Default value included to remove warning. Remove or modify at will. **/
    private static final long serialVersionUID = 1L;
@@ -42,11 +42,11 @@ public class Member implements Serializable {
    private Long id;
 
    @NotNull
-   //NOTE: @Size in v3 is used only for arrays and collection objects, we have to use @Length for string validation
+   //NOTE: @Size in Hibernate3 is used only for arrays and collection objects, we have to use @Length for string validation
    //@Size(min = 1, max = 25)
    @Length(min = 1, max = 25)
-   //NOTE: v3: regex 
-   //      v4: regexp
+   //NOTE: Hibernate3: regex 
+   //      Hibernate4: regexp
    @Pattern(regex = "[A-Za-z ]*", message = "must contain only letters and spaces")
    private String name;
 
@@ -56,13 +56,13 @@ public class Member implements Serializable {
    private String email;
 
    @NotNull
-   //NOTE: @Size in v3 is used only for arrays and collection objects, we have to use @Length for string validation
+   //NOTE: @Size in Hibernate3 is used only for arrays and collection objects, we have to use @Length for string validation
    //@Size(min = 9, max = 12, message="Size must be between 9 and 12 digits")
    @Length(min = 9, max = 12, message="Size must be between 9 and 12 digits")
-   //NOTE v3: fractionalDigits
-   //     v4: fraction
-   //NOTE v3: integerDigits
-   //     v4: integer
+   //NOTE Hibernate3: fractionalDigits
+   //     Hibernate4: fraction
+   //NOTE Hibernate3: integerDigits
+   //     Hibernate4: integer
    @Digits(fractionalDigits = 0, integerDigits = 12,message="Not allowed digit!")
    @Column(name = "phone_number")
    private String phoneNumber;

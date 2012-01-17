@@ -21,57 +21,42 @@
 
 	<properties>
 		<!-- Explicitly declaring the source encoding eliminates the following 
-			message: -->
+			 message: -->
 		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
-			resources, i.e. build is platform dependent! -->
+			 resources, i.e. build is platform dependent! -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- declare 3.x version of hibernate. 
-			NOTE: this is a grey area, changing those versions can cause failure. 
-			NOTE2: hibernate-annotations are not included here, since hibernata-core 3.6.X contains former artifact. -->
-		<!-- Define hibernate-core version -->	
-		<hibernate.core.version>3.6.8.Final</hibernate.core.version>
-		<!-- Define hibernate-entitymanager version -->
-		<hibernate.entitymanager.version>3.6.8.Final</hibernate.entitymanager.version>
-		<!-- Define hibernate-validator version -->
-		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
-		<!-- Define hibernate-commons-annotations version -->
-		<hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
+
 	</properties>
 
-	<!-- NOTE: -->
+	<!-- NOTE: hibernate-annotations are not included here, since hibernate-core 3.6.X contains former artifact. -->
 	<dependencyManagement>
 		<dependencies>
-			<!--  Define hiberante artifacts versions  -->
-			<!-- Define dependency version of hibernate-core 
-			    NOTE! that scope is	not "provided", this will make Maven war plugin to include it in WEB-INF/lib -->
+			<!-- Define hiberante artifacts versions  -->
+			<!-- Define dependency version of hibernate-core -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.core.version}</version>
+				<version>3.6.8.Final</version>
 				
-				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
+				<!-- Some transitive dependencies of Hibernate 3 are available in JBoss AS 7 as modules, 
+					 so we don't include them in WEB-INF/lib, but instead depend on the modules -->
 				<exclusions>
-					<!-- Exclude antlr artifact -->
 					<exclusion>
 						<groupId>antlr</groupId>
 						<artifactId>antlr</artifactId>
 					</exclusion>
-					<!-- Exclude commons-collections artifact -->
 					<exclusion>
 						<groupId>commons-collections</groupId>
 						<artifactId>commons-collections</artifactId>
 					</exclusion>
-					<!-- Exclude slf4j-api artifact -->
 					<exclusion>
 						<groupId>org.slf4j</groupId>
 						<artifactId>slf4j-api</artifactId>
 					</exclusion>
-					<!-- Exclude dom4j artifact -->
 					<exclusion>
 						<groupId>dom4j</groupId>
 						<artifactId>dom4j</artifactId>
 					</exclusion>
-					<!-- Exclude jta artifact -->
 					<exclusion>
 						<groupId>javax.transaction</groupId>
 						<artifactId>jta</artifactId>
@@ -79,47 +64,41 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Define dependency version of hibernate-entitymanager: NOTE! that scope is 
-				not "provided", this will make Maven war plugin to include it in WEB-INF/lib -->
+			<!-- Define dependency version of hibernate-entitymanager -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>${hibernate.entitymanager.version}</version>
-				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
+				<version>3.6.8.Final</version>
+				<!-- Some transitive dependencies of Hibernate 3 are available in JBoss AS 7 as modules, 
+					 so we don't include them in WEB-INF/lib, but instead depend on the modules -->
 				<exclusions>
-					<!-- Exclude asm artifact -->
 					<exclusion>
 						<groupId>asm</groupId>
 						<artifactId>asm</artifactId>
 					</exclusion>
-					<!-- Exclude javassist artifact -->
 					<exclusion>
 						<groupId>javassist</groupId>
 						<artifactId>javassist</artifactId>
 					</exclusion>
-					<!-- Exclude slf4j-api artifact -->
 					<exclusion>
 						<groupId>org.slf4j</groupId>
 						<artifactId>slf4j-api</artifactId>
 					</exclusion>
-					<!-- Exclude cglib artifact -->
 					<exclusion>
 						<groupId>cglib</groupId>
 						<artifactId>cglib</artifactId>
 					</exclusion>
-
 				</exclusions>
 			</dependency>
 
-			<!-- Define dependency version of hibernate-validator: NOTE! that scope is not 
-				"provided", this will make Maven war plugin to include it in WEB-INF/lib -->
+			<!-- Define dependency version of hibernate-validator -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate.validator.version}</version>
-				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
+				<version>3.1.0.GA</version>
+				<!-- Some transitive dependencies of Hibernate 3 are available in JBoss AS 7 as modules, 
+					 so we don't include them in WEB-INF/lib, but instead depend on the modules -->
 				<exclusions>
-					<!-- Exclude slf4j-api artifact -->
 					<exclusion>
 						<groupId>org.slf4j</groupId>
 						<artifactId>slf4j-api</artifactId>
@@ -127,15 +106,14 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Define dependency version of hibernate-commons-annotations: NOTE! that scope 
-				is not "provided", this will make Maven war plugin to include it in WEB-INF/lib -->
+			<!-- Define dependency version of hibernate-commons-annotations -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-commons-annotations</artifactId>
-				<version>${hibernate.commons.annotations.version}</version>
-				<!-- Excluding some of the transitive dependencies of Hibernate 3, as we include them as modules from JBoss AS7 -->
+				<version>3.2.0.Final</version>
+				<!-- Some transitive dependencies of Hibernate 3 are available in JBoss AS 7 as modules, 
+					 so we don't include them in WEB-INF/lib, but instead depend on the modules -->
 				<exclusions>
-					<!-- Exclude slf4j-api artifact -->
 					<exclusion>
 						<groupId>org.slf4j</groupId>
 						<artifactId>slf4j-api</artifactId>
@@ -146,14 +124,14 @@
 
 
 			<!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any 
-				dependencies from org.jboss.spec will have their version defined by this 
-				BOM -->
+				 dependencies from org.jboss.spec will have their version defined by this 
+				 BOM -->
 			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
-				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-				of artifacts. We use this here so that we always get the correct versions 
-				of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as 
-				the JBoss stack of the Java EE 6 APIs). You can actually use this stack with 
-				any version of JBoss AS that implements Java EE 6, not just JBoss AS 7! -->
+				 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				 of artifacts. We use this here so that we always get the correct versions 
+				 of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as 
+				 the JBoss stack of the Java EE 6 APIs). You can actually use this stack with 
+				 any version of JBoss AS that implements Java EE 6, not just JBoss AS 7! -->
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
@@ -166,11 +144,11 @@
 
 	<dependencies>
 
-		<!-- First declare the APIs we depend on and need for compilation. 
-         All of them are provided by JBoss AS 7 -->
+	 <!-- First declare the APIs we depend on and need for compilation. 
+          All of them are provided by JBoss AS 7 -->
 
       <!-- Import the CDI API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
+           in JBoss AS 7 -->
       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
@@ -178,22 +156,15 @@
       </dependency>
 
       <!-- Import the Common Annotations API (JSR-250), we use provided scope 
-         as the API is included in JBoss AS 7 -->
+           as the API is included in JBoss AS 7 -->
       <dependency>
          <groupId>org.jboss.spec.javax.annotation</groupId>
          <artifactId>jboss-annotations-api_1.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-      
-      <!-- dependency>
-         <groupId>org.jboss.spec.javax.servlet</groupId>
-         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-         <scope>provided</scope>
-      </dependency-->
-      
 
       <!-- Import the JAX-RS API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
+           in JBoss AS 7 -->
       <dependency>
          <groupId>org.jboss.spec.javax.ws.rs</groupId>
          <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
@@ -201,7 +172,7 @@
       </dependency>
 
       <!-- Import the JPA API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
+           in JBoss AS 7 -->
       <dependency>
          <groupId>org.hibernate.javax.persistence</groupId>
          <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -209,7 +180,7 @@
       </dependency>
 
       <!-- Import the EJB API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
+           in JBoss AS 7 -->
       <dependency>
          <groupId>org.jboss.spec.javax.ejb</groupId>
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
@@ -219,26 +190,30 @@
 
 
 		<!-- Define dependency on hibernate 3.x, since scope is 'compile', it will 
-			be included in WEB-INF/lib -->
-		<!-- Import the hibernate-core, so its included in deployment unit -->
+			 be included in WEB-INF/lib -->
+		<!-- Import the hibernate-core, so its included in deployment unit: 
+			 NOTE! this scope is "compile", this will make Maven war plugin to include it in WEB-INF/lib -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
 	
-		<!-- Import the hibernate-entitymanager, so its included in deployment unit -->
+		<!-- Import the hibernate-entitymanager, so its included in deployment unit: 
+			 NOTE! this scope is "compile", this will make Maven war plugin to include it in WEB-INF/lib -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
 
-		<!-- Import the hibernate-validator, so its included in deployment unit -->
+		<!-- Import the hibernate-validator, so its included in deployment unit: 
+			 NOTE! this scope is "compile", this will make Maven war plugin to include it in WEB-INF/lib -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
-		<!-- Import the hibernate-commons-annotations, so its included in deployment unit -->
+		<!-- Import the hibernate-commons-annotations, so its included in deployment unit: 
+			 NOTE! this scope is "compile", this will make Maven war plugin to include it in WEB-INF/lib -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
@@ -247,7 +222,7 @@
 
 	<build>
 		<!-- Set the name of the war, used as the context root when the app is 
-			deployed -->
+			 deployed -->
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>

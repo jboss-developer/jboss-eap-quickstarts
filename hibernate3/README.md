@@ -5,14 +5,10 @@ What is it?
 -----------
 
 This is a simple JSF 2.0 example based on hibernate4 quickstart. Its purpose is to demonstrate how you can use Hibernate 3 in your application.
-
 This quickstart, like log4j quickstart , demonstrates how to define a module dependency. However, this quickstart goes beyond that and also demonstrates the following:
- 
- 	* WAR creation - The Maven script and Maven WAR plugin create a *WAR* archive that includes ONLY the Hibernate 3.x binaries. To understand better how this is achieved, please refer to the *pom.xml* in the root directory of this quickstart. Additional information can be found in the <http://maven.apache.org/plugins/maven-war-plugin> documentation.
     * Module exclusion and inclusion - This example demonstrates how to control class loading using *dependencies* and *exclusions* in the *jboss-deployment-structure.xml* file. For more information about this file, please refer to <https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile>
     * Persistence configuration - Configuration is required to tell the container how to load JPA/Hibernate.
-
-  
+ 
 System requirements
 -------------------
 
