@@ -6,20 +6,27 @@
 	<!-- Set viewport scaling and zoom features -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0;">
 
-	<script type="text/javascript" src="resources/js/modernizr.js"></script>
+	<!-- Include the full development version of Modernizr. In production, you should use a -->
+	<!-- minimized custom build to reduce file size -->
+	<script type="text/javascript" src="resources/js/modernizr-2.0.6.js"></script>
+	<script type="text/javascript" src="resources/js/yepnope.1.0.2-min.js"></script>
 	<script type="text/javascript" src="resources/js/underscore-min.js"></script>
 	<script type="text/javascript" src="resources/js/app.js"></script>
 	<script type="text/javascript">
-		Modernizr.load([{
+		yepnope([{
 			//Load CDN hosted jQuery and fall back to local file
 			load: "http://code.jquery.com/jquery-1.6.4.min.js",
 			complete: function() {
 				if ( !window.jQuery ) {
-					Modernizr.load( "resources/js/jquery-1.6.4.min.js" );
+					//In production, you would want to fall back to a minified file.
+					//We fall back to the full version because Eclipse reports false errors in some minified JavaScript files.
+					yepnope.load( "resources/js/jquery-1.6.4.js" );
 				}
 			}
 		},{
-			test: ( Modernizr.mq( "only screen and (min-width: 768px) and (max-width: 1024px)" ) || Modernizr.mq( "only screen and (max-width: 480px)" ) ) && Modernizr.touch,
+			//Using Modernizr, we use media queries to check certain min and max widths to determine if we are on a small screen (could be a tablet or hand-held)
+			//We then use Modernizr's ability to check for touch events and that tells us with high certainty that we are on a mobile device
+			test: ( Modernizr.mq( "only screen and (min-width: 768px) and (max-width: 1024px)" ) || Modernizr.mq( "only screen and (max-width: 640px)" ) ) && Modernizr.touch,
 			yep: {
 				"jqmcss": "resources/css/jquery.mobile-1.0.min.css",
 				"mcss": "resources/css/m.screen.css"
@@ -28,12 +35,13 @@
 				"scss": "resources/css/screen.css"
 			},
 			callback: {
+				//If it is determined that the user is on a mobile device, load jQuery Mobile
 				"jqmcss": function( url, result, key ) {
-					Modernizr.load({
+					yepnope({
 						load: "http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js",
 						complete: function() {
 							if ( !$.mobile ) {
-								Modernizr.load( "resources/js/jquery.mobile-1.0.min.js" );
+								yepnope( "resources/js/jquery.mobile-1.0.min.js" );
 							}
 						}
 					});
@@ -129,10 +137,10 @@
 				<h2>Member Registration</h2>
 
 				<div data-role="content">
-					<p>Enforces client side validation with HTML5 based constraints that match the annotation-based constraints defined on the model class. Also uses new HTML5 attributes such as placeholder, and autofocus.</p>
+					<p class="desktop-only">Enforces client side validation with HTML5 based constraints that match the annotation-based constraints defined on the model class. Also uses new HTML5 attributes such as placeholder, and autofocus.</p>
 
 					<!-- For now mapping bean validation constraints from server side model is a manual task -->
-					<form name="reg" id="reg">
+					<form name="reg" id="reg" data-ajax="false">
 						<fieldset>
 							<legend>Register a user:</legend>
 							<div>
@@ -147,7 +155,11 @@
 								<label for="phoneNumber">Phone #:</label>
 								<input type="tel" name="phoneNumber" id="phoneNumber" pattern="[0-9]{10,12}" placeholder="Your Phone #" required/>
 							</div>
-							<input type="submit" name="register" id="register" value="Register"/>
+							<div id="formMsgs"></div>
+							<div data-role="controlgroup" data-type="horizontal">
+								<input type="submit" name="register" id="register" value="Register"/>
+								<input type="button" name="cancel" id="cancel" value="Cancel"/>
+							</div>
 						</fieldset>
 					</form>
 				</div>
@@ -178,7 +190,7 @@
 				<h2>Current Members</h2>
 
 				<div data-role="content">
-					<p>This table is populated and constructed using restful GET calls to the server, and uses CSS3 based selectors for styling. When the page is requested jQuery is used to send the JAX-RS request for the current list of members. The table is them populated dynamically using JavaScript. See app.js for more details.</p>
+					<p class="desktop-only">This table is populated and constructed using restful GET calls to the server, and uses CSS3 based selectors for styling. When the page is requested jQuery is used to send the JAX-RS request for the current list of members. The table is them populated dynamically using JavaScript. See app.js for more details.</p>
 
 					<table id="mem_tbl">
 						<thead>
