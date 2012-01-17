@@ -24,6 +24,11 @@
       <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
          resources, i.e. build is platform dependent! -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      
+      <!-- test artifacts versions -->
+      <arquillian.core.version>1.0.0.CR6</arquillian.core.version>
+      <arquillian.jboss7.version>7.1.0.Beta1</arquillian.jboss7.version>
+      <junit.version>4.8.2-redhat-1</junit.version>
    </properties>
 
    <dependencyManagement>
@@ -39,7 +44,7 @@
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Beta1</version>
+            <version>3.0.0.Beta1-redhat-1</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -72,6 +77,29 @@
          <scope>provided</scope>
       </dependency>
 
+        <!-- Testing -->
+        <!-- Arquillian -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>${arquillian.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-arquillian-container-managed</artifactId>
+            <version>${arquillian.jboss7.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>            
+            <scope>test</scope>
+        </dependency>
+        
    </dependencies>
 
    <build>
@@ -92,7 +120,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Beta1b</version>
+            <version>7.1.0.Beta1</version>
          </plugin>
          <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
             annotation processors -->
@@ -103,6 +131,11 @@
                <source>1.6</source>
                <target>1.6</target>
             </configuration>
+         </plugin>
+         <plugin>
+             <!-- Use newest Surefire plugin -->
+             <artifactId>maven-surefire-plugin</artifactId>
+             <version>2.9</version>
          </plugin>
       </plugins>
    </build>
