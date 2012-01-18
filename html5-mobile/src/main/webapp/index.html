@@ -24,9 +24,9 @@
 				}
 			}
 		},{
-			//Using Modernizr, we use media queries to check certain min and max widths to determine if we are on a small screen (could be a tablet or hand-held)
-			//We then use Modernizr's ability to check for touch events and that tells us with high certainty that we are on a mobile device
-			test: ( Modernizr.mq( "only screen and (min-width: 768px) and (max-width: 1024px)" ) || Modernizr.mq( "only screen and (max-width: 640px)" ) ) && Modernizr.touch,
+			//Using Modernizr, we use media queries to check certain min and max device widths to determine if we are on a small screen (could be a tablet or hand-held)
+			test: Modernizr.mq( "only screen and (min-device-width: 320px) and (max-device-width: 480px)" ) ||
+				  Modernizr.mq( "only screen and (min-device-width: 768px) and (max-device-width: 1024px)" ),
 			yep: {
 				"jqmcss": "resources/css/jquery.mobile-1.0.min.css",
 				"mcss": "resources/css/m.screen.css"
@@ -90,7 +90,7 @@
 				<div data-role="header" data-theme="a" class="header">
 					<img class="header_logo" src="resources/gfx/icon_medium.png"/>
 					<h3>JBoss HTML5/Mobile Application</h3>
-					<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext"></a>
+					<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
 				</div>
 				<!-- /Header -->
 
@@ -131,7 +131,7 @@
 				<div data-role="header" data-theme="a" class="header">
 					<img class="header_logo" src="resources/gfx/icon_medium.png"/>
 					<h3>JBoss HTML5/Mobile Application</h3>
-					<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext"></a>
+					<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
 				</div>
 				<!-- /Header -->
 				<h2>Member Registration</h2>
@@ -184,7 +184,7 @@
 				<div data-role="header" data-theme="a" class="header">
 					<img class="header_logo" src="resources/gfx/icon_medium.png"/>
 					<h3>JBoss HTML5/Mobile Application</h3>
-					<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext"></a>
+					<a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
 				</div>
 				<!-- /Header -->
 				<h2>Current Members</h2>
@@ -231,7 +231,7 @@
 			</article>
 
 			<!-- New HTML5 aside tag -->
-			<aside id="info-aside" data-role="dialog">
+			<aside id="info-aside" data-role="page">
 				<!-- Header -->
 				<div data-role="header" data-theme="a" class="header">
 					<h3>Find out more</h3>
