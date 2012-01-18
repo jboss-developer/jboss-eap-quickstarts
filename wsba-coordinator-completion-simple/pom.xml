@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-wsba-coordinator-completion-simple</artifactId>
-    <version>7.1.0-SNAPSHOT</version>
+    <version>7.0.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</name>
     <description>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</description>
@@ -163,7 +163,7 @@ as the API is included in JBoss AS 7 -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>7.1.0.CR1b</version>
+                <version>7.1.0.Beta1b</version>
             </plugin>
             <!-- Compiler plugin enforces Java 1.6 compatibility and activates
           annotation processors -->
@@ -190,7 +190,7 @@ as the API is included in JBoss AS 7 -->
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.1.0.CR1b</version>
+                    <version>7.1.0.Beta1b</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -206,7 +206,7 @@ as the API is included in JBoss AS 7 -->
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.1.0.CR1b</version>
+                    <version>7.1.0.Beta1b</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
