@@ -10,12 +10,14 @@ This Project will use the already default configured connection factory named "I
 The artifacts will come from the JBoss Community Maven repository, a superset of the Maven central repository.</p>
 <p>With the prerequisites out of the way, you're ready to build and deploy.</p>
 <h2>Deploying the application</h2>
-<p>Start JBoss AS 7.1.0. by running this script</p>
-<pre><code>$JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
-</code></pre>
-<p>or if you are using windows</p>
-<pre><code>$JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
-</code></pre>
+<p>Instructions for starting the server vary slightly depending upon whether you are using
+the community release (AS7) or the platform release (EAP6).</p>
+<p>For AS7</p>
+<pre><code>On Linux run: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml</code></pre>
+<pre><code>On Windows run: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml</code></pre>
+<p>For EAP6</p>
+<pre><code>On Linux run: $JBOSS_HOME/bin/standalone.sh</code></pre>
+<pre><code>On Windows run: $JBOSS_HOME/bin/standalone.bat</code></pre>
 <p>To deploy the application, you first need to produce the archive to deploy using
 the following Maven goal:</p>
 <pre><code>mvn package

@@ -28,9 +28,9 @@ the community release (AS7) or the platform release (EAP6).
 
 For AS7 
 
-   On Linux run: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
+    On Linux run: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
 
-   On Windows run: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
+    On Windows run: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
 
 For EAP6
 
