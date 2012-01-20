@@ -13,10 +13,10 @@
 		is the most mature -->
 	<defaultProtocol type="Servlet 3.0" />
 
-	<!-- Example configuration for a remote JBoss AS 7 instance -->
+	<!-- Example configuration for a remote JBoss EAP 6 instance -->
 	<container qualifier="jboss" default="true">
 		<configuration>
-			<property name="serverConfig">standalone-full.xml</property>
+			<property name="serverConfig">standalone.xml</property>
 		</configuration>
 	</container>
 
