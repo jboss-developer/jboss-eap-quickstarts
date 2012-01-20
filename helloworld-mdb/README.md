@@ -26,13 +26,17 @@ Deploying the application
 Instructions for starting the server vary slightly depending upon whether you are using
 the community release (AS7) or the platform release (EAP6).
 
-For AS7 on Linux: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
+For AS7 
 
-For AS7 on Windows: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
+   On Linux run: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
 
-For EAP6 on Linux: $JBOSS_HOME/bin/standalone.sh 
+   On Windows run: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
 
-For EAP6 on Windows: $JBOSS_HOME/bin/standalone.bat
+For EAP6
+
+    On Linux run: $JBOSS_HOME/bin/standalone.sh 
+
+    On Windows run: $JBOSS_HOME/bin/standalone.bat
 
 To deploy the application, you first need to produce the archive to deploy using
 the following Maven goal:
