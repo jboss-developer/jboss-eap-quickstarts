@@ -4,7 +4,7 @@
     <title>JBoss HTML5/Mobile Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Set viewport scaling and zoom features -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0;"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1;"/>
 
     <!-- Include the full development version of Modernizr. In production, you should use a -->
     <!-- minimized custom build to reduce file size -->
@@ -25,7 +25,9 @@
             }
         },{
             //Using Modernizr, we use media queries to check certain min and max device widths to determine if we are on a small screen
-            test: Modernizr.mq( "only screen and (min-device-width: 320px) and (max-device-width: 480px)" ),
+            //The second set of media queries matches higher resolution devices while excluding the iPad and other tablets
+            test: Modernizr.mq( "only screen and (max-device-width: 480px)" ) ||
+                ( Modernizr.mq( "only screen and (min-device-width: 480px) and (max-device-width: 800px)" ) && !Modernizr.mq( "only screen and (min-device-width: 768px)" ) ),
             yep: {
                 "jqmcss": "resources/css/jquery.mobile-1.0.min.css",
                 "mcss": "resources/css/m.screen.css"
