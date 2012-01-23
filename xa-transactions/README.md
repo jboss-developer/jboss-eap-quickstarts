@@ -98,8 +98,9 @@ To start the H2 console cd in the bin directory of the download and type:
 
 8. To observe recovery you *must* disable the byteman script 
     (just comment out the two JAVA_OPT lines you added in [step 5](#4)), otherwise the AS will simply halt
-    again when the recovery system tries to complete the pending transaction. Now you can restart
-    the AS, by the time it's ready the transaction should have completed.
+    again when the recovery system tries to complete the pending transaction. If you dynamically
+    loaded the byteman script [ref 4](#4) then you can skip this step.
+    Now restart the AS, by the time it's ready the transaction should have completed.
     *But note that the H2 database needs to be closed and re-opened to apply the changes* - this is a
     deficiency of the hypersonic product
     (see <http://www.h2database.com/html/advanced.html#two_phase_commit> for more detail).
@@ -209,10 +210,28 @@ the Reload button on the far left.
 <a name="4"/> [4] Enabling byteman scripting
 --------------------------------------------
 
-The required byteman jar is automatically downloaded when the quickstart is built and there is a byteman
-script in `src/main/scripts` that needs to be installed when the AS boots. To do this add the following
-lines to the end of the AS conf file (`standalone.conf` located in the distribution bin folder):
+Download byteman from <http://www.jboss.org/byteman/downloads> 
+You will need to tell the AS to use the byteman agent and which byteman script to install when the
+AS boots.  To do this add the following lines to the end of the AS conf file (`standalone.conf` located
+in the distribution bin folder):
 
     QUICSTART_DIR=<this quickstart dir>
-    JAVA_OPTS="$JAVA_OPTS -javaagent:$QUICSTART_DIR/target/dependencies/byteman-2.0.0.jar=script:$QUICSTART_DIR/src/main/scripts/xa.btm"
+    BYTEMAN_HOME=<path to where you downloaded byteman>
+    JAVA_OPTS="$JAVA_OPTS -javaagent:$BYTEMAN\_HOME/lib/byteman.jar=script:$QUICSTART_DIR/src/main/scripts/xa.btm"
     JAVA_OPTS="$JAVA_OPTS -Dorg.jboss.byteman.verbose=true"
+
+With byteman you also have the option of dynamically loading and unloading scripts using the
+bmsubmit.sh tool. Instead of configuring the agent using a byteman script configure a listener instead:
+
+     JAVA\_OPTS="${JAVA\_OPTS} -javaagent:$BYTEMAN\_HOME/lib/byteman.jar=listener:true"
+
+When you are ready to dynamically install the script type:
+
+     export PATH=$PATH:$BYTEMAN\_HOME/bin
+     bmsubmit.sh -l src/main/scripts/xa.btm
+
+If you need to unload it type:
+
+     bmsubmit.sh -l src/main/scripts/xa.btm
+
+but in this qickstart you will not have the opportunity of unloading since the script halts the VM. 
