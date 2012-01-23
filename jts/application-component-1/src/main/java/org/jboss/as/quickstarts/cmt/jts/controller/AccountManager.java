@@ -25,19 +25,18 @@ import java.rmi.RemoteException;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
+import javax.jms.JMSException;
 import javax.naming.NamingException;
 
 import org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJB;
-import org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJBHome;
 
 @Named("accountManager")
 @RequestScoped
 public class AccountManager {
     @EJB
-    private AccountManagerEJBHome home;
+    private AccountManagerEJB ejb;
 
-    public String invoiceNewCustomer(String name) throws RemoteException, NamingException {
-        AccountManagerEJB ejb = home.create();
+    public String invoiceNewCustomer(String name) throws NamingException, RemoteException, JMSException {
         ejb.createCustomerAndInvoice(name);
         return "newCustomerInvoiced";
     }

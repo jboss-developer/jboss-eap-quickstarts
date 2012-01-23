@@ -19,14 +19,17 @@ two Container-Managed Transaction (CMT) EJBs that, although deployed in separate
 participate in the same transaction. In this example, one server processes the 
 Customer and Account data and the other server processes the Invoice data.
 
-The example expects to be deployed onto the same physical machine. This is not a restriction
-of JTS and the example can easily be converted to run on separate machines by editing the
-hostname value for EJB2 in org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJBImpl.
+The example expects the EJBs to be deployed onto the same physical machine. This is not a 
+restriction of JTS and the example can easily be converted to run on separate machines by 
+editing the hostname value for EJB2 in org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJBImpl.
 
 The example builds upon the CMT example also available in the quickstarts. 
 
 Again, a simple MDB has been provided that prints out the messages sent but this is not a 
 transactional MDB and is purely provided for debugging purposes.
+
+You will see that the AccountManagerEJB uses the EJB home for the remote EJB, this is expected
+to connect to remote EJBs and could be simplified if the EJB was deployed locally.
 
 
 System requirements

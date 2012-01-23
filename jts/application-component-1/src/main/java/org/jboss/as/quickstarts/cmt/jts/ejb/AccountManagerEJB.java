@@ -22,8 +22,26 @@ package org.jboss.as.quickstarts.cmt.jts.ejb;
 
 import java.rmi.RemoteException;
 
-import javax.ejb.EJBObject;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 
-public interface AccountManagerEJB extends EJBObject {
-    public void createCustomerAndInvoice(String name) throws RemoteException;
+@Stateless
+public class AccountManagerEJB {
+    @EJB
+    private CustomerManagerEJB customerManager;
+
+    @EJB(lookup = "corbaname:iiop:localhost:3628#jboss-as-jts-application-component-2/InvoiceManagerEJBImpl")
+    private InvoiceManagerEJBHome invoiceManagerHome;
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void createCustomerAndInvoice(String name) throws RemoteException, NamingException, JMSException {
+        customerManager.createCustomer(name);
+
+        final InvoiceManagerEJB invoiceManager = invoiceManagerHome.create();
+        invoiceManager.createInvoice(name);
+    }
 }

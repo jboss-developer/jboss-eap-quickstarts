@@ -20,10 +20,36 @@
  */
 package org.jboss.as.quickstarts.cmt.jts.ejb;
 
-import java.rmi.RemoteException;
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 
-import javax.ejb.EJBObject;
+@Stateless
+public class CustomerManagerEJB {
 
-public interface CustomerManagerEJB extends EJBObject {
-    public void createCustomer(String name) throws RemoteException;
+    @Resource(mappedName = "java:/JmsXA")
+    private ConnectionFactory connectionFactory;
+
+    @Resource(mappedName = "java:/queue/test")
+    private Queue queue;
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void createCustomer(String name) throws JMSException {
+        Connection connection = connectionFactory.createConnection();
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        MessageProducer messageProducer = session.createProducer(queue);
+        connection.start();
+        TextMessage message = session.createTextMessage();
+        message.setText("Created customer named: " + name);
+        messageProducer.send(message);
+        connection.close();
+    }
 }

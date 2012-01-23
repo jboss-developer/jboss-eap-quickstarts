@@ -17,7 +17,7 @@
 	<groupId>org.jboss.as.quickstarts</groupId>
 	<artifactId>jboss-as-jts-application-component-2</artifactId>
 	<version>7.0.2-SNAPSHOT</version>
-	<name>JBoss AS Quickstarts: Java Transaction Service</name>
+	<name>JBoss AS Quickstarts: Java Transaction Service Application Component 2</name>
 	<description>Using CMT with JTS</description>
 	<packaging>jar</packaging>
 
@@ -77,11 +77,11 @@
 			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Import the injection annotations -->
+		<!-- Import the CDI API, we use provided scope as the API is included 
+			in JBoss AS 7 -->
 		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
