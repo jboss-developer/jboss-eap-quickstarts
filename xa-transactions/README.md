@@ -217,17 +217,17 @@ in the distribution bin folder):
 
     QUICSTART_DIR=<this quickstart dir>
     BYTEMAN_HOME=<path to where you downloaded byteman>
-    JAVA_OPTS="$JAVA_OPTS -javaagent:$BYTEMAN\_HOME/lib/byteman.jar=script:$QUICSTART_DIR/src/main/scripts/xa.btm"
+    JAVA_OPTS="$JAVA_OPTS -javaagent:$BYTEMAN_HOME/lib/byteman.jar=script:$QUICSTART_DIR/src/main/scripts/xa.btm"
     JAVA_OPTS="$JAVA_OPTS -Dorg.jboss.byteman.verbose=true"
 
 With byteman you also have the option of dynamically loading and unloading scripts using the
 bmsubmit.sh tool. Instead of configuring the agent using a byteman script configure a listener instead:
 
-     JAVA\_OPTS="${JAVA\_OPTS} -javaagent:$BYTEMAN\_HOME/lib/byteman.jar=listener:true"
+     JAVA_OPTS="${JAVA_OPTS} -javaagent:$BYTEMAN_HOME/lib/byteman.jar=listener:true"
 
 When you are ready to dynamically install the script type:
 
-     export PATH=$PATH:$BYTEMAN\_HOME/bin
+     export PATH=$PATH:$BYTEMAN_HOME/bin
      bmsubmit.sh -l src/main/scripts/xa.btm
 
 If you need to unload it type:
