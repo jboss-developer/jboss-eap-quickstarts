@@ -21,7 +21,7 @@ Customer and Account data and the other server processes the Invoice data.
 
 The example expects the EJBs to be deployed onto the same physical machine. This is not a 
 restriction of JTS and the example can easily be converted to run on separate machines by 
-editing the hostname value for EJB2 in org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJBImpl.
+editing the hostname value for the InvoiceManagerEJB in org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJB.
 
 The example builds upon the CMT example also available in the quickstarts. 
 
