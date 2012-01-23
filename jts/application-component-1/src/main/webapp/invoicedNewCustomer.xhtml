@@ -1,0 +1,35 @@
+<!-- JBoss, Home of Professional Open Source Copyright 2009, Red Hat Middleware 
+		LLC, and individual contributors as indicated by the @author tags. See the 
+		copyright.txt in the distribution for a full listing of individual contributors. 
+		This copyrighted material is made available to anyone wishing to use, modify, 
+		copy, or redistribute it subject to the terms and conditions of the GNU Lesser 
+		General Public License, v. 2.1. This program is distributed in the hope that 
+		it will be useful, but WITHOUT A WARRANTY; without even the implied warranty 
+		of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser 
+		General Public License for more details. You should have received a copy 
+		of the GNU Lesser General Public License, v.2.1 along with this distribution; 
+		if not, write to the Free Software Foundation, Inc., 51 Franklin Street, 
+		Fifth Floor, Boston, MA 02110-1301, USA. (C) 2009 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template.xhtml">
+	<ui:define name="content">
+		<h1>Customer Has Been Invoiced</h1>
+		<pre>Check the server log files, you should see output similar to the following in the application server 1 console:
+		
+12:09:38,424 INFO  [org.jboss.ejb.client] (http-localhost-127.0.0.1-8080-1) JBoss EJB Client version 1.0.0.Beta11
+12:09:38,513 ERROR [jacorb.orb] (http-localhost-127.0.0.1-8080-1) no adapter activator exists for jboss-as-jts-application-component-2&amp;%InvoiceManagerEJBImpl&amp;%home
+12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-1 (group:HornetQ-client-global-threads-1095034080)) Received Message: Created customer named: Tom
+
+You will also see the following in application-server-2 console:
+12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta11
+12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:HornetQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
+		</pre>
+		<a href="javascript:history.back(-1)">Go Back</a>
+	</ui:define>
+</ui:composition>
+</html>
