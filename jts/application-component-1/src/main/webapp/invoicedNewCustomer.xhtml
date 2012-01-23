@@ -19,16 +19,7 @@
 <ui:composition template="template.xhtml">
 	<ui:define name="content">
 		<h1>Customer Has Been Invoiced</h1>
-		<pre>Check the server log files, you should see output similar to the following in the application server 1 console:
-		
-12:09:38,424 INFO  [org.jboss.ejb.client] (http-localhost-127.0.0.1-8080-1) JBoss EJB Client version 1.0.0.Beta11
-12:09:38,513 ERROR [jacorb.orb] (http-localhost-127.0.0.1-8080-1) no adapter activator exists for jboss-as-jts-application-component-2&amp;%InvoiceManagerEJBImpl&amp;%home
-12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-1 (group:HornetQ-client-global-threads-1095034080)) Received Message: Created customer named: Tom
-
-You will also see the following in application-server-2 console:
-12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta11
-12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:HornetQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
-		</pre>
+		<p>Transaction succeeded. For detailed information, see the 'Created customer' message in the log for server 1 and the 'Created invoice' message on server 2.</p>
 		<a href="javascript:history.back(-1)">Go Back</a>
 	</ui:define>
 </ui:composition>
