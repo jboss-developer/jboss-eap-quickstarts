@@ -119,5 +119,5 @@ You will also see the following in application-server-2 console:
 12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta11
 12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:HornetQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
 
-The web page will not change but as long as you see the MDB messages in the server consoles you can be satisfied that the quickstart
+The web page will change with a prompt for you to check the logs for the MDB messages in the server consoles above at which point you can be satisfied that the quickstart
 has operated correctly.
