@@ -16,7 +16,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jboss.as.quickstarts</groupId>
 	<artifactId>jboss-as-jts-application-component-1</artifactId>
-	<version>7.1.0.Final-SNAPSHOT</version>
+	<version>7.0.2-SNAPSHOT</version>
 	<name>JBoss AS Quickstarts: Java Transaction Service</name>
 	<description>Using CMT with JTS</description>
 	<packaging>war</packaging>
@@ -31,11 +31,6 @@
 	</licenses>
 
 	<properties>
-		<!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any 
-			dependencies from org.jboss.spec will have their version defined by this 
-			BOM -->
-		<javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version>
-
 		<!-- Explicitly declaring the source encoding eliminates the following 
 			message: -->
 		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
@@ -53,7 +48,7 @@
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
-				<version>${javaee6.spec.version}</version>
+				<version>3.0.0.Beta1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -65,7 +60,7 @@
 		<dependency>
 			<groupId>org.jboss.as.quickstarts</groupId>
 			<artifactId>jboss-as-jts-application-component-2</artifactId>
-			<version>7.1.0.Final-SNAPSHOT</version>
+			<version>7.0.2-SNAPSHOT</version>
 			<classifier>client</classifier>
 		</dependency>
 		<!-- Import the JPA API, we use provided scope as the API is included in 
@@ -115,7 +110,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>2.3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -136,7 +131,7 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.1.0.Beta1b</version>
+				<version>7.1.0.CR1</version>
 			</plugin>
 		</plugins>
 	</build>

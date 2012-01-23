@@ -4,9 +4,20 @@ JTS and CMT: Using transactions managed by the container across several containe
 What is it?
 -----------
 
-This example uses JTS to propagate a transaction from one server to another and access
-two CMT EJBs that although deployed in separate servers will participate in the same
-transaction.
+This example demonstrates how to perform distributed transactions in an application. A 
+distributed transaction is a set of operations performed by two or more nodes 
+participating in an activity coordinated as a single entity of work and fulfilling
+the properties of an ACID transaction. ACID meaning:
+
+* Atomic
+* Consistent
+* Isolated
+* Durable.
+
+The example uses Java Transaction Service (JTS) to propagate a transaction context across 
+two Container-Managed Transaction (CMT) EJBs that, although deployed in separate servers,
+participate in the same transaction. In this example, one server processes the 
+Customer and Account data and the other server processes the Invoice data.
 
 The example expects to be deployed onto the same physical machine. This is not a restriction
 of JTS and the example can easily be converted to run on separate machines by editing the
@@ -16,6 +27,7 @@ The example builds upon the CMT example also available in the quickstarts.
 
 Again, a simple MDB has been provided that prints out the messages sent but this is not a 
 transactional MDB and is purely provided for debugging purposes.
+
 
 System requirements
 -------------------
@@ -54,8 +66,10 @@ The application servers 1 should both be configured as follows:
         </subsystem>
 		
 
-To start JBoss AS 7 (or EAP 6) with a JMS connection factory and a queue named 
-test queue in it. The easiest way to do this is to run:
+To start JBoss AS 7 (or EAP 6) with a JMS connection factory and a queue named test queue in it. The instructions
+for this vary slightly depending upon whether you are using the community release (AS7) or the platform release (EAP6)
+
+For AS7:
 
 		<APP_SERVER_1_HOME>/bin/standalone.sh -c standalone-full.xml
 		<APP_SERVER_2_HOME>/bin/standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=100
@@ -64,6 +78,17 @@ or if you are using windows
 
 		<APP_SERVER_1_HOME>\bin\standalone.bat -c standalone-full.xml
 		<APP_SERVER_2_HOME>\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+
+For EAP6:
+
+		<APP_SERVER_1_HOME>/bin/standalone.sh
+		<APP_SERVER_2_HOME>/bin/standalone.sh -Djboss.socket.binding.port-offset=100
+
+or if you are using windows
+
+		<APP_SERVER_1_HOME>\bin\standalone.bat
+		<APP_SERVER_2_HOME>\bin\standalone.bat -Djboss.socket.binding.port-offset=100
+
 
 To deploy the application, you first need to produce the archives to deploy using
 the following Maven goals. Note that application-component-2 must be built first as it provides an EJB client
