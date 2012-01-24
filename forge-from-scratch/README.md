@@ -18,7 +18,7 @@ System requirements
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, and an installation
 of JBoss Forge version 1.0.0.Beta5 or higher. To install forge, please visit: 
 
-   https://docs.jboss.org/author/display/FORGE/Installation
+   [Installing Forge](https://docs.jboss.org/author/display/FORGE/Installation)
 
 The application this project produces is designed to be run on a JBoss AS 7 or EAP 6. 
 The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.
@@ -32,15 +32,19 @@ Generating, Building, and Deploying the application
  
 First, you need to install JBoss Forge, via the instructions at:
 
-   https://docs.jboss.org/author/display/FORGE/Installation
+   [Installing Forge](https://docs.jboss.org/author/display/FORGE/Installation)
 
 Then, you need to run `$ forge` from the command line, or from within JBoss Tools
 or by pressing CTRL-4.
 
+Change to the directory where this README.md file is located, using the `cd` command.
+
+     forge> cd */path/to/quickstarts/*forge-from-scratch/
+
 Notice that there is a file called `generate.fsh` in this directory; run from Forge
 using the `run` command:
 
-     $ run generate.fsh
+     forge> run generate.fsh
 
 This command will prompt you for the {project-name} (E.g: 'example'),
 and will also prompt for the top level package. This should be the domain for your
@@ -57,9 +61,9 @@ or if you are using windows
 To build the application, type 'build', then to deploy the application, use the 
 'jboss-as-7' Forge plugin; just type:
 
-     $ forge install-plugin jboss-as-7
-	 $ as7 setup
-	 $ as7 deploy
+     forge> forge install-plugin jboss-as-7
+	 forge> as7 setup
+	 forge> as7 deploy
 
 This will deploy `target/{project-name}.war`.
  
@@ -69,7 +73,7 @@ project you chose when running the script.
 
 To undeploy from JBoss AS, run this command:
 
-     $ as7 undeploy
+     forge> as7 undeploy
 
 You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
 Getting Started Guide for Developers for more information.
@@ -90,7 +94,7 @@ Use the Forge Openshift Express plugin: http://github.com/forge/plugin-openshift
 
 To see a full list of avaialable plugins, make sure that you have an active internet connection and type:
 
-     $ forge find-plugin *
+     forge> forge find-plugin *
 
 Importing the project into an IDE
 =================================
@@ -111,5 +115,5 @@ of any library in the project, you can run either of the following two
 commands to pull them into your local repository. The IDE should then detect
 them.
 
-    mvn dependency:sources
-    mvn dependency:resolve -Dclassifier=javadoc
+    forge> mvn dependency:sources
+    forge> mvn dependency:resolve -Dclassifier=javadoc
