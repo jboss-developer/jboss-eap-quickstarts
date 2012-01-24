@@ -4,7 +4,7 @@
 
    <groupId>org.jboss.as.quickstart</groupId>
    <artifactId>jboss-as-hibernate4</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
+   <version>7.0.2-SNAPSHOT</version>
    <packaging>war</packaging>
    <name>Java EE 6 webapp project</name>
    <description>A starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6, generated from the jboss-javaee6-webapp archetype</description>
@@ -18,7 +18,8 @@
       <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
         Any dependencies from org.jboss.spec will have their version defined by this 
         BOM -->
-      <javaee6.web.spec.version>2.0.0.Final</javaee6.web.spec.version>
+      <javaee6.spec.version>3.0.0.Beta1</javaee6.spec.version>	
+      <!--javaee6.web.spec.version>2.0.0.Final</javaee6.web.spec.version-->
       <!-- Alternatively, comment out the above line, and un-comment the line below to 
         use version 3.0.0.Beta1-redhat-1 which is a release certified 
       to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
@@ -37,7 +38,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>${javaee6.web.spec.version}</version>
+            <version>${javaee6.spec.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -146,14 +147,14 @@
       <dependency>
          <groupId>org.jboss.arquillian.junit</groupId>
          <artifactId>arquillian-junit-container</artifactId>
-         <version>1.0.0.CR4</version>
+         <version>1.0.0.CR7</version>
          <scope>test</scope>
       </dependency>
       
       <dependency>
          <groupId>org.jboss.arquillian.protocol</groupId>
          <artifactId>arquillian-protocol-servlet</artifactId>
-         <version>1.0.0.CR4</version>
+         <version>1.0.0.CR7</version>
          <scope>test</scope>               
       </dependency>
 
@@ -189,7 +190,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Beta1b</version>
+            <version>7.1.0.CR1</version>
          </plugin>
       </plugins>
    </build>
@@ -261,7 +262,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-               <version>7.1.0.Beta1b</version>
+               <version>7.1.0.CR1</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -309,7 +310,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-               <version>7.1.0.Beta1b</version>
+               <version>7.1.0.CR1</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
