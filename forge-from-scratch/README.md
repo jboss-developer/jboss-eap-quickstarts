@@ -79,13 +79,13 @@ You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBos
 Getting Started Guide for Developers for more information.
 
 What did we create?
-===================
+========================
 This quickstart has set up a native Java EE 6 application.
 
-For a full description of what was generated with this script, you should visit the [Forge UI Scaffolding Guide](https://docs.jboss.org/author/display/FORGE/UI+Scaffolding
+For a full description of what was generated with this script, you should visit the [Forge UI Scaffolding Guide](https://docs.jboss.org/author/display/FORGE/UI+Scaffolding)
  
 Next Steps
-============================)
+============================
 Open `generate.fsh` and take a look inside! There is not much magic happening here. All of the
 commands used to generate this project are clearly listed just as if they were typed by your
 own hands.
