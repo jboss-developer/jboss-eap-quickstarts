@@ -80,7 +80,7 @@ Getting Started Guide for Developers for more information.
 
 What did we create?
 ========================
-This quickstart has set up a native Java EE 6 application. For a full description of what was generated with this script, you should visit the [Forge UI Scaffolding Guide](https://docs.jboss.org/author/display/FORGE/UI+Scaffolding)
+This quickstart has set up a native Java EE 6 application. For a full description of what was generated with this script, and the structure of the application, you should visit the [Forge UI Scaffolding Guide](https://docs.jboss.org/author/display/FORGE/UI+Scaffolding)
  
 Next Steps
 ============================
