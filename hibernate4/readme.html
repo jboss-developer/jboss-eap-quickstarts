@@ -1,4 +1,5 @@
-<h1>jboss-as-kitchensink</h1>
+<h1>hibernate4: How to Use Hibernate 4 in an Application</h1>
+<h2>Author: Madhumita Sadhukhan</h2>
 <h2>What is it?</h2>
 <p>This is a quickstart built upon kitchensink additionally demonstrating how to use Hibernate4 as ORM over JPA in AS7(or EAP6)! 
 It's a sample, deployable Maven 3 project to help you
@@ -18,6 +19,8 @@ The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6
 If you choose to use Hibernate4 packaged within JBoss AS7(or EAP6) you will need to first import the JPA API.
 This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
 You will also need to add dependencies to the required Hibernate modules for using these features in pom.xml with scope as provided.
+You will also need to add the correct version of required Hibernate module that you are adding as provided by the JBoss AS7(or EAP6) 
+server that you chose to use.
 for eg . check dependency for hibernate-validator in pom.xml</p>
 <p>Please note that if you are working with Hibernate 3 the process is different as you will need to bundle the jars since JBoss AS7(or EAP6)
 does not ship with Hibernate 3.

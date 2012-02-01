@@ -1,4 +1,6 @@
-hibernate4
+hibernate4: How to Use Hibernate 4 in an Application
+
+Author: Madhumita Sadhukhan
 ========================
 
 What is it?
@@ -31,6 +33,8 @@ JBoss AS7 (or EAP 6) provides both JPA as well as Hibernate4(as ORM) and also su
 If you choose to use Hibernate4 packaged within JBoss AS7(or EAP6) you will need to first import the JPA API.
 This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
 You will also need to add dependencies to the required Hibernate modules for using these features in pom.xml with scope as provided.
+You will also need to add the correct version of required Hibernate module that you are adding as provided by the JBoss AS7(or EAP6) server 
+that you chose to use.
 for eg .
 
       <dependency>
