@@ -28,5 +28,3 @@ contains tutorials for:
 * `servlet-filterlistener` - Servlet Filter and Listener
 * `ejb-remote` - shows how to access EJBs remotely (EJB + JNDI)
 * `cmt` - shows how to use container managed transactions
-
-
