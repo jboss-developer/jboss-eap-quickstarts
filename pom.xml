@@ -51,6 +51,7 @@
       <module>servlet-filterlistener</module>
       <module>wsba-coordinator-completion-simple</module>
       <module>wsba-participant-completion-simple</module>
+      <module>xa-transactions</module>
   </modules>
 
    <scm>
