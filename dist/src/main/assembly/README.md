@@ -30,3 +30,4 @@ contains tutorials for:
 * `cmt` - shows how to use container managed transactions
 * `bmt` - programatic management of JTA and JPA (JTA + JPA + CDI + EJB)
 * `xa-transactions` - XA datasource configuration and recovery (JTA + JPA)
+

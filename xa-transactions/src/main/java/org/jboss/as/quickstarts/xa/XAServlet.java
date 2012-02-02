@@ -42,7 +42,7 @@ public class XAServlet extends HttpServlet {
             + "<input checked type=\"checkbox\" name=\"em\" value=\"2\" /> Database 2"
             + "&nbsp;(Check to include this database within the transaction)<br />"
             + "Key: <input type=\"text\" name=\"key\" />"
-            + "Leave black to list all key/value pairs in each selected database<br />"
+            + "&nbsp;Leave black to list all key/value pairs in each selected database<br />"
             + "Value: <input type=\"text\" name=\"value\" /><br />"
             + "<input type=\"submit\" value=\"Submit\" /><br />"
             + "</form>";
