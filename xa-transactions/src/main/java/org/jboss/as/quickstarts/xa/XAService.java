@@ -1,16 +1,18 @@
 package org.jboss.as.quickstarts.xa;
 
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.*;
+import javax.transaction.Status;
+import javax.transaction.UserTransaction;
 
+/**
+ * A bean for updating one or two databases within a JTA transaction
+ *
+ * @author Mike Musgrove
+ */
 public class XAService {
     /**
      *  Ask the container to inject persistence contexts corresponding to 2 different JPA entity
@@ -39,15 +41,23 @@ public class XAService {
         StringBuilder sb = new StringBuilder();
 
         if (key != null && key.length() != 0) {
-            // insert into the key/value table (which will throw an error if the key already exists)
-            entityManager.persist(new KVPair(key, value));
+            KVPair pair = entityManager.find(KVPair.class, key);
+
+            if (pair == null) {
+                // insert into the key/value table
+                entityManager.persist(new KVPair(key, value));
+            } else {
+                // there is already a value for this key - update with the new value
+                pair.setValue(value);
+                entityManager.merge(pair);
+            }
         }
 
         // list all key value pairs
         final List<KVPair> list = entityManager.createQuery("select k from KVPair k").getResultList();
 
         for (KVPair kvPair : list)
-            sb.append(kvPair.getKey()).append("=").append(kvPair.getValue()).append(',');
+            sb.append(kvPair.toString()).append(',');
 
         return sb.toString();
     }
@@ -56,7 +66,8 @@ public class XAService {
      * Update a key value database. If the key is already in the database a runtime exception is thrown
      *
      * @param key if not null then a pair is inserted into the database
-     * @param value the value to be associated with the key
+     * @param value the value to be associated with the key (if there is already an associated value then
+     * it is replaced with the new value
      * @param entityManagerIds the entity managers involved in the update (ie we are updated more than
      * one database)
      * @return all pairs
@@ -82,19 +93,13 @@ public class XAService {
             userTransaction.commit();
 
             return result.toString();
-        } catch (RollbackException e) {
-            /*
-             * We tried to commit the transaction but it has already been rolled back (most probably because
-             * of duplicate key).
-             */
+        } catch (Exception e) {
             Throwable t = e.getCause();
 
             return t != null ? t.getMessage() :  e.getMessage();
-        } catch (Exception e) {
-            return e.getMessage();
         } finally {
            try {
-                if (userTransaction.getStatus() == Status.STATUS_ACTIVE)
+                if (userTransaction.getStatus() == Status.STATUS_ACTIVE || userTransaction.getStatus() == Status.STATUS_MARKED_ROLLBACK)
                     userTransaction.rollback();
             } catch (Throwable e) {
                 // ignore

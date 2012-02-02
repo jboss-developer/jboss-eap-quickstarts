@@ -9,13 +9,13 @@ import java.io.Serializable;
 /**
  * JPA Entity for storing key value pairs into a database.
  *
- * @author Mike Musgrove
+ * @author Michael Musgrove
  */
 @Entity
 @Table(name = "XA_KVPair")
 public class KVPair implements Serializable {
     @Id
-    @Column(unique = true)
+    @Column(unique = true, name = "name")
     private String key;
 
     @Column
