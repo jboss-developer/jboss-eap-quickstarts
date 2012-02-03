@@ -31,6 +31,7 @@ contains tutorials for:
 * `hibernate3` - Hibernate 3
 * `hibernate4` - Hibernate 4
 * `jts` - Using JTS to coordinate distributed transactions
+* `jta-crash-rec` - XA transactions and crash recovery (JTA)
 * `kitchensink` - CDI + JSF + JPA + EJB + JPA + JAX-RS + BV
 * `kitchensink-ear` - kitchensink as an EAR archive
 * `kitchensink-html5-mobile` - kitchensink using HTML5, suitable for mobile and tablet computers
