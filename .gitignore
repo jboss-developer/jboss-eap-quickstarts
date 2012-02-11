@@ -13,3 +13,4 @@ bin
 */.gitignore
 .gitkeep
 /helloworld-jsp
+.errai
