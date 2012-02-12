@@ -7,7 +7,7 @@ What is it?
 -----------
 
 In this example, you will learn how to deploy and run a simple Java EE 6 application named shopping-cart using stateful session bean. The purpose of the shopping-cart is to perform operations like (buy, checkout and getCartContents) for the customer. 
-The shopping-cart application consists of an enterprise component (server module), which perform the operations for the customer and a simple Java remote client (client module) that looks up the stateful bean via JNDI and invokes the methods on them.
+The shopping-cart application consists of an enterprise component (server module), which performs the operations for the customer and a simple Java remote client (client module) that looks up the stateful bean via JNDI and invokes the methods on them.
 
 System requirements
 -------------------
@@ -46,7 +46,7 @@ Now start a client that will access the beans you just deployed:
 
 You should see output showing:
 
-* the client sending a method invocation to the stateful session bean to buy two Memory sticks and one MacBook Air Laptop, then a second invocation is to call the getgetCartContents() service and print the content of the cart. After that the checkout() service will be called to remove the bean instance from the object pool. For testing the client calls getCartContents() after checkout() invocation again and this cause an "javax.ejb.NoSuchEJBException".
+The client sending a method invocation to the stateful session bean to buy two Memory sticks and one MacBook Air Laptop, then a second invocation is to call the getgetCartContents() service and print the content of the cart. After that the checkout() service will be called to remove the bean instance from the object pool. For testing the client calls getCartContents() after checkout() invocation again and this cause an "javax.ejb.NoSuchEJBException".
 Check the console where you're executing the client and Application Server Console for Server information. This can look this:
 
 - Client side console
