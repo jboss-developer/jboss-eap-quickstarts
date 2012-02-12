@@ -66,8 +66,8 @@ Buying another memory stick
 Buying a laptop
 
 Print cart:
-1     Laptop
-2     Memory stick
+1     MacBook Air Laptop
+2     Red Hat Memory stick
 
 Checkout
 Should throw an object not found exception by invoking on cart after @Remove method
