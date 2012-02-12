@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-helloworld-sfsb-parent</artifactId>
+    <artifactId>jboss-as-shoppingcart-parent</artifactId>
     <version>7.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS EJB Stateful Session Bean Quickstart Parent</name>
+    <name>JBoss AS Quickstarts: EJB Stateful Session Bean Quickstart Parent</name>
 
     <licenses>
         <license>
