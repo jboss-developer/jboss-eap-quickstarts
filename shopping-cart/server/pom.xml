@@ -4,7 +4,7 @@
    <modelVersion>4.0.0</modelVersion>
  
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-shoopingcart-server</artifactId>
+   <artifactId>jboss-as-shoppingcart-server</artifactId>
    <version>7.0.2-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>JBoss AS Quickstarts: EJB Stateful Session Bean Server Side</name>
@@ -74,7 +74,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.CR1</version>
+            <version>7.1.0.CR1b</version>
             <configuration>
                 <filename>${project.build.finalName}.jar</filename>
             </configuration>

@@ -52,15 +52,14 @@
          <!-- JBoss distributes a complete set of Java EE 6 APIs including
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
             a collection) of artifacts. We use this here so that we always get the correct
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can
-            read this as the JBoss stack of the Java EE 6 Web Profile APIs), and we use
-            version 2.0.0.Beta1 which is the latest release of the stack. You can actually
+            versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+            read this as the JBoss stack of the Java EE 6 APIs). You can actually
             use this stack with any version of JBoss AS that implements Java EE 6, not
             just JBoss AS 7! -->
          <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>2.0.0.Final</version>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>3.0.0.Beta1</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -97,7 +96,7 @@
        <dependency>
            <groupId>org.jboss</groupId>
            <artifactId>jboss-ejb-client</artifactId>
-           <version>1.0.0.Beta9</version>
+           <version>1.0.1.Final</version>
            <scope>runtime</scope>
        </dependency>
 
@@ -105,14 +104,14 @@
        <dependency>
            <groupId>org.jboss.xnio</groupId>
            <artifactId>xnio-api</artifactId>
-           <version>3.0.0.CR5</version>
+           <version>3.0.0.GA</version>
            <scope>runtime</scope>
        </dependency>
 
        <dependency>
            <groupId>org.jboss.xnio</groupId>
            <artifactId>xnio-nio</artifactId>
-           <version>3.0.0.CR5</version>
+           <version>3.0.0.GA</version>
            <scope>runtime</scope>
        </dependency>
 
@@ -120,7 +119,7 @@
        <dependency>
             <groupId>org.jboss.remoting3</groupId>
             <artifactId>jboss-remoting</artifactId>
-            <version>3.2.0.CR6</version>
+            <version>3.2.0.CR9</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -128,14 +127,14 @@
        <dependency>
            <groupId>org.jboss.sasl</groupId>
            <artifactId>jboss-sasl</artifactId>
-           <version>1.0.0.Beta9</version>
+           <version>1.0.0.Final</version>
        </dependency>
 
        <!-- data serialization for invoking remote EJBs -->
        <dependency>
            <groupId>org.jboss.marshalling</groupId>
            <artifactId>jboss-marshalling-river</artifactId>
-           <version>1.3.0.GA</version>
+           <version>1.3.7.GA</version>
            <scope>runtime</scope>
        </dependency>
 
@@ -185,7 +184,7 @@
             <plugin>
                <groupId>org.jboss.as.plugins</groupId>
                <artifactId>jboss-as-maven-plugin</artifactId>
-               <version>7.1.0.CR1</version>
+               <version>7.1.0.CR1b</version>
                <inherited>true</inherited>
                <configuration>
                   <skip>true</skip>

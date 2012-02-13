@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2011, Red Hat, Inc., and individual contributors
+ * Copyright 2012, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -21,8 +21,9 @@
  */
 package org.jboss.as.quickstarts.sfsb;
 
-import java.io.Serializable;
 import java.util.HashMap;
+import java.util.logging.Logger;
+
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.ejb.Remote;
@@ -32,9 +33,10 @@ import javax.ejb.Remote;
  */
 @Stateful
 @Remote(ShoppingCart.class)
-public class ShoppingCartBean implements ShoppingCart, Serializable {
+public class ShoppingCartBean implements ShoppingCart{
 
-    private static final long serialVersionUID = 3184208333134628868L;
+    private final static Logger LOGGER = Logger.getLogger(ShoppingCartBean.class
+            .toString());
 
     private HashMap<String, Integer> cart = new HashMap<String, Integer>();
 
@@ -54,6 +56,6 @@ public class ShoppingCartBean implements ShoppingCart, Serializable {
 
     @Remove
     public void checkout() {
-        System.out.println("To be implemented");
+        LOGGER.info("'checkout()' has to be implemented");
     }
 }
