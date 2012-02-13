@@ -25,7 +25,6 @@
 
    <modules>
       <module>bmt</module>
-      <module>bom</module>
       <module>cdi-injection</module>
       <module>cmt</module>
       <module>ejb-in-ear</module>
@@ -51,8 +50,6 @@
       <module>payment-cdi-event</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
-      <module>wsba-coordinator-completion-simple</module>
-      <module>wsba-participant-completion-simple</module>
    </modules>
 
    <scm>
