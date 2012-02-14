@@ -1,5 +1,5 @@
-GWT Hello World Example
-=======================
+helloworld-errai: Hello World Using the Errai Framework
+=======================================================
 
 What is it?
 -----------
