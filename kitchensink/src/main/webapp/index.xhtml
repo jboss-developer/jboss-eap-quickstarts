@@ -52,26 +52,26 @@
          rendered="#{not empty members}">
          <h:column>
             <f:facet name="header">Id</f:facet>
-                #{_member.id}
-            </h:column>
+            #{_member.id}
+         </h:column>
          <h:column>
             <f:facet name="header">Name</f:facet>
-                #{_member.name}
-            </h:column>
+            #{_member.name}
+         </h:column>
          <h:column>
             <f:facet name="header">Email</f:facet>
-                #{_member.email}
-            </h:column>
+            #{_member.email}
+         </h:column>
          <h:column>
             <f:facet name="header">Phone #</f:facet>
-                #{_member.phoneNumber}
-            </h:column>
+            #{_member.phoneNumber}
+         </h:column>
          <h:column>
             <f:facet name="header">REST URL</f:facet>
             <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
          </h:column>
          <f:facet name="footer">
-                REST URL for all members: <a
+            REST URL for all members: <a
                href="#{request.contextPath}/rest/members">/rest/members</a>
          </f:facet>
       </h:dataTable>
