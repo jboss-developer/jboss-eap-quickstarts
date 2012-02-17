@@ -65,8 +65,8 @@
         <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  -->
 
         <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
-          of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-          of artifacts. We use this here so that we always get the correct versions 
+          of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+          of artifacts. We use this here so that we always get the correct versions
           of artifacts.-->
 
           <!-- This BOM provides the jboss-javaee-6.0 with tools stack (you can read this as
@@ -149,7 +149,7 @@ as the API is included in JBoss AS 7 -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>7.1.0.CR1</version>
+                <version>7.1.0.Final</version>
                 <configuration>
                   <skip>true</skip>
                 </configuration>
@@ -169,9 +169,9 @@ as the API is included in JBoss AS 7 -->
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it 
+            <!-- The default profile skips all tests, though you can tune it
                 to run just unit tests based on a custom pattern -->
-            <!-- Seperate profiles are provided for running all tests, including 
+            <!-- Seperate profiles are provided for running all tests, including
                 Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>

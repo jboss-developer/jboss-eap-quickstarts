@@ -19,9 +19,9 @@
 	</licenses>
 
 	<properties>
-		<!-- Explicitly declaring the source encoding eliminates the following 
+		<!-- Explicitly declaring the source encoding eliminates the following
 			message: -->
-		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
 			resources, i.e. build is platform dependent! -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -47,7 +47,7 @@
    </dependencyManagement>
 
 	<dependencies>
-		<!-- Import the Servlet API, we use provided scope as the API is included 
+		<!-- Import the Servlet API, we use provided scope as the API is included
 			in JBoss EAP 6/JBoss AS 7 -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
@@ -67,7 +67,7 @@
 	</dependencies>
 
 	<build>
-		<!-- Set the name of the war, used as the context root when the app is 
+		<!-- Set the name of the war, used as the context root when the app is
 			deployed -->
 		<finalName>jboss-as-helloworld-mdb</finalName>
 		<plugins>
@@ -83,9 +83,9 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.1.0.CR1</version>
+				<version>7.1.0.Final</version>
 			</plugin>
-			<!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation 
+			<!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation
 				processors -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
