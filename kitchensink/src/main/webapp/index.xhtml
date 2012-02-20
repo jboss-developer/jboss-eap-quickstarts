@@ -35,6 +35,51 @@
                      value="#{newMember.phoneNumber}" /> <h:message
                      for="phoneNumber" errorClass="invalid" /></td>
             </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="address1" value="Address Line 1:" /></th>
+               <td><h:inputText id="address1"
+                     value="#{newMember.address.address1}" /> <h:message
+                     for="address1" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="address2" value="Address Line 1:" /></th>
+               <td><h:inputText id="address1"
+                     value="#{newMember.address.address1}" /> <h:message
+                     for="address2" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="city" value="City:" /></th>
+               <td><h:inputText id="city"
+                     value="#{newMember.address.city}" /> <h:message
+                     for="city" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="region" value="State/Province/County/Region:" /></th>
+               <td><h:inputText id="region"
+                     value="#{newMember.address.region}" /> <h:message
+                     for="region" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="postalCode" value="Postal Code/Zip Code:" /></th>
+               <td><h:inputText id="postalCode"
+                     value="#{newMember.address.postalCode}" /> <h:message
+                     for="postalCode" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="country" value="Country:" /></th>
+               <td><h:selectOneMenu id="country"
+                     value="#{newMember.address.country}">
+                     <f:selectItems value=""/>
+                   </h:selectOneMenu>
+                      <h:message
+                     for="country" errorClass="invalid" /></td>
+            </tr>
          </table>
          <p>
             <h:commandButton id="register"
@@ -51,10 +96,6 @@
       <h:dataTable var="_member" value="#{members}"
          rendered="#{not empty members}">
          <h:column>
-            <f:facet name="header">Id</f:facet>
-            #{_member.id}
-         </h:column>
-         <h:column>
             <f:facet name="header">Name</f:facet>
             #{_member.name}
          </h:column>
@@ -67,10 +108,15 @@
             #{_member.phoneNumber}
          </h:column>
          <h:column>
+            <f:facet name="header">Address</f:facet>
+            #{strings.truncate(_member.address.toSimpleString(), '20')}
+         </h:column>
+         <h:column>
             <f:facet name="header">REST URL</f:facet>
-            <a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
+            <a href="#{request.contextPath}/rest/members/#{_member.email}">#{strings.truncate(strings.concat(request.contextPath, '/rest/members/', _member.email), 30, true)}</a>
          </h:column>
          <f:facet name="footer">
+            <hr />
             REST URL for all members: <a
                href="#{request.contextPath}/rest/members">/rest/members</a>
          </f:facet>

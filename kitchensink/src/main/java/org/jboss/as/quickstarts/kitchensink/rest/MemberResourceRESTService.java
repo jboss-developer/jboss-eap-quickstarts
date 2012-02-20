@@ -38,9 +38,19 @@ public class MemberResourceRESTService {
    }
 
    @GET
-   @Path("/{id:[0-9][0-9]*}")
+   @Path("/{email:[\\w@\\.]*}")
    @Produces("text/xml")
-   public Member lookupMemberById(@PathParam("id") long id) {
-      return em.find(Member.class, id);
+   public Member lookupMemberByEmail(@PathParam("email") String email) {
+      @SuppressWarnings("unchecked")
+      final List<Member> results = em.createQuery("select m from Member m where m.email = :email")
+            .setParameter("email", email)
+            .getResultList();
+      if (results.isEmpty()) {
+         throw new IllegalStateException("No member with that email exists");
+      } else if (results.size() > 1) {
+         throw new IllegalStateException("Something went badly wrong, more than one member found");
+      } else {
+         return results.get(0);
+      }
    }
 }

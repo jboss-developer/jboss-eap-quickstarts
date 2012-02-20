@@ -30,6 +30,8 @@ public class MemberRegistration {
 
    @Inject
    private Event<Member> memberEventSrc;
+   
+   private String country;
 
    private Member newMember;
 
@@ -49,5 +51,13 @@ public class MemberRegistration {
    @PostConstruct
    public void initNewMember() {
       newMember = new Member();
+   }
+   
+   public String getCountry() {
+      return country;
+   }
+   
+   public void setCountry(String country) {
+      this.country = country;
    }
 }
