@@ -119,7 +119,7 @@
        <dependency>
             <groupId>org.jboss.remoting3</groupId>
             <artifactId>jboss-remoting</artifactId>
-            <version>3.2.1.GA</version>
+            <version>3.2.2.GA</version>
             <scope>runtime</scope>
         </dependency>
 
