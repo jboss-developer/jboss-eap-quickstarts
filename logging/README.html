@@ -1,0 +1,44 @@
+<h1>Logging Example</h1>
+<p>This example demonstrates how to setup and log different levels of information in <em>JBoss AS 7</em>.</p>
+<p>
+The example contains just one class file and one jsp file that, once accessed, fires off the logging information.  
+Also included in the example are an updated standalone.xml and logging.properties files.  Both of these would go in your
+<em>JBOSS_HOME</em>/standalone/configuration directory.  An example of asynchronous logging is included in the configuration.
+Be sure to make a backup of your original files beforehand.
+</p>
+<p>
+The class file fires off logs of the various types (INFO, DEBUG, TRACE, WARN, ERROR, FATAL).  Each log message will go to a different 
+file, as defined in the standalone.xml and logging.properties files.  Also notice in the standalone.xml that the package defines its own log level.
+</p>
+<p>
+The class file demonstrates the usage of *log guards*.  *Log guards* are a development best practice.  Simply put, instead of just 
+writing out logs, we wrap the log writes in a check for that log level being enabled. While this may seem like overhead, that boolean check is more efficient
+than relying on the underlying framework to do the check at write time.
+</p>
+<p>
+Finally the class file does log various levels, each to their own file.  Common uses of the 6 log levels are outlined below (though you should use what makes
+the most sense for your environment).  Note that log levels are hierarchical.  When set, all log levels above are logged as well:
+<ul>
+<li>FATAL - Used to track critical system failures.  When this log message is written, it is writing application error that has caused service to cease.  This
+	is the most narrow logging.</li>
+<li>ERROR - Used to track application errors that may cause one request to fail (not a service ceasement).</li>  
+<li>WARN - This is setting is used in most production environments.  At this level, all *WARN*, *ERROR*, and *FATAL* messages are written.  Use this level message
+	as a predictive measure for possible forthcoming issues.</li>
+<li>INFO - Usually only used in a development environment.  This provides any information - state transition, object values, etc</li>
+<li>DEBUG - Turned on in any environment when a problem is occuring.  The information captured may be throughput, communication, object values, etc.</li>
+<li>TRACE - Turned on in any environment where you are trying to follow an execution path, for optimization or debugging.  This is the most broad logging level and all
+	messages will be written.</li>
+	</ul>
+</p>
+<p>
+The example can be deployed using Maven from the command line or from Eclipse using
+JBoss Tools.
+</p>
+<p>
+To set up Maven or JBoss Tools in Eclipse, refer to the <em>Getting Started Guide</em>.
+</p>
+<p>
+To deploy to JBoss AS 7, start JBoss AS 7, and type <code>mvn package jboss-as:deploy</code>. 
+The application is deployed to <a href="http://localhost:8080/jboss-as-logging">http://localhost:8080/jboss-as-logging</a>. You
+can read more details in the <em>Getting Started Guide</em>.
+</p>
