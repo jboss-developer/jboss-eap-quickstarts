@@ -84,13 +84,13 @@
          <scope>runtime</scope>
       </dependency>
 
-       <!-- We depend on the server side EJBs of this application -->
-       <dependency>
-          <groupId>org.jboss.as.quickstarts</groupId>
-          <artifactId>jboss-as-ejb-remote-server-side</artifactId>
-          <version>${project.version}</version>
-       </dependency>
-
+      <!-- We depend on the EJB remote business interfaces  of this application -->
+      <dependency>
+         <groupId>org.jboss.as.quickstarts</groupId>
+         <artifactId>jboss-as-ejb-remote-server-side</artifactId>
+         <type>ejb-client</type>
+         <version>${project.version}</version>
+      </dependency>
        <!-- JBoss EJB client API jar. We use runtime scope because the EJB client API
         isn't directly used in this example. We just need it in our runtime classpath -->
        <dependency>
@@ -141,6 +141,7 @@
    </dependencies>
 
    <build>
+
       <plugins>
          <!-- Enforce Java 1.6  -->
          <plugin>
@@ -158,39 +159,55 @@
             <artifactId>exec-maven-plugin</artifactId>
             <version>1.2.1</version>
             <executions>
-              <execution>
+               <execution>
                   <goals>
                      <goal>exec</goal>
                   </goals>
-              </execution>
+               </execution>
             </executions>
             <configuration>
-              <executable>java</executable>
-              <workingDirectory>${project.build.directory}/exec-working-directory</workingDirectory>
-              <arguments>
-                <!-- automatically creates the classpath using all project dependencies,
-                     also adding the project build directory -->
-                <argument>-classpath</argument>
-                <classpath>
-                </classpath>
-                <argument>org.jboss.as.quickstarts.ejb.remote.client.RemoteEJBClient</argument>
-              </arguments>
+               <executable>java</executable>
+               <workingDirectory>${project.build.directory}/exec-working-directory</workingDirectory>
+               <arguments>
+                  <!-- automatically creates the classpath using all project dependencies,
+                       also adding the project build directory -->
+                  <argument>-classpath</argument>
+                  <classpath>
+                  </classpath>
+                  <argument>org.jboss.as.quickstarts.ejb.remote.client.RemoteEJBClient</argument>
+               </arguments>
             </configuration>
-        </plugin>
-            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
-               container -->
-            <!-- Disabling it here means that we don't try to deploy this POM! -->
-            <plugin>
-               <groupId>org.jboss.as.plugins</groupId>
-               <artifactId>jboss-as-maven-plugin</artifactId>
-               <version>7.1.0.Final</version>
-               <inherited>true</inherited>
-               <configuration>
-                  <skip>true</skip>
-               </configuration>
-            </plugin>
+         </plugin>
+
+         <!-- build standalone exe jar -->
+         <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+               <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+               </descriptorRefs>
+               <archive>
+                  <manifest>
+                     <mainClass>org.jboss.as.quickstarts.ejb.remote.client.RemoteEJBClient</mainClass>
+                  </manifest>
+               </archive>
+            </configuration>
+         </plugin>
+        
+         <!-- The JBoss AS plugin deploys your apps to a local JBoss AS container -->
+         <!-- Disabling it here means that we don't try to deploy this POM! -->
+         <plugin>
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+            <version>7.1.0.Final</version>
+            <inherited>true</inherited>
+            <configuration>
+               <skip>true</skip>
+            </configuration>
+         </plugin>
       </plugins>
 
    </build>
 
 </project>
+   
