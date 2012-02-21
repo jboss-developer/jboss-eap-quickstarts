@@ -96,7 +96,7 @@ public class RemoteEJBClient {
         final RemoteCounter statefulRemoteCounter = lookupRemoteStatefulCounter();
         System.out.println("Obtained a remote stateful counter for invocation");
         // invoke on the remote counter bean
-        final int NUM_TIMES = 20;
+        final int NUM_TIMES = 5;
         System.out.println("Counter will now be incremented " + NUM_TIMES + " times");
         for (int i = 0; i < NUM_TIMES; i++) {
             System.out.println("Incrementing counter");
