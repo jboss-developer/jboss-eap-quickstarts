@@ -35,14 +35,12 @@ Follow these steps to build, deploy and run the quickstart.
 
          $JBOSS_HOME/bin/standalone.sh
 
-2. Build and install the server side component and the client interfaces jar into your local Maven repository.  
+2. Build and install the server side component.  
 
          cd server-side/
          mvn clean install
 
-   This will compile and package the EJB JAR and client interfaces JAR
-   (`jboss-as-ejb-remote-app.jar` and `jboss-as-ejb-remote-app-client.jar`) and copy them to 
-   `~.m2/repository/org/jboss/as/quickstarts/jboss-as-ejb-remote-server-side/7.0.2-SNAPSHOT/`.
+  This will build the EJB and client interfaces JARs, and install them in your local Maven repository.
 
 3. Deploy the EJB JAR to your server
 

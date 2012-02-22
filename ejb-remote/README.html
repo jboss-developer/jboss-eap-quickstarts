@@ -35,15 +35,13 @@ The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6
 
 <pre><code> $JBOSS_HOME/bin/standalone.sh
 </code></pre></li>
-<li><p>Build and install the server side component and the client interfaces jar into your local Maven repository.  </p>
+<li><p>Build and install the server side component.  </p>
 
 <pre><code> cd server-side/
  mvn clean install
 </code></pre>
 
-<p>This will compile and package the EJB JAR and client interfaces JAR
-(<code>jboss-as-ejb-remote-app.jar</code> and <code>jboss-as-ejb-remote-app-client.jar</code>) and copy them to 
-<code>~.m2/repository/org/jboss/as/quickstarts/jboss-as-ejb-remote-server-side/7.0.2-SNAPSHOT/</code>.</p></li>
+<p>This will build the EJB and client interfaces JARs, and install them in your local Maven repository.</p></li>
 <li><p>Deploy the EJB JAR to your server</p>
 
 <pre><code> mvn jboss-as:deploy
