@@ -1,5 +1,6 @@
-jboss-as-helloworld-mdb Example
-===============================
+helloworld-mdb: Helloword Using an MDB (Message-Driven Bean)
+============================================================
+Author: Serge Pagop
 
 What is it?
 -----------
@@ -12,7 +13,7 @@ System requirements
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
 3.0 or better.
 
-The application this project produces is designed to be run on a JBoss AS 7.1.0. 
+The application this project produces is designed to be run on a JBoss AS 7 or JBoss Enterprise Application Platform 6. 
  
 NOTE:
 This Project will use the already default configured connection factory named "InVmConnectionFactory" with the jndi "java:/ConnectionFactory" and a queue named "testQueue" with the jndi "queue/test".
@@ -24,15 +25,15 @@ Deploying the application
 -------------------------
 
 Instructions for starting the server vary slightly depending upon whether you are using
-the community release (AS7) or the platform release (EAP6).
+the community release (JBoss AS 7) or the platform release (JBoss Enterprise Application Platform 6).
 
-For AS7 
+For JBoss AS 7:
 
-   On Linux run: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
+    On Linux run: $JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
 
-   On Windows run: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
+    On Windows run: $JBOSS_HOME/bin/standalone.bat -c standalone-full.xml
 
-For EAP6
+For JBoss Enterprise Application Platform 6:
 
     On Linux run: $JBOSS_HOME/bin/standalone.sh 
 
@@ -53,11 +54,11 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 Go to the JBoss Application Server console or Server log and the result can look like this:
 
-15:42:35,453 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-47 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 1
-15:42:35,455 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-46 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 2
-15:42:35,457 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-50 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 3
-15:42:35,478 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-53 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 5
-15:42:35,481 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-52 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 4
+    15:42:35,453 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-47 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 1
+    15:42:35,455 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-46 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 2
+    15:42:35,457 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-50 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 3
+    15:42:35,478 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-53 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 5
+    15:42:35,481 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-52 (group:HornetQ-client-global-threads-1267410030)) Received Message: This is message 4
 
 
 To undeploy from JBoss AS, run this command:
