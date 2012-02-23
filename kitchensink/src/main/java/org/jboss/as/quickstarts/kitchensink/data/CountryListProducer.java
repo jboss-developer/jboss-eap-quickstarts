@@ -10,15 +10,11 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.jboss.as.quickstarts.kitchensink.model.Country;
 
 @RequestScoped
 public class CountryListProducer {
-   
    @Inject
    private EntityManager em;
 
@@ -28,7 +24,7 @@ public class CountryListProducer {
    // Facelets or JSP view)
    @Produces
    @Named
-   public List<Country> getCountrys() {
+   public List<Country> getCountries() {
       return countries;
    }
 
@@ -38,13 +34,6 @@ public class CountryListProducer {
 
    @PostConstruct
    public void retrieveAllCountrysOrderedByName() {
-      CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Country> criteria = cb.createQuery(Country.class);
-      Root<Country> member = criteria.from(Country.class);
-      // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-      // feature in JPA 2.0
-      // criteria.select(member).orderBy(cb.asc(member.get(Country_.name)));
-      criteria.select(member).orderBy(cb.asc(member.get("name")));
-      countries = em.createQuery(criteria).getResultList();
+      countries = em.createQuery("select c from Country c order by c.name").getResultList();
    }
 }

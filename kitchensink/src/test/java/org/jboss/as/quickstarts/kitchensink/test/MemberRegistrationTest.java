@@ -15,7 +15,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration;
+import org.jboss.as.quickstarts.kitchensink.controller.MembersController;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.util.Resources;
 
@@ -24,24 +24,24 @@ public class MemberRegistrationTest {
    @Deployment
    public static Archive<?> createTestArchive() {
       return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(Member.class, MemberRegistration.class, Resources.class)
+            .addClasses(Member.class, MembersController.class, Resources.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
    }
 
    @Inject
-   MemberRegistration memberRegistration;
+   MembersController memberRegistration;
 
    @Inject
    Logger log;
 
    @Test
    public void testRegister() throws Exception {
-      Member newMember = memberRegistration.getNewMember();
+      Member newMember = memberRegistration.getMember();
       newMember.setName("Jane Doe");
       newMember.setEmail("jane@mailinator.com");
       newMember.setPhoneNumber("2125551234");
-      memberRegistration.register();
+      memberRegistration.save();
       assertNotNull(newMember.getId());
       log.info(newMember.getName() + " was persisted with id " + newMember.getId());
    }

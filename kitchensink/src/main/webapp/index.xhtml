@@ -3,90 +3,98 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:c="http://java.sun.com/jsp/jstl/core"
    template="/WEB-INF/templates/default.xhtml">
+   
+   <f:metadata>
+      <f:viewParam name="email" value="#{membersController.email}" />
+      <f:viewParam name="code" value="#{countriesController.code}" />
+      <f:event type="preRenderView" listener="#{countriesController.retrieve}" />
+      <f:event type="preRenderView" listener="#{membersController.retrieve}" />
+    </f:metadata>
+   
    <ui:define name="content">
       <h1>Welcome to JBoss AS 7!</h1>
 
       <p>You have successfully deployed a Java EE 6 web application
          on JBoss AS 7.</p>
 
-      <h:form id="reg">
-         <h2>Register (Bean Validation example)</h2>
-         <p>Enforces annotation-based constraints defined on the
-            model class.</p>
+      <h:form id="member">
+         <h2>Register</h2>
+         <p>Demonstrates CRUD using JSF and Bean Validation.</p>
          <table>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="name" value="Name:" /></th>
-               <td><h:inputText id="name" value="#{newMember.name}" />
+               <td><h:inputText id="name" value="#{member.name}" />
                   <h:message for="name" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="email" value="Email:" /></th>
                <td><h:inputText id="email"
-                     value="#{newMember.email}" /> <h:message
+                     value="#{member.email}" /> <h:message
                      for="email" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="phoneNumber" value="Phone #:" /></th>
                <td><h:inputText id="phoneNumber"
-                     value="#{newMember.phoneNumber}" /> <h:message
+                     value="#{member.phoneNumber}" /> <h:message
                      for="phoneNumber" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="address1" value="Address Line 1:" /></th>
                <td><h:inputText id="address1"
-                     value="#{newMember.address.address1}" /> <h:message
+                     value="#{member.address.address1}" /> <h:message
                      for="address1" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
-                     for="address2" value="Address Line 1:" /></th>
-               <td><h:inputText id="address1"
-                     value="#{newMember.address.address1}" /> <h:message
+                     for="address2" value="Address Line 2:" /></th>
+               <td><h:inputText id="address2"
+                     value="#{member.address.address2}" /> <h:message
                      for="address2" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="city" value="City:" /></th>
                <td><h:inputText id="city"
-                     value="#{newMember.address.city}" /> <h:message
+                     value="#{member.address.city}" /> <h:message
                      for="city" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="region" value="State/Province/County/Region:" /></th>
                <td><h:inputText id="region"
-                     value="#{newMember.address.region}" /> <h:message
+                     value="#{member.address.region}" /> <h:message
                      for="region" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="postalCode" value="Postal Code/Zip Code:" /></th>
                <td><h:inputText id="postalCode"
-                     value="#{newMember.address.postalCode}" /> <h:message
+                     value="#{member.address.postalCode}" /> <h:message
                      for="postalCode" errorClass="invalid" /></td>
             </tr>
             <tr>
                <th style="text-align: right;"><h:outputLabel
                      for="country" value="Country:" /></th>
                <td><h:selectOneMenu id="country"
-                     value="#{newMember.address.country}">
-                     <f:selectItems value=""/>
+                     value="#{member.address.country}" converter="#{countryConverter}">
+                     <f:selectItems value="#{countries}" var="c" itemValue="#{c}" itemLabel="#{c.name}" noSelectionValue="Please Select..." />
                    </h:selectOneMenu>
                       <h:message
                      for="country" errorClass="invalid" /></td>
             </tr>
          </table>
          <p>
-            <h:commandButton id="register"
-               action="#{memberRegistration.register}" value="Register" />
-            <h:outputText value=" Registered!"
-               rendered="#{facesContext.postback and empty facesContext.messageList}"
-               style="color: green;" />
+            <h:commandButton id="save"
+               action="#{membersController.save}" value="Save" />
+            <h:commandButton value="Delete" action="#{membersController.remove}" rendered="#{not empty membersController.email}"/>
+            <h:button value="Cancel" outcome="/index" />
+            <h:message for="reg" errorClass="invalid" infoClass="info" />
          </p>
       </h:form>
       <h2>Members</h2>
@@ -97,19 +105,14 @@
          rendered="#{not empty members}">
          <h:column>
             <f:facet name="header">Name</f:facet>
-            #{_member.name}
+            <h:link outcome="/index">
+              <f:param name="email" value="#{_member.email}"/>
+              #{_member.name}
+            </h:link>
          </h:column>
          <h:column>
             <f:facet name="header">Email</f:facet>
             #{_member.email}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Phone #</f:facet>
-            #{_member.phoneNumber}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Address</f:facet>
-            #{strings.truncate(_member.address.toSimpleString(), '20')}
          </h:column>
          <h:column>
             <f:facet name="header">REST URL</f:facet>
@@ -121,5 +124,46 @@
                href="#{request.contextPath}/rest/members">/rest/members</a>
          </f:facet>
       </h:dataTable>
+
+      <h2>Countries</h2>
+      <h:panelGroup rendered="#{empty countries}">
+         <em>No countries.</em>
+      </h:panelGroup>
+      <h:dataTable var="_country" value="#{countries}"
+         rendered="#{not empty countries}">
+         <h:column>
+            <f:facet name="header">Name</f:facet>
+            <h:link outcome="/index">
+              <f:param name="code" value="#{_country.code}"/>
+              #{_country.name}
+            </h:link>
+         </h:column>
+      </h:dataTable>
+
+      <h3>Add a country</h3>
+      <h:form id="country">
+         <table>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="name" value="Name:" /></th>
+               <td><h:inputText id="name" value="#{country.name}" />
+                  <h:message for="name" errorClass="invalid" /></td>
+            </tr>
+            <tr>
+               <th style="text-align: right;"><h:outputLabel
+                     for="code" value="Code:" /></th>
+               <td><h:inputText id="code"
+                     value="#{country.code}" /> <h:message
+                     for="code" errorClass="invalid" /></td>
+            </tr>
+                     </table>
+         <p>
+            <h:commandButton id="add"
+               action="#{countriesController.add}" value="Save" />
+            <h:button value="Cancel" outcome="/index" />
+            <h:message for="country" errorClass="invalid" infoClass="info" />
+         </p>
+      </h:form>
+
    </ui:define>
 </ui:composition>

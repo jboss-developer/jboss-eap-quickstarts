@@ -48,7 +48,7 @@ public class Member implements Serializable {
    @GeneratedValue(strategy = IDENTITY)
    // Tell JAXB to ignore the synthetic ID when generating an XML model. It's not needed
    @XmlTransient
-   private Long id;
+   private long id;
 
    /**
     * The name of member
@@ -100,11 +100,11 @@ public class Member implements Serializable {
    // What follows is fairly boring boilerplate code, along with generated equals and hashcode
    // methods
 
-   public Long getId() {
+   public long getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(long id) {
       this.id = id;
    }
 

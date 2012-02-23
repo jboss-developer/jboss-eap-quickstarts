@@ -38,3 +38,7 @@ span.invalid {
     padding-left: 3px;
     color: red;
 }
+span.info {
+    padding-left: 3px;
+    color: green;
+}
