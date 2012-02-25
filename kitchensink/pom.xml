@@ -119,10 +119,7 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-<<<<<<< HEAD
          <version>4.8.2-redhat-1</version>
-=======
->>>>>>> 7.1.0.Final
          <scope>test</scope>
       </dependency>
 
