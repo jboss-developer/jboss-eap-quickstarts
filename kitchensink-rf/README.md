@@ -1,4 +1,4 @@
-kitchensink: Example Using Multiple Java EE 6 Technologies Deployed as a WAR
+kitchensink-rf: Example Using Multiple Java EE 6 Technologies with RichFaces
 ============================================================================
 Author: Pete Muir
 
@@ -10,13 +10,17 @@ get your foot in the door developing with Java EE 6 on JBoss AS 7 or JBoss Enter
 project is setup to allow you to create a compliant Java EE 6 application 
 using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes
 a persistence unit and some sample persistence and transaction code to help 
-you get your feet wet with database access in enterprise Java. 
+you get your feet wet with database access in enterprise Java.
+
+This application builds on top of the standard JSF approach, by incorporating the RichFaces project to provide a set of
+components, allowing for a rich user experience.  RichFaces builds on top of the JSF standard, and is a fully portable
+solution compatible with all JSF implementations.
 
 System requirements
 -------------------
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
-3.0 or better.
+3.0 or better, and the RichFaces library.
 
 The application this project produces is designed to be run on a JBoss AS 7 or EAP 6. 
 The following instructions target JBoss AS 7, but they also apply to JBoss Enterprise Application Platform 6.

@@ -21,6 +21,9 @@ body {
     background: #EAECEE;
     padding: 0 15px 5px 15px;
 }
+#content {
+    width: 590px; /* #container.width - #sidebar-width - 50px */
+}
 #sidebar ul {
     padding-left: 30px;
 }
@@ -33,8 +36,4 @@ body {
 }
 code {
     font-size: 1.1em;
-}
-span.invalid {
-    padding-left: 3px;
-    color: red;
 }

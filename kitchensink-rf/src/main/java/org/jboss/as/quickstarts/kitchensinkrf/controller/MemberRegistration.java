@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.kitchensink.controller;
+package org.jboss.as.quickstarts.kitchensinkrf.controller;
 
 import java.util.logging.Logger;
 
@@ -7,11 +7,13 @@ import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.jboss.as.quickstarts.kitchensinkrf.model.Member;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful
@@ -26,12 +28,16 @@ public class MemberRegistration {
    private Logger log;
 
    @Inject
+   private FacesContext facesContext;
+
+   @Inject
    private EntityManager em;
 
    @Inject
    private Event<Member> memberEventSrc;
 
    private Member newMember;
+   private Member member;
 
    @Produces
    @Named
@@ -39,9 +45,20 @@ public class MemberRegistration {
       return newMember;
    }
 
+   @Produces
+   @Named
+   public Member getMember() {
+      return member;
+   }
+
+   public void setMember(Member member) {
+      this.member = member;
+   }
+
    public void register() throws Exception {
       log.info("Registering " + newMember.getName());
       em.persist(newMember);
+      facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful"));
       memberEventSrc.fire(newMember);
       initNewMember();
    }

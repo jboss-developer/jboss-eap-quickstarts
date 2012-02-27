@@ -3,10 +3,10 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-kitchensink</artifactId>
+   <artifactId>jboss-as-kitchensink-rf</artifactId>
    <version>7.1.1-SNAPSHOT</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: kitchensink</name>
+   <name>JBoss AS Quickstarts: kitchensink-rf</name>
    <description>A starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6, generated from the jboss-javaee6-webapp archetype</description>
 
    <properties>
@@ -27,7 +27,7 @@
 
    <dependencyManagement>
       <dependencies>
-        <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
+         <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
           of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
           of artifacts. We use this here so that we always get the correct versions 
           of artifacts. Here we use the jboss-javaee-6.0-with tools stack (you can read this as 
@@ -37,6 +37,15 @@
             <groupId>org.jboss.bom</groupId>
             <artifactId>jboss-javaee-6.0-with-tools</artifactId>
             <version>${javaee6.with.tools.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <!-- Similarly to the JBoss Java EE 6 BOM above, the RichFaces BOM specifies the
+          versions of artifacts required for using RichFaces in your project. -->
+         <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-bom</artifactId>
+            <version>4.2.0.Final</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -102,6 +111,25 @@
                <artifactId>slf4j-api</artifactId>
             </exclusion>
          </exclusions>
+      </dependency>
+
+      <!-- Import the JSF API, we use provided scope as the API is included
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.faces</groupId>
+         <artifactId>jboss-jsf-api_2.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Import the RichFaces core library -->
+      <dependency>
+         <groupId>org.richfaces.core</groupId>
+         <artifactId>richfaces-core-impl</artifactId>
+      </dependency>
+      <!-- Import the RichFaces components -->
+      <dependency>
+         <groupId>org.richfaces.ui</groupId>
+         <artifactId>richfaces-components-ui</artifactId>
       </dependency>
 
       <!-- Now we declare any tools needed -->
