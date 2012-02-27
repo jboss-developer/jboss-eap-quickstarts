@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>${javaee6.spec.version}</version>
+            <version>3.0.0.Beta1-redhat-1</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
