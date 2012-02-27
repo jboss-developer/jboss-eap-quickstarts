@@ -33,13 +33,15 @@
 <h:body>
     <h1>Tasks</h1>
 
-    
+
     <h:form>
-    <div class="loginDetails">
-        #{currentUser.username} (<h:commandLink value="logout" action="#{auth.logout}" />)
-    </div>
+        <div class="loginDetails">
+            #{currentUser.username} (
+            <h:commandLink value="logout" action="#{auth.logout}" />
+            )
+        </div>
     </h:form>
-    
+
     <div class="clear" />
 
     <h:panelGroup rendered="#{auth.logged}">
@@ -79,7 +81,7 @@
                                 </h:commandLink>
 
                                 <h:commandLink value="#{task.title}">
-                                    <f:setPropertyActionListener target="#{tasks.currentTask}" value="#{task}" />
+                                    <f:setPropertyActionListener target="#{currentTask}" value="#{task}" />
                                     <f:ajax render=":form:taskDetail" />
                                 </h:commandLink>
                             </h:column>
@@ -90,12 +92,13 @@
                 <h:panelGroup id="taskDetail">
                     <fieldset>
                         <legend>Detail</legend>
-                        <h:panelGroup rendered="#{currentTask != null}">
+                        <h:panelGroup>
                             <p>
-                                <h:outputText value="#{currentTask.title}" />
+                                <h:outputText value="#{currentTask.title}" rendered="#{not empty currentTask}" />
                             </p>
                             <p>
-                                <h:commandLink value="Complete Task" action="#{tasks.deleteTask(currentTask)}">
+                                <h:commandLink value="Complete Task" action="#{tasks.deleteCurrentTask()}"
+                                    style="display: #{empty currentTask ? 'none' : 'inline'}">
                                     <f:ajax render=":form:taskGrid" />
                                 </h:commandLink>
                             </p>
