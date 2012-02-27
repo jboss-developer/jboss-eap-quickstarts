@@ -40,6 +40,7 @@
       <module>helloworld-osgi</module>
       <module>helloworld-rs</module>
       <module>helloworld-singleton</module>
+      <module>jta-crash-rec</module>
       <module>jts</module>
       <module>kitchensink</module>
       <module>kitchensink-ear</module>
