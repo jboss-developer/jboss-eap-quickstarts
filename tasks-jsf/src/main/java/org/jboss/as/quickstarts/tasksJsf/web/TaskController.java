@@ -3,11 +3,11 @@ package org.jboss.as.quickstarts.tasksJsf.web;
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.as.quickstarts.tasksJsf.beans.Repository;
 import org.jboss.as.quickstarts.tasksJsf.domain.Task;
 import org.jboss.as.quickstarts.tasksJsf.domain.TaskDao;
 import org.jboss.as.quickstarts.tasksJsf.domain.User;
@@ -33,9 +33,6 @@ public class TaskController implements Serializable {
 
     @Inject
     TaskList taskList;
-
-    @Inject
-    Repository repository;
 
     /**
      * Injects current user, which provided by {@link AuthController}.

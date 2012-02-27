@@ -7,12 +7,12 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.tasksJsf.DefaultDeployment;
-import org.jboss.as.quickstarts.tasksJsf.beans.Repository;
-import org.jboss.as.quickstarts.tasksJsf.beans.RepositoryBean;
+import org.jboss.as.quickstarts.tasksJsf.Resources;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,24 +20,19 @@ import org.junit.runner.RunWith;
 
 /**
  * @author Lukas Fryc
+ * @author Oliver Kiss
  */
 @RunWith(Arquillian.class)
 public class TaskDaoTest {
 
-    public static final String WEBAPP_SRC = "src/main/webapp";
-
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return new DefaultDeployment()
-                .withPersistence()
-                .withImportedData()
-                .getArchive()
-                .addClasses(Repository.class, RepositoryBean.class, User.class, Task.class, UserDao.class, TaskDao.class,
-                        TaskDaoImpl.class);
+        return new DefaultDeployment().withPersistence().withImportedData().getArchive()
+                .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, TaskDaoImpl.class);
     }
 
     @Inject
-    Repository repository;
+    EntityManager em;
 
     @Inject
     TaskDao taskDao;
@@ -57,9 +52,10 @@ public class TaskDaoTest {
         Task task = new Task("New task");
 
         // when
-        repository.create(user);
+        em.persist(user);
         taskDao.createTask(user, task);
-        List<Task> userTasks = repository.query(Task.class, "SELECT t FROM Task t WHERE t.owner = ?", user).getResultList();
+        List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = ?", Task.class).setParameter(1, user)
+                .getResultList();
 
         // then
         assertEquals(1, userTasks.size());

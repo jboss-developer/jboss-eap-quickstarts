@@ -3,15 +3,13 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
-    
     <persistence-unit name="tasksJsfDatabase">
-      <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
-      <properties>
-         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="true" />
-         <property name="hibernate.cache.use_second_level_cache" value="true" />
-         <property name="hibernate.cache.use_query_cache" value="true" />
-      </properties>
-   </persistence-unit>
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache" value="true" />
+            <property name="hibernate.cache.use_query_cache" value="true" />
+        </properties>
+    </persistence-unit>
 </persistence>

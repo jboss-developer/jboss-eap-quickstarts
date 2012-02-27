@@ -1,44 +1,40 @@
 package org.jboss.as.quickstarts.tasksJsf.domain;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.tasksJsf.DefaultDeployment;
 import org.jboss.as.quickstarts.tasksJsf.Resources;
-import org.jboss.as.quickstarts.tasksJsf.beans.Repository;
-import org.jboss.as.quickstarts.tasksJsf.beans.RepositoryBean;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * @author Lukas Fryc
+ * @author Oliver Kiss
  */
 @RunWith(Arquillian.class)
 public class UserDaoTest {
 
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return new DefaultDeployment()
-                .withPersistence()
-                .withImportedData()
-                .getArchive()
-                .addClasses(User.class, Task.class, UserDao.class, UserDaoImpl.class, Resources.class, Repository.class,
-                        RepositoryBean.class);
+        return new DefaultDeployment().withPersistence().withImportedData().getArchive()
+                .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, UserDaoImpl.class);
     }
 
     @Inject
     UserDao userDao;
 
     @Inject
-    Repository repository;
+    EntityManager em;
 
     @Test
     public void userDao_should_create_user_so_it_could_be_retrieved_from_userDao_by_username() {
@@ -50,9 +46,9 @@ public class UserDaoTest {
         User retrieved = userDao.getForUsername("username1");
 
         // then
-        assertTrue(repository.isManaging(created));
-        assertTrue(repository.isManaging(retrieved));
-        assertEquals(created, retrieved);
+        assertTrue(em.contains(created));
+        assertTrue(em.contains(retrieved));
+        Assert.assertEquals(created, retrieved);
     }
 
     @Test
@@ -64,7 +60,7 @@ public class UserDaoTest {
         User retrieved = userDao.getForUsername(username);
 
         // then
-        assertEquals(username, retrieved.getUsername());
+        Assert.assertEquals(username, retrieved.getUsername());
     }
 
     @Test

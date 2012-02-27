@@ -2,32 +2,32 @@ package org.jboss.as.quickstarts.tasksJsf.domain;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.jboss.as.quickstarts.tasksJsf.beans.Repository;
-
 /**
- * Provides functionality for manipulation with tasks using persistence operations using {@link Repository}.
- *
+ * Provides functionality for manipulation with tasks using persistence context from {@link Resources}.
+ * 
  * @author Lukas Fryc
- *
+ * @author Oliver Kiss
+ * 
  */
-@Stateless
-@Local(TaskDao.class)
+@Stateful
 public class TaskDaoImpl implements TaskDao {
 
     @Inject
-    Repository repository;
+    EntityManager em;
 
     @Override
     public void createTask(User user, Task task) {
-        user = repository.attach(user);
+        if (!em.contains(user)) {
+            user = em.merge(user);
+        }
         user.getTasks().add(task);
         task.setOwner(user);
-        repository.create(task);
+        em.persist(task);
     }
 
     @Override
@@ -47,17 +47,19 @@ public class TaskDaoImpl implements TaskDao {
     @Override
     public List<Task> getForTitle(User user, String title) {
         String lowerCaseTitle = "%" + title.toLowerCase() + "%";
-        return repository.query(Task.class, "SELECT t FROM Task t WHERE t.owner = ? AND LOWER(t.title) LIKE ?", user,
-                lowerCaseTitle).getResultList();
+        return em.createQuery("SELECT t FROM Task t WHERE t.owner = ? AND LOWER(t.title) LIKE ?", Task.class)
+                .setParameter(1, user).setParameter(2, lowerCaseTitle).getResultList();
     }
 
     @Override
     public void deleteTask(Task task) {
-        task = repository.attach(task);
-        repository.delete(task);
+        if (!em.contains(task)) {
+            task = em.merge(task);
+        }
+        em.remove(task);
     }
 
     private TypedQuery<Task> querySelectAllTasksFromUser(User user) {
-        return repository.query(Task.class, "SELECT t FROM Task t WHERE t.owner = ?", user);
+        return em.createQuery("SELECT t FROM Task t WHERE t.owner = ?", Task.class).setParameter(1, user);
     }
 }

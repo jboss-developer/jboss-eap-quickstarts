@@ -2,27 +2,27 @@ package org.jboss.as.quickstarts.tasksJsf.domain;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
-
-import org.jboss.as.quickstarts.tasksJsf.beans.Repository;
+import javax.persistence.EntityManager;
 
 /**
- * Provides functionality for manipulation with users using persistence operations using {@link Repository}.
- *
+ * Provides functionality for manipulation with users using persistence context from {@link Resources}.
+ * 
  * @author Lukas Fryc
- *
+ * @author Oliver Kiss
+ * 
  */
-@Stateless
-@Local(UserDao.class)
+@Stateful
 public class UserDaoImpl implements UserDao {
 
     @Inject
-    private Repository repository;
+    EntityManager em;
 
     public User getForUsername(String username) {
-        List<User> result = repository.query(User.class, "select u from User u where u.username = ?", username).getResultList();
+        List<User> result = em.createQuery("select u from User u where u.username = ?", User.class).setParameter(1, username)
+                .getResultList();
+
         if (result.isEmpty()) {
             return null;
         }
@@ -30,6 +30,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     public void createUser(User user) {
-        repository.create(user);
+        em.persist(user);
     }
 }

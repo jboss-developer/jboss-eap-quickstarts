@@ -1,18 +1,12 @@
 package org.jboss.as.quickstarts.tasksJsf.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  * User's task entity
- *
+ * 
  * @author Oliver Kiss
- *
  */
 @Entity
 @Table(name = "TasksJsf_task")
