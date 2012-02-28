@@ -9,6 +9,7 @@
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
       <h:outputStylesheet name="app.css" library="css"/>
+      <h:outputScript target="head" name="showMessage.js" library="js"/>
 
       <h1>Welcome to JBoss AS 7!</h1>
 
@@ -22,8 +23,8 @@
 
             <h:panelGrid columns="2">
                <a4j:commandButton id="register" action="#{memberRegistration.register}" value="Register"
-                                  execute="newMemberPanel" render="memberList newMemberPanel"/>
-               <rich:messages globalOnly="true" />
+                                  execute="newMemberPanel" render="newMemberPanel"/>
+               <rich:messages globalOnly="true"/>
             </h:panelGrid>
          </rich:panel>
          <br />
@@ -32,7 +33,7 @@
             <h:panelGroup rendered="#{empty members}">
                <em>No registered members.</em>
             </h:panelGroup>
-            <rich:dataTable var="_member" value="#{members}" rendered="#{not empty members}">
+            <rich:dataTable var="_member" value="#{members}" rendered="#{not empty members}" style="width : 100%">
                <rich:column>
                   <a4j:commandLink styleClass="no-decor" render="memberPanel" execute="@this"
                                    oncomplete="#{rich:component('memberPopup')}.show()">
@@ -65,20 +66,28 @@
                </f:facet>
             </rich:dataTable>
          </rich:collapsiblePanel>
-             <rich:popupPanel id="memberPopup" modal="true" onmaskclick="#{rich:component('memberPopup')}.hide()"
-                              domElementAttachment="form" autosized="true">
-         <f:facet name="header">
-            <h:outputText value="Member Details"/>
-         </f:facet>
-         <f:facet name="controls">
-            <h:outputLink value="#" onclick="#{rich:component('memberPopup')}.hide(); return false;">
-               X
-            </h:outputLink>
-         </f:facet>
-         <h:panelGroup id="memberPanel">
-            <my:memberForm member="#{member}"/>
-         </h:panelGroup>
-      </rich:popupPanel>
+
+         <div id="newMemberMessages" class="update"/>
+
+         <rich:popupPanel id="memberPopup" modal="true" onmaskclick="#{rich:component('memberPopup')}.hide()"
+                          domElementAttachment="form" autosized="true">
+            <f:facet name="header">
+               <h:outputText value="Member Details"/>
+            </f:facet>
+            <f:facet name="controls">
+               <h:outputLink value="#" onclick="#{rich:component('memberPopup')}.hide(); return false;">
+                  X
+               </h:outputLink>
+            </f:facet>
+            <h:panelGroup id="memberPanel">
+               <my:memberForm member="#{member}"/>
+            </h:panelGroup>
+         </rich:popupPanel>
+
+         <a4j:push address="pushCdi" ondataavailable="showMessage(event.rf.data)">
+            <a4j:ajax event="dataavailable" render="memberList" />
+         </a4j:push>
+
       </h:form>
    </ui:define>
 </ui:composition>

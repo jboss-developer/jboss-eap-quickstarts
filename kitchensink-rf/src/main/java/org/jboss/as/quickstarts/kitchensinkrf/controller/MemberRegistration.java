@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.as.quickstarts.kitchensinkrf.model.Member;
+import org.richfaces.cdi.push.Push;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful
@@ -23,6 +24,8 @@ import org.jboss.as.quickstarts.kitchensinkrf.model.Member;
 // http://sfwk.org/Documentation/WhatIsThePurposeOfTheModelAnnotation
 @Model
 public class MemberRegistration {
+
+   public static final String PUSH_CDI_TOPIC = "pushCdi";
 
    @Inject
    private Logger log;
@@ -35,6 +38,9 @@ public class MemberRegistration {
 
    @Inject
    private Event<Member> memberEventSrc;
+
+   @Inject
+   @Push(topic = PUSH_CDI_TOPIC) Event<String> pushEvent;
 
    private Member newMember;
    private Member member;
@@ -60,6 +66,7 @@ public class MemberRegistration {
       em.persist(newMember);
       facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful"));
       memberEventSrc.fire(newMember);
+      pushEvent.fire(String.format("New member added: %s (id: %d)", newMember.getName(), newMember.getId()));
       initNewMember();
    }
 

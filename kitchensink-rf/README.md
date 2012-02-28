@@ -16,6 +16,20 @@ This application builds on top of the standard JSF approach, by incorporating th
 components, allowing for a rich user experience.  RichFaces builds on top of the JSF standard, and is a fully portable
 solution compatible with all JSF implementations.
 
+Some key points to make note of while running the application:
+
+*   Ajax push: This application makes use of ajax push.  When a member is created in one browser, the member list is
+    updated in **all** open browsers.
+
+    Try this yourself, by opening two different browsers, create a new member in one browser, and watch for the list to
+    be updated in both browsers.
+
+*   Ajax: All page updates are made with an ajax call, increasing the page responsiveness, and leading to a more native
+    **feeling** application.
+
+*   Popups: Click the view link next to a member in the member list to view a popup with the member details.  To close
+    the popup, click the "X" in the top right-hadn corner, or clck anywhere on the background mask.
+
 System requirements
 -------------------
 

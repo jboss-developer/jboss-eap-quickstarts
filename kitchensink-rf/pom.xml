@@ -132,6 +132,12 @@
          <artifactId>richfaces-components-ui</artifactId>
       </dependency>
 
+       <!-- Import the Atmosphere framework for a4j:push -->
+      <dependency>
+         <groupId>org.atmosphere</groupId>
+         <artifactId>atmosphere-runtime</artifactId>
+      </dependency>
+
       <!-- Now we declare any tools needed -->
 
       <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
