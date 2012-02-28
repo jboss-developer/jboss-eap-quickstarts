@@ -1,5 +1,9 @@
-E-Mail Example
-===================
+E-Mail Example: Example using CDI (Contexts and Dependency Injection) and JSF (JavaServer Faces)
+================================================================================================
+Author: Joel Tosi
+
+What is it?
+-----------
 
 This example demonstrates sending email with the use of *CDI 1.0* and *JSF 2.0* in *JBoss AS 7*.
 
@@ -21,13 +25,25 @@ The configuration of the mail provider is found in either *$JBOSS_HOME/standalon
 	</mail-session>
 </subsystem>
 
-The example is a web application that takes To, From, Subject, and Message Body input and sends mail to that address.  The front end is a JSF page with a simple POJO backing, leveraging CDI for resource injection.
+The example is a web application that takes To, From, Subject, and Message Body input and sends mail to that address.  The front end is a JSF page with a simple 
+POJO backing, leveraging CDI for resource injection.
+
+System requirements
+-------------------
 
 The example can be deployed using Maven from the command line or from Eclipse using
 JBoss Tools.
 
-To set up Maven or JBoss Tools in Eclipse, refer to the _Getting Started Guide_.
+To set up Maven or JBoss Tools in Eclipse, refer to the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.
 
-To deploy to JBoss AS 7, start JBoss AS 7, and type `mvn package jboss-as:deploy`. 
-The application is deployed to <http://localhost:8080/jboss-as-mail>. You
-can read more details in the _Getting Started Guide_.
+Deploying the application
+-------------------------
+
+To deploy to JBoss AS 7 or JBoss Enterprise Application Platform 6 using Maven, start the server, and type:
+
+    mvn package jboss-as:deploy
+
+The application is deployed to <http://localhost:8080/jboss-as-mail>. 
+
+You can read more details in the 
+<a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.

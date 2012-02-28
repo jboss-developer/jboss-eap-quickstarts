@@ -50,15 +50,6 @@
 
    <dependencies>
 
-      <!-- Import the CDI API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-
-      <!-- Import the Common Annotations API (JSR-250), we use provided scope 
-         as the API is included in JBoss AS 7 -->
-
-      <!-- Import the JSF API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-
       <dependency>
       	<groupId>org.jboss.logging</groupId>
       	<artifactId>jboss-logging</artifactId>

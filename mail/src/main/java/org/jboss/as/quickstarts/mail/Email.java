@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.Address;
 import javax.mail.Message;
