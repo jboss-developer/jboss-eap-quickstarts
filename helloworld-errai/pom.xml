@@ -7,7 +7,7 @@
   <artifactId>jboss-as-helloworld-errai</artifactId>
   <version>7.0.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: GWT Hello World</name>
+  <name>JBoss AS Quickstarts: Errai Hello World</name>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>
@@ -19,8 +19,6 @@
   </licenses>
 
     <properties>
-        <errai.version>2.0-SNAPSHOT</errai.version>
-        <errai.jaxrs.version>2.0-SNAPSHOT</errai.jaxrs.version>
 
     <!-- Explicitly declaring the source encoding eliminates the following 
       message: -->
@@ -29,28 +27,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
-        Any dependencies from org.jboss.spec will have their version defined by this 
-        BOM -->
-      <!-- JBoss distributes a complete set of Java EE 6 APIs including a 
-        Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or a 
-        collection) of artifacts. We use this here so that we always get the correct 
-        versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-        read this as the JBoss stack of the Java EE Web Profile 6 APIs), and we use 
-        version 2.0.0.Beta1 which is the latest release of the stack. You can actually 
-        use this stack with any version of JBoss AS that implements Java EE 6, not 
-        just JBoss AS 7! -->
-      <dependency>
-        <groupId>org.jboss.spec</groupId>
-        <artifactId>jboss-javaee-web-6.0</artifactId>
-        <version>2.0.0.Final</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.bom</groupId>
+          <artifactId>jboss-javaee-6.0-with-errai</artifactId>
+          <version>1.0.0-SNAPSHOT</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 
   <dependencies>
 
@@ -73,53 +60,41 @@
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
-      <version>2.4.0</version>
       <scope>provided</scope>
     </dependency>
 
     <!-- Errai -->
     <!-- Project Dependencies -->
-    <dependency>
-      <groupId>org.jboss.errai</groupId>
-      <artifactId>errai-common</artifactId>
-      <version>${errai.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-bus</artifactId>
-      <version>${errai.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-ioc</artifactId>
-      <version>${errai.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-tools</artifactId>
-      <version>${errai.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-jaxrs-client</artifactId>
-      <version>${errai.jaxrs.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-jaxrs-provider</artifactId>
-      <version>${errai.jaxrs.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxrs</artifactId>
-      <version>2.2.3.GA</version>
+      <groupId>org.jboss.spec.javax.ws.rs</groupId>
+      <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -189,6 +164,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>.errai</directory>
+            </fileset>
+          </filesets>
+        </configuration>
       </plugin>
     </plugins>
   </build>
