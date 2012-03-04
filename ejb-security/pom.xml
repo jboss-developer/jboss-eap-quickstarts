@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-ejb-security</artifactId>
-   <version>7.0.2.CR4</version>
+   <artifactId>jboss-as-servlet-security</artifactId>
+   <version>7.1.1-SNAPSHOT</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: ejb-security</name>
-   <description>JBoss AS Quickstarts: ejb-security</description>
+   <name>JBoss AS Quickstarts: servlet-security</name>
+   <description>JBoss AS Quickstarts: servlet-security</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -39,7 +39,7 @@
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <version>3.0.0.Beta1</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -71,17 +71,13 @@
          <artifactId>jboss-servlet-api_3.0_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-
-      <dependency>
-      	<groupId>org.jboss.spec.javax.ejb</groupId>
-      	<artifactId>jboss-ejb-api_3.1_spec</artifactId>
-      </dependency>
+        
    </dependencies>
 
    <build>
       <!-- Set the name of the war, used as the context root when the app 
          is deployed -->
-      <finalName>jboss-as-ejb-security</finalName>
+      <finalName>jboss-as-servlet-security</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-war-plugin</artifactId>
@@ -96,7 +92,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.CR1</version>
+            <version>7.1.0.Final</version>
          </plugin>
          <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
             annotation processors -->
