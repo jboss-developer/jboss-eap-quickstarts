@@ -34,7 +34,6 @@ import org.jboss.as.quickstarts.ejb_security.SecuredEJB;
 /**
  * <p>
  * Simple Servlet calling secured ejb
- * using Servlet 3 security annotations
  * Upon successful authentication and authorization the servlet 
  * will call the secured ejb and retrieve the principal name
  * </p>
