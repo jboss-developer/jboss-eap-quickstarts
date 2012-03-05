@@ -28,7 +28,7 @@ To implement Servlet declarative security, you need to:
                  </authentication>
              </security-domain>
 
-For more information, refer to the  <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> and find Security --> EJB3 Security.
+For more information, refer to the  <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> and find Security --> Servlet Security.
 
 
 ## Deploying the Quickstart
