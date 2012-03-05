@@ -54,7 +54,7 @@ This will deploy `target/jboss-as-servlet-security` to the running instance of J
 
 ## Testing the Quickstart
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-servlet/SecuredServlet/>.
+The application will be running at the following URL <http://localhost:8080/jboss-as-servlet-security/SecuredServlet/>.
 
 When you access the application, you should get a browser login challenge.
 
