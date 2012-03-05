@@ -79,7 +79,7 @@ under the License.
       </mirrorOf>
       <name>Mirror Settings for EAP 6 build</name>
       <!-- Note this URL can be changed to point to an extracted EAP Maven repo zip -->
-      <url>http://download.lab.bos.redhat.com/brewroot/repos/jb-eap-6-rhel-6-build/latest/maven/</url>
+      <url>${eapMavenRepoUrl}</url>
     </mirror>
   </mirrors>
   
@@ -192,3 +192,4 @@ under the License.
   </activeProfiles>
   -->
 </settings>
+
