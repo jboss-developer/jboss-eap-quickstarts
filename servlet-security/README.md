@@ -50,7 +50,7 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
                 mvn jboss-as:deploy
 
-This will deploy `target/jboss-as-ejb-servlet` to the running instance of JBoss AS.
+This will deploy `target/jboss-as-servlet-security` to the running instance of JBoss AS.
 
 ## Testing the Quickstart
 
