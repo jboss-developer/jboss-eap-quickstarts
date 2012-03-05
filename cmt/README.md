@@ -33,13 +33,13 @@ this stateless session bean has been marked up with an @javax.ejb.TransactionAtt
 The available options for this annotation are as follows:
 
 * Required - As demonstrated in the example. If a transaction does not already exist, 
-this will initiate a transaction and  complete it for you, otherwise the business 
+this will initiate a transaction and	complete it for you, otherwise the business 
 logic will be integrated into the existing transaction
 * RequiresNew - If there is already a transaction running, it will be suspended, 
 the work performed within a new transaction which is completed at exit of the method 
 and then the original transaction resumed. 
 * Mandatory - If there is no transaction running, calling a business method with 
-is annotated  with this will result in an error
+is annotated	with this will result in an error
 * NotSupported - If there is a transaction running, it will be suspended and no 
 transaction will be initiated for this business method
 * Supports - This will run the method within a transaction if a transaction exists, 
@@ -56,22 +56,10 @@ The application this project produces is designed to be run on a JBoss AS 7 or J
 The following instructions target JBoss AS 7, but they also apply to JBoss Enterprise Application Platform 6.
 
 
-## Testing the application
-
-Executing the following command will build and test the application using Arquillian:
-
-    JBOSS_HOME=<PATH_TO_JBOSS_HOME> mvn clean test -Parq-jbossas-managed
-
-NOTE: If you get the following you have not exported `JBOSS_HOME`:
-
-    Tests in error: 
-    TestManagedBeanCustomerManager: jbossHome 'null' must exist
- 
 ## Deploying the application
 
 First you need to start JBoss AS 7 (or JBoss Enterprise Application Platform 6)
-with a JMS connection factory and a queue named test queue in it. The
-instructions for this vary slightly depending upon whether you are using the
+with a JMS connection factory in it. The instructions for this vary slightly depending upon whether you are using the
 community release (JBoss AS 7) or the platform release (JBoss Enterprise
 Application Platform 6).
 
@@ -106,7 +94,7 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 After a user is successfully added to the database, a message is produced container the 
 details of the user. An example MDB will dequeue this message and print the contents as such:
-  
+	
     Received Message: Created customer named: Tom with ID: 1
 
 To undeploy from JBoss AS, run this command:

@@ -29,6 +29,11 @@
     	<artifactId>resteasy-jaxrs</artifactId>
     	<version>2.3.1.GA-redhat-1</version>
     </dependency>
+    <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>4.1.4</version>
+     </dependency>
   </dependencies>
   <build>
        <plugins>
