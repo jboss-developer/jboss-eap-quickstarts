@@ -5,9 +5,6 @@
             <jms-queue name="JTSQueue">
                 <entry name="/queue/JTSQueue"/>
             </jms-queue>
-            <jms-queue name="JTSCustomerQueue">
-                <entry name="/queue/JTSCustomerQueue"/>
-            </jms-queue>
         </jms-destinations>
     </hornetq-server>
 </messaging-deployment>
