@@ -57,18 +57,27 @@ the distribution bin folder)
 
 2. Build the example (`mvn package`) and deploy it to the running AS (`mvn jboss-as:deploy`)
 The example provides its own H2 XA datasource configuration (by including a xyz-ds.xml file in the
-WEB-INF folder of the war archive). If you want to run with a different database then you
-will need to either get hold of an equivalent file for your target database or
-adapt [the instructions below](#xaconfig) which outline how to create an H2 XA datasource
+WEB-INF folder of the war archive). In EAP deploying via war archives is not a supported feature
+so we have provided instructions for deploying via the console. You might also need the 
+instructions if you want to run with a different database.
+[The instructions below](#xaconfig) outline how to create an H2 XA datasource
 using JBoss AS 7 admin tools. If you do decide to experiment with other databases we
 recommend you use a more robust XA database such as postgreSQL (one of the other transaction
-quickstarts provides instructions for postgreSQL configuration)
+quickstarts provides instructions for postgreSQL configuration).
+The example also requires a JMS queue destination called testQueue. If your standalone configuration
+file does not contain this destination put the following into the jms-destinations section:
+
+        <jms-queue name="testQueue">
+                <entry name="queue/test"/>
+                <entry name="java:jboss/exported/jms/queue/test"/>
+        </jms-queue>
 
 3. The application is available at the URL <http://localhost:8080/jboss-as-jta-crash-rec/XA> where you
 will find a web page containing two html input boxes for adding key value pairs to 
 a database. Instructions on using the application are shown when you open the application web page.
 When you add a new key value pair the change is committed to the database and a JMS message sent.
-The message consumer then updates the row just inserted by appending the text *"updated via JMS"* to the value
+The message consumer then updates the row just inserted by appending the text *"updated via JMS"* to
+the value
 
 4. When an _XA transaction_ is committed the application server does the completion in two phases.
 In phase 1 each resource (in this example a database and a JMS message producer)
@@ -79,6 +88,17 @@ failures that occur during phase 2). Some failure modes require cooperation betw
 the AS and the datasources in order to guarantee that any pending changes are recovered.
 We demonstrate this functionality by terminating the AS whilst phase 2 is running using a tool
 called Byteman. Now you should [enable Byteman by following the instructions below](#byteman).
+If you choose to add Byteman by updating the AS7 conf file then will need to restart the AS after following
+the Bytman instructions. You should also ensure that there are no transaction logs left over
+from running other quickstarts:
+
+            ls ../standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+
+            if the directory contains any files then delete them before restarting:
+
+            rm -rf ../standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+
+            On windows use the file manager to accomplish the same result.
 
 5. If you have completed step 4 then you are ready to create a _recovery record_. Go to the
 application URL and insert another row into the database.
