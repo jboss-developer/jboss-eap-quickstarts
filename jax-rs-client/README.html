@@ -1,0 +1,33 @@
+<h1>External JAX-RS Client</h1>
+<p>Author: Blaine Mincey, blaine.mincey@redhat.com</p>
+<p>This example demonstrates the use an external JAX-RS RestEasy client
+which interacts with a JAX-RS Web service that uses <em>CDI 1.0</em> and <em>JAX-RS</em> 
+in <em>JBoss AS 7</em>.  Specifically, this client "calls" the HelloWorld JAX-RS
+Web Service created in quickstart helloworld-rs.  Please refer to the helloworld-rs
+README.md for instructions on how to build and deploy helloworld-rs.</p>
+<h1>Prerequisites</h1>
+<p>Before running this quickstart, you must first build and deploy the helloworld-rs
+quickstart to your AS7 server as this quickstart depends on that deployment for
+its test.  Additionally, this example can be executed using Maven from the command line 
+or from Eclipse using JBoss Tools.</p>
+<p>To set up Maven or JBoss Tools in Eclipse, refer to the <em>Getting Started Guide</em>.</p>
+<h1>Usage</h1>
+<p>This example assumes that the following URLs are available based upon the 
+HelloWorld REST application being deployed:</p>
+<p>http://localhost:8080/jboss-as-helloworld-rs/xml</p>
+<p>http://localhost:8080/jboss-as-helloworld-rs/json</p>
+<p>Execute the example by running 'mvn test'</p>
+<p>This command will compile the example and execute a test to make two separate
+requests to the Web Service.  Towards the end of the Maven build output, you 
+should see the following for successful execution:</p>
+<p>===============================================
+URL: http://localhost:8080/jboss-as-helloworld-rs/xml
+MediaType: application/xml</p>
+<p><strong><em> Response from Server </em></strong></p>
+<p><xml><result>Hello World!</result></xml></p>
+<h1>===============================================</h1>
+<p>URL: http://localhost:8080/jboss-as-helloworld-rs/json
+MediaType: application/json</p>
+<p><strong><em> Response from Server </em></strong></p>
+<p>{"result":"Hello World!"}</p>
+<p>===============================================</p>
