@@ -43,6 +43,7 @@
       <module>helloworld-singleton</module>
       <module>hibernate3</module>
       <module>hibernate4</module>
+      <!-- jax-rs-client build depends on having a running server with helloworld-rs deployed -->
       <!-- <module>jax-rs-client</module> -->
       <module>jts</module>
       <module>kitchensink</module>
@@ -54,6 +55,7 @@
       <module>payment-cdi-event</module>
       <module>servlet-async</module>
       <module>servlet-filterlistener</module>
+      <!-- wsat and wsba modules need to be updated to use correct EAP dependencies -->
       <!-- 
       <module>wsat-simple</module>
       <module>wsba-coordinator-completion-simple</module>
