@@ -8,15 +8,8 @@ The example can be deployed using Maven from the command line or from Eclipse us
 
 To implement EJB security, you need to:
 
-1. Add a security-domain to your jboss-web.xml, please refer to the /webapp/WEB-INF/jboss-web.xml -war packaging- for the security domain xml; you can use jboss-ejb.xml for jar packaging  
-2. Configure a security domain in standalone.xml
-3. Have users.properties and roles.properties files in WEB-INF/classes directory of your web application
-
-To implement EJB declarative security, you need to:
-
-1. Add security annotations to your EJB declaration
-2. Make sure the allowed user role is the same as the role defined in roles.properties file
-3. Make sure the security domain referenced in the jboss-web.xml is defined in the JBoss AS standalone.xml configuration file. Find the `<subsystem xmlns="urn:jboss:domain:security:1.1">` and copy the following XML snippet into the `<security-domains>` section:
+1. The application will use a security domain that needs to defined in the application server standalone.xml as follows,
+Find the `<subsystem xmlns="urn:jboss:domain:security:1.1">` and copy the following XML snippet into the `<security-domains>` section:
 
              <security-domain name="WebSecurityBasic" cache-type="required">
                  <authentication>
@@ -26,6 +19,11 @@ To implement EJB declarative security, you need to:
                      </login-module>
                  </authentication>
              </security-domain>
+
+2. A security-domain reference is added to /webapp/WEB-INF/jboss-web.xml -war packaging-, you can use jboss-ejb.xml for jar packaging  
+3. The security domain will use users.properties and roles.properties files to verify users and roles, the files added to WEB-INF/classes directory of your web application
+4. Security annotations added to the EJB declaration
+5. Please note the allowed user role in the annotation -`@RolesAllowed`- is the same as the role defined in roles.properties file
 
 For more information, refer to the  <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> and find Security --> EJB3 Security.
 
@@ -53,7 +51,7 @@ This will deploy `target/jboss-as-ejb-security` to the running instance of JBoss
 
 ## Testing the Quickstart
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-security/CallSecuredEJBServlet/>.
+The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-security/>.
 
 When you access the application, you should get a browser login challenge.
 
