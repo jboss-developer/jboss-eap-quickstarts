@@ -6,7 +6,7 @@ This example demonstrates the use of JEE declarative security to control access 
 
 The example can be deployed using Maven from the command line or from Eclipse using JBoss Tools.
 
-To implement web security, you need to:
+To implement Servlet security, you need to:
 
 1. The application will use a security domain that needs to defined in the application server standalone.xml as follows,
 Find the `<subsystem xmlns="urn:jboss:domain:security:1.1">` and copy the following XML snippet into the `<security-domains>` section:
