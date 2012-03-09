@@ -10,10 +10,10 @@ To set up Maven or JBoss Tools in Eclipse, refer to the _Getting Started Guide_.
 
 To deploy to JBoss AS 7, start JBoss AS 7, and type `mvn package jboss-as:deploy`. 
 
-The application is deployed to http://localhost:8080/poh5-helloworld
+The application is deployed to http://localhost:8080/helloworld-html5
 
 You can test the REST endpoint using the following URL
-http://localhost:8080/poh5-helloworld/hello/json/David 
+http://localhost:8080/helloworld-html5/hello/json/David 
 
 HelloWorld.java - establishes the RESTful endpoints using JAX-RS
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<cheatsheet title="CDI + Servlet: Helloworld quickstart">
+  <intro>
+    <description>This quickstart shows you how to deploy a simple servlet to JBoss AS. The business logic is encapsulated in a service, which is provided as a CDI bean, and injected into the Servlet.
+<br/><br/>
+<b>	Contexts and Dependency Injection</b>
+<br/><br/>
+CDI is a new specification in Java EE 6, inspired by JBoss Seam and Google Guice, and also drawing on lessons learned from frameworks such as Spring. It allows application developers to concentrate on developing their application logic by providing the ability to wire services together, and abstract out orthogonal concerns, all in a type safe manner.
+
+<br/>
+<br/>
+</description>
+</intro>
+  <item
+        skip="true"
+        title="The helloworld example in depth">
+     <description>
+    	 The helloworld is very simple - all it does is print <b>Hello World</b> onto a web page.
+The helloworld example is comprised a servlet and a CDI bean.
+We also include an empty <b>beans.xml</b> file, 
+which tells JBoss AS to look for beans in this application and to activate the CDI. 
+<b>beans.xml</b> is located in <b>WEB-INF</b>, which can be found in the <b>src/main/webapp</b> directory of the example. 
+Also in this directory we include <b>index.html</b> which uses a simple meta refresh to send the users browser to the Servlet, which is located at <b>http://localhost:8080/jboss-as-helloworld/HelloWorld</b>.
+All the configuration files for this example are located in <b>WEB-INF/</b>,
+ which can be found in the <b>src/main/webapp</b> directory of the example.
+<br/><br/>
+Notice that we don&apos;t even need a web.xml!
+<br/><br/>
+Let&apos;s start by taking a look at the servlet:
+    </description>         
+  </item>
+   <item
+         title="HelloWorldServlet.java">
+      <description>
+      Hello World Servlet - Servlet 3.0
+      </description>
+      <subitem
+            label="If you've used Servlet before, then you'll remember having to use xml to register your servlets. Fortunately, this is a thing of the past. Now all you need to do is add the @WebServlet annotation, and provide a mapping to a URL used to access the servlet. Much cleaner!"
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-helloworld/src/main/java/org/jboss/as/quickstarts/helloworld/HelloWorldServlet.java"
+			param2="27" />
+	  </subitem>
+	  <subitem
+            label="Every web page needs to be correctly formed HTML. We've created static Strings to hold the minimum header and footer to write out."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-helloworld/src/main/java/org/jboss/as/quickstarts/helloworld/HelloWorldServlet.java"
+			param2="30"
+			param3="32" />
+	  </subitem>
+	  <subitem
+            label="We inject the HelloService (a CDI bean) which generates the actual message. This allows to alter the implementation of HelloService at a later date without changing the view layer at all (assuming we don't alter the API of HelloService)."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-helloworld/src/main/java/org/jboss/as/quickstarts/helloworld/HelloWorldServlet.java"
+			param2="34"
+			param3="35" />
+	  </subitem>
+	  <subitem
+            label="We call into the service to generate the message Hello World, and write it out to the HTTP request."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-helloworld/src/main/java/org/jboss/as/quickstarts/helloworld/HelloWorldServlet.java"
+			param2="41" />
+	  </subitem>
+  </item>
+  
+  <item
+        skip="true"
+        title="HelloService.java">
+     <description>
+    	 Now we understand how the information is sent to the browser, let&apos;s take a look at the service.
+
+The service is very simple - no registration (XML or annotation) is required!
+    </description>
+    <action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-helloworld/src/main/java/org/jboss/as/quickstarts/helloworld/HelloService.java"
+			param2="9"
+			param3="15" />       
+  </item>
+  
+  <item
+        skip="true"
+        title="Run and deploy the application">
+     <description>
+    	 Right-click the jboss-as-helloworld project and select <b>Run As</b> &gt; <b>Run On Server</b> or click on the &quot;Click to Perform&quot; link below. 
+    </description>
+    <action
+		pluginId="org.jboss.tools.project.examples.cheatsheet"
+		class="org.jboss.tools.project.examples.cheatsheet.actions.RunOnServer"
+		param1="jboss-as-helloworld"/> 
+  </item>
+</cheatsheet>

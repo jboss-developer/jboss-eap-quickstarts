@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<cheatsheet title="CDI + JSF: Numberguess quickstart">
+  <intro>
+    <description>This quickstart shows you how to create and deploy a simple application to JBoss AS; the application does not persist any information. Information is displayed using a JSF view, and business logic is encapsulated in two CDI beans.
+</description>
+</intro>
+  <item
+        skip="true"
+        title="The numberguess example in depth">
+     <description>
+    	In the numberguess application you get 10 attempts to guess a number between 1 and 100. After each attempt, you&apos;re told whether your guess was too high or too low.
+<br/><br/>
+The numberguess example is comprised of a number of beans, configuration files and Facelets (JSF) views, packaged as a war module. Let&apos;s start by examining the configuration files.
+<br/><br/>
+All the configuration files for this example are located in <b>WEB-INF/</b>, 
+which can be found in the <b>src/main/webapp</b> directory of the example. 
+First, we have the JSF 2.0 version of <b>faces-config.xml</b>. 
+A standardized version of Facelets is the default view handler in JSF 2.0, 
+ so there&apos;s really nothing that we have to configure. 
+ JBoss AS goes above and beyond Java EE here, 
+ and will automatically configure JSF for you if you include this file. 
+ Thus, the configuration consists of only the root element.on consists of only the root.
+ </description>
+ 		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/WEB-INF/faces-config.xml"
+			/>
+ </item>
+ <item
+        skip="true"
+        title="beans.xml">
+      <description>
+      There&apos;s also an empty beans.xml file, which tells JBoss AS to look for beans in this application and to activate the CDI.
+<br/><br/>
+Notice that we don&apos;t even need a web.xml!
+      </description>
+      <action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/WEB-INF/beans.xml"
+			/>
+  </item>
+  
+  <item
+        skip="true"
+        title="home.xhtml">
+     <description>
+Let&apos;s take a look at the main JSF view, <b>src/main/webapp/home.xhtml</b>.
+    </description>
+    <subitem
+            label="There are a number of messages which can be sent to the user, 'Higher!' and 'Lower!'"
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/home.xhtml"	
+			param2="20"
+			param3="24" />
+	</subitem>
+	<subitem
+            label="As the user guesses, the range of numbers they can guess gets smaller - this sentence changes to make sure they know the number range of a valid guess."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/home.xhtml"	
+			param2="29"
+			param3="32" />
+	</subitem>
+	<subitem
+            label="This input field is bound to a bean property using a value expression."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/home.xhtml"	
+			param2="38"
+			param3="42" />
+	</subitem>
+	<subitem
+            label="A validator binding is used to make sure the user doesn't accidentally input a number outside of the range in which they can guess - if the validator wasn't here, the user might use up a guess on an out of bounds number."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/home.xhtml"	
+			param2="42" />
+	</subitem>
+	<subitem
+            label="There must be a way for the user to send their guess to the server. Here we bind to an action method on the bean."
+            skip="true">
+		<action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/webapp/home.xhtml"	
+			param2="43"
+			param3="45" />
+	</subitem>
+  </item>
+  
+  <item
+        skip="true"
+        title="Random.java">
+     <description>
+    	 The example consists of 4 classes, the first two of which are qualifiers. First, there is the
+<b>@Random qualifier</b>, used for injecting a random number:
+    </description>
+    <action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/java/org/jboss/as/quickstarts/numberguess/Random.java" />
+  </item>
+  
+  <item title="Qualifier">
+     <description>A <b>qualifier</b> is used to disambiguate between two beans both of which are eligible for injection based on their type. For more, see the Weld Reference Guide.</description>
+     <command
+           required="false"
+           serialization="org.eclipse.ui.browser.openBrowser(url=http://docs.jboss.org/weld/reference/latest/en-US/html/)"/>
+  </item> 
+  
+  <item
+        skip="true"
+        title="MaxNumber.java">
+     <description>
+    	 There is also the <b>@MaxNumber qualifier</b>, used for injecting the maximum number that can be injected:
+    </description>
+    <action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/java/org/jboss/as/quickstarts/numberguess/MaxNumber.java" />
+  </item>
+  
+  <item
+        skip="true"
+        title="Generator.java">
+     <description>
+    	 The application-scoped <b>Generator</b> class is responsible for creating the random number, via a producer method. It also exposes the maximum possible number via a producer method.
+    	 <br/>
+    	 The Generator is application scoped, so we don't get a different random each time.
+    </description>
+    <action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/java/org/jboss/as/quickstarts/numberguess/Generator.java" 
+			param2="28" />
+  </item>
+  
+  <item
+        skip="true"
+        title="Game.java">
+     <description>
+        The final bean in the application is the session-scoped <b>Game</b> class. 
+    	 This is the primary entry point of the application. 
+    	 It&apos;s responsible for setting up or resetting the game, 
+    	 capturing and validating the user&apos;s guess and providing feedback to the user with a <b>FacesMessage</b>. 
+    	 We&apos;ve used the post-construct lifecycle method to initialize the game by retrieving a random number from the 
+    	 <b>@RandomInstance&lt;Integer&gt;</b> bean.
+<br/><br/>
+	You&apos;ll notice that we&apos;ve also added the <b>@Named</b> annotation to this class. 
+	This annotation is only required when you want to make the bean accessible to a JSF view via EL (i.e., #{game}).
+     </description>
+    <action
+			pluginId="org.jboss.tools.project.examples.cheatsheet"
+			class="org.jboss.tools.project.examples.cheatsheet.actions.OpenFileInEditor"
+			param1="/jboss-as-numberguess/src/main/java/org/jboss/as/quickstarts/numberguess/Game.java" 
+			param2="35"
+			param3="36" />
+  </item>
+  
+  <item
+        skip="true"
+        title="Run and deploy the application">
+     <description>
+    	 Right-click the <b>jboss-as-numberguess</b> project and select <b>Run As</b> &gt; <b>Run On Server</b> or click on the &quot;Click to Perform&quot; link below. 
+    </description>
+    <action
+		pluginId="org.jboss.tools.project.examples.cheatsheet"
+		class="org.jboss.tools.project.examples.cheatsheet.actions.RunOnServer"
+		param1="jboss-as-numberguess"/> 
+  </item>
+</cheatsheet>
