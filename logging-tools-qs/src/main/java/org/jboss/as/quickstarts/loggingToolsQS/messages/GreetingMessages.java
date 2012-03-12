@@ -10,7 +10,7 @@ public interface GreetingMessages
 {
 	GreetingMessages MESSAGES = Messages.getBundle(GreetingMessages.class);
 	
-	@Message(id=4, value = "Hello %s.")
+	@Message(value = "Hello %s.")
 	String helloToYou(String name);
 	
 }

@@ -7,11 +7,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.jboss.as.quickstarts.loggingToolsQS.exceptions.GreeterExceptions;
+import org.jboss.as.quickstarts.loggingToolsQS.exceptions.GreeterExceptionBundle;
 import org.jboss.as.quickstarts.loggingToolsQS.loggers.GreeterLogger;
 import org.jboss.as.quickstarts.loggingToolsQS.messages.GreetingMessages;
 import org.jboss.logging.Messages;
@@ -49,8 +46,6 @@ public class GreeterService
 		String[] locale_parts = locale.split("-");
 		Locale newLocale = null;
 		
-		try {
-
 			switch (locale_parts.length)
 			{
 				case 1:	newLocale = new Locale(locale_parts[0]);
@@ -59,15 +54,8 @@ public class GreeterService
 						break;
 				case 3:	newLocale = new Locale(locale_parts[0], locale_parts[1], locale_parts[2]);
 						break;
-				default: throw GreeterExceptions.EXCEPTIONS.localeNotValid(locale);
+				default: throw GreeterExceptionBundle.EXCEPTIONS.localeNotValid(locale);
 			}
-		}
-		catch (Exception e)
-		{
-			ResponseBuilder builder = Response.status(404);
-			builder.entity("<h2>404: resource not found</h2><p>"+e.getMessage()+"</p>");
-			throw new WebApplicationException(builder.build());
-		}
 
 		GreetingMessages messages = Messages.getBundle(GreetingMessages.class, newLocale);
 		return messages.helloToYou(name);

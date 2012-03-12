@@ -1,18 +1,14 @@
 package org.jboss.as.quickstarts.loggingToolsQS.exceptions;
 
-
-
 import org.jboss.logging.Message;
 import org.jboss.logging.Messages;
 
 @org.jboss.logging.MessageBundle(projectCode = "GREETER")
-
-public interface GreeterExceptions 
+public interface GreeterExceptionBundle 
 {
-	GreeterExceptions EXCEPTIONS = Messages.getBundle(GreeterExceptions.class);
+	GreeterExceptionBundle EXCEPTIONS = Messages.getBundle(GreeterExceptionBundle.class);
 
 	@Message(id=5, value = "Requested locale not valid: %s")
-	Exception localeNotValid(String locale);
-	
+	LocaleInvalidException localeNotValid(String locale);	
 	
 }
