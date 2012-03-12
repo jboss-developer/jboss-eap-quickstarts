@@ -1,23 +1,15 @@
-servlet-security:  Using JEE Declarative Security to Control Access to Servlet 3
+ejb-security:  Using JEE Declarative Security to Control Access to EJB 3
 ====================
 Author: Sherif Makary, RH MW SA
 
-This example demonstrates the use of JEE declarative security to control access to Servlets and Security in JBoss AS7 and JBoss Enterprise Application Platform 6.
+This example demonstrates the use of JEE declarative security to control access to EJB 3 and Security in JBoss AS7 and JBoss Enterprise Application Platform 6.
 
 The example can be deployed using Maven from the command line or from Eclipse using JBoss Tools.
 
-To implement web security, you need to:
+To implement EJB security, you need to:
 
-1. Add a security-domain to your jboss-web.xml, please refer to the /webapp/WEB-INF/jboss-web.xml for the security domain xml  
-2. Configure a security domain in standalone.xml
-3. Have users.properties and roles.properties files in WEB-INF/classes directory of your web application
-4. Add a security-constraints to, please refer to the /webapp/WEB-INF/web.xml for the security-constraints xml
-
-To implement Servlet declarative security, you need to:
-
-1. Add security annotations to your Servlet declaration
-2. Make sure the allowed user role is the same as the role defined in roles.properties file
-3. Make sure the security domain referenced in the jboss-web.xml is defined in the JBoss AS standalone.xml configuration file. Find the `<subsystem xmlns="urn:jboss:domain:security:1.1">` and copy the following XML snippet into the `<security-domains>` section:
+1. The application will use a security domain that needs to defined in the application server standalone.xml as follows,
+Find the `<subsystem xmlns="urn:jboss:domain:security:1.1">` and copy the following XML snippet into the `<security-domains>` section:
 
              <security-domain name="WebSecurityBasic" cache-type="required">
                  <authentication>
@@ -27,6 +19,11 @@ To implement Servlet declarative security, you need to:
                      </login-module>
                  </authentication>
              </security-domain>
+
+2. A security-domain reference is added to /webapp/WEB-INF/jboss-web.xml -war packaging-, you can use jboss-ejb.xml for jar packaging  
+3. The security domain will use users.properties and roles.properties files to verify users and roles, the files added to WEB-INF/classes directory of your web application
+4. Security annotations added to the EJB declaration
+5. Please note the allowed user role in the annotation -`@RolesAllowed`- is the same as the role defined in roles.properties file
 
 For more information, refer to the  <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> and find Security --> EJB3 Security.
 
@@ -50,21 +47,21 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
                 mvn jboss-as:deploy
 
-This will deploy `target/jboss-as-ejb-servlet` to the running instance of JBoss AS.
+This will deploy `target/jboss-as-ejb-security` to the running instance of JBoss AS.
 
 ## Testing the Quickstart
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-servlet/SecuredServlet/>.
+The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-security/>.
 
 When you access the application, you should get a browser login challenge.
 
 After a successful login using admin/admin, the browser will display the following security info:
 
-                Successfully called Secured Servlet
+                Successfully called Secured EJB
 
-				Principal : admin
-				Remote User : admin
-				Authentication Type : BASIC
+                Principal : admin
+                Remote User : admin
+                Authentication Type : BASIC
 
 Change the role in the quickstart /src/main/webapp/WEB-INF/classes/roles.properties files to 'gooduser1'. 
 Rebuild the application using by typing the following command:

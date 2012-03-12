@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-servlet-security</artifactId>
+   <artifactId>jboss-as-ejb-security</artifactId>
    <version>7.1.1-SNAPSHOT</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: servlet-security</name>
-   <description>JBoss AS Quickstarts: servlet-security</description>
+   <name>JBoss AS Quickstarts: ejb-security</name>
+   <description>JBoss AS Quickstarts: ejb-security</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -71,13 +71,17 @@
          <artifactId>jboss-servlet-api_3.0_spec</artifactId>
          <scope>provided</scope>
       </dependency>
-        
+
+      <dependency>
+      	<groupId>org.jboss.spec.javax.ejb</groupId>
+      	<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+      </dependency>
    </dependencies>
 
    <build>
       <!-- Set the name of the war, used as the context root when the app 
          is deployed -->
-      <finalName>jboss-as-servlet-security</finalName>
+      <finalName>jboss-as-ejb-security</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-war-plugin</artifactId>
