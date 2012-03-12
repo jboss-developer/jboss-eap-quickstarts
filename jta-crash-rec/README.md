@@ -5,43 +5,23 @@ Author: Mike Musgrove
 What is it?
 -----------
 
-If your application needs to modify more than one resource (MDBs, databases etc)
-then you will need to use distributed transactions (we call these XA transactions
-[after the standard](https://www2.opengroup.org/ogsys/jsp/publications/PublicationDetails.jsp?catalogno=c193) 
-in which they were first introduced).
+If your application needs to modify more than one resource, for example MDBs and databases, you need to use distributed transactions. We call these _XA transactions_
+[after the standard](https://www2.opengroup.org/ogsys/jsp/publications/PublicationDetails.jsp?catalogno=c193) in which they were first introduced.
 
-An important feature of the example is to demonstrate XA recovery by showing how the system is brought
-back into a consistent state after halting the application server. *"XA recovery deals with system or
-application failures to ensure that resources of a transaction are applied consistently to all
-resources affected by the transaction, even if any of the application processes or the machine
-hosting them crash or lose network connectivity."*
+An important feature of this quickstart is to demonstrate XA recovery by showing how the system is brought back into a consistent state after halting the application server. *"XA recovery deals with system or application failures to ensure that resources of a transaction are applied consistently to all resources affected by the transaction, even if any of the application processes or the machine hosting them crash or lose network connectivity."*
 
-The example shows how to atomically update a relational database table using JPA and send a
-message using JMS (as mentioned these kinds of paired updates to two different resources are called XA
-transactions and are defined by the JEE JTA specification). We use H2 (<http://www.h2database.com>)
-for the database. Although H2 XA support is not recommended for production systems the example
-does illustrate the general steps you will need to perform for any datasource vendor.
-The relational table contains two columns to represent a key value pair - the application presents
-an HTML form containing two input boxes for creating, updating, deleting or listing these pairs.
+This example shows how to atomically update a relational database table using JPA and send a message using JMS. These kinds of paired updates to two different resources are called XA transactions and are defined by the JEE JTA specification. In this example, we use H2 (<http://www.h2database.com>) for the database. Although H2 XA support is not recommended for production systems, the example does illustrate the general steps you need to perform for any datasource vendor.
 
-When you add or update a key value pair the quickstart starts a transaction, updates the table, produces
-a JMS message containing the update and finally commits the transaction. If all goes well then
-eventually the consumer gets the message and generates a database update setting the value
-corresponding to the key to something that indicates it was changed by the message consumer.
-The idea is to demonstrate recovery by halting the application server after the database
-modification is committed but before the JMS producer is committed.
+The relational table contains two columns to represent a key value pair - the application presents an HTML form containing two input boxes for creating, updating, deleting or listing these pairs. When you add or update a key value pair the quickstart starts a transaction, updates the table, produces a JMS message containing the update and finally commits the transaction. If all goes well, eventually the consumer gets the message and generates a database update setting the value corresponding to the key to something that indicates it was changed by the message consumer.
+
+The idea is to demonstrate recovery by halting the application server after the database modification is committed but before the JMS producer is committed.
 
 System requirements
 -------------------
 
 You will need Java 6.0 (Java SDK 1.6) and Maven 3.0 or better.
 
-The application this project produces is designed to be run on a JBoss AS 7 or JBoss Enterprise
-Application Platform 6 (EAP 6).
-If you are running JBoss AS 7 this project retrieves artifacts from the JBoss Community Maven
-repository, a superset of the Maven central repository. If you are running EAP 6 then
-follow the instructions in the README file at the root of you quickstart folder to configure a
-local Maven repository.
+The application this project produces is designed to be run on a JBoss Enterprise Application Platform 6 or JBoss AS 7.
 
 The example uses Byteman which is a java agent and a set of tools that enables the user
 to insert extra Java code into an application. Byteman can be downloaded from
@@ -51,132 +31,142 @@ on your hard drive.
 In order to keep the instructions manageable the various OS commands target linux based systems
 but with minor changes to file paths and executable names will work on Windows systems too.
 
-Deploying the application
+Database Configuration 
+----------------------
+
+This example provides its own H2 XA datasource configuration. It is define in the "H2XADS1-ds.xml" file in the WEB-INF folder of the war archive. In JBoss Enterprise Application Platform 6, deploying via war archives is not a supported feature so additional instructions are provided for deploying via the console. You might also need the instructions if you want to run with a different database.
+
+The [Configure an XA datasource](#xaconfig) instructions below outline how to create an H2 XA datasource using JBoss AS 7 administration tools. If you do decide to experiment with other databases, we recommend you use a more robust XA database such as PostgreSQL. Instructions for installing and setting up PostgreSQL can be found in the README at the root of the quickstart directory.
+
+
+Build and Deploy the application
 -------------------------
-
-NOTE: Due to a difference in configuration between JBoss AS 7 and EAP 6, all references to
-standalone-full.xml apply to JBoss AS 7 only, you can replace these references with standalone.xml
-if deploying into EAP 6.
-
-You need to start the application server with a JMS queue named testQueue configured.
-Go to the root directory of the AS distribution and edit the the configuration
-file `standalone/configuration/standalone-full.xml`
-looking for the hornetq server configuration section. Look for the closing tag `</hornetq-server>`.
-Just before this close tag there should be a section for defining which JMS destinations are 
-available. Make sure it contains a queue entry named testQueue. For example it could look something
-like the following:
-
-        <hornetq-server>
-            ...
-            <jms-destinations>
-                <jms-queue name="testQueue">
-                    <entry name="queue/test"/>
-                    <entry name="java:jboss/exported/jms/queue/test"/>
-                </jms-queue>
-                ... other destinations ...
-            </jms-destinations>
-        </hornetq-server>
-
 
 The example requires more configuration steps than most apps. In brief:
 
-1. Start the full JBoss AS 7 (or EAP 6) (type `./standalone.sh -c standalone-full.xml` in
-the distribution bin folder)
+<a id="clear-transaction-objectstore"/>
 
-2. Build the example (`mvn package`) and deploy it to the running AS (`mvn jboss-as:deploy`)
-The example provides its own H2 XA datasource configuration (by including a xyz-ds.xml file in the
-WEB-INF folder of the war archive). In EAP deploying via war archives is not a supported feature
-so we have provided instructions for deploying via the console. You might also need the 
-instructions if you want to run with a different database.
-[The instructions below](#xaconfig) outline how to create an H2 XA datasource
-using JBoss AS 7 admin tools. If you do decide to experiment with other databases we
-recommend you use a more robust XA database such as postgreSQL (one of the other transaction
-quickstarts provides instructions for postgreSQL configuration).
+1. Make sure there is no transaction objectstore data left after testing any of the other quickstarts.
+If you are using the default file based transaction logging store then:
 
-3. The application is available at the URL <http://localhost:8080/jboss-as-jta-crash-rec/XA> where you
-will find a web page containing two html input boxes for adding key value pairs to 
-a database. Instructions on using the application are shown when you open the application web page.
-When you add a new key value pair the change is committed to the database and a JMS message sent.
-The message consumer then updates the row just inserted by appending the text *"updated via JMS"* to
-the value
+       *   Open a command line and type the following:
 
-4. When an _XA transaction_ is committed the application server does the completion in two phases.
-In phase 1 each resource (in this example a database and a JMS message producer)
-is asked to prepare to commit any changes made
-during the transaction. If all resources vote to commit then the AS starts phase 2 in which it
-tells each resource to commit those changes. The added complexity is to cope with failures (especially
-failures that occur during phase 2). Some failure modes require cooperation between
-the AS and the datasources in order to guarantee that any pending changes are recovered.
-We demonstrate this functionality by terminating the AS whilst phase 2 is running using a tool
-called Byteman. Now you should [enable Byteman by following the instructions below](#byteman).
-If you choose to add Byteman by updating the AS7 conf file then will need to restart the AS after following
-the Bytman instructions. You should also ensure that there are no transaction logs left over
-from running other quickstarts:
+            ls JBOSS_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
 
-            ls ../standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+       *   If this directory exists and contains any files, delete them before starting the server:
 
-            if the directory contains any files then delete them before restarting:
+            rm -rf JBOSS_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/*
 
-            rm -rf ../standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+       *   On windows use the file manager to accomplish the same result.
 
-            On windows use the file manager to accomplish the same result.
+2. This example requires a JMS queue destination called _testQueue_. If your configuration does not contain the JMS testQueue, you must modify the standalone-full.xml file as follows:
 
-5. If you have completed step 4 then you are ready to create a _recovery record_. Go to the
-application URL and insert another row into the database.
+       *   Open the JBOSS_HOME/standalone/configuration/standalone-full.xml file
+       *   Find `<subsystem xmlns="urn:jboss:domain:messaging:1.1">` in the file
+       *   Look for `<jms-destinations>` in this section. If you see a jms-queue name="testQueue", you do not need to make any changes. You can move on to the next step. 
+       *   If there is a `<jms-destinations>` section under this subsystem, copy the following XML prior to `</jms-destinations>`:
 
-6. Step 5 will have halted the AS. If you need to convince yourself that the database insert was
-committed but that message delivery is still pending then use an SQL client such as the H2 database
-console tool to show that the value is present but that it does not contain the message
-added by the consumer (*" updated via JMS"*). If you want to use the H2 console start it by typing:
+                <jms-queue name="testQueue">
+                        <entry name="queue/test"/>
+                        <entry name="java:jboss/exported/jms/queue/test"/>
+                </jms-queue>
+
+       *  If there is not a `<jms-destinations>`, copy the following right before the `</hornetq-server>` end tag:
+
+                <jms-destinations>
+                    <jms-queue name="testQueue">
+                        <entry name="queue/test"/>
+                        <entry name="java:jboss/exported/jms/queue/test"/>
+                    </jms-queue>
+                </jms-destinations>
+<a id="start-server">
+
+3. Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the full profile using the following command: 
+
+                JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
+
+4. Build and deploy the quickstart archive
+       *  Navigate to the root of this quickstart directory
+       *  Type the following to build the archive:
+
+           `mvn clean package`
+
+       *  Deploy the archive to the running JBoss server by typing the following:
+
+           `mvn jboss-as:deploy`
+
+5. The application is available at the URL <http://localhost:8080/jboss-as-jta-crash-rec/XA>. 
+
+
+Test the application
+-------------------------
+
+1. When you access the application, you will find a web page containing two html input boxes for adding key value pairs to a database. Instructions on using the application are shown at the top of the application web page.
+
+2. When you add a new key value pair, the change is committed to the database and a JMS message sent. The message consumer then updates the row just inserted by appending the text *"updated via JMS"* to the value.
+Since the consumer updates the row asynchronously you may need to list the key value pair just entered to
+see the extra text in the value part of the pair.
+
+3. When an _XA transaction_ is committed, the application server does the completion in two phases.
+
+       *   In phase 1 each resource, in this example a database and a JMS message producer, is asked to prepare to commit any changes made during the transaction. 
+       *   If all resources vote to commit then the application server starts phase 2 in which it tells each resource to commit those changes. 
+       *   The added complexity is to cope with failures, especially failures that occur during phase 2. Some failure modes require cooperation between the application server and the resources in order to guarantee that any pending changes are recovered. 
+
+4.  To demonstrate XA recovery, you need to enable the Byteman tool to terminate the application server while _phase 2_ is running as follows:
+
+       *   Add a key/value pair as instructed in the application.
+       *   Stop the application server.
+       *   Make sure there is no [transaction objectstore data](#clear-transaction-objectstore) remaining from previous tests.
+       *   [Enable Byteman by following the instructions below](#byteman).
+       *   [Start the application server](#start-server) as instructed above.
+
+5. If you have completed step 4 then you are ready to create a _recovery record_. Go to the application URL <http://localhost:8080/jboss-as-jta-crash-rec/XA> and insert another row into the database. At this point, Byteman halts the application server. 
+
+6.  If you want to verify the database insert was committed but that message delivery is still pending, use an SQL client such as the H2 database console tool to show that the value is present but does not contain the message added by the consumer (*" updated via JMS"*). Here is how you can do it using H2:
+
+       *   Start the H2 console by typing:
 
             java -jar <AS install directory>/modules/com/h2database/h2/main/h2*.jar
 
-    The console is available at the url <http://localhost:8082>. If you receive an error
-    such as `Exception opening port "8082"` then its most likely because some other application
-    has that port open (meaning you will need to find it and close it). Use `jdbc:h2:file:~/xaqs1` for
-    the database url and sa/sa for the username/password (these should correspond to what's in
-    the datasource configuration section of standalone-full.xml.
-    Once you are logged in enter the query
+       *   The console is available at the url <http://localhost:8082>. If you receive an error such as `Exception opening port "8082"` it is most likely because some other application has that port open. You will need to find which application is using the port and close it.
+       *   Enter the following information in the console. These values correspond to the values in the datasource configuration of the standalone-full.xml file:
+
+            Database URL:  `jdbc:h2:file:~/xaqs1`
+            User name:      sa
+            Password:       sa  
+
+       *   Once you are logged in enter the following query to see that the pair you entered is present but does not contain *"updated via JMS"*.
 
             select * from xa_kvpair
 
-    to see that the pair you entered is present but does not contain *"updated via JMS"*.
+       *   *H2 only allows one connection per database, so make sure you close the H2 console before restarting the Application Server.*
+       *   If you are using the default file based transaction logging store, there will be a record in the file system corresponding to the pending transaction. 
 
-    *Important: H2 only allows one connection per database so make sure you close the H2 console before
-    restarting the Application Server.*
+          *   Open a command line and navigate to the JBOSS_HOME/bin directory
+          *   List the contents of the following directory:
+
+                 ls ../standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+
+          *   An example of a logging record file name is: 
+ 
+                 `0_ffff7f000001_-7f1cf331_4f0b0ad4_15`.
+
+       *   After recovery, log records are normally deleted automatically, except in the case where the Transaction Manager (TM) commit request was received and acted upon by a resource but the TM crashed before it had time to clean up the logs of that resource.
     
-    If you are using the default file based transaction logging store then there will be a record in
-    the file system corresponding to the pending transaction. From the AS bin directory, type:
+7. To observe XA recovery
 
-            ls ../standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+       *   First, [disable the Byteman script](#byteman) 
+       *   Be sure the H2 console is closed.
+       *   [Restart the application server](#start-server) as instructed above. 
+       *   By the time the application server is ready, the transaction should have recovered.
+       *   A message is printed on the application console when the consumer has completed the update. Look for a line that reads 'JTA Crash Record Quickstart: key value pair updated via JMS'.
+       *   Check that the row you inserted in step 4 now contains the text *"updated via JMS"*, showing that the JMS message was recovered successfully. Use the application URL to perform this check.
+       *   You will most likely see the following message on the console. 
 
-    An example of a logging record file name is: `0_ffff7f000001_-7f1cf331_4f0b0ad4_15`.
+            `ARJUNA016038: No XAResource to recover ... eis_name=...H2XADS1` during recovery.
 
-    After recovery log records are normally automatically deleted except in the case where the
-    Transaction Manager (TM) commit request was received, and acted upon, by a resource but the TM
-    crashed before it had time to clean up its log of that resource.
-    
-7. To observe recovery restart the AS (*but depending upon how you configured Byteman don't forget to 
-    disable any scripts and also if you used the H2 console remember to close it first*).
-    By the time the AS is ready the transaction should have recovered.
-    A message is printed on the AS console when the consumer has done the update (look for a line
-    that reads 'JTA Crash Record Quickstart: key value pair updated via JMS').
-    Check that the row you inserted in step 5 now contains the text *"updated via JMS"* thus showing
-    that the JMS message was recovered successfully (use the application URL to perform this check).
-
-    *Note, you will most likely see the following message on the console:
-    `ARJUNA016038: No XAResource to recover ... eis_name=...H2XADS1` during recovery.
-    This is normal, what actually happened is that the first resource (H2XADS1) committed
-    before the AS was halted in step 5. The transaction logs are only updated/deleted after the
-    outcome of the transaction is determined. If the transaction manager did update the log
-    as each participant (database) completed then throughput would suffer.* Notice you do not get
-    a similar message for the JMS resource since that is the resource that recovered and the log record was
-    updated to reflect this change. So you will need to manually remove the record for the first
-    participant if you know which one is which or, if you are using the community version 
-    of the AS then you can also inspect the transaction logs using a JMX browser. For the demo it is
-    simplest to delete the records from the file system (but *be wary* of doing this on a production system).
-    If you need to clear out the H2 database then delete its backing files (`rm ~/xaqs1*`).
-    In a future version of the transactions module clean up should be automatic.
+        This is normal. What actually happened is that the first resource (H2XADS1) committed before the AS was halted in step 5. The transaction logs are only updated/deleted after the outcome of the transaction is determined. If the transaction manager did update the log as each participant (database and JMS queue) completed then throughput would suffer. Notice you do not get a similar message for the JMS resource since that is the resource that recovered and the log record was updated to reflect this change. You need to manually remove the record for the first participant if you know which one is which or, if you are using the community version of the AS then you can also inspect the transaction logs using a JMX browser. For the demo it is simplest to delete the records from the file system (but *be wary of doing this on a production system*). If you need to clear out the H2 database then delete its backing files (`rm ~/xaqs1*`). In a future version of the transactions module clean up should be automatic.
 
 Downloading the sources and Javadocs
 ------------------------------------
@@ -190,10 +180,10 @@ them.
         mvn dependency:resolve -Dclassifier=javadoc
 
 
-<a name="xaconfig"/> Configure an XA datasource
+<a name="xaconfig"/> Optional Step: Configure an XA datasource
 ----------------------------
 
-Step 1. Create an admin user with access to the ManagementRealm (this will give you access to the
+Step 1. Create an admin user with access to the ManagementRealm. This gives you access to the
         AS7 web admin console):
 
         [mmusgrov@dev1 bin]$ ./add-user.sh
@@ -260,7 +250,7 @@ Step 3. There is one final attribute that needs setting which can only be done v
         (from the left menu) and click the Reload button on the far left.
 
 At the end of this process you should end up with an entry similar to the following in your
-standalone.xml config file:
+standalone-full.xml config file:
 
                 <xa-datasource jndi-name="java:jboss/datasources/H2XADS1" pool-name="java:jboss/datasources/H2XADS1" enabled="true" use-ccm="false">
                     <xa-datasource-property name="URL">
@@ -294,25 +284,26 @@ standalone.xml config file:
                     </statement>
                 </xa-datasource>
 
-<a name="byteman"/> Halting the Application using Byteman
+<a name="byteman"/> 
+Halting the Application using Byteman
 --------------------------------------------
 
+**Enable Byteman
 As you may have guessed, you will use the Byteman tool to halt the AS7 JVM during phase 2 of an XA commit.
 
-        Backup the file <APP SERVER>/bin/standalone.conf (standalone.conf.bat on Windows)
-        Open the file <APP SERVER>/bin/standalone.conf (standalone.conf.bat on Windows)
-        Append the following text to the end of the file: NOTE: You should replace the file paths
+   *     Backup the file \<APP SERVER\>/bin/standalone.conf (standalone.conf.bat on Windows)
+   *     Open the file \<APP SERVER\>/bin/standalone.conf (standalone.conf.bat on Windows)
+   *     Append the following text to the end of the file: NOTE: You should replace the file paths
         as appropriate for you system:
 
         JAVA_OPTS="-javaagent:/home/user/byteman-download-2.0.0/lib/byteman.jar=script:/home/user/quickstart/jta-crash-rec/src/main/scripts/xa.btm ${JAVA_OPTS}"
 
-These changes will only take effect during AS startup.
+These changes will only take effect during application startup.
 
-*IMPORTANT: After you have finished with the quickstart, it is important to restore your backup of standalone.conf thereby removing the Byteman configuration from the standalone.conf[.bat] file. Otherwise your server will always crash when a transaction commits!*
+**Disable Byteman
 
-[The Byteman download also contains scripts for installing the Bytman agent ('bminstall.sh <procid>' and
-'bminstall.bat <procid>') and for uploading Byteman scripts ('bmsubmit.sh -l src/main/scripts/xa.btm' and
-'bmsubmit.bat -l src/main/scripts/xa.btm'). Personally I prefer these scripts since they give me more
-control over loading and unloading rules and I don't need to worry about forgetting to put
+IMPORTANT: After you have finished with the quickstart, it is important to restore your backup of standalone.conf thereby removing the Byteman configuration from the standalone.conf[.bat] file. Otherwise your server will always crash when a transaction commits!*
+
+[The Byteman downloads also contains scripts for installing the Bytman agent ('bminstall.sh <procid>' and 'bminstall.bat <procid>') and for uploading Byteman scripts ('bmsubmit.sh -l src/main/scripts/xa.btm' and 'bmsubmit.bat -l src/main/scripts/xa.btm'). The bat scripts are only available in later releases of Byteman. Personally I prefer these scripts since they give me more control over loading and unloading rules and I don't need to worry about forgetting to put
 standalone.conf back to its original contents.]
 
