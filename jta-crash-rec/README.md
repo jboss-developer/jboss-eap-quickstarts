@@ -5,7 +5,7 @@ Author: Mike Musgrove
 What is it?
 -----------
 
-If your application needs to modify more than one datasource (MDBs, databases etc)
+If your application needs to modify more than one resource (MDBs, databases etc)
 then you will need to use distributed transactions (we call these XA transactions
 [after the standard](https://www2.opengroup.org/ogsys/jsp/publications/PublicationDetails.jsp?catalogno=c193) 
 in which they were first introduced).
@@ -36,8 +36,12 @@ System requirements
 
 You will need Java 6.0 (Java SDK 1.6) and Maven 3.0 or better.
 
-The application this project produces is designed to be run on a JBoss AS 7 or EAP 6.
-The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.
+The application this project produces is designed to be run on a JBoss AS 7 or JBoss Enterprise
+Application Platform 6 (EAP 6).
+If you are running JBoss AS 7 this project retrieves artifacts from the JBoss Community Maven
+repository, a superset of the Maven central repository. If you are running EAP 6 then
+follow the instructions in the README file at the root of you quickstart folder to configure a
+local Maven repository.
 
 The example uses Byteman which is a java agent and a set of tools that enables the user
 to insert extra Java code into an application. Byteman can be downloaded from
@@ -49,6 +53,30 @@ but with minor changes to file paths and executable names will work on Windows s
 
 Deploying the application
 -------------------------
+
+NOTE: Due to a difference in configuration between JBoss AS 7 and EAP 6, all references to
+standalone-full.xml apply to JBoss AS 7 only, you can replace these references with standalone.xml
+if deploying into EAP 6.
+
+You need to start the application server with a JMS queue named testQueue configured.
+Go to the root directory of the AS distribution and edit the the configuration
+file `standalone/configuration/standalone-full.xml`
+looking for the hornetq server configuration section. Look for the closing tag `</hornetq-server>`.
+Just before this close tag there should be a section for defining which JMS destinations are 
+available. Make sure it contains a queue entry named testQueue. For example it could look something
+like the following:
+
+        <hornetq-server>
+            ...
+            <jms-destinations>
+                <jms-queue name="testQueue">
+                    <entry name="queue/test"/>
+                    <entry name="java:jboss/exported/jms/queue/test"/>
+                </jms-queue>
+                ... other destinations ...
+            </jms-destinations>
+        </hornetq-server>
+
 
 The example requires more configuration steps than most apps. In brief:
 
@@ -64,13 +92,6 @@ instructions if you want to run with a different database.
 using JBoss AS 7 admin tools. If you do decide to experiment with other databases we
 recommend you use a more robust XA database such as postgreSQL (one of the other transaction
 quickstarts provides instructions for postgreSQL configuration).
-The example also requires a JMS queue destination called testQueue. If your standalone configuration
-file does not contain this destination put the following into the jms-destinations section:
-
-        <jms-queue name="testQueue">
-                <entry name="queue/test"/>
-                <entry name="java:jboss/exported/jms/queue/test"/>
-        </jms-queue>
 
 3. The application is available at the URL <http://localhost:8080/jboss-as-jta-crash-rec/XA> where you
 will find a web page containing two html input boxes for adding key value pairs to 

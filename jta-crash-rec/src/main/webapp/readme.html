@@ -1,7 +1,7 @@
 <h1>Example of JTA Crash Recovery</h1>
 <p>Author: Mike Musgrove</p>
 <h2>What is it?</h2>
-<p>If your application needs to modify more than one datasource (MDBs, databases etc)
+<p>If your application needs to modify more than one resource (MDBs, databases etc)
 then you will need to use distributed transactions (we call these XA transactions
 <a href="https://www2.opengroup.org/ogsys/jsp/publications/PublicationDetails.jsp?catalogno=c193">after the standard</a> 
 in which they were first introduced).</p>
@@ -25,8 +25,12 @@ The idea is to demonstrate recovery by halting the application server after the 
 modification is committed but before the JMS producer is committed.</p>
 <h2>System requirements</h2>
 <p>You will need Java 6.0 (Java SDK 1.6) and Maven 3.0 or better.</p>
-<p>The application this project produces is designed to be run on a JBoss AS 7 or EAP 6.
-The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.</p>
+<p>The application this project produces is designed to be run on a JBoss AS 7 or JBoss Enterprise
+Application Platform 6 (EAP 6).
+If you are running JBoss AS 7 this project retrieves artifacts from the JBoss Community Maven
+repository, a superset of the Maven central repository. If you are running EAP 6 then
+follow the instructions in the README file at the root of you quickstart folder to configure a
+local Maven repository.</p>
 <p>The example uses Byteman which is a java agent and a set of tools that enables the user
 to insert extra Java code into an application. Byteman can be downloaded from
 <a href="http://www.jboss.org/byteman/downloads/">http://www.jboss.org/byteman/downloads/</a>. Once downloaded, extract Byteman to a location
@@ -34,6 +38,27 @@ on your hard drive.</p>
 <p>In order to keep the instructions manageable the various OS commands target linux based systems
 but with minor changes to file paths and executable names will work on Windows systems too.</p>
 <h2>Deploying the application</h2>
+<p>NOTE: Due to a difference in configuration between JBoss AS 7 and EAP 6, all references to
+standalone-full.xml apply to JBoss AS 7 only, you can replace these references with standalone.xml
+if deploying into EAP 6.</p>
+<p>You need to start the application server with a JMS queue named testQueue configured.
+Go to the root directory of the AS distribution and edit the the configuration
+file <code>standalone/configuration/standalone-full.xml</code>
+looking for the hornetq server configuration section. Look for the closing tag <code>&lt;/hornetq-server&gt;</code>.
+Just before this close tag there should be a section for defining which JMS destinations are 
+available. Make sure it contains a queue entry named testQueue. For example it could look something
+like the following:</p>
+<pre><code>    &lt;hornetq-server&gt;
+        ...
+        &lt;jms-destinations&gt;
+            &lt;jms-queue name="testQueue"&gt;
+                &lt;entry name="queue/test"/&gt;
+                &lt;entry name="java:jboss/exported/jms/queue/test"/&gt;
+            &lt;/jms-queue&gt;
+            ... other destinations ...
+        &lt;/jms-destinations&gt;
+    &lt;/hornetq-server&gt;
+</code></pre>
 <p>The example requires more configuration steps than most apps. In brief:</p>
 <ol>
 <li>
@@ -49,14 +74,7 @@ instructions if you want to run with a different database.
 <a href="#xaconfig">The instructions below</a> outline how to create an H2 XA datasource
 using JBoss AS 7 admin tools. If you do decide to experiment with other databases we
 recommend you use a more robust XA database such as postgreSQL (one of the other transaction
-quickstarts provides instructions for postgreSQL configuration).
-The example also requires a JMS queue destination called testQueue. If your standalone configuration
-file does not contain this destination put the following into the jms-destinations section:</p>
-<pre><code>&lt;jms-queue name="testQueue"&gt;
-        &lt;entry name="queue/test"/&gt;
-        &lt;entry name="java:jboss/exported/jms/queue/test"/&gt;
-&lt;/jms-queue&gt;
-</code></pre>
+quickstarts provides instructions for postgreSQL configuration).</p>
 </li>
 <li>
 <p>The application is available at the URL <a href="http://localhost:8080/jboss-as-jta-crash-rec/XA">http://localhost:8080/jboss-as-jta-crash-rec/XA</a> where you
