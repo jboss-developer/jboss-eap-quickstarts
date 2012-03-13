@@ -36,12 +36,31 @@
          <groupId>org.jboss.spec.javax.jms</groupId>
          <artifactId>jboss-jms-api_1.1_spec</artifactId>
          <version>1.0.0.Final</version>
-         <scope>provided</scope>
       </dependency>
       <dependency>
          <groupId>org.jboss.as</groupId>
          <artifactId>jboss-as-messaging</artifactId>
          <version>7.1.0.Final</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.marshalling</groupId>
+         <artifactId>jboss-marshalling-river</artifactId>
+         <version>1.3.9.GA</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.xnio</groupId>
+         <artifactId>xnio-api</artifactId>
+         <version>3.0.3.GA</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.xnio</groupId>
+         <artifactId>xnio-nio</artifactId>
+         <version>3.0.3.GA</version>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.remoting3</groupId>
+         <artifactId>jboss-remoting</artifactId>
+         <version>3.2.3.GA</version>
       </dependency>
    </dependencies>
 
@@ -55,18 +74,28 @@
             <configuration>
                <mainClass>org.jboss.as.quickstarts.jms.HelloWorldJMSClient</mainClass>
                <systemProperties>
+                  <!-- Ensure you add a user with these credentials to the "guest" role in the "ApplicationRealm" using bin/add-user.sh -->
+                  <systemProperty>
+                     <key>username</key>
+                     <value>myUser</value>
+                  </systemProperty>
+                  <systemProperty>
+                     <key>password</key>
+                     <value>myPass</value>
+                  </systemProperty>
+                  <!-- Uncomment these next 3 properties to use JNDI - ->
                   <systemProperty>
                      <key>connection.type</key>
-                     <value>netty</value>
+                     <value>jndi</value>
                   </systemProperty>
                   <systemProperty>
-                     <key>java.naming.factory.initial</key>
-                     <value>org.jboss.as.naming.InitialContextFactory</value>
+                     <key>cf.name</key>
+                     <value>jms/RemoteConnectionFactory</value>
                   </systemProperty>
                   <systemProperty>
-                     <key>java.naming.provider.url</key>
-                     <value>jnp://localhost:1099</value>
-                  </systemProperty>
+                     <key>dest.name</key>
+                     <value>jms/queue/test</value>
+                  </systemProperty-->
                   <systemProperty>
                      <key>java.logging.config.file</key>
                      <value>./helloworld-jms-logging.properties</value>

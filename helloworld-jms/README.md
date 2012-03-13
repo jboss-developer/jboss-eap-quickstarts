@@ -16,25 +16,19 @@ The example provides for a certain amount of customization for the `mvn:exec` pl
 Required Properties
 -------------------
 
-* `connection.type`
+* `username`
    
-   Which connection type to the JMS provider you want to use. Accepted values are `netty` or `jndi`.
+   This username is used for both the JMS connection and the JNDI look-up (if necessary).  Use the bin/add-user.sh script on the server
+   to add this user to the "guest" role and the "ApplicationRealm".
    
-   Default: `netty`
-   
-   *Note:* Currently external JNDI access is under development in JBoss AS 7. As a result netty is the default value.
+   Default: `defaultUser`
 		
-* `java.naming.factory.initial`
+* `password`
 
-   The JNDI initial context factory you wish to use
+   This password is used for both the JMS connection and the JNDI look-up (if necessary).  See note about "username" regarding how to add
+   the proper credentials to the server.
    
-   Default: `org.jboss.as.naming.InitialContextFactory`
-
-* `java.naming.provider.url`
-   
-   The provider URL of the JNDI context you wish to use
-
-   Default: `jnp://localhost:1099`
+   Default: `defaultPassword`
 
 
 Optional Properties
@@ -42,13 +36,13 @@ Optional Properties
 
 * `cf.name`
 
-   The JNDI name of the JMS ConnectionFactory you want to use.
+   The name of the JMS ConnectionFactory you want to use.
 
    Default: `RemoteConnectionFactory`
 
 * `dest.name`
 
-   The JNDI name of the JMS Destination you want to use.
+   The name of the JMS Destination you want to use.
    
    Default: `testQueue`
 
