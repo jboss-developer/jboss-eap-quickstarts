@@ -2,42 +2,52 @@ package org.jboss.as.quickstarts.jms;
 
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
+import java.util.Properties;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
+import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
-import org.hornetq.jms.client.HornetQJMSConnectionFactory;
-import org.hornetq.jms.client.HornetQQueue;
+import org.hornetq.api.jms.HornetQJMSClient;
+import org.hornetq.api.jms.JMSFactoryType;
 
 public class JMSClientUtil {
     private static final Logger log = Logger.getLogger(JMSClientUtil.class.getName());
 
-    private static final String DEFAULT_CONN_TYPE = "jndi";
+    private static final String DEFAULT_CONN_TYPE = "netty";
     private static final String DEFAULT_CF_JNDI = "RemoteConnectionFactory";
     private static final String DEFAULT_DESTINATION_JNDI = "testQueue";
+    private static final String DEFAULT_USERNAME = "defaultUsername";
+    private static final String DEFAULT_PASSWORD = "defaultPassword";
+    private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
+    private static final String PROVIDER_URL = "remote://localhost:4447";
 
     public static ConnectionFactory getConnectionFactory() throws Exception {
         InitialContext context = null;
         ConnectionFactory connectionFactory = null;
 
         try {
-            String connType = (System.getProperty("connection.type") == null) ? DEFAULT_CONN_TYPE : System
-                    .getProperty("connection.type");
-            String cfName = (System.getProperty("cf.name") == null) ? DEFAULT_CF_JNDI : System.getProperty("cf.name");
+            String connType = System.getProperty("connection.type", DEFAULT_CONN_TYPE);
+            String cfName = System.getProperty("cf.name", DEFAULT_CF_JNDI);
 
-            log.info("Attempting to acquire ConnectionFactory with a connection type of: " + connType);
+            log.info("Attempting to acquire ConnectionFactory \"" + cfName + "\" with a connection type of: " + connType);
 
             if (connType.equalsIgnoreCase("jndi")) {
-                context = new InitialContext();
+                final Properties env = new Properties();
+                env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
+                env.put(Context.PROVIDER_URL, PROVIDER_URL);
+                env.put(Context.SECURITY_PRINCIPAL, System.getProperty("username", DEFAULT_USERNAME));
+                env.put(Context.SECURITY_CREDENTIALS, System.getProperty("password", DEFAULT_PASSWORD));
+                context = new InitialContext(env);
                 connectionFactory = (ConnectionFactory) context.lookup(cfName);
                 log.info("Found ConnectionFactory " + cfName + " in JNDI");
             } else {
                 log.info("Creating Netty Based ConnectionFactory.");
                 TransportConfiguration config = new TransportConfiguration(NettyConnectorFactory.class.getName());
-                connectionFactory = new HornetQJMSConnectionFactory(false, config);
+                connectionFactory = (ConnectionFactory) HornetQJMSClient.createConnectionFactoryWithoutHA(JMSFactoryType.CF, config);
             }
 
             return connectionFactory;
@@ -53,20 +63,23 @@ public class JMSClientUtil {
         Destination destination = null;
 
         try {
-            String connType = (System.getProperty("connection.type") == null) ? DEFAULT_CONN_TYPE : System
-                    .getProperty("connection.type");
-            String destName = (System.getProperty("dest.name") == null) ? DEFAULT_DESTINATION_JNDI : System
-                    .getProperty("dest.name");
+            String connType = System.getProperty("connection.type", DEFAULT_CONN_TYPE);
+            String destName = System.getProperty("dest.name", DEFAULT_DESTINATION_JNDI);
 
             log.info("Attempting to acquire Destination with a connection type of: " + connType);
 
             if (connType.equalsIgnoreCase("jndi")) {
-                log.info("Found Destination " + destName + " in JNDI");
-                context = new InitialContext();
+                final Properties env = new Properties();
+                env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
+                env.put(Context.PROVIDER_URL, PROVIDER_URL);
+                env.put(Context.SECURITY_PRINCIPAL, System.getProperty("username", DEFAULT_USERNAME));
+                env.put(Context.SECURITY_CREDENTIALS, System.getProperty("password", DEFAULT_PASSWORD));
+                context = new InitialContext(env);
                 destination = (Destination) context.lookup(destName);
+                log.info("Found Destination " + destName + " in JNDI");
             } else {
                 log.info("HornetQ Destination " + destName);
-                destination = new HornetQQueue(destName);
+                destination = HornetQJMSClient.createQueue(destName);
             }
             return destination;
         } finally {

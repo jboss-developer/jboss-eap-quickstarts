@@ -14,7 +14,9 @@ public class HelloWorldJMSClient {
     private static final Logger log = Logger.getLogger(HelloWorldJMSClient.class.getName());
 
     private static final String DEFAULT_MESSAGE = "Hello, World!";
-    private static final int DEFAULT_MESSAGE_COUNT = 1;
+    private static final String DEFAULT_MESSAGE_COUNT = "1";
+    private static final String DEFAULT_USER = "defaultUser";
+    private static final String DEFAULT_PASSWORD = "defaultPassword";
 
     public static void main(String[] args) {
 
@@ -29,16 +31,14 @@ public class HelloWorldJMSClient {
         try {
             connectionFactory = JMSClientUtil.getConnectionFactory();
             destination = JMSClientUtil.getDestination();
-            connection = connectionFactory.createConnection();
+            connection = connectionFactory.createConnection(System.getProperty("username", DEFAULT_USER), System.getProperty("password", DEFAULT_PASSWORD));
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             producer = session.createProducer(destination);
             consumer = session.createConsumer(destination);
             connection.start();
 
-            int count = (System.getProperty("message.count") == null) ? DEFAULT_MESSAGE_COUNT : Integer.valueOf(System
-                    .getProperty("message.count"));
-            String content = (System.getProperty("message.content") == null) ? DEFAULT_MESSAGE : System
-                    .getProperty("message.content");
+            int count = Integer.parseInt(System.getProperty("message.count", DEFAULT_MESSAGE_COUNT));
+            String content = System.getProperty("message.content", DEFAULT_MESSAGE);
 
             log.info("Sending " + count + " messages with content: " + content);
 
@@ -55,6 +55,7 @@ public class HelloWorldJMSClient {
             }
         } catch (Exception e) {
             log.severe(e.getMessage());
+            e.printStackTrace();
         } finally {
             JMSClientUtil.closeResources(producer, consumer, session, connection);
         }
