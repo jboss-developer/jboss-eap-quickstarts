@@ -18,7 +18,7 @@
  * (C) 2011,
  * @author JBoss, by Red Hat.
  */
-package org.jboss.as.quickstarts.ejbinwar.controller;
+package org.jboss.as.quickstarts.ejbinwar.test;
 
 import static org.junit.Assert.assertEquals;
 
