@@ -47,8 +47,6 @@ public class Member implements Serializable {
     @Digits(fraction = 0, integer = 12, message = "Phone number must be 10-12 digits")
     @Column(name = "phone_number")
     private String phoneNumber;
-    
-    private String passwordHash;
 
     public Long getId() {
         return id;
@@ -80,13 +78,5 @@ public class Member implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-    
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-    
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
     }
 }

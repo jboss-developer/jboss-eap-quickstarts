@@ -70,38 +70,7 @@
                         </rich:togglePanelItem>
 
                         <rich:togglePanelItem>
-                            <!-- Step 3: password -->
-
-                            <!-- graphValidator says that PasswordBean needs to be verified and the constraints
-                                 in the defined group should be used -->
-                            <rich:graphValidator id="passwordsValidation" value="#{passwordBean}"
-                                groups="#{passwordBean.passwordConfirmationGroups}">
-
-                                <rich:messages for="passwordsValidation" />
-
-                                <h:panelGrid columns="3">
-                                    <h:outputLabel for="password" value="Password" />
-                                    <h:inputSecret id="password" value="#{passwordBean.password}" />
-                                    <rich:message for="password" />
-
-                                    <h:outputLabel for="passwordConfirmation" value="Confirmation" />
-                                    <h:inputSecret id="passwordConfirmation" 
-                                        value="#{passwordBean.passwordConfirmation}" />
-                                    <rich:message for="passwordConfirmation" />
-                                </h:panelGrid>
-
-                                <a4j:commandButton value="Back">
-                                    <rich:toggleControl event="click" targetItem="@prev" />
-                                </a4j:commandButton>
-
-                                <a4j:commandButton value="Continue">
-                                    <rich:toggleControl event="click" targetItem="@next" />
-                                </a4j:commandButton>
-                            </rich:graphValidator>
-                        </rich:togglePanelItem>
-
-                        <rich:togglePanelItem>
-                            <!-- Step 4: confirmation -->
+                            <!-- Step 3: confirmation -->
 
                             <h:panelGrid columns="2">
                                 <h:outputLabel for="emailOutput" value="E-mail:" />
