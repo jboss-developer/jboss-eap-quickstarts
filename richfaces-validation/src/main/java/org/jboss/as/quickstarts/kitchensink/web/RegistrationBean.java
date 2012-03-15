@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -47,10 +48,10 @@ public class RegistrationBean implements Serializable {
     Logger logger;
 
     @Inject
-    transient Flash flash;
+    Instance<Flash> flash;
 
     @Inject
-    transient FacesContext facesContext;
+    Instance<FacesContext> facesContext;
 
     /**
      * <p>
@@ -76,11 +77,11 @@ public class RegistrationBean implements Serializable {
         logger.info("registered member '" + member.getEmail() + "'");
 
         // add message
-        FacesContext.getCurrentInstance().addMessage(null,
+        facesContext.get().addMessage(null,
                 new FacesMessage("Hello " + member.getName() + ", you have been successfully registered"));
 
         // setup JSF to keep message to next request (using flash-scope)
-        flash.setKeepMessages(true);
+        flash.get().setKeepMessages(true);
 
         // redirect to index page
         return "index?faces-redirect=true";
