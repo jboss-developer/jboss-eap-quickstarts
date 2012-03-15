@@ -11,7 +11,7 @@ This is your project! It's a sample Maven 3 project to help you
 get your foot in the door developing with Java EE 6 on JBoss AS 7 or JBoss EAP 6. 
 This project is setup to allow you to use JPA 2.0 persistence with JSF 2.0 as view layer.
 
-The theme of this application is simple Task management with authentication.
+The theme of this application is simple Task management with simple log in.
 Project contains two entities - user and task.
 
 This sample includes a persistence unit and some sample persistence code to help 

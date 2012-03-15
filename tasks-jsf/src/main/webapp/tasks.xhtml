@@ -5,7 +5,7 @@
 <h:head>
     <title>Tasks - AS7 QuickStart</title>
     <f:metadata>
-        <f:event listener="#{nav.redirectUnloggedUsers}" type="preRenderView" />
+        <f:event listener="#{navigationController.redirectUnloggedUsers}" type="preRenderView" />
     </f:metadata>
 
     <h:outputStylesheet>
@@ -37,14 +37,14 @@
     <h:form>
         <div class="loginDetails">
             #{currentUser.username} (
-            <h:commandLink value="logout" action="#{auth.logout}" />
+            <h:commandLink value="logout" action="#{authController.logout}" />
             )
         </div>
     </h:form>
 
     <div class="clear" />
 
-    <h:panelGroup rendered="#{auth.logged}">
+    <h:panelGroup rendered="#{authController.logged}">
         <h:outputScript>
             function onAddTask(data) {
                 if (data.status == 'success') {

@@ -5,19 +5,19 @@
 <h:head>
     <title>Tasks - AS7 QuickStart</title>
     <f:metadata>
-        <f:event listener="#{nav.redirectLoggedUsers}" type="preRenderView" />
+        <f:event listener="#{navigationController.redirectLoggedUsers}" type="preRenderView" />
     </f:metadata>
 </h:head>
 
 <h:body>
     <h1>Tasks - Authentication</h1>
 
-    <h:form rendered="#{not auth.logged}">
+    <h:form rendered="#{not authController.logged}">
         <h:panelGrid columns="2" >
             <h:outputLabel value="Username" />
             <h:inputText value="#{username}" />
 
-            <h:commandButton value="Log in" action="#{auth.authenticate(username)}" />
+            <h:commandButton value="Log in" action="#{authController.authenticate(username)}" />
         </h:panelGrid>
     </h:form>
         

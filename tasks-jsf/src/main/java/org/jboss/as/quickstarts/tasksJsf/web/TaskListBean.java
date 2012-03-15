@@ -21,6 +21,16 @@ import org.jboss.as.quickstarts.tasksJsf.qualifiers.CurrentUser;
  * Delegates to {@link TaskDao} for persistence operations.
  * </p>
  *
+ * <p>
+ * This bean ensures that task list will be obtained at most once per request or additionally after each invalidation (
+ * {@link #invalidate()}).
+ * </p>
+ *
+ * <p>
+ * This behavior prevents unnecessary delegations to the persistence layer, since {{@link #getAll()} can be called several times
+ * per request when used in view layer.
+ * </p>
+ *
  * @author Lukas Fryc
  */
 @Named("taskList")

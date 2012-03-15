@@ -19,7 +19,7 @@ import org.jboss.as.quickstarts.tasksJsf.qualifiers.CurrentUser;
  * @author Lukas Fryc
  *
  */
-@Named("auth")
+@Named
 @RequestScoped
 public class AuthController {
 

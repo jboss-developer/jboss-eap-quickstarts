@@ -13,7 +13,7 @@ import javax.inject.Named;
  * @author Lukas Fryc
  *
  */
-@Named("nav")
+@Named
 @RequestScoped
 public class NavigationController {
 

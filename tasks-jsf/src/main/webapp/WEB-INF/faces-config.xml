@@ -5,8 +5,8 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{auth.authenticate(username)}</from-action>
-            <if>#{auth.logged}</if>
+            <from-action>#{authController.authenticate(username)}</from-action>
+            <if>#{authController.logged}</if>
             <to-view-id>/tasks.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -15,8 +15,8 @@
     <navigation-rule>
         <from-view-id>/tasks.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{auth.logout}</from-action>
-            <if>#{!auth.logged}</if>
+            <from-action>#{authController.logout}</from-action>
+            <if>#{!authController.logged}</if>
             <to-view-id>/index.xhtml</to-view-id>
             <redirect />
         </navigation-case>

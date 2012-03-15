@@ -130,9 +130,19 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <!-- Surefire plugin is responsible for running tests
+                as part of project build -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.4.3</version>
+            </plugin>
+            <!-- The JBoss AS plugin deploys your war to a local JBoss
+                AS container -->
+            <!-- To use, run: mvn package jboss-as:deploy -->
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.1.0.Final</version>
             </plugin>
         </plugins>
     </build>
@@ -154,14 +164,6 @@
                         <configuration>
                             <skip>true</skip>
                         </configuration>
-                    </plugin>
-                    <!-- The JBoss AS plugin deploys your war to a local JBoss
-                        AS container -->
-                    <!-- To use, run: mvn package jboss-as:deploy -->
-                    <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>7.1.0.Final</version>
                     </plugin>
                 </plugins>
             </build>
