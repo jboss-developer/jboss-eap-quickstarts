@@ -5,7 +5,7 @@ Author: Paul Robinson
 What is it?
 -----------
 
-This example demonstrates the deployment of an *EJB 3.1* bean bundled in a war archive for deployment to *JBoss AS 7*.
+This example demonstrates the deployment of an *EJB 3.1* bean bundled in a war archive for deployment to *JBoss AS 7*.  The project also includes a set of Aquillian tests for the managed bean and EJB.
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
 
@@ -54,6 +54,64 @@ The application will be running at the following URL <http://localhost:8080/jbos
 To undeploy from JBoss AS, run this command:
 
     mvn jboss-as:undeploy
+
+
+Running the Arquillian tests
+----------------------------
+
+By default, tests are configured to be skipped. The reason is that the sample
+tests are Arquillian tests, which require the use of a container. You can select either
+managed or remote container, the difference is that the remote one requires a running JBoss AS 7 / 
+JBoss Enterprise Application Platform 6 instance prior executing tests.
+
+**Testing on Remote Server**
+ 
+First you need to start JBoss AS 7 or JBoss Enterprise Application Platform 6 instance. To do this, run
+  
+    $JBOSS_HOME/bin/standalone.sh
+  
+or if you are using windows
+ 
+    $JBOSS_HOME/bin/standalone.bat
+
+Once the instance is started, run the test goal with the following profile activated:
+
+    mvn clean test -Parq-jbossas-remote
+
+**Testing on Managed Server**
+ 
+Arquillian will start the container for you. All you have to do is setup a path to your JBoss AS7 or JBoss
+Enterprise Application Platform 6. To do this, run
+  
+    export JBOSS_HOME=/path/to/jboss-as
+  
+or if you are using Windows
+ 
+    set JBOSS_HOME=X:\path\to\jboss-as
+
+To run the test in JBoss AS 7 or JBoss EAP 6, run the test goal with the following profile activated:
+
+    mvn clean test -Parq-jbossas-managed
+
+**Investigating console output**
+
+JUnit will present you test report summary:
+
+	Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+If you are interested in more details, check ``target/surefire-reports`` directory. 
+You can check console output to verify that Arquillian has really used the real application server. 
+Search for lines similar to the following ones in the server output log:
+
+	 [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "test.war"
+	 ...
+	 [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 7) JBAS018559: Deployed "test.war"
+	 ...
+	 [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015877: Stopped deployment test.war in 51ms
+	 ...
+	 [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 5) JBAS018558: Undeployed "test.war"
+	 
+	 
 
 You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
 <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> 
