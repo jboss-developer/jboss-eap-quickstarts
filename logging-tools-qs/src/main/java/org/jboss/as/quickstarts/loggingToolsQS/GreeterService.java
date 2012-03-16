@@ -2,7 +2,6 @@ package org.jboss.as.quickstarts.loggingToolsQS;
 
 import java.util.Locale;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -23,9 +22,6 @@ import org.jboss.logging.Messages;
 @Path("greetings")
 public class GreeterService 
 {
-	@Inject
-	Greeter greeter;
-
 	// ======================================================================
 	// Hello "name"!
 	@GET
@@ -33,7 +29,7 @@ public class GreeterService
 	public String getHelloName(@PathParam("name") String name) 
 	{
 		GreeterLogger.LOGGER.logHelloMessageSent();
-		return greeter.sayHello(name);
+		return "hello "+name+".";
 	}
 
 	// ======================================================================
@@ -67,7 +63,7 @@ public class GreeterService
 	public String getHelloNameJSON(@PathParam("name") String name) 
 	{
 		GreeterLogger.LOGGER.logHelloMessageSentInFormat("json");
-		return "{\"result\":\"" + greeter.sayHello(name) + "\"}";
+		return "{\"result\":\"Hello" + name + "\"}";
 	}
 
 	@GET
@@ -76,7 +72,7 @@ public class GreeterService
 	public String getHelloNameXML(@PathParam("name") String name) 
 	{
 		GreeterLogger.LOGGER.logHelloMessageSentInFormat("xml");
-		return "<xml><result>" + greeter.sayHello(name)+ "</result></xml>";
+		return "<xml><result>Hello" + name + "</result></xml>";
 	}
 	
 	
