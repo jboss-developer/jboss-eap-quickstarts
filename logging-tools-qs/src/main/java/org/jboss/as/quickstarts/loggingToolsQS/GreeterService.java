@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 
 import org.jboss.as.quickstarts.loggingToolsQS.exceptions.GreeterExceptionBundle;
 import org.jboss.as.quickstarts.loggingToolsQS.loggers.GreeterLogger;
-import org.jboss.as.quickstarts.loggingToolsQS.messages.GreetingMessages;
+import org.jboss.as.quickstarts.loggingToolsQS.messages.GreetingMessagesBundle;
 import org.jboss.logging.Messages;
 
 /**
@@ -29,7 +29,7 @@ public class GreeterService
 	public String getHelloName(@PathParam("name") String name) 
 	{
 		GreeterLogger.LOGGER.logHelloMessageSent();
-		return "hello "+name+".";
+		return GreetingMessagesBundle.MESSAGES.helloToYou(name);
 	}
 
 	// ======================================================================
@@ -53,7 +53,7 @@ public class GreeterService
 				default: throw GreeterExceptionBundle.EXCEPTIONS.localeNotValid(locale);
 			}
 
-		GreetingMessages messages = Messages.getBundle(GreetingMessages.class, newLocale);
+		GreetingMessagesBundle messages = Messages.getBundle(GreetingMessagesBundle.class, newLocale);
 		return messages.helloToYou(name);
 	}
 	
@@ -75,5 +75,23 @@ public class GreeterService
 		return "<xml><result>Hello" + name + "</result></xml>";
 	}
 	
+	@GET
+	@Path("crashme")
+	public String crashMe() throws Exception
+	{
+		int value = 0;
+		
+		try
+		{
+			value = 50/0;
+		}
+		catch (Exception ex)
+		{
+			throw GreeterExceptionBundle.EXCEPTIONS.thrownOnPurpose(ex);
+		}
+		
+		return "value="+value+" (if you are reading this, then something went wrong!)";
+	}
 	
+
 }

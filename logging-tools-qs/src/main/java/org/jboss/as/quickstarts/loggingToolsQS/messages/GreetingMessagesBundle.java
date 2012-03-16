@@ -6,9 +6,9 @@ import org.jboss.logging.Messages;
 
 
 @MessageBundle(projectCode="GREETER")
-public interface GreetingMessages 
+public interface GreetingMessagesBundle 
 {
-	GreetingMessages MESSAGES = Messages.getBundle(GreetingMessages.class);
+	GreetingMessagesBundle MESSAGES = Messages.getBundle(GreetingMessagesBundle.class);
 	
 	@Message(value = "Hello %s.")
 	String helloToYou(String name);
