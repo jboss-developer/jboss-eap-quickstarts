@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wicketstuff.javaee.example.model;
+package org.jboss.as.quickstarts.wicket.ear.ejbjar.model;
 
 import java.io.Serializable;
 

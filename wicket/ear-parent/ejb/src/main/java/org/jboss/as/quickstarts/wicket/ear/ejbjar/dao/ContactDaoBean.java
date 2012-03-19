@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wicketstuff.javaee.example.dao;
+package org.jboss.as.quickstarts.wicket.ear.ejbjar.dao;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.wicketstuff.javaee.example.model.Contact;
+import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
 
 /**
  * 

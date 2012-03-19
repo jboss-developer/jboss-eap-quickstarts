@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wicketstuff.javaee.example.dao;
+package org.jboss.as.quickstarts.wicket.ear.ejbjar.dao;
 
 import java.util.List;
 
 import javax.ejb.Local;
 
-import org.wicketstuff.javaee.example.model.Contact;
+import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
 
 /**
  * 

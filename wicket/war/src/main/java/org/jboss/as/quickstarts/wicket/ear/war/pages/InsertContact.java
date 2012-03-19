@@ -14,16 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wicketstuff.javaee.example.pages;
+package org.jboss.as.quickstarts.wicket.ear.war.pages;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.model.PropertyModel;
 import org.wicketstuff.javaee.example.dao.ContactDaoLocal;
 import org.wicketstuff.javaee.example.model.Contact;
 
@@ -31,43 +30,59 @@ import org.wicketstuff.javaee.example.model.Contact;
  * 
  * @author Filippo Diotalevi
  */
-public class ListContacts extends WebPage
+public class InsertContact extends WebPage
 {
 
 	private static final long serialVersionUID = 1L;
-	@EJB(name = "ContactDaoBean")
+	private Form<Contact> insertForm;
+	private String name;
+	private String email;
+    
+	//@EJB(lookup="java:app/ContactDaoBean")
+    @EJB(name="ContactDaoBean")
 	private ContactDaoLocal contactDao;
-	@Resource(name = "welcomeMessage")
-	private String welcome;
 
-	public ListContacts()
+	public InsertContact()
 	{
+		add(new FeedbackPanel("feedback"));
 
-		add(new Label("welcomeMessage", welcome));
-		add(new ListView<Contact>("contacts", contactDao.getContacts())
+		insertForm = new Form<Contact>("insertForm")
 		{
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void populateItem(final ListItem<Contact> item)
+			protected void onSubmit()
 			{
-				Contact contact = item.getModelObject();
-				item.add(new Label("name", contact.getName()));
-				item.add(new Label("email", contact.getEmail()));
-				item.add(new Link<Contact>("delete", item.getModel())
-				{
-
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public void onClick()
-					{
-						contactDao.remove(item.getModelObject());
-						setResponsePage(ListContacts.class);
-					}
-				});
+				contactDao.addContact(name, email);
+				setResponsePage(ListContacts.class);
 			}
-		});
+		};
+
+		insertForm.add(new RequiredTextField<String>("name",
+			new PropertyModel<String>(this, "name")));
+		insertForm.add(new RequiredTextField<String>("email", new PropertyModel<String>(this,
+			"email")));
+		add(insertForm);
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wicketstuff.javaee.example.pages;
+package org.jboss.as.quickstarts.wicket.ear.war.pages;
 
 import javax.ejb.EJB;
 
@@ -23,8 +23,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
-import org.wicketstuff.javaee.example.dao.ContactDaoLocal;
-import org.wicketstuff.javaee.example.model.Contact;
+import org.jboss.as.quickstarts.wicket.ear.ejbjar.dao.ContactDaoLocal;
+import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
 
 /**
  * 

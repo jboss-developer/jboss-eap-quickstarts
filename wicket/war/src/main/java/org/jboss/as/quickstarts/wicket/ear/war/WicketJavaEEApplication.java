@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.wicketstuff.javaee.example;
+package org.jboss.as.quickstarts.wicket.ear.war;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.wicketstuff.javaee.example.pages.InsertContact;
-import org.wicketstuff.javaee.example.pages.ListContacts;
+import org.jboss.as.quickstarts.wicket.ear.war.pages.InsertContact;
+import org.jboss.as.quickstarts.wicket.ear.war.pages.ListContacts;
 import org.wicketstuff.javaee.injection.JavaEEComponentInjector;
 import org.wicketstuff.javaee.naming.global.AppJndiNamingStrategy;
 
