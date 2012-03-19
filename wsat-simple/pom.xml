@@ -71,15 +71,36 @@
         <dependency>
             <groupId>org.jboss.jbossts</groupId>
             <artifactId>jbossxts-api</artifactId>
+            <version>4.16.2.Final-redhat-1</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.jboss.logging</groupId>
                     <artifactId>jboss-logging-spi</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>emma</groupId>
+                    <artifactId>emma</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>emma</groupId>
+                    <artifactId>emma_ant</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>tanukisoft</groupId>
+                    <artifactId>wrapper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.integration</groupId>
+                    <artifactId>jboss-corba-ots-spi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.jbossas</groupId>
+                    <artifactId>jboss-server-manager</artifactId>
+                </exclusion>
             </exclusions>
-        </dependency>
-
+        </dependency> 
+ 
         <!-- Import the CDI API, we use provided scope as the API is included
         in JBoss AS 7 -->
         <dependency>
