@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.jboss.as.quickstart.wicket.ear</groupId>
+        <artifactId>as7-quickstart-wicket-ear-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    
+    <artifactId>as7-quickstart-wicket-ear-ear</artifactId>
+    <packaging>ear</packaging>
+    
+    <name>JBoss AS Quickstarts: Wicket EAR: EAR package</name>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <!-- Change this to 5 if you want to use with Java EE 5 container -->
+                    <version>6</version>
+                    <modules>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId    >as7-quickstart-wicket-ear-war</artifactId>
+                            <bundleFileName>as7-quickstart-wicket-ear.war</bundleFileName>
+                            <contextRoot>/example</contextRoot>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId    >as7-quickstart-wicket-ear-ejbjar</artifactId>
+                            <bundleFileName>as7-quickstart-wicket-ear-ejbjar.jar</bundleFileName>
+                        </ejbModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    
+    <dependencies>
+        
+        <!-- EJB JAR module. -->
+        <dependency>
+            <type>ejb</type>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- WAR module. -->
+        <dependency>
+            <type>war</type>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>as7-quickstart-wicket-ear-war</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+    
+</project>

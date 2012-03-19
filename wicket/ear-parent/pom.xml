@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.jboss.as.quickstart.wicket</groupId>
+        <artifactId>as7-quickstart-wicket-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    
+    <groupId>org.jboss.as.quickstart.wicket.ear</groupId>
+    <artifactId>as7-quickstart-wicket-ear-parent</artifactId>
+    <packaging>pom</packaging>
+    
+    <name>JBoss AS Quickstarts: Wicket EAR parent</name>
+
+    <description>
+        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss AS 7.
+        EAR with EJB JAR and WAR version.
+    </description>
+
+    <modules>
+        <module>ejb</module>
+        <module>war</module>
+        <module>ear</module>
+    </modules>
+</project>
