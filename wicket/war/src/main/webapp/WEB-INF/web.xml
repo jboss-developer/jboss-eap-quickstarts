@@ -10,7 +10,7 @@
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>org.jboss.as.quickstarts.wicket.ear.war.WicketJavaEEApplication</param-value>
+            <param-value>org.jboss.as.quickstarts.wicket.war.WicketJavaEEApplication</param-value>
         </init-param>
     </filter>
 

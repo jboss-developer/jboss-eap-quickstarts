@@ -14,56 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.wicket.ear.war.pages;
+package org.jboss.as.quickstarts.wicket.war.model;
 
-import javax.ejb.EJB;
+import java.io.Serializable;
 
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.model.PropertyModel;
-import org.wicketstuff.javaee.example.dao.ContactDaoLocal;
-import org.wicketstuff.javaee.example.model.Contact;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * 
  * @author Filippo Diotalevi
  */
-public class InsertContact extends WebPage
+@Entity
+public class Contact implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
-	private Form<Contact> insertForm;
+	private Long id;
 	private String name;
 	private String email;
-    
-	//@EJB(lookup="java:app/ContactDaoBean")
-    @EJB(name="ContactDaoBean")
-	private ContactDaoLocal contactDao;
 
-	public InsertContact()
+	public Contact()
 	{
-		add(new FeedbackPanel("feedback"));
+	}
 
-		insertForm = new Form<Contact>("insertForm")
-		{
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void onSubmit()
-			{
-				contactDao.addContact(name, email);
-				setResponsePage(ListContacts.class);
-			}
-		};
-
-		insertForm.add(new RequiredTextField<String>("name",
-			new PropertyModel<String>(this, "name")));
-		insertForm.add(new RequiredTextField<String>("email", new PropertyModel<String>(this,
-			"email")));
-		add(insertForm);
+	public Contact(Long id, String name, String email)
+	{
+		this.id = id;
+		this.name = name;
+		this.email = email;
 	}
 
 	public String getEmail()
@@ -84,5 +65,46 @@ public class InsertContact extends WebPage
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId()
+	{
+		return id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (getClass() != obj.getClass())
+		{
+			return false;
+		}
+		final Contact other = (Contact)obj;
+		if (id != other.id && (id == null || !id.equals(other.id)))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 67 * hash + (id != null ? id.hashCode() : 0);
+		hash = 67 * hash + (name != null ? name.hashCode() : 0);
+		hash = 67 * hash + (email != null ? email.hashCode() : 0);
+		return hash;
 	}
 }
