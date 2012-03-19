@@ -78,11 +78,12 @@ Once deployed, you can access the quick start using the following URLs.
      the locale used is the one supplied in the `locale` URL.
    * logs a localised "Hello message sent in `locale`" message using the JVM locale for the translation
    * if the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO):
-      * throws a WebApplicationException (404) using a localisable wrapped exception 
+      * throws a WebApplicationException (404) using a localizable sub-class of `WebApplicationException` 
    
    Note that WebApplicationException cannot be directly localised by JBoss Logging Tools using the
-   @Message annotation due to the message parameter being ignored.  Cases like this can be worked
-   around by creating a sub-class with a constructor that does deal with the message parameter.
+   `@Message` annotation due to the message parameter being ignored by `WebApplicationException`'s
+   constructors. Cases like this can be worked around by creating a sub-class with a constructor
+   that does deal with the message parameter.
    
 ### http://localhost:8080/logging-tools-qs/rest/greetings/crashme
    
@@ -101,14 +102,15 @@ Once deployed, you can access the quick start using the following URLs.
    
    * attempts to turn the `targetdate` URL component into a date object using the format `dd-MM-yyyy`
    * returns number of days (as an integer) until that date
-   * if the targetdate is invalid:
-         * catches the ParseException
-         * creates a localised ParseException passing values from the caught exception as parameters to it's constructor
-         * logs a localised message with the localised exception as the cause
-         * throws a WebApplicationException(400) with the text from the localised ParseException
+   * if the `targetdate` is invalid:
+   
+     * catches the `ParseException`
+     * creates a localised `ParseException` passing values from the caught exception as parameters to it's constructor
+     * logs a localised message with the localised exception as the cause
+     * throws a `WebApplicationException`(400) with the text from the localised `ParseException`
 
-## Undeploying the quickstart
+## Undeploying the quick start
 
-The quick start can be undeployed from the Management Console or with:
+The quick start can be un-deployed from the Management Console or with:
 
     mvn jboss-as:undeploy
