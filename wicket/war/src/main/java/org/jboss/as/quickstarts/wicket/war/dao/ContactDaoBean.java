@@ -32,7 +32,7 @@ import org.jboss.as.quickstarts.wicket.war.model.Contact;
 public class ContactDaoBean implements ContactDaoLocal
 {
 
-	@PersistenceContext
+	@PersistenceContext(name="myEMF")
 	private EntityManager em;
 
 	/**
