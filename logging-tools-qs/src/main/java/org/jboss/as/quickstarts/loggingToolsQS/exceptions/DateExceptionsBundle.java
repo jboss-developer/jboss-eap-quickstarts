@@ -11,7 +11,7 @@ public interface DateExceptionsBundle
 {
 	DateExceptionsBundle EXCEPTIONS = Messages.getBundle(DateExceptionsBundle.class);
 
-	@Message(id=7, value = "The date you sent me wasn't valid, '%s'.  Sorry.")
+	@Message(id=7, value = "The date you sent me isn't valid, '%s'.  Sorry.")
 	ParseException targetDateStringDidntParse(String dateString, @Param int errorOffset);	
 
 }

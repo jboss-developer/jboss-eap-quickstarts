@@ -41,16 +41,16 @@ public class GreeterService
 		String[] locale_parts = locale.split("-");
 		Locale newLocale = null;
 		
-			switch (locale_parts.length)
-			{
-				case 1:	newLocale = new Locale(locale_parts[0]);
-						break;
-				case 2:	newLocale = new Locale(locale_parts[0], locale_parts[1]);
-						break;
-				case 3:	newLocale = new Locale(locale_parts[0], locale_parts[1], locale_parts[2]);
-						break;
-				default: throw GreeterExceptionBundle.EXCEPTIONS.localeNotValid(locale);
-			}
+		switch (locale_parts.length)
+		{
+			case 1:	newLocale = new Locale(locale_parts[0]);
+					break;
+			case 2:	newLocale = new Locale(locale_parts[0], locale_parts[1]);
+					break;
+			case 3:	newLocale = new Locale(locale_parts[0], locale_parts[1], locale_parts[2]);
+					break;
+			default: throw GreeterExceptionBundle.EXCEPTIONS.localeNotValid(locale);
+		}
 
 		GreetingMessagesBundle messages = Messages.getBundle(GreetingMessagesBundle.class, newLocale);
 		GreeterLogger.LOGGER.logHelloMessageSentForLocale(locale);

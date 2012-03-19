@@ -3,7 +3,6 @@ package org.jboss.as.quickstarts.loggingToolsQS.loggers;
 import org.jboss.logging.BasicLogger;
 import org.jboss.logging.LogMessage;
 import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
 import org.jboss.logging.Message;
 
 @org.jboss.logging.MessageLogger(projectCode = "GREETER")
