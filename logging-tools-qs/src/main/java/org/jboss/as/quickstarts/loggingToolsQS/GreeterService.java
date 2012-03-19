@@ -5,7 +5,6 @@ import java.util.Locale;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 
 import org.jboss.as.quickstarts.loggingToolsQS.exceptions.GreeterExceptionBundle;
 import org.jboss.as.quickstarts.loggingToolsQS.loggers.GreeterLogger;
@@ -54,25 +53,8 @@ public class GreeterService
 			}
 
 		GreetingMessagesBundle messages = Messages.getBundle(GreetingMessagesBundle.class, newLocale);
+		GreeterLogger.LOGGER.logHelloMessageSentForLocale(locale);
 		return messages.helloToYou(name);
-	}
-	
-	@GET
-	@Path("{name}/json")
-	@Produces({ "application/json" })
-	public String getHelloNameJSON(@PathParam("name") String name) 
-	{
-		GreeterLogger.LOGGER.logHelloMessageSentInFormat("json");
-		return "{\"result\":\"Hello" + name + "\"}";
-	}
-
-	@GET
-	@Path("{name}/xml")
-	@Produces({ "application/xml" })
-	public String getHelloNameXML(@PathParam("name") String name) 
-	{
-		GreeterLogger.LOGGER.logHelloMessageSentInFormat("xml");
-		return "<xml><result>Hello" + name + "</result></xml>";
 	}
 	
 	@GET

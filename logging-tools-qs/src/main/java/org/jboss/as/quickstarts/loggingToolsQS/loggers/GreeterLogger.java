@@ -18,9 +18,9 @@ public interface GreeterLogger extends BasicLogger
 	@Message(id=1, value = "Hello message sent.")
 	void logHelloMessageSent();
 
-	@LogMessage (level=Level.DEBUG)
-	@Message(id=2, value = "Hello message sent as %S.")
-	void logHelloMessageSentInFormat(String format);
-	
-	
+	@LogMessage
+	@Message(id=2, value = "Hello message sent for locale: %s.")
+	void logHelloMessageSentForLocale(String locale);
+
+
 }
