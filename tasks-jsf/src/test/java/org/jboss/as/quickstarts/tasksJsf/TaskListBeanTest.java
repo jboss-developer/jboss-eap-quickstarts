@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.web;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,10 +11,11 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.tasksJsf.DefaultDeployment;
-import org.jboss.as.quickstarts.tasksJsf.domain.Task;
-import org.jboss.as.quickstarts.tasksJsf.domain.TaskDao;
-import org.jboss.as.quickstarts.tasksJsf.domain.User;
+import org.jboss.as.quickstarts.tasksJsf.Task;
+import org.jboss.as.quickstarts.tasksJsf.TaskDao;
+import org.jboss.as.quickstarts.tasksJsf.TaskList;
+import org.jboss.as.quickstarts.tasksJsf.TaskListBean;
+import org.jboss.as.quickstarts.tasksJsf.User;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,15 +1,10 @@
-package org.jboss.as.quickstarts.tasksJsf.web;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.as.quickstarts.tasksJsf.beans.CurrentTaskStore;
-import org.jboss.as.quickstarts.tasksJsf.domain.Task;
-import org.jboss.as.quickstarts.tasksJsf.domain.TaskDao;
-import org.jboss.as.quickstarts.tasksJsf.domain.User;
-import org.jboss.as.quickstarts.tasksJsf.qualifiers.CurrentUser;
 
 /**
  * <p>

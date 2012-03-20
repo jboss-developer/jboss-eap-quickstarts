@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.domain;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -11,8 +11,12 @@ import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.tasksJsf.DefaultDeployment;
 import org.jboss.as.quickstarts.tasksJsf.Resources;
+import org.jboss.as.quickstarts.tasksJsf.Task;
+import org.jboss.as.quickstarts.tasksJsf.TaskDao;
+import org.jboss.as.quickstarts.tasksJsf.TaskDaoImpl;
+import org.jboss.as.quickstarts.tasksJsf.User;
+import org.jboss.as.quickstarts.tasksJsf.UserDao;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +46,7 @@ public class TaskDaoTest {
     @Before
     public void setUp() throws Exception {
         detachedUser = new User("jdoe");
-        detachedUser.setId(-1L);
+        detachedUser.setId(1L);
     }
 
     @Test
@@ -54,8 +58,8 @@ public class TaskDaoTest {
         // when
         em.persist(user);
         taskDao.createTask(user, task);
-        List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = ?", Task.class).setParameter(1, user)
-                .getResultList();
+        List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = :owner", Task.class)
+                .setParameter("owner", user).getResultList();
 
         // then
         assertEquals(1, userTasks.size());
@@ -64,7 +68,6 @@ public class TaskDaoTest {
 
     @Test
     public void all_tasks_should_be_obtained_from_detachedUser() {
-        // given
         // when
         List<Task> userTasks = taskDao.getAll(detachedUser);
 
@@ -74,7 +77,6 @@ public class TaskDaoTest {
 
     @Test
     public void range_of_tasks_should_be_provided_by_taskDao() {
-        // given
         // when
         List<Task> headOfTasks = taskDao.getRange(detachedUser, 0, 1);
         List<Task> tailOfTasks = taskDao.getRange(detachedUser, 1, 1);
@@ -103,7 +105,7 @@ public class TaskDaoTest {
     public void taskDao_should_remove_task_from_detachedUser() {
         // given
         Task task = new Task();
-        task.setId(-1L);
+        task.setId(1L);
         task.setOwner(detachedUser);
         assertEquals(2, taskDao.getAll(detachedUser).size());
 

@@ -14,7 +14,6 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.tasksJsf.Resources;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +28,8 @@ public class ResourcesTest {
 
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return new DefaultDeployment().withPersistence().withFaces().getArchive().addPackage(Resources.class.getPackage());
+        return new DefaultDeployment().withPersistence().withFaces().getArchive()
+                .addClasses(Resources.class, FacesContextStub.class);
     }
 
     @Inject

@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.domain;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import javax.ejb.Local;
 

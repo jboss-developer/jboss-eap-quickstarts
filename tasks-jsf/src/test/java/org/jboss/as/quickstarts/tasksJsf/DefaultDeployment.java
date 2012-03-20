@@ -7,9 +7,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 /**
  * Enables prepare project-specific {@link WebArchive} for deployment.
- * 
+ *
  * @author Lukas Fryc
- * 
+ *
  */
 public class DefaultDeployment {
 
@@ -23,7 +23,8 @@ public class DefaultDeployment {
     }
 
     public DefaultDeployment withPersistence() {
-        webArchive = webArchive.addAsResource("META-INF/persistence.xml");
+        webArchive = webArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(
+                "test-ds.xml", "test-ds.xml");
         return this;
     }
 

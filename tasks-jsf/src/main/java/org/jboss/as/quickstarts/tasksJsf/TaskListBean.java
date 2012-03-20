@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.web;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,10 +7,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.as.quickstarts.tasksJsf.domain.Task;
-import org.jboss.as.quickstarts.tasksJsf.domain.TaskDao;
-import org.jboss.as.quickstarts.tasksJsf.domain.User;
-import org.jboss.as.quickstarts.tasksJsf.qualifiers.CurrentUser;
 
 /**
  * <p>

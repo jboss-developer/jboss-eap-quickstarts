@@ -1,29 +1,36 @@
-package org.jboss.as.quickstarts.tasksJsf.domain;
+package org.jboss.as.quickstarts.tasksJsf;
 
-import javax.persistence.*;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * User entity
  * 
  * @author Oliver Kiss
  */
+@SuppressWarnings("serial")
 @Entity
-@Table(name = "TasksJsf_user")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1l;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
-    @Column(nullable = true, updatable = false)
+    @OneToMany(cascade = ALL, mappedBy = "owner")
+    @Column(updatable = false)
     private List<Task> tasks = new ArrayList<Task>();
 
     public User() {
@@ -61,37 +68,24 @@ public class User implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         User other = (User) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
         if (username == null) {
-            if (other.username != null) {
+            if (other.username != null)
                 return false;
-            }
-        } else if (!username.equals(other.username)) {
+        } else if (!username.equals(other.username))
             return false;
-        }
         return true;
     }
 }

@@ -1,8 +1,7 @@
-package org.jboss.as.quickstarts.tasksJsf.web;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.List;
 
-import org.jboss.as.quickstarts.tasksJsf.domain.Task;
 
 /**
  * <p>

@@ -1,10 +1,9 @@
-package org.jboss.as.quickstarts.tasksJsf.beans;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
 
-import org.jboss.as.quickstarts.tasksJsf.domain.User;
 
 /**
  * Store for current authenticated user

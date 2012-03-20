@@ -1,20 +1,25 @@
-package org.jboss.as.quickstarts.tasksJsf.domain;
+package org.jboss.as.quickstarts.tasksJsf;
 
-import javax.persistence.*;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * User's task entity
- * 
+ *
  * @author Oliver Kiss
  */
+@SuppressWarnings("serial")
 @Entity
-@Table(name = "TasksJsf_task")
 public class Task implements Serializable {
-    private static final long serialVersionUID = 1l;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -58,9 +63,8 @@ public class Task implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
         return result;
     }
 
@@ -76,11 +80,11 @@ public class Task implements Serializable {
             return false;
         }
         Task other = (Task) obj;
-        if (id == null) {
-            if (other.id != null) {
+        if (owner == null) {
+            if (other.owner != null) {
                 return false;
             }
-        } else if (!id.equals(other.id)) {
+        } else if (!owner.equals(other.owner)) {
             return false;
         }
         if (title == null) {
@@ -90,13 +94,7 @@ public class Task implements Serializable {
         } else if (!title.equals(other.title)) {
             return false;
         }
-        if (owner == null) {
-            if (other.owner != null) {
-                return false;
-            }
-        } else if (!owner.equals(other.owner)) {
-            return false;
-        }
         return true;
     }
+
 }

@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.web;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.RequestScoped;
@@ -8,10 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.as.quickstarts.tasksJsf.beans.Authentication;
-import org.jboss.as.quickstarts.tasksJsf.domain.User;
-import org.jboss.as.quickstarts.tasksJsf.domain.UserDao;
-import org.jboss.as.quickstarts.tasksJsf.qualifiers.CurrentUser;
 
 /**
  * Provides authentication operations with current user store: {@link Authentication}.

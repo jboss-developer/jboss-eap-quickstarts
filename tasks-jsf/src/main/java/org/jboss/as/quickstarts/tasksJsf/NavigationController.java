@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.web;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.ConfigurableNavigationHandler;

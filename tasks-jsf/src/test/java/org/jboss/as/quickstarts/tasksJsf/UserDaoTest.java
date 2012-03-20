@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.domain;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -10,8 +10,12 @@ import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.tasksJsf.DefaultDeployment;
 import org.jboss.as.quickstarts.tasksJsf.Resources;
+import org.jboss.as.quickstarts.tasksJsf.Task;
+import org.jboss.as.quickstarts.tasksJsf.TaskDao;
+import org.jboss.as.quickstarts.tasksJsf.User;
+import org.jboss.as.quickstarts.tasksJsf.UserDao;
+import org.jboss.as.quickstarts.tasksJsf.UserDaoImpl;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;

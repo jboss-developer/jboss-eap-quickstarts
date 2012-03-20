@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.tasksJsf.beans;
+package org.jboss.as.quickstarts.tasksJsf;
 
 import java.io.Serializable;
 
@@ -6,8 +6,6 @@ import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
-import org.jboss.as.quickstarts.tasksJsf.domain.Task;
-import org.jboss.as.quickstarts.tasksJsf.qualifiers.CurrentTask;
 
 /**
  * <p>
