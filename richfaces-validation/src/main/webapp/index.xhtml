@@ -9,7 +9,7 @@
 <h:body>
     <h1>Validation with RichFaces - Authentication</h1>
 
-    <rich:panel header="Registration form">
+    <rich:panel id="registrationWizard" header="Registration form">
 
         <h:form prependId="false">
             <a4j:region>
@@ -31,6 +31,8 @@
                         <h:commandButton value="Continue">
                             <rich:toggleControl event="click" targetItem="@next" />
                         </h:commandButton>
+                        
+                        <rich:messages for="registrationWizard"  />
                     </rich:togglePanelItem>
 
 
@@ -90,7 +92,7 @@
             </a4j:region>
         </h:form>
         
-        <rich:messages globalOnly="true" />
+        
 
     </rich:panel>
 

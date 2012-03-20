@@ -74,7 +74,7 @@ public class RegistrationBean implements Serializable {
 
         // add message
         facesContext
-                .addMessage(null, new FacesMessage("Hello " + member.getName() + ", you have been successfully registered"));
+                .addMessage("registrationWizard", new FacesMessage("Hello " + member.getName() + ", you have been successfully registered"));
 
         // setup JSF to keep message to next request (using flash-scope)
         flash.setKeepMessages(true);
