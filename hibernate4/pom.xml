@@ -128,18 +128,18 @@
          <scope>provided</scope>
       </dependency>
 
-       <dependency>
+       <!-- <dependency>
            <groupId>org.hibernate</groupId>
            <artifactId>hibernate-entitymanager</artifactId>
            <scope>provided</scope>
-       </dependency>
+       </dependency> -->
 
        <!-- use for JPA Meta model generation, used only in development time, so set it to provided scope -->
-       <dependency>
+       <!-- <dependency>
            <groupId>org.hibernate</groupId>
            <artifactId>hibernate-jpamodelgen</artifactId>
            <scope>provided</scope>
-       </dependency>
+       </dependency> -->
       <!-- Needed for running tests (you may also use TestNG) -->
       <dependency>
          <groupId>junit</groupId>

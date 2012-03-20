@@ -49,9 +49,9 @@
 				the JBoss stack of the Java EE 6 APIs). You can actually use this stack with 
 				any version of JBoss AS that implements Java EE 6, not just JBoss AS 7! -->
 			<dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${javaee6.with.tools.version}</version>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>3.0.0.Beta1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
