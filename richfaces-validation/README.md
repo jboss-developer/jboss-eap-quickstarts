@@ -1,4 +1,4 @@
-bean-validation: Bean Validation via Arquillian Example
+RichFaces and Bean Validation
 =======================================================
 Author: Lukas Fryc <https://community.jboss.org/people/lfryc>
 
@@ -57,8 +57,40 @@ For building application, you need to trigger the Maven build using command-line
 
     mvn clean package
     
-This command will build the WAR archive in target/richfaces-validation.war.
+This command will build the WAR archive in target/jboss-as-richfaces-validation.war.
+
+
+Deploying the WAR to the JBoss AS
+=================================
+
+To deploy the application to JBoss AS 7, you needs just copy the built WAR
+to the JBOSS_HOME/standalone/deployments directory.
+
+There is Maven plugin which makes this task even simpler:
+
+Let's start the JBoss AS and trigger following JBoss AS Maven plugin from
+inside the project (you need to built the WAR first, see above):
+
+    mvn jboss-as:deploy
     
+After successful deploy, you should see server log output similar to following:
+
+    JBAS018210: Registering web context: /jboss-as-richfaces-validation
+    JBAS018559: Deployed "jboss-as-richfaces-validation.war"
+
+You can access the running application on URL
+    
+    http://localhost:8080/jboss-as-richfaces-validation/
+
+You can un-deploy the application by deleting the WAR from deployments
+directory or you can use the JBoss AS Maven plugin again:
+
+    mvn jboss-as:undeploy
+    
+In this case, you should see following output in server console:
+
+    JBAS018558: Undeployed "jboss-as-tasks-jsf.war"
+
     
 Importing the project into an IDE
 =================================
@@ -93,12 +125,12 @@ in the context menu and select JBoss AS 7 server instance.
 
 After successful deploy, you should see server log output similar to following:
 
-    JBAS018210: Registering web context: /richfaces-validation
-    JBAS018559: Deployed "richfaces-validation.war"
+    JBAS018210: Registering web context: /jboss-as-richfaces-validation
+    JBAS018559: Deployed "jboss-as-richfaces-validation.war"
 
 You can access the running application on URL
     
-    http://localhost:8080/richfaces-validation/
+    http://localhost:8080/jboss-as-richfaces-validation/
 
 
 Running the Arquillian tests
