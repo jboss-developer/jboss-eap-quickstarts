@@ -9,92 +9,92 @@
 <h:body>
     <h1>Validation with RichFaces - Authentication</h1>
 
-    <h:form>
+    <rich:panel header="Registration form">
+
+        <h:form prependId="false">
+            <a4j:region>
+                <rich:togglePanel switchType="ajax">
+
+                    <rich:togglePanelItem>
+                        <!-- Step 1 - email -->
+
+                        <h:panelGrid columns="3">
+                            <h:outputLabel for="email" value="E-mail" />
+                            <h:inputText id="email" value="#{newMember.email}" validatorMessage="not an well-formed e-mail">
+                                <!-- rich:validator needs to be used to trigger client-side validation
+                                        after blur event -->
+                                <rich:validator event="blur" />
+                            </h:inputText>
+                            <rich:message for="email" />
+                        </h:panelGrid>
+
+                        <h:commandButton value="Continue">
+                            <rich:toggleControl event="click" targetItem="@next" />
+                        </h:commandButton>
+                    </rich:togglePanelItem>
+
+
+                    <rich:togglePanelItem>
+                        <!-- Step 2: name and phone number -->
+
+                        <h:panelGrid columns="3">
+                            <h:outputLabel for="name" value="Name" />
+                            <h:inputText id="name" value="#{newMember.name}">
+                                <!-- rich:validator needs to be used to trigger client-side validation
+                                        after blur event -->
+                                <rich:validator event="blur" />
+                            </h:inputText>
+                            <rich:message for="name" />
+
+
+                            <h:outputLabel for="phone" value="Phone #" />
+                            <h:inputText id="phone" value="#{newMember.phoneNumber}">
+                                <!-- rich:validator needs to be used to trigger client-side validation
+                                        after blur event -->
+                                <rich:validator event="blur" />
+                            </h:inputText>
+                            <rich:message for="phone" />
+                        </h:panelGrid>
+
+                        <h:commandButton value="Back">
+                            <rich:toggleControl event="click" targetItem="@prev" />
+                        </h:commandButton>
+
+                        <h:commandButton value="Continue">
+                            <rich:toggleControl event="click" targetItem="@next" />
+                        </h:commandButton>
+                    </rich:togglePanelItem>
+
+                    <rich:togglePanelItem>
+                        <!-- Step 3: confirmation -->
+
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="emailOutput" value="E-mail:" />
+                            <h:outputText id="emailOutput" value="#{newMember.email}" />
+
+                            <h:outputLabel for="nameOutput" value="Name:" />
+                            <h:outputText id="nameOutput" value="#{newMember.name}" />
+
+                            <h:outputLabel for="phoneOutput" value="Phone #:" />
+                            <h:outputText id="phoneOutput" value="#{newMember.phoneNumber}" />
+                        </h:panelGrid>
+
+                        <h:commandButton value="Back">
+                            <rich:toggleControl event="click" targetItem="@prev" />
+                        </h:commandButton>
+
+                        <!-- Finishes the registration process -->
+                        <h:commandButton value="Confirm" action="#{registration.proceed}" />
+                    </rich:togglePanelItem>
+                </rich:togglePanel>
+            </a4j:region>
+        </h:form>
+        
         <rich:messages globalOnly="true" />
 
-        <rich:panel header="Registration form">
+    </rich:panel>
 
-            <h:form prependId="false">
-                <a4j:region>
-                    <rich:togglePanel switchType="ajax">
-
-                        <rich:togglePanelItem>
-                            <!-- Step 1 - email -->
-
-                            <h:panelGrid columns="3">
-                                <h:outputLabel for="email" value="E-mail" />
-                                <h:inputText id="email" value="#{newMember.email}"
-                                        validatorMessage="not an well-formed e-mail">
-                                    <!-- rich:validator needs to be used to trigger client-side validation
-                                        after blur event -->
-                                    <rich:validator event="blur" />
-                                </h:inputText>
-                                <rich:message for="email" />
-                            </h:panelGrid>
-
-                            <a4j:commandButton value="Continue">
-                                <rich:toggleControl event="click" targetItem="@next" />
-                            </a4j:commandButton>
-                        </rich:togglePanelItem>
-
-
-                        <rich:togglePanelItem>
-                            <!-- Step 2: name and phone number -->
-
-                            <h:panelGrid columns="3">
-                                <h:outputLabel for="name" value="Name" />
-                                <h:inputText id="name" value="#{newMember.name}">
-                                    <!-- rich:validator needs to be used to trigger client-side validation
-                                        after blur event -->
-                                    <rich:validator event="blur" />
-                                </h:inputText>
-                                <rich:message for="name" />
-
-
-                                <h:outputLabel for="phone" value="Phone #" />
-                                <h:inputText id="phone" value="#{newMember.phoneNumber}">
-                                    <!-- rich:validator needs to be used to trigger client-side validation
-                                        after blur event -->
-                                    <rich:validator event="blur" />
-                                </h:inputText>
-                                <rich:message for="phone" />
-                            </h:panelGrid>
-
-                            <a4j:commandButton value="Back" immediate="true">
-                                <rich:toggleControl event="click" targetItem="@prev" disableDefault="true" />
-                            </a4j:commandButton>
-
-                            <a4j:commandButton value="Continue">
-                                <rich:toggleControl event="click" targetItem="@next" />
-                            </a4j:commandButton>
-                        </rich:togglePanelItem>
-
-                        <rich:togglePanelItem>
-                            <!-- Step 3: confirmation -->
-
-                            <h:panelGrid columns="2">
-                                <h:outputLabel for="emailOutput" value="E-mail:" />
-                                <h:outputText id="emailOutput" value="#{newMember.email}" />
-
-                                <h:outputLabel for="nameOutput" value="Name:" />
-                                <h:outputText id="nameOutput" value="#{newMember.name}" />
-
-                                <h:outputLabel for="phoneOutput" value="Phone #:" />
-                                <h:outputText id="phoneOutput" value="#{newMember.phoneNumber}" />
-                            </h:panelGrid>
-
-                            <a4j:commandButton value="Back">
-                                <rich:toggleControl event="click" targetItem="@prev" />
-                            </a4j:commandButton>
-
-                            <!-- Finishes the registration process -->
-                            <a4j:commandButton value="Confirm" action="#{registration.proceed}" />
-                        </rich:togglePanelItem>
-                    </rich:togglePanel>
-                </a4j:region>
-            </h:form>
-        </rich:panel>
-    </h:form>
+    
 
 </h:body>
 
