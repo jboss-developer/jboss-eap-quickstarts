@@ -16,7 +16,7 @@
          resources, i.e. build is platform dependent! -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  -->
-      <javaee6.with.tools.version>1.0.0.M1</javaee6.with.tools.version>
+      <version.org.jboss.bom>1.0.0.M3</version.org.jboss.bom>
       <!-- Alternatively, comment out the above line, and un-comment the line below to 
         use version 3.0.0.Beta1-redhat-1 which is a release certified 
       to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
@@ -36,10 +36,17 @@
          <dependency>
             <groupId>org.jboss.bom</groupId>
             <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-            <version>${javaee6.with.tools.version}</version>
+            <version>${version.org.jboss.bom}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
+          <dependency>
+              <groupId>org.jboss.bom</groupId>
+              <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+              <version>${version.org.jboss.bom}</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
       </dependencies>
    </dependencyManagement>
 
@@ -94,7 +101,6 @@
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
-         <version>4.2.0.Final</version>
          <scope>provided</scope>
          <exclusions>
             <exclusion>
@@ -119,9 +125,15 @@
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-jpamodelgen</artifactId>
-         <version>1.1.1.Final</version>
          <scope>provided</scope>
       </dependency>
+
+       <!-- Annotation processor that raising compilation errors whenever constraint annotations are incorrectly used. -->
+       <dependency>
+           <groupId>org.hibernate</groupId>
+           <artifactId>hibernate-validator-annotation-processor</artifactId>
+           <scope>provided</scope>
+       </dependency>
 
       <!-- Needed for running tests (you may also use TestNG) -->
       <dependency>

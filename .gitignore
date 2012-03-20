@@ -1,14 +1,9 @@
 *~
-.classpath
-.project
 target
-.settings
 .DS_Store
 .faces-config.xml.faceside
 .faces-config.xml.jsfdia
 MANIFEST.MF
-.idea
-*.iml
 bin
 .openshift
 */.gitignore
@@ -16,3 +11,29 @@ bin
 /helloworld-jsp
 README.html
 CONTRIBUTING.html
+
+helloworld-gwt/src/main/gwt-unitCache
+helloworld-gwt/src/main/webapp/HelloWorldApp
+helloworld-gwt/src/main/webapp/WEB-INF/deploy
+
+# IntelliJ specific files/directories
+out
+.idea
+*.ipr
+*.iws
+*.iml
+atlassian-ide-plugin.xml
+
+# Eclipse specific files/directories
+.classpath
+.project
+.settings
+.metadata
+bin
+
+# NetBeans specific files/directories
+.nbattrs
+
+# Miscellaneous
+*.log
+.clover
