@@ -1,6 +1,6 @@
-RichFaces and Bean Validation
+richfaces-validation: RichFaces and Bean Validation
 =======================================================
-Author: Lukas Fryc <https://community.jboss.org/people/lfryc>
+Author: [Lukas Fryc](https://community.jboss.org/people/lfryc)
 
 What is it?
 -----------
@@ -80,7 +80,7 @@ After successful deploy, you should see server log output similar to following:
 
 You can access the running application on URL
     
-    http://localhost:8080/jboss-as-richfaces-validation/
+[http://localhost:8080/jboss-as-richfaces-validation/](http://localhost:8080/jboss-as-richfaces-validation/)
 
 You can un-deploy the application by deleting the WAR from deployments
 directory or you can use the JBoss AS Maven plugin again:
@@ -130,7 +130,7 @@ After successful deploy, you should see server log output similar to following:
 
 You can access the running application on URL
     
-    http://localhost:8080/jboss-as-richfaces-validation/
+[http://localhost:8080/jboss-as-richfaces-validation/](http://localhost:8080/jboss-as-richfaces-validation/)
 
 
 Running the Arquillian tests
