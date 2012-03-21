@@ -64,7 +64,7 @@ After successful deploy, you should see server log output similar to following:
 
 You can access the running application on URL
     
-    [http://localhost:8080/jboss-as-tasks-jsf/](http://localhost:8080/jboss-as-tasks-jsf/)
+[http://localhost:8080/jboss-as-tasks-jsf/](http://localhost:8080/jboss-as-tasks-jsf/)
 
 You can un-deploy the application by deleting the WAR from deployments
 directory or you can use the JBoss AS Maven plugin again:
@@ -114,7 +114,7 @@ After successful deploy, you should see server log output similar to following:
 
 You can access the running application on URL
     
-   [http://localhost:8080/jboss-as-tasks-jsf/](http://localhost:8080/jboss-as-tasks-jsf/)
+[http://localhost:8080/jboss-as-tasks-jsf/](http://localhost:8080/jboss-as-tasks-jsf/)
 
 
 Running the Arquillian tests
