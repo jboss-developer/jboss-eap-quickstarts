@@ -11,9 +11,9 @@ import javax.inject.Named;
  * <p>
  * Holds current task in context of conversation
  * </p>
- * 
+ *
  * @author Lukas Fryc
- * 
+ *
  */
 @ConversationScoped
 public class CurrentTaskStore implements Serializable {
@@ -26,27 +26,27 @@ public class CurrentTaskStore implements Serializable {
      * <p>
      * Provides current task to the context available for injection using:
      * </p>
-     * 
+     *
      * <p>
      * <code>@Inject @CurrentTask currentTask;</code>
      * </p>
-     * 
+     *
      * <p>
      * or from the Expression Language context using an expression <code>#{currentTask}</code>.
      * </p>
-     * 
+     *
      * @return current authenticated user
      */
     @Produces
     @CurrentTask
-    @Named
+    @Named("currentTask")
     public Task get() {
         return currentTask;
     }
 
     /**
      * Setup current task
-     * 
+     *
      * @param currentTask task to setup as current
      */
     public void set(Task currentTask) {

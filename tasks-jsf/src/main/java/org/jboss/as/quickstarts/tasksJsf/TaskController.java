@@ -5,17 +5,16 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 /**
  * <p>
  * Basic operations for tasks owned by current user - additions, deletions/
  * </p>
- * 
+ *
  * @author Lukas Fryc
- * 
+ *
  */
 @RequestScoped
-@Named("tasks")
+@Named
 public class TaskController {
 
     @Inject
@@ -25,18 +24,30 @@ public class TaskController {
     TaskList taskList;
 
     /**
-     * Injects current user, which provided by {@link AuthController}.
+     * Injects current user, which is provided by {@link AuthController}.
      */
     @Inject
     @CurrentUser
     Instance<User> currentUser;
 
+    /**
+     * Injects current user stored in the conversation scope
+     */
     @Inject
     CurrentTaskStore currentTaskStore;
 
     /**
+     * Set the current task to the context
+     *
+     * @param task current task to be set to context
+     */
+    public void setCurrentTask(Task task) {
+        currentTaskStore.set(task);
+    }
+
+    /**
      * Creates new task and, if no task is selected as current, selects it.
-     * 
+     *
      * @param taskTitle
      */
     public void createTask(String taskTitle) {
@@ -50,7 +61,7 @@ public class TaskController {
 
     /**
      * Deletes given task
-     * 
+     *
      * @param task to delete
      */
     public void deleteTask(Task task) {
@@ -63,7 +74,7 @@ public class TaskController {
 
     /**
      * Deletes given task
-     * 
+     *
      * @param task to delete
      */
     public void deleteCurrentTask() {
