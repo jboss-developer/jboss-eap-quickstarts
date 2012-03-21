@@ -86,9 +86,9 @@ public class AuthController {
     }
 
     /**
-     * Returns true if user is logged
+     * Returns true if user is logged in
      *
-     * @return true if user is logged; false otherwise
+     * @return true if user is logged in; false otherwise
      */
     public boolean isLogged() {
         return authentication.getCurrentUser() != null;
