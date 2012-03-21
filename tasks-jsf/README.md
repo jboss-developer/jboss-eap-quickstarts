@@ -1,7 +1,7 @@
-tasks-jsf: JSF, JPA quickstart
+[tasks-jsf: JSF, JPA quickstart](http://localhost:8080/jboss-as-tasks-jsf/)
 ==============================
 
-Author: Lukas Fryc
+Author: [Lukas Fryc](https://community.jboss.org/people/lfryc)
 
 
 What is it?
