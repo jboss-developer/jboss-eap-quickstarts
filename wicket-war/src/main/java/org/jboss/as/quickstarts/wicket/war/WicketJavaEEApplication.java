@@ -21,13 +21,12 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.jboss.as.quickstarts.wicket.war.pages.InsertContact;
 import org.jboss.as.quickstarts.wicket.war.pages.ListContacts;
 import org.wicketstuff.javaee.injection.JavaEEComponentInjector;
-import org.wicketstuff.javaee.naming.global.AppJndiNamingStrategy;
 import org.wicketstuff.javaee.naming.global.ModuleJndiNamingStrategy;
 
 
 /**
  * 
- * @author Filippo Diotalevi
+ * @author Ondrej Zizka
  */
 public class WicketJavaEEApplication extends WebApplication
 {

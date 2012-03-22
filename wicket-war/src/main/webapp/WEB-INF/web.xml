@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-    <display-name>wicket-javaee-examples</display-name>
+    <display-name>JBoss AS Quickstart: Wicket WAR</display-name>
 
     <filter>
         <filter-name>Wicket</filter-name>
@@ -22,7 +22,7 @@
     <env-entry>
         <env-entry-name>welcomeMessage</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>@Welcome to: Wicket 1.x - JavaEE Sample application</env-entry-value>
+        <env-entry-value>@Welcome to: Wicket 1.x - JBoss AS Quickstart: Wicket WAR</env-entry-value>
     </env-entry>
 
 </web-app>

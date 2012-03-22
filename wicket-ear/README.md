@@ -1,5 +1,5 @@
-wicket-war: Wicket Framework used in a WAR.
-===========================================
+wicket-ear: Wicket Framework used in a WAR inside an EAR.
+=========================================================
 
 Author: Ondrej Zizka <ozizka@redhat.com>
 
@@ -16,7 +16,13 @@ Features used:
  * Injection of a value from web.xml using @Resource
  * Injection of a stateless session bean using @EJB
 
-This is an WAR version:
+This is an EAR version, with the following structure:
+
+* wicket-ear - parent module.
+** ejb: Contains EJB beans and JPA entities. Creates a .jar file.
+** war: Contains the Wicket web application, which uses the EJB beans. Creates a .war file.
+** ear: Packages the EJB JAR and WAR into an EAR. Creates an .ear file.
+
 
 
 System requirements
@@ -37,7 +43,7 @@ If you have not yet done so, you must [Configure Maven](../README.html/#mavencon
 Start the JBoss Server
 ----------------------
 
- * Follow the instructions here to [Start the JBoss Server with the _web_ profile](../README.html#startserverweb)
+ *  Follow the instructions here to [Start the JBoss Server with the _web_ profile](../README.html#startserverweb)
 
 
 Build and Deploy the Quickstart
@@ -50,7 +56,7 @@ Build and Deploy the Quickstart
 Access the application (For quickstarts that have a UI component)
 ----------------------
 
-Access the running application in a browser at the following URL:  [http://localhost:8080/jboss-as-wicket-war](http://localhost:8080/jboss-as-wicket-war)
+Access the running application in a browser at the following URL:  [http://localhost:8080/jboss-as-wicket-ear](http://localhost:8080/jboss-as-wicket-ear)
 
  * You will see a page with a table listing user entities. Initially, this table is empty.
  * By clicking a link, you can add more users.

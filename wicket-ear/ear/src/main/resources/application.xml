@@ -11,7 +11,7 @@
     <module>
         <web>
             <web-uri>wicket-javaee-examples-1.0.war</web-uri>
-            <context-root>wicket-javaee</context-root>
+            <context-root>jboss-as-wicket-ear</context-root>
         </web>
     </module>
 

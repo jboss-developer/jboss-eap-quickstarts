@@ -26,7 +26,7 @@ import org.wicketstuff.javaee.naming.global.AppJndiNamingStrategy;
 
 /**
  * 
- * @author Filippo Diotalevi
+ * @author Ondrej Zizka
  */
 public class WicketJavaEEApplication extends WebApplication
 {
