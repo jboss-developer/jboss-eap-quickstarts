@@ -3,7 +3,7 @@
              xsi:schemaLocation= "http://java.sun.com/xml/ns/
 					http://java.sun.com/xml/ns/application_1_4.xsd">
 
-    <display-name>Wicket Java EE integration</display-name>
+    <display-name>JBoss AS Quickstart: Wicket EAR</display-name>
 
     <module>
         <ejb>wicket-javaee-examples-1.0.jar</ejb>

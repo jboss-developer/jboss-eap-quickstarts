@@ -16,7 +16,7 @@ Features used:
  * Injection of a value from web.xml using @Resource
  * Injection of a stateless session bean using @EJB
 
-This is an WAR version:
+This is a WAR version.
 
 
 System requirements

@@ -6,7 +6,7 @@
 	<parent>
         <groupId>org.jboss.as.quickstart.wicket.ear</groupId>
         <artifactId>as7-quickstart-wicket-ear-parent</artifactId>
-        <version>1.0.0</version>
+        <version>7.1.1-SNAPSHOT</version>
 	</parent>
     
     <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
@@ -16,6 +16,8 @@
     
 	<build>
 		<plugins>
+            
+            <!-- EJB archive creation. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>
@@ -29,6 +31,17 @@
 					</archive>
 				</configuration>
 			</plugin>
+            
+            <!-- Skip JBoss AS plugin - only applicable for the EAR package. -->
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.1.0.Final</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            
 		</plugins>
 	</build>
     
