@@ -244,6 +244,8 @@ The following components are needed for only a small subset of the quickstarts. 
 
 * [Install and Configure the PostgreSQL Database](#postgresql): The PostgreSQL database is used for the distributed transaction quickstarts.
 
+* [Configure an XA Datasource Using the H2 Database ](#xadatasource): Some quickstarts require that you configure an XA datasource.
+
 * [Install and Configure Byteman](#byteman): A tool used to demonstrated crash recovery for distributed transaction quickstarts.
 
 
@@ -315,6 +317,88 @@ The following procedures describe how to add a user with the appropriate permiss
 6. When asked "What roles do you want this user to belong to?", enter:
 
         guest
+
+
+<a id="xadatasource"/>
+### Configure an XA Datasource Using the H2 Database 
+
+Some of the quickstarts require that you configure an XA datasource. This section describes how to do that using an H2 database.
+
+1. Create a management user as described above under [Add a Management User](#addmanagementuser). This gives you access to the JBoss Web Admin Console:
+
+2. Create a Datasource
+    * Go to the JBoss web console url <http://localhost:9990/console/> and login as the admin user you just created.
+    * Select the Profile tab (top right) and from the menu on the left choose Connector --> Datasources.
+    * Choose the XA Datasources tab. Click the Add button (top right) to create an XA Datasource:
+
+            Step 1/4:
+            Name: java:jboss/datasources/H2XADS1
+            JNDI Name: java:jboss/datasources/H2XADS1
+
+            Step 2/4: Select the default XA Driver (ie Name: h2 and Datasource Class: org.h2.jdbcx.JdbcDataSource)
+
+            Step 3/4: Add an single property to define the backing file for the database
+            Key: URL and Value: jdbc:h2:file:*/xaqs1;DB_CLOSE_ON_EXIT=FALSE
+
+            Step 4/4: Define Connection Settings (Username: sa and Password: sa)
+
+        Select the new XA Datasource and click the Attributes tab. Click the Enable button.
+
+3. There is one final attribute that needs setting which can only be done via the command shell. For each datasource you need to set the recovery credentials as follows:
+    * Go to the JBOSS_HOME/bin directory and start the command shell and type the following commands. You should see responses similar to the ones below.
+
+            [xyz@dev1 bin] $./jboss-cli.sh --connect
+            [standalone@localhost:9999 /] cd /subsystem=datasources/xa-data-source="java:jboss/datasources/H2XADS1"
+            [standalone@localhost:9999 xa-data-source=java:jboss/datasources/H2XADS1] :write-attribute(name="recovery-username",value="sa")
+            {
+                "outcome" => "success",
+                    "response-headers" => {
+                    "operation-requires-reload" => true,
+                    "process-state" => "reload-required"
+                }
+            }
+            [standalone@localhost:9999 xa-data-source=java:jboss/datasources/H2XADS1] :write-attribute(name="recovery-password",value="sa")
+            {
+                "outcome" => "success",
+                    "response-headers" => {
+                    "operation-requires-reload" => true,
+                    "process-state" => "reload-required"
+                }
+            }
+    * Now go back to the web console Runtime tab and select Server --> Configuration (from the left menu) and click the Reload button on the far left.
+    * At the end of this process you should end up with an entry similar to the following in your standalone-full.xml config file:
+
+                <xa-datasource jndi-name="java:jboss/datasources/H2XADS1" pool-name="java:jboss/datasources/H2XADS1" enabled="true" use-ccm="false">
+                    <xa-datasource-property name="URL">
+                        jdbc:h2:file:/tmp/xaqs1;DB_CLOSE_ON_EXIT=FALSE
+                    </xa-datasource-property>
+                    <driver> h2 </driver>
+                    <xa-pool>
+                        <is-same-rm-override> false </is-same-rm-override>
+                        <interleaving> false </interleaving>
+                        <pad-xid> false </pad-xid>
+                        <wrap-xa-resource> true </wrap-xa-resource>
+                    </xa-pool>
+                    <security>
+                        <user-name> sa </user-name>
+                        <password> sa </password>
+                    </security>
+                    <recovery>
+                        <recover-credential>
+                            <user-name> sa </user-name>
+                            <password> sa </password>
+                        </recover-credential>
+                    </recovery>
+                    <validation>
+                        <validate-on-match> false </validate-on-match>
+                        <background-validation> false </background-validation>
+                        <background-validation-millis> 0 </background-validation-millis>
+                    </validation>
+                    <statement>
+                        <prepared-statement-cache-size> 0 </prepared-statement-cache-size>
+                        <share-prepared-statements> false </share-prepared-statements>
+                    </statement>
+                </xa-datasource>
 
 
 <a id="postgresql"/>
@@ -500,16 +584,18 @@ _Byteman_ is a tool which simplifies tracing and testing of Java programs. Bytem
 
 When instructed to use Byteman to halt the application, perform the following steps:
  
-1. Find the appropriate configuration file for your operating system in the list below and make a backup copy.
+1. Find the appropriate configuration file for your operating system in the list below:
 
         For Linux: JBOSS_HOME/bin/standalone.conf 
         For Windows: JBOSS_HOME\bin\standalone.conf.bat
 
-2. The quickstart README should specify the text you need to append to the server configuration file.
+2. **Important**: Make a backup copy of this file before making any modifications!
 
-3. Open the configuration file and append the text specified by the quickstart to the end of the file. Make sure to replace the file paths with the correct location of your quickstarts and the _Byteman_ download. 
+3. The quickstart README should specify the text you need to append to the server configuration file.
 
-4. The following is an example of of the configuration changes needed for the _jta-crash-rec_ quickstart: 
+4. Open the configuration file and append the text specified by the quickstart to the end of the file. Make sure to replace the file paths with the correct location of your quickstarts and the _Byteman_ download. 
+
+5. The following is an example of of the configuration changes needed for the _jta-crash-rec_ quickstart: 
 
     For Linux, open the `JBOSS_HOME/bin/standalone.conf` file and append the following line:
 
@@ -518,6 +604,9 @@ When instructed to use Byteman to halt the application, perform the following st
 
         SET "JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byteman.jar=script:C:\PATH_TO_QUICKSTARTS\jta-crash-rec\src\main\scripts\xa.btm %JAVA_OPTS%"
 
-5. When you are done testing the quickstart, remember to restore the configuration file with the backup copy.
+
+#### Disable the Byteman Script
+
+When you are done testing the quickstart, remember to restore the configuration file with the backup copy you made in step 2 above.
 
 
