@@ -6,7 +6,7 @@ Author: Serge Pagop
 What is it?
 -----------
 
-In this example, you will learn how to deploy and run a simple Java EE 6 application named shopping-cart using stateful session bean. The purpose of the shopping-cart is to perform operations like (buy, checkout and getCartContents) for the customer. 
+In this example, you will learn how to deploy and run a simple Java EE 6 application named shopping-cart using stateful session bean. The purpose of the shopping-cart is to perform operations like buy, checkout and getCartContents for the customer. 
 The shopping-cart application consists of an enterprise component (server module), which performs the operations for the customer and a simple Java remote client (client module) that looks up the stateful bean via JNDI and invokes the methods on them.
 
 System requirements
