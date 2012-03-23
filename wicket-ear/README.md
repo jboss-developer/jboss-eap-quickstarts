@@ -18,10 +18,10 @@ Features used:
 
 This is an EAR version, with the following structure:
 
-* wicket-ear - parent module.
-** ejb: Contains EJB beans and JPA entities. Creates a `.jar` file.
-** war: Contains the Wicket web application, which uses the EJB beans. Creates a `.war` file.
-** ear: Packages the EJB JAR and WAR into an EAR. Creates an `.ear` file.
+* `wicket-ear` - parent module.
+** `ejb`: Contains EJB beans and JPA entities. Creates a `.jar` file.
+** `war`: Contains the Wicket web application, which uses the EJB beans. Creates a `.war` file.
+** `ear`: Packages the EJB JAR and WAR into an EAR. Creates an `.ear` file.
 
 
 
