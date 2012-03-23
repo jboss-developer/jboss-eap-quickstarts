@@ -9,7 +9,7 @@
         <version>7.1.1-SNAPSHOT</version>
     </parent>
     
-    <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
+    <artifactId>as7-quickstart-wicket-ear-ejb</artifactId>
     <packaging>ejb</packaging>
     
     <name>JBoss AS Quickstarts: Wicket EAR: EJB JAR</name>

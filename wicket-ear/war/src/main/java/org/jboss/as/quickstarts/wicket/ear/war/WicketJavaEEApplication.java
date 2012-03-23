@@ -40,7 +40,7 @@ public class WicketJavaEEApplication extends WebApplication
 	@Override
 	protected void init()
 	{
-        getComponentInstantiationListeners().add(new JavaEEComponentInjector(this, new AppJndiNamingStrategy("as7-quickstart-wicket-ear-ejbjar")));
+        getComponentInstantiationListeners().add(new JavaEEComponentInjector(this, new AppJndiNamingStrategy("as7-quickstart-wicket-ear-ejb")));
 		mountPage("/insert", InsertContact.class);
 	}
 }
