@@ -22,7 +22,6 @@
                 <artifactId>maven-ear-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <!-- Change this to 5 if you want to use with Java EE 5 container -->
                     <version>6</version>
                     <modules>
                         <webModule>
