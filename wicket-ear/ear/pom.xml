@@ -12,6 +12,27 @@
     <packaging>ear</packaging>
     
     <name>JBoss AS Quickstarts: Wicket EAR: EAR package</name>
+
+    
+    <dependencies>
+        
+        <!-- EJB JAR module. -->
+        <dependency>
+            <type>ejb</type>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- WAR module. -->
+        <dependency>
+            <type>war</type>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>as7-quickstart-wicket-ear-war</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+    
     
     <build>
         <plugins>
@@ -51,25 +72,5 @@
             
         </plugins>
     </build>
-    
-    
-    <dependencies>
-        
-        <!-- EJB JAR module. -->
-        <dependency>
-            <type>ejb</type>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <!-- WAR module. -->
-        <dependency>
-            <type>war</type>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>as7-quickstart-wicket-ear-war</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
     
 </project>

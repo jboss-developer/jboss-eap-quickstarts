@@ -13,6 +13,32 @@
     
     <name>JBoss AS Quickstarts: Wicket EAR: WAR</name>
     
+    <dependencies>
+        
+        <!-- Java EE 6 API. -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Wicket Java EE integration. -->
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-javaee-inject</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        
+        <!-- EJB JAR. -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
     <build>
         <resources>
             <resource>
@@ -43,30 +69,4 @@
         </plugins>
     </build>
    
-    <dependencies>
-        
-        <!-- Java EE 6 API. -->
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- Wicket Java EE integration. -->
-        <dependency>
-            <groupId>org.wicketstuff</groupId>
-            <artifactId>wicketstuff-javaee-inject</artifactId>
-            <version>1.5.4</version>
-        </dependency>
-        
-        <!-- EJB JAR. -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>as7-quickstart-wicket-ear-ejbjar</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-    
 </project>
