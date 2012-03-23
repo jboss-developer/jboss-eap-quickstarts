@@ -28,7 +28,6 @@
     
     <build>
         <plugins>
-            
             <!-- EJB archive creation. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
