@@ -12,9 +12,9 @@ This is an example of how to use Wicket Framework 1.5 with JBoss AS, leveraging 
 
 Features used:
 
- * Injection of @PersistenceContext
- * Injection of a value from web.xml using @Resource
- * Injection of a stateless session bean using @EJB
+ * Injection of `@PersistenceContext`
+ * Injection of a value from `web.xml` using `@Resource`
+ * Injection of a stateless session bean using `@EJB`
 
 This is a WAR version.
 

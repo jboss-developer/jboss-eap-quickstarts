@@ -12,16 +12,16 @@ This is an example of how to use Wicket Framework 1.5 with JBoss AS, leveraging 
 
 Features used:
 
- * Injection of @PersistenceContext
- * Injection of a value from web.xml using @Resource
- * Injection of a stateless session bean using @EJB
+ * Injection of `@PersistenceContext`
+ * Injection of a value from `web.xml` using `@Resource`
+ * Injection of a stateless session bean using `@EJB`
 
 This is an EAR version, with the following structure:
 
 * wicket-ear - parent module.
-** ejb: Contains EJB beans and JPA entities. Creates a .jar file.
-** war: Contains the Wicket web application, which uses the EJB beans. Creates a .war file.
-** ear: Packages the EJB JAR and WAR into an EAR. Creates an .ear file.
+** ejb: Contains EJB beans and JPA entities. Creates a `.jar` file.
+** war: Contains the Wicket web application, which uses the EJB beans. Creates a `.war` file.
+** ear: Packages the EJB JAR and WAR into an EAR. Creates an `.ear` file.
 
 
 
