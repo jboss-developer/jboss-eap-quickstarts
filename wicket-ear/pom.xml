@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>org.jboss.as.quickstart.wicket.ear</groupId>
+    <groupId>org.jboss.as.quickstart.wicket-ear</groupId>
     <artifactId>as7-quickstart-wicket-ear-parent</artifactId>
     <version>7.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
