@@ -16,12 +16,12 @@
     
     
     <properties>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.
-           Alternatively, use version 1.0.0.M5-redhat-1 which is a release certified to work with JBoss EAP 6. 
-           It requires you have access to the JBoss EAP 6 maven repository.
-      -->
-      <jboss.bom.version>1.0.0.M5</jboss.bom.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.
+            Alternatively, use version 1.0.0.M5-redhat-1 which is a release certified to work with JBoss EAP 6. 
+            It requires you have access to the JBoss EAP 6 maven repository.
+        -->
+        <jboss.bom.version>1.0.0.M5</jboss.bom.version>
     </properties>
     
     <dependencyManagement>
@@ -81,17 +81,18 @@
         </dependency>
 
 		<!-- Import the JPA API. -->
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         
     </dependencies>
 
     
     <build>
         <plugins>
+
             <!-- EJB archive creation. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -121,4 +122,3 @@
     </build>
     
 </project>
-

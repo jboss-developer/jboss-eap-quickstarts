@@ -47,13 +47,13 @@
                     <modules>
                         <webModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId    >as7-quickstart-wicket-ear-war</artifactId>
+                            <artifactId>as7-quickstart-wicket-ear-war</artifactId>
                             <bundleFileName>as7-quickstart-wicket-ear.war</bundleFileName>
                             <contextRoot>/jboss-as-wicket-ear</contextRoot>
                         </webModule>
                         <ejbModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId    >as7-quickstart-wicket-ear-ejb</artifactId>
+                            <artifactId>as7-quickstart-wicket-ear-ejb</artifactId>
                             <bundleFileName>as7-quickstart-wicket-ear-ejb.jar</bundleFileName>
                         </ejbModule>
                     </modules>
