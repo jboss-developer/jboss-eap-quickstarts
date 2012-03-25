@@ -27,62 +27,56 @@ import org.jboss.as.quickstarts.wicket.ear.ejbjar.dao.ContactDaoLocal;
 import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
 
 /**
- * 
+ *
  * @author Filippo Diotalevi
  */
-public class InsertContact extends WebPage
-{
+public class InsertContact extends WebPage {
 
-	private static final long serialVersionUID = 1L;
-	private Form<Contact> insertForm;
-	private String name;
-	private String email;
-    
-	//@EJB(lookup="java:app/ContactDaoBean")
-    @EJB(name="ContactDaoBean")
-	private ContactDaoLocal contactDao;
+    private static final long serialVersionUID = 1L;
+    private Form<Contact> insertForm;
+    private String name;
+    private String email;
 
-	public InsertContact()
-	{
-		add(new FeedbackPanel("feedback"));
+    @EJB(name = "ContactDaoBean")
+    private ContactDaoLocal contactDao;
 
-		insertForm = new Form<Contact>("insertForm")
-		{
 
-			private static final long serialVersionUID = 1L;
+    public InsertContact() {
+        add(new FeedbackPanel("feedback"));
 
-			@Override
-			protected void onSubmit()
-			{
-				contactDao.addContact(name, email);
-				setResponsePage(ListContacts.class);
-			}
-		};
+        insertForm = new Form<Contact>("insertForm") {
 
-		insertForm.add(new RequiredTextField<String>("name",
-			new PropertyModel<String>(this, "name")));
-		insertForm.add(new RequiredTextField<String>("email", new PropertyModel<String>(this,
-			"email")));
-		add(insertForm);
-	}
+            private static final long serialVersionUID = 1L;
 
-	public String getEmail()
-	{
-		return email;
-	}
+            @Override
+            protected void onSubmit() {
+                contactDao.addContact(name, email);
+                setResponsePage(ListContacts.class);
+            }
+        };
 
-	public void setEmail(String email)
-	{
-		this.email = email;
-	}
+        insertForm.add(new RequiredTextField<String>("name",
+                new PropertyModel<String>(this, "name")));
+        insertForm.add(new RequiredTextField<String>("email", new PropertyModel<String>(this,
+                "email")));
+        add(insertForm);
+    }
 
-	public String getName()
-	{
-		return name;
-	}
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

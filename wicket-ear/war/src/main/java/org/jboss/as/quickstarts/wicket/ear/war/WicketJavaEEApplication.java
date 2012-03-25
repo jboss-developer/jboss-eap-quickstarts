@@ -25,22 +25,20 @@ import org.wicketstuff.javaee.naming.global.AppJndiNamingStrategy;
 
 
 /**
- * 
+ *
  * @author Ondrej Zizka
  */
-public class WicketJavaEEApplication extends WebApplication
-{
+public class WicketJavaEEApplication extends WebApplication {
 
-	@Override
-	public Class<? extends Page> getHomePage()
-	{
-		return ListContacts.class;
-	}
+    @Override
+    public Class<? extends Page> getHomePage() {
+        return ListContacts.class;
+    }
 
-	@Override
-	protected void init()
-	{
+    @Override
+    protected void init() {
         getComponentInstantiationListeners().add(new JavaEEComponentInjector(this, new AppJndiNamingStrategy("as7-quickstart-wicket-ear-ejb")));
-		mountPage("/insert", InsertContact.class);
-	}
+        mountPage("/insert", InsertContact.class);
+    }
+
 }

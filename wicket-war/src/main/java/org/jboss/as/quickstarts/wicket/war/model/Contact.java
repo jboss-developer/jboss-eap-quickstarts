@@ -23,88 +23,75 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 /**
- * 
+ *
  * @author Filippo Diotalevi
  */
 @Entity
-public class Contact implements Serializable
-{
+public class Contact implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String name;
-	private String email;
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private String name;
+    private String email;
 
-	public Contact()
-	{
-	}
+    public Contact() {
+    }
 
-	public Contact(Long id, String name, String email)
-	{
-		this.id = id;
-		this.name = name;
-		this.email = email;
-	}
+    public Contact(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
-	public String getEmail()
-	{
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email)
-	{
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId()
-	{
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-		{
-			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final Contact other = (Contact)obj;
-		if (id != other.id && (id == null || !id.equals(other.id)))
-		{
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Contact other = (Contact) obj;
+        if (id != other.id && (id == null || !id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public int hashCode()
-	{
-		int hash = 7;
-		hash = 67 * hash + (id != null ? id.hashCode() : 0);
-		hash = 67 * hash + (name != null ? name.hashCode() : 0);
-		hash = 67 * hash + (email != null ? email.hashCode() : 0);
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (id != null ? id.hashCode() : 0);
+        hash = 67 * hash + (name != null ? name.hashCode() : 0);
+        hash = 67 * hash + (email != null ? email.hashCode() : 0);
+        return hash;
+    }
 }

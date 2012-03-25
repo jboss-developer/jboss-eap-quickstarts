@@ -27,47 +27,46 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.jboss.as.quickstarts.wicket.ear.ejbjar.dao.ContactDaoLocal;
 import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
 
+
 /**
- * 
+ *
  * @author Filippo Diotalevi
  */
-public class ListContacts extends WebPage
-{
+public class ListContacts extends WebPage {
 
-	private static final long serialVersionUID = 1L;
-	@EJB(name = "ContactDaoBean")
-	private ContactDaoLocal contactDao;
-	@Resource(name = "welcomeMessage")
-	private String welcome;
+    private static final long serialVersionUID = 1L;
 
-	public ListContacts()
-	{
+    @EJB(name = "ContactDaoBean")
+    private ContactDaoLocal contactDao;
 
-		add(new Label("welcomeMessage", welcome));
-		add(new ListView<Contact>("contacts", contactDao.getContacts())
-		{
+    @Resource(name = "welcomeMessage")
+    private String welcome;
 
-			private static final long serialVersionUID = 1L;
 
-			@Override
-			protected void populateItem(final ListItem<Contact> item)
-			{
-				Contact contact = item.getModelObject();
-				item.add(new Label("name", contact.getName()));
-				item.add(new Label("email", contact.getEmail()));
-				item.add(new Link<Contact>("delete", item.getModel())
-				{
+    public ListContacts() {
 
-					private static final long serialVersionUID = 1L;
+        add(new Label("welcomeMessage", welcome));
+        add(new ListView<Contact>("contacts", contactDao.getContacts()) {
 
-					@Override
-					public void onClick()
-					{
-						contactDao.remove(item.getModelObject());
-						setResponsePage(ListContacts.class);
-					}
-				});
-			}
-		});
-	}
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(final ListItem<Contact> item) {
+                Contact contact = item.getModelObject();
+                item.add(new Label("name", contact.getName()));
+                item.add(new Label("email", contact.getEmail()));
+                item.add(new Link<Contact>("delete", item.getModel()) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onClick() {
+                        contactDao.remove(item.getModelObject());
+                        setResponsePage(ListContacts.class);
+                    }
+                });
+            }
+        });
+    }
+
 }

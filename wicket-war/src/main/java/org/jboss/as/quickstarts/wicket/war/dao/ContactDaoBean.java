@@ -25,52 +25,45 @@ import javax.persistence.PersistenceContext;
 import org.jboss.as.quickstarts.wicket.war.model.Contact;
 
 /**
- * 
- * @author Filippo Diotalevi
+ * A bean which manages Contact entities.
  */
 @Stateless
-public class ContactDaoBean implements ContactDaoLocal
-{
+public class ContactDaoBean implements ContactDaoLocal {
 
-	@PersistenceContext(name="myEMF")
-	private EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Contact> getContacts()
-	{
-		return em.createQuery("SELECT c FROM Contact c").getResultList();
-	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Contact getContact(Long id)
-	{
-		return em.find(Contact.class, id);
-	}
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Contact> getContacts() {
+        return em.createQuery("SELECT c FROM Contact c").getResultList();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addContact(String name, String email)
-	{
-		em.merge(new Contact(null, name, email));
-	}
+    /**
+     * Get Contact by ID.
+     */
+    @Override
+    public Contact getContact(Long id) {
+        return em.find(Contact.class, id);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void remove(Contact modelObject)
-	{
-		Contact managed = em.merge(modelObject);
-		em.remove(managed);
-		em.flush();
-	}
+    /**
+     * Add a new Contact.
+     */
+    @Override
+    public void addContact(String name, String email) {
+        em.merge(new Contact(null, name, email));
+    }
+
+    /**
+     * Remove a Contact.
+     */
+    @Override
+    public void remove(Contact modelObject) {
+        Contact managed = em.merge(modelObject);
+        em.remove(managed);
+        em.flush();
+    }
+    
 }
