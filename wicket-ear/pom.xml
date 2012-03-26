@@ -34,7 +34,8 @@
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
         <!-- <jboss.spec.version>3.0.0.Beta1-redhat-1</jboss.spec.version> -->
-        <!-- Specify the version of Wicket and Wicket CDI integration we will use -->
+        <!-- Specify the version of Wicket and Wicket CDI integration we 
+            will use -->
         <wicket.version>1.5.5</wicket.version>
         <wicket.cdi.version>1.2</wicket.cdi.version>
     </properties>
@@ -55,6 +56,13 @@
                 <version>${jboss.spec.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Wicket -->
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-core</artifactId>
+                <version>${wicket.version}</version>
             </dependency>
 
             <!-- Wicket Java EE integration. -->
