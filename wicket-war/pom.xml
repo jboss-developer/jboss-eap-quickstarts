@@ -17,7 +17,7 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <wicket.version>1.5.4</wicket.version>
+        <wicket.version>1.5.5</wicket.version>
     </properties>
 
 

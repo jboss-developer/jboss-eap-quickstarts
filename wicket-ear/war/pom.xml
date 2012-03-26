@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-javaee-inject</artifactId>
-            <version>1.5.4</version>
+            <version>1.5.5</version>
         </dependency>
         
         <!-- EJB JAR. -->
