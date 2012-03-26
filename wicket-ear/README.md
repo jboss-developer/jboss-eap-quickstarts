@@ -3,8 +3,6 @@ wicket-ear: Wicket Framework used in a WAR inside an EAR.
 
 Author: Ondrej Zizka <ozizka@redhat.com>
 
-
-
 What is it?
 -----------
 
@@ -24,7 +22,6 @@ This is an EAR version, with the following structure:
 ** `ear`: Packages the EJB JAR and WAR into an EAR. Creates an `.ear` file.
 
 
-
 System requirements
 -------------------
 
@@ -37,7 +34,6 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](../README.html/#mavenconfiguration) before testing the quickstarts.
-
 
 
 Start the JBoss Server
