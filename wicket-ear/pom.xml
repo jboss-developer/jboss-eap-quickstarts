@@ -54,7 +54,7 @@
                 <version>7.1.0.Final</version>
                 <!-- Specify the artifact to deploy. -->
                 <configuration>
-                    <groupId>org.jboss.as.quickstart.wicket.ear</groupId>
+                    <groupId>org.jboss.as.quickstart.wicket-ear</groupId>
                     <artifactId>as7-quickstart-wicket-ear-ear</artifactId>
                     <skip>true</skip>
                 </configuration>

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.wicket.ear.ejbjar.dao;
+package org.jboss.as.quickstarts.wicketWar.dao;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
+import org.jboss.as.quickstarts.wicketWar.model.Contact;
 
 /**
  * A bean which manages Contact entities.
@@ -33,7 +33,7 @@ public class ContactDaoBean implements ContactDaoLocal {
     @PersistenceContext
     private EntityManager em;
 
-    
+
     @Override
     @SuppressWarnings("unchecked")
     public List<Contact> getContacts() {

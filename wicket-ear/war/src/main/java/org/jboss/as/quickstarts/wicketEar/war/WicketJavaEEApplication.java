@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.wicket.war;
+package org.jboss.as.quickstarts.wicketEar.war;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.jboss.as.quickstarts.wicket.war.pages.InsertContact;
-import org.jboss.as.quickstarts.wicket.war.pages.ListContacts;
+import org.jboss.as.quickstarts.wicketEar.war.pages.InsertContact;
+import org.jboss.as.quickstarts.wicketEar.war.pages.ListContacts;
 import org.wicketstuff.javaee.injection.JavaEEComponentInjector;
-import org.wicketstuff.javaee.naming.global.ModuleJndiNamingStrategy;
+import org.wicketstuff.javaee.naming.global.AppJndiNamingStrategy;
 
 
 /**
@@ -37,8 +37,8 @@ public class WicketJavaEEApplication extends WebApplication {
 
     @Override
     protected void init() {
-        getComponentInstantiationListeners().add(new JavaEEComponentInjector(this, new ModuleJndiNamingStrategy()));
+        getComponentInstantiationListeners().add(new JavaEEComponentInjector(this, new AppJndiNamingStrategy("as7-quickstart-wicket-ear-ejb")));
         mountPage("/insert", InsertContact.class);
     }
-    
+
 }

@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.wicket.ear.ejbjar.dao;
+package org.jboss.as.quickstarts.wicketWar.dao;
 
 import java.util.List;
 
 import javax.ejb.Local;
 
-import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
+import org.jboss.as.quickstarts.wicketWar.model.Contact;
 
 /**
  *
@@ -30,14 +30,14 @@ import org.jboss.as.quickstarts.wicket.ear.ejbjar.model.Contact;
 public interface ContactDaoLocal {
 
     /**
-     * Returns the currently available contacts
+     * Returns the currently available contacts.
      *
      * @return every contact in the database
      */
     public List<Contact> getContacts();
 
     /**
-     * Returns a specific Contact from DB
+     * Returns a specific Contact from DB.
      *
      * @param id The Id for the Contact
      * @return The specified Contact object
@@ -45,7 +45,7 @@ public interface ContactDaoLocal {
     public Contact getContact(Long id);
 
     /**
-     * Persist a new Contact in the DB
+     * Persist a new Contact in the DB.
      *
      * @param name The name of the new Contact
      * @param email The e-mail address of the new Contact
@@ -53,10 +53,9 @@ public interface ContactDaoLocal {
     public void addContact(String name, String email);
 
     /**
-     * Removes a specific item from the DB
+     * Removes a specific item from the DB.
      *
      * @param modelObject The specific Contact object, which we wants to remove
      */
     public void remove(Contact modelObject);
-
 }

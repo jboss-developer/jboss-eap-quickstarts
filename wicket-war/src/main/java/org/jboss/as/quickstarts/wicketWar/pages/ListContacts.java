@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.wicket.war.pages;
+package org.jboss.as.quickstarts.wicketWar.pages;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -24,8 +24,8 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.jboss.as.quickstarts.wicket.war.dao.ContactDaoLocal;
-import org.jboss.as.quickstarts.wicket.war.model.Contact;
+import org.jboss.as.quickstarts.wicketWar.dao.ContactDaoLocal;
+import org.jboss.as.quickstarts.wicketWar.model.Contact;
 
 /**
  *
