@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
 
-    <display-name>JBoss AS Quickstart: Wicket EAR</display-name>
+    <display-name>JBoss AS Quickstart: Wicket WAR</display-name>
 
     <!-- Enable Wicket -->
     <filter>
@@ -13,7 +13,7 @@
             <!-- Specify the "entry point" for Wicket to configure itself 
                 from -->
             <param-name>applicationClassName</param-name>
-            <param-value>org.jboss.as.quickstarts.wicketEar.war.WicketJavaEEApplication</param-value>
+            <param-value>org.jboss.as.quickstarts.wicketWar.WicketJavaEEApplication</param-value>
         </init-param>
     </filter>
 
