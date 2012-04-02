@@ -30,11 +30,9 @@ Follow these steps to build, deploy and run the quick start.
 
 1. Optional: Configure AS7/EAP6 to start with a different locale.
 
-   To start AS7/EAP6 with a different locale than the system default
-   
-    1. Edit the `$JBOSS_HOME/bin/standalone.conf` and append the lines to add the parameters for 
-    the required country and language.  It is recommended that a backup copy be made of this file
-	to restore to in case of difficulties.
+   To start AS7/EAP6 with a different locale than the system default, edit the `$JBOSS_HOME/bin/standalone.conf` 
+   and append the lines to add the JVM parameters for the required country and language.  It is recommended that a 
+   backup copy be made of this file to restore to in case of difficulties or when testing is complete.
     
       Eg. Germany and German, `DE` and `de`.
     
@@ -45,7 +43,7 @@ Follow these steps to build, deploy and run the quick start.
 
             JAVA_OPTS="$JAVA_OPTS -Duser.country=DE -Duser.language=de"	  
 
-      Refer to [http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale](http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale) 
+      Refer to <http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale>
       
 1. Start JBoss AS 7 (or EAP 6):
 
@@ -67,7 +65,7 @@ Once deployed, you can access the quick start using the following URLs.
 
    Demonstrates simple use of localised messages (with parameter) and logging.
 
-   Example: [http://localhost:8080/jboss-as-logging-tools/rest/greetings/Harold](http://localhost:8080/jboss-as-logging-tools/rest/greetings/Harold)
+   Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/Harold>
 
    * returns a localised "hello `name`" string where `name` is the last component of the URL.
    * logs a localised "Hello message sent"
@@ -77,7 +75,7 @@ Once deployed, you can access the quick start using the following URLs.
    Demonstrates how to obtain a message bundle for a specified locale and how to throw a localised
    exceptions. Note that the localised exception is a wrapper around `WebApplicationException`.
 
-   Example: [http://localhost:8080/jboss-as-logging-tools/rest/greetings/fr-FR/Harold](http://localhost:8080/jboss-as-logging-tools/rest/greetings/fr-FR/Harold)
+   Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/fr-FR/Harold>
       
    * returns a localised "hello `name`" string where `name` is the last component of the URL and
      the locale used is the one supplied in the `locale` URL.
@@ -94,7 +92,7 @@ Once deployed, you can access the quick start using the following URLs.
    
    Demonstrates throwing a localised exception with another exception specified as the cause.
    
-   Example: [http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme](http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme)
+   Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme>
    
    * attempts divide by zero, catches exception and throws localised one.
    
@@ -103,7 +101,7 @@ Once deployed, you can access the quick start using the following URLs.
    Demonstrates how to pass parameters through to the constructor of a localised exception, and
    how to specify an exception as a cause of a log message.
 
-   Example: [http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/25-12-2012](http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/25-12-2012)
+   Example: <http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/25-12-2012>
    
    * attempts to turn the `targetdate` URL component into a date object using the format `dd-MM-yyyy`
    * returns number of days (as an integer) until that date
