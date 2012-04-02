@@ -7,11 +7,10 @@ import org.jboss.logging.Messages;
 import org.jboss.logging.Param;
 
 @org.jboss.logging.MessageBundle(projectCode = "GRTDATES")
-public interface DateExceptionsBundle 
-{
-	DateExceptionsBundle EXCEPTIONS = Messages.getBundle(DateExceptionsBundle.class);
+public interface DateExceptionsBundle {
+    DateExceptionsBundle EXCEPTIONS = Messages.getBundle(DateExceptionsBundle.class);
 
-	@Message(id=7, value = "The date you sent me isn't valid, '%s'.  Sorry.")
-	ParseException targetDateStringDidntParse(String dateString, @Param int errorOffset);	
+    @Message(id = 7, value = "The date you sent me isn't valid, '%s'.  Sorry.")
+    ParseException targetDateStringDidntParse(String dateString, @Param int errorOffset);
 
 }

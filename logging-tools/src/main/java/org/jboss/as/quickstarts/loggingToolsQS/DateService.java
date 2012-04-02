@@ -15,57 +15,49 @@ import javax.ws.rs.core.Response;
 import org.jboss.as.quickstarts.loggingToolsQS.exceptions.DateExceptionsBundle;
 import org.jboss.as.quickstarts.loggingToolsQS.loggers.DateLogger;
 
-
-
-
 /**
- * A simple REST service which says hello in different languages
- * 
+ * A simple REST service which returns the number of days until a date and provides localised logging of the activity
+ *
  * @author dmison@me.com
- * 
+ *
  */
 
 @Path("dates")
-public class DateService 
-{
+public class DateService {
 
-	@GET
-	@Path("daysuntil/{targetdate}")
-	public int showDaysUntil(@PathParam("targetdate") String targetdate)
-	{
-		DateLogger.LOGGER.logDaysUntilRequest(targetdate);
-		
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-		Date target = null;
-		Date now = new Date();
-		
-		float days = 0;
-		
-		try 
-		{
-			target = df.parse(targetdate);
-			days = (float)target.getTime() - now.getTime();  
-			days = days / (1000*60*60*24);	//turn milliseconds into days
-		} 
-		catch (ParseException ex) 
-		{
-			//create localised ParseException using method from bundle with details from ex
-			ParseException nex = DateExceptionsBundle.EXCEPTIONS.targetDateStringDidntParse(targetdate, ex.getErrorOffset());
+    @GET
+    @Path("daysuntil/{targetdate}")
+    public int showDaysUntil(@PathParam("targetdate") String targetdate) {
+        DateLogger.LOGGER.logDaysUntilRequest(targetdate);
 
-			//log a message using nex as the cause
-			DateLogger.LOGGER.logStringCouldntParseAsDate(targetdate, nex);
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date target = null;
+        Date now = new Date();
 
-			//throw a WebApplicationException (400) with the localised message from nex
-			throw new WebApplicationException(Response.status(400)
-					.entity(nex.getMessage())
-					.type(MediaType.TEXT_PLAIN)
-					.build());
-		}
-			
-		
-		return Math.round(days);
-	}
-	
-	
+        float days = 0;
+
+        try {
+            target = df.parse(targetdate);
+            days = (float) target.getTime() - now.getTime();
+            days = days / (1000 * 60 * 60 * 24); // turn milliseconds into days
+        } catch (ParseException ex) {
+            // ** DISCLAIMER **
+            // This example is contrived and overly verbose for the purposes of showing the
+            // different logging methods. It's generally not recommended to recreate exceptions
+            // or log exceptions that are being thrown.
+
+            // create localized ParseException using method from bundle with details from ex
+            ParseException nex = DateExceptionsBundle.EXCEPTIONS.targetDateStringDidntParse(targetdate, ex.getErrorOffset());
+
+            // log a message using nex as the cause
+            DateLogger.LOGGER.logStringCouldntParseAsDate(targetdate, nex);
+
+            // throw a WebApplicationException (400) with the localized message from nex
+            throw new WebApplicationException(Response.status(400).entity(nex.getLocalizedMessage()).type(MediaType.TEXT_PLAIN)
+                    .build());
+        }
+
+        return Math.round(days);
+    }
 
 }

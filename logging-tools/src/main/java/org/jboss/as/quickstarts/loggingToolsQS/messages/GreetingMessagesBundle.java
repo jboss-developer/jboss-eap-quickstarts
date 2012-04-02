@@ -4,13 +4,11 @@ import org.jboss.logging.Message;
 import org.jboss.logging.MessageBundle;
 import org.jboss.logging.Messages;
 
+@MessageBundle(projectCode = "GREETER")
+public interface GreetingMessagesBundle {
+    GreetingMessagesBundle MESSAGES = Messages.getBundle(GreetingMessagesBundle.class);
 
-@MessageBundle(projectCode="GREETER")
-public interface GreetingMessagesBundle 
-{
-	GreetingMessagesBundle MESSAGES = Messages.getBundle(GreetingMessagesBundle.class);
-	
-	@Message(value = "Hello %s.")
-	String helloToYou(String name);
-	
+    @Message(value = "Hello %s.")
+    String helloToYou(String name);
+
 }
