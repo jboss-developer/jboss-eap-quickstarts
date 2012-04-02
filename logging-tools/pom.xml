@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>logging-tools-qs</artifactId>
-   <version>7.0.2-SNAPSHOT</version>
+   <artifactId>jboss-as-logging-tools</artifactId>
+   <version>7.1.1-SNAPSHOT</version>
    <packaging>war</packaging>
-   <name>JBoss AS Quickstarts: logging-tools-qs</name>
-   <description>JBoss AS Quickstarts: Helloworld using JAX-RS</description>
+   <name>JBoss AS Quickstarts: jboss-as-logging-tools</name>
+   <description>JBoss AS Quickstarts: Demonstration of jboss-logging-tools using JAX-RS</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
@@ -109,7 +109,7 @@
             annotation processors -->
          <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.3.2</version>
+            <version>2.3.1</version>
             <configuration>
                <source>1.6</source>
                <target>1.6</target>
