@@ -90,7 +90,8 @@ Once deployed, you can access the quick start using the following URLs.
    
 ### http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme
    
-   Demonstrates throwing a localised exception with another exception specified as the cause.
+   Demonstrates throwing a localised exception with another exception specified as the cause.  This is a 
+   completely contrived example.
    
    Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme>
    
