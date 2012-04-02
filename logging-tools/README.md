@@ -6,9 +6,9 @@ Authors: Darrin Mison dmison@me.com (dmison@redhat.com)
 
 This quick start demonstrates the use of JBoss Logging Tools to create internationalized loggers,
 exceptions, and generic messages; and then provide localizations for them. This is done using a
-simple JAX-RS service. Translations in French(fr-FR), German(de-DE), Japanese(ja-JP) and Swedish
-(sv-SE) are provided courtesy of translate.google.com for demonstration. My apologies if they are
-less than ideal translations.
+simple JAX-RS service. Translations in French(fr-FR), German(de-DE), and Swedish (sv-SE) are
+provided courtesy of translate.google.com for demonstration. My apologies if they are less than
+ideal translations.
 
 Once the quick start is deployed you can access it using URLs documented below.
 
@@ -34,26 +34,26 @@ Follow these steps to build, deploy and run the quick start.
    and append the lines to add the JVM parameters for the required country and language.  It is recommended that a 
    backup copy be made of this file to restore to in case of difficulties or when testing is complete.
     
-      Eg. Germany and German, `DE` and `de`.
+   Eg. Germany and German, `DE` and `de`.
     
-            JAVA_OPTS="$JAVA_OPTS -Duser.country=DE"
-            JAVA_OPTS="$JAVA_OPTS -Duser.language=de"
+        JAVA_OPTS="$JAVA_OPTS -Duser.country=DE"
+        JAVA_OPTS="$JAVA_OPTS -Duser.language=de"
 
-      This can be done as a single line if you prefer:
+    This can be done as a single line if you prefer:
 
-            JAVA_OPTS="$JAVA_OPTS -Duser.country=DE -Duser.language=de"	  
+        JAVA_OPTS="$JAVA_OPTS -Duser.country=DE -Duser.language=de"	  
 
-      Refer to <http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale>
+     Refer to <http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale>
       
-1. Start JBoss AS 7 (or EAP 6):
+2. Start JBoss AS 7 (or EAP 6):
 
          $JBOSS_HOME/bin/standalone.sh
 
-2. Build the application
+3. Build the application
 
          mvn clean package
 	   
-3. Deploy the application 
+4. Deploy the application 
 
          mvn jboss-as:deploy
 	   
