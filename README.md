@@ -65,6 +65,7 @@ Quickstarts with tutorials in the [Getting Started Developing Applications Guide
 | [jax-rs-client](jax-rs-client/README.html "jax-rs-client") | JAX-RS | Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS | Intermediate | helloworld-rs |
 | [jta-crash-rec](jta-crash-rec/README.html "jta-crash-rec") | JTA, Crash Recovery | Uses Java Transaction API and JBoss Transactions to demonstrate recovery of a crashed transaction | Advanced | cmt |
 | [jts](jts/README.html "jts") | JTS | Uses Java Transaction Service (JTS) to coordinate distributed transactions | Intermediate | cmt |
+| [jts-distributed-crash-rec](jts-distributed-crash-rec/README.html "jts-distributed-crash-rec") | JTS | Demonstrates recovery of distributed crashed components | Advanced | jts |
 | [kitchensink**](kitchensink/README.html "kitchensink") | CDI, JSF, JPA, EJB, JPA, JAX-RS, BV | An example that incorporates multiple technologies | Beginner | None |
 | [kitchensink-ear](kitchensink-ear/README.html "kitchensink-ear")  | EAR | Based on kitchensink, but deployed as an EAR | Beginner | None |
 | [kitchensink-html5-mobile](kitchensink-html5-mobile/README.html "kitchensink-html5-mobile") | HTML5 | Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers | Beginner | None |
@@ -505,7 +506,7 @@ Use the following steps to install and configure PostgreSQL on Windows:
         \q
 4.  Test the connection to the database using the TCP connection as user `'sa'`. This validates that the change to `pg_hba.conf` was made correctly: 
 
-        psql -h 127.0.0.1 -U sa test1`
+        psql -h 127.0.0.1 -U sa test1
 
 #### Add the PostgreSQL Module to JBossAS
 

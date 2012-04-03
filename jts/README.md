@@ -2,8 +2,11 @@ jts: Java Transaction Service - Distributed EJB Transactions Across Multiple Con
 ======================================================================================
 Author: Tom Jenkinson
 
-What is it?
------------
+## Pre-requisites
+
+Developers should be familiar with the concepts introduced in the _cmt_ quickstart.
+
+## What is it?
 
 This example demonstrates how to perform distributed transactions in an application. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. ACID meaning:
 
@@ -12,25 +15,41 @@ This example demonstrates how to perform distributed transactions in an applicat
 * Isolated
 * Durable.
 
-The example uses Java Transaction Service (JTS) to propagate a transaction context across two Container-Managed Transaction (CMT) EJBs that, although deployed in separate servers, participate in the same transaction. In this example, one server processes the Customer and Account data and the other server processes the Invoice data.
+The example uses Java Transaction Service (JTS) to propagate a transaction context across 
+two Container-Managed Transaction (CMT) EJBs that, although deployed in separate servers,
+participate in the same transaction. In this example, one server processes the 
+Customer and Account data and the other server processes the Invoice data.
+  
+The code base is essentially the same as the _cmt_ quickstart, however in this case the <code>InvoiceManager</code>
+has been separated to a different deployment archive to demonstrate the usage of JTS. You can see the changes in the 
+following ways:
 
-The example expects the EJBs to be deployed onto the same physical machine. This is not a restriction of JTS and the example can easily be converted to run on separate machines by editing the hostname value for the InvoiceManagerEJB in org.jboss.as.quickstarts.cmt.jts.ejb.AccountManagerEJB.
+1.	cmt/src/main/java/org/jboss/as/quickstarts/cmt/ejb/InvoiceManagerEJB.java is moved to:
+	application-component-2/src/main/java/org/jboss/as/quickstarts/cmt/jts/ejb/InvoiceManagerEJB
+2.	cmt/src/main/java/org/jboss/as/quickstarts/cmt/ejb/CustomerManagerEJB.java is moved to:
+	jts/application-component-1/src/main/java/org/jboss/as/quickstarts/cmt/jts/ejb/CustomerManagerEJB.java
+	
+The changes to CustomerManagerEJB are purely to accommodate the fact that InvoiceManager is now distributed.
 
-The example builds upon the `cmt` quickstart. Once again, a simple MDB has been provided that prints out the messages that are sent. This is not a transactional MDB and is purely provided for debugging purposes.
+You will see that the CustomerManagerEJB uses the EJB home for the remote EJB, this is expected
+to connect to remote EJBs. The example expects the EJBs to be deployed onto the same physical machine. This is not a 
+restriction of JTS and the example can easily be converted to run on separate machines by 
+editing the hostname value for the InvoiceManagerEJB in org.jboss.as.quickstarts.cmt.jts.ejb.CustomerManagerEJB.
 
-You will see that the AccountManagerEJB uses the EJB home for the remote EJB. This is expected to connect to remote EJBs and could be simplified if the EJB is deployed locally.
+A simple MDB has been provided that prints out the messages sent but this is not a 
+transactional MDB and is purely provided for debugging purposes.
 
-This example uses a JMS connection factory and defines a queue named `JTSQueue`. 
+After users complete this quickstart, they are invited to run through the following quickstart:
 
+1. _jts-distributed-crash-rec_ - The crash recovery quickstart builds upon the _jts_ quickstart by demonstrating the 
+	fault tolerance of JBossAS.
 
-System requirements
--------------------
+## System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
 The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
 
- 
 Configure Maven
 ---------------
 
@@ -59,7 +78,12 @@ The application servers should both be configured as follows:
                 <!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING -->
                 <jts/>
             </subsystem>
-3. Make a copy of the this JBoss directory structure to use for the second server.
+3. Make a copy of this JBoss directory structure to use for the second server.
+
+4. Application server 1 must be configured to use PostgreSQL as per the instructions in [PostgreSQL] (../README.html/#postgresql).
+
+5.	IMPORTANT: After you have finished with the quickstart, if you no longer wish to use JTS, 
+	it is important to restore your backup from step 1 above.
 
 
 Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers
@@ -75,52 +99,19 @@ If you are using windows
     Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
     Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
 
-
 Build and Deploy the Quickstart
 -------------------------
 
-Since this quickstart builds two separate components, you can not use the standard *Build and Deploy* commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.html/#buildanddeploy) for complete instructions and additional options._
 
-Make sure you have started the two separate JBoss servers. See the instructions in the previous section.
 
-To deploy the application, you first need to produce the archives to deploy using the following Maven goals. 
-Note that `application-component-2` must be built first as it provides an EJB client to `application-component-1`. 
-Also note that `application-component-2` must be "installed".
+1. Make sure you have started the JBoss Server with the PostgreSQL driver
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to build and deploy the archive:
 
-2. Open a command line and navigate to the `jts` quickstart directory
-3. Install application-component-2:
-    * Navigate to the application-component-2 subdirectory:
+            mvn clean package jboss-as:deploy
 
-            cd QUICKSTART_HOME/jts/application-component-2
-    * Install the component
-      For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-                mvn install -s PATH_TO_QUICKSTARTS/example-settings.xml
-
-      For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
-
-                mvn install
-4. Build application-component-1:
-    * Navigate to the application-component-1 subdirectory:
-          cd QUICKSTART_HOME/jts/application-component-1
-    * Build the component
-        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-                mvn clean package -s PATH_TO_QUICKSTARTS/example-settings.xml
-
-        For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
-
-                mvn package
-5. Deploy the artifacts to the JBoss application server. Since this application is written with little failure detection, it is best to deploy `application-component-2` first so that when `application-component-1` is deployed, it can resolve the EJB from the other container.
-    * Deploy application-component-2:
-
-            cd QUICKSTART_HOME/jts/application-component-2
-            mvn jboss-as:deploy
-    * Deploy application-component-1:
-
-            cd QUICKSTART_HOME/jts/application-component-1
-            mvn jboss-as:deploy
-
+4. This will deploy `application-component-1/target/jboss-as-jts-application-component-1.war` and `application-component-2/target/jboss-as-jts-application-component-2.jar` to the running instance of the server.
 
 Access the application 
 ---------------------
@@ -129,13 +120,25 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 
 When you enter a name and click to "invoice" that customer, you will see the following in the application server 1 console:
     
-    12:09:38,424 INFO  [org.jboss.ejb.client] (http-localhost-127.0.0.1-8080-1) JBoss EJB Client version 1.0.0.Beta11
-    12:09:38,513 ERROR [jacorb.orb] (http-localhost-127.0.0.1-8080-1) no adapter activator exists for jboss-as-jts-application-component-2&%InvoiceManagerEJBImpl&%home
-    12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-1 (group:HornetQ-client-global-threads-1095034080)) Received Message: Created customer named: Tom
+    14:31:48,334 WARNING [javax.enterprise.resource.webcontainer.jsf.renderkit] (http-localhost-127.0.0.1-8080-1) Unable to find component with ID name in view.
+    14:31:50,457 ERROR [jacorb.orb] (http-localhost-127.0.0.1-8080-1) no adapter activator exists for jts-quickstart&%InvoiceManagerEJBImpl&%home
+    14:31:50,767 INFO  [org.jboss.ejb.client] (http-localhost-127.0.0.1-8080-1) JBoss EJB Client version 1.0.5.Final
+    14:31:51,430 WARN  [com.arjuna.ats.jts] (RequestProcessor-5) ARJUNA022261: ServerTopLevelAction detected that the transaction was inactive
 
 You will also see the following in application-server-2 console:
 
-    12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta11
-    12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:HornetQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
+    14:31:50,750 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.5.Final
+    14:31:51,395 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-1 (HornetQ-client-global-threads-1567863645)) Received Message: Created invoice for customer named: Tom
 
-The web page will then change and  prompt you to check the logs for the MDB messages in the server consoles as noted above. At this point you can be satisfied that the quickstart has operated correctly.
+The web page will also change and show you the new list of customers.
+
+
+Undeploy the Archive
+--------------------
+
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to undeploy the archive:
+
+            mvn jboss-as:undeploy
+
