@@ -41,7 +41,7 @@
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Beta1</version>
+            <version>3.0.0.Final</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -70,7 +70,7 @@
          in JBoss AS 7 -->
       <dependency>
          <groupId>org.jboss.spec.javax.faces</groupId>
-         <artifactId>jboss-jsf-api_2.0_spec</artifactId>
+         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
          <scope>provided</scope>
       </dependency>
 
