@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.http.client.ClientProtocolException;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -25,16 +26,22 @@ import org.junit.Test;
  * JUnit4 Test class which makes a request to the RESTful
  * helloworld-rs web service.
  * 
- * @author bmincey
+ * @author bmincey (Blaine Mincey)
  *
  */
 public class JaxRsClientTest
 {
     /** 
-     * Request URLs of the RESTful web service
+     * Request URLs pulled from system properties in pom.xml
      */
-    private static final String XML_URL = "http://localhost:8080/jboss-as-helloworld-rs/xml";
-    private static final String JSON_URL = "http://localhost:8080/jboss-as-helloworld-rs/json";
+    private static String XML_URL;
+    private static String JSON_URL;
+    
+    /**
+     * Property names used to pull values from system properties in pom.xml
+     */
+    private static final String XML_PROPERTY = "xmlUrl";
+    private static final String JSON_PROPERTY = "jsonUrl";
     
     /**
      * Responses of the RESTful web service
@@ -42,6 +49,12 @@ public class JaxRsClientTest
     private static final String XML_RESPONSE = "<xml><result>Hello World!</result></xml>";
     private static final String JSON_RESPONSE = "{\"result\":\"Hello World!\"}";
     
+    @BeforeClass
+    public static void beforeClass()
+    {
+        JaxRsClientTest.XML_URL = System.getProperty(JaxRsClientTest.XML_PROPERTY);
+        JaxRsClientTest.JSON_URL = System.getProperty(JaxRsClientTest.JSON_PROPERTY);
+    }
     
     /**
      * Test method which executes the runRequest method that calls the RESTful 
@@ -50,8 +63,11 @@ public class JaxRsClientTest
     @Test
     public void test()
     {
-        assertEquals("XML Response", JaxRsClientTest.XML_RESPONSE, this.runRequest(JaxRsClientTest.XML_URL, MediaType.APPLICATION_XML_TYPE));
-        assertEquals("JSON Response", JaxRsClientTest.JSON_RESPONSE, this.runRequest(JaxRsClientTest.JSON_URL, MediaType.APPLICATION_JSON_TYPE));
+        assertEquals("XML Response", JaxRsClientTest.XML_RESPONSE, 
+                this.runRequest(JaxRsClientTest.XML_URL, MediaType.APPLICATION_XML_TYPE));
+        
+        assertEquals("JSON Response", JaxRsClientTest.JSON_RESPONSE, 
+                this.runRequest(JaxRsClientTest.JSON_URL, MediaType.APPLICATION_JSON_TYPE));
     }
     
     /**
