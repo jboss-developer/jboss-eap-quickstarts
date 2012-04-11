@@ -48,7 +48,12 @@ public class JaxRsClientTest
      */
     private static final String XML_RESPONSE = "<xml><result>Hello World!</result></xml>";
     private static final String JSON_RESPONSE = "{\"result\":\"Hello World!\"}";
-    
+   
+
+    /**
+     * Method executes BEFORE the test method.  Values are read from system
+     * properties that can be modified in the pom.xml.
+     */ 
     @BeforeClass
     public static void beforeClass()
     {
