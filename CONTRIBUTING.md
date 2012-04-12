@@ -22,6 +22,20 @@ The 'dist' folder contains Maven scripts to build a zip of the quickstarts.
 The quickstart code is licensed under the Apache License, Version 2.0:
 <http://www.apache.org/licenses/LICENSE-2.0.html>
 
+
+Testing the quickstarts
+-----------------------
+
+Most of the quickstarts require JBoss Enterprise Application Platform or JBoss AS only in standalone mode. Some require the "standalone-full" profile, some require XTS, some require Postgres and some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:
+
+    mvn clean install jboss-as:deploy jboss-as:undeploy -Parq-jbossas-remote -P-requires-postgres,-requires-full,-complex-dependencies,-requires-xts
+
+Or, to run those only those quickstarts that require the full profile
+
+    mvn clean install jboss-as:deploy jboss-as:undeploy -Parq-jbossas-remote -P-requires-postgres,-default,-complex-dependencies,-requires-xts
+
+And so on.
+
 Quickstarts in other repositories
 ---------------------------------
 
@@ -44,3 +58,26 @@ To do this
 4. Review and push to upstream
 
     git push upstream HEAD:master
+
+Kitchensink variants
+--------------------
+
+There are multiple quickstarts based on the kitchensink example.  Each showcases different technologies and techniques including pure EE6, JSF, HTML5, and GWT.  
+
+If you wish to contribute a kitchensink variant is it important that you follow the look and feel of the original so that useful comparisons can be made.  This does not mean that variants can not expand, and showcase additional functionality.  Multiple variants already do that.  These include mobile interfaces, push updates, and more.
+
+Below are rules for the l&f of the variants:
+
+* Follow the primary layout, style, and graphics of the original.
+* Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.  
+   * How projects use that space is up to them, but options include plain text, bullet points, etc....  
+* Projects can have their logo in the left side of the banner.  
+* The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...  
+   * This should be below any AS/EAP link areas.
+
+If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
+
+Markdown
+--------
+
+We use Redcarpet to process the markdown, the same processor used by Guthub. This builds on the basic markdown syntax, adding support for tables, code highlighting, relaxed code blocks etc). We add a custom piece of markup \[TOC\] which allows a table of contents, based on headings, to be added to any file.

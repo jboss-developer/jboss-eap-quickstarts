@@ -1,129 +1,1031 @@
-<h1>JBoss AS Quickstarts</h1>
-<p>These quickstarts will run in both the JBoss AS 7 or JBoss Enterprise Application Platform 6 environments. Check the README.md file in each quickstart folder for more details and specific instructions. </p>
-<p>If you want to run the quickstarts in JBoss EAP, we recommend using the JBoss EAP zip. This version chooses the exact dependencies used in EAP and ensures you test and compile against your runtime environment. </p>
-<h2>Available Quickstarts</h2>
-<p>These are the quickstarts for JBoss AS 7 and JBoss Enterprise Application Platform 6. You will find detailed tutorials in the 
-various guides at <a href="https://docs.jboss.org/author/display/AS7">https://docs.jboss.org/author/display/AS7</a></p>
-<p>Quickstarts with tutorials in the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> 
-are noted with two asterisks ( ** ) following the quickstart name.</p>
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">JBoss AS Quickstarts</h1>
+
+<h2 id="toc_1">Introduction</h2>
+
+<p>The quickstarts included in this distribution were written to demonstrate Java EE 6 and a few additional technologies. They provide small, specific, working examples that can be used as a reference for your own project.</p>
+
+<p>These quickstarts run on both JBoss Enterprise Application Platform 6 and JBoss AS 7. If you want to run the quickstarts on JBoss Enterprise Application Platform 6, we recommend using the JBoss Enterprise Application Platform 6 ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. </p>
+
+<p>Be sure to read this entire document before you attempt to work with the quickstarts. It contains the following information:</p>
+
 <ul>
-<li><code>bean-validation</code> - Bean Validation, JPA</li>
-<li><code>bmt</code> - EJB, Programmatically control transactions</li>
-<li><code>cdi-injection</code> - CDI injections &amp; qualifiers + Servlet</li>
-<li><code>cmt</code> - EJB, how to use container managed transactions</li>
-<li><code>ejb-in-ear</code> - EJB + JSF, JAR and WAR deployed as EAR</li>
-<li><code>ejb-in-war</code> - EJB + JSF deployed as a war</li>
-<li><code>ejb-remote</code> - shows how to access EJBs remotely (EJB + JNDI)</li>
-<li><code>forge-from-scratch</code> - Forge</li>
-<li><code>greeter</code> - CDI + JSF + JPA + EJB + JTA</li>
-<li><code>h2-console</code> - H2 Database console</li>
-<li><code>helloworld</code> ** -Very basic  CDI + Servlet</li>
-<li><code>helloworld-gwt</code> - GWT</li>
-<li><code>helloworld-html5</code> - Very basic HTML5</li>
-<li><code>helloworld-jms</code> - JMS</li>
-<li><code>helloworld-jsf</code> - Very basic CDI + JSF</li>
-<li><code>helloworld-mdb</code> - Very basic JMS and MDBs</li>
-<li><code>helloworld-osgi</code> - OSGi</li>
-<li><code>helloworld-rs</code> - CDI + JAX-RS</li>
-<li><code>helloworld-singleton</code> - Singleton Session Bean</li>
-<li><code>hibernate3</code> - Hibernate 3</li>
-<li><code>hibernate4</code> - Hibernate 4</li>
-<li><code>jax-rs-client</code> - External JAX-RS Client</li>
-<li><code>jts</code> - Using JTS to coordinate distributed transactions</li>
-<li><code>kitchensink</code> ** - CDI + JSF + JPA + EJB + JPA + JAX-RS + BV</li>
-<li><code>kitchensink-ear</code> - kitchensink as an EAR archive</li>
-<li><code>kitchensink-html5-mobile</code> - kitchensink using HTML5, suitable for mobile and tablet computers</li>
-<li><code>kitchensink-jsp</code> - kitchensink converted to use JSP</li>
-<li><code>log4j</code> - JBoss Modules, Class loading, logging</li>
-<li><code>numberguess</code> ** - CDI + JSF</li>
-<li><code>payment-cdi-event</code> - CDI</li>
-<li><code>servlet-async</code> - CDI + Asynchronous Servlet + Asynchronous EJB </li>
-<li><code>servlet-filterlistener</code> - Servlet Filter and Listener</li>
-<li><code>wsat-simple</code> -  Simple WS-AT JAX-WS Web service</li>
-<li><code>wsba-coordinator-completion-simple</code> - Simple WS-BA JAX-WS Web service with coordinator driven completion</li>
-<li><code>wsba-participant-completion-simple</code> - Simple WS-BA JAX-WS Web service with participant driven completion</li>
+<li><p><a href="#availableQuickstarts">Available Quickstarts</a>: List of the available quickstarts and details about each one.</p></li>
+<li><p><a href="#systemrequirements">System Requirements</a>: List of software required to run the quickstarts.</p></li>
+<li><p><a href="#mavenconfiguration">Configure Maven</a>: How to configure the Maven repository for use by the quickstarts.</p></li>
+<li><p><a href="#runningquickstarts">Run the Quickstarts</a>: General instructions for building, deploying, and running the quickstarts.</p></li>
+<li><p><a href="#arquilliantests">Run the Arquillian Tests</a>: How to run the Arquillian tests provided by some of the quickstarts.</p></li>
+<li><p><a href="#suggestedApproach">Suggested Approach to the Quickstarts</a>: A suggested approach on how to work with the quickstarts.</p></li>
+<li><p><a href="#optionalcomponents">Optional Components</a>: How to install and configure optional components required by some of the quickstarts.</p></li>
 </ul>
-<h2>Prerequisites</h2>
-<p>To run these quickstarts with the provided build scripts, you will need the following:</p>
+
+<p><a id="availableQuickstarts"></a></p>
+
+<h2 id="toc_2">Available Quickstarts </h2>
+
+<p>The following is a list of the currently available quickstarts. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.</p>
+
+<p>Some quickstarts are designed to enhance or extend other quickstarts. These are noted in the <strong>Prerequisites</strong> column. If a quickstart lists prerequisites, those must be installed or deployed before working with the quickstart.</p>
+
+<p>Quickstarts with tutorials in the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> are noted with two asterisks ( ** ) following the quickstart name. </p>
+
+<table><thead>
+<tr>
+<th align="left"><strong>Quickstart Name</strong></th>
+<th align="left"><strong>Demonstrated Technologies</strong></th>
+<th align="left"><strong>Description</strong></th>
+<th align="left"><strong>Experience Level Required</strong></th>
+<th align="left"><strong>Prerequisites</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left"><a href="bean-validation/README.html" title="bean-validation">bean-validation</a></td>
+<td align="left">Bean Validation, JPA</td>
+<td align="left">Shows how to use Arquillian to test Bean Validation</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="bmt/README.html" title="bmt">bmt</a></td>
+<td align="left">EJB, BMT</td>
+<td align="left">EJB that demonstrates bean-managed transactions (BMT)</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="cdi-injection/README.html" title="cdi-injection">cdi-injection</a></td>
+<td align="left">CDI injection, Qualifiers, Servlet</td>
+<td align="left">Demonstrates the use of CDI 1.0 Injection and Qualifiers with JSF as the front-end client.</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="cmt/README.html" title="cmt">cmt</a></td>
+<td align="left">EJB, container-managed transaction (CMT)</td>
+<td align="left">EJB that demonstrates container-managed transactions (CMT)</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="ejb-in-ear/README.html" title="ejb-in-ear">ejb-in-ear</a></td>
+<td align="left">EJB, JSF, JAR, and WAR deployed as an EAR</td>
+<td align="left">Packages an EJB JAR and WAR in an EAR</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="ejb-in-war/README.html" title="ejb-in-war">ejb-in-war</a></td>
+<td align="left">EJB and JSF deployed as a WAR</td>
+<td align="left">Packages an EJB JAR in a WAR</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="ejb-remote/README.html" title="ejb-remote">ejb-remote</a></td>
+<td align="left">Remote EJB</td>
+<td align="left">Shows how to access an EJB from a remote Java client program using JNDI</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="ejb-security/README.html" title="ejb-security">ejb-security</a></td>
+<td align="left">EJB, Security</td>
+<td align="left">Shows how to use Java EE Declarative Security to Control Access to EJB 3</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="forge-from-scratch/README.html" title="forge-from-scratch">forge-from-scratch</a></td>
+<td align="left">Forge</td>
+<td align="left">Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="greeter/README.html" title="greeter">greeter</a></td>
+<td align="left">CDI, JSF, JPA, EJB, JTA</td>
+<td align="left">Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="h2-console/README.html" title="h2-console">h2-console</a></td>
+<td align="left">H2 Database Console</td>
+<td align="left">Shows how to use the H2 console with JBoss AS</td>
+<td align="left">Beginner</td>
+<td align="left">greeter</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld/README.html" title="helloworld">helloworld**</a></td>
+<td align="left">Basic CDI, Servlet</td>
+<td align="left">Basic example that can be used to verify that the server is configured and running correctly</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-errai/README.html" title="helloworld-errai">helloworld-errai</a></td>
+<td align="left">Errai, JAX-RS</td>
+<td align="left">Helloworld using the Errai framework</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-gwt/README.html" title="helloworld-gwt">helloworld-gwt</a></td>
+<td align="left">GWT</td>
+<td align="left">Demonstrates the use of CDI 1.0 and JAX-RS with a GWT front-end client</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-html5/README.html" title="helloworld-html5">helloworld-html5</a></td>
+<td align="left">Basic HTML5</td>
+<td align="left">Demonstrates the use of CDI 1.0 and JAX-RS using the POH5 architecture and RESTful services on the backend</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-jms/README.html" title="helloworld-jms">helloworld-jms</a></td>
+<td align="left">JMS</td>
+<td align="left">Demonstrates the use of external JMS clients</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-jsf/README.html" title="helloworld-jsf">helloworld-jsf</a></td>
+<td align="left">Basic CDI, JSF</td>
+<td align="left">Similar to the helloworld quickstart, but with a JSF front end</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-mdb/README.html" title="helloworld-mdb">helloworld-mdb</a></td>
+<td align="left">Basic JMS, message-driven bean (MDB)</td>
+<td align="left">Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-osgi/README.html" title="helloworld-osgi">helloworld-osgi**</a></td>
+<td align="left">OSGi JAR</td>
+<td align="left">Shows how to create and deploy a simple OSGi Bundle</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-rs/README.html" title="helloworld-rs">helloworld-rs</a></td>
+<td align="left">CDI, JAX-RS</td>
+<td align="left">Demonstrates the use of CDI 1.0 and JAX-RS</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="helloworld-singleton/README.html" title="helloworld-singleton">helloworld-singleton</a></td>
+<td align="left">Singleton Session Bean</td>
+<td align="left">Demonstrates the use of an EJB 3.1 Singleton Session Bean</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="hibernate3/README.html" title="hibernate3">hibernate3</a></td>
+<td align="left">Hibernate 3</td>
+<td align="left">Performs the same functions as <em>hibernate4</em> quickstart, but uses Hibernate version 3 for database access</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="hibernate4/README.html" title="hibernate4">hibernate4</a></td>
+<td align="left">Hibernate 4</td>
+<td align="left">Performs the same functions as <em>hibernate3</em> quickstart, but uses Hibernate version 4 for database access</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="jax-rs-client/README.html" title="jax-rs-client">jax-rs-client</a></td>
+<td align="left">JAX-RS</td>
+<td align="left">Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS</td>
+<td align="left">Intermediate</td>
+<td align="left">helloworld-rs</td>
+</tr>
+<tr>
+<td align="left"><a href="jta-crash-rec/README.html" title="jta-crash-rec">jta-crash-rec</a></td>
+<td align="left">JTA, Crash Recovery</td>
+<td align="left">Uses Java Transaction API and JBoss Transactions to demonstrate recovery of a crashed transaction</td>
+<td align="left">Advanced</td>
+<td align="left">cmt</td>
+</tr>
+<tr>
+<td align="left"><a href="jts/README.html" title="jts">jts</a></td>
+<td align="left">JTS</td>
+<td align="left">Uses Java Transaction Service (JTS) to coordinate distributed transactions</td>
+<td align="left">Intermediate</td>
+<td align="left">cmt</td>
+</tr>
+<tr>
+<td align="left"><a href="jts-distributed-crash-rec/README.html" title="jts-distributed-crash-rec">jts-distributed-crash-rec</a></td>
+<td align="left">JTS</td>
+<td align="left">Demonstrates recovery of distributed crashed components</td>
+<td align="left">Advanced</td>
+<td align="left">jts</td>
+</tr>
+<tr>
+<td align="left"><a href="kitchensink/README.html" title="kitchensink">kitchensink**</a></td>
+<td align="left">CDI, JSF, JPA, EJB, JPA, JAX-RS, BV</td>
+<td align="left">An example that incorporates multiple technologies</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="kitchensink-ear/README.html" title="kitchensink-ear">kitchensink-ear</a></td>
+<td align="left">EAR</td>
+<td align="left">Based on kitchensink, but deployed as an EAR</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="kitchensink-html5-mobile/README.html" title="kitchensink-html5-mobile">kitchensink-html5-mobile</a></td>
+<td align="left">HTML5</td>
+<td align="left">Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="kitchensink-jsp/README.html" title="kitchensink-jsp">kitchensink-jsp</a></td>
+<td align="left">JSP</td>
+<td align="left">Based on kitchensink, but uses a JSP for the user interface</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="log4j/README.html" title="log4j">log4j</a></td>
+<td align="left">JBoss Modules</td>
+<td align="left">Demonstrates how to use modules to control class loading for 3rd party logging frameworks</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="logging-tools/README.html" title="logging-tools">logging-tools</a></td>
+<td align="left">JBoss Logging Tools</td>
+<td align="left">Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="mail/README.html" title="mail">mail</a></td>
+<td align="left">JavaMail</td>
+<td align="left">Demonstrates the use of JavaMail</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="numberguess/README.html" title="numberguess">numberguess**</a></td>
+<td align="left">CDI, JSF</td>
+<td align="left">Demonstrates the use of CDI 1.0 and JSF 2.0</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="payment-cdi-event/README.html" title="payment-cdi-event">payment-cdi-event</a></td>
+<td align="left">CDI, Events</td>
+<td align="left">Demonstrates how to use CDI 1.0 Events</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="richfaces-validation/README.html" title="richfaces-validation">richfaces-validation</a></td>
+<td align="left">RichFaces</td>
+<td align="left">Demonstrates RichFaces and bean validation</td>
+<td align="left">Beginner</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="servlet-async/README.html" title="servlet-async">servlet-async</a></td>
+<td align="left">CDI, EJB, Servlet</td>
+<td align="left">Demonstrates CDI, plus asynchronous Servlets and EJBs</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="servlet-filterlistener/README.html" title="servlet-filterlistener">servlet-filterlistener</a></td>
+<td align="left">Servlet</td>
+<td align="left">Demonstrates Servlet filters and listeners</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="servlet-security/README.html" title="servlet-security">servlet-security</a></td>
+<td align="left">Servlet, Security</td>
+<td align="left">Demonstrates how to use Java EE declarative security to control access to Servlet 3</td>
+<td align="left">begiiner</td>
+<td align="left">greeter</td>
+</tr>
+<tr>
+<td align="left"><a href="shopping-cart/README.html" title="shopping-cart">shopping-cart</a></td>
+<td align="left">Stateful Session Bean</td>
+<td align="left">Demonstrates a stateful session bean</td>
+<td align="left">begiiner</td>
+<td align="left">greeter</td>
+</tr>
+<tr>
+<td align="left"><a href="tasks/README.html" title="servlet-filterlistener">tasks</a></td>
+<td align="left">Arquillian, JPA</td>
+<td align="left">Demonstrates testing JPA using Arquillian</td>
+<td align="left">Intermediate</td>
+<td align="left">greeter</td>
+</tr>
+<tr>
+<td align="left"><a href="wicket-ear/README.html" title="wicket-ear">wicket-ear</a></td>
+<td align="left">Apache Wicket, CRUD, JPA</td>
+<td align="left">Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration, packaged as an EAR</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="wicket-war/README.html" title="wicket-war">wicket-war</a></td>
+<td align="left">Apache Wicket, CRUD, JPA</td>
+<td align="left">Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration packaged as a WAR</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="wsat-simple/README.html" title="wsat-simple">wsat-simple</a></td>
+<td align="left">WS-AT, Web service, JAX-WS</td>
+<td align="left">Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="wsba-coordinator-completion-simple/README.html" title="wsba-coordinator-completion-simple">wsba-coordinator-completion-simple</a></td>
+<td align="left">WS-BA, Web service, JAX-WS</td>
+<td align="left">Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a WAR archive (Participant Completion protocol)</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="wsba-participant-completion-simple/README.html" title="wsba-participant-completion-simple">wsba-participant-completion-simple</a></td>
+<td align="left">WS-BA, Web service, JAX-WS</td>
+<td align="left">Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a war archive (Coordinator Completion protocol)</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="xml-dom4j/README.html" title="xml-dom4j">xml-dom4j</a></td>
+<td align="left">DOM4J, Servlet, JSF 2.0</td>
+<td align="left">Demonstrates how to upload an XML file and parse it using 3rd party XML parsing libraries</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+<tr>
+<td align="left"><a href="xml-jaxp/README.html" title="xml-jaxp">xml-jaxp</a></td>
+<td align="left">JAXP, SAX, DOM, Servlet</td>
+<td align="left">Upload, validation and parsing of XML using SAX or DOM</td>
+<td align="left">Intermediate</td>
+<td align="left">None</td>
+</tr>
+</tbody></table>
+
+<p><a id="suggestedApproach"></a></p>
+
+<h2 id="toc_3">Suggested Approach to the Quickstarts </h2>
+
+<p>We suggest you approach the quickstarts as follows:</p>
+
+<ul>
+<li>Regardless of your level of expertise, we suggest you start with the <strong>helloworld</strong> quickstart. It is the simplest example and is an easy way to prove your server is configured and started correctly.</li>
+<li>If you are a beginner or new to JBoss, start with the quickstarts labeled <strong>Beginner</strong>, then try those marked as <strong>Intermediate</strong>. When you&#39;re comfortable with those, move on to the <strong>Advanced</strong> quickstarts.</li>
+<li>Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.</li>
+</ul>
+
+<p><a id="systemrequirements"></a></p>
+
+<h2 id="toc_4">System Requirements </h2>
+
+<p>To run these quickstarts with the provided build scripts, you need the following:</p>
+
 <ol>
-<li>Java 1.6, to run JBoss AS and Maven. You can choose from the following:<ul>
+<li><p>Java 1.6, to run JBoss AS and Maven. You can choose from the following:</p>
+
+<ul>
 <li>OpenJDK</li>
 <li>Oracle Java SE</li>
 <li>Oracle JRockit</li>
-</ul>
-</li>
-<li>
-<p>Maven 3.0.0 or newer, to build and deploy the examples</p>
+</ul></li>
+<li><p>Maven 3.0.0 or newer, to build and deploy the examples</p>
+
 <ul>
-<li>Follow the official Maven installation guide if you don't already have Maven 3 installed. </li>
-<li>
-<p>If you have Maven installed, you can check the version by running this command in a shell prompt:</p>
-<blockquote>
-<p>mvn --version </p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>
-<p>The JBoss AS 7 distribution zip or the JBoss Enterprise Application Platform 6 distribution zip</p>
+<li>If you have not yet installed Maven, see the <a href="http://maven.apache.org/guides/getting-started/index.html">Maven Getting Started Guide</a> for details.</li>
+<li><p>If you have installed Maven, you can check the version by typing the following in a command line:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="o">--</span><span class="n">version</span> 
+</pre>
+</div></li>
+</ul></li>
+<li><p>The JBoss Enterprise Application Platform 6 distribution ZIP or the JBoss AS 7 distribution ZIP.</p>
+
 <ul>
 <li>For information on how to install and run JBoss, refer to the product documentation.</li>
-</ul>
-</li>
+</ul></li>
+<li><p>You can also use <a href="#useeclipse">JBoss Developer Studio or Eclipse</a> to run the quickstarts. </p></li>
 </ol>
-<p>You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.</p>
-<h2>JBoss AS 7 Quickstart Instructions</h2>
+
+<p><a id="mavenconfiguration"></a></p>
+
+<h2 id="toc_5">Configure Maven </h2>
+
+<p>Maven configuration is dependent on whether you are running JBoss Enterprise Application Platform 6 or JBoss AS7.</p>
+
+<p><a id="eap6mavenconfig"></a></p>
+
+<h3 id="toc_6">Configure Maven for JBoss Enterprise Application Platform 6</h3>
+
+<p>If you are using the JBoss Enterprise Application Platform 6 distribution, you need to download and configure the Maven repository.</p>
+
+<ol>
+<li><p>Download the JBoss Enterprise Application Platform 6 Maven repository distribution ZIP and unzip it into a directory of your choice.</p></li>
+<li><p>Modify the <code>example-settings.xml</code> file located in the root of your quickstarts folder. Replace all instances of <code>path/to/jboss-eap/repo</code> within <code>file:///path/to/jboss-eap/repo</code> with the fully qualified path to the Maven repository you unzipped in the previous step.</p></li>
+<li><p>When you run Maven commands, you need to append <code>-s PATH_TO_QUICKSTARTS/example-settings.xml</code> to the command, for example:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+<li><p>If you do not want to append the alternate path parameter each time you issue a Maven command, you can configure the Maven user settings as follows: </p>
+
+<ul>
+<li>If you have an existing <code>~/.m2/settings.xml</code> file, modify it with the configuration information from the <code>example-settings.xml</code> file.</li>
+<li>If there is no <code>~/.m2/settings.xml</code> file, copy the modified <code>example-settings.xml</code> file to the <code>~/.m2</code> directory and rename it to <code>settings.xml</code>.</li>
+</ul></li>
+</ol>
+
+<p><a id="as7mavenconfig"></a></p>
+
+<h3 id="toc_7">Configure Maven for JBoss AS 7</h3>
+
 <p>If you are using the JBoss AS 7 Quickstart distribution, the community artifacts are available in the Maven central repository so no additional configuration is needed.</p>
-<h2>JBoss Enterprise Application Platform 6 Quickstart Instructions</h2>
-<p>If you are using the JBoss Enterprise Application Platform 6 distribution, you will need to download and configure the Maven repository.</p>
-<ol>
-<li>
-<p>Download the JBoss Enterprise Application Platform 6 Maven repository distribution zip and unzip it into a directory of your choice.</p>
-</li>
-<li>
-<p>Modify the example-settings.xml file located in the root of your quickstarts folder. Replace all instances of 'path/to/jboss-eap/repo' within '&lt;url&gt;file:///path/to/jboss-eap/repo&lt;/url&gt;' with the fully qualified path to the Maven repository you unzipped in the previous step.</p>
-</li>
-<li>
-<p>When you run Maven commands, you will need to append '-s <em>PathToQuickstarts</em>/example-settings.xml' to the command, for example:</p>
-<blockquote>
-<p>mvn jboss-as:deploy -s <em>PathToQuickstarts</em>/example-settings.xml</p>
-</blockquote>
-</li>
-<li>
-<p>If you do not want to specify the alternate path for your user settings on every Maven command, you can configure your user settings as follows:</p>
+
+<p><a id="runningquickstarts"></a></p>
+
+<h2 id="toc_8">Run the Quickstarts </h2>
+
+<p>The root folder of each quickstart contains a README file with specific details on how to build and run the example. In most cases you do the following:</p>
+
 <ul>
-<li>If you have an existing ~/.m2/settings.xml file, modify it with the configuration information from the example-settings.xml file.</li>
-<li>If there is no ~/.m2/settings.xml file, copy the example-settings.xml file to the ~/.m2 directory and rename it to settings.xml.</li>
+<li><a href="#startjboss">Start the JBoss server</a></li>
+<li><a href="#buildanddeploy">Build and deploy the quickstart</a></li>
 </ul>
-</li>
-</ol>
-<h2>Building and Deploying the Quickstarts</h2>
-<p>To build and deploy a quickstart, in most cases you will do the following:</p>
-<ol>
-<li>
-<p>Start the JBoss application server.</p>
-</li>
-<li>
-<p>In a shell prompt, navigate to the root of the quickstart you want to run.</p>
-</li>
-<li>
-<p>Type the following: </p>
+
+<p><a id="startjboss"></a></p>
+
+<h3 id="toc_9">Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server</h3>
+
+<p>Before you deploy a quickstart, in most cases you need a running server. A few of the Arquillian tests do not require a running server. This will be noted in the README for that quickstart. </p>
+
+<p>The JBoss server can be started a few different ways.</p>
+
 <ul>
-<li>
-<p>For AS 7 and EAP 6 configured with the Maven user settings, type: </p>
-<blockquote>
-<p>mvn package jboss-as:deploy </p>
-</blockquote>
-</li>
-<li>
-<p>For EAP 6 that is not configured with Maven user settings, type: </p>
-<blockquote>
-<p>mvn package jboss-as:deploy -s <em>PathToQuickstarts</em>/example-settings.xml</p>
-</blockquote>
-</li>
+<li><a href="#startserverweb">Start the JBoss Server With the <em>web</em> profile</a>: This is the default configuration. It defines minimal subsystems and services.</li>
+<li><a href="#startserverfull">Start the JBoss Server with the <em>full</em> profile</a>: This profile configures many of the commonly used subsystems and services.</li>
+<li><a href="#startservercustom">Start the JBoss Server with a custom configuration</a>: Custom configuration parameters can be specified on the command line when starting the server.<br/></li>
 </ul>
-</li>
-<li>
-<p>See the README file in the individual quickstart folder for specific information on how to run and access the example.</p>
-</li>
+
+<p>The README for each quickstart will specify which configuration is required to run the example.</p>
+
+<p><a id="startserverweb"></a></p>
+
+<h4 id="toc_10">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h4>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
 </ol>
+
+<p><a id="startserverfull"></a></p>
+
+<h4 id="toc_11">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h4>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the full profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+</ol>
+
+<p><a id="startservercustom"></a></p>
+
+<h4 id="toc_12">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with Custom Configuration Options</h4>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server. Replace the CUSTOM_OPTIONS with the custom optional parameters specified in the quickstart.</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="n">CUSTOM_OPTIONS</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="n">CUSTOM_OPTIONS</span>
+</pre>
+</div></li>
+</ol>
+
+<p><a id="buildanddeploy"></a></p>
+
+<h3 id="toc_13">Build and Deploy the Quickstarts</h3>
+
+<p>Review the README file in the root folder of the quickstart for specific details on how to build and run the example. In most cases you do the following:</p>
+
+<ol>
+<li>The command used to build the quickstart depends on the individual quickstart, the server version, and how you configured Maven.
+
+<ul>
+<li>If you are running JBoss Enterprise Application Platform 6 and did not configure the Maven user settings described in <a href="#eap6mavenconfig">Configure Maven for JBoss Enterprise Application Platform 6</a> above, you need to specify command line arguments. </li>
+<li>If you are running JBoss AS 7, it uses community artifacts available in the Maven central repository, so command line arguments are not usually required. </li>
+</ul></li>
+<li>See the README file in each individual quickstart folder for specific details and information on how to run and access the example.</li>
+</ol>
+
+<h4 id="toc_14">Build the Quickstart Archive</h4>
+
+<p>In some cases, you may want to build the application to test for compile errors or view the contents of the archive. </p>
+
+<ol>
+<li>Open a command line and navigate to the root directory of the quickstart you want to build.</li>
+<li><p>Use this command if you only want to build the archive, but not deploy it:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">NOT</span> <span class="n">configured</span><span class="p">):</span> 
+
+    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+
+<span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7 <span class="n">or</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">configured</span><span class="p">):</span> 
+
+    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span>
+</pre>
+</div></li>
+</ol>
+
+<h4 id="toc_15">Build and Deploy the Quickstart Archive</h4>
+
+<ol>
+<li>Make sure you <a href="#startjboss">start the JBoss Server</a> as described in the README.</li>
+<li>Open a command line and navigate to the root directory of the quickstart you want to run.</li>
+<li><p>Use this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">NOT</span> <span class="n">configured</span><span class="p">):</span> 
+
+    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+
+<span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7 <span class="n">or</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">configured</span><span class="p">):</span> 
+
+    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h4 id="toc_16">Undeploy an Archive</h4>
+
+<p>The command to undeploy the quickstart is simply: </p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div>
+
+<p><a id="arquilliantests"></a></p>
+
+<h3 id="toc_17">Run the Arquillian Tests</h3>
+
+<hr/>
+
+<p>Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests require the use of a container. </p>
+
+<p>You can run these tests using either a remote or managed container. The quickstart README should tell you what you should expect to see in the console output and server log when you run the test.</p>
+
+<p><a id="testremote"></a></p>
+
+<ol>
+<li><p>Test the quickstart on a Remote Server</p>
+
+<ul>
+<li>A remote container requires you start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server before running the test. <a href="#startjboss">Start the JBoss Server</a> as described in the quickstart README file.</li>
+<li><p>Run the test goal with the following profile activated:</p>
+
+<p>For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div>
+
+<p>For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> 
+</pre>
+</div>
+
+<p><a id="testmanaged"></a></p></li>
+</ul></li>
+<li><p>Test the quickstart on Managed Server</p>
+
+<p><em>Note: This test requires that your server is not running. Arquillian will start the container for you, however, you must first let it know where to find the remote JBoss container.</em></p>
+
+<ul>
+<li>Open the test/resources/arquillian.xml file located in the quickstart directory. </li>
+<li><p>Find the configuration for the remote JBoss container. It should look like this:</p>
+<div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;jboss&quot;</span> <span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property --&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;jbossHome&quot;</span><span class="nt">&gt;</span>/path/to/jboss/as<span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre>
+</div></li>
+<li><p>Find the &ldquo;jbossHome&rdquo; property and replace the &ldquo;/path/to/jboss/as&rdquo; value with the actual path to your JBoss Enterprise Application Platform 6 or JBoss AS 7 server.</p></li>
+<li><p>Run the test goal with the following profile activated:</p>
+
+<p>For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">managed</span>  <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div>
+
+<p>For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">managed</span>
+</pre>
+</div></li>
+</ul></li>
+</ol>
+
+<p><a id="useeclipse"></a></p>
+
+<h2 id="toc_18">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</h2>
+
+<p>You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the <a href="http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Beta_Documentation/HOME.html">JBoss Enterprise Application Platform 6 Beta</a> documentation or the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.</p>
+
+<p><a id="optionalcomponents"></a></p>
+
+<h2 id="toc_19">Optional Components </h2>
+
+<p>The following components are needed for only a small subset of the quickstarts. Do not install or configure them unless the quickstart requires it.</p>
+
+<ul>
+<li><p><a href="#adduser">Add a User</a>: Add a Management or Application user for the quickstarts that run in a secured mode.</p></li>
+<li><p><a href="#postgresql">Install and Configure the PostgreSQL Database</a>: The PostgreSQL database is used for the distributed transaction quickstarts.</p></li>
+<li><p><a href="#byteman">Install and Configure Byteman</a>: This tool is used to demonstrate crash recovery for distributed transaction quickstarts.</p></li>
+</ul>
+
+<p><a id="adduser"></a></p>
+
+<h3 id="toc_20">Add a Management or Application User</h3>
+
+<p>By default, JBoss Enterprise Application Platform 6 and JBoss AS 7 are now distributed with security enabled for the management interfaces. A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. A script is provided in the <code>JBOSS_HOME/bin</code> directory for that purpose.</p>
+
+<p>The following procedures describe how to add a user with the appropriate permissions to run the quickstarts that depend on them.</p>
+
+<p><a id="addmanagementuser"></a></p>
+
+<h4 id="toc_21">Add an Management User</h4>
+
+<ol>
+<li>Open a command line</li>
+<li><p>Type the command for your operating system</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+<li><p>You should see the following response:</p>
+<div class="highlight"><pre><span class="n">What</span> <span class="n">type</span> <span class="n">of</span> <span class="n">user</span> <span class="n">do</span> <span class="n">you</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">add</span>? 
+
+<span class="n">a</span><span class="p">)</span> <span class="n">Management</span> <span class="n">User</span> <span class="p">(</span><span class="n">mgmt</span><span class="o">-</span><span class="n">users</span><span class="p">.</span><span class="k">properties</span><span class="p">)</span> 
+<span class="n">b</span><span class="p">)</span> <span class="n">Application</span> <span class="n">User</span> <span class="p">(</span><span class="n">application</span><span class="o">-</span><span class="n">users</span><span class="p">.</span><span class="k">properties</span><span class="p">)</span>
+<span class="p">(</span><span class="n">a</span><span class="p">):</span>
+</pre>
+</div>
+
+<p>At the prompt, press enter to use the default Management User</p></li>
+<li><p>You should see the following response:</p>
+<div class="highlight"><pre><span class="n">Enter</span> <span class="n">the</span> <span class="n">details</span> <span class="n">of</span> <span class="n">the</span> <span class="n">new</span> <span class="n">user</span> <span class="n">to</span> <span class="n">add</span><span class="p">.</span>
+<span class="n">Realm</span> <span class="p">(</span><span class="n">ManagementRealm</span><span class="p">)</span> <span class="p">:</span> 
+</pre>
+</div>
+
+<p>If the quickstart README specifies a realm, type it here. Otherwise, press enter to use the default <code>ManagementRealm</code>. </p></li>
+<li><p>When prompted, enter the following</p>
+<div class="highlight"><pre><span class="n">Username</span> <span class="o">:</span> <span class="n">admin</span>
+<span class="n">Password</span> <span class="o">:</span> <span class="o">(</span><span class="n">choose</span> <span class="n">a</span> <span class="n">password</span> <span class="k">for</span> <span class="n">the</span> <span class="n">admin</span> <span class="n">user</span><span class="o">)</span>
+</pre>
+</div>
+
+<p>Repeat the password</p></li>
+<li><p>Choose yes for the remaining promts.</p></li>
+</ol>
+
+<p><a id="addapplicationuser"></a></p>
+
+<h4 id="toc_22">Add an Application User</h4>
+
+<ol>
+<li>Open a command line</li>
+<li><p>Type the command for your operating system</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+<li><p>You should see the following response:</p>
+<div class="highlight"><pre><span class="n">What</span> <span class="n">type</span> <span class="n">of</span> <span class="n">user</span> <span class="n">do</span> <span class="n">you</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">add</span>? 
+
+<span class="n">a</span><span class="p">)</span> <span class="n">Management</span> <span class="n">User</span> <span class="p">(</span><span class="n">mgmt</span><span class="o">-</span><span class="n">users</span><span class="p">.</span><span class="k">properties</span><span class="p">)</span> 
+<span class="n">b</span><span class="p">)</span> <span class="n">Application</span> <span class="n">User</span> <span class="p">(</span><span class="n">application</span><span class="o">-</span><span class="n">users</span><span class="p">.</span><span class="k">properties</span><span class="p">)</span>
+<span class="p">(</span><span class="n">a</span><span class="p">):</span>
+</pre>
+</div>
+
+<p>At the prompt, type:  b</p></li>
+<li><p>You should see the following response:</p>
+<div class="highlight"><pre><span class="n">Enter</span> <span class="n">the</span> <span class="n">details</span> <span class="n">of</span> <span class="n">the</span> <span class="n">new</span> <span class="n">user</span> <span class="n">to</span> <span class="n">add</span><span class="p">.</span>
+<span class="n">Realm</span> <span class="p">(</span><span class="n">ApplicationRealm</span><span class="p">)</span> <span class="p">:</span> 
+</pre>
+</div>
+
+<p>If the quickstart README specifies a realm, type it here. Otherwise, press enter to use the default <code>ApplicationRealm</code>. </p></li>
+<li><p>When prompted, enter the the Username and Passord. If the quickstart README specifies a Username nad Password, enter them here. Otherwise, use the default Username <code>quickstartUser</code> and Password <code>quickstartPassword</code>.</p>
+<div class="highlight"><pre><span class="n">Username</span> <span class="o">:</span> <span class="n">quickstartUser</span>
+<span class="n">Password</span> <span class="o">:</span> <span class="n">quickstartPassword</span>
+</pre>
+</div></li>
+<li><p>At the next prompt, you will be asked &ldquo;What roles do you want this user to belong to?&rdquo;. If the quickstart README specifies a role to use, enter that here. Otherwise, type the role: <code>guest</code></p></li>
+</ol>
+
+<p><a id="postgresql"></a></p>
+
+<h3 id="toc_23">Install and Configure the PostgreSQL Database</h3>
+
+<p>Some of the quickstarts require the PostgreSQL database. This section describes how to install and configure the database for use with these quickstarts.</p>
+
+<h4 id="toc_24">Download and Install PostgreSQL 9.1.2</h4>
+
+<p>The following is a brief overview of how to install PostgreSQL. More detailed instructions for installing and starting PostgreSQL can be found on the internet.</p>
+
+<p><em>Note</em>: Although the database only needs to be installed once, to help partition each quickstart we recommend using a separate database per quickstart. Where you see QUICKSTART_DATABASENAME, you should replace that with the name provided in the particular quickstart&#39;s README</p>
+
+<h5 id="toc_25">Linux Instructions</h5>
+
+<p>Use the following steps to install and configure PostgreSQL on Linux. You can download the PDF installation guide here: <a href="http://yum.postgresql.org/files/PostgreSQL-RPM-Installation-PGDG.pdf">http://yum.postgresql.org/files/PostgreSQL-RPM-Installation-PGDG.pdf</a></p>
+
+<ol>
+<li><p>Install PostgreSQL</p>
+
+<ul>
+<li>The yum install instructions for PostgreSQL can be found here: <a href="http://yum.postgresql.org/howtoyum.php/">http://yum.postgresql.org/howtoyum.php/</a></li>
+<li>Download the repository RPM from here: <a href="http://yum.postgresql.org/repopackages.php/">http://yum.postgresql.org/repopackages.php/</a></li>
+<li><p>To install PostgreSQL, in a command line type: </p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">rpm</span> <span class="o">-</span><span class="n">ivh</span> <span class="n">pgdg</span><span class="o">-</span><span class="n">fedora91</span><span class="o">-</span>9<span class="p">.</span>1<span class="o">-</span>4<span class="p">.</span><span class="n">noarch</span><span class="p">.</span><span class="n">rpm</span>
+</pre>
+</div></li>
+<li><p>Edit your distributions package manager definitions to exclude PostgreSQL. See the &ldquo;important note&rdquo; on <a href="http://yum.postgresql.org/howtoyum.php/">http://yum.postgresql.org/howtoyum.php/</a> for details on how to exclude postgresql packages from the repository of the distribution.</p></li>
+<li><p>Install <em>postgresql91</em> and <em>postgres91-server</em> by typing the following in a command line:</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">postgresql91</span> <span class="n">postgresql91</span><span class="o">-</span><span class="n">server</span>
+</pre>
+</div></li>
+</ul></li>
+<li><p>Set a password for the <em>postgres</em> user</p>
+
+<ul>
+<li><p>In a command line, login as root and set the postgres password by typing the following commands: </p>
+<div class="highlight"><pre><span class="n">su</span>
+<span class="n">passwd</span> <span class="n">postgres</span>
+</pre>
+</div></li>
+<li><p>Choose a password</p></li>
+</ul></li>
+<li><p>Configure the test database</p>
+
+<ul>
+<li><p>In a command line, login as the <em>postgres</em> user, navigate to the postgres directory, and initialize the database by typing:</p>
+<div class="highlight"><pre><span class="n">su</span> <span class="n">postgres</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">pgsql</span><span class="o">-</span>9<span class="p">.</span>1<span class="o">/</span><span class="n">bin</span><span class="o">/</span>
+<span class="o">./</span><span class="n">initdb</span> <span class="o">-</span><span class="n">D</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pgsql</span><span class="o">/</span>9<span class="p">.</span>1<span class="o">/</span><span class="n">data</span>
+</pre>
+</div></li>
+<li><p>Modify the <code>/var/lib/pgsql/9.1/data/pg_hba.conf</code> file to set the authentication scheme to password for tcp connections. Modify the line following the IPv4 local connections: change trust to to password. The line should look like this:</p>
+<div class="highlight"><pre><span class="n">host</span>    <span class="n">all</span>    <span class="n">all</span>    127<span class="p">.</span>0<span class="p">.</span>0<span class="p">.</span>1<span class="o">/</span>32    <span class="n">password</span>
+</pre>
+</div></li>
+<li><p>Modify the <code>/var/lib/pgsql/9.1/data/postgresql.conf</code> file to allow prepared transactions and reduce the maximum number of connections</p>
+<div class="highlight"><pre><span class="n">max_prepared_transactions</span> <span class="p">=</span> 10
+<span class="n">max_connections</span> <span class="p">=</span> 10
+</pre>
+</div></li>
+</ul></li>
+<li><p>Start the database server </p>
+
+<ul>
+<li><p>In the same command line, type the following:</p>
+<div class="highlight"><pre><span class="o">./</span><span class="n">postgres</span> <span class="o">-</span><span class="n">D</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pgsql</span><span class="o">/</span>9<span class="p">.</span>1<span class="o">/</span><span class="n">data</span>
+</pre>
+</div></li>
+<li><p>Note, this command does not release the command line. In the next step you need to open a new command line.</p></li>
+</ul></li>
+<li><p>Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)</p>
+
+<ul>
+<li><p>Open a new command line and login again as the <em>postgres</em> user, navigate to the postgres directory, and create the  database by typing the following:</p>
+<div class="highlight"><pre><span class="n">su</span> <span class="n">postgres</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">pgsql</span><span class="o">-</span>9<span class="p">.</span>1<span class="o">/</span><span class="n">bin</span><span class="o">/</span>
+<span class="o">./</span><span class="n">createdb</span> <span class="n">QUICKSTART_DATABASENAME</span>
+</pre>
+</div></li>
+</ul></li>
+</ol>
+
+<h5 id="toc_26">Mac OS X Instructions</h5>
+
+<p>The following are the steps to install and start PostreSQL on Mac OS X. Note that this guide covers only &#39;One click installer&#39; option.</p>
+
+<ol>
+<li>Install PostgreSQL using Mac OS X One click installer: <a href="http://www.postgresql.org/download/macosx/">http://www.postgresql.org/download/macosx/</a></li>
+<li><p>Allow prepared transactions:</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">su</span> <span class="o">-</span> <span class="n">postgres</span>
+</pre>
+</div>
+
+<ul>
+<li><p>Edit <code>/Library/PostgreSQL/9.1/data/postgresql.conf</code> to allow prepared transactions</p>
+<div class="highlight"><pre><span class="n">max_prepared_transactions</span> <span class="p">=</span> 10
+</pre>
+</div></li>
+</ul></li>
+<li><p>Start the database server </p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">PostgreSQL</span><span class="o">/</span>9<span class="p">.</span>1<span class="o">/</span><span class="n">bin</span>
+<span class="o">./</span><span class="n">pg_ctl</span> <span class="o">-</span><span class="n">D</span> <span class="p">.</span><span class="o">./</span><span class="n">data</span> <span class="n">restart</span>
+</pre>
+</div></li>
+<li><p>Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)</p>
+<div class="highlight"><pre><span class="o">./</span><span class="n">createdb</span> <span class="n">QUICKSTART_DATABASENAME</span>
+</pre>
+</div></li>
+<li><p>Verify that everything works. As the <em>postgres</em> user using the password you specified in Step 1, type the following:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">PostgreSQL</span><span class="o">/</span>9<span class="p">.</span>1<span class="o">/</span><span class="n">bin</span>
+<span class="o">./</span><span class="n">psql</span> <span class="o">-</span><span class="n">U</span> <span class="n">postgres</span>    
+</pre>
+</div>
+
+<p>At the prompt</p>
+<div class="highlight"><pre><span class="n">start</span> <span class="n">transaction</span><span class="p">;</span>
+<span class="n">select</span> 1<span class="p">;</span>
+<span class="n">prepare</span> <span class="n">transaction</span> <span class="s">&#39;foobar&#39;</span><span class="p">;</span>
+<span class="n">commit</span> <span class="n">prepared</span> <span class="s">&#39;foobar&#39;</span><span class="p">;</span>
+</pre>
+</div></li>
+</ol>
+
+<h5 id="toc_27">Windows Instructions</h5>
+
+<p>Use the following steps to install and configure PostgreSQL on Windows:</p>
+
+<ol>
+<li>Install PostgreSQL using the Windows installer: <a href="http://www.postgresql.org/download/windows/">http://www.postgresql.org/download/windows/</a></li>
+<li><p>Enable password authentication and configure PostgreSQL to allow prepared transactions</p>
+
+<ul>
+<li><p>Modify the <code>C:\Program Files\PostgreSQL\9.1\data\pg_hba.conf</code> file to set the authentication scheme to password for tcp connections. Modify the line following the IPv4 local connections: change trust to to password. The line should look like this:</p>
+<div class="highlight"><pre><span class="n">host</span>    <span class="n">all</span>    <span class="n">all</span>    127<span class="p">.</span>0<span class="p">.</span>0<span class="p">.</span>1<span class="o">/</span>32    <span class="n">password</span>`
+</pre>
+</div></li>
+<li><p>Modify the <code>C:\Program Files\PostgreSQL\9.1\data\postgresql.conf</code> file to allow prepared transactions and reduce the maximum number of connections:</p>
+<div class="highlight"><pre><span class="n">max_prepared_transactions</span> <span class="p">=</span> 10
+<span class="n">max_connections</span> <span class="p">=</span> 10
+</pre>
+</div></li>
+</ul></li>
+<li><p>Start the database server</p>
+
+<ul>
+<li>Choose Start -&gt; All Programs -&gt; PostgreSQL 9.1\pgAdmin III</li>
+<li>Server Groups -&gt; Servers (1) -&gt; PostreSQL 9.1 (localhost:5432)</li>
+<li>Right click -&gt; Stop Service</li>
+<li>Right click -&gt; Start Service</li>
+</ul></li>
+<li><p>Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)</p>
+
+<ul>
+<li><p>Open a command line</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">C</span><span class="p">:</span><span class="o">\</span><span class="n">Program</span> <span class="n">Files</span><span class="o">\</span><span class="n">PostgreSQL</span><span class="o">\</span>9<span class="p">.</span>1<span class="o">\</span><span class="n">bin</span><span class="o">\</span>
+<span class="n">createdb</span><span class="p">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">U</span> <span class="n">postgres</span> <span class="n">QUICKSTART_DATABASENAME</span>
+</pre>
+</div></li>
+</ul></li>
+</ol>
+
+<h4 id="toc_28">Create a Database User</h4>
+
+<ol>
+<li> Make sure the PostgreSQL bin directory is in your PATH. 
+
+<ul>
+<li>Open a command line and change to the root directory
+    psql</li>
+<li>If you see an error that &#39;psql&#39; is not a recognized command, you need to add the PostgreSQL bin directory to your PATH environment variable. </li>
+</ul></li>
+<li><p>As the <em>postgres</em> user, start the PostgreSQL interactive terminal by typing the following command:</p>
+<div class="highlight"><pre><span class="n">psql</span> <span class="o">-</span><span class="n">U</span> <span class="n">postgres</span>
+</pre>
+</div></li>
+<li><p>Create the user sa with password sa and all privileges on the database by typing the following commands (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart):</p>
+<div class="highlight"><pre><span class="n">create</span> <span class="n">user</span> <span class="n">sa</span> <span class="n">with</span> <span class="n">password</span> <span class="s">&#39;sa&#39;</span><span class="p">;</span>
+<span class="n">grant</span> <span class="n">all</span> <span class="n">privileges</span> <span class="n">on</span> <span class="n">database</span> &quot;<span class="n">QUICKSTART_DATABASENAME</span>&quot; <span class="n">to</span> <span class="n">sa</span><span class="p">;</span>
+<span class="o">\</span><span class="n">q</span>
+</pre>
+</div></li>
+<li><p>Test the connection to the database using the TCP connection as user <code>&#39;sa&#39;</code>. This validates that the change to <code>pg_hba.conf</code> was made correctly: </p>
+<div class="highlight"><pre><span class="n">psql</span> <span class="o">-</span><span class="n">h</span> 127<span class="p">.</span>0<span class="p">.</span>0<span class="p">.</span>1 <span class="o">-</span><span class="n">U</span> <span class="n">sa</span> <span class="n">QUICKSTART_DATABASENAME</span>
+</pre>
+</div></li>
+</ol>
+
+<p><a id="addpostgresqlmodule"></a></p>
+
+<h4 id="toc_29">Add the PostgreSQL Module to the JBoss server</h4>
+
+<ol>
+<li>Create the following directory structure: <code>JBOSS_HOME/modules/org/postgresql/main</code></li>
+<li>Download the JBDC driver from <a href="http://jdbc.postgresql.org/download.html">http://jdbc.postgresql.org/download.html</a> and copy it into the directory you created in the previous step.</li>
+<li><p>In the same directory, create a file named module.xml. Copy the following contents into the file:</p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;module</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:module:1.0&quot;</span> <span class="na">name=</span><span class="s">&quot;org.postgresql&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;resources&gt;</span>
+        <span class="nt">&lt;resource-root</span> <span class="na">path=</span><span class="s">&quot;postgresql-9.1-901.jdbc4.jar&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/resources&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">&quot;javax.api&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">&quot;javax.transaction.api&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/module&gt;</span>
+</pre>
+</div></li>
+</ol>
+
+<p><a id="addpostgresqldriver"></a></p>
+
+<h4 id="toc_30">Add the Driver Configuration to the JBoss server</h4>
+
+<ol>
+<li> Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code></li>
+<li> Open the <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file in an editor and locate the subsystem <code>urn:jboss:domain:datasources:1.0</code>. </li>
+<li><p>Add the following driver to the <code>&lt;drivers&gt;</code> section that subsystem. You may need to merge with other drivers in that section:</p>
+<div class="highlight"><pre><span class="nt">&lt;driver</span> <span class="na">name=</span><span class="s">&quot;postgresql&quot;</span> <span class="na">module=</span><span class="s">&quot;org.postgresql&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xa-datasource-class&gt;</span>org.postgresql.xa.PGXADataSource<span class="nt">&lt;/xa-datasource-class&gt;</span>
+<span class="nt">&lt;/driver&gt;</span>
+</pre>
+</div></li>
+</ol>
+
+<h4 id="toc_31">Important Quickstart Testing Information</h4>
+
+<p>The installation of PostgreSQL is a one time procedure. However, unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; above for your operating system every time you reboot your machine.</p>
+
+<p><a id="byteman"></a></p>
+
+<h3 id="toc_32">Install and Configure Byteman</h3>
+
+<p><em>Byteman</em> is used by a few of the quickstarts to demonstrate distributed transaction processing and crash recovery.</p>
+
+<h4 id="toc_33">What is It?</h4>
+
+<p><em>Byteman</em> is a tool which simplifies tracing and testing of Java programs. Byteman allows you to insert extra Java code into your application, either as it is loaded during JVM startup or after it has already started running. This code can be used to trace what the application is doing and to monitor and debug deployments to be sure it is operating correctly. You can also use <em>Byteman</em> to inject faults or synchronization code when testing your application. A few of the quickstarts use <em>Byteman</em> to halt an application server in the middle of a distributed transaction to demonstrate crash recovery.</p>
+
+<p><a id="byteman-install"></a></p>
+
+<h4 id="toc_34">Download and Configure Byteman</h4>
+
+<ol>
+<li>Download Byteman from <a href="http://www.jboss.org/byteman/downloads/">http://www.jboss.org/byteman/downloads/</a></li>
+<li>Extract the ZIP file to a directory of your choice.</li>
+<li><p>By default, the Byteman download provides unrestricted permissions to <em>others</em> which can cause a problem when running Ruby commands for the OpenShift quickstarts. To restrict the permissions to <em>others</em>, open a command line and type the followinge:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">byteman</span><span class="o">-</span><span class="n">download</span><span class="o">-</span>2<span class="p">.</span>0<span class="p">.</span>0<span class="o">/</span>
+<span class="n">chmod</span> <span class="o">-</span><span class="n">R</span> <span class="n">o</span><span class="o">-</span><span class="n">rwx</span> <span class="n">byteman</span><span class="o">-</span><span class="n">download</span><span class="o">-</span>2<span class="p">.</span>0<span class="p">.</span>0<span class="o">/</span>
+</pre>
+</div></li>
+</ol>
+
+<p><a id="byteman-halt"></a></p>
+
+<h4 id="toc_35">Halt the Application Using Byteman</h4>
+
+<p>When instructed to use Byteman to halt the application, perform the following steps:</p>
+
+<ol>
+<li><p>Find the appropriate configuration file for your operating system in the list below.</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">conf</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+<li><p><strong>Important</strong>: Make a backup copy of this file before making any modifications.</p></li>
+<li><p>The quickstart README should specify the text you need to append to the server configuration file.</p></li>
+<li><p>Open the configuration file and append the text specified by the quickstart to the end of the file. Make sure to replace the file paths with the correct location of your quickstarts and the <em>Byteman</em> download. </p></li>
+<li><p>The following is an example of of the configuration changes needed for the <em>jta-crash-rec</em> quickstart: </p>
+
+<p>For Linux, open the <code>JBOSS_HOME/bin/standalone.conf</code> file and append the following line:</p>
+<div class="highlight"><pre>JAVA_OPTS=&quot;-javaagent:/PATH_TO_BYTEMAN_DOWNLOAD/lib/byteman.jar=script:/PATH_TO_QUICKSTARTS/jta-crash-rec/src/main/scripts/xa.btm <span class="cp">${</span><span class="n">JAVA_OPTS</span><span class="cp">}</span>&quot; 
+</pre>
+</div>
+
+<p>For Windows, open the <code>JBOSS_HOME\bin\standalone.conf.bat</code> file and append the following line:</p>
+<div class="highlight"><pre><span class="n">SET</span> &quot;<span class="n">JAVA_OPTS</span><span class="p">=</span><span class="c">%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byteman.jar=script:C:\PATH_TO_QUICKSTARTS\jta-crash-rec\src\main\scripts\xa.btm %JAVA_OPTS%&quot;</span>
+</pre>
+</div></li>
+</ol>
+
+<p><a id="byteman-disable"></a></p>
+
+<h4 id="toc_36">Disable the Byteman Script</h4>
+
+<p>When you are done testing the quickstart, remember to restore the configuration file with the backup copy you made in step 2 above.</p>
+</body></html>

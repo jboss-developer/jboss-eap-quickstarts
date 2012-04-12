@@ -5,16 +5,17 @@
 
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-helloworld-jms</artifactId>
-   <version>1.0.0</version>
+   <version>7.1.1.CR1</version>
    <packaging>jar</packaging>
-   <name>JBoss AS Quickstarts: Helloworld JMS external producer/consumer client</name>
+   <name>JBoss AS Quickstarts: helloworld-jms</name>
+   <description>helloworld-jms: Helloworld JMS external producer/consumer client</description>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>
       <license>
-         <name>GNU Lesser General Public License</name>
-         <url>http://www.gnu.org/copyleft/lesser.html</url>
+         <name>Apache License, Version 2.0</name>
          <distribution>repo</distribution>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
       </license>
    </licenses>
 
@@ -29,19 +30,9 @@
    <dependencies>
       <dependency>
          <groupId>org.jboss.as</groupId>
-         <artifactId>jboss-as-naming</artifactId>
-         <version>7.1.1.Final-redhat-1</version>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.spec.javax.jms</groupId>
-         <artifactId>jboss-jms-api_1.1_spec</artifactId>
-         <version>1.0.0.Final-redhat-1</version>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.as</groupId>
-         <artifactId>jboss-as-messaging</artifactId>
-         <version>7.1.1.Final-redhat-1</version>
+         <artifactId>jboss-as-jms-client-bom</artifactId>
+         <version>7.1.1.Final</version>
+         <type>pom</type>
       </dependency>
    </dependencies>
 
@@ -55,18 +46,36 @@
             <configuration>
                <mainClass>org.jboss.as.quickstarts.jms.HelloWorldJMSClient</mainClass>
                <systemProperties>
-                  <systemProperty>
-                     <key>connection.type</key>
-                     <value>netty</value>
-                  </systemProperty>
-                  <systemProperty>
-                     <key>java.naming.factory.initial</key>
-                     <value>org.jboss.as.naming.InitialContextFactory</value>
-                  </systemProperty>
+                  <!-- Override the default values of properties passed to the HelloWorldJMSClient -->
+                  <!--
                   <systemProperty>
                      <key>java.naming.provider.url</key>
-                     <value>jnp://localhost:1099</value>
+                     <value>remote://localhost:4447</value>
                   </systemProperty>
+                  <systemProperty>
+                     <key>username</key>
+                     <value>quickstartUser</value>
+                  </systemProperty>
+                  <systemProperty>
+                     <key>password</key>
+                     <value>quickstartPassword</value>
+                  </systemProperty>
+                  <systemProperty>
+                     <key>connection.factory</key>
+                     <value>jms/RemoteConnectionFactory</value>
+                  </systemProperty>
+                  <systemProperty>
+                     <key>destination</key>
+                     <value>jms/queue/test</value>
+                  </systemProperty>
+                  <systemProperty>
+                     <key>message.count</key>
+                     <value>1</value>
+                  </systemProperty>
+                  <systemProperty>
+                     <key>message.content</key>
+                     <value>Hello, World!</value>
+                  </systemProperty-->
                   <systemProperty>
                      <key>java.logging.config.file</key>
                      <value>./helloworld-jms-logging.properties</value>
@@ -84,7 +93,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Final</version>
+            <version>7.1.1.Final</version>
             <configuration>
                <username>admin</username>
                <password>admin</password>
@@ -103,3 +112,4 @@
       </plugins>
    </build>
 </project>
+

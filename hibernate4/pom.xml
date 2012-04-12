@@ -4,10 +4,18 @@
 
    <groupId>org.jboss.as.quickstart</groupId>
    <artifactId>jboss-as-hibernate4</artifactId>
-   <version>7.1.0.Final</version>
+   <version>7.1.1.CR1</version>
    <packaging>war</packaging>
-   <name>Java EE 6 webapp project</name>
-   <description>A starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6, generated from the jboss-javaee6-webapp archetype</description>
+   <name>JBoss AS Quickstarts: Hibernate 4</name>
+   <description>hibernate4: Application that uses Hibernate 4</description>
+
+   <licenses>
+      <license>
+         <name>Apache License, Version 2.0</name>
+         <distribution>repo</distribution>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      </license>
+   </licenses>
 
    <properties>
       <!-- Explicitly declaring the source encoding eliminates the following 
@@ -15,14 +23,12 @@
       <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
          resources, i.e. build is platform dependent! -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  
-        Any dependencies from org.jboss.spec will have their version defined by this 
-        BOM -->
-      <javaee6.with.tools.version>1.0.0.M3-redhat-1</javaee6.with.tools.version>      
-      <!-- Alternatively, comment out the above line, and un-comment the line below to 
-           use version 3.0.0.Beta1 which is a release design for JBoss AS 7 (community version).
-           It requires you have access to the JBoss EAP 6 maven repository. -->
-      <!-- <javaee6.with.tools.version>1.0.0.M3</javaee6.with.tools.version> -->
+      <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  -->
+      <!-- <jboss.bom.version>1.0.0.M7</jboss.bom.version> -->
+      <!-- Alternatively, comment out the above line, and un-comment the line below to
+         use version 3.0.0.Final-redhat-1 which is a release certified
+         to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
+      <jboss.bom.version>1.0.0.M7-redhat-1</jboss.bom.version>
    </properties>
 
    <dependencyManagement>
@@ -30,12 +36,13 @@
          <!-- JBoss distributes a complete set of Java EE 6 APIs including 
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
             a collection) of artifacts. We use this here so that we always get the correct 
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE Web Profile 6 APIs) -->
+            versions of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack 
+            (you can read this as the JBoss stack of the Java EE Web Profile 6 APIs with 
+            extras from the Hibernate family of projects) -->
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <groupId>org.jboss.bom</groupId>
+            <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+            <version>${jboss.bom.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -100,7 +107,6 @@
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
-         <version>4.2.0.Final</version>
          <scope>provided</scope>
          <exclusions>
             <exclusion>
@@ -109,26 +115,16 @@
             </exclusion>
          </exclusions>
       </dependency>
-
-      <!-- Now we declare any tools needed -->
-      <!--Commenting the following dependency as we are using the Hibernate4 Core Native API Criterion queries in this example-->
-      <!-- Annotation processor to generate the JPA 2.0 metamodel classes 
-         for typesafe criteria queries -->
-      <!--dependency>
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-jpamodelgen</artifactId>
-         <version>1.1.1.Final</version>
-         <scope>provided</scope>
-      </dependency-->
       
       <!--Import dependencies to hibernate packages(eg. hibernate-core) depending on features you want to use like Hibernate Session used in the 	quickstart-->
       <!--please note that scope is provided as these jars are shipped with as7-->
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-core</artifactId>
-         <version>4.0.1.Final</version>
          <scope>provided</scope>
       </dependency>
+      
+      <!-- Now we declare any tools needed -->
 
       <!-- Needed for running tests (you may also use TestNG) -->
       <dependency>
@@ -187,7 +183,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Final</version>
+            <version>7.1.1.Final</version>
          </plugin>
       </plugins>
    </build>
@@ -226,7 +222,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-               <version>7.1.0.Final</version>
+               <version>7.1.1.Final</version>
                <scope>test</scope>
             </dependency>
          </dependencies>
@@ -241,7 +237,7 @@
             <dependency>
                <groupId>org.jboss.as</groupId>
                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-               <version>7.1.0.Final</version>
+               <version>7.1.1.Final</version>
                <scope>test</scope>
             </dependency>
          </dependencies>

@@ -1,4 +1,12 @@
-#!/bin/sh
+#!/bin/bash
+
+REQUIRED_BASH_VERSION=3.0.0
+
+if [[ $BASH_VERSION < $REQUIRED_BASH_VERSION ]]; then
+  echo "You must use Bash version 3 or newer to run this script"
+  exit
+fi
+
 
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
@@ -6,8 +14,8 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # DEFINE
 
-ARCHETYPES=("jboss-javaee6-webapp-archetype" "jboss-javaee6-webapp-ear-archetype" "jboss-html5-mobile-archetype")
-QUICKSTARTS=("kitchensink" "kitchensink-ear" "html5-mobile")
+ARCHETYPES=("jboss-javaee6-webapp-archetype" "jboss-javaee6-webapp-ear-archetype")
+QUICKSTARTS=("kitchensink" "kitchensink-ear")
 
 # SCRIPT
 
@@ -59,7 +67,7 @@ markdown_to_html()
    do
       output_filename=${readme//.md/.html}
       output_filename=${output_filename//.MD/.html}
-      markdown $readme -f $output_filename  
+      $DIR/github-flavored-markdown.rb $readme > $output_filename  
    done
 }
 
@@ -82,7 +90,7 @@ regenerate()
       quickstart=${QUICKSTARTS[index]}
       package=${quickstart//-/_}
       name="JBoss AS Quickstarts: $quickstart"
-      echo "\n**** Regenerating $quickstart from $archetype\n"
+      echo "**** Regenerating $quickstart from $archetype"
       mvn archetype:generate -DarchetypeGroupId=org.jboss.spec.archetypes -DarchetypeArtifactId=$archetype -DarchetypeVersion=$VERSION -DartifactId=jboss-as-$quickstart -DgroupId=org.jboss.as.quickstarts -Dpackage=org.jboss.as.quickstarts.$package -Dversion=$VERSION -DinteractiveMode=false -Dname="${name}"
       ((index++))
       rm -rf $ROOTDIR/$quickstart

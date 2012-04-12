@@ -20,9 +20,17 @@
  */
 package org.jboss.as.quickstarts.cmt.ejb;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
+import javax.jms.JMSException;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -31,18 +39,24 @@ import javax.transaction.SystemException;
 
 import org.jboss.as.quickstarts.cmt.model.Customer;
 
-/**
- * A simple example to show some transactional business logic.
- */
-public interface CustomerManagerEJB {
-    /**
-     * The business logic.
-     * 
-     * @return
-     * @throws NamingException
-     * @throws Exception
-     */
-    public int createCustomer(String name) throws NamingException, Exception;
+@Stateless
+public class CustomerManagerEJB {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Inject
+    private InvoiceManagerEJB invoiceManager;
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void createCustomer(String name) throws RemoteException, JMSException {
+
+        Customer c1 = new Customer();
+        c1.setName(name);
+        entityManager.persist(c1);
+
+        invoiceManager.createInvoice(name);
+    }
 
     /**
      * List all the customers.
@@ -57,6 +71,9 @@ public interface CustomerManagerEJB {
      * @throws HeuristicMixedException
      * @throws HeuristicRollbackException
      */
-    public List<Customer> listCustomers() throws NamingException, NotSupportedException, SystemException, SecurityException,
-            IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException;
+    @TransactionAttribute(TransactionAttributeType.NEVER)
+    @SuppressWarnings("unchecked")
+    public List<Customer> listCustomers() {
+        return entityManager.createQuery("select c from Customer c").getResultList();
+    }
 }

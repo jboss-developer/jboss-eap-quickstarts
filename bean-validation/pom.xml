@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>bean-validation</artifactId>
-    <version>7.1.0.Final</version>
+    <version>7.1.1.CR1</version>
     <packaging>war</packaging>
 
     <name>JBoss AS Quickstarts: Bean Validation</name>
@@ -35,7 +35,7 @@
             <dependency>
                <groupId>org.jboss.spec</groupId>
                <artifactId>jboss-javaee-6.0</artifactId>
-               <version>3.0.0.Beta1-redhat-1</version>
+               <version>3.0.0.Final-redhat-1</version>
                <type>pom</type>
                <scope>import</scope>
             </dependency>
@@ -48,7 +48,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>1.0.0.M3</version>
+                <version>1.0.0.M7-redhat-1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -146,7 +146,7 @@
                 <plugin>
                     <groupId>org.jboss.as.plugins</groupId>
                     <artifactId>jboss-as-maven-plugin</artifactId>
-                    <version>7.1.0.Final</version>
+                    <version>7.1.1.Final</version>
                 </plugin>
             </plugins>
         </pluginManagement>

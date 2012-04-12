@@ -6,13 +6,22 @@
    <parent>
       <artifactId>jboss-as-kitchensink-ear</artifactId>
       <groupId>org.jboss.as.quickstarts</groupId>
-      <version>7.1.0.Final</version>
+      <version>7.1.1.CR1</version>
    </parent>
 
    <artifactId>jboss-as-kitchensink-ear-ejb</artifactId>
    <packaging>ejb</packaging>
 
    <name>JBoss AS Quickstarts: Kitchensink EAR: EJB Module</name>
+
+   <url>http://jboss.org/jbossas</url>
+   <licenses>
+      <license>
+         <name>Apache License, Version 2.0</name>
+         <distribution>repo</distribution>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      </license>
+   </licenses>
 
    <dependencies>
 
@@ -112,7 +121,7 @@
          </build>
       </profile>
 
-      <profile>    
+      <profile>
          <!-- An optional Arquillian testing profile that executes tests 
             in your JBoss AS instance -->
          <!-- This profile will start a new JBoss AS instance, and execute 
@@ -128,7 +137,7 @@
          </dependencies>
       </profile>
 
-      <profile>     
+      <profile>
          <!-- An optional Arquillian testing profile that executes tests 
             in a remote JBoss AS instance -->
          <!-- Run with: mvn clean test -Parq-jbossas-remote -->

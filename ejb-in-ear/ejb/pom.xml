@@ -10,13 +10,22 @@
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
+    <version>7.1.1.CR1</version>
     <name>JBoss AS Quickstarts: EJB and War in an Ear - EJB</name>
     <description>JBoss AS Quickstarts: EJB and War in an Ear - EJB</description>
 
+    <licenses>
+       <license>
+          <name>Apache License, Version 2.0</name>
+          <distribution>repo</distribution>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+       </license>
+    </licenses>
+   
     <parent>
         <groupId>org.jboss.as.quickstarts</groupId>
         <artifactId>jboss-as-ejb-in-ear</artifactId>
-        <version>7.1.0.Final</version>
+        <version>7.1.1.CR1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

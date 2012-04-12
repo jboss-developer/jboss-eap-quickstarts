@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.as.quickstarts</groupId>
+        <artifactId>jboss-as-shoppingcart-parent</artifactId>
+        <version>7.1.1.CR1</version>
+    </parent>
+
+    <artifactId>jboss-as-shoppingcart-client</artifactId>
+    <packaging>jar</packaging>
+    <name>JBoss AS Quickstarts: Shopping Cart Remote Client</name>
+
+    <dependencies>
+
+        <!-- We depend on the server side EJBs of this application -->
+        <dependency>
+            <groupId>org.jboss.as.quickstarts</groupId>
+            <artifactId>jboss-as-shoppingcart-server</artifactId>
+        </dependency>
+
+        <!-- JBoss EJB client stack. We use runtime scope because the EJB 
+            client API isn't directly used in this example. We just need it in our runtime 
+            classpath -->
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <scope>runtime</scope>
+            <type>pom</type>
+        </dependency>
+        
+        <!--  Import the Java EJB API, as we use exceptions from it -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Enforce Java 1.6 -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <!-- Add the maven exec plugin to allow us to run a java program 
+                via maven -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.jboss.as.quickstarts.client.Client</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

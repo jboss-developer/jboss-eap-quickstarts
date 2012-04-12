@@ -4,8 +4,8 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-quickstarts-ejb-remote-client</artifactId>
-   <version>7.1.0.Final</version>
+   <artifactId>jboss-as-ejb-remote-client</artifactId>
+   <version>7.1.1.CR1</version>
    <packaging>jar</packaging>
    <name>JBoss AS Quickstarts: EJB Remote Client</name>
    <description>JBoss AS Quickstarts: Java client for remote EJB</description>
@@ -40,7 +40,7 @@
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <version>3.0.0.Final-redhat-1</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -65,11 +65,12 @@
          <scope>runtime</scope>
       </dependency>
 
-       <!-- We depend on the server side EJBs of this application -->
+       <!-- We depend on the EJB remote business interfaces  of this application -->
        <dependency>
           <groupId>org.jboss.as.quickstarts</groupId>
           <artifactId>jboss-as-ejb-remote-server-side</artifactId>
-          <version>${project.version}</version>
+          <type>ejb-client</type>
+         <version>${project.version}</version>
        </dependency>
 
        <!-- JBoss EJB client API jar. We use runtime scope because the EJB client API
@@ -158,13 +159,27 @@
               </arguments>
             </configuration>
         </plugin>
-            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
-               container -->
+            <!-- build standalone exe jar -->
+         <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+               <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+               </descriptorRefs>
+               <archive>
+                  <manifest>
+                     <mainClass>org.jboss.as.quickstarts.ejb.remote.client.RemoteEJBClient</mainClass>
+                  </manifest>
+               </archive>
+            </configuration>
+         </plugin>
+        
+         <!-- The JBoss AS plugin deploys your apps to a local JBoss AS container -->
             <!-- Disabling it here means that we don't try to deploy this POM! -->
             <plugin>
                <groupId>org.jboss.as.plugins</groupId>
                <artifactId>jboss-as-maven-plugin</artifactId>
-               <version>7.1.0.Final</version>
+               <version>7.1.1.Final</version>
                <inherited>true</inherited>
                <configuration>
                   <skip>true</skip>

@@ -3,11 +3,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jax-rs-client</artifactId>
-    <version>1.0</version>
-    <name>JBoss AS Quickstarts:  jax-rs-client</name>
+    <name>JBoss AS Quickstarts: JAX-RS Client</name>
+    <description>jax-rs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
+    <artifactId>jboss-as-jax-rs-client</artifactId>
+    <version>7.1.1.CR1</version>
+
 
     <url>http://jboss.org/jbossas</url>
+    <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <distribution>repo</distribution>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
@@ -17,52 +27,49 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-parent</artifactId>
-                <version>7.1.1.Final-redhat-1</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>    
-    </dependencyManagement>
-
     <dependencies>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxrs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>2.2.2.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.1.4</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <!-- Maven compiler plugin -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.4.3</version>
+                <configuration>
+                    <systemProperties>
+                        <property>
+                            <name>xmlUrl</name>
+                            <value>http://localhost:8080/jboss-as-helloworld-rs/xml</value>
+                        </property>
+                        <property>
+                            <name>jsonUrl</name>
+                            <value>http://localhost:8080/jboss-as-helloworld-rs/json</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

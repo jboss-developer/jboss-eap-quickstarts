@@ -4,7 +4,7 @@
 
    <groupId>org.jboss.as.quickstarts</groupId>
    <artifactId>jboss-as-helloworld-rs</artifactId>
-   <version>7.1.0.Final</version>
+   <version>7.1.1.CR1</version>
    <packaging>war</packaging>
    <name>JBoss AS Quickstarts: helloworld-rs</name>
    <description>JBoss AS Quickstarts: Helloworld using JAX-RS</description>
@@ -41,7 +41,7 @@
          <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Beta1-redhat-1</version>
+            <version>3.0.0.Final-redhat-1</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>
@@ -93,7 +93,7 @@
          <plugin>
             <groupId>org.jboss.as.plugins</groupId>
             <artifactId>jboss-as-maven-plugin</artifactId>
-            <version>7.1.0.Final</version>
+            <version>7.1.1.Final</version>
          </plugin>
          <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
             annotation processors -->
@@ -108,5 +108,28 @@
       </plugins>
    </build>
 
+  <profiles>
+    <profile>
+       <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+       <!-- Use this profile for any OpenShift specific customization your app will need. -->
+       <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
+       <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+       <id>openshift</id>
+       <build>
+          <plugins>
+             <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                   <outputDirectory>deployments</outputDirectory>
+                   <warName>ROOT</warName>
+                   <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+                   <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+             </plugin>
+          </plugins>
+       </build>
+    </profile>
+  </profiles> 
 </project>
 

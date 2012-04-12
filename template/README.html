@@ -1,0 +1,226 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">QUICKSTART_NAME: Brief Description of the Quickstart</h1>
+
+<p>Author: YOUR_NAME and optional CONTACT_INFO</p>
+
+<p><em>This file is meant to serve as a template or guideline for your own quickstart README.html file. Be sure to replace QUICKSTART_NAME and YOUR_NAME, with the appropriate values.</em></p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This is where you provide an overview of what the quickstart demonstrates. For example:</p>
+
+<ul>
+<li>What are the technologies demonstrated by the quickstart?</li>
+<li>What does it do when you run it?</li>
+</ul>
+
+<p>You should include any information that would help the user understand the quickstart.  </p>
+
+<p>If possible, give an overview, including any code they should look at to understand how it works..</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. </p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:</p>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Configure Optional Components</h2>
+
+<p>If your quickstart requires any additional components, decribe how to set them up here. </p>
+
+<p>If your quickstart requires a secured user, PostgreSQL, or Byteman, you can link to the instructions in the README file located in the root folder of the quickstart directory. </p>
+
+<p>Here are some examples:</p>
+
+<ul>
+<li><p>This quickstart uses a secured management interface and requires that you create a management (or application) user to access the running application. Instructions to set up a Management (or Application) user can be found here: </p>
+
+<ul>
+<li><a href="../README.html#addmanagementuser">Add a Management User</a></li>
+<li><a href="../README.html#addapplicationuser">Add an Application User</a></li>
+</ul></li>
+<li><p>This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: <a href="../README.html#postgresql">Install and Configure the PostgreSQL Database</a></p></li>
+<li><p>This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: <a href="../README.html#byteman">Install and Configure Byteman</a></p></li>
+</ul>
+
+<p>If your quickstart requires any other components, you must describe how to configure them here.</p>
+
+<h2 id="toc_5">Start JBoss Enterprise Application Platform 6 or JBoss AS 7</h2>
+
+<p>Does this quickstart require a running server? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:</p>
+
+<ul>
+<li><p>Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</p></li>
+<li><p>Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</p></li>
+<li><p>Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with Custom Options. You will need to provide the argument string to pass on the command line, for example: </p>
+
+<p><code>--server-config=../../docs/examples/configs/standalone-xts.xml</code></p></li>
+</ul>
+
+<p>If the server is started in a different manner than above, give the specific instructions.</p>
+
+<h2 id="toc_6">Build and Deploy the Quickstart</h2>
+
+<p>If the quickstart is built and deployed using the standard Maven commands, &ldquo;mvn clean package&rdquo; and &ldquo;mvn jboss-as:deploy&rdquo;, copy the following:</p>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+<li><p>This will deploy <code>target/jboss-as-QUICKSTART_NAME.war</code> (or <code>target/jboss-as-QUICKSTART_NAME.ear</code>) to the running instance of the server.</p></li>
+</ol>
+
+<p>Be sure to replace the QUICKSTART_NAME. If this quickstart requires different or additional instructions, be sure to modify or add those instructions here.</p>
+
+<h2 id="toc_7">Access the application (For quickstarts that have a UI component)</h2>
+
+<p>Provide the URL to access the running application. Be sure to make the URL a hyperlink as below, substituting the your quickstart name for the QUICKSTART_NAME. </p>
+<div class="highlight"><pre>    <span class="n">Access</span> <span class="n">the</span> <span class="n">running</span> <span class="n">application</span> <span class="n">in</span> <span class="n">a</span> <span class="n">browser</span> <span class="n">at</span> <span class="n">the</span> <span class="n">following</span> <span class="n">URL</span><span class="p">:</span>  <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">QUICKSTART_NAME</span><span class="o">&gt;</span>
+</pre>
+</div>
+
+<p>Briefly describe what you will see when you access the application. For example: </p>
+<div class="highlight"><pre>    <span class="n">You</span> <span class="n">will</span> <span class="n">be</span> <span class="n">presented</span> <span class="n">with</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">form</span> <span class="k">for</span> <span class="n">adding</span> <span class="n">key</span><span class="o">/</span><span class="n">value</span> <span class="n">pairs</span> <span class="n">and</span> <span class="n">a</span> <span class="n">checkbox</span> <span class="n">to</span> <span class="n">indicate</span> <span class="n">whether</span> <span class="n">the</span> <span class="n">updates</span> <span class="n">should</span> <span class="n">be</span> <span class="n">executed</span> <span class="n">using</span> <span class="n">an</span> <span class="n">unmanaged</span> <span class="n">component</span><span class="p">.</span> 
+
+        <span class="n">If</span> <span class="n">the</span> <span class="n">box</span> <span class="n">is</span> <span class="n">checked</span><span class="p">,</span> <span class="n">the</span> <span class="n">updates</span> <span class="n">will</span> <span class="n">be</span> <span class="n">executed</span> <span class="n">within</span> <span class="n">a</span> <span class="n">session</span> <span class="n">bean</span> <span class="n">method</span><span class="p">.</span> 
+        <span class="n">If</span> <span class="n">the</span> <span class="n">box</span> <span class="n">is</span> <span class="n">not</span> <span class="n">checked</span><span class="p">,</span> <span class="n">the</span> <span class="n">transactions</span> <span class="n">and</span> <span class="n">JPA</span> <span class="n">updates</span> <span class="n">will</span> <span class="n">run</span> <span class="n">in</span> <span class="n">a</span> <span class="n">servlet</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">session</span> <span class="n">beans</span><span class="p">.</span> 
+
+    <span class="n">To</span> <span class="n">list</span> <span class="n">all</span> <span class="n">existing</span> <span class="n">key</span><span class="o">/</span><span class="n">value</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">leave</span> <span class="n">the</span> <span class="n">key</span> <span class="n">input</span> <span class="n">box</span> <span class="n">empty</span><span class="p">.</span> 
+
+    <span class="n">To</span> <span class="n">add</span> <span class="n">or</span> <span class="n">update</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">a</span> <span class="n">key</span><span class="p">,</span> <span class="n">enter</span> <span class="n">a</span> <span class="n">key</span> <span class="n">and</span> <span class="n">value</span> <span class="n">input</span> <span class="n">boxe</span> <span class="n">and</span> <span class="n">click</span> <span class="n">the</span> <span class="n">submit</span> <span class="n">button</span> <span class="n">to</span> <span class="n">see</span> <span class="n">the</span> <span class="n">results</span><span class="p">.</span>
+</pre>
+</div>
+
+<p>Add any information that will help them run and understand your quickstart.</p>
+
+<h2 id="toc_8">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_9">Run the Arquillian Tests (For quickstarts that contain Arquillian tests)</h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. </p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#arquilliantests">Run the Arquillian Tests</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> 
+</pre>
+</div></li>
+</ol>
+
+<p>The quickstart README should show what to expect from the the tests</p>
+
+<ul>
+<li><p>Copy and paste output from the JUnit tests to show what to expect in the console from the tests.</p></li>
+<li><p>Copy and paste log messages output by the application to show what to expect in the server log when running the tests.</p></li>
+</ul>
+
+<h2 id="toc_10">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2 id="toc_11">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+
+<h2 id="toc_12">Build and Deploy the Quickstart - to OpenShift</h2>
+
+<p>If the quickstart deploys to OpenShift, you can use the following template a starting pint to describe the process.</p>
+
+<p>Note:</p>
+
+<ul>
+<li>QUICKSTART_NAME should be replaced with your quicktart name, for example:  my-quickstart</li>
+<li>OPENSHIFT_QUICKSTART_NAME should be replaced with a variation of the quickstart name, for example: myquickstart</li>
+</ul>
+
+<h3 id="toc_13">Create an OpenShift Express Account and Domain</h3>
+
+<p>If you do not yet have an OpenShift Express account and domain, visit <a href="https://openshift.redhat.com/app/login">https://openshift.redhat.com/app/login</a> to create the account and domain. The <a href="http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html">OpenShift Express Getting Started Guide</a> will show you how to install the OpenShift Express command line interface.</p>
+
+<h3 id="toc_14">Create the OpenShift Application</h3>
+
+<p>Open a shell command prompt and change to a directory of your choice. Enter the following command:</p>
+<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
+</pre>
+</div>
+
+<p>This command creates an OpenShift application with the name you entered above and will run the application inside a <code>jbossas-7</code> container. You should see some output similar to the following:</p>
+<div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span>
+<span class="n">Now</span> <span class="n">your</span> <span class="n">new</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">is</span> <span class="n">being</span> <span class="n">propagated</span> <span class="n">worldwide</span> <span class="p">(</span><span class="n">this</span> <span class="n">might</span> <span class="n">take</span> <span class="n">a</span> <span class="n">minute</span><span class="p">)...</span>
+<span class="n">Warning</span><span class="p">:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="s">&#39;OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com,107.22.36.32&#39;</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
+<span class="n">Confirming</span> <span class="n">application</span> <span class="s">&#39;OPENSHIFT_QUICKSTART_NAME&#39;</span> <span class="n">is</span> <span class="n">available</span><span class="p">:</span>  <span class="n">Success</span>!
+
+<span class="n">OPENSHIFT_QUICKSTART_NAME</span> <span class="n">published</span><span class="p">:</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">OPENSHIFT_QUICKSTART_NAME</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">url</span><span class="p">:</span>  <span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">b92047bdc05e46c980cc3501c3577c1e</span><span class="p">@</span><span class="n">OPENSHIFT_QUICKSTART_NAME</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/~/</span><span class="n">git</span><span class="o">/</span><span class="n">OPENSHIFT_QUICKSTART_NAME</span><span class="p">.</span><span class="n">git</span><span class="o">/</span>
+<span class="n">Successfully</span> <span class="n">created</span> <span class="n">application</span><span class="p">:</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span>
+</pre>
+</div>
+
+<p>The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <a href="http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/">http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/</a> into a browser or use command line tools such as curl or wget.</p>
+
+<h3 id="toc_15">Migrate the Quickstart Source</h3>
+
+<p>Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repository and tell git to remove the source files and pom:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span>
+<span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div>
+
+<p>Copy the source for the this quickstart into this new git repository:</p>
+<div class="highlight"><pre><span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">QUICKSTART_NAME</span><span class="o">/</span><span class="n">src</span> <span class="p">.</span>
+<span class="n">cp</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">QUICKSTART_NAME</span><span class="o">/</span><span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span>
+</pre>
+</div>
+
+<p>You can now deploy the changes to your OpenShift application using git as follows:</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> &quot;<span class="n">QUICKSTART_NAME</span> <span class="n">quickstart</span> <span class="n">on</span> <span class="n">OpenShift</span>&quot;
+<span class="n">git</span> <span class="n">push</span>
+</pre>
+</div>
+
+<p>The final push command triggers the OpenShift infrastructure to build and deploy the changes. </p>
+
+<p>Note that the <code>openshift</code> profile in <code>pom.xml</code> is activated by OpenShift, and causes the war build by openshift to be copied to the <code>deployments</code> directory, and deployed without a context path.</p>
+
+<p>When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:</p>
+
+<ul>
+<li><a href="http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/QUICKSTART_NAME">http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/QUICKSTART_NAME</a> </li>
+</ul>
+
+<p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
+
+<h3 id="toc_16">Destroy the OpenShift Application</h3>
+
+<p>When you are finished with the application you can destroy it as follows:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span>
+</pre>
+</div>
+</body></html>

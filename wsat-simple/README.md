@@ -5,14 +5,11 @@ Author: Paul Robinson
 What is it?
 -----------
 
-This example demonstrates the deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a war
-archive for deployment to *JBoss AS 7*.
+This example demonstrates the deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive for deployment to  *JBoss Enterprise Application Platform 6* or *JBoss AS 7*..
 
-The Web service is offered by a Restaurant for making bookings. The Service allows bookings to be made within an
-Atomic Transaction.
+The Web service is offered by a Restaurant for making bookings. The Service allows bookings to be made within an Atomic Transaction.
 
-The example demonstrates the basics of implementing a WS-AT enabled Web service. It is beyond the scope of this
-quick start to demonstrate more advanced features. In particular:
+This example demonstrates the basics of implementing a WS-AT enabled Web service. It is beyond the scope of this quick start to demonstrate more advanced features. In particular:
 
 1. The Service does not implement the required hooks to support recovery in the presence of failures.
 2. It also does not utilize a transactional back end resource.
@@ -20,19 +17,16 @@ quick start to demonstrate more advanced features. In particular:
 
 For a more complete example, please see the XTS demonstrator application that ships with the JBossTS project: http://www.jboss.org/jbosstm.
 
-It is also assumed tht you have an understanding of WS-AtomicTransaction. For more details, read the XTS documentation
-that ships with the JBossTS project, which can be downloaded here: http://www.jboss.org/jbosstm/downloads/JBOSSTS_4_16_0_Final
+It is also assumed that you have an understanding of WS-AtomicTransaction. For more details, read the XTS documentation that ships with the JBossTS project, which can be downloaded here: http://www.jboss.org/jbosstm/downloads/JBOSSTS_4_16_0_Final
 
-The application consists of a single JAX-WS web service that is deployed within a war archive. It is tested with a JBoss
-Arquillian enabled JUnit test.
+The application consists of a single JAX-WS web service that is deployed within a WAR archive. It is tested with a JBoss Arquillian enabled JUnit test.
 
-When running the org.jboss.as.quickstarts.wsat.simple.ClientTest#testCommit() method, the
-following steps occur:
+When running the `org.jboss.as.quickstarts.wsat.simple.ClientTest#testCommit()` method, the following steps occur:
 
 1. A new Atomic Transaction (AT) is created by the client.
 2. An operation on a WS-AT enabled Web service is invoked by the client.
 3. The JaxWSHeaderContextProcessor in the WS Client handler chain inserts the WS-AT context into the outgoing SOAP message
-4. When the service receives the SOAP request, it's JaxWSHeaderContextProcessor in it's handler chain inspects the WS-AT context and associates the request with this AT.
+4. When the service receives the SOAP request, the JaxWSHeaderContextProcessor in its handler chain inspects the WS-AT context and associates the request with this AT.
 5. The Web service operation is invoked...
 6. A participant is enlisted in this AT. This allows the Web Service logic to respond to protocol events, such as Commit and Rollback.
 7. The service invokes the business logic. In this case, a booking is made with the restaurant.
@@ -45,32 +39,51 @@ There is another test that shows what happens if the client decides to rollback 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
-3.0 or better.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on a JBoss AS 7 or EAP 6.
-The following instructions target JBoss AS 7, but they also apply to JBoss EAP 6.
+The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
 
-With the prerequisites out of the way, you're ready to build and deploy.
+ 
+Configure Maven
+---------------
 
-Deploying the application
+If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+
+
+Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Custom Options
+----------------------
+
+First, edit the log level to reduce the amount of log output. This should make it easier to read the logs produced by this example. To do this add the
+following logger block to the ./docs/examples/configs/standalone-xts.xml of your JBoss distribution. You should add it just bellow one of the other logger blocks.
+
+        <logger category="org.apache.cxf.service.factory.ReflectionServiceFactoryBean">
+            <level name="WARN"/>
+        </logger>         
+
+Next you need to start JBoss Enterprise Application Platform 6 or JBoss AS 7 (7.1.0.CR1 or above), with the XTS sub system enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBossAS:
+
+        For Linux:     ./bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml
+        For Windows:   \bin\standalone.bat --server-config=..\..\docs\examples\configs\standalone-xts.xml
+
+
+Run the Arquillian Tests 
 -------------------------
 
-First you need to start JBoss AS 7 (7.1.0.CR1 or above, or EAP 6), with the XTS sub system enabled, this is enabled through an optional server configuration (standalone-xts.xml). To do this, run the following commands, from within the top-level directory of JBossAS:
+This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
-    ./bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml | egrep "started|stdout"
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
 
-Note, the pipe to egrep (| egrep "started|stdout") is useful to just show when the server has started and the output from these tests. For normal operation, this pipe can be removed.
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type the following command to run the test goal with the following profile activated:
 
-or if you are using windows
+        mvn clean test -Parq-jbossas-remote 
 
-    ./bin/standalone.bat --server-config=../../docs/examples/configs/standalone-xts.xml
 
-To test the application run:
+Investigate the Console Output
+----------------------------
 
-    mvn clean test -Parq-jbossas-remote
-
-The following expected output should appear. The output explains what actually went on when these tests ran.
+The following expected output should appear. Note there will be some other log messages interlaced between these. The output explains what actually went on when these tests ran.
 
 Test commit:
 
@@ -103,31 +116,140 @@ Test rollback:
     14:06:32,818 INFO  [stdout] (TaskWorker-1) [SERVICE] one or more participants voted 'aborted' or a failure occurred, so coordinator tells the participant to rollback
     14:06:32,818 INFO  [stdout] (TaskWorker-1) [SERVICE] rollback called on backend resource.
 
-You can also start JBoss AS 7 and run the tests within Eclipse. See the JBoss AS 7
-Getting Started Guide for Developers for more information.
 
-Importing the project into an IDE
-=================================
+Run the Quickstart in JBoss Developer Studio or Eclipse
+-------------------------------------
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
 
-If you created the project using the Maven archetype wizard in your IDE
-(Eclipse, NetBeans or IntelliJ IDEA), then there is nothing to do. You should
-already have an IDE project.
 
-Detailed instructions for using Eclipse with JBoss AS 7 are provided in the
-JBoss AS 7 Getting Started Guide for Developers.
+Debug the Application
+------------------------------------
 
-If you created the project from the commandline using archetype:generate, then
-you need to import the project into your IDE. If you are using NetBeans 6.8 or
-IntelliJ IDEA 9, then all you have to do is open the project as an existing
-project. Both of these IDEs recognize Maven projects natively.
+If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 
-Downloading the sources and Javadocs
-====================================
+        mvn dependency:sources
+        mvn dependency:resolve -Dclassifier=javadoc
 
-If you want to be able to debug into the source code or look at the Javadocs
-of any library in the project, you can run either of the following two
-commands to pull them into your local repository. The IDE should then detect
-them.
 
-    mvn dependency:sources
-    mvn dependency:resolve -Dclassifier=javadoc
+Build and Deploy the Quickstart - to OpenShift
+-------------------------
+
+### Create an OpenShift Express Account and Domain
+
+If you do not yet have an OpenShift Express account and domain, visit <https://openshift.redhat.com/app/login> to create the account and domain. The [OpenShift Express Getting Started Guide](http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html) will show you how to install the OpenShift Express command line interface.
+
+### Create the OpenShift Application
+
+Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
+
+Open up a shell and from the directory of your choice run the following command to create our wsatsimple application.
+
+        rhc-create-app -a wsatsimple -t jbossas-7
+
+You should see some output which will show the application being deployed and also the URL at which it can be accessed. If creation is successful, you should see similar output:
+
+    Creating application: wsatsimple
+    Now your new domain name is being propagated worldwide (this might take a minute)...
+    Warning: Permanently added the RSA host key for IP address '23.20.102.147' to the list of known hosts.
+    Confirming application 'wsatsimple' is available:  Success!
+    
+    wsatsimple published:  http://wsatsimple-quickstart.rhcloud.com/
+    git url:  ssh://76f095330e3f49af97a52e513a9c966b@wsatsimple-quickstart.rhcloud.com/~/git/wsatsimple.git/
+    Successfully created application: wsatsimple
+
+### Migrate the Quickstart Source
+
+Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repo and tell git to remove the source files and pom:
+
+        cd wsatsimple
+        git rm -r src pom.xml
+
+Copy the source for the wsat-simple quickstart into this new git repo:
+
+        cp -r <quickstarts>/wsat-simple/src .
+        cp <quickstarts>/wsat-simple/pom.xml .
+
+Openshift does not have Web services or WS-AT enabled by default, so we need to modify the server configuration. To do this open `.openshift/config/standalone.xml` in your
+favorite editor and make the following additions:
+
+Add the following extensions to the `<extensions>` block:
+
+        <extension module="org.jboss.as.webservices"/>
+        <extension module="org.jboss.as.xts"/>
+
+Add the following sub systems to the `<profile>` block:
+
+        <subsystem xmlns="urn:jboss:domain:jmx:1.1">
+            <show-model value="true"/>
+            <remoting-connector/>
+        </subsystem>
+        <subsystem xmlns="urn:jboss:domain:webservices:1.1">
+            <modify-wsdl-address>true</modify-wsdl-address>
+            <wsdl-host>${env.OPENSHIFT_APP_DNS}</wsdl-host>
+            <wsdl-port>80</wsdl-port>
+            <endpoint-config name="Standard-Endpoint-Config"/>
+            <endpoint-config name="Recording-Endpoint-Config">
+                <pre-handler-chain name="recording-handlers" protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
+                    <handler name="RecordingHandler" class="org.jboss.ws.common.invocation.RecordingServerHandler"/>
+                </pre-handler-chain>
+            </endpoint-config>
+        </subsystem>
+        <subsystem xmlns="urn:jboss:domain:xts:1.0">
+            <xts-environment url="http://${OPENSHIFT_INTERNAL_IP}:8080/ws-c11/ActivationService"/>
+        </subsystem>
+    
+to reduce the amount of logging produced, also edit a log level. This should make it easier to read the logging produced by this example. To do this add the
+following logger block just bellow one of the other logger blocks. To be clear, this is only done to make the demo easier to follow.
+
+        <logger category="org.apache.cxf.service.factory.ReflectionServiceFactoryBean">
+            <level name="WARN"/>
+        </logger>
+
+The `.openshift/config/standalone.xml` is now ready, so save it and exit your editor.
+
+You can now deploy the changes to your OpenShift application using git as follows:
+
+        git add src pom.xml .openshift/config/standalone.xml
+        git commit -m "wsat-simple quickstart on OpenShift"
+        git push
+
+OpenShift will build the application using Maven, and deploy it to JBoss AS 7. If successful, you should see output similar to:
+
+    remote: [INFO] ------------------------------------------------------------------------
+    remote: [INFO] BUILD SUCCESS
+    remote: [INFO] ------------------------------------------------------------------------
+    remote: [INFO] Total time: 19.991s
+    remote: [INFO] Finished at: Wed Mar 07 12:48:15 EST 2012
+    remote: [INFO] Final Memory: 8M/168M
+    remote: [INFO] ------------------------------------------------------------------------
+    remote: Running .openshift/action_hooks/build
+    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/wsatsimple/jbossas-7/standalone/tmp/vfs
+    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/wsatsimple/jbossas-7/standalone/tmp/work
+    remote: Running .openshift/action_hooks/deploy
+    remote: Starting application...
+    remote: Done
+    remote: Running .openshift/action_hooks/post_deploy
+    To ssh://1e63c17c2dd94a329f21555a33dc617d@wsatsimple-quickstart.rhcloud.com/~/git/wsatsimple.git/
+       e6f80bd..63504b9  master -> master
+
+Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the WAR build by OpenShift to be copied to the `deployments` directory, and deployed without a context path.
+
+Now we will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
+
+        rhc-tail-files -a wsatsimple -f wsatsimple/logs/server.log
+
+Once the app is deployed open up a browser and run the application, the URL will be similar as follows but with your own
+domain name.
+
+    http://wsatsimple-quickstart.rhcloud.com/wsat-simple/WSATSimpleServletClient
+
+If the application has run successfully you should see some output in the browser. You should also see some output on the server log, similar to the output from the "Test commit" test above.
+
+You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+
+### Destroy the OpenShift Application
+
+When you are finished with the application you can destroy it as follows:
+
+        rhc app destroy -a wsatsimple
+
