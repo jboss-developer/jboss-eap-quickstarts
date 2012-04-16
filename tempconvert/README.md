@@ -1,4 +1,4 @@
-tempconvert: Stateless Session EJB
+temperature-converter-slsb: Stateless Session EJB
 =================================================
 Author: Bruce Wolfe 
 
@@ -11,9 +11,9 @@ Deployment occurs via a war archive for deployment to *JBoss AS 7*.
 These are the steps that occur:
 
 1. A JSF page asks the user for a temperature and scale.
-2. On clicking convert, the temperature string is handed to the TempConverter controller (managed) bean.
-3. This then invokes the TempConvertEJB, which was injected to the managed bean (notice the field annotated with @EJB).
-4. The response from invoking the TempConvertEJB is stored in a field (temperature) of the managed bean.
+2. On clicking convert, the temperature string is handed to the TemperatureConverter controller (managed) bean.
+3. This then invokes the TemperatureConvertEJB, which was injected to the managed bean (notice the field annotated with @Inject).
+4. The response from invoking the TemperatureConvertEJB is stored in a field (temperature) of the managed bean.
 5. The managed bean is annotated as @SessionScoped, so the same managed bean instance is used for the entire session.
 
 System requirements
@@ -47,9 +47,9 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
     mvn jboss-as:deploy
 
-This will deploy `target/tempconvert`.
+This will deploy `target/temperatureconvert`.
 
-The application will be running at the following URL <http://localhost:8080/tempconvert>.
+The application will be running at the following URL <http://localhost:8080/temperatureconvert>.
 
 To undeploy from JBoss AS, run this command:
 
