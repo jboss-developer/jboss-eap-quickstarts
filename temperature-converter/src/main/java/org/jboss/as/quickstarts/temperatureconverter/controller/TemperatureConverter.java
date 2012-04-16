@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Named("temperatureConverter")
 @SessionScoped
 public class TemperatureConverter implements Serializable {
-
+    private static final long serialVersionUID = 1785201108L;
     /**
      * Injected TemperatureConvertEJB client
      */
@@ -35,7 +35,8 @@ public class TemperatureConverter implements Serializable {
     /**
      * Invoke temperatureConvertEJB.convert() and store the temperature
      * 
-     * @param temperatureFrom The temperature to be converted
+     * @param sourceTemperature The temperature to be converted
+     * @param defaultScale The default source temperature scale
      */
     public void convert() {
         temperature = temperatureConvertEJB.convert(sourceTemperature, defaultScale);

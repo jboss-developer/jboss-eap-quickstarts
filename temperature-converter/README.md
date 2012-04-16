@@ -1,4 +1,4 @@
-temperature-converter-slsb: Stateless Session EJB
+temperature-converter: Stateless Session EJB
 =================================================
 Author: Bruce Wolfe 
 
@@ -10,77 +10,74 @@ Deployment occurs via a war archive for deployment to *JBoss AS 7*.
 
 These are the steps that occur:
 
-1. A JSF page asks the user for a temperature and scale.
-2. On clicking convert, the temperature string is handed to the TemperatureConverter controller (managed) bean.
-3. This then invokes the TemperatureConvertEJB, which was injected to the managed bean (notice the field annotated with @Inject).
-4. The response from invoking the TemperatureConvertEJB is stored in a field (temperature) of the managed bean.
+1. The user interface is a JSF page that asks for a temperature and a scale (Fahrenheit or Celsius).
+2. When you click on `Convert`, the temperature string is passed to the TemperatureConverter controller (managed) bean.
+3. The managed bean then invokes the `convert()` method of the injected TemperatureConvertEJB (notice the field annotated with @Inject).
+4. The response from TemperatureConvertEJB is stored in the `temperature` field of the managed bean.
 5. The managed bean is annotated as @SessionScoped, so the same managed bean instance is used for the entire session.
+
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
-3.0 or better.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on a JBoss AS 7 or JBoss Enterprise Application Platform 6.
-The following instructions target JBoss AS 7, but they also apply to JBoss Enterprise Application Platform 6.
+The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
 
-With the prerequisites out of the way, you're ready to build and deploy.
+ 
+Configure Maven
+---------------
 
-Deploying the application
+If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+
+
+Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 
-First you need to start JBoss AS 7 (or JBoss Enterprise Application Platform 6). To do this, run
+1. Open a command line and navigate to the root of the JBoss server directory.
+2. The following shows the command line to start the server with the web profile:
 
-    $JBOSS_HOME/bin/standalone.sh
+        For Linux:   JBOSS_HOME/bin/standalone.sh
+        For Windows: JBOSS_HOME\bin\standalone.bat
 
-or if you are using windows
 
-    $JBOSS_HOME/bin/standalone.bat
+Build and Deploy the Quickstart
+-------------------------
 
-To deploy the application, you first need to produce the archive to deploy using
-the following Maven goal:
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
 
-    mvn package
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to build and deploy the archive:
 
-You can now deploy the artifact to JBoss AS by executing the following command:
+        mvn clean package jboss-as:deploy
 
-    mvn jboss-as:deploy
+4. This will deploy `target/jboss-as-temperature-converter.war` to the running instance of the server.
+ 
 
-This will deploy `target/temperatureconvert`.
+Access the application 
+---------------------
 
-The application will be running at the following URL <http://localhost:8080/temperatureconvert>.
+The application will be running at the following URL: <http://localhost:8080/jboss-as-temperature-converter/>.
 
-To undeploy from JBoss AS, run this command:
+You will be presented with a simple form for temperature conversion.
 
-    mvn jboss-as:undeploy
+1. Optionally, Select a scale: Celsius or Fahrenheit.
+2. Enter a temperature.
+3. Press the `Convert` button to see the results.
 
-You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
-<a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> 
-for more information.
 
-Importing the project into an IDE
-=================================
+Run the Quickstart in JBoss Developer Studio or Eclipse
+-------------------------------------
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md/#useeclipse) 
 
-If you created the project using the Maven archetype wizard in your IDE
-(Eclipse, NetBeans or IntelliJ IDEA), then there is nothing to do. You should
-already have an IDE project.
 
-Detailed instructions for using Eclipse with JBoss AS 7 are provided in the
-JBoss AS 7 <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.
+Debug the Application
+------------------------------------
 
-If you created the project from the commandline using archetype:generate, then
-you need to import the project into your IDE. If you are using NetBeans 6.8 or
-IntelliJ IDEA 9, then all you have to do is open the project as an existing
-project. Both of these IDEs recognize Maven projects natively.
+If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 
-Downloading the sources and Javadocs
-====================================
+      mvn dependency:sources
+      mvn dependency:resolve -Dclassifier=javadoc
 
-If you want to be able to debug into the source code or look at the Javadocs
-of any library in the project, you can run either of the following two
-commands to pull them into your local repository. The IDE should then detect
-them.
 
-    mvn dependency:sources
-    mvn dependency:resolve -Dclassifier=javadoc

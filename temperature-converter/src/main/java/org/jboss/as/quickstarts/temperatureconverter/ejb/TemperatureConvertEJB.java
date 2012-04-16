@@ -31,7 +31,9 @@ public class TemperatureConvertEJB {
         String convertToScale = " Err";
         String conversionError = convertedTemperature + convertToScale;
 
-        // Set up the use of RegEx to extract the temperature and scale (if passed).
+        /* Set up the use of RegEx to extract the temperature and scale (if passed).
+         * NB: Could get more clever and insist on C|F being after the number, and a single char...
+         *     but that is an exercise for someone else to try */
         Pattern temperaturePattern = Pattern.compile("[-+]?[0-9]*\\.?[0-9]+");
         Pattern scalePattern = Pattern.compile("[CF]", Pattern.CASE_INSENSITIVE);
         Matcher extractTemperature = temperaturePattern.matcher(sourceTemperature);
@@ -41,13 +43,14 @@ public class TemperatureConvertEJB {
         if (extractScale.find()) {
             convertScale = extractScale.group();
         } else {
-            convertScale = defaultScale;
+            // Make sure defaultScale has a valid value also
+            convertScale = extractScale.reset(defaultScale).find() ? extractScale.group() : "";
         }
 
-        // Check we were passed a scale. Should never occur!
+        // Check we were passed a scale. Should never occur in current JSF > ManagedBean > SLSB model.
         if (convertScale.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage("You must provide a valid temperature scale - 'C|F'"));
+                    new FacesMessage("You must provide a valid temperature scale- 'C|F'"));
             return conversionError;
         }
 
@@ -56,7 +59,7 @@ public class TemperatureConvertEJB {
             temperatureToConvert = Double.parseDouble(extractTemperature.group());
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage("You must provide a valid temperature to convert - 'XX.X'"));
+                    new FacesMessage("You must provide a valid temperature to convert- 'XX.X'"));
             return conversionError;
         }
 
