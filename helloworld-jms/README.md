@@ -52,10 +52,6 @@ However, if you are using the JBoss Enterprise Application Platform 6 distributi
                         <entry name="queue/test"/>
                         <entry name="java:jboss/exported/jms/queue/test"/>
                     </jms-queue>
-                    <jms-topic name="testTopic">
-                        <entry name="topic/test"/>
-                        <entry name="java:jboss/exported/jms/topic/test"/>
-                    </jms-topic>
                 </jms-destinations>
     * Save the changes and close the file.  
 
