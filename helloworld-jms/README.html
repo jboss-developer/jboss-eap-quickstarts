@@ -27,7 +27,39 @@
 
 <p>This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: <a href="../README.html#addapplicationuser">Add an Application User</a></p>
 
-<h2 id="toc_5">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>
+<h2 id="toc_5">Configure the JBoss Enterprise Application Platform 6 server</h2>
+
+<p>If you are using the JBoss AS 7 Quickstart distribution, the server configuration file already contains the JMS <code>test</code> queue and you can skip this step. </p>
+
+<p>However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS <code>test</code> queue to the application server configuration file.</p>
+
+<ol>
+<li>Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml</li>
+<li><p>Add the JMS <code>test</code> queue as follows:</p>
+
+<ul>
+<li><p>Find the messaging subsystem:  </p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="n">subsystem</span> <span class="n">xmlns</span><span class="p">=</span>&quot;<span class="n">urn</span><span class="p">:</span><span class="n">jboss</span><span class="p">:</span><span class="n">domain</span><span class="p">:</span><span class="n">messaging</span><span class="p">:</span>1<span class="p">.</span>1&quot;<span class="o">&gt;</span>
+</pre>
+</div></li>
+<li><p>Scroll to the end of this section and add the following XML after the <code>&lt;/jms-connection-factories&gt;</code> end tag but before the <code>&lt;/hornetq-server&gt;</code> element:</p>
+<div class="highlight"><pre>    <span class="nt">&lt;jms-destinations&gt;</span>
+        <span class="nt">&lt;jms-queue</span> <span class="na">name=</span><span class="s">&quot;testQueue&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&quot;queue/test&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&quot;java:jboss/exported/jms/queue/test&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/jms-queue&gt;</span>
+        <span class="nt">&lt;jms-topic</span> <span class="na">name=</span><span class="s">&quot;testTopic&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&quot;topic/test&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&quot;java:jboss/exported/jms/topic/test&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/jms-topic&gt;</span>
+    <span class="nt">&lt;/jms-destinations&gt;</span>
+</pre>
+</div></li>
+<li><p>Save the changes and close the file.  </p></li>
+</ul></li>
+</ol>
+
+<h2 id="toc_6">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>
 
 <ol>
 <li>Open a command line and navigate to the root of the JBoss server directory.</li>
@@ -38,7 +70,7 @@
 </div></li>
 </ol>
 
-<h2 id="toc_6">Build and Deploy the Quickstart</h2>
+<h2 id="toc_7">Build and Deploy the Quickstart</h2>
 
 <p>To run the quickstart from the command line:</p>
 
@@ -60,7 +92,7 @@
 </div></li>
 </ol>
 
-<h2 id="toc_7">Investigate the Console Output</h2>
+<h2 id="toc_8">Investigate the Console Output</h2>
 
 <p>If the maven command is successful, with the default configuration you will see output similar to this:</p>
 <div class="highlight"><pre><span class="n">Mar</span> 14<span class="p">,</span> 2012 1<span class="p">:</span>38<span class="p">:</span>58 <span class="n">PM</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">jms</span><span class="p">.</span><span class="n">HelloWorldJMSClient</span> <span class="n">main</span>
@@ -78,7 +110,7 @@
 </pre>
 </div>
 
-<h2 id="toc_8">Optional Properties</h2>
+<h2 id="toc_9">Optional Properties</h2>
 
 <p>The example provides for a certain amount of customization for the <code>mvn:exec</code> plugin using the system properties.</p>
 
@@ -120,11 +152,11 @@
 <p>Default: <code>&quot;localhost&quot;</code></p></li>
 </ul>
 
-<h2 id="toc_9">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_10">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_10">Debug the Application</h2>
+<h2 id="toc_11">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
