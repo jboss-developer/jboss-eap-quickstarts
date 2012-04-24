@@ -105,7 +105,6 @@
                 </property>
             </activation>
             <modules>
-                <module>helloworld-rs</module>
                 <module>jax-rs-client</module>
                 <module>jts</module>
             </modules>

@@ -29,7 +29,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#mavenconfig
 Prerequisites
 -----------
 
-IMPORTANT: This quickstart depends on the deployment of the 'helloworld-rs' quickstart for its test. Before running this quickstart, see the [helloworld-rs README](../hellworld-rs/README.md) file for details on how to deploy it.
+IMPORTANT: This quickstart depends on the deployment of the 'helloworld-rs' quickstart for its test. Before running this quickstart, see the [helloworld-rs README](../helloworld-rs/README.md) file for details on how to deploy it.
 
 You can verify the deployment of the `helloworld-rs` quickstart by accessing the following content:
 
