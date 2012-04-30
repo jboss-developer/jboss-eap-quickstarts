@@ -154,6 +154,7 @@
                 <configuration>
                     <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>ROOT</warName>
                     <archive>
                         <manifestEntries>
                             <Dependencies>org.jboss.xts</Dependencies>
@@ -249,6 +250,7 @@
                         <version>2.1.1</version>
                         <configuration>
                             <outputDirectory>deployments</outputDirectory>
+                            <warName>ROOT</warName>
                             <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
                             <failOnMissingWebXml>false</failOnMissingWebXml>
                         </configuration>

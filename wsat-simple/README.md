@@ -71,6 +71,8 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
+As we will be the application into the root context, we need to disable the welcome application. This can be done by editing './docs/examples/configs/standalone-xts.xml' and going to the 'urn:jboss:domain:web:1.1' subsytem. Here you will see the 'enable-welcome-root' attribute. Set this to false, to ensure the welcome application is not deployed.
+
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
