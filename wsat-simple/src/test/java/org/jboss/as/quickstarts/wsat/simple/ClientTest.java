@@ -48,10 +48,9 @@ public class ClientTest {
     @Deployment
     public static WebArchive createTestArchive() {
 
-        return ShrinkWrap.create(WebArchive.class, "ROOT.war")
+        return ShrinkWrap.create(WebArchive.class, "wsat-simple.war")
                 .addPackages(true, RestaurantServiceATImpl.class.getPackage())
                 .addAsResource("context-handlers.xml")
-                .addAsWebInfResource("jboss-web.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
                 .setManifest(new StringAsset(ManifestMF));
     }
