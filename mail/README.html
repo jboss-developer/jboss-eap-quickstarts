@@ -1,4 +1,4 @@
-<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">E-Mail Example: Example using CDI (Contexts and Dependency Injection) and JSF (JavaServer Faces)</h1>
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">mail: E-Mail Example using CDI (Contexts and Dependency Injection) and JSF (JavaServer Faces)</h1>
 
 <p>Author: Joel Tosi</p>
 
@@ -8,7 +8,7 @@
 
 <p>The example uses the default Mail provider that comes out of the box with <em>JBoss Enterprise Application Platform 6</em> and <em>JBoss AS 7</em>.  It uses your local mail relay and the default SMTP port of 25.</p>
 
-<p>The configuration of the mail provider is found in either <code>JBOSS_HOME/standalone/configuration.xml</code> or <code>JBOSS_HOME/domain/configuration.xml</code>. An example is provided below:</p>
+<p>The configuration of the mail provider is found in the <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> if you are running a standalone server or in the <code>JBOSS_HOME/domain/configuration/domain.xml</code> file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:</p>
 <div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:mail:1.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;mail-session</span> <span class="na">jndi-name=</span><span class="s">&quot;java:jboss/mail/Default&quot;</span> <span class="nt">&gt;</span>
         <span class="nt">&lt;smtp-server</span> <span class="na">address=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;25&quot;</span><span class="nt">/&gt;</span>

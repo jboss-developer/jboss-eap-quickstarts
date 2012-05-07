@@ -1,11 +1,21 @@
 <?xml version="1.0"?>
+<!-- JBoss, Home of Professional Open Source Copyright 2012, Red Hat, Inc. 
+    and/or its affiliates, and individual contributors by the @authors tag. See 
+    the copyright.txt in the distribution for a full listing of individual contributors. 
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+    use this file except in compliance with the License. You may obtain a copy 
+    of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+    by applicable law or agreed to in writing, software distributed under the 
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+    OF ANY KIND, either express or implied. See the License for the specific 
+    language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-wsba-coordinator-completion-simple</artifactId>
-    <version>7.1.1.CR1</version>
+    <version>7.1.1.CR2</version>
     <packaging>jar</packaging>
     <name>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</name>
     <description>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</description>
@@ -20,50 +30,50 @@
     </licenses>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following
-       message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
-  resources, i.e. build is platform dependent! -->
+        <!-- Explicitly declaring the source encoding eliminates the following 
+            message: -->
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+            resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
-        <dependencies>
+      <dependencies>
         <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  -->
-          <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>3.0.0.Final-redhat-1</version>
-            <type>pom</type>
-            <scope>import</scope>
-          </dependency>
+        <dependency>
+          <groupId>org.jboss.spec</groupId>
+          <artifactId>jboss-javaee-6.0</artifactId>
+          <version>3.0.0.Final-redhat-1</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
         <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
-          of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-          of artifacts. We use this here so that we always get the correct versions 
-          of artifacts.-->
+        of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+        of artifacts. We use this here so that we always get the correct versions 
+        of artifacts.-->
 
-          <!-- This BOM provides the jboss-javaee-6.0 with tools stack (you can read this as
-          the JBoss stack of the Java EE 6 APIs, with some extras tools for your project, such
-          as Arquillian for testing) -->
-         <dependency>
-            <groupId>org.jboss.bom</groupId>
-            <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-            <version>1.0.0.M7-redhat-1</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <!-- This BOM provides the jboss-javaee-6.0 with transactions stack (you can read this as
-          the JBoss stack of the Java EE 6 APIs, with some extra transactions APIS for your project,
-          that are not included in the Java EE 6 API. -->
-         <dependency>
-            <groupId>org.jboss.bom</groupId>
-            <artifactId>jboss-javaee-6.0-with-transactions</artifactId>
-            <version>1.0.0.M7-redhat-1</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
+        <!-- This BOM provides the jboss-javaee-6.0 with tools stack (you can read this as
+        the JBoss stack of the Java EE 6 APIs, with some extras tools for your project, such
+        as Arquillian for testing) -->
+        <dependency>
+          <groupId>org.jboss.bom</groupId>
+          <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+          <version>1.0.0.M7-redhat-1</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
+        <!-- This BOM provides the jboss-javaee-6.0 with transactions stack (you can read this as
+        the JBoss stack of the Java EE 6 APIs, with some extra transactions APIS for your project,
+        that are not included in the Java EE 6 API. -->
+        <dependency>
+          <groupId>org.jboss.bom</groupId>
+          <artifactId>jboss-javaee-6.0-with-transactions</artifactId>
+          <version>1.0.0.M7-redhat-1</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
       </dependencies>
-    </dependencyManagement>
+   </dependencyManagement>
 
     <dependencies>
         <!-- The XTS api needed to use WS-BA -->
@@ -99,15 +109,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- Import the CDI API, we use provided scope as the API is included
-    in JBoss AS 7 -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-
+        
         <!-- Import the Servlet API, we use provided scope as the API is included 
             in JBoss AS 7 -->
         <dependency>
@@ -116,8 +118,8 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided scope
-as the API is included in JBoss AS 7 -->
+        <!-- Import the Common Annotations API (JSR-250), we use provided 
+            scope as the API is included in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.1_spec</artifactId>
@@ -128,6 +130,14 @@ as the API is included in JBoss AS 7 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Import the CDI API, we use provided scope as the API is included 
+            in JBoss AS 7 -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -153,11 +163,11 @@ as the API is included in JBoss AS 7 -->
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>7.1.1.Final</version>
                 <configuration>
-                  <skip>true</skip>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates
-          annotation processors -->
+            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
+                annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.1</version>
@@ -171,8 +181,8 @@ as the API is included in JBoss AS 7 -->
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it 
-                to run just unit tests based on a custom pattern -->
+            <!-- The default profile skips all tests, though you can tune 
+                it to run just unit tests based on a custom pattern -->
             <!-- Seperate profiles are provided for running all tests, including 
                 Arquillian tests that execute in the specified container -->
             <id>default</id>
@@ -192,10 +202,10 @@ as the API is included in JBoss AS 7 -->
             </build>
         </profile>
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-       in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute
-     the test, shutting it down when done -->
+            <!-- An optional Arquillian testing profile that executes tests 
+                in your JBoss AS instance -->
+            <!-- This profile will start a new JBoss AS instance, and execute 
+                the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
             <dependencies>
@@ -209,8 +219,8 @@ as the API is included in JBoss AS 7 -->
 
         <profile>
 
-            <!-- An optional Arquillian testing profile that executes tests
-      in a remote JBoss AS instance -->
+            <!-- An optional Arquillian testing profile that executes tests 
+                in a remote JBoss AS instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

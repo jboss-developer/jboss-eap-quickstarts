@@ -130,18 +130,22 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 
 <h2 id="toc_9">Build and Deploy the Quickstart - to OpenShift</h2>
 
+<p><em>NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift</em>.</p>
+
 <h3 id="toc_10">Create an OpenShift Express Account and Domain</h3>
 
-<p>If you do not yet have an OpenShift Express account and domain, visit <a href="https://openshift.redhat.com/app/login">https://openshift.redhat.com/app/login</a> to create the account and domain. The <a href="http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html">OpenShift Express Getting Started Guide</a> will show you how to install the OpenShift Express command line interface.</p>
+<p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://openshift.redhat.com/app/getting_started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
 
 <h3 id="toc_11">Create the OpenShift Application</h3>
 
 <p>Note that we use the <code>jboss-as-quickstart@jboss.org</code> user for these examples. You need to substitute it with your own user name.</p>
 
 <p>Open up a shell and from the directory of your choice run the following command to create our wsatsimple application.</p>
-<div class="highlight"><pre>    <span class="n">rhc</span><span class="o">-</span><span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
 </pre>
 </div>
+
+<p><em>NOTE</em>: The domain name for this application will be <code>wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
 
 <p>You should see some output which will show the application being deployed and also the URL at which it can be accessed. If creation is successful, you should see similar output:</p>
 <div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">wsatsimple</span>
@@ -240,13 +244,13 @@ following logger block just bellow one of the other logger blocks. To be clear, 
 <p>Note that the <code>openshift</code> profile in <code>pom.xml</code> is activated by OpenShift, and causes the WAR build by OpenShift to be copied to the <code>deployments</code> directory, and deployed without a context path.</p>
 
 <p>Now we will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
-<div class="highlight"><pre>    <span class="n">rhc</span><span class="o">-</span><span class="n">tail</span><span class="o">-</span><span class="n">files</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span> <span class="o">-</span><span class="n">f</span> <span class="n">wsatsimple</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">server</span><span class="p">.</span><span class="nb">log</span>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span>
 </pre>
 </div>
 
 <p>Once the app is deployed open up a browser and run the application, the URL will be similar as follows but with your own
 domain name.</p>
-<div class="highlight"><pre><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wsatsimple</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">wsat</span><span class="o">-</span><span class="n">simple</span><span class="o">/</span><span class="n">WSATSimpleServletClient</span>
+<div class="highlight"><pre><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wsatsimple</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">WSATSimpleServletClient</span>
 </pre>
 </div>
 

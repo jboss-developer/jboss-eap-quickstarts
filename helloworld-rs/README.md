@@ -83,15 +83,19 @@ If you want to debug the source code or look at the Javadocs of any library in t
 Build and Deploy the Quickstart - to OpenShift
 -------------------------
 
+_NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift_.
+
 ### Create an OpenShift Express Account and Domain
 
-If you do not yet have an OpenShift Express account and domain, visit <https://openshift.redhat.com/app/login> to create the account and domain. The [OpenShift Express Getting Started Guide](http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html) will show you how to install the OpenShift Express command line interface.
+If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](https://openshift.redhat.com/app/login) to create the account and domain. [Get Started with OpenShift](https://openshift.redhat.com/app/getting_started) will show you how to install the OpenShift Express command line interface.
 
 ### Create the OpenShift Application
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command:
 
         rhc app create -a helloworldrs -t jbossas-7
+
+_NOTE_: The domain name for this application will be `helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
 This command creates an OpenShift application called `helloworldrs` and will run the application inside a `jbossas-7` container. You should see some output similar to the following:
 

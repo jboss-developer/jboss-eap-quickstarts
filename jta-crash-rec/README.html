@@ -35,11 +35,11 @@
 
 <p>This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: <a href="../README.html#byteman">Install and Configure Byteman</a>. </p>
 
-<p><a name="clear-transaction-objectstore"/></p>
+<p><a name="clear-transaction-objectstore"></a></p>
 
 <h2 id="toc_5">Clear the Transaction ObjectStore</h2>
 
-<p>Make sure there is no transaction objectstore data left after testing this or any of the other quickstarts. If you are using the default file based transaction logging stor</p>
+<p>Make sure there is no transaction objectstore data left after testing this or any of the other quickstarts. If you are using the default file based transaction logging store:</p>
 
 <ol>
 <li><p>Open a command line and type the following:</p>
@@ -70,8 +70,6 @@
 
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
-<h4 id="toc_8">Build and Deploy the Archive</h4>
-
 <ol>
 <li>Make sure you have started the JBoss Server as described above.</li>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
@@ -82,22 +80,11 @@
 <li><p>This will deploy <code>target/jboss-as-jta-crash-rec.war</code> to the running instance of the server.</p></li>
 </ol>
 
-<h4 id="toc_9">Undeploy the Archive</h4>
-
-<ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
-<li>Open a command line and navigate to the root directory of this quickstart.</li>
-<li><p>Type this command to undeploy the archive:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
-</pre>
-</div></li>
-</ol>
-
-<h2 id="toc_10">Access the application </h2>
+<h2 id="toc_8">Access the application </h2>
 
 <p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-as-jta-crash-rec/XA">http://localhost:8080/jboss-as-jta-crash-rec/XA</a>. </p>
 
-<h2 id="toc_11">Test the application</h2>
+<h2 id="toc_9">Test the application</h2>
 
 <ol>
 <li><p>When you access the application, you will find a web page containing two html input boxes for adding &ldquo;key&rdquo; / &ldquo;value&rdquo; pairs to a database. Instructions for using the application are shown at the top of the application web page.</p></li>
@@ -112,7 +99,6 @@
 <li><p>To demonstrate XA recovery, you need to enable the Byteman tool to terminate the application server while <em>phase 2</em> is running as follows:</p>
 
 <ul>
-<li>Add a <em>key/value</em> pair as instructed in the application.</li>
 <li>Stop the JBoss server.</li>
 <li><a href="#clear-transaction-objectstore">Clear any transaction objectstore data</a> remaining from previous tests.</li>
 <li><p>Follow the instructions to <a href="../README.html#byteman-halt">halt the application using Byteman</a>. The following text will be appended to the server configuration file:</p>
@@ -131,7 +117,7 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 </pre>
 </div></li>
 <li><p>Log in:</p>
-<div class="highlight"><pre><span class="n">Database</span> <span class="n">URL</span><span class="p">:</span> <span class="n">jdbc</span><span class="p">:</span><span class="n">h2</span><span class="p">:</span><span class="n">mem</span><span class="p">:</span><span class="n">jta</span><span class="o">-</span><span class="n">crash</span><span class="o">-</span><span class="n">rec</span><span class="o">-</span><span class="n">quickstart</span>
+<div class="highlight"><pre><span class="n">Database</span> <span class="n">URL</span><span class="p">:</span> <span class="n">jdbc</span><span class="p">:</span><span class="n">h2</span><span class="p">:</span><span class="n">file</span><span class="p">:</span><span class="o">~/</span><span class="n">jta</span><span class="o">-</span><span class="n">crash</span><span class="o">-</span><span class="n">rec</span><span class="o">-</span><span class="n">quickstart</span>
 <span class="n">User</span> <span class="n">name</span><span class="p">:</span>    <span class="n">sa</span>
 <span class="n">Password</span><span class="p">:</span>     <span class="n">sa</span>
 </pre>
@@ -141,6 +127,7 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 <div class="highlight"><pre><span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">kvpair</span>
 </pre>
 </div></li>
+<li><p>Log out of the H2 console. H2 is limited to one connection and the application will need it from this point forward.</p></li>
 <li><p>If you are using the default file based transaction logging store, there will be a record in the file system corresponding to the pending transaction. </p>
 
 <ul>
@@ -174,11 +161,22 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 </ul></li>
 </ol>
 
-<h2 id="toc_12">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_10">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_11">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_13">Debug the Application</h2>
+<h2 id="toc_12">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>

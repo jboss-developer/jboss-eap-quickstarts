@@ -148,9 +148,9 @@
 </pre>
 </div>
 
-<h2 id="toc_12">Build and Deploy the Quickstart - to OpenShift</h2>
+<hr/>
 
-<p>If the quickstart deploys to OpenShift, you can use the following template a starting pint to describe the process.</p>
+<p>If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process.</p>
 
 <p>Note:</p>
 
@@ -159,9 +159,13 @@
 <li>OPENSHIFT_QUICKSTART_NAME should be replaced with a variation of the quickstart name, for example: myquickstart</li>
 </ul>
 
-<h3 id="toc_13">Create an OpenShift Express Account and Domain</h3>
+<h2 id="toc_12">Build and Deploy the Quickstart - to OpenShift</h2>
 
-<p>If you do not yet have an OpenShift Express account and domain, visit <a href="https://openshift.redhat.com/app/login">https://openshift.redhat.com/app/login</a> to create the account and domain. The <a href="http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html">OpenShift Express Getting Started Guide</a> will show you how to install the OpenShift Express command line interface.</p>
+<p><em>NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift</em>.</p>
+
+<h3 id="toc_13">Create an OpenShift Account and Domain</h3>
+
+<p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://openshift.redhat.com/app/getting_started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
 
 <h3 id="toc_14">Create the OpenShift Application</h3>
 
@@ -169,6 +173,8 @@
 <div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
 </pre>
 </div>
+
+<p><em>NOTE</em>: The domain name for this application will be OPENSHIFT<em>QUICKSTART_NAME-YOUR_DOMAIN_NAME.rhcloud.com. Here we use the _quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
 
 <p>This command creates an OpenShift application with the name you entered above and will run the application inside a <code>jbossas-7</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">OPENSHIFT_QUICKSTART_NAME</span>
@@ -212,7 +218,7 @@
 <p>When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:</p>
 
 <ul>
-<li><a href="http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/QUICKSTART_NAME">http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/QUICKSTART_NAME</a> </li>
+<li><a href="http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/">http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/</a> </li>
 </ul>
 
 <p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>

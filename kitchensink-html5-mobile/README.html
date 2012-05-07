@@ -103,8 +103,18 @@ references to minification and comment or uncomment the appropriate lines.</p>
 
 <p>Finally, wro4j runs in the compile phase so any standard build command like package,
 install, etc. will trigger it. The plugin is in a profile with an id of &ldquo;minify&rdquo; so
-you will want to specify that profile in your maven build. For example:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">Pminify</span>
+you will want to specify that profile in your maven build.</p>
+
+<p>NOTE: You must either specify the default profile for no tests or the arquillian test
+profile to run tests when minifying to avoid test errors. For example:</p>
+<div class="highlight"><pre><span class="c">#No Tests</span>
+<span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">Pminify</span><span class="p">,</span><span class="n">default</span>
+</pre>
+</div>
+
+<p>OR</p>
+<div class="highlight"><pre><span class="c">#With Tests</span>
+<span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">Pminify</span><span class="p">,</span><span class="n">arq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span>
 </pre>
 </div>
 

@@ -74,9 +74,11 @@
 
 <h2 id="toc_10">Build and Deploy the Quickstart - to OpenShift</h2>
 
+<p><em>NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift</em>.</p>
+
 <h3 id="toc_11">Create an OpenShift Express Account and Domain</h3>
 
-<p>If you do not yet have an OpenShift Express account and domain, visit <a href="https://openshift.redhat.com/app/login">https://openshift.redhat.com/app/login</a> to create the account and domain. The <a href="http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html">OpenShift Express Getting Started Guide</a> will show you how to install the OpenShift Express command line interface.</p>
+<p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://openshift.redhat.com/app/getting_started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
 
 <h3 id="toc_12">Create the OpenShift Application</h3>
 
@@ -84,6 +86,8 @@
 <div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldrs</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
 </pre>
 </div>
+
+<p><em>NOTE</em>: The domain name for this application will be <code>helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
 
 <p>This command creates an OpenShift application called <code>helloworldrs</code> and will run the application inside a <code>jbossas-7</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">helloworldrs</span>

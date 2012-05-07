@@ -1,0 +1,239 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">tasks-rs: JAX-RS, JPA quickstart</h1>
+
+<p>Author: <a href="https://community.jboss.org/people/mmusgrov">Mike Musgrove</a></p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This project demonstrates how to implement a JAX-RS service that uses JPA 2.0 persistence.</p>
+
+<ul>
+<li><p>The client uses HTTP to interact with the service. It builds on the <em>tasks</em> quickstarts which provide simple Task management with secure login.</p></li>
+<li><p>The service interface is implemented using JAX-RS. The SecurityContext JAX-RS annotation is used to inject the security details into each REST method.</p></li>
+</ul>
+
+<p>The application manages User and Task JPA entities. A user represents an authenticated principal and is associated with zero or more Tasks. Service methods validate that there is an authenticated principal and the first time a principal is seen, a JPA User entity is created to correspond to the principal. JAX-RS annotated methods are provided for associating Tasks with this User and for listing and removing Tasks.</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7.</p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Add an Application User</h2>
+
+<p>This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  <a href="../README.html#addapplicationuser">Add an Application User</a>.  After following these instructions. you should have created a user called <code>quickstartUser</code> with password <code>quickstartPassword</code>, belonging to the <code>guest</code> role.</p>
+
+<h2 id="toc_5">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_6">Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+<li><p>This will deploy <code>target/jboss-as-tasks-rs.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2 id="toc_7">Access the Application Resources</h2>
+
+<p>Application resources for this quickstart are prefixed with the URL http://localhost:8080/jboss-as-tasks-rs/ and can be accessed by an HTTP client.</p>
+
+<ul>
+<li>For methods that accept <em>GET</em>, a web browser can be used.</li>
+<li>Otherwise, you must use cURL or some other command line tool that supports HTTP <em>POST</em> and <em>DELETE</em> methods.</li>
+</ul>
+
+<p>Below you will find instructions to create, display, and delete tasks.</p>
+
+<h3 id="toc_8">Create a Task</h3>
+
+<p>To associate a task called <code>task1</code> with the user <code>quickstartUser</code>, you must authenticate as user <code>quickstartUser</code> and send an HTTP <em>POST</em> request to the url &#39;http://localhost:8080/jboss-as-tasks-rs/tasks/task1&#39;.</p>
+
+<p>To issue the <em>POST</em> command using cURL, type the following command:</p>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="nb">i</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">H</span> &quot;<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> 0&quot; <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span><span class="n">task1</span>
+</pre>
+</div>
+
+<p>You will see the following response:</p>
+<div class="highlight"><pre><span class="n">HTTP</span><span class="o">/</span>1<span class="p">.</span>1 201 <span class="n">Created</span>
+<span class="n">Server</span><span class="p">:</span> <span class="n">Apache</span><span class="o">-</span><span class="n">Coyote</span><span class="o">/</span>1<span class="p">.</span>1
+<span class="n">Location</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
+<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> 0
+<span class="n">Date</span><span class="p">:</span> <span class="n">Sun</span><span class="p">,</span> 15 <span class="n">Apr</span> 2012 22<span class="p">:</span>46<span class="p">:</span>26 <span class="n">GMT</span>
+</pre>
+</div>
+
+<p>This is what happens when the command is issued:</p>
+
+<ul>
+<li>The <code>-i</code> flag tells cURL to print the returned headers. Notice that the <code>Location</code> header contains the URI of the resource corresponding to the new task you have just created.</li>
+<li>The <code>-u</code> flag provides the authentication information for the request.</li>
+<li>The <code>-H</code> flag adds a header to the outgoing request.</li>
+<li>The <code>-X</code> flag tells cURL which HTTP method to use. The HTTP <em>POST</em> is used to create resources.</li>
+<li>The <code>Location</code> header of the response contains the URI of the resource representing the newly created task.</li>
+</ul>
+
+<p>The final argument to cURL determines the title of the task. Note that this approach is perhaps not very restful but it simplifies this quickstart. A better approach would be to <em>POST</em> to &ldquo;http://localhost:8080/jboss-as-tasks-rs/tasks&rdquo; passing the task title in the body of the request.</p>
+
+<h3 id="toc_9">Display the XML Representation of a Task</h3>
+
+<p>To display the XML representation of the newly created resource, issue a <em>GET</em> request on the task URI returned in the <code>Location</code> header during the create.</p>
+
+<ol>
+<li><p>To issue a <em>GET</em> using a browser, open a browser and access the URI. You will be challenged to enter valid authentication credentials.</p>
+
+<p><a href="http://localhost:8080/jboss-as-tasks-rs/tasks/1">http://localhost:8080/jboss-as-tasks-rs/tasks/1</a></p></li>
+<li><p>To issue a <em>GET</em> using cURL, type the following command:</p>
+
+<p><code>curl -H &quot;Accept: application/xml&quot; -u &quot;quickstartUser:quickstartPassword&quot; -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1</code></p>
+
+<p>The -H flag tells the server that the client wishes to accept XML content.</p></li>
+</ol>
+
+<p>Using either of the above <em>GET</em> methods, you should see the following XML:</p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;task</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">ownerName=</span><span class="s">&quot;quickstartUser&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>task1<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/task&gt;</span>
+</pre>
+</div>
+
+<h3 id="toc_10">Display the XML Representation of all Tasks for a User</h3>
+
+<p>To obtain a list of all tasks for user <code>quickstartUser</code> in XML format, authenticate as user <code>quickstartUser</code> and send an HTTP <code>GET</code> request to the resource <code>tasks</code> URL.</p>
+
+<ol>
+<li><p>To issue a <em>GET</em> using a browser, open a browser and access the following URL. You will be challenged to enter valid authentication credentials.</p>
+
+<p><a href="http://localhost:8080/jboss-as-tasks-rs/tasks">http://localhost:8080/jboss-as-tasks-rs/tasks</a></p></li>
+<li><p>To list all tasks associated with the user <code>quickstartUser</code> using cURL, type:</p>
+
+<p>curl -H &ldquo;Accept: application/xml&rdquo; -u &ldquo;quickstartUser:quickstartPassword&rdquo; -X GET http://localhost:8080/jboss-as-tasks-rs/tasks</p></li>
+</ol>
+
+<p>Using either of the above <em>GET</em> methods, you should see the following XML:</p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;collection&gt;</span>
+    <span class="nt">&lt;task</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">ownerName=</span><span class="s">&quot;quickstartUser&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>task1<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/task&gt;</span>
+<span class="nt">&lt;/collection&gt;</span>
+</pre>
+</div>
+
+<h3 id="toc_11">Delete a Task</h3>
+
+<p>To delete a task, again authenticate as principal <code>quickstartUser</code> and send an HTTP <em>DELETE</em> request to the URI that represents the task.</p>
+
+<p>To delete the task with id <code>1</code>:</p>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="nb">i</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
+</pre>
+</div>
+
+<p>You will see this response:</p>
+<div class="highlight"><pre><span class="n">HTTP</span><span class="o">/</span>1<span class="p">.</span>1 204 <span class="n">No</span> <span class="n">Content</span>
+<span class="n">Server</span><span class="p">:</span> <span class="n">Apache</span><span class="o">-</span><span class="n">Coyote</span><span class="o">/</span>1<span class="p">.</span>1
+<span class="n">Pragma</span><span class="p">:</span> <span class="n">No</span><span class="o">-</span><span class="n">cache</span>
+<span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
+<span class="n">Expires</span><span class="p">:</span> <span class="n">Thu</span><span class="p">,</span> 01 <span class="n">Jan</span> 1970 01<span class="p">:</span>00<span class="p">:</span>00 <span class="n">GMT</span>
+<span class="n">Date</span><span class="p">:</span> <span class="n">Sun</span><span class="p">,</span> 15 <span class="n">Apr</span> 2012 22<span class="p">:</span>51<span class="p">:</span>56 <span class="n">GMT</span>
+</pre>
+</div>
+
+<p>Now list all tasks associated with user <code>quickstartUser</code>:</p>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span>
+</pre>
+</div>
+
+<p>You will see a response with an empty collection:</p>
+<div class="highlight"><pre><span class="cp">&lt;?</span><span class="nx">xml</span> <span class="nx">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> <span class="nx">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span> <span class="nx">standalone</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="cp">?&gt;</span>
+<span class="o">&lt;</span><span class="nx">collection</span><span class="o">/&gt;</span>
+</pre>
+</div>
+
+<h2 id="toc_12">Modify this Quickstart to Support JSON Representations of Tasks</h2>
+
+<p>JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with &ldquo;// JSON:&rdquo;:</p>
+
+<ol>
+<li><p>Open the file src/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.</p>
+<div class="highlight"><pre><span class="c1">// import org.codehaus.jackson.annotate.JsonIgnore;</span>
+
+<span class="c1">// @JsonIgnore</span>
+</pre>
+</div></li>
+<li><p>Open the file src/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the <em>GET</em> methods produce &ldquo;application/json&rdquo; as well as &ldquo;application/xml&rdquo;. Again, look for lines beginning with &ldquo;// JSON:&rdquo;.</p>
+
+<ul>
+<li><p>Remove comments from these lines:</p>
+
+<p>//@Produces({ &ldquo;application/xml&rdquo;, &ldquo;application/json&rdquo; })</p></li>
+<li><p>Add comments to these lines:</p>
+
+<p>@Produces({ &ldquo;application/xml&rdquo; })</p></li>
+</ul></li>
+<li><p>Open pom.xml and remove the comments from the dependency with artifactId <code>resteasy-jackson-provider</code></p>
+<div class="highlight"><pre><span class="c">&lt;!--</span>
+<span class="c">&lt;dependency&gt;</span>
+<span class="c">    &lt;groupId&gt;org.jboss.resteasy&lt;/groupId&gt;</span>
+<span class="c">    &lt;artifactId&gt;resteasy-jackson-provider&lt;/artifactId&gt;</span>
+<span class="c">    &lt;version&gt;2.3.1.GA&lt;/version&gt;</span>
+<span class="c">    &lt;scope&gt;provided&lt;/scope&gt;</span>
+<span class="c">&lt;/dependency&gt;</span>
+<span class="c">--&gt;</span>
+</pre>
+</div></li>
+<li><p>Rebuild and redeploy the quickstart.</p></li>
+</ol>
+
+<p>Now you can view task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:</p>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> &quot;<span class="n">Accept</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>&quot; <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
+</pre>
+</div>
+
+<p>You will see the following response:</p>
+<div class="highlight"><pre><span class="p">{</span>&quot;<span class="n">id</span>&quot;<span class="p">:</span>1<span class="p">,</span>&quot;<span class="n">title</span>&quot;<span class="p">:</span>&quot;<span class="n">task1</span>&quot;<span class="p">,</span>&quot;<span class="n">ownerName</span>&quot;<span class="p">:</span>&quot;<span class="n">quickstartUser</span>&quot;<span class="p">}</span>
+</pre>
+</div>
+
+<h2 id="toc_13">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_14">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a></p>
+
+<h2 id="toc_15">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+</body></html>

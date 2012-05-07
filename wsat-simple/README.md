@@ -134,17 +134,20 @@ If you want to debug the source code or look at the Javadocs of any library in t
 Build and Deploy the Quickstart - to OpenShift
 -------------------------
 
+_NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift_.
+
 ### Create an OpenShift Express Account and Domain
 
-If you do not yet have an OpenShift Express account and domain, visit <https://openshift.redhat.com/app/login> to create the account and domain. The [OpenShift Express Getting Started Guide](http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html) will show you how to install the OpenShift Express command line interface.
-
+If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](https://openshift.redhat.com/app/login) to create the account and domain. [Get Started with OpenShift](https://openshift.redhat.com/app/getting_started) will show you how to install the OpenShift Express command line interface.
 ### Create the OpenShift Application
 
 Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
 
 Open up a shell and from the directory of your choice run the following command to create our wsatsimple application.
 
-        rhc-create-app -a wsatsimple -t jbossas-7
+        rhc app create -a wsatsimple -t jbossas-7
+
+_NOTE_: The domain name for this application will be `wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
 You should see some output which will show the application being deployed and also the URL at which it can be accessed. If creation is successful, you should see similar output:
 
@@ -236,12 +239,12 @@ Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and ca
 
 Now we will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
 
-        rhc-tail-files -a wsatsimple -f wsatsimple/logs/server.log
+        rhc app tail -a wsatsimple
 
 Once the app is deployed open up a browser and run the application, the URL will be similar as follows but with your own
 domain name.
 
-    http://wsatsimple-quickstart.rhcloud.com/wsat-simple/WSATSimpleServletClient
+    http://wsatsimple-quickstart.rhcloud.com/WSATSimpleServletClient
 
 If the application has run successfully you should see some output in the browser. You should also see some output on the server log, similar to the output from the "Test commit" test above.
 

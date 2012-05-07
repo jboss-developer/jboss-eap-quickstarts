@@ -92,18 +92,6 @@
 </pre>
 </div></li>
 </ul></li>
-<li><p>To undeploy the server side component from the JBoss server:</p>
-
-<ul>
-<li><p>Navigate to the server-side subdirectory:</p>
-<div class="highlight"><pre><span class="n">cd</span> <span class="p">.</span><span class="o">./</span><span class="n">server</span><span class="o">-</span><span class="n">side</span>
-</pre>
-</div></li>
-<li><p>Type the following command:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
-</pre>
-</div></li>
-</ul></li>
 </ol>
 
 <h2 id="toc_6">Investigate the Console Output</h2>
@@ -172,11 +160,26 @@
 </div></li>
 </ol>
 
-<h2 id="toc_8">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_8">Undeploy the Archive</h2>
+
+<p>To undeploy the server side component from the JBoss server:</p>
+
+<ol>
+<li><p>Navigate to the server-side subdirectory:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="p">.</span><span class="o">./</span><span class="n">server</span><span class="o">-</span><span class="n">side</span>
+</pre>
+</div></li>
+<li><p>Type the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_9">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_9">Debug the Application</h2>
+<h2 id="toc_10">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>

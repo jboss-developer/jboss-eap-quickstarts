@@ -1,36 +1,28 @@
 /*
- * JBoss, Home of Professional Open Source.
- * Copyright 2011, Red Hat, Inc., and individual contributors
- * as indicated by the @author tags. See the copyright.txt file in the
+ * JBoss, Home of Professional Open Source
+ * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the 
  * distribution for a full listing of individual contributors.
  *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,  
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
 package org.jboss.as.quickstarts.ejb.remote.client;
+
+import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
+import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.security.Security;
 import java.util.Hashtable;
-
-import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
-import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
-import org.jboss.sasl.JBossSaslProvider;
 
 /**
  * A sample program which acts a remote client for a EJB deployed on AS7 server.
@@ -39,15 +31,6 @@ import org.jboss.sasl.JBossSaslProvider;
  * @author Jaikiran Pai
  */
 public class RemoteEJBClient {
-
-    // The EJB invocation happens via the JBoss Remoting project, which uses SASL for
-    // authentication for client-server authentication. There are various different security algorithms that
-    // SASL supports. In this example we use "anonymous" access to the server and for that we register
-    // the JBossSaslProvider which provides support for that algorithm. Depending on how which algorithm
-    // is used, this piece of code to register JBossSaslProvider, may or may not be required
-    static {
-        Security.addProvider(new JBossSaslProvider());
-    }
 
     public static void main(String[] args) throws Exception {
         // Invoke a stateless bean

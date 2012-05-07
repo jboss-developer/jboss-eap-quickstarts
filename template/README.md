@@ -153,26 +153,31 @@ If you want to debug the source code or look at the Javadocs of any library in t
     mvn dependency:sources
     mvn dependency:resolve -Dclassifier=javadoc
 
+------------------------------------
 
-Build and Deploy the Quickstart - to OpenShift
--------------------------
-
-If the quickstart deploys to OpenShift, you can use the following template a starting pint to describe the process.
+If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process.
 
 Note:
 
 * QUICKSTART_NAME should be replaced with your quicktart name, for example:  my-quickstart
 * OPENSHIFT_QUICKSTART_NAME should be replaced with a variation of the quickstart name, for example: myquickstart
 
-### Create an OpenShift Express Account and Domain
+Build and Deploy the Quickstart - to OpenShift
+-------------------------
 
-If you do not yet have an OpenShift Express account and domain, visit <https://openshift.redhat.com/app/login> to create the account and domain. The [OpenShift Express Getting Started Guide](http://docs.redhat.com/docs/en-US/OpenShift_Express/2.0/html/Getting_Started_Guide/index.html) will show you how to install the OpenShift Express command line interface.
+_NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift_.
+
+### Create an OpenShift Account and Domain
+
+If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](https://openshift.redhat.com/app/login) to create the account and domain. [Get Started with OpenShift](https://openshift.redhat.com/app/getting_started) will show you how to install the OpenShift Express command line interface.
 
 ### Create the OpenShift Application
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command:
 
     rhc app create -a OPENSHIFT_QUICKSTART_NAME -t jbossas-7
+
+_NOTE_: The domain name for this application will be OPENSHIFT_QUICKSTART_NAME-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
 This command creates an OpenShift application with the name you entered above and will run the application inside a `jbossas-7` container. You should see some output similar to the following:
 
@@ -211,7 +216,7 @@ Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and ca
 
 When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:
 
-* <http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/QUICKSTART_NAME> 
+* <http://OPENSHIFT_QUICKSTART_NAME-quickstart.rhcloud.com/> 
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
