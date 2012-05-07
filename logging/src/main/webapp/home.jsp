@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Logging Quickstart</title>
 </head>
 <body>
 <%
@@ -16,6 +16,6 @@ LoggingExample.logInfo();
 LoggingExample.logTrace();
 LoggingExample.logWarn();
 %>
-
+Log Messages have been written.  Please check your console as well as <i>/JBoss_Home</i>/standalone/log for messages
 </body>
 </html>
