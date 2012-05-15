@@ -13,6 +13,8 @@ Be sure to read this entire document before you attempt to work with the quickst
 
 * [Available Quickstarts](#availableQuickstarts): List of the available quickstarts and details about each one.
 
+* [Suggested Approach to the Quickstarts](#suggestedApproach): A suggested approach on how to work with the quickstarts.
+
 * [System Requirements](#systemrequirements): List of software required to run the quickstarts.
 
 * [Configure Maven](#mavenconfiguration): How to configure the Maven repository for use by the quickstarts.
@@ -20,8 +22,6 @@ Be sure to read this entire document before you attempt to work with the quickst
 * [Run the Quickstarts](#runningquickstarts): General instructions for building, deploying, and running the quickstarts.
 
 * [Run the Arquillian Tests](#arquilliantests): How to run the Arquillian tests provided by some of the quickstarts.
-
-* [Suggested Approach to the Quickstarts](#suggestedApproach): A suggested approach on how to work with the quickstarts.
 
 * [Optional Components](#optionalcomponents): How to install and configure optional components required by some of the quickstarts.
 
@@ -40,14 +40,14 @@ Quickstarts with tutorials in the [Getting Started Developing Applications Guide
 | **Quickstart Name** | **Demonstrated Technologies** | **Description** | **Experience Level Required** | **Prerequisites** |
 |:-----------|:-----------|:-----------|:-----------|:-----------|
 | [bean-validation](bean-validation/README.md "bean-validation") | Bean Validation, JPA | Shows how to use Arquillian to test Bean Validation | Beginner | None |
-| [bmt](bmt/README.md "bmt") | EJB, Bean-Managed Transactions (BMT) | EJB that demonstrates bean-managed transactions (BMT) | Beginner | None |
+| [bmt](bmt/README.md "bmt") | EJB, Bean-Managed Transactions (BMT) | EJB that demonstrates bean-managed transactions (BMT) | Intermediate | None |
 | [cdi-injection](cdi-injection/README.md "cdi-injection") | CDI injection, Qualifiers, Servlet | Demonstrates the use of CDI 1.0 Injection and Qualifiers with JSF as the front-end client. | Beginner | None |
 | [cmt] (cmt/README.md "cmt") | EJB, Container-Managed Transactions (CMT) | EJB that demonstrates container-managed transactions (CMT) | Intermediate | None |
-| [ejb-in-ear](ejb-in-ear/README.md "ejb-in-ear") | EJB, JSF, JAR, and WAR deployed as an EAR | Packages an EJB JAR and WAR in an EAR | Beginner | None |
-| [ejb-in-war](ejb-in-war/README.md "ejb-in-war") | EJB and JSF deployed as a WAR | Packages an EJB JAR in a WAR | Beginner | None |
-| [ejb-remote](ejb-remote/README.md "ejb-remote") | Remote EJB | Shows how to access an EJB from a remote Java client program using JNDI | Beginner | None |
-| [ejb-security](ejb-security/README.md "ejb-security") | EJB, Security | Shows how to use Java EE Declarative Security to Control Access to EJB 3 | Beginner | None |
-| [forge-from-scratch](forge-from-scratch/README.md "forge-from-scratch") | Forge | Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge | Beginner | None |
+| [ejb-in-ear](ejb-in-ear/README.md "ejb-in-ear") | EJB, JSF, JAR, and WAR deployed as an EAR | Packages an EJB JAR and WAR in an EAR | Intermediate | None |
+| [ejb-in-war](ejb-in-war/README.md "ejb-in-war") | EJB and JSF deployed as a WAR | Packages an EJB JAR in a WAR | Intermediate | None |
+| [ejb-remote](ejb-remote/README.md "ejb-remote") | Remote EJB | Shows how to access an EJB from a remote Java client program using JNDI | Intermediate | None |
+| [ejb-security](ejb-security/README.md "ejb-security") | EJB, Security | Shows how to use Java EE Declarative Security to Control Access to EJB 3 | Intermediate | None |
+| [forge-from-scratch](forge-from-scratch/README.md "forge-from-scratch") | Forge | Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge | Intermediate | None |
 | [greeter](greeter/README.md "greeter") | CDI, JSF, JPA, EJB, JTA | Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0 | Beginner | None |
 | [h2-console](h2-console/README.md "h2-console") | H2 Database Console | Shows how to use the H2 console with JBoss AS | Beginner | greeter |
 | [helloworld**](helloworld/README.md "helloworld") | Basic CDI, Servlet | Basic example that can be used to verify that the server is configured and running correctly | Beginner | None |
@@ -57,19 +57,19 @@ Quickstarts with tutorials in the [Getting Started Developing Applications Guide
 | [helloworld-jms](helloworld-jms/README.md "helloworld-jms") | JMS | Demonstrates the use of a standalone (Java SE) JMS client | Intermediate | None |
 | [helloworld-jsf](helloworld-jsf/README.md "helloworld-jsf") | Basic CDI, JSF | Similar to the helloworld quickstart, but with a JSF front end | Beginner | None |
 | [helloworld-mdb](helloworld-mdb/README.md "helloworld-mdb") | Basic JMS, Message-Driven Bean (MDB) | Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean  | Intermediate | None |
-| [helloworld-osgi**](helloworld-osgi/README.md "helloworld-osgi") | OSGi JAR | Shows how to create and deploy a simple OSGi Bundle | Beginner | None |
+| [helloworld-osgi**](helloworld-osgi/README.md "helloworld-osgi") | OSGi JAR | Shows how to create and deploy a simple OSGi Bundle | Advanced | None |
 | [helloworld-rs](helloworld-rs/README.md "helloworld-rs") | CDI, JAX-RS | Demonstrates the use of CDI 1.0 and JAX-RS | Intermediate | None |
 | [helloworld-singleton](helloworld-singleton/README.md "helloworld-singleton") | Singleton Session Bean | Demonstrates the use of an EJB 3.1 Singleton Session Bean, instantiated once, maintaining state for the life of the session | Beginner | None |
-| [hibernate3](hibernate3/README.md "hibernate3") | Hibernate 3 | Performs the same functions as _hibernate4_ quickstart, but uses Hibernate version 3 for database access | Beginner | None |
-| [hibernate4](hibernate4/README.md "hibernate4") | Hibernate 4 | Performs the same functions as _hibernate3_ quickstart, but uses Hibernate version 4 for database access | Beginner | None |
+| [hibernate3](hibernate3/README.md "hibernate3") | Hibernate 3 | Example that uses Hibernate 3 for database access. Compare the code in this quickstart to the _hibernate4_ quickstart to see the changes needed to upgrade to Hibernate 4 | Intermediate | None |
+| [hibernate4](hibernate4/README.md "hibernate4") | Hibernate 4 | This quickstart performs the same functions as the _hibernate3_ quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the _hibernate3_ quickstart to see the changes needed to run with Hibernate 4.  | Intermediate | None |
 | [jax-rs-client](jax-rs-client/README.md "jax-rs-client") | JAX-RS | Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS | Intermediate | helloworld-rs |
 | [jta-crash-rec](jta-crash-rec/README.md "jta-crash-rec") | JTA, Crash Recovery | Uses Java Transaction API and JBoss Transactions to demonstrate recovery of a crashed transaction | Advanced | cmt |
 | [jts](jts/README.md "jts") | JTS | Uses Java Transaction Service (JTS) to coordinate distributed transactions | Intermediate | cmt |
 | [jts-distributed-crash-rec](jts-distributed-crash-rec/README.md "jts-distributed-crash-rec") | JTS | Demonstrates recovery of distributed crashed components | Advanced | jts |
-| [kitchensink**](kitchensink/README.md "kitchensink") | CDI, JSF, JPA, EJB, JPA, JAX-RS, BV | An example that incorporates multiple technologies | Beginner | None |
-| [kitchensink-ear](kitchensink-ear/README.md "kitchensink-ear")  | EAR | Based on kitchensink, but deployed as an EAR | Beginner | None |
-| [kitchensink-html5-mobile](kitchensink-html5-mobile/README.md "kitchensink-html5-mobile") | HTML5 | Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers | Beginner | None |
-| [kitchensink-jsp](kitchensink-jsp/README.md "kitchensink-jsp") | JSP | Based on kitchensink, but uses a JSP for the user interface | Beginner | None |
+| [kitchensink**](kitchensink/README.md "kitchensink") | CDI, JSF, JPA, EJB, JPA, JAX-RS, BV | An example that incorporates multiple technologies | Intermediate | None |
+| [kitchensink-ear](kitchensink-ear/README.md "kitchensink-ear")  | EAR | Based on kitchensink, but deployed as an EAR | Intermediate | None |
+| [kitchensink-html5-mobile](kitchensink-html5-mobile/README.md "kitchensink-html5-mobile") | HTML5 | Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers | Intermediate | None |
+| [kitchensink-jsp](kitchensink-jsp/README.md "kitchensink-jsp") | JSP | Based on kitchensink, but uses a JSP for the user interface | Intermediate | None |
 | [log4j](log4j/README.md "log4j") | JBoss Modules | Demonstrates how to use modules to control class loading for 3rd party logging frameworks | Beginner | None |
 | [logging-tools](logging-tools/README.md "logging-tools") | JBoss Logging Tools | Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages | Beginner | None |
 | [mail](mail/README.md "mail") | JavaMail | Demonstrates the use of JavaMail | Beginner | None |
@@ -78,12 +78,12 @@ Quickstarts with tutorials in the [Getting Started Developing Applications Guide
 | [richfaces-validation](richfaces-validation/README.md "richfaces-validation") | RichFaces | Demonstrates RichFaces and bean validation | Beginner | None |
 | [servlet-async](servlet-async/README.md "servlet-async") | CDI, EJB, Servlet | Demonstrates CDI, plus asynchronous Servlets and EJBs | Intermediate | None |
 | [servlet-filterlistener](servlet-filterlistener/README.md "servlet-filterlistener") | Servlet | Demonstrates Servlet filters and listeners | Intermediate | None |
-| [servlet-security](servlet-security/README.md "servlet-security") | Servlet, Security | Demonstrates how to use Java EE declarative security to control access to Servlet 3 | Beginner | None |
-| [shopping-cart](shopping-cart/README.md "shopping-cart") | Stateful Session Bean (SFSB) | Demonstrates a stateful session bean | Beginner | None |
+| [servlet-security](servlet-security/README.md "servlet-security") | Servlet, Security | Demonstrates how to use Java EE declarative security to control access to Servlet 3 | Intermediate | None |
+| [shopping-cart](shopping-cart/README.md "shopping-cart") | Stateful Session Bean (SFSB) | Demonstrates a stateful session bean | Intermediate | None |
 | [tasks](tasks/README.md "tasks") | Arquillian, JPA, CRUD | Demonstrates testing JPA using Arquillian | Intermediate | None |
 | [tasks-jsf](tasks-jsf/README.md "tasks-jsf") | JSF, JPA | Provides a JSF 2.0 as view layer for the `tasks` quickstart | Intermediate | None |
 | [tasks-rs](tasks-rs/README.md "tasks-rs") | JAX-RS, JPA | Demonstrates how to use JAX-RS and JPA together | Intermediate | None |
-| [temperature-converter](temperature-converter/README.md "temperature-converter") | Stateless Session Bean (SLSB) | Demonstrates a stateless session bean | Intermediate | None |
+| [temperature-converter](temperature-converter/README.md "temperature-converter") | Stateless Session Bean (SLSB) | Demonstrates a stateless session bean | Beginner | None |
 | [wicket-ear](wicket-ear/README.md "wicket-ear") | Apache Wicket, CRUD, JPA | Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration, packaged as an EAR  | Intermediate | None |
 | [wicket-war](wicket-war/README.md "wicket-war") | Apache Wicket, CRUD, JPA | Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration packaged as a WAR  | Intermediate | None |
 | [wsat-simple](wsat-simple/README.md "wsat-simple") | WS-AT, Web service, JAX-WS | Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive  | Intermediate | None |
@@ -100,7 +100,7 @@ Suggested Approach to the Quickstarts
 We suggest you approach the quickstarts as follows:
 
 * Regardless of your level of expertise, we suggest you start with the **helloworld** quickstart. It is the simplest example and is an easy way to prove your server is configured and started correctly.
-* If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you're comfortable with those, move on to the **Advanced** quickstarts.
+* If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you are comfortable with those, move on to the **Advanced** quickstarts.
 * Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.
 
 
@@ -140,15 +140,26 @@ If you are using the JBoss Enterprise Application Platform 6 distribution, you n
 
 1. Download the JBoss Enterprise Application Platform 6 Maven repository distribution ZIP and unzip it into a directory of your choice.
 
-2. Modify the `example-settings.xml` file located in the root of your quickstarts folder. Replace all instances of `path/to/jboss-eap/repo` within `file:///path/to/jboss-eap/repo` with the fully qualified path to the Maven repository you unzipped in the previous step.
+2. Modify the `example-settings.xml` file located in the root of your quickstarts folder. 
+    * Replace all instances of `path/to/jboss-eap/repo` within `file:///path/to/jboss-eap/repo` with the fully qualified path to the Maven repository you unzipped in the previous step.
+    * Be sure to use 3 forward slashes after `file:`: 2 for the protocol and 1 for the fully qualified path. For example:
 
-3. When you run Maven commands, you need to append `-s PATH_TO_QUICKSTARTS/example-settings.xml` to the command, for example:
+            file:///home/username/Quickstarts/jboss-eap-6.0-quickstarts
+3. Configure the Maven user settings. 
+    * _Note:This is the recommended approach and is required if you are running the quickstarts in JBoss Developer Studio._
+    * Look for the `settings.xml` file in the `${user.home}/.m2/` directory. For example:
 
-        mvn jboss-as:deploy -s PATH_TO_QUICKSTARTS/example-settings.xml
+            For Linux or Mac:   ~/.m2/settings.xml
+            For Windows: \Documents and Settings\USER_NAME\.m2\settings.xml or \Users\USER_NAME\.m2\settings.xml
+    * If you have an existing `settings.xml` file, modify it with the configuration information from the `example-settings.xml` file.
+    * If there is no `settings.xml` file, copy the modified `example-settings.xml` file to the `m2` directory for your operating system and rename it to `settings.xml`.
 
-4. If you do not want to append the alternate path parameter each time you issue a Maven command, you can configure the Maven user settings as follows: 
-    * If you have an existing `~/.m2/settings.xml` file, modify it with the configuration information from the `example-settings.xml` file.
-    * If there is no `~/.m2/settings.xml` file, copy the modified `example-settings.xml` file to the `~/.m2` directory and rename it to `settings.xml`.
+4. If you choose not to configure the `settings.xml` file described in the previous step, you must append `-s PATH_TO_QUICKSTARTS/example-settings.xml` to every Maven command. 
+    * _Note: This only valid only when you run the quickstarts using the command line._  
+    * The following is an example of a deployment passing the Maven settings using the command line:
+
+            mvn jboss-as:deploy -s PATH_TO_QUICKSTARTS/example-settings.xml
+
 
 <a id="as7mavenconfig"></a>
 ### Configure Maven for JBoss AS 7
@@ -222,13 +233,13 @@ In some cases, you may want to build the application to test for compile errors 
 1. Open a command line and navigate to the root directory of the quickstart you want to build.
 2. Use this command if you only want to build the archive, but not deploy it:
 
-        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-            mvn clean package -s PATH_TO_QUICKSTARTS/example-settings.xml
-
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
             mvn clean package
+
+        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
+
+            mvn clean package -s PATH_TO_QUICKSTARTS/example-settings.xml
 
 #### Build and Deploy the Quickstart Archive
 
@@ -236,13 +247,13 @@ In some cases, you may want to build the application to test for compile errors 
 2. Open a command line and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
-        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-            mvn clean package jboss-as:deploy -s PATH_TO_QUICKSTARTS/example-settings.xml
-
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
             mvn clean package jboss-as:deploy
+
+        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
+
+            mvn clean package jboss-as:deploy -s PATH_TO_QUICKSTARTS/example-settings.xml
 
 #### Undeploy an Archive
 
@@ -265,13 +276,13 @@ You can run these tests using either a remote or managed container. The quicksta
     * A remote container requires you start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server before running the test. [Start the JBoss Server](#startjboss) as described in the quickstart README file.
     * Run the test goal with the following profile activated:
 
-        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-            mvn clean test -Parq-jbossas-remote -s PATH_TO_QUICKSTARTS/example-settings.xml
-
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
             mvn clean test -Parq-jbossas-remote 
+
+        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
+
+            mvn clean test -Parq-jbossas-remote -s PATH_TO_QUICKSTARTS/example-settings.xml
 <a id="testmanaged"></a>
 
 2. Test the quickstart on Managed Server
@@ -289,14 +300,13 @@ You can run these tests using either a remote or managed container. The quicksta
     * Find the "jbossHome" property and replace the "/path/to/jboss/as" value with the actual path to your JBoss Enterprise Application Platform 6 or JBoss AS 7 server.
     * Run the test goal with the following profile activated:
 
-        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-            mvn clean test -Parq-jbossas-managed  -s PATH_TO_QUICKSTARTS/example-settings.xml
-
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
             mvn clean test -Parq-jbossas-managed
 
+        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
+
+            mvn clean test -Parq-jbossas-managed  -s PATH_TO_QUICKSTARTS/example-settings.xml
 
 <a id="useeclipse"></a>
 Use JBoss Developer Studio or Eclipse to Run the Quickstarts
