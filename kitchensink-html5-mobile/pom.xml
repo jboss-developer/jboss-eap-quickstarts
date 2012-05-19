@@ -36,12 +36,12 @@
         <javaee6.web.spec.version>3.0.0.Final-redhat-1</javaee6.web.spec.version>
         <!-- <version.org.hibernate.validator>4.2.0.Final-redhat-1</version.org.hibernate.validator> -->
         
+        <jboss.bom.version>1.0.0.M11-redhat-1</jboss.bom.version>
         <wro4j.version>1.4.4</wro4j.version>
         
         <!-- Versions not covered in jboss-javaee-web-6.0 BOM  -->
         <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator>
         <version.org.hibernate-jpamodelgen>1.1.1.Final</version.org.hibernate-jpamodelgen>
-        <version.org.jboss.arquillian>1.0.0.CR7</version.org.jboss.arquillian>
         <version.org.jboss.as.arquillian.container>7.1.1.Final</version.org.jboss.as.arquillian.container>
         <version.junit>4.10</version.junit>
     </properties>
@@ -62,6 +62,13 @@
             a collection) of artifacts. We use this here so that we always get the correct 
             versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
             read this as the JBoss stack of the Java EE Web Profile 6 APIs) -->
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${jboss.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-web-6.0</artifactId>
@@ -156,14 +163,12 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
             <scope>test</scope>
         </dependency>
 
@@ -397,7 +402,7 @@
                                         <artifactItem>
                                             <groupId>org.jboss.as</groupId>
                                             <artifactId>jboss-as-dist</artifactId>
-                                            <version>7.1.1.Final</version>
+                                            <version>7.1.2.Final-redhat-1</version>
                                             <outputDirectory>${project.build.directory}</outputDirectory>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>

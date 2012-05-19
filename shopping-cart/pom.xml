@@ -47,21 +47,21 @@
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
 
         <!-- Define the version of JBoss' Java EE 6 APIs we want to import. -->
-        <javaee6.spec.version>3.0.0.Final-redhat-1</javaee6.spec.version>
+        <!-- <javaee6.spec.version>3.0.0.Final</javaee6.spec.version> -->
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 3.0.0.Final-redhat-1 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <javaee6.spec.version>3.0.0.Final-redhat-1</javaee6.spec.version> -->
+        <javaee6.spec.version>3.0.0.Final-redhat-1</javaee6.spec.version>
 
         <!-- Define the version of JBoss EJB Client we want to use. This 
             should match the JBoss AS version in use -->
-        <jboss.ejb.client.version>7.1.1.Final</jboss.ejb.client.version>
+        <!-- <jboss.ejb.client.version>7.1.2.Final</jboss.ejb.client.version> -->
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 7.1.1.Final-redhat-1 which is a release certified 
+            line below to use version 7.1.2.Final-redhat-1 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <javaee6.spec.version>7.1.1.Final-redhat-1</javaee6.spec.version> -->
+        <jboss.ejb.client.version>7.1.2.Final-redhat-1</jboss.ejb.client.version>
     </properties>
 
     <dependencyManagement>

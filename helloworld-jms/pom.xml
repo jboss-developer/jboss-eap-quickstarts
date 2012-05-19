@@ -41,7 +41,7 @@
       <dependency>
          <groupId>org.jboss.as</groupId>
          <artifactId>jboss-as-jms-client-bom</artifactId>
-         <version>7.1.1.Final</version>
+         <version>7.1.2.Final-redhat-1</version>
          <type>pom</type>
       </dependency>
    </dependencies>

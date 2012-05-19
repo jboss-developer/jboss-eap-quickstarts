@@ -47,12 +47,12 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>2.2.2.GA</version>
+            <version>2.3.3.Final-redhat-1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>4.1.4</version>
+            <version>4.1.4-redhat-1</version>
         </dependency>
     </dependencies>
     <build>
