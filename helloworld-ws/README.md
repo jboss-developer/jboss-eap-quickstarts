@@ -27,8 +27,8 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Custom Opti
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server with the web profile:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh --server-config=standalone-preview.xml
-        For Windows: JBOSS_HOME\bin\standalone.bat --server-config=standalone-preview.xml
+        For Linux:   JBOSS_HOME/bin/standalone.sh
+        For Windows: JBOSS_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -44,6 +44,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-as-helloworld-ws.war` to the running instance of the server.
 
+Access the application 
+---------------------
+
+The application is deployed to <http://localhost:8080/jboss-as-helloworld-ws>. Accessing this link directly will display a SOAP "No such operation" error because it expects SOAP messages as input. You can try sending SOAP messages to the Web Service endpoint by using the Client based JUnit Tests described below.
+
+You can check that the webservice is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-as-helloworld-ws?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+
 
 Run the Client Tests 
 -------------------------
@@ -55,7 +62,7 @@ This quickstart provides JUnit tests. By default, these tests are configured to 
 3. Open a command line and navigate to the root directory of this quickstart.
 4. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Pjbossas-remote 
+        mvn clean test -Pjbossas-managed 
 
 
 Undeploy the Archive
