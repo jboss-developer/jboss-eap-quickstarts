@@ -53,9 +53,13 @@
 <li><p>On Windows, use the file manager to accomplish the same result.</p></li>
 </ol>
 
+<h2 id="toc_6">Configure the JBoss server</h2>
+
+<p>If you have run the <code>jts</code> or <code>jts-distributed-crash-recovery</code> quickstarts, make sure you followed the instructions to <a href="../jts/README.html#remove-jts-configuration">Remove the JTS Configuration from the JBoss server</a>. The Byteman script will only run in JTA mode. It will not not run in JTS mode and you will not be able to simulate the server crash.</p>
+
 <p><a id="startserver"></a></p>
 
-<h2 id="toc_6">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>
+<h2 id="toc_7">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>
 
 <ol>
 <li>Open a command line and navigate to the root of the JBoss server directory.</li>
@@ -66,7 +70,7 @@
 </div></li>
 </ol>
 
-<h2 id="toc_7">Build and Deploy the Quickstart</h2>
+<h2 id="toc_8">Build and Deploy the Quickstart</h2>
 
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
@@ -80,11 +84,11 @@
 <li><p>This will deploy <code>target/jboss-as-jta-crash-rec.war</code> to the running instance of the server.</p></li>
 </ol>
 
-<h2 id="toc_8">Access the application </h2>
+<h2 id="toc_9">Access the application </h2>
 
 <p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-as-jta-crash-rec/XA">http://localhost:8080/jboss-as-jta-crash-rec/XA</a>. </p>
 
-<h2 id="toc_9">Test the application</h2>
+<h2 id="toc_10">Test the application</h2>
 
 <ol>
 <li><p>When you access the application, you will find a web page containing two html input boxes for adding &ldquo;key&rdquo; / &ldquo;value&rdquo; pairs to a database. Instructions for using the application are shown at the top of the application web page.</p></li>
@@ -113,7 +117,10 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 
 <ul>
 <li><p>Start the H2 console by typing:</p>
-<div class="highlight"><pre><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> $<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">h2database</span><span class="o">/</span><span class="n">h2</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">h2</span><span class="o">*</span><span class="p">.</span><span class="n">jar</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6<span class="p">:</span> 
+      <span class="n">java</span> <span class="o">-</span><span class="n">cp</span> $<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">h2database</span><span class="o">/</span><span class="n">h2</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">h2</span><span class="o">*</span><span class="p">.</span><span class="n">jar</span> <span class="n">org</span><span class="p">.</span><span class="n">h2</span><span class="p">.</span><span class="n">tools</span><span class="p">.</span><span class="n">Console</span>
+<span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7<span class="p">:</span>
+      <span class="n">java</span> <span class="o">-</span><span class="n">jar</span> $<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">h2database</span><span class="o">/</span><span class="n">h2</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">h2</span><span class="o">*</span><span class="p">.</span><span class="n">jar</span>
 </pre>
 </div></li>
 <li><p>Log in:</p>
@@ -146,12 +153,16 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 <li><p>To observe XA recovery</p>
 
 <ul>
-<li><a href="../README.html#byteman-disable">Disable the Byteman script</a> by restoring the backup server configuration file.</li>
-<li><a href="#startserver">Start the JBoss server</a> as instructed above.</li>
-<li>Load the web interface to the application </li>
-<li>By the time the JBoss server is ready, the transaction should have recovered.</li>
-<li>A message is printed on the JBoss server console when the consumer has completed the update. Look for a line that reads &#39;JTA Crash Record Quickstart: key value pair updated via JMS&#39;.</li>
-<li>Check that the row you inserted in step 4 now contains the text <em>&ldquo;updated via JMS&rdquo;</em>, showing that the JMS message was recovered successfully. Use the application URL to perform this check.</li>
+<li><p>Stop the H2 console to close the database connections. Otherwise, you may see messages like the following when you start your server: </p>
+<div class="highlight"><pre>`<span class="n">Database</span> <span class="n">may</span> <span class="n">be</span> <span class="n">already</span> <span class="n">in</span> <span class="n">use</span><span class="p">:</span> &quot;<span class="n">Locked</span> <span class="n">by</span> <span class="n">another</span> <span class="n">process</span>&quot;`
+</pre>
+</div></li>
+<li><p><a href="../README.html#byteman-disable">Disable the Byteman script</a> by restoring the backup server configuration file.</p></li>
+<li><p><a href="#startserver">Start the JBoss server</a> as instructed above.</p></li>
+<li><p>Load the web interface to the application </p></li>
+<li><p>By the time the JBoss server is ready, the transaction should have recovered.</p></li>
+<li><p>A message is printed on the JBoss server console when the consumer has completed the update. Look for a line that reads &#39;JTA Crash Record Quickstart: key value pair updated via JMS&#39;.</p></li>
+<li><p>Check that the row you inserted in step 4 now contains the text <em>&ldquo;updated via JMS&rdquo;</em>, showing that the JMS message was recovered successfully. Use the application URL to perform this check.</p></li>
 <li><p>You will most likely see the following message on the console. </p>
 <div class="highlight"><pre><span class="n">ARJUNA016038</span><span class="o">:</span> <span class="n">No</span> <span class="n">XAResource</span> <span class="n">to</span> <span class="n">recover</span> <span class="o">...</span> <span class="n">eis_name</span><span class="o">=...</span><span class="n">JTACrashRecQuickstartDS</span> <span class="n">during</span> <span class="n">recovery</span>
 </pre>
@@ -161,7 +172,7 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 </ul></li>
 </ol>
 
-<h2 id="toc_10">Undeploy the Archive</h2>
+<h2 id="toc_11">Undeploy the Archive</h2>
 
 <ol>
 <li>Make sure you have started the JBoss Server as described above.</li>
@@ -172,11 +183,11 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 </div></li>
 </ol>
 
-<h2 id="toc_11">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_12">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_12">Debug the Application</h2>
+<h2 id="toc_13">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>

@@ -165,4 +165,33 @@ following ways:</p>
 </pre>
 </div></li>
 </ol>
+
+<p><a id="remove-jts-configuration"></a></p>
+
+<h2 id="toc_12">Remove the JTS Configuration from the JBoss server</h2>
+
+<p>You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts.</p>
+
+<ol>
+<li>Stop the server.</li>
+<li>Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml</li>
+<li><p>Disable JTS as follows:</p>
+
+<ul>
+<li><p>Find the orb subsystem and change the configuration back to:  </p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;orb&gt;</span>
+        <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/orb&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre>
+</div></li>
+<li><p>Find the transaction subsystem and remove the <code>&lt;jts/&gt;</code> element:  </p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND REMOVE THE &lt;/jts&gt; --&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre>
+</div></li>
+</ul></li>
+</ol>
 </body></html>
