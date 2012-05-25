@@ -51,11 +51,8 @@ Quickstarts with tutorials in the [Getting Started Developing Applications Guide
 | [greeter](greeter/README.md "greeter") | CDI, JSF, JPA, EJB, JTA | Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0 | Beginner | None |
 | [h2-console](h2-console/README.md "h2-console") | H2 Database Console | Shows how to use the H2 console with JBoss AS | Beginner | greeter |
 | [helloworld**](helloworld/README.md "helloworld") | Basic CDI, Servlet | Basic example that can be used to verify that the server is configured and running correctly | Beginner | None |
-| [helloworld-errai](helloworld-errai/README.md "helloworld-errai") | Errai, JAX-RS | Helloworld using the Errai framework  | Beginner | None |
-| [helloworld-gwt](helloworld-gwt/README.md "helloworld-gwt") | GWT | Demonstrates the use of CDI 1.0 and JAX-RS with a GWT front-end client  | Beginner | None |
 | [helloworld-html5](helloworld-html5/README.md "helloworld-html5") | Basic HTML5 |Demonstrates the use of CDI 1.0 and JAX-RS using the POH5 architecture and RESTful services on the backend | Beginner | None |
 | [helloworld-jms](helloworld-jms/README.md "helloworld-jms") | JMS | Demonstrates the use of a standalone (Java SE) JMS client | Intermediate | None |
-| [helloworld-jsf](helloworld-jsf/README.md "helloworld-jsf") | Basic CDI, JSF | Similar to the helloworld quickstart, but with a JSF front end | Beginner | None |
 | [helloworld-mdb](helloworld-mdb/README.md "helloworld-mdb") | Basic JMS, Message-Driven Bean (MDB) | Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean  | Intermediate | None |
 | [helloworld-osgi**](helloworld-osgi/README.md "helloworld-osgi") | OSGi JAR | Shows how to create and deploy a simple OSGi Bundle | Beginner | None |
 | [helloworld-rs](helloworld-rs/README.md "helloworld-rs") | CDI, JAX-RS | Demonstrates the use of CDI 1.0 and JAX-RS | Intermediate | None |
@@ -75,7 +72,6 @@ Quickstarts with tutorials in the [Getting Started Developing Applications Guide
 | [mail](mail/README.md "mail") | JavaMail | Demonstrates the use of JavaMail | Beginner | None |
 | [numberguess**](numberguess/README.md "numberguess") | CDI, JSF | Demonstrates the use of CDI 1.0 and JSF 2.0  | Beginner | None |
 | [payment-cdi-event](payment-cdi-event/README.md "payment-cdi-event") | CDI, Events | Demonstrates how to use CDI 1.0 Events  | Beginner | None |
-| [richfaces-validation](richfaces-validation/README.md "richfaces-validation") | RichFaces | Demonstrates RichFaces and bean validation | Beginner | None |
 | [servlet-async](servlet-async/README.md "servlet-async") | CDI, EJB, Servlet | Demonstrates CDI, plus asynchronous Servlets and EJBs | Intermediate | None |
 | [servlet-filterlistener](servlet-filterlistener/README.md "servlet-filterlistener") | Servlet | Demonstrates Servlet filters and listeners | Intermediate | None |
 | [servlet-security](servlet-security/README.md "servlet-security") | Servlet, Security | Demonstrates how to use Java EE declarative security to control access to Servlet 3 | Beginner | None |

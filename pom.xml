@@ -57,11 +57,8 @@
                 <module>ejb-security</module>
                 <module>greeter</module>
                 <module>helloworld</module>
-                <module>helloworld-errai</module>
-                <module>helloworld-gwt</module>
                 <module>helloworld-html5</module>
                 <module>helloworld-jms</module>
-                <module>helloworld-jsf</module>
                 <module>helloworld-osgi</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
@@ -76,7 +73,6 @@
                 <module>mail</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
-                <module>richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
