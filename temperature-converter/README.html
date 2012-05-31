@@ -64,11 +64,22 @@ Deployment occurs via a war archive for deployment to <em>JBoss AS 7</em>.</p>
 <li>Press the <code>Convert</code> button to see the results.</li>
 </ol>
 
-<h2 id="toc_7">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_7">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_8">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html/#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_8">Debug the Application</h2>
+<h2 id="toc_9">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>  <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
