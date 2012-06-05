@@ -39,7 +39,7 @@
       <dependency>
          <groupId>org.osgi</groupId>
          <artifactId>org.osgi.core</artifactId>
-         <version>4.2.0</version>
+         <version>4.2.0-redhat-1</version>
          <scope>provided</scope>
       </dependency>
    </dependencies>
