@@ -1,4 +1,4 @@
-JBoss AS Quickstarts
+JBoss WFK Quickstarts
 ====================
 
 

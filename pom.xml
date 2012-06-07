@@ -18,13 +18,13 @@
         <version>8</version>
         <relativePath />
     </parent>
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-quickstarts-parent</artifactId>
-    <version>7.1.1.CR2</version>
+    <groupId>org.jboss.wfk.quickstarts</groupId>
+    <artifactId>jboss-wfk-quickstarts-parent</artifactId>
+    <version>2.0.0.ER8</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts Parent</name>
-    <description>JBoss AS Quickstarts Parent</description>
-    <url>http://github.com/jbossas/quickstart</url>
+    <name>JBoss WFK Quickstarts Parent</name>
+    <description>JBoss WFK Quickstarts Parent</description>
+    <url>http://github.com/jboss-eap/quickstart</url>
 
     <licenses>
         <license>
@@ -57,9 +57,9 @@
     </profiles>
 
     <scm>
-        <connection>scm:git://github.com/jbossas/quickstart.git</connection>
-        <developerConnection>scm:git:git@github.com:jbossas/quickstart.git</developerConnection>
-        <url>http://github.com/jbossas/quickstart</url>
+        <connection>scm:git://github.com/jboss-eap/quickstart.git</connection>
+        <developerConnection>scm:git:git@github.com:jboss-eap/quickstart.git</developerConnection>
+        <url>http://github.com/jboss-eap/quickstart</url>
     </scm>
 
     <build>

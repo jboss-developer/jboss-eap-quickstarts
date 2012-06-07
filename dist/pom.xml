@@ -14,16 +14,16 @@
    <parent>
       <groupId>org.jboss</groupId>
       <artifactId>jboss-parent</artifactId>
-      <version>6-beta-2</version>
+      <version>8</version>
       <relativePath/>
    </parent>
-   <groupId>org.jboss.as.quickstarts</groupId>
-   <artifactId>jboss-as-quickstarts-dist</artifactId>
-   <version>7.1.1.CR2</version>
+   <groupId>org.jboss.wfk.quickstarts</groupId>
+   <artifactId>jboss-wfk-quickstarts-dist</artifactId>
+   <version>2.0.0.ER8</version>
    <packaging>pom</packaging>
-   <name>JBoss AS Quickstarts Distribution</name>
-   <description>JBoss AS Quickstarts Distribution</description>
-   <url>http://github.com/jbossas/quickstart</url>
+   <name>JBoss WFK Quickstarts Distribution</name>
+   <description>JBoss WFK Quickstarts Parent</description>
+   <url>http://github.com/jboss-eap/quickstart</url>
 
    <licenses>
       <license>
