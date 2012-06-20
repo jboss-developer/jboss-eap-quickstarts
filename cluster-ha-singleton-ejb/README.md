@@ -8,9 +8,9 @@ What is it?
 This is an example to demonstrate the deployment of a Service that is wrapped with the SingletonService decorater
 to be a cluster wide singleton service.
 
-The example is composed of 2 maven projects, each with a shared parent. The projects are as follows:
+The example is composed of 2 maven projects with a shared parent. The projects are as follows:
 
-1. `service`: This project contains the Service and the EJB code to instanciate, start and access the service
+1. `service`: This project contains the Service and the EJB code to instantiate, start and access the service
 2. `client` : This project contains a remote ejb client to show the behaviour
 
 The root `pom.xml` builds each of the subprojects in the above order and deploys the archive to the server.
@@ -45,14 +45,12 @@ should be started.
 Build and Deploy the Quickstart
 -------------------------
 
-If the quickstart is built and deployed using the standard Maven commands, "mvn clean package" and "mvn jboss-as:deploy", copy the following:
-
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 4. This will deploy `service/target/jboss-as-singleton-service-in-jar.jar` to the running instance of the server.
 5. Type this command to deploy the archive to the second server (or more) and replace hostname and port depend on your settings:
         mvn jboss-as:deploy -Ddeploy.hostname=localhost -Ddeploy.port=10099

@@ -62,7 +62,7 @@ public class EnvironmentService implements Service<String> {
             throw new StartException("The service is still started!");
         }
         LOGGER.info("Start service '" + this.getClass().getName() + "'");
-//        this.nodeName = System.getProperty("jboss.node.name");
+
         this.nodeName = this.env.getValue().getNodeName();
     }
 
