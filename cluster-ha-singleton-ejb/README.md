@@ -5,7 +5,7 @@ Author: Wolf-Dieter Fink
 What is it?
 -----------
 
-This is an example to demonstrate the deployment of a Service that is wrapped with the SingletonService decorater
+This example demonstrates the deployment of a Service that is wrapped with the SingletonService decorater
 to be a cluster wide singleton service.
 
 The example is composed of 2 maven projects with a shared parent. The projects are as follows:
@@ -50,10 +50,14 @@ _NOTE: The following build command assumes you have configured your Maven user s
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
+
         mvn clean install jboss-as:deploy
+
 4. This will deploy `service/target/jboss-as-singleton-service-in-jar.jar` to the running instance of the server.
 5. Type this command to deploy the archive to the second server (or more) and replace hostname and port depend on your settings:
+
         mvn jboss-as:deploy -Ddeploy.hostname=localhost -Ddeploy.port=10099
+
 6. This will deploy `service/target/jboss-as-singleton-service-in-jar.jar` to the running instance of the additional server.
  
 Check whether the application is deployed on each instance.
@@ -68,8 +72,10 @@ Access the application
 
 1. Open a command line and navigate to the root directory of this quickstart.
 2. Type this command to start the client
+
         cd client
         mvn exec:exec
+
 3. check the output
 		The request is running four times and every time it should answer
 		  # The service is active on node with name = NodeOne
