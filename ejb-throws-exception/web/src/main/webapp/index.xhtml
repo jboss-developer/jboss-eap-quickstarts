@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+	<title>EJB in EAR throws custom exception Quickstart</title>
+</h:head>
+ 
+<body> 	
+	<h:form>
+		<h3>EJB throws custom exception Quickstart</h3>
+		<h5>Clicking Say Hello with an empty name will catch a custom exception (GreeterException) coming back from the EJB</h5>
+		<h:outputText value="Name: " /><h:inputText value="#{greeterBean.name}" />
+		<h:commandButton action="#{greeterBean.sayHello}" value="Say Hello" /><br/>
+		<h:outputText value="Response: " />
+		<h:outputText value="#{greeterBean.response}" />
+	</h:form>
+</body> 
+</html>

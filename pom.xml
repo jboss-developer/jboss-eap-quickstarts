@@ -55,6 +55,7 @@
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
+                <module>ejb-throws-exception</module>
                 <module>greeter</module>
                 <module>helloworld</module>
                 <module>helloworld-errai</module>
