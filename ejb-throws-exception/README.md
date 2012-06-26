@@ -5,7 +5,7 @@ Author: Brad Maxwell
 What is it?
 -----------
 
-This example extends This example demonstrates the deployment of an EAR artifact. The EAR contains: *JSF 2.0* WAR and an *EJB 3.1* JAR.
+This example extends ejb-in-ear example, adding a custom exception that the EJB may throw which the client web application can catch and display in a nice format.  The EAR contains: *JSF 2.0* WAR, an *EJB 3.1* JAR and a client library jar containg classes that both the WAR and EJB JAR use.
 
 The example is composed of three maven projects, each with a shared parent. The projects are as follows:
 
