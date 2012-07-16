@@ -51,7 +51,7 @@ public class SingletonServiceClient {
     }
 
     private String getServiceNodeName() {
-        return accessBean.getNodeNameOfService();
+        return accessBean.getNodeNameOfTimerService();
     }
 
     /**

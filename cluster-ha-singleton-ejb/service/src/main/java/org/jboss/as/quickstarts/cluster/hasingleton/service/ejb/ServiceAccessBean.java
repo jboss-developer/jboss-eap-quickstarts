@@ -32,15 +32,15 @@ import org.slf4j.LoggerFactory;
 public class ServiceAccessBean implements ServiceAccess {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceAccessBean.class);
 
-    public String getNodeNameOfService() {
-        LOGGER.info("getNodeNameOfService() is called()");
+    public String getNodeNameOfTimerService() {
+        LOGGER.info("getNodeNameOfTimerService() is called()");
         ServiceController<?> service = CurrentServiceContainer.getServiceContainer().getService(
-                EnvironmentService.SINGLETON_SERVICE_NAME);
+                HATimerService.SINGLETON_SERVICE_NAME);
         LOGGER.debug("SERVICE {}", service);
         if (service != null) {
             return (String) service.getValue();
         } else {
-            throw new IllegalStateException("Service '" + EnvironmentService.SINGLETON_SERVICE_NAME + "' not found!");
+            throw new IllegalStateException("Service '" + HATimerService.SINGLETON_SERVICE_NAME + "' not found!");
         }
     }
 }

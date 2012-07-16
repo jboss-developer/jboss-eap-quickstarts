@@ -25,5 +25,10 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface ServiceAccess {
-    public abstract String getNodeNameOfService();
+    /**
+     * Provide the node name where the scheduler is started.
+     * 
+     * @return name of the cluster node where the schedule timer is running
+     */
+    public abstract String getNodeNameOfTimerService();
 }

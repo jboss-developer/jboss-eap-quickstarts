@@ -66,8 +66,9 @@ INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS0
 Only nodeOne (or even one instance) will have a message:
 INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
 
+The timer on the started node will log a message every 10sec.
 
-Access the application
+Check the timer
 ---------------------
 
 1. Open a command line and navigate to the root directory of this quickstart.
@@ -77,16 +78,17 @@ Access the application
         mvn exec:exec
 
 3. check the output
-		The request is running four times and every time it should answer
-		  # The service is active on node with name = NodeOne
+		The request to the EJB is running four times and every time it should answer
+		  # The timer service is active on node with name = NodeOne
 		If you look into the servers logfiles you will see that each node will process requests
 4. Stop the server nodeOne
 		If you look into the server nodeTwo logfile you will see the message
 		"JBAS010342: nodeTwo/cluster elected as the singleton provider of ..."
 		that shows that the singleton service was started here
+		The timer will be started here and log a message every 10sec.
 5. repeat step 2
     The request is running four times and the message is 
-		  # The service is active on node with name = NodeTwo
+		  # The timer service is active on node with name = NodeTwo
 		If you look into the server#2 logfile you will see that it process all four requests.
 
 

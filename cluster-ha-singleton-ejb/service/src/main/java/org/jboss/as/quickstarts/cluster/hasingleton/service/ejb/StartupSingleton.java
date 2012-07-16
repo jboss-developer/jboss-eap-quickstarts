@@ -54,13 +54,13 @@ public class StartupSingleton {
 	protected void startup() {
 		LOGGER.info("StartupSingleton will be initialized!");
 
-		EnvironmentService service = new EnvironmentService();
-		SingletonService<String> singleton = new SingletonService<String>(service, EnvironmentService.SINGLETON_SERVICE_NAME);
+		HATimerService service = new HATimerService();
+		SingletonService<String> singleton = new SingletonService<String>(service, HATimerService.SINGLETON_SERVICE_NAME);
 		// if there is a node where the Singleton should deployed the election policy might set,
 		// otherwise the JGroups coordinator will start it
 		//singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new NamePreference("node2/cluster"), new SimpleSingletonElectionPolicy()));
 		ServiceController<String> controller = singleton.build(CurrentServiceContainer.getServiceContainer())
-				.addDependency(ServerEnvironmentService.SERVICE_NAME, ServerEnvironment.class, service.getEnvInjector())
+				.addDependency(ServerEnvironmentService.SERVICE_NAME, ServerEnvironment.class, service.env)
 				.install();
 
 		controller.setMode(ServiceController.Mode.ACTIVE);
@@ -68,7 +68,7 @@ public class StartupSingleton {
 			wait(controller, EnumSet.of(ServiceController.State.DOWN, ServiceController.State.STARTING), ServiceController.State.UP);
 			LOGGER.info("StartupSingleton has started the Service");
 		} catch (IllegalStateException e) {
-			LOGGER.warn("Singleton Service {} not started, are you sure to start in a cluster (HA) environment?",EnvironmentService.SINGLETON_SERVICE_NAME);
+			LOGGER.warn("Singleton Service {} not started, are you sure to start in a cluster (HA) environment?",HATimerService.SINGLETON_SERVICE_NAME);
 		}
 	}
 
@@ -78,12 +78,12 @@ public class StartupSingleton {
 	@PreDestroy
 	protected void destroy() {
 		LOGGER.info("StartupSingleton will be removed!");
-		ServiceController<?> controller = CurrentServiceContainer.getServiceContainer().getRequiredService(EnvironmentService.SINGLETON_SERVICE_NAME);
+		ServiceController<?> controller = CurrentServiceContainer.getServiceContainer().getRequiredService(HATimerService.SINGLETON_SERVICE_NAME);
 		controller.setMode(ServiceController.Mode.REMOVE);
 		try {
 			wait(controller, EnumSet.of(ServiceController.State.UP, ServiceController.State.STOPPING, ServiceController.State.DOWN), ServiceController.State.REMOVED);
 		} catch (IllegalStateException e) {
-			LOGGER.warn("Singleton Service {} has not be stopped correctly!",EnvironmentService.SINGLETON_SERVICE_NAME);
+			LOGGER.warn("Singleton Service {} has not be stopped correctly!",HATimerService.SINGLETON_SERVICE_NAME);
 		}
 	}
 
