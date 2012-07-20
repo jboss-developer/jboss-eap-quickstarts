@@ -130,8 +130,6 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 
 <h2 id="toc_9">Build and Deploy the Quickstart - to OpenShift</h2>
 
-<p><em>NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift</em>.</p>
-
 <h3 id="toc_10">Create an OpenShift Express Account and Domain</h3>
 
 <p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://openshift.redhat.com/app/getting_started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
@@ -140,14 +138,14 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 
 <p>Note that we use the <code>jboss-as-quickstart@jboss.org</code> user for these examples. You need to substitute it with your own user name.</p>
 
-<p>Open up a shell and from the directory of your choice run the following command to create our wsatsimple application.</p>
-<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
+<p>Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with <code>jbosseap-6.0</code> for quickstarts running on JBoss Enterprise Application Platform 6, or <code>jbossas-7</code> for quickstarts running on JBoss AS 7:</p>
+<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span> <span class="o">-</span><span class="n">t</span> <span class="n">APPLICATION_TYPE</span>
 </pre>
 </div>
 
 <p><em>NOTE</em>: The domain name for this application will be <code>wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
 
-<p>You should see some output which will show the application being deployed and also the URL at which it can be accessed. If creation is successful, you should see similar output:</p>
+<p>This command creates an OpenShift application called <code>wsatsimple</code> and will run the application inside the <code>jbosseap-6.0</code>  or <code>jbossas-7</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">wsatsimple</span>
 <span class="n">Now</span> <span class="n">your</span> <span class="n">new</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">is</span> <span class="n">being</span> <span class="n">propagated</span> <span class="n">worldwide</span> <span class="p">(</span><span class="n">this</span> <span class="n">might</span> <span class="n">take</span> <span class="n">a</span> <span class="n">minute</span><span class="p">)...</span>
 <span class="n">Warning</span><span class="p">:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="n">the</span> <span class="n">RSA</span> <span class="n">host</span> <span class="n">key</span> <span class="k">for</span> <span class="n">IP</span> <span class="n">address</span> <span class="s">&#39;23.20.102.147&#39;</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
@@ -161,7 +159,7 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 
 <h3 id="toc_12">Migrate the Quickstart Source</h3>
 
-<p>Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repo and tell git to remove the source files and pom:</p>
+<p>Now that you have confirmed it is working you can migrate the quickstart source. You do not need the generated default application, so navigate to the new git repository directory and tell git to remove the source and pom files:</p>
 <div class="highlight"><pre>    <span class="n">cd</span> <span class="n">wsatsimple</span>
     <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
 </pre>
@@ -173,46 +171,51 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 </pre>
 </div>
 
-<p>Openshift does not have Web services or WS-AT enabled by default, so we need to modify the server configuration. To do this open <code>.openshift/config/standalone.xml</code> in your
-favorite editor and make the following additions:</p>
+<h3 id="toc_13">Configure the OpenShift Server</h3>
 
-<p>Add the following extensions to the <code>&lt;extensions&gt;</code> block:</p>
-<div class="highlight"><pre>    <span class="o">&lt;</span><span class="n">extension</span> <span class="n">module</span><span class="p">=</span>&quot;<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">webservices</span>&quot;<span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">extension</span> <span class="n">module</span><span class="p">=</span>&quot;<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">xts</span>&quot;<span class="o">/&gt;</span>
-</pre>
-</div>
+<p>Openshift does not have Web services or WS-AT enabled by default, so we need to modify the server configuration. To do this open <code>.openshift/config/standalone.xml</code> (this file may be hidden) in an editor and make the following additions:</p>
 
-<p>Add the following sub systems to the <code>&lt;profile&gt;</code> block:</p>
-<div class="highlight"><pre>    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jmx:1.1&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;show</span><span class="err">-model</span> <span class="na">value=</span><span class="s">&quot;true&quot;/</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;remoting</span><span class="err">-connector</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/subsystem&gt;</span>
-    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.1&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;modify</span><span class="err">-wsdl-address</span><span class="nt">&gt;</span>true<span class="nt">&lt;/modify-wsdl-address&gt;</span>
-        <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_APP_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
-        <span class="nt">&lt;wsdl</span><span class="err">-port</span><span class="nt">&gt;</span>80<span class="nt">&lt;/wsdl-port&gt;</span>
-        <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Standard-Endpoint-Config&quot;/</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Recording-Endpoint-Config&quot;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;pre</span><span class="err">-handler-chain</span> <span class="na">name=</span><span class="s">&quot;recording-handlers&quot;</span> <span class="na">protocol-bindings=</span><span class="s">&quot;##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM&quot;</span><span class="nt">&gt;</span>
-                <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;RecordingHandler&quot;</span> <span class="na">class=</span><span class="s">&quot;org.jboss.ws.common.invocation.RecordingServerHandler&quot;/</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;/pre-handler-chain&gt;</span>
-        <span class="nt">&lt;/endpoint-config&gt;</span>
-    <span class="nt">&lt;/subsystem&gt;</span>
-    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:xts:1.0&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;xts</span><span class="err">-environment</span> <span class="na">url=</span><span class="s">&quot;http://</span><span class="cp">${</span><span class="n">OPENSHIFT_INTERNAL_IP</span><span class="cp">}</span><span class="s">:8080/ws-c11/ActivationService&quot;/</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;/subsystem&gt;</span>
+<ol>
+<li><p>If the following extensions do not exist, add them under the <code>&lt;extensions&gt;</code> element: </p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="n">extension</span> <span class="n">module</span><span class="p">=</span>&quot;<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">webservices</span>&quot;<span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">extension</span> <span class="n">module</span><span class="p">=</span>&quot;<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">xts</span>&quot;<span class="o">/&gt;</span>
 </pre>
-</div>
-
-<p>to reduce the amount of logging produced, also edit a log level. This should make it easier to read the logging produced by this example. To do this add the
-following logger block just bellow one of the other logger blocks. To be clear, this is only done to make the demo easier to follow.</p>
-<div class="highlight"><pre>    <span class="nt">&lt;logger</span> <span class="na">category=</span><span class="s">&quot;org.apache.cxf.service.factory.ReflectionServiceFactoryBean&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;WARN&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/logger&gt;</span>
+</div></li>
+<li><p>If the jmx subsystem is not configured under the <code>&lt;profile&gt;</code> element, copy the following under the <code>&lt;profile&gt;</code> element to enable and configure JMX:</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jmx:1.1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;show-model</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;remoting-connector/&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
 </pre>
-</div>
+</div></li>
+<li><p>If the webservices subsystem is not configured under the <code>&lt;profile&gt;</code> element, copy the following under the <code>&lt;profile&gt;</code> element to enable and configure Web Services:</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modify</span><span class="err">-wsdl-address</span><span class="nt">&gt;</span>true<span class="nt">&lt;/modify-wsdl-address&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_APP_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-port</span><span class="nt">&gt;</span>80<span class="nt">&lt;/wsdl-port&gt;</span>
+    <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Standard-Endpoint-Config&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Recording-Endpoint-Config&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;pre</span><span class="err">-handler-chain</span> <span class="na">name=</span><span class="s">&quot;recording-handlers&quot;</span> <span class="na">protocol-bindings=</span><span class="s">&quot;##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;RecordingHandler&quot;</span> <span class="na">class=</span><span class="s">&quot;org.jboss.ws.common.invocation.RecordingServerHandler&quot;/</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/pre-handler-chain&gt;</span>
+    <span class="nt">&lt;/endpoint-config&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+<span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:xts:1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xts</span><span class="err">-environment</span> <span class="na">url=</span><span class="s">&quot;http://</span><span class="cp">${</span><span class="n">OPENSHIFT_INTERNAL_IP</span><span class="cp">}</span><span class="s">:8080/ws-c11/ActivationService&quot;/</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre>
+</div></li>
+<li><p>To reduce the amount of logging and make it easier to read the logs produced by this quickstart, edit the log level by adding the following block just below the other blocks:</p>
+<div class="highlight"><pre><span class="nt">&lt;logger</span> <span class="na">category=</span><span class="s">&quot;org.apache.cxf.service.factory.ReflectionServiceFactoryBean&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;WARN&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/logger&gt;</span>
+</pre>
+</div></li>
+</ol>
 
 <p>The <code>.openshift/config/standalone.xml</code> is now ready, so save it and exit your editor.</p>
+
+<h3 id="toc_14">Deploy the OpenShift Application</h3>
 
 <p>You can now deploy the changes to your OpenShift application using git as follows:</p>
 <div class="highlight"><pre>    <span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">xml</span>
@@ -241,15 +244,16 @@ following logger block just bellow one of the other logger blocks. To be clear, 
 </pre>
 </div>
 
-<p>Note that the <code>openshift</code> profile in <code>pom.xml</code> is activated by OpenShift, and causes the WAR build by OpenShift to be copied to the <code>deployments</code> directory, and deployed without a context path.</p>
+<p>Note that the <code>openshift</code> profile in the <code>pom.xml</code> file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the <code>deployments</code> directory and deployed without a context path.</p>
 
-<p>Now we will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
+<h3 id="toc_15">Test the OpenShift Application</h3>
+
+<p>Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
 <div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span>
 </pre>
 </div>
 
-<p>Once the app is deployed open up a browser and run the application, the URL will be similar as follows but with your own
-domain name.</p>
+<p>Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
 <div class="highlight"><pre><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wsatsimple</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">WSATSimpleServletClient</span>
 </pre>
 </div>
@@ -258,10 +262,22 @@ domain name.</p>
 
 <p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
 
-<h3 id="toc_13">Destroy the OpenShift Application</h3>
+<h3 id="toc_16">Destroy the OpenShift Application</h3>
 
 <p>When you are finished with the application you can destroy it as follows:</p>
 <div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span>
 </pre>
 </div>
+
+<p>To view the list of your current OpenShift applications, type:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">domain</span>
+</pre>
+</div>
+
+<p><em>Note</em>: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the <code>rhc app create</code> command returns an error indicating you have reached that limit, you must destroy an existing application before you continue. </p>
+
+<ul>
+<li>To view the list of your OpenShift applications, type: <code>rhc domain show</code></li>
+<li>To destroy an existing application, type the following, substituting the application name you want to destroy: <code>rhc app destroy -a APPLICATION_NAME_TO_DESTROY</code></li>
+</ul>
 </body></html>

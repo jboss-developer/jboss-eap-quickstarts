@@ -26,7 +26,7 @@
 
 <p>Some quickstarts are designed to enhance or extend other quickstarts. These are noted in the <strong>Prerequisites</strong> column. If a quickstart lists prerequisites, those must be installed or deployed before working with the quickstart.</p>
 
-<p>Quickstarts with tutorials in the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> are noted with two asterisks ( ** ) following the quickstart name. </p>
+<p>Quickstarts with tutorials in the <a href="http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/" title="Get Started Developing Applications">Get Started Developing Applications</a> are noted with two asterisks ( ** ) following the quickstart name. </p>
 
 <table><thead>
 <tr>
@@ -383,7 +383,7 @@
 
 <ul>
 <li>Regardless of your level of expertise, we suggest you start with the <strong>helloworld</strong> quickstart. It is the simplest example and is an easy way to prove your server is configured and started correctly.</li>
-<li>If you are a beginner or new to JBoss, start with the quickstarts labeled <strong>Beginner</strong>, then try those marked as <strong>Intermediate</strong>. When you&#39;re comfortable with those, move on to the <strong>Advanced</strong> quickstarts.</li>
+<li>If you are a beginner or new to JBoss, start with the quickstarts labeled <strong>Beginner</strong>, then try those marked as <strong>Intermediate</strong>. When you are comfortable with those, move on to the <strong>Advanced</strong> quickstarts.</li>
 <li>Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.</li>
 </ul>
 
@@ -432,16 +432,35 @@
 
 <ol>
 <li><p>Download the JBoss Enterprise Application Platform 6 Maven repository distribution ZIP and unzip it into a directory of your choice.</p></li>
-<li><p>Modify the <code>example-settings.xml</code> file located in the root of your quickstarts folder. Replace all instances of <code>path/to/jboss-eap/repo</code> within <code>file:///path/to/jboss-eap/repo</code> with the fully qualified path to the Maven repository you unzipped in the previous step.</p></li>
-<li><p>When you run Maven commands, you need to append <code>-s PATH_TO_QUICKSTARTS/example-settings.xml</code> to the command, for example:</p>
+<li><p>Modify the <code>example-settings.xml</code> file located in the root of your quickstarts folder. </p>
+
+<ul>
+<li>Replace all instances of <code>path/to/jboss-eap/repo</code> within <code>file:///path/to/jboss-eap/repo</code> with the fully qualified path to the Maven repository you unzipped in the previous step.</li>
+<li><p>Be sure to use 3 forward slashes after <code>file:</code>: 2 for the protocol and 1 for the fully qualified path. For example:</p>
+<div class="highlight"><pre><span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">Quickstarts</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">eap</span><span class="o">-</span>6<span class="p">.</span>0<span class="o">-</span><span class="n">quickstarts</span>
+</pre>
+</div></li>
+</ul></li>
+<li><p>Configure the Maven user settings. </p>
+
+<ul>
+<li><em>Note:This is the recommended approach and is required if you are running the quickstarts in JBoss Developer Studio.</em></li>
+<li><p>Look for the <code>settings.xml</code> file in the <code>${user.home}/.m2/</code> directory. For example:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span> <span class="n">or</span> <span class="n">Mac</span><span class="p">:</span>   <span class="o">~/</span><span class="p">.</span><span class="n">m2</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="o">\</span><span class="n">Documents</span> <span class="n">and</span> <span class="n">Settings</span><span class="o">\</span><span class="n">USER_NAME</span><span class="o">\</span><span class="p">.</span><span class="n">m2</span><span class="o">\</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span> <span class="n">or</span> <span class="o">\</span><span class="n">Users</span><span class="o">\</span><span class="n">USER_NAME</span><span class="o">\</span><span class="p">.</span><span class="n">m2</span><span class="o">\</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+<li><p>If you have an existing <code>settings.xml</code> file, modify it with the configuration information from the <code>example-settings.xml</code> file.</p></li>
+<li><p>If there is no <code>settings.xml</code> file, copy the modified <code>example-settings.xml</code> file to the <code>m2</code> directory for your operating system and rename it to <code>settings.xml</code>.</p></li>
+</ul></li>
+<li><p>If you choose not to configure the <code>settings.xml</code> file described in the previous step, you must append <code>-s PATH_TO_QUICKSTARTS/example-settings.xml</code> to every Maven command. </p>
+
+<ul>
+<li><em>Note: This only valid only when you run the quickstarts using the command line.</em><br/></li>
+<li><p>The following is an example of a deployment passing the Maven settings using the command line:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
 </pre>
 </div></li>
-<li><p>If you do not want to append the alternate path parameter each time you issue a Maven command, you can configure the Maven user settings as follows: </p>
-
-<ul>
-<li>If you have an existing <code>~/.m2/settings.xml</code> file, modify it with the configuration information from the <code>example-settings.xml</code> file.</li>
-<li>If there is no <code>~/.m2/settings.xml</code> file, copy the modified <code>example-settings.xml</code> file to the <code>~/.m2</code> directory and rename it to <code>settings.xml</code>.</li>
 </ul></li>
 </ol>
 
@@ -540,13 +559,13 @@
 <ol>
 <li>Open a command line and navigate to the root directory of the quickstart you want to build.</li>
 <li><p>Use this command if you only want to build the archive, but not deploy it:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">NOT</span> <span class="n">configured</span><span class="p">):</span> 
-
-    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
-
-<span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7 <span class="n">or</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">configured</span><span class="p">):</span> 
+<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7 <span class="n">or</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">configured</span><span class="p">):</span> 
 
     <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span>
+
+<span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">NOT</span> <span class="n">configured</span><span class="p">):</span> 
+
+    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
 </pre>
 </div></li>
 </ol>
@@ -557,13 +576,13 @@
 <li>Make sure you <a href="#startjboss">start the JBoss Server</a> as described in the README.</li>
 <li>Open a command line and navigate to the root directory of the quickstart you want to run.</li>
 <li><p>Use this command to build and deploy the archive:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">NOT</span> <span class="n">configured</span><span class="p">):</span> 
-
-    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
-
-<span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7 <span class="n">or</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">configured</span><span class="p">):</span> 
+<div class="highlight"><pre><span class="n">For</span> <span class="n">JBoss</span> <span class="n">AS</span> 7 <span class="n">or</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">configured</span><span class="p">):</span> 
 
     <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+
+<span class="n">For</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> 6 <span class="p">(</span><span class="n">Maven</span> <span class="n">user</span> <span class="n">settings</span> <span class="n">NOT</span> <span class="n">configured</span><span class="p">):</span> 
+
+    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
 </pre>
 </div></li>
 </ol>
@@ -594,13 +613,13 @@
 <li>A remote container requires you start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server before running the test. <a href="#startjboss">Start the JBoss Server</a> as described in the quickstart README file.</li>
 <li><p>Run the test goal with the following profile activated:</p>
 
-<p>For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): </p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+<p>For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> 
 </pre>
 </div>
 
-<p>For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): </p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> 
+<p>For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">s</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
 </pre>
 </div>
 
@@ -640,7 +659,7 @@
 
 <h2 id="toc_18">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</h2>
 
-<p>You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the <a href="http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Beta_Documentation/HOME.html">JBoss Enterprise Application Platform 6 Beta</a> documentation or the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.</p>
+<p>You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the <a href="https://access.redhat.com/knowledge/docs/JBoss_Enterprise_Application_Platform/">JBoss Enterprise Application Platform 6 Development Guide</a> or <a href="http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/" title="Get Started Developing Applications">Get Started Developing Applications</a>.</p>
 
 <p><a id="optionalcomponents"></a></p>
 

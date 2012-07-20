@@ -81,13 +81,7 @@
 </pre>
 </div>
 
-<p>You can also start JBoss AS 7 and deploy the project using Eclipse. See the JBoss AS 7
-<a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a> 
-for more information.</p>
-
 <h2 id="toc_11">Build and Deploy the Quickstart - to OpenShift</h2>
-
-<p><em>NOTE: At the time of this writing, JBoss Enterprise Application Platform 6 is not yet available on OpenShift, so only the JBoss AS 7 version of this quickstart can be deployed to OpenShift</em>.</p>
 
 <h3 id="toc_12">Create an OpenShift Account and Domain</h3>
 
@@ -95,14 +89,14 @@ for more information.</p>
 
 <h3 id="toc_13">Create the OpenShift Application</h3>
 
-<p>Open a shell command prompt and change to a directory of your choice. Enter the following command:</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">hellworldmdb</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbossas</span><span class="o">-</span>7
+<p>Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with <code>jbosseap-6.0</code> for quickstarts running on JBoss Enterprise Application Platform 6, or <code>jbossas-7</code> for quickstarts running on JBoss AS 7:</p>
+<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">hellworldmdb</span> <span class="o">-</span><span class="n">t</span> <span class="n">APPLICATION_TYPE</span>
 </pre>
 </div>
 
-<p><em>NOTE</em>: The domain name for this application will be <code>helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
+<p>The domain name for this application will be <code>helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
 
-<p>This command creates an OpenShift application with the name you entered above and will run the application inside a <code>jbossas-7</code> container. You should see some output similar to the following:</p>
+<p>This command creates an OpenShift application called <code>helloworldmdb</code> and will run the application inside the <code>jbosseap-6.0</code>  or <code>jbossas-7</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">helloworldmdb</span>
 <span class="n">Now</span> <span class="n">your</span> <span class="n">new</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">is</span> <span class="n">being</span> <span class="n">propagated</span> <span class="n">worldwide</span> <span class="p">(</span><span class="n">this</span> <span class="n">might</span> <span class="n">take</span> <span class="n">a</span> <span class="n">minute</span><span class="p">)...</span>
 <span class="n">Warning</span><span class="p">:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="s">&#39;helloworldmdb-quickstart.rhcloud.com,107.22.36.32&#39;</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
@@ -114,86 +108,96 @@ for more information.</p>
 </pre>
 </div>
 
-<p>The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <a href="http://helloworldmdb-quickstart.rhcloud.com/">http://helloworldmdb-quickstart.rhcloud.com/</a> into a browser or use command line tools such as curl or wget.</p>
+<p>The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <a href="http://helloworldmdb-quickstart.rhcloud.com/">http://helloworldmdb-quickstart.rhcloud.com/</a> into a browser or use command line tools such as curl or wget. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
 
 <h3 id="toc_14">Migrate the Quickstart Source</h3>
 
-<p>Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repository and tell git to remove the source files and pom:</p>
+<p>Now that you have confirmed it is working you can migrate the quickstart source. You do not need the generated default application, so navigate to the new git repository directory and tell git to remove the source and pom files:</p>
 <div class="highlight"><pre><span class="n">cd</span> <span class="n">helloworldmdb</span>
 <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
 </pre>
 </div>
 
-<p>Copy the source for the this quickstart into this new git repository:</p>
+<p>Copy the source for the <code>helloworld-mdb</code> quickstart into this new git repository:</p>
 <div class="highlight"><pre><span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">mdb</span><span class="o">/</span><span class="n">src</span> <span class="p">.</span>
 <span class="n">cp</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">mdb</span><span class="o">/</span><span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span>
 </pre>
 </div>
 
-<p>Now we need enable HornetQ, JBoss AS&#39; messaging provider.</p>
+<h3 id="toc_15">Configure the OpenShift Server</h3>
 
-<p>First, add the the messaging extension. Under <code>&lt;extensions&gt;</code>, add:</p>
-<div class="highlight"><pre>    <span class="o">&lt;</span><span class="n">extension</span> <span class="n">module</span><span class="p">=</span>&quot;<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">messaging</span>&quot;<span class="o">/&gt;</span>
+<p>Next, you must enable HornetQ messaging provider. Open the <code>.openshift/config/standalone.xml</code> file (this file may be hidden) in an editor and make the following changes:</p>
+
+<ol>
+<li><p>If the following extension does not exist, add it under the <code>&lt;extensions&gt;</code> element:</p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="n">extension</span> <span class="n">module</span><span class="p">=</span>&quot;<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">messaging</span>&quot;<span class="o">/&gt;</span>
 </pre>
-</div>
-
-<p>Now, enable MDBs. In the <code>ejb3</code> subsytem, un-comment the <code>mdb</code> elements.</p>
-
-<p>Finally, we need to enable and configure HorentQ. Add this subsystem to <code>.openshift/config/standalone.xml</code> under the <code>&lt;profile&gt;</code> element:</p>
-<div class="highlight"><pre>    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&#39;urn:jboss:domain:messaging:1.1&#39;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;hornetq-server&gt;</span>
-            <span class="nt">&lt;persistence-enabled&gt;</span>true<span class="nt">&lt;/persistence-enabled&gt;</span>
-            <span class="nt">&lt;journal-file-size&gt;</span>102400<span class="nt">&lt;/journal-file-size&gt;</span>
-            <span class="nt">&lt;journal-min-files&gt;</span>2<span class="nt">&lt;/journal-min-files&gt;</span>
-            <span class="nt">&lt;connectors&gt;</span>
-                <span class="nt">&lt;in-vm-connector</span> <span class="na">name=</span><span class="s">&#39;in-vm&#39;</span> <span class="na">server-id=</span><span class="s">&#39;0&#39;</span> <span class="nt">/&gt;</span>
-            <span class="nt">&lt;/connectors&gt;</span>
-            <span class="nt">&lt;acceptors&gt;</span>
-                <span class="nt">&lt;in-vm-acceptor</span> <span class="na">name=</span><span class="s">&#39;in-vm&#39;</span> <span class="na">server-id=</span><span class="s">&#39;0&#39;</span> <span class="nt">/&gt;</span>
-            <span class="nt">&lt;/acceptors&gt;</span>
-            <span class="nt">&lt;address-settings&gt;</span>
-                <span class="nt">&lt;address-setting</span> <span class="na">match=</span><span class="s">&#39;#&#39;</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;dead-letter-address&gt;</span>jms.queue.DLQ<span class="nt">&lt;/dead-letter-address&gt;</span>
-                    <span class="nt">&lt;expiry-address&gt;</span>jms.queue.ExpiryQueue<span class="nt">&lt;/expiry-address&gt;</span>
-                    <span class="nt">&lt;redelivery-delay&gt;</span>0<span class="nt">&lt;/redelivery-delay&gt;</span>
-                    <span class="nt">&lt;max-size-bytes&gt;</span>20971520<span class="nt">&lt;/max-size-bytes&gt;</span>
-                    <span class="nt">&lt;address-full-policy&gt;</span>PAGE<span class="nt">&lt;/address-full-policy&gt;</span>
-                    <span class="nt">&lt;message-counter-history-day-limit&gt;</span>10<span class="nt">&lt;/message-counter-history-day-limit&gt;</span>
-                <span class="nt">&lt;/address-setting&gt;</span>
-            <span class="nt">&lt;/address-settings&gt;</span>
-            <span class="nt">&lt;jms-connection-factories&gt;</span>
-                <span class="nt">&lt;connection-factory</span> <span class="na">name=</span><span class="s">&#39;InVmConnectionFactory&#39;</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;connectors&gt;</span>
-                        <span class="nt">&lt;connector-ref</span> <span class="na">connector-name=</span><span class="s">&#39;in-vm&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;/connectors&gt;</span>
-                    <span class="nt">&lt;entries&gt;</span>
-                        <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&#39;java:/ConnectionFactory&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;/entries&gt;</span>
-                <span class="nt">&lt;/connection-factory&gt;</span>
-                <span class="nt">&lt;connection-factory</span> <span class="na">name=</span><span class="s">&#39;RemoteConnectionFactory&#39;</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;connectors&gt;</span>
-                        <span class="nt">&lt;connector-ref</span> <span class="na">connector-name=</span><span class="s">&#39;in-vm&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;/connectors&gt;</span>
-                    <span class="nt">&lt;entries&gt;</span>
-                        <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&#39;RemoteConnectionFactory&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;/entries&gt;</span>
-                <span class="nt">&lt;/connection-factory&gt;</span>
-                <span class="nt">&lt;pooled-connection-factory</span> <span class="na">name=</span><span class="s">&#39;hornetq-ra&#39;</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;transaction</span> <span class="na">mode=</span><span class="s">&#39;xa&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;connectors&gt;</span>
-                        <span class="nt">&lt;connector-ref</span> <span class="na">connector-name=</span><span class="s">&#39;in-vm&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;/connectors&gt;</span>
-                    <span class="nt">&lt;entries&gt;</span>
-                        <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&#39;java:/JmsXA&#39;</span> <span class="nt">/&gt;</span>
-                    <span class="nt">&lt;/entries&gt;</span>
-                <span class="nt">&lt;/pooled-connection-factory&gt;</span>
-            <span class="nt">&lt;/jms-connection-factories&gt;</span>
-            <span class="nt">&lt;jms-destinations</span> <span class="nt">/&gt;</span>
-            <span class="nt">&lt;security-enabled&gt;</span>false<span class="nt">&lt;/security-enabled&gt;</span>
-        <span class="nt">&lt;/hornetq-server&gt;</span>
-    <span class="nt">&lt;/subsystem&gt;</span>
+</div></li>
+<li><p>If the following <code>&lt;mdb&gt;</code> elements are commented out or missing from the the <code>ejb3</code> subsytem, un-comment or add them:</p>
+<div class="highlight"><pre><span class="nt">&lt;mdb&gt;</span>
+    <span class="nt">&lt;resource-adapter-ref</span> <span class="na">resource-adapter-name=</span><span class="s">&quot;hornetq-ra&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;bean-instance-pool-ref</span> <span class="na">pool-name=</span><span class="s">&quot;mdb-strict-max-pool&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/mdb&gt;</span>
 </pre>
-</div>
+</div></li>
+<li><p>If the messaging subsystem is not already configured under the <code>&lt;profile&gt;</code> element, copy the following under the <code>&lt;profile&gt;</code> element to enable and configure HornetQ:</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&#39;urn:jboss:domain:messaging:1.1&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;hornetq-server&gt;</span>
+        <span class="nt">&lt;persistence-enabled&gt;</span>true<span class="nt">&lt;/persistence-enabled&gt;</span>
+        <span class="nt">&lt;journal-file-size&gt;</span>102400<span class="nt">&lt;/journal-file-size&gt;</span>
+        <span class="nt">&lt;journal-min-files&gt;</span>2<span class="nt">&lt;/journal-min-files&gt;</span>
+        <span class="nt">&lt;connectors&gt;</span>
+            <span class="nt">&lt;in-vm-connector</span> <span class="na">name=</span><span class="s">&#39;in-vm&#39;</span> <span class="na">server-id=</span><span class="s">&#39;0&#39;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/connectors&gt;</span>
+        <span class="nt">&lt;acceptors&gt;</span>
+            <span class="nt">&lt;in-vm-acceptor</span> <span class="na">name=</span><span class="s">&#39;in-vm&#39;</span> <span class="na">server-id=</span><span class="s">&#39;0&#39;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/acceptors&gt;</span>
+        <span class="nt">&lt;address-settings&gt;</span>
+            <span class="nt">&lt;address-setting</span> <span class="na">match=</span><span class="s">&#39;#&#39;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;dead-letter-address&gt;</span>jms.queue.DLQ<span class="nt">&lt;/dead-letter-address&gt;</span>
+                <span class="nt">&lt;expiry-address&gt;</span>jms.queue.ExpiryQueue<span class="nt">&lt;/expiry-address&gt;</span>
+                <span class="nt">&lt;redelivery-delay&gt;</span>0<span class="nt">&lt;/redelivery-delay&gt;</span>
+                <span class="nt">&lt;max-size-bytes&gt;</span>20971520<span class="nt">&lt;/max-size-bytes&gt;</span>
+                <span class="nt">&lt;address-full-policy&gt;</span>PAGE<span class="nt">&lt;/address-full-policy&gt;</span>
+                <span class="nt">&lt;message-counter-history-day-limit&gt;</span>10<span class="nt">&lt;/message-counter-history-day-limit&gt;</span>
+            <span class="nt">&lt;/address-setting&gt;</span>
+        <span class="nt">&lt;/address-settings&gt;</span>
+        <span class="nt">&lt;jms-connection-factories&gt;</span>
+            <span class="nt">&lt;connection-factory</span> <span class="na">name=</span><span class="s">&#39;InVmConnectionFactory&#39;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;connectors&gt;</span>
+                    <span class="nt">&lt;connector-ref</span> <span class="na">connector-name=</span><span class="s">&#39;in-vm&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/connectors&gt;</span>
+                <span class="nt">&lt;entries&gt;</span>
+                    <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&#39;java:/ConnectionFactory&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/entries&gt;</span>
+            <span class="nt">&lt;/connection-factory&gt;</span>
+            <span class="nt">&lt;connection-factory</span> <span class="na">name=</span><span class="s">&#39;RemoteConnectionFactory&#39;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;connectors&gt;</span>
+                    <span class="nt">&lt;connector-ref</span> <span class="na">connector-name=</span><span class="s">&#39;in-vm&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/connectors&gt;</span>
+                <span class="nt">&lt;entries&gt;</span>
+                    <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&#39;RemoteConnectionFactory&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/entries&gt;</span>
+            <span class="nt">&lt;/connection-factory&gt;</span>
+            <span class="nt">&lt;pooled-connection-factory</span> <span class="na">name=</span><span class="s">&#39;hornetq-ra&#39;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;transaction</span> <span class="na">mode=</span><span class="s">&#39;xa&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;connectors&gt;</span>
+                    <span class="nt">&lt;connector-ref</span> <span class="na">connector-name=</span><span class="s">&#39;in-vm&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/connectors&gt;</span>
+                <span class="nt">&lt;entries&gt;</span>
+                    <span class="nt">&lt;entry</span> <span class="na">name=</span><span class="s">&#39;java:/JmsXA&#39;</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/entries&gt;</span>
+            <span class="nt">&lt;/pooled-connection-factory&gt;</span>
+        <span class="nt">&lt;/jms-connection-factories&gt;</span>
+        <span class="nt">&lt;jms-destinations</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;security-enabled&gt;</span>false<span class="nt">&lt;/security-enabled&gt;</span>
+    <span class="nt">&lt;/hornetq-server&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre>
+</div></li>
+</ol>
+
+<h3 id="toc_16">Deploy the OpenShift Application</h3>
 
 <p>You can now deploy the changes to your OpenShift application using git as follows:</p>
 <div class="highlight"><pre><span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span><span class="n">openshift</span>
@@ -204,9 +208,11 @@ for more information.</p>
 
 <p>The final push command triggers the OpenShift infrastructure to build and deploy the changes. </p>
 
-<p>Note that the <code>openshift</code> profile in <code>pom.xml</code> is activated by OpenShift, and causes the war build by openshift to be copied to the <code>deployments</code> directory, and deployed without a context path.</p>
+<p>Note that the <code>openshift</code> profile in the <code>pom.xml</code> file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the <code>deployments</code> directory and deployed without a context path.</p>
 
-<p>When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:</p>
+<h3 id="toc_17">Test the OpenShift Application</h3>
+
+<p>When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
 
 <ul>
 <li><a href="http://helloworldmdb-quickstart.rhcloud.com/">http://helloworldmdb-quickstart.rhcloud.com/</a> </li>
@@ -230,10 +236,17 @@ for more information.</p>
 
 <p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
 
-<h3 id="toc_15">Destroy the OpenShift Application</h3>
+<h3 id="toc_18">Destroy the OpenShift Application</h3>
 
 <p>When you are finished with the application you can destroy it as follows:</p>
 <div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldmdb</span>
 </pre>
 </div>
+
+<p><em>Note</em>: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the <code>rhc app create</code> command returns an error indicating you have reached that limit, you must destroy an existing application before you continue. </p>
+
+<ul>
+<li>To view the list of your OpenShift applications, type: <code>rhc domain show</code></li>
+<li>To destroy an application, type the following, substituting the application name you want to destroy: <code>rhc app destroy -a APPLICATION_NAME_TO_DESTROY</code></li>
+</ul>
 </body></html>
