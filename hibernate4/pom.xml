@@ -53,6 +53,13 @@
             extras from the Hibernate family of projects) -->
         <dependency>
             <groupId>org.jboss.bom</groupId>
+            <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+            <version>${jboss.bom.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.bom</groupId>
             <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
             <version>${jboss.bom.version}</version>
             <type>pom</type>
@@ -71,6 +78,7 @@
       <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
+         
          <scope>provided</scope>
       </dependency>
 
@@ -82,13 +90,6 @@
          <scope>provided</scope>
       </dependency>
       
-      <!-- dependency>
-         <groupId>org.jboss.spec.javax.servlet</groupId>
-         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-         <scope>provided</scope>
-      </dependency-->
-      
-
       <!-- Import the JAX-RS API, we use provided scope as the API is included 
          in JBoss AS 7 -->
       <dependency>
@@ -150,7 +151,6 @@
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.10</version>
          <scope>test</scope>
       </dependency>
 
@@ -160,7 +160,6 @@
       <dependency>
          <groupId>org.jboss.arquillian.junit</groupId>
          <artifactId>arquillian-junit-container</artifactId>
-         <version>1.0.0.CR7</version>
          <scope>test</scope>
       </dependency>
       
