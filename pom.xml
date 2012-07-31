@@ -76,6 +76,7 @@
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>numberguess</module>
+                <module>negotiation-toolkit</module>
                 <module>payment-cdi-event</module>
                 <module>richfaces-validation</module>
                 <module>servlet-async</module>
