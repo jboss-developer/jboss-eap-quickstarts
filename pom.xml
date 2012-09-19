@@ -181,6 +181,7 @@
                 <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
                 <module>ejb-throws-exception</module>
+                <module>ejb-multi-server</module>
                 <module>greeter</module>
                 <module>greeter-spring</module>
                 <module>helloworld</module>

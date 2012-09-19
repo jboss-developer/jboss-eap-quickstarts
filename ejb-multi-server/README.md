@@ -1,0 +1,200 @@
+ejb-multi-server: EJB Communication Across Servers
+======================================================
+Author: Wolf-Dieter Fink
+Level: Advanced
+Technologies: EJB, EAR
+Summary: EJB applications deployed to different servers that communicate via EJB remote calls
+Target Platform: EAP
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+
+
+What is it?
+-----------
+
+This quickstart demonstrates communication between applications deployed to different servers. Each application is deployed as an EAR and contains a simple EJB3.1 bean. The only function of each bean is to log the invocation.
+
+This example cosists of the following Maven projects, each with a shared parent:
+
+| **Sub-project** | **Description** |
+|:-----------|:-----------|
+| `app-main` | An application that can be called by the `client`. It can also call the different sub-applications. |
+| `app-one` and `app-two` | These are simple applications that contain an EJB sub-project to build the `ejb.jar` file and an EAR sub-project to build the `app.ear` file. Each application contains only one EJB that logs a statement on a method call and returns the `jboss.node.name` and credentials. |
+| `app-web` |  A simple WAR application. It consists of one Servlet that demonstrates how to invoke EJBs on a different server. | 
+| `client` | This project builds the standalone client and executes it.|
+
+The root `pom.xml` builds each of the subprojects in an appropriate order.
+
+The server configuration is done using CLI batch scripts located in the root of the quickstart folder.
+
+
+
+System requirements
+-------------------
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+
+The application this project produces is designed to be run on any of the following:
+
+        JBoss Enterprise Application Platform 6.0 
+        JBoss Enterprise Application Platform 6.1
+        JBoss AS 7.1
+ 
+
+Configure Maven
+---------------
+
+If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+
+
+Modify the CLI Scripts (if you are running JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1 servers)
+---------------------------
+
+The CLI scripts provided with this quickstart target JBoss Enterprise Application Platform 6.1. If you are running older versions of the server, JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, you must modify the scripts to work against these servers.
+
+1. Open the `install-domain.cli` file located in the root of this quickstart folder for editing.
+2. Find the lines that contain the following text:
+
+        *** NOTE: If you are running JBoss
+3. Follow the _Note_ instructions to comment or uncomment the lines in the file.
+4. Save the file.
+
+
+Start JBoss Enterprise Application Platform 6 or JBoss AS 7 Server
+---------------------------
+
+
+1. Unzip or install a fresh JBoss Enterprise Application Platform 6 or JBoss AS 7 instance.
+2. Open a command line and navigate to the root of the server directory. Start the server using the following command:
+
+        bin/domain.sh    
+3. Open a new command line, navigate to the root directory of this quickstart, and run the following command:
+ 
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        
+   This script configures and starts multiple servers needed to run this quickstart. You should see "outcome" => "success" for all of the commands. 
+
+
+Add the Application Users
+---------------
+
+The following users must be added to the `ApplicationRealm` to run this quickstart. Be sure to use the names and passwords specified in the table as they are required to run this example.
+
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickuser| ApplicationRealm | quick-123 | _leave blank for none_ |
+| quickuser1 | ApplicationRealm | quick123+ | _leave blank for none_ |
+| quickuser2 | ApplicationRealm | quick+123 | _leave blank for none_ |
+
+If you are running JBoss Enterprise Application Platform 6.1, you can add the users using the following commands:
+
+        bin/add-user.sh -a -u quickuser -p quick-123 --silent
+        bin/add-user.sh -a -u quickuser1 -p quick123+ --silent
+        bin/add-user.sh -a -u quickuser2 -p quick+123 --silent
+
+If you are running JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, you must use the add-user utility. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
+
+
+Build and Deploy the Quickstart
+-------------------------
+
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+
+1. Make sure you have started and configured the JBoss Server successful as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to build the artifacts:
+
+        mvn clean install
+        
+4. Open a new command line and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
+       
+    This will deploy the app-*.ear files to different server-groups of the running domain.
+
+ 
+_NOTE: If ERRORs appear in the server.log when the installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
+
+
+Access the Remote Client Application
+---------------------
+
+1. Make sure that the deployments are successful as described above.
+2. Navigate to the quickstart `client/` subdirectory.
+3. Type this command to run the application:
+
+        mvn exec:java
+
+    The client will output the following information provided by the applications:
+        
+        InvokeAll succeed: MainApp[anonymous]@master:app-main  >  [ app1[anonymous]@master:app-oneA > app2[quickuser2]@master:app-two ; app2[quickuser2]@master:app-two ]
+
+    This output shows that the `MainApp` is called with the user `anonymous` at node `master:app-main` and the sub-call is proceeded by the `master:app-oneA` node and `master:app-two` node as `quickuser2`. 
+    
+    Review the server log files to see the bean invocations on the servers.
+
+4. To invoke the bean that uses the `scoped-client-context`, you must pass a property. Type the following command
+
+        mvn exec:java -DUseEjbClient34=true
+
+    The invocation of `appTwo` will not work since the secured method will be called and there is no Role for the user defined. Try to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`. After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
+        
+          InvokeAll succeed: MainEjbClient34App[anonymous]@master:app-main  >  [ {app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA} >  appTwo loop(7 time A-B expected){app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB} ]
+         
+    The line shows that the bean `MainEjbClient34App` is not secured and called at `app-main` server. The sub-calls to `app-one#` are using the scoped-context and the cluster view needs a time to be established. This is shown as the cluster-view call the `appOne` with the user `quickuser2`. `AppTwo` is called with two different scoped-context settings. Both are used alternately 7 times.
+
+_NOTE:_
+ 
+* _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
+* _If you use a version from JBoss Enterprise Platform 6.1, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
+* _For JBoss Enterprise Application Platform 6.0 and AS 7.1.x, the scoped-client-context is not implemented. Therefore you will not see a difference between step 3 and step 4, the properties of the InitialContext will be ignored._
+* _For JBoss Enterprise Application Platform 6.0 and AS 7.1.x, the client library must not be changed for this test. But if additional tests are added or a newer server version is used, you might update the property `<jboss.client.bom.version>7.1.1.Final</jboss.client.bom.version>` in the root `pom.xml` to an appropriate version._
+
+
+Access the JSF application inside the main-application
+---------------------
+
+1. Make sure that the deployments are successful as described above.
+2. Use a browser to access the JSF application at the following URL: <http://localhost:8080/multi-server-MainApp/>
+3. Insert a message in the Text input and invoke the different methods. The result is shown in the browser.
+4. See server logfiles and find your given message logged as INFO.
+
+_NOTE :_
+
+* _If you try to invoke `MainEjbClient34App` you need to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`._
+* _Remember that the scoped-client will be implemented at first with EAP6.1 and will not work before._
+
+
+Access the Servlet application deployed as a WAR inside a minimal server
+---------------------
+
+1. Make sure that the deployments are successful as described above.
+2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/appweb/>
+3. The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful
+
+_NOTE : If a version from JBoss EAP6.1 is used, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
+
+
+Undeploy the Archive
+--------------------
+
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. When you are finished testing, type this command to undeploy the archive:
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+
+
+
+
+Run the Quickstart in JBoss Developer Studio or Eclipse
+-------------------------------------
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+
+Debug the Application
+------------------------------------
+
+If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
+
+    mvn dependency:sources
+    mvn dependency:resolve -Dclassifier=javadoc
+
