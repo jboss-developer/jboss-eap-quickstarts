@@ -89,15 +89,17 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 When you access the application, you should get a browser login challenge. 
 
-After a successful login using `quickstarUser`/`quickstartPassword`, the browser will display the following security info:
+After a successful login using username `guest` and password `guest`, the browser will display the following security info:
 
     Successfully called Secured Servlet
 
-    Principal : quickstartUser
-    Remote User : quickstartUser
+    Principal : guest
+    Remote User : guest
     Authentication Type : BASIC
 
-You can now change the role in the quickstart `/src/main/webapp/WEB-INF/classes/roles.properties` files to `notauthorized`. 
+You can now change the role in the quickstart `src/main/resources/import.sql` files to `notauthorized`. You can do that by changing the following like:
+
+	INSERT INTO ROLES (ID, NAME) VALUES (1, 'guest') to INSERT INTO ROLES (ID, NAME) VALUES (1, 'notauthorized');
 
 Rebuild and redeploy the quickstart following the instructions under **Build and Deploy the Archive** above.
 
