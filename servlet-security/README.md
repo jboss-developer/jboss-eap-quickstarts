@@ -11,9 +11,11 @@ What is it?
 
 This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform 6 and  JBoss AS7.
 
+When you deploy this example, one user is automatically created for you: guest. This data is located in the src/main/resources/import.sql file. The guest user password is guest.
+
 This quickstart takes the following steps to implement Servlet security:
 
-1. Define a security domain in the `standalone.xml` configuration file.
+1. Define a security domain in the `standalone.xml` configuration file using the Database JAAS LoginModule.
 2. Add an application user with access rights to the application.
 3. Add a security domain reference to `WEB-INF/jboss-web.xml`.
 4. Add a security constraint to the `WEB-INF/web.xml` .
@@ -37,11 +39,24 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
-Add an Application User
+Define a security domain using the Database JAAS Login Module
 ---------------
 
-This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#addapplicationuser)
+This quickstart authenticates users using a simple database setup. The datasource configuration is located at /src/main/webapp/WEB-INF/servlet-security-quickstart-ds.xml.
 
+To configure the security domain add the configuration bellow to the standalone.xml (security subsystem section):
+
+	<security-domain name="servlet-security-quickstart" cache-type="default">
+    	<authentication>
+        	<login-module code="Database" flag="required">
+            	<module-option name="dsJndiName" value="java:jboss/datasources/ServletSecurityDS"/>
+                <module-option name="principalsQuery" value="SELECT PASSWORD FROM USERS WHERE USERNAME = ?"/>
+                <module-option name="rolesQuery" value="SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?"/>
+            </login-module>
+        </authentication>
+    </security-domain>
+    
+Please note that the security domain name (servlet-security-quickstart) must match the one defined in the /src/main/webapp/WEB-INF/jboss-web.xml.
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
