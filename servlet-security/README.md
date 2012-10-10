@@ -131,7 +131,7 @@ Log in using the username `quickstartUser` and password `quickstartPassword`. Th
     Remote User : quickstartUser
     Authentication Type : BASIC
 
-Now close the browser. Open a new browser and log in with username `guest` and password `guest` (or any other username/password combination other than quicstartUser/quickstartPassword). The browser will display the following error:: 
+Now close the browser. Open a new browser and log in with username `guest` and password `guest`. The browser will display the following error:: 
 
         HTTP Status 403 - Access to the requested resource has been denied
 
