@@ -30,12 +30,12 @@ import java.util.List;
  * @author lnewson@redhat.com
  */
 public class Client implements HelloWorldService {
-	
-	/**
-	 * The url to the Web Service endpoint
-	 */
-	private static final String WSDL_URL = "http://localhost:8080/jboss-as-helloworld-ws/HelloWorldService?wsdl";
-	
+
+    /**
+     * The url to the Web Service endpoint
+     */
+    private static final String WSDL_URL = "http://localhost:8080/jboss-as-helloworld-ws/HelloWorldService?wsdl";
+
     private HelloWorldService helloWorldService;
 
     /**
@@ -45,35 +45,34 @@ public class Client implements HelloWorldService {
      */
     public Client() throws MalformedURLException {
         URL wsdlLocation = new URL(WSDL_URL);
-        QName serviceName = new QName("http://www.jboss.com/jbossas/quickstarts/wshelloworld/HelloWorld",
-                "HelloWorldService");
+        QName serviceName = new QName("http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld", "HelloWorldService");
 
         Service service = Service.create(wsdlLocation, serviceName);
         helloWorldService = service.getPort(HelloWorldService.class);
-        assert(helloWorldService != null);
+        assert (helloWorldService != null);
     }
 
     /**
      * Gets the Web Service to say hello
      */
-	@Override
-	public String sayHello() {
-		return helloWorldService.sayHello();
-	}
+    @Override
+    public String sayHello() {
+        return helloWorldService.sayHello();
+    }
 
-	/**
-	 * Gets the Web Service to say hello to someone
-	 */
-	@Override
-	public String sayHelloToName(final String name) {
-		return helloWorldService.sayHelloToName(name);
-	}
+    /**
+     * Gets the Web Service to say hello to someone
+     */
+    @Override
+    public String sayHelloToName(final String name) {
+        return helloWorldService.sayHelloToName(name);
+    }
 
-	/**
-	 * Gets the Web Service to say hello to a group of people
-	 */
-	@Override
-	public String sayHelloToNames(final List<String> names) {
-		return helloWorldService.sayHelloToNames(names);
-	}
+    /**
+     * Gets the Web Service to say hello to a group of people
+     */
+    @Override
+    public String sayHelloToNames(final List<String> names) {
+        return helloWorldService.sayHelloToNames(names);
+    }
 }

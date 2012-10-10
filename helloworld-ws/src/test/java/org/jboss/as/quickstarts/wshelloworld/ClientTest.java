@@ -27,8 +27,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Simple set of tests for the HelloWorld Web Service
- * to demonstrate accessing the web service using a client
+ * Simple set of tests for the HelloWorld Web Service to demonstrate accessing the web service using a client
  * 
  * Note: These tests rely on the Web Service already running
  * 
@@ -37,33 +36,33 @@ import org.junit.Test;
 public class ClientTest {
 
     private static HelloWorldService client;
-    
+
     @BeforeClass
-	public static void setup() {
-		try {
-			client = new Client();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void setup() {
+        try {
+            client = new Client();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void testHello() {
-    	assertEquals(client.sayHello(), "Hello World!");
+        assertEquals(client.sayHello(), "Hello World!");
     }
-    
+
     @Test
     public void testHelloName() {
-    	assertEquals(client.sayHelloToName("John"), "Hello John!");
+        assertEquals(client.sayHelloToName("John"), "Hello John!");
     }
-    
+
     @Test
     public void testHelloNames() {
-    	final List<String> names = new ArrayList<String>();
-    	names.add("John");
-    	names.add("Mary");
-    	names.add("Mark");
-    	
-    	assertEquals(client.sayHelloToNames(names), "Hello John, Mary & Mark!");
+        final List<String> names = new ArrayList<String>();
+        names.add("John");
+        names.add("Mary");
+        names.add("Mark");
+
+        assertEquals(client.sayHelloToNames(names), "Hello John, Mary & Mark!");
     }
 }

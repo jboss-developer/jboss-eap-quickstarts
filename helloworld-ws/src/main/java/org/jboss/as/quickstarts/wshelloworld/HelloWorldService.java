@@ -22,13 +22,12 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 /**
- * A simple example of how to setup a JAX-WS Web Service.
- * It can say hello to everyone or to someone in particular.
+ * A simple example of how to setup a JAX-WS Web Service. It can say hello to everyone or to someone in particular.
  * 
  * @author lnewson@redhat.com
  */
 
-@WebService(targetNamespace="http://www.jboss.com/jbossas/quickstarts/wshelloworld/HelloWorld")
+@WebService(targetNamespace = "http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld")
 public interface HelloWorldService {
 
     /**
@@ -47,7 +46,7 @@ public interface HelloWorldService {
      */
     @WebMethod
     public String sayHelloToName(String name);
-    
+
     /**
      * Say hello to a list of people
      * 
