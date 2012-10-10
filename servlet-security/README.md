@@ -1,6 +1,6 @@
 servlet-security:  Using Java EE Declarative Security to Control Access to Servlet 3
 ====================
-Author: Sherif F. Makary
+Author: Sherif F. Makary, Pedro Igor
 Level: Intermediate
 Technologies: Servlet, Security
 Summary: Demonstrates how to use Java EE declarative security to control access to Servlet 3
@@ -9,20 +9,28 @@ Target Product: EAP
 What is it?
 -----------
 
-This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform 6 and  JBoss AS7.
+This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform 6 and JBoss AS7.
 
-When you deploy this example, one user is automatically created for you: guest. This data is located in the src/main/resources/import.sql file. The guest user password is guest.
+When you deploy this example, two users are automatically created for you: user `quickstartUser` with password `quickstartPassword` and user `guest` with password `guest`. This data is located in the `src/main/resources/import.sql` file. 
 
 This quickstart takes the following steps to implement Servlet security:
 
 1. Define a security domain in the `standalone.xml` configuration file using the Database JAAS LoginModule.
-2. Add an application user with access rights to the application.
-3. Add a security domain reference to `WEB-INF/jboss-web.xml`.
-4. Add a security constraint to the `WEB-INF/web.xml` .
-5. Add a security annotation to the EJB declaration.
+2. Add an application user with access rights to the application
 
+        User Name: quickstartUser
+        Password: quickstartPassword
+        Role: quickstarts
+3. Add another user with no access rights to the application.
 
-Please note the allowed user role `guest` in the annotation -`@RolesAllowed`- is the same as the user role defined in step 2
+        User Name: guest
+        Password: guest
+        Role: notauthorized
+4. Add a security domain reference to `WEB-INF/jboss-web.xml`.
+5. Add a security constraint to the `WEB-INF/web.xml` .
+6. Add a security annotation to the EJB declaration.
+
+Please note the allowed user role `quickstarts` in the annotation -`@RolesAllowed`- is the same as the user role defined in step 2.
 
 
 System requirements
@@ -39,24 +47,49 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
-Define a security domain using the Database JAAS Login Module
+Define a Security Domain Using the Database JAAS Login Module
 ---------------
 
-This quickstart authenticates users using a simple database setup. The datasource configuration is located at /src/main/webapp/WEB-INF/servlet-security-quickstart-ds.xml.
+This quickstart authenticates users using a simple database setup. The datasource configuration is located in the `/src/main/webapp/WEB-INF/servlet-security-quickstart-ds.xml` file. You can configure the security domain using the JBoss CLI or by manually editing the configuration file.
 
-To configure the security domain add the configuration bellow to the standalone.xml (security subsystem section):
+### Configure the Security Domain Using the JBoss CLI
 
-	<security-domain name="servlet-security-quickstart" cache-type="default">
-    	<authentication>
-        	<login-module code="Database" flag="required">
-            	<module-option name="dsJndiName" value="java:jboss/datasources/ServletSecurityDS"/>
-                <module-option name="principalsQuery" value="SELECT PASSWORD FROM USERS WHERE USERNAME = ?"/>
-                <module-option name="rolesQuery" value="SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?"/>
-            </login-module>
-        </authentication>
-    </security-domain>
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the web profile by typing the following: 
+
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standaloneull.xml
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone.xml
+2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
     
-Please note that the security domain name (servlet-security-quickstart) must match the one defined in the /src/main/webapp/WEB-INF/jboss-web.xml.
+        For Linux: bin/jboss-cli.sh --connect
+        For Windows: bin\jboss-cli.bat --connect
+3. At the prompt, type each of the following commands. After each one, you should see a response with the first line `"outcome" => "success"`.
+
+        /subsystem=security/security-domain=servlet-security-quickstart/:add(cache-type=default)
+
+        /subsystem=security/security-domain=servlet-security-quickstart/authentication=classic:add(login-modules=[{"code"=>"Database", "flag"=>"required", "module-options"=>[("dsJndiName"=>"java:jboss/datasources/ServletSecurityDS"),("principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?"), ("rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?")]}])
+
+        /:reload
+
+
+### Configure the Security Domain Manually
+
+1.  If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+3.  Open the `JBOSS_HOME/standalone/configuration/standalone.xml` file in an editor and locate the subsystem `urn:jboss:domain:security`. 
+4.  Add the following XML to the :
+
+      	<security-domain name="servlet-security-quickstart" cache-type="default">
+    	      <authentication>
+          	    <login-module code="Database" flag="required">
+            	      <module-option name="dsJndiName" value="java:jboss/datasources/ServletSecurityDS"/>
+                    <module-option name="principalsQuery" value="SELECT PASSWORD FROM USERS WHERE USERNAME = ?"/>
+                    <module-option name="rolesQuery" value="SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?"/>
+                </login-module>
+            </authentication>
+        </security-domain>
+    
+Please note that the security domain name `servlet-security-quickstart` must match the one defined in the `/src/main/webapp/WEB-INF/jboss-web.xml` file.
+
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
@@ -68,6 +101,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
         For Windows: JBOSS_HOME\bin\standalone.bat
 
 
+<a id="buildanddeploy"></a>
 Build and Deploy the Quickstart
 -------------------------
 
@@ -81,35 +115,29 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-as-servlet-security.war` to the running instance of the server.
 
-
-Access the application 
+<a id="accesstheapp"></a>
+Access the Application 
 ---------------------
 
 The application will be running at the following URL <http://localhost:8080/jboss-as-servlet-security/>.
 
 When you access the application, you should get a browser login challenge. 
 
-After a successful login using username `guest` and password `guest`, the browser will display the following security info:
+Log in using the username `quickstartUser` and password `quickstartPassword`. The browser will display the following security info:
 
     Successfully called Secured Servlet
 
-    Principal : guest
-    Remote User : guest
+    Principal : quickstartUser
+    Remote User : quickstartUser
     Authentication Type : BASIC
 
-You can now change the role in the quickstart `src/main/resources/import.sql` files to `notauthorized`. You can do that by changing the following like:
+Now close the browser. Open a new browser and log in with username `guest` and password `guest` (or any other username/password combination other than quicstartUser/quickstartPassword). The browser will display the following error:: 
 
-	INSERT INTO ROLES (ID, NAME) VALUES (1, 'guest') to INSERT INTO ROLES (ID, NAME) VALUES (1, 'notauthorized');
+        HTTP Status 403 - Access to the requested resource has been denied
 
-Rebuild and redeploy the quickstart following the instructions under **Build and Deploy the Archive** above.
-
-Refresh the browser, clear the active login, and you should get a security exception similar to the following: 
-
-    HTTP Status 403 - Access to the requested resource has been denied
-
-    type Status report
-    message Access to the requested resource has been denied
-    description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
+        type Status report
+        message Access to the requested resource has been denied
+        description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
 
 
 Undeploy the Archive
