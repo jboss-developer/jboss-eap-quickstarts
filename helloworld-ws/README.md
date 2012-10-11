@@ -52,19 +52,6 @@ The application is deployed to <http://localhost:8080/jboss-as-helloworld-ws>. A
 You can check that the webservice is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-as-helloworld-ws?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 
-Run the Client Tests 
--------------------------
-
-This quickstart provides JUnit tests. By default, these tests are configured to be skipped as the JUnit tests require the Web Service to be running. 
-
-1. Make sure you have started the JBoss Server as described above.
-2. Make sure that you have deployed the HelloWorld application to the JBoss Server as described above.
-3. Open a command line and navigate to the root directory of this quickstart.
-4. Type the following command to run the test goal with the following profile activated:
-
-        mvn clean test -Pjbossas-managed 
-
-
 Undeploy the Archive
 --------------------
 
@@ -82,10 +69,15 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
 
-1. Open a command line and navigate to the root directory of this quickstart.
-2. Type the following command to run the test goal with the following profile activated:
+1. Ensure that the Arquillian files have been set-up, as per the [Run the Arquillian Tests](../README.md#arquilliantests) instructions.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type the following command to run the test goal with the following profile activated:
 
         mvn clean test -Parq-jbossas-managed
+        
+or if a *JBoss AS 7* or *JBoss Enterprise Application Platform 6* instance is already running:
+
+		mvn clean test -Parq-jbossas-remote
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
