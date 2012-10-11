@@ -30,26 +30,29 @@ import java.util.List;
  * @author lnewson@redhat.com
  */
 public class Client implements HelloWorldService {
-
-    /**
-     * The url to the Web Service endpoint
-     */
-    private static final String WSDL_URL = "http://localhost:8080/jboss-as-helloworld-ws/HelloWorldService?wsdl";
-
     private HelloWorldService helloWorldService;
 
     /**
      * Default constructor
      * 
-     * @throws MalformedURLException if the WSDL url is malformed.
+     * @param url The URL to the Hello World WSDL endpoint.
      */
-    public Client() throws MalformedURLException {
-        URL wsdlLocation = new URL(WSDL_URL);
+    public Client(final URL wsdlUrl) {
         QName serviceName = new QName("http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld", "HelloWorldService");
 
-        Service service = Service.create(wsdlLocation, serviceName);
+        Service service = Service.create(wsdlUrl, serviceName);
         helloWorldService = service.getPort(HelloWorldService.class);
         assert (helloWorldService != null);
+    }
+    
+    /**
+     * Default constructor
+     * 
+     * @param url The URL to the Hello World WSDL endpoint.
+     * @throws MalformedURLException if the WSDL url is malformed.
+     */
+    public Client(final String url) throws MalformedURLException {
+        this(new URL(url));
     }
 
     /**
