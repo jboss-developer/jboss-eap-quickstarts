@@ -75,6 +75,19 @@ Undeploy the Archive
         mvn jboss-as:undeploy
 
 
+Run the Client Tests using Arquillian
+-------------------------
+
+This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
+
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
+
+1. Open a command line and navigate to the root directory of this quickstart.
+2. Type the following command to run the test goal with the following profile activated:
+
+        mvn clean test -Parq-jbossas-managed
+
+
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
@@ -131,31 +144,6 @@ Copy the source for the `helloworld-ws` quickstart into this new git repository:
         cp -r <quickstarts>/helloworld-ws/src .
         cp <quickstarts>/helloworld-ws/pom.xml .
 
-Openshift does not have Web services enabled by default, so we need to modify the server configuration. To do this open `.openshift/config/standalone.xml` in your
-favorite editor and make the following additions:
-
-Add the following extensions to the `<extensions>` block:
-
-        <extension module="org.jboss.as.webservices"/>
-
-Add the following sub systems to the `<profile>` block:
-
-        <subsystem xmlns="urn:jboss:domain:jmx:1.1">
-            <show-model value="true"/>
-            <remoting-connector/>
-        </subsystem>
-        <subsystem xmlns="urn:jboss:domain:webservices:1.1">
-            <modify-wsdl-address>true</modify-wsdl-address>
-            <wsdl-host>${env.OPENSHIFT_APP_DNS}</wsdl-host>
-            <wsdl-port>80</wsdl-port>
-            <endpoint-config name="Standard-Endpoint-Config"/>
-            <endpoint-config name="Recording-Endpoint-Config">
-                <pre-handler-chain name="recording-handlers" protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
-                    <handler name="RecordingHandler" class="org.jboss.ws.common.invocation.RecordingServerHandler"/>
-                </pre-handler-chain>
-            </endpoint-config>
-        </subsystem>
-
 You can now deploy the changes to your OpenShift application using git as follows:
 
         git add src pom.xml
@@ -168,7 +156,7 @@ Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and ca
 
 When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:
 
-* <http://helloworldws-quickstart.rhcloud.com/HelloWorldService?wsdl>
+* <http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/HelloWorldService?wsdl>
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
