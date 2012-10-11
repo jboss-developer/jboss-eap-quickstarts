@@ -15,7 +15,7 @@
 
 	<groupId>org.jboss.as.quickstarts</groupId>
 	<artifactId>jboss-as-helloworld-ws</artifactId>
-	<version>7.1.1-SNAPSHOT</version>
+	<version>7.1.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>JBoss AS Quickstarts: Hello World JAX-WS Web service</name>
 	<description>JBoss AS Quickstarts: Hello World JAX-WS Web service</description>
@@ -35,6 +35,17 @@
 		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
 			resources, i.e. build is platform dependent! -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- other plugin versions -->
+		<version.war.plugin>2.1.1</version.war.plugin>
+		<version.compiler.plugin>2.3.1</version.compiler.plugin>
+		
+		<!-- JBoss dependency versions -->
+        <version.org.jboss.bom>1.0.0.Final</version.org.jboss.bom>
+		
+		<!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
 	</properties>
 
 	<dependencyManagement>
@@ -51,7 +62,7 @@
 			<dependency>
 				<groupId>org.jboss.bom</groupId>
 				<artifactId>jboss-javaee-6.0-with-tools</artifactId>
-				<version>1.0.0.Final</version>
+				<version>${version.org.jboss.bom}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -104,7 +115,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>${version.war.plugin}</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
@@ -118,10 +129,10 @@
 				processors -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>${version.compiler.plugin}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -140,7 +151,7 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
+						<version>${version.war.plugin}</version>
 					</plugin>
 					<plugin>
 						<artifactId>maven-surefire-plugin</artifactId>
@@ -169,18 +180,18 @@
 		</profile>
 		<profile>
 
-            <!-- An optional Arquillian testing profile that executes tests
-      in a remote JBoss AS instance -->
-            <!-- Run with: mvn clean test -Parq-jbossas-remote -->
-            <id>arq-jbossas-remote</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
+			<!-- An optional Arquillian testing profile that executes tests in a remote 
+				JBoss AS instance -->
+			<!-- Run with: mvn clean test -Parq-jbossas-remote -->
+			<id>arq-jbossas-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.as</groupId>
+					<artifactId>jboss-as-arquillian-container-remote</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
 
 		<profile>
 			<!-- When built in OpenShift the 'openshift' profile will be used when 
@@ -195,17 +206,11 @@
 				<plugins>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
+						<version>${version.war.plugin}</version>
 						<configuration>
 							<outputDirectory>deployments</outputDirectory>
-							<warName>ROOT</warName>
+							<warName>${project.artifactId}</warName>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
-							<webResources>
-								<resource>
-									<!-- this is relative to the pom.xml directory -->
-									<directory>openshift</directory>
-								</resource>
-							</webResources>
 						</configuration>
 					</plugin>
 					<plugin>

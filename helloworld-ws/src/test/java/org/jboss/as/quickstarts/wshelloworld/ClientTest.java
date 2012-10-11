@@ -76,21 +76,41 @@ public class ClientTest {
 
     @Test
     public void testHello() {
-        assertEquals(client.sayHello(), "Hello World!");
+        System.out.println("[Client] Requesting the WebService to say Hello.");
+
+        // Get a response from the WebService
+        final String response = client.sayHello();
+        assertEquals(response, "Hello World!");
+
+        System.out.println("[WebService] " + response);
+
     }
 
     @Test
     public void testHelloName() {
-        assertEquals(client.sayHelloToName("John"), "Hello John!");
+        System.out.println("[Client] Requesting the WebService to say Hello to John.");
+
+        // Get a response from the WebService
+        final String response = client.sayHelloToName("John");
+        assertEquals(response, "Hello John!");
+
+        System.out.println("[WebService] " + response);
     }
 
     @Test
     public void testHelloNames() {
+        System.out.println("[Client] Requesting the WebService to say Hello to John, Mary and Mark.");
+
+        // Create the array of names for the WebService to say hello to.
         final List<String> names = new ArrayList<String>();
         names.add("John");
         names.add("Mary");
         names.add("Mark");
 
-        assertEquals(client.sayHelloToNames(names), "Hello John, Mary & Mark!");
+        // Get a response from the WebService
+        final String response = client.sayHelloToNames(names);
+        assertEquals(response, "Hello John, Mary & Mark!");
+
+        System.out.println("[WebService] " + response);
     }
 }

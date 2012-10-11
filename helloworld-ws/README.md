@@ -1,6 +1,10 @@
 helloworld-ws: Hello World JAX-WS Web Service
 ==================================================
 Author: Lee Newson
+Level: Beginner
+Technologies: JAX-WS
+Summary: Deployment of a basic JAX-WS Web service bundled in a WAR archive
+Target Product: EAP
 
 What is it?
 -----------
@@ -69,15 +73,25 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
 
-1. Ensure that the Arquillian files have been set-up, as per the [Run the Arquillian Tests](../README.md#arquilliantests) instructions.
+1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-managed
-        
-or if a *JBoss AS 7* or *JBoss Enterprise Application Platform 6* instance is already running:
-
 		mvn clean test -Parq-jbossas-remote
+
+
+Investigate the Console Output
+----------------------------
+
+The following expected output should appear. The output shows what was said to the Web Service by the client and the responses it received.
+
+    [Client] Requesting the WebService to say Hello.
+    [WebService] Hello World!
+    [Client] Requesting the WebService to say Hello to John.
+    [WebService] Hello John!
+    [Client] Requesting the WebService to say Hello to John, Mary and Mark.
+    [WebService] Hello John, Mary & Mark!
+    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.988 sec
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
@@ -118,11 +132,11 @@ This command creates an OpenShift application called `helloworldws` and will run
     Warning: Permanently added 'helloworldws-quickstart.rhcloud.com,107.22.36.32' (RSA) to the list of known hosts.
     Confirming application 'helloworldws' is available:  Success!
     
-    helloworldrs published:  http://helloworldws-quickstart.rhcloud.com/
+    helloworldws published:  http://helloworldws-quickstart.rhcloud.com/
     git url:  ssh://b92047bdc05e46c980cc3501c3577c1e@helloworldws-quickstart.rhcloud.com/~/git/helloworldws.git/
     Successfully created application: helloworldws
 
-The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldrs-quickstart.rhcloud.com/> into a browser or use command line tools such as curl or wget.
+The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldws-quickstart.rhcloud.com/jboss-as-helloworld-ws/> into a browser or use command line tools such as curl or wget.
 
 ### Migrate the Quickstart Source
 
@@ -148,7 +162,7 @@ Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and ca
 
 When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:
 
-* <http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/HelloWorldService?wsdl>
+* <http://helloworldws-quickstart.rhcloud.com/jboss-as-helloworld-ws/HelloWorldService?wsdl>
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
