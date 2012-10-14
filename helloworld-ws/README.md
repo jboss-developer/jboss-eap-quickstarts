@@ -119,9 +119,11 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command:
+Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
 
-        rhc app create -a helloworldws -t jbossas-7
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6.0` for quickstarts running on JBoss Enterprise Application Platform 6, or `jbossas-7` for quickstarts running on JBoss AS 7:
+
+        rhc app create -a helloworldws -t APPLICATION_TYPE
 
 _NOTE_: The domain name for this application will be `helloworldws-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
@@ -136,7 +138,7 @@ This command creates an OpenShift application called `helloworldws` and will run
     git url:  ssh://b92047bdc05e46c980cc3501c3577c1e@helloworldws-quickstart.rhcloud.com/~/git/helloworldws.git/
     Successfully created application: helloworldws
 
-The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldws-quickstart.rhcloud.com/jboss-as-helloworld-ws/> into a browser or use command line tools such as curl or wget.
+The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldws-quickstart.rhcloud.com/> into a browser or use command line tools such as curl or wget.
 
 ### Migrate the Quickstart Source
 
@@ -158,11 +160,19 @@ You can now deploy the changes to your OpenShift application using git as follow
 
 The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
 
-Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the war build by openshift to be copied to the `deployments` directory, and deployed without a context path.
+Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the war build by openshift to be copied to the `deployments` directory, and deployed to the "jboss-as-helloworld-ws" context path.
 
-When the push command returns you can retest the application by getting the following URLs either via a browser or using tools such as curl or wget:
+### Test the OpenShift Application
 
-* <http://helloworldws-quickstart.rhcloud.com/jboss-as-helloworld-ws/HelloWorldService?wsdl>
+Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
+
+        rhc app tail -a helloworldws
+
+Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `quickstart` in the URL with your domain name.
+
+    http://helloworldws-quickstart.rhcloud.com/jboss-as-helloworld-ws/HelloWorldService?wsdl
+
+If the application has run successfully you should see some output in the browser.
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
