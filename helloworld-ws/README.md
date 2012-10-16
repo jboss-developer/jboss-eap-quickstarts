@@ -127,7 +127,7 @@ Open a shell command prompt and change to a directory of your choice. Enter the 
 
 _NOTE_: The domain name for this application will be `helloworldws-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
-This command creates an OpenShift application called `helloworldws` and will run the application inside a `jbossas-7` container. You should see some output similar to the following:
+This command creates an OpenShift application called `helloworldws` and will run the application inside a `jbossas-7` or a `jbosseap-6.0` container. You should see some output similar to the following:
 
     Creating application: helloworldws
     Now your new domain name is being propagated worldwide (this might take a minute)...
@@ -151,6 +151,8 @@ Copy the source for the `helloworld-ws` quickstart into this new git repository:
 
         cp -r <quickstarts>/helloworld-ws/src .
         cp <quickstarts>/helloworld-ws/pom.xml .
+
+### Deploy the OpenShift Application
 
 You can now deploy the changes to your OpenShift application using git as follows:
 
