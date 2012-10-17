@@ -225,6 +225,46 @@
                 <module>jts-distributed-crash-rec</module>
             </modules>
         </profile>
+        <profile>
+            <!-- Zip all module sources individually under target/zips 
+             Should only be called on the parent project with the -N option: 
+             mvn clean package -N
+             or
+             mvn clean groovy:execute -N
+             
+             Alternatively, you can execute zipmodules.sh (or zipmodules.bat on Windows)
+             
+             The script also generates a default project example descriptor for JBoss Tools 
+             under target/zips/quickstart.xml.
+             By default, the base url for the examples is target/zips/<modulename>.zip.
+             The base url can be overridden using the -Dexamples.base.url parameter :
+             mvn clean groovy:execute -N -Dexamples.base.url=http://foo/bar/
+             
+             -->
+            <id>zip-modules</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>gmaven-plugin</artifactId>
+                        <version>1.4</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>zip-modules</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <source>${project.basedir}/src/main/assembly/zip_modules.groovy</source>
+                        </configuration>
+                     </plugin>
+                </plugins>
+            </build>
+        </profile>        
     </profiles>
 
     <build>
