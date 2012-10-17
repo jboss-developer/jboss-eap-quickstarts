@@ -105,48 +105,48 @@
                 <!-- All the modules that require nothing but JBoss Enterprise
                     Application Platform or JBoss AS -->
                 <module>bean-validation</module>
-                <module>bmt</module>
-                <module>cdi-injection</module>
-                <module>cdi-portable-extension</module>
-                <module>ejb-in-ear</module>
-                <module>ejb-in-war</module>
-                <module>ejb-remote</module>
-                <module>ejb-security</module>
-                <module>greeter</module>
-                <module>helloworld</module>
-                <module>helloworld-errai</module>
-                <module>helloworld-gwt</module>
-                <module>helloworld-html5</module>
-                <module>helloworld-jms</module>
-                <module>helloworld-rf</module>
-                <module>helloworld-osgi</module>
-                <module>helloworld-rs</module>
-                <module>helloworld-singleton</module>
-                <module>hibernate3</module>
-                <module>hibernate4</module>
-                <module>kitchensink</module>
-                <module>kitchensink-ear</module>
-                <module>kitchensink-html5-mobile</module>
-                <module>kitchensink-jsp</module>
-                <module>kitchensink-ml</module>                
-                <module>kitchensink-ml-ear</module>
-                <module>log4j</module>
-                <module>logging-tools</module>
-                <module>mail</module>
-                <module>numberguess</module>
-                <module>payment-cdi-event</module>
-                <module>richfaces-validation</module>
-                <module>servlet-async</module>
-                <module>servlet-filterlistener</module>
-                <module>servlet-security</module>
-                <module>tasks</module>
-                <module>tasks-jsf</module>
-                <module>temperature-converter</module>
-                <module>tasks-rs</module>
-                <module>wicket-ear</module>
-                <module>wicket-war</module>
-                <module>xml-jaxp</module>
-                <module>xml-dom4j</module>
+                <module>jboss-as-bmt</module>
+                <module>jboss-as-cdi-injection</module>
+                <module>jboss-as-cdi-portable-extension</module>
+                <module>jboss-as-ejb-in-ear</module>
+                <module>jboss-as-ejb-in-war</module>
+                <module>jboss-as-ejb-remote-parent</module>
+                <module>jboss-as-ejb-security</module>
+                <module>jboss-as-greeter</module>
+                <module>jboss-as-helloworld</module>
+                <module>jboss-as-helloworld-errai</module>
+                <module>jboss-as-helloworld-gwt</module>
+                <module>jboss-as-helloworld-html5</module>
+                <module>jboss-as-helloworld-jms</module>
+                <module>jboss-as-helloworld-rf</module>
+                <module>jboss-as-helloworld-osgi</module>
+                <module>jboss-as-helloworld-rs</module>
+                <module>jboss-as-helloworld-singleton</module>
+                <module>jboss-as-hibernate3</module>
+                <module>jboss-as-hibernate4</module>
+                <module>jboss-as-kitchensink</module>
+                <module>jboss-as-kitchensink-ear</module>
+                <module>jboss-as-kitchensink-html5-mobile</module>
+                <module>jboss-as-kitchensink-jsp</module>
+                <module>jboss-as-kitchensink-ml</module>                
+                <module>jboss-as-kitchensink-ml-ear</module>
+                <module>jboss-as-log4j</module>
+                <module>jboss-as-logging-tools</module>
+                <module>jboss-as-mail</module>
+                <module>jboss-as-numberguess</module>
+                <module>jboss-as-payment-cdi-event</module>
+                <module>jboss-as-richfaces-validation</module>
+                <module>jboss-as-servlet-async</module>
+                <module>jboss-as-servlet-filterlistener</module>
+                <module>jboss-as-servlet-security</module>
+                <module>jboss-as-tasks</module>
+                <module>jboss-as-tasks-jsf</module>
+                <module>jboss-as-temperature-converter</module>
+                <module>jboss-as-tasks-rs</module>
+                <module>jboss-as-wicket-ear-parent</module>
+                <module>jboss-as-wicket-war</module>
+                <module>jboss-as-xml-jaxp</module>
+                <module>jboss-as-xml-dom4j</module>
             </modules>
         </profile>
         <profile>
@@ -160,8 +160,8 @@
                 </property>
             </activation>
             <modules>
-                <module>cmt</module>
-                <module>jts</module>
+                <module>jboss-as-cmt</module>
+                <module>jboss-as-jts-parent</module>
             </modules>
         </profile>
         <profile>
@@ -175,9 +175,9 @@
                 </property>
             </activation>
             <modules>
-                <module>jax-rs-client</module>
-                <module>jts</module>
-                <module>inter-app</module>                
+                <module>jboss-as-jax-rs-client</module>
+                <module>jboss-as-jts-parent</module>
+                <module>jboss-as-inter-app-parent</module>                
             </modules>
         </profile>
         <profile>
@@ -192,8 +192,8 @@
                 </property>
             </activation>
             <modules>
-                <module>helloworld-mdb</module>
-                <module>jta-crash-rec</module>
+                <module>jboss-as-helloworld-mdb</module>
+                <module>jboss-as-jta-crash-rec</module>
             </modules>
         </profile>
         <profile>
@@ -207,9 +207,9 @@
                 </property>
             </activation>
             <modules>
-                <module>wsat-simple</module>
-                <module>wsba-coordinator-completion-simple</module>
-                <module>wsba-participant-completion-simple</module>
+                <module>jboss-as-wsat-simple</module>
+                <module>jboss-as-wsba-coordinator-completion-simple</module>
+                <module>jboss-as-wsba-participant-completion-simple</module>
             </modules>
         </profile>
         <profile>

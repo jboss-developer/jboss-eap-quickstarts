@@ -23,7 +23,8 @@ out
 atlassian-ide-plugin.xml
 .classpath
 .project
-.settings
+!jboss-as-kitchensink-html5-mobile/.settings/.jsdtscope
+.settings/
 .metadata
 bin
 .nbattrs
