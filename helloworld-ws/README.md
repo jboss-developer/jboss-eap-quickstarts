@@ -149,6 +149,24 @@ Copy the source for the `helloworld-ws` quickstart into this new git repository:
 
         cp -r <quickstarts>/helloworld-ws/src .
         cp <quickstarts>/helloworld-ws/pom.xml .
+        
+### Configure the OpenShift Server
+
+Openshift does not have Web services setup correctly by default, so we need to modify the server configuration. To do this open `.openshift/config/standalone.xml` (this file may be hidden) in an editor and make the following additions:
+
+1. If the webservices subsystem is not configured as below under the `<profile>` element, copy the following and replace the webservices subsystem to enable and configure Web Services:
+        
+        <subsystem xmlns="urn:jboss:domain:webservices:1.1">
+            <modify-wsdl-address>true</modify-wsdl-address>
+            <wsdl-host>${env.OPENSHIFT_APP_DNS}</wsdl-host>
+            <wsdl-port>80</wsdl-port>
+            <endpoint-config name="Standard-Endpoint-Config"/>
+            <endpoint-config name="Recording-Endpoint-Config">
+                <pre-handler-chain name="recording-handlers" protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
+                    <handler name="RecordingHandler" class="org.jboss.ws.common.invocation.RecordingServerHandler"/>
+                </pre-handler-chain>
+            </endpoint-config>
+        </subsystem>
 
 ### Deploy the OpenShift Application
 
