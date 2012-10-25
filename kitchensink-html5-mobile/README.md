@@ -1,9 +1,10 @@
 kitchensink-html5-mobile: Example AeroGear Application Using Multiple HTML5, Mobile & JAX-RS Technologies 
 =========================================================================================================
 Author: Jay Balunas
-Level: Beginner 
+Level: Intermediate
 Technologies: Aerogear, CDI, HTML5, REST
-Origin: http://www.jboss.org/aerogear
+Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
+Target Product: WFK
 
 What is it?
 -----------
@@ -74,7 +75,7 @@ You can now deploy the artifact by executing the following command:
 
     mvn jboss-as:deploy
 
-The client application will be running at the following URL [http://localhost:8080/\<artifactId>/]("http://localhost:8080/<artifactId>").
+The client application will be running at the following URL <http://localhost:8080/jboss-as-kitchensink-html5-mobile/>.
 
 To undeploy run this command:
 
