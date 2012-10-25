@@ -4,6 +4,8 @@ Author: Jay Balunas
 Level: Beginner 
 Technologies: Aerogear, CDI, HTML5, REST
 Origin: http://www.jboss.org/aerogear
+Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
+Target Product: WFK
 
 What is it?
 -----------
