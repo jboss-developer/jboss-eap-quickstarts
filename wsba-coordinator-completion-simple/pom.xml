@@ -40,13 +40,6 @@
     <dependencyManagement>
       <dependencies>
         <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  -->
-        <dependency>
-          <groupId>org.jboss.spec</groupId>
-          <artifactId>jboss-javaee-6.0</artifactId>
-          <version>3.0.1.Final-redhat-1</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
         <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
         of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
         of artifacts. We use this here so that we always get the correct versions 
