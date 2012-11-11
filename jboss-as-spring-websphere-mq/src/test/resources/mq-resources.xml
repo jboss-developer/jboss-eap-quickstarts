@@ -1,0 +1,51 @@
+<!--
+The resource-adapter configuration used for this sample, change as needed, add to your server configuration file:
+
+Note that the resource adapter logging is configured here.  Also, "username" and "password" can be added to
+the connection-definition section as config-property entries.
+-->
+        <subsystem xmlns="urn:jboss:domain:resource-adapters:1.0">
+            <resource-adapters>
+                <resource-adapter>
+                    <archive>
+                        wmq.jmsra.rar
+                    </archive>
+                    <transaction-support>NoTransaction</transaction-support>
+                    <config-property name="traceLevel">
+                        6
+                    </config-property>
+                    <config-property name="traceEnabled">
+                        true
+                    </config-property>
+                    <config-property name="traceDestination">
+                        System.out
+                    </config-property>
+                    <connection-definitions>
+                        <connection-definition class-name="com.ibm.mq.connector.outbound.ManagedConnectionFactoryImpl" jndi-name="java:jboss/mqConnectionFactory" pool-name="mqConnectionFactory">
+                            <config-property name="port">
+                                1414
+                            </config-property>
+                            <config-property name="hostName">
+                                10.0.0.124
+                            </config-property>
+                            <config-property name="channel">
+                                SYSTEM.DEF.SVRCONN
+                            </config-property>
+                            <config-property name="transportType">
+                                CLIENT
+                            </config-property>
+                            <config-property name="queueManager">
+                                redhat.queue.manager
+                            </config-property>
+                        </connection-definition>
+                    </connection-definitions>
+                    <admin-objects>
+                        <admin-object class-name="com.ibm.mq.connector.outbound.MQQueueProxy" jndi-name="java:jboss/mqGSS" pool-name="mqGSS">
+                            <config-property name="baseQueueName">
+                                GSS.BRIDGE.QUEUE
+                            </config-property>
+                        </admin-object>
+                    </admin-objects>
+                </resource-adapter>
+            </resource-adapters>
+        </subsystem>
