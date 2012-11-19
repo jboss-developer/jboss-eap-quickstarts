@@ -23,7 +23,7 @@
 
     <!-- Example configuration for a managed/remote JBoss AS 7 instance -->
     <container qualifier="jboss" default="true">
-        <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
+        <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
         <!--<configuration> -->
         <!--<property name="jbossHome">/path/to/jboss/as</property> -->
         <!--</configuration> -->
