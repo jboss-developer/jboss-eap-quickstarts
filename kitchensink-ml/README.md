@@ -23,8 +23,12 @@ The following changes were made to the quickstart to enable it to use the browse
 
     * They are located in the `src/main/resources/org/jboss/as/quickstarts/kitchensink-ml/bundle` directory. 
     
-    * This quickstart is localized for Spanish (`Resources_es.properties`) and  French (`Resources_fr.properties`). You can add additional language support by creating properties files with the appropriate suffix and populating the properties with translated values.
+    * This quickstart is localized for Spanish (`KitchensinkMessages_es.properties`) and  French (`KitchensinkMessages_fr.properties`). You can add additional language support by creating properties files with the appropriate suffix and populating the properties with translated values.
+    
+* For Beans Validation (JSR303), the new Properties file were created and it must call `ValidationMessages.properties'.
 
+    * They are located in the `src/main/resources/` directory
+    
 * The following XML was added to the `src/main/webapp/WEB-INF/faces-config.xml` file. When you create a property file for a new language, you must add the supported locale to this file.
 
         <application>
@@ -36,39 +40,65 @@ The following changes were made to the quickstart to enable it to use the browse
                 <supported-locale>fr</supported-locale>
                 <supported-locale>fr-FR</supported-locale>
             </locale-config>
-		    <resource-bundle>
-		        <base-name>org/jboss/as/quickstarts/kitchensink-ml/bundle/Resources</base-name>
-		        <var>bundle</var>
-		    </resource-bundle>
         </application>
+        
+* The `src/main/java/org/jboss/as/quickstarts/kitchensink/model/Member.java` file was modififed to add the message key to @Pattern annotation.
 
-* The `src/main/java/org/jboss/as/quickstarts/kitchensink/util/Resources.java` file was modified to add the ResourceBundle producer that loads the correct resource bundle using the browser preferred locale.
+         @NotNull
+         @Size(min = 1, max = 25)
+         @Pattern(regexp = "[A-Za-z ]*", message = "{name_pattern}")
+         private String name;        
 
-        @Produces
-        public ResourceBundle produceResourceBundle() {
-            return ResourceBundle.getBundle("org.jboss.as.quickstarts.kitchensink-ml.bundle.Resources", FacesContext
-                    .getCurrentInstance().getViewRoot().getLocale());
+* The `src/main/java/org/jboss/as/quickstarts/kitchensink/util/KitchensinkMessages.java` file was created to keep the application messages
+
+
+        @MessageBundle
+        public interface KitchensinkMessages {
+    
+            @MessageTemplate("{registeredMsg}")
+            String registeredMessage();
+        
+            @MessageTemplate("{registerSuccessfulMsg}")
+            String registerSuccessfulMessage();
+        
+            @MessageTemplate("{registerFailMsg}")
+            String registerFailMessage();
+        
+            @MessageTemplate("{defaultErrorMsg}")
+            String defaultErrorMessage();
+    
         }
 
 * The `src/main/java/org/jboss/as/quickstarts/kitchensink/controller/MemberController.java` file was modified as follows:
 
-    * It injects the ResourceBundle. 
+    * It injects the KitchensinkMessages. 
     
             @Inject
-            private ResourceBundle resourceBundle;
+            private KitchensinkMessages messages;
 
 
-    * Messages strings were replaced with strings retrieved using the resource bundle property names. For example:
+    * Messages strings were replaced method invocation on KitchensinkMessages. For example:
     
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, 
-                                        (String) resourceBundle.getObject("registeredMsg"), 
-                                        (String) resourceBundle.getObject("registerSuccessfulMsg"));
-
+                    messages.registeredMessage(),
+                    messages.registerSuccessfulMessage());
+                    
 * The `index.xhtml` and `template.xhtml` files were modified.
 
     * The following namespace was added: `xmlns:f="http://java.sun.com/jsf/core`
-    * The resource bundle was loaded using: `<f:loadBundle basename="org.jboss.as.quickstarts.kitchensink-ml.bundle.Resources" var="bundle" />`
+    * The resource bundle was loaded using: `<f:loadBundle basename="org.jboss.as.quickstarts.kitchensink.util.KitchensinkMessages" var="bundle" />`
     * Strings for headers, messages, labels were replaced with the appropriate `# {bundle.<property>}`, for example: `# {bundle.memberWelcomeHeader}`.
+                        
+* The `src/main/java/org/jboss/as/quickstarts/kitchensink/util/KitchensinkLocaleResolver.java` class was created to determine the user locale.
+
+    * This class is registered as an @Alternative in the `src/main/webapp/WEB-INF/beanx.xml`
+    
+        <alternatives>
+           <!-- Use KitchensinkLocaleResolver as default LocaleResolver -->
+           <class>org.jboss.as.quickstarts.kitchensink.util.KitchensinkLocaleResolver</class>
+        </alternatives>
+        
+    * This avoid conflict with CDI trying to use DefaultLocaleResolver on Runtime.          
     
 ### Set the Browser Preferred Locale
 
