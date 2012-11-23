@@ -1,4 +1,4 @@
-kitchensink: Assortment of technologies including Arquillian
+kitchensink-deltaspike: Assortment of technologies including Arquillian and DeltaSpike CDI extensions
 ========================
 Author: Pete Muir, Bernard Tison
 Level: Intermediate
@@ -16,7 +16,7 @@ This project is setup to allow you to create a compliant Java EE 6 application u
 This quickstart uses the `kitchensink` quickstart as its starting point. Rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean.
 The entity manager is managed by the application rather than the container. 
 
-The DeltaSpike project (http://incubator.apache.org/deltaspike) consists of a number of portable CDI extensions that provide useful features for Java application developers.  
+The DeltaSpike project (http://incubator.apache.org/deltaspike) consists of a number of portable CDI extensions that provide useful features for Java application developers.
 
 System requirements
 -------------------
@@ -53,13 +53,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-kitchensink-ds.war` to the running instance of the server.
+4. This will deploy `target/jboss-as-kitchensink-deltaspike.war` to the running instance of the server.
  
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-ds/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-deltaspike/>.
 
 
 Undeploy the Archive
