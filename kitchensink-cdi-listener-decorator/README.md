@@ -3,7 +3,7 @@ kitchensink-cdi-listener-decorator: Upgrades the KitchenSink example using CDI I
 Author: Francesco Marchioni
 Level: Intermediate
 Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV
-Summary: An upgrade to Pete Muir's Kitchensink example which uses Interceptors to log member registration and decorates as well the registexample that incorporates multiple technologies
+Summary: An upgrade to Pete Muir's Kitchensink example which uses Interceptors to log member registration and decorates as well the example by using Decorators.
 Target Product: EAP
 
 What is it?
