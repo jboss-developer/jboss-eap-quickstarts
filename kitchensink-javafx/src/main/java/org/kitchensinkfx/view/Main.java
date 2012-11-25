@@ -27,7 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Stage;
-import org.kitchensinkfx.controller.MemberControler;
+import org.kitchensinkfx.controller.MemberController;
 import org.kitchensinkfx.controller.ServerResponseHandler;
 import org.kitchensinkfx.model.Member;
 import org.kitchensinkfx.model.Messages;
@@ -54,7 +54,7 @@ public class Main extends Application implements EventHandler<ActionEvent>,
 	private final String MAIN_CSS = getClass().getResource(
 			"/resources/css/main.css").toString();
 
-	MemberControler controller = new MemberControler();
+	MemberController controller = new MemberController();
 
 	public static void main(String[] args) {
           
