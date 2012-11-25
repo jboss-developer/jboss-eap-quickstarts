@@ -1,0 +1,17 @@
+.root {
+	-fx-font-family: "Arial Black";
+	-fx-color: lightblue;
+	-fx-background-color: lightblue;
+}
+
+.error-label {
+	-fx-text-fill: red;
+	-fx-font-style: italic;
+	-fx-font-family: "Courier News";
+	-fx-text-overrun: "clip";
+}
+
+.panel-error-label {
+	-fx-wrap-text: true;
+	-fx-text-alignment: center;	
+}
