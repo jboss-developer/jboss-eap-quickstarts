@@ -16,21 +16,17 @@
  */
 package org.jboss.as.quickstarts.kitchensink_ear.controller;
 
-import java.util.logging.Logger;
-import java.util.ResourceBundle;
-
 import javax.annotation.PostConstruct;
-import javax.enterprise.event.Event;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 
 import org.jboss.as.quickstarts.kitchensink_ear.model.Member;
 import org.jboss.as.quickstarts.kitchensink_ear.service.MemberRegistration;
+import org.jboss.as.quickstarts.kitchensink_ear.util.KitchensinkMessages;
 
 // The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
 // EL name
@@ -43,10 +39,10 @@ public class MemberController {
     private FacesContext facesContext;
 
     @Inject
-    private ResourceBundle resourceBundle;
+    private MemberRegistration memberRegistration;
 
     @Inject
-    private MemberRegistration memberRegistration;
+    private KitchensinkMessages kitchensinkMessages;
 
     private Member newMember;
 
@@ -59,14 +55,14 @@ public class MemberController {
     public void register() throws Exception {
         try {
             memberRegistration.register(newMember);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, (String) resourceBundle.getObject("registeredMsg"),
-                    (String) resourceBundle.getObject("registerSuccessfulMsg"));
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, (String) kitchensinkMessages.registeredMessage(),
+                    kitchensinkMessages.registerSuccessfulMessage());
             facesContext.addMessage(null, m);
             initNewMember();
         } catch (Exception e) {
             String errorMessage = getRootErrorMessage(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage,
-                    (String) resourceBundle.getObject("registerFailMsg"));
+                    kitchensinkMessages.registerFailMessage());
             facesContext.addMessage(null, m);
         }
     }
@@ -78,7 +74,7 @@ public class MemberController {
 
     private String getRootErrorMessage(Exception e) {
         // Default to general error message that registration failed.
-        String errorMessage = (String) resourceBundle.getObject("defaultErrorMsg");
+        String errorMessage = kitchensinkMessages.defaultErrorMessage();
         if (e == null) {
             // This shouldn't happen, but return the default messages
             return errorMessage;
@@ -94,5 +90,4 @@ public class MemberController {
         // This is the root cause message
         return errorMessage;
     }
-
 }
