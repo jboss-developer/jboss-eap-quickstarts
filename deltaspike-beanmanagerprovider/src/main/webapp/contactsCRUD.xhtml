@@ -69,7 +69,7 @@
             <h:column>
                 <f:facet name="header">Date/Time</f:facet>
                 <h:outputText value="#{varAudit.dateTime}">
-                    <f:convertDateTime type="both" timeZone="#{contactController.timeZone}" />
+                    <f:convertDateTime type="both" timeZone="#{applicationTimezone}" />
                 </h:outputText>
             </h:column>
             <h:column>

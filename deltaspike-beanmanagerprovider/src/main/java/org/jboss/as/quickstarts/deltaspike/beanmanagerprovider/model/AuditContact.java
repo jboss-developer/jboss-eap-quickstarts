@@ -25,6 +25,8 @@ package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -49,6 +51,7 @@ public class AuditContact {
 
     private String contactPhone;
 
+    @Enumerated(EnumType.STRING)
     private OPERATION operation;
 
     @Temporal(TemporalType.TIMESTAMP)

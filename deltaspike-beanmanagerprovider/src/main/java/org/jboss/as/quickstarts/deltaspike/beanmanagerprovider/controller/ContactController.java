@@ -24,7 +24,6 @@ package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.controller;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -96,10 +95,6 @@ public class ContactController implements Serializable {
             conversation.begin();
         }
         contact = new Contact();
-    }
-
-    public TimeZone getTimeZone() {
-        return TimeZone.getDefault();
     }
 
     public String getConversationNumber() {

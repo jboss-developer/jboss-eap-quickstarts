@@ -23,10 +23,12 @@
 package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.util;
 
 import java.io.Serializable;
+import java.util.TimeZone;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
@@ -40,6 +42,12 @@ public class Resources implements Serializable {
     @RequestScoped
     public FacesContext produceFacesContext() {
         return FacesContext.getCurrentInstance();
+    }
+    
+    @Produces
+    @Named
+    public TimeZone applicationTimezone(){
+        return TimeZone.getDefault();
     }
 
 }
