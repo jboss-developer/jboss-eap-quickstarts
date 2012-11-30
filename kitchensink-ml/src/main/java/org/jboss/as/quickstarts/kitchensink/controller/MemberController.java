@@ -16,8 +16,6 @@
  */
 package org.jboss.as.quickstarts.kitchensink.controller;
 
-import java.util.ResourceBundle;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
@@ -28,6 +26,7 @@ import javax.inject.Named;
 
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.service.MemberRegistration;
+import org.jboss.as.quickstarts.kitchensink.util.KitchensinkMessages;
 
 // The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
 // EL name
@@ -40,10 +39,10 @@ public class MemberController {
     private FacesContext facesContext;
 
     @Inject
-    private ResourceBundle resourceBundle;
-    
-    @Inject
     private MemberRegistration memberRegistration;
+
+    @Inject
+    private KitchensinkMessages messages;
 
     @Produces
     @Named
@@ -57,21 +56,20 @@ public class MemberController {
     public void register() throws Exception {
         try {
             memberRegistration.register(newMember);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, (String) resourceBundle.getObject("registeredMsg"),
-                    (String) resourceBundle.getObject("registerSuccessfulMsg"));
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, messages.registeredMessage(),
+                    messages.registerSuccessfulMessage());
             facesContext.addMessage(null, m);
             initNewMember();
         } catch (Exception e) {
             String errorMessage = getRootErrorMessage(e);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage,
-                    (String) resourceBundle.getObject("registerFailMsg"));
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, messages.registerFailMessage());
             facesContext.addMessage(null, m);
         }
     }
 
     private String getRootErrorMessage(Exception e) {
         // Default to general error message that registration failed.
-        String errorMessage = (String) resourceBundle.getObject("defaultErrorMsg");
+        String errorMessage = messages.defaultErrorMessage();
         if (e == null) {
             // This shouldn't happen, but return the default messages
             return errorMessage;
