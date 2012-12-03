@@ -19,18 +19,6 @@ Core JavaScript functionality for the application.  Performs the required
 Restful calls, validates return values, and populates the member table.
  */
 
-/* Get the member template */
-function getMemberTemplate() {
-    $.ajax({
-        url: "tmpl/member.tmpl",
-        dataType: "html",
-        success: function( data ) {
-            $( "head" ).append( data );
-            updateMemberTable();
-        }
-    });
-}
-
 /* Builds the updated table for the member list */
 function buildMemberRows(members) {
     return _.template( $( "#member-tmpl" ).html(), {"members": members});
