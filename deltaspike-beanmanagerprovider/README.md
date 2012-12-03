@@ -5,16 +5,16 @@ Level: Intermediate
 Technologies: CDI, Deltaspike, JPA, JSF
 Summary: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener
 Prerequisites: 
-Target Product: 
+Target Product: WFK
 
 What is it?
 -----------
 
 This project demonstrates the use of DeltaSpike's BeanManagerProvider.  
 
-BeanmanagerProvider provides access to the BeanManager by registering the current BeanManager during the startup. This is really handy if you like to access CDI functionality from places where no CDI based injection is available. If a simple but manual bean-lookup is needed, it's easier to use the BeanProvider. 
+`BeanmanagerProvider` provides access to the `BeanManager` by registering the current `BeanManager` during the startup. This is really handy if you like to access CDI functionality from places where no CDI based injection is available. If a simple but manual bean-lookup is needed, it's easier to use the `BeanProvider` instead. 
 
-This projects uses EntityListener to create audit records. These EntityListeners aren't managed by CDI, so you can't inject dependencies. In this project we used BeanManagerProvider to get a reference to a Stateless EJB that is responsible to persist the audit records.
+This projects uses an EntityListener to create audit records. EntityListeners aren't managed by CDI, so you can't inject dependencies. In this project we used `BeanManagerProvider` to get a reference to a Stateless EJB that is responsible to persist the audit records.
 
 
 System requirements
@@ -27,8 +27,6 @@ The application this project produces is designed to be run on JBoss Enterprise 
  
 Configure Maven
 ---------------
-
-Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
 
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
@@ -60,11 +58,18 @@ Access the application
 
 Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-deltaspike-beanmanagerprovider>
 
-You will be presented with a simple form for adding contacts. Add a contact information and realized that both tables (All Contacts / Audit Records) were updated.
+You are presented with a simple form to insert, edit, or remove contacts.
 
-Create, edit or remove some contacts to see the audit records being registered.
+- To insert a new contact, click the `New Contact` button. Complete the form fields and then click the `Save` button.
+- To modify an existing contact, find the name in the *All Contacts* table and click the `Select for edit` button. The *Contacts* form fields are populated with the contact data. Modify the data and then click the `Save` button.
+- To remove a contact, find the name in the *All Contacts* table and click the `Remove` button. A dialog appears asking 'Do you want to remove this record?'. Click the `OK` button to remove the contact.
+
+When you insert a contact, notice that both the *All Contacts* and *Audit Records* tables are updated.
+When you edit a contact, notice that the *Audit Records* table is updated with the new contact data.
+
+Continue to insert, edit, or remove contacts to see registration of audit records.
         
-_NOTE: To fire the update audit, you must change one of the contact fields
+_NOTE: To fire the update audit, you must change one of the contact fields_
 
         
 Undeploy the Archive

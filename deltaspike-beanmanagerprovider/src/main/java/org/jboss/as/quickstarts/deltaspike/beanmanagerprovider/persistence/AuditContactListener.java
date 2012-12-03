@@ -23,13 +23,11 @@
 package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.persistence;
 
 import java.lang.annotation.Annotation;
-import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;
 import javax.persistence.PostUpdate;
@@ -49,7 +47,6 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model.OPERATION;
  */
 public class AuditContactListener {
 
-    @Inject
     // Injection does not work because this class is not managed by CDI
     private AuditRepository auditRepository;
 
@@ -62,12 +59,16 @@ public class AuditContactListener {
     @SuppressWarnings({ "rawtypes" })
     public AuditRepository getAuditRepositoryInstance() {
         BeanManager bm = BeanManagerProvider.getInstance().getBeanManager();
-        Set<Bean<?>> beans = bm.getBeans(AuditRepository.class, new Annotation[] {});
-        Bean<?> bean = beans.iterator().next();
+        Bean<?> bean = bm.resolve(bm.getBeans(AuditRepository.class, new Annotation[] {}));
         CreationalContext cc = bm.createCreationalContext(bean);
         return (AuditRepository) bm.getReference(bean, AuditRepository.class, cc);
     }
 
+    /**
+     * Method called after {@link Contact} is persisted
+     * 
+     * @param contact
+     */
     @PostPersist
     public void created(Contact contact) {
         auditRepository = getAuditRepositoryInstance();
@@ -79,6 +80,11 @@ public class AuditContactListener {
         auditRepository.persist(a);
     }
 
+    /**
+     * Method called after {@link Contact} is updated
+     * 
+     * @param contact
+     */
     @PostUpdate
     public void updated(Contact contact) {
         auditRepository = getAuditRepositoryInstance();
@@ -89,6 +95,12 @@ public class AuditContactListener {
         a.setOperation(OPERATION.UPDATE);
         auditRepository.persist(a);
     }
+
+    /**
+     * Method called after {@link Contact} is removed
+     * 
+     * @param contact
+     */
 
     @PostRemove
     public void removed(Contact contact) {

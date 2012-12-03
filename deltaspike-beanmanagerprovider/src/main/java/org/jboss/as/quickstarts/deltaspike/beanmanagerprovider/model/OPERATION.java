@@ -23,6 +23,8 @@
 package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model;
 
 /**
+ * Database operations type
+ * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  *
  */

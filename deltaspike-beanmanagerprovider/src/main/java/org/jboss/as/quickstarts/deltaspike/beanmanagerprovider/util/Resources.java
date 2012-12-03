@@ -31,6 +31,17 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
+ * 
+ * This class uses CDI to alias Java EE resources, such as the TimeZone and FacesContext, to CDI beans
+ * 
+ * <p>
+ * Example injection on a managed bean field:
+ * </p>
+ * 
+ * <pre>
+ * &#064;Inject
+ * private FacesContext facesContext;
+ * </pre>
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */

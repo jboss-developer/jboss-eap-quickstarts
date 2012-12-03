@@ -34,6 +34,9 @@ import javax.persistence.PersistenceContext;
 import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model.AuditContact;
 
 /**
+ * 
+ * This class is {@link Stateless} because there is no need to hold a state
+ * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
@@ -45,6 +48,12 @@ public class AuditRepository implements Serializable {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * The persistence of AuditContact is made on a new transaction since this happens after the Contact entity has been
+     * persisted
+     * 
+     * @param audit
+     */
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void persist(AuditContact audit) {
         entityManager.persist(audit);

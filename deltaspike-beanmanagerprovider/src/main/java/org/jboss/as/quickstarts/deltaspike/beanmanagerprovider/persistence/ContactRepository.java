@@ -33,6 +33,13 @@ import javax.persistence.PersistenceContextType;
 import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model.Contact;
 
 /**
+ * This class is {@link Stateful} because we need to keep the {@link EntityManager} opened during the conversation scope.
+ * 
+ * @see ConversationScoped
+ * 
+ *      While the {@link EntityManager} is opened the {@link Contact} is managed by this entity and there's no need to
+ *      constantly check the database (every request) to determine if this entity should be updated.
+ * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
