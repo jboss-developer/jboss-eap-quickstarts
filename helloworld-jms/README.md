@@ -1,15 +1,15 @@
-helloworld-jms: HelloWorld JMS Example
+helloworld-jms: HelloWorld JMS Example with DeltaSpike
 ======================
 Author: Weston Price
 Level: Intermediate
-Technologies: JMS
-Summary: Demonstrates the use of a standalone (Java SE) JMS client
-Target Product: EAP
+Technologies: JMS, CDI, DeltaSpike
+Summary: Demonstrates the use of a standalone (Java SE) JMS client with DeltaSpike property configuration
+Target Product: WFK
 
 What is it?
 -----------
 
-This quickstart demonstrates the use of external JMS clients with JBoss Enterprise Application Platform 6 or JBoss AS 7.
+This quickstart demonstrates the use of external JMS clients with JBoss Enterprise Application Platform 6 or JBoss AS 7 and how configuration properties can be made using DeltaSpie.
 
 It contains the following:
 
@@ -59,7 +59,7 @@ However, if you are using the JBoss Enterprise Application Platform 6 distributi
         [standalone@localhost:9999 /] jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
         [standalone@localhost:9999 /] jms-topic add --topic-address=testTopic --entries=topic/test,java:jboss/exported/jms/topic/test
 
-#### Modify the Server JMS Configuration Manually
+#### Modify the Server JMS Configuration Manually (Server must be stopped)
 
 1. Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml
 2. Add the JMS `test` queue as follows:
@@ -140,7 +140,21 @@ _Note_: After the above INFO message, you may see the following error. You can i
 Optional Properties
 -------------------
 
-The example provides for a certain amount of customization for the `mvn:exec` plugin using the system properties.
+This quickstart uses DeltaSpike to inject properties configuration.
+
+The configuration is injected by using the `@ConfigProperty` annotation
+
+        @Inject
+        @ConfigProperty(name = "username", defaultValue = "quickstartUser")
+        private String usernameConfig;
+
+This quickstart provides for a certain amount of customization for the `mvn:exec` plugin using the system properties.
+
+Example:
+
+        mvn clean compile exec:java -Dusername=benevides -Dpassword=xxxxx -Dmessage.count=30
+        
+The following properties can be configured:        
 
 * `username`
    
