@@ -18,22 +18,33 @@ package org.jboss.as.quickstarts.wshelloworld;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.quickstarts.wshelloworld.HelloWorldService;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Simple set of tests for the HelloWorld Web Service to demonstrate accessing the web service using a client
  * 
  * @author lnewson@redhat.com
  */
-public class ClientTest {
+@RunWith(Arquillian.class)
+public class ClientArqTest {
+    /**
+     * The location of the WebApp source folder so we know where to find the web.xml when deploying using Arquillian.
+     */
+    private static final String WEBAPP_SRC = "src/main/webapp";
     /**
      * The name of the WAR Archive that will be used by Arquillian to deploy the application.
      */
@@ -42,48 +53,16 @@ public class ClientTest {
      * The path of the WSDL endpoint in relation to the deployed web application.
      */
     private static final String WSDL_PATH = "HelloWorldService?wsdl";
-    
-    /**
-     * The name for the Server URL System Property.
-     */
-    private static final String SERVER_URL_PROPERTY = "serverUrl";
-    /**
-     * The Default Server URL if one isn't specified as a System Property
-     */
-    private static final String DEFAULT_SERVER_URL = "http://localhost:8080/";
 
-    private static URL deploymentUrl;
+    @ArquillianResource
+    private URL deploymentUrl;
 
     private HelloWorldService client;
-    
-    @BeforeClass
-    public static void beforeClass() throws MalformedURLException
-    {
-        String deploymentUrl = System.getProperty(SERVER_URL_PROPERTY);
-        
-        // Check that the server URL property was set. If it wasn't then use the default.
-        if (deploymentUrl == null || deploymentUrl.isEmpty()) {
-            deploymentUrl = DEFAULT_SERVER_URL;
-        }
-        
-        // Ensure that the URL ends with a forward slash
-        if (!deploymentUrl.endsWith("/")) {
-            deploymentUrl += "/";
-        }
-        
-        // Ensure the App Name is specified in the URL
-        if (!deploymentUrl.matches(".*" + APP_NAME + ".*"))
-        {
-            deploymentUrl += APP_NAME + "/";
-        }
-        
-        // Add the WDSL Document location to the URL
-        deploymentUrl += WSDL_PATH;
-        
-        System.out.println("WSDL Deployment URL: " + deploymentUrl);
-        
-        // Set the deployment url
-        ClientTest.deploymentUrl = new URL(deploymentUrl);
+
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class, APP_NAME + ".war").addPackage(HelloWorldService.class.getPackage())
+                .addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"));
     }
 
     @Before

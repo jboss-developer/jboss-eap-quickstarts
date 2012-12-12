@@ -39,6 +39,7 @@
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.surefire.plugin>2.12.4</version.surefire.plugin>
 
         <!-- JBoss dependency versions -->
         <version.org.jboss.as.plugins.maven.plugin>7.2.Final</version.org.jboss.as.plugins.maven.plugin>
@@ -47,6 +48,9 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+
+        <!-- Remote Server URL -->
+        <remote.server.url>http://localhost:8080/</remote.server.url>
     </properties>
 
     <dependencyManagement>
@@ -158,6 +162,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -180,9 +185,22 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/ClientTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
-        <profile>
 
+        <profile>
             <!-- An optional Arquillian testing profile that executes tests 
                 in a remote JBoss AS instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
@@ -194,6 +212,45 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/ClientTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- An optional testing profile that executes tests in a remote 
+                JBoss AS instance where the application has already been deployed -->
+            <!-- Run with: mvn clean test -Pjbossas-remote -->
+            <id>jbossas-remote</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
+                        <configuration>
+                            <systemProperties>
+                                <property>
+                                    <name>serverUrl</name>
+                                    <value>${remote.server.url}</value>
+                                </property>
+                            </systemProperties>
+                            <excludes>
+                                <exclude>**/ClientArqTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>
@@ -218,6 +275,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>

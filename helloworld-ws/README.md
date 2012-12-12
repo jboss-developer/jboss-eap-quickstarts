@@ -51,9 +51,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application 
 ---------------------
 
-The application is deployed to <http://localhost:8080/jboss-as-helloworld-ws>. Accessing this link directly will display a SOAP "No such operation" error because it expects SOAP messages as input. You can try sending SOAP messages to the Web Service endpoint by using the Client based JUnit Tests described below.
-
-You can check that the webservice is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-as-helloworld-ws?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-as-helloworld-ws?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 
 Undeploy the Archive
@@ -85,6 +83,7 @@ Investigate the Console Output
 
 The following expected output should appear. The output shows what was said to the Web Service by the client and the responses it received.
 
+    WSDL Deployment URL: http://localhost:8080/jboss-as-helloworld-ws/HelloWorldService?wsdl
     [Client] Requesting the WebService to say Hello.
     [WebService] Hello World!
     [Client] Requesting the WebService to say Hello to John.
@@ -180,7 +179,7 @@ The final push command triggers the OpenShift infrastructure to build and deploy
 
 Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the war build by openshift to be copied to the `deployments` directory, and deployed to the "jboss-as-helloworld-ws" context path.
 
-### Test the OpenShift Application
+### Access the OpenShift Application
 
 Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
 
@@ -193,6 +192,17 @@ Once the app is deployed, you can test the application by accessing the followin
 If the application has run successfully you should see some output in the browser.
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+
+### Run the Remote Client Tests against Openshift
+
+This quickstart provides tests that can be run remotely. By default, these tests are configured to be skipped as the tests require the application to be running remotely. 
+
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line.._
+
+1. Make sure you have deployed the Application to Openshift as described above.
+2. Type the following command to run the test goal with the following profile activated and the URL of the deployed Application:
+
+		mvn clean test -Pjbossas-remote -Dremote.server.url=http://helloworldws-quickstart.rhcloud.com/
 
 ### Destroy the OpenShift Application
 
