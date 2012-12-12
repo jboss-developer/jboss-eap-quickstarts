@@ -9,7 +9,7 @@ Target Product: EAP
 What is it?
 -----------
 
-This example demonstrates the use of *JAX-WS* in *JBoss AS 7* or *JBoss Enterprise Application Platform 6* as a simple Hello World application.
+This example demonstrates the use of *JAX-WS* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7* as a simple Hello World application.
 
 System requirements
 -------------------
