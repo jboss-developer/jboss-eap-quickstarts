@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Welcome</ui:define>
+			<ui:define name="pageHeader">Welcome to the secured page!</ui:define>
+			<ui:define name="body">
+                 <h:form>
+    			     Welcome <b>#{facesContext.externalContext.userPrincipal.name}</b>!
+                     <h:commandButton value="Logout" action="#{securedController.logout()}" />
+                     <p />
+                     Execute some action:                  
+                     <h:commandButton value="Guest Method" action="#{securedController.guestMethod()}" />
+                     <h:commandButton value="Admin Method" action="#{securedController.adminMethod()}" />
+                 </h:form>
+			</ui:define>
+	</ui:composition>
+
+</html>

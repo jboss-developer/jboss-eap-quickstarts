@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+<ui:composition template="/template.xhtml">
+    <ui:define name="pageTitle">Login error</ui:define>
+    <ui:define name="pageHeader">Invalid user name or password</ui:define>
+    <ui:define name="body">
+        <p style="text-align: justify;">
+            Please enter a user name or password that is authorized to access this application.
+            <br/>
+            To create a application user, see the following <a target="_blank" href="http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/#addapplicationuser">instructions</a>.
+            <br /><br />
+            Click here to <a href="welcome.jsf">Try Again</a>
+        </p>
+    </ui:define>
+</ui:composition>
+
+</html>

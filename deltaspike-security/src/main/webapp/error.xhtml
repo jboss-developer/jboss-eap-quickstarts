@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/template.xhtml">
+			<ui:define name="pageTitle">Error!!!</ui:define>
+			<ui:define name="pageHeader">An error has occurred:</ui:define>
+			<ui:define name="body">
+                <h:form>
+    			   The error message is:  
+                   <b>
+                        #{requestScope['javax.servlet.error.message']}  
+                   </b>
+                   <p />
+                        <h:commandButton value="Back" action="/welcome.jsf" /> 
+                   <p /> 
+                   <font color="RED">  
+                        Please show the system administator the error below.  
+                   </font>  
+                   <p />  
+                   <textarea rows="30" cols="100">  
+                       <h:outputText escape="false" value="#{errorController.stackTrace}"/>  
+                   </textarea>  
+                   <p />
+               </h:form>
+			</ui:define>
+	</ui:composition>
+
+</html>
