@@ -33,6 +33,9 @@ import org.jboss.as.quickstarts.deltaspike.security.annotations.AdminAllowed;
 import org.jboss.as.quickstarts.deltaspike.security.annotations.GuestAllowed;
 
 /**
+ * This Authorizer class implements behavior for our custom SecurityBindingType. This class is simply a CDI bean which declares
+ * a @Secures method, qualified with the security binding annotation.
+ * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
@@ -42,16 +45,34 @@ public class CustomAuthorizer {
     @Inject
     private FacesContext facesContext;
 
+    /**
+     * This method is used to check if classes and methods annotated with {@link AdminAllowed} can perform
+     * the operation or not
+     * 
+     * @param invocationContext
+     * @param manager
+     * @return true if the user can execute the method or class
+     * @throws Exception
+     */
     @Secures
     @AdminAllowed
     public boolean doAdminCheck(InvocationContext invocationContext, BeanManager manager) throws Exception {
         return facesContext.getExternalContext().isUserInRole("admin");
     }
 
+    /**
+     * This method is used to check if classes and methods annotated with {@link GuestAllowed} can perform
+     * the operation or not
+     * 
+     * @param invocationContext
+     * @param manager
+     * @return true if the user can execute the method or class
+     * @throws Exception
+     */
     @Secures
     @GuestAllowed
     public boolean doGuestCheck(InvocationContext invocationContext, BeanManager manager) throws Exception {
         return facesContext.getExternalContext().isUserInRole("guest");
     }
-    
+
 }

@@ -48,16 +48,19 @@ public class SecuredController {
     @Inject
     private FacesContext facesContext;
 
+    //This method is allowed only to users with Guest role
     @GuestAllowed
     public void guestMethod() {
         facesContext.addMessage(null, new FacesMessage("You executed a @GuestAllowed method"));
     }
 
+    //This method is allowed only to users with Admin role
     @AdminAllowed
     public void adminMethod() {
         facesContext.addMessage(null, new FacesMessage("You executed a @AdminAllowed method"));
     }
     
+    //Invalidate the session and send a redirect to index.html
     public void logout() throws IOException {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         session.invalidate();

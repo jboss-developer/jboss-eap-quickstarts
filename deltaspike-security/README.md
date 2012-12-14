@@ -1,34 +1,25 @@
-jboss-as-deltaspike-projectstage: Demonstrate usage of DeltaSpike project stage and shows usage of a conditional @Exclude
+jboss-as-deltaspike-projectstage: Demonstrate the creation of a custom authorization example using @SecurityBindingType from DeltaSpike
 ======================================================
 Author: Rafael Benevides
 Level: Beginner
 Technologies: JSF, CDI, Deltaspike
-Summary: Demonstrate usage of DeltaSpike project stage and shows usage of a conditional @Exclude
+Summary: Demonstrate the creation of a custom authorization example using @SecurityBindingType from DeltaSpike
 Prerequisites: 
 Target Product: WFK
 
 What is it?
 -----------
 
-Project stages allow to use implementations depending on the current environment. E.g. you can implement a bean which creates sample-data for system tests which gets activated only in case of project-stage *SystemTest*
+SecurityBinding is a feature of the security module that acts by intercepting method calls, and performing a security check before invocation is allowed to proceed.
 
-*Besides custom project-stages* it's possible to use the following pre-defined project-stages:
+To use it, it's needed to create a security parameter binding annotation. In this application we created `@AdminAllowed` and `@GuestAllowed` annotations.
 
-- UnitTest
-- Development
-- SystemTest
-- IntegrationTest
-- Staging
-- Production
+The application also defines an `Authorizer` class that implements behavior for both `SecurityBindingType`. This class is simply a CDI bean which declares a @Secures method, qualified with the security binding annotation we created.
 
-Furthermore, with `@Exclude` it's possible to annotate beans which should be ignored by CDI even if they are in a CDI enabled archive.
+This `Authorizer` is integrated with JAAS so the check is delegated to JAAS API through `FacesContext`, but any other ways to check if the method is allowed could be used. 
 
-This project has a interface called `MyBean` that has 4 different implementations:
+Both annotations was applied to methods on `SecuredController` class.
 
-- ExcludedExceptOnDevelopment - That uses the following annotation `@Exclude(exceptIfProjectStage=Development.class)` excluding the implementation if the project-stage is different from development.
-- ExcludedOnDevelopment - That uses the following annotation `@Exclude(ifProjectStage=Development.class)` excluding the implementation in case of project-stage development.
-- MyExcludedBean  - That uses the following annotation `@Exclude` excluding the implementation in any case.
-- NoExcludedBean - That doesn't use any annotation, so this implementation is always available.
 
 System requirements
 -------------------
@@ -42,6 +33,12 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+
+
+
+Add an Application User
+----------------
+This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: [Add an Application User](../README.md#addapplicationuser)
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7
@@ -63,22 +60,20 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-deltaspike-projectstage.war` to the running instance of the server.
+4. This will deploy `target/jboss-as-deltaspike-security.war` to the running instance of the server.
 
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-deltaspike-projectstage>
+Access the running application in a browser at the following URL:  <localhost:8080/jboss-as-deltaspike-security/>
 
-You be presented with a simple page that shows the current project stage: *Staging*. You will se also the *List of available CDI instances for MyBean* table with two available implementations.
+When you try to access the application, you're redirected to a Login form already filled. (remember to setup the Application User).
 
-Edit the file `src/main/resources/META-INF/apache-deltaspike.properties` and change the `org.apache.deltaspike.ProjectStage` property to `Development`. Deploy the application again
+Log in application and you see the secured page showing your username and two buttons. 
 
-        mvn clean package jboss-as:deploy
+Click on `Guest Method` button and realize that you will see the following message: `You executed a @GuestAllowed method`.
 
-Access the application again at the same URL:  <http://localhost:8080/jboss-as-deltaspike-projectstage>
-
-Look at *List of available CDI instances for MyBean* table and realize that the available implementations has changed.
+Now, click on `Admin Method` button and you will be redirected to a error page with the following exception: `org.apache.deltaspike.security.api.authorization.AccessDeniedException`
         
 Undeploy the Archive
 --------------------

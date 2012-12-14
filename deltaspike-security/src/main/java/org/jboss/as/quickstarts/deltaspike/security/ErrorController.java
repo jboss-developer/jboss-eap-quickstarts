@@ -29,9 +29,14 @@ import javax.faces.context.FacesContext;
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
+//The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
+//EL name
+//Read more about the @Model stereotype in this FAQ:
+//http://sfwk.org/Documentation/WhatIsThePurposeOfTheModelAnnotation
 @Model
 public class ErrorController {
     
+    //This method return the stack trace string from the Exception
     public String getStackTrace() {
         Throwable throwable = (Throwable)  FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("javax.servlet.error.exception");
         StringBuilder builder = new StringBuilder();
