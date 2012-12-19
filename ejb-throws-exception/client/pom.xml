@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>ejb-throws-exception</artifactId>
+    <groupId>org.jboss.as.quickstarts</groupId>
+    <version>7.1.1.CR2</version>
+    <relativePath>..</relativePath>
+  </parent>
+  <artifactId>ejb-throws-exception-client</artifactId>
+  <name>ejb-throws-exception-client</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.jboss.spec.javax.ejb</groupId>
+  		<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+  		<scope>provided</scope>
+  	</dependency>
+  </dependencies>
+</project>
