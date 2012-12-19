@@ -25,8 +25,8 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstart.deltaspike.beanbuilder.Nick;
-import org.jboss.as.quickstart.deltaspike.beanbuilder.NickExtension;
+import org.jboss.as.quickstart.deltaspike.beanbuilder.ById;
+import org.jboss.as.quickstart.deltaspike.beanbuilder.ByIdExtension;
 import org.jboss.as.quickstart.deltaspike.beanbuilder.model.Person;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -41,18 +41,19 @@ import org.junit.runner.RunWith;
  * Verification test.
  */
 @RunWith(Arquillian.class)
-public class NickExtensionTest {
+public class ByIdExtensionTest {
 
     @Deployment
     public static Archive<?> getDeployment() {
 
-        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
+        MavenDependencyResolver resolver = DependencyResolvers
+                .use(MavenDependencyResolver.class)
                 .loadMetadataFromPom("pom.xml");
 
         Archive<?> archive = ShrinkWrap
-                .create(WebArchive.class, "nick-extension.war")
-                .addPackages(true, NickExtension.class.getPackage())
-                .addAsServiceProvider(Extension.class, NickExtension.class)
+                .create(WebArchive.class, "byid-extension.war")
+                .addPackages(true, ByIdExtension.class.getPackage())
+                .addAsServiceProvider(Extension.class, ByIdExtension.class)
                 .addAsLibraries(
                         resolver.artifacts("org.apache.deltaspike.core:deltaspike-core-api",
                                 "org.apache.deltaspike.core:deltaspike-core-impl").resolveAsFiles())
@@ -63,15 +64,11 @@ public class NickExtensionTest {
         return archive;
     }
 
-    // This will inject a Qualified Person with @Nick('rbenevides') qualifier
-    @Inject
-    @Nick("rbenevides")
-    private Person rafael;
+    // This will inject a qualified Person with @ById('rbenevides') qualifier
+    @Inject @ById("rbenevides") Person rafael;
 
-    // This will inject a Qualified Person with @Nick('pmuir') qualifier
-    @Inject
-    @Nick("pmuir")
-    private Person pete;
+    // This will inject a qualified Person with @ById('pmuir') qualifier
+    @Inject @ById("pmuir") Person pete;
 
     @Test
     public void assertPersonInjected() {

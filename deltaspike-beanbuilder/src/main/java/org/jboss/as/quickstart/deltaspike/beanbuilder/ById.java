@@ -50,7 +50,7 @@ import org.jboss.as.quickstart.deltaspike.beanbuilder.model.Person;
 @Retention(RUNTIME)
 @Documented
 @Qualifier
-public @interface Nick {
+public @interface ById {
 
     String value();
 

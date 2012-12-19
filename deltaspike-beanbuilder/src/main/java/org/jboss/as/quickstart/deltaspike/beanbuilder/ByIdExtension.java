@@ -48,10 +48,10 @@ import org.jboss.as.quickstart.deltaspike.beanbuilder.model.Person;
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-public class NickExtension implements Extension {
+public class ByIdExtension implements Extension {
 
     // All nicks that needs to be found
-    private List<String> nicks = new LinkedList<String>();
+    private List<String> ids = new LinkedList<String>();
 
     // A List of one contextualLifecycle for each Bean/Nick
     private List<PersonContextualLifecycle> contextualLifecycles = new ArrayList<PersonContextualLifecycle>();
@@ -65,10 +65,10 @@ public class NickExtension implements Extension {
      */
     public <X extends Object> void processInjectionTarget(@Observes ProcessInjectionTarget<X> pit) {
         for (InjectionPoint ip : pit.getInjectionTarget().getInjectionPoints()) {
-            Nick nick = ip.getAnnotated().getAnnotation(Nick.class);
-            if (nick != null) {
+            ById idValue = ip.getAnnotated().getAnnotation(ById.class);
+            if (idValue != null) {
                 // Store the nick value
-                nicks.add(nick.value());
+                ids.add(idValue.value());
             }
         }
     }
@@ -79,9 +79,9 @@ public class NickExtension implements Extension {
      */
     public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager bm) {
         // final EntityManager em = getEntityManager(bm);
-        for (final String key : nicks) {
+        for (final String idValue : ids) {
             // Create a ContextualLifecyle for each Nick found and store its reference for later injection of EntityManager
-            PersonContextualLifecycle contextualLifecycle = new PersonContextualLifecycle(key);
+            PersonContextualLifecycle contextualLifecycle = new PersonContextualLifecycle(idValue);
             contextualLifecycles.add(contextualLifecycle);
 
             // Create a Bean using the Nick Qualifier with the right nick value and the contextualLifecycle previously created
@@ -89,7 +89,7 @@ public class NickExtension implements Extension {
                     .beanClass(Person.class)
                     .types(Person.class, Object.class)
                     // The qualifier with its value
-                    .qualifiers(new NickLiteral(key))
+                    .qualifiers(new ByIdLiteral(idValue))
                     // The contextualLifecycle previously created
                     .beanLifecycle(contextualLifecycle);
             // Create and add the Bean
@@ -126,17 +126,17 @@ public class NickExtension implements Extension {
 
 
     /**
-     * This class represents the {@link Nick} annotation with its value. It is used by the {@link BeanBuilder} to set the
+     * This class represents the {@link ById} annotation with its value. It is used by the {@link BeanBuilder} to set the
      * {@link Bean} {@link Qualifier}
      * 
      */
-    public static class NickLiteral extends AnnotationLiteral<Nick> implements Nick {
+    public static class ByIdLiteral extends AnnotationLiteral<ById> implements ById {
 
         private static final long serialVersionUID = 1L;
 
         private String value;
 
-        public NickLiteral(String v) {
+        public ByIdLiteral(String v) {
             this.value = v;
         }
 
@@ -156,10 +156,10 @@ public class NickExtension implements Extension {
     public static class PersonContextualLifecycle implements ContextualLifecycle<Person> {
 
         private EntityManager em;
-        private String key;
+        private String idValue;
 
-        public PersonContextualLifecycle(String key) {
-            this.key = key;
+        public PersonContextualLifecycle(String idValue) {
+            this.idValue = idValue;
         }
 
         public void setEntityManager(EntityManager em) {
@@ -174,7 +174,7 @@ public class NickExtension implements Extension {
         @Override
         public Person create(Bean<Person> bean, CreationalContext<Person> creationalContext) {
             // Here we use the entityManager to get the Person Instance
-            return em.find(Person.class, key);
+            return em.find(Person.class, idValue);
         }
     }
 
