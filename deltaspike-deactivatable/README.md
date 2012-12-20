@@ -1,7 +1,7 @@
-DeltaSpike BeanBuilder: Demonstrate usage of Deactivateable
+DeltaSpike Deactivateable: Demonstrate usage of Deactivateable
 ======================================================
 Author: Rafael Benevides
-Level: Advanced
+Level: Beginner
 Technologies: CDI, DeltaSpike
 Summary: Demonstrate usage of Deactivateable.
 Target Product: WFK
