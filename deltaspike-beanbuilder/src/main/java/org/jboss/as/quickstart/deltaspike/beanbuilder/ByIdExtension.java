@@ -22,15 +22,12 @@
 
 package org.jboss.as.quickstart.deltaspike.beanbuilder;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.AfterDeploymentValidation;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
@@ -40,6 +37,7 @@ import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Qualifier;
 import javax.persistence.EntityManager;
 
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.core.util.bean.BeanBuilder;
 import org.apache.deltaspike.core.util.metadata.builder.ContextualLifecycle;
 import org.jboss.as.quickstart.deltaspike.beanbuilder.model.Person;
@@ -52,9 +50,6 @@ public class ByIdExtension implements Extension {
 
     // All nicks that needs to be found
     private List<String> ids = new LinkedList<String>();
-
-    // A List of one contextualLifecycle for each Bean/Nick
-    private List<PersonContextualLifecycle> contextualLifecycles = new ArrayList<PersonContextualLifecycle>();
 
     /**
      * This method is fired for every component class supporting injection that may be instantiated by the container at runtime.
@@ -78,51 +73,20 @@ public class ByIdExtension implements Extension {
      * 
      */
     public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager bm) {
-        // final EntityManager em = getEntityManager(bm);
         for (final String idValue : ids) {
-            // Create a ContextualLifecyle for each Nick found and store its reference for later injection of EntityManager
-            PersonContextualLifecycle contextualLifecycle = new PersonContextualLifecycle(idValue);
-            contextualLifecycles.add(contextualLifecycle);
-
-            // Create a Bean using the Nick Qualifier with the right nick value and the contextualLifecycle previously created
+            // Create a Bean using the Nick Qualifier with the right id value and a new contextualLifecycle 
             BeanBuilder<Person> beanBuilder = new BeanBuilder<Person>(bm)
                     .beanClass(Person.class)
                     .types(Person.class, Object.class)
                     // The qualifier with its value
                     .qualifiers(new ByIdLiteral(idValue))
-                    // The contextualLifecycle previously created
-                    .beanLifecycle(contextualLifecycle);
+                    // Create a ContextualLifecyle for each id found
+                    .beanLifecycle(new PersonContextualLifecycle(idValue));
             // Create and add the Bean
             abd.addBean(beanBuilder.create());
         }
     }
 
-    /**
-     * This method is fired after the container has validated that there are no deployment problems and before creating contexts
-     * or processing requests.
-     * 
-     * Here we can get the {@link EntityManager} reference and set it on {@link PersonContextualLifecycle}
-     * 
-     */
-    public void AfterDeploymentValidation(@Observes AfterDeploymentValidation adv, BeanManager bm) {
-        // Retrieve EntityManager Reference
-        EntityManager em = getEntityManager(bm);
-        // Add it to every PersonContextualLifecycle previously created
-        for (PersonContextualLifecycle lifecycle : contextualLifecycles) {
-            lifecycle.setEntityManager(em);
-        }
-    }
-    
-    /**
-     * Uses the {@link BeanManager} to get the {@link EntityManager} reference 
-     */
-    @SuppressWarnings("rawtypes")
-    private EntityManager getEntityManager(BeanManager bm) {
-        Set<Bean<?>> beans = bm.getBeans(EntityManager.class);
-        Bean<?> bean = bm.resolve(beans);
-        CreationalContext cc = bm.createCreationalContext(bean);
-        return (EntityManager) bm.getReference(bean, EntityManager.class, cc);
-    }
 
 
     /**
@@ -155,15 +119,10 @@ public class ByIdExtension implements Extension {
      */
     public static class PersonContextualLifecycle implements ContextualLifecycle<Person> {
 
-        private EntityManager em;
         private String idValue;
 
         public PersonContextualLifecycle(String idValue) {
             this.idValue = idValue;
-        }
-
-        public void setEntityManager(EntityManager em) {
-            this.em = em;
         }
 
         @Override
@@ -174,6 +133,7 @@ public class ByIdExtension implements Extension {
         @Override
         public Person create(Bean<Person> bean, CreationalContext<Person> creationalContext) {
             // Here we use the entityManager to get the Person Instance
+            EntityManager em = BeanProvider.getContextualReference(EntityManager.class);
             return em.find(Person.class, idValue);
         }
     }

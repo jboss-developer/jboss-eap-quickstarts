@@ -11,7 +11,7 @@ What is it?
 
 This project demonstrates a CDI Portable Extension that uses DeltaSpike utilities to create new Beans.
 
-This extension permits the injection of JPA Entities by its Id without the need of query it. To do that, the extension observes the `ProcessInjectionTarget` event and get all values that needs to be queried. Then in `AfterBeanDiscovery` event, the extension create `Bean` instances using the `BeanBuilder` utility. On `AfterDeploymentValidation` event, the extension injects the `EntityManager` on all Bean's `ContextualLifecycle` that were created previously.
+This extension permits the injection of JPA Entities by its Id without the need of query it. To do that, the extension observes the `ProcessInjectionTarget` event and get all values that needs to be queried. Then in `AfterBeanDiscovery` event, the extension create `Bean` instances using the `BeanBuilder` utility. 
 
 The project contains very simple JPA Entity class, an extension class, the service registration file for that extension and an Arquillian test to verify the extension is working correctly.
 
