@@ -16,8 +16,6 @@
  */
 package org.jboss.as.quickstarts.kitchensink.controller;
 
-import java.util.ResourceBundle;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
@@ -28,6 +26,7 @@ import javax.inject.Named;
 
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.service.MemberRegistration;
+import org.jboss.as.quickstarts.kitchensink.util.KitchensinkMessages;
 
 // The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
 // EL name
@@ -38,9 +37,6 @@ public class MemberController {
 
     @Inject
     private FacesContext facesContext;
-
-    @Inject
-    private ResourceBundle resourceBundle;
     
     @Inject
     private MemberRegistration memberRegistration;
@@ -57,21 +53,21 @@ public class MemberController {
     public void register() throws Exception {
         try {
             memberRegistration.register(newMember);
-            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, (String) resourceBundle.getObject("registeredMsg"),
-                    (String) resourceBundle.getObject("registerSuccessfulMsg"));
+            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, KitchensinkMessages.MESSAGES.registeredMessage(),
+                    KitchensinkMessages.MESSAGES.registerSuccessfulMessage());
             facesContext.addMessage(null, m);
             initNewMember();
         } catch (Exception e) {
             String errorMessage = getRootErrorMessage(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage,
-                    (String) resourceBundle.getObject("registerFailMsg"));
+                    KitchensinkMessages.MESSAGES.registerFailMessage());
             facesContext.addMessage(null, m);
         }
     }
 
     private String getRootErrorMessage(Exception e) {
         // Default to general error message that registration failed.
-        String errorMessage = (String) resourceBundle.getObject("defaultErrorMsg");
+        String errorMessage = KitchensinkMessages.MESSAGES.defaultErrorMessage();
         if (e == null) {
             // This shouldn't happen, but return the default messages
             return errorMessage;
