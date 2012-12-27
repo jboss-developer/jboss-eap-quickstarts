@@ -1,4 +1,4 @@
-DeltaSpike Deactivateable: Demonstrate usage of Deactivateable
+deltaspike-deactivatable: Demonstrate usage of Deactivateable
 ======================================================
 Author: Rafael Benevides
 Level: Beginner
@@ -9,9 +9,9 @@ Target Product: WFK
 What is it?
 -----------
 
-DeltaSpike artifacts can be deactivated manually (e.g. to improve the performance if a part isn't needed, to provide a custom implementation if the default implementation isn't pluggable by default or to bypass an implementation which causes an issue).
+DeltaSpike allows that its artifacts can be deactivated manually (e.g. to improve the performance if a part isn't needed, to provide a custom implementation if the default implementation isn't pluggable by default or to bypass an implementation which causes an issue).
 
-To deactivate a class it's required to implement ClassDeactivator. Returning 'false' or 'true' allows to de-/activate the class in question. This project has a ClassDeactivator that deactivates the ExcludeExtension. In this case the `MyBean` is annotated with `@Exclude` but continues to get injected.
+To deactivate a class you need to implement ClassDeactivator. Returning 'false' or 'true' allows to deactivate or activate the class in question. This project has a ClassDeactivator that deactivates the ExcludeExtension. If the `ExcludeExtension` is deactivated then `MyBean`, which is annotated with `@Exclude`, won't be excluded
  
 
 System requirements
@@ -54,8 +54,7 @@ _NOTE: The following commands assume you have configured your Maven user setting
 Run tests from JBDS
 -----------------------
 
-To be able to run the tests from JBDS, first set the active Maven profile in project properties to be either 'arq-jbossas-managed' for running on
-managed server or 'arq-jbossas-remote' for running on remote server.
+To be able to run the tests from JBDS, first set the active Maven profile in project properties to be either 'arq-jbossas-managed' for running on managed server or 'arq-jbossas-remote' for running on remote server.
 
 To run the tests, right click on the project or individual classes and select Run As --> JUnit Test in the context menu.
 

@@ -63,7 +63,7 @@ public class DeactivatableTest {
     private MyBean myBean;
 
     @Test
-    public void assertPersonInjected() {
+    public void assertMyBeanInjected() {
         //Should not be null since ExcludeExtension was deactivated.
         assertThat(myBean, notNullValue());
     }

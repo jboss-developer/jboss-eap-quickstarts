@@ -134,15 +134,13 @@
         <dependency>
             <groupId>org.apache.deltaspike.core</groupId>
             <artifactId>deltaspike-core-api</artifactId>
-            <scope>compile</scope>
         </dependency>
 
-        <!-- Deltaspike Impl. we use runtime scope as we its implementation 
-            dependencies only on runtime -->
+        <!-- Deltaspike Impl. we use compile scope also since the Extensions 
+            that we need to deactivate are on this dependency -->
         <dependency>
             <groupId>org.apache.deltaspike.core</groupId>
             <artifactId>deltaspike-core-impl</artifactId>
-            <scope>compile</scope>
         </dependency>
 
 
