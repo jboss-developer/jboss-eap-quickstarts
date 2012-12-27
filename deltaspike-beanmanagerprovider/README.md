@@ -1,4 +1,4 @@
-jboss-as-deltaspike-beanmanager: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener
+deltaspike-beanmanagerprovider: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener
 ======================================================
 Author: Rafael Benevides
 Level: Intermediate

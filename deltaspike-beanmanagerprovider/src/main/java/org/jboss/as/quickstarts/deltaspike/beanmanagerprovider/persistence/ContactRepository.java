@@ -33,16 +33,13 @@ import javax.persistence.PersistenceContextType;
 import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model.Contact;
 
 /**
- * This class is {@link Stateful} because we need to keep the {@link EntityManager} opened during the conversation scope.
  * 
- * @see ConversationScoped
- * 
- *      While the {@link EntityManager} is opened the {@link Contact} is managed by this entity and there's no need to
- *      constantly check the database (every request) to determine if this entity should be updated.
+ * This class is responsible for dealing with the persistence of {@link Contact} entities
  * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
+// This class is Stateful because we need to keep the EntityManager opened during the conversation scope.
 @Stateful
 @ConversationScoped
 public class ContactRepository {
@@ -50,16 +47,31 @@ public class ContactRepository {
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
+    /**
+     * Persit the {@link Contact}
+     * 
+     * @param contact
+     */
     public void persist(Contact contact) {
         entityManager.persist(contact);
         entityManager.flush();
     }
 
+    /**
+     * Removes the {@link Contact}
+     * 
+     * @param contact
+     */
     public void remove(Contact contact) {
         entityManager.remove(contact);
         entityManager.flush();
     }
 
+    /**
+     * Retrieve all {@link Contact}
+     * 
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<Contact> getAllContacts() {
         return entityManager.createQuery("SELECT m From Contact m").getResultList();

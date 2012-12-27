@@ -47,68 +47,85 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.persistence.Audit
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "Contact", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-//Here we register the AuditContactListener class as the listener to entity events 
+// Here we register the AuditContactListener class as the listener to entity events
 @EntityListeners(AuditContactListener.class)
-public class Contact implements Serializable
-{
+public class Contact implements Serializable {
 
-   @Id
-   @GeneratedValue
-   private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-   @NotNull
-   @Size(min = 1, max = 25)
-   @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
-   private String name;
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    private String name;
 
-   @NotNull
-   @NotEmpty
-   @Email
-   private String email;
+    @NotNull
+    @NotEmpty
+    @Email
+    private String email;
 
-   @NotNull
-   @Size(min = 10, max = 12)
-   @Digits(fraction = 0, integer = 12)
-   @Column(name = "phone_number")
-   private String phoneNumber;
+    @NotNull
+    @Size(min = 10, max = 12)
+    @Digits(fraction = 0, integer = 12)
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-   public Long getId()
-   {
-      return id;
-   }
+    public Long getId() {
+        return id;
+    }
 
-   public void setId(Long id)
-   {
-      this.id = id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public String getName()
-   {
-      return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setName(String name)
-   {
-      this.name = name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public String getEmail()
-   {
-      return email;
-   }
+    public String getEmail() {
+        return email;
+    }
 
-   public void setEmail(String email)
-   {
-      this.email = email;
-   }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-   public String getPhoneNumber()
-   {
-      return phoneNumber;
-   }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-   public void setPhoneNumber(String phoneNumber)
-   {
-      this.phoneNumber = phoneNumber;
-   }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Contact other = (Contact) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
 }

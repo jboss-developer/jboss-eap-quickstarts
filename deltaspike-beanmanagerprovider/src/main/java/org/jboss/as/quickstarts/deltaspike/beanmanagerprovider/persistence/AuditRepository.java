@@ -35,11 +35,12 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model.AuditContac
 
 /**
  * 
- * This class is {@link Stateless} because there is no need to hold a state
+ * This class is responsible for dealing with the persistence of {@link AuditContact} entities
  * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
+// This class is {@link Stateless} because there is no need to hold a state
 @Stateless
 public class AuditRepository implements Serializable {
 
@@ -60,6 +61,11 @@ public class AuditRepository implements Serializable {
         entityManager.flush();
     }
 
+    /**
+     * Retrieve all AudittRecords from the {@link EntityManager}
+     * 
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<AuditContact> getAllAuditRecords() {
         return entityManager.createQuery("SELECT a FROM AuditContact a").getResultList();

@@ -48,6 +48,7 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.model.OPERATION;
 public class AuditContactListener {
 
     // Injection does not work because this class is not managed by CDI
+    // NOTE: JPA 2.1 will support CDI Injection in EntityListener - in Java EE 7
     private AuditRepository auditRepository;
 
     /**
