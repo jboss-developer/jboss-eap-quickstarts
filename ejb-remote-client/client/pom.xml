@@ -14,7 +14,7 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>com.sample</groupId>
-   <artifactId>jboss-as-ejb-remote-client</artifactId>
+   <artifactId>ejb-client</artifactId>
    <version>7.1.2-SNAPSHOT</version>
    <packaging>jar</packaging>
    <name>JBoss AS Quickstarts: EJB Remote Client</name>
