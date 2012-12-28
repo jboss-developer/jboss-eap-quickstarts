@@ -14,7 +14,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sample</groupId>
-    <artifactId>jboss-as-ejb-remote-parent</artifactId>
+     <artifactId>ejb-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts: Parent for remote EJB and Java client</name>
