@@ -13,8 +13,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-ejb-remote-parent</artifactId>
+    <groupId>com.sample</groupId>
+     <artifactId>ejb-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts: Parent for remote EJB and Java client</name>
