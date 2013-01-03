@@ -1,9 +1,9 @@
-deltaspike-deactivatable: Demonstrate usage of Deactivateable
+deltaspike-deactivatable: Demonstrate usage of Deactivatable
 ======================================================
 Author: Rafael Benevides
 Level: Beginner
 Technologies: CDI, DeltaSpike
-Summary: Demonstrate usage of Deactivateable.
+Summary: Demonstrate usage of Deactivatable.
 Target Product: WFK
 
 What is it?
