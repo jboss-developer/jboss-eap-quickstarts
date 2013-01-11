@@ -1,12 +1,11 @@
 jts: Java Transaction Service - Distributed EJB Transactions Across Multiple Containers 
 ======================================================================================
 Author: Tom Jenkinson
-
-
-Pre-requisites
---------------
-
-Developers should be familiar with the concepts introduced in the _cmt_ quickstart.
+Level: Intermediate
+Technologies: JTS
+Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions
+Prerequisites: cmt
+Target Product: EAP
 
 
 What is it?
@@ -55,55 +54,85 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
-Configure the application server to use PostgreSQL
---------------------------------------------------
-
-This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#postgresql)
-
-_Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with cmt-quickstart-database in the PostgreSQL instructions.
-
-Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
-
-Wait until a later in these instructions to add the PostgreSQL module and driver configuration to the JBoss server.
-
 Prerequisites
 ------------------
 
-This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL for will be provided when you configure the JBoss servers.
+Developers should be familiar with the concepts introduced in the _cmt_ quickstart.
+
+This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL are below.
 
 
-Configure the JBoss servers
+Install the PostgreSQL Database
+-------------------------------
+
+This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#postgresql)
+
+_Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with `jts-quickstart-database` in the PostgreSQL instructions.
+
+Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
+
+Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss server.
+
+
+Configure the JBoss Servers
 ---------------------------
 
-For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as "-Djboss.socket.binding.port-offset=100"
+For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as "-Djboss.socket.binding.port-offset=100". 
 
-The application servers should both be configured as follows:
+Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. 
 
-1. Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml
-2. Enable JTS as follows:
+### Modify the Server Configuration file. 
+
+You can modify the server configuration using the JBoss CLI tool or by manually editing the server configuration file.
+
+#### Modify the Server Configuration using the JBoss CLI Tool
+
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+    
+        For Linux: bin/jboss-cli.sh --connect
+        For Windows: bin\jboss-cli.bat --connect
+3. At the prompt, type the following (replace the words UNIQUE_IDENTIFER with values unique to both servers):
+
+        [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=transactions,value=on)
+        [standalone@localhost:9999 /] /subsystem=transactions/:write-attribute(name=jts,value=true)
+        [standalone@localhost:9999 /] /subsystem=transactions/:write-attribute(name=node-identifier,value=UNIQUE_IDENTIFER)
+4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
+
+#### Modify the Server Configuration Manually
+
+1. Make a backup copy of the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file.
+2. Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml
+3. Enable JTS as follows:
     * Find the orb subsystem and change the configuration to:  
 
-            <subsystem xmlns="urn:jboss:domain:jacorb:1.1">
+            <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
                 <orb>
                     <initializers security="on" transactions="on"/>
                 </orb>
             </subsystem>
-    * Find the transaction subsystem and append the `<jts/>` element:  
+    * Find the transaction subsystem and set a unique node-identifier, (replace the words UNIQUE_IDENTIFER with values unique to both servers) and append the `<jts/>` element:  
 
-            <subsystem xmlns="urn:jboss:domain:transactions:1.1">
+            <subsystem xmlns="urn:jboss:domain:transactions:1.2">
+                <core-environment node-identifier="UNIQUE_IDENTIFIER">
                 <!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING -->
                 <jts/>
             </subsystem>
-3. Make a copy of this JBoss directory structure to use for the second server.
+4.  _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
+  
+### Clone the JBOSS_HOME Directory     
 
-4. Application server 1 must be configured to use PostgreSQL as per the instructions in [Install and Configure the PostgreSQL Database] (../README.md#postgresql).
+Make a copy of this JBoss directory structure to use for the second server.
+
+### Configure Server1 to use PostgreSQL
+
+2. Application server 1 must be configured to use PostgreSQL as per the instructions in [Install and Configure the PostgreSQL Database] (../README.md#postgresql).
     * Be sure to start the PostgreSQL database.
-    * Be sure to [add the PostgreSQL Module](../README.md#addpostgresqlmodule) to the Application 1 server.
-    * Be sure to [add the PostgreSQL driver](../README.md#addpostgresqlmodule) to the Application 1 server configuration file.
-
-_Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with jts-quickstart-database in the PostgreSQL instructions.
-
-_IMPORTANT_: After you have finished with the quickstart, if you no longer wish to use JTS, it is important to restore your backup from step 1 above.
+    * [Add the PostgreSQL Module](../README.md#addpostgresqlmodule) to the Application 1 server `modules/` directory.
+    * [Add the PostgreSQL driver](../README.md#addpostgresqldriver) to the Application 1 server configuration file.
 
 
 Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers
@@ -134,7 +163,6 @@ Since this quickstart builds two separate components, you can not use the standa
 
 4. This will deploy `application-component-1/target/jboss-as-jts-application-component-1.war` and `application-component-2/target/jboss-as-jts-application-component-2.jar` to the running instance of the server.
 
-
 Access the application 
 ---------------------
 
@@ -164,15 +192,34 @@ Undeploy the Archive
 
         mvn package jboss-as:undeploy
 
+
 <a id="remove-jts-configuration"></a>
-Remove the JTS Configuration from the JBoss server
+Remove the JTS Configuration from the JBoss Server
 ---------------------------
 
-You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts.
+You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts. 
+You can modify the server configuration using the JBoss CLI tool or by manually editing the server configuration file.
 
+### Remove the JTS Server Configuration using the JBoss CLI Tool
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following. 
+
+        If you are using Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
+        If you are using Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+    
+        For Linux: bin/jboss-cli.sh --connect
+        For Windows: bin\jboss-cli.bat --connect
+3. At the prompt, type the following:
+
+        [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
+        [standalone@localhost:9999 /] /subsystem=transactions/:undefine-attribute(name=jts)
+        [standalone@localhost:9999 /] /subsystem=transactions/:undefine-attribute(name=node-identifier)
+
+### Remove the JTS Server Configuration Manually
 1. Stop the server.
-2. Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml
-3. Disable JTS as follows:
+2. If you backed up the JBOSS_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
+3. If you did not make a backup copy, open the file JBOSS_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
+
     * Find the orb subsystem and change the configuration back to:  
 
             <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
@@ -183,5 +230,7 @@ You must remove the JTS server configuration you did during setup because it int
     * Find the transaction subsystem and remove the `<jts/>` element:  
 
             <subsystem xmlns="urn:jboss:domain:transactions:1.2">
+                <!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT -->
                 <!-- LEAVE EXISTING CONFIG AND REMOVE THE </jts> -->
             </subsystem>
+

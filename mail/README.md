@@ -1,6 +1,10 @@
 mail: E-Mail Example using CDI (Contexts and Dependency Injection) and JSF (JavaServer Faces)
 ================================================================================================
 Author: Joel Tosi
+Level: Beginner
+Technologies: JavaMail, JSF, CDI
+Summary: Demonstrates the use of JavaMail
+Target Product: EAP
 
 What is it?
 -----------

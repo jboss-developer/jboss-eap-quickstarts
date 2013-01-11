@@ -1,6 +1,12 @@
 QUICKSTART_NAME: Brief Description of the Quickstart
 ======================================================
 Author: YOUR_NAME and optional CONTACT_INFO
+Level: [one of the following: Beginner, Intermediate, or Advanced]
+Technologies: (list technologies used here)
+Summary: (a brief description of the quickstart to appear in the table )
+Prerequisites: (list any quickstarts that must be deployed prior to running this one)
+Target Product: (EAP, WFK, JDG, etc)
+
 
 _This file is meant to serve as a template or guideline for your own quickstart README.md file. Be sure to replace QUICKSTART_NAME and YOUR_NAME, with the appropriate values._
 
@@ -240,4 +246,3 @@ _Note_: There is a limit to the number of applications you can deploy concurrent
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
 * To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
-

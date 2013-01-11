@@ -1,17 +1,18 @@
 JBoss AS Quickstarts
 ====================
-
+Summary: The quickstarts demonstrate Java EE 6 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
 
 Introduction
 ---------------------
 
-The quickstarts included in this distribution were written to demonstrate Java EE 6 and a few additional technologies. They provide small, specific, working examples that can be used as a reference for your own project.
 
 These quickstarts run on both JBoss Enterprise Application Platform 6 and JBoss AS 7. If you want to run the quickstarts on JBoss Enterprise Application Platform 6, we recommend using the JBoss Enterprise Application Platform 6 ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
 
 Be sure to read this entire document before you attempt to work with the quickstarts. It contains the following information:
 
 * [Available Quickstarts](#availableQuickstarts): List of the available quickstarts and details about each one.
+
+* [Suggested Approach to the Quickstarts](#suggestedApproach): A suggested approach on how to work with the quickstarts.
 
 * [System Requirements](#systemrequirements): List of software required to run the quickstarts.
 
@@ -20,8 +21,6 @@ Be sure to read this entire document before you attempt to work with the quickst
 * [Run the Quickstarts](#runningquickstarts): General instructions for building, deploying, and running the quickstarts.
 
 * [Run the Arquillian Tests](#arquilliantests): How to run the Arquillian tests provided by some of the quickstarts.
-
-* [Suggested Approach to the Quickstarts](#suggestedApproach): A suggested approach on how to work with the quickstarts.
 
 * [Optional Components](#optionalcomponents): How to install and configure optional components required by some of the quickstarts.
 
@@ -37,57 +36,7 @@ Some quickstarts are designed to enhance or extend other quickstarts. These are 
 
 Quickstarts with tutorials in the [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications") are noted with two asterisks ( ** ) following the quickstart name. 
 
-| **Quickstart Name** | **Demonstrated Technologies** | **Description** | **Experience Level Required** | **Prerequisites** |
-|:-----------|:-----------|:-----------|:-----------|:-----------|
-| [bean-validation](bean-validation/README.md "bean-validation") | Bean Validation, JPA | Shows how to use Arquillian to test Bean Validation | Beginner | None |
-| [bmt](bmt/README.md "bmt") | EJB, Bean-Managed Transactions (BMT) | EJB that demonstrates bean-managed transactions (BMT) | Intermediate | None |
-| [cdi-injection](cdi-injection/README.md "cdi-injection") | CDI injection, Qualifiers, Servlet | Demonstrates the use of CDI 1.0 Injection and Qualifiers with JSF as the front-end client. | Beginner | None |
-| [cmt] (cmt/README.md "cmt") | EJB, Container-Managed Transactions (CMT) | EJB that demonstrates container-managed transactions (CMT) | Intermediate | None |
-| [ejb-in-ear](ejb-in-ear/README.md "ejb-in-ear") | EJB, JSF, JAR, and WAR deployed as an EAR | Packages an EJB JAR and WAR in an EAR | Intermediate | None |
-| [ejb-in-war](ejb-in-war/README.md "ejb-in-war") | EJB and JSF deployed as a WAR | Packages an EJB JAR in a WAR | Intermediate | None |
-| [ejb-remote](ejb-remote/README.md "ejb-remote") | Remote EJB | Shows how to access an EJB from a remote Java client program using JNDI | Intermediate | None |
-| [ejb-security](ejb-security/README.md "ejb-security") | EJB, Security | Shows how to use Java EE Declarative Security to Control Access to EJB 3 | Intermediate | None |
-| [forge-from-scratch](forge-from-scratch/README.md "forge-from-scratch") | Forge | Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge | Intermediate | None |
-| [greeter](greeter/README.md "greeter") | CDI, JSF, JPA, EJB, JTA | Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0 | Beginner | None |
-| [h2-console](h2-console/README.md "h2-console") | H2 Database Console | Shows how to use the H2 console with JBoss AS | Beginner | greeter |
-| [helloworld**](helloworld/README.md "helloworld") | Basic CDI, Servlet | Basic example that can be used to verify that the server is configured and running correctly | Beginner | None |
-| [helloworld-html5](helloworld-html5/README.md "helloworld-html5") | Basic HTML5 |Demonstrates the use of CDI 1.0 and JAX-RS using the POH5 architecture and RESTful services on the backend | Beginner | None |
-| [helloworld-jms](helloworld-jms/README.md "helloworld-jms") | JMS | Demonstrates the use of a standalone (Java SE) JMS client | Intermediate | None |
-| [helloworld-mdb](helloworld-mdb/README.md "helloworld-mdb") | Basic JMS, Message-Driven Bean (MDB) | Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean  | Intermediate | None |
-| [helloworld-osgi**](helloworld-osgi/README.md "helloworld-osgi") | OSGi JAR | Shows how to create and deploy a simple OSGi Bundle | Advanced | None |
-| [helloworld-rs](helloworld-rs/README.md "helloworld-rs") | CDI, JAX-RS | Demonstrates the use of CDI 1.0 and JAX-RS | Intermediate | None |
-| [helloworld-singleton](helloworld-singleton/README.md "helloworld-singleton") | Singleton Session Bean | Demonstrates the use of an EJB 3.1 Singleton Session Bean, instantiated once, maintaining state for the life of the session | Beginner | None |
-| [hibernate3](hibernate3/README.md "hibernate3") | Hibernate 3 | Performs the same functions as _hibernate4_ quickstart, but uses Hibernate version 3 for database access | Intermediate | None |
-| [hibernate4](hibernate4/README.md "hibernate4") | Hibernate 4 | Performs the same functions as _hibernate3_ quickstart, but uses Hibernate version 4 for database access | Intermediate | None |
-| [jax-rs-client](jax-rs-client/README.md "jax-rs-client") | JAX-RS | Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS | Intermediate | helloworld-rs |
-| [jta-crash-rec](jta-crash-rec/README.md "jta-crash-rec") | JTA, Crash Recovery | Uses Java Transaction API and JBoss Transactions to demonstrate recovery of a crashed transaction | Advanced | None |
-| [jts](jts/README.md "jts") | JTS | Uses Java Transaction Service (JTS) to coordinate distributed transactions | Intermediate | cmt |
-| [jts-distributed-crash-rec](jts-distributed-crash-rec/README.md "jts-distributed-crash-rec") | JTS | Demonstrates recovery of distributed crashed components | Advanced | jts |
-| [kitchensink**](kitchensink/README.md "kitchensink") | CDI, JSF, JPA, EJB, JPA, JAX-RS, BV | An example that incorporates multiple technologies | Intermediate | None |
-| [kitchensink-ear](kitchensink-ear/README.md "kitchensink-ear")  | EAR | Based on kitchensink, but deployed as an EAR | Intermediate | None |
-| [kitchensink-html5-mobile](kitchensink-html5-mobile/README.md "kitchensink-html5-mobile") | HTML5 | Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers | Intermediate | None |
-| [kitchensink-jsp](kitchensink-jsp/README.md "kitchensink-jsp") | JSP | Based on kitchensink, but uses a JSP for the user interface | Intermediate | None |
-| [log4j](log4j/README.md "log4j") | JBoss Modules | Demonstrates how to use modules to control class loading for 3rd party logging frameworks | Beginner | None |
-| [logging-tools](logging-tools/README.md "logging-tools") | JBoss Logging Tools | Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages | Beginner | None |
-| [mail](mail/README.md "mail") | JavaMail | Demonstrates the use of JavaMail | Beginner | None |
-| [numberguess**](numberguess/README.md "numberguess") | CDI, JSF | Demonstrates the use of CDI 1.0 and JSF 2.0  | Beginner | None |
-| [payment-cdi-event](payment-cdi-event/README.md "payment-cdi-event") | CDI, Events | Demonstrates how to use CDI 1.0 Events  | Beginner | None |
-| [servlet-async](servlet-async/README.md "servlet-async") | CDI, EJB, Servlet | Demonstrates CDI, plus asynchronous Servlets and EJBs | Intermediate | None |
-| [servlet-filterlistener](servlet-filterlistener/README.md "servlet-filterlistener") | Servlet | Demonstrates Servlet filters and listeners | Intermediate | None |
-| [servlet-security](servlet-security/README.md "servlet-security") | Servlet, Security | Demonstrates how to use Java EE declarative security to control access to Servlet 3 | Intermediate | None |
-| [shopping-cart](shopping-cart/README.md "shopping-cart") | Stateful Session Bean (SFSB) | Demonstrates a stateful session bean | Intermediate | None |
-| [tasks](tasks/README.md "tasks") | Arquillian, JPA, CRUD | Demonstrates testing JPA using Arquillian | Intermediate | None |
-| [tasks-jsf](tasks-jsf/README.md "tasks-jsf") | JSF, JPA | Provides a JSF 2.0 as view layer for the `tasks` quickstart | Intermediate | None |
-| [tasks-rs](tasks-rs/README.md "tasks-rs") | JAX-RS, JPA | Demonstrates how to use JAX-RS and JPA together | Intermediate | None |
-| [temperature-converter](temperature-converter/README.md "temperature-converter") | Stateless Session Bean (SLSB) | Demonstrates a stateless session bean | Beginner | None |
-| [wicket-ear](wicket-ear/README.md "wicket-ear") | Apache Wicket, CRUD, JPA | Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration, packaged as an EAR  | Intermediate | None |
-| [wicket-war](wicket-war/README.md "wicket-war") | Apache Wicket, CRUD, JPA | Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration packaged as a WAR  | Intermediate | None |
-| [wsat-simple](wsat-simple/README.md "wsat-simple") | WS-AT, Web service, JAX-WS | Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive  | Intermediate | None |
-| [wsba-coordinator-completion-simple](wsba-coordinator-completion-simple/README.md "wsba-coordinator-completion-simple") | WS-BA, Web service, JAX-WS | Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a WAR archive (Participant Completion protocol) | Intermediate | None |
-| [wsba-participant-completion-simple](wsba-participant-completion-simple/README.md "wsba-participant-completion-simple") | WS-BA, Web service, JAX-WS | Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a war archive (Coordinator Completion protocol) | Intermediate | None |
-| [xml-dom4j](xml-dom4j/README.md "xml-dom4j") | DOM4J, Servlet, JSF 2.0 | Demonstrates how to upload an XML file and parse it using 3rd party XML parsing libraries | Intermediate | None |
-| [xml-jaxp](xml-jaxp/README.md "xml-jaxp") | JAXP, SAX, DOM, Servlet | Upload, validation and parsing of XML using SAX or DOM | Intermediate | None |
-
+[TOC-quickstart]
 
 <a id="suggestedApproach"></a>
 Suggested Approach to the Quickstarts 
@@ -162,11 +111,23 @@ If you are using the JBoss Enterprise Application Platform 6 distribution, you n
 
 If you are using the JBoss AS 7 Quickstart distribution, the community artifacts are available in the Maven central repository so no additional configuration is needed.
 
+### Maven Profiles
+
+Profiles are used by Maven to customize the build environment. The `pom.xml` in the root of the quickstart directory defines the following profiles:
+
+* The `default` profile defines the list of modules or quickstarts that require nothing but JBoss Enterprise Application Platform or JBoss AS .
+* The `requires-postgres` profile lists the quickstarts that require PostgreSQL to be running when the quickstart is deployed.
+* The `complex-dependency` profile lists quickstarts that require manual configuration that can not be automated.
+* The `requires-full` profile lists quickstarts the require you start the server using the full profile.
+* The `requires-xts` profile lists quickstarts the require you start the server using the xts profile.
+* The `non-maven` profile lists quickstarts that do not require Maven, for example, quickstarts that depend on deployment of other quickstarts or those that use other Frameworks such as Forge.
+
+
 <a id="runningquickstarts"></a>
 Run the Quickstarts 
 -------------------
 
-The root folder of each quickstart contains a README file with specific details on how to build and run the example. In most cases you do the following:
+The root folder of each individual quickstart contains a README file with specific details on how to build and run the example. In most cases you do the following:
 
 * [Start the JBoss server](#startjboss)
 * [Build and deploy the quickstart](#buildanddeploy)
@@ -257,6 +218,56 @@ The command to undeploy the quickstart is simply:
 
         mvn jboss-as:undeploy
  
+<a id="verifyall"></a>
+### Verify the Quickstarts Build and Deploy with One Command
+-------------------------
+
+You can verify the quickstarts build and deploy using one command. However, quickstarts that have complex dependencies must be skipped. For example, the _jax-rs-client_ quickstart is a RESTEasy client that depends on the deployment of the _helloworld-rs_ quickstart. As noted above, the root `pom.xml` file defines a `complex-dependencies` profile to exclude these quickstarts from the root build process. 
+
+To build and test the quickstarts:
+
+1. Do not start the server.
+2. Open a command line and navigate to the root directory of the quickstarts.
+3. Use this command to build, deploy, and undeploy the quickstarts that do not have complex dependencies:
+
+        For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
+
+            mvn clean install -Pdefault,!complex-dependencies
+
+        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
+
+            mvn clean install -Pdefault,!complex-dependencies -s PATH_TO_QUICKSTARTS/example-settings.xml
+
+This command iterates through the quickstarts, excluding those with complex dependencies, and does the following:
+
+* Builds the quickstart
+* Starts the server
+* Deploys the quickstart
+* Undeploys the quickstart
+* Stops the server
+
+<a id="undeployall"></a>
+### Undeploy the Deployed Quickstarts with One Command
+-------------------------
+
+To undeploy the quickstarts from the root of the quickstart folder, you must pass the argument `-fae` (fail at end) on the command line. This allows the command to continue past quickstarts that fail due to complex dependencies and quickstarts that only have Arquillian tests and do not deploy archives to the server.
+
+You can undeploy quickstarts using the following procedure:
+
+1. Start the server.
+2. Open a command line and navigate to the root directory of the quickstarts.
+3. Use this command to undeploy any deployed quickstarts:
+
+        For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
+
+            mvn jboss-as:undeploy -fae
+
+        For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
+
+            mvn jboss-as:undeploy -fae -s PATH_TO_QUICKSTARTS/example-settings.xml
+
+To undeploy any quickstarts that fail due to complex dependencies, follow the undeploy procedure described in the quickstart's README file.
+
 
 <a id="arquilliantests"></a>
 ### Run the Arquillian Tests 
@@ -303,7 +314,6 @@ You can run these tests using either a remote or managed container. The quicksta
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
             mvn clean test -Parq-jbossas-managed
-
 
 <a id="useeclipse"></a>
 Use JBoss Developer Studio or Eclipse to Run the Quickstarts
@@ -452,7 +462,7 @@ Use the following steps to install and configure PostgreSQL on Linux. You can do
 
 ##### Mac OS X Instructions
 
-The following are the steps to install and start PostreSQL on Mac OS X. Note that this guide covers only 'One click installer' option.
+The following are the steps to install and start PostgreSQL on Mac OS X. Note that this guide covers only 'One click installer' option.
 
 1. Install PostgreSQL using Mac OS X One click installer: <http://www.postgresql.org/download/macosx/>
 2. Allow prepared transactions:
@@ -495,7 +505,7 @@ Use the following steps to install and configure PostgreSQL on Windows:
             max_connections = 10
 3.  Start the database server
     * Choose Start -> All Programs -> PostgreSQL 9.1\pgAdmin III
-    * Server Groups -> Servers (1) -> PostreSQL 9.1 (localhost:5432)
+    * Server Groups -> Servers (1) -> PostgreSQL 9.1 (localhost:5432)
     * Right click -> Stop Service
     * Right click -> Start Service
 4.   Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)
@@ -545,6 +555,26 @@ Use the following steps to install and configure PostgreSQL on Windows:
 <a id="addpostgresqldriver"></a>
 
 #### Add the Driver Configuration to the JBoss server
+
+You can configure the driver using the JBoss CLI or by manually editing the configuration file.
+
+##### Configure the Driver Using the JBoss CLI
+
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+    
+        For Linux: bin/jboss-cli.sh --connect
+        For Windows: bin\jboss-cli.bat --connect
+3. At the prompt, type the following:
+
+        [standalone@localhost:9999 /] /subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+
+##### Configure the Driver Manually
+
 1.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 2.  Open the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file in an editor and locate the subsystem `urn:jboss:domain:datasources:1.0`. 
 3.  Add the following driver to the `<drivers>` section that subsystem. You may need to merge with other drivers in that section:
@@ -609,5 +639,4 @@ When instructed to use Byteman to halt the application, perform the following st
 #### Disable the Byteman Script
  
 When you are done testing the quickstart, remember to restore the configuration file with the backup copy you made in step 2 above.
-
 

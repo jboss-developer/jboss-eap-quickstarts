@@ -1,13 +1,17 @@
-helloworld-osgi: Helloworld Using OSGi (Open Services Gateway initiative)
-=========================================================================
-Author: Pete Muir
+helloworld-osgi: Helloworld Using OSGi
+======================================
+Author: David Bosschaert
+Level: Intermediate
+Technologies: OSGi
+Summary: Shows how to create and deploy a simple OSGi Bundle
+Target Product: EAP
 
 What is it?
 -----------
 
 This example demonstrates the use of *OSGi* in  *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
 
-There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide "Getting Started Developing Applications Guide").
+There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/HelloworldOSGiQuickstart/).
 
 
 System requirements

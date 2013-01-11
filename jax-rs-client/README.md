@@ -1,7 +1,11 @@
 jax-rs-client: External JAX-RS Client
 ======================
-
-Author: Blaine Mincey, blaine.mincey@redhat.com
+Author: Blaine Mincey
+Level: Intermediate
+Technologies: JAX-RS
+Summary: Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS
+Prerequisites: helloworld-rs
+Target Product: EAP
 
 What is it?
 -----------
@@ -78,6 +82,7 @@ MediaType: application/json
 
 ===============================================
 
+
 OpenShift
 ---------
 
@@ -152,4 +157,3 @@ _Note_: There is a limit to the number of applications you can deploy concurrent
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
 * To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
-

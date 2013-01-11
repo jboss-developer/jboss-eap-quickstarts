@@ -1,6 +1,10 @@
 kitchensink-html5-mobile: Example AeroGear Application Using Multiple HTML5, Mobile & JAX-RS Technologies 
 =========================================================================================================
 Author: Jay Balunas
+Level: Intermediate
+Technologies: HTML5
+Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
+Target Product: WFK
 
 What is it?
 -----------
@@ -12,10 +16,10 @@ using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validatio
 a persistence unit and some sample persistence and transaction code to help 
 you get your feet wet with database access in enterprise Java.
 
-This application is built using a technique called Plain Old HTML5 (POH5).  This uses a pure HTML
+This application is built using a HTML5 + REST approach.  This uses a pure HTML
 client that interacts with with the application server via restful end-points (JAX-RS).  This
 application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing
-is just as important with POH5 as it is server side, this application uses QUnit to show
+is just as important with client side as it is server side, this application uses QUnit to show
 you how to unit test your JavaScript.
 
 What is a modern web application without mobile web support? This application also integrates

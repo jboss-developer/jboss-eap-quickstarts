@@ -37,10 +37,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @SuppressWarnings("serial")
 @WebServlet("/SecuredServlet")
-@ServletSecurity(@HttpConstraint(rolesAllowed = { "guest" }))
+@ServletSecurity(@HttpConstraint(rolesAllowed = { "quickstarts" }))
 public class SecuredServlet extends HttpServlet {
 
-   private static String PAGE_HEADER = "<html><head /><body>";
+   private static String PAGE_HEADER = "<html><head><title>servlet-security</title></head><body>";
 
    private static String PAGE_FOOTER = "</body></html>";
 

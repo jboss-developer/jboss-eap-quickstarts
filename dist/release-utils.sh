@@ -8,14 +8,13 @@ if [[ $BASH_VERSION < $REQUIRED_BASH_VERSION ]]; then
 fi
 
 
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 # DEFINE
 
 ARCHETYPES=("jboss-javaee6-webapp-archetype" "jboss-javaee6-webapp-ear-archetype")
 QUICKSTARTS=("kitchensink" "kitchensink-ear")
+VERSIONS_MAVEN_PLUGIN_VERSION=1.3.1
 
 # SCRIPT
 
@@ -53,22 +52,48 @@ EOF
 
 update()
 {
-cd $DIR/../
-echo "Updating versions from $OLDVERSION TO $NEWVERSION for all Java and XML files under $PWD"
-perl -pi -e "s/${OLDVERSION}/${NEWVERSION}/g" `find . -name \*.xml -or -name \*.java`
+    cd $DIR/../
+    echo "Updating versions from $OLDVERSION TO $NEWVERSION for all Java files under $PWD"
+    perl -pi -e "s/${OLDVERSION}/${NEWVERSION}/g" `find . -name \*.java`
+
+    echo "Performing updates to POMs"
+    poms=`find . -type f -iname "pom.xml" -maxdepth 2 | sort`
+    for pom in $poms
+    do
+        echo "Updating ${pom}"
+        mvn org.codehaus.mojo:versions-maven-plugin:${VERSIONS_MAVEN_PLUGIN_VERSION}:set -DnewVersion=${NEWVERSION} -f ${pom} -q
+        mvn org.codehaus.mojo:versions-maven-plugin:${VERSIONS_MAVEN_PLUGIN_VERSION}:commit -f ${pom} -q
+    done
 }
 
 markdown_to_html()
 {
    cd $DIR/../
-   readmes=`find . -iname readme.md -or -iname contributing.md`
-   echo $readmes
-   for readme in $readmes
+
+   # Clear the contents from toc.html file
+   rm dist/target/toc.html
+   touch dist/target/toc.html
+
+   # Loop through the sorted quickstart directories and process them
+   subdirs=`find . -maxdepth 1 -type d ! -iname ".*" | sort`
+   for subdir in $subdirs
    do
-      output_filename=${readme//.md/.html}
-      output_filename=${output_filename//.MD/.html}
-      $DIR/github-flavored-markdown.rb $readme > $output_filename  
+      readmes=`find $subdir -iname readme.md`
+      for readme in $readmes
+      do
+         echo "Processing $readme"
+         output_filename=${readme//.md/.html}
+         output_filename=${output_filename//.MD/.html}
+         $DIR/github-flavored-markdown.rb $readme > $output_filename  
+      done
    done
+   # Now process the root readme
+   cd $DIR/../
+   readme=README.md
+   echo "Processing $readme"
+   output_filename=${readme//.md/.html}
+   output_filename=${output_filename//.MD/.html}
+   $DIR/github-flavored-markdown.rb $readme > $output_filename  
 }
 
 regenerate()

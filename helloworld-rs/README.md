@@ -1,6 +1,10 @@
 helloworld-rs: Helloworld Using JAX-RS (Java API for RESTful Web Services)
 ==========================================================================
-Authors: Gustavo A. Brey, Gaston Coco and others
+Author: Gustavo A. Brey, Gaston Coco
+Level: Intermediate
+Technologies: CDI, JAX-RS
+Summary: Demonstrates the use of CDI 1.0 and JAX-RS
+Target Product: EAP
 
 What is it?
 -----------
@@ -152,4 +156,3 @@ _Note_: There is a limit to the number of applications you can deploy concurrent
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
 * To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
-

@@ -1,6 +1,10 @@
 kitchensink-jsp: Example Using Multiple Java EE 6 Technologies with a JSP (JavaServer Pages) Front End
 ======================================================================================================
 Author: Elvadas Nono
+Level: Intermediate
+Technologies: JSP
+Summary: Based on kitchensink, but uses a JSP for the user interface
+Target Product: EAP
 
 What is it?
 -----------

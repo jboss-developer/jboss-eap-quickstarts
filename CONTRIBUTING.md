@@ -1,83 +1,158 @@
-JBoss AS Quickstarts 
-====================
+Quickstarts Contributing Guide
+==============================
 
-Quickstarts (or examples, or samples) for JBoss AS. There are a number of rules for quickstarts:
+Purpose of the quickstarts
+--------------------------
 
-* Each quickstart should have a unique name, this enables a user to quickly identify each quickstart
-* A quickstart should have a simple build that the user can quickly understand. If using maven it should:
-  1. Not inherit from another POM
-  2. Import the various BOMs from AS7 APIs to get version numbers
-  3. Use the JBoss AS Maven Plugin to deploy the example
-* The quickstart should be importable into JBoss Tools and deployable there
-* The quickstart should be explained in detail in the associated user guide, including how to deploy
-* If you add a quickstart, don't forget to update `dist/src/main/assembly/README.md` and `pom.xml` (the 'modules' section).
-* The quickstart should be formatted using the JBoss AS profiles found at <https://github.com/jbossas/jboss-as/tree/master/ide-configs>
+- To demonstrate Java EE 6 technologies
 
-You can find the documentation at <https://docs.jboss.org/author/display/AS7/Documentation>.
+- To provide developers with working examples and instructions that are easy to follow .
 
-If you add a quickstart, don't forget to update `README.md`.
-
-The 'dist' folder contains Maven scripts to build a zip of the quickstarts.
-
-The quickstart code is licensed under the Apache License, Version 2.0:
-<http://www.apache.org/licenses/LICENSE-2.0.html>
+- To allow examples to be copied by developers and used as the basis for their own projects.
 
 
-Testing the quickstarts
------------------------
+Basic Steps
+-----------
 
-Most of the quickstarts require JBoss Enterprise Application Platform or JBoss AS only in standalone mode. Some require the "standalone-full" profile, some require XTS, some require Postgres and some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:
+To contribute with Quickstarts, clone your own fork instead of cloning the main Quickstarts repository, commit your work on topic branches and make pull requests. In detail:
 
-    mvn clean install jboss-as:deploy jboss-as:undeploy -Parq-jbossas-remote -P-requires-postgres,-requires-full,-complex-dependencies,-requires-xts
+1. [Fork](https://github.com/jboss-jdf/jboss-as-quickstart/fork_select) the project.
 
-Or, to run those only those quickstarts that require the full profile
+2. Clone your fork (`git@github.com:<your-username>/jboss-as-quickstart.git`).
 
-    mvn clean install jboss-as:deploy jboss-as:undeploy -Parq-jbossas-remote -P-requires-postgres,-default,-complex-dependencies,-requires-xts
+3. Add an `upstream` remote (`git remote add upstream git@github.com:jboss-jdf/jboss-as-quickstart.git`).
 
-And so on.
+4. Get the latest changes from upstream (e.g. `git pull upstream master`).
 
-Quickstarts in other repositories
----------------------------------
+5. Create a new topic branch to contain your feature, change, or fix (`git checkout -b <topic-branch-name>`).
 
-If your quickstarts are stored in another repository, you may wish to merge them in from there, rather than contribute them from source. If you plan to do this, discuss first with the JBoss AS Quickstarts team, as they will want to review all commits to *your* repo going forward.
+6. Make sure that your changes follow the General Guidelines below.
 
-To do this
+7. Commit your changes to your topic branch.
 
-1. Add the other repo as a remote
-    
-    git remote add -f <other repo> <other repo url>
+8. Push your topic branch up to your fork (`git push origin  <topic-branch-name>`).
 
-2. Merge from the tag in the other repo that you wish to use. It is important to use a tag, to make tracking of history easier. We use a recursive merge strategy, always preferring changes from the other repo, in effect overwriting what we have locally.
+9. [Open a Pull Request](http://help.github.com/send-pull-requests/) with a clear title and description.
 
-    git merge <tag> -s recursive -Xtheirs --no-commit
+If you don't have the Git client (`git`), get it from: <http://git-scm.com/>
 
-3. The merge is not committed, so any updates to the README.md and parent POM can be made. Having made these, perform the merge. We suggest updating the commit message to "Merge <Other Project Name> '<Tag>'".
 
-    git commit
+General Guidelines
+------------------
 
-4. Review and push to upstream
+* The sample project should be formatted using the JBoss AS profiles found at http://github.com/jboss/ide-config/tree/master/
 
-    git push upstream HEAD:master
+ - Code should be well documented with good comments. Please add an author tag (@author) to credit yourself for writing the code.
+ - You should use readable variable names to make it easy for users to read the code.
+
+* The package must be *org.jboss.as.quickstarts*
+
+* The quickstart project or folder name should match the quickstart name. Each sample project should have a unique name, allowing easy identification by users and developers.
+
+* If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
+
+* The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-jdf/jboss-as-quickstart/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
+
+* The sample project should be importable into JBoss Developer Studio/JBoss Tools and be deployable from there.
+
+* Maven POMs must be used. No other build system is allowed unless the purpose of the quickstart is to show another build system in use. If using Maven it should:
+
+ - Not inherit from another POM
+ - Maven POMs must use the Java EE spec BOM/POM imports
+ - The POMs must be commented, with a comment each item in the POM
+ - Import the various BOMs, either directly from a project, or from [JBoss BOMs](http://www.jboss.org/jdf/stack/stacks/), to determine version numbers. You should aim to have no dependencies declared directly. If you do, work with the jdf team to get them added to a BOM.
+ - Use the JBoss AS Maven Plugin to deploy the example
+
+* The sample project must contain a `README.md` file using the `template/README.md` file as a guideline
+
+* Don't forget to update the `pom.xml` in the quickstart root directory. Add your quickstart to the 'modules' section.
+
+* The project must target Java 6
+
+ - CDI should be used as the programming model
+ - Avoid using a web.xml if possible. Use faces-config.xml to activate JSF if needed.
+ - Any tests should use Arquillian.
+
 
 Kitchensink variants
 --------------------
 
-There are multiple quickstarts based on the kitchensink example.  Each showcases different technologies and techniques including pure EE6, JSF, HTML5, and GWT.  
+  There are multiple quickstarts based on the kitchensink example.  Each showcases different technologies and techniques including pure EE6, JSF, HTML5, and GWT.  
 
-If you wish to contribute a kitchensink variant is it important that you follow the look and feel of the original so that useful comparisons can be made.  This does not mean that variants can not expand, and showcase additional functionality.  Multiple variants already do that.  These include mobile interfaces, push updates, and more.
+  If you wish to contribute a kitchensink variant is it important that you follow the look and feel of the original so that useful comparisons can be made.  This does not mean that variants can not expand, and showcase additional functionality.  Multiple variants already do that.  These include mobile interfaces, push updates, and more.
 
-Below are rules for the l&f of the variants:
+  Below are rules for the *look and feel* of the variants:
 
-* Follow the primary layout, style, and graphics of the original.
-* Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.  
-   * How projects use that space is up to them, but options include plain text, bullet points, etc....  
-* Projects can have their logo in the left side of the banner.  
-* The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...  
-   * This should be below any AS/EAP link areas.
+  * Follow the primary layout, style, and graphics of the original.
 
-If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
+  * Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.  
+     * How projects use that space is up to them, but options include plain text, bullet points, etc....  
 
-Markdown
---------
+  * Projects can have their logo in the left side of the banner.  
+    * The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...  
+       * This should be below any AS/EAP link areas.
 
-We use Redcarpet to process the markdown, the same processor used by Guthub. This builds on the basic markdown syntax, adding support for tables, code highlighting, relaxed code blocks etc). We add a custom piece of markup \[TOC\] which allows a table of contents, based on headings, to be added to any file.
+    If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
+
+License Information and Contributor Agreement
+---------------------------------------------
+
+  JBoss Developer Framework is licensed under the Apache License 2.0, as we believe it is one of the most permissive Open Source license. This allows developers to easily make use of the code samples in JBoss Developer Framework. 
+
+  There is no need to sign a contributor agreement to contribute to JBoss Developer Framework. You just need to explicitly license any contribution under the AL 2.0. If you add any new files to JBoss Developer Framework, make sure to add the correct header.
+
+### Java
+
+      /*
+       * JBoss, Home of Professional Open Source
+       * Copyright <Year>, Red Hat, Inc. and/or its affiliates, and individual
+       * contributors by the @authors tag. See the copyright.txt in the 
+       * distribution for a full listing of individual contributors.
+       *
+       * Licensed under the Apache License, Version 2.0 (the "License");
+       * you may not use this file except in compliance with the License.
+       * You may obtain a copy of the License at
+       * http://www.apache.org/licenses/LICENSE-2.0
+       * Unless required by applicable law or agreed to in writing, software
+       * distributed under the License is distributed on an "AS IS" BASIS,  
+       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       * See the License for the specific language governing permissions and
+       * limitations under the License.
+       */
+
+### XML
+
+      <!--
+       JBoss, Home of Professional Open Source
+       Copyright <Year>, Red Hat, Inc. and/or its affiliates, and individual
+       contributors by the @authors tag. See the copyright.txt in the 
+       distribution for a full listing of individual contributors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,  
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+       -->
+
+### Properties files
+
+       # JBoss, Home of Professional Open Source
+       # Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+       # contributors by the @authors tag. See the copyright.txt in the 
+       # distribution for a full listing of individual contributors.
+       #
+       # Licensed under the Apache License, Version 2.0 (the "License");
+       # you may not use this file except in compliance with the License.
+       # You may obtain a copy of the License at
+       # http://www.apache.org/licenses/LICENSE-2.0
+       # Unless required by applicable law or agreed to in writing, software
+       # distributed under the License is distributed on an "AS IS" BASIS,  
+       # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       # See the License for the specific language governing permissions and
+       # limitations under the License.
+

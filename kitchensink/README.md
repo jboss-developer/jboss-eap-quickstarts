@@ -1,7 +1,10 @@
 kitchensink: Assortment of technologies including Arquillian
 ========================
 Author: Pete Muir
-
+Level: Intermediate
+Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV
+Summary: An example that incorporates multiple technologies
+Target Product: EAP
 
 What is it?
 -----------
@@ -10,7 +13,7 @@ This is your project! It is a sample, deployable Maven 3 project to help you get
 
 This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
-There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide "Getting Started Developing Applications Guide").
+There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/KitchensinkQuickstart/).
 
 System requirements
 -------------------

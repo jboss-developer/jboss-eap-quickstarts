@@ -1,7 +1,10 @@
 ejb-security:  Using Java EE Declarative Security to Control Access to EJB 3
 ====================
 Author: Sherif F. Makary
-
+Level: Intermediate
+Technologies: EJB, Security
+Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3
+Target Product: EAP
 
 What is it?
 -----------
@@ -50,11 +53,12 @@ Add the Application Users
 
 This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#addapplicationuser)
 
-After you add the default `quickstartUser`, use the same steps to add a second application user who is not in the `guest` role. 
+After you add the default `quickstartUser`, use the same steps to add a second application user who is not in the `guest` role and therefore is not authorized to access the application. 
 
         Username: user1
         Password: password1
         Roles:    app-user
+
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
@@ -104,7 +108,7 @@ When you access the application, you are presented with a browser login challeng
         message Access to the requested resource has been denied
         description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
 
-4. Next, change the EJB to a different role, for example, `@RolesAllowed({ "other-role" })`. Do not modify the `guest` role in the Servlet. Build and redeploy the quickstart, then close and reopen the browser and login using `quickstartUser`/`quickstartPassword`. This time the Servlet will allow the `guest` access, but the EJB, which only allows the role `other-role`, will throw an EJBAccessException:
+4. Next, change the EJB (SecuredEJB.java) to a different role, for example, `@RolesAllowed({ "other-role" })`. Do not modify the `guest` role in the Servlet (SecuredEJBServlet.java). Build and redeploy the quickstart, then close and reopen the browser and login using `quickstartUser`/`quickstartPassword`. This time the Servlet will allow the `guest` access, but the EJB, which only allows the role `other-role`, will throw an EJBAccessException:
 
         HTTP Status 500
 
@@ -112,6 +116,7 @@ When you access the application, you are presented with a browser login challeng
         description  The server encountered an internal error () that prevented it from fulfilling this request.
         exception
         javax.ejb.EJBAccessException: JBAS014502: Invocation on method: public java.lang.String org.jboss.as.quickstarts.ejb_security.SecuredEJB.getSecurityInfo() of bean: SecuredEJB is not allowed
+
 
 
 Undeploy the Archive
@@ -134,5 +139,5 @@ Debug the Application
 
 If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 
-        mvn dependency:sources
-        mvn dependency:resolve -Dclassifier=javadoc
+    mvn dependency:sources
+    mvn dependency:resolve -Dclassifier=javadoc

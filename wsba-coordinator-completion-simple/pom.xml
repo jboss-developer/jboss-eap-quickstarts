@@ -10,12 +10,12 @@
     OF ANY KIND, either express or implied. See the License for the specific 
     language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-wsba-coordinator-completion-simple</artifactId>
-    <version>7.1.1.CR2</version>
+    <version>7.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</name>
     <description>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</description>
@@ -35,38 +35,54 @@
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- JBoss dependency versions -->
+        <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
+        <version.org.jboss.bom>1.0.2.Final-redhat-1</version.org.jboss.bom>
+
+        <!-- other plugin versions -->
+        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.surefire.plugin>2.4.3</version.surefire.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
     <dependencyManagement>
-      <dependencies>
-        <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import.  -->
-        <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
-        of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-        of artifacts. We use this here so that we always get the correct versions 
-        of artifacts.-->
+        <dependencies>
+            <!-- Define the version of JBoss' Java EE 6 APIs and Tools we 
+                want to import. -->
 
-        <!-- This BOM provides the jboss-javaee-6.0 with tools stack (you can read this as
-        the JBoss stack of the Java EE 6 APIs, with some extras tools for your project, such
-        as Arquillian for testing) -->
-        <dependency>
-          <groupId>org.jboss.bom</groupId>
-          <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-          <version>1.0.2.Final-redhat-1</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-        <!-- This BOM provides the jboss-javaee-6.0 with transactions stack (you can read this as
-        the JBoss stack of the Java EE 6 APIs, with some extra transactions APIS for your project,
-        that are not included in the Java EE 6 API. -->
-        <dependency>
-          <groupId>org.jboss.bom</groupId>
-          <artifactId>jboss-javaee-6.0-with-transactions</artifactId>
-          <version>1.0.2.Final-redhat-1</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-      </dependencies>
-   </dependencyManagement>
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including 
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
+                a collection) of artifacts. We use this here so that we always get the correct 
+                versions of artifacts. -->
+
+            <!-- This BOM provides the jboss-javaee-6.0 with tools stack 
+                (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras 
+                tools for your project, such as Arquillian for testing) -->
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${version.org.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- This BOM provides the jboss-javaee-6.0 with transactions 
+                stack (you can read this as the JBoss stack of the Java EE 6 APIs, with some 
+                extra transactions APIS for your project, that are not included in the Java 
+                EE 6 API. -->
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-transactions</artifactId>
+                <version>${version.org.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- The XTS api needed to use WS-BA -->
@@ -82,8 +98,7 @@
             </exclusions>
         </dependency>
         
-        <!-- Import the Servlet API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
@@ -105,8 +120,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -133,7 +147,7 @@
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>7.3.Final</version>
+                <version>${version.org.jboss.as.plugins.maven.plugin}</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -142,10 +156,10 @@
                 annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>${version.compiler.plugin}</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -165,7 +179,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.4.3</version>
+                        <version>${version.surefire.plugin}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -207,4 +221,3 @@
     </profiles>
 
 </project>
-

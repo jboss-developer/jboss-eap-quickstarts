@@ -1,6 +1,10 @@
 wsat-simple: WS-AT (WS-AtomicTransaction) - Simple
 ==================================================
 Author: Paul Robinson
+Level: Intermediate
+Technologies: WS-AT, JAX-WS
+Summary: Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive
+Target Product: EAP
 
 What is it?
 -----------
@@ -266,4 +270,3 @@ _Note_: There is a limit to the number of applications you can deploy concurrent
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
 * To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
-

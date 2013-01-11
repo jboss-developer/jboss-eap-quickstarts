@@ -1,7 +1,10 @@
 jboss-as-logging-tools: Internationalization and Localisation with JBoss Logging Tools
 ======================
-
-Authors: Darrin Mison dmison@me.com (dmison@redhat.com)
+Author: Darrin Mison
+Level: Beginner
+Technologies: JBoss Logging Tools
+Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages
+Target Product: EAP
 
 What is it?
 ------------
@@ -74,7 +77,11 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application 
 ---------------------
 
-The application will be running at the following URLs.
+The application will be running at the following URLs:
+
+### http://localhost:8080/jboss-as-logging-tools/
+
+A landing page is found here that has a quick reference to the other URLs.
 
 ### http://localhost:8080/jboss-as-logging-tools/rest/greetings/`name`
 

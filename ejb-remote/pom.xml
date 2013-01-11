@@ -15,7 +15,7 @@
 
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-ejb-remote-parent</artifactId>
-    <version>7.1.1.CR2</version>
+    <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts: Parent for remote EJB and Java client</name>
 
@@ -26,6 +26,11 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+    
+    <properties>
+        <!-- JBoss dependency versions -->
+        <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
+    </properties>
 
     <!-- This quickstart consists of a server side component and a client that accesses
 	 the server side component. Each component has its own self contain pom. However,
@@ -36,21 +41,21 @@
         <module>client</module>
     </modules>
 
-   <build>
-      <plugins>
+    <build>
+        <plugins>
             <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
-               container -->
+                container -->
             <!-- Disabling it here means that we don't try to deploy this POM! -->
             <plugin>
-               <groupId>org.jboss.as.plugins</groupId>
-               <artifactId>jboss-as-maven-plugin</artifactId>
-               <version>7.3.Final</version>
-               <inherited>true</inherited>
-               <configuration>
-                  <skip>true</skip>
-               </configuration>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>${version.org.jboss.as.plugins.maven.plugin}</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
-         </plugins>
-   </build>
+        </plugins>
+    </build>
 
 </project>

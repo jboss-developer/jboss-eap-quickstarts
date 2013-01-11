@@ -1,6 +1,10 @@
 servlet-filterlistener: How to Write Servlet Filters and Listeners
 ================================================================
 Author: Jonathan Fuerth
+Level: Intermediate
+Technologies: Servlet
+Summary: Demonstrates Servlet filters and listeners
+Target Product: EAP
 
 What is it?
 -----------

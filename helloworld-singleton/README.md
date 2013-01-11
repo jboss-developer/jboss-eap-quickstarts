@@ -1,7 +1,10 @@
 helloworld-singleton: Helloworld Using a Singleton EJB
 ======================================================
 Author: Serge Pagop
-
+Level: Beginner
+Technologies: EJB, Singleton
+Summary: Demonstrates the use of an EJB 3.1 Singleton Session Bean, instantiated once, maintaining state for the life of the session
+Target Product: EAP
 
 What is it?
 -----------
