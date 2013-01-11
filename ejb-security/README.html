@@ -1,6 +1,10 @@
 <html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">ejb-security:  Using Java EE Declarative Security to Control Access to EJB 3</h1>
 
-<p>Author: Sherif F. Makary</p>
+<p>Author: Sherif F. Makary
+Level: Intermediate
+Technologies: EJB, Security
+Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3
+Target Product: EAP</p>
 
 <h2 id="toc_1">What is it?</h2>
 
@@ -44,7 +48,7 @@
 
 <p>This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  <a href="../README.html#addapplicationuser">Add an Application User</a></p>
 
-<p>After you add the default <code>quickstartUser</code>, use the same steps to add a second application user who is not in the <code>guest</code> role. </p>
+<p>After you add the default <code>quickstartUser</code>, use the same steps to add a second application user who is not in the <code>guest</code> role and therefore is not authorized to access the application. </p>
 <div class="highlight"><pre>    <span class="n">Username</span><span class="p">:</span> <span class="n">user1</span>
     <span class="n">Password</span><span class="p">:</span> <span class="n">password1</span>
     <span class="n">Roles</span><span class="p">:</span>    <span class="n">app</span><span class="o">-</span><span class="n">user</span>
@@ -100,7 +104,7 @@
 <span class="n">description</span> <span class="n">Access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">resource</span> <span class="p">(</span><span class="n">Access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">resource</span> <span class="n">has</span> <span class="n">been</span> <span class="n">denied</span><span class="p">)</span> <span class="n">has</span> <span class="n">been</span> <span class="n">forbidden</span><span class="p">.</span>
 </pre>
 </div></li>
-<li><p>Next, change the EJB to a different role, for example, <code>@RolesAllowed({ &quot;other-role&quot; })</code>. Do not modify the <code>guest</code> role in the Servlet. Build and redeploy the quickstart, then close and reopen the browser and login using <code>quickstartUser</code>/<code>quickstartPassword</code>. This time the Servlet will allow the <code>guest</code> access, but the EJB, which only allows the role <code>other-role</code>, will throw an EJBAccessException:</p>
+<li><p>Next, change the EJB (SecuredEJB.java) to a different role, for example, <code>@RolesAllowed({ &quot;other-role&quot; })</code>. Do not modify the <code>guest</code> role in the Servlet (SecuredEJBServlet.java). Build and redeploy the quickstart, then close and reopen the browser and login using <code>quickstartUser</code>/<code>quickstartPassword</code>. This time the Servlet will allow the <code>guest</code> access, but the EJB, which only allows the role <code>other-role</code>, will throw an EJBAccessException:</p>
 <div class="highlight"><pre><span class="n">HTTP</span> <span class="n">Status</span> 500
 
 <span class="n">message</span>
@@ -129,8 +133,8 @@
 <h2 id="toc_10">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
-<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
-    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
 </pre>
 </div>
 </body></html>

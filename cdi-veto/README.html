@@ -1,0 +1,105 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">cdi-veto: An example of a Portable Extension and some of the APIs / SPIs of CDI to veto beans.</h1>
+
+<p>Author: Jason Porter
+Level: Intermediate
+Technologies: CDI
+Summary: Creating a basic CDI extension to demonstrate vetoing beans.
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This project demonstrates a simple CDI Portable Extension and some of the SPI classes used
+to complete that task. This particular extension explores the ProcessInjectionTarget and
+InjectionTarget SPI classes of CDI to demonstrate removing a bean from CDI&#39;s knowledge and
+correctly injecting JPA entities in your application.</p>
+
+<p>A Portable Extension is a user extension to Java EE 6 or above which is tailored to a specific
+use case which will run on any Java EE 6 or higher implementation. This may be something that the
+specifications don&#39;t support just yet, but could be implemented via a portable extension such as
+type-safe messages or external configuration of beans.</p>
+
+<p>The project contains very simple domain model classes, an extension class, the service provider configuration file,
+and an Arquillian test to verify the extension is working correctly.</p>
+
+<p>This quickstart does not contain any user interface. The tests must be run to verify everything is working
+correctly.</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7.</p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_5">Run the Arquillian Tests </h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. </p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#arquilliantests">Run the Arquillian Tests</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> 
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_6">Investigate the Console Output</h2>
+
+<p>Run the tests via Maven (or your IDE) and examine the console output during the test phase.</p>
+
+<p>You&#39;ll see four tests run:</p>
+<div class="highlight"><pre><span class="o">-------------------------------------------------------</span>
+ <span class="n">T</span> <span class="n">E</span> <span class="n">S</span> <span class="n">T</span> <span class="n">S</span>
+<span class="o">-------------------------------------------------------</span>
+<span class="n">Running</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">veto</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">InjectionWithVetoExtensionAndManagerTest</span>
+<span class="n">log4j</span><span class="p">:</span><span class="n">WARN</span> <span class="n">No</span> <span class="n">appenders</span> <span class="n">could</span> <span class="n">be</span> <span class="n">found</span> <span class="k">for</span> <span class="n">logger</span> <span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">logging</span><span class="p">).</span>
+<span class="n">log4j</span><span class="p">:</span><span class="n">WARN</span> <span class="n">Please</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">log4j</span> <span class="n">system</span> <span class="n">properly</span><span class="p">.</span>
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 2<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Time</span> <span class="n">elapsed</span><span class="p">:</span> 7<span class="p">.</span>988 <span class="nb">sec</span>
+<span class="n">Running</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">veto</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">InjectionWithVetoExtensionWithoutManagerTest</span>
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 1<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Time</span> <span class="n">elapsed</span><span class="p">:</span> 3<span class="p">.</span>093 <span class="nb">sec</span>
+<span class="n">Running</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">veto</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">InjectionWithoutVetoExtensionWithManagerTest</span>
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 1<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Time</span> <span class="n">elapsed</span><span class="p">:</span> 1<span class="p">.</span>492 <span class="nb">sec</span>
+
+<span class="n">Results</span> <span class="p">:</span>
+
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 4<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0
+</pre>
+</div>
+
+<p>In the server log you&#39;ll see a few lines similar to </p>
+<div class="highlight"><pre>         <span class="n">INFO</span>  <span class="p">[</span><span class="n">VetoExtension</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> 1<span class="o">-</span>8<span class="p">)</span> <span class="n">Vetoed</span> <span class="n">class</span> <span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">veto</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Car</span>
+         <span class="n">INFO</span>  <span class="p">[</span><span class="n">CarManager</span><span class="p">]</span> <span class="p">(</span><span class="n">http</span><span class="o">--</span>127<span class="p">.</span>0<span class="p">.</span>0<span class="p">.</span>1<span class="o">-</span>8080<span class="o">-</span>2<span class="p">)</span> <span class="n">Returning</span> <span class="n">new</span> <span class="n">instance</span> <span class="n">of</span> <span class="n">Car</span>
+</pre>
+</div>
+
+<p>That will let you know the extension is working. To really see what&#39;s going on and understand this example, please read the source and the tests.</p>
+
+<h2 id="toc_7">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a></p>
+
+<h2 id="toc_8">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+</body></html>

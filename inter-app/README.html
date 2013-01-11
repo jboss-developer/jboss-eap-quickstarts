@@ -1,0 +1,93 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">Inter-app: Shows how to communicate between two applications using EJB and CDI </h1>
+
+<p>Author: Pete Muir
+Level: Advanced
+Technologies: EJB, CDI, JSF
+Summary: Shows how to communicate between two applications using EJB and CDI
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This quickstart shows you how to easily communicate between two modular deployments to JBoss Enterprise Application Platform 6 or JBoss AS 7. Two wars, with a shared API jar, are deployed to the app server. EJB is used to provide inter-application communication, with EJB beans alised to CDI beans, making the inter-application communication transparent to clients of the bean.</p>
+
+<p>CDI only provides intra-applicaion injection (i.e within a top level deployment, ear, war, jar etc). This improves performance of the application server, as to satisfy an injection point all possible candidates have to be scanned / analyzed. If inter-app injection was supported by CDI, performance would scale according to the number of deployments you have (the more deployments in the running system, the slower the deployment). Java EE injection uses unique JNDI names for the wiring, so each injection point is O(1). The approach shown here combines the two approaches such that you limit the name based wiring to one location in your code, and the main consumers of components can use CDI injection to reference these name wired components. For the name approach to work though, you still need to publish instances, and EJB singletons allow you to do that with just one extra annotation.</p>
+
+<p>In all, the project has three modules:</p>
+
+<ul>
+<li><code>jboss-as-inter-app-shared.jar</code> - this module contains the interfaces which define the contract between the beans exposed by the wars. It is deployed as a module</li>
+<li><code>jboss-as-inter-app-A.war</code> - the first war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB</li>
+<li><code>jboss-as-inter-app-B.war</code> - the second war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA</li>
+</ul>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. </p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_5">Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+<li><p>This will deploy <code>shared/target/jboss-as-inter-app-shared.jar</code>, <code>appA/target/jboss-as-inter-app-A.war</code> and <code>appB/target/jboss-as-inter-app-B.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2 id="toc_6">Access the application (For quickstarts that have a UI component)</h2>
+
+<p>Access the running application in a browser at the following URLs:</p>
+
+<ul>
+<li><a href="http://localhost:8080/jboss-as-inter-app-A">http://localhost:8080/jboss-as-inter-app-A</a></li>
+<li><a href="http://localhost:8080/jboss-as-inter-app-B">http://localhost:8080/jboss-as-inter-app-B</a></li>
+</ul>
+
+<p>You are presented with a form that allows you to set the value on the bean in the other application, as well as display of the value on this application&#39;s bean. Enter a new value and press &ldquo;Update and Send!&rdquo; to update the value on the other application. Do the same on the other application, and hit the button again on the first application. You should see the values shared between the applications.</p>
+
+<h2 id="toc_7">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_8">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2 id="toc_9">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+
+<hr/>
+</body></html>

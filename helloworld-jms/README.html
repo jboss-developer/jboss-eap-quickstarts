@@ -1,6 +1,10 @@
 <html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">helloworld-jms: HelloWorld JMS Example</h1>
 
-<p>Author: Weston Price</p>
+<p>Author: Weston Price
+Level: Intermediate
+Technologies: JMS
+Summary: Demonstrates the use of a standalone (Java SE) JMS client
+Target Product: EAP</p>
 
 <h2 id="toc_1">What is it?</h2>
 
@@ -31,7 +35,29 @@
 
 <p>If you are using the JBoss AS 7 Quickstart distribution, the server configuration file already contains the JMS <code>test</code> queue and you can skip this step. </p>
 
-<p>However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS <code>test</code> queue to the application server configuration file.</p>
+<p>However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS <code>test</code> queue and <code>topic</code> to the application server configuration file. You can configure JMS using the JBoss CLI or by manually editing the configuration file.</p>
+
+<h4 id="toc_6">Modify the Server JMS Configuration using the JBoss CLI Tool</h4>
+
+<ol>
+<li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+<li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">bin</span><span class="o">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre>
+</div></li>
+<li><p>At the prompt, type the following:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="n">jms</span><span class="o">-</span><span class="n">queue</span> <span class="n">add</span> <span class="o">--</span><span class="n">queue</span><span class="o">-</span><span class="n">address</span><span class="p">=</span><span class="n">testQueue</span> <span class="o">--</span><span class="n">entries</span><span class="p">=</span><span class="n">queue</span><span class="o">/</span><span class="n">test</span><span class="p">,</span><span class="n">java</span><span class="p">:</span><span class="n">jboss</span><span class="o">/</span><span class="n">exported</span><span class="o">/</span><span class="n">jms</span><span class="o">/</span><span class="n">queue</span><span class="o">/</span><span class="n">test</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="n">jms</span><span class="o">-</span><span class="n">topic</span> <span class="n">add</span> <span class="o">--</span><span class="n">topic</span><span class="o">-</span><span class="n">address</span><span class="p">=</span><span class="n">testTopic</span> <span class="o">--</span><span class="n">entries</span><span class="p">=</span><span class="n">topic</span><span class="o">/</span><span class="n">test</span><span class="p">,</span><span class="n">java</span><span class="p">:</span><span class="n">jboss</span><span class="o">/</span><span class="n">exported</span><span class="o">/</span><span class="n">jms</span><span class="o">/</span><span class="n">topic</span><span class="o">/</span><span class="n">test</span>
+</pre>
+</div></li>
+</ol>
+
+<h4 id="toc_7">Modify the Server JMS Configuration Manually</h4>
 
 <ol>
 <li>Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml</li>
@@ -55,7 +81,7 @@
 </ul></li>
 </ol>
 
-<h2 id="toc_6">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>
+<h2 id="toc_8">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>
 
 <ol>
 <li>Open a command line and navigate to the root of the JBoss server directory.</li>
@@ -66,7 +92,7 @@
 </div></li>
 </ol>
 
-<h2 id="toc_7">Build and Deploy the Quickstart</h2>
+<h2 id="toc_9">Build and Deploy the Quickstart</h2>
 
 <p>To run the quickstart from the command line:</p>
 
@@ -88,7 +114,7 @@
 </div></li>
 </ol>
 
-<h2 id="toc_8">Investigate the Console Output</h2>
+<h2 id="toc_10">Investigate the Console Output</h2>
 
 <p>If the maven command is successful, with the default configuration you will see output similar to this:</p>
 <div class="highlight"><pre><span class="n">Mar</span> 14<span class="p">,</span> 2012 1<span class="p">:</span>38<span class="p">:</span>58 <span class="n">PM</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">jms</span><span class="p">.</span><span class="n">HelloWorldJMSClient</span> <span class="n">main</span>
@@ -112,7 +138,7 @@
 </pre>
 </div>
 
-<h2 id="toc_9">Optional Properties</h2>
+<h2 id="toc_11">Optional Properties</h2>
 
 <p>The example provides for a certain amount of customization for the <code>mvn:exec</code> plugin using the system properties.</p>
 
@@ -154,11 +180,11 @@
 <p>Default: <code>&quot;localhost&quot;</code></p></li>
 </ul>
 
-<h2 id="toc_10">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_12">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_11">Debug the Application</h2>
+<h2 id="toc_13">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>

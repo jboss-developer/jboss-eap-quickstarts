@@ -1,6 +1,10 @@
 <html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">cmt: Container Managed Transactions - Example Using Transactions That Are Managed by the Container </h1>
 
-<p>Author: Tom Jenkinson</p>
+<p>Author: Tom Jenkinson
+Level: Intermediate
+Technologies: EJB, Container Managed Transactions (CMT)
+Summary: EJB that demonstrates container-managed transactions (CMT)
+Target Product: EAP</p>
 
 <h2 id="toc_1">What is it?</h2>
 
@@ -56,12 +60,12 @@
 
 <p>This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: <a href="../README.html#postgresql">Install and Configure the PostgreSQL Database</a></p>
 
-<p><em>Note</em>: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with cmt-quickstart-database in the PostgreSQL instructions.</p>
+<p><em>Note</em>: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with <code>cmt-quickstart-database</code> in the PostgreSQL instructions.</p>
 
 <ol>
 <li>Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</li>
-<li>Be sure to <a href="../README.html#addpostgresqlmodule">add the PostgreSQL Module</a> to the JBoss server.</li>
-<li>Be sure to <a href="../README.html#addpostgresqlmodule">add the PostgreSQL driver</a> to the JBoss server configuration file.</li>
+<li><a href="../README.html#addpostgresqlmodule">Add the PostgreSQL Module</a> to the JBoss server <code>modules/</code> directory.</li>
+<li><a href="../README.html#addpostgresqldriver">Add the PostgreSQL driver</a> to the JBoss server configuration file.</li>
 </ol>
 
 <h2 id="toc_7">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile</h2>

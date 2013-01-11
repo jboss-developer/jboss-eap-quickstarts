@@ -1,0 +1,101 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">ejb-asynchronous:  An application with an EJB with asynchronous methods to demonstrate how it works</h1>
+
+<p>Author: Wolf-Dieter Fink
+Level: Advanced
+Technologies: EJB 
+Summary: Demonstrates asynchronous EJB invocations.
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This is a quickstart to demonstrate the behavior of asynchronous EJB invocations. The methods are invoked by both an EJB in the deployment and by a remote client. The quickstart also shows error handling if the asynchronous method invocation fails.</p>
+
+<p>The example is composed of 2 maven modules, each with a shared parent. The modules are as follows:</p>
+
+<ol>
+<li><code>ejb</code>: This module contains the EJB&#39;s and will be deployed to the server</li>
+<li><code>client</code> : This module contains a remote ejb client</li>
+</ol>
+
+<p>The root <code>pom.xml</code> builds each of the submodules in the above order and deploys the archive to the server.</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. </p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:</p>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7</h2>
+
+<p>Start a server instance</p>
+<div class="highlight"><pre><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+</pre>
+</div>
+
+<h2 id="toc_5">Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+    mvn clean install jboss-as:deploy</li>
+<li>This will deploy <code>service/target/jboss-as-ejb-asynchronous.jar</code> to the running instance of the server.</li>
+</ol>
+
+<p>Check whether the application is deployed successfully.</p>
+
+<h2 id="toc_6">Access the application</h2>
+
+<ol>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li>Type this command to start the client
+    cd client
+    mvn exec:exec</li>
+<li><p>Check the client output
+    INFO: The server log should contain a message at (about) <date>, indicating that the call to the asynchronous bean completed.
+    INFO: Got the async result as expected =&gt; returning at <date>, duration was 200ms
+    INFO: Got the async result as expected after wait =&gt; returning at <date>, duration was 1500ms
+    INFO: Catch the expected Exception of the asynchronous execution!
+    INFO: Results of the parallel (server) processing : [returning at <date> duration was 5000ms, returning at <date>, duration was 3000ms]</p></li>
+<li><p>Check the server log
+   There should be two INFO log messages for the <code>fireAndForget</code> invocation:
+      &#39;fireAndForget&#39; Will wait for 15000ms
+   and 15sec later (the client should be finished at this time)
+      action &#39;fireAndForget&#39; finished
+<em>NOTE: In AS7.1.1.Final there is a bug that an ERROR will be logged that the result can not be written.</em></p></li>
+</ol>
+
+<h2 id="toc_7">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+<span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span> <span class="o">-</span><span class="n">Ddeploy</span><span class="p">.</span><span class="n">hostname</span><span class="p">=</span><span class="n">localhost</span> <span class="o">-</span><span class="n">Ddeploy</span><span class="p">.</span><span class="n">port</span><span class="p">=</span>10099
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_8">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2 id="toc_9">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+
+<hr/>
+</body></html>

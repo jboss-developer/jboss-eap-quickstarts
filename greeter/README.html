@@ -1,12 +1,28 @@
 <html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">greeter: Greeter Example</h1>
 
-<p>Author: Pete Muir</p>
+<p>Author: Pete Muir
+Level: Beginner
+Technologies: CDI, JSF, JPA, EJB, JTA
+Summary: Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0
+Target Product: EAP</p>
 
 <h2 id="toc_1">What is it?</h2>
 
 <p>This example demonstrates the use of <em>CDI 1.0</em>, <em>JPA 2.0</em>, <em>JTA 1.1</em>, <em>EJB 3.1</em> and <em>JSF 2.0</em> in <em>JBoss Enterprise Application Platform 6</em> or <em>JBoss AS 7</em>.</p>
 
-<p>There is a tutorial for this quickstart in the <a href="https://docs.jboss.org/author/display/AS71/Getting+Started+Developing+Applications+Guide" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.</p>
+<p>When you deploy this example, two users are automatically created for you:  <code>emuster</code> and <code>jdoe</code>. This data is located in the <code>src/main/resources/import.sql file</code>.</p>
+
+<p>To test this example:</p>
+
+<ol>
+<li>Enter a name in the <code>username</code> field and click on <code>Greet!</code>.</li>
+<li>If you enter a username that is not in the database, you get a message <code>No such user exists!</code>.</li>
+<li>If you enter a valid username, you get a message &ldquo;Hello, &rdquo; followed by the user&#39;s first and last name.</li>
+<li>To create a new user, click the <code>Add a new user</code> link. Enter the username, first name, and last name and then click <code>Add User</code>. The user is added and a message displays the new user id number.</li>
+<li>Click on the <code>Greet a user!</code> link to return to the <code>Greet!</code> page.</li>
+</ol>
+
+<p>There is a tutorial for this quickstart in the <a href="http://www.jboss.org/jdf/stage/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/">Getting Started Developing Applications Guide</a>.</p>
 
 <h2 id="toc_2">System requirements</h2>
 

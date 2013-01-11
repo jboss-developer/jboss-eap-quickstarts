@@ -1,0 +1,219 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">helloworld-ws: Hello World JAX-WS Web Service</h1>
+
+<p>Author: Lee Newson
+Level: Beginner
+Technologies: JAX-WS
+Summary: Deployment of a basic JAX-WS Web service bundled in a WAR archive
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This example demonstrates the use of <em>JAX-WS</em> in <em>JBoss Enterprise Application Platform 6</em> or <em>JBoss AS 7</em> as a simple Hello World application.</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. </p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Custom Options</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_5">Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+<li><p>This will deploy <code>target/jboss-as-helloworld-ws.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2 id="toc_6">Access the application </h2>
+
+<p>You can check that the Web Service is running and deployed correctly by accessing the following URL: <a href="http://localhost:8080/jboss-as-helloworld-ws?wsdl">http://localhost:8080/jboss-as-helloworld-ws?wsdl</a>. This URL will display the deployed WSDL endpoint for the Web Service.</p>
+
+<h2 id="toc_7">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_8">Run the Client Tests using Arquillian</h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. </p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#arquilliantests">Run the Arquillian Tests</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_9">Investigate the Console Output</h2>
+
+<p>The following expected output should appear. The output shows what was said to the Web Service by the client and the responses it received.</p>
+<div class="highlight"><pre><span class="n">WSDL</span> <span class="n">Deployment</span> <span class="n">URL</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">HelloWorldService</span>?<span class="n">wsdl</span>
+<span class="p">[</span><span class="n">Client</span><span class="p">]</span> <span class="n">Requesting</span> <span class="n">the</span> <span class="n">WebService</span> <span class="n">to</span> <span class="n">say</span> <span class="n">Hello</span><span class="p">.</span>
+<span class="p">[</span><span class="n">WebService</span><span class="p">]</span> <span class="n">Hello</span> <span class="n">World</span>!
+<span class="p">[</span><span class="n">Client</span><span class="p">]</span> <span class="n">Requesting</span> <span class="n">the</span> <span class="n">WebService</span> <span class="n">to</span> <span class="n">say</span> <span class="n">Hello</span> <span class="n">to</span> <span class="n">John</span><span class="p">.</span>
+<span class="p">[</span><span class="n">WebService</span><span class="p">]</span> <span class="n">Hello</span> <span class="n">John</span>!
+<span class="p">[</span><span class="n">Client</span><span class="p">]</span> <span class="n">Requesting</span> <span class="n">the</span> <span class="n">WebService</span> <span class="n">to</span> <span class="n">say</span> <span class="n">Hello</span> <span class="n">to</span> <span class="n">John</span><span class="p">,</span> <span class="n">Mary</span> <span class="n">and</span> <span class="n">Mark</span><span class="p">.</span>
+<span class="p">[</span><span class="n">WebService</span><span class="p">]</span> <span class="n">Hello</span> <span class="n">John</span><span class="p">,</span> <span class="n">Mary</span> <span class="o">&amp;</span> <span class="n">Mark</span>!
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 3<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Time</span> <span class="n">elapsed</span><span class="p">:</span> 1<span class="p">.</span>988 <span class="nb">sec</span>
+</pre>
+</div>
+
+<h2 id="toc_10">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2 id="toc_11">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+
+<h2 id="toc_12">Build and Deploy the Quickstart - to OpenShift</h2>
+
+<h3 id="toc_13">Create an OpenShift Express Account and Domain</h3>
+
+<p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://openshift.redhat.com/app/getting_started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
+
+<h3 id="toc_14">Create the OpenShift Application</h3>
+
+<p>Note that we use the <code>jboss-as-quickstart@jboss.org</code> user for these examples. You need to substitute it with your own user name.</p>
+
+<p>Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with <code>jbosseap-6.0</code> for quickstarts running on JBoss Enterprise Application Platform 6, or <code>jbossas-7</code> for quickstarts running on JBoss AS 7:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span> <span class="o">-</span><span class="n">t</span> <span class="n">APPLICATION_TYPE</span>
+</pre>
+</div>
+
+<p><em>NOTE</em>: The domain name for this application will be <code>helloworldws-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
+
+<p>This command creates an OpenShift application called <code>helloworldws</code> and will run the application inside a <code>jbossas-7</code> or a <code>jbosseap-6.0</code> container. You should see some output similar to the following:</p>
+<div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="p">:</span> <span class="n">helloworldws</span>
+<span class="n">Now</span> <span class="n">your</span> <span class="n">new</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">is</span> <span class="n">being</span> <span class="n">propagated</span> <span class="n">worldwide</span> <span class="p">(</span><span class="n">this</span> <span class="n">might</span> <span class="n">take</span> <span class="n">a</span> <span class="n">minute</span><span class="p">)...</span>
+<span class="n">Warning</span><span class="p">:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="s">&#39;helloworldws-quickstart.rhcloud.com,107.22.36.32&#39;</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
+<span class="n">Confirming</span> <span class="n">application</span> <span class="s">&#39;helloworldws&#39;</span> <span class="n">is</span> <span class="n">available</span><span class="p">:</span>  <span class="n">Success</span>!
+
+<span class="n">helloworldws</span> <span class="n">published</span><span class="p">:</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">helloworldws</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">url</span><span class="p">:</span>  <span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">b92047bdc05e46c980cc3501c3577c1e</span><span class="p">@</span><span class="n">helloworldws</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/~/</span><span class="n">git</span><span class="o">/</span><span class="n">helloworldws</span><span class="p">.</span><span class="n">git</span><span class="o">/</span>
+<span class="n">Successfully</span> <span class="n">created</span> <span class="n">application</span><span class="p">:</span> <span class="n">helloworldws</span>
+</pre>
+</div>
+
+<p>The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <a href="http://helloworldws-quickstart.rhcloud.com/">http://helloworldws-quickstart.rhcloud.com/</a> into a browser or use command line tools such as curl or wget.</p>
+
+<h3 id="toc_15">Migrate the Quickstart Source</h3>
+
+<p>Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repository and tell git to remove the source files and pom:</p>
+<div class="highlight"><pre>    <span class="n">cd</span> <span class="n">helloworldws</span>
+    <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div>
+
+<p>Copy the source for the <code>helloworld-ws</code> quickstart into this new git repository:</p>
+<div class="highlight"><pre>    <span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">quickstarts</span><span class="o">&gt;/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">src</span> <span class="p">.</span>
+    <span class="n">cp</span> <span class="o">&lt;</span><span class="n">quickstarts</span><span class="o">&gt;/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span>
+</pre>
+</div>
+
+<h3 id="toc_16">Configure the OpenShift Server</h3>
+
+<p>Openshift does not have Web services setup by default, so we need to modify the server configuration. To do this open <code>.openshift/config/standalone.xml</code> (this file may be hidden) in an editor and make the following additions:</p>
+
+<ol>
+<li><p>If the webservices subsystem is not configured as below under the <code>&lt;profile&gt;</code> element, copy the following and replace the webservices subsystem to enable and configure Web Services:</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modify</span><span class="err">-wsdl-address</span><span class="nt">&gt;</span>true<span class="nt">&lt;/modify-wsdl-address&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_APP_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-port</span><span class="nt">&gt;</span>80<span class="nt">&lt;/wsdl-port&gt;</span>
+    <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Standard-Endpoint-Config&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Recording-Endpoint-Config&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;pre</span><span class="err">-handler-chain</span> <span class="na">name=</span><span class="s">&quot;recording-handlers&quot;</span> <span class="na">protocol-bindings=</span><span class="s">&quot;##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;RecordingHandler&quot;</span> <span class="na">class=</span><span class="s">&quot;org.jboss.ws.common.invocation.RecordingServerHandler&quot;/</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/pre-handler-chain&gt;</span>
+    <span class="nt">&lt;/endpoint-config&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre>
+</div></li>
+</ol>
+
+<h3 id="toc_17">Deploy the OpenShift Application</h3>
+
+<p>You can now deploy the changes to your OpenShift application using git as follows:</p>
+<div class="highlight"><pre>    <span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> &quot;<span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span> <span class="n">quickstart</span> <span class="n">on</span> <span class="n">OpenShift</span>&quot;
+    <span class="n">git</span> <span class="n">push</span>
+</pre>
+</div>
+
+<p>The final push command triggers the OpenShift infrastructure to build and deploy the changes. </p>
+
+<p>Note that the <code>openshift</code> profile in <code>pom.xml</code> is activated by OpenShift, and causes the war build by openshift to be copied to the <code>deployments</code> directory, and deployed to the &ldquo;jboss-as-helloworld-ws&rdquo; context path.</p>
+
+<h3 id="toc_18">Access the OpenShift Application</h3>
+
+<p>Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+</pre>
+</div>
+
+<p>Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
+<div class="highlight"><pre><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">helloworldws</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">HelloWorldService</span>?<span class="n">wsdl</span>
+</pre>
+</div>
+
+<p>If the application has run successfully you should see some output in the browser.</p>
+
+<p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
+
+<h3 id="toc_19">Run the Remote Client Tests against Openshift</h3>
+
+<p>This quickstart provides tests that can be run remotely. By default, these tests are configured to be skipped as the tests require the application to be running remotely. </p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line..</em></p>
+
+<ol>
+<li>Make sure you have deployed the Application to Openshift as described above.</li>
+<li><p>Type the following command to run the test goal with the following profile activated and the URL of the deployed Application:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Pjbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">Dremote</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">url</span><span class="p">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">helloworldws</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="o">/</span>
+</pre>
+</div></li>
+</ol>
+
+<h3 id="toc_20">Destroy the OpenShift Application</h3>
+
+<p>When you are finished with the application you can destroy it as follows:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+</pre>
+</div>
+</body></html>

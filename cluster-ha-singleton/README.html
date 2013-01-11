@@ -1,0 +1,120 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">cluster-ha-singleton: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB</h1>
+
+<p>Author: Wolf-Dieter Fink
+Level: Advanced
+Technologies: EJB, HASingleton, JNDI
+Summary: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This example demonstrates the deployment of a Service that is wrapped with the SingletonService decorater
+to be a cluster wide singleton service.</p>
+
+<p>The example is composed of 2 maven projects with a shared parent. The projects are as follows:</p>
+
+<ol>
+<li><code>service</code>: This project contains the Service and the EJB code to instantiate, start and access the service</li>
+<li><code>client</code> : This project contains a remote ejb client to show the behaviour</li>
+</ol>
+
+<p>The root <code>pom.xml</code> builds each of the subprojects in the above order and deploys the archive to the server.</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. </p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:</p>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with a HA profile</h2>
+
+<p>If you run a non HA profile the singleton service will not start correctly. To run the example one instance must be started, to see the singleton behaviour at minimum two instances
+should be started.</p>
+<div class="highlight"><pre><span class="n">Start</span> <span class="n">server</span> <span class="n">one</span> <span class="p">:</span> <span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="p">=</span><span class="n">standalone</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="n">nodeOne</span>
+<span class="n">Start</span> <span class="n">server</span> <span class="n">two</span> <span class="p">:</span> <span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="p">=</span><span class="n">standalone</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">name</span><span class="p">=</span><span class="n">nodeTwo</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="p">=</span>100
+</pre>
+</div>
+
+<h2 id="toc_5">Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+<li><p>This will deploy <code>service/target/jboss-as-cluster-ha-singleton-service.jar</code> to the running instance of the server.</p></li>
+<li><p>Type this command to deploy the archive to the second server (or more) and replace hostname and port depend on your settings:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">Ddeploy</span><span class="p">.</span><span class="n">hostname</span><span class="p">=</span><span class="n">localhost</span> <span class="o">-</span><span class="n">Ddeploy</span><span class="p">.</span><span class="n">port</span><span class="p">=</span>10099
+</pre>
+</div></li>
+<li><p>This will deploy <code>service/target/jboss-as-cluster-ha-singleton-service.jar</code> to the running instance of the additional server.</p></li>
+</ol>
+
+<p>Check whether the application is deployed on each instance.
+All instances will have a message:
+INFO  <a href="SingletonService%20lifecycle%20-%201">org.jboss.as.clustering.singleton</a> JBAS010342: nodeOne/cluster elected as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+Only nodeOne (or even one instance) will have a message:
+INFO  <a href="SingletonService%20lifecycle%20-%201">org.jboss.as.clustering.singleton</a> JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service</p>
+
+<p>The timer on the started node will log a message every 10sec.</p>
+
+<h2 id="toc_6">Check the timer</h2>
+
+<ol>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to start the client</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">client</span>
+<span class="n">mvn</span> <span class="n">exec</span><span class="p">:</span><span class="n">exec</span>
+</pre>
+</div></li>
+<li><p>check the output
+    The request to the EJB is running four times and every time it should answer
+      # The timer service is active on node with name = NodeOne
+    If you look into the servers logfiles you will see that each node will process requests</p></li>
+<li><p>Stop the server nodeOne
+    If you look into the server nodeTwo logfile you will see the message
+    &ldquo;JBAS010342: nodeTwo/cluster elected as the singleton provider of &hellip;&rdquo;
+    that shows that the singleton service was started here
+    The timer will be started here and log a message every 10sec.</p></li>
+<li><p>repeat step 2
+The request is running four times and the message is 
+      # The timer service is active on node with name = NodeTwo
+    If you look into the server#2 logfile you will see that it process all four requests.</p></li>
+</ol>
+
+<h2 id="toc_7">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+<span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span> <span class="o">-</span><span class="n">Ddeploy</span><span class="p">.</span><span class="n">hostname</span><span class="p">=</span><span class="n">localhost</span> <span class="o">-</span><span class="n">Ddeploy</span><span class="p">.</span><span class="n">port</span><span class="p">=</span>10099
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_8">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2 id="toc_9">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+
+<hr/>
+</body></html>

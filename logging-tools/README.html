@@ -1,6 +1,10 @@
 <html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">jboss-as-logging-tools: Internationalization and Localisation with JBoss Logging Tools</h1>
 
-<p>Authors: Darrin Mison <a href="mailto:dmison@me.com">dmison@me.com</a> (<a href="mailto:dmison@redhat.com">dmison@redhat.com</a>)</p>
+<p>Author: Darrin Mison
+Level: Beginner
+Technologies: JBoss Logging Tools
+Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages
+Target Product: EAP</p>
 
 <h2 id="toc_1">What is it?</h2>
 
@@ -68,9 +72,13 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 
 <h2 id="toc_7">Access the application </h2>
 
-<p>The application will be running at the following URLs.</p>
+<p>The application will be running at the following URLs:</p>
 
-<h3 id="toc_8">http://localhost:8080/jboss-as-logging-tools/rest/greetings/<code>name</code></h3>
+<h3 id="toc_8">http://localhost:8080/jboss-as-logging-tools/</h3>
+
+<p>A landing page is found here that has a quick reference to the other URLs.</p>
+
+<h3 id="toc_9">http://localhost:8080/jboss-as-logging-tools/rest/greetings/<code>name</code></h3>
 
 <p>Demonstrates simple use of localised messages (with parameter) and logging.</p>
 
@@ -81,7 +89,7 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 <li>Logs a localised &ldquo;Hello message sent&rdquo;</li>
 </ul>
 
-<h3 id="toc_9">http://localhost:8080/jboss-as-logging-tools/rest/greetings/<code>locale</code>/<code>name</code></h3>
+<h3 id="toc_10">http://localhost:8080/jboss-as-logging-tools/rest/greetings/<code>locale</code>/<code>name</code></h3>
 
 <p>Demonstrates how to obtain a message bundle for a specified locale and how to throw a localised exceptions. Note that the localised exception is a wrapper around <code>WebApplicationException</code>.</p>
 
@@ -99,7 +107,7 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 <p>Note that WebApplicationException cannot be directly localised by JBoss Logging Tools using the <code>@Message</code> annotation due to the message parameter being ignored by <code>WebApplicationException</code>&#39;s constructors. Cases like this can be worked around by creating a sub-class with a constructor that does deal with the message parameter.</p></li>
 </ul>
 
-<h3 id="toc_10">http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme</h3>
+<h3 id="toc_11">http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme</h3>
 
 <p>Demonstrates throwing a localised exception with another exception specified as the cause.  This is a completely contrived example.</p>
 
@@ -109,7 +117,7 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 <li>Attempts divide by zero, catches exception and throws localised one.</li>
 </ul>
 
-<h3 id="toc_11">http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/<code>targetdate</code></h3>
+<h3 id="toc_12">http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/<code>targetdate</code></h3>
 
 <p>Demonstrates how to pass parameters through to the constructor of a localised exception, and how to specify an exception as a cause of a log message.</p>
 
@@ -128,7 +136,7 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 </ul></li>
 </ul>
 
-<h2 id="toc_12">Undeploy the Archive</h2>
+<h2 id="toc_13">Undeploy the Archive</h2>
 
 <ol>
 <li>Make sure you have started the JBoss Server as described above.</li>
@@ -139,11 +147,11 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 </div></li>
 </ol>
 
-<h2 id="toc_13">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_14">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_14">Debug the Application</h2>
+<h2 id="toc_15">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>  <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>

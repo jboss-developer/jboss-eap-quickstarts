@@ -1,12 +1,13 @@
 <html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">jts: Java Transaction Service - Distributed EJB Transactions Across Multiple Containers </h1>
 
-<p>Author: Tom Jenkinson</p>
+<p>Author: Tom Jenkinson
+Level: Intermediate
+Technologies: JTS
+Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions
+Prerequisites: cmt
+Target Product: EAP</p>
 
-<h2 id="toc_1">Pre-requisites</h2>
-
-<p>Developers should be familiar with the concepts introduced in the <em>cmt</em> quickstart.</p>
-
-<h2 id="toc_2">What is it?</h2>
+<h2 id="toc_1">What is it?</h2>
 
 <p>This example demonstrates how to perform distributed transactions in an application. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. </p>
 
@@ -42,72 +43,109 @@ following ways:</p>
 <li><em>jts-distributed-crash-rec</em> - The crash recovery quickstart builds upon the <em>jts</em> quickstart by demonstrating the fault tolerance of JBossAS.</li>
 </ol>
 
-<h2 id="toc_3">System requirements</h2>
+<h2 id="toc_2">System requirements</h2>
 
 <p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
 
 <p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. </p>
 
-<h2 id="toc_4">Configure Maven</h2>
+<h2 id="toc_3">Configure Maven</h2>
 
 <p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2 id="toc_5">Configure the application server to use PostgreSQL</h2>
+<h2 id="toc_4">Prerequisites</h2>
+
+<p>Developers should be familiar with the concepts introduced in the <em>cmt</em> quickstart.</p>
+
+<p>This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL are below.</p>
+
+<h2 id="toc_5">Install the PostgreSQL Database</h2>
 
 <p>This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: <a href="../README.html#postgresql">Install and Configure the PostgreSQL Database</a></p>
 
-<p><em>Note</em>: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with cmt-quickstart-database in the PostgreSQL instructions.</p>
+<p><em>Note</em>: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with <code>jts-quickstart-database</code> in the PostgreSQL instructions.</p>
 
 <p>Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</p>
 
-<p>Wait until a later in these instructions to add the PostgreSQL module and driver configuration to the JBoss server.</p>
+<p>Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss server.</p>
 
-<h2 id="toc_6">Prerequisites</h2>
+<h2 id="toc_6">Configure the JBoss Servers</h2>
 
-<p>This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL for will be provided when you configure the JBoss servers.</p>
+<p>For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as &ldquo;-Djboss.socket.binding.port-offset=100&rdquo;. </p>
 
-<h2 id="toc_7">Configure the JBoss servers</h2>
+<p>Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. </p>
 
-<p>For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as &ldquo;-Djboss.socket.binding.port-offset=100&rdquo;</p>
+<h3 id="toc_7">Modify the Server Configuration file.</h3>
 
-<p>The application servers should both be configured as follows:</p>
+<p>You can modify the server configuration using the JBoss CLI tool or by manually editing the server configuration file.</p>
+
+<h4 id="toc_8">Modify the Server Configuration using the JBoss CLI Tool</h4>
 
 <ol>
+<li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+<li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">bin</span><span class="o">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre>
+</div></li>
+<li><p>At the prompt, type the following (replace the words UNIQUE_IDENTIFER with values unique to both servers):</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">jacorb</span><span class="o">/</span><span class="p">:</span><span class="n">write</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">transactions</span><span class="p">,</span><span class="n">value</span><span class="p">=</span><span class="n">on</span><span class="p">)</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">transactions</span><span class="o">/</span><span class="p">:</span><span class="n">write</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">jts</span><span class="p">,</span><span class="n">value</span><span class="p">=</span><span class="n">true</span><span class="p">)</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">transactions</span><span class="o">/</span><span class="p">:</span><span class="n">write</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">node</span><span class="o">-</span><span class="n">identifier</span><span class="p">,</span><span class="n">value</span><span class="p">=</span><span class="n">UNIQUE_IDENTIFER</span><span class="p">)</span>
+</pre>
+</div></li>
+<li><p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-jts-configuration">Remove the JTS Configuration from the JBoss Server</a>.</p></li>
+</ol>
+
+<h4 id="toc_9">Modify the Server Configuration Manually</h4>
+
+<ol>
+<li>Make a backup copy of the <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file.</li>
 <li>Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml</li>
 <li><p>Enable JTS as follows:</p>
 
 <ul>
 <li><p>Find the orb subsystem and change the configuration to:  </p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.1&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;orb&gt;</span>
         <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;on&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/orb&gt;</span>
 <span class="nt">&lt;/subsystem&gt;</span>
 </pre>
 </div></li>
-<li><p>Find the transaction subsystem and append the <code>&lt;jts/&gt;</code> element:  </p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.1&quot;</span><span class="nt">&gt;</span>
+<li><p>Find the transaction subsystem and set a unique node-identifier, (replace the words UNIQUE_IDENTIFER with values unique to both servers) and append the <code>&lt;jts/&gt;</code> element:  </p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;core-environment</span> <span class="na">node-identifier=</span><span class="s">&quot;UNIQUE_IDENTIFIER&quot;</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING --&gt;</span>
     <span class="nt">&lt;jts/&gt;</span>
 <span class="nt">&lt;/subsystem&gt;</span>
 </pre>
 </div></li>
 </ul></li>
-<li><p>Make a copy of this JBoss directory structure to use for the second server.</p></li>
-<li><p>Application server 1 must be configured to use PostgreSQL as per the instructions in <a href="../README.html#postgresql">Install and Configure the PostgreSQL Database</a>.</p>
+<li><p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-jts-configuration">Remove the JTS Configuration from the JBoss Server</a>.</p></li>
+</ol>
+
+<h3 id="toc_10">Clone the JBOSS_HOME Directory</h3>
+
+<p>Make a copy of this JBoss directory structure to use for the second server.</p>
+
+<h3 id="toc_11">Configure Server1 to use PostgreSQL</h3>
+
+<ol>
+<li>Application server 1 must be configured to use PostgreSQL as per the instructions in <a href="../README.html#postgresql">Install and Configure the PostgreSQL Database</a>.
 
 <ul>
 <li>Be sure to start the PostgreSQL database.</li>
-<li>Be sure to <a href="../README.html#addpostgresqlmodule">add the PostgreSQL Module</a> to the Application 1 server.</li>
-<li>Be sure to <a href="../README.html#addpostgresqlmodule">add the PostgreSQL driver</a> to the Application 1 server configuration file.</li>
+<li><a href="../README.html#addpostgresqlmodule">Add the PostgreSQL Module</a> to the Application 1 server <code>modules/</code> directory.</li>
+<li><a href="../README.html#addpostgresqldriver">Add the PostgreSQL driver</a> to the Application 1 server configuration file.</li>
 </ul></li>
 </ol>
 
-<p><em>Note</em>: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with jts-quickstart-database in the PostgreSQL instructions.</p>
-
-<p><em>IMPORTANT</em>: After you have finished with the quickstart, if you no longer wish to use JTS, it is important to restore your backup from step 1 above.</p>
-
-<h2 id="toc_8">Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers</h2>
+<h2 id="toc_12">Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers</h2>
 
 <p>If you are using Linux:</p>
 <div class="highlight"><pre>    <span class="n">Server</span> 1<span class="p">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
@@ -121,7 +159,7 @@ following ways:</p>
 </pre>
 </div>
 
-<h2 id="toc_9">Build and Deploy the Quickstart</h2>
+<h2 id="toc_13">Build and Deploy the Quickstart</h2>
 
 <p>Since this quickstart builds two separate components, you can not use the standard <em>Build and Deploy</em> commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.</p>
 
@@ -135,7 +173,7 @@ following ways:</p>
 <li><p>This will deploy <code>application-component-1/target/jboss-as-jts-application-component-1.war</code> and <code>application-component-2/target/jboss-as-jts-application-component-2.jar</code> to the running instance of the server.</p></li>
 </ol>
 
-<h2 id="toc_10">Access the application </h2>
+<h2 id="toc_14">Access the application </h2>
 
 <p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-as-jts-application-component-1/">http://localhost:8080/jboss-as-jts-application-component-1/</a>.</p>
 
@@ -155,7 +193,7 @@ following ways:</p>
 
 <p>The web page will also change and show you the new list of customers.</p>
 
-<h2 id="toc_11">Undeploy the Archive</h2>
+<h2 id="toc_15">Undeploy the Archive</h2>
 
 <ol>
 <li>Make sure you have started the JBoss Server as described above.</li>
@@ -168,30 +206,52 @@ following ways:</p>
 
 <p><a id="remove-jts-configuration"></a></p>
 
-<h2 id="toc_12">Remove the JTS Configuration from the JBoss server</h2>
+<h2 id="toc_16">Remove the JTS Configuration from the JBoss Server</h2>
 
-<p>You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts.</p>
+<p>You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts. 
+You can modify the server configuration using the JBoss CLI tool or by manually editing the server configuration file.</p>
+
+<h3 id="toc_17">Remove the JTS Server Configuration using the JBoss CLI Tool</h3>
+
+<ol>
+<li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following. </p>
+<div class="highlight"><pre><span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+<li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">bin</span><span class="o">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre>
+</div></li>
+<li><p>At the prompt, type the following:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">jacorb</span><span class="o">/</span><span class="p">:</span><span class="n">write</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">transactions</span><span class="p">,</span><span class="n">value</span><span class="p">=</span><span class="n">spec</span><span class="p">)</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">transactions</span><span class="o">/</span><span class="p">:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">jts</span><span class="p">)</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">transactions</span><span class="o">/</span><span class="p">:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">node</span><span class="o">-</span><span class="n">identifier</span><span class="p">)</span>
+</pre>
+</div></li>
+</ol>
+
+<h3 id="toc_18">Remove the JTS Server Configuration Manually</h3>
 
 <ol>
 <li>Stop the server.</li>
-<li>Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml</li>
-<li><p>Disable JTS as follows:</p>
-
-<ul>
-<li><p>Find the orb subsystem and change the configuration back to:  </p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;orb&gt;</span>
-        <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/orb&gt;</span>
-<span class="nt">&lt;/subsystem&gt;</span>
-</pre>
-</div></li>
-<li><p>Find the transaction subsystem and remove the <code>&lt;jts/&gt;</code> element:  </p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
-    <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND REMOVE THE &lt;/jts&gt; --&gt;</span>
-<span class="nt">&lt;/subsystem&gt;</span>
-</pre>
-</div></li>
-</ul></li>
+<li>If you backed up the JBOSS_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.</li>
+<li>If you did not make a backup copy, open the file JBOSS_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:</li>
 </ol>
+<div class="highlight"><pre>* Find the orb subsystem and change the configuration back to:  
+
+        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;orb&gt;</span>
+                <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/orb&gt;</span>
+        <span class="nt">&lt;/subsystem&gt;</span>
+* Find the transaction subsystem and remove the `<span class="nt">&lt;jts/&gt;</span>` element:  
+
+        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT --&gt;</span>
+            <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND REMOVE THE &lt;/jts&gt; --&gt;</span>
+        <span class="nt">&lt;/subsystem&gt;</span>
+</pre>
+</div>
 </body></html>

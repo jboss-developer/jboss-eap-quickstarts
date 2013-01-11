@@ -1,0 +1,127 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">cdi-portable-extension: An example of a Portable Extension and some of the APIs / SPIs of CDI</h1>
+
+<p>Author: Jason Porter
+Level: Intermediate
+Technologies: CDI
+Summary: Creating a basic CDI extension to provide injection of fields from an XML file.
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>This project demonstrates a simple CDI Portable Extension and some of the SPI classes used
+to complete that task. This particular extension explores the ProcessInjectionTarget and 
+InjectionTarget spi classes of CDI. To demonstrate a possible way to seed data into beans.</p>
+
+<p>A Portable Extension is essentially an extension to Java EE 6+ which is tailored to a specific
+use case which will run on any Java EE 6 or higher implementation. There may be something that the
+specifications don&#39;t support just yet, but could be implemented via a portable extension such as
+type safe messages or external configuration of beans.</p>
+
+<p>The project contains very simple domain model classes, an extension class, the service registration file
+for that extension and an Arquillian test to verify the extension is working correctly.</p>
+
+<p>It does not contain any user interface, the tests must be run to verify everything is working
+correctly.</p>
+
+<h2 id="toc_2">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7.</p>
+
+<h2 id="toc_3">Configure Maven</h2>
+
+<p>Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:</p>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_5">Run the Arquillian Tests</h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container.</p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#arquilliantests">Run the Arquillian Tests</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_6">Run tests from JBDS</h2>
+
+<p>To be able to run the tests from JBDS, first set the active Maven profile in project properties to be either &#39;arq-jbossas-managed&#39; for running on
+managed server or &#39;arq-jbossas-remote&#39; for running on remote server.</p>
+
+<p>To run the tests, right click on the project or individual classes and select Run As &ndash;&gt; JUnit Test in the context menu.</p>
+
+<h2 id="toc_7">Investigate the Console Output</h2>
+
+<h3 id="toc_8">Maven</h3>
+
+<p>Maven prints summary of performed tests into the console:</p>
+<div class="highlight"><pre><span class="o">-------------------------------------------------------</span>
+ <span class="n">T</span> <span class="n">E</span> <span class="n">S</span> <span class="n">T</span> <span class="n">S</span>
+<span class="o">-------------------------------------------------------</span>
+<span class="n">Running</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">CreatureExtensionTest</span>
+<span class="n">log4j</span><span class="p">:</span><span class="n">WARN</span> <span class="n">No</span> <span class="n">appenders</span> <span class="n">could</span> <span class="n">be</span> <span class="n">found</span> <span class="k">for</span> <span class="n">logger</span> <span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">logging</span><span class="p">).</span>
+<span class="n">log4j</span><span class="p">:</span><span class="n">WARN</span> <span class="n">Please</span> <span class="n">initialize</span> <span class="n">the</span> <span class="n">log4j</span> <span class="n">system</span> <span class="n">properly</span><span class="p">.</span>
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 2<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Time</span> <span class="n">elapsed</span><span class="p">:</span> 2<span class="p">.</span>87 <span class="nb">sec</span>
+
+<span class="n">Results</span> <span class="p">:</span>
+
+<span class="n">Tests</span> <span class="n">run</span><span class="p">:</span> 2<span class="p">,</span> <span class="n">Failures</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Errors</span><span class="p">:</span> 0<span class="p">,</span> <span class="n">Skipped</span><span class="p">:</span> 0
+</pre>
+</div>
+
+<h3 id="toc_9">Server log</h3>
+
+<p>There are two logging statements done when the tests are run:</p>
+
+<h4 id="toc_10">Example</h4>
+<div class="highlight"><pre><span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">145</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">deployment</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">5</span><span class="o">)</span> <span class="n">JBAS015876</span><span class="o">:</span> <span class="n">Starting</span> <span class="n">deployment</span> <span class="n">of</span> <span class="s2">&quot;test.war&quot;</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">267</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">weld</span><span class="o">.</span><span class="na">deployer</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="n">JBAS016002</span><span class="o">:</span> <span class="n">Processing</span> <span class="n">weld</span> <span class="n">deployment</span> <span class="n">test</span><span class="o">.</span><span class="na">war</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">283</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">weld</span><span class="o">.</span><span class="na">deployer</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="o">)</span> <span class="n">JBAS016005</span><span class="o">:</span> <span class="n">Starting</span> <span class="n">Services</span> <span class="k">for</span> <span class="n">CDI</span> <span class="n">deployment</span><span class="o">:</span> <span class="n">test</span><span class="o">.</span><span class="na">war</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">290</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">weld</span><span class="o">.</span><span class="na">deployer</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="o">)</span> <span class="n">JBAS016008</span><span class="o">:</span> <span class="n">Starting</span> <span class="n">weld</span> <span class="n">service</span> <span class="k">for</span> <span class="n">deployment</span> <span class="n">test</span><span class="o">.</span><span class="na">war</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">338</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">CreatureExtension</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="o">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="kd">class</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">model</span><span class="o">.</span><span class="na">Monster</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">343</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">CreatureExtension</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="o">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="kd">class</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">model</span><span class="o">.</span><span class="na">NonPlayerCharacter</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">377</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">web</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="n">JBAS018210</span><span class="o">:</span> <span class="n">Registering</span> <span class="n">web</span> <span class="n">context</span><span class="o">:</span> <span class="o">/</span><span class="n">test</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">495</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">server</span><span class="o">]</span> <span class="o">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="n">thread</span> <span class="o">-</span> <span class="mi">5</span><span class="o">)</span> <span class="n">JBAS018559</span><span class="o">:</span> <span class="n">Deployed</span> <span class="s2">&quot;test.war&quot;</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">922</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">weld</span><span class="o">.</span><span class="na">deployer</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">8</span><span class="o">)</span> <span class="n">JBAS016009</span><span class="o">:</span> <span class="n">Stopping</span> <span class="n">weld</span> <span class="n">service</span> <span class="k">for</span> <span class="n">deployment</span> <span class="n">test</span><span class="o">.</span><span class="na">war</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">932</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">deployment</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="o">)</span> <span class="n">JBAS015877</span><span class="o">:</span> <span class="n">Stopped</span> <span class="n">deployment</span> <span class="n">test</span><span class="o">.</span><span class="na">war</span> <span class="k">in</span> <span class="mi">16</span><span class="n">ms</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">14</span><span class="o">,</span><span class="mi">039</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">repository</span><span class="o">]</span> <span class="o">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="n">thread</span> <span class="o">-</span> <span class="mi">6</span><span class="o">)</span> <span class="n">JBAS014901</span><span class="o">:</span> <span class="n">Content</span> <span class="n">removed</span> <span class="n">from</span> <span class="n">location</span> <span class="sr">/home/jporter/java_libraries/jboss-as/build/target/jboss-as-7.1.1.Final/standalone/data/content/4d/40e4e277a16327b45b62954d70d91bbf3fcf42/</span><span class="n">content</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">14</span><span class="o">,</span><span class="mi">040</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">server</span><span class="o">]</span> <span class="o">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="n">thread</span> <span class="o">-</span> <span class="mi">6</span><span class="o">)</span> <span class="n">JBAS018558</span><span class="o">:</span> <span class="n">Undeployed</span> <span class="s2">&quot;test.war&quot;</span>
+</pre>
+</div>
+
+<p>The two statements to look for are these:</p>
+<div class="highlight"><pre><span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">338</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">CreatureExtension</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="o">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="kd">class</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">model</span><span class="o">.</span><span class="na">Monster</span>
+<span class="mi">15</span><span class="o">:</span><span class="mi">07</span><span class="o">:</span><span class="mi">13</span><span class="o">,</span><span class="mi">343</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">CreatureExtension</span><span class="o">]</span> <span class="o">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="n">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="o">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="kd">class</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">cdi</span><span class="o">.</span><span class="na">extension</span><span class="o">.</span><span class="na">model</span><span class="o">.</span><span class="na">NonPlayerCharacter</span>
+</pre>
+</div>
+
+<h2 id="toc_11">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a></p>
+
+<h2 id="toc_12">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+</body></html>
