@@ -10,7 +10,7 @@ Target Product: EAP</p>
 
 <p>This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform 6 and JBoss AS7.</p>
 
-<p>When you deploy this example, two users are automatically created for you: user <code>quickstartUser</code> with password <code>quickstartPassword</code> and user <code>guest</code> with password <code>guest</code>. This data is located in the <code>src/main/resources/import.sql</code> file. </p>
+<p>When you deploy this example, two users are automatically created for you: user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> and user <code>guest</code> with password <code>guest</code>. This data is located in the <code>src/main/resources/import.sql</code> file. </p>
 
 <p>This quickstart takes the following steps to implement Servlet security:</p>
 
@@ -18,13 +18,13 @@ Target Product: EAP</p>
 <li>Define a security domain in the <code>standalone.xml</code> configuration file using the Database JAAS LoginModule.</li>
 <li><p>Add an application user with access rights to the application</p>
 <div class="highlight"><pre><span class="n">User</span> <span class="n">Name</span><span class="p">:</span> <span class="n">quickstartUser</span>
-<span class="n">Password</span><span class="p">:</span> <span class="n">quickstartPassword</span>
+<span class="n">Password</span><span class="p">:</span> <span class="n">quickstartPwd1</span>!
 <span class="n">Role</span><span class="p">:</span> <span class="n">quickstarts</span>
 </pre>
 </div></li>
 <li><p>Add another user with no access rights to the application.</p>
 <div class="highlight"><pre><span class="n">User</span> <span class="n">Name</span><span class="p">:</span> <span class="n">guest</span>
-<span class="n">Password</span><span class="p">:</span> <span class="n">guest</span>
+<span class="n">Password</span><span class="p">:</span> <span class="n">guestPwd1</span>!
 <span class="n">Role</span><span class="p">:</span> <span class="n">notauthorized</span>
 </pre>
 </div></li>
@@ -129,7 +129,7 @@ Target Product: EAP</p>
 
 <p>When you access the application, you should get a browser login challenge. </p>
 
-<p>Log in using the username <code>quickstartUser</code> and password <code>quickstartPassword</code>. The browser will display the following security info:</p>
+<p>Log in using the username <code>quickstartUser</code> and password <code>quickstartPwd1!</code>. The browser will display the following security info:</p>
 <div class="highlight"><pre><span class="n">Successfully</span> <span class="n">called</span> <span class="n">Secured</span> <span class="n">Servlet</span>
 
 <span class="n">Principal</span> <span class="p">:</span> <span class="n">quickstartUser</span>
@@ -138,7 +138,7 @@ Target Product: EAP</p>
 </pre>
 </div>
 
-<p>Now close the browser. Open a new browser and log in with username <code>guest</code> and password <code>guest</code>. The browser will display the following error:</p>
+<p>Now close the browser. Open a new browser and log in with username <code>guest</code> and password <code>guestPwd1!</code>. The browser will display the following error:</p>
 <div class="highlight"><pre>    <span class="n">HTTP</span> <span class="n">Status</span> 403 <span class="o">-</span> <span class="n">Access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">resource</span> <span class="n">has</span> <span class="n">been</span> <span class="n">denied</span>
 
     <span class="n">type</span> <span class="n">Status</span> <span class="n">report</span>

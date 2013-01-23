@@ -30,7 +30,7 @@ Target Product: EAP</p>
 <li><p>Add the <code>@RolesAllowed({ &quot;guest&quot; })</code> annotation to the EJB declaration to authorize access only to users with <code>guest</code> role access rights.</p></li>
 <li><p>Add the <code>@RolesAllowed({ &quot;guest&quot; })</code> annotation to the Servlet declaration to authorize access only to users with <code>guest</code> role access rights.</p></li>
 <li><p>Add a <code>&lt;login-config&gt;</code> security constraint to the <code>WEB-INF/web.xml</code> file to force the login prompt.</p></li>
-<li><p>Add an application user with <code>guest</code> role access rights to the EJB. This quickstart defines a user <code>quickstartUser</code> with password <code>quickstartPassword</code> in the <code>guest</code> role. The <code>guest</code> role matches the allowed user role defined in the <code>@RolesAllowed</code> annotation in the EJB.</p></li>
+<li><p>Add an application user with <code>guest</code> role access rights to the EJB. This quickstart defines a user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> in the <code>guest</code> role. The <code>guest</code> role matches the allowed user role defined in the <code>@RolesAllowed</code> annotation in the EJB.</p></li>
 <li><p>Add a second user that has no <code>guest</code> role access rights.</p></li>
 </ol>
 
@@ -50,7 +50,7 @@ Target Product: EAP</p>
 
 <p>After you add the default <code>quickstartUser</code>, use the same steps to add a second application user who is not in the <code>guest</code> role and therefore is not authorized to access the application. </p>
 <div class="highlight"><pre>    <span class="n">Username</span><span class="p">:</span> <span class="n">user1</span>
-    <span class="n">Password</span><span class="p">:</span> <span class="n">password1</span>
+    <span class="n">Password</span><span class="p">:</span> <span class="n">password1</span>!
     <span class="n">Roles</span><span class="p">:</span>    <span class="n">app</span><span class="o">-</span><span class="n">user</span>
 </pre>
 </div>
@@ -88,7 +88,7 @@ Target Product: EAP</p>
 
 <ol>
 <li>If you attempt to login with a user name and password combination that has not been added to the server, the login challenge will be redisplayed.</li>
-<li><p>When you login successfully using <code>quickstartUser</code>/<code>quickstartPassword</code>, the browser displays the following security info:</p>
+<li><p>When you login successfully using <code>quickstartUser</code>/<code>quickstartPwd1!</code>, the browser displays the following security info:</p>
 <div class="highlight"><pre><span class="n">Successfully</span> <span class="n">called</span> <span class="n">Secured</span> <span class="n">EJB</span>
 
 <span class="n">Principal</span> <span class="p">:</span> <span class="n">quickstartUser</span>
@@ -96,7 +96,7 @@ Target Product: EAP</p>
 <span class="n">Authentication</span> <span class="n">Type</span> <span class="p">:</span> <span class="n">BASIC</span>
 </pre>
 </div></li>
-<li><p>Now close and reopen the brower session and access the application using the <code>user1</code>/<code>password1</code> credentials. In this case, the Servlet, which only allows the <code>guest</code> role, restricts the access and you get a security exception similar to the following: </p>
+<li><p>Now close and reopen the brower session and access the application using the <code>user1</code>/<code>password1!</code> credentials. In this case, the Servlet, which only allows the <code>guest</code> role, restricts the access and you get a security exception similar to the following: </p>
 <div class="highlight"><pre><span class="n">HTTP</span> <span class="n">Status</span> 403 <span class="o">-</span> <span class="n">Access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">resource</span> <span class="n">has</span> <span class="n">been</span> <span class="n">denied</span>
 
 <span class="n">type</span> <span class="n">Status</span> <span class="n">report</span>
@@ -104,7 +104,7 @@ Target Product: EAP</p>
 <span class="n">description</span> <span class="n">Access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">resource</span> <span class="p">(</span><span class="n">Access</span> <span class="n">to</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">resource</span> <span class="n">has</span> <span class="n">been</span> <span class="n">denied</span><span class="p">)</span> <span class="n">has</span> <span class="n">been</span> <span class="n">forbidden</span><span class="p">.</span>
 </pre>
 </div></li>
-<li><p>Next, change the EJB (SecuredEJB.java) to a different role, for example, <code>@RolesAllowed({ &quot;other-role&quot; })</code>. Do not modify the <code>guest</code> role in the Servlet (SecuredEJBServlet.java). Build and redeploy the quickstart, then close and reopen the browser and login using <code>quickstartUser</code>/<code>quickstartPassword</code>. This time the Servlet will allow the <code>guest</code> access, but the EJB, which only allows the role <code>other-role</code>, will throw an EJBAccessException:</p>
+<li><p>Next, change the EJB (SecuredEJB.java) to a different role, for example, <code>@RolesAllowed({ &quot;other-role&quot; })</code>. Do not modify the <code>guest</code> role in the Servlet (SecuredEJBServlet.java). Build and redeploy the quickstart, then close and reopen the browser and login using <code>quickstartUser</code>/<code>quickstartPwd1!</code>. This time the Servlet will allow the <code>guest</code> access, but the EJB, which only allows the role <code>other-role</code>, will throw an EJBAccessException:</p>
 <div class="highlight"><pre><span class="n">HTTP</span> <span class="n">Status</span> 500
 
 <span class="n">message</span>

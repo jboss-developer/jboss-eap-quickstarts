@@ -232,11 +232,11 @@ To build and test the quickstarts:
 
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
-            mvn clean install -Pdefault,!complex-dependencies
+            mvn clean install '-Pdefault,!complex-dependencies'
 
         For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
 
-            mvn clean install -Pdefault,!complex-dependencies -s PATH_TO_QUICKSTARTS/example-settings.xml
+            mvn clean install '-Pdefault,!complex-dependencies' -s PATH_TO_QUICKSTARTS/example-settings.xml
 
 This command iterates through the quickstarts, excluding those with complex dependencies, and does the following:
 
@@ -394,10 +394,10 @@ The following procedures describe how to add a user with the appropriate permiss
         Realm (ApplicationRealm) : 
 
     If the quickstart README specifies a realm, type it here. Otherwise, press enter to use the default `ApplicationRealm`. 
-5. When prompted, enter the the Username and Passord. If the quickstart README specifies a Username nad Password, enter them here. Otherwise, use the default Username `quickstartUser` and Password `quickstartPassword`.
+5. When prompted, enter the the Username and Passord. If the quickstart README specifies a Username nad Password, enter them here. Otherwise, use the default Username `quickstartUser` and Password `quickstartPwd1!`.
  
         Username : quickstartUser
-        Password : quickstartPassword
+        Password : quickstartPwd1!
 6. At the next prompt, you will be asked "What roles do you want this user to belong to?". If the quickstart README specifies a role to use, enter that here. Otherwise, type the role: `guest`
 
 
@@ -639,4 +639,5 @@ When instructed to use Byteman to halt the application, perform the following st
 #### Disable the Byteman Script
  
 When you are done testing the quickstart, remember to restore the configuration file with the backup copy you made in step 2 above.
+
 

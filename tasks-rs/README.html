@@ -30,7 +30,7 @@ Target Product: EAP</p>
 
 <h2 id="toc_4">Add an Application User</h2>
 
-<p>This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  <a href="../README.html#addapplicationuser">Add an Application User</a>.  After following these instructions. you should have created a user called <code>quickstartUser</code> with password <code>quickstartPassword</code>, belonging to the <code>guest</code> role.</p>
+<p>This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  <a href="../README.html#addapplicationuser">Add an Application User</a>.  After following these instructions. you should have created a user called <code>quickstartUser</code> with password <code>quickstartPwd1!</code>, belonging to the <code>guest</code> role.</p>
 
 <h2 id="toc_5">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
 
@@ -75,7 +75,7 @@ Target Product: EAP</p>
 <p>To associate a task called <code>task1</code> with the user <code>quickstartUser</code>, you must authenticate as user <code>quickstartUser</code> and send an HTTP <em>POST</em> request to the url &#39;http://localhost:8080/jboss-as-tasks-rs/tasks/task1&#39;.</p>
 
 <p>To issue the <em>POST</em> command using cURL, type the following command:</p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="nb">i</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">H</span> &quot;<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> 0&quot; <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span><span class="n">task1</span>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="nb">i</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPwd1</span>!&quot; <span class="o">-</span><span class="n">H</span> &quot;<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> 0&quot; <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span><span class="n">task1</span>
 </pre>
 </div>
 
@@ -110,7 +110,7 @@ Target Product: EAP</p>
 <p><a href="http://localhost:8080/jboss-as-tasks-rs/tasks/1">http://localhost:8080/jboss-as-tasks-rs/tasks/1</a></p></li>
 <li><p>To issue a <em>GET</em> using cURL, type the following command:</p>
 
-<p><code>curl -H &quot;Accept: application/xml&quot; -u &quot;quickstartUser:quickstartPassword&quot; -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1</code></p>
+<p><code>curl -H &quot;Accept: application/xml&quot; -u &quot;quickstartUser:quickstartPwd1!&quot; -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1</code></p>
 
 <p>The -H flag tells the server that the client wishes to accept XML content.</p></li>
 </ol>
@@ -133,7 +133,7 @@ Target Product: EAP</p>
 <p><a href="http://localhost:8080/jboss-as-tasks-rs/tasks">http://localhost:8080/jboss-as-tasks-rs/tasks</a></p></li>
 <li><p>To list all tasks associated with the user <code>quickstartUser</code> using cURL, type:</p>
 
-<p>curl -H &ldquo;Accept: application/xml&rdquo; -u &ldquo;quickstartUser:quickstartPassword&rdquo; -X GET http://localhost:8080/jboss-as-tasks-rs/tasks</p></li>
+<p>curl -H &ldquo;Accept: application/xml&rdquo; -u &ldquo;quickstartUser:quickstartPwd1!&rdquo; -X GET http://localhost:8080/jboss-as-tasks-rs/tasks</p></li>
 </ol>
 
 <p>Using either of the above <em>GET</em> methods, you should see the following XML:</p>
@@ -151,7 +151,7 @@ Target Product: EAP</p>
 <p>To delete a task, again authenticate as principal <code>quickstartUser</code> and send an HTTP <em>DELETE</em> request to the URI that represents the task.</p>
 
 <p>To delete the task with id <code>1</code>:</p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="nb">i</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="nb">i</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPwd1</span>!&quot; <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
 </pre>
 </div>
 
@@ -166,7 +166,7 @@ Target Product: EAP</p>
 </div>
 
 <p>Now list all tasks associated with user <code>quickstartUser</code>:</p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span>
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPwd1</span>!&quot; <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span>
 </pre>
 </div>
 
@@ -213,7 +213,7 @@ Target Product: EAP</p>
 </ol>
 
 <p>Now you can view task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:</p>
-<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> &quot;<span class="n">Accept</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>&quot; <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPassword</span>&quot; <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
+<div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> &quot;<span class="n">Accept</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>&quot; <span class="o">-</span><span class="n">u</span> &quot;<span class="n">quickstartUser</span><span class="p">:</span><span class="n">quickstartPwd1</span>!&quot; <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span>8080<span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">rs</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span>1
 </pre>
 </div>
 

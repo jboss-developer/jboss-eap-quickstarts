@@ -1,0 +1,355 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">ejb-security-interceptors:  Using client and server side interceptors to switch the identity for an EJB call.</h1>
+
+<p>Author: Darran Lofthouse
+Level: Advanced
+Technologies: EJB, Security
+Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.
+Target Product: EAP</p>
+
+<h2 id="toc_1">What is it?</h2>
+
+<p>By default, when you make a remote call to an EJB deployed to the application server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. This is true for both client-to-server and server-to-server calls. If you need to use different identities from the same client, you normally need to open multiple connections to the server so that each one is authenticated as a different identity.</p>
+
+<p>Rather than open multiple client connections, this quickstart offers an alternative solution. The identity used to authenticate the connection is given permission to execute a request as a different user. This is achieved with the addition of the following three components: </p>
+
+<ol>
+<li>A client side interceptor to pass the requested identity to the remote server.</li>
+<li>A server side interceptor to receive the identity and request that the call switches to that identity.</li>
+<li>A JAAS LoginModule to decide if the user of the connection is allowed to execute requests as the specified identity.</li>
+</ol>
+
+<p>The quickstart then makes use of two EJBs, <code>SecuredEJB</code> and <code>IntermediateEJB</code>, to verify that the propagation and identity switching is correct and a <code>RemoteClient</code> standalone client. </p>
+
+<h3 id="toc_2">SecuredEJB</h3>
+
+<p>The <code>SecuredEJB</code> has three methods: </p>
+<div class="highlight"><pre><span class="n">String</span> <span class="n">getSecurityInformation</span><span class="p">();</span>
+<span class="n">boolean</span> <span class="n">roleOneMethod</span><span class="p">();</span>
+<span class="n">boolean</span> <span class="n">roleTwoMethod</span><span class="p">();</span>
+</pre>
+</div>
+
+<p>The first method can be called by all users that are created in this quickstart. The purpose of this method is to return a String containing the name of the Principal that called the EJB along with the user&#39;s authorized role information, for example:</p>
+
+<p>[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]</p>
+
+<p>The next two methods are annotated to require that the calling user is authorized for roles &#39;RoleOne&#39; and &#39;RoleTwo&#39; respectively.</p>
+
+<h3 id="toc_3">IntermediateEJB</h3>
+
+<p>The <code>IntermediateEJB</code> contains a single method. Its purpose is to make use of a remote connection and invoke each of the methods on the <code>SecuredEJB</code>. A summary is then returned with the outcome of the calls.</p>
+
+<h3 id="toc_4">RemoteClient</h3>
+
+<p>Finally there is the <code>RemoteClient</code> stand-alone client. The client makes calls using the identity of the established connection and also makes calls switching the identity to the different users.</p>
+
+<p>In the real world, remote calls between servers in the servers-to-server scenario would truly be remote and separate. For the purpose of this quickstart, we make use of a loopback connection to the same server so we don&#39;t need two servers just to run the test.</p>
+
+<h2 id="toc_5">Note on EJB client interceptors</h2>
+
+<p>JBoss Enterprise Application Platform 6.1 and JBoss AS 7.2 allow client side interceptors for EJB invocations. Such interceptors are expected to implement the &#39;org.jboss.ejb.client.EJBClientInterceptor&#39; interface. User applications can then plug in such interceptors in the &#39;EJBClientContext&#39; either programatically or
+through the ServiceLoader mechanism.</p>
+
+<ul>
+<li><p>The programmatic way involves calling the &#39;org.jboss.ejb.client.EJBClientContext.registerInterceptor(int order, EJBClientInterceptor interceptor)&#39; API and passing the &#39;order&#39; and the &#39;interceptor&#39; instance. The &#39;order&#39; is used to decide where exactly in the client interceptor chain, this &#39;interceptor&#39; is going to be placed.</p></li>
+<li><p>The ServiceLoader mechanism is an alternate approach which involves creating a META-INF/services/org.jboss.ejb.client.EJBClientInterceptor file and placing/packaging it in the classpath of the client application. The rules for such a file are dictated by the <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">Java ServiceLoader Mechanism</a>. This file is expected to contain in each separate line the fully qualified class name of the EJB client interceptor implementation, which is expected to be available in the classpath.
+EJB client interceptors added via the ServiceLoader mechanism are added to the end of the client interceptor chain, in the order they were found in the classpath.</p></li>
+</ul>
+
+<p>This quickstart uses the ServiceLoader mechanism for registering the EJB client interceptor and places the META-INF/services/org.jboss.ejb.client.EJBClientInterceptor in the classpath, with the following content:</p>
+<div class="highlight"><pre><span class="c"># EJB client interceptor(s) that will be added to the end of the interceptor chain during an invocation</span>
+<span class="c"># on EJB. If these interceptors are to be added at a specific position, other than last, then use the</span>
+<span class="c"># programmatic API in the application to register it explicitly to the EJBClientContext</span>
+
+<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb_security_interceptors</span><span class="p">.</span><span class="n">ClientSecurityInterceptor</span>
+</pre>
+</div>
+
+<h2 id="toc_6">System requirements</h2>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.</p>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1 or JBoss AS 7.2. </p>
+
+<h2 id="toc_7">Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2 id="toc_8">Prerequisites</h2>
+
+<p><em>Note</em>: Unlike most of the quickstarts, this one requires JBoss Enterprise Application Platform 6.1 or JBoss AS 7.2 or later.</p>
+
+<p>This quickstart uses the default standalone configuration plus the modifications described here.</p>
+
+<p>It is recommended that you test this approach in a separate and clean environment before you attempt to port the changes in your own environment.</p>
+
+<h2 id="toc_9">Configure the JBoss Enterprise Application Platform 6.1 server or JBoss AS 7.2  server</h2>
+
+<p>These steps asume that you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.</p>
+
+<p>You can either edit the standalone.xml configuration before starting the server or you can start the server and execute a series of commands using the JBoss CLI tool, both approaches are described below.  Whichever approach you choose it must be completed before deploying the quickstart.</p>
+
+<p>After the server is configured you will then need to define four user accounts, this can be achieved either by using the add-user tool included with the server or by copying and pasting the appropriate entries into the properties files.  Both of these approaches are described below and whichever approach is chosen it must be completed before running the quickstart - the users can be added before or after starting the server.</p>
+
+<h4 id="toc_10">Modify the Server Configuration using the JBoss CLI Tool</h4>
+
+<ol>
+<li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre>
+</div></li>
+<li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">bin</span><span class="o">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre>
+</div></li>
+<li><p>At the prompt, enter the following series of commands:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">cache</span><span class="o">-</span><span class="n">type</span><span class="p">=</span><span class="n">default</span><span class="p">)</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="p">=</span><span class="n">classic</span><span class="p">:</span><span class="n">add</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="p">=</span><span class="n">classic</span><span class="o">/</span><span class="n">login</span><span class="o">-</span><span class="n">module</span><span class="p">=</span><span class="n">DelegationLoginModule</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">code</span><span class="p">=</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb_security_interceptors</span><span class="p">.</span><span class="n">DelegationLoginModule</span><span class="p">,</span><span class="n">flag</span><span class="p">=</span><span class="n">optional</span><span class="p">,</span><span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="p">={</span><span class="n">password</span><span class="o">-</span><span class="n">stacking</span><span class="p">=</span><span class="n">useFirstPass</span><span class="p">})</span>    
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="p">=</span><span class="n">classic</span><span class="o">/</span><span class="n">login</span><span class="o">-</span><span class="n">module</span><span class="p">=</span><span class="n">Remoting</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">code</span><span class="p">=</span><span class="n">Remoting</span><span class="p">,</span><span class="n">flag</span><span class="p">=</span><span class="n">optional</span><span class="p">,</span><span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="p">={</span><span class="n">password</span><span class="o">-</span><span class="n">stacking</span><span class="p">=</span><span class="n">useFirstPass</span><span class="p">})</span>
+<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="p">=</span><span class="n">classic</span><span class="o">/</span><span class="n">login</span><span class="o">-</span><span class="n">module</span><span class="p">=</span><span class="n">RealmDirect</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">code</span><span class="p">=</span><span class="n">RealmDirect</span><span class="p">,</span><span class="n">flag</span><span class="p">=</span><span class="n">required</span><span class="p">,</span><span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="p">={</span><span class="n">password</span><span class="o">-</span><span class="n">stacking</span><span class="p">=</span><span class="n">useFirstPass</span><span class="p">})</span>
+</pre>
+</div></li>
+</ol>
+
+<p>This block of commands added a new security realm that is used by the quickstart, the most important part is the addition of the DelegationLoginModule which can be before or after the Remoting login module.</p>
+<div class="highlight"><pre>    <span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">core</span><span class="o">-</span><span class="n">service</span><span class="p">=</span><span class="n">management</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">realm</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">realm</span><span class="p">:</span><span class="n">add</span>
+    <span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">core</span><span class="o">-</span><span class="n">service</span><span class="p">=</span><span class="n">management</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">realm</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">realm</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">identity</span><span class="p">=</span><span class="n">secret</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">=</span>&quot;<span class="n">Q29ubmVjdGlvblBhc3N3b3JkMSE</span><span class="p">=</span>&quot;<span class="p">)</span>
+</pre>
+</div>
+
+<p>Those two commands added a new security realm that contains the password that will be used when an outbound connection is subsequently used for the Remote EJB calls.</p>
+<div class="highlight"><pre>    <span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="o">-</span><span class="n">group</span><span class="p">=</span><span class="n">standard</span><span class="o">-</span><span class="n">sockets</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">destination</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="p">=</span><span class="n">localhost</span><span class="p">,</span><span class="n">port</span><span class="p">=</span>4447<span class="p">)</span>
+</pre>
+</div>
+
+<p>For the outbound connection this defined the address that will be connected to.</p>
+<div class="highlight"><pre>    <span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">remoting</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">outbound</span><span class="o">-</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="o">-</span><span class="n">ref</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="p">,</span><span class="n">username</span><span class="p">=</span><span class="n">ConnectionUser</span><span class="p">,</span><span class="n">security</span><span class="o">-</span><span class="n">realm</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">realm</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="o">./</span><span class="n">subsystem</span><span class="p">=</span><span class="n">remoting</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="p">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">/</span><span class="n">property</span><span class="p">=</span><span class="n">SSL_ENABLED</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="p">=</span><span class="n">false</span><span class="p">)</span>
+</pre>
+</div>
+
+<p>The actual outbound connection used by the quickstart is created.</p>
+
+<p>[standalone@localhost:9999 /] :reload</p>
+
+<p>Finally the server is reloaded to pick up these changes.</p>
+
+<h4 id="toc_11">Modify the Server Configuration Manually</h4>
+
+<ol>
+<li>Open the file: JBOSS_HOME/standalone/configuration/standalone.xml</li>
+<li>Make the additions described below.</li>
+</ol>
+
+<p>The EJB side of this quickstart makes use of a new security domain called <code>quickstart-domain</code>, which delegates to the <code>ApplicationRealm</code>. In order to support identity switching we use the DelegationLoginModule from this quickstart.</p>
+<div class="highlight"><pre><span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;quickstart-domain&quot;</span> <span class="na">cache-type=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;authentication&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule&quot;</span> <span class="na">flag=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;Remoting&quot;</span> <span class="na">flag=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;RealmDirect&quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+    <span class="nt">&lt;/authentication&gt;</span>
+<span class="nt">&lt;/security-domain&gt;</span>
+</pre>
+</div>
+
+<p>This login module can either be added before or after the existing <code>Remoting</code> login module in the domain, but it MUST be somewhere before the existing RealmDirect login module.</p>
+
+<p>If this approach is used and the majority of requests will involve an identity switch, then it is recommended to have this module as the first module in the list. However, if the majority of requests will run as the connection user with occasional switches, it is recommended to place the <code>Remoting</code> login module first and this one second.</p>
+
+<p>This login module will load the properties file &#39;delegation-mapping.properties&#39; from the deployment. The location of this properties file can be overridden with the module-option <code>delegationProperties</code>.</p>
+
+<p>At runtime, this login module is used to decide if the user of the connection to the server is allowed to ask that the request is executed as the specified user.</p>
+
+<p>There are four variations of how the key can be specified in the properties file: </p>
+
+<ul>
+<li>user@realm        - Exact match of user and realm.</li>
+<li>user@*            - Allow a match of user for any realm.</li>
+<li>*@realm           - Match for any user in the realm specified.</li>
+<li>*                 - Match for all users in all realms.</li>
+</ul>
+
+<p>When a request is received that involves switching the user, the identity of the user that opened the connection is used to check the properties file for an entry. The check is performed in the order listed above until the first match is found. Once a match is found, further entries that could match are not read.</p>
+
+<p>The value in the properties file can either be a wildcard &#39;*&#39; or it can be a comma separated list of users. Be aware that in the value/mapping side there is no notion of the realm.</p>
+
+<p>For this quickstart we use the following entry: </p>
+<div class="highlight"><pre>    <span class="n">ConnectionUser</span><span class="p">@</span><span class="n">ApplicationRealm</span><span class="p">=</span><span class="n">AppUserOne</span><span class="p">,</span><span class="n">AppUserTwo</span>
+</pre>
+</div>
+
+<p>This means that the ConnectionUser added above can only ask that a request is executed as either AppUserOne or AppUserTwo. It is not allowed to ask to be executed as AppUserThree.</p>
+
+<p>All users are permitted to execute requests as themselves, as in that case, the login module is not called. That is the default behavior that exists without the addition of the interceptors in this quickstart. </p>
+
+<ul>
+<li>Further Use *</li>
+</ul>
+
+<p>Taking this further, the <code>DelegationLoginModule</code> can be extended to provide custom delegation checks. One thing not currently checked is if the user being switched to actually exists. If the module is extended, the following method can be overridden to provide a custom check.</p>
+
+<p>protected boolean delegationAcceptable(String requestedUser, OuterUserCredential connectionUser);</p>
+
+<p>For the purpose of the quickstart we just need an outbound connection that loops back to the same server. This will be sufficient to demonstrate the server-to-server capabilities.</p>
+
+<p>Add the following security realm. Note the Base64-encoded password is for the ConnectionUser account created above.</p>
+<div class="highlight"><pre><span class="nt">&lt;security-realm</span> <span class="na">name=</span><span class="s">&quot;ejb-outbound-realm&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;server-identities&gt;</span>
+     <span class="nt">&lt;secret</span> <span class="na">value=</span><span class="s">&quot;Q29ubmVjdGlvblBhc3N3b3JkMSE=&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/server-identities&gt;</span>
+<span class="nt">&lt;/security-realm&gt;</span>
+</pre>
+</div>
+
+<p>Within the socket-binding-group &#39;standard-sockets&#39; add the following outbound connection: </p>
+<div class="highlight"><pre><span class="nt">&lt;outbound-socket-binding</span> <span class="na">name=</span><span class="s">&quot;ejb-outbound&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;remote-destination</span> <span class="na">host=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;4447&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/outbound-socket-binding&gt;</span>          
+</pre>
+</div>
+
+<p>Within the Remoting susbsytem add the following outbound connection: </p>
+<div class="highlight"><pre><span class="nt">&lt;outbound-connections&gt;</span>
+  <span class="nt">&lt;remote-outbound-connection</span> <span class="na">name=</span><span class="s">&quot;ejb-outbound-connection&quot;</span> <span class="na">outbound-socket-binding-ref=</span><span class="s">&quot;ejb-outbound&quot;</span> <span class="na">security-realm=</span><span class="s">&quot;ejb-outbound-realm&quot;</span> <span class="na">username=</span><span class="s">&quot;ConnectionUser&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;SSL_ENABLED&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;/properties&gt;</span>
+  <span class="nt">&lt;/remote-outbound-connection&gt;</span>
+<span class="nt">&lt;/outbound-connections&gt;</span>  
+</pre>
+</div>
+
+<h2 id="toc_12">Add the Application Users</h2>
+
+<p>This quickstart is built around the default <code>ApplicationRealm</code> as configured in the JBoss Enterprise Application Platform 6.1 or JBoss AS 7.2 server distribution. Using the add-user utility script, you must add the following users to the <code>ApplicationRealm</code>:</p>
+
+<table><thead>
+<tr>
+<th align="left"><strong>UserName</strong></th>
+<th align="left"><strong>Realm</strong></th>
+<th align="left"><strong>Password</strong></th>
+<th align="left"><strong>Roles</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">ConnectionUser</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">ConnectionPassword1!</td>
+<td align="left">User</td>
+</tr>
+<tr>
+<td align="left">AppUserOne</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">AppPasswordOne1!</td>
+<td align="left">User, RoleOne</td>
+</tr>
+<tr>
+<td align="left">AppUserTwo</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">AppPasswordTwo1!</td>
+<td align="left">User, RoleTwo</td>
+</tr>
+<tr>
+<td align="left">AppUserThree</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">AppPasswordThree1!</td>
+<td align="left">User, RoleOne, RoleTwo</td>
+</tr>
+</tbody></table>
+
+<p>The first user establishes the actual connection to the server. The subsequent two users demonstrate how to switch identities on demand.  The final user can access everything but can not participate in identity switching.</p>
+
+<p>Also do note that within the quickstart we do not make use of the passwords for any of the &#39;App&#39; users, the passwords specified for those users are a suggestion for values that will be accepted by the ass-user utility.</p>
+
+<p>For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="../README.html#addapplicationuser">Add User</a>.</p>
+
+<h4 id="toc_13">Add Users Manually</h4>
+
+<p>Alternatively you can edit the properties file for the users and manually add the required entries: -</p>
+
+<ol>
+<li><p>Add the user accounts by editing the file {jboss.home}/standalone/configuration/application-users.properties and pasting in the following lines: -</p>
+
+<p>ConnectionUser=90dbe097e651ce2e84d5fa9d6463ed3d
+AppUserOne=a2ad45ac5d53d6c0db68262b94deafda
+AppUserTwo=3a39e0b35ad46d625b45dacfe708777a
+AppUserThree=5dc106218f4c01b8ff5525cf8e2d1568</p></li>
+<li><p>Add the users roles by editing the file {jboss.home}/standalone/configuration/application-roles.properties and pasting in the following lines: -</p>
+
+<p>ConnectionUser=User
+AppUserOne=User,RoleOne
+AppUserTwo=User,RoleTwo
+AppUserThree=User,RoleOne,RoleTwo    </p></li>
+</ol>
+
+<p>The application server checks the properties files for modifications at runtime so there is no need to restart the server after changing these files.</p>
+
+<h2 id="toc_14">Start JBoss Enterprise Application Platform 6.1 or JBoss AS 7.2</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_15">Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
+</pre>
+</div></li>
+<li><p>This will deploy <code>target/jboss-as-ejb-security-interceptors.jar</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2 id="toc_16">Run the client </h2>
+
+<p>The step here assumes you have already successfully deployed the EJBs to the server in the previous step
+and that your command prompt is still in the same folder.</p>
+
+<ol>
+<li><p>Type this command to execute the client:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">exec</span><span class="p">:</span><span class="n">exec</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_17">Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_18">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2 id="toc_19">Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
+</pre>
+</div>
+</body></html>

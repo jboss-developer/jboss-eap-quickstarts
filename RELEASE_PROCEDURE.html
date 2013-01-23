@@ -1,0 +1,106 @@
+<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body><h1 id="toc_0">Quickstarts Release Procedure</h1>
+
+<h2 id="toc_1">Testing the quickstarts</h2>
+
+<p>Most of the quickstarts require JBoss Enterprise Application Platform or JBoss AS only in standalone mode. Some require the &ldquo;standalone-full&rdquo; profile, some require XTS, some require Postgres and some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:</p>
+<div class="highlight"><pre>  <span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">P</span><span class="o">-</span><span class="n">requires</span><span class="o">-</span><span class="n">postgres</span><span class="p">,</span><span class="o">-</span><span class="n">requires</span><span class="o">-</span><span class="n">full</span><span class="p">,</span><span class="o">-</span><span class="nb">complex</span><span class="o">-</span><span class="n">dependencies</span><span class="p">,</span><span class="o">-</span><span class="n">requires</span><span class="o">-</span><span class="n">xts</span>
+</pre>
+</div>
+
+<p>Or, to run those only those quickstarts that require the full profile</p>
+<div class="highlight"><pre>  <span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">P</span><span class="o">-</span><span class="n">requires</span><span class="o">-</span><span class="n">postgres</span><span class="p">,</span><span class="o">-</span><span class="n">default</span><span class="p">,</span><span class="o">-</span><span class="nb">complex</span><span class="o">-</span><span class="n">dependencies</span><span class="p">,</span><span class="o">-</span><span class="n">requires</span><span class="o">-</span><span class="n">xts</span>
+</pre>
+</div>
+
+<p>And so on.</p>
+
+<h2 id="toc_2">Quickstarts in other repositories</h2>
+
+<p>If the quickstarts are stored in another repository, you may wish to merge them in from there, do this:</p>
+
+<ol>
+<li><p>Add the other repo as a remote</p>
+<div class="highlight"><pre> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">other</span> <span class="n">repo</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">other</span> <span class="n">repo</span> <span class="n">url</span><span class="o">&gt;</span>
+</pre>
+</div></li>
+<li><p>Merge from the tag in the other repo that you wish to use. It is important to use a tag, to make tracking of history easier. We use a recursive merge strategy, always preferring changes from the other repo, in effect overwriting what we have locally.</p>
+<div class="highlight"><pre> <span class="n">git</span> <span class="n">merge</span> <span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="n">recursive</span> <span class="o">-</span><span class="n">Xtheirs</span> <span class="o">-</span><span class="n">m</span> &quot;<span class="n">Merge</span> <span class="o">&lt;</span><span class="n">Other</span> <span class="n">repository</span> <span class="n">name</span><span class="o">&gt;</span> <span class="s">&#39;&lt;Tag&gt;&#39;</span>&quot;
+</pre>
+</div></li>
+<li><p>Review and push to upstream</p>
+<div class="highlight"><pre> <span class="n">git</span> <span class="n">push</span> <span class="n">upstream</span> <span class="n">HEAD</span><span class="p">:</span><span class="n">master</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_3">Rendering Markdown</h2>
+
+<p>The quickstarts use Redcarpet to process the markdown, the same processor used by GitHub. This builds on the basic markdown syntax, adding support for tables, code highlighting, relaxed code blocks etc). We add a couple of custom piece of markup - [TOC] which allows a table of contents, based on headings, to be added to any file, and [Quickstart-TOC], which adds in a table listing the quickstarts.</p>
+
+<p>To render the quickstarts README&#39;s you will need, a working Ruby and Python install, with the various gems and eggs set up. </p>
+
+<p>To setup the environment you need to follow these steps. <em>Certify to use the correct versions</em>.</p>
+
+<ol>
+<li><p>Install Ruby <em>1.9.X</em></p>
+
+<p>For RHEL you can use this <a href="https://github.com/lnxchk/ruby-1.9.3-rpm">spec</a></p></li>
+<li><p>Install Ruby GEMs</p>
+<div class="highlight"><pre><span class="n">gem</span> <span class="n">install</span> <span class="n">redcarpet</span> <span class="n">nokogiri</span> <span class="n">pygments</span><span class="p">.</span><span class="n">rb</span>
+</pre>
+</div></li>
+</ol>
+
+<p>Then just run</p>
+<div class="highlight"><pre>    <span class="o">./</span><span class="n">dist</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">utils</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">m</span>
+</pre>
+</div>
+
+<p>To render all markdown files to HTML.</p>
+
+<h2 id="toc_4">Publishing builds to Maven</h2>
+
+<ol>
+<li>You must have gpg set up and your key registered, as described at <a href="http://www.sonatype.com/people/2010/01/how-to-generate-pgp-signatures-with-maven/">http://www.sonatype.com/people/2010/01/how-to-generate-pgp-signatures-with-maven/</a></li>
+<li><p>You must provide a property <code>gpg.passphrase</code> in your <code>settings.xml</code> in the <code>release</code> profile e.g.</p>
+<div class="highlight"><pre>  <span class="nt">&lt;profile&gt;</span>
+        <span class="nt">&lt;id&gt;</span>release<span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;properties&gt;</span>
+            <span class="nt">&lt;gpg.passphrase&gt;</span>myPassPhrase<span class="nt">&lt;/gpg.passphrase&gt;</span>
+        <span class="nt">&lt;/properties&gt;</span>
+  <span class="nt">&lt;/profile&gt;</span>
+</pre>
+</div></li>
+<li><p>You must have a JBoss Nexus account, configured with the server id in <code>settings.xml</code> with the id <code>jboss-releases-repository</code> e.g.</p>
+<div class="highlight"><pre>  <span class="nt">&lt;server&gt;</span>
+      <span class="nt">&lt;id&gt;</span>jboss-releases-repository<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;username&gt;</span>myUserName<span class="nt">&lt;/username&gt;</span>
+      <span class="nt">&lt;password&gt;</span>myPassword<span class="nt">&lt;/password&gt;</span>
+  <span class="nt">&lt;/server&gt;</span>
+</pre>
+</div></li>
+<li><p>Add <code>org.sonatype.plugins</code> plugin group to your <code>settings.xml</code> so nexus plugin can be available for publishing scripts.</p>
+<div class="highlight"><pre>  <span class="nt">&lt;pluginGroups&gt;</span>
+      <span class="nt">&lt;pluginGroup&gt;</span>org.sonatype.plugins<span class="nt">&lt;/pluginGroup&gt;</span>
+  <span class="nt">&lt;/pluginGroups&gt;</span>
+</pre>
+</div></li>
+</ol>
+
+<h2 id="toc_5">Release Procedure</h2>
+
+<ol>
+<li>Make sure you have access to rsync files to <code>filemgmt.jboss.org/download_htdocs/jbossas</code></li>
+<li>Release the archetypes</li>
+<li><p>Regenerate the quickstart based on archetypes</p>
+<div class="highlight"><pre> <span class="n">dist</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="n">utils</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">r</span>
+</pre>
+</div></li>
+<li><p>Release</p>
+<div class="highlight"><pre> <span class="n">dist</span><span class="o">/</span><span class="n">release</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">old</span> <span class="n">snapshot</span> <span class="n">version</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">release</span> <span class="n">version</span><span class="o">&gt;</span>
+</pre>
+</div>
+
+<p>This will update the version number, commit and tag, build the distro zip and upload it to <download.jboss.org>. Then it will reset the version number back to the snapshot version number.</p></li>
+</ol>
+</body></html>

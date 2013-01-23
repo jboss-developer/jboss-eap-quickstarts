@@ -40,7 +40,6 @@
         <!-- JBoss dependency versions -->
         <version.org.jboss.as>7.1.3.Final-redhat-4</version.org.jboss.as>
         <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
-        <!-- <version.org.jboss.bom>1.0.0.Final</version.org.jboss.bom> -->
         <version.org.jboss.bom>1.0.2.Final-redhat-1</version.org.jboss.bom>
         <version.org.jboss.ejb.client>7.1.1.Final</version.org.jboss.ejb.client>
         <version.org.jboss.spec.jboss.javaee.6.0>3.0.1.Final-redhat-1</version.org.jboss.spec.jboss.javaee.6.0>
@@ -109,25 +108,28 @@
                 <module>bmt</module>
                 <module>cdi-injection</module>
                 <module>cdi-portable-extension</module>
+                <module>cdi-veto</module>
+                <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
+                <module>ejb-security-interceptors</module>
                 <module>greeter</module>
                 <module>helloworld</module>
-                <module>helloworld-html5</module>
                 <module>helloworld-jms</module>
-                <module>helloworld-rf</module>
+                <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
+                <module>helloworld-ws</module>
                 <module>hibernate3</module>
                 <module>hibernate4</module>
+                <module>inter-app</module>
                 <module>kitchensink</module>
                 <module>kitchensink-ear</module>
-                <module>kitchensink-html5-mobile</module>
                 <module>kitchensink-jsp</module>
-                <module>kitchensink-ml</module>                
+                <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
                 <module>log4j</module>
                 <module>logging-tools</module>
@@ -144,8 +146,8 @@
                 <module>temperature-converter</module>
                 <module>wicket-ear</module>
                 <module>wicket-war</module>
-                <module>xml-jaxp</module>
                 <module>xml-dom4j</module>
+                <module>xml-jaxp</module>
             </modules>
         </profile>
         <profile>
@@ -174,6 +176,7 @@
                 </property>
             </activation>
             <modules>
+                <module>cluster-ha-singleton</module>
                 <module>jax-rs-client</module>
                 <module>jts</module>
                 <module>inter-app</module>                
