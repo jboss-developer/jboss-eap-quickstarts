@@ -2,7 +2,7 @@ cdi-alternative: Demostrates CDI Alternatives
 ======================================================
 Author: Nevin Zhu
 Level: Intermediate
-Technologies: CDI, EJB, Servlet, JSP
+Technologies: CDI, Servlet, JSP
 Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment 
 
 What is it?
@@ -20,15 +20,6 @@ Alternatives are commonly used for purposes like the following:
 
 To make a bean available for lookup, injection, or EL resolution using this mechanism, give it a javax.enterprise.inject.Alternative annotation and then use the alternative element to specify it in the beans.xml file.
 
-The example is composed of three maven projects, each with a shared parent. The projects are as follows:
-
-1. `ejb`: This project contains the EJB code and can be built independently to produce the JAR archive.
-
-2. `web`: This project contains a servlet and a JSP page.
-
-3. `ear`: This project builds the EAR artifact and pulls in the ejb and web artifacts.
-
-The root `pom.xml` builds each of the subprojects in the above order and deploys the EAR archive to the server.
 
 System requirements
 -------------------
@@ -71,9 +62,18 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/cdi-alternative-web/Demo>.
+The application will be running at the following URL <http://localhost:8080/cdi-alternative/Demo>.
 
-A message will display for the bean being injected during run time. The alternative version of the beans can be updated in beans.xml
+A message will display for the bean being injected during run time. 
+
+The alternative version of the beans can be updated in /WEB-INF/beans.xml by removing the <alternative> tag 
+
+or 
+
+change the class name to a different alternative. 
+
+In this quickstart, in order to switch back to the default implementation, 
+comment the <alternative> block. 
 
 Undeploy the Archive
 --------------------
