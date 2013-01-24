@@ -1,7 +1,9 @@
-CDI_Alternative: Demostration of CDI Alternative implementation
+cdi-alternative: Demostrates CDI Alternatives
 ======================================================
 Author: Nevin Zhu
-
+Level: Intermediate
+Technologies: CDI, EJB, Servlet, JSP
+Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment 
 
 What is it?
 -----------
@@ -12,12 +14,21 @@ Instead of having to change the source code of the application, one can make the
 
 Alternatives are commonly used for purposes like the following:
 
-    *  To handle client-specific business logic that is determined at runtime
-    *  To specify beans that are valid for a particular deployment scenario (for example, when country-specific sales tax laws require country-specific sales tax business logic)
-    *  To create dummy (mock) versions of beans to be used for testing
+1)  To handle client-specific business logic that is determined at runtime
+2)  To specify beans that are valid for a particular deployment scenario (for example, when country-specific sales tax laws require country-specific sales tax business logic)
+3)  To create dummy (mock) versions of beans to be used for testing
 
 To make a bean available for lookup, injection, or EL resolution using this mechanism, give it a javax.enterprise.inject.Alternative annotation and then use the alternative element to specify it in the beans.xml file.
 
+The example is composed of three maven projects, each with a shared parent. The projects are as follows:
+
+1. `ejb`: This project contains the EJB code and can be built independently to produce the JAR archive.
+
+2. `web`: This project contains a servlet and a JSP page.
+
+3. `ear`: This project builds the EAR artifact and pulls in the ejb and web artifacts.
+
+The root `pom.xml` builds each of the subprojects in the above order and deploys the EAR archive to the server.
 
 System requirements
 -------------------
