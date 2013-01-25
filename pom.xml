@@ -55,7 +55,7 @@
         <version.org.hibernate-jpamodelgen>1.1.1.Final</version.org.hibernate-jpamodelgen>
         <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator>
         
-        <version.org.jboss.resteasy>2.2.2.GA</version.org.jboss.resteasy>
+        <version.org.jboss.resteasy>2.3.5.Final</version.org.jboss.resteasy>
         
         <version.org.richfaces>4.2.0.Final</version.org.richfaces>
         
