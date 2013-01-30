@@ -14,9 +14,9 @@ Instead of having to change the source code of the application, one can make the
 
 Alternatives are commonly used for purposes like the following:
 
-1.  To handle client-specific business logic that is determined at runtime
-2.  To specify beans that are valid for a particular deployment scenario (for example, when country-specific sales tax laws require country-specific sales tax business logic)
-3.  To create dummy (mock) versions of beans to be used for testing
+1. To handle client-specific business logic that is determined at runtime.
+2. To specify beans that are valid for a particular deployment scenario, for example, when country-specific sales tax laws require country-specific sales tax business logic.
+3. To create dummy or mock versions of beans to be used for testing.
 
 Any java class which has a no-args constructor and is in an archive with a beans.xml is available for lookup and injection. 
 For EL resolution, it must contain @Named
@@ -68,7 +68,7 @@ The application will be running at the following URL <http://localhost:8080/cdi-
 You can specify alternative versions of the bean in the WEB-INF/beans.xml file by doing one of the following:
 
 1. you can remove the '<alternatives>' tag
-2. you can  change the class name.
+2. you can change the class name.
 
 In this quickstart, in order to switch back to the default implementation, 
 comment the '<alternatives>' block in the WEB-INF/beans.xml file and redeploy the quickstart.
