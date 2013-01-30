@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Nevin Zhu
  * 
  */
-@WebServlet("/Demo")
+@WebServlet("/")
 public class Demo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -45,13 +45,6 @@ public class Demo extends HttpServlet {
 	 */
     @Inject
     private Tax tax;       
-    /**
-     * default constructor
-     */
-    public Demo() {
-        super();
-
-    }
 
 	/**
 	 * handles the incoming servlet request
