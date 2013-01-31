@@ -37,11 +37,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <version.org.jboss.resteasy>2.3.5.Final</version.org.jboss.resteasy>
+        <version.org.jboss.bom>1.0.2.Final-redhat-1</version.org.jboss.bom>
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4-redhat-2</version.org.apache.httpcomponents>
-        <version.junit>4.10</version.junit>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
@@ -53,17 +52,27 @@
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
+                <version>${version.org.jboss.bom}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>${version.org.jboss.resteasy}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -101,4 +110,5 @@
             </plugin>
         </plugins>
     </build>
+    
 </project>
