@@ -40,7 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <version.org.jboss.as>7.1.3.Final-redhat-4</version.org.jboss.as>
+        <version.org.jboss.as>7.2.0.Alpha1-redhat-2</version.org.jboss.as>
         <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
         <!-- Define the version of the JBoss BOMs we want to import. The 
             JBoss BOMs specify tested stacks. -->
@@ -49,7 +49,7 @@
             line below to use version 1.0.2.Final-redhat-1 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <version.org.jboss.bom>1.0.2.Final-redhat-1</version.org.jboss.bom>
+        <version.org.jboss.bom>1.0.4.CR8</version.org.jboss.bom>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>

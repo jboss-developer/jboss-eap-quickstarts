@@ -37,10 +37,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <version.org.jboss.bom>1.0.2.Final-redhat-1</version.org.jboss.bom>
+        <version.org.jboss.bom>1.0.4.CR8</version.org.jboss.bom>
 
         <!-- Other dependency versions -->
-        <version.org.apache.httpcomponents>4.1.4-redhat-2</version.org.apache.httpcomponents>
+        <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>

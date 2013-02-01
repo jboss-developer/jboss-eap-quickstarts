@@ -47,7 +47,7 @@
             line below to use version 3.0.0.Final-redhat-1 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <version.org.jboss.spec.jboss.javaee.6.0>3.0.1.Final-redhat-1</version.org.jboss.spec.jboss.javaee.6.0>
+        <version.org.jboss.spec.jboss.javaee.6.0>3.0.1.Final</version.org.jboss.spec.jboss.javaee.6.0>
 
         <!-- Other dependency versions -->
         <version.org.apache.wicket>1.5.5</version.org.apache.wicket>
