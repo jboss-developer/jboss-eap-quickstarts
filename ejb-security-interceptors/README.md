@@ -101,8 +101,8 @@ After the server is configured you will then need to define four user accounts, 
 
 1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
 2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
