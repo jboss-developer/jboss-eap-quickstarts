@@ -23,9 +23,7 @@ import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * A simple example to demonstrate a implementation of a cluster-wide singleton timer.
@@ -34,7 +32,7 @@ import org.slf4j.LoggerFactory;
  */
 @Singleton
 public class SchedulerBean implements Scheduler {
-    private static Logger LOGGER = LoggerFactory.getLogger(SchedulerBean.class);
+    private static Logger LOGGER = Logger.getLogger(SchedulerBean.class);
     @Resource
     private TimerService timerService;
 

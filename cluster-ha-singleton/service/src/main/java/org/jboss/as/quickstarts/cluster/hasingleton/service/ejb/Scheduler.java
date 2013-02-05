@@ -14,9 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.cluster.hasingleton.service.ejb;
+ package org.jboss.as.quickstarts.cluster.hasingleton.service.ejb;
 
-public interface Scheduler {
+ /**
+  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
+  */
+ public interface Scheduler {
 
     void initialize(String info);
 
