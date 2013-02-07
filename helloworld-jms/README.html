@@ -35,7 +35,7 @@ Target Product: EAP</p>
 
 <p>If you are using the JBoss AS 7 Quickstart distribution, the server configuration file already contains the JMS <code>test</code> queue and you can skip this step. </p>
 
-<p>However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS <code>test</code> queue and <code>topic</code> to the application server configuration file. You can configure JMS using the JBoss CLI or by manually editing the configuration file.</p>
+<p>However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS <code>test</code> queue to the application server configuration file. You can configure JMS using the JBoss CLI or by manually editing the configuration file.</p>
 
 <h4 id="toc_6">Modify the Server JMS Configuration using the JBoss CLI Tool</h4>
 
@@ -52,7 +52,6 @@ Target Product: EAP</p>
 </div></li>
 <li><p>At the prompt, type the following:</p>
 <div class="highlight"><pre><span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="n">jms</span><span class="o">-</span><span class="n">queue</span> <span class="n">add</span> <span class="o">--</span><span class="n">queue</span><span class="o">-</span><span class="n">address</span><span class="p">=</span><span class="n">testQueue</span> <span class="o">--</span><span class="n">entries</span><span class="p">=</span><span class="n">queue</span><span class="o">/</span><span class="n">test</span><span class="p">,</span><span class="n">java</span><span class="p">:</span><span class="n">jboss</span><span class="o">/</span><span class="n">exported</span><span class="o">/</span><span class="n">jms</span><span class="o">/</span><span class="n">queue</span><span class="o">/</span><span class="n">test</span>
-<span class="p">[</span><span class="n">standalone</span><span class="p">@</span><span class="n">localhost</span><span class="p">:</span>9999 <span class="o">/</span><span class="p">]</span> <span class="n">jms</span><span class="o">-</span><span class="n">topic</span> <span class="n">add</span> <span class="o">--</span><span class="n">topic</span><span class="o">-</span><span class="n">address</span><span class="p">=</span><span class="n">testTopic</span> <span class="o">--</span><span class="n">entries</span><span class="p">=</span><span class="n">topic</span><span class="o">/</span><span class="n">test</span><span class="p">,</span><span class="n">java</span><span class="p">:</span><span class="n">jboss</span><span class="o">/</span><span class="n">exported</span><span class="o">/</span><span class="n">jms</span><span class="o">/</span><span class="n">topic</span><span class="o">/</span><span class="n">test</span>
 </pre>
 </div></li>
 </ol>

@@ -42,7 +42,7 @@ Configure the JBoss Enterprise Application Platform 6 server
 
 If you are using the JBoss AS 7 Quickstart distribution, the server configuration file already contains the JMS `test` queue and you can skip this step. 
 
-However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS `test` queue and `topic` to the application server configuration file. You can configure JMS using the JBoss CLI or by manually editing the configuration file.
+However, if you are using the JBoss Enterprise Application Platform 6 distribution, you need to add the JMS `test` queue to the application server configuration file. You can configure JMS using the JBoss CLI or by manually editing the configuration file.
 
 #### Modify the Server JMS Configuration using the JBoss CLI Tool
 
@@ -57,7 +57,6 @@ However, if you are using the JBoss Enterprise Application Platform 6 distributi
 3. At the prompt, type the following:
 
         [standalone@localhost:9999 /] jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
-        [standalone@localhost:9999 /] jms-topic add --topic-address=testTopic --entries=topic/test,java:jboss/exported/jms/topic/test
 
 #### Modify the Server JMS Configuration Manually
 
