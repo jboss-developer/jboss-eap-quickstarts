@@ -17,9 +17,7 @@
 package org.jboss.as.quickstarts.invocationhandler;
 
 import java.util.logging.Logger;
-import java.util.Properties;
 
-import javax.enterprise.inject.Default;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

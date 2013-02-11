@@ -16,22 +16,19 @@
  */
 package org.jboss.as.quickstarts.invocationhandler;
 
-import java.util.Arrays;
-import java.util.logging.Logger;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
-
-import org.apache.deltaspike.core.api.invocationhandler.annotation.InvocationHandlerBinding;
 
 @HelloWorldInvocationHandlerBinding
 @ApplicationScoped
 public class HelloWorldInvocationHandler implements InvocationHandler {
     private static final Logger log = Logger.getLogger(HelloWorldInvocationHandler.class.getName());
 
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable 
-    {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     	log.info("Method called: " + method.getName());
     	log.info("Arguments passed: " + Arrays.asList(args));
         return "Hello " + args[0];
