@@ -135,6 +135,7 @@
                 <module>greeter</module>
                 <module>helloworld</module>
                 <module>helloworld-jms</module>
+                <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
