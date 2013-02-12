@@ -14,23 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.invocationhandler;
+
+package org.jboss.as.quickstart.deltaspike.invocationhandler;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 
-@HelloWorldInvocationHandlerBinding
+/**
+ * This class implements a dynamic InvocationHandler. It is bound to
+ * one or more abstract classes or interfaces via the Binding Annotation
+ * (@InvocationHandlerTestBinding below).
+ * 
+ * All abstract, unimplemented methods from those beans will be implemented
+ * via the invoke method.
+ * 
+ */
+@InvocationHandlerTestBinding
 @ApplicationScoped
-public class HelloWorldInvocationHandler implements InvocationHandler {
-    private static final Logger log = Logger.getLogger(HelloWorldInvocationHandler.class.getName());
-
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    	log.info("Method called: " + method.getName());
-    	log.info("Arguments passed: " + Arrays.asList(args));
-        return "Hello " + args[0];
-    }
+public class InvocationHandlerTestHandler implements InvocationHandler {
+	/**
+	 * In our example, this method will be invoked when the "sayHello" method is called.
+	 * 
+	 * @param proxy The object upon which the method is being invoked.
+	 * @param method The method being invoked (sayHello in this QuickStart)
+	 * @param args The arguments being passed in to the invoked method
+	 */
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		return "Hello " + args[0];
+	}
 }

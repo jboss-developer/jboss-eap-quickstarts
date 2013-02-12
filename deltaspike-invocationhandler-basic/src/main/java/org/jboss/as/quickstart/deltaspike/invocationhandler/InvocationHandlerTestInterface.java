@@ -14,17 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.invocationhandler;
-
-import java.util.logging.Logger;
+package org.jboss.as.quickstart.deltaspike.invocationhandler;
 
 import javax.enterprise.context.ApplicationScoped;
 
+/**
+ * This class demonstrates the use of a DeltaSpike InvocationHandler
+ * to provide a dynamic implementation of an interface.
+ * 
+ * When a method is called on this interface, the implementation will be
+ * provided by the implementation class for @InvocationHandlerTestBinding.
+ *
+ */
 @ApplicationScoped
-@HelloWorldInvocationHandlerBinding
-public abstract class HelloWorldBean {
-
-    private static final Logger log = Logger.getLogger(HelloWorldBean.class.getName());
-
-    public abstract String sayHello(String name);
+@InvocationHandlerTestBinding
+public interface InvocationHandlerTestInterface {
+	String sayHello(String hello);
 }

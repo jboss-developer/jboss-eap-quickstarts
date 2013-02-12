@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.invocationhandler;
+
+package org.jboss.as.quickstart.deltaspike.invocationhandler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,9 +24,19 @@ import java.lang.annotation.Target;
 
 import org.apache.deltaspike.core.api.invocationhandler.annotation.InvocationHandlerBinding;
 
+/**
+ * This annotation binds a particular class (or interface) to 
+ * an implementation class.
+ * 
+ * The implementation class must be annotated with this annotation, and it
+ * must implement the java.lang.reflect.InvocationHandler interface.
+ * 
+ * It is critical that the annotation be available at runtime, via the
+ * @Retention(RetentionPolicy.RUNTIME) annotation (as in the below example).
+ */
 @InvocationHandlerBinding
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HelloWorldInvocationHandlerBinding { 
-}
+public @interface InvocationHandlerTestBinding {
 
+}
