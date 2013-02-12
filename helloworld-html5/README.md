@@ -1,9 +1,11 @@
 helloworld-html5: HTML5 + REST Hello World Example
 ===================
-Author: Jay Balunas
-Level: Beginner 
-Technologies: Aerogear, CDI, HTML5, REST
-Origin: http://www.jboss.org/aerogear
+Author: Jay Balunas, Burr Sutter, Douglas Campos, Bruno Olivera
+Level: Beginner
+Technologies: CDI, JAX-RS, HTML5
+Summary: Basic HTML5 |Demonstrates the use of CDI 1.0 and JAX-RS using the HTML5 architecture and RESTful services on the backend
+Target Product: WFK
+Source: <https://github.com/aerogear/as-quickstarts>
 
 What is it?
 -----------
@@ -50,7 +52,7 @@ You can now deploy the artifact by executing the following command:
 
 This will deploy both the client and service applications.
 
-The application will be running at the following URL [http://localhost:8080/\<artifactId>/]("http://localhost:8080/<artifactId>").
+The application will be running at the following URL <http://localhost:8080/jboss-as-helloworld-html5/>.
 
 To undeploy run this command:
 
