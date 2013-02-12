@@ -62,15 +62,34 @@ public class InvocationHandlerTest {
     @Inject 
     private InvocationHandlerTestAbstractClass invocationHandlerTestAbstractClass;
 
+    /**
+     * Tests the InvocationHandler provided implementation of the "sayHello" method
+     * on the InvocationHandlerTestInterface bean.
+     */
     @Test
-    public void assertPersonInjected() {
+    public void testInvocationHandlerInterface() {
         String resultFromTestInterface = invocationHandlerTestInterface.sayHello("interface");
         assertEquals("Hello interface", resultFromTestInterface);
-        
-        String resultFromTestAbstractClass = invocationHandlerTestAbstractClass.sayHello("abstractclass");
+    }
+    /**
+     * Tests the InvocationHandler provided implementation of the "sayHello" method
+     * on the InvocationHandlerTestAbstractClass bean.
+     */
+    @Test
+    public void testInvocationHandlerAbstractClassInvocationHandlerMethod() {
+    	String resultFromTestAbstractClass = invocationHandlerTestAbstractClass.sayHello("abstractclass");
         assertEquals("Hello abstractclass", resultFromTestAbstractClass);
-        
-        String resultFromTestAbstractClassConcreteMethod = invocationHandlerTestAbstractClass.otherHey("concretemethod");
+    }
+    /**
+     * Tests the concrete implementation of the "otherHey" method on the 
+     * InvocationHandlerTestAbstractClass bean.
+     * 
+     * This method's implementation will be provided by the class itself,
+     * rather than by the InvocationHandler.
+     */
+    @Test
+    public void testInvocationHandlerAbstractClassInvocationConcreteMethod() {
+    	String resultFromTestAbstractClassConcreteMethod = invocationHandlerTestAbstractClass.otherHey("concretemethod");
         assertEquals("Other: concretemethod", resultFromTestAbstractClassConcreteMethod);
     }
 }

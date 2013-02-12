@@ -80,11 +80,12 @@ Maven prints summary of performed tests into the console:
     Running org.jboss.as.quickstart.deltaspike.invocationhandler.test.InvocationHandlerTest
     log4j:WARN No appenders could be found for logger (org.jboss.logging).
     log4j:WARN Please initialize the log4j system properly.
-    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.641 sec
-    
+    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.766 sec
+
     Results :
-    
-    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
