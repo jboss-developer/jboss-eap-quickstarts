@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  
+  <profiles>
+
+    <!-- Configure the JBoss EAP Maven repository -->
+    <profile>
+      <id>jboss-eap-repository</id>
+      <repositories>
+        <repository>
+          <id>jboss-eap-repository</id>
+          <url>file:///path/to/repo/jboss-eap-6.1.X-maven-repository</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-eap-plugin-repository</id>
+          <url>file:///path/to/repo/jboss-eap-6.1.X-maven-repository</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+    <!-- Configure the JBoss Community Maven repository -->
+    <profile>
+      <id>jboss-community-repository</id>
+      <repositories>
+        <repository>
+          <id>jboss-community-repository</id>
+          <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-community-plugin-repository</id>
+          <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+  </profiles>
+
+  <activeProfiles>
+    <!-- Optionally, make the repositories active by default -->
+    <activeProfile>jboss-eap-repository</activeProfile>
+    <activeProfile>jboss-community-repository</activeProfile>
+  </activeProfiles>
+
+</settings>
+
