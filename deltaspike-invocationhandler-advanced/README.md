@@ -1,22 +1,17 @@
-deltaspike-invocationhandler-basic: HelloWorld Example of DeltaSpike InvocationHandler
+deltaspike-invocationhandler-advanced: Advanced Example of DeltaSpike InvocationHandler
 ======================================================
 Author: Jess Sightler
 Level: Advanced
 Technologies: CDI, DeltaSpike
-Summary: Demonstrates an InvocationHandler providing dynamic implementation of partial beans
+Summary: Demonstrates an InvocationHandler providing dynamic implementation of a generic Entity Query service
 Target Product: WFK
 
 What is it?
 -----------
 
-This quickstart demonstrates the use of an InvocationHandler to provide dynamic implementations of an interface, as well as implementations of abstract methods within an abstract class.
+This quickstart demonstrates the use of an InvocationHandler to provide dynamic implementations of an interface, and how this might be used to provide a generic query service.
 
-The quickstart consists of the following classes:
-
- - InvocationHandlerTestAbstractClass - Abstract implementation class implementing a partial CDI Bean. This class could contain concrete methods as well as abstract. The abstract methods (for example, "sayHello") will be filled in by the InvocationHandler itself (InvocationHandlerTestHandler in this case). The concrete methods will use the implementations provided within this class.
- - InvocationHandlerTestInterface - The methods in this interface will all be provided via the InvocationHandler itself  (InvocationHandlerTestHandler in this case)
- - InvocationHandlerTestBinding - This Annotation is used to bind the Bean classes and interfaces to an InvocationHandler
- - InvocationHandlerTestHandler - This class implements a dynamic InvocationHandler. When "sayHello" is called on the Bean, the "invoke" method will be called in its place.
+The PersonQueryService provides an example of the end user API that might be available from such a framework. Extensive code comments document the example implementation.
 
 It does not contain any user interface; the tests must be run to verify everything is working correctly.
 
@@ -77,14 +72,15 @@ Maven prints summary of performed tests into the console:
    -------------------------------------------------------
      T E S T S
     -------------------------------------------------------
-    Running org.jboss.as.quickstart.deltaspike.invocationhandleradvanced.test.InvocationHandlerTest
+    Running org.jboss.as.quickstart.deltaspike.invocationhandler.test.QueryServiceTest
     log4j:WARN No appenders could be found for logger (org.jboss.logging).
     log4j:WARN Please initialize the log4j system properly.
-    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.766 sec
+    Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.897 sec
 
     Results :
 
-    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+    Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
 
 
 

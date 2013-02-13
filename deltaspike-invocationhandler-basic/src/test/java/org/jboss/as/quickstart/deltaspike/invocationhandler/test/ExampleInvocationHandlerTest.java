@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstart.deltaspike.invocationhandler.InvocationHandlerTestAbstractClass;
-import org.jboss.as.quickstart.deltaspike.invocationhandler.InvocationHandlerTestInterface;
+import org.jboss.as.quickstart.deltaspike.invocationhandler.ExampleInvocationHandlerAbstractClass;
+import org.jboss.as.quickstart.deltaspike.invocationhandler.ExampleInvocationHandlerInterface;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
  * Verification test.
  */
 @RunWith(Arquillian.class)
-public class InvocationHandlerTest {
+public class ExampleInvocationHandlerTest {
 
     @Deployment
     public static Archive<?> getDeployment() {
@@ -47,7 +47,7 @@ public class InvocationHandlerTest {
 
         Archive<?> archive = ShrinkWrap
                 .create(WebArchive.class, "test.war")
-                .addPackages(true, InvocationHandlerTestInterface.class.getPackage())
+                .addPackages(true, ExampleInvocationHandlerInterface.class.getPackage())
                 .addAsLibraries(
                         resolver.artifacts("org.apache.deltaspike.core:deltaspike-core-api",
                                 "org.apache.deltaspike.core:deltaspike-core-impl").resolveAsFiles())
@@ -56,39 +56,39 @@ public class InvocationHandlerTest {
     }
 
     @Inject 
-    private InvocationHandlerTestInterface invocationHandlerTestInterface;
+    private ExampleInvocationHandlerInterface exampleInvocationHandlerInterface;
 
     @Inject 
-    private InvocationHandlerTestAbstractClass invocationHandlerTestAbstractClass;
+    private ExampleInvocationHandlerAbstractClass exampleInvocationHandlerAbstractClass;
 
     /**
      * Tests the InvocationHandler provided implementation of the "sayHello" method
-     * on the InvocationHandlerTestInterface bean.
+     * on the ExampleInvocationHandlerInterface bean.
      */
     @Test
     public void testInvocationHandlerInterface() {
-        String resultFromTestInterface = invocationHandlerTestInterface.sayHello("interface");
-        assertEquals("Hello interface", resultFromTestInterface);
+        String resultFromInterface = exampleInvocationHandlerInterface.sayHello("interface");
+        assertEquals("Hello interface", resultFromInterface);
     }
     /**
      * Tests the InvocationHandler provided implementation of the "sayHello" method
-     * on the InvocationHandlerTestAbstractClass bean.
+     * on the ExampleInvocationHandlerAbstractClass bean.
      */
     @Test
     public void testInvocationHandlerAbstractClassInvocationHandlerMethod() {
-    	String resultFromTestAbstractClass = invocationHandlerTestAbstractClass.sayHello("abstractclass");
-        assertEquals("Hello abstractclass", resultFromTestAbstractClass);
+    	String resultFromAbstractClass = exampleInvocationHandlerAbstractClass.sayHello("abstractclass");
+        assertEquals("Hello abstractclass", resultFromAbstractClass);
     }
     /**
      * Tests the concrete implementation of the "otherHey" method on the 
-     * InvocationHandlerTestAbstractClass bean.
+     * ExampleInvocationHandlerAbstractClass bean.
      * 
      * This method's implementation will be provided by the class itself,
      * rather than by the InvocationHandler.
      */
     @Test
     public void testInvocationHandlerAbstractClassInvocationConcreteMethod() {
-    	String resultFromTestAbstractClassConcreteMethod = invocationHandlerTestAbstractClass.otherHey("concretemethod");
-        assertEquals("Other: concretemethod", resultFromTestAbstractClassConcreteMethod);
+    	String resultFromAbstractClassConcreteMethod = exampleInvocationHandlerAbstractClass.otherHey("concretemethod");
+        assertEquals("Other: concretemethod", resultFromAbstractClassConcreteMethod);
     }
 }

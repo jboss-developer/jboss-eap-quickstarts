@@ -37,6 +37,6 @@ import org.apache.deltaspike.core.api.invocationhandler.annotation.InvocationHan
 @InvocationHandlerBinding
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InvocationHandlerTestBinding {
+public @interface ExampleInvocationHandlerBinding {
 
 }

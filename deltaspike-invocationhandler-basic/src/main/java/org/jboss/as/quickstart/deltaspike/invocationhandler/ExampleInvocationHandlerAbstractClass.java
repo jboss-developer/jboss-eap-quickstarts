@@ -17,32 +17,34 @@
 
 package org.jboss.as.quickstart.deltaspike.invocationhandler;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-
 import javax.enterprise.context.ApplicationScoped;
 
 /**
- * This class implements a dynamic InvocationHandler. It is bound to
- * one or more abstract classes or interfaces via the Binding Annotation
- * (@InvocationHandlerTestBinding below).
+ * This class demonstrates the use of a DeltaSpike InvocationHandler
+ * to provide a dynamic implementation of a partial bean.
  * 
- * All abstract, unimplemented methods from those beans will be implemented
- * via the invoke method.
+ * For this example, the partial bean is provided by an abstract class. A 
+ * binding annotation (@ExampleInvocationHandlerBinding in this case) is placed 
+ * on this class in order to bind the abstract methods to an implementation class.
  * 
+ * The abstract class may provide both abstract methods (which will be replaced
+ * by the InvocationHandler at Runtime) as well as concrete methods, whose 
+ * code will be provided in the class below.
+ *
  */
-@InvocationHandlerTestBinding
 @ApplicationScoped
-public class InvocationHandlerTestHandler implements InvocationHandler {
+@ExampleInvocationHandlerBinding
+public abstract class ExampleInvocationHandlerAbstractClass {
 	/**
-	 * In our example, this method will be invoked when the "sayHello" method is called.
-	 * 
-	 * @param proxy The object upon which the method is being invoked.
-	 * @param method The method being invoked (sayHello in this QuickStart)
-	 * @param args The arguments being passed in to the invoked method
+	 * This abstract method will be provided by the InvocationHandler's invoke
+	 * method.
 	 */
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		return "Hello " + args[0];
+	public abstract String sayHello(String hello);
+	
+	/**
+	 * In this case, the concrete implementation below will be called.
+	 */
+	public String otherHey (String hello) {
+		return "Other: " + hello;
 	}
 }

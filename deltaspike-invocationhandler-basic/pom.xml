@@ -52,6 +52,7 @@
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.surefire.plugin>2.4.3</version.surefire.plugin>
+        <version.deltaspike>0.4-incubating-SNAPSHOT</version.deltaspike>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -88,12 +89,12 @@
             <dependency>
                 <groupId>org.apache.deltaspike.core</groupId>
                 <artifactId>deltaspike-core-api</artifactId>
-                <version>0.4-incubating-SNAPSHOT</version>
+                <version>${version.deltaspike}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.deltaspike.core</groupId>
                 <artifactId>deltaspike-core-impl</artifactId>
-                <version>0.4-incubating-SNAPSHOT</version>
+                <version>${version.deltaspike}</version>
             </dependency>
         </dependencies>
 

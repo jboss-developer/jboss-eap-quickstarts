@@ -23,11 +23,11 @@ import javax.enterprise.context.ApplicationScoped;
  * to provide a dynamic implementation of an interface.
  * 
  * When a method is called on this interface, the implementation will be
- * provided by the implementation class for @InvocationHandlerTestBinding.
+ * provided by the implementation class for @ExampleInvocationHandlerBinding.
  *
  */
 @ApplicationScoped
-@InvocationHandlerTestBinding
-public interface InvocationHandlerTestInterface {
+@ExampleInvocationHandlerBinding
+public interface ExampleInvocationHandlerInterface {
 	String sayHello(String hello);
 }
