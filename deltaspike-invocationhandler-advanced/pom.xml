@@ -52,6 +52,7 @@
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.surefire.plugin>2.4.3</version.surefire.plugin>
+        <!-- TODO - This should be removed once 0.4 is available and included in JDF by default -->
         <version.deltaspike>0.4-incubating-SNAPSHOT</version.deltaspike>
 
         <!-- maven-compiler-plugin -->
@@ -86,11 +87,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- TODO - This should be removed once 0.4 is available and included in JDF by default -->
             <dependency>
                 <groupId>org.apache.deltaspike.core</groupId>
                 <artifactId>deltaspike-core-api</artifactId>
                 <version>${version.deltaspike}</version>
             </dependency>
+            <!-- TODO - This should be removed once 0.4 is available and included in JDF by default -->
             <dependency>
                 <groupId>org.apache.deltaspike.core</groupId>
                 <artifactId>deltaspike-core-impl</artifactId>
