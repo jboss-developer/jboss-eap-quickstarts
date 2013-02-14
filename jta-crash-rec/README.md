@@ -128,8 +128,8 @@ Test the application
 6. If you want to verify the database insert was committed but that message delivery is still pending, you can use an SQL client such as the H2 database console tool. Issue a query to show that the value is present but does not contain the message added by the consumer (*" updated via JMS"*). Here is how you can do it using H2:
     * Start the H2 console by typing:
 
-            For JBoss Enterprise Application Platform 6: 
-                  java -cp $JBOSS_HOME/modules/com/h2database/h2/main/h2*.jar org.h2.tools.Console
+            For JBoss Enterprise Application Platform 6.1: 
+                  java -cp $JBOSS_HOME/modules/system/layers/base/com/h2database/h2/main/h2*.jar org.h2.tools.Console
             For JBoss AS 7:
                   java -jar $JBOSS_HOME/modules/com/h2database/h2/main/h2*.jar
     * Log in:
