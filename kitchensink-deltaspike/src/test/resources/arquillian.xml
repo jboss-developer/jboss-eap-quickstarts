@@ -26,7 +26,7 @@
    <container qualifier="jboss" default="true">
       <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
       <configuration>
-         <property name="jbossHome">/path/to/jboss/as</property>
+<!--          <property name="jbossHome">/path/to/jboss/as</property> -->
       </configuration>
    </container>
 
