@@ -247,6 +247,7 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>servlet-security-genericheader-auth</module>
                 <module>shopping-cart</module>
                 <module>shrinkwrap-resolver</module>
                 <module>tasks</module>
@@ -305,6 +306,7 @@
                 <module>inter-app</module>                
                 <module>ejb-security-plus</module>
                 <module>jpp-quickstarts</module>
+                <module>servlet-security-genericheader-auth</module>
             </modules>
         </profile>
         <profile>
