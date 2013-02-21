@@ -77,12 +77,32 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss Server as described above. 
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-remote 
+        mvn clean test -Parq-jbossas-remote
 
+There is also managed version of the profile. If you want to use managed container instead, please execute:
+
+        mvn clean test -Parq-jbossas-managed
+
+Run the Arquillian Functional Tests Via WebDriver
+-------------------------------------------------
+
+Functional tests are saved in tests/ftest-webdriver directory
+
+For functional testing, be sure you have built the project and execute test afterwards.
+
+        mvn clean package
+
+For testing via managed container, please use this profile:
+
+        mvn test -Parq-jboss-as-managed-ftest
+
+For testing via remote container, please use this one instead:
+
+        mvn test -Parq-jboss-as-remote-ftest
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
