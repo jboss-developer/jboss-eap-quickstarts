@@ -98,11 +98,11 @@ For functional testing, be sure you have built the project and execute test afte
 
 For testing via managed container, please use this profile:
 
-        mvn test -Parq-jboss-as-managed-ftest
+        mvn test -Parq-jbossas-managed-ftest
 
 For testing via remote container, please use this one instead:
 
-        mvn test -Parq-jboss-as-remote-ftest
+        mvn test -Parq-jbossas-remote-ftest
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
