@@ -132,7 +132,7 @@
 
 <h2 id="toc_5">Configure Maven </h2>
 
-<p>Maven configuration is dependent on whether you are running JBoss Enterprise Application Platform 6 or JBoss AS7.</p>
+<p>Maven configuration is dependent on whether you are using the JBoss Enterprise Application Platform 6 product version of the quickstarts or the JBoss AS7 community version of the quickstarts.</p>
 
 <p><a id="eap6mavenconfig"></a></p>
 
@@ -356,8 +356,19 @@
 <ul>
 <li>Open the test/resources/arquillian.xml file located in the quickstart directory. </li>
 <li><p>Find the configuration for the remote JBoss container. It should look like this:</p>
-<div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;jboss&quot;</span> <span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-    <span class="c">&lt;!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property --&gt;</span>
+<div class="highlight"><pre><span class="c">&lt;!-- Example configuration for a remote JBoss Enterprise Application Platform 6 or AS 7 instance --&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;jboss&quot;</span> <span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. --&gt;</span>
+    <span class="c">&lt;!--&lt;configuration&gt; --&gt;</span>
+    <span class="c">&lt;!--&lt;property name=&quot;jbossHome&quot;&gt;/path/to/jboss/as&lt;/property&gt; --&gt;</span>
+    <span class="c">&lt;!--&lt;/configuration&gt; --&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre>
+</div></li>
+<li><p>Remove the comments from the <code>&lt;configuration&gt;</code> elements.</p>
+<div class="highlight"><pre><span class="c">&lt;!-- Example configuration for a remote JBoss Enterprise Application Platform 6 or AS 7 instance --&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;jboss&quot;</span> <span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. --&gt;</span>
     <span class="nt">&lt;configuration&gt;</span>
         <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;jbossHome&quot;</span><span class="nt">&gt;</span>/path/to/jboss/as<span class="nt">&lt;/property&gt;</span>
     <span class="nt">&lt;/configuration&gt;</span>

@@ -76,7 +76,7 @@ To run these quickstarts with the provided build scripts, you need the following
 Configure Maven 
 -------------
 
-Maven configuration is dependent on whether you are running JBoss Enterprise Application Platform 6 or JBoss AS7.
+Maven configuration is dependent on whether you are using the JBoss Enterprise Application Platform 6 product version of the quickstarts or the JBoss AS7 community version of the quickstarts.
 
 <a id="eap6mavenconfig"></a>
 ### Configure Maven for JBoss Enterprise Application Platform 6 
@@ -249,8 +249,18 @@ You can run these tests using either a remote or managed container. The quicksta
     * Open the test/resources/arquillian.xml file located in the quickstart directory. 
     * Find the configuration for the remote JBoss container. It should look like this:
 
+            <!-- Example configuration for a remote JBoss Enterprise Application Platform 6 or AS 7 instance -->
             <container qualifier="jboss" default="true">
-                <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
+                <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
+                <!--<configuration> -->
+                <!--<property name="jbossHome">/path/to/jboss/as</property> -->
+                <!--</configuration> -->
+            </container>
+    * Remove the comments from the `<configuration>` elements.
+
+            <!-- Example configuration for a remote JBoss Enterprise Application Platform 6 or AS 7 instance -->
+            <container qualifier="jboss" default="true">
+                <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
                 <configuration>
                     <property name="jbossHome">/path/to/jboss/as</property>
                 </configuration>
