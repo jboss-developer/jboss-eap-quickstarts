@@ -37,14 +37,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
+        <version.org.jboss.resteasy>2.3.5.Final-redhat-1</version.org.jboss.resteasy>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <!-- <version.org.jboss.bom>1.0.4.Final</version.org.jboss.bom> -->
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-1 which is a release certified 
+            line below to use version 1.0.4.Final-redhat-2 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <version.org.jboss.bom>1.0.4.Final-redhat-1</version.org.jboss.bom>
+        <version.org.jboss.bom>1.0.4.Final-redhat-2</version.org.jboss.bom>
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
@@ -59,18 +60,6 @@
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
-                <version>${version.org.jboss.bom}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -80,6 +69,7 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
+            <version>${version.org.jboss.resteasy}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -87,6 +77,7 @@
             <version>${version.org.apache.httpcomponents}</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <!-- Maven compiler plugin -->
