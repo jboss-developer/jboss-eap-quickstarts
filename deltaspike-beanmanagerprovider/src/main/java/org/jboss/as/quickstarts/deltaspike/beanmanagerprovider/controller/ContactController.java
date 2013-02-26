@@ -18,12 +18,11 @@
 package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -47,8 +46,7 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.persistence.Conta
  * @author Rafael Benevides <benevides@redhat.com>
  *
  */
-@Named
-@ConversationScoped
+@Model
 public class ContactController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,10 +63,11 @@ public class ContactController implements Serializable {
     @Inject
     private Conversation conversation;
 
+    @Inject
     private Contact contact;
     
-    @Inject //Inject allContacts because in case of Exception, ContacController will be destroyed
-    private List<Contact> allContacts = new ArrayList<Contact>();
+    @Inject
+    private List<Contact> allContacts;
     
     private boolean onExceptionState;
     
@@ -142,11 +141,9 @@ public class ContactController implements Serializable {
     @Produces
     @Named
     public List<Contact> getAllContacts() {
-        //Fall back to previous contact list in case of exception
         if (!onExceptionState) {
-            List<Contact> repoContacts = contactRepository.getAllContacts();
-            allContacts.clear();
-            allContacts.addAll(repoContacts);
+            // Update the allContacts list
+            allContacts = contactRepository.getAllContacts();
         }
         return allContacts;
     }
