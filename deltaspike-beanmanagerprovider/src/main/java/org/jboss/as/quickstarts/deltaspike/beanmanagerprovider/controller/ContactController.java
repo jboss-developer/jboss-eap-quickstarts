@@ -23,8 +23,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Model;
-import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -65,15 +65,6 @@ public class ContactController implements Serializable {
 
     private List<Contact> allContacts;
 
-    private boolean onExceptionState;
-
-    /**
-     * @return the onExceptionState
-     */
-    public boolean isOnExceptionState() {
-        return onExceptionState;
-    }
-
     // return the managed entity instance
     public Contact getContact() {
         return contact;
@@ -87,7 +78,8 @@ public class ContactController implements Serializable {
         } catch (Exception e) {
             // discard the conversation (and the entity manager) on any exception
             conversation.end();
-            this.onExceptionState = true;
+            // reset the entity id
+            contact.setId(null);
             msg = "Can't create contact: " + e.getMessage();
         }
         // add the message to be showed on the jsf page
@@ -115,7 +107,15 @@ public class ContactController implements Serializable {
             conversation.begin();
         }
         contact = new Contact();
-        onExceptionState = false;
+        allContacts = contactRepository.getAllContacts();
+    }
+
+    /**
+     * Updates the Contact list
+     * 
+     * @param contact
+     */
+    public void contactUpdated(@Observes Contact contact) {
         allContacts = contactRepository.getAllContacts();
     }
 
@@ -124,8 +124,6 @@ public class ContactController implements Serializable {
      * 
      * @return
      */
-    @Produces
-    @Named
     public String getConversationNumber() {
         return "Conversation Id: " + (conversation.getId() == null ? "conversation transient" : conversation.getId());
     }
@@ -135,17 +133,7 @@ public class ContactController implements Serializable {
      * 
      * @return
      */
-    @Produces
-    @Named
     public List<Contact> getAllContacts() {
-        List<Contact> repoContacts = contactRepository.getAllContacts();
-        /*
-         * repoContacts can be null in case of exception. In case of exception, the conversation is discarded as the
-         * contactRepository instance. That's why we need to keep the previous contact list (allContacts).
-         */
-        if (repoContacts != null) {
-            allContacts = contactRepository.getAllContacts();
-        }
         return allContacts;
     }
 
@@ -154,8 +142,6 @@ public class ContactController implements Serializable {
      * 
      * @return
      */
-    @Produces
-    @Named
     public List<AuditContact> getAuditRecords() {
         return auditRepository.getAllAuditRecords();
     }
