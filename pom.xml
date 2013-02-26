@@ -149,7 +149,7 @@
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
                 <module>log4j</module>
-                <!--<module>logging-tools</module>-->
+                <module>logging-tools</module>
                 <module>mail</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
