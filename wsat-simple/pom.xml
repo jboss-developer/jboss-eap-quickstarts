@@ -92,15 +92,10 @@
     <dependencies>
         <!-- The XTS api needed to use WS-AT -->
         <dependency>
-            <groupId>org.jboss.jbossts</groupId>
-            <artifactId>jbossxts-api</artifactId>
+            <groupId>org.jboss.jbossts.xts</groupId>
+            <artifactId>jbossxts</artifactId>
+            <classifier>api</classifier>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging-spi</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
