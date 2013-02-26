@@ -18,13 +18,13 @@
 package org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.inject.Produces;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -42,10 +42,6 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.persistence.Conta
  * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
- */
-/**
- * @author Rafael Benevides <benevides@redhat.com>
- *
  */
 @Named
 @ConversationScoped
@@ -66,18 +62,8 @@ public class ContactController implements Serializable {
     private Conversation conversation;
 
     private Contact contact;
-    
-    @Inject //Inject allContacts because in case of Exception, ContacController will be destroyed
-    private List<Contact> allContacts = new ArrayList<Contact>();
-    
-    private boolean onExceptionState;
-    
-    /**
-     * @return the onExceptionState
-     */
-    public boolean isOnExceptionState() {
-        return onExceptionState;
-    }
+
+    private List<Contact> allContacts;
 
     // return the managed entity instance
     public Contact getContact() {
@@ -92,7 +78,8 @@ public class ContactController implements Serializable {
         } catch (Exception e) {
             // discard the conversation (and the entity manager) on any exception
             conversation.end();
-            this.onExceptionState = true;
+            // reset the entity id
+            contact.setId(null);
             msg = "Can't create contact: " + e.getMessage();
         }
         // add the message to be showed on the jsf page
@@ -120,7 +107,16 @@ public class ContactController implements Serializable {
             conversation.begin();
         }
         contact = new Contact();
-        onExceptionState = false;
+        allContacts = contactRepository.getAllContacts();
+    }
+
+    /**
+     * Updates the Contact list
+     * 
+     * @param contact
+     */
+    public void contactUpdated(@Observes Contact contact) {
+        allContacts = contactRepository.getAllContacts();
     }
 
     /**
@@ -128,10 +124,8 @@ public class ContactController implements Serializable {
      * 
      * @return
      */
-    @Produces
-    @Named
     public String getConversationNumber() {
-        return "Conversation Id: " + (conversation.getId() == null?"conversation transient":conversation.getId());
+        return "Conversation Id: " + (conversation.getId() == null ? "conversation transient" : conversation.getId());
     }
 
     /**
@@ -139,15 +133,7 @@ public class ContactController implements Serializable {
      * 
      * @return
      */
-    @Produces
-    @Named
     public List<Contact> getAllContacts() {
-        //Fall back to previous contact list in case of exception
-        if (!onExceptionState) {
-            List<Contact> repoContacts = contactRepository.getAllContacts();
-            allContacts.clear();
-            allContacts.addAll(repoContacts);
-        }
         return allContacts;
     }
 
@@ -156,8 +142,6 @@ public class ContactController implements Serializable {
      * 
      * @return
      */
-    @Produces
-    @Named
     public List<AuditContact> getAuditRecords() {
         return auditRepository.getAllAuditRecords();
     }
