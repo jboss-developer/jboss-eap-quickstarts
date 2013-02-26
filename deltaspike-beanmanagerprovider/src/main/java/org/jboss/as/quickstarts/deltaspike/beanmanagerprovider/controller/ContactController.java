@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -42,11 +43,8 @@ import org.jboss.as.quickstarts.deltaspike.beanmanagerprovider.persistence.Conta
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-/**
- * @author Rafael Benevides <benevides@redhat.com>
- *
- */
-@Model
+@Named
+@ConversationScoped
 public class ContactController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,14 +61,12 @@ public class ContactController implements Serializable {
     @Inject
     private Conversation conversation;
 
-    @Inject
     private Contact contact;
-    
-    @Inject
+
     private List<Contact> allContacts;
-    
+
     private boolean onExceptionState;
-    
+
     /**
      * @return the onExceptionState
      */
@@ -120,6 +116,7 @@ public class ContactController implements Serializable {
         }
         contact = new Contact();
         onExceptionState = false;
+        allContacts = contactRepository.getAllContacts();
     }
 
     /**
@@ -130,7 +127,7 @@ public class ContactController implements Serializable {
     @Produces
     @Named
     public String getConversationNumber() {
-        return "Conversation Id: " + (conversation.getId() == null?"conversation transient":conversation.getId());
+        return "Conversation Id: " + (conversation.getId() == null ? "conversation transient" : conversation.getId());
     }
 
     /**
@@ -141,8 +138,12 @@ public class ContactController implements Serializable {
     @Produces
     @Named
     public List<Contact> getAllContacts() {
-        if (!onExceptionState) {
-            // Update the allContacts list
+        List<Contact> repoContacts = contactRepository.getAllContacts();
+        /*
+         * repoContacts can be null in case of exception. In case of exception, the conversation is discarded as the
+         * contactRepository instance. That's why we need to keep the previous contact list (allContacts).
+         */
+        if (repoContacts != null) {
             allContacts = contactRepository.getAllContacts();
         }
         return allContacts;
