@@ -48,7 +48,8 @@
         <version.org.jboss.bom>1.0.4.Final-redhat-2</version.org.jboss.bom>
 
         <!-- Other dependency versions -->
-        <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
+        <version.org.apache.httpcomponents>4.2.1-redhat-0-todo</version.org.apache.httpcomponents>
+        <version.junit>4.10</version.junit>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
@@ -64,6 +65,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
