@@ -48,7 +48,7 @@
         <version.org.jboss.bom>1.0.4.Final-redhat-2</version.org.jboss.bom>
 
         <!-- Other dependency versions -->
-        <version.org.apache.httpcomponents>4.2.1-redhat-0-todo</version.org.apache.httpcomponents>
+        <version.org.apache.httpcomponents>4.2.1-redhat-1</version.org.apache.httpcomponents>
         <version.junit>4.10</version.junit>
 
         <!-- other plugin versions -->
