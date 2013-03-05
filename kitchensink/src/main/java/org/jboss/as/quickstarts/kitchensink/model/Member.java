@@ -24,7 +24,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -45,7 +44,7 @@ public class Member implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 25)
-    @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
+    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
     private String name;
 
     @NotNull
@@ -54,8 +53,8 @@ public class Member implements Serializable {
     private String email;
 
     @NotNull
-    @Size(min = 10, max = 12)
-    @Digits(fraction = 0, integer = 12)
+    @Size(min = 10, max = 12, message = "size must be between 10 and 12")
+    @Pattern(regexp = "[0-9]*", message = "must contain only digits")
     @Column(name = "phone_number")
     private String phoneNumber;
 
