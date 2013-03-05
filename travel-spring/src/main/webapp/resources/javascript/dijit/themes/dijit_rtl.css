@@ -1,0 +1,112 @@
+.dj_gecko-rtl .dijitInputField {
+    direction: ltr; /* Firefox needs this - probably a bug */
+}
+
+.dj_gecko-rtl .dijitInputField * {
+    direction: rtl; /* Firefox needs dijitInputField to be ltr, so fix the contained tags */
+}
+
+/* ComboBox */
+.dijitRtl .dijitMenuItem {
+    text-align: right;
+}
+
+/* Tree */
+
+.dijitRtl .dijitComboBox .dijitInputField {
+    border-right-width: 1px !important;
+    border-left-width: 0 !important;
+}
+
+/* Calendar */
+
+.dijitRtl .dijitCalendarNextYear {
+    margin: 0 0.55em 0 0;
+}
+
+.dijitRtl .dijitCalendarPreviousYear {
+    margin: 0 0 0 0.55em;
+}
+
+.dijitRtl .dijitProgressBarFull .dijitProgressBarLabel {
+    right: 0; /* FF workaround */
+}
+
+.dijitRtl .dijitA11ySideArrow {
+    margin-left: 1em;
+    margin-right: 0;
+}
+
+/* Slider */
+
+.dijitRtl .dijitSliderImageHandleV {
+    left: auto;
+    right: -6px;
+}
+
+.dj_ie-rtl .dijitSliderImageHandleV {
+    right: -10px;
+}
+
+.dijitRtl .dijitSliderMoveableH {
+    right: auto;
+    left: 0;
+}
+
+.dijitRtl .dijitRuleContainerV {
+    float: right;
+}
+
+.dj_gecko-rtl .dijitRuleContainerV {
+    float: left;
+}
+
+.dj_ie-rtl .dijitRuleContainerV {
+    text-align: right;
+}
+
+.dj_ie-rtl .dijitRuleLabelV {
+    text-align: left;
+}
+
+.dj_ie-rtl .dijitRuleLabelH {
+    zoom: 1;
+}
+
+.dj_ie-rtl .dijitSliderProgressBarH {
+    right: 0;
+    left: auto;
+}
+
+.dj_gecko-rtl .dijitSliderProgressBarH {
+    float: right;
+    right: 0;
+    left: auto;
+}
+
+/* Spinner */
+
+.dijitRtl .dijitSpinner .dijitInputLayoutContainer .dijitArrowButton {
+    right: auto;
+    left: 0;
+    border-width: 0 1px 0 0 !important;
+}
+
+.dijitRtl .dijitSpinnerButtonContainer {
+    float: left;
+}
+
+.dijitRtl .dijit_a11y .dijitSpinnerButtonContainer {
+    margin-left: none;
+    margin-right: 2px;
+}
+
+.dijitRtl DIV.dijitArrowButton, .dijitRtl .dijitValidationIcon, .dijitRtl .dijitValidationIconText {
+    float: left;
+}
+
+/* ContentPane*/
+.dijitRtl .dijitContentPaneLoading, .dijitRtl .dijitContentPaneError {
+    background-position: right;
+    padding-right: 25px;
+}

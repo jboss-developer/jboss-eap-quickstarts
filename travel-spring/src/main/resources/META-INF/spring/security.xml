@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+JBoss, Home of Professional Open Source
+Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+contributors by the @authors tag. See the copyright.txt in the
+distribution for a full listing of individual contributors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <http>
+        <!-- Authentication policy -->
+        <form-login login-page="/users/login" login-processing-url="/users/login/authenticate"
+                    default-target-url="/hotels" authentication-failure-url="/users/login?login_error=1"/>
+        <logout logout-url="/users/logout" logout-success-url="/users/logoutSuccess"/>
+    </http>
+
+    <!--
+        Define local authentication provider, a real app would use an external provider (JDBC, LDAP, CAS, etc)
+
+        usernames/passwords are:
+            keith/melbourne
+            erwin/leuven
+            jeremy/atlanta
+            scott/rochester
+    -->
+    <authentication-manager>
+        <authentication-provider>
+            <password-encoder hash="md5"/>
+            <user-service>
+                <user name="keith" password="417c7382b16c395bc25b5da1398cf076"
+                      authorities="ROLE_USER, ROLE_SUPERVISOR"/>
+                <user name="erwin" password="12430911a8af075c6f41c6976af22b09"
+                      authorities="ROLE_USER, ROLE_SUPERVISOR"/>
+                <user name="jeremy" password="57c6cbff0d421449be820763f03139eb" authorities="ROLE_USER"/>
+                <user name="scott" password="942f2339bf50796de535a384f0d1af3e" authorities="ROLE_USER"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

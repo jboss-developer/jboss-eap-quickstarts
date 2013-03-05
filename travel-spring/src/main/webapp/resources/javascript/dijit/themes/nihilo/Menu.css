@@ -1,0 +1,83 @@
+/* Menu */
+.nihilo .dijitMenu {
+    border: 1px solid #d3d3d3;
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff;
+}
+
+.nihilo .dijitMenuItem {
+    background-color: #fff;
+    font-family: sans-serif;
+    margin: 0px;
+    color: #243C5F;
+}
+
+.nihilo .dijitMenuPreviousButton, .nihilo .dijitMenuNextButton {
+    font-style: italic;
+}
+
+.nihilo .dijitMenuItem TD {
+    padding: 1px;
+}
+
+.nihilo .dijitMenuItemHover {
+    background-color: #ffe284; /* #95a0b0; #555555; #aaaaaa; #646464;  #60a1ea; #848484; */
+    color: #243C5F;
+}
+
+.nihilo .dijitMenuItemIcon {
+    width: 15px;
+    height: 15px;
+    /* padding-right: 3px; */
+}
+
+.nihilo .dijitMenuExpand {
+    /* margin-top:4px;  */
+    width: 15px;
+    height: 15px;
+    background-image: url('images/spriteRoundedIconsSmall.png');
+    background-repeat: no-repeat;
+    background-position: -30px top;
+    display: block;
+}
+
+.dj_ie6 .nihilo .dijitMenuExpand {
+    background-image: url('images/spriteRoundedIconsSmall.gif');
+}
+
+.nihilo .dijitMenuSeparator {
+    background-color: #fff;
+    height: 1px;
+}
+
+/* separator can be two pixels -- set border of either one to 0px to have only one */
+.nihilo .dijitMenuSeparatorTop {
+    border-bottom: 1px solid #fff; /*97adcb; */
+}
+
+.nihilo .dijitMenuSeparatorBottom {
+    border-top: 1px solid #d3d3d3;
+}
+
+/* the checked menu item */
+.nihilo .dijitCheckedMenuItemIconChar {
+    display: none;
+}
+
+.nihilo .dijitCheckedMenuItemIcon {
+    background-image: url('images/spriteCheckbox.gif');
+    background-position: -16px;
+}
+
+.nihilo .dijitCheckedMenuItemIconChecked {
+    background-position: 0px;
+}
+
+.nihilo .dijitMenuItemHover .dijitCheckedMenuItemIcon {
+    background-position: -80px;
+}
+
+.nihilo .dijitMenuItemHover .dijitCheckedMenuItemIconChecked {
+    background-position: -64px;
+}

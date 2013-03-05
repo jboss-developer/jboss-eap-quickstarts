@@ -1,0 +1,38 @@
+.dijitRtl .tundra .dijitTab {
+    margin-right: auto;
+    margin-left: 4px; /* space between one tab and the next in top/bottom mode */
+    -moz-box-orient: horizontal;
+    text-align: right;
+}
+
+/* tab strips */
+.dijitRtl .tundra .dijitTabContainerTopStrip,
+.dijitRtl .tundra .dijitTabContainerBottomStrip {
+    padding-right: 3px;
+    padding-left: 0px;
+}
+
+.dijitRtl .tundra .dijitTabInnerDiv {
+    padding: 6px 9px 5px 8px;
+}
+
+.dijitRtl .tundra .dijitTabPaneWrapper {
+    #zoom: 1;
+}
+
+.dj_ie-rtl .tundra .dijitTabContainerLeft-tabs {
+    margin-left: 1px !important;
+}
+
+.dj_ie-rtl .tundra .dijitTabContainerRight-tabs {
+    margin-right: 1px !important;
+}
+
+.dijitRtl .tundra .dijitTabContainerLeft-tabs .dijitTab,
+.dijitRtl .tundra .dijitTabContainerRight-tabs .dijitTab {
+    margin-left: 0px;
+}
+
+.dj_ie .tundra .dijitTab .dijitTabInnerDiv {
+    width: 1%;
+}
