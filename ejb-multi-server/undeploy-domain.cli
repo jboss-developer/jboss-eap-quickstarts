@@ -1,0 +1,5 @@
+# remove all deployments from the domain
+undeploy --server-groups=quickstart-ejb-multi-appWeb-server appweb.war
+undeploy --server-groups=quickstart-ejb-multi-main-server appmain.ear
+undeploy --server-groups=quickstart-ejb-multi-appOne-server appone.ear
+undeploy --server-groups=quickstart-ejb-multi-appTwo-server apptwo.ear
