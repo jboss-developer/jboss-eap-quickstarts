@@ -15,8 +15,14 @@ batch
 # ----  configure the domain for the quickstart ejb-multi-server
 
 # disable the local authentication for applications
-# remove this command if a 7.1.1 server is used, here it is not possible to remove the 'local' functionality.
+#  *** NOTE: If you are running JBoss AS 7.1.1, comment the following command ***
 /host=master/core-service=management/security-realm=ApplicationRealm/authentication=local:remove
+
+#  *** NOTE: If you are running JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, un-comment the following commands.
+             The reason is that the invocation of unsecured methods inside of a secured application is denied otherwise.
+#  ***
+/profile=default/subsystem=ejb3:write-attribute(name=default-missing-method-permissions-deny-access, value=false)
+/profile=ha/subsystem=ejb3:write-attribute(name=default-missing-method-permissions-deny-access, value=false)
 
 # Configure the connection from main server to "one" and "two"
 # this is to use the application "one" and "two" located at the remote server
@@ -107,6 +113,7 @@ batch
 
 /profile=default-web/subsystem=naming:add()
 # remove this command if a 7.1.1 server is used
+#  *** NOTE: If you are running JBoss AS 7.1.1, comment the following command ***
 /profile=default-web/subsystem=naming/service=remote-naming:add
 
 /profile=default-web/subsystem=remoting:add()
