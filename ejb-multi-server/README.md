@@ -55,8 +55,8 @@ The CLI scripts provided with this quickstart target JBoss Enterprise Applicatio
 1. Open the `install-domain.cli` file located in the root of this quickstart folder for editing.
 2. Find the lines that contain the following text:
 
-        *** NOTE: If you are running JBoss .... ***
-3. Comment or remove the line directly following the text if you use a noted version.
+        *** NOTE: If you are running JBoss
+3. Follow the _Note_ instructions to comment or uncomment the lines in the file.
 4. Save the file.
 
 
@@ -160,6 +160,7 @@ Access the JSF application inside the main-application
 4. See server logfiles and find your given message logged as INFO.
 
 _NOTE :_
+
 * _If you try to invoke `MainEjbClient34App` you need to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`._
 * _Remember that the scoped-client will be implemented at first with EAP6.1 or AS7.2 and will not work before._
 
