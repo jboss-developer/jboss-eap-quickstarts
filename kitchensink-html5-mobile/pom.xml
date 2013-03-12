@@ -7,8 +7,8 @@
     <version>1.0.0.Final-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: AeroGear HTML5/Mobile</name>
-    <description>An AeroGear and Java EE 6 HTML5 mobile web application for use with JBoss.</description>
+    <name>JBoss AS Quickstarts: HTML5/Mobile</name>
+    <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
 
     <url>http://jboss.org/aerogear</url>
 

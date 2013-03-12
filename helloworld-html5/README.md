@@ -2,7 +2,7 @@ helloworld-html5: HTML5 + REST Hello World Example
 ===================
 Author: Jay Balunas
 Level: Beginner 
-Technologies: Aerogear, CDI, HTML5, REST
+Technologies: CDI, HTML5, REST
 Origin: http://www.jboss.org/aerogear
 Summary: Basic HTML5 |Demonstrates the use of CDI 1.0 and JAX-RS using the HTML5 architecture and RESTful services on the backend
 Target Product: WFK
