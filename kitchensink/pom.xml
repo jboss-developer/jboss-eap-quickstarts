@@ -193,7 +193,6 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
