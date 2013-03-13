@@ -38,7 +38,6 @@ The application this project produces is designed to be run on any of the follow
         JBoss Enterprise Application Platform 6.0 
         JBoss Enterprise Application Platform 6.1
         JBoss AS 7.1
-        JBoss AS 7.2
  
 
 Configure Maven
@@ -50,7 +49,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#mavenconfig
 Modify the CLI Scripts (if you are running JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1 servers)
 ---------------------------
 
-The CLI scripts provided with this quickstart target JBoss Enterprise Application Platform 6.1 and JBoss AS 7.2. If you are running older versions of the server, JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, you must modify the scripts to work against these servers.
+The CLI scripts provided with this quickstart target JBoss Enterprise Application Platform 6.1. If you are running older versions of the server, JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, you must modify the scripts to work against these servers.
 
 1. Open the `install-domain.cli` file located in the root of this quickstart folder for editing.
 2. Find the lines that contain the following text:
@@ -86,7 +85,7 @@ The following users must be added to the `ApplicationRealm` to run this quicksta
 | quickuser1 | ApplicationRealm | quick123+ | _leave blank for none_ |
 | quickuser2 | ApplicationRealm | quick+123 | _leave blank for none_ |
 
-If you are running JBoss Enterprise Application Platform 6.1 or JBoss AS 7.2, you can add the users using the following commands:
+If you are running JBoss Enterprise Application Platform 6.1, you can add the users using the following commands:
 
         bin/add-user.sh -a -u quickuser -p quick-123 --silent
         bin/add-user.sh -a -u quickuser1 -p quick123+ --silent
@@ -146,7 +145,7 @@ Access the Remote Client Application
 _NOTE:_
  
 * _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
-* _If you use a version from JBoss Enterprise Platform 6.1 or JBoss AS7.2, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
+* _If you use a version from JBoss Enterprise Platform 6.1, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
 * _For JBoss Enterprise Application Platform 6.0 and AS 7.1.x, the scoped-client-context is not implemented. Therefore you will not see a difference between step 3 and step 4, the properties of the InitialContext will be ignored._
 * _For JBoss Enterprise Application Platform 6.0 and AS 7.1.x, the client library must not be changed for this test. But if additional tests are added or a newer server version is used, you might update the property `<jboss.client.bom.version>7.1.1.Final</jboss.client.bom.version>` in the root `pom.xml` to an appropriate version._
 
@@ -162,7 +161,7 @@ Access the JSF application inside the main-application
 _NOTE :_
 
 * _If you try to invoke `MainEjbClient34App` you need to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`._
-* _Remember that the scoped-client will be implemented at first with EAP6.1 or AS7.2 and will not work before._
+* _Remember that the scoped-client will be implemented at first with EAP6.1 and will not work before._
 
 
 Access the Servlet application deployed as a WAR inside a minimal server
@@ -172,7 +171,7 @@ Access the Servlet application deployed as a WAR inside a minimal server
 2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/appweb/>
 3. The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful
 
-_NOTE : If a version newer than JBoss AS7.2is used, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
+_NOTE : If a version from JBoss EAP6.1 is used, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
 
 
 Undeploy the Archive
