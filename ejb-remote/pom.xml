@@ -33,21 +33,22 @@
         </license>
     </licenses>
     
-    <properties>
-        <!-- JBoss dependency versions -->
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
-    </properties>
-
     <!-- This quickstart consists of a server side component and a client that accesses
-	 the server side component. Each component has its own self contain pom. However,
-	 you can add these modules here to keep things modular.
-	 -->
+     the server side component. Each component has its own self contain pom. However,
+     you can add these modules here to keep things modular.
+     -->
     <modules>
         <module>server-side</module>
         <module>client</module>
     </modules>
 
+    <properties>
+        <!-- JBoss dependency versions -->
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+    </properties>
+
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <!-- The JBoss AS plugin deploys your apps to a local JBoss AS 
                 container -->
