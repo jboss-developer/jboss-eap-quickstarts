@@ -18,7 +18,6 @@ package org.jboss.as.quickstarts.ejb.multi.server.app;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
@@ -39,14 +38,18 @@ public class JsfController {
    * Injection with @EJB is only possible if the MainApp is unique within the same application EAR archive.
    * As there is a MainEjbClient34AppBean with the same interface we have to use @Resource
    */
-  @Resource(lookup = "ejb:appmain/ejb/MainAppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
+  @Resource(mappedName = "ejb:appmain/ejb/MainAppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
   MainApp mainApp;
 
-  @Resource(lookup = "ejb:appmain/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
+  @Resource(mappedName = "ejb:appmain/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
   MainApp mainEjbClient34App;
 
   /**
-   * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource
+   * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource.
+   * Lookup is introduced in Java EE6, so there are compiler or runtime problems if a Java version is used which not contain
+   * the <code>javax.annotation.Resource</code> <code>lookup</code>.
+   * Therefore a fix/workaround is necessary to be able to compile.
+   * See <a href="http://jaitechwriteups.blogspot.co.uk/2011/02/resource-and-new-lookup-attribute-how.html">Jaikiran's technical blog<a> 
    */
   @Resource(lookup = "ejb:appone/ejb//AppOneBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppOne")
   AppOne oneApp;
@@ -54,7 +57,7 @@ public class JsfController {
   /**
    * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource
    */
-  @Resource(lookup = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
+  @Resource(mappedName = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
   AppTwo twoApp;
 
   /**

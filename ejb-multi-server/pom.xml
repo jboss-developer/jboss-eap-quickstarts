@@ -59,6 +59,7 @@
     <compiler.source>1.6</compiler.source>
 
     <exec.plugin.version>1.2.1</exec.plugin.version>
+    <dependency.plugin.version>2.1</dependency.plugin.version>
     <ejb.plugin.version>2.3</ejb.plugin.version>
     <war.plugin.version>2.1.1</war.plugin.version>
     <ear.plugin.version>2.6</ear.plugin.version>
