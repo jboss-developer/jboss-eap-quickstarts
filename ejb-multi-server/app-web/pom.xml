@@ -22,7 +22,7 @@
   <artifactId>jboss-as-ejb-multi-server-appWeb</artifactId>
 
   <name>JBoss AS Quickstarts: multiple server application - AppWeb</name>
-  <description>A simple web application which contain a simple Servlet
+  <description>A simple web application, which contains a simple Servlet,
     to demonstrate how a plain web application can use a EJB application
     deployed on a different server.
   </description>

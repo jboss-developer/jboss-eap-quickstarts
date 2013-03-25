@@ -19,13 +19,13 @@
   <packaging>ear</packaging>
   <name>JBoss AS Quickstarts: multiple server application - AppMain EAR</name>
   <description>Create the deployable main-app archive
-     Include the EJB and WEB application toghether with the necessary API libraries
+     Include the EJB and WEB application together with the necessary API libraries
      of the sub applications appOne and appTwo.
   </description>
   
 
   <dependencies>
-  <!-- add the EJB and WEB project as dependency to include it to the EAR -->
+  <!-- add the EJB and WEB project as dependency to include it in the EAR -->
     <dependency>
       <groupId>org.jboss.as.quickstarts</groupId>
       <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
@@ -92,8 +92,8 @@
     <resources>
       <resource>
         <directory>src/main/resources/META-INF</directory>
-        <!--  add the client configuration with the remote-connections and cluster definition
-              which is used from the MainApp bean.
+        <!--  add the client configuration containing the remote-connections and cluster definition
+              which is used by the MainApp bean.
          -->
         <includes>
           <include>jboss-ejb-client.xml</include>

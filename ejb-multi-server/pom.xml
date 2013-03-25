@@ -18,9 +18,9 @@
   <version>7.1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>JBoss AS Quickstarts: multiple server application - Root pom</name>
-  <description>ejb-multi-server: A scenario with multiple applications deployed on different servers.
-    This pom defines common properties to specify the used versions and plugins.
-    The sub projects will be build in an appropriate sequence. 
+  <description>ejb-multi-server: An example that demonstrates multiple applications deployed on different servers.
+     This POM defines common properties to specify the used versions and plugins.
+     The subprojects are built in the appropriate sequence. 
   </description>
 
   <url>http://jboss.org/jbossas</url>
