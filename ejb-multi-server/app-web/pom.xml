@@ -22,6 +22,11 @@
   <artifactId>jboss-as-ejb-multi-server-appWeb</artifactId>
 
   <name>JBoss AS Quickstarts: multiple server application - AppWeb</name>
+  <description>A simple web application which contain a simple Servlet
+    to demonstrate how a plain web application can use a EJB application
+    deployed on a different server.
+  </description>
+  
   <url>http://maven.apache.org</url>
   <packaging>war</packaging>
 
@@ -32,6 +37,9 @@
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
+    <!-- add dependencies to all related EJB applications which are used.
+         The API jar files will be packed into the lib directory of the WAR archive. 
+     -->
     <dependency>
       <groupId>org.jboss.as.quickstarts</groupId>
       <artifactId>
@@ -65,7 +73,7 @@
 
   <build>
     <plugins>
-      <plugin>  <!-- must include ejb-plugin to change the EJB version from 2.1 to 3.0 -->
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>${war.plugin.version}</version>

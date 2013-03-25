@@ -35,12 +35,15 @@ public class JsfController {
   private EjbInvocation invocation;
 
   /**
-   * Injection with @EJB is only possible if the MainApp is unique within the same application EAR archive.
-   * As there is a MainEjbClient34AppBean with the same interface we have to use @Resource
+   * Injection with @EJB is only possible without problems if the MainApp is unique within the same application EAR archive.<br/>
+   * As there is a MainEjbClient34AppBean with the same interface we have to use @Resource to specify what reference should be injected.
    */
   @Resource(mappedName = "ejb:appmain/ejb/MainAppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
   MainApp mainApp;
 
+  /**
+   * Inject a different implementation of the same interface.
+   */
   @Resource(mappedName = "ejb:appmain/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
   MainApp mainEjbClient34App;
 
@@ -55,7 +58,8 @@ public class JsfController {
   AppOne oneApp;
 
   /**
-   * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource
+   * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource.
+   * Here mappedName is use which was available before Java EE6 and can be used without compilation problems. 
    */
   @Resource(mappedName = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
   AppTwo twoApp;

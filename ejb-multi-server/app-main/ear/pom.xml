@@ -18,8 +18,14 @@
   <artifactId>jboss-as-ejb-multi-server-appMain-ear</artifactId>
   <packaging>ear</packaging>
   <name>JBoss AS Quickstarts: multiple server application - AppMain EAR</name>
+  <description>Create the deployable main-app archive
+     Include the EJB and WEB application toghether with the necessary API libraries
+     of the sub applications appOne and appTwo.
+  </description>
+  
 
   <dependencies>
+  <!-- add the EJB and WEB project as dependency to include it to the EAR -->
     <dependency>
       <groupId>org.jboss.as.quickstarts</groupId>
       <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
@@ -65,7 +71,7 @@
               <bundleFileName>jsf.war</bundleFileName>
               <contextRoot>/multi-server-MainApp</contextRoot>
             </webModule>
-            <!-- add the necessary EJB interfaces of AppOne and AppTwo to the lib directory -->
+            <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
             <ejbClientModule>
               <groupId>org.jboss.as.quickstarts</groupId>
               <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
@@ -86,13 +92,16 @@
     <resources>
       <resource>
         <directory>src/main/resources/META-INF</directory>
-        <!--  add the client configuration with the remote-connections and cluster definition -->
+        <!--  add the client configuration with the remote-connections and cluster definition
+              which is used from the MainApp bean.
+         -->
         <includes>
           <include>jboss-ejb-client.xml</include>
         </includes>
         <targetPath>META-INF</targetPath>
       </resource>
     </resources>
+    <!-- define the name for the deployable archive instead of using the default name with the version -->
     <finalName>appmain</finalName>
   </build>
 </project>

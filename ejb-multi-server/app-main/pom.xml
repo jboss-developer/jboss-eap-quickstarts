@@ -15,7 +15,10 @@
 
   <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
   <name>JBoss AS Quickstarts: multiple server application - AppMain</name>
-  <description>ejb-multi-server: Main application for the scenario</description>
+  <description>ejb-multi-server: Main application for the scenario
+     The project try to build the EJB and WEB component of the main application
+     and pack it as a deployable EAR archive.
+  </description>
   <packaging>pom</packaging>
 
   <licenses>
