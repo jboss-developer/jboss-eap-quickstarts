@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+Copyright 2002-2013 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- This <head> section is only used for static prototyping purposes. At runtime, -->
+    <!-- Tiles will only use the body fragment defined with tiles:fragment="content",  -->
+    <!-- as specified at the corresponding views.xml file.                             -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <title>Spring Travel: Spring MVC and Web Flow Reference Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" media="screen, projection"
+          href="../styles/blueprint/screen.css"/>
+
+    <link rel="stylesheet" type="text/css" media="print"
+          href="../styles/blueprint/print.css"/>
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" type="text/css" media="screen, projection"
+          href="../styles/blueprint/ie.css"/>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../styles/booking.css"/>
+
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <!-- Some styles and scripts are served from spring-js-resources-{ver}.jar at -->
+    <!-- runtime. Therefore not available for static prototyping. See the         -->
+    <!-- layouts/standard.html template file for detail.                          -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+</head>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- START of the content to be included in the execution result.  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Only the markup inside this <body> would be required in this  -->
+<!-- template if no static prototyping was intended.               -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<body tiles:fragment="content">
+
+
+<div class="span-5">
+    <p>Valid username/passwords are:</p>
+    <ul>
+        <li>keith/melbourne</li>
+        <li>erwin/leuven</li>
+        <li>jeremy/atlanta</li>
+        <li>scott/rochester</li>
+    </ul>
+</div>
+
+<div class="span-10 append-2 last"
+     xmlns:th="http://www.thymeleaf.org"
+     th:with="lastUsernameKey=${T(org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter).SPRING_SECURITY_LAST_USERNAME_KEY},
+              lastExceptionKey=${T(org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter).SPRING_SECURITY_LAST_EXCEPTION_KEY}">
+
+    <div class="error" th:if="${param.login_error}">
+        Your login attempt was not successful, try again.<br/><br/>
+        <span th:if="${session} and ${session[__${lastExceptionKey}__]}">
+            Reason: <span th:text="${session[__${lastExceptionKey}__].message}">Invalid password</span>
+        </span>
+    </div>
+
+    <form name="f" action="#" th:action="@{/loginProcess}" method="post">
+
+        <fieldset>
+
+            <legend>Login Information</legend>
+
+            <p>
+                <label for="j_username">User:</label>
+                <br/>
+                <input type="text" name="j_username" id="j_username"
+                       th:value="(${param.login_error} and ${session}) ? ${session[__${lastUsernameKey}__]} : ''"/>
+            </p>
+
+            <script type="text/javascript">
+                // <![CDATA[
+                Spring.addDecoration(new Spring.ElementDecoration({
+                    elementId: "j_username",
+                    widgetType: "dijit.form.ValidationTextBox",
+                    widgetAttrs: { required: true }}));
+                // ]]>
+            </script>
+
+            <p>
+                <label for="j_password">Password:</label>
+                <br/>
+                <input type="password" name="j_password" id="j_password"/>
+            </p>
+
+            <script type="text/javascript">
+                // <![CDATA[
+                Spring.addDecoration(new Spring.ElementDecoration({
+                    elementId: "j_password",
+                    widgetType: "dijit.form.ValidationTextBox",
+                    widgetAttrs: { required: true}}));
+                // ]]>
+            </script>
+
+            <p>
+                <input type="checkbox" name="_spring_security_remember_me" id="remember_me"/>
+                <label for="remember_me">Don't ask for my password for two weeks:</label>
+            </p>
+
+            <script type="text/javascript">
+                // <![CDATA[
+                Spring.addDecoration(new Spring.ElementDecoration({
+                    elementId: "remember_me",
+                    widgetType: "dijit.form.CheckBox"}));
+                // ]]>
+            </script>
+
+            <p>
+                <button id="submit" type="submit">Login</button>
+                <script type="text/javascript">
+                    Spring.addDecoration(
+                            new Spring.ValidateAllDecoration({event: 'onclick', elementId: 'submit'}));
+                </script>
+            </p>
+
+        </fieldset>
+
+    </form>
+
+</div>
+
+
+</body>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- END of the content to be included in the execution result -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</html>

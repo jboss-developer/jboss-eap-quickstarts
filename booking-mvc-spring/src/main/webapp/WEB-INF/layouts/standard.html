@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--
+Copyright 2002-2013 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+    <title>Spring Travel: Spring MVC and Web Flow Reference Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" media="screen, projection"
+          href="../../styles/blueprint/screen.css"
+          th:href="@{/resources/styles/blueprint/screen.css}"/>
+
+    <link rel="stylesheet" type="text/css" media="print"
+          href="../../styles/blueprint/print.css"
+          th:href="@{/resources/styles/blueprint/print.css}"/>
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" type="text/css" media="screen, projection"
+          href="../../styles/blueprint/ie.css"
+          th:href="@{/resources/styles/blueprint/ie.css}"/>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../styles/booking.css"
+          th:href="@{/resources/styles/booking.css}"/>
+
+
+    <!-- The following styles and scripts are served from spring-js-resources-{ver}.jar -->
+
+    <link rel="stylesheet" type="text/css"
+          href="#" th:href="@{/resources/dijit/themes/tundra/tundra.css}"/>
+
+    <script type="text/javascript" src="#" th:src="@{/resources/dojo/dojo.js}"></script>
+    <script type="text/javascript" src="#" th:src="@{/resources/spring/Spring.js}"></script>
+    <script type="text/javascript" src="#" th:src="@{/resources/spring/Spring-Dojo.js}"></script>
+
+</head>
+
+
+<body class="tundra">
+
+<div id="page" class="container">
+
+    <div id="header">
+        <div id="topbar">
+            <p sec:authorize="hasRole('ROLE_USER')" th:if="${#authentication}">
+                Welcome, <span sec:authentication="name">Dear User</span> |
+                <a href="#" th:href="@{/logout}">Logout</a>
+            </p>
+
+            <p sec:authorize="hasRole('ROLE_ANONYMOUS')">
+                <a href="#" th:href="@{/login}">Login</a>
+            </p>
+        </div>
+        <div id="logo">
+            <p>
+                <a href="#" th:href="@{/}">
+                    <img src="../../images/header.jpg" th:src="@{/resources/images/header.jpg}" alt="Spring Travel"/>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="local" class="span-6">
+            <p>
+                <a href="http://www.thespringexperience.com">
+                    <img src="../../images/diplomat.jpg" th:src="@{/resources/images/diplomat.jpg}"
+                         alt="generic hotel"/>
+                </a>
+            </p>
+
+            <p>
+                <a href="http://www.thespringexperience.com">
+                    <img src="../../images/springone2gx.jpeg" th:src="@{/resources/images/springone2gx.jpeg}"
+                         alt="SpringOne 2GX"/>
+                </a>
+            </p>
+        </div>
+        <div id="main" class="span-18 last" tiles:include="body">
+
+            <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- At runtime, the body of this <div> will be substituted by -->
+            <!-- Tiles in order to create the final HTML page that will be -->
+            <!-- sent to the browser.                                      -->
+            <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+            BODY PAGE GOES HERE!
+
+        </div>
+    </div>
+
+    <hr/>
+
+    <div id="footer">
+        <a href="http://www.springframework.org">
+            <img src="../../images/powered-by-spring.png" th:src="@{/resources/images/powered-by-spring.png}"
+                 alt="Powered by Spring"/>
+        </a>
+    </div>
+
+</div>
+</body>
+</html>
