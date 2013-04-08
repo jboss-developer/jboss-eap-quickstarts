@@ -207,6 +207,7 @@
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
                 <module>kitchensink-rf</module>
+                <module>kitchensink-spring</module>
                 <module>log4j</module>
                 <module>logging-tools</module>
                 <module>mail</module>
