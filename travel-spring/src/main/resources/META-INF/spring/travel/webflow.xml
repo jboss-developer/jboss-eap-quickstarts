@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+JBoss, Home of Professional Open Source
+Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+contributors by the @authors tag. See the copyright.txt in the
+distribution for a full listing of individual contributors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<beans:beans xmlns="http://www.springframework.org/schema/webflow-config"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="
+http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+    <beans:bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <beans:property name="order" value="-1"/>
+        <beans:property name="flowRegistry" ref="flowRegistry"/>
+    </beans:bean>
+
+    <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+    <beans:bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <beans:property name="flowExecutor" ref="flowExecutor"/>
+    </beans:bean>
+
+    <!-- Executes flows: the entry point into the Spring Web Flow system -->
+    <flow-executor id="flowExecutor">
+        <flow-execution-listeners>
+            <listener ref="jpaFlowListener"/>
+            <listener ref="securityFlowListener"/>
+        </flow-execution-listeners>
+    </flow-executor>
+
+    <!-- The registry of executable flow definitions -->
+    <flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF/views">
+        <flow-location-pattern value="/**/*-flow.xml"/>
+    </flow-registry>
+
+    <!-- Plugs in a custom creator for Web Flow views -->
+    <flow-builder-services id="flowBuilderServices" view-factory-creator="viewFactoryCreator" development="true"/>
+
+    <!-- Configures Web Flow to use the "viewResolver" instance already defined for Spring MVC views in servlet-contex.xml -->
+    <beans:bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <beans:property name="viewResolvers" ref="viewResolver"/>
+    </beans:bean>
+
+    <!-- Installs a listener that manages JPA persistence contexts for flows that require them -->
+    <beans:bean id="jpaFlowListener" class="org.springframework.webflow.persistence.JpaFlowExecutionListener">
+        <beans:constructor-arg ref="entityManagerFactory"/>
+        <beans:constructor-arg ref="transactionManager"/>
+    </beans:bean>
+
+    <!-- Installs a listener to apply Spring Security authorities -->
+    <beans:bean id="securityFlowListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
+
+</beans:beans>

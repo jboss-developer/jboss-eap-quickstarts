@@ -1,0 +1,143 @@
+/*****
+		dijit.form.Button
+		dijit.form.DropDownButton
+		dijit.form.ComboButton
+		dijit.form.ComboBox (partial)
+ *****/
+
+.tundra .dijitButtonNode {
+    /* enabled state - inner */
+    border: 1px solid #c0c0c0;
+    border-bottom: 1px solid #9b9b9b;
+    padding: 0.1em 0.2em 0.2em 0.2em;
+    background: #fff url("../images/buttonEnabled.png") repeat-x bottom left;
+}
+
+.tundra .dijitButtonNode button {
+    border: 0px;
+    background-color: transparent;
+}
+
+.tundra .dijitButtonText {
+    text-align: center;
+    padding: 0 0.3em;
+}
+
+.tundra .dijitDisabled .dijitButtonText {
+    color: #7F7F7F;
+}
+
+/*
+.tundra .dijitComboBox .dijitButtonNode {
+	border: 0px;
+}
+*/
+
+.tundra .dijitArrowButton {
+    color: #111;
+}
+
+.tundra .dijitComboButton .dijitDownArrowButton {
+    padding-right: 4px;
+}
+
+.dj_ff2 .tundra .dijitComboButton .dijitButtonContentsFocused,
+.dj_ff2 .tundra .dijitComboButton .dijitDownArrowButtonFocused {
+    border: 1px solid transparent; /*make transparent so FF2 focus rect. is visible */
+}
+
+.tundra .dijitButtonDisabled .dijitButtonNode,
+.tundra .dijitToggleButtonDisabled .dijitButtonNode,
+.tundra .dijitDropDownButtonDisabled .dijitButtonNode,
+.tundra .dijitComboButtonDisabled .dijitButtonNode,
+.tundra .dijitComboBoxDisabled,
+.tundra .dijitSpinnerDisabled,
+.tundra .dijitSpinnerDisabled .dijitButtonNode {
+    /* disabled state - inner */
+    /* border-color: #d5d5d5 #bdbdbd #bdbdbd #d5d5d5; */
+    border-color: #d5d5d5 #d5d5d5 #bdbdbd #d5d5d5;
+    background: #e4e4e4 url("../images/buttonDisabled.png") top repeat-x;
+}
+
+.tundra .dijitButtonHover .dijitButtonNode,
+.tundra .dijitButtonNodeHover,
+.tundra .dijitToggleButtonHover .dijitButtonNode,
+.tundra .dijitDropDownButtonHover .dijitButtonNode,
+.tundra .dijitComboButtonHover .dijitButtonContents,
+.tundra .dijitComboButtonDownArrowHover .dijitDownArrowButton,
+.tundra .dijitComboBoxHover .dijitDownArrowButton,
+.tundra .dijitSpinnerUpArrowHover .dijitUpArrowButton,
+.tundra .dijitSpinnerDownArrowHover .dijitDownArrowButton {
+    /* hover state - inner */
+    /* TODO: change from Hover to Selected so that button is still highlighted while drop down is being used */
+    border-color: #a5beda;
+    border-bottom-color: #5c7590;
+    color: #243C5F;
+    background: #fcfdff url("../images/buttonHover.png") repeat-x bottom;
+}
+
+.tundra .dijitSpinnerUpArrowActive .dijitUpArrowButton,
+.tundra .dijitSpinnerDownArrowActive .dijitDownArrowButton,
+.tundra .dijitButtonActive .dijitButtonNode,
+.tundra .dijitToggleButtonActive .dijitButtonNode,
+.tundra .dijitDropDownButtonActive .dijitButtonNode,
+.tundra .dijitComboButtonActive .dijitButtonContents,
+.tundra .dijitDownArrowActive .dijitDownArrowButton,
+.tundra .dijitComboBoxActive .dijitDownArrowButton {
+    /* active state - inner (for when you are pressing a normal button, or
+     * when a toggle button is in a depressed state
+     */
+    border-color: #366dba;
+    background: #ededed url("../images/buttonActive.png") bottom repeat-x;
+}
+
+.tundra .dijitArrowButtonInner {
+    background-image: url("../images/spriteArrows.png");
+    background-position: left top;
+    width: 7px;
+    height: 7px;
+    font-size: 1px;
+    margin: 0px 4px 0px 5px;
+}
+
+.dj_ie6 .tundra .dijitArrowButtonInner {
+    background-image: url("../images/spriteArrows.gif");
+}
+
+.tundra .dijitDisabled .dijitArrowButtonInner {
+    background-position: -28px top;
+}
+
+.tundra .dijitUpArrowButton .dijitArrowButtonInner {
+    background-position: -21px top;
+}
+
+.tundra .dijitDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+    background-position: -49px top;
+}
+
+/* Since ComboBox doesn't have it's own file... */
+.tundra .dijitComboBox .dijitArrowButton .dijitArrowButtonInner {
+    background-image: url("../images/comboArrowDown.gif");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    height: auto;
+    font-size: 100%;
+    font-size: inherit;
+}
+
+.tundra .dijitComboBoxHover .dijitArrowButtonInner {
+    /* TODO: url("../images/arrowDownHover.png") but in IE6 it flickers some? */
+}
+
+/* Since Spinner doesn't have it's own file */
+.tundra .dijitSpinner .dijitArrowButtonInner {
+    display: block; /* inline just isnt going to work for us here IMO */
+    position: absolute;
+    top: 50%;
+    margin-top: -4px; /* half its height */
+    left: 50%;
+    margin-left: -4px; /* half its width */
+    line-height: 2px;
+}
