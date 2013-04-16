@@ -157,6 +157,7 @@
                 <module>carmart-tx</module>
                 <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
+				<module>cdi-stereotype</module>
                 <module>cdi-injection</module>
                 <module>cdi-portable-extension</module>
                 <module>cdi-veto</module>
