@@ -70,7 +70,7 @@ Undeploy the Archive
         mvn jboss-as:undeploy
 
 
-Run the Arquillian Tests 
+Run the Arquillian Tests
 -------------------------
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
@@ -83,6 +83,18 @@ _NOTE: The following commands assume you have configured your Maven user setting
 
         mvn clean test -Parq-jbossas-remote 
 
+Run the Arquillian Functional Tests
+-----------------------------------
+
+This quickstart provides Arquillian functional tests as well. They are located under the directory "functional-tests". Functional tests verify that
+your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
+In order to run these tests, you have to build the main project as described above. After that, please enter into the functional-tests directory and execute the following:
+
+        mvn clean test -Parq-jbossas-managed
+
+This profile activates functional testing via managed instance of the JBoss AS. When you have already started JBoss AS, you can use it as well, you have to specify remote profile like this:
+
+        mvn clean test -Parq-jbossas-remote
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
