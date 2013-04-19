@@ -35,10 +35,6 @@
         </license>
     </licenses>
 
-    <modules>
-        <module>functional-tests</module>
-    </modules>
-
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
