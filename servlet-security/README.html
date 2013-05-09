@@ -45,16 +45,46 @@ Target Product: EAP</p>
 
 <p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2 id="toc_4">Define a Security Domain Using the Database JAAS Login Module</h2>
+<h2 id="toc_4">Add the Application Users</h2>
+
+<p>Using the add-user utility script, you must add the following users to the <code>ApplicationRealm</code>:</p>
+
+<table><thead>
+<tr>
+<th align="left"><strong>UserName</strong></th>
+<th align="left"><strong>Realm</strong></th>
+<th align="left"><strong>Password</strong></th>
+<th align="left"><strong>Roles</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">quickstartUser</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">quickstartPwd1!</td>
+<td align="left">quickstarts</td>
+</tr>
+<tr>
+<td align="left">guest</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">guestPwd1!</td>
+<td align="left">notauthorized</td>
+</tr>
+</tbody></table>
+
+<p>The first application user has access rights to the application. The second application user is not authorized.</p>
+
+<p>For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="../README.html#addapplicationuser">Add User</a>.</p>
+
+<h2 id="toc_5">Define a Security Domain Using the Database JAAS Login Module</h2>
 
 <p>This quickstart authenticates users using a simple database setup. The datasource configuration is located in the <code>/src/main/webapp/WEB-INF/servlet-security-quickstart-ds.xml</code> file. You can configure the security domain using the JBoss CLI or by manually editing the configuration file.</p>
 
-<h3 id="toc_5">Configure the Security Domain Using the JBoss CLI</h3>
+<h3 id="toc_6">Configure the Security Domain Using the JBoss CLI</h3>
 
 <ol>
 <li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the web profile by typing the following: </p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standaloneull</span><span class="p">.</span><span class="n">xml</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre>
 </div></li>
 <li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
@@ -72,7 +102,7 @@ Target Product: EAP</p>
 </div></li>
 </ol>
 
-<h3 id="toc_6">Configure the Security Domain Manually</h3>
+<h3 id="toc_7">Configure the Security Domain Manually</h3>
 
 <ol>
 <li> If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.</li>
@@ -94,7 +124,7 @@ Target Product: EAP</p>
 
 <p>Please note that the security domain name <code>servlet-security-quickstart</code> must match the one defined in the <code>/src/main/webapp/WEB-INF/jboss-web.xml</code> file.</p>
 
-<h2 id="toc_7">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
+<h2 id="toc_8">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
 
 <ol>
 <li>Open a command line and navigate to the root of the JBoss server directory.</li>
@@ -107,7 +137,7 @@ Target Product: EAP</p>
 
 <p><a id="buildanddeploy"></a></p>
 
-<h2 id="toc_8">Build and Deploy the Quickstart</h2>
+<h2 id="toc_9">Build and Deploy the Quickstart</h2>
 
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
@@ -123,7 +153,7 @@ Target Product: EAP</p>
 
 <p><a id="accesstheapp"></a></p>
 
-<h2 id="toc_9">Access the Application </h2>
+<h2 id="toc_10">Access the Application </h2>
 
 <p>The application will be running at the following URL <a href="http://localhost:8080/jboss-as-servlet-security/">http://localhost:8080/jboss-as-servlet-security/</a>.</p>
 
@@ -147,7 +177,7 @@ Target Product: EAP</p>
 </pre>
 </div>
 
-<h2 id="toc_10">Undeploy the Archive</h2>
+<h2 id="toc_11">Undeploy the Archive</h2>
 
 <ol>
 <li>Make sure you have started the JBoss Server as described above.</li>
@@ -158,11 +188,11 @@ Target Product: EAP</p>
 </div></li>
 </ol>
 
-<h2 id="toc_11">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2 id="toc_12">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#useeclipse">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<h2 id="toc_12">Debug the Application</h2>
+<h2 id="toc_13">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>  <span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>

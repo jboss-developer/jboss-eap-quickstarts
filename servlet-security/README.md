@@ -47,6 +47,21 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
+Add the Application Users
+----------------
+
+Using the add-user utility script, you must add the following users to the `ApplicationRealm`:
+
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickstartUser| ApplicationRealm | quickstartPwd1!| quickstarts |
+| guest | ApplicationRealm | guestPwd1! | notauthorized |
+
+The first application user has access rights to the application. The second application user is not authorized.
+
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
+
+
 Define a Security Domain Using the Database JAAS Login Module
 ---------------
 
@@ -56,8 +71,8 @@ This quickstart authenticates users using a simple database setup. The datasourc
 
 1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the web profile by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standaloneull.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone.xml
+        For Linux:  JBOSS_HOME/bin/standalone.sh 
+        For Windows:  JBOSS_HOME\bin\standalone.bat
 2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
