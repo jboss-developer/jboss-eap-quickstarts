@@ -39,8 +39,11 @@ public class AuditInterceptor {
     public Object aroundInvoke(InvocationContext ic) throws Exception {
         String methodName = ic.getMethod().getName();
         String time = DateFormat.getTimeInstance().format(new Date());
-        History.getItems().add(
-                String.format("Executing %s.%s method at %s", ic.getTarget().getClass().getSimpleName(), methodName, time));
+        if (methodName.equals("create")) {
+            History.getItemHistory().add(String.format("Item created at %s", time));
+        } else if (methodName.equals("getList")) {
+            History.getItemHistory().add(String.format("List of Items retrieved at %s", time));
+        }
         return ic.proceed();
     }
 }

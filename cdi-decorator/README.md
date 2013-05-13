@@ -12,7 +12,7 @@ What is it?
 This example demonstrates the use of CDI Decorator.
 It represents a common decorator design pattern. We take a class and we wrap decorator class around it. 
 When we call the class, we always pass through the surrounding decorator class before we reach the inner class. 
-In this example, the decorator class simply changes bonus(from 100 to 200) and position(from Java Developer to Team Lead) of 'Staff' and logs a message to the server console.
+In this example, the decorator class simply changes the staff bonus from '100' to '200' and the staff position from 'Java Developer' to 'Team Lead'. It then logs a message to the server console.
 By default, all decorators are disabled, so application will run without using decorator. We need to enable our decorator in the 'beans.xml' descriptor to make it work.
 
 

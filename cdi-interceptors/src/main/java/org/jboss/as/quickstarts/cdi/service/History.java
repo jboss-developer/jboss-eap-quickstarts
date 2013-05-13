@@ -28,10 +28,10 @@ import org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor;
  * @author ievgen.shulga
  */
 public class History {
-    private static List<String> items = new ArrayList<String>();
+    private static List<String> itemHistory = new ArrayList<String>();
 
-    public static List<String> getItems() {
-        return items;
+    public static List<String> getItemHistory() {
+        return itemHistory;
     }
 
 }

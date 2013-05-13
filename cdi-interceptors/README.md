@@ -11,9 +11,9 @@ What is it?
 -----------
 The quickstart demonstrates using CDI interceptors for cross-cutting concerns such as logging and simple auditing. 
 Interceptors can be applied to any business methods or beans, simply by adding appropriate interceptor binding type annotation. The project contains EJB service that can create and retrieve object from database.
-This example demonstrates 2 interceptors: 'AuditInterceptor' and 'LoggingInterceptor'
+This example demonstrates 2 interceptors: `AuditInterceptor` and `LoggingInterceptor`
 
-The quickstart defines the '@Audit' and '@Logging' interceptor binding types. The 'AuditInterceptor' and 'LoggingInterceptor' classes are annotated with the binding type annotation and contain a method annotated '@AroundInvoke'. If the interceptor is enabled, this method will be called when the intercepted methods are invoked. In the 'ItemServiceBean' bean, notice the 'create()'and 'getList()' methods are annotated with the '@Audit' and '@Logging' binding types. This means the 'aroundInvoke()' method in the 'AuditInterceptor' and 'LoggingInterceptor' classes will be called when the 'ItemServiceBean' bean's 'create()' and 'getList()' methods are called, but only if that interceptor is enabled.
+The quickstart defines the `@Audit` and `@Logging` interceptor binding types. The `AuditInterceptor` and `LoggingInterceptor` classes are annotated with the binding type annotation and contain a method annotated `@AroundInvoke`. If the interceptor is enabled, this method will be called when the intercepted methods are invoked. In the `ItemServiceBean` bean, notice the `create()`and `getList()` methods are annotated with the `@Audit` and `@Logging` binding types. This means the `aroundInvoke()` method in the `AuditInterceptor` and `LoggingInterceptor` classes will be called when the `ItemServiceBean` bean`s `create()` and `getList()` methods are called, but only if that interceptor is enabled.
 To enable an interceptor, you must add the interceptor class to the WEB-INF/beans.xml descriptor file.
 
 System requirements
@@ -61,11 +61,11 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 You can now comment out classes in the WEB-INF/beans.xlm file to disable one or both of the interceptors and view the results.
 
-* Comment the '<class>org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor</class>' and you will no longer see the audit history on the browser page.
-* Comment the '<class>org.jboss.as.quickstarts.cdi.interceptor.LoggerInterceptor</class>' and you will no longer see the log messages in the server log.
+* Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor</class>` and you will no longer see the audit history on the browser page.
+* Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.LoggerInterceptor</class>` and you will no longer see the log messages in the server log.
 
 In this quickstart, in order to switch back to the default implementation, 
-comment the 'interceptors' block in the WEB-INF/beans.xml file and redeploy the quickstart.
+comment the `interceptors` block in the WEB-INF/beans.xml file and redeploy the quickstart.
 
 
 Undeploy the Archive

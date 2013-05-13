@@ -9,13 +9,14 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
-The quickstart is extention for cdi-interceptors quickstart and demonstrates using of CDI stereotype to allow developer to declare some common metadata for beans in a central place.
-In this example stereotype encapsulates combination of:
-* set of interceptor bindings ('@Logging' and '@Audit')
-* specify that all beans with the stereotype are alternatives.
+A stereotype is an annotation, annotated `@Stereotype`, that packages several other annotations.
+This quickstart is an extension of the `cdi-interceptors` quickstart and demonstrates how to use a CDI stereotype. Stereotypes allow a developer to declare common metadata for beans in a central place. A stereotype is an annotation, annotated `@Stereotype`, that packages several other annotations.
+In this example, the stereotype encapsulates the following :
 
-A stereotype is an annotation, annotated @Stereotype, that packages several other annotations.
-Quickstart defines stereotype with 2 interceptors bindings (@Logging and @Audit) to be inherited by all beans with that stereotype. It also indicates that all beans to which it is applied are @Alternatives. An alternative stereotype lets us classify beans by deployment scenario.
+* All beans with this stereotype inherit the following interceptor bindings: @Logging and @Audit
+* All beans with this stereotype are alternatives
+
+Quickstart defines stereotype with 2 interceptors bindings (`@Logging` and `@Audit`) to be inherited by all beans with that stereotype. It also indicates that all beans to which it is applied are `@Alternatives`. An alternative stereotype lets us classify beans by deployment scenario.
 
 System requirements
 -------------------
