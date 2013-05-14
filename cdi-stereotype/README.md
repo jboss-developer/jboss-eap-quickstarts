@@ -17,6 +17,7 @@ In this example, the stereotype encapsulates the following :
 * All beans with this stereotype are alternatives
 
 Quickstart defines stereotype with 2 interceptors bindings (`@Logging` and `@Audit`) to be inherited by all beans with that stereotype. It also indicates that all beans to which it is applied are `@Alternatives`. An alternative stereotype lets us classify beans by deployment scenario.
+Arquillian tests added in cdi-interceptors quickstart.
 
 System requirements
 -------------------
