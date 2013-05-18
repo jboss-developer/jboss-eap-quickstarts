@@ -1,4 +1,4 @@
-Inter-app: Shows how to communicate between two applications using EJB and CDI 
+inter-app: Shows how to communicate between two applications using EJB and CDI 
 ==============================================================================
 Author: Pete Muir
 Level: Advanced
