@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstart</groupId>
+    <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-hibernate4</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -45,12 +45,12 @@
         <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.4.Final</version.jboss.bom>
+        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-3 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-3</version.jboss.bom> -->
+        <!-- <version.jboss.bom>1.0.6.Final-redhat-3</version.jboss.bom> -->
 
         <version.jboss.as>7.2.0.Final</version.jboss.as>
         <!-- Alternatively, comment out the above line, and un-comment the 

@@ -1,6 +1,6 @@
 tasks: Testing JPA with Arquillian
 ==================================
-Authors: Oliver Kiss, Lukas Fryc
+Author: Oliver Kiss, Lukas Fryc
 Level: Intermediate
 Technologies: JPA, Arquillian
 Summary: Demonstrates testing JPA using Arquillian

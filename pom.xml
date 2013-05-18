@@ -55,12 +55,12 @@
         <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.4.Final</version.jboss.bom>
+        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-3 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-3</version.jboss.bom> -->
+        <!-- <version.jboss.bom>1.0.6.Final-redhat-3</version.jboss.bom> -->
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0> 
         <!-- Alternatively, comment out the above line, and un-comment the 
@@ -73,7 +73,10 @@
         <version.org.hibernate>3.6.8.Final</version.org.hibernate>
         <version.org.hibernate.em>3.6.8.Final</version.org.hibernate.em>
         <version.org.hibernate.infinispan>3.6.8.Final</version.org.hibernate.infinispan>
-        <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator>
+        
+        <!-- This is used in the hibernate-3 quickstart and requires the Hibernate 3 libraries -->
+        <!-- <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator> -->
+        <version.org.hibernate.validator>3.1.0.GA</version.org.hibernate.validator>
                 
         <version.org.richfaces>4.2.0.Final</version.org.richfaces>
         
@@ -174,6 +177,7 @@
                 <module>ejb-security</module>
                 <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
+                <module>ejb-throws-exception</module>
                 <module>greeter</module>
                 <module>greeter-spring</module>
                 <module>helloworld</module>
@@ -206,6 +210,9 @@
                 <module>memcached-endpoint</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
+                <module>picketlink-authentication-jsf</module>
+                <module>picketlink-authentication-idm-jsf</module>
+                <module>picketlink-authorization-idm-jpa</module>
                 <module>rest-endpoint</module>
                 <module>richfaces-validation</module>
                 <module>servlet-async</module>

@@ -131,7 +131,7 @@ final class SecurityActions {
      */
 
     static SecurityContext securityContextSetPrincipalCredential(final Principal principal, final Object credential)
-            throws Exception {
+        throws Exception {
         return securityContextActions().setPrincipalCredential(principal, credential);
     }
 
