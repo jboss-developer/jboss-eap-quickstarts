@@ -58,7 +58,7 @@ public class ItemBean {
     }
 
     private void refresh() {
-        itemHistory = History.getItems();
+        itemHistory = History.getItemHistory();
         items = itemService.getList();
     }
 

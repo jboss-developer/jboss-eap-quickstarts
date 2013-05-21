@@ -39,7 +39,7 @@ public class AuditInterceptor {
     public Object aroundInvoke(InvocationContext ic) throws Exception {
         String methodName = ic.getMethod().getName();
         String time = DateFormat.getTimeInstance().format(new Date());
-        History.getItems().add(
+        History.getItemHistory().add(
                 String.format("Executing %s.%s method at %s", ic.getTarget().getClass().getSimpleName(), methodName, time));
         return ic.proceed();
     }

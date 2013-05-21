@@ -64,12 +64,12 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 You can now comment out classes in the WEB-INF/beans.xlm file to disable one or both of the interceptors or alternative stereotype and view the results.
 
-* Comment the '<class>org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor</class>' and you will no longer see the audit history on the browser page.
-* Comment the '<class>org.jboss.as.quickstarts.cdi.interceptor.LoggerInterceptor</class>' and you will no longer see the log messages in the server log.
-* Comment the '<stereotype>org.jboss.as.quickstarts.cdi.interceptor.ServiceStereotype</stereotype>' and you no longer see ItemAlternativeServiceBean implementation invoked.
+* Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor</class>` and you will no longer see the audit history on the browser page.
+* Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.LoggerInterceptor</class>` and you will no longer see the log messages in the server log.
+* Comment the `<stereotype>org.jboss.as.quickstarts.cdi.interceptor.ServiceStereotype</stereotype>` and you no longer see ItemAlternativeServiceBean implementation invoked.
 
 In this quickstart, in order to switch back to the default implementation, 
-uncomment the 'interceptors' and '<stereotype>' block in the WEB-INF/beans.xml file and redeploy the quickstart.
+uncomment the `<interceptors>` and `<stereotype>` block in the WEB-INF/beans.xml file and redeploy the quickstart.
 
 Undeploy the Archive
 --------------------
