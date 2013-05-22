@@ -106,6 +106,8 @@ This script configures the server to use jts transaction processing. You should 
         #1 /subsystem=jacorb:write-attribute(name=transactions,value=on)
         #2 /subsystem=transactions:write-attribute(name=jts,value=true)
         #3 /subsystem=transactions:write-attribute(name=node-identifier,value=UNIQUE_IDENTIFER)
+        #4 /subsystem=jacorb:write-attribute(name=name,value=SAME_UNIQUE_IDENTIFER)
+        #5 /subsystem=jacorb:write-attribute(name=root-context,value=SAME_UNIQUE_IDENTIFER/Naming/root)
         The batch executed successfully.
         {"outcome" => "success"}
 
@@ -124,6 +126,8 @@ This script configures the server to use jts transaction processing. You should 
         [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=transactions,value=on)
         [standalone@localhost:9999 /] /subsystem=transactions/:write-attribute(name=jts,value=true)
         [standalone@localhost:9999 /] /subsystem=transactions/:write-attribute(name=node-identifier,value=UNIQUE_IDENTIFER)
+        [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=name,value=SAME_UNIQUE_IDENTIFER)
+        [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=root-context,value=SAME_UNIQUE_IDENTIFER/Naming/root)
 4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
 
 #### Modify the Server Configuration Manually
@@ -239,6 +243,8 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
         #1 /subsystem=jacorb:write-attribute(name=transactions,value=spec)
         #2 /subsystem=transactions:undefine-attribute(name=jts)
         #3 /subsystem=transactions:undefine-attribute(name=node-identifier)
+        #4 /subsystem=jacorb:undefine-attribute(name=name)
+        #5 /subsystem=jacorb:undefine-attribute(name=root-context)
         The batch executed successfully.
         {"outcome" => "success"}
 
@@ -258,6 +264,8 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
         [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
         [standalone@localhost:9999 /] /subsystem=transactions/:undefine-attribute(name=jts)
         [standalone@localhost:9999 /] /subsystem=transactions/:undefine-attribute(name=node-identifier)
+        [standalone@localhost:9999 /] /subsystem=jacorb/:undefine-attribute(name=name)
+        [standalone@localhost:9999 /] /subsystem=jacorb/:undefine-attribute(name=root-context)
 
 ### Remove the JTS Server Configuration Manually
 
