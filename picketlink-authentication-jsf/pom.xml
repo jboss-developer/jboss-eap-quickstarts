@@ -46,7 +46,7 @@
         <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
+        <version.jboss.bom>1.0.7.CR2</version.jboss.bom>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
@@ -107,14 +107,14 @@
             and can compile against it -->
         <dependency>
             <groupId>org.picketlink</groupId>
-            <artifactId>picketlink-core-api</artifactId>
+            <artifactId>picketlink-api</artifactId>
         </dependency>
 
         <!-- Import the PicketLink implementation, we deploy this as library with the application, 
             but can't compile against it -->
         <dependency>
             <groupId>org.picketlink</groupId>
-            <artifactId>picketlink-core-impl</artifactId>
+            <artifactId>picketlink-impl</artifactId>
             <scope>runtime</scope>
         </dependency>
 

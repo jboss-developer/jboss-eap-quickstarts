@@ -27,7 +27,10 @@ import org.picketlink.idm.model.SimpleUser;
 import org.picketlink.idm.model.User;
 
 /**
- * This startup bean creates a default user account when the application is started.
+ * This startup bean creates a default user account when the application is started. Since we are not
+ * providing an IDM configuration in this example, PicketLink will default to using a file-based identity
+ * store to persist user and other identity state.
+ * 
  * 
  * @author Shane Bryzak
  */

@@ -22,7 +22,7 @@
 <p>This quickstart demonstrates how to implement a simple Authenticator</p>
 
 <ui:fragment rendered="#{identity.loggedIn}">
-    <div>Congratulations! You are currently logged in as: <b>#{identity.user.loginName}</b></div>
+    <div>Congratulations! You are currently logged in as: <b>#{identity.agent.loginName}</b></div>
 
     <h:form>
         <h:commandButton id="logout" value="Log out" action="#{identity.logout}"/>
