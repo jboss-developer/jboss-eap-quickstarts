@@ -42,17 +42,17 @@ public class AuthorizationChecker {
 
     public boolean hasApplicationRole(String roleName) {
         Role role = identityManager.getRole(roleName);
-        return identityManager.hasRole(identity.getUser(), role);
+        return identityManager.hasRole(identity.getAgent(), role);
     }
 
     public boolean isMember(String groupName) {
         Group group = identityManager.getGroup(groupName);
-        return identityManager.isMember(identity.getUser(), group);
+        return identityManager.isMember(identity.getAgent(), group);
     }
 
     public boolean hasGroupRole(String roleName, String groupName) {
         Group group = identityManager.getGroup(groupName);
         Role role = identityManager.getRole(roleName);
-        return identityManager.hasGroupRole(identity.getUser(), role, group);
+        return identityManager.hasGroupRole(identity.getAgent(), role, group);
     }
 }
