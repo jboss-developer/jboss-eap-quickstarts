@@ -511,7 +511,7 @@ Use the following steps to install and configure PostgreSQL on Windows:
 
 #### Add the Driver Configuration to the JBoss server
 
-You can configure the driver by running the `configure-postgres-driver.cli` script provided in the root directory of the quickstarts, by using the JBoss CLI interactively, or by manually editing the configuration file.
+You can configure the driver by running the `configure-postgresql.cli` script provided in the root directory of the quickstarts, by using the JBoss CLI interactively, or by manually editing the configuration file.
 
 _NOTE - Before you begin:_
 
@@ -528,7 +528,7 @@ _NOTE - Before you begin:_
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
 2. Open a new command line, navigate to the root directory of the quickstarts, and run the following command, replacing JBOSS_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-postgres-driver.cli 
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-postgresql.cli 
 This script adds the PostgreSQL driver to the datasources subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 /subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
