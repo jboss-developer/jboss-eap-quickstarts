@@ -94,36 +94,41 @@ _NOTE - Before you begin:_
 
 #### Modify the Server Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
-        For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
+        For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
+        For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID
 2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
 This script configures the server to use jts transaction processing. You should see the following result when you run the script:
 
         #1 /subsystem=jacorb:write-attribute(name=transactions,value=on)
-        #2 /subsystem=transactions:write-attribute(name=jts,value=true)
-        #3 /subsystem=transactions:write-attribute(name=node-identifier,value=UNIQUE_IDENTIFER)
+        #2 /subsystem=jacorb:write-attribute(name=name,value=${jboss.node.name})
+        #3 /subsystem=jacorb:write-attribute(name=root-context,value=${jboss.node.name}/Naming/root)
+        #4 /subsystem=transactions:write-attribute(name=jts,value=true)
+        #5 /subsystem=transactions:write-attribute(name=node-identifier,value=${jboss.tx.node.id}
         The batch executed successfully.
         {"outcome" => "success"}
 
 #### Modify the Server Configuration Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
 2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
-3. At the prompt, type the following (replace the words UNIQUE_IDENTIFER with values unique to both servers):
+3. At the prompt, type the following exactly as it appears. The server will replace ${jboss.node.name} with the actual node name and will replace ${jboss.tx.node.id} with the unique node ID value you passed as a parameter on the server start command line.
 
-        [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=transactions,value=on)
-        [standalone@localhost:9999 /] /subsystem=transactions/:write-attribute(name=jts,value=true)
-        [standalone@localhost:9999 /] /subsystem=transactions/:write-attribute(name=node-identifier,value=UNIQUE_IDENTIFER)
+        /subsystem=jacorb/:write-attribute(name=transactions,value=on)
+        /subsystem=jacorb:write-attribute(name=name,value=${jboss.node.name})
+        /subsystem=jacorb:write-attribute(name=root-context,value=${jboss.node.name}/Naming/root)
+
+        /subsystem=transactions/:write-attribute(name=jts,value=true)
+        /subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
 4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
 
 #### Modify the Server Configuration Manually
@@ -131,17 +136,23 @@ This script configures the server to use jts transaction processing. You should 
 1. Make a backup copy of the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file.
 2. Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml
 3. Enable JTS as follows:
-    * Find the orb subsystem and change the configuration to:  
+    * Find the orb subsystem and change the configuration to:
 
             <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
                 <orb>
                     <initializers security="on" transactions="on"/>
                 </orb>
             </subsystem>
-    * Find the transaction subsystem and set a unique node-identifier, (replace the words UNIQUE_IDENTIFER with values unique to both servers) and append the `<jts/>` element:  
+            <subsystem xmlns="urn:jboss:domain:jacorb:1.1">
+                <orb name="${jboss.node.name}">
+                    <initializers security="on" transactions="on"/>
+                </orb>
+                <naming root-context="${jboss.node.name}/Naming/root"/>
+            </subsystem>
+    * Find the transaction subsystem and append the `<jts/>` element:
 
             <subsystem xmlns="urn:jboss:domain:transactions:1.2">
-                <core-environment node-identifier="UNIQUE_IDENTIFIER">
+                <core-environment node-identifier="${jboss.tx.node.id}">
                 <!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING -->
                 <jts/>
             </subsystem>
@@ -162,15 +173,17 @@ Make a copy of this JBoss directory structure to use for the second server.
 Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers
 -------------------------
 
+Start the the two JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
+
 If you are using Linux:
 
-        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
+        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
+        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart
@@ -227,7 +240,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 ### Remove the JTS Server Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -237,27 +250,29 @@ You can modify the server configuration by running the `remove-jts-transactions.
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 /subsystem=jacorb:write-attribute(name=transactions,value=spec)
-        #2 /subsystem=transactions:undefine-attribute(name=jts)
-        #3 /subsystem=transactions:undefine-attribute(name=node-identifier)
+        #2 /subsystem=jacorb:undefine-attribute(name=name)
+        #3 /subsystem=transactions:undefine-attribute(name=jts)
+        #4 /subsystem=transactions:undefine-attribute(name=node-identifier)
         The batch executed successfully.
         {"outcome" => "success"}
 
 
 ### Remove the JTS Server Configuration using the JBoss CLI Tool
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following. 
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile.
 
-        If you are using Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        If you are using Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
 2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
 3. At the prompt, type the following:
 
-        [standalone@localhost:9999 /] /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
-        [standalone@localhost:9999 /] /subsystem=transactions/:undefine-attribute(name=jts)
-        [standalone@localhost:9999 /] /subsystem=transactions/:undefine-attribute(name=node-identifier)
+        /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
+        /subsystem=jacorb/:undefine-attribute(name=name)
+        /subsystem=transactions/:undefine-attribute(name=jts)
+        /subsystem=transactions/:undefine-attribute(name=node-identifier)
 
 ### Remove the JTS Server Configuration Manually
 
@@ -265,14 +280,14 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 2. If you backed up the JBOSS_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
 3. If you did not make a backup copy, open the file JBOSS_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
 
-    * Find the orb subsystem and change the configuration back to:  
+    * Find the orb subsystem and change the configuration back to:
 
             <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
                 <orb>
                     <initializers security="on" transactions="spec"/>
                 </orb>
             </subsystem>
-    * Find the transaction subsystem and remove the `<jts/>` element:  
+    * Find the transaction subsystem and remove the `<jts/>` element:
 
             <subsystem xmlns="urn:jboss:domain:transactions:1.2">
                 <!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT -->

@@ -5,6 +5,7 @@ batch
 
 # Remove the JTS transaction configuration
 /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
+/subsystem=jacorb/:undefine-attribute(name=name)
 /subsystem=transactions/:undefine-attribute(name=jts)
 /subsystem=transactions/:undefine-attribute(name=node-identifier)
 
