@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.authentication.idm.jsf;
+package org.jboss.as.quickstarts.picketlink.deltaspike.authorization;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -23,14 +23,13 @@ import javax.inject.Inject;
 
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.credential.Password;
+import org.picketlink.idm.model.Role;
+import org.picketlink.idm.model.SimpleRole;
 import org.picketlink.idm.model.SimpleUser;
 import org.picketlink.idm.model.User;
 
 /**
- * This startup bean creates a default user account when the application is started. Since we are not
- * providing an IDM configuration in this example, PicketLink will default to using a file-based identity
- * store to persist user and other identity state.
- * 
+ * This startup bean creates the default users, groups and roles when the application is started.
  * 
  * @author Shane Bryzak
  */
@@ -44,13 +43,34 @@ public class IDMInitializer {
     @PostConstruct
     public void create() {
 
-        User user = new SimpleUser("jane");
+        // Create user john
+        User john = new SimpleUser("john");
+        john.setEmail("john@acme.com");
+        john.setFirstName("John");
+        john.setLastName("Smith");
+        identityManager.add(john);
+        identityManager.updateCredential(john, new Password("demo"));
 
-        user.setEmail("jane@doe.com");
-        user.setFirstName("Jane");
-        user.setLastName("Doe");
+        // Create user mary
+        User mary = new SimpleUser("mary");
+        mary.setEmail("mary@acme.com");
+        mary.setFirstName("Mary");
+        mary.setLastName("Jones");
+        identityManager.add(mary);
+        identityManager.updateCredential(mary, new Password("demo"));
 
-        this.identityManager.add(user);
-        this.identityManager.updateCredential(user, new Password("abcd1234"));
+        // Create role "employee"
+        Role employee = new SimpleRole("employee");
+        identityManager.add(employee);
+
+        // Create application role "superuser"
+        Role admin = new SimpleRole("admin");
+        identityManager.add(admin);
+
+        // Grant the "employee" application role to john
+        identityManager.grantRole(john, employee);
+
+        // Grant the "admin" application role to jane
+        identityManager.grantRole(mary, admin);
     }
 }

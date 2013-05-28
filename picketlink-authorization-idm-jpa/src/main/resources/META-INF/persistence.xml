@@ -26,16 +26,6 @@
       <!-- The datasource is deployed as WEB-INF/picketlink-quickstart-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/picketlink-quickstart-ds.xml -->
       <jta-data-source>java:jboss/datasources/PicketLinkQuickstartDS</jta-data-source>
-
-      <!-- The default IDM database schema entities (from picketlink-idm-schema.jar) must be configured here -->      
-      <class>org.picketlink.idm.jpa.schema.IdentityObject</class>
-      <class>org.picketlink.idm.jpa.schema.PartitionObject</class>
-      <class>org.picketlink.idm.jpa.schema.RelationshipObject</class>
-      <class>org.picketlink.idm.jpa.schema.RelationshipIdentityObject</class>
-      <class>org.picketlink.idm.jpa.schema.RelationshipObjectAttribute</class>
-      <class>org.picketlink.idm.jpa.schema.IdentityObjectAttribute</class>
-      <class>org.picketlink.idm.jpa.schema.CredentialObject</class>
-      <class>org.picketlink.idm.jpa.schema.CredentialObjectAttribute</class>      
       
       <properties>
          <!-- Properties for Hibernate -->

@@ -29,7 +29,7 @@
   </p>
 
 <ui:fragment rendered="#{identity.loggedIn}">
-    <div>Congratulations! You are currently logged in as: <b>#{identity.user.loginName}</b></div>
+    <div>Congratulations! You are currently logged in as: <b>#{identity.agent.loginName}</b></div>
 
     <ui:fragment rendered="#{authorizationChecker.hasApplicationRole('superuser')}">
       <div>You have been granted the 'superuser' application role.</div>
