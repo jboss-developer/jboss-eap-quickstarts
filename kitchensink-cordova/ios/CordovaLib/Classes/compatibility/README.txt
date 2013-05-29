@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -18,11 +16,8 @@
 # specific language governing permissions and limitations
 # under the License.
 #
--->
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Description</key>
-	<string>This template provides a starting point for a Cordova based application. Just modify the www folder contents with your HTML, CSS and Javascript.</string>
-</dict>
-</plist>
+
+Include these headers if you are using a bleeding edge plugin in an older version of Cordova.
+
+1.5.0 -- only for 1.5.0 projects
+0.9.6 -- for projects between 0.9.6 and 1.4.1

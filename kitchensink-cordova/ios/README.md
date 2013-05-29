@@ -17,7 +17,7 @@ What does all of that mean? Basically, this takes our HTML5 + REST / jQuery Mobi
 System requirements
 -------------------
 
-All you need to build this project is Mac OS X Lion (10.7) (or later) and XCode 4.3 or later and the appropriate iOS SDK for your needs.
+All you need to build this project is Mac OS X Lion (10.7) (or later) and XCode 4.5 or later and the appropriate iOS SDK for your needs.
 
 With the prerequisites out of the way, you're ready to build and deploy.
 
