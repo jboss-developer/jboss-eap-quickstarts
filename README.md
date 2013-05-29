@@ -208,6 +208,11 @@ To build the quickstarts:
 
             mvn clean install '-Pdefault,!complex-dependencies'
 
+_Note_: If you see a `java.lang.OutOfMemoryError: PermGen space` error when you run this command, increase the memory by typing the following command for your operating system, then try the above command again.
+
+        For Linux:   export MAVEN_OPTS=-Xmx512m
+        For Windows: SET MAVEN_OPTS=-Xmx512m
+
 
 <a id="undeployall"></a>
 ### Undeploy the Deployed Quickstarts with One Command
