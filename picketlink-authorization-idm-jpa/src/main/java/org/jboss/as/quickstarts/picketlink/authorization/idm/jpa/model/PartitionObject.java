@@ -30,6 +30,8 @@ import org.picketlink.idm.jpa.annotations.Parent;
 import org.picketlink.idm.jpa.annotations.Partition;
 
 /**
+ * <p>JPA {@link Entity} used to store partition values, such as realms and tiers</p>
+ * 
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */

@@ -28,6 +28,8 @@ import org.picketlink.idm.jpa.annotations.Relationship;
 import org.picketlink.idm.jpa.annotations.RelationshipClass;
 
 /**
+ * <p>JPA {@link Entity} used to store identity relationships</p>
+ * 
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
