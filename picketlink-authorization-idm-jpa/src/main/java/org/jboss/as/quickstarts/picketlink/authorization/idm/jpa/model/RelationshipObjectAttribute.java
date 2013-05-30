@@ -31,6 +31,8 @@ import org.picketlink.idm.jpa.annotations.Parent;
 import org.picketlink.idm.jpa.annotations.RelationshipAttribute;
 
 /**
+ * <p>JPA {@link Entity} used to store relationship attribute values</p>
+ * 
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */

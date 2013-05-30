@@ -34,6 +34,8 @@ import org.picketlink.idm.jpa.annotations.IdentityCredential;
 import org.picketlink.idm.jpa.annotations.Parent;
 
 /**
+ * <p>JPA {@link Entity} used to store credential values</p>
+ * 
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
