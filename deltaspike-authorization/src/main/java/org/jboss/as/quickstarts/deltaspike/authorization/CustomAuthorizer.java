@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.interceptor.InvocationContext;
 
-import org.apache.deltaspike.security.api.authorization.annotation.Secures;
+import org.apache.deltaspike.security.api.authorization.Secures;
 
 /**
  * This Authorizer class implements behavior for our security binding types. This class is simply a CDI bean which declares
