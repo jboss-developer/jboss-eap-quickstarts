@@ -16,7 +16,7 @@
  */
 package org.jboss.as.quickstart.deltaspike.deactivatable;
 
-import org.apache.deltaspike.core.api.exclude.annotation.Exclude;
+import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.apache.deltaspike.core.impl.exclude.extension.ExcludeExtension;
 
 /**
