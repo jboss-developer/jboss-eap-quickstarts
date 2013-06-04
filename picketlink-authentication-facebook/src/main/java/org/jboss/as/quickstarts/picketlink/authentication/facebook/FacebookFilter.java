@@ -31,8 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Filter for Facebook Login
  * @author Anil Saldhana
- * @since 05 5/31/13, 2013
+ * @since May 31, 2013
  */
 @ApplicationScoped
 @WebFilter("/*")
