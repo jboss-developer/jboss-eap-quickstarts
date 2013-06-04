@@ -19,8 +19,8 @@ package org.jboss.as.quickstarts.deltaspike.exceptionhandling.handlers;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.apache.deltaspike.core.api.exception.control.annotation.ExceptionHandler;
-import org.apache.deltaspike.core.api.exception.control.annotation.Handles;
+import org.apache.deltaspike.core.api.exception.control.ExceptionHandler;
+import org.apache.deltaspike.core.api.exception.control.Handles;
 import org.apache.deltaspike.core.api.exception.control.event.ExceptionEvent;
 import org.jboss.as.quickstarts.deltaspike.exceptionhandling.rest.RestRequest;
 
