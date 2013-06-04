@@ -53,7 +53,7 @@
             maven repository. -->
         <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
         
-        <version.shrinkwrap.resolver>2.0.0-beta-2</version.shrinkwrap.resolver>
+        <version.shrinkwrap.resolver>2.0.0-beta-5</version.shrinkwrap.resolver>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
