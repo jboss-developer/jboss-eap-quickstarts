@@ -16,8 +16,9 @@
  */
 package org.jboss.as.quickstart.cdi.extension.test;
 
-import java.io.File;
 import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 
 import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
