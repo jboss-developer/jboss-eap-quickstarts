@@ -30,8 +30,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.deltaspike.core.api.exception.control.annotation.ExceptionHandler;
-import org.apache.deltaspike.core.api.exception.control.annotation.Handles;
+import org.apache.deltaspike.core.api.exception.control.ExceptionHandler;
+import org.apache.deltaspike.core.api.exception.control.Handles;
 import org.apache.deltaspike.core.api.exception.control.event.ExceptionEvent;
 import org.jboss.as.quickstarts.kitchensink.exception.annotation.RestRequest;
 
