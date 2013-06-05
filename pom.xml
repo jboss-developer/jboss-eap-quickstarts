@@ -219,6 +219,7 @@
                 <module>picketlink-authentication-jsf</module>
                 <module>picketlink-authentication-idm-jsf</module>
                 <module>picketlink-authentication-http-basic</module>
+                <module>picketlink-authentication-http-digest</module>
                 <module>picketlink-authorization-idm-jpa</module>
                 <module>rest-endpoint</module>
                 <module>richfaces-validation</module>
