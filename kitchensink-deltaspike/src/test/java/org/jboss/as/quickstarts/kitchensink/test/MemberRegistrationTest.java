@@ -16,9 +16,9 @@
  */
 package org.jboss.as.quickstarts.kitchensink.test;
 
-import java.io.File;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
