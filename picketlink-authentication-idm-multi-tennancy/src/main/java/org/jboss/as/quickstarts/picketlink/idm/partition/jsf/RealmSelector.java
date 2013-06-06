@@ -17,34 +17,43 @@
  */
 package org.jboss.as.quickstarts.picketlink.idm.partition.jsf;
 
+import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.picketlink.annotations.PicketLink;
 import org.picketlink.idm.internal.IdentityManagerFactory;
 import org.picketlink.idm.model.Realm;
+import static org.jboss.as.quickstarts.picketlink.idm.partition.jsf.IDMConfiguration.REALM;
 
 /**
- * @author pedroigor
+ * <p>We use this class to hold the current realm for a specific user.</p>
  */
 @SessionScoped
-public class RealmSelector {
-
-    public enum REALM {ACME_CORP, UMBRELLA_CORP, WAYNE_ENT}
+@Named
+public class RealmSelector implements Serializable {
 
     @Inject
     private IdentityManagerFactory identityManagerFactory;
 
-    private Realm realmName;
+    private Realm realm;
 
     @Produces
     @PicketLink
     public Realm select() {
-        if (this.realmName == null) {
-            this.realmName = Realm.DEFAULT_REALM;
-        }
-
-        return this.identityManagerFactory.getRealm(this.realmName);
+        return this.realm;
     }
 
+    public REALM getRealm() {
+        if (this.realm == null) {
+            return null;
+        }
+
+        return REALM.valueOf(this.realm.getId());
+    }
+
+    public void setRealm(REALM realm) {
+        this.realm = this.identityManagerFactory.getRealm(realm.name());
+    }
 }
