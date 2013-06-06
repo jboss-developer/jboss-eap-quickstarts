@@ -43,6 +43,7 @@ import org.picketlink.idm.model.User;
 @RequestScoped
 public class LoginController {
 
+    public static final String TOTP_SECRET_USER_ATTRIBUTE = "TOTP_SECRET_USER_ATTRIBUTE";
     @Inject
     private Identity identity;
 
@@ -61,29 +62,19 @@ public class LoginController {
 
     public String login() {
         String userName = this.loginCredentials.getUserId();
-
-        if (userName == null || userName.isEmpty()) {
-            this.facesContext.addMessage(null, new FacesMessage("Please, provide your username."));
-            return null;
-        }
-
         User user = this.identityManager.getUser(userName);
-        String result = null;
 
         if (user != null) {
-            Attribute<Serializable> totpSecretAttribute = user.getAttribute("TOTP_SECRET");
-
-            // if the user does not have a secret, try to login and generate a secret.
-            if (totpSecretAttribute == null) {
+            if (forceTwoFactorAuthentication(user)) {
+                performTwoFactorAuthentication();
+            } else {
+                // user wants to configure two-factor authentication, so we perform a username/password authentication
                 this.identity.login();
 
-                if (this.identity.isLoggedIn()) {
-                    generateUserSecret(user);
-                    result = "/secretSetup.xhtml";
-                }
-            } else {
-                // otherwise, we try to login using the provided token
-                loginUsingToken();
+                // and update the totp credential
+                updateTotpCredentials(user);
+
+                return "/secretSetup.xhtml";
             }
         }
 
@@ -92,26 +83,10 @@ public class LoginController {
                     "Authentication was unsuccessful.  Please check your username and password " + "before trying again."));
         }
 
-        return result;
+        return null;
     }
 
-    private void generateUserSecret(User user) {
-        String totpSecret = UUID.randomUUID().toString();
-
-        // we're only doing this to show you how you can retrieve the secret for your users.
-        user.setAttribute(new Attribute<String>("TOTP_SECRET", totpSecret));
-
-        this.identityManager.update(user);
-
-        // we need Base32.encode to support Google Authenticator
-        setTotpSecret(Base32.encode(totpSecret.getBytes()));
-
-        TOTPCredential credential = new TOTPCredential(this.loginCredentials.getPassword(), totpSecret);
-
-        this.identityManager.updateCredential(user, credential);
-    }
-
-    private void loginUsingToken() {
+    private void performTwoFactorAuthentication() {
         if (this.token == null || this.token.isEmpty()) {
             this.facesContext.addMessage(null, new FacesMessage(
                     "You have configured two-factor authentication. Please, provide your token."));
@@ -127,6 +102,30 @@ public class LoginController {
 
             identity.login();
         }
+    }
+
+    private void updateTotpCredentials(User user) {
+        String totpSecret = UUID.randomUUID().toString();
+
+        // we're only doing this to show you how you can retrieve the secret for your users.
+        user.setAttribute(new Attribute<String>(TOTP_SECRET_USER_ATTRIBUTE, totpSecret));
+
+        this.identityManager.update(user);
+
+        // we need Base32.encode to support Google Authenticator
+        setTotpSecret(Base32.encode(totpSecret.getBytes()));
+
+        TOTPCredential credential = new TOTPCredential(this.loginCredentials.getPassword(), totpSecret);
+
+        // now the user has a two-factor credential configured using TOTP tokens
+        this.identityManager.updateCredential(user, credential);
+    }
+
+    private boolean forceTwoFactorAuthentication(User user) {
+        Attribute<Serializable> totpSecretAttribute = user.getAttribute(TOTP_SECRET_USER_ATTRIBUTE);
+
+        // if the user already have a secret configured, we should force two-factor authentication
+        return totpSecretAttribute != null;
     }
 
     public String logout() {
