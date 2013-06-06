@@ -13,7 +13,7 @@ What is it?
 
 This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
 
-You'll learn from this quickstart how to use PicletLink to authenticate users using the HTTP Basic scheme.
+You'll learn from this quickstart how to use PicketLink to authenticate users using the HTTP Basic scheme.
 
 The application is configured to provide public access for some resources(eg.: /index.html) and to protected others for
 authenticated users only(eg.: /protected/*).
