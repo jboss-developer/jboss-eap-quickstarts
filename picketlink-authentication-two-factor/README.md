@@ -13,7 +13,7 @@ What is it?
 
 This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
 
-You'll learn from this quickstart how to use PicletLink to authenticate users using a two-factor authentication with Time-based One-Time Passwords(TOTP).
+You'll learn from this quickstart how to use PicketLink to authenticate users using a two-factor authentication with Time-based One-Time Passwords(TOTP).
 
 The application provides a login page from where you can sign in using an username/password and a token.
 
