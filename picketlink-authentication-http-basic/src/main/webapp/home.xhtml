@@ -17,7 +17,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
+<body>
     <ui:fragment rendered="#{identity.loggedIn}">
         <meta http-equiv="Refresh" content="0; URL=protected/private.jsf"/>
     </ui:fragment>
@@ -34,5 +34,5 @@
             Tip: you can login with a username/password of jane/abcd1234.
         </h:form>
     </ui:fragment>
-</head>
+</body>
 </html>
