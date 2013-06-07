@@ -14,79 +14,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import org.picketlink.idm.jpa.annotations.Identity;
+import org.picketlink.idm.jpa.annotations.AttributeName;
+import org.picketlink.idm.jpa.annotations.AttributeValue;
+import org.picketlink.idm.jpa.annotations.CredentialAttribute;
 import org.picketlink.idm.jpa.annotations.Parent;
-import org.picketlink.idm.jpa.annotations.RelationshipDescriptor;
-import org.picketlink.idm.jpa.annotations.RelationshipIdentity;
 
 /**
- * <p>
- * JPA {@link Entity} to store the IdentityType instances associated with a specific {@link RelationshipObject}. This
- * class should be used when the JPA store is being used to store IdentityType instances, forcing the their existence on
- * the database.
- * </p>
- *
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
-@RelationshipIdentity
+@CredentialAttribute
 @Entity
-public class RelationshipIdentityObject implements Serializable {
+public class CredentialObjectAttribute implements Serializable {
 
-    private static final long serialVersionUID = 8957185191684867238L;
+    private static final long serialVersionUID = 1500299957446203938L;
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @RelationshipDescriptor
-    private String descriptor;
-
-    @Identity
     @ManyToOne
-    private IdentityObject identityObject;
-
+    @JoinColumn
     @Parent
-    @ManyToOne
-    private RelationshipObject relationshipObject;
+    private CredentialObject credentialObject;
+
+    @AttributeName
+    private String name;
+
+    @AttributeValue
+    @Column (length=1024)
+    private String value;
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public IdentityObject getIdentityObject() {
-        return identityObject;
+    public CredentialObject getCredentialObject() {
+        return this.credentialObject;
     }
 
-    public void setIdentityObject(IdentityObject identityObject) {
-        this.identityObject = identityObject;
+    public void setCredentialObject(CredentialObject credentialObject) {
+        this.credentialObject = credentialObject;
     }
 
-    public RelationshipObject getRelationshipObject() {
-        return relationshipObject;
+    public String getName() {
+        return this.name;
     }
 
-    public void setRelationshipObject(RelationshipObject relationshipObject) {
-        this.relationshipObject = relationshipObject;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescriptor() {
-        return descriptor;
+    public String getValue() {
+        return this.value;
     }
 
-    public void setDescriptor(String descriptor) {
-        this.descriptor = descriptor;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
@@ -99,7 +96,7 @@ public class RelationshipIdentityObject implements Serializable {
             return false;
         }
 
-        RelationshipIdentityObject other = (RelationshipIdentityObject) obj;
+        CredentialObjectAttribute other = (CredentialObjectAttribute) obj;
 
         return getId() != null && other.getId() != null && getId().equals(other.getId());
     }

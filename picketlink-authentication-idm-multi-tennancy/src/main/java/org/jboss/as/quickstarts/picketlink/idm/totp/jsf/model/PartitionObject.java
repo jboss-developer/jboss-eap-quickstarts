@@ -14,76 +14,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import org.picketlink.idm.jpa.annotations.AttributeName;
-import org.picketlink.idm.jpa.annotations.AttributeValue;
+import org.picketlink.idm.jpa.annotations.Discriminator;
+import org.picketlink.idm.jpa.annotations.Identifier;
 import org.picketlink.idm.jpa.annotations.Parent;
-import org.picketlink.idm.jpa.annotations.RelationshipAttribute;
+import org.picketlink.idm.jpa.annotations.Partition;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
-@RelationshipAttribute
+@Partition
 @Entity
-public class RelationshipObjectAttribute implements Serializable {
+public class PartitionObject implements Serializable {
 
-    private static final long serialVersionUID = -2770921898981423153L;
+    private static final long serialVersionUID = 3488600508986507443L;
 
+    @Identifier
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
+
+//    @IDMProperty(PropertyType.PARTITION_NAME)
+//    private String name;
+
+    @Discriminator
+    private String type;
 
     @Parent
     @ManyToOne
-    @JoinColumn
-    private RelationshipObject relationshipObject;
+    private PartitionObject parent;
 
-    @AttributeName
-    private String name;
-
-    @AttributeValue
-    @Column(length = 1024)
-    private String value;
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public RelationshipObject getRelationshipObject() {
-        return relationshipObject;
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+
+    public String getType() {
+        return type;
     }
 
-    public void setRelationshipObject(RelationshipObject relationshipObject) {
-        this.relationshipObject = relationshipObject;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getName() {
-        return this.name;
+    public PartitionObject getParent() {
+        return parent;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public void setParent(PartitionObject parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -96,7 +91,7 @@ public class RelationshipObjectAttribute implements Serializable {
             return false;
         }
 
-        RelationshipObjectAttribute other = (RelationshipObjectAttribute) obj;
+        PartitionObject other = (PartitionObject) obj;
 
         return getId() != null && other.getId() != null && getId().equals(other.getId());
     }

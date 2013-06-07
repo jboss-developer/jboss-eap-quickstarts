@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -26,9 +26,9 @@ import org.picketlink.idm.internal.IdentityManagerFactory;
 import org.picketlink.idm.model.Realm;
 import org.picketlink.idm.model.SimpleUser;
 import org.picketlink.idm.model.User;
-import static org.jboss.as.quickstarts.picketlink.idm.partition.jsf.IDMConfiguration.REALM.acme;
-import static org.jboss.as.quickstarts.picketlink.idm.partition.jsf.IDMConfiguration.REALM.umbrella;
-import static org.jboss.as.quickstarts.picketlink.idm.partition.jsf.IDMConfiguration.REALM.wayne;
+import static org.jboss.as.quickstarts.picketlink.idm.totp.jsf.IDMConfiguration.REALM.acme;
+import static org.jboss.as.quickstarts.picketlink.idm.totp.jsf.IDMConfiguration.REALM.umbrella;
+import static org.jboss.as.quickstarts.picketlink.idm.totp.jsf.IDMConfiguration.REALM.wayne;
 
 @Startup
 @Singleton

@@ -14,54 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import org.picketlink.idm.jpa.annotations.CredentialType;
-import org.picketlink.idm.jpa.annotations.CredentialValue;
-import org.picketlink.idm.jpa.annotations.EffectiveDate;
-import org.picketlink.idm.jpa.annotations.ExpiryDate;
-import org.picketlink.idm.jpa.annotations.IdentityCredential;
+import org.picketlink.idm.jpa.annotations.Identity;
 import org.picketlink.idm.jpa.annotations.Parent;
+import org.picketlink.idm.jpa.annotations.RelationshipDescriptor;
+import org.picketlink.idm.jpa.annotations.RelationshipIdentity;
 
 /**
+ * <p>
+ * JPA {@link Entity} to store the IdentityType instances associated with a specific {@link RelationshipObject}. This
+ * class should be used when the JPA store is being used to store IdentityType instances, forcing the their existence on
+ * the database.
+ * </p>
+ *
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
-@IdentityCredential
+@RelationshipIdentity
 @Entity
-public class CredentialObject implements Serializable {
+public class RelationshipIdentityObject implements Serializable {
 
-    private static final long serialVersionUID = -5133066075760567565L;
+    private static final long serialVersionUID = 8957185191684867238L;
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @CredentialType
-    private String type;
+    @RelationshipDescriptor
+    private String descriptor;
 
-    @CredentialValue
-    private String credential;
-
-    @EffectiveDate
-    @Temporal (TemporalType.TIMESTAMP)
-    private Date effectiveDate;
-
-    @ExpiryDate
-    @Temporal (TemporalType.TIMESTAMP)
-    private Date expiryDate;
+    @Identity
+    @ManyToOne
+    private IdentityObject identityObject;
 
     @Parent
     @ManyToOne
-    private IdentityObject identityType;
+    private RelationshipObject relationshipObject;
 
     public Long getId() {
         return id;
@@ -71,44 +65,28 @@ public class CredentialObject implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public IdentityObject getIdentityObject() {
+        return identityObject;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIdentityObject(IdentityObject identityObject) {
+        this.identityObject = identityObject;
     }
 
-    public String getCredential() {
-        return credential;
+    public RelationshipObject getRelationshipObject() {
+        return relationshipObject;
     }
 
-    public void setCredential(String credential) {
-        this.credential = credential;
+    public void setRelationshipObject(RelationshipObject relationshipObject) {
+        this.relationshipObject = relationshipObject;
     }
 
-    public Date getEffectiveDate() {
-        return effectiveDate;
+    public String getDescriptor() {
+        return descriptor;
     }
 
-    public void setEffectiveDate(Date effectiveDate) {
-        this.effectiveDate = effectiveDate;
-    }
-
-    public Date getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Date expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public IdentityObject getIdentityType() {
-        return identityType;
-    }
-
-    public void setIdentityType(IdentityObject identityType) {
-        this.identityType = identityType;
+    public void setDescriptor(String descriptor) {
+        this.descriptor = descriptor;
     }
 
     @Override
@@ -121,7 +99,7 @@ public class CredentialObject implements Serializable {
             return false;
         }
 
-        CredentialObject other = (CredentialObject) obj;
+        RelationshipIdentityObject other = (RelationshipIdentityObject) obj;
 
         return getId() != null && other.getId() != null && getId().equals(other.getId());
     }
