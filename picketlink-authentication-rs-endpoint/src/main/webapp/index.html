@@ -23,52 +23,51 @@
 
     <p>This application provides an authentication endpoint supporting two types of credentials:</p>
 
-        <p>
-            <p id="message" style="color:red"></p>
+    <p>
+        <p id="message" style="color:red"></p>
 
-            <p>
-                <input type="button" name="logoutBtn" id="logoutBtn" value="Logout" />
-            </p>
+        <p>
+            <input type="button" name="logoutBtn" id="logoutBtn" value="Logout" />
+        </p>
+    </p>
+
+    <div id="loginForms">
+        <p>
+            <b>Username/Password</b>
+            <br/>
+            The default user is <b>jane/abcd1234</b>.
         </p>
 
-        <div id="loginForms">
-            <p>
-                <b>Username/Password</b>
-                <br/>
-                The default user is <b>jane/abcd1234</b>.
-            </p>
+        <p>
+            <form id="usernamePasswordForm" onsubmit="return false;">
+                <input id="userName" type="text"
+                       name="userName" required placeholder="Your UserName" />
+                <br />
+                <input
+                        id="password" type="password" name="password" required placeholder="Your Password" />
+                <p>
+                    <input type="submit" name="usernamePasswordBtn" id="usernamePasswordBtn" value="Login" />
+                </p>
+            </form>
 
-            <p>
-                <form id="usernamePasswordForm" onsubmit="return false;">
-                    <input id="userName" type="text"
-                           name="userName" required placeholder="Your UserName" />
-                    <br />
-                    <input
-                            id="password" type="password" name="password" required placeholder="Your Password" />
-                    <p>
-                        <input type="submit" name="usernamePasswordBtn" id="usernamePasswordBtn" value="Login" />
-                    </p>
-                </form>
+        </p>
 
-            </p>
+        <p>
+            <b>Token based</b>
+            <br/>
+            A valid token is <b>valid_token</b>.
+        </p>
 
-            <p>
-                <b>Token based</b>
-                <br/>
-                A valid token is <b>valid_token</b>.
-            </p>
-
-            <p>
-                <form id="tokenForm" onsubmit="return false;">
-                    <input id="token" type="text"
-                           name="token" required placeholder="Your token" />
-                    <p>
-                        <input type="submit" name="tokenBtn" id="tokenBtn" value="Login" />
-                    </p>
-                </form>
-            </p>
-        </div>
-    </form>
+        <p>
+            <form id="tokenForm" onsubmit="return false;">
+                <input id="token" type="text"
+                       name="token" required placeholder="Your token" />
+                <p>
+                    <input type="submit" name="tokenBtn" id="tokenBtn" value="Login" />
+                </p>
+            </form>
+        </p>
+    </div>
 
 </body>
 </html>
