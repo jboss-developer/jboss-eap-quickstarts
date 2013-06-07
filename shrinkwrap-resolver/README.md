@@ -68,7 +68,11 @@ _NOTE: The following commands assume you have configured your Maven user setting
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-remote 
+        mvn clean test -Parq-jbossas-remote
+
+_NOTE: If you use the Maven settings command line argument with this quickstart, you need to pass an additional argument to allow ShrinkWrap Resolver to function properly:_
+
+    mvn clean test -Parq-jbossas-remote -s /path/to/custom/settings.xml -Dorg.apache.maven.user-settings=/path/to/custom/settings.xml
 
 Run tests from JBDS
 -----------------------
