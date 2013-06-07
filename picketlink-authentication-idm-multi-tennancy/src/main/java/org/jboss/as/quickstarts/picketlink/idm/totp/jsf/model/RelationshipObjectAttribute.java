@@ -14,46 +14,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import org.picketlink.idm.jpa.annotations.Identifier;
-import org.picketlink.idm.jpa.annotations.Relationship;
-import org.picketlink.idm.jpa.annotations.RelationshipClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import org.picketlink.idm.jpa.annotations.AttributeName;
+import org.picketlink.idm.jpa.annotations.AttributeValue;
+import org.picketlink.idm.jpa.annotations.Parent;
+import org.picketlink.idm.jpa.annotations.RelationshipAttribute;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
-@Relationship
+@RelationshipAttribute
 @Entity
-public class RelationshipObject implements Serializable {
+public class RelationshipObjectAttribute implements Serializable {
 
-    private static final long serialVersionUID = -7482143409681874546L;
+    private static final long serialVersionUID = -2770921898981423153L;
 
     @Id
-    @Identifier
-    private String id;
+    @GeneratedValue
+    private Long id;
 
-    @RelationshipClass
-    private String type;
+    @Parent
+    @ManyToOne
+    @JoinColumn
+    private RelationshipObject relationshipObject;
 
-    public String getId() {
+    @AttributeName
+    private String name;
+
+    @AttributeValue
+    @Column(length = 1024)
+    private String value;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public RelationshipObject getRelationshipObject() {
+        return relationshipObject;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRelationshipObject(RelationshipObject relationshipObject) {
+        this.relationshipObject = relationshipObject;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
@@ -66,7 +96,7 @@ public class RelationshipObject implements Serializable {
             return false;
         }
 
-        RelationshipObject other = (RelationshipObject) obj;
+        RelationshipObjectAttribute other = (RelationshipObjectAttribute) obj;
 
         return getId() != null && other.getId() != null && getId().equals(other.getId());
     }

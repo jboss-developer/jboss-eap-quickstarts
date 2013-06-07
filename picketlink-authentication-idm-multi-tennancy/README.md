@@ -29,7 +29,7 @@ directory, where its resources are located.
                     wayne/
 
 Users from one company/realm can not have access to the directory from another company(and their resources). This authorization
-logic is provided by the org.jboss.as.quickstarts.picketlink.idm.partition.jsf.RealmProtectionFilter, which is a
+logic is provided by the org.jboss.as.quickstarts.picketlink.idm.totp.jsf.RealmProtectionFilter, which is a
 simple @WebFilter.
 
 The latest PicketLink documentation is available [here](http://docs.jboss.org/picketlink/2/latest/).

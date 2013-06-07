@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf;
 
 import java.io.IOException;
 import javax.enterprise.inject.Instance;

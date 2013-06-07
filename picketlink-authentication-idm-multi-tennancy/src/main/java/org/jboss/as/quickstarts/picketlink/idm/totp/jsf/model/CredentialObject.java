@@ -14,88 +14,101 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import org.picketlink.idm.jpa.annotations.AttributeName;
-import org.picketlink.idm.jpa.annotations.AttributeType;
-import org.picketlink.idm.jpa.annotations.AttributeValue;
-import org.picketlink.idm.jpa.annotations.IdentityAttribute;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.picketlink.idm.jpa.annotations.CredentialType;
+import org.picketlink.idm.jpa.annotations.CredentialValue;
+import org.picketlink.idm.jpa.annotations.EffectiveDate;
+import org.picketlink.idm.jpa.annotations.ExpiryDate;
+import org.picketlink.idm.jpa.annotations.IdentityCredential;
 import org.picketlink.idm.jpa.annotations.Parent;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
-@IdentityAttribute
+@IdentityCredential
 @Entity
-public class IdentityObjectAttribute implements Serializable {
+public class CredentialObject implements Serializable {
 
-    private static final long serialVersionUID = 3072864795743589609L;
+    private static final long serialVersionUID = -5133066075760567565L;
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn
-    @Parent
-    private IdentityObject identityObject;
-
-    @AttributeName
-    private String name;
-
-    @AttributeValue
-    @Column (length=1024)
-    private String value;
-
-    @AttributeType
+    @CredentialType
     private String type;
 
+    @CredentialValue
+    private String credential;
+
+    @EffectiveDate
+    @Temporal (TemporalType.TIMESTAMP)
+    private Date effectiveDate;
+
+    @ExpiryDate
+    @Temporal (TemporalType.TIMESTAMP)
+    private Date expiryDate;
+
+    @Parent
+    @ManyToOne
+    private IdentityObject identityType;
+
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public IdentityObject getIdentityObject() {
-        return this.identityObject;
-    }
-
-    public void setIdentityObject(IdentityObject identityObject) {
-        this.identityObject = identityObject;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public String getType() {
-        return this.type;
+        return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCredential() {
+        return credential;
+    }
+
+    public void setCredential(String credential) {
+        this.credential = credential;
+    }
+
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public IdentityObject getIdentityType() {
+        return identityType;
+    }
+
+    public void setIdentityType(IdentityObject identityType) {
+        this.identityType = identityType;
     }
 
     @Override
@@ -108,7 +121,7 @@ public class IdentityObjectAttribute implements Serializable {
             return false;
         }
 
-        IdentityObjectAttribute other = (IdentityObjectAttribute) obj;
+        CredentialObject other = (CredentialObject) obj;
 
         return getId() != null && other.getId() != null && getId().equals(other.getId());
     }

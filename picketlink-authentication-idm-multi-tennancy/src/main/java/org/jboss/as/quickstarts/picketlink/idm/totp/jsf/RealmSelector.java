@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
@@ -25,7 +25,7 @@ import javax.inject.Named;
 import org.picketlink.annotations.PicketLink;
 import org.picketlink.idm.internal.IdentityManagerFactory;
 import org.picketlink.idm.model.Realm;
-import static org.jboss.as.quickstarts.picketlink.idm.partition.jsf.IDMConfiguration.REALM;
+import static org.jboss.as.quickstarts.picketlink.idm.totp.jsf.IDMConfiguration.REALM;
 
 /**
  * <p>We use this class to hold the current realm for a specific user.</p>

@@ -14,20 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.CredentialObject;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.CredentialObjectAttribute;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.IdentityObject;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.IdentityObjectAttribute;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.PartitionObject;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.RelationshipIdentityObject;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.RelationshipObject;
-import org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model.RelationshipObjectAttribute;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.CredentialObject;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.CredentialObjectAttribute;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.IdentityObject;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.IdentityObjectAttribute;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.PartitionObject;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.RelationshipIdentityObject;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.RelationshipObject;
+import org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model.RelationshipObjectAttribute;
 import org.picketlink.IdentityConfigurationEvent;
 import org.picketlink.idm.config.IdentityConfigurationBuilder;
 

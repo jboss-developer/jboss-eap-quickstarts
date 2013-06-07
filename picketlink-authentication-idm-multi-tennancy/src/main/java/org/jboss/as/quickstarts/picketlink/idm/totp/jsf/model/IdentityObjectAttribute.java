@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.partition.jsf.model;
+package org.jboss.as.quickstarts.picketlink.idm.totp.jsf.model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -24,19 +24,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.picketlink.idm.jpa.annotations.AttributeName;
+import org.picketlink.idm.jpa.annotations.AttributeType;
 import org.picketlink.idm.jpa.annotations.AttributeValue;
-import org.picketlink.idm.jpa.annotations.CredentialAttribute;
+import org.picketlink.idm.jpa.annotations.IdentityAttribute;
 import org.picketlink.idm.jpa.annotations.Parent;
 
 /**
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  *
  */
-@CredentialAttribute
+@IdentityAttribute
 @Entity
-public class CredentialObjectAttribute implements Serializable {
+public class IdentityObjectAttribute implements Serializable {
 
-    private static final long serialVersionUID = 1500299957446203938L;
+    private static final long serialVersionUID = 3072864795743589609L;
 
     @Id
     @GeneratedValue
@@ -45,7 +46,7 @@ public class CredentialObjectAttribute implements Serializable {
     @ManyToOne
     @JoinColumn
     @Parent
-    private CredentialObject credentialObject;
+    private IdentityObject identityObject;
 
     @AttributeName
     private String name;
@@ -53,6 +54,9 @@ public class CredentialObjectAttribute implements Serializable {
     @AttributeValue
     @Column (length=1024)
     private String value;
+
+    @AttributeType
+    private String type;
 
     public Long getId() {
         return this.id;
@@ -62,12 +66,12 @@ public class CredentialObjectAttribute implements Serializable {
         this.id = id;
     }
 
-    public CredentialObject getCredentialObject() {
-        return this.credentialObject;
+    public IdentityObject getIdentityObject() {
+        return this.identityObject;
     }
 
-    public void setCredentialObject(CredentialObject credentialObject) {
-        this.credentialObject = credentialObject;
+    public void setIdentityObject(IdentityObject identityObject) {
+        this.identityObject = identityObject;
     }
 
     public String getName() {
@@ -86,6 +90,14 @@ public class CredentialObjectAttribute implements Serializable {
         this.value = value;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -96,7 +108,7 @@ public class CredentialObjectAttribute implements Serializable {
             return false;
         }
 
-        CredentialObjectAttribute other = (CredentialObjectAttribute) obj;
+        IdentityObjectAttribute other = (IdentityObjectAttribute) obj;
 
         return getId() != null && other.getId() != null && getId().equals(other.getId());
     }
