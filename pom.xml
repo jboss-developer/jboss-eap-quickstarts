@@ -223,6 +223,7 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>shrinkwrap-resolver</module>
                 <module>shopping-cart</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
