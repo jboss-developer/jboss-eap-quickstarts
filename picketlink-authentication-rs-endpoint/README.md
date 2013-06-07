@@ -33,6 +33,8 @@ To send authentication requests we're using the JQuery API and AJAX.
 
 Is also provided a JAX-RS endpoint for logout.
 
+The latest PicketLink documentation is available [here](http://docs.jboss.org/picketlink/2/latest/).
+
 
 System requirements
 -------------------
