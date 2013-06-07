@@ -224,6 +224,7 @@
                 <module>picketlink-authentication-http-digest</module>
                 <module>picketlink-authentication-two-factor</module>
                 <module>picketlink-authorization-idm-jpa</module>
+                <module>picketlink-authorization-rs-rbac</module>
                 <module>rest-endpoint</module>
                 <module>richfaces-validation</module>
                 <module>servlet-async</module>
