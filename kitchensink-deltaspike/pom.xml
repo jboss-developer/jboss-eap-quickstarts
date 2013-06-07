@@ -300,6 +300,9 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${version.surefire.plugin}</version>
                         <configuration>
+                            <systemPropertyVariables>
+                                <org.apache.maven.user-settings>${org.apache.maven.user-settings}</org.apache.maven.user-settings>
+                            </systemPropertyVariables>
                             <skip>true</skip>
                         </configuration>
                     </plugin>
