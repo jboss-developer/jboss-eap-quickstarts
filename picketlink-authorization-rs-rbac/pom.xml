@@ -135,14 +135,7 @@
       <scope>provided</scope>
     </dependency>
 
-      <!-- Import the Servlet API, we use provided scope as the API is included in JBoss AS 7 -->
-      <dependency>
-          <groupId>org.jboss.spec.javax.servlet</groupId>
-          <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-          <scope>provided</scope>
-      </dependency>
-
-    <!-- Import the PicketLink API, we deploy this as library with the application, 
+    <!-- Import the PicketLink API, we deploy this as library with the application,
       and can compile against it -->
     <dependency>
       <groupId>org.picketlink</groupId>
