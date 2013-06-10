@@ -46,7 +46,7 @@
         <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.CR2</version.jboss.bom>
+        <version.jboss.bom>1.0.7.CR4</version.jboss.bom>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
