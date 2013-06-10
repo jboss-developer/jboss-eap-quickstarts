@@ -1,7 +1,7 @@
 shrinkwrap-resolver: Demonstrate usage of Shrinkwrap resolver
 ==============================================================
 Author: Rafael Benevides
-Level: Beginner
+Level: Intermediate
 Technologies: CDI, Arquillian, Shrinkwrap
 Summary: Demonstrate usage of some Shrinkwrap resolver use cases
 Target Product: WFK
@@ -19,7 +19,7 @@ This quickstart demonstrate various use cases for ShrinkWrap Resolver. This Quic
 
 * ShrinkwrapResolveGAVWithoutTransitiveDepsTest
   - resolve an artifact via G:A:V without transitive dependencies
-  - return resolution results as single java.io.File
+  - return resolution result as single java.io.File
   
 * ShrinkwrapImportFromPomTest
   - loading pom.xml from file activating and deactivating profiles
