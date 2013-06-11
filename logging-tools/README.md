@@ -84,7 +84,7 @@ The application will be running at the following URLs:
 
 A landing page is found here that has a quick reference to the other URLs.
 
-### http://localhost:8080/jboss-as-logging-tools/rest/greetings/`name`
+### http://localhost:8080/jboss-as-logging-tools/rest/greetings/'name'
 
 Demonstrates simple use of localised messages (with parameter) and logging.
 
@@ -93,7 +93,7 @@ Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/Harold>
 * Returns a localised "hello `name`" string where `name` is the last component of the URL.
 * Logs a localised "Hello message sent"
 
-### http://localhost:8080/jboss-as-logging-tools/rest/greetings/`locale`/`name`
+### http://localhost:8080/jboss-as-logging-tools/rest/greetings/'locale'/'name'
 
 Demonstrates how to obtain a message bundle for a specified locale and how to throw a localised exceptions. Note that the localised exception is a wrapper around `WebApplicationException`.
 
@@ -114,7 +114,7 @@ Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme>
    
 * Attempts divide by zero, catches exception and throws localised one.
    
-### http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/`targetdate`
+### http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/'targetdate'
 
 Demonstrates how to pass parameters through to the constructor of a localised exception, and how to specify an exception as a cause of a log message.
 
@@ -150,6 +150,5 @@ If you want to debug the source code or look at the Javadocs of any library in t
 
       mvn dependency:sources
       mvn dependency:resolve -Dclassifier=javadoc
-
 
 
