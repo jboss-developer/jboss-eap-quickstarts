@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.enterprise.util.Nonbinding;
-import org.apache.deltaspike.security.api.authorization.annotation.SecurityBindingType;
+import org.apache.deltaspike.security.api.authorization.SecurityBindingType;
 
 /**
  * <p>This security annotation is used to declare the allowed roles for a specific type or method.</p>

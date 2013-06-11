@@ -21,7 +21,7 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.interceptor.InvocationContext;
-import org.apache.deltaspike.security.api.authorization.annotation.Secures;
+import org.apache.deltaspike.security.api.authorization.Secures;
 import org.picketlink.Identity;
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.model.Agent;
