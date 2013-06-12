@@ -45,7 +45,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Add the Application Users
@@ -60,7 +60,7 @@ Using the add-user utility script, you must add the following users to the `Appl
 
 The first application user has access rights to the application. The second application user is not authorized to access the application.
 
-For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#add-an-application-user).
 
 
 Define a Security Domain Using the Database JAAS Login Module
@@ -139,11 +139,10 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
         For Windows: JBOSS_HOME\bin\standalone.bat
 
 
-<a id="buildanddeploy"></a>
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -153,7 +152,6 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-as-servlet-security.war` to the running instance of the server.
 
-<a id="accesstheapp"></a>
 Access the Application 
 ---------------------
 
@@ -218,7 +216,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application

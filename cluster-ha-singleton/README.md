@@ -34,7 +34,7 @@ Configure Maven
 
 You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with a HA profile
@@ -50,7 +50,7 @@ should be started.
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -65,36 +65,34 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 6. This will deploy `service/target/jboss-as-cluster-ha-singleton-service.jar` to the running instance of the additional server.
  
-Check whether the application is deployed on each instance.
-All instances will have a message:
-INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010342: nodeOne/cluster elected as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
-Only nodeOne (or even one instance) will have a message:
-INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+7. Check whether the application is deployed on each instance. All instances will have a message:
 
-The timer on the started node will log a message every 10sec.
+        INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010342: nodeOne/cluster elected as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+        Only nodeOne (or even one instance) will have a message:
+        INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+8. The timer on the started node will log a message every 10sec.
 
 Check the timer
 ---------------------
 
 1. Open a command line and navigate to the root directory of this quickstart.
-2. Type this command to start the client
+2. Type the following command to start the client:
 
         cd client
         mvn exec:exec
 
-3. check the output
-		The request to the EJB is running four times and every time it should answer
-		  # The timer service is active on node with name = NodeOne
-		If you look into the servers logfiles you will see that each node will process requests
-4. Stop the server nodeOne
-		If you look into the server nodeTwo logfile you will see the message
-		"JBAS010342: nodeTwo/cluster elected as the singleton provider of ..."
-		that shows that the singleton service was started here
-		The timer will be started here and log a message every 10sec.
-5. repeat step 2
-    The request is running four times and the message is 
-		  # The timer service is active on node with name = NodeTwo
-		If you look into the server#2 logfile you will see that it process all four requests.
+3. Check the output. The request to the EJB is running four times and every time it should respond:
+
+        # The timer service is active on node with name = NodeOne
+  If you look in the server log files, you will see that each node will process requests
+4. Stop the server `nodeOne`. If you look into the server `nodeTwo` log file, you will see the message:
+
+        JBAS010342: nodeTwo/cluster elected as the singleton provider of ..."
+  This shows that the singleton service was started. The timer will be started here and log a message every 10 seconds.
+5. Repeat step 2. The request is running four times and the message is: 
+
+        # The timer service is active on node with name = NodeTwo
+  If you look into the server #2 log file you will see that it process all four requests.
 
 
 Undeploy the Archive
@@ -110,7 +108,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 Debug the Application
 ------------------------------------

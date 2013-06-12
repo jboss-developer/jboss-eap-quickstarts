@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, Arquillian, Shrinkwrap
 Summary: Demonstrate usage of some Shrinkwrap resolver use cases
 Target Product: WFK
-Source: https://github.com/jboss-jdf/jboss-as-quickstart/shrinkwrap-resolver
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 
 What is it?
@@ -45,7 +45,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7
@@ -62,7 +62,7 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.

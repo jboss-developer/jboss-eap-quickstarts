@@ -52,7 +52,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Prerequisites
@@ -66,7 +66,7 @@ This quickstart requires the configuration of two servers. The first server must
 Install the PostgreSQL Database
 -------------------------------
 
-This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#postgresql)
+This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#install-and-configure-the-postgresql-database)
 
 _Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with `jts-quickstart-database` in the PostgreSQL instructions.
 
@@ -129,7 +129,7 @@ This script configures the server to use jts transaction processing. You should 
 
         /subsystem=transactions/:write-attribute(name=jts,value=true)
         /subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
-4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
+4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
 
 #### Modify the Server Configuration Manually
 
@@ -156,7 +156,7 @@ This script configures the server to use jts transaction processing. You should 
                 <!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING -->
                 <jts/>
             </subsystem>
-4.  _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
+4.  _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
   
 ### Clone the JBOSS_HOME Directory     
 
@@ -164,10 +164,10 @@ Make a copy of this JBoss directory structure to use for the second server.
 
 ### Configure Server1 to use PostgreSQL
 
-2. Application server 1 must be configured to use PostgreSQL as per the instructions in [Install and Configure the PostgreSQL Database] (../README.md#postgresql).
+2. Application server 1 must be configured to use PostgreSQL as per the instructions in [Install and Configure the PostgreSQL Database] (../README.md#install-and-configure-the-postgresql-database).
     * Be sure to start the PostgreSQL database.
-    * [Add the PostgreSQL Module](../README.md#addpostgresqlmodule) to the Application 1 server `modules/` directory.
-    * [Add the PostgreSQL driver](../README.md#addpostgresqldriver) to the Application 1 server configuration file.
+    * [Add the PostgreSQL Module](../README.md#add-the-postgresql-module-to-the-jboss-server) to the Application 1 server `modules/` directory.
+    * [Add the PostgreSQL driver](../README.md#add-the-postgresql-driver-configuration-to-the-jboss-server) to the Application 1 server configuration file.
 
 
 Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers
@@ -230,7 +230,6 @@ Undeploy the Archive
         mvn package jboss-as:undeploy
 
 
-<a id="remove-jts-configuration"></a>
 Remove the JTS Configuration from the JBoss Server
 ---------------------------
 
