@@ -129,7 +129,7 @@ Play around with creating more entities, relationships, UI, and generating JAX-R
 Explore plugins! 
 ----------------
 
-Forge has a rich plugin ecosystem. Want to deploy your application to the Cloud? Use the Forge Openshift Express plugin: http://github.com/forge/plugin-openshift-express/
+Forge has a rich plugin ecosystem. Want to deploy your application to the Cloud? Use the Forge Openshift plugin: https://github.com/forge/plugin-openshift
 
 To see a full list of avaialable plugins, make sure that you have an active internet connection and type:
 
