@@ -23,15 +23,20 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
 
 The application this project produces is designed to be run on JBoss AS 7 or JBoss Enterprise Application Platform 6.
 
-An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are
-required.
+An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ is required.
 
 With the prerequisites out of the way, you're ready to build and deploy.
 
-Deploying the application
+Configure Maven
+---------------
+
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
+
+
+Deploy the Application
 -------------------------
 
-### Deploying locally
+### Deploy the Application locally
 
 First you need to start the JBoss container. To do this, run
 
@@ -58,26 +63,25 @@ To undeploy run this command:
 
     mvn jboss-as:undeploy
 
-You can also start the JBoss container and deploy the project using JBoss Tools. See the
-<a href="http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>
-for more information.
+You can also start the JBoss container and deploy the project using JBoss Tools. See the [Get Started Developing Applications Guide](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications") for more information.
 
-### Deploying to OpenShift
+
+### Deploy the Application to OpenShift
 
 You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
 
-Importing the project into an IDE
+Import the Project into an IDE
 =================================
 
-Detailed instructions for using Eclipse / JBoss Tools with are provided in the
-<a href="http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/" title="Getting Started Developing Applications Guide">Getting Started Developing Applications Guide</a>.
+Detailed instructions for using Eclipse / JBoss Tools with are provided in the [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
+ 
 
 If you created the project from the commandline using archetype:generate, then
 you need to import the project into your IDE. If you are using NetBeans 6.8 or
 IntelliJ IDEA 9, then all you have to do is open the project as an existing
 project. Both of these IDEs recognize Maven projects natively.
 
-Downloading the sources and Javadocs
+Download the Source and Javadocs
 ====================================
 
 If you want to be able to debug into the source code or look at the Javadocs
