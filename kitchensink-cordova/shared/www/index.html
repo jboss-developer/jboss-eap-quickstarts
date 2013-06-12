@@ -39,10 +39,10 @@
 
     <script type="text/javascript">
         // Insert device appropriate Cordova script
-        if ( navigator.userAgent == "Kitchensink Cordova Webview iOS" ) {
-            document.write( '<script src="js/libs/cordova-ios-2.0.0.js"><\/script>' );
+        if ( navigator.userAgent.indexOf( "Kitchensink Cordova Webview iOS" ) >= 0 ) {
+            document.write( '<script src="js/libs/cordova-ios-2.7.0.js"><\/script>' );
         } else if ( navigator.userAgent.indexOf( "Kitchensink Cordova Webview Android" ) >= 0 ) {
-            document.write( '<script src="js/libs/cordova-android-2.0.0.js"><\/script>' );
+            document.write( '<script src="js/libs/cordova-android-2.7.0.js"><\/script>' );
         }
 
     	$( document ).ready( function() {
@@ -85,8 +85,8 @@
 	        });
 
 	        function updateConnectionType() {
-	            var networkState = navigator.network.connection.type;
-	                                  
+	        	var networkState = navigator.connection.type;
+                
 	            var states = {};
 	            states[Connection.UNKNOWN]  = 'Unknown connection';
 	            states[Connection.ETHERNET] = 'Ethernet connection';
@@ -94,6 +94,7 @@
 	            states[Connection.CELL_2G]  = 'Cell 2G connection';
 	            states[Connection.CELL_3G]  = 'Cell 3G connection';
 	            states[Connection.CELL_4G]  = 'Cell 4G connection';
+	            states[Connection.CELL]     = 'Cell generic connection';
 	            states[Connection.NONE]     = 'No network connection';
 	            $("#deviceInfo").html(states[networkState]);
 	        }
