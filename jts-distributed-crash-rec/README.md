@@ -40,13 +40,13 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Configure Byteman
 -----------------
  
-This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Install and Configure Byteman](../README.md#byteman)
+This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Install and Configure Byteman](../README.md#install-and-configure-byteman)
 
 
 Prerequisites
@@ -61,8 +61,6 @@ IMPORTANT: This quickstart depends on the deployment of the `jts` quickstart for
 
 You can verify the deployment of the `jts` quickstart by accessing the following URL:  <http://localhost:8080/jboss-as-jts-application-component-1/>.
 
-
-<a name="clear-transaction-objectstore"></a>
 
 Clear the Transaction ObjectStore
 -------------------------
@@ -81,12 +79,12 @@ Make sure there is no transaction objectstore data left after testing this or an
 Test the Application
 -----------------------------------
 
-1. If you have not yet done so, configure the two application servers and deploy the `jts` quickstart. Follow the instructions in the `jts` [README](../jts/README.md) file.
+1. If you have not yet done so, configure the two application servers and deploy the `jts` quickstart. Follow the instructions in the [jts README](../jts/README.md) file.
 
 2. Configure Byteman to halt JBoss server 1
     * Stop the JBoss servers.
-    * [Clear any transaction objectstore data](#clear-transaction-objectstore) remaining from previous tests.
-    * Follow the instructions to [halt application server 1 using Byteman](../README.md#byteman-halt). The following 2 lines of text will be appended to the server configuration file for server 1 only:
+    * [Clear the transaction objectstore data](#clear-the-transaction-objectstore) remaining from previous tests.
+    * Follow the instructions to [halt application server 1 using Byteman](../README.md#halt-the-application-using-byteman). The following 2 lines of text will be appended to the server configuration file for server 1 only:
 
             For Linux: 
                   JAVA_OPTS="-javaagent:/PATH_TO_BYTEMAN_DOWNLOAD/lib/byteman.jar=script:/PATH_TO_QUICKSTARTS/jts-distributed-crash-rec/byteman-scripts/failAfterPrepare.btm ${JAVA_OPTS}"
@@ -173,7 +171,7 @@ Test the Application
                                     `-- 0_ffffc0a8013c_-2eb1158b_4f280ce3_1a
 
 
-6. [Disable the Byteman script](../README.md#byteman-disable) by restoring the backup configuration file for server 1.
+6. [Disable the Byteman script](../README.md#disable-the-byteman-script) by restoring the backup configuration file for server 1.
 
 7. Follow the steps above to restart server 1 and wait for recovery to complete. 
 
@@ -268,4 +266,4 @@ Test the Application
 
 7. After recovery is complete, access the application URL <http://localhost:8080/jboss-as-jts-application-component-1/customers.jsf>. The user you created should now appear in the list.
 
-8. Do NOT forget to [disable the Byteman script](../README.md#byteman-disable) by restoring the backup server configuration file. The Byteman rule must be removed to ensure that your application server will be able to commit 2PC transactions!
+8. Do NOT forget to [disable the Byteman script](../README.md#disable-the-byteman-script) by restoring the backup server configuration file. The Byteman rule must be removed to ensure that your application server will be able to commit 2PC transactions!

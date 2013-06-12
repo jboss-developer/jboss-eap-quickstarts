@@ -62,7 +62,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 Prerequisites
 -------------
@@ -174,7 +174,7 @@ This quickstart is built around the default `ApplicationRealm` as configured in 
 
 This user is used to both connect to the server and is used for the actual EJB invocation.
 
-For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#add-an-application-user).
 
 ### Add Users Manually
 
@@ -204,7 +204,7 @@ Start JBoss Enterprise Application Platform 6.1
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -287,7 +287,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application

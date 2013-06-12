@@ -37,17 +37,15 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Download and Configure Byteman
 ------------------------
 
-This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Install and Configure Byteman](../README.md#byteman). 
+This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Install and Configure Byteman](../README.md#install-and-configure-byteman). 
 
 
-
-<a name="clear-transaction-objectstore"></a>
 
 Clear the Transaction ObjectStore
 -------------------------
@@ -66,13 +64,13 @@ Make sure there is no transaction objectstore data left after testing this or an
 Configure the JBoss server
 ---------------------------
 
-If you have run the `jts` or `jts-distributed-crash-recovery` quickstarts, make sure you followed the instructions to [Remove the JTS Configuration from the JBoss server](../jts/README.md#remove-jts-configuration). The Byteman script will only run in JTA mode. It will not not run in JTS mode and you will not be able to simulate the server crash.
+If you have run the `jts` or `jts-distributed-crash-recovery` quickstarts, make sure you followed the instructions to [Remove the JTS Configuration from the JBoss server](../jts/README.md#remove-the-jts-configuration-from-the-jboss-server). The Byteman script will only run in JTA mode. It will not not run in JTS mode and you will not be able to simulate the server crash.
 
 
-<a id="startserver"></a>
+Start the JBoss Server
+---------------
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile
----------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server with the full profile:
@@ -81,11 +79,10 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profil
         For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
  
 
-
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -94,7 +91,6 @@ _NOTE: The following build command assumes you have configured your Maven user s
         mvn clean package jboss-as:deploy
 
 4. This will deploy `target/jboss-as-jta-crash-rec.war` to the running instance of the server.
-
 
 
 Access the application 
@@ -117,12 +113,12 @@ Test the application
 
 4. To demonstrate XA recovery, you need to enable the Byteman tool to terminate the application server while _phase 2_ is running as follows:
     * Stop the JBoss server.
-    * [Clear any transaction objectstore data](#clear-transaction-objectstore) remaining from previous tests.
-    * Follow the instructions to [halt the application using Byteman](../README.md#byteman-halt). The following text will be appended to the server configuration file:
+    * [Clear the transaction objectstore data](#clear-the-transaction-objectstore) remaining from previous tests.
+    * Follow the instructions to [halt the application using Byteman](../README.md#halt-the-application-using-byteman). The following text will be appended to the server configuration file:
 
             For Linux: JAVA_OPTS="-javaagent:/PATH_TO_BYTEMAN_DOWNLOAD/lib/byteman.jar=script:/PATH_TO_QUICKSTARTS/jta-crash-rec/src/main/scripts/xa.btm ${JAVA_OPTS}"
             For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byteman.jar=script:C:\PATH_TO_QUICKSTARTS\jta-crash-rec\src\main\scripts\xa.btm %JAVA_OPTS%
-    * [Start the JBoss server](#startserver) as instructed above.
+    * [Start the JBoss server](#start-the-jboss-server) as instructed above.
 
 5. Once you complete step 4, you are ready to create a _recovery record_. Go to the application URL <http://localhost:8080/jboss-as-jta-crash-rec/XA> and insert another row into the database. At this point, Byteman halts the application server. 
 
@@ -157,8 +153,8 @@ Test the application
     * Stop the H2 console to close the database connections. Otherwise, you may see messages like the following when you start your server: 
 
             `Database may be already in use: "Locked by another process"`
-    * [Disable the Byteman script](../README.md#byteman-disable) by restoring the backup server configuration file.
-    * [Start the JBoss server](#startserver) as instructed above.
+    * [Disable the Byteman script](../README.md#disable-the-byteman-script) by restoring the backup server configuration file.
+    * [Start the JBoss server](#start-the-jboss-server) as instructed above.
     * Load the web interface to the application 
     * By the time the JBoss server is ready, the transaction should have recovered.
     * A message is printed on the JBoss server console when the consumer has completed the update. Look for a line that reads 'JTA Crash Record Quickstart: key value pair updated via JMS'.
@@ -182,7 +178,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 Debug the Application
 ------------------------------------

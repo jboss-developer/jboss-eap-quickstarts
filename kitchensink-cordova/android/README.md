@@ -67,7 +67,7 @@ The application will be running on the Emulator.
 Converting a HTML5 + REST Web App to a Hybrid App with Apache Cordova
 --------------------------------------------------------------------------------
 
-If you have an existing Web Application based on HTML5 + REST you can follow [this guide](http://aerogear.org/docs/guides/HTML5ToHybridWithCordova)
+If you have an existing Web Application based on HTML5 + REST you can follow [this guide](http://aerogear.org/docs/guides/HTML5ToHybridWithCordova/)
 
 
 
