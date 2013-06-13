@@ -20,11 +20,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.jboss.as.quickstarts</groupId>
-  <artifactId>jboss-as-picketlink-authentication-idm-multi-tennancy</artifactId>
+  <artifactId>jboss-as-picketlink-authentication-idm-multi-tenancy</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: PicketLink Multi-Tennancy Example</name>
-  <description>JBoss AS Quickstarts: PicketLink Multi-Tennancy Example</description>
+  <name>JBoss AS Quickstarts: PicketLink Multi-Tenancy Example</name>
+  <description>JBoss AS Quickstarts: PicketLink Multi-Tenancy Example</description>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>
