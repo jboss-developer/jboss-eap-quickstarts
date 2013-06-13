@@ -38,7 +38,7 @@ Configure Maven
 
 Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
@@ -55,7 +55,7 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container.
 
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -120,7 +120,7 @@ The two statements to look for are these:
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse)
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
 Debug the Application

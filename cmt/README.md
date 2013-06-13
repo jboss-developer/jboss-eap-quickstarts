@@ -53,19 +53,19 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Configure the application server to use PostgreSQL
 --------------------------------------------------
 
-This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#postgresql)
+This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#install-and-configure-the-postgresql-database)
 
 _Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with `cmt-quickstart-database` in the PostgreSQL instructions.
 
 1. Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
-2. [Add the PostgreSQL Module](../README.md#addpostgresqlmodule) to the JBoss server `modules/` directory.
-3. [Add the PostgreSQL driver](../README.md#addpostgresqldriver) to the JBoss server configuration file.
+2. [Add the PostgreSQL Module](../README.md#add-the-postgresql-module-to-the-jboss-server) to the JBoss server `modules/` directory.
+3. [Add the PostgreSQL driver](../README.md#add-the-postgresql-driver-configuration-to-the-jboss-server) to the JBoss server configuration file.
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile
 ---------------
@@ -80,7 +80,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profil
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 
 1. Make sure you have started the JBoss Server with the PostgreSQL driver
@@ -93,7 +93,6 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 Access the application 
 ---------------------
-To access the application type the following into a browser: <http://localhost:8080/jboss-as-cmt/>
 
 The application will be running at the following URL: <http://localhost:8080/jboss-as-cmt/>.
 
@@ -116,7 +115,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application

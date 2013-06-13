@@ -210,6 +210,7 @@
                 <module>kitchensink-rf</module>
                 <module>kitchensink-spring</module>
                 <module>log4j</module>
+                <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>memcached-endpoint</module>
@@ -229,6 +230,7 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>shrinkwrap-resolver</module>
                 <module>shopping-cart</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>

@@ -31,14 +31,14 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 -------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 
 Add an Application User
 ---------------
 
-This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#addapplicationuser).  After following these instructions. you should have created a user called `quickstartUser` with password `quickstartPwd1!`, belonging to the `guest` role.
+This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#add-an-application-user).  After following these instructions. you should have created a user called `quickstartUser` with password `quickstartPwd1!`, belonging to the `guest` role.
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
@@ -54,7 +54,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -75,7 +75,6 @@ Application resources for this quickstart are prefixed with the URL http://local
 
 Below you will find instructions to create, display, and delete tasks.
 
-<a id="create-a-task"></a>
 ### Create a Task
 
 To associate a task called `task1` with the user `quickstartUser`, you must authenticate as user `quickstartUser` and send an HTTP *POST* request to the url 'http://localhost:8080/jboss-as-tasks-rs/tasks/task1'.
@@ -226,7 +225,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse)
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
 Debug the Application

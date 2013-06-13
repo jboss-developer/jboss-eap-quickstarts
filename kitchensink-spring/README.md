@@ -22,11 +22,11 @@ The basic version showcases the above technologies without any extra features, w
 
 _NOTE: The following describes the 5 quickstart provided in this example. Many of the following use cases are contrived, but the purpose of the additional quickstarts is to showcase Spring 3.2's outstanding new features._
 
-* `basic` - This quickstart showcases the above technologies without any extra features. For more information about the basic quickstart, see the basic [README](<https://github.com/jboss-jdf/jboss-as-quickstart/kitchensink-spring/basic/README.md>) file.
-* `asyncrequestmapping` - This quickstart showcases Spring 3.2's Asynchronous Callable Function [More on Spring's Asynchronous Request Processing](<http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-async>). For more information about the asyncrequestmapping quickstart, see the asyncrequestmapping [README](<https://github.com/jboss-jdf/jboss-as-quickstart/kitchensink-spring/asyncrequestmapping/README.md>) file.
-* `controlleradvice` - This quickstarts showcases Spring 3.2's new `@ControllerAdvice` which allows the user to configure various aspects such as global exception handler, init binders, and adding global model atrributes. For more information about the controlleradvice quickstart, see the controlleradvice [README](<https://github.com/jboss-jdf/jboss-as-quickstart/kitchensink-spring/controlleradvice/README.md>) file.
-* `matrixvariables` - This quickstarts showcases Spring 3.2's added support for Matrix Variables in urls, e.g. http://localhost:8080/something;p=2;q=3. In this quickstart the matrix variables are used for filtering purposes. For more information about the matrixvariables quickstart, see the matrixvariables [README](<https://github.com/jboss-jdf/jboss-as-quickstart/kitchensink-spring/matrixvariables/README.md>) file.
-* `springmvctest` - This quickstart adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the mvc aspect of the application which was previously not possible without external tools such as Arquillian. For more information about the springmvctest quickstart, see the springmvctest [README](<https://github.com/jboss-jdf/jboss-as-quickstart/kitchensink-spring/springmvctest/README.md>) file.
+* `basic` - This quickstart showcases the above technologies without any extra features. For more information about the basic quickstart, see the [basic README](basic/README.md) file.
+* `asyncrequestmapping` - This quickstart showcases Spring 3.2's Asynchronous Callable Function [More on Spring's Asynchronous Request Processing](<http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-async>). For more information about the asyncrequestmapping quickstart, see the [asyncrequestmapping README](asyncrequestmapping/README.md) file.
+* `controlleradvice` - This quickstarts showcases Spring 3.2's new `@ControllerAdvice` which allows the user to configure various aspects such as global exception handler, init binders, and adding global model atrributes. For more information about the controlleradvice quickstart, see the [controlleradvice README](controlleradvice/README.md) file.
+* `matrixvariables` - This quickstarts showcases Spring 3.2's added support for Matrix Variables in urls, e.g. http://localhost:8080/something;p=2;q=3. In this quickstart the matrix variables are used for filtering purposes. For more information about the matrixvariables quickstart, see the [matrixvariables README](matrixvariables/README.md) file.
+* `springmvctest` - This quickstart adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the mvc aspect of the application which was previously not possible without external tools such as Arquillian. For more information about the springmvctest quickstart, see the [springmvctest README](springmvctest/README.md) file.
 
 System requirements
 -------------------
@@ -51,7 +51,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following applies to each of the quickstarts in this project. `QUICKSTART_NAME` should be replaced by the respective quickstart that you are working with._
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -88,7 +88,7 @@ Or you can manually remove the application by removing `jboss-as-kitchensink-spr
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse)
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
 Debug the Application
