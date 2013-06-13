@@ -84,7 +84,8 @@
 #else
         self.viewController = [[[MainViewController alloc] init] autorelease];
 #endif
-    self.viewController.useSplashScreen = YES;
+    // As of Cordova 2.5.0, this setting is deprecated. You can add or remove the SplashScreen plugin in config.xml. For backward compatibility uncomment this line.
+    // self.viewController.useSplashScreen = YES;
 
     // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
     // If necessary, uncomment the line below to override it.
