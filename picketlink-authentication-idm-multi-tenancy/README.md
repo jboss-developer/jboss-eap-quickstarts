@@ -1,9 +1,9 @@
-picketlink-authentication-http-basic: PicketLink Multi-Tennancy Example
+picketlink-authentication-http-basic: PicketLink Multi-Tenancy Example
 ===============================
 Author: Pedro Igor
 Level: Beginner
 Technologies: CDI, PicketLink, JSF
-Summary: Basic example that demonstrates how to use Multi-Tennancy Example using Time-based One-Time Passwords(TOTP) with a JSF view layer
+Summary: Basic example that demonstrates how to use multi-tenancy using Time-based One-Time Passwords(TOTP) with a JSF view layer
 Target Product: EAP
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
@@ -11,14 +11,16 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
+This example demonstrates the use of *PicketLink* and *Identity Management (IdM) Multi-Tenancy* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
 
-This application provides a multi-tennancy architecture and security model for accessing different companies and their resources.
+Multi-tenancy allows an application to be used equally but separately across different clients, or tenants.  PicketLink supports identity data partitioning where each tenant has its own data that is separated and protected from others. This is a critical requirement for Cloud-based/SaaS applications that serve many different clients and users.
+
+This application provides a multi-tenancy architecture and security model for accessing different companies and their resources.
 Each company maps to a single realm, from where resources and identity data are located and isolated from each other.
-Realms have their own resources and security policies, not accessible for users of another realms.
+Each realm has its own resources and security policies and is not accessible to users of another realms.
 
-The application provides a login page from where you can sign in to different companies. Each company has its own
-directory, where its resources are located.
+The application provides a login page where you can sign in from different companies. Each company has its own
+directory where its resources are located.
 
     src/
         main/
@@ -28,9 +30,9 @@ directory, where its resources are located.
                     umbrella/
                     wayne/
 
-Users from one company/realm can not have access to the directory from another company(and their resources). This authorization
-logic is provided by the org.jboss.as.quickstarts.picketlink.idm.totp.jsf.RealmProtectionFilter, which is a
-simple @WebFilter.
+Users from one company, or realm, can not have access to the directory or resources from another company. This authorization
+logic is provided by the `org.jboss.as.quickstarts.picketlink.idm.totp.jsf.RealmProtectionFilter`, which is a
+simple `@WebFilter`.
 
 The latest PicketLink documentation is available [here](http://docs.jboss.org/picketlink/2/latest/).
 
@@ -46,7 +48,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
@@ -62,7 +64,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -91,7 +93,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application
