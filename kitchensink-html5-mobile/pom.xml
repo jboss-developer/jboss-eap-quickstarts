@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- JBoss, Home of Professional Open Source Copyright 2012, Red Hat, Inc. 
-    and/or its affiliates, and individual contributors by the @authors tag. See 
-    the copyright.txt in the distribution for a full listing of individual contributors. 
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-    use this file except in compliance with the License. You may obtain a copy 
-    of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-    by applicable law or agreed to in writing, software distributed under the 
-    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-    OF ANY KIND, either express or implied. See the License for the specific 
-    language governing permissions and limitations under the License. -->
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,8 +23,8 @@
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: AeroGear HTML5/Mobile</name>
-    <description>An AeroGear and Java EE 6 HTML5 mobile web application for use with JBoss.</description>
+    <name>JBoss AS Quickstarts: HTML5/Mobile</name>
+    <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
 
     <url>http://jboss.org/aerogear</url>
 
@@ -31,44 +37,29 @@
         
         <!-- JBoss dependency versions -->
  
-        <version.org.jboss.as>7.3.Final</version.org.jboss.as>
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 7.1.1.Final-redhat-1 which is a release certified 
+            line below to use version 7.2.0.Final-redhat-8 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.org.jboss.as>7.2.0.Alpha1-redhat-4</version.org.jboss.as> -->
+        <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.org.jboss.bom>1.0.4.Final</version.org.jboss.bom>
+        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-1 which is a release certified 
+            line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.org.jboss.bom>1.0.4.Final-redhat-1</version.org.jboss.bom> -->
+        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
 
-        <version.org.jboss.spec.jboss.javaee.6.0>3.0.2.Final</version.org.jboss.spec.jboss.javaee.6.0> 
-        <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 3.0.2.Final-redhat-1 which is a release certified 
-            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
-            maven repository. -->
-        <!-- <version.org.jboss.spec.jboss.javaee.6.0>3.0.2.Final-redhat-1</version.org.jboss.spec.jboss.javaee.6.0> -->
-
-        <!-- <version.org.hibernate.validator>4.2.0.Final-redhat-1</version.org.hibernate.validator> -->
-
-        <version.org.jboss.arquillian>1.0.0.Final</version.org.jboss.arquillian>
-
-        <version.org.hibernate-jpamodelgen>1.1.1.Final</version.org.hibernate-jpamodelgen>
-        <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator>
 
         <!-- Other dependency versions -->
-        <version.junit>4.10</version.junit>
         <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>
         <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
-        <version.license.plugin>1.9.0</version.license.plugin>
-        <version.surefire.plugin>2.4.3</version.surefire.plugin>
+        <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.2</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -86,16 +77,25 @@
 
     <dependencyManagement>
         <dependencies>
-
             <!-- JBoss distributes a complete set of Java EE 6 APIs including 
-            a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-            a collection) of artifacts. We use this here so that we always get the correct 
-            versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can 
-            read this as the JBoss stack of the Java EE Web Profile 6 APIs) -->
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
+                a collection) of artifacts. We use this here so that we always get the correct 
+                versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack 
+                (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras 
+                tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate 
+                stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
+                from the Hibernate family of projects) -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.org.jboss.spec.jboss.javaee.6.0}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${version.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <version>${version.jboss.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -153,7 +153,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${version.org.hibernate.validator}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -169,7 +168,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>${version.org.hibernate-jpamodelgen}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -177,7 +175,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
 
@@ -186,14 +183,12 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
             <scope>test</scope>
         </dependency>
 
@@ -226,31 +221,9 @@
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.org.jboss.as}</version>
+                <version>${version.jboss.maven.plugin}</version>
             </plugin>
             
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>${version.license.plugin}</version>
-                <configuration>
-                    <header>src/etc/license.txt</header>
-                    <mapping>
-                        <tmpl>XML_STYLE</tmpl>
-                    </mapping>
-                    <strictCheck>true</strictCheck>
-                    <includes>
-                    <include>src/**</include>
-                    </includes>
-                    <excludes>
-                        <exclude>src/main/webapp/js/libs/**</exclude>
-                        <exclude>src/main/webapp/css/jquery.mobile-1.0.min.css</exclude>
-                        <exclude>src/test/qunit/qunit/**</exclude>
-                        <exclude>src/main/webapp/tmpl/**</exclude>
-                        <exclude>src/main/webapp/WEB-INF/wro.properties</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     
@@ -385,7 +358,6 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>${version.org.jboss.as}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -397,7 +369,6 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${version.org.jboss.as}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -410,7 +381,7 @@
                         <configuration>
                             <systemProperties>
                                 <arquillian.launch>jbossci</arquillian.launch>
-                                <arquillian.jboss_home>${project.build.directory}/jboss-as-${version.org.jboss.as}/
+                                <arquillian.jboss_home>${project.build.directory}/jboss-as-${version.jboss.as}/
                                 </arquillian.jboss_home>
                             </systemProperties>
                             <includes>
@@ -433,7 +404,7 @@
                                         <artifactItem>
                                             <groupId>org.jboss.as</groupId>
                                             <artifactId>jboss-as-dist</artifactId>
-                                            <version>${version.org.jboss.as}</version>
+                                            <version>${version.jboss.as}</version>
                                             <outputDirectory>${project.build.directory}</outputDirectory>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>

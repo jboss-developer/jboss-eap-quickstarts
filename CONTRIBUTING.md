@@ -20,42 +20,75 @@ If you don't have the Git client (`git`), get it from: <http://git-scm.com/>
 
 Here are the steps in detail:
 
-1. [Fork](https://github.com/jboss-jdf/jboss-as-quickstart/fork_select) the project. This creates a the project in your own Git.
+1. [Fork](https://github.com/jboss-jdf/jboss-as-quickstart/fork_select) the project. This creates a the project in your own Git with the default remote name 'origin'.
 
-2. Clone your fork. This creates a directory in your local file system.
+2. Clone your fork. This creates and populates a directory in your local file system.
 
         git clone git@github.com:<your-username>/jboss-as-quickstart.git
 
-3. Add the remote `upstream` repository.
+3. Change to the `jboss-as-quickstart` directory.
+
+4. Add the remote `upstream` repository so you can fetch any changes to the original forked repository.
 
         git remote add upstream git@github.com:jboss-jdf/jboss-as-quickstart.git
 
-4. Get the latest files from the `upstream` repository.
+5. Get the latest files from the `upstream` repository.
 
         git fetch upstream
 
-5. Create a new topic branch to contain your features, changes, or fixes.
+6. Create a new topic branch to contain your new quickstart, features, changes, or fixes using the `git checkout -b  <topic-branch-name> upstream/master` command. For example:
 
-        git checkout -b <topic-branch-name> upstream/master
+        git checkout -b helloworld-fix upstream/master
 
-6. Contribute new code or make changes to existing files. Make sure that you follow the General Guidelines below.
+7. Contribute new code or make changes to existing files. Make sure that you follow the [General Guidelines](#general-guidelines) below.
 
-7. Commit your changes to your local topic branch. You must use `git add filename` for every file you create or change.
+8. To verify if your code followed the General Guidelines you can run [QS Tools](http://www.jboss.org/jdf/quickstarts/qstools/) on your project.
+   * To run QS Tools, go to your quickstart project root and execute:
+   
+           mvn -U org.jboss.maven.plugins:maven-qstools-plugin:check
+   This will generate a report on `QUICKSTART_HOME/target/site/qschecker.html`. Review the report to determine if your quickstart project violates any item in the *General Guidelines*.
 
-        git add <changed-filename>
-        git commit -m `Description of change...`
+9. Use the `git add` command to add new or changed file contents to the staging area.
+   * If you create a new quickstart, you can add files using the subfolder and file names. The following is an example of new quickstart folders and files you may want to stage:
+   
+            git add src/
+            git add pom.xml
+            git add README.md
+   _Note: It is probably best not to add the entire quickstart root folder because you may unintentionally add classes or other target files that should not be in source control._
+   * If you only modified a few files, use `git add <filename>` for every file you create or change. For example:
 
-8. Push your local topic branch to your github forked repository. This will create a branch on your Git fork repository with the same name as your local topic branch name.
+            git add README.md       
+10. Use the git status command to view the status of the files in the directory and in the staging area and ensure that all modified files are properly staged:
+
+        git status        
+11. Commit your changes to your local topic branch. 
+
+        git commit -m 'Description of change...'
+12. Update your branch with any changes made upstream since you started.
+   * Fetch the latest changes from upstream
+
+        git fetch upstream
+   * Apply those changes to your branch
+   
+        git rebase upstream/master
+   * If anyone has commited changes to files that you have also changed, you may see conflicts. 
+   Resolve the conflicted files, add them using `git add`, and continue the rebase:
+   
+        git add <conflicted-file-name>
+        git rebase --continue
+   * If there were conflicts, it is a good idea to test your changes again to make they still work.
+        
+13. Push your local topic branch to your github forked repository. This will create a branch on your Git fork repository with the same name as your local topic branch name. 
 
         git push origin HEAD            
-
-9. Browse to the <topic-branch-name> branch on your forked Git repository and [open a Pull Request](http://help.github.com/send-pull-requests/). Give it a clear title and description.
+   _Note: The above command assumes your remote repository is named 'origin'. You can verify your forked remote repository name using the command `git remote -v`_.
+14. Browse to the <topic-branch-name> branch on your forked Git repository and [open a Pull Request](http://help.github.com/send-pull-requests/). Give it a clear title and description.
 
 
 General Guidelines
 ------------------
 
-* The sample project should be formatted using the JBoss AS profiles found at http://github.com/jboss/ide-config/tree/master/
+* The sample project should be formatted using the JBoss AS profiles found at <http://github.com/jboss/ide-config/tree/master/>
 
  - Code should be well documented with good comments. Please add an author tag (@author) to credit yourself for writing the code.
  - You should use readable variable names to make it easy for users to read the code.
@@ -63,6 +96,8 @@ General Guidelines
 * The package must be *org.jboss.as.quickstarts*
 
 * The quickstart project or folder name should match the quickstart name. Each sample project should have a unique name, allowing easy identification by users and developers.
+
+* The quickstart project `<artifactId>` in the `pom.xml` file must be prefixed by `jboss-as-`. For example, the `<artifactId>` for the `greeter` quickstart is `jboss-as-greeter`.
 
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 
@@ -108,6 +143,33 @@ Kitchensink variants
        * This should be below any AS/EAP link areas.
 
     If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
+    
+Setup your environment
+----------------------
+
+The quickstart README.md files are converted to HTML using markdown. We recommend using redcarpet, as that is what github uses, but you can use any markdown tool really.
+
+There are two scripts, `dist/github-flaoured-markdown.rb`, that will convert an indivdual file, and `dist/release-utils.sh -m`, that will convert all the files.
+
+To setup the environment you need to follow these steps.
+
+1. Install Ruby *1.9.X*
+
+    For RHEL you can use this [spec](https://github.com/lnxchk/ruby-1.9.3-rpm)
+    
+    In general, you're better off not relying on your OSs ruby install, they are often quite broken.
+
+2. Install Ruby GEMs
+
+        gem install nokogiri pygments.rb redcarpet fileutils
+
+3. Install Python Eggs
+
+    You'll need python eggs installed, which often isn't available on OS installs of python. Google to find out how to install it
+
+4. Install pygments
+
+            sudo easy_install pygments
 
 License Information and Contributor Agreement
 ---------------------------------------------
@@ -116,11 +178,11 @@ License Information and Contributor Agreement
 
   There is no need to sign a contributor agreement to contribute to JBoss Developer Framework. You just need to explicitly license any contribution under the AL 2.0. If you add any new files to JBoss Developer Framework, make sure to add the correct header.
 
-### Java
+### Java,  Javascript and CSS files 
 
-      /*
+      /** 
        * JBoss, Home of Professional Open Source
-       * Copyright <Year>, Red Hat, Inc. and/or its affiliates, and individual
+       * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
        * contributors by the @authors tag. See the copyright.txt in the 
        * distribution for a full listing of individual contributors.
        *
@@ -135,11 +197,11 @@ License Information and Contributor Agreement
        * limitations under the License.
        */
 
-### XML
+### HTML, XML, XSD and XHTML files
 
       <!--
        JBoss, Home of Professional Open Source
-       Copyright <Year>, Red Hat, Inc. and/or its affiliates, and individual
+       Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
        contributors by the @authors tag. See the copyright.txt in the 
        distribution for a full listing of individual contributors.
 
@@ -154,10 +216,10 @@ License Information and Contributor Agreement
        limitations under the License.
        -->
 
-### Properties files
+### Properties files and Bash Scripts
 
        # JBoss, Home of Professional Open Source
-       # Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+       # Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
        # contributors by the @authors tag. See the copyright.txt in the 
        # distribution for a full listing of individual contributors.
        #
@@ -171,3 +233,40 @@ License Information and Contributor Agreement
        # See the License for the specific language governing permissions and
        # limitations under the License.
 
+### SQL files
+
+      --
+      -- JBoss, Home of Professional Open Source
+      -- Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+      -- contributors by the @authors tag. See the copyright.txt in the
+      -- distribution for a full listing of individual contributors.
+      --
+      -- Licensed under the Apache License, Version 2.0 (the "License");
+      -- you may not use this file except in compliance with the License.
+      -- You may obtain a copy of the License at
+      -- http://www.apache.org/licenses/LICENSE-2.0
+      -- Unless required by applicable law or agreed to in writing, software
+      -- distributed under the License is distributed on an "AS IS" BASIS,
+      -- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      -- See the License for the specific language governing permissions and
+      -- limitations under the License.
+      --
+
+### JSP files
+
+      <%--
+      JBoss, Home of Professional Open Source
+      Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+      contributors by the @authors tag. See the copyright.txt in the
+      distribution for a full listing of individual contributors.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+      --%>

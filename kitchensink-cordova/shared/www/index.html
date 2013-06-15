@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <!--
-
     JBoss, Home of Professional Open Source
-    Copyright Red Hat, Inc., and individual contributors
-    by the @authors tag. See the copyright.txt in the distribution for a
-    full listing of individual contributors.
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,35 +14,35 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
 -->
+
 <html>
 <head>
-    <title>AeroGear QuickStart</title>
+    <title>HTML5 QuickStart</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <!-- Set the tab, home page, shortcut icons -->
     <link rel="Shortcut Icon" href="img/aerogear_icon_16x.png">
     <link rel="apple-touch-icon" href="img/aerogear_avatar_48px.png"/>
 
-	<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css"/>
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css"/>
     <link rel="stylesheet" href="css/screen.css"/>
     <link rel="stylesheet" href="css/m.screen.css"/>
 
     <!-- Set viewport scaling and zoom features -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<script type="text/javascript" src="js/libs/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="js/libs/jquery.mobile-1.2.0.min.js"></script>
+	<script type="text/javascript" src="js/libs/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/libs/jquery.mobile-1.3.1.min.js"></script>
     <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 
     <script type="text/javascript">
         // Insert device appropriate Cordova script
-        if ( navigator.userAgent == "Kitchensink Cordova Webview iOS" ) {
-            document.write( '<script src="js/libs/cordova-ios-2.0.0.js"><\/script>' );
+        if ( navigator.userAgent.indexOf( "Kitchensink Cordova Webview iOS" ) >= 0 ) {
+            document.write( '<script src="js/libs/cordova-ios-2.7.0.js"><\/script>' );
         } else if ( navigator.userAgent.indexOf( "Kitchensink Cordova Webview Android" ) >= 0 ) {
-            document.write( '<script src="js/libs/cordova-android-2.0.0.js"><\/script>' );
+            document.write( '<script src="js/libs/cordova-android-2.7.0.js"><\/script>' );
         }
 
     	$( document ).ready( function() {
@@ -86,8 +85,8 @@
 	        });
 
 	        function updateConnectionType() {
-	            var networkState = navigator.network.connection.type;
-	                                  
+	        	var networkState = navigator.connection.type;
+                
 	            var states = {};
 	            states[Connection.UNKNOWN]  = 'Unknown connection';
 	            states[Connection.ETHERNET] = 'Ethernet connection';
@@ -95,6 +94,7 @@
 	            states[Connection.CELL_2G]  = 'Cell 2G connection';
 	            states[Connection.CELL_3G]  = 'Cell 3G connection';
 	            states[Connection.CELL_4G]  = 'Cell 4G connection';
+	            states[Connection.CELL]     = 'Cell generic connection';
 	            states[Connection.NONE]     = 'No network connection';
 	            $("#deviceInfo").html(states[networkState]);
 	        }
@@ -124,7 +124,7 @@
                 <!-- Header -->
                 <div data-role="header" class="header">
                     <img class="header_logo" src="img/icon_medium.png"/>
-                    <h3>AeroGear Quickstart</h3>
+                    <h3>HTML5 Quickstart</h3>
                     <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
                 </div>
                 <!-- /Header -->
@@ -167,7 +167,7 @@
                 <!-- Header -->
                 <div data-role="header" class="header">
                     <img class="header_logo" src="img/icon_medium.png"/>
-                    <h3>AeroGear Quickstart</h3>
+                    <h3>HTML5 Quickstart</h3>
                     <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
                 </div>
                 <!-- /Header -->
@@ -223,7 +223,7 @@
                 <!-- Header -->
                 <div data-role="header" class="header" data-position="fixed">
                     <img class="header_logo" src="img/icon_medium.png"/>
-                    <h3>AeroGear Quickstart</h3>
+                    <h3>HTML5 Quickstart</h3>
                     <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="dialog"></a>
                 </div>
                 <!-- /Header -->
@@ -234,7 +234,7 @@
                     <div class="member-foot">
                         <!-- Sets the JAX-RS URLs to retrieve all members as JSON data.-->
                         REST URL for all members: 
-                        <a href="http://html5-aerogear.rhcloud.com/rest/members" target="_blank" rel="external">JSON</a>
+                        <a href="http://html5-jdf.rhcloud.com/rest/members" target="_blank" rel="external">JSON</a>
                     </div>
                 </div>
 
@@ -273,7 +273,7 @@
                     </ul>
                     <p>Learn about <strong>AeroGear</strong> and HTML5/Mobile development on JBoss.</p>
                     <ul>
-                        <li><a href="http://http://aerogear.org" target="_blank">AeroGear Project site</a></li>
+                        <li><a href="http://aerogear.org" target="_blank">AeroGear Project site</a></li>
                         <li><a href="http://aerogear.org/docs/guides/HTML5RESTApps" target="_blank">More on <strong>HTML5 + REST</strong></a></li>
                         <li><a href="http://aerogear.org/docs/guides/GetStartedHTML5MobileWeb/" target="_blank">Get this application</a></li>
                         <li><a href="http://aerogear.org/docs/guides/HTML5MobilQuickstartAndDeepDive" target="_blank">Application deepdive</a></li>

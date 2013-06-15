@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -28,7 +28,7 @@ import org.jboss.as.quickstarts.sfsb.ShoppingCart;
 import org.jboss.as.quickstarts.sfsb.ShoppingCartBean;
 
 public class Client {
-    
+
     private static final String SOAP = "JBoss SOA Platform 6";
     private static final String EAP = "JBoss Enterprise Application Platform 6";
 
@@ -83,17 +83,17 @@ public class Client {
 
         System.out.println("Buying a \"" + SOAP + "\"");
         cart.buy(SOAP, 1);
-        
+
         System.out.println("\nPrint cart:");
         HashMap<String, Integer> cartContents = cart.getCartContents();
         for (String product : cartContents.keySet()) {
             System.out.println(cartContents.get(product) + "     " + product);
         }
-        
+
         System.out.println("\nCheckout");
         cart.checkout();
-        
-        /* Try to access the cart after checkout*/
+
+        /* Try to access the cart after checkout */
         try {
             cart.getCartContents();
         } catch (NoSuchEJBException e) {

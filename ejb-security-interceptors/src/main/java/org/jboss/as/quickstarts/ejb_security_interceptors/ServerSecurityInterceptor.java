@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -74,23 +74,24 @@ public class ServerSecurityInterceptor {
         boolean contextSet = false;
         try {
             if (desiredUser != null && connectionUser != null
-                    && (desiredUser.getName().equals(connectionUser.getName()) == false)) {
+                && (desiredUser.getName().equals(connectionUser.getName()) == false)) {
                 // The final part of this check is to verify that the change does actually indicate a change in user.
-
-                // We have been requested to switch user and have successfully identified the user from the connection
-                // so now we attempt the switch.
-                cachedSecurityContext = SecurityActions.securityContextSetPrincipalInfo(desiredUser, new OuterUserCredential(
-                        connectionUser));
-                // keep track that we switched the security context
-                contextSet = true;
-                SecurityActions.remotingContextClear();
+                try {
+                    // We have been requested to switch user and have successfully identified the user from the connection
+                    // so now we attempt the switch.
+                    cachedSecurityContext = SecurityActions.securityContextSetPrincipalInfo(desiredUser,
+                        new OuterUserCredential(connectionUser));
+                    // keep track that we switched the security context
+                    contextSet = true;
+                    SecurityActions.remotingContextClear();
+                } catch (Exception e) {
+                    logger.error("Failed to switch security context for user", e);
+                    // Don't propagate the exception stacktrace back to the client for security reasons
+                    throw new EJBAccessException("Unable to attempt switching of user.");
+                }
             }
 
             return invocationContext.proceed();
-        } catch (Exception e) {
-            logger.error("Failed to switch security context for user", e);
-            // Don't propagate the exception stacktrace back to the client for security reasons
-            throw new EJBAccessException("Unable to attempt switching of user.");
         } finally {
             // switch back to original security context
             if (contextSet) {

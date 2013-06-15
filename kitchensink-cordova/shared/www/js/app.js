@@ -1,8 +1,8 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright Red Hat, Inc., and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
+ * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ function buildMemberRows(members) {
 /* Uses JAX-RS GET to retrieve current member list */
 function updateMemberTable() {
     $.ajax({
-        url: "http://html5-aerogear.rhcloud.com/rest/members",
+        url: "http://html5-jdf.rhcloud.com/rest/members",
         cache: false,
         success: function(data) {
             $('#members').empty().append(buildMemberRows(data));
@@ -61,7 +61,7 @@ function registerMember(memberData) {
     $('span.success').remove();
 
     $.ajax({
-        url: 'http://html5-aerogear.rhcloud.com/rest/members',
+        url: 'http://html5-jdf.rhcloud.com/rest/members',
         contentType: "application/json",
         dataType: "json",
         type: "POST",

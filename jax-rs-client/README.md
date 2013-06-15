@@ -6,6 +6,7 @@ Technologies: JAX-RS
 Summary: Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS
 Prerequisites: helloworld-rs
 Target Product: EAP
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
@@ -27,7 +28,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Prerequisites
@@ -47,7 +48,7 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. 
 
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#arquilliantests) for complete instructions and additional options._
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Make sure the `helloworld-rs` quickstart has been deployed on the server as noted in the **Prerequisites** section above.
@@ -63,24 +64,23 @@ Investigate the Console Output
 This command will compile the example and execute a test to make two separate requests to the Web Service.  Towards the end of the Maven build output, you 
 should see the following if the execution is successful:
 
-===============================================
-URL: http://localhost:8080/jboss-as-helloworld-rs/rest/xml
-MediaType: application/xml
+        ===============================================
+        URL: http://localhost:8080/jboss-as-helloworld-rs/rest/xml
+        MediaType: application/xml
 
-*** Response from Server ***
+        *** Response from Server ***
 
-<xml><result>Hello World!</result></xml>
+        <xml><result>Hello World!</result></xml>
+    
+        ===============================================
+        ===============================================
+        URL: http://localhost:8080/jboss-as-helloworld-rs/rest/json
+        MediaType: application/json
 
-===============================================
-===============================================
-URL: http://localhost:8080/jboss-as-helloworld-rs/rest/json
-MediaType: application/json
+        *** Response from Server ***
 
-*** Response from Server ***
-
-{"result":"Hello World!"}
-
-===============================================
+        {"result":"Hello World!"}
+        ===============================================
 
 
 OpenShift
@@ -92,7 +92,7 @@ To make this quickstart more interesting, deploy the RESTful service to OpenShif
 Build and Deploy the Quickstart - to OpenShift
 -------------------------
 
-_IMPORTANT_: This quickstart depends on the deployment of the `helloworld-rs` quickstart to OpenShift for its test. Follow the instructions [Build and Deploy the Quickstart - to OpenShift](../helloworld-rs/README.md#openShiftInstructions) in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step "Destroy the OpenShift Application".
+_IMPORTANT_: This quickstart depends on the deployment of the `helloworld-rs` quickstart to OpenShift for its test. Follow the instructions [Build and Deploy the Quickstart - to OpenShift](../helloworld-rs/README.md#build-and-deploy-the-quickstart-to-openshift) in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step "Destroy the OpenShift Application".
 
 As it says in the helloworld-rs instructions, you can verify the deployment of the `helloworld-rs` quickstart by accessing the following content. Be sure to replace the `quickstart` in the URL with your domain name.
 
@@ -126,24 +126,24 @@ Type the following command to run the jax-rs-client:
 
 This command will compile the example and execute a test to make two separate requests to the Web Service.  Towards the end of the Maven build output, you should see the following if the execution is successful:
 
-===============================================
-URL: http://helloworldrs-quickstart.rhcloud.com/rest/xml
-MediaType: application/xml
+        ===============================================
+        URL: http://helloworldrs-quickstart.rhcloud.com/rest/xml
+        MediaType: application/xml
 
-*** Response from Server ***
+        *** Response from Server ***
 
-<xml><result>Hello World!</result></xml>
+        <xml><result>Hello World!</result></xml>
 
-===============================================
-===============================================
-URL: http://helloworldrs-quickstart.rhcloud.com/rest/json
-MediaType: application/json
+        ===============================================
+        ===============================================
+        URL: http://helloworldrs-quickstart.rhcloud.com/rest/json
+        MediaType: application/json
 
-*** Response from Server ***
+        *** Response from Server ***
 
-{"result":"Hello World!"}
+        {"result":"Hello World!"}
 
-===============================================
+        ===============================================
 
 When you are finished testing, restore the `pom.xml` file to the previous version if you want to test locally.
 

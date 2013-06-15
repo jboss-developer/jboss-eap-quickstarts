@@ -5,6 +5,7 @@ Level: Beginner
 Technologies: JBoss Logging Tools
 Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages
 Target Product: EAP
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 ------------
@@ -27,7 +28,7 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Configure the JBoss Server to Start With a Different Locale (Optional)
@@ -61,7 +62,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 
 1. Make sure you have started the JBoss Server as described above.
@@ -83,7 +84,7 @@ The application will be running at the following URLs:
 
 A landing page is found here that has a quick reference to the other URLs.
 
-### http://localhost:8080/jboss-as-logging-tools/rest/greetings/`name`
+### http://localhost:8080/jboss-as-logging-tools/rest/greetings/'name'
 
 Demonstrates simple use of localised messages (with parameter) and logging.
 
@@ -92,7 +93,7 @@ Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/Harold>
 * Returns a localised "hello `name`" string where `name` is the last component of the URL.
 * Logs a localised "Hello message sent"
 
-### http://localhost:8080/jboss-as-logging-tools/rest/greetings/`locale`/`name`
+### http://localhost:8080/jboss-as-logging-tools/rest/greetings/'locale'/'name'
 
 Demonstrates how to obtain a message bundle for a specified locale and how to throw a localised exceptions. Note that the localised exception is a wrapper around `WebApplicationException`.
 
@@ -113,7 +114,7 @@ Example: <http://localhost:8080/jboss-as-logging-tools/rest/greetings/crashme>
    
 * Attempts divide by zero, catches exception and throws localised one.
    
-### http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/`targetdate`
+### http://localhost:8080/jboss-as-logging-tools/rest/dates/daysuntil/'targetdate'
 
 Demonstrates how to pass parameters through to the constructor of a localised exception, and how to specify an exception as a cause of a log message.
 
@@ -139,7 +140,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application
@@ -149,6 +150,5 @@ If you want to debug the source code or look at the Javadocs of any library in t
 
       mvn dependency:sources
       mvn dependency:resolve -Dclassifier=javadoc
-
 
 

@@ -1,7 +1,8 @@
 CDI + JPA + EJB + JTA + JSF: Greeter quickstart
 ===============================================
 :Author: Pete Muir
-anchor:GreeterQuickstart-[]
+
+[[GreeterQuickstart-]]
 
 This quickstart shows you how to create and deploy an application which persists information to a database to JBoss Enterprise Application Platform 6 or JBoss AS 7. Information is displayed using JSF views, business logic is encapsulated in CDI beans, information is persisted using JPA, and transactions can be controlled manually or using EJB.
 
@@ -24,6 +25,8 @@ You should see the server start up (unless you already started it in <<GettingSt
 
 image:gfx/Eclipse_Greeter_Deploy_3.png[]
 
+To use the application, visit http://localhost:8080/jboss-as-greeter/.
+
 [[greeter_in_depth]]
 The greeter quickstart in depth
 -------------------------------
@@ -35,6 +38,7 @@ The quickstart is comprised of two JSF views, an entity, and a number of CDI bea
 `persistence.xml` is pretty straight forward, and links JPA to a datasource: 
 
 .src/main/resources/META-INF/persistence.xml
+[source, xml]
 ------------------------------------------------------------------------
 <persistence version="2.0"
     xmlns="http://java.sun.com/xml/ns/persistence" 
@@ -363,19 +367,17 @@ public class ManagedBeanUserDao implements UserDao {
 
     public User getForUsername(String username) {                    // <3>
         try {
+            User user;
             try {
                 utx.begin();
-                try {
-                    Query query = entityManager
-                         .createQuery("select u from User u where u.username = ?");
-                    query.setParameter(1, username);
-                    return (User) query.getSingleResult();
-                } catch (NoResultException e) {
-                    return null;
-                }
-            } finally {
-                utx.commit();
+                Query query = entityManager.createQuery("select u from User u where u.username = :username");
+                query.setParameter("username", username);
+                user = (User) query.getSingleResult();
+            } catch (NoResultException e) {
+                user = null;
             }
+            utx.commit();
+            return user;
         } catch (Exception e) {
             try {
                 utx.rollback();

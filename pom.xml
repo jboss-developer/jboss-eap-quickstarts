@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- JBoss, Home of Professional Open Source Copyright 2012, Red Hat, Inc. 
-    and/or its affiliates, and individual contributors by the @authors tag. See 
-    the copyright.txt in the distribution for a full listing of individual contributors. 
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not 
-    use this file except in compliance with the License. You may obtain a copy 
-    of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-    by applicable law or agreed to in writing, software distributed under the 
-    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-    OF ANY KIND, either express or implied. See the License for the specific 
-    language governing permissions and limitations under the License. -->
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -39,56 +45,47 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.org.jboss.as>7.3.Final</version.org.jboss.as>
+        <version.jboss.as>7.2.0.Final</version.jboss.as>
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 7.1.1.Final-redhat-1 which is a release certified 
+            line below to use version 7.2.0.Final-redhat-8 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.org.jboss.as>7.2.0.Alpha1-redhat-4</version.org.jboss.as> -->
+        <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
-        <version.org.jboss.as.maven.plugin>7.3.Final</version.org.jboss.as.maven.plugin>
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.org.jboss.bom>1.0.4.Final</version.org.jboss.bom>
+        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-1 which is a release certified 
+            line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.org.jboss.bom>1.0.4.Final-redhat-1</version.org.jboss.bom> -->
+        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
 
-        <version.org.jboss.spec.jboss.javaee.6.0>3.0.2.Final</version.org.jboss.spec.jboss.javaee.6.0> 
+        <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0> 
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 3.0.2.Final-redhat-1 which is a release certified 
+            line below to use version 3.0.2.Final-redhat-3 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.org.jboss.spec.jboss.javaee.6.0>3.0.2.Final-redhat-1</version.org.jboss.spec.jboss.javaee.6.0> -->
-
-        <version.org.jboss.ejb.client>7.1.1.Final</version.org.jboss.ejb.client>
-        <version.org.jboss.logging>3.1.1.GA</version.org.jboss.logging>
-        <version.org.jboss.logging.processor>1.0.3.Final</version.org.jboss.logging.processor>
-
-        <version.org.jboss.arquillian>1.0.0.Final</version.org.jboss.arquillian>
+        <!-- <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-3</version.jboss.spec.javaee.6.0> -->
 
         <version.org.hibernate3.commons.annotations>3.2.0.Final</version.org.hibernate3.commons.annotations>
         <version.org.hibernate>3.6.8.Final</version.org.hibernate>
         <version.org.hibernate.em>3.6.8.Final</version.org.hibernate.em>
         <version.org.hibernate.infinispan>3.6.8.Final</version.org.hibernate.infinispan>
-        <version.org.hibernate-jpamodelgen>1.1.1.Final</version.org.hibernate-jpamodelgen>
-        <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator>
         
-        <version.org.jboss.resteasy>2.3.5.Final</version.org.jboss.resteasy>
-        
+        <!-- This is used in the hibernate-3 quickstart and requires the Hibernate 3 libraries -->
+        <!-- <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator> -->
+        <version.org.hibernate.validator>3.1.0.GA</version.org.hibernate.validator>
+                
         <version.org.richfaces>4.2.0.Final</version.org.richfaces>
         
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
         <version.dom4j>1.6</version.dom4j>
-        <version.com.google.gwt>2.4.0</version.com.google.gwt>
         <version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
-        <version.junit>4.10</version.junit>
         <version.log4j>1.2.16</version.log4j>
         <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>
-        <version.org.osgi>4.2.0</version.org.osgi>
         <version.org.apache.wicket>1.5.5</version.org.apache.wicket>
         <version.net.ftlines.wicket-cdi>1.2</version.net.ftlines.wicket-cdi>
         <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>
@@ -101,7 +98,6 @@
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>
         <version.jar.plugin>2.2</version.jar.plugin>
-        <version.license.plugin>1.9.0</version.license.plugin>
         <version.org.codehaus.mojo.gwt.maven.plugin>2.4.0</version.org.codehaus.mojo.gwt.maven.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -110,6 +106,39 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
+
+    <build>
+        <plugins>
+            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS container -->
+            <!-- Disabling it here means that we don't try to deploy this POM! -->
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>${version.jboss.maven.plugin}</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <configuration>
+                    <header>${basedir}/dist/license.txt</header>
+                    <aggregate>true</aggregate>
+                    <strictCheck>true</strictCheck>
+                    <excludes>
+                        <exclude>target/**</exclude>
+                        <exclude>.clover/**</exclude>
+                    </excludes>
+                    <encoding>UTF-8</encoding>
+                    <headerDefinitions>
+                        <headerDefinition>dist/headerdefinition.xml</headerDefinition>
+                    </headerDefinitions>
+                </configuration>
+              </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
@@ -131,6 +160,9 @@
                 <module>carmart-tx</module>
                 <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
+				<module>cdi-decorator</module>
+				<module>cdi-interceptors</module>
+				<module>cdi-stereotype</module>
                 <module>cdi-injection</module>
                 <module>cdi-portable-extension</module>
                 <module>cdi-veto</module>
@@ -146,8 +178,11 @@
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
+                <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
+                <module>ejb-throws-exception</module>
                 <module>greeter</module>
+                <module>greeter-spring</module>
                 <module>helloworld</module>
                 <module>helloworld-errai</module>
                 <module>helloworld-gwt</module>
@@ -164,6 +199,8 @@
                 <module>hibernate4</module>
                 <module>hotrod-endpoint</module>
                 <module>kitchensink</module>
+                <module>kitchensink-angularjs</module>
+                <module>kitchensink-backbone</module>
                 <module>kitchensink-deltaspike</module>
                 <module>kitchensink-ear</module>
                 <module>kitchensink-html5-mobile</module>
@@ -171,17 +208,29 @@
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
                 <module>kitchensink-rf</module>
+                <module>kitchensink-spring</module>
                 <module>log4j</module>
+                <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>memcached-endpoint</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
+                <module>picketlink-authentication-jsf</module>
+                <module>picketlink-authentication-idm-jsf</module>
+                <module>picketlink-authentication-idm-multi-tenancy</module>
+                <module>picketlink-authentication-rs-endpoint</module>
+                <module>picketlink-authentication-http-basic</module>
+                <module>picketlink-authentication-http-digest</module>
+                <module>picketlink-authentication-two-factor</module>
+                <module>picketlink-authorization-idm-jpa</module>
+                <module>picketlink-authorization-rs-rbac</module>
                 <module>rest-endpoint</module>
                 <module>richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>shrinkwrap-resolver</module>
                 <module>shopping-cart</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
@@ -223,6 +272,7 @@
                 <module>jax-rs-client</module>
                 <module>jts</module>
                 <module>inter-app</module>                
+                <module>ejb-security-plus</module>
             </modules>
         </profile>
         <profile>
@@ -272,21 +322,5 @@
             </modules>
         </profile>
     </profiles>
-
-    <build>
-        <plugins>
-            <!-- The JBoss AS plugin deploys your apps to a local JBoss AS container -->
-            <!-- Disabling it here means that we don't try to deploy this POM! -->
-            <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.org.jboss.as.maven.plugin}</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

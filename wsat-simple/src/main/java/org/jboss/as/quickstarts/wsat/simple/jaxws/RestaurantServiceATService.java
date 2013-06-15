@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,18 +9,10 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-/*
- * RestaurantManager.java
- *
- * Copyright (c) 2003 Arjuna Technologies Ltd.
- *
- * $Id: RestaurantManager.java,v 1.3 2004/04/21 13:09:18 jhalliday Exp $
- *
  */
 package org.jboss.as.quickstarts.wsat.simple.jaxws;
 
@@ -72,9 +64,8 @@ public class RestaurantServiceATService extends Service {
      */
     @WebEndpoint(name = "RestaurantServiceAT")
     public RestaurantServiceAT getRestaurantServiceAT() {
-        return super.getPort(
-                new QName("http://www.jboss.org/jboss-jdf/jboss-as-quickstart/wsat/simple/Restaurant", "RestaurantServiceAT"),
-                RestaurantServiceAT.class);
+        return super.getPort(new QName("http://www.jboss.org/jboss-jdf/jboss-as-quickstart/wsat/simple/Restaurant",
+                "RestaurantServiceAT"), RestaurantServiceAT.class);
     }
 
     /**
@@ -85,9 +76,8 @@ public class RestaurantServiceATService extends Service {
      */
     @WebEndpoint(name = "RestaurantServiceAT")
     public RestaurantServiceAT getRestaurantServiceAT(WebServiceFeature... features) {
-        return super.getPort(
-                new QName("http://www.jboss.org/jboss-jdf/jboss-as-quickstart/wsat/simple/Restaurant", "RestaurantServiceAT"),
-                RestaurantServiceAT.class, features);
+        return super.getPort(new QName("http://www.jboss.org/jboss-jdf/jboss-as-quickstart/wsat/simple/Restaurant",
+                "RestaurantServiceAT"), RestaurantServiceAT.class, features);
     }
 
 }

@@ -1,8 +1,8 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
- * Copyright Red Hat, Inc., and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
+ * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,14 +36,13 @@ import javax.persistence.PersistenceContext;
  * </pre>
  */
 public class Resources {
-   // use @SuppressWarnings to tell IDE to ignore warnings about field not being referenced directly
-   @SuppressWarnings("unused")
-   @Produces
-   @PersistenceContext
-   private EntityManager em;
-   
-   @Produces
-   public Logger produceLog(InjectionPoint injectionPoint) {
-      return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
-   }
+
+    @Produces
+    @PersistenceContext
+    private EntityManager em;
+
+    @Produces
+    public Logger produceLog(InjectionPoint injectionPoint) {
+        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+    }
 }

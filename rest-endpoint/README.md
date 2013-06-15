@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, REST
 Summary: Demonstrates how to use Infinispan remotely using the REST protocol.
 Target Product: JDG
+Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
@@ -25,7 +26,7 @@ The application this project produces is designed to be run on JBoss Data Grid 6
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven-) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Configure JDG
@@ -33,7 +34,7 @@ Configure JDG
 
 1. Obtain JDG server distribution on Red Hat's Customer Portal at https://access.redhat.com/jbossnetwork/restricted/listSoftware.html
 
-2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found at https://access.redhat.com/knowledge/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/chap-Datasource_Management.html . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
+2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Administration and Configuration Guide for JBoss Enterprise Application Platform on the Customer Portal at <https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/> . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
 
 3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
    
@@ -130,7 +131,7 @@ Start JBoss Data Grid 6
 Build and Run the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.

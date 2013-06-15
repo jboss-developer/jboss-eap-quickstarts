@@ -6,6 +6,7 @@ Technologies: JPA, JAX-RS
 Summary: Demonstrates how to use JAX-RS and JPA together
 Prerequisites: tasks
 Target Product: EAP
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
@@ -30,14 +31,14 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 -------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 
 Add an Application User
 ---------------
 
-This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#addapplicationuser).  After following these instructions. you should have created a user called `quickstartUser` with password `quickstartPwd1!`, belonging to the `guest` role.
+This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#add-an-application-user).  After following these instructions. you should have created a user called `quickstartUser` with password `quickstartPwd1!`, belonging to the `guest` role.
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
@@ -53,7 +54,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -74,14 +75,13 @@ Application resources for this quickstart are prefixed with the URL http://local
 
 Below you will find instructions to create, display, and delete tasks.
 
-<a id="create-a-task"></a>
 ### Create a Task
 
 To associate a task called `task1` with the user `quickstartUser`, you must authenticate as user `quickstartUser` and send an HTTP *POST* request to the url 'http://localhost:8080/jboss-as-tasks-rs/tasks/task1'.
 
 To issue the *POST* command using cURL, type the following command:
 
-    curl -i -u "quickstartUser:quickstartPwd1!" -H "Content-Length: 0" -X POST http://localhost:8080/jboss-as-tasks-rs/tasks/task1
+    curl -i -u 'quickstartUser:quickstartPwd1!' -H "Content-Length: 0" -X POST http://localhost:8080/jboss-as-tasks-rs/tasks/task1
 
 You will see the following response:
 
@@ -111,7 +111,7 @@ To display the XML representation of the newly created resource, issue a *GET* r
     <http://localhost:8080/jboss-as-tasks-rs/tasks/1>
 2. To issue a *GET* using cURL, type the following command:
 
-    `curl -H "Accept: application/xml" -u "quickstartUser:quickstartPwd1!" -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1`
+        curl -H "Accept: application/xml" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1
 
     The `-H flag tells the server that the client wishes to accept XML content.
 
@@ -133,7 +133,7 @@ To obtain a list of all tasks for user `quickstartUser` in XML format, authentic
 
 2. To list all tasks associated with the user `quickstartUser` using cURL, type:
 
-    curl -H "Accept: application/xml" -u "quickstartUser:quickstartPwd1!" -X GET http://localhost:8080/jboss-as-tasks-rs/tasks
+        curl -H "Accept: application/xml" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-as-tasks-rs/tasks
 
 Using either of the above *GET* methods, you should see the following XML:
 
@@ -150,7 +150,7 @@ To delete a task, again authenticate as principal `quickstartUser` and send an H
 
 To delete the task with id `1`:
 
-    curl -i -u "quickstartUser:quickstartPwd1!" -X DELETE http://localhost:8080/jboss-as-tasks-rs/tasks/1
+    curl -i -u 'quickstartUser:quickstartPwd1!' -X DELETE http://localhost:8080/jboss-as-tasks-rs/tasks/1
 
 You will see this response:
 
@@ -163,7 +163,7 @@ You will see this response:
 
 Now list all tasks associated with user `quickstartUser`:
 
-    curl -u "quickstartUser:quickstartPwd1!" -X GET http://localhost:8080/jboss-as-tasks-rs/tasks
+    curl -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-as-tasks-rs/tasks
 
 You will see a response with an empty collection:
 
@@ -206,7 +206,7 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
 
 Now you can view task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:
 
-    curl -H "Accept: application/json" -u "quickstartUser:quickstartPwd1!" -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1
+    curl -H "Accept: application/json" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-as-tasks-rs/tasks/1
 
 You will see the following response:
 
@@ -225,7 +225,7 @@ Undeploy the Archive
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse)
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
 Debug the Application

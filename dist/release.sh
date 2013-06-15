@@ -1,4 +1,21 @@
 #!/bin/bash
+#
+# JBoss, Home of Professional Open Source
+# Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+# contributors by the @authors tag. See the copyright.txt in the
+# distribution for a full listing of individual contributors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 
 REQUIRED_BASH_VERSION=3.0.0
 
@@ -56,6 +73,7 @@ release()
    $DIR/release-utils.sh -u -o $SNAPSHOTVERSION -n $RELEASEVERSION
    git commit -a -m "Prepare for $RELEASEVERSION release"
    git tag -a $RELEASEVERSION -m "Tag $RELEASEVERSION"
+   git branch $RELEASEVERSION tags/$RELEASEVERSION
    $DIR/release-utils.sh -u -o $RELEASEVERSION -n $NEWSNAPSHOTVERSION
    git commit -a -m "Prepare for development of $NEWSNAPSHOTVERSION"
    echo "Building Distribution zip"
@@ -70,6 +88,8 @@ release()
        [Yy]* ) notify_email;;
        * ) exit;
    esac
+   echo "Don't forget to push the tag and the branch"
+   echo "   git push --tags upstream refs/heads/$RELEASEVERSION"
 }
 
 parse_git_branch() {

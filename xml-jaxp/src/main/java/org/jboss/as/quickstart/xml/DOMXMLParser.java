@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -36,6 +36,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
 /**
  * Implementation of parser based on JAXP DOM(W3C).
  * 
@@ -46,18 +47,18 @@ import org.xml.sax.SAXParseException;
 @Default
 public class DOMXMLParser extends XMLParser {
 
-    //Inject instance of error holder
+    // Inject instance of error holder
     @Inject
     private Errors errorHolder;
-    
+
     private DocumentBuilder builder;
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
     DOMXMLParser() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         /*
-         *  bizarrely, setValidating refers to DTD validation only, and we are using schema validation
-         */  
+         * bizarrely, setValidating refers to DTD validation only, and we are using schema validation
+         */
         factory.setValidating(false);
         factory.setNamespaceAware(true);
 
@@ -123,7 +124,7 @@ public class DOMXMLParser extends XMLParser {
         for (int index = 0; index < children.getLength(); index++) {
             Node child = children.item(index);
             String childName = child.getLocalName();
-            //empty/text nodes dont have name
+            // empty/text nodes dont have name
             if (childName == null)
                 continue;
 

@@ -23,7 +23,7 @@ import javax.naming.InitialContext;
 
 /**
  * Utility class for looking up EJBs
- *
+ * 
  * @author <a href="mailto:darran.lofthouse@jboss.com">Darran Lofthouse</a>
  */
 class EJBUtil {
@@ -34,7 +34,7 @@ class EJBUtil {
         final Context context = new InitialContext(jndiProperties);
 
         return (IntermediateEJBRemote) context.lookup("ejb:/jboss-as-ejb-security-interceptors/IntermediateEJB!"
-                + IntermediateEJBRemote.class.getName());
+            + IntermediateEJBRemote.class.getName());
     }
 
     static SecuredEJBRemote lookupSecuredEJB() throws Exception {
@@ -43,7 +43,7 @@ class EJBUtil {
         final Context context = new InitialContext(jndiProperties);
 
         return (SecuredEJBRemote) context.lookup("ejb:/jboss-as-ejb-security-interceptors/SecuredEJB!"
-                + SecuredEJBRemote.class.getName());
+            + SecuredEJBRemote.class.getName());
     }
 
 }

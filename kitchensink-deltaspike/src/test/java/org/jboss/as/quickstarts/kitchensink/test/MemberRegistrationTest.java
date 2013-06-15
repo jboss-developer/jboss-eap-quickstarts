@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -18,6 +18,7 @@ package org.jboss.as.quickstarts.kitchensink.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -31,8 +32,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,27 +40,18 @@ import org.junit.runner.RunWith;
 public class MemberRegistrationTest {
     @Deployment
     public static Archive<?> createTestArchive() {
-        String[] deps = {
-                "org.apache.deltaspike.modules:deltaspike-jpa-module-api",
-                "org.apache.deltaspike.modules:deltaspike-jpa-module-impl",
-                "org.apache.deltaspike.core:deltaspike-core-api",
-                "org.apache.deltaspike.core:deltaspike-core-impl" };
-        
-        MavenDependencyResolver resolver = DependencyResolvers
-                .use(MavenDependencyResolver.class)
-                .loadMetadataFromPom("pom.xml");
-        
-        return ShrinkWrap
-                .create(WebArchive.class, "test.war")
-                .addClasses(Member.class, MemberRegistration.class,
-                        Resources.class)
-                .addAsResource("META-INF/test-persistence.xml",
-                        "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                    .addAsLibraries(
-                        resolver.artifacts(deps).resolveAsFiles())
-                // Deploy our test datasource
-                .addAsWebInfResource("test-ds.xml");
+        String[] deps = { "org.apache.deltaspike.modules:deltaspike-jpa-module-api",
+            "org.apache.deltaspike.modules:deltaspike-jpa-module-impl", "org.apache.deltaspike.core:deltaspike-core-api",
+            "org.apache.deltaspike.core:deltaspike-core-impl" };
+
+        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(deps).withTransitivity().asFile();
+
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+            .addClasses(Member.class, MemberRegistration.class, Resources.class)
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsLibraries(libs)
+            // Deploy our test datasource
+            .addAsWebInfResource("test-ds.xml");
     }
 
     @Inject

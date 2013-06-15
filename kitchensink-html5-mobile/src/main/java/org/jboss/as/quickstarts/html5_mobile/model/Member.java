@@ -1,8 +1,8 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
- * Copyright Red Hat, Inc., and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
+ * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,58 +37,58 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @Table(name = "Member_html5mobi", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Member implements Serializable {
-   /** Default value included to remove warning. Remove or modify at will. **/
-   private static final long serialVersionUID = 1L;
+    /** Default value included to remove warning. Remove or modify at will. **/
+    private static final long serialVersionUID = 1L;
 
-   @Id
-   @GeneratedValue
-   private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-   @NotNull
-   @Size(min = 1, max = 25, message = "1-25 letters and spaces")
-   @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
-   private String name;
+    @NotNull
+    @Size(min = 1, max = 25, message = "1-25 letters and spaces")
+    @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
+    private String name;
 
-   @NotNull
-   @NotEmpty
-   @Email(message = "Invalid format")
-   private String email;
+    @NotNull
+    @NotEmpty
+    @Email(message = "Invalid format")
+    private String email;
 
-   @NotNull
-   @Size(min = 10, max = 12, message = "10-12 Numbers")
-   @Digits(fraction = 0, integer = 12, message = "Not valid")
-   @Column(name = "phone_number")
-   private String phoneNumber;
+    @NotNull
+    @Size(min = 10, max = 12, message = "10-12 Numbers")
+    @Digits(fraction = 0, integer = 12, message = "Not valid")
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-   public Long getId() {
-      return id;
-   }
+    public Long getId() {
+        return id;
+    }
 
-   public void setId(Long id) {
-      this.id = id;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public String getName() {
-      return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public String getEmail() {
-      return email;
-   }
+    public String getEmail() {
+        return email;
+    }
 
-   public void setEmail(String email) {
-      this.email = email;
-   }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-   public String getPhoneNumber() {
-      return phoneNumber;
-   }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-   public void setPhoneNumber(String phoneNumber) {
-      this.phoneNumber = phoneNumber;
-   }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

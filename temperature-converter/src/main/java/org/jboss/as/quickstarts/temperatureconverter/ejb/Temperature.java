@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -35,7 +35,7 @@ public class Temperature {
     /*
      * Create a regular expression to extract the temperature and scale (if passed).
      */
-    private static Pattern PATTERN = Pattern.compile("^([-+]?[0-9]*\\.?[0-9]+)([CF]?)");
+    private static Pattern PATTERN = Pattern.compile("^([-+]?\\d*\\.?\\d+)\\s*([cCfF]?)");
 
     /**
      * Parse a string, with an optional scale suffix. If no scale suffix is on the string, the defaultScale will be used.
@@ -52,23 +52,24 @@ public class Temperature {
          */
         Matcher matcher = PATTERN.matcher(temperature);
 
-        // Extract the temperature
         if (matcher.find()) {
-            t = Double.parseDouble(matcher.group());
+            // Extract the temperature
+            t = Double.parseDouble(matcher.group(1));
+
+            // Use the scale included with the sourceTemperature OR the defaultScale provided.
+            if (!matcher.group(2).isEmpty()) {
+                try {
+                    s = Scale.valueOfAbbreviation(matcher.group(2));
+                } catch (IllegalArgumentException e) {
+                    throw new IllegalArgumentException("You must provide a valid temperature scale- 'C|F'");
+                }
+            } else {
+                s = defaultScale;
+            }
         } else {
             throw new IllegalArgumentException("You must provide a valid temperature to convert- 'XX.XXX'");
         }
 
-        // Use the scale included with the sourceTemperature OR the defaultScale provided.
-        if (matcher.find()) {
-            try {
-                s = Scale.valueOfAbbreviation(matcher.group());
-            } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("You must provide a valid temperature scale- 'C|F'");
-            }
-        } else {
-            s = defaultScale;
-        }
         return new Temperature(t, s);
     }
 

@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -35,6 +35,7 @@ import org.dom4j.io.SAXReader;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
 /**
  * Implementation of parser based on DOM4J.
  * 
@@ -45,10 +46,10 @@ import org.xml.sax.SAXParseException;
 @Default
 public class DOM4JXMLParser extends XMLParser {
 
-    //Inject instance of error holder
+    // Inject instance of error holder
     @Inject
     private Errors errorHolder;
-    
+
     // Get the SAXReader object
     private SAXReader dom4jReader = new SAXReader();
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
@@ -87,7 +88,7 @@ public class DOM4JXMLParser extends XMLParser {
         }
 
         Iterator children = root.elementIterator();
-        while(children.hasNext()){
+        while (children.hasNext()) {
             Node n = (Node) children.next();
             String childName = n.getName();
             if (childName == null)
@@ -109,10 +110,10 @@ public class DOM4JXMLParser extends XMLParser {
         /*
          * parse book element, we have to once more iterate over children.
          */
-        while(children.hasNext()) {
+        while (children.hasNext()) {
             Node child = (Node) children.next();
             String childName = child.getName();
-            //empty/text nodes dont have name
+            // empty/text nodes dont have name
             if (childName == null)
                 continue;
 

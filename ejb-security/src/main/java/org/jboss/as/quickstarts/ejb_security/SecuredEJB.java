@@ -1,7 +1,7 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -33,29 +33,26 @@ import org.jboss.ejb3.annotation.SecurityDomain;
  */
 /**
  * 
- * Annotate this EJB for authorization. 
- * Allow only those in the "guest" role.
- * For EJB authorization, you must also specify the security domain. 
- * This example uses the "other" security domain which is provided 
- * by default in the standalone.xml file.
- *
+ * Annotate this EJB for authorization. Allow only those in the "guest" role. For EJB authorization, you must also specify the
+ * security domain. This example uses the "other" security domain which is provided by default in the standalone.xml file.
+ * 
  */
 @Stateless
 @RolesAllowed({ "guest" })
 @SecurityDomain("other")
 public class SecuredEJB {
 
-   // Inject the Session Context
-   @Resource
-   private SessionContext ctx;
+    // Inject the Session Context
+    @Resource
+    private SessionContext ctx;
 
-   /**
-    * Secured EJB method using security annotations
-    */
-   public String getSecurityInfo() {
-      // Session context injected using the resource annotation
-      Principal principal = ctx.getCallerPrincipal();
+    /**
+     * Secured EJB method using security annotations
+     */
+    public String getSecurityInfo() {
+        // Session context injected using the resource annotation
+        Principal principal = ctx.getCallerPrincipal();
 
-      return principal.toString();
-   }
+        return principal.toString();
+    }
 }

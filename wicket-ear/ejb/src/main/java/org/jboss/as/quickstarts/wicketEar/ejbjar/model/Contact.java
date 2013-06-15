@@ -1,29 +1,13 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the 
+ * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+ * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,  
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,71 +33,71 @@ import javax.persistence.Id;
 @Entity
 public class Contact implements Serializable {
 
-   @Id
-   @GeneratedValue(strategy = IDENTITY)
-   private Long id;
-   
-   private String name;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
 
-   @Column(unique = true)
-   private String email;
+    private String name;
 
-   public Contact() {
-   }
+    @Column(unique = true)
+    private String email;
 
-   public Contact(Long id, String name, String email) {
-      this.id = id;
-      this.name = name;
-      this.email = email;
-   }
-   
-   public Long getId() {
-      return id;
-   }
+    public Contact() {
+    }
 
-   public void setId(Long id) {
-      this.id = id;
-   }
+    public Contact(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
-   public String getEmail() {
-      return email;
-   }
+    public Long getId() {
+        return id;
+    }
 
-   public void setEmail(String email) {
-      this.email = email;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public String getName() {
-      return name;
-   }
+    public String getEmail() {
+        return email;
+    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-   @Override
-   public int hashCode() {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((email == null) ? 0 : email.hashCode());
-      return result;
-   }
+    public String getName() {
+        return name;
+    }
 
-   @Override
-   public boolean equals(Object obj) {
-      if (this == obj)
-         return true;
-      if (obj == null)
-         return false;
-      if (getClass() != obj.getClass())
-         return false;
-      Contact other = (Contact) obj;
-      if (email == null) {
-         if (other.email != null)
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
             return false;
-      } else if (!email.equals(other.email))
-         return false;
-      return true;
-   }
+        if (getClass() != obj.getClass())
+            return false;
+        Contact other = (Contact) obj;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        return true;
+    }
 
 }
