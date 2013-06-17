@@ -4,7 +4,7 @@ Author: Pete Muir
 Level: Intermediate
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example that incorporates multiple technologies
-Target Product: EAP
+Target Product: WFK
 Source: https://github.com/jboss-jdf/jboss-as-quickstart
 
 What is it?
