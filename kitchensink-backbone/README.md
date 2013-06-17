@@ -4,7 +4,7 @@ Author: Joshua Wilson
 Level: Intermediate
 Technologies: Backbone, CDI, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example of Backbone.js integrated with jQuery, REST, and a Java back-end running on JBoss.
-Target Product: EAP
+Target Product: WFK
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
