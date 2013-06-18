@@ -95,7 +95,7 @@ If you are using the JBoss Enterprise Application Platform 6 distribution, you n
 
 ### Configure Maven for JBoss AS 7
 
-If you are using the JBoss AS 7 Quickstart distribution, the community artifacts are available in the Maven central repository so no additional configuration is needed.
+If you are using the JBoss AS 7 Quickstart distribution, most of the community artifacts are available in the Maven central repository or the JBoss Public repository, so no additional configuration is needed.
 
 ### Maven Profiles
 
