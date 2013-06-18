@@ -160,11 +160,11 @@
                 <module>carmart-tx</module>
                 <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
-				<module>cdi-decorator</module>
-				<module>cdi-interceptors</module>
-				<module>cdi-stereotype</module>
+                <module>cdi-decorator</module>
+                <module>cdi-interceptors</module>
                 <module>cdi-injection</module>
                 <module>cdi-portable-extension</module>
+                <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
                 <module>deltaspike-authorization</module>
                 <module>deltaspike-beanbuilder</module>
@@ -216,22 +216,23 @@
                 <module>memcached-endpoint</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
-                <module>picketlink-authentication-jsf</module>
-                <module>picketlink-authentication-idm-jsf</module>
-                <module>picketlink-authentication-idm-multi-tenancy</module>
-                <module>picketlink-authentication-rs-endpoint</module>
                 <module>picketlink-authentication-http-basic</module>
                 <module>picketlink-authentication-http-digest</module>
+                <module>picketlink-authentication-idm-jsf</module>
+                <module>picketlink-authentication-idm-multi-tenancy</module>
+                <module>picketlink-authentication-jsf</module>
+                <module>picketlink-authentication-rs-endpoint</module>
                 <module>picketlink-authentication-two-factor</module>
                 <module>picketlink-authorization-idm-jpa</module>
                 <module>picketlink-authorization-rs-rbac</module>
+                <module>picketlink-deltaspike-authorization</module>
                 <module>rest-endpoint</module>
                 <module>richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
-                <module>shrinkwrap-resolver</module>
                 <module>shopping-cart</module>
+                <module>shrinkwrap-resolver</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>
