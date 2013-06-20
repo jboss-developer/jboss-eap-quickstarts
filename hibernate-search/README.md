@@ -1,12 +1,12 @@
-QUICKSTART_NAME: Brief Description of the Quickstart
+hibernate-search: Demonstrates doing a full text search of your entities
 ======================================================
-Author: YOUR_NAME and optional CONTACT_INFO
-Level: [one of the following: Beginner, Intermediate, or Advanced]
-Technologies: (list technologies used here)
-Summary: (a brief description of the quickstart to appear in the table )
-Prerequisites: (list any quickstarts that must be deployed prior to running this one)
-Target Product: (EAP, WFK, JDG, etc)
-Source: (The URL for the repository that is the source of record for this quickstart)
+Author: Tharindu Jayasuriya
+Level: Intermediate
+Technologies: hibernate-search
+Summary: Hibernate Search brings the power of full text search engines to the persistence domain model by combining Hibernate Core with the capabilities of the Apache Lucene™ search engine. Lucene suffers several mismatches when dealing with object domain models. Things like indexes have to be kept up to date and mismatches between index structure and domain model as well as query mismatches have to be avoided. Hibernate Search addresses these shortcomings. It indexes your domain model with the help of a few annotations, takes care of database/index synchronization and brings back regular managed objects from free text queries. This quickstart demonstrates how the full text search can be done on your entities.
+Prerequisites: None
+Target Product: EAP
+Source: https://github.com/jboss-jdf/jboss-as-quickstart/
 
 
 _This file is meant to serve as a template or guideline for your own quickstart README.md file. Be sure to replace QUICKSTART_NAME and YOUR_NAME, with the appropriate values._
