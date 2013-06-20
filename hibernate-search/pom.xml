@@ -19,11 +19,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-QUICKSTART_NAME</artifactId>
+    <artifactId>jboss-as-hibernate-search</artifactId>
     <version>7.1.2-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: QUICKSTART_NAME</name>
-    <description>QUICKSTART_NAME: A short description of this quickstart</description>
+    <packaging>pom</packaging>
+    <name>JBoss AS Quickstarts: hibernate-search</name>
+    <description>hibernate-search: Demonstrates doing a full text search of your entities</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
