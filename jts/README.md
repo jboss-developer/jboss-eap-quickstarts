@@ -129,6 +129,8 @@ This script configures the server to use jts transaction processing. You should 
 
         /subsystem=transactions/:write-attribute(name=jts,value=true)
         /subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
+        
+        :reload
 4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
 
 #### Modify the Server Configuration Manually
@@ -272,6 +274,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
         /subsystem=jacorb/:undefine-attribute(name=name)
         /subsystem=transactions/:undefine-attribute(name=jts)
         /subsystem=transactions/:undefine-attribute(name=node-identifier)
+        :reload
 
 ### Remove the JTS Server Configuration Manually
 
