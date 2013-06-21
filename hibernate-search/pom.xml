@@ -21,7 +21,7 @@
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-hibernate-search</artifactId>
     <version>7.1.2-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <name>JBoss AS Quickstarts: hibernate-search</name>
     <description>hibernate-search: Demonstrates doing a full text search of your entities</description>
 
@@ -51,6 +51,9 @@
             maven repository. -->
         <!-- <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-3</version.jboss.spec.javaee.6.0> -->
 
+        <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
+        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
+
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -78,6 +81,20 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack
+                (you can read this as the JBoss stack of the Java EE Web Profile 6 APIs with
+                extras from the Hibernate family of projects) -->
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <version>${version.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -98,12 +115,19 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JSF API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss AS 7 -->
         <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Import the JSF API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!--<dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.1_spec</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
         <dependency>
@@ -119,12 +143,49 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the SERVLET API, we use provided scope as the API is included in JBoss AS 7 -->
         <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!--<dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
             <scope>provided</scope>
+        </dependency>-->
+
+        <!--Import dependencies to hibernate packages(eg. hibernate-core)
+       depending on features you want to use like Hibernate Session used in the
+       quickstart -->
+        <!--please note that scope is provided as these jars are shipped
+            with as7 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Import the RESTEASY API, we don't use provided scope as the I am not sure this API is included in JBoss AS 7 -->
+        <dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>2.2.1.GA</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.java.dev.rome</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
     </dependencies>
 
