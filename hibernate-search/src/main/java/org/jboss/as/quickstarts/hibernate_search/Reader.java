@@ -34,7 +34,7 @@ public class Reader {
         try {
             reader = new XmlReader(url);
             SyndFeed feed = new SyndFeedInput().build(reader);
-            System.out.println("Feed Auth: " + feed.getAuthor());
+            System.out.println("Fee d Auth: " + feed.getAuthor());
             System.out.println("Feed Copy: " + feed.getCopyright());
             System.out.println("Feed Desc: " + feed.getDescription());
             System.out.println("Feed Link: " + feed.getLink());
