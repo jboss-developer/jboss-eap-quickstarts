@@ -101,6 +101,8 @@ You can modify the server configuration using the JBoss CLI tool or by manually 
 
         /subsystem=transactions/:write-attribute(name=jts,value=true)
         /subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
+        
+        :reload
 4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-jts-configuration).
 
 #### Modify the Server Configuration Manually
@@ -225,20 +227,21 @@ You can modify the server configuration using the JBoss CLI tool or by manually 
         /subsystem=jacorb/:undefine-attribute(name=name)
         /subsystem=transactions/:undefine-attribute(name=jts)
         /subsystem=transactions/:undefine-attribute(name=node-identifier)
+        :reload
 
 ### Remove the JTS Server Configuration Manually
 1. Stop the server.
 2. If you backed up the JBOSS_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
 3. If you did not make a backup copy, open the file JBOSS_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
 
-    * Find the orb subsystem and change the configuration back to:  
+   * Find the orb subsystem and change the configuration back to:  
 
             <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
                 <orb>
                     <initializers security="on" transactions="spec"/>
                 </orb>
             </subsystem>
-    * Find the transaction subsystem and remove the `<jts/>` element:  
+   * Find the transaction subsystem and remove the `<jts/>` element:  
 
             <subsystem xmlns="urn:jboss:domain:transactions:1.2">
                 <!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT -->

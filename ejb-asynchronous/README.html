@@ -13,7 +13,7 @@ Target Product: EAP</p>
 <p>The example is composed of 2 maven modules, each with a shared parent. The modules are as follows:</p>
 
 <ol>
-<li><code>ejb</code>: This module contains the EJB&#39;s and will be deployed to the server</li>
+<li><code>ejb</code>: This module contains the EJB&rsquo;s and will be deployed to the server</li>
 <li><code>client</code> : This module contains a remote ejb client</li>
 </ol>
 
@@ -31,12 +31,15 @@ Target Product: EAP</p>
 
 <p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7</h2>
+<h2 id="toc_4">Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile</h2>
 
-<p>Start a server instance</p>
-<div class="highlight"><pre><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
-</pre>
-</div>
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
 
 <h2 id="toc_5">Build and Deploy the Quickstart</h2>
 
@@ -46,9 +49,8 @@ Target Product: EAP</p>
 <li>Make sure you have started the JBoss Server as described above.</li>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
 <li><p>This will deploy <code>service/target/jboss-as-ejb-asynchronous.jar</code> to the running instance of the server.</p></li>
 </ol>
 
@@ -60,28 +62,23 @@ Target Product: EAP</p>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to start the client</p>
 <div class="highlight"><pre><span class="n">cd</span> <span class="n">client</span>
-<span class="n">mvn</span> <span class="n">exec</span><span class="p">:</span><span class="n">exec</span>
-</pre>
-</div></li>
+<span class="n">mvn</span> <span class="n">exec</span><span class="o">:</span><span class="n">exec</span>
+</pre></div></li>
 <li><p>Check the client output</p>
 <div class="highlight"><pre><span class="n">INFO</span><span class="o">:</span> <span class="n">The</span> <span class="n">server</span> <span class="n">log</span> <span class="n">should</span> <span class="n">contain</span> <span class="n">a</span> <span class="n">message</span> <span class="n">at</span> <span class="o">(</span><span class="n">about</span><span class="o">)</span> <span class="o">&lt;</span><span class="n">date</span><span class="o">&gt;,</span> <span class="n">indicating</span> <span class="n">that</span> <span class="n">the</span> <span class="n">call</span> <span class="n">to</span> <span class="n">the</span> <span class="n">asynchronous</span> <span class="n">bean</span> <span class="n">completed</span><span class="o">.</span>
 <span class="n">INFO</span><span class="o">:</span> <span class="n">Got</span> <span class="n">the</span> <span class="n">async</span> <span class="n">result</span> <span class="k">as</span> <span class="n">expected</span> <span class="o">=&gt;</span> <span class="n">returning</span> <span class="n">at</span> <span class="o">&lt;</span><span class="n">date</span><span class="o">&gt;,</span> <span class="n">duration</span> <span class="n">was</span> <span class="mi">200</span><span class="n">ms</span>
 <span class="n">INFO</span><span class="o">:</span> <span class="n">Got</span> <span class="n">the</span> <span class="n">async</span> <span class="n">result</span> <span class="k">as</span> <span class="n">expected</span> <span class="n">after</span> <span class="n">wait</span> <span class="o">=&gt;</span> <span class="n">returning</span> <span class="n">at</span> <span class="o">&lt;</span><span class="n">date</span><span class="o">&gt;,</span> <span class="n">duration</span> <span class="n">was</span> <span class="mi">1500</span><span class="n">ms</span>
 <span class="n">INFO</span><span class="o">:</span> <span class="n">Catch</span> <span class="n">the</span> <span class="n">expected</span> <span class="n">Exception</span> <span class="n">of</span> <span class="n">the</span> <span class="n">asynchronous</span> <span class="n">execution</span><span class="o">!</span>
 <span class="n">INFO</span><span class="o">:</span> <span class="n">Results</span> <span class="n">of</span> <span class="n">the</span> <span class="n">parallel</span> <span class="o">(</span><span class="n">server</span><span class="o">)</span> <span class="n">processing</span> <span class="o">:</span> <span class="o">[</span><span class="n">returning</span> <span class="n">at</span> <span class="o">&lt;</span><span class="n">date</span><span class="o">&gt;</span> <span class="n">duration</span> <span class="n">was</span> <span class="mi">5000</span><span class="n">ms</span><span class="o">,</span> <span class="n">returning</span> <span class="n">at</span> <span class="o">&lt;</span><span class="n">date</span><span class="o">&gt;,</span> <span class="n">duration</span> <span class="n">was</span> <span class="mi">3000</span><span class="n">ms</span><span class="o">]</span>
-</pre>
-</div></li>
+</pre></div></li>
 <li><p>Check the server log. </p>
 
 <p>There should be two INFO log messages for the <code>fireAndForget</code> invocation:</p>
-<div class="highlight"><pre>  <span class="s">&#39;fireAndForget&#39;</span> <span class="n">Will</span> <span class="n">wait</span> <span class="k">for</span> 15000<span class="n">ms</span>
-</pre>
-</div>
-
+<div class="highlight"><pre>  <span class="err">&#39;</span><span class="n">fireAndForget</span><span class="err">&#39;</span> <span class="n">Will</span> <span class="n">wait</span> <span class="k">for</span> <span class="mi">15000</span><span class="n">ms</span>
+</pre></div>
 <p>and 15sec later (the client should be finished at this time)</p>
-<div class="highlight"><pre>  <span class="n">action</span> <span class="s">&#39;fireAndForget&#39;</span> <span class="n">finished</span>
-</pre>
-</div></li>
+<div class="highlight"><pre>  <span class="n">action</span> <span class="err">&#39;</span><span class="n">fireAndForget</span><span class="err">&#39;</span> <span class="n">finished</span>
+</pre></div></li>
 </ol>
 
 <p><em>NOTE: In AS7.1.1.Final there is a bug that an ERROR will be logged that the result can not be written.</em></p>
@@ -92,9 +89,8 @@ Target Product: EAP</p>
 <li>Make sure you have started the JBoss Server as described above.</li>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
 </ol>
 
 <h2 id="toc_8">Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
@@ -104,10 +100,8 @@ Target Product: EAP</p>
 <h2 id="toc_9">Debug the Application</h2>
 
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">sources</span>
-<span class="n">mvn</span> <span class="n">dependency</span><span class="p">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="p">=</span><span class="n">javadoc</span>
-</pre>
-</div>
-
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div>
 <hr/>
 </body></html>

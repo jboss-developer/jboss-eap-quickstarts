@@ -81,15 +81,13 @@ following ways:</p>
 
 <ol>
 <li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile, passing a unique node ID by typing the following command. Be sure to replace <code>UNIQUE_NODE_ID</code> with a node identifier that is unique to both servers.</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="p">=</span><span class="n">UNIQUE_NODE_ID</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="p">=</span><span class="n">UNIQUE_NODE_ID</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID</span>
+</pre></div></li>
 <li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">bin</span><span class="o">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre></div></li>
 <li><p>At the prompt, type the following exactly as it appears. The server will replace ${jboss.node.name} with the actual node name and will replace ${jboss.tx.node.id} with the unique node ID value you passed as a parameter on the server start command line.</p>
 <div class="highlight"><pre>/subsystem=jacorb/:write-attribute(name=transactions,value=on)
 /subsystem=jacorb:write-attribute(name=name,value=<span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="cp">}</span>)
@@ -97,8 +95,9 @@ following ways:</p>
 
 /subsystem=transactions/:write-attribute(name=jts,value=true)
 /subsystem=transactions/:write-attribute(name=node-identifier,value=<span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span>)
-</pre>
-</div></li>
+
+:reload
+</pre></div></li>
 <li><p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-jts-configuration">Remove the JTS Configuration from the JBoss Server</a>.</p></li>
 </ol>
 
@@ -122,16 +121,14 @@ following ways:</p>
     <span class="nt">&lt;/orb&gt;</span>
     <span class="nt">&lt;naming</span> <span class="na">root-context=</span><span class="s">&quot;</span><span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="cp">}</span><span class="s">/Naming/root&quot;/</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/subsystem&gt;</span>
-</pre>
-</div></li>
+</pre></div></li>
 <li><p>Find the transaction subsystem and append the <code>&lt;jts/&gt;</code> element:</p>
 <div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;core</span><span class="err">-environment</span> <span class="na">node-identifier=</span><span class="s">&quot;</span><span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING --&gt;</span>
     <span class="nt">&lt;jts/&gt;</span>
 <span class="nt">&lt;/subsystem&gt;</span>
-</pre>
-</div></li>
+</pre></div></li>
 </ul></li>
 <li><p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-jts-configuration">Remove the JTS Configuration from the JBoss Server</a>.</p></li>
 </ol>
@@ -157,17 +154,13 @@ following ways:</p>
 <p>Start the the two JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace <code>UNIQUE_NODE_ID</code> with a node identifier that is unique to both servers.</p>
 
 <p>If you are using Linux:</p>
-<div class="highlight"><pre>    <span class="n">Server</span> 1<span class="p">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="p">=</span><span class="n">UNIQUE_NODE_ID</span>
-    <span class="n">Server</span> 2<span class="p">:</span> <span class="n">JBOSS_HOME_SERVER_2</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="p">=</span><span class="n">UNIQUE_NODE_ID</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="p">=</span>100
-</pre>
-</div>
-
+<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID</span>
+    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_2</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
+</pre></div>
 <p>If you are using Windows</p>
-<div class="highlight"><pre>    <span class="n">Server</span> 1<span class="p">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="p">=</span><span class="n">UNIQUE_NODE_ID</span>
-    <span class="n">Server</span> 2<span class="p">:</span> <span class="n">JBOSS_HOME_SERVER_2</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="p">=</span><span class="n">UNIQUE_NODE_ID</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="p">=</span>100
-</pre>
-</div>
-
+<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID</span>
+    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_2</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
+</pre></div>
 <h2 id="toc_12">Build and Deploy the Quickstart</h2>
 
 <p>Since this quickstart builds two separate components, you can not use the standard <em>Build and Deploy</em> commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.</p>
@@ -176,9 +169,8 @@ following ways:</p>
 <li>Make sure you have started the JBoss server with the PostgreSQL driver</li>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">deploy</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
 <li><p>This will deploy <code>application-component-1/target/jboss-as-jts-application-component-1.war</code> and <code>application-component-2/target/jboss-as-jts-application-component-2.jar</code> to the running instance of the server.</p></li>
 </ol>
 
@@ -191,15 +183,11 @@ following ways:</p>
 <span class="mi">14</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">50</span><span class="o">,</span><span class="mi">457</span> <span class="n">ERROR</span> <span class="o">[</span><span class="n">jacorb</span><span class="o">.</span><span class="na">orb</span><span class="o">]</span> <span class="o">(</span><span class="n">http</span><span class="o">-</span><span class="n">localhost</span><span class="o">-</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">-</span><span class="mi">8080</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="n">no</span> <span class="n">adapter</span> <span class="n">activator</span> <span class="n">exists</span> <span class="k">for</span> <span class="n">jts</span><span class="o">-</span><span class="n">quickstart</span><span class="o">&amp;%</span><span class="n">InvoiceManagerEJBImpl</span><span class="o">&amp;%</span><span class="n">home</span>
 <span class="mi">14</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">50</span><span class="o">,</span><span class="mi">767</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">ejb</span><span class="o">.</span><span class="na">client</span><span class="o">]</span> <span class="o">(</span><span class="n">http</span><span class="o">-</span><span class="n">localhost</span><span class="o">-</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">-</span><span class="mi">8080</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="n">JBoss</span> <span class="n">EJB</span> <span class="n">Client</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">5</span><span class="o">.</span><span class="na">Final</span>
 <span class="mi">14</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">51</span><span class="o">,</span><span class="mi">430</span> <span class="n">WARN</span>  <span class="o">[</span><span class="n">com</span><span class="o">.</span><span class="na">arjuna</span><span class="o">.</span><span class="na">ats</span><span class="o">.</span><span class="na">jts</span><span class="o">]</span> <span class="o">(</span><span class="n">RequestProcessor</span><span class="o">-</span><span class="mi">5</span><span class="o">)</span> <span class="n">ARJUNA022261</span><span class="o">:</span> <span class="n">ServerTopLevelAction</span> <span class="n">detected</span> <span class="n">that</span> <span class="n">the</span> <span class="n">transaction</span> <span class="n">was</span> <span class="n">inactive</span>
-</pre>
-</div>
-
+</pre></div>
 <p>You will also see the following in application-server-2 console:</p>
 <div class="highlight"><pre><span class="mi">14</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">50</span><span class="o">,</span><span class="mi">750</span> <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">ejb</span><span class="o">.</span><span class="na">client</span><span class="o">]</span> <span class="o">(</span><span class="n">RequestProcessor</span><span class="o">-</span><span class="mi">10</span><span class="o">)</span> <span class="n">JBoss</span> <span class="n">EJB</span> <span class="n">Client</span> <span class="n">version</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">5</span><span class="o">.</span><span class="na">Final</span>
 <span class="mi">14</span><span class="o">:</span><span class="mi">31</span><span class="o">:</span><span class="mi">51</span><span class="o">,</span><span class="mi">395</span> <span class="n">INFO</span>  <span class="o">[</span><span class="kd">class</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">cmt</span><span class="o">.</span><span class="na">jts</span><span class="o">.</span><span class="na">mdb</span><span class="o">.</span><span class="na">HelloWorldMDB</span><span class="o">]</span> <span class="o">(</span><span class="n">Thread</span><span class="o">-</span><span class="mi">1</span> <span class="o">(</span><span class="n">HornetQ</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">global</span><span class="o">-</span><span class="n">threads</span><span class="o">-</span><span class="mi">1567863645</span><span class="o">))</span> <span class="n">Received</span> <span class="n">Message</span><span class="o">:</span> <span class="n">Created</span> <span class="n">invoice</span> <span class="k">for</span> <span class="n">customer</span> <span class="n">named</span><span class="o">:</span> <span class="n">Tom</span>
-</pre>
-</div>
-
+</pre></div>
 <p>The web page will also change and show you the new list of customers.</p>
 
 <h2 id="toc_14">Undeploy the Archive</h2>
@@ -208,9 +196,8 @@ following ways:</p>
 <li>Make sure you have started the JBoss Server as described above.</li>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="p">:</span><span class="n">undeploy</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
 </ol>
 
 <p><a id="remove-jts-configuration"></a></p>
@@ -224,22 +211,20 @@ You can modify the server configuration using the JBoss CLI tool or by manually 
 
 <ol>
 <li><p>Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following. </p>
-<div class="highlight"><pre><span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">Linux</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
-<span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">Windows</span><span class="p">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">\</span><span class="n">bin</span><span class="o">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre></div></li>
 <li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="p">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">bin</span><span class="o">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre></div></li>
 <li><p>At the prompt, type the following:</p>
-<div class="highlight"><pre><span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">jacorb</span><span class="o">/</span><span class="p">:</span><span class="n">write</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">transactions</span><span class="p">,</span><span class="n">value</span><span class="p">=</span><span class="n">spec</span><span class="p">)</span>
-<span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">jacorb</span><span class="o">/</span><span class="p">:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">name</span><span class="p">)</span>
-<span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">transactions</span><span class="o">/</span><span class="p">:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">jts</span><span class="p">)</span>
-<span class="o">/</span><span class="n">subsystem</span><span class="p">=</span><span class="n">transactions</span><span class="o">/</span><span class="p">:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="n">node</span><span class="o">-</span><span class="n">identifier</span><span class="p">)</span>
-</pre>
-</div></li>
+<div class="highlight"><pre><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">jacorb</span><span class="o">/:</span><span class="n">write</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">transactions</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span>
+<span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">jacorb</span><span class="o">/:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">transactions</span><span class="o">/:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">jts</span><span class="p">)</span>
+<span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">transactions</span><span class="o">/:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">node</span><span class="o">-</span><span class="n">identifier</span><span class="p">)</span>
+<span class="o">:</span><span class="n">reload</span>
+</pre></div></li>
 </ol>
 
 <h3 id="toc_17">Remove the JTS Server Configuration Manually</h3>
@@ -249,19 +234,20 @@ You can modify the server configuration using the JBoss CLI tool or by manually 
 <li>If you backed up the JBOSS_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.</li>
 <li>If you did not make a backup copy, open the file JBOSS_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:</li>
 </ol>
-<div class="highlight"><pre>* Find the orb subsystem and change the configuration back to:  
 
-        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;orb&gt;</span>
-                <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span><span class="nt">/&gt;</span>
-            <span class="nt">&lt;/orb&gt;</span>
-        <span class="nt">&lt;/subsystem&gt;</span>
-* Find the transaction subsystem and remove the `<span class="nt">&lt;jts/&gt;</span>` element:  
-
-        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
-            <span class="c">&lt;!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT --&gt;</span>
-            <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND REMOVE THE &lt;/jts&gt; --&gt;</span>
-        <span class="nt">&lt;/subsystem&gt;</span>
-</pre>
-</div>
+<ul>
+<li><p>Find the orb subsystem and change the configuration back to:  </p>
+<div class="highlight"><pre>    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;orb&gt;</span>
+            <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/orb&gt;</span>
+    <span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></li>
+<li><p>Find the transaction subsystem and remove the <code>&lt;jts/&gt;</code> element:  </p>
+<div class="highlight"><pre>    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT --&gt;</span>
+        <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND REMOVE THE &lt;/jts&gt; --&gt;</span>
+    <span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></li>
+</ul>
 </body></html>
