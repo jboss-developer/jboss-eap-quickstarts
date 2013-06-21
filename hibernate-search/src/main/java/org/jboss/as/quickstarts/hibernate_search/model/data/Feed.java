@@ -15,7 +15,11 @@ import java.util.List;
 @Table(name = "Feed", uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Feed implements Serializable {
     @Id
-    private Long id;
+    @TableGenerator(name = "TABLE_GEN", table = "SEQUENCE_TABLE",
+            pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "FEED_SEQ" ,  allocationSize=1
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
+    private int id;
     private String author;
     private String copyright;
     private String description;
@@ -23,22 +27,26 @@ public class Feed implements Serializable {
     private String link;
     private String url;
 
-    @OneToMany(mappedBy = "Feed")
+    @OneToMany(mappedBy = "feed")
     private List<FeedEntry> feedEntryList;
 
     public Feed() {
     }
 
+    public Feed(String author, String copyright, String description, String title, String link, String url) {
+        this.author = author;
+        this.copyright = copyright;
+        this.description = description;
+        this.title = title;
+        this.link = link;
+        this.url = url;
+    }
 
-    @TableGenerator(name = "TABLE_GEN", table = "SEQUENCE_TABLE",
-            pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "FEED_SEQ"
-    )
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,5 +104,18 @@ public class Feed implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return "Feed{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", copyright='" + copyright + '\'' +
+                ", description='" + description + '\'' +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

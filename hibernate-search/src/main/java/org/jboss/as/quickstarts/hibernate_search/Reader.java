@@ -8,6 +8,9 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
+import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
+import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
+import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedHandler;
 
 
 public class Reader {
@@ -33,21 +36,30 @@ public class Reader {
         XmlReader reader = null;
         try {
             reader = new XmlReader(url);
-            SyndFeed feed = new SyndFeedInput().build(reader);
-            System.out.println("Fee d Auth: " + feed.getAuthor());
-            System.out.println("Feed Copy: " + feed.getCopyright());
-            System.out.println("Feed Desc: " + feed.getDescription());
-            System.out.println("Feed Link: " + feed.getLink());
-            System.out.println("Feed Title: " + feed.getTitle());
-            System.out.println("Feed Auths: " + feed.getAuthors());
-            System.out.println("Feed Cats: " + feed.getCategories());
-            System.out.println("Feed URI: " + feed.getUri());
-            System.out.println("Feed URI: " + feed.getTitleEx());
+            SyndFeed syncFeed = new SyndFeedInput().build(reader);
 
-            for (Iterator i = feed.getEntries().iterator(); i.hasNext(); ) {
+            FeedHandler feedHandler = new FeedHandler();
+            Feed feed = new Feed(syncFeed.getAuthor(),syncFeed.getCopyright(),syncFeed.getDescription(),syncFeed.getTitle(),syncFeed.getLink(),url.toString());
+            feedHandler.addFeed(feed);
+            System.out.println("Feed: " + feed);
+            /*System.out.println("Feed Auth: " + syncFeed.getAuthor());
+            System.out.println("Feed Copy: " + syncFeed.getCopyright());
+            System.out.println("Feed Desc: " + syncFeed.getDescription());
+            System.out.println("Feed Link: " + syncFeed.getLink());
+            System.out.println("Feed Title: " + syncFeed.getTitle());
+            System.out.println("Feed Auths: " + syncFeed.getAuthors());
+            System.out.println("Feed Cats: " + syncFeed.getCategories());
+            System.out.println("Feed URI: " + syncFeed.getUri());
+            System.out.println("Feed URI: " + syncFeed.getTitleEx());*/
+
+            for (Iterator i = syncFeed.getEntries().iterator(); i.hasNext(); ) {
                 SyndEntry entry = (SyndEntry) i.next();
                 System.out.println("___________________________________________________");
-                System.out.println("Title:"+entry.getTitle());
+                FeedEntry feedEntry = new FeedEntry(feed.getId(),entry.getTitle(),entry.getAuthor(),entry.getPublishedDate(),entry.getUri(),entry.getDescription().getValue());
+                System.out.println("feedEntry"+feedEntry);
+                feedHandler.addFeedEntry(feedEntry);
+
+                /*System.out.println("Title:"+entry.getTitle());
                 System.out.println("Author:"+entry.getAuthor());
                 System.out.println("Cpntents:"+entry.getContents());
                 ////System.out.println("Des:"+entry.getDescription());
@@ -62,7 +74,7 @@ public class Reader {
                 System.out.println("UpdatedDate:"+entry.getUpdatedDate());
                 System.out.println("links:"+entry.getLinks());
                 System.out.println("entry:"+entry.getWireEntry());
-                System.out.println("entry:"+entry.hashCode());
+                System.out.println("entry:"+entry.hashCode());*/
             }
         } finally {
             if (reader != null)

@@ -13,8 +13,12 @@ import java.util.Date;
 @Table(name = "FeedEntry", uniqueConstraints = @UniqueConstraint(columnNames = "feedEntryId"))
 public class FeedEntry implements Serializable {
     @Id
-    private Long feedEntryId;
-    private Long feedId;
+    @TableGenerator(name = "TABLE_GEN", table = "SEQUENCE_TABLE",
+            pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "FEED_ENTRY_SEQ" ,  allocationSize=1
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
+    private int feedEntryId;
+    private int feedId;
     private String title;
     private String author;
     private Date publishedDate;
@@ -22,25 +26,31 @@ public class FeedEntry implements Serializable {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name="feedId", updatable=false, insertable=false)
     private Feed feed;
 
-    @TableGenerator(name = "TABLE_GEN", table = "SEQUENCE_TABLE",
-            pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "FEED_ENTRY_SEQ"
-    )
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    public Long getFeedEntryId() {
+    public FeedEntry(int feedId, String title, String author, Date publishedDate, String uri, String description) {
+        this.feedId = feedId;
+        this.title = title;
+        this.author = author;
+        this.publishedDate = publishedDate;
+        this.uri = uri;
+        this.description = description;
+    }
+
+    public int getFeedEntryId() {
         return feedEntryId;
     }
 
-    public void setFeedEntryId(Long feedEntryId) {
+    public void setFeedEntryId(int feedEntryId) {
         this.feedEntryId = feedEntryId;
     }
 
-    public Long getFeedId() {
+    public int getFeedId() {
         return feedId;
     }
 
-    public void setFeedId(Long feedId) {
+    public void setFeedId(int feedId) {
         this.feedId = feedId;
     }
 
@@ -82,5 +92,18 @@ public class FeedEntry implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "FeedEntry{" +
+                "feedEntryId=" + feedEntryId +
+                ", feedId=" + feedId +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", publishedDate=" + publishedDate +
+                ", uri='" + uri + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
