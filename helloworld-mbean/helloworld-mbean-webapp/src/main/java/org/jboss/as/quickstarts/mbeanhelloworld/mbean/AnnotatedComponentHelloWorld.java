@@ -25,13 +25,13 @@ import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
 /**
  * Mbean component using .@MXBean annotation.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 @Singleton
 @Startup
 public class AnnotatedComponentHelloWorld extends AbstractComponentMBean implements IAnnotatedHelloWorldMBean {
-    
+
     private String welcomeMessage = "Hello";
     private long count = 0;
 

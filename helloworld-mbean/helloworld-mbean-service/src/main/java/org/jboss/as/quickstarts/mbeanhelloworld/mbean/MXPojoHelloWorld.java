@@ -19,7 +19,7 @@ package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 /**
  * Mbean pojo using MXBean interface and declared in jboss-service.xml.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 public class MXPojoHelloWorld implements IHelloWorldMXBean {

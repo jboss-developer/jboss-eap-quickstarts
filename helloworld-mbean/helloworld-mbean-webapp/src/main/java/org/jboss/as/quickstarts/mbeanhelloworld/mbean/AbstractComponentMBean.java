@@ -26,12 +26,12 @@ import javax.management.ObjectName;
 /**
  * Abstract component class to register it as mbean.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 public abstract class AbstractComponentMBean {
 
-    private String domain; 
+    private String domain;
     private String name;
     private MBeanServer mbeanServer;
     private ObjectName objectName = null;
@@ -45,13 +45,13 @@ public abstract class AbstractComponentMBean {
     protected void startup() {
         this.name = this.getClass().getSimpleName();
         try {
-            objectName = new ObjectName(domain,"type",name);
+            objectName = new ObjectName(domain, "type", name);
             mbeanServer = ManagementFactory.getPlatformMBeanServer();
             mbeanServer.registerMBean(this, objectName);
-    
+
         } catch (Exception e) {
             throw new IllegalStateException("Error during registration of "
-                    + name + " into JMX:" + e, e);
+                + name + " into JMX:" + e, e);
         }
     }
 
@@ -62,7 +62,7 @@ public abstract class AbstractComponentMBean {
             mbeanServer.unregisterMBean(this.objectName);
         } catch (Exception e) {
             throw new IllegalStateException("Error during unregistration of "
-                    + name + " into JMX:" + e, e);
+                + name + " into JMX:" + e, e);
         }
     }
 

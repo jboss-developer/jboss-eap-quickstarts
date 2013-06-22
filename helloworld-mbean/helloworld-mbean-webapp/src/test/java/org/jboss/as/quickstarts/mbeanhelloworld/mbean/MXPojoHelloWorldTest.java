@@ -19,6 +19,7 @@ package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 
+import javax.enterprise.inject.spi.Extension;
 import javax.management.Attribute;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServer;
@@ -27,6 +28,7 @@ import javax.management.ObjectName;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
+import org.jboss.as.quickstarts.mbeanhelloworld.util.CDIExtension;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -38,7 +40,7 @@ import org.junit.runner.RunWith;
 /**
  * Testing pojo mbean with mxbean interface.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 @RunWith(Arquillian.class)
@@ -54,8 +56,9 @@ public class MXPojoHelloWorldTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class,"test.war")
-                .addClasses(MXPojoHelloWorld.class).addClasses(IHelloWorldMXBean.class).addClasses(HelloService.class)
+                .addClasses(MXPojoHelloWorld.class, IHelloWorldMXBean.class, HelloService.class, CDIExtension.class)
                 .addAsManifestResource(new File(WEBAPP_SRC, "META-INF/jboss-service.xml"), "jboss-service.xml")
+                .addAsServiceProvider(Extension.class, CDIExtension.class)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 

@@ -1,10 +1,11 @@
 helloworld-mbean: Helloworld Using MBean and CDI component
-==========================================================================
+======================================================
 Author: Lagarde Jeremie
 Level: Intermediate
 Technologies: CDI, JMX and MBean
 Summary: Demonstrates the use of CDI 1.0 and MBean
 Target Product: EAP
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
@@ -59,11 +60,36 @@ _NOTE: The following build command assumes you have configured your Maven user s
 4. This will deploy `helloworld-mbean-webapp\target\jboss-as-helloworld-mbean-webapp.war` and `helloworld-mbean-service\target\jboss-as-helloworld-mbean-service.sar` to the running instance of the server.
 
 
-Access the application 
----------------------
+Access and Test the MBeans  
+--------------------------
+This quickstart differs from the other quickstarts in that it uses 'JConsole' to access and test the quickstart rather than access an URL in the browser. If you do access http://localhost:8080/jboss-as-helloworld-mbean-webapp/, you will see a screen shot image of the JConsole application,
 
-The application is deployed to <http://localhost:8080/jboss-as-helloworld-mbean-webapp>.
+The following sections describe how to use 'JConsole' to inspect and test the MBeans. 
 
+Start JConsole
+--------------
+
+To connect to the JBoss server using jconsole, open a command line and type the following command :
+
+        For Linux:   JDK_HOME/bin/jconsole
+        For Windows: JDK_HOME\bin\jconsole.exe
+
+Select JBoss process and connect to it.
+
+![MBeans in JConsole Connection](helloworld-mbean-webapp/src/main/webapp/jconsole_connection.png)
+ 
+Test the MBeans in JConsole
+---------------------------
+
+You can use JConsole to inspect and use the MBeans :
+![MBeans in JConsole](helloworld-mbean-webapp/src/main/webapp/jconsole.png)
+
+1. Click on the MBeans tab.
+2. Expand `quickstarts` in the left column of the console.
+3. Under `quickstarts`, you see the 4 MBeans: `AnnotatedComponentHelloWorld`, `MXComponentHelloWorld`, `MXPojoHelloWorld`, and `SarMXPojoHelloWorld`
+4. Expand each MBean and choose: `Operations` --> `sayHello`.
+5. Type your name in the (p0 String ) input text box and click the sayHello button.
+6. You will see a popup Window displaying Hello `<your name>`!.
 
 
 Undeploy the Archive

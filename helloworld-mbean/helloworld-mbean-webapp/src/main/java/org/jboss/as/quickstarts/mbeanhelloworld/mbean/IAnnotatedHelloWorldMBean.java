@@ -21,7 +21,7 @@ import javax.management.MXBean;
 /**
  * Annotated interface.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 @MXBean

@@ -25,7 +25,7 @@ import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
 /**
  * Mbean component using .MXBean interface.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 @Singleton
@@ -41,7 +41,7 @@ public class MXComponentHelloWorld extends AbstractComponentMBean implements IHe
     public MXComponentHelloWorld() {
         super("quickstarts");
     }
-    
+
     @Override
     public long getCount() {
         return count;

@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
 /**
  * Testing annotated component mbean.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 @RunWith(Arquillian.class)

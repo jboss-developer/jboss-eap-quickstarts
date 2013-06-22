@@ -16,22 +16,16 @@
  */
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
+import org.jboss.as.quickstarts.mbeanhelloworld.util.CDIExtension;
 
 /**
  * Mbean pojo using MXBean interface and declared in jboss-service.xml.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
-public class MXPojoHelloWorld  implements IHelloWorldMXBean  {
+public class MXPojoHelloWorld implements IHelloWorldMXBean {
 
     private String welcomeMessage = "Hello";
     private long count = 0;
@@ -55,28 +49,7 @@ public class MXPojoHelloWorld  implements IHelloWorldMXBean  {
     @Override
     public String sayHello(String name) {
         count++;
-        Context context = null;
-        BeanManager beanManager = null;
-        HelloService helloService;
-        try {
-            context = new InitialContext();
-            beanManager = (BeanManager) context.lookup("java:comp/BeanManager");
-            @SuppressWarnings("unchecked")
-            final Bean<HelloService> bean = (Bean<HelloService>) beanManager.getBeans(HelloService.class).iterator().next(); 
-            final CreationalContext<HelloService> ctx = beanManager.createCreationalContext(bean);
-            helloService = (HelloService) beanManager.getReference(bean, bean.getClass(), ctx);
-            return helloService.createHelloMessage(welcomeMessage, name);
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }finally {
-            if (context != null) {
-                try {
-                    context.close();
-                }
-                catch (NamingException e) {
-                }
-            }
-        }
-        return null;
+        HelloService helloService = CDIExtension.getBean(HelloService.class);
+        return helloService.createHelloMessage(welcomeMessage, name);
     }
 }

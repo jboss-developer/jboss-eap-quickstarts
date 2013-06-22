@@ -19,7 +19,7 @@ package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 /**
  * Annotated interface.
  * 
- * @author Jérémie Lagarde
+ * @author Jeremie Lagarde
  * 
  */
 public interface IHelloWorldMXBean {
@@ -28,6 +28,7 @@ public interface IHelloWorldMXBean {
 
     // Read write attribute
     void setWelcomeMessage(String message);
+
     String getWelcomeMessage();
 
     // Method
