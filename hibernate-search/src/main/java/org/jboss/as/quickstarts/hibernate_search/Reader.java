@@ -59,7 +59,7 @@ public class Reader {
                 System.out.println("feedEntry"+feedEntry);
                 feedHandler.addFeedEntry(feedEntry);
 
-                /*System.out.println("Title:"+entry.getTitle());
+                System.out.println("Title:"+entry.getTitle());
                 System.out.println("Author:"+entry.getAuthor());
                 System.out.println("Cpntents:"+entry.getContents());
                 ////System.out.println("Des:"+entry.getDescription());
@@ -74,7 +74,7 @@ public class Reader {
                 System.out.println("UpdatedDate:"+entry.getUpdatedDate());
                 System.out.println("links:"+entry.getLinks());
                 System.out.println("entry:"+entry.getWireEntry());
-                System.out.println("entry:"+entry.hashCode());*/
+                System.out.println("entry:"+entry.hashCode());
             }
         } finally {
             if (reader != null)

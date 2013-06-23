@@ -29,6 +29,10 @@ public class FeedEntry implements Serializable {
     @JoinColumn(name="feedId", updatable=false, insertable=false)
     private Feed feed;
 
+    public FeedEntry(){
+
+    }
+
     public FeedEntry(int feedId, String title, String author, Date publishedDate, String uri, String description) {
         this.feedId = feedId;
         this.title = title;
@@ -86,6 +90,7 @@ public class FeedEntry implements Serializable {
         this.uri = uri;
     }
 
+    @Column(name = "description", nullable = false, length = 2000)
     public String getDescription() {
         return description;
     }

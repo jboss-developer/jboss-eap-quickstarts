@@ -7,10 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by IntelliJ IDEA.
  * User: tharinduj
- * Date: Jan 13, 2012
- * Time: 10:33:06 PM
+ * This is the sequence generating table that is required for auto increment for table column
+ * Required for MySQL with Hibernate to do this way
  */
 @Entity
 @Table(name = "SEQUENCE_TABLE")
@@ -19,9 +18,6 @@ public class SequenceBean {
 
     private String sequenceName;
     private int sequenceCount;
-
-    public SequenceBean() {
-    }
 
     public SequenceBean(String sequenceName, int sequenceCount) {
         this.sequenceName = sequenceName;

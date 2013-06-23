@@ -5,7 +5,7 @@ package org.jboss.as.quickstarts.hibernate_search.model.util;
  * User: SSC1
  * Date: 6/21/13
  * Time: 11:50 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 
 import org.hibernate.SessionFactory;
