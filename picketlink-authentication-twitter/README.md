@@ -40,6 +40,17 @@ NOTE: Twitter does not allow localhost as callback url due to security reasons. 
 as follows:
 127.0.0.1 SOMEHOST.com    localhost
 
+Configure JBoss Enterprise Application Platform 6
+-------------------------------------------------
+
+In JBOSS_HOME/standalone/configuration/standalone.xml, add the following block, right after </extensions>:
+
+<system-properties>
+        <property name="TWIT_CLIENT_ID" value="client id provided by twitter"/>
+        <property name="TWIT_CLIENT_SECRET" value="client secret provided by twitter"/>
+        <property name="TWIT_RETURN_URL" value="http://SOMEHOST.com:8080/jboss-as-picketlink-authentication-twitter/"/>
+    </system-properties>
+
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 

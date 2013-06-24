@@ -37,6 +37,16 @@ AppSecret: provided by facebook
 Site URL: http://localhost:8080/jboss-as-picketlink-authentication-facebook/
 Listed Platforms:  Website with Facebook Login
 
+Setup JBoss Enterprise Application Platform 6
+---------------------------------------------
+In JBOSS_HOME/standalone/configuration/standalone.xml, add the following block, right after </extensions>:
+<system-properties>
+     <property name="FB_CLIENT_ID" value="Client ID provided by facebook"/>
+     <property name="FB_CLIENT_SECRET" value="Client secret provided by facebook"/>
+     <property name="FB_RETURN_URL" value="http://localhost:8080/jboss-as-picketlink-authentication-facebook/"/>
+</system-properties>
+
+
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 
