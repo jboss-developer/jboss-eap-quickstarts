@@ -59,12 +59,11 @@ public class Feed implements Serializable {
         this.author = author;
     }
 
-    @Column(name = "copyright", nullable = false, length = 1000)
+    @Column(name = "copyright", nullable = false, columnDefinition="LONGTEXT", length = 1000)
     public String getCopyright() {
         return copyright;
     }
 
-    @Column(name = "copyright", nullable = false, length = 1000)
     public void setCopyright(String copyright) {
         this.copyright = copyright;
     }
@@ -73,7 +72,7 @@ public class Feed implements Serializable {
         return description;
     }
 
-    @Column(name = "description", nullable = false, length = 1000)
+    @Column(name = "description", nullable = false, columnDefinition="LONGTEXT", length = 1000)
     public void setDescription(String description) {
         this.description = description;
     }

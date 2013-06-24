@@ -35,6 +35,7 @@ public class FeedHandler {
             feedId = (Integer) session.save(feed);
             transaction.commit();
         } catch (HibernateException e) {
+            System.out.println("EX HAPPENED"+feed);
             transaction.rollback();
             e.printStackTrace();
         } finally {

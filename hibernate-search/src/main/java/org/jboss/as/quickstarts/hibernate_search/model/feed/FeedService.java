@@ -74,6 +74,7 @@ public class FeedService {
             for (Iterator j = feedEntryList.iterator(); j.hasNext(); ) {
                 FeedEntry feedEntry = (FeedEntry)j.next();
                 if(!feedHandler.checkFeedEntry(feedEntry.getTitle())){
+                    feedEntry.setFeedId(feed.getId());
                     feedHandler.addFeedEntry(feedEntry);
                 }else{
                     System.out.println("duplicate found not updating");
@@ -84,18 +85,16 @@ public class FeedService {
 
     public static void main(String[] args) {
         List<String> feedList = new ArrayList<String>();
-        feedList.add("http://feeds.reuters.com/Reuters/worldNews");
+//        feedList.add("http://feeds.reuters.com/Reuters/worldNews");
 //        feedList.add("http://feeds.reuters.com/reuters/sportsNews");
-//        feedList.add("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml");
-//        feedList.add("http://feeds.bbci.co.uk/news/rss.xml");
+        feedList.add("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml");
+        feedList.add("http://feeds.bbci.co.uk/news/rss.xml");
         feedList.add("http://www.espncricinfo.com/rss/content/story/feeds/0.xml");
         FeedService feedService = new FeedService();
         for (Iterator i = feedList.iterator(); i.hasNext(); ) {
             feedService.submitFeed((String)i.next());
         }
-
         feedService.reedAllFeeds();
-
     }
     
     

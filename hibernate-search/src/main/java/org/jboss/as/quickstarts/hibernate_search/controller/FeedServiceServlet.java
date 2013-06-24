@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name="GuestServlet", urlPatterns={"/guest"})
-public class ServiceServlet {
-
-    private static final long serialVersionUID = 1L;
+@WebServlet(name="FeedServiceServlet", urlPatterns={"/feedService"})
+public class FeedServiceServlet extends HttpServlet {
 
 
     protected void doGet(
