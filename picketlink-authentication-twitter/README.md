@@ -1,4 +1,4 @@
-picketlink-authentication-facebook: PicketLink Authentication with Twitter login
+picketlink-authentication-twitter: PicketLink Authentication with Twitter login
 ===============================
 Author: Anil Saldhana
 Technologies: CDI, PicketLink
@@ -10,6 +10,9 @@ What is it?
 -----------
 
 This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
+This quickstart demonstrates using Twitter Login as the authentication mechanism for a Java EE application.
+This example uses an application filter called TwitterFilter that makes use of PicketLink provided authenticator
+called TwitterAuthenticator, for Twitter login functionality.
 
 System requirements
 -------------------
@@ -29,6 +32,29 @@ Obtain Twitter Application ClientID, ClientSecret
 --------------------------------------------------
 You will have to log in to Twitter Developer (https://dev.twitter.com/) account and register an application.
 Then you will be provided a ClientID and ClientSecret. 
+
+As an example,
+Consumer Key: provided by Twitter
+Consumer Secret: provided by Twitter
+Website: some publicly accessible url
+Callback URL:http://SOMEHOST.com:8080/jboss-as-picketlink-authentication-twitter/ 
+
+NOTE: Twitter does not allow localhost as callback url due to security reasons. If you are testing an app on localhost, you can do some type of host mapping such as /etc/hosts
+as follows:
+127.0.0.1 SOMEHOST.com    localhost
+
+
+Configure JBoss Enterprise Application Platform 6
+-------------------------------------------------
+
+In JBOSS_HOME/standalone/configuration/standalone.xml, add the following block, right after </extensions>:
+
+<system-properties>
+        <property name="TWIT_CLIENT_ID" value="client id provided by twitter"/>
+        <property name="TWIT_CLIENT_SECRET" value="client secret provided by twitter"/>
+        <property name="TWIT_RETURN_URL" value="http://SOMEHOST.com:8080/jboss-as-picketlink-authentication-twitter/"/>
+    </system-properties>
+
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
