@@ -206,6 +206,7 @@
                 <module>kitchensink-backbone</module>
                 <module>kitchensink-deltaspike</module>
                 <module>kitchensink-ear</module>
+                <module>kitchensink-grails</module>
                 <module>kitchensink-html5-mobile</module>
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
