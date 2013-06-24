@@ -30,6 +30,16 @@ Obtain Twitter Application ClientID, ClientSecret
 You will have to log in to Twitter Developer (https://dev.twitter.com/) account and register an application.
 Then you will be provided a ClientID and ClientSecret. 
 
+As an example,
+Consumer Key: provided by Twitter
+Consumer Secret: provided by Twitter
+Website: some publicly accessible url
+Callback URL:http://SOMEHOST.com:8080/jboss-as-picketlink-authentication-twitter/ 
+
+NOTE: Twitter does not allow localhost as callback url due to security reasons. If you are testing an app on localhost, you can do some type of host mapping such as /etc/hosts
+as follows:
+127.0.0.1 SOMEHOST.com    localhost
+
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 

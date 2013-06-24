@@ -30,6 +30,13 @@ Obtain Facebook Application ClientID, ClientSecret
 You will have to log in to Facebook Developer (http://developers.facebook.com/) account and register an application.
 Then you will be provided a ClientID and ClientSecret. 
 
+As an example,
+Name of App: MyTestApp
+AppID: provided by facebook
+AppSecret: provided by facebook
+Site URL: http://localhost:8080/jboss-as-picketlink-authentication-facebook/
+Listed Platforms:  Website with Facebook Login
+
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 
