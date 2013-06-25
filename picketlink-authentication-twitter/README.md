@@ -9,7 +9,7 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
+This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6*.
 This quickstart demonstrates using Twitter Login as the authentication mechanism for a Java EE application.
 This example uses an application filter called TwitterFilter that makes use of PicketLink provided authenticator
 called TwitterAuthenticator, for Twitter login functionality.
@@ -19,7 +19,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on JBoss Enterprise Application Platform 6. 
 
  
 Configure Maven
@@ -34,14 +34,16 @@ You will have to log in to Twitter Developer (https://dev.twitter.com/) account 
 Then you will be provided a ClientID and ClientSecret. 
 
 As an example,
-Consumer Key: provided by Twitter
-Consumer Secret: provided by Twitter
-Website: some publicly accessible url
-Callback URL:http://SOMEHOST.com:8080/jboss-as-picketlink-authentication-twitter/ 
+
+     Consumer Key: provided by Twitter
+     Consumer Secret: provided by Twitter
+     Website: some publicly accessible url
+     Callback URL: http://SOMEHOST.com:8080/jboss-as-picketlink-authentication-twitter/ 
 
 NOTE: Twitter does not allow localhost as callback url due to security reasons. If you are testing an app on localhost, you can do some type of host mapping such as /etc/hosts
 as follows:
-127.0.0.1 SOMEHOST.com    localhost
+
+     127.0.0.1 SOMEHOST.com    localhost
 
 
 Configure JBoss Enterprise Application Platform 6
@@ -56,7 +58,7 @@ In JBOSS_HOME/standalone/configuration/standalone.xml, add the following block, 
     </system-properties>
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss Enterprise Application Platform 6
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -77,13 +79,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-picketlink-authentication.war` to the running instance of the server.
+4. This will deploy `target/jboss-as-picketlink-authentication-twitter.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-picketlink-authentication-facebook/>. 
+The application will be running at the following URL: <http://localhost:8080/jboss-as-picketlink-authentication-twitter/>. 
 
 
 Undeploy the Archive
