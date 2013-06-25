@@ -117,7 +117,6 @@
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-api</artifactId>
-      <version>2.5.0-SNAPSHOT</version>
     </dependency>
 
     <!-- Import the PicketLink implementation, we deploy this as library with the application, 
@@ -125,7 +124,6 @@
     <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-impl</artifactId>
-      <version>2.5.0-SNAPSHOT</version>
       <scope>runtime</scope>
     </dependency>
 
