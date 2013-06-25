@@ -58,7 +58,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-picketlink-authentication-http-digest.war` to the running instance of the server.
+4. This will deploy `target/jboss-as-picketlink-authentication-form.war` to the running instance of the server.
 
 
 Access the application 
