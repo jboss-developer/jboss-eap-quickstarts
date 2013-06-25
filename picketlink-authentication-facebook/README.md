@@ -9,17 +9,17 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.
+This example demonstrates the use of *CDI 1.0* and *PicketLink* in *JBoss Enterprise Application Platform 6*.
 In this quickstart, we will use Facebook login to authenticate an user.
-This quickstart demonstrates use of an application filter which we call FacebookFilter. The FacebookFilter uses PicketLink provided 
-FacebookAuthenticator.
+This quickstart demonstrates use of an application filter which we call `FacebookFilter`. The `FacebookFilter` uses PicketLink provided 
+`FacebookAuthenticator`.
 
 System requirements
 -------------------
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on JBoss Enterprise Application Platform 6. 
 
  
 Configure Maven
@@ -35,23 +35,25 @@ Obtain Facebook Application ClientID, ClientSecret
 3. Then you will be provided a ClientID and ClientSecret. 
 
 As an example,
-Name of App: MyTestApp
-AppID: provided by facebook
-AppSecret: provided by facebook
-Site URL: http://localhost:8080/jboss-as-picketlink-authentication-facebook/
-Listed Platforms:  Website with Facebook Login
+
+     Name of App: MyTestApp
+     AppID: provided by facebook
+     AppSecret: provided by facebook
+     Site URL: http://localhost:8080/jboss-as-picketlink-authentication-facebook/
+     Listed Platforms:  Website with Facebook Login
 
 Setup JBoss Enterprise Application Platform 6
 ---------------------------------------------
 In JBOSS_HOME/standalone/configuration/standalone.xml, add the following block, right after </extensions>:
-<system-properties>
-     <property name="FB_CLIENT_ID" value="Client ID provided by facebook"/>
-     <property name="FB_CLIENT_SECRET" value="Client secret provided by facebook"/>
-     <property name="FB_RETURN_URL" value="http://localhost:8080/jboss-as-picketlink-authentication-facebook/"/>
-</system-properties>
+
+     <system-properties>
+        <property name="FB_CLIENT_ID" value="Client ID provided by facebook"/>
+        <property name="FB_CLIENT_SECRET" value="Client secret provided by facebook"/>
+        <property name="FB_RETURN_URL" value="http://localhost:8080/jboss-as-picketlink-authentication-facebook/"/>
+     </system-properties>
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss Enterprise Application Platform 6
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -72,7 +74,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-picketlink-authentication.war` to the running instance of the server.
+4. This will deploy `target/jboss-as-picketlink-authentication-facebook.war` to the running instance of the server.
 
 
 Access the application 
