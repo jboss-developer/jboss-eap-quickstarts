@@ -1,4 +1,4 @@
-picketlink-authentication-http-digest: PicketLink HTTP Digest Authentication
+picketlink-authentication-form: PicketLink FORM Authentication
 ===============================
 Author: Anil Saldhana
 Level: Beginner
