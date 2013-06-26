@@ -42,15 +42,73 @@ As an example,
      Site URL: http://localhost:8080/jboss-as-picketlink-authentication-facebook/
      Listed Platforms:  Website with Facebook Login
 
-Setup JBoss Enterprise Application Platform 6
----------------------------------------------
-In JBOSS_HOME/standalone/configuration/standalone.xml, add the following block, right after </extensions>:
+Configure the JBoss Enterprise Application Platform 6.1
+--------------------------------------------------------
 
-     <system-properties>
-        <property name="FB_CLIENT_ID" value="Client ID provided by facebook"/>
-        <property name="FB_CLIENT_SECRET" value="Client secret provided by facebook"/>
+These steps asume that you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.
+
+You can configure the server `system-property` values by running the  `configure-facebook.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file. The three different approaches are described below. Whichever approach you choose, it must be completed before you deploy the quickstart.
+
+_NOTE - Before you begin:_
+
+1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+
+#### Configure the Facebook system-properties by Running the JBoss CLI Script
+
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+
+        For Linux:  JBOSS_HOME/bin/standalone.sh 
+        For Windows:  JBOSS_HOME\bin\standalone.bat
+2. Open the `configure-facebook.cli` file in an editor. Replace  `YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET_CODE`, and `YOUR_RETURN_URL` with the values provided when you registered as a Facebook developer.
+3. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-facebook.cli
+This script adds the system-property valuse to the the server configuration. You should see the following result when you run the script:
+
+        #1 /system-property=FB_CLIENT_ID:add(value="YOUR_CLIENT_ID")
+        #2 /system-property=FB_CLIENT_SECRET:add(value="YOUR_CLIENT_SECRET_CODE")
+        #3 /system-property=FB_CLIENT_RETURN_URL:add(value="YOUR_RETURN_URL/")
+        The batch executed successfully.
+        {"outcome" => "success"}
+
+
+### Configure the Facebook system-properties Using the JBoss CLI Interactively
+
+1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server by typing the following: 
+
+		For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
+		For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
+2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+    
+		For Linux: bin/jboss-cli.sh --connect
+		For Windows: bin\jboss-cli.bat --connect
+3. Add the Facebook system properties. At the prompt, enter the following series of commands, making sure to replace  `YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET_CODE`, and `YOUR_RETURN_URL` with the values provided when you registered as a Facebook developer. 
+
+		[standalone@localhost:9999 /] /system-property=FB_CLIENT_ID:add(value="YOUR_CLIENT_ID")
+		[standalone@localhost:9999 /] /system-property=FB_CLIENT_SECRET:add(value="YOUR_CLIENT_SECRET_CODE")
+		[standalone@localhost:9999 /] /system-property=FB_CLIENT_RETURN_URL:add(value="YOUR_RETURN_URL/")
+			
+		[standalone@localhost:9999 /] :reload
+
+You should see `{"outcome" => "success"}` after each command.
+
+### Configure the Facebook system-properties by Manually Editing the Server Configuration File
+
+1.  If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+3.  Open the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+4.  Add the following XML, right after </extensions>. Be sure to replace  `YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET_CODE`, and `YOUR_RETURN_URL` with the values provided when you registered as a Facebook developer. 
+
+        <system-properties>
+            <property name="FB_CLIENT_ID" value="YOUR_CLIENT_ID"/>
+            <property name="FB_CLIENT_SECRET" value="YOUR_CLIENT_SECRET_CODE"/>
+            <property name="FB_RETURN_URL" value="YOUR_RETURN_URL"/>
+        </system-properties>
+
+An example for the return url would be:
         <property name="FB_RETURN_URL" value="http://localhost:8080/jboss-as-picketlink-authentication-facebook/"/>
-     </system-properties>
 
 
 Start JBoss Enterprise Application Platform 6
@@ -92,6 +150,30 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
+
+You can remove the Facebook system-properties  by running the  `remove-facebook.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
+
+### Remove the Facebook Configuration by Running the JBoss CLI Script
+
+1. Start the JBoss Enterprise Application Platform 6 Server by typing the following: 
+
+        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-facebook.cli 
+This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
+
+        #1 /system-property=FB_CLIENT_ID:remove
+        #2 /system-property=FB_CLIENT_SECRET:remove
+        #3 /system-property=FB_CLIENT_RETURN_URL:remove
+        The batch executed successfully.
+        {"outcome" => "success"}
+
+
+### Remove the Facebook Configuration Manually
+1. If it is running, stop the JBoss Enterprise Application Platform 6 .
+2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
