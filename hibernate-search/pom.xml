@@ -181,11 +181,11 @@
         </dependency>-->
         
         <!-- Import the RESTEASY API, we don't use provided scope as the I am not sure this API is included in JBoss AS 7 -->
-        <dependency>
+        <!--<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 			<version>2.2.1.GA</version>
-		</dependency>
+		</dependency>-->
 		
 		<dependency>
 			<groupId>net.java.dev.rome</groupId>

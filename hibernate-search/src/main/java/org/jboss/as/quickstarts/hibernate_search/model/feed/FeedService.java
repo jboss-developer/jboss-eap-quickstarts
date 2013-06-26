@@ -4,6 +4,7 @@ import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -83,6 +84,22 @@ public class FeedService {
         }
     }
 
+    public FeedProcessor getFeedProcessor() {
+        return feedProcessor;
+    }
+
+    public void setFeedProcessor(FeedProcessor feedProcessor) {
+        this.feedProcessor = feedProcessor;
+    }
+
+    public FeedHandler getFeedHandler() {
+        return feedHandler;
+    }
+
+    public void setFeedHandler(FeedHandler feedHandler) {
+        this.feedHandler = feedHandler;
+    }
+
     public static void main(String[] args) {
         List<String> feedList = new ArrayList<String>();
 //        feedList.add("http://feeds.reuters.com/Reuters/worldNews");
@@ -96,6 +113,9 @@ public class FeedService {
         }
         feedService.reedAllFeeds();
     }
-    
-    
+
+
+    public Collection<FeedEntry> searchFeeds(String text) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
 }
