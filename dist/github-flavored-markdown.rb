@@ -56,7 +56,7 @@ class HTMLWithPygmentsAndPants < Redcarpet::Render::HTML
       end
     end
     @headers << permalink
-    %(\n<h#{level}><a name="#{permalink}" class="anchor" href="##{permalink}"><span class="anchor-icon"></span></a>#{title}</h#{level}>\n)
+    %(\n<h#{level}><a id="#{permalink}" class="anchor" href="##{permalink}"><span class="anchor-icon"></span></a>#{title}</h#{level}>\n)
   end
 end
 
@@ -142,7 +142,7 @@ def markdown(source_path)
   rendered = markdown.render(text)
   metadata(source_path.path, rendered)
   rendered = rendered.gsub(/README.md/, "README.html").gsub(/CONTRIBUTING.md/, "CONTRIBUTING.html")
-  '<html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>' + rendered + '</body></html>'
+  '<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>' + rendered + '</body></html>'
   end
 
 def optionize(options)
