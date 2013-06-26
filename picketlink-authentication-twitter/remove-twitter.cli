@@ -1,0 +1,15 @@
+# Batch script to remove the Twitter configuration
+batch
+
+# Rmove the Twitter sytem-properties
+/system-property=TWIT_CLIENT_ID:remove
+/system-property=TWIT_CLIENT_SECRET:remove
+/system-property=TWIT_RETURN_URL:remove
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+:reload
+
+
