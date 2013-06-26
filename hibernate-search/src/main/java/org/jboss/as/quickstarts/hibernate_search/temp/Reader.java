@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.hibernate_search;
+package org.jboss.as.quickstarts.hibernate_search.temp;
 
 
 import java.net.URL;

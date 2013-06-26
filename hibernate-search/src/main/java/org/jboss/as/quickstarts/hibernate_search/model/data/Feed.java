@@ -1,5 +1,7 @@
 package org.jboss.as.quickstarts.hibernate_search.model.data;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -28,6 +30,7 @@ public class Feed implements Serializable {
     private String url;
 
     @OneToMany(mappedBy = "feed")
+    @JsonIgnore
     private List<FeedEntry> feedEntryList;
 
     public Feed(){

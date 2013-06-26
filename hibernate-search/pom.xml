@@ -181,11 +181,26 @@
         </dependency>-->
         
         <!-- Import the RESTEASY API, we don't use provided scope as the I am not sure this API is included in JBoss AS 7 -->
-        <!--<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.2.1.GA</version>
-		</dependency>-->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>2.3.1.GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JAXB support -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxb-provider</artifactId>
+            <version>2.3.1.GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- multipart/form-data and multipart/mixed support -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+            <version>2.3.1.GA</version>
+            <scope>provided</scope>
+        </dependency>
 		
 		<dependency>
 			<groupId>net.java.dev.rome</groupId>

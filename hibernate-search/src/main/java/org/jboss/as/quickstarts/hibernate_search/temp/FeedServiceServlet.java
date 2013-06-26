@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.hibernate_search.controller;
+package org.jboss.as.quickstarts.hibernate_search.temp;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

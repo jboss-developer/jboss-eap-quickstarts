@@ -3,6 +3,8 @@ package org.jboss.as.quickstarts.hibernate_search.model.feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,6 +16,8 @@ import java.util.List;
  * Date: 6/23/13
  * Time: 9:07 PM
  */
+@Consumes({"application/json"})
+@Produces({"application/json"})
 public class FeedService {
     private FeedProcessor feedProcessor = null;
     private FeedHandler feedHandler = null;
@@ -78,7 +82,7 @@ public class FeedService {
                     feedEntry.setFeedId(feed.getId());
                     feedHandler.addFeedEntry(feedEntry);
                 }else{
-                    System.out.println("duplicate found not updating");
+//                    System.out.println("duplicate found not updating");
                 }
             }
         }
@@ -107,6 +111,8 @@ public class FeedService {
         feedList.add("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml");
         feedList.add("http://feeds.bbci.co.uk/news/rss.xml");
         feedList.add("http://www.espncricinfo.com/rss/content/story/feeds/0.xml");
+//        http://www.nasa.gov/rss/
+//        feedList.add("http://www.nasa.gov/rss/breaking_news.rss");
         FeedService feedService = new FeedService();
         for (Iterator i = feedList.iterator(); i.hasNext(); ) {
             feedService.submitFeed((String)i.next());
