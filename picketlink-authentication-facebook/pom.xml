@@ -56,6 +56,8 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
 
+        <!--PicketLink dependencies -->
+        <picketlink.social.version>2.5.0.Beta4</picketlink.social.version>
     </properties>
 
     <dependencyManagement>
@@ -133,7 +135,7 @@
         <dependency>
             <groupId>org.picketlink</groupId>
             <artifactId>picketlink-social</artifactId>
-            <version>2.5.0.Beta4</version>
+            <version>${picketlink.social.version}</version>
             <exclusions>
               <exclusion>
                 <groupId>com.google.code.guice</groupId>
