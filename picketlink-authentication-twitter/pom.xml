@@ -133,6 +133,13 @@
             <groupId>org.picketlink</groupId>
             <artifactId>picketlink-social</artifactId>
             <version>2.5.0.Beta4</version>
+            <exclusions>
+              <exclusion>
+                <groupId>com.google.code.guice</groupId>
+                <artifactId>guice</artifactId>
+              </exclusion>
+            </exclusions>
+
         </dependency>
         <dependency>
             <groupId>org.twitter4j</groupId>
