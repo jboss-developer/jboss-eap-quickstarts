@@ -21,8 +21,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import org.apache.deltaspike.security.api.authorization.annotation.SecurityBindingType;
+import org.apache.deltaspike.security.api.authorization.SecurityBindingType;
 
 /**
  * A security binding type that can be used to restrict access to the beans and methods
