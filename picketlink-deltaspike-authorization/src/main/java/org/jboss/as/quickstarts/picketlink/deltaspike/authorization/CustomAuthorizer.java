@@ -17,8 +17,7 @@
 package org.jboss.as.quickstarts.picketlink.deltaspike.authorization;
 
 import javax.enterprise.context.ApplicationScoped;
-
-import org.apache.deltaspike.security.api.authorization.annotation.Secures;
+import org.apache.deltaspike.security.api.authorization.Secures;
 import org.jboss.as.quickstarts.picketlink.deltaspike.authorization.annotations.Admin;
 import org.jboss.as.quickstarts.picketlink.deltaspike.authorization.annotations.Employee;
 import org.picketlink.Identity;
