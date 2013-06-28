@@ -1,0 +1,118 @@
+
+/* Prefix all pages with mb- for no collisions */
+
+/* Page class for all mobile pages */
+.mb-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: none;
+}
+
+/* 
+ * Slide
+ * slide pages horizontally
+ */
+@-webkit-keyframes slideInFromRight {
+  0% { -webkit-transform: translate3d(100%, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-webkit-keyframes slideOutToRight {
+  0% { -webkit-transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(100%, 0, 0); }
+}
+@-webkit-keyframes slideInFromLeft {
+  0% { -webkit-transform: translate3d(-100%,0,0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-webkit-keyframes slideOutToLeft {
+  0% { -webkit-transform: translate3d(0,0,0); }
+  100% { -webkit-transform: translate3d(-100%, 0, 0); }
+}
+.mb-slide {
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-timing-function: ease;
+}
+.mb-slide.mb-in {
+  -webkit-animation-name: slideInFromRight;
+}
+.mb-slide.mb-in.mb-reverse {
+  -webkit-animation-name: slideOutToRight;
+  -webkit-transform: translate3d(100%, 0, 0);
+}
+.mb-slide.mb-out {
+  -webkit-animation-name: slideOutToLeft;
+  -webkit-transform: translate3d(-100%, 0, 0);
+}
+.mb-slide.mb-out.mb-reverse {
+  -webkit-animation-name: slideInFromLeft;
+}
+
+/*
+ * Slide up and down - like modal, but exiting page is animated too.
+ */
+
+@-webkit-keyframes slideInFromTop {
+  0% { -webkit-transform: translate3d(0, 100%, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-webkit-keyframes slideOutToTop {
+  0% { -webkit-transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 100%, 0); }
+}
+@-webkit-keyframes slideInFromBottom {
+  0% { -webkit-transform: translate3d(0,-100%,0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-webkit-keyframes slideOutToBottom {
+  0% { -webkit-transform: translate3d(0,0,0); }
+  100% { -webkit-transform: translate3d(0, -100%, 0); }
+}
+
+.mb-slide-up {
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-timing-function: ease;
+}
+.mb-slide-up.mb-in {
+  -webkit-animation-name: slideInFromTop;
+}
+.mb-slide-up.mb-in.reverse {
+  -webkit-animation-name: slideOutToTop;
+  -webkit-transform: translate3d(0,-100%,0);
+}
+.mb-slide-up.mb-out {
+  -webkit-animation-name: slideOutToBottom;
+  -webkit-transform: translate3d(0,100%,0);
+}
+.mb-slide-up.mb-out.reverse {
+  -webkit-animation-name: slideInFromBottom;
+}
+
+
+/*
+ * Modal!
+ * slide a page in from the bottom onto a page
+ */
+@-webkit-keyframes modalUp {
+  0% { -webkit-transform: translate3d(0, 100%, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+@-webkit-keyframes modalDown {
+  0% { -webkit-transform: translate3d(0, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 100%, 0); }
+}
+.mb-modal {
+  z-index: 10;
+  -webkit-animation-duration: 0.4s;
+}
+.mb-modal.mb-in,
+.mb-modal.mb-out.mb-reverse {
+  -webkit-animation-name: modalUp;
+}
+.mb-modal.mb-in.mb-reverse,
+.mb-modal.mb-out {
+  z-index: 9; /* Lower than modal-in */
+  -webkit-animation-name: modalDown;
+  -webkit-transform: translate3d(0, 100%, 0);
+}
+
