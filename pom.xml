@@ -219,6 +219,7 @@
                 <module>payment-cdi-event</module>
                 <module>picketlink-authentication-http-basic</module>
                 <module>picketlink-authentication-http-digest</module>
+                <module>picketlink-authentication-http-client-cert</module>
                 <module>picketlink-authentication-idm-jsf</module>
                 <module>picketlink-authentication-idm-multi-tenancy</module>
                 <module>picketlink-authentication-jsf</module>
