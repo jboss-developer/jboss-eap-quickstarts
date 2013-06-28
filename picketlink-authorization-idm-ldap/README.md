@@ -14,14 +14,32 @@ What is it?
 You'll learn from this example how to authenticate and authorize users(role-based) against a LDAP server,
 using a LDAP-based Identity Store.
 
-If you want to configure the connection to your own LDAP server, please change the configuration defined in this class
-org.jboss.as.quickstarts.picketlink.idm.ldap.jsf.IDMConfiguration.
-
-Otherwise, you can use an embedded server by executing the following command *before* deploying the application:
-
-    mvn -Dtest=LDAPServer test
-
 The latest PicketLink documentation is available [here](http://docs.jboss.org/picketlink/2/latest/).
+
+Configure LDAP
+--------------------
+
+You can run this quickstart using your own or the embedded LDAP server. You must configure the LDAP server *before* you build and deploy the quickstart.
+
+### Configure the Quickstart to Use Your LDAP Server
+
+To run this quickstart using your own LDAP Server, modify the String constant values in the  `org.jboss.as.quickstarts.picketlink.idm.ldap.jsf.IDMConfiguration` class to the connection values for your LDAP server.
+
+### Configure the Quickstart to Use the Embedded LDAP Server
+
+To run this quickstart using an embedded LDAP server:
+
+1. Open a new command line.
+2. Execute the following command:
+
+        mvn -Dtest=LDAPServer test
+3. The prompt does not return, but you should see the following messages:
+
+        3284 [main] INFO org.apache.directory.server.core.event.EventInterceptor - Initializing ...
+        3286 [main] INFO org.apache.directory.server.core.event.EventInterceptor - Initialization complete.
+        Starting Apache DS server
+        3420 [main] INFO org.apache.directory.server.ldap.LdapServer - Successful bind of an LDAP Service (10389) is completed.
+        3420 [main] INFO org.apache.directory.server.ldap.LdapServer - Ldap service started.
 
 
 System requirements

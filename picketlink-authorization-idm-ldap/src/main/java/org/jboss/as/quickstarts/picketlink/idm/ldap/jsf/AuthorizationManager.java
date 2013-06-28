@@ -26,7 +26,7 @@ import org.picketlink.idm.model.Agent;
 import org.picketlink.idm.model.Role;
 
 /**
- * <p>This class centralizes all authorization services for this application.</p>
+ * <p>This bean class centralizes all authorization services for this application.</p>
  * 
  * @author pedroigor
  * 
@@ -40,13 +40,6 @@ public class AuthorizationManager {
 
     @Inject
     private IdentityManager identityManager;
-
-    private boolean hasRole(ApplicationRole applicationRole) {
-        Agent agent = getIdentity().getAgent();
-        Role role = this.identityManager.getRole(applicationRole.name());
-
-        return this.identityManager.hasRole(agent, role);
-    }
 
     public boolean isRisksManagementAllowed() {
         return isAdministrator() || (isProjectManager());
@@ -74,5 +67,18 @@ public class AuthorizationManager {
 
     private Identity getIdentity() {
         return this.identityInstance.get();
+    }
+
+    /**
+     * <p>Checks if the current user is grantes with the given role.</p>
+     *
+     * @param applicationRole
+     * @return
+     */
+    private boolean hasRole(ApplicationRole applicationRole) {
+        Agent agent = getIdentity().getAgent();
+        Role role = this.identityManager.getRole(applicationRole.name());
+
+        return this.identityManager.hasRole(agent, role);
     }
 }

@@ -36,7 +36,7 @@ public class IDMConfiguration {
      *     We use this method to produce a {@link IdentityConfiguration} configured with a LDAP store.
      * </p>
      *
-     * @param event
+     * @return
      */
     @Produces
     public IdentityConfiguration configure() {

@@ -43,6 +43,9 @@ public class IDMInitializer {
     @Inject
     private IdentityManager identityManager;
 
+    /**
+     * <p>Initializes the identity store with some default users and roles.</p>
+     */
     @PostConstruct
     public void createDefaultUsers() {
         createUser("admin", ADMINISTRATOR);

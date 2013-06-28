@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.picketlink.idm.totp.jsf;
+package org.jboss.as.quickstarts.picketlink.idm.ldap.jsf;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -22,8 +22,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.picketlink.Identity;
-import org.picketlink.credential.DefaultLoginCredentials;
-import org.picketlink.idm.IdentityManager;
 
 /**
  * We control the authentication process from this bean, so that in the event of a failed authentication we can add an
@@ -39,15 +37,11 @@ public class LoginController {
     private Identity identity;
 
     @Inject
-    private DefaultLoginCredentials loginCredentials;
-
-    @Inject
-    private IdentityManager identityManager;
-
-    @Inject
     private FacesContext facesContext;
 
     public String login() {
+        // let's authenticate the user. the credentials were provided by populating the <code>loginCredentials</code>
+        // named bean directly.
         this.identity.login();
 
         String result = null;
