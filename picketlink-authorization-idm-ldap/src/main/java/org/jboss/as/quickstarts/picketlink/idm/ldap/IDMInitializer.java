@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.as.quickstarts.picketlink.idm.ldap.jsf;
+package org.jboss.as.quickstarts.picketlink.idm.ldap;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -32,9 +32,9 @@ import org.picketlink.idm.model.Role;
 import org.picketlink.idm.model.SimpleRole;
 import org.picketlink.idm.model.SimpleUser;
 import org.picketlink.idm.model.User;
-import static org.jboss.as.quickstarts.picketlink.idm.ldap.jsf.ApplicationRole.ADMINISTRATOR;
-import static org.jboss.as.quickstarts.picketlink.idm.ldap.jsf.ApplicationRole.DEVELOPER;
-import static org.jboss.as.quickstarts.picketlink.idm.ldap.jsf.ApplicationRole.PROJECT_MANAGER;
+import static org.jboss.as.quickstarts.picketlink.idm.ldap.ApplicationRole.ADMINISTRATOR;
+import static org.jboss.as.quickstarts.picketlink.idm.ldap.ApplicationRole.DEVELOPER;
+import static org.jboss.as.quickstarts.picketlink.idm.ldap.ApplicationRole.PROJECT_MANAGER;
 
 @Startup
 @Singleton
