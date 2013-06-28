@@ -172,6 +172,8 @@
                 <module>deltaspike-deactivatable</module>
                 <module>deltaspike-exception-handling</module>
                 <module>deltaspike-helloworld-jms</module>
+                <module>deltaspike-partialbean-basic</module>
+                <module>deltaspike-partialbean-advanced</module>
                 <module>deltaspike-projectstage</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
