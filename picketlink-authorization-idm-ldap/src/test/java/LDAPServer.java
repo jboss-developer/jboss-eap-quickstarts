@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.picketbox.test.ldap.AbstractLDAPTest;
 
 /**
+ * <p>Simple test class that starts a Apache DS instance for testing.</p>
  */
 public class LDAPServer extends AbstractLDAPTest {
 

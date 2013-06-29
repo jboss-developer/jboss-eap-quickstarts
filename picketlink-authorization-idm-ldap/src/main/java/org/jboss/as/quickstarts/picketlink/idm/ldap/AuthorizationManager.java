@@ -70,7 +70,7 @@ public class AuthorizationManager {
     }
 
     /**
-     * <p>Checks if the current user is grantes with the given role.</p>
+     * <p>Checks if the current user is granted with the given role.</p>
      *
      * @param applicationRole
      * @return
