@@ -1,0 +1,22 @@
+[
+    {
+        "age": 6, 
+        "carrier": "Best Buy", 
+        "id": "nexus-s", 
+        "title": "Nexus S",
+        "description": "Fast just got faster with Nexus S. A pure Google experience, Nexus S is the first feed to run Gingerbread (Android 2.3), the fastest version of Android yet."
+    }, 
+    {
+        "age": 8, 
+        "id": "samsung-galaxy-tab", 
+        "title": "Samsung Galaxy Tab\u2122",
+        "description": "Feel Free to Tab\u2122. The Samsung Galaxy Tab\u2122 brings you an ultra-mobile entertainment experience through its 7\u201d display, high-power processor and Adobe\u00ae Flash\u00ae Player compatibility."
+    },
+    {
+        "age": 17, 
+        "id": "samsung-gem",
+        "title": "Samsung gem\u2122",
+        "description": "The Samsung gem\u2122 brings you a fun way to customize your Android powered touch screen feed to just the way you like it through your favorite themed \u201cSprint ID Service Pack\u201d."
+    }
+
+]

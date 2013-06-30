@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="title">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+
+    </div>
+    <div class="span10">
+      <!--Body content-->
+
+      <ul class="feeds">
+        <li ng-repeat="feed in feeds | filter:query | orderBy:orderProp">
+          <a href="#/feeds/{{feed.id}}">{{feed.title}}</a>
+          <p>{{feed.description}}</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

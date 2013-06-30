@@ -9,7 +9,7 @@ import javax.ws.rs.core.Application;
  * Date: 6/25/13
  * Time: 12:30 AM
  */
-@ApplicationPath("/services")
+@ApplicationPath("/rest")
 public class FeedReader extends Application {
 
 }

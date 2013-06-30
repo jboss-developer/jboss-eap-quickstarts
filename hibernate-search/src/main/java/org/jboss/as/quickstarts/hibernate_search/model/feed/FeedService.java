@@ -112,7 +112,7 @@ public class FeedService {
         feedList.add("http://feeds.bbci.co.uk/news/rss.xml");
         feedList.add("http://www.espncricinfo.com/rss/content/story/feeds/0.xml");
 //        http://www.nasa.gov/rss/
-//        feedList.add("http://www.nasa.gov/rss/breaking_news.rss");
+//        feedList.add("http://www .nasa.gov/rss/breaking_news.rss");
         FeedService feedService = new FeedService();
         for (Iterator i = feedList.iterator(); i.hasNext(); ) {
             feedService.submitFeed((String)i.next());
