@@ -32,34 +32,24 @@ public class FeedReaderService {
     }
 
     @GET
-    @Path("/feeds/{feedId}")
-    public Feed getFeed(@PathParam("feedId") Integer feedId) {
+    @Path("/feeds/{id}")
+    public Feed getFeed(@PathParam("id") Integer id) {
         //http://localhost:8080/jboss-as-hibernate-search/services/feedReader/feeds/46
-        return feedService.getFeedHandler().getFeed(feedId);
+        return feedService.getFeedHandler().getFeed(id);
     }
 
-    @PUT
-    @Path("/feeds/{addFeed}")
-    public Feed addFeed(@QueryParam("feedUrl") String url) {
-        Feed feed = feedService.getFeedProcessor().processFeed(url);
+    @POST
+    @Path("/feeds/{id}")
+    public Feed addFeed(Feed feed) {
+        feed = feedService.getFeedProcessor().processFeed(feed.getUrl());
         feedService.getFeedHandler().addFeed(feed);
         return feed;
     }
 
-    @POST
-    @Path("/feeds/{updateFeed}")
-    public Feed updateFeed(@QueryParam("feedId") Integer feedId, @QueryParam("feedUrl") String url) {
-        Feed feed = feedService.getFeedProcessor().processFeed(url);
-        feed.setId(feedId);
-        feedService.getFeedHandler().editFeed(feed);
-        return feed;
-    }
-
     @DELETE
-    @Path("/feeds/{removeFeed}")
-    public Feed removeFeed(@QueryParam("feedId") Integer feedId, @QueryParam("feedUrl") String url) {
-        Feed feed = feedService.getFeedProcessor().processFeed(url);
-        feed.setId(feedId);
+    @Path("/feeds/{id}")
+    public Feed removeFeed(@QueryParam("id") Integer id) {
+        Feed feed = feedService.getFeedHandler().getFeed(id);
         feedService.getFeedHandler().deleteFeed(feed);
         return feed;
     }
