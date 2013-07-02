@@ -106,14 +106,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided 
-            scope as the API is included in JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Import the JSF API, we use provided scope as the API is included 
             in JBoss AS 7 -->
         <dependency>
@@ -130,14 +122,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JPA API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Import the EJB API, we use provided scope as the API is included 
             in JBoss AS 7 -->
         <dependency>
@@ -146,8 +130,8 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Hibernate Validator API, we use provided scope as 
-            the API is included in JBoss AS 7 -->
+        <!-- Import the Hibernate implementation of Bean Validation API, 
+            we use provided scope as the API is included in JBoss AS 7 -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
