@@ -16,12 +16,9 @@
  */
 package org.jboss.as.quickstarts.deltaspike.exceptionhandling.jsf;
 
-import javax.enterprise.event.Event;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.deltaspike.core.api.exception.control.event.ExceptionToCatchEvent;
 import org.jboss.as.quickstarts.deltaspike.exceptionhandling.Service;
 
 /**
@@ -33,16 +30,9 @@ import org.jboss.as.quickstarts.deltaspike.exceptionhandling.Service;
 @Named
 public class Controller {
 
-    // Inject CDI Event
-    @Inject
-    private Event<ExceptionToCatchEvent> catchEvent;
-
     // The Service implementation always throws Exceptions
     @Inject
     private Service service;
-
-    @Inject
-    private FacesContext facesContext;
 
     public void testMyException() throws Exception {
         // This Operation will throw an Exception
