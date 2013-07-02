@@ -10,8 +10,11 @@
         <option value="age">Newest</option>
       </select>
 
+      Feed url <input id="feedUrl" ng-model="feedUrl" type="text"/>
+      <br/>
+      <button ng-click="addFeed()" type="button">Add</button>
     </div>
-    <div class="span10">
+    <div class="span6">
       <!--Body content-->
 
       <ul class="feeds">
@@ -22,5 +25,17 @@
       </ul>
 
     </div>
+
+      <div class="span6">
+          <!--Body content-->
+          <ul >
+              <li ng-repeat="feedEntry in feedEntries">
+                  <a href="#/feedEntries/{{feedEntry.id}}">{{feedEntry.title}}</a>
+                  <p>{{feedEntry.description}}</p>
+                  <a href="{{feedEntry.uri}}">{{feedEntry.uri}}</a>
+              </li>
+          </ul>
+
+      </div>
   </div>
 </div>

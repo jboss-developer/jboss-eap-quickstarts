@@ -1,3 +1,16 @@
 <h1>{{feed.title}}</h1>
 <p>{{feed.id}}</p>
 <p>{{feed.description}}</p>
+<p>{{feed.url}}</p>
+
+<div class="span6">
+    <!--Body content-->
+    <ul >
+        <li ng-repeat="feedEntry in specificFeedEntries">
+            <a href="#/feedEntries/{{feedEntry.id}}">{{feedEntry.title}}</a>
+            <p>{{feedEntry.description}}</p>
+            <a href="{{feedEntry.uri}}">{{feedEntry.uri}}</a>
+        </li>
+    </ul>
+
+</div>

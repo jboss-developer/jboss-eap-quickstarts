@@ -6,6 +6,7 @@ import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedService;
 
 import javax.ws.rs.*;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,8 +40,9 @@ public class FeedReaderService {
     }
 
     @POST
-    @Path("/feeds/{id}")
+    @Path("/feeds")
     public Feed addFeed(Feed feed) {
+        System.out.println("FeedReaderService.addFeed"+feed.getUrl());
         feed = feedService.getFeedProcessor().processFeed(feed.getUrl());
         feedService.getFeedHandler().addFeed(feed);
         return feed;
@@ -55,9 +57,26 @@ public class FeedReaderService {
     }
 
     @POST
-    @Path("/feeds/{searchFeeds}")
+    @Path("/feeds/search/{text}")
     public Collection<FeedEntry> searchFeeds(@QueryParam("text") String text) {
         Collection<FeedEntry> feedEntries = feedService.searchFeeds(text);
         return feedEntries;
+    }
+
+    @GET
+    @Path("/feedEntries")
+    public Collection<FeedEntry> getFeedEntries() {
+        Collection<FeedEntry> feedEntries = feedService.getFeedHandler().getFeedEntries();
+        return feedEntries;
+    }
+
+    @GET
+    @Path("/feedEntries/{feedId}")
+    public Collection<FeedEntry> getFeedEntries(@PathParam("feedId") Integer feedId) {
+        System.out.println("FeedReaderService.getFeedEntries+feedId"+feedId);
+        //http://localhost:8080/jboss-as-hibernate-search/services/feedReader/feeds/46
+        List<FeedEntry> entries = feedService.getFeedHandler().getFeedEntryList(feedId);
+        System.out.println("FeedReaderService.getFeedEntries+entries"+entries.size());
+        return entries;
     }
 }

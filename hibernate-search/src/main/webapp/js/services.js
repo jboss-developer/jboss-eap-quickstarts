@@ -16,5 +16,13 @@ angular.module('feedAppServices', ['ngResource']).
         });
     }).factory('FeedItem', function ($resource) {
         return $resource('rest/feedReader/feeds/:id', {}, {
+        });
+    }).factory('FeedEntryCollection', function ($resource) {
+        return $resource('rest/feedReader/feedEntries', {}, {
+            query: {method: 'GET', isArray: true}
+        });
+    }).factory('FeedEntrySpecificCollection', function ($resource) {
+        return $resource('rest/feedReader/feedEntries/:feedId', {}, {
+            query: {method: 'GET', isArray: true}
         })
     });

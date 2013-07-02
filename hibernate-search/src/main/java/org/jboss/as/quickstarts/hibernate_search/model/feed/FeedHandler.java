@@ -9,6 +9,7 @@ import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.util.HibernateUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -192,7 +193,7 @@ public class FeedHandler {
         List<FeedEntry> feedEntryList = null;
         try {
             transaction = session.beginTransaction();
-            String hql = "select 1 from FeedEntry feedEntry where feedEntry.title = :theFeedId";
+            String hql = "from FeedEntry feedEntry where feedEntry.feedId = :theFeedId";
             Query query = session.createQuery(hql);
             query.setInteger("theFeedId", feedId);
             feedEntryList = query.list();
@@ -250,5 +251,27 @@ public class FeedHandler {
             session.close();
         }
         return feed;
+    }
+
+    public Collection<FeedEntry> getFeedEntries() {
+        List<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            List feedData = session.createQuery("from FeedEntry").list();
+            for (Iterator iterator =
+                         feedData.iterator(); iterator.hasNext();){
+                FeedEntry feed = (FeedEntry) iterator.next();
+                feedEntries.add(feed);
+            }
+            tx.commit();
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return feedEntries;
     }
 }

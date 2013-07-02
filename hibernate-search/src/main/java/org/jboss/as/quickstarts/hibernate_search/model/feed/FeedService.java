@@ -122,6 +122,12 @@ public class FeedService {
 
 
     public Collection<FeedEntry> searchFeeds(String text) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        ArrayList<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
+        FeedEntry fe = new FeedEntry();
+        fe.setFeedId(11);
+        fe.setTitle("jfjfjf");
+        fe.setDescription("qw2233232");
+        feedEntries.add(fe);
+        return feedEntries;  //To change body of created methods use File | Settings | File Templates.
     }
 }
