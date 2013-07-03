@@ -11,7 +11,12 @@ What is it?
 -----------
 
 This example demonstrates the use of *CDI 1.0* and *JAX-RS* in *JBoss AS 7* using the HTML5 + REST architecture.
+
 The application is basically a smart, HTML5+CSS3+JavaScript front-end using RESTful services on the backend.
+
+ * HelloWorld.java - establishes the RESTful endpoints using JAX-RS
+ * Web.xml - maps RESTful endpoints to "/hello"
+ * index.html - is a jQuery augmented plain old HTML5 web page
 
 The example can be deployed using Maven from the command line or from Eclipse using JBoss Tools.
 
@@ -33,80 +38,70 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Deploy the Application
+Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 -------------------------
 
-### Deploy the Application locally
+1. Open a command line and navigate to the root of the JBoss server directory.
+2. The following shows the command line to start the server with the web profile:
 
-First you need to start the JBoss container. To do this, run
+        For Linux:   JBOSS_HOME/bin/standalone.sh
+        For Windows: JBOSS_HOME\bin\standalone.bat
 
-    $JBOSS_HOME/bin/standalone.sh
 
-or if you are using windows
+Build and Deploy the Quickstart
+-------------------------
 
-    $JBOSS_HOME/bin/standalone.bat
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-To deploy the application, you first need to produce the archive to deploy using
-the following Maven goal:
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to build and deploy both the client and service applications:
 
-    mvn package
+        mvn clean package jboss-as:deploy
 
-You can now deploy the artifact by executing the following command:
+4. This will deploy `target/jboss-as-helloworld-html5.war` to the running instance of the server.
 
-    mvn jboss-as:deploy
 
-This will deploy both the client and service applications.
+Access the application 
+---------------------
 
 The application will be running at the following URL <http://localhost:8080/jboss-as-helloworld-html5/>.
 
-To undeploy run this command:
+You can also test the REST endpoint as follows. Feel free to replace `YOUR_NAME` with a name of your choosing.
 
-    mvn jboss-as:undeploy
+* The *XML* content can be tested by accessing the following URL: <http://localhost:8080/jboss-as-helloworld-html5/hello/xml/YOUR_NAME> 
+* The *JSON* content can be tested by accessing this URL: <http://localhost:8080/jboss-as-helloworld-html5/hello/json/YOUR_NAME>
 
-You can also start the JBoss container and deploy the project using JBoss Tools. See the [Get Started Developing Applications Guide](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications") for more information.
+
+Undeploy the Archive
+--------------------
+
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. When you are finished testing, type this command to undeploy the archive:
+
+        mvn jboss-as:undeploy
 
 
-### Deploy the Application to OpenShift
+Run the Quickstart in JBoss Developer Studio or Eclipse
+-------------------------------------
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
+
+Debug the Application
+------------------------------------
+
+If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
+
+        mvn dependency:sources
+        mvn dependency:resolve -Dclassifier=javadoc
+
+
+Build and Deploy the Quickstart - to OpenShift
+-------------------------
 
 You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
 
-Import the Project into an IDE
-=================================
 
-Detailed instructions for using Eclipse / JBoss Tools with are provided in the [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
- 
-
-If you created the project from the commandline using archetype:generate, then
-you need to import the project into your IDE. If you are using NetBeans 6.8 or
-IntelliJ IDEA 9, then all you have to do is open the project as an existing
-project. Both of these IDEs recognize Maven projects natively.
-
-Download the Source and Javadocs
-====================================
-
-If you want to be able to debug into the source code or look at the Javadocs
-of any library in the project, you can run either of the following two
-commands to pull them into your local repository. The IDE should then detect
-them.
-
-    mvn dependency:sources
-    mvn dependency:resolve -Dclassifier=javadoc
-
-Development notes
-=================
-
-You can test the REST endpoint using the following URL
-[http://localhost:8080/\<artifactId>/hello/json/David/]("http://localhost:8080/<artifactId>/hello/json/David/").
-
-HelloWorld.java - establishes the RESTful endpoints using JAX-RS
-
-Web.xml - maps RESTful endpoints to "/hello"
-
-index.html - is a jQuery augmented plain old HTML5 web page
-
-Copyright headers
------------------
-
-To update the copyright headers, just run `mvn license:format -Dyear=<current year>`
 
 
