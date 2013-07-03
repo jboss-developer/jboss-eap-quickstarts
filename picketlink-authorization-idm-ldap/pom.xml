@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.jboss.as.quickstarts</groupId>
-  <artifactId>jboss-as-picketlink-authorization-ldap</artifactId>
+  <artifactId>jboss-as-picketlink-authorization-idm-ldap</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>JBoss AS Quickstarts: PicketLink IDM Authorization using LDAP</name>
@@ -176,7 +176,7 @@
 
     <dependency>
        <groupId>org.slf4j</groupId>
-       <artifactId>slf4j-simple</artifactId>
+       <artifactId>slf4j-log4j12</artifactId>
        <version>1.5.6</version>
         <scope>test</scope>
     </dependency>
