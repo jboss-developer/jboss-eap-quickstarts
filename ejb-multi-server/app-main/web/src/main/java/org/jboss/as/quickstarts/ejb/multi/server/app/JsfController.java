@@ -18,6 +18,7 @@ package org.jboss.as.quickstarts.ejb.multi.server.app;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
@@ -35,20 +36,24 @@ public class JsfController {
   private EjbInvocation invocation;
 
   /**
-   * The @EJB injection is valid only if the MainApp is unique within the same application EAR archive.
-   * Since there is a MainEjbClient34AppBean using same interface, we must use @Resource to specify which reference should be injected.
+   * Inject the 'standard' bean.<br/>
+   * The simple @EJB injection is valid only if the MainApp is unique within the same application EAR archive.
+   * Since there is a MainEjbClient34AppBean using same interface, we can use this @EJB approach and specify
+   * the name and interface as shown here to specify which exact reference should be injected.<br/>
+   * The beanInterface and the mappedName can be used in this case, but it is not necessary if the beanName is unique and implement only one interface.
    */
-  @Resource(mappedName = "ejb:appmain/ejb/MainAppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
+  @EJB(beanName = "MainAppBean", beanInterface = MainApp.class)
   MainApp mainApp;
 
   /**
-   * Inject a different implementation of the same interface.
+   * Inject a different bean implementation of the same interface.<br/>
+   * Or use the @Resource annotation with the lookup name only.
    */
   @Resource(mappedName = "ejb:appmain/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
   MainApp mainEjbClient34App;
 
   /**
-   * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource.
+   * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource.<br/>
    * Lookup is introduced in Java EE6, so there are compiler or runtime problems if a Java version is used which not contain
    * the <code>javax.annotation.Resource</code> <code>lookup</code>.
    * Therefore a fix/workaround is necessary to be able to compile.
