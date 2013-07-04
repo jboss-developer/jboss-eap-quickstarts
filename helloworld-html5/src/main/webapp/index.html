@@ -38,7 +38,7 @@ $( document ).ready( function() {
         $.ajax( 'hello/json/' + name, {
             dataType:'json',
             data:{},
-            type:'POST',
+            type:'GET',
             success:function ( data ) {
                 //console.log("success: " + data.result);
                 $( '#result' ).text( data.result );

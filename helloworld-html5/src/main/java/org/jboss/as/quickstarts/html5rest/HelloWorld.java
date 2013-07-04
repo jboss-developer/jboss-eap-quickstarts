@@ -17,7 +17,7 @@
 package org.jboss.as.quickstarts.html5rest;
 
 import javax.inject.Inject;
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,7 +34,7 @@ public class HelloWorld {
     @Inject
     HelloService helloService;
 
-    @POST
+    @GET
     @Path("/json/{name}")
     @Produces("application/json")
     public String getHelloWorldJSON(@PathParam("name") String name) {
@@ -42,7 +42,7 @@ public class HelloWorld {
         return "{\"result\":\"" + helloService.createHelloMessage(name) + "\"}";
     }
 
-    @POST
+    @GET
     @Path("/xml/{name}")
     @Produces("application/xml")
     public String getHelloWorldXML(@PathParam("name") String name) {
