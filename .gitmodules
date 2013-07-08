@@ -1,0 +1,3 @@
+[submodule "richfaces-quickstarts"]
+	path = richfaces-quickstarts
+	url = git@github.com:richfaces/jdf-quickstarts.git

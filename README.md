@@ -45,6 +45,20 @@ We suggest you approach the quickstarts as follows:
 * If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you are comfortable with those, move on to the **Advanced** quickstarts.
 * Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.
 
+Checking out the quickstart source
+----------------------------------
+
+The quickstarts are spread across a number of git repositories, and assimilated in this quickstarts project as git sub modules.  To clone the git repository, use the command: 
+
+            git clone --recursive git@github.com:jboss-jdf/jboss-as-quickstart.git
+
+If you've previously cloned this quickstarts repository, you can update that clone with the git submodules by executing the command:
+
+            git submodule update --init
+
+Submodules can then be updated with the command:
+
+            git submodule update
 
 System Requirements
 -------------------

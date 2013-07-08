@@ -194,7 +194,7 @@
                 <module>helloworld-jms</module>
                 <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
-                <module>helloworld-rf</module>
+                <module>richfaces-quickstarts/helloworld-rf</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
@@ -210,7 +210,7 @@
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
-                <module>kitchensink-rf</module>
+                <module>richfaces-quickstarts/kitchensink-rf</module>
                 <module>kitchensink-spring</module>
                 <module>log4j</module>
                 <module>logging</module>
