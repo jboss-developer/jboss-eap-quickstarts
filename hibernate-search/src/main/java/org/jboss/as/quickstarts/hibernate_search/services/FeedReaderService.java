@@ -28,6 +28,7 @@ public class FeedReaderService {
     @GET
     @Path("/feeds")
     public Collection<Feed> getFeeds() {
+        System.out.println("FeedReaderService.getFeeds");
         //http://localhost:8080/jboss-as-hibernate-search/services/feedReader/feeds
         return feedService.getFeedHandler().listAllFeeds();
     }
@@ -35,6 +36,7 @@ public class FeedReaderService {
     @GET
     @Path("/feeds/{id}")
     public Feed getFeed(@PathParam("id") Integer id) {
+        System.out.println("FeedReaderService.getFeed"+id);
         //http://localhost:8080/jboss-as-hibernate-search/services/feedReader/feeds/46
         return feedService.getFeedHandler().getFeed(id);
     }
@@ -48,10 +50,20 @@ public class FeedReaderService {
         return feed;
     }
 
+    @PUT
+    @Path("/feeds")
+    public Feed updateFeed(Feed feedIn) {
+        System.out.println("FeedReaderService.updateFeed"+feedIn.getId());
+        Feed feed = feedService.getFeedHandler().getFeed(feedIn.getId());
+        feedService.getFeedHandler().editFeed(feed);
+        return feed;
+    }
+
     @DELETE
-    @Path("/feeds/{id}")
-    public Feed removeFeed(@QueryParam("id") Integer id) {
-        Feed feed = feedService.getFeedHandler().getFeed(id);
+    @Path("/feeds")
+    public Feed removeFeed(Feed feedIn) {
+        System.out.println("FeedReaderService.removeFeed"+feedIn.getId());
+        Feed feed = feedService.getFeedHandler().getFeed(feedIn.getId());
         feedService.getFeedHandler().deleteFeed(feed);
         return feed;
     }
@@ -59,6 +71,7 @@ public class FeedReaderService {
     @POST
     @Path("/feeds/search/{text}")
     public Collection<FeedEntry> searchFeeds(@QueryParam("text") String text) {
+        System.out.println("FeedReaderService.searchFeeds"+text);
         Collection<FeedEntry> feedEntries = feedService.searchFeeds(text);
         return feedEntries;
     }
@@ -66,16 +79,17 @@ public class FeedReaderService {
     @GET
     @Path("/feedEntries")
     public Collection<FeedEntry> getFeedEntries() {
+        System.out.println("FeedReaderService.getFeedEntries");
         Collection<FeedEntry> feedEntries = feedService.getFeedHandler().getFeedEntries();
         return feedEntries;
     }
 
     @GET
-    @Path("/feedEntries/{feedId}")
-    public Collection<FeedEntry> getFeedEntries(@PathParam("feedId") Integer feedId) {
-        System.out.println("FeedReaderService.getFeedEntries+feedId"+feedId);
+    @Path("/feedEntries/{id}")
+    public Collection<FeedEntry> getFeedEntries(@PathParam("id") Integer id) {
+        System.out.println("FeedReaderService.getFeedEntries+id"+id);
         //http://localhost:8080/jboss-as-hibernate-search/services/feedReader/feeds/46
-        List<FeedEntry> entries = feedService.getFeedHandler().getFeedEntryList(feedId);
+        List<FeedEntry> entries = feedService.getFeedHandler().getFeedEntryList(id);
         System.out.println("FeedReaderService.getFeedEntries+entries"+entries.size());
         return entries;
     }

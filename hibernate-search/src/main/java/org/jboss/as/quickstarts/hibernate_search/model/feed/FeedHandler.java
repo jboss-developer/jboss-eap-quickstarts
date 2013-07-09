@@ -4,6 +4,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.util.HibernateUtil;
@@ -22,6 +25,8 @@ import java.util.List;
  *
  */
 public class FeedHandler {
+
+    private static int MAX_ROWS = 20;
 
     /**
      * Add Feed to the database
@@ -196,6 +201,7 @@ public class FeedHandler {
             String hql = "from FeedEntry feedEntry where feedEntry.feedId = :theFeedId";
             Query query = session.createQuery(hql);
             query.setInteger("theFeedId", feedId);
+            query.setMaxResults(MAX_ROWS);
             feedEntryList = query.list();
             transaction.commit();
         } catch (HibernateException e) {
@@ -258,13 +264,20 @@ public class FeedHandler {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try{
-            tx = session.beginTransaction();
+            /*tx = session.beginTransaction();
             List feedData = session.createQuery("from FeedEntry").list();
             for (Iterator iterator =
                          feedData.iterator(); iterator.hasNext();){
                 FeedEntry feed = (FeedEntry) iterator.next();
                 feedEntries.add(feed);
             }
+            tx.commit();*/
+
+            tx = session.beginTransaction();
+            String hql = "from FeedEntry";
+            Query query = session.createQuery(hql);
+            query.setMaxResults(MAX_ROWS);
+            feedEntries = query.list();
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -273,5 +286,33 @@ public class FeedHandler {
             session.close();
         }
         return feedEntries;
+    }
+
+    public void doIndex() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        try {
+            fullTextSession.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        fullTextSession.close();
+    }
+
+    public List<FeedEntry> searchFeeds(String queryString) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+
+        QueryBuilder queryBuilder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(FeedEntry.class).get();
+        org.apache.lucene.search.Query luceneQuery = queryBuilder.keyword().onFields("description","author","title").matching(queryString).createQuery();
+
+        // wrap Lucene query in a javax.persistence.Query
+        org.hibernate.Query fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery, FeedEntry.class);
+
+        List<FeedEntry> contactList = fullTextQuery.list();
+
+        fullTextSession.close();
+
+        return contactList;
     }
 }

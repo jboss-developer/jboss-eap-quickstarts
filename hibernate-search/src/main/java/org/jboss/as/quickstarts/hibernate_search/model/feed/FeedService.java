@@ -104,13 +104,30 @@ public class FeedService {
         this.feedHandler = feedHandler;
     }
 
+    public Collection<FeedEntry> searchFeeds(String text) {
+        /*ArrayList<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
+        FeedEntry fe = new FeedEntry();
+        fe.setFeedId(11);
+        fe.setTitle("jfjfjf");
+        fe.setDescription("qw2233232");
+        feedEntries.add(fe);
+        return feedEntries;
+        */
+        return feedHandler.searchFeeds(text);
+    }
+
+    public void doIndex(String text) {
+        feedHandler.doIndex();
+    }
+
+
     public static void main(String[] args) {
         List<String> feedList = new ArrayList<String>();
 //        feedList.add("http://feeds.reuters.com/Reuters/worldNews");
 //        feedList.add("http://feeds.reuters.com/reuters/sportsNews");
         feedList.add("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml");
         feedList.add("http://feeds.bbci.co.uk/news/rss.xml");
-        feedList.add("http://www.espncricinfo.com/rss/content/story/feeds/0.xml");
+//        feedList.add("http://www.espncricinfo.com/rss/content/story/feeds/0.xml");
 //        http://www.nasa.gov/rss/
 //        feedList.add("http://www .nasa.gov/rss/breaking_news.rss");
         FeedService feedService = new FeedService();
@@ -118,16 +135,5 @@ public class FeedService {
             feedService.submitFeed((String)i.next());
         }
         feedService.reedAllFeeds();
-    }
-
-
-    public Collection<FeedEntry> searchFeeds(String text) {
-        ArrayList<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
-        FeedEntry fe = new FeedEntry();
-        fe.setFeedId(11);
-        fe.setTitle("jfjfjf");
-        fe.setDescription("qw2233232");
-        feedEntries.add(fe);
-        return feedEntries;  //To change body of created methods use File | Settings | File Templates.
     }
 }

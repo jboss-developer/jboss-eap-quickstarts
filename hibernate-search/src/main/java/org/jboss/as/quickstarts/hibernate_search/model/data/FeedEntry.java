@@ -1,5 +1,7 @@
 package org.jboss.as.quickstarts.hibernate_search.model.data;
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.util.Date;
  */
 @Entity
 @XmlRootElement
+@Indexed
 @Table(name = "FeedEntry", uniqueConstraints = @UniqueConstraint(columnNames = "feedEntryId"))
 public class FeedEntry implements Serializable {
     @Id
@@ -58,6 +61,7 @@ public class FeedEntry implements Serializable {
         this.feedId = feedId;
     }
 
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     public String getTitle() {
         return title;
     }
@@ -66,6 +70,7 @@ public class FeedEntry implements Serializable {
         this.title = title;
     }
 
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     public String getAuthor() {
         return author;
     }
@@ -90,6 +95,7 @@ public class FeedEntry implements Serializable {
         this.uri = uri;
     }
 
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(name = "description", nullable = false, length = 2000)
     public String getDescription() {
         return description;

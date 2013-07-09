@@ -19,7 +19,8 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-
+        <property name="hibernate.search.default.directory_provider">filesystem</property>
+        <property name="hibernate.search.default.indexBase">C:\lucene\indexes</property>
        <!-- <property name="annotatedClasses">
             &lt;!&ndash;<list>&ndash;&gt;
                 &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt;

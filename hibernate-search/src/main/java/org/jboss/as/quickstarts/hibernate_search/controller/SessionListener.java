@@ -1,5 +1,6 @@
 package org.jboss.as.quickstarts.hibernate_search.controller;
 
+import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedService;
 import org.jboss.as.quickstarts.hibernate_search.model.task.ReaderTask;
 
 import javax.servlet.ServletContextEvent;
@@ -27,6 +28,8 @@ public class SessionListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Context created!");
+        FeedService feedService = new FeedService();
+        feedService.getFeedHandler().doIndex();
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new ReaderTask(), 0, 2, TimeUnit.MINUTES);
     }
