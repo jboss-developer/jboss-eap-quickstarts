@@ -51,7 +51,7 @@
     <!-- <jboss.bom.version>1.0.0.Final-redhat-1</jboss.bom.version>> -->
     <jboss.client.bom.version>7.1.1.Final</jboss.client.bom.version>
     
-    <jboss.spec.jboss.javaee>3.0.0.Final</jboss.spec.jboss.javaee>
+    <jboss.spec.jboss.javaee>3.0.2.Final</jboss.spec.jboss.javaee>
 
     <!-- other plugin versions -->
 
