@@ -1,0 +1,3 @@
+[submodule "jpp-quickstarts"]
+	path = jpp-quickstarts
+	url = https://github.com/gatein/gatein-portal-quickstart.git
