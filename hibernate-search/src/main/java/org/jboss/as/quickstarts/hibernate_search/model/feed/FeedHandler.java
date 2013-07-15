@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.jboss.as.quickstarts.hibernate_search.infinispan.InfinispanFeedServiceHandler;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.util.HibernateUtil;
@@ -27,6 +28,11 @@ import java.util.List;
 public class FeedHandler {
 
     private static int MAX_ROWS = 20;
+    private InfinispanFeedServiceHandler infinispanFeedServiceHandler = null;
+
+    public FeedHandler() {
+        infinispanFeedServiceHandler = new InfinispanFeedServiceHandler();
+    }
 
     /**
      * Add Feed to the database
@@ -125,6 +131,7 @@ public class FeedHandler {
      * @param feedEntry
      */
     public Integer addFeedEntry(FeedEntry feedEntry){
+        infinispanFeedServiceHandler.getInfinispanFeedService().insertNewFeedEntry(feedEntry);
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Integer feedId = null;
@@ -289,6 +296,7 @@ public class FeedHandler {
     }
 
     public void doIndex() {
+        System.out.println("######################################FeedHandler.doIndex");
         Session session = HibernateUtil.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         try {
@@ -300,6 +308,7 @@ public class FeedHandler {
     }
 
     public List<FeedEntry> searchFeeds(String queryString) {
+        infinispanFeedServiceHandler.getInfinispanFeedService().doQuery(queryString);
         Session session = HibernateUtil.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 

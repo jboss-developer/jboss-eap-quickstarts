@@ -1,0 +1,56 @@
+<config xmlns="urn:org:jgroups"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:org:jgroups file:schema/JGroups-3.0.xsd">
+    <TCP
+            bind_addr="GLOBAL"
+            bind_port="7800"
+            loopback="true"
+            port_range="30"
+            recv_buf_size="20m"
+            send_buf_size="640k"
+            discard_incompatible_packets="true"
+            max_bundle_size="64000"
+            max_bundle_timeout="30"
+            enable_bundling="true"
+            use_send_queues="true"
+            enable_diagnostics="false"
+            bundler_type="old"
+
+            thread_naming_pattern="pl"
+
+            thread_pool.enabled="true"
+            thread_pool.min_threads="2"
+            thread_pool.max_threads="30"
+            thread_pool.keep_alive_time="60000"
+            thread_pool.queue_enabled="true"
+            thread_pool.queue_max_size="100"
+            thread_pool.rejection_policy="Discard"
+
+            oob_thread_pool.enabled="true"
+            oob_thread_pool.min_threads="2"
+            oob_thread_pool.max_threads="30"
+            oob_thread_pool.keep_alive_time="60000"
+            oob_thread_pool.queue_enabled="false"
+            oob_thread_pool.queue_max_size="100"
+            oob_thread_pool.rejection_policy="Discard"
+            />
+
+
+    <TCPPING timeout="3000"
+             initial_hosts="localhost[7800],172.16.200.75[7800]"
+             port_range="1"
+             num_initial_members="2"
+             ergonomics="false"
+            />
+
+    <VERIFY_SUSPECT timeout="1500" />
+    <pbcast.NAKACK
+            use_mcast_xmit="false"
+            retransmit_timeout="300,600,1200,2400,4800"
+            discard_delivered_msgs="true"/>
+    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000"
+                   max_bytes="400000"/>
+    <pbcast.GMS print_local_addr="true" join_timeout="3000"
+                view_bundling="true"/>
+
+</config>

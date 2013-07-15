@@ -19,8 +19,17 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <property name="hibernate.search.default.directory_provider">filesystem</property>
-        <property name="hibernate.search.default.indexBase">C:\lucene\indexes</property>
+        <!--<property name="hibernate.search.default.directory_provider">filesystem</property>
+        <property name="hibernate.search.default.indexBase">C:\lucene\indexes</property>-->
+
+        <property name="hibernate.search.default.directory_provider">infinispan</property>
+        <property name="hibernate.search.lucene_version">LUCENE_35</property>
+        <property name="hibernate.search.infinispan.configuration_resourcename">
+            lucene-demo-cache-config.xml
+        </property>
+        <property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
+
+        <property name="key2StringMapperClass" >org.infinispan.lucene.LuceneKey2StringMapper</property>
        <!-- <property name="annotatedClasses">
             &lt;!&ndash;<list>&ndash;&gt;
                 &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt;

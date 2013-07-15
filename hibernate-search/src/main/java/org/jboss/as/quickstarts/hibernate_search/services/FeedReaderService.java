@@ -55,6 +55,7 @@ public class FeedReaderService {
     public Feed updateFeed(Feed feedIn) {
         System.out.println("FeedReaderService.updateFeed"+feedIn.getId());
         Feed feed = feedService.getFeedHandler().getFeed(feedIn.getId());
+        feed.setUrl(feedIn.getUrl());
         feedService.getFeedHandler().editFeed(feed);
         return feed;
     }
@@ -68,9 +69,9 @@ public class FeedReaderService {
         return feed;
     }
 
-    @POST
+    @GET
     @Path("/feeds/search/{text}")
-    public Collection<FeedEntry> searchFeeds(@QueryParam("text") String text) {
+    public Collection<FeedEntry> searchFeeds(@PathParam("text") String text) {
         System.out.println("FeedReaderService.searchFeeds"+text);
         Collection<FeedEntry> feedEntries = feedService.searchFeeds(text);
         return feedEntries;
