@@ -28,10 +28,10 @@ import java.util.List;
 public class FeedHandler {
 
     private static int MAX_ROWS = 20;
-    private InfinispanFeedServiceHandler infinispanFeedServiceHandler = null;
+    //private InfinispanFeedServiceHandler infinispanFeedServiceHandler = null;
 
     public FeedHandler() {
-        infinispanFeedServiceHandler = new InfinispanFeedServiceHandler();
+        //infinispanFeedServiceHandler = new InfinispanFeedServiceHandler();
     }
 
     /**
@@ -131,7 +131,7 @@ public class FeedHandler {
      * @param feedEntry
      */
     public Integer addFeedEntry(FeedEntry feedEntry){
-        infinispanFeedServiceHandler.getInfinispanFeedService().insertNewFeedEntry(feedEntry);
+        //infinispanFeedServiceHandler.getInfinispanFeedService().insertNewFeedEntry(feedEntry);
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Integer feedId = null;
@@ -308,7 +308,7 @@ public class FeedHandler {
     }
 
     public List<FeedEntry> searchFeeds(String queryString) {
-        infinispanFeedServiceHandler.getInfinispanFeedService().doQuery(queryString);
+        //infinispanFeedServiceHandler.getInfinispanFeedService().doQuery(queryString);
         Session session = HibernateUtil.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
 

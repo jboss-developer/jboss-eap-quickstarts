@@ -72,6 +72,7 @@ public class FeedReaderService {
     @GET
     @Path("/feeds/search/{text}")
     public Collection<FeedEntry> searchFeeds(@PathParam("text") String text) {
+        //http://localhost:8080/jboss-as-hibernate-search/rest/feedReader/feeds/search/G4
         System.out.println("FeedReaderService.searchFeeds"+text);
         Collection<FeedEntry> feedEntries = feedService.searchFeeds(text);
         return feedEntries;

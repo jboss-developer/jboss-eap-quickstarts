@@ -2,11 +2,15 @@
 
 /* Controllers */
 
-function FeedListCtrl($scope, FeedCollection,FeedItem,FeedEntryCollection) {
+function FeedListCtrl($scope, FeedCollection,FeedItem,FeedEntryCollection,FeedEntryFromIndexedCollection) {
   $scope.feedUrl = "";
   $scope.feeds = FeedCollection.query();
   $scope.orderProp = 'age';
   $scope.feedEntries = FeedEntryCollection.query();
+
+    $scope.searchIndex = function (text) {
+        $scope.feedEntries = FeedEntryFromIndexedCollection.query({text: text});
+    };
 
     /*$scope.addFeed = function (FeedItem) {
         alert($scope.feedUrl);

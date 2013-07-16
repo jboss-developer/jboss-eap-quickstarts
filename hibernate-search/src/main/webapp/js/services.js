@@ -26,4 +26,8 @@ angular.module('feedAppServices', ['ngResource']).
         return $resource('rest/feedReader/feedEntries/:id', {}, {
             query: {method: 'GET',params:{id:'id'}, isArray: true}
         })
+    }).factory('FeedEntryFromIndexedCollection', function($resource){
+        return $resource('rest/feedReader/feeds/search/:text', {}, {
+            query: {method: 'GET',params:{text:'text'}, isArray: true}
+        });
     });
