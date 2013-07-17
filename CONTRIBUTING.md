@@ -93,11 +93,11 @@ General Guidelines
  - Code should be well documented with good comments. Please add an author tag (@author) to credit yourself for writing the code.
  - You should use readable variable names to make it easy for users to read the code.
 
-* The package must be *org.jboss.as.quickstarts*
+* The package must be *org.jboss.quickstarts.&lt;product&gt;* (i.e. org.jboss.quickstarts.as, org.jboss.quickstarts.fuse, etc...)
 
 * The quickstart project or folder name should match the quickstart name. Each sample project should have a unique name, allowing easy identification by users and developers.
 
-* The quickstart project `<artifactId>` in the `pom.xml` file must be prefixed by `jboss-as-`. For example, the `<artifactId>` for the `greeter` quickstart is `jboss-as-greeter`.
+* The quickstart project `<artifactId>` in the `pom.xml` file must be prefixed by `jboss-&lt;product&gt;-`. For example, the `<artifactId>` for the `greeter` quickstart is `jboss-as-greeter` and for the `errors` Fuse project, it will be jboss-fuse-errors.
 
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 
