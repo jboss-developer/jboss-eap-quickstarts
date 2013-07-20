@@ -7,10 +7,10 @@ import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
-import org.jboss.as.quickstarts.hibernate_search.infinispan.InfinispanFeedServiceHandler;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.util.HibernateUtil;
+import org.jboss.as.quickstarts.hibernate_search.temp.infinispan.InfinispanFeedServiceHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;

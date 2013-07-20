@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by IntelliJ IDEA.
- * User: SSC1
+ * User: Tharindu Jayasuriya
  * Date: 6/24/13
  * Time: 10:59 PM
  */

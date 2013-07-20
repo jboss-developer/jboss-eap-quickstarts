@@ -20,7 +20,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.as.quickstarts.hibernate_search.infinispan;
+package org.jboss.as.quickstarts.hibernate_search.temp.infinispan;
 
 import java.io.IOException;
 import java.util.ArrayList;

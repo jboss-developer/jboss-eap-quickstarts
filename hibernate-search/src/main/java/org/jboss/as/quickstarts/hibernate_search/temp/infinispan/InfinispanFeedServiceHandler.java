@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.hibernate_search.infinispan;
+package org.jboss.as.quickstarts.hibernate_search.temp.infinispan;
 
 import org.infinispan.Cache;
 import org.infinispan.lucene.InfinispanDirectory;

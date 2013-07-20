@@ -5,7 +5,7 @@ import javax.ws.rs.core.Application;
 
 /**
  * Created by IntelliJ IDEA.
- * User: SSC1
+ * User: Tharindu Jayasuriya
  * Date: 6/25/13
  * Time: 12:30 AM
  */
