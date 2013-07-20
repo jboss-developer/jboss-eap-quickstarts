@@ -16,22 +16,31 @@ Contributor instructions are prefixed with 'Contributor: '
 What is it?
 -----------
 
-Contributor: This is where you provide an overview of what the quickstart demonstrates. For example:
+This is sample demo project which demonstrates a full text search of the entities. Here I will be using a Hibernate, AngularJS, Servlets, MySQL, Maven and store the indexes in infinispan. AngularJS based web client which runs on browser will communicate to Servlet based back end through RESTful web services. The functionality for above use cases will be exposed using a JAX-RS annotations in the Servlet. From  the servlet data is served from caching layer built using infinispan on top of mysql database.
 
- * What are the technologies demonstrated by the quickstart?
- * What does it do when you run it?
+This demo application does a full text search on the RSS news feed data. RSS News has attributes “title”, “description”, “author” and “published date”. Around these attributes and some of the other attributes available in the field I have build the full text search demonstration. The demonstration will support below use cases.
 
-You should include any information that would help the user understand the quickstart.  
+Use case 1:  Submit feed
+	Admin users can add/edit/delete the RSS feed URL to the system.
 
-If possible, give an overview, including any code they should look at to understand how it works..
+Use case 2:  Add news to database
+
+	This will be done by a period polling of RSS feeds from the feed providers and identifying the content attributes of the feed and saving them. 
+
+Use case 3: Search the news
+
+	This is where the full text search is going to happen
+
+Use case 4: View the news 
+
+	View the news by clicking selected news from Use case 3
+
 
 
 System requirements
 -------------------
 
-Contributor: For example: 
-
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 and MySQL 5.1 or better.
 
 The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
 
@@ -39,15 +48,11 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
-
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
 Configure Optional Components
 -------------------------
-
-Contributor: If your quickstart requires any additional components, decribe how to set them up here. If your quickstart requires a secured user, PostgreSQL, or Byteman, you can link to the instructions in the README file located in the root folder of the quickstart directory. Here are some examples:
 
  * This quickstart uses a secured management interface and requires that you create a management (or application) user to access the running application. Instructions to set up a Management (or Application) user can be found here: 
 
@@ -55,15 +60,11 @@ Contributor: If your quickstart requires any additional components, decribe how 
 
     * [Add an Application User](../README.md#add-an-application-user)
 
- * This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#install-and-configure-the-postgresql-database)
-
- * This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Install and Configure Byteman](../README.md#install-and-configure-byteman)
+ * This quickstart requires the MySQL database. Instructions to install an configure MySQL can be found here: [Install and Configure the MySQL Database](../README.md#install-and-configure-the-mysql-database)
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7
 -------------------------
-
-Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:
 
  * Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
 
@@ -79,26 +80,21 @@ Contributor: If the server is started in a different manner than above, give the
 Build and Deploy the Quickstart
 -------------------------
 
-Contributor: If the quickstart is built and deployed using the standard Maven commands, "mvn clean package" and "mvn jboss-as:deploy", copy the following:
-
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+Following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-QUICKSTART_NAME.war` (or `target/jboss-as-QUICKSTART_NAME.ear`) to the running instance of the server.
- 
-Contributor: Be sure to replace the QUICKSTART_NAME. If this quickstart requires different or additional instructions, be sure to modify or add those instructions here.
+4. This will deploy `target/jboss-as-hibernate-search.war` to the running instance of the server.
 
 
 Access the application (For quickstarts that have a UI component)
 ---------------------
+ 
 
-Contributor: Provide the URL to access the running application. Be sure to make the URL a hyperlink as below, substituting the your quickstart name for the QUICKSTART_NAME. 
-
-        Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-QUICKSTART_NAME>
+        Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-hibernate-search>
 
 
 Contributor: Briefly describe what you will see when you access the application. For example: 
