@@ -33,8 +33,8 @@
 
    <default>
       <locking useLockStriping="false" />
-      <clustering mode="distribution">
-         <l1 enabled="true" lifespan="60000" />
+      <clustering mode="local">
+         <!-- <l1 enabled="true" lifespan="60000" /> -->
          <hash numOwners="2" />
          <sync />
       </clustering>

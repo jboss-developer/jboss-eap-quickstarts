@@ -21,9 +21,7 @@ public class Reader {
          */
         URL url = new URL("http://feeds.reuters.com/Reuters/worldNews");
         url = new URL("http://feeds.reuters.com/reuters/sportsNews");
-        /**
-         * http://news.bbc.co.uk/sport2/hi/help/rss/
-         */
+        
         url = new URL("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml");
         url = new URL("http://feeds.bbci.co.uk/news/rss.xml");
         /**

@@ -24,7 +24,7 @@ public class FeedEntry implements Serializable {
     private int feedId;
     private String title;
     private String author;
-    private Date publishedDate;
+    //private Date publishedDate;
     private String uri;
     private String description;
 
@@ -40,7 +40,7 @@ public class FeedEntry implements Serializable {
         this.feedId = feedId;
         this.title = title;
         this.author = author;
-        this.publishedDate = publishedDate;
+        //this.publishedDate = publishedDate;
         this.uri = uri;
         this.description = description;
     }
@@ -80,13 +80,13 @@ public class FeedEntry implements Serializable {
         this.author = author;
     }
 
-    public Date getPublishedDate() {
-        return publishedDate;
-    }
-
-    public void setPublishedDate(Date publishedDate) {
-        this.publishedDate = publishedDate;
-    }
+//    public Date getPublishedDate() {
+//        return publishedDate;
+//    }
+//
+//    public void setPublishedDate(Date publishedDate) {
+//        this.publishedDate = publishedDate;
+//    }
 
     public String getUri() {
         return uri;
@@ -113,7 +113,7 @@ public class FeedEntry implements Serializable {
                 ", feedId=" + feedId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
-                ", publishedDate=" + publishedDate +
+                //", publishedDate=" + publishedDate +
                 ", uri='" + uri + '\'' +
                 ", description='" + description + '\'' +
                 '}';

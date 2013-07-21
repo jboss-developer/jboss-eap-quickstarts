@@ -5,15 +5,22 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">
+        <!-- <property name="hibernate.connection.driver_class">
             com.mysql.jdbc.Driver
         </property>
         <property name="hibernate.connection.url">
             jdbc:mysql://127.0.0.1:3306/qsdb
+        </property> -->
+        <property name="hibernate.connection.driver_class">
+            org.postgresql.Driver
         </property>
+        <property name="hibernate.connection.url">
+            jdbc:postgresql://localhost/jbossashibernatesearch
+        </property>
+        
         <!--<property name="packagesToScan">org.jboss.as.quickstarts.hibernate_search.model.data</property>-->
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root123</property>
+        <property name="hibernate.connection.username">tharindudb</property>
+        <property name="hibernate.connection.password">postgres</property>
         <property name="hibernate.connection.pool_size">10</property>
         <property name="show_sql">false</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
