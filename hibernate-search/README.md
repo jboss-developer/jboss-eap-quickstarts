@@ -9,38 +9,17 @@ Target Product: EAP
 Source: https://github.com/jboss-jdf/jboss-as-quickstart/
 
 
-_This file is meant to serve as a template or guideline for your own quickstart README.md file. Be sure to replace QUICKSTART_NAME and YOUR_NAME, with the appropriate values._
-
-Contributor instructions are prefixed with 'Contributor: '
-
 What is it?
 -----------
 
-This is sample demo project which demonstrates a full text search of the entities. Here I will be using a Hibernate, AngularJS, Servlets, MySQL, Maven and store the indexes in infinispan. AngularJS based web client which runs on browser will communicate to Servlet based back end through RESTful web services. The functionality for above use cases will be exposed using a JAX-RS annotations in the Servlet. From  the servlet data is served from caching layer built using infinispan on top of mysql database.
+This is sample demo project which demonstrates a full text search of the entities. Here I will be using a Hibernate, AngularJS, Servlets, PostgreSQL, Maven and store the indexes in infinispan. AngularJS based web client which runs on browser will communicate to Servlet based back end through RESTful web services. The functionality for above use cases will be exposed using a JAX-RS annotations in the Servlet. From  the servlet data is served from caching layer built using infinispan on top of PostgreSQL database.
 
 This demo application does a full text search on the RSS news feed data. RSS News has attributes “title”, “description”, “author” and “published date”. Around these attributes and some of the other attributes available in the field I have build the full text search demonstration. The demonstration will support below use cases.
-
-Use case 1:  Submit feed
-	Admin users can add/edit/delete the RSS feed URL to the system.
-
-Use case 2:  Add news to database
-
-	This will be done by a period polling of RSS feeds from the feed providers and identifying the content attributes of the feed and saving them. 
-
-Use case 3: Search the news
-
-	This is where the full text search is going to happen
-
-Use case 4: View the news 
-
-	View the news by clicking selected news from Use case 3
-
-
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 and MySQL 5.1 or better.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 and PostgreSQL or better.
 
 The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
 
@@ -60,7 +39,7 @@ Configure Optional Components
 
     * [Add an Application User](../README.md#add-an-application-user)
 
- * This quickstart requires the MySQL database. Instructions to install an configure MySQL can be found here: [Install and Configure the MySQL Database](../README.md#install-and-configure-the-mysql-database)
+ * This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#install-and-configure-the-postgresql-database)
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7
@@ -94,21 +73,24 @@ Access the application (For quickstarts that have a UI component)
 ---------------------
  
 
-        Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-hibernate-search>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-hibernate-search>
 
 
-Contributor: Briefly describe what you will see when you access the application. For example: 
+	Use case 1:  Submit feed
 
-        You will be presented with a simple form for adding key/value pairs and a checkbox to indicate whether the updates should be executed using an unmanaged component. 
+		Admin users can add/edit/delete the RSS feed URL to the system.
 
-            If the box is checked, the updates will be executed within a session bean method. 
-            If the box is not checked, the transactions and JPA updates will run in a servlet instead of session beans. 
+	Use case 2:  Add news to database
 
-        To list all existing key/value pairs, leave the key input box empty. 
-    
-        To add or update the value of a key, enter a key and value input boxe and click the submit button to see the results.
+		This will be done by a period polling of RSS feeds from the feed providers and identifying the content attributes of the feed and saving them. 
 
-Contributor: Add any information that will help them run and understand your quickstart.
+	Use case 3: Search the news
+
+		This is where the full text search is going to happen
+
+	Use case 4: View the news 
+	
+		View the news by clicking selected news from Use case 3
 
 
 Undeploy the Archive
