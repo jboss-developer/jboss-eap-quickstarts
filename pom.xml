@@ -182,6 +182,7 @@
                 <module>ejb-security</module>
                 <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
+                <module>ejb-security-propagation</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-multi-server</module>
                 <module>greeter</module>
