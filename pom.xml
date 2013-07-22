@@ -227,7 +227,6 @@
                 <module>richfaces-quickstarts/helloworld-rf</module>
                 <module>richfaces-quickstarts/kitchensink-rf</module>
                 <module>richfaces-quickstarts/richfaces-validation</module>
-                <module>rest-endpoint</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
