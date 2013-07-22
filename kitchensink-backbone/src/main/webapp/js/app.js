@@ -88,7 +88,7 @@ $(function() {
 			_.bindAll(this, 'render');
 
 			// Listen to model changes
-			this.model.bind('change', this.render, this);
+			this.model.on('change', this.render, this);
 		},
 
 		// Re-render the contents of the member item.
@@ -129,9 +129,9 @@ $(function() {
 			//refer to the parent function. JS is block scoped.
 			var self = this;
 
-			Members.bind('add', this.addOneMember, this);
-			Members.bind('reset', this.addAllMemebers, this);
-			Members.bind('all', this.render, this);
+			Members.on('add', this.addOneMember, this);
+			Members.on('reset', this.addAllMemebers, this);
+			Members.on('all', this.render, this);
 
 			$('#members').html(self.templateHeaderRow);
 			this.updateMemberTable();
