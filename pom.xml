@@ -156,8 +156,6 @@
                     Application Platform or JBoss AS -->
                 <module>bean-validation</module>
                 <module>bmt</module>
-                <module>carmart</module>
-                <module>carmart-tx</module>
                 <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>
@@ -190,7 +188,6 @@
                 <module>helloworld-errai</module>
                 <module>helloworld-gwt</module>
                 <module>helloworld-html5</module>
-                <module>helloworld-jdg</module>
                 <module>helloworld-jms</module>
                 <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
@@ -200,7 +197,7 @@
                 <module>helloworld-ws</module>
                 <module>hibernate3</module>
                 <module>hibernate4</module>
-                <module>hotrod-endpoint</module>
+                <module>jdg-quickstarts</module>
                 <module>kitchensink</module>
                 <module>kitchensink-angularjs</module>
                 <module>kitchensink-backbone</module>
@@ -216,7 +213,6 @@
                 <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
-                <module>memcached-endpoint</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
                 <module>picketlink-authentication-http-basic</module>
@@ -230,7 +226,6 @@
                 <module>picketlink-authorization-idm-jpa</module>
                 <module>picketlink-authorization-rs-rbac</module>
                 <module>picketlink-deltaspike-authorization</module>
-                <module>rest-endpoint</module>
                 <module>richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
