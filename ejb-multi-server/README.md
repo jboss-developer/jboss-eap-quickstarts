@@ -4,7 +4,7 @@ Author: Wolf-Dieter Fink
 Level: Advanced
 Technologies: EJB, EAR
 Summary: EJB applications deployed to different servers that communicate via EJB remote calls
-Target Platform: EAP
+Target Product: EAP
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 
