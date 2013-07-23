@@ -23,7 +23,7 @@
     <artifactId>jboss-as-deltaspike-beanmanagerprovider</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: DeltaSpike Beanmanagerprovider</name>
+    <name>JBoss WFK Quickstart: deltaspike-beanmanagerprovider</name>
     <description>DeltaSpike Beanmanagerprovider: shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener</description>
 
     <url>http://jboss.org/jbossas</url>

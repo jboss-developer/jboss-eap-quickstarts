@@ -23,7 +23,7 @@
     <artifactId>jboss-as-deltaspike-projectstage</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: DeltaSpike Project Stage</name>
+    <name>JBoss WFK Quickstart: deltaspike-projectstage</name>
     <description>DeltaSpike Project Stage: shows how to use DeltaSpike ProjectStage that allows to use implementations depending on the current environment</description>
 
     <url>http://jboss.org/jbossas</url>

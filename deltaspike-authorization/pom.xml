@@ -23,7 +23,7 @@
     <artifactId>jboss-as-deltaspike-authorization</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: DeltaSpike Authorization</name>
+    <name>JBoss WFK Quickstart: deltaspike-authorization</name>
     <description>DeltaSpike Authorization: shows a custom authorization example using security binding types from DeltaSpike</description>
 
     <url>http://jboss.org/jbossas</url>
