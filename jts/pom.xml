@@ -21,7 +21,7 @@
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-jts-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
-    <name>JBoss AS Quickstarts: Java Transaction Service</name>
+    <name>JBoss EAP Quickstart: jts</name>
     <description>Using CMT with JTS</description>
     <packaging>pom</packaging>
 

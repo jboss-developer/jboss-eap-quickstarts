@@ -216,8 +216,8 @@ To build the quickstarts:
 
 _Note_: If you see a `java.lang.OutOfMemoryError: PermGen space` error when you run this command, increase the memory by typing the following command for your operating system, then try the above command again.
 
-        For Linux:   export MAVEN_OPTS=-Xmx512m
-        For Windows: SET MAVEN_OPTS=-Xmx512m
+        For Linux:   export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+        For Windows: SET MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
 
 
 ### Undeploy the Deployed Quickstarts with One Command

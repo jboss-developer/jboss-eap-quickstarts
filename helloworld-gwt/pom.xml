@@ -23,7 +23,8 @@
     <artifactId>jboss-as-helloworld-gwt</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Hello World with GWT front-end client</name>
+    <name>JBoss WFK Quickstart: helloworld-gwt</name>
+    <description>JBoss WFK Quickstart: Hello World with GWT front-end client</description>
 
     <url>http://jboss.org/jbossas</url>
         <licenses>

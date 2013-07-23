@@ -23,8 +23,8 @@
     <artifactId>jboss-as-servlet-async</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Asynchronous Servlet</name>
-    <description>JBoss AS Quickstarts: Asynchronous Servlet</description>
+    <name>JBoss EAP Quickstart: servlet-async</name>
+    <description>JBoss EAP Quickstart: Asynchronous Servlet</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

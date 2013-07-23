@@ -28,7 +28,7 @@
    <artifactId>jboss-as-kitchensink-ear-web</artifactId>
    <packaging>war</packaging>
 
-   <name>JBoss AS Quickstarts: Kitchensink EAR: WAR Module</name>
+   <name>JBoss EAP Quickstart: kitchensink-ear - web</name>
 
    <url>http://jboss.org/jbossas</url>
    <licenses>

@@ -22,8 +22,8 @@
     <artifactId>jboss-as-mail</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Mail</name>
-    <description>JBoss AS Quickstarts: Mail</description>
+    <name>JBoss EAP Quickstart: mail</name>
+    <description>JBoss EAP Quickstart: Mail</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

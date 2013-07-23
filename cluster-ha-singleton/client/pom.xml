@@ -27,7 +27,7 @@
         <version>7.1.2-SNAPSHOT</version>
     </parent>
 
-    <name>JBoss AS Quickstarts: SingletonService (client)</name>
+    <name>JBoss EAP Quickstart: cluster-ha-singleton-client</name>
     <packaging>jar</packaging>
 
     <licenses>

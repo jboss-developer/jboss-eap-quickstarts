@@ -28,7 +28,7 @@
     <artifactId>jboss-as-kitchensink-ml-ear-ejb</artifactId>
     <packaging>ejb</packaging>
 
-    <name>JBoss AS Quickstarts: Kitchensink EAR: EJB Module</name>
+    <name>JBoss EAP Quickstart: kitchensink-ml-ear - ejb</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

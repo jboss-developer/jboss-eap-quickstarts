@@ -23,7 +23,8 @@
     <artifactId>jboss-as-shoppingcart-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts: EJB Stateful Session Bean Quickstart Parent</name>
+    <name>JBoss EAP Quickstart: shopping-cart</name>
+    <description>JBoss EAP Quickstart: EJB Stateful Session Bean Quickstart Parent</description>
 
     <licenses>
         <license>

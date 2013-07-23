@@ -23,8 +23,8 @@
     <artifactId>jboss-as-temperature-converter</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Temperature Converter</name>
-    <description>JBoss AS Quickstarts: Temperature Converter. Given Celsius return Fahrenheit; Given Fahrenheit return Celsius</description>
+    <name>JBoss EAP Quickstart: temperature-converter</name>
+    <description>JBoss EAP Quickstart: Temperature Converter. Given Celsius return Fahrenheit; Given Fahrenheit return Celsius</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

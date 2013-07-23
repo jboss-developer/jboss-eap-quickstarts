@@ -28,8 +28,8 @@
     <artifactId>cdi-alternative</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: CDI Alternative</name>
-    <description>JBoss AS Quickstarts: CDI Alternative</description>
+    <name>JBoss EAP Quickstart: cdi-alternative</name>
+    <description>JBoss EAP Quickstart: CDI Alternative</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

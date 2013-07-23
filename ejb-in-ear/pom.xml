@@ -22,8 +22,8 @@
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-ejb-in-ear</artifactId>
     <version>7.1.2-SNAPSHOT</version>
-    <name>JBoss AS Quickstarts: EJB and War in an Ear - Root pom</name>
-    <description>JBoss AS Quickstarts: EJB and War in an Root pom</description>
+    <name>JBoss EAP Quickstart: ejb-in-ear</name>
+    <description>JBoss EAP Quickstart: EJB and War in an Root pom</description>
     <packaging>pom</packaging>
 
     <url>http://jboss.org/jbossas</url>

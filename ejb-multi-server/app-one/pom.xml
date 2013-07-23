@@ -14,7 +14,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>jboss-as-ejb-multi-server-appOne</artifactId>
-  <name>JBoss AS Quickstarts: multiple server application - AppOne</name>
+  <name>JBoss EAP Quickstart: ejb-multi-server - app-one</name>
   <description>ejb-multi-server: Application one for the scenario</description>
   <packaging>pom</packaging>
 

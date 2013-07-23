@@ -24,7 +24,7 @@
     <artifactId>jboss-as-cdi-veto</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: CDI Veto</name>
+    <name>JBoss EAP Quickstart: cdi-veto</name>
     <description>CDI Veto: An example of a Portable Extension and some of the APIs / SPIs of CDI demonstrating veto</description>
 
     <url>http://jboss.org/jbossas</url>

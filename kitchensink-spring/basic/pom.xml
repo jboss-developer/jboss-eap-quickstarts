@@ -28,7 +28,7 @@
     <artifactId>jboss-as-kitchensink-spring-basic</artifactId>
     <packaging>war</packaging>
     <version>7.1.2-SNAPSHOT</version>
-    <name>Kitchensink: Basic Spring</name>
+    <name>JBoss EAP Quickstart: kitchensink-spring-basic</name>
     <description>Getting Started with Spring on JBoss</description>
 
     <url>http://jboss.org/jbossas</url>

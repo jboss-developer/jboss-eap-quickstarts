@@ -23,7 +23,7 @@
     <artifactId>jboss-as-jta-crash-rec</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: XA and JTA Crash Recovery</name>
+    <name>JBoss EAP Quickstart: jta-crash-rec</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

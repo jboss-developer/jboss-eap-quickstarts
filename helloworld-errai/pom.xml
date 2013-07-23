@@ -23,7 +23,7 @@
     <artifactId>jboss-as-helloworld-errai</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Errai Hello World</name>
+    <name>JBoss WFK Quickstart: helloworld-errai</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

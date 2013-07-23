@@ -28,7 +28,7 @@
     <artifactId>ejb-throws-exception-ear</artifactId>
     <packaging>ear</packaging>
 
-    <name>JBoss AS Quickstarts: EJB throws exception (EAR)</name>
+    <name>JBoss EAP Quickstart: ejb-throws-exception - ear</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

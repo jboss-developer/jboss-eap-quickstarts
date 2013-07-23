@@ -23,8 +23,8 @@
   <artifactId>jboss-as-picketlink-authentication-idm-jsf</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: PicketLink IDM Simple Authentication with JSF</name>
-  <description>JBoss AS Quickstarts: PicketLink IDM Simple Authentication with JSF</description>
+  <name>JBoss EAP Quickstart: picketlink-authentication-idm-jsf</name>
+  <description>JBoss EAP Quickstart: PicketLink IDM Simple Authentication with JSF</description>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>

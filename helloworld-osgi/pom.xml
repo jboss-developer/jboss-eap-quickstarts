@@ -23,8 +23,8 @@
     <artifactId>jboss-as-helloworld-osgi</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>JBoss AS Quickstarts: OSGi Helloworld</name>
-    <description>JBoss AS Quickstarts: OSGi Helloworld</description>
+    <name>JBoss EAP Quickstart: helloworld-osgi</name>
+    <description>JBoss EAP Quickstart: OSGi Helloworld</description>
 
     <url>http://jboss.org/jbossas/osgi</url>
     <licenses>

@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jboss-as-jts-application-component-1</artifactId>
-    <name>JBoss AS Quickstarts: Java Transaction Service Application Component 1</name>
+    <name>JBoss EAP Quickstart: jts - application-component-1</name>
     <description>Using CMT with JTS</description>
     <packaging>war</packaging>
 

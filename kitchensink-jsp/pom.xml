@@ -23,7 +23,7 @@
     <artifactId>jboss-as-kitchensink-jsp</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Kitchensink JSP</name>
+    <name>JBoss EAP Quickstart: kitchensink-jsp</name>
     <description>kitchensink-jsp: Kitchensink with JSP front end</description>
 
     <url>http://jboss.org/jbossas</url>

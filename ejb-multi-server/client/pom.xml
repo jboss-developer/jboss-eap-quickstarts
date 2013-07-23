@@ -15,7 +15,7 @@
 
   <artifactId>jboss-as-ejb-multi-server-client</artifactId>
 
-  <name>JBoss AS Quickstarts: Application with multiple server environment - EJB client</name>
+  <name>JBoss EAP Quickstart: ejb-multi-server - client</name>
   <packaging>jar</packaging>
 
   <licenses>
