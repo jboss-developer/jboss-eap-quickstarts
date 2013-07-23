@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jboss-as-ejb-asynchronous-ejb</artifactId>
-    <name>JBoss AS Quickstarts: Asynchronous method invocations (EJB Jar)</name>
+    <name>JBoss EAP Quickstart: ejb-asynchronous - ejb</name>
     <description>jboss-as-ejb-asynchronous: The application jar with an asynchronous EJB and a second EJB to demonstrate how an EJB can be used asynchronous</description>
     <packaging>ejb</packaging>
     

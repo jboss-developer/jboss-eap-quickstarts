@@ -23,8 +23,8 @@
     <artifactId>jboss-as-wsba-coordinator-completion-simple</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</name>
-    <description>JBoss AS Quickstarts: Simple WS-BA with Coordinator Driven Completion</description>
+    <name>JBoss EAP Quickstart: wsba-coordinator-completion-simple</name>
+    <description>JBoss EAP Quickstart: Simple WS-BA with Coordinator Driven Completion</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

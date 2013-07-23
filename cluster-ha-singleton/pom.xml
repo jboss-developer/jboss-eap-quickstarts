@@ -23,8 +23,8 @@
     <artifactId>jboss-as-cluster-ha-singleton</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts: SingletonService</name>
-    <description>JBoss AS Quickstarts: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB</description>
+    <name>JBoss EAP Quickstart: cluster-ha-singleton</name>
+    <description>JBoss EAP Quickstart: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB</description>
 
     <url>http://jboss.org/jdf</url>
     <licenses>

@@ -22,8 +22,8 @@
     <artifactId>jboss-as-greeter-spring</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Greeter Spring</name>
-    <description>JBoss AS Quickstarts: Greeter Spring</description>
+    <name>JBoss EAP Quickstart: greeter-spring</name>
+    <description>JBoss EAP Quickstart: Greeter Spring</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

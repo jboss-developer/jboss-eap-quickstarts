@@ -17,7 +17,7 @@
     <artifactId>jboss-as-deltaspike-partialbean-basic</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: PartialBean Basic</name>
+    <name>JBoss WFK Quickstart: deltaspike-partialbean-basic</name>
     <description>DeltaSpike InvocationHandler: Demonstrates the basics of using the DeltaSpike PartialBean module</description>
 
     <url>http://jboss.org/jbossas</url>

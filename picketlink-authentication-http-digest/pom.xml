@@ -23,8 +23,8 @@
   <artifactId>jboss-as-picketlink-authentication-http-digest</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: PicketLink HTTP Digest Authentication</name>
-  <description>JBoss AS Quickstarts: PicketLink HTTP Digest Authentication</description>
+  <name>JBoss EAP Quickstart: picketlink-authentication-http-digest</name>
+  <description>JBoss EAP Quickstart: PicketLink HTTP Digest Authentication</description>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>

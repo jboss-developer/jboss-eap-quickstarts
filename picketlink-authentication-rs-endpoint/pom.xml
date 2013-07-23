@@ -23,8 +23,8 @@
   <artifactId>jboss-as-picketlink-authentication-rs-endpoint</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: PicketLink JAX-RS Authentication Endpoint</name>
-  <description>JBoss AS Quickstarts: PicketLink JAX-RS Authentication Endpoint</description>
+  <name>JBoss EAP Quickstart: picketlink-authentication-rs-endpoint</name>
+  <description>JBoss EAP Quickstart: PicketLink JAX-RS Authentication Endpoint</description>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>

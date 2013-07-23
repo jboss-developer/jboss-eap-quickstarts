@@ -27,7 +27,7 @@
         <version>7.1.2-SNAPSHOT</version>
     </parent>
 
-    <name>JBoss AS Quickstarts: SingletonService (service)</name>
+    <name>JBoss EAP Quickstart: cluster-ha-singleton-service</name>
     <packaging>ejb</packaging>
 
     <licenses>

@@ -23,7 +23,8 @@
     <artifactId>jboss-as-helloworld-singleton</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Helloworld Singleton Session Bean with JSF 2.0 as client</name>
+    <name>JBoss EAP Quickstart: helloworld-singleton</name>
+    <description>JBoss EAP Quickstart: Helloworld Singleton Session Bean with JSF 2.0 as client</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

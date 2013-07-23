@@ -25,8 +25,8 @@
     <artifactId>jboss-as-cdi-decorator</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: CDI Decorator</name>
-    <description>JBoss AS Quickstarts: CDI Decorator</description>
+    <name>JBoss EAP Quickstart: cdi-decorator</name>
+    <description>JBoss EAP Quickstart: CDI Decorator</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

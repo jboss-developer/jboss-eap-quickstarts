@@ -21,8 +21,8 @@
     <artifactId>jboss-as-petclinic-spring</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: PetClinic</name>
-    <description>JBoss AS Quickstarts: PetClinic</description>
+    <name>JBoss EAP Quickstart: petclinic-spring</name>
+    <description>JBoss EAP Quickstart: PetClinic</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

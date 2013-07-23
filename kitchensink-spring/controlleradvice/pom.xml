@@ -29,7 +29,7 @@
     <artifactId>jboss-as-kitchensink-spring-controlleradvice</artifactId>
     <packaging>war</packaging>
     <version>7.1.2-SNAPSHOT</version>
-    <name>Kitchensink: Spring Controller</name>
+    <name>JBoss EAP Quickstart: kitchensink-spring-controller</name>
     <description>Getting Started with Spring on JBoss with Spring 3.2 Controller Advice</description>
 
     <url>http://jboss.org/jbossas</url>

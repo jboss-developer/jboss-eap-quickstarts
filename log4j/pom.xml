@@ -23,8 +23,8 @@
     <artifactId>jboss-as-log4j</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Log4j</name>
-    <description>JBoss AS Quickstarts: Logging using Log4j</description>
+    <name>JBoss EAP Quickstart: log4j</name>
+    <description>JBoss EAP Quickstart: Logging using Log4j</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

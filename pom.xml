@@ -28,7 +28,7 @@
     <artifactId>jboss-as-quickstarts-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts Parent</name>
+    <name>JBoss Quickstart: Parent</name>
     <description>JBoss AS Quickstarts Parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 

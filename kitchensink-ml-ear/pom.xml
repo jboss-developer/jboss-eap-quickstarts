@@ -17,7 +17,8 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <name>JBoss AS Quickstarts: Localized Kitchensink EAR</name>
+    <name>JBoss EAP Quickstart: kitchensink-ml-ear</name>
+    <description>JBoss EAP Quickstart: Localized Kitchensink EAR</description>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-kitchensink-ml-ear</artifactId>

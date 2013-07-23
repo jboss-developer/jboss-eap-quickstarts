@@ -22,7 +22,7 @@
     <artifactId>jboss-as-kitchensink-spring</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts: Kitchensink-Spring</name>
+    <name>JBoss EAP Quickstart: kitchensink-spring</name>
     <description>A starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6, generated from the
         spring-mvc-archetype archetype
     </description>

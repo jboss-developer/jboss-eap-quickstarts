@@ -22,8 +22,8 @@
     <artifactId>jboss-as-ejb-in-war</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: EJB in a War</name>
-    <description>JBoss AS Quickstarts: EJB in War</description>
+    <name>JBoss EAP Quickstart: ejb-in-war</name>
+    <description>JBoss EAP Quickstart: EJB in War</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

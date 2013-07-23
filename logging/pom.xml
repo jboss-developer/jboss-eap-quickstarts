@@ -23,8 +23,8 @@
     <artifactId>jboss-as-logging</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Logging</name>
-    <description>JBoss AS Quickstarts: Logging</description>
+    <name>JBoss EAP Quickstart: logging</name>
+    <description>JBoss EAP Quickstart: Logging</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

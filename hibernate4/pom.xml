@@ -23,8 +23,8 @@
     <artifactId>jboss-as-hibernate4</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Hibernate 4</name>
-    <description>hibernate4: Application that uses Hibernate 4</description>
+    <name>JBoss EAP Quickstart: hibernate4</name>
+    <description>JBoss EAP Quickstart: Application that uses Hibernate 4</description>
 
     <licenses>
         <license>

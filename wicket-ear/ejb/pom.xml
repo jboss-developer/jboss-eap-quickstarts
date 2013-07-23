@@ -28,7 +28,7 @@
     <artifactId>jboss-as-wicket-ear-ejb</artifactId>
     <packaging>ejb</packaging>
 
-    <name>JBoss AS Quickstarts: Wicket EAR: EJB JAR</name>
+    <name>JBoss EAP Quickstart: wicket-ear - ejb</name>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

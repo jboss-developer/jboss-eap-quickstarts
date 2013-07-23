@@ -33,7 +33,7 @@ limitations under the License.
         <version.json.path>0.8.1</version.json.path>
         <version.javax.servlet>3.0.1</version.javax.servlet>
     </properties>
-    <name>Kitchensink: Spring MVC Test</name>
+    <name>JBoss EAP Quickstart: kitchensink-spring-springmvctest</name>
     <description>Getting Started with Spring on JBoss - with Spring 3.2 MVC Tests</description>
     <url>http://jboss.org/jbossas</url>
     <licenses>

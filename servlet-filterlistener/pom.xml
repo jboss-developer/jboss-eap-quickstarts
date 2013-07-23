@@ -23,8 +23,8 @@
     <artifactId>jboss-as-servlet-filterlistener</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Servlet Filter and Listener</name>
-    <description>JBoss AS Quickstarts: Servlet Filter and Listener</description>
+    <name>JBoss EAP Quickstart: servlet-filterlistener</name>
+    <description>JBoss EAP Quickstart: Servlet Filter and Listener</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

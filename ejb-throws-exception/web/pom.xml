@@ -28,7 +28,7 @@
     <artifactId>jboss-as-ejb-throws-exception-web</artifactId>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: EJB throws exception (WAR)</name>
+    <name>JBoss EAP Quickstart: ejb-throws-exception - web</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

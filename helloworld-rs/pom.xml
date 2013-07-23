@@ -22,8 +22,8 @@
     <artifactId>jboss-as-helloworld-rs</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: JAX-RS Helloworld</name>
-    <description>JBoss AS Quickstarts: Helloworld using JAX-RS</description>
+    <name>JBoss EAP Quickstart: helloworld-rs</name>
+    <description>JBoss EAP Quickstart: Helloworld using JAX-RS</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

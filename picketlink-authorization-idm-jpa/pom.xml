@@ -23,8 +23,8 @@
   <artifactId>jboss-as-picketlink-authorization-idm-jpa</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: PicketLink IDM Authorization using JPA</name>
-  <description>JBoss AS Quickstarts: PicketLink IDM Authorization using JPA</description>
+  <name>JBoss EAP Quickstart: picketlink-authorization-idm-jpa</name>
+  <description>JBoss EAP Quickstart: PicketLink IDM Authorization using JPA</description>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>

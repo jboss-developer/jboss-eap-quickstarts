@@ -23,7 +23,7 @@
     <artifactId>jboss-as-inter-app-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts: Inter-application</name>
+    <name>JBoss EAP Quickstart: inter-app</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
     <url>http://jboss.org/jbossas</url>

@@ -20,7 +20,7 @@
   </parent>
   <artifactId>jboss-as-ejb-multi-server-appTwo-ear</artifactId>
   <packaging>ear</packaging>
-  <name>JBoss AS Quickstarts: multiple server application - AppTwo EAR</name>
+  <name>JBoss EAP Quickstart: ejb-multi-server - app-two - ear</name>
 
   <dependencies>
     <dependency>

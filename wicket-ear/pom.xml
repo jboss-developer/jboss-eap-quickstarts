@@ -24,7 +24,7 @@
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>JBoss AS Quickstarts: Wicket EAR parent</name>
+    <name>JBoss EAP Quickstart: wicket-ear</name>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

@@ -21,7 +21,7 @@
 
   <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
 
-  <name>JBoss AS Quickstarts: multiple server application - AppMain WEB</name>
+  <name>JBoss EAP Quickstart: ejb-multi-server - app-main - web</name>
   <url>http://maven.apache.org</url>
   <packaging>war</packaging>
 

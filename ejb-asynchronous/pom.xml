@@ -23,7 +23,7 @@
     <artifactId>jboss-as-ejb-asynchronous</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts: Asynchronous method invocations</name>
+    <name>JBoss EAP Quickstart: ejb-asynchronous</name>
     <description>ejb-asynchronous: Demonstrates asynchronous method invocations on an EJB</description>
 
     <url>http://jboss.org/jbossas</url>

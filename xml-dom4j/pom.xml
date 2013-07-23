@@ -23,8 +23,8 @@
     <artifactId>jboss-as-xml-dom4j</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: XML DOM4J</name>
-    <description>JBoss AS Quickstarts: XML DOM4J</description>
+    <name>JBoss EAP Quickstart: xml-dom4j</name>
+    <description>JBoss EAP Quickstart: XML DOM4J</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

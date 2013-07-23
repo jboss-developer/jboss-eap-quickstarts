@@ -23,8 +23,8 @@
     <artifactId>jboss-as-wsat-simple</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Simple WS-AT Web service</name>
-    <description>JBoss AS Quickstarts: Simple WS-AT Web service</description>
+    <name>JBoss EAP Quickstart: wsat-simple</name>
+    <description>JBoss EAP Quickstart: Simple WS-AT Web service</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

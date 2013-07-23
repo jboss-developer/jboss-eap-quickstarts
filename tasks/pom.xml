@@ -23,8 +23,8 @@
     <artifactId>jboss-as-tasks</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Tasks</name>
-    <description>JBoss AS Quickstarts: Tasks</description>
+    <name>JBoss EAP Quickstart: tasks</name>
+    <description>JBoss EAP Quickstart: Tasks</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
