@@ -1,4 +1,4 @@
-controlleradvice: Kitchensink ControllerAdvice Example using Spring 3.2
+kitchensink-spring-controlleradvice: Kitchensink ControllerAdvice Example using Spring 3.2
 ===================================================================================
 Author: Marius Bogoevici/Tejas Mehta
 Level: Intermediate
@@ -47,9 +47,8 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy module/target/jboss-as-kitchensink-spring-controlleradvice.war to the running instance of the server.
+4. This will deploy `target/jboss-as-kitchensink-spring-controlleradvice.war` to the running instance of the server.
 
-If you don't have maven configured you can manually copy module/target/jboss-as-kitchensink-spring-controlleradvice.war to JBOSS_HOME/standalone/deployments.
 
 Access the application
 ----------------------
@@ -65,7 +64,6 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
-Or you can manually remove the application by removing jboss-as-kitchensink-spring-controlleradvice.war from JBOSS_HOME/standalone/deployments
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------

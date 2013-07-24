@@ -1,5 +1,5 @@
-matrixvariables: Kitchensink MatrixVariables Example using Spring 3.2
-=================================================================================
+kitchensink-spring-asyncrequestmapping: Kitchensink AsynRequestMapping Example using Spring 3.2
+====================================================================================
 Author: Marius Bogoevici/Tejas Mehta
 Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit
@@ -14,11 +14,7 @@ This is your project! It is a sample, deployable Maven 3 project to help you get
 
 This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 3.2. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
-* This module showcases Spring 3.2's added support for Matrix Variables in urls.
-
-* An additional form is added in `index.jsp` which allows the user to filter the member list. The form is submitted in the url form: `/filter;n=Name;e=Email`.
-
-* Using `@MatrixVariable` the controller method captures the values and feeds them to the memberDao.
+* This module showcases the use of asynchronous requests in `MemberRestController.java`, introduced in the Spring 3.2. [More on Spring's Asynchronous Request Processing](http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-async)
 
 System requirements
 -------------------
@@ -49,14 +45,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy module/target/jboss-as-kitchensink-spring-matrixvariables.war to the running instance of the server.
+4. This will deploy `target/jboss-as-kitchensink-spring-asyncrequestmapping.war` to the running instance of the server.
 
-If you don't have maven configured you can manually copy module/target/jboss-as-kitchensink-spring-matrixvariables.war to JBOSS_HOME/standalone/deployments.
 
 Access the application
 ----------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-spring-matrixvariables/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-spring-asyncrequestmapping/>.
 
 Undeploy the Archive
 ----------------------
@@ -67,7 +62,6 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
-Or you can manually remove the application by removing jboss-as-kitchensink-spring-matrixvariables.war from JBOSS_HOME/standalone/deployments
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------

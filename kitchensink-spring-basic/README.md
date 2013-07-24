@@ -1,6 +1,6 @@
-asyncrequestmapping: Kitchensink AsynRequestMapping Example using Spring 3.2
-====================================================================================
-Author: Marius Bogoevici/Tejas Mehta
+kitchensink-spring-basic: Kitchensink Example using Spring 3.1
+===========================================
+Author: Marius Bogoevici
 Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit
 Summary: An example that incorporates multiple technologies
@@ -10,11 +10,18 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 What is it?
 -----------
 
+
 This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on JBoss Enterprise Application Platform 6 or JBoss AS 7.
 
 This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 3.2. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
-* This module showcases the use of asynchronous requests in `MemberRestController.java`, introduced in the Spring 3.2. [More on Spring's Asynchronous Request Processing](http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-async)
+* In `jboss-as-spring-mvc-context.xml` `<context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.basic.mvc"/>` and `<mvc:annotation-driven/>` are used to register both the non-rest and rest controllers.
+
+* The controllers map the respective urls to methods using `@RequestMapping(url)`.
+
+* To return JSON, the rest controller uses `@ResponseBody`.
+
+* The datasource and entitymanager are retrieved via JNDI.
 
 System requirements
 -------------------
@@ -45,14 +52,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy module/target/jboss-as-kitchensink-spring-asyncrequestmapping.war to the running instance of the server.
+4. This will deploy `target/jboss-as-kitchensink-spring-basic.war` to the running instance of the server.
 
-If you don't have maven configured you can manually copy module/target/jboss-as-kitchensink-spring-asyncrequestmapping.war to JBOSS_HOME/standalone/deployments.
 
 Access the application
 ----------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-spring-asyncrequestmapping/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-spring-basic/>.
 
 Undeploy the Archive
 ----------------------
@@ -63,7 +69,6 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
-Or you can manually remove the application by removing jboss-as-kitchensink-spring-asyncrequestmapping.war from JBOSS_HOME/standalone/deployments
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
@@ -78,3 +83,4 @@ If you want to debug the source code or look at the Javadocs of any library in t
 
         mvn dependency:sources
         mvn dependency:resolve -Dclassifier=javadoc
+

@@ -206,7 +206,11 @@
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
-                <module>kitchensink-spring</module>
+                <module>kitchensink-spring-asyncrequestmapping</module>
+                <module>kitchensink-spring-basic</module>
+                <module>kitchensink-spring-controlleradvice</module>
+                <module>kitchensink-spring-matrixvariables</module>
+                <module>kitchensink-spring-springmvctest</module>
                 <module>log4j</module>
                 <module>logging</module>
                 <module>logging-tools</module>
