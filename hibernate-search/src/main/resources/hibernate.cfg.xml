@@ -4,47 +4,38 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-    <session-factory>
-        <!-- <property name="hibernate.connection.driver_class">
-            com.mysql.jdbc.Driver
-        </property>
-        <property name="hibernate.connection.url">
-            jdbc:mysql://127.0.0.1:3306/qsdb
-        </property> -->
-        <property name="hibernate.connection.driver_class">
-            org.postgresql.Driver
-        </property>
-        <property name="hibernate.connection.url">
-            jdbc:postgresql://localhost/jbossashibernatesearch
-        </property>
-        
-        <!--<property name="packagesToScan">org.jboss.as.quickstarts.hibernate_search.model.data</property>-->
-        <property name="hibernate.connection.username">tharindudb</property>
-        <property name="hibernate.connection.password">postgres</property>
-        <property name="hibernate.connection.pool_size">10</property>
-        <property name="show_sql">false</property>
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">
+			${connection.driver_class}
+		</property>
+		<property name="hibernate.connection.url">
+			${connection.url}
+		</property>
+		<property name="packagesToScan">org.jboss.as.quickstarts.hibernate_search.model.data</property>
+		<property name="hibernate.connection.username">${connection.username}</property>
+		<property name="hibernate.connection.password">${connection.password}</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		<property name="show_sql">false</property>
+		<property name="dialect">${connection.dialect}</property>
+		<property name="hibernate.hbm2ddl.auto">update</property> 
+		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property>
 
-        <!--<property name="hibernate.search.default.directory_provider">filesystem</property>
-        <property name="hibernate.search.default.indexBase">C:\lucene\indexes</property>-->
+		<!--<property name="hibernate.search.default.directory_provider">filesystem</property> 
+			<property name="hibernate.search.default.indexBase">C:\lucene\indexes</property> -->
 
-        <property name="hibernate.search.default.directory_provider">infinispan</property>
-        <property name="hibernate.search.lucene_version">LUCENE_35</property>
-        <property name="hibernate.search.infinispan.configuration_resourcename">
-            lucene-demo-cache-config.xml
-        </property>
-        <property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
+		<property name="hibernate.search.default.directory_provider">infinispan</property>
+		<property name="hibernate.search.lucene_version">LUCENE_35</property>
+		<property name="hibernate.search.infinispan.configuration_resourcename">
+			lucene-demo-cache-config.xml
+		</property>
+		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
 
-        <property name="key2StringMapperClass" >org.infinispan.lucene.LuceneKey2StringMapper</property>
-       <!-- <property name="annotatedClasses">
-            &lt;!&ndash;<list>&ndash;&gt;
-                &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt;
-            &lt;!&ndash;</list>&ndash;&gt;
-                &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data</value>&ndash;&gt;
-        </property>-->
-        <!-- Mapping files -->
-        <!--<mapping resource="user.hbm.xml"></mapping>-->
+		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
+		<!-- <property name="annotatedClasses"> &lt;!&ndash;<list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt; 
+			&lt;!&ndash;</list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data</value>&ndash;&gt; 
+			</property> -->
+		<!-- Mapping files -->
+		<!--<mapping resource="user.hbm.xml"></mapping> -->
 
-    </session-factory>
+	</session-factory>
 </hibernate-configuration>

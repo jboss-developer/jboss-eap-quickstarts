@@ -27,7 +27,7 @@
    xmlns="urn:infinispan:config:5.3">
 
    <global>
-      <transport clusterName="luceneDemoCluster" />
+      <!-- <transport clusterName="luceneDemoCluster" /> -->
       <globalJmxStatistics enabled="false" allowDuplicateDomains="true"  />
    </global>
 
