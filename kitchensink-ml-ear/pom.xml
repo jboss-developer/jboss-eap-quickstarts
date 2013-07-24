@@ -34,9 +34,9 @@
         </license>
     </licenses>
     <modules>
-        <module>jboss-as-kitchensink-ml-ear-ejb</module>
-        <module>jboss-as-kitchensink-ml-ear-web</module>
-        <module>jboss-as-kitchensink-ml-ear-ear</module>
+        <module>ejb</module>
+        <module>web</module>
+        <module>ear</module>
     </modules>
 
     <properties>
