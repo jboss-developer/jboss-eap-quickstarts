@@ -277,7 +277,6 @@
                 <module>jts</module>
                 <module>inter-app</module>                
                 <module>ejb-security-plus</module>
-                <module>jpp-quickstarts</module>
             </modules>
         </profile>
         <profile>
