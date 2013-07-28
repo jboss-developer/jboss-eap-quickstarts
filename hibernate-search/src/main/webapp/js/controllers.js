@@ -2,38 +2,64 @@
 
 /* Controllers */
 
-function FeedListCtrl($scope, FeedCollection,FeedItem,FeedEntryCollection,FeedEntryFromIndexedCollection) {
+function FeedListCtrl($scope, FeedCollection,FeedEntryCollection,FeedEntryFromIndexedCollection) {
   $scope.feedUrl = "";
   $scope.feeds = FeedCollection.query();
   $scope.orderProp = 'age';
   $scope.feedEntries = FeedEntryCollection.query();
 
-    $scope.searchIndex = function (text) {
+  $scope.searchIndex = function (text) {
         $scope.feedEntries = FeedEntryFromIndexedCollection.query({text: text});
-    };
-
-    /*$scope.addFeed = function (FeedItem) {
-        alert($scope.feedUrl);
-        var newFeed = {
-            url : $scope.feedUrl
-        };
-//        newFeed.$save();
-//        FeedItem.save(newFeed);
-        $scope.feeds.push(FeedItem.save(newFeed));
-        $scope.feedUrl = "";
-    };*/
+  };
 }
 
 //FeedListCtrl.$inject = ['$scope', 'FeedCollection'];
 
-function FeedDetailCtrl($scope, $routeParams, FeedCollection,FeedItem,FeedEntryCollection,FeedEntrySpecificCollection) {
-  /*$scope.feed = FeedCollection.get({id: $routeParams.id}, function(feed) {
-  });*/
+function FeedDetailCtrl($scope, $routeParams,FeedItem,FeedEntrySpecificCollection) {
   $scope.feed = FeedItem.get({id: $routeParams.id});
     $scope.specificFeedEntries = FeedEntrySpecificCollection.query({id: $routeParams.id});
-//        $scope.specificFeedEntries = FeedEntrySpecificCollection.get({id: $routeParams.id});
-  /*$scope.setImage = function(imageUrl) {
-  }*/
 }
 
 //FeedDetailCtrl.$inject = ['$scope', '$routeParams', 'FeedCollection'];
+
+function AdminCtrl($scope ,FeedCollection) {
+
+    //$scope.feeds = FeedCollection.query();
+
+    var createFeed = function (newFeed) {
+        newFeed.$save();
+        $scope.feeds.push(newFeed);
+    };
+
+    var updateFeed = function(feed) {
+        feed.$update();
+    };
+
+    $scope.showEdit = function () {
+        $scope.isEditVisible = true;
+        $scope.editableFeed = new Feed();
+    };
+
+    $scope.saveFeed = function (feed) {
+        $scope.isEditVisible = false;
+        if (feed.id) {
+            updateFeed(feed);
+        }
+        else {
+            createFeed(feed);
+        }
+    };
+
+    $scope.editFeed = function (feed) {
+        $scope.isEditVisible = true;
+        $scope.editableFeed = feed;
+    };
+
+    $scope.deleteFeed = function (feed) {
+        feed.$delete();
+        //$scope.feeds = _.without($scope.feeds, feed);
+    };
+
+    $scope.isEditVisible = false;
+    $scope.feeds = FeedCollection.query();
+}

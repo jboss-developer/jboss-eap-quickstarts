@@ -1,0 +1,46 @@
+<div class="span6">
+	<table width="100%">
+		<thead>
+			<th>Url</th>
+			<th>Title</th>
+			<!-- <th></th>
+			<th></th> -->
+		</thead>
+		<tbody>
+			<tr data-id="{{feed.id}}" ng-repeat="feed in feeds">
+				<td width="60%">{{feed.url}}</td>
+				<td width="40%">{{feed.title}}</td>
+				<!-- <td>
+					<button ng-click="editFeed(feed)">Edit</button>
+				</td>
+				<td>
+					<button ng-click="deleteFeed(feed)">Delete</button>
+				</td> -->
+			</tr>
+		</tbody>
+	</table>
+
+	<button ng-click="showEdit()">Create Feed</button>
+
+	<div ng-show="isEditVisible">
+		<hr />
+		<form>
+			<table>
+				<thead>
+					<th>Url</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" size="60" ng-model="editableFeed.url" required/></td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="Save"
+							ng-click="saveFeed(editableFeed)" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="hidden" ng-model="editableFeed.id" />
+		</form>
+	</div>
+
+</div>

@@ -1,50 +1,21 @@
 <div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2">
-      <!--Sidebar content-->
-
-      Search: <input ng-model="query">
-      Sort by:
-      <select ng-model="orderProp">
-        <option value="title">Alphabetical</option>
-        <option value="age">Newest</option>
-      </select>
-
-        <div ng-show="searchIndex">
-            <hr />
-            <form>
-                <label>Search Index</label>
-                <input type="text" ng-model="text"/>
-                <input type="submit" value="Search" ng-click="searchIndex(text)" />
-            </form>
-        </div>
-
-      <!--Feed url <input id="feedUrl" ng-model="feedUrl" type="text"/>
-      <br/>
-      <button ng-click="addFeed()" type="button">Add</button>-->
-    </div>
-    <div class="span6">
-      <!--Body content-->
-
-      <ul class="feeds">
-        <li ng-repeat="feed in feeds | filter:query | orderBy:orderProp">
-          <a href="#/feeds/{{feed.id}}">{{feed.title}}</a>
-          <p>{{feed.description}}</p>
-        </li>
-      </ul>
-
-    </div>
-
-      <div class="span6">
-          <!--Body content-->
-          <ul >
-              <li ng-repeat="feedEntry in feedEntries">
-                  <a href="#/feedEntries/{{feedEntry.id}}">{{feedEntry.title}}</a>
-                  <p>{{feedEntry.description}}</p>
-                  <a href="{{feedEntry.uri}}">{{feedEntry.uri}}</a>
-              </li>
-          </ul>
-
-      </div>
-  </div>
+	<div class="row-fluid">
+		<div class="span2">
+			<!--Sidebar content-->
+			Search: <input ng-model="query"> Sort by: <select
+				ng-model="orderProp">
+				<option value="title">Alphabetical</option>
+				<option value="age">Newest</option>
+			</select>
+		</div>
+		<div class="span6">
+			<!--Body content-->
+			<ul class="feeds">
+				<li ng-repeat="feed in feeds | filter:query | orderBy:orderProp">
+					<a href="#/feeds/{{feed.id}}">{{feed.title}}</a>
+					<p>{{feed.description}}</p>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>

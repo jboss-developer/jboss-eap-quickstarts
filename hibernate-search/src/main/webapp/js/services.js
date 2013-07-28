@@ -2,18 +2,14 @@
 
 /* Services */
 
-/*angular.module('feedAppServices', ['ngResource']).
-    factory('FeedCollection', function($resource){
-  return $resource('feeds/:id.json', {}, {
-    query: {method:'GET', params:{id:'feeds'}, isArray:true}
-  });
-});*/
-
 angular.module('feedAppServices', ['ngResource']).
     factory('FeedCollection', function($resource){
         return $resource('rest/feedReader/feeds', {}, {
             query: {method: 'GET', isArray: true},
-            save:  {method:'POST',params:{Feed:'newFeed'}}
+            get:     {method:'GET',  params:{id : 'id'}, isArray : false},
+            save:    {method:'POST', isArray : false},
+            update:  {method:'PUT',   isArray : false},
+            delete:  {method:'DELETE', isArray : false}
         });
     }).factory('FeedItem', function ($resource) {
         return $resource('rest/feedReader/feeds/:id', {}, {
@@ -25,7 +21,7 @@ angular.module('feedAppServices', ['ngResource']).
     }).factory('FeedEntrySpecificCollection', function ($resource) {
         return $resource('rest/feedReader/feedEntries/:id', {}, {
             query: {method: 'GET',params:{id:'id'}, isArray: true}
-        })
+        });
     }).factory('FeedEntryFromIndexedCollection', function($resource){
         return $resource('rest/feedReader/feeds/search/:text', {}, {
             query: {method: 'GET',params:{text:'text'}, isArray: true}
