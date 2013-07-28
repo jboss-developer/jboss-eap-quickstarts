@@ -23,8 +23,8 @@
     <artifactId>jboss-as-tasks-jsf</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Tasks JSF</name>
-    <description>JBoss AS Quickstarts: Tasks JSF</description>
+    <name>JBoss EAP Quickstart: tasks-jsf</name>
+    <description>JBoss EAP Quickstart: Tasks JSF</description>
     
     <licenses>
         <license>

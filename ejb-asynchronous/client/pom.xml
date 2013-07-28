@@ -21,7 +21,7 @@
 
     <artifactId>jboss-as-ejb-asynchronous-client</artifactId>
 
-    <name>JBoss AS Quickstarts: Asynchronous method invocations on an EJB - Service EJB client</name>
+    <name>JBoss EAP Quickstart: ejb-asynchronous - client</name>
     <packaging>jar</packaging>
 
     <parent>

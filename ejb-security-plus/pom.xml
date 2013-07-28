@@ -23,8 +23,8 @@
     <artifactId>jboss-as-ejb-security-plus</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: EJB Security Plus</name>
-    <description>JBoss AS Quickstarts: EJB Security Plus</description>
+    <name>JBoss EAP Quickstart: ejb-security-plus</name>
+    <description>JBoss EAP Quickstart: EJB Security Plus</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

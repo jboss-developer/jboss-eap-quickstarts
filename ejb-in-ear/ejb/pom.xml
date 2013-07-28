@@ -31,8 +31,8 @@
     </parent>
 
     <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
-    <name>JBoss AS Quickstarts: EJB and War in an Ear - EJB</name>
-    <description>JBoss AS Quickstarts: EJB and War in an Ear - EJB</description>
+    <name>JBoss EAP Quickstart: ejb-in-ear - ejb</name>
+    <description>JBoss EAP Quickstart: EJB and War in an Ear - EJB</description>
 
     <licenses>
         <license>

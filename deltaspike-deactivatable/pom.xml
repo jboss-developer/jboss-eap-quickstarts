@@ -23,7 +23,7 @@
     <artifactId>jboss-as-deltaspike-deactivatable</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: DeltaSpike Deactivatable</name>
+    <name>JBoss WFK Quickstart: deltaspike-deactivatable</name>
     <description>DeltaSpike Deactivatable: Demonstrate usage of Deactivatable</description>
 
     <url>http://jboss.org/jbossas</url>

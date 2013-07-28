@@ -28,7 +28,7 @@
     <artifactId>jboss-as-wicket-ear-war</artifactId>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: Wicket EAR: WAR</name>
+    <name>JBoss EAP Quickstart: wicket-ear - war</name>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

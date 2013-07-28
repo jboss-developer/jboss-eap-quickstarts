@@ -23,7 +23,7 @@
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: HTML5/Mobile</name>
+    <name>JBoss WFK Quickstart: kitchensink-html5-mobile</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
 
     <url>http://jboss.org/aerogear</url>

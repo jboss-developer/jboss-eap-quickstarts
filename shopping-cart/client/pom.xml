@@ -27,7 +27,7 @@
 
     <artifactId>jboss-as-shoppingcart-client</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: Shopping Cart Remote Client</name>
+    <name>JBoss EAP Quickstart: shopping-cart - client</name>
 
     <licenses>
         <license>

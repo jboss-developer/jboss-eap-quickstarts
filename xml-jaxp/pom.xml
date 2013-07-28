@@ -23,8 +23,8 @@
     <artifactId>jboss-as-xml-jaxp</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: XML JAXP</name>
-    <description>JBoss AS Quickstarts: XML JAXP</description>
+    <name>JBoss EAP Quickstart: xml-jaxp</name>
+    <description>JBoss EAP Quickstart: XML JAXP</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

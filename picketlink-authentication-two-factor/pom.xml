@@ -23,8 +23,8 @@
   <artifactId>jboss-as-picketlink-authentication-two-factor</artifactId>
   <version>7.1.2-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>JBoss AS Quickstarts: PicketLink Two-Factor Authentication</name>
-  <description>JBoss AS Quickstarts: PicketLink Two-Factor Authentication</description>
+  <name>JBoss EAP Quickstart: picketlink-authentication-two-factor</name>
+  <description>JBoss EAP Quickstart: PicketLink Two-Factor Authentication</description>
 
   <url>http://jboss.org/jbossas</url>
   <licenses>

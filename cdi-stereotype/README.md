@@ -4,7 +4,7 @@ Author: Ievgen Shulga
 Level: Intermediate
 Technologies: JPA,JSF,EJB
 Summary: Demonstrates using cdi-stereotype for logging and auditing
-Target Product: EAP 6.0.1 or higher
+Target Product: EAP
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?

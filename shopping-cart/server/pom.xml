@@ -27,7 +27,7 @@
 
     <artifactId>jboss-as-shoppingcart-server</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: Shopping Cart Server Module</name>
+    <name>JBoss EAP Quickstart: shopping-cart - server</name>
 
     <licenses>
         <license>

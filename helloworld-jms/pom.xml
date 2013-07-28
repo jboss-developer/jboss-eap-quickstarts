@@ -23,7 +23,7 @@
     <artifactId>jboss-as-helloworld-jms</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: helloworld-jms</name>
+    <name>JBoss EAP Quickstart: helloworld-jms</name>
     <description>helloworld-jms: Helloworld JMS external producer/consumer client</description>
 
     <url>http://jboss.org/jbossas</url>

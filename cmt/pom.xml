@@ -21,7 +21,7 @@
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-cmt</artifactId>
     <version>7.1.2-SNAPSHOT</version>
-    <name>JBoss AS Quickstarts: Container Managed Transactions</name>
+    <name>JBoss EAP Quickstart: cmt</name>
     <description>CMT: Using transactions managed by the container</description>
     <packaging>war</packaging>
 

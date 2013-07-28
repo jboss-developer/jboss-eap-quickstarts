@@ -17,7 +17,7 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <name>JBoss AS Quickstarts: Kitchensink EAR</name>
+    <name>JBoss EAP Quickstart: kitchensink-ear</name>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.as.quickstarts</groupId>
     <artifactId>jboss-as-kitchensink-ear</artifactId>
@@ -33,9 +33,9 @@
         </license>
     </licenses>
     <modules>
-        <module>jboss-as-kitchensink-ear-ejb</module>
-        <module>jboss-as-kitchensink-ear-web</module>
-        <module>jboss-as-kitchensink-ear-ear</module>
+        <module>ejb</module>
+        <module>web</module>
+        <module>ear</module>
     </modules>
 
     <properties>

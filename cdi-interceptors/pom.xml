@@ -21,8 +21,8 @@
     <artifactId>jboss-as-cdi-interceptors</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: cdi-interceptors</name>
-    <description>JBoss AS Quickstarts: CDI-Interceptors</description>
+    <name>JBoss EAP Quickstart: cdi-interceptors</name>
+    <description>JBoss EAP Quickstart: CDI-Interceptors</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

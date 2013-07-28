@@ -97,7 +97,16 @@ General Guidelines
 
 * The quickstart project or folder name should match the quickstart name. Each sample project should have a unique name, allowing easy identification by users and developers.
 
-* The `<artifactId>` in the quickstart `pom.xml` file should follow the template: `jboss-<product-type>-<quickstart-name>`. For example, the `<artifactId>` for the `greeter` quickstart in the AS 7 project is `jboss-as-greeter`. The `<artifactId>` for `errors` quickstart in the Fuse project is `jboss-fuse-errors`.
+* The `<name>` in the quickstart `pom.xml` file should follow the template: `JBoss <target-product> Quickstart: <quickstart-name> < - optional-subfolder-name>` where `target-product` is the `Target Product` metadata specified in the README.md file,  `quickstart-name` is the quickstart folder name, and `optional-subfolder-name` is the name of any nested subfolder containing a `pom.xml` file. The following are a few examples of quickstart pom files and the correct name tags:
+
+        greeter/pom.xml ==> `JBoss EAP Quickstart: greeter`
+        helloworld-errai/pom.xml ==> `JBoss WFK Quickstart: helloworld-errai`
+        kitchensink-ear/pom.xml ==> `JBoss EAP Quickstart: kitchensink-ear`
+        kitchensink-ear/ear/pom.xml --> `JBoss EAP Quickstart: kitchensink-ear - ear`
+        kitchensink-ear/ejb/pom.xml ==> `JBoss EAP Quickstart: kitchensink-ear - ejb`
+        kitchensink-ear/web/pom.xml ==> `JBoss EAP Quickstart: kitchensink-ear - web`
+
+* The `<artifactId>` in the quickstart `pom.xml` file should follow the template: `jboss-<target-product>-<quickstart-name>`. For example, the `<artifactId>` for the `greeter` quickstart in the AS 7 project is `jboss-as-greeter`. The `<artifactId>` for `errors` quickstart in the Fuse project is `jboss-fuse-errors`.
 
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 

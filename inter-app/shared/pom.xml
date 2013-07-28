@@ -21,7 +21,7 @@
 
     <artifactId>jboss-as-inter-app-shared</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: Inter-application (Shared API jar)</name>
+    <name>JBoss EAP Quickstart: inter-app-shared</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
     <parent>

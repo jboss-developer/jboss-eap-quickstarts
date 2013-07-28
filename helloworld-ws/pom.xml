@@ -23,8 +23,8 @@
     <artifactId>jboss-as-helloworld-ws</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Hello World JAX-WS Web service</name>
-    <description>JBoss AS Quickstarts: Hello World JAX-WS Web service</description>
+    <name>JBoss EAP Quickstart: helloworld-ws</name>
+    <description>JBoss EAP Quickstart: Hello World JAX-WS Web service</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

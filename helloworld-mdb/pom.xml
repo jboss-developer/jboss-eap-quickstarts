@@ -23,7 +23,8 @@
     <artifactId>jboss-as-helloworld-mdb</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Helloworld Message-Driven Bean with Servlet 3.0 as client</name>
+    <name>JBoss EAP Quickstart: helloworld-mdb</name>
+    <description>JBoss EAP Quickstart: Helloworld Message-Driven Bean with Servlet 3.0 as client</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

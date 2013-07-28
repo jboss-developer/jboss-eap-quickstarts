@@ -28,7 +28,7 @@
     <artifactId>jboss-as-quickstarts-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts Parent</name>
+    <name>JBoss Quickstart: Parent</name>
     <description>JBoss AS Quickstarts Parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 
@@ -156,8 +156,6 @@
                     Application Platform or JBoss AS -->
                 <module>bean-validation</module>
                 <module>bmt</module>
-                <module>carmart</module>
-                <module>carmart-tx</module>
                 <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>
@@ -191,17 +189,15 @@
                 <module>helloworld-errai</module>
                 <module>helloworld-gwt</module>
                 <module>helloworld-html5</module>
-                <module>helloworld-jdg</module>
                 <module>helloworld-jms</module>
                 <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
-                <module>richfaces-quickstarts/helloworld-rf</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
                 <module>hibernate3</module>
                 <module>hibernate4</module>
-                <module>hotrod-endpoint</module>
+                <module>jdg-quickstarts</module>
                 <module>kitchensink</module>
                 <module>kitchensink-angularjs</module>
                 <module>kitchensink-backbone</module>
@@ -211,13 +207,15 @@
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
-                <module>richfaces-quickstarts/kitchensink-rf</module>
-                <module>kitchensink-spring</module>
+                <module>kitchensink-spring-asyncrequestmapping</module>
+                <module>kitchensink-spring-basic</module>
+                <module>kitchensink-spring-controlleradvice</module>
+                <module>kitchensink-spring-matrixvariables</module>
+                <module>kitchensink-spring-springmvctest</module>
                 <module>log4j</module>
                 <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
-                <module>memcached-endpoint</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
                 <module>picketlink-authentication-http-basic</module>
@@ -231,8 +229,9 @@
                 <module>picketlink-authorization-idm-jpa</module>
                 <module>picketlink-authorization-rs-rbac</module>
                 <module>picketlink-deltaspike-authorization</module>
-                <module>rest-endpoint</module>
-                <module>richfaces-validation</module>
+                <module>richfaces-quickstarts/helloworld-rf</module>
+                <module>richfaces-quickstarts/kitchensink-rf</module>
+                <module>richfaces-quickstarts/richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
@@ -279,6 +278,7 @@
                 <module>jts</module>
                 <module>inter-app</module>                
                 <module>ejb-security-plus</module>
+                <module>jpp-quickstarts</module>
             </modules>
         </profile>
         <profile>

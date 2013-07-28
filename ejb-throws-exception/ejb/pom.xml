@@ -28,7 +28,7 @@
     <artifactId>jboss-as-ejb-throws-exception-ejb</artifactId>
     <packaging>ejb</packaging>
 
-    <name>JBoss AS Quickstarts: EJB throws exception (EJB module)</name>
+    <name>JBoss EAP Quickstart: ejb-throws-exception - ejb</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
