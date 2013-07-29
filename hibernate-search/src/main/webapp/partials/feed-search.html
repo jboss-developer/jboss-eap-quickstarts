@@ -1,0 +1,22 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			<!--Sidebar content-->
+			<div ng-show="searchIndex">
+				<form>
+					<label>Search Index</label> <input type="text" ng-model="text" /> <input
+						type="submit" value="Search" ng-click="searchIndex(text)" />
+				</form>
+			</div>
+		</div>
+		<div class="span6">
+			<!--Body content-->
+			<ul>
+				<li ng-repeat="feedEntry in feedEntries"><a
+					href="#/feedEntries/{{feedEntry.id}}">{{feedEntry.title}}</a>
+					<p>{{feedEntry.description}}</p> <a href="{{feedEntry.uri}}">{{feedEntry.uri}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
