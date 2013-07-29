@@ -2,10 +2,20 @@
 
 /* Services */
 
+//angular.module("feedApp", ["feedAppServices"]);
+
 angular.module('feedAppServices', ['ngResource']).
     factory('FeedCollection', function($resource){
         return $resource('rest/feedReader/feeds', {}, {
             query: {method: 'GET', isArray: true},
+            get:     {method:'GET',  params:{id : 'id'}, isArray : false},
+            save:    {method:'POST', isArray : false},
+            update:  {method:'PUT',   isArray : false},
+            delete:  {method:'DELETE', isArray : false}
+        });
+    }).factory('Feed', function($resource){
+        return $resource('rest/feedReader/feeds', {}, {
+            query:   {method:'GET', isArray : true},
             get:     {method:'GET',  params:{id : 'id'}, isArray : false},
             save:    {method:'POST', isArray : false},
             update:  {method:'PUT',   isArray : false},

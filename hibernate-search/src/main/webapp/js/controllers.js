@@ -22,9 +22,9 @@ function FeedDetailCtrl($scope, $routeParams,FeedItem,FeedEntrySpecificCollectio
 
 //FeedDetailCtrl.$inject = ['$scope', '$routeParams', 'FeedCollection'];
 
-function AdminCtrl($scope ,FeedCollection) {
+function AdminCtrl($scope ,Feed) {
 
-    //$scope.feeds = FeedCollection.query();
+    //$scope.feeds = Feed.query();
 
     var createFeed = function (newFeed) {
         newFeed.$save();
@@ -61,5 +61,5 @@ function AdminCtrl($scope ,FeedCollection) {
     };
 
     $scope.isEditVisible = false;
-    $scope.feeds = FeedCollection.query();
+    $scope.feeds = Feed.query();
 }
