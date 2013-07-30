@@ -41,20 +41,20 @@
 
         <!-- <version.org.jboss.as>7.2.0.Alpha1-SNAPSHOT</version.org.jboss.as> -->
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 7.2.1.Final-redhat-4 which is a release certified 
+            line below to use version 7.2.1.Final-redhat-5 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <version.org.jboss.as>7.2.1.Final-redhat-4</version.org.jboss.as>
+        <version.org.jboss.as>7.2.1.Final-redhat-5</version.org.jboss.as>
 
         <version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <!-- <version.org.jboss.bom>1.0.4.Final</version.org.jboss.bom> -->
         <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-5 which is a release certified 
+            line below to use version 1.0.4.Final-redhat-6 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <version.org.jboss.bom>1.0.4.Final-redhat-5</version.org.jboss.bom>
+        <version.org.jboss.bom>1.0.4.Final-redhat-6</version.org.jboss.bom>
 
         <!-- <version.org.jboss.spec.jboss.javaee.6.0>3.0.2.Final</version.org.jboss.spec.jboss.javaee.6.0> -->
         <!-- Alternatively, comment out the above line, and un-comment the 
