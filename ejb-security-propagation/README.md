@@ -52,18 +52,18 @@ Configure Components
 You must add a user to the application realm for the server to server communication works. 
 
 The defaults for this quickstart is: 
-User    : ejbcaller
-Password: @admin123
+    User    : ejbcaller
+    Password: @admin123
 
 Assume JB_HOME is the directory you unzipped JBoss EAP 6.1
 
-cd $JB_HOME/bin and type
+    cd $JB_HOME/bin and type
 
-./add-user.sh -a -u ejbcaller -p @admin123
+    ./add-user.sh -a -u ejbcaller -p @admin123
 
 That will create the following username in domain/configuration/application-users.properties
 
-ejbcaller=1b3500278b9c0e982552d425fca6a4ab
+    ejbcaller=1b3500278b9c0e982552d425fca6a4ab
 
 That user is necessary for the server-one (where the ejb client is deployed) establish a trusted communication channel to server-two (where the EJB is deployed).
 
@@ -101,7 +101,7 @@ Open host.xml, add the following security realm, after "ApplicationRealm"
             </server-identities>
         </security-realm> 
 
-QGFkbWluMTIz is the base64 format for @admin123 password. You can also generate it with "echo -n @admin123 | base64"
+`QGFkbWluMTIz` is the base64 format for @admin123 password. You can also generate it with "echo -n @admin123 | base64"
  
 Open domain.xml, go to the profiles section, duplicate "full" profile, and name it as "full-2". 
 
@@ -191,7 +191,7 @@ The security-propagation-quickstart for the full-2 profile contains additional l
 
 Now you must generate the ejb-propagation-interceptor.jar file and add it as a module
 
-mkdir -p $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+    mkdir -p $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
 Add the following module.xml to $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
@@ -226,7 +226,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 3. Copy the interceptor module
 
-    cp interceptor-module/target/ejb-propagation-interceptor.jar $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+        cp interceptor-module/target/ejb-propagation-interceptor.jar $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
 
 Start JBoss Enterprise Application Platform 6 or JBoss AS 7
@@ -246,45 +246,45 @@ Access the application
 
 When you deploy the quickstart (or start the server-one after deployment) it should display in server-one log the registration for the ClientSecurityInterceptor as
 
->>>>>>>>>> ClientSecurityInterceptor Constructor
+    >>>>>>>>>> ClientSecurityInterceptor Constructor
 
 When you deploy EJB it shows the JNDI names for HelloEJB and SecuredEJB.
 
-Access http://localhost:8080/jboss-as-propagation-web/hello 
+Access `http://localhost:8080/jboss-as-propagation-web/hello` 
 
-It should displays "Successfully called Hello EJB". This show the remoting part is working. This is a non protected servlet that calls a non protected EJB.
-The response is
-Hello Principal : anonymous
-Hello Remote User : null
-Hello Authentication Type : null
+    It should displays "Successfully called Hello EJB". This show the remoting part is working. This is a non protected servlet that calls a non protected EJB.
+    The response is
+    Hello Principal : anonymous
+    Hello Remote User : null
+    Hello Authentication Type : null
 
 The log shoud show (only the relevant parts)
 
-[Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='HelloEJB', view='interface org.jboss.as.quickstarts.ejb_security.Hello'}
-[Server:server-one] >>>>>>>>>>>> principal: null
-[Server:server-two]  ==> EJB principal: anonymous
+    [Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='HelloEJB', view='interface org.jboss.as.quickstarts.ejb_security.Hello'}
+    [Server:server-one] >>>>>>>>>>>> principal: null
+    [Server:server-two]  ==> EJB principal: anonymous
 
-Access http://localhost:8080/jboss-as-propagation-web/secure_ejb
+Access `http://localhost:8080/jboss-as-propagation-web/secure_ejb`
 
 It prompts for a user and password, type as
 
-user    : admin
-password: admin123 
+    user    : admin
+    password: admin123 
 
 It should display in the browser
 
-Successfully called Secured EJB
-Principal : admin
-Remote User : admin
-Authentication Type : BASIC
+    Successfully called Secured EJB
+    Principal : admin
+    Remote User : admin
+    Authentication Type : BASIC
 
 The server-two log should displays
 
-[Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='SecuredEJB', view='interface org.jboss.as.quickstarts.ejb_security.Secured'}
-[Server:server-one] >>>>>>>>>>>> principal: admin
-[Server:server-two] >>>>>>>>>> contextData {TestDelegationUser=admin}
-[Server:server-two] >>>>>>>>>>>>> Switch users 
-[Server:server-two] >>>>>>>>>> delegationAcceptable: admin
+    [Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='SecuredEJB', view='interface org.jboss.as.quickstarts.ejb_security.Secured'}
+    [Server:server-one] >>>>>>>>>>>> principal: admin
+    [Server:server-two] >>>>>>>>>> contextData {TestDelegationUser=admin}
+    [Server:server-two] >>>>>>>>>>>>> Switch users 
+    [Server:server-two] >>>>>>>>>> delegationAcceptable: admin
 
 The user is authenticated to the servlet (security domain security-propagation-quickstart), before the EJB call, EJB client interceptor sends the credentials to the target JBoss server.
 On the EJB side, the EJB server interceptor receives the credential, switches the EJB authenticated user from "ejbcaller" to "admin", the security-propagation-quickstart security domain calls DelegationLoginModule that checks the credential received from EJB server interceptor and grants access. 
