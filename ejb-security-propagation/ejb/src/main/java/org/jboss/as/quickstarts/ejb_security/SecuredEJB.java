@@ -26,6 +26,8 @@ import javax.ejb.Remote;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
+import org.jboss.ejb3.annotation.SecurityDomain;
+
 /**
  * Simple secured EJB using EJB security annotations
  * 
@@ -45,6 +47,7 @@ import javax.ejb.Stateless;
 @Remote(Secured.class)
 @RolesAllowed({ "admin" })
 @DeclareRoles("admin")
+@SecurityDomain("security-propagation-quickstart")
 public class SecuredEJB {
 
     // Inject the Session Context

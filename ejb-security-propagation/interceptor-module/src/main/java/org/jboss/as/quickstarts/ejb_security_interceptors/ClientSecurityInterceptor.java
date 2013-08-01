@@ -30,9 +30,10 @@ import org.jboss.logging.Logger;
  */
 public class ClientSecurityInterceptor implements EJBClientInterceptor {
     
-    static Logger LOG = Logger.getLogger(ClientSecurityInterceptor.class); 
+    static Logger LOG = Logger.getLogger(ClientSecurityInterceptor.class);
+    
     public ClientSecurityInterceptor() {
-        System.out.println("================================ ClientSecurityInterceptor Constructor =========================");
+        LOG.info(">>>>>>>>>> ClientSecurityInterceptor Constructor");
     }
     
 

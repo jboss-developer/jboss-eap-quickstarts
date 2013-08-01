@@ -3,7 +3,7 @@ ejb-security-propagation: EJB security propagation across servers
 Author: Claudio Miranda <claudio@redhat.com>
 Level: Advanced
 Technologies: EJB, Servlets, Security
-Summary: Security context propagation between JBoss server instances, when using EJB calls. Also shows how to use scoped contexts to lookup EJB.
+Summary: Security context propagation between JBoss server instances, when using EJB calls. 
 Target Product: EAP 6.1
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
@@ -26,8 +26,6 @@ The web application has two servlets:
 * SecuredEJBServlet: protected servlet that makes a remote EJB call to SecuredEJB, protected with the same security domains as SecuredEJBServlet.  
 
 The root 'pom.xml' builds each of the subprojects in an appropriate order.
-
-Also, it shows how to use the scoped context feature to lookup EJB using JNDI only. 
 
 System requirements
 -------------------
@@ -55,37 +53,19 @@ You must add a user to the application realm for the server to server communicat
 
 The defaults for this quickstart is: 
 User    : ejbcaller
-Password: @ejbqs123
+Password: @admin123
 
 Assume JB_HOME is the directory you unzipped JBoss EAP 6.1
 
 cd $JB_HOME/bin and type
 
-./add-user.sh 
+./add-user.sh -a -u ejbcaller -p @admin123
 
-What type of user do you wish to add? 
- a) Management User (mgmt-users.properties) 
- b) Application User (application-users.properties)
-(a): b
+That will create the following username in domain/configuration/application-users.properties
 
-Enter the details of the new user to add.
-Realm (ApplicationRealm) : 
-Username : ejbcaller
-Password : 
-Re-enter Password : 
-What roles do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]: 
-About to add user 'ejbcaller' for realm 'ApplicationRealm'
-Is this correct yes/no? yes
-Added user 'ejbcaller' to file '/opt/jboss-eap-6.1/standalone/configuration/application-users.properties'
-Added user 'ejbcaller' to file '/opt/jboss-eap-6.1/domain/configuration/application-users.properties'
-Added user 'ejbcaller' with roles  to file '/opt/jboss-eap-6.1/standalone/configuration/application-roles.properties'
-Added user 'ejbcaller' with roles  to file '/opt/jboss-eap-6.1/domain/configuration/application-roles.properties'
-Is this new user going to be used for one AS process to connect to another AS process? 
-e.g. for a slave host controller connecting to the master or for a Remoting connection for server to server EJB calls.
-yes/no? yes
-To represent the user add the following to the server-identities definition <secret value="QGVqYnFzMTIz" />
+ejbcaller=1b3500278b9c0e982552d425fca6a4ab
 
-That user is necessary for the server-one (where the ejb client is deployed) establish a communication channel to server-two (where the EJB is deployed).
+That user is necessary for the server-one (where the ejb client is deployed) establish a trusted communication channel to server-two (where the EJB is deployed).
 
 The last line shows the secret value we are going to use.  
 
@@ -93,28 +73,62 @@ The last line shows the secret value we are going to use.
  
 Start the H2 network server on background
 
-  $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.Server -tcp -baseDir $HOME &
+    $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.Server -tcp -baseDir $HOME &
 
   It should listen to 9092 port.
 
 Create the table structure and input some data
 
-  $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.RunScript -url jdbc:h2:tcp://localhost/qs_ejb -user sa -script ejb/src/main/resources/import.sql
+    $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.RunScript -url jdbc:h2:tcp://localhost/qs_ejb -user sa -script ejb/src/main/resources/import.sql
   
  * Configure server groups
 
 Open host.xml, go to the servers section. For the server-two, rename the group name from main-server-group to main-server-group-2. Save it. The result should be:
 
- 
         <server name="server-one" group="main-server-group">
         </server>
         <server name="server-two" group="main-server-group-2" auto-start="true">
             <socket-bindings port-offset="150"/>
         </server>
+
+ * Configure the jboss client to jboss server authentication
+
+Open host.xml, add the following security realm, after "ApplicationRealm"
+
+        <security-realm name="ejb-remote-call">
+            <server-identities>
+                <secret value="QGFkbWluMTIz"/>
+            </server-identities>
+        </security-realm> 
+
+QGFkbWluMTIz is the base64 format for @admin123 password. You can also generate it with "echo -n @admin123 | base64"
  
-Open domain.xml, go to the profiles section, duplicate full profile, and name it as full-2. 
+Open domain.xml, go to the profiles section, duplicate "full" profile, and name it as "full-2". 
 
 Go to server-groups section, duplicate main-server-group and name it main-server-group-2 and associates it with full-2 profile.
+
+ * Configure the server profiles
+
+Go to "full-sockets" socket binding group, add the following outbound-socket-binding
+
+        <outbound-socket-binding name="srv2srv-ejb-socket">
+            <remote-destination host="localhost" port="4597"/>
+        </outbound-socket-binding> 
+
+Go to "remoting" subsystem of "full" profile and add the relevant section as show below
+
+        <subsystem xmlns="urn:jboss:domain:remoting:1.1">
+            <connector name="remoting-connector" socket-binding="remoting" security-realm="ApplicationRealm"/>
+            <outbound-connections>
+                <remote-outbound-connection name="ejb-outbound-connection" outbound-socket-binding-ref="srv2srv-ejb-socket" username="ejbcaller" security-realm="ejb-remote-call">
+                    <properties>
+                        <property name="SSL_ENABLED" value="false"/>
+                        <property name="SASL_POLICY_NOANONYMOUS" value="false"/>
+                    </properties>
+                </remote-outbound-connection>
+            </outbound-connections>
+        </subsystem>
+
 
 Add the datasource SecurityPropagationDS to the full and full-2 profiles. 
 It is used in the security module to authenticates the user stored in the H2 database.
@@ -195,6 +209,7 @@ Add the following module.xml to $JB_HOME/modules/system/layers/base/org/jboss/as
             <module name="org.jboss.logging" />
             <module name="org.jboss.ejb-client" />
             <module name="org.picketbox" />
+            <module name="org.jboss.as.security" />
         </dependencies>
     </module>
 
@@ -229,9 +244,25 @@ Deploy the Quickstart
 Access the application
 ---------------------
 
+When you deploy the quickstart (or start the server-one after deployment) it should display in server-one log the registration for the ClientSecurityInterceptor as
+
+>>>>>>>>>> ClientSecurityInterceptor Constructor
+
+When you deploy EJB it shows the JNDI names for HelloEJB and SecuredEJB.
+
 Access http://localhost:8080/jboss-as-propagation-web/hello 
 
 It should displays "Successfully called Hello EJB". This show the remoting part is working. This is a non protected servlet that calls a non protected EJB.
+The response is
+Hello Principal : anonymous
+Hello Remote User : null
+Hello Authentication Type : null
+
+The log shoud show (only the relevant parts)
+
+[Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='HelloEJB', view='interface org.jboss.as.quickstarts.ejb_security.Hello'}
+[Server:server-one] >>>>>>>>>>>> principal: null
+[Server:server-two]  ==> EJB principal: anonymous
 
 Access http://localhost:8080/jboss-as-propagation-web/secure_ejb
 
@@ -240,9 +271,23 @@ It prompts for a user and password, type as
 user    : admin
 password: admin123 
 
+It should display in the browser
+
+Successfully called Secured EJB
+Principal : admin
+Remote User : admin
+Authentication Type : BASIC
+
+The server-two log should displays
+
+[Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='SecuredEJB', view='interface org.jboss.as.quickstarts.ejb_security.Secured'}
+[Server:server-one] >>>>>>>>>>>> principal: admin
+[Server:server-two] >>>>>>>>>> contextData {TestDelegationUser=admin}
+[Server:server-two] >>>>>>>>>>>>> Switch users 
+[Server:server-two] >>>>>>>>>> delegationAcceptable: admin
+
 The user is authenticated to the servlet (security domain security-propagation-quickstart), before the EJB call, EJB client interceptor sends the credentials to the target JBoss server.
 On the EJB side, the EJB server interceptor receives the credential, switches the EJB authenticated user from "ejbcaller" to "admin", the security-propagation-quickstart security domain calls DelegationLoginModule that checks the credential received from EJB server interceptor and grants access. 
-
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse

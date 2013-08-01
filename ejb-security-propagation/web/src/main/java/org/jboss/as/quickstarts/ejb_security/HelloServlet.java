@@ -51,14 +51,6 @@ public class HelloServlet extends HttpServlet {
         try {
             Properties props = new Properties();
             props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-            props.put("org.jboss.ejb.client.scoped.context", "true");
-            props.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
-            props.put("remote.connections", "default");
-            props.put("remote.connection.default.host", "localhost");
-            props.put("remote.connection.default.port", "4597");
-            props.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
-            props.put("remote.connection.default.username", "ejbcaller");
-            props.put("remote.connection.default.password", "@ejbqs123");
             Context ctx = new InitialContext(props);
             o = ctx.lookup(s);
         } catch (Exception e) {
