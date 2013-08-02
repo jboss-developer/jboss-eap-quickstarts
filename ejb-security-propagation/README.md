@@ -18,7 +18,8 @@ It is based on the ejb-security-interceptors and servlet-security quickstart.
 
 There is a SecuredEJB protected by security domain "security-propagation-quickstart".  
 
-EAP 6.1 is necessary to work with this quickstart, it uses the domain.xml and host.xml. 
+JBoss EAP 6.1 or later is necessary to work with this quickstart. This quickstart runs in a managed domain and uses the domain.xml and host.xml. 
+
 
 The web application jboss-as-ejb-security-propagation-web is deployed on server server-one, and jboss-as-ejb-security-propagation-ejb is deployed on server-two.
 The web application has two servlets:
@@ -47,23 +48,9 @@ If you have not yet done so, you must [Configure Maven](../README.md#mavenconfig
 Configure Components
 -------------------------
 
- * Add user to make the management repository.
+ *  Add an Application User
 
-You must add a user to the application realm for the server to server communication works. 
-
-The defaults for this quickstart is: 
-    User    : ejbcaller
-    Password: @admin123
-
-Assume JB_HOME is the directory you unzipped JBoss EAP 6.1
-
-    cd $JB_HOME/bin and type
-
-    ./add-user.sh -a -u ejbcaller -p @admin123
-
-That will create the following username in domain/configuration/application-users.properties
-
-    ejbcaller=1b3500278b9c0e982552d425fca6a4ab
+This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: [Add an Application User](../README.md#add-an-application-user)
 
 That user is necessary for the server-one (where the ejb client is deployed) establish a trusted communication channel to server-two (where the EJB is deployed).
 
@@ -120,7 +107,7 @@ Go to "remoting" subsystem of "full" profile and add the relevant section as sho
         <subsystem xmlns="urn:jboss:domain:remoting:1.1">
             <connector name="remoting-connector" socket-binding="remoting" security-realm="ApplicationRealm"/>
             <outbound-connections>
-                <remote-outbound-connection name="ejb-outbound-connection" outbound-socket-binding-ref="srv2srv-ejb-socket" username="ejbcaller" security-realm="ejb-remote-call">
+                <remote-outbound-connection name="ejb-outbound-connection" outbound-socket-binding-ref="srv2srv-ejb-socket" username="quickstartUser" security-realm="ejb-remote-call">
                     <properties>
                         <property name="SSL_ENABLED" value="false"/>
                         <property name="SASL_POLICY_NOANONYMOUS" value="false"/>
@@ -229,7 +216,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
         cp interceptor-module/target/ejb-propagation-interceptor.jar $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7
+Start JBoss Enterprise Application Platform 6.1
 -------------------------
 
 Start JBoss EAP 6.1 as ./domain.sh you must see there are two server process as seen with: ps -ef|grep Server:server
@@ -287,7 +274,7 @@ The server-two log should displays
     [Server:server-two] >>>>>>>>>> delegationAcceptable: admin
 
 The user is authenticated to the servlet (security domain security-propagation-quickstart), before the EJB call, EJB client interceptor sends the credentials to the target JBoss server.
-On the EJB side, the EJB server interceptor receives the credential, switches the EJB authenticated user from "ejbcaller" to "admin", the security-propagation-quickstart security domain calls DelegationLoginModule that checks the credential received from EJB server interceptor and grants access. 
+On the EJB side, the EJB server interceptor receives the credential, switches the EJB authenticated user from "quickstartUser" to "admin", the security-propagation-quickstart security domain calls DelegationLoginModule that checks the credential received from EJB server interceptor and grants access. 
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
