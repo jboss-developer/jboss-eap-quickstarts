@@ -24,7 +24,7 @@
     <!-- The datasource is bound into JNDI at this location. We reference
        this in META-INF/persistence.xml -->
     <datasource jndi-name="java:jboss/datasources/SpringQuickstartDSMatrix"
-                pool-name="kitchensink-quickstart" enabled="true"
+                pool-name="kitchensink-spring-matrix-quickstart" enabled="true"
                 use-java-context="true">
         <connection-url>jdbc:h2:mem:kitchensink-quickstart;DB_CLOSE_DELAY=-1</connection-url>
         <driver>h2</driver>

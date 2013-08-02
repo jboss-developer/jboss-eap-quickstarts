@@ -132,6 +132,8 @@ General Guidelines
  - Avoid using a web.xml if possible. Use faces-config.xml to activate JSF if needed.
  - Any tests should use Arquillian.
 
+* If the quickstart persists to a database, you must use a unique datasource JNDI name and connection URL for the application and for any Arquillian tests that it provides. Do not use the JNDI name `java:jboss/datasources/ExampleDS`. Failure to use unique names can result in a `DuplicateServiceException` when more than one quickstart is deployed to the same server.
+
 
 Kitchensink variants
 --------------------
