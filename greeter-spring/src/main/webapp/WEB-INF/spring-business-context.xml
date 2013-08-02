@@ -30,7 +30,7 @@ limitations under the License.
    <context:component-scan base-package="org.jboss.spring.quickstarts.greeter.greeter_spring.domain" />
 
    <!-- Look up the database in JNDI -->
-   <jee:jndi-lookup jndi-name="java:jboss/datasources/ExampleDS" id="dataSource"
+   <jee:jndi-lookup jndi-name="java:jboss/datasources/GreeterSpringQuickstartDS" id="dataSource"
       expected-type="javax.sql.DataSource" />
 
    <!-- Look up the container deployed EntityManager -->

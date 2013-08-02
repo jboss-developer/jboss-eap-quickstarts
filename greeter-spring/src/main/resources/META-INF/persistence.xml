@@ -25,7 +25,7 @@ limitations under the License.
             For your application, set up a managed datasource and
             use that instead
         -->
-        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+        <jta-data-source>java:jboss/datasources/GreeterSpringQuickstartDS</jta-data-source>
 
         <properties>
             <property name="hibernate.show_sql" value="true"/>
