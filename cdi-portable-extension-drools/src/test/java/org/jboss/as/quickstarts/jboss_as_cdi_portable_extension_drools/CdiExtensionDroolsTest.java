@@ -1,5 +1,6 @@
 package org.jboss.as.quickstarts.jboss_as_cdi_portable_extension_drools;
 
+import java.io.File;
 import java.net.URL;
 import javax.enterprise.inject.spi.Extension;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -14,8 +15,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,8 @@ public class CdiExtensionDroolsTest {
 
     @Deployment(testable = false)
     public static Archive<?> getDeployment() {
-         File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
+
+        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
             "org.apache.deltaspike.core:deltaspike-core-api",
             "org.apache.deltaspike.core:deltaspike-core-impl",
             "org.drools:knowledge-api",
@@ -46,6 +47,7 @@ public class CdiExtensionDroolsTest {
             .addAsServiceProvider(Extension.class, DroolsExtension.class)
             .addAsLibraries(libs);
         return archive;
+
     }
 
     @Drone
@@ -119,3 +121,4 @@ public class CdiExtensionDroolsTest {
     }
 
 }
+
