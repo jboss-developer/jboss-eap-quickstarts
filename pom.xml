@@ -278,6 +278,9 @@
                 <module>inter-app</module>                
                 <module>ejb-security-plus</module>
                 <module>jpp-quickstarts</module>
+                <module>brms-quickstarts/brms-coolstore-demo/projects/brms-coolstore-demo</module>
+                <module>brms-quickstarts/brms-customer-evaluation-demo/projects/brms-customer-evaluation-demo</module>
+                <module>brms-quickstarts/brms-rewards-demo/projects/brms-rewards-demo</module>
             </modules>
         </profile>
         <profile>

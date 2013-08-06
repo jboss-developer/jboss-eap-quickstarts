@@ -7,3 +7,12 @@
 [submodule "jdg-quickstarts"]
 	path = jdg-quickstarts
 	url = https://github.com/infinispan/jdg-quickstart.git
+[submodule "brms-quickstarts/brms-coolstore-demo"]
+	path = brms-quickstarts/brms-coolstore-demo
+	url = git@github.com:eschabell/brms-coolstore-demo.git
+[submodule "brms-quickstarts/brms-customer-evaluation-demo"]
+	path = brms-quickstarts/brms-customer-evaluation-demo
+	url = git@github.com:eschabell/brms-customer-evaluation-demo.git
+[submodule "brms-quickstarts/brms-rewards-demo"]
+	path = brms-quickstarts/brms-rewards-demo
+	url = git@github.com:eschabell/brms-rewards-demo.git
