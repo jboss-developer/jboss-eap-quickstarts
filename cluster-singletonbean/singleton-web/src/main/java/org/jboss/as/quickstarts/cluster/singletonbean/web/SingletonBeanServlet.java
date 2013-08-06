@@ -1,0 +1,63 @@
+/*
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package org.jboss.as.quickstarts.cluster.singletonbean.web;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.jboss.as.quickstarts.cluster.singletonbean.service.SingletonBeanAccessProvider;
+
+/**
+ * Servlet that accesses a cluster-wide Singleton bean and prints information about the invocation.
+ *
+ * @author Radoslav Husar
+ * @version February 2013
+ */
+@WebServlet(urlPatterns = {"/"})
+public class SingletonBeanServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 5000253019557827450L;
+
+    @EJB(lookup = "global/jboss-as-cluster-singletonbean-service/SingletonBeanAccessProviderBean!org.jboss.as.quickstarts.cluster.singletonbean.service.SingletonBeanAccessProvider")
+    private SingletonBeanAccessProvider singleton;
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        // Just make output plain text so we can pass any raw text information from the singleton bean
+        res.setContentType("text/plain");
+
+        final PrintWriter writer = res.getWriter();
+        writer.println(singleton.getInvocationInformation());
+        writer.close();
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Servlet that accesses a cluster-wide Singleton bean and prints information about the invocation.";
+    }
+}
