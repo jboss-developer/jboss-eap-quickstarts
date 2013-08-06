@@ -31,7 +31,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <import resource="datasource-config.xml"/>
 
     <context:component-scan
-            base-package="org.jboss.as.quickstarts.petclinic.service"/>
+            base-package="org.springframework.samples.petclinic.service"/>
 
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
     <!-- (in this case, JDBC-related settings for the JPA EntityManager definition below) -->
@@ -57,7 +57,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             </property>
             <!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, persistenceUnit will win -->
             <property name="persistenceUnitName" value="petclinic"/>
-            <property name="packagesToScan" value="org.jboss.as.quickstarts.petclinic"/>
+            <property name="packagesToScan" value="org.springframework.samples.petclinic"/>
         </bean>
 
         <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
@@ -87,7 +87,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             <constructor-arg ref="dataSource"/>
         </bean>
 
-        <context:component-scan base-package="org.jboss.as.quickstarts.petclinic.data.jdbc"/>
+        <context:component-scan base-package="org.springframework.samples.petclinic.repository.jdbc"/>
     </beans>
 
     <beans profile="default">
@@ -97,10 +97,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             EntityManager will be auto-injected due to @PersistenceContext.
             PersistenceExceptions will be auto-translated due to @Repository.
         -->
-        <context:component-scan base-package="org.jboss.as.quickstarts.petclinic.data.jpa"/>
+        <context:component-scan base-package="org.springframework.samples.petclinic.repository.jpa"/>
     </beans>
 
     <beans profile="spring-data-jpa">
-        <jpa:repositories base-package="org.jboss.as.quickstarts.petclinic.data.springdatajpa"/>
+        <jpa:repositories base-package="org.springframework.samples.petclinic.repository.springdatajpa"/>
     </beans>
 </beans>
