@@ -16,6 +16,9 @@
  */
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Logger;
+
 /**
  * Mbean pojo using MXBean interface and declared in jboss-service.xml.
  * 
@@ -24,11 +27,13 @@ package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
  */
 public class MXPojoHelloWorld implements IHelloWorldMXBean {
 
+    private static final Logger log = Logger.getLogger(MXPojoHelloWorld.class.getName());
+
     private String welcomeMessage = "Hello";
-    private long count = 0;
+    private AtomicLong count = new AtomicLong(0);
 
     public long getCount() {
-        return count;
+        return count.get();
     }
 
     public void setWelcomeMessage(String message) {
@@ -41,16 +46,16 @@ public class MXPojoHelloWorld implements IHelloWorldMXBean {
     }
 
     public String sayHello(String name) {
-        count++;
+        count.incrementAndGet();
         return welcomeMessage + " " + name + "!";
     }
 
     public void start() throws Exception {
-        System.out.println(" >> MXPojoHelloWorld.start() invoked");
+        log.info(" >> MXPojoHelloWorld.start() invoked");
     }
 
     public void stop() throws Exception {
-        System.out.println(" << MXPojoHelloWorld.stop()  invoked");
+        log.info(" << MXPojoHelloWorld.stop()  invoked");
     }
 
 }

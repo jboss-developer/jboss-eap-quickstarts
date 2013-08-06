@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
 import org.jboss.as.quickstarts.mbeanhelloworld.util.CDIExtension;
 
@@ -28,11 +30,11 @@ import org.jboss.as.quickstarts.mbeanhelloworld.util.CDIExtension;
 public class MXPojoHelloWorld implements IHelloWorldMXBean {
 
     private String welcomeMessage = "Hello";
-    private long count = 0;
+    private AtomicLong count = new AtomicLong(0);
 
     @Override
     public long getCount() {
-        return count;
+        return count.get();
     }
 
     @Override
@@ -48,7 +50,7 @@ public class MXPojoHelloWorld implements IHelloWorldMXBean {
 
     @Override
     public String sayHello(String name) {
-        count++;
+        count.incrementAndGet();
         HelloService helloService = CDIExtension.getBean(HelloService.class);
         return helloService.createHelloMessage(welcomeMessage, name);
     }

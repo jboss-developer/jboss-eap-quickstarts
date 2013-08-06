@@ -16,6 +16,9 @@
  */
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
@@ -33,7 +36,7 @@ import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
 public class MXComponentHelloWorld extends AbstractComponentMBean implements IHelloWorldMXBean {
 
     private String welcomeMessage = "Hello";
-    private long count = 0;
+    private AtomicLong count = new AtomicLong(0);
 
     @Inject
     HelloService helloService;
@@ -44,7 +47,7 @@ public class MXComponentHelloWorld extends AbstractComponentMBean implements IHe
 
     @Override
     public long getCount() {
-        return count;
+        return count.get();
     }
 
     @Override
@@ -60,7 +63,7 @@ public class MXComponentHelloWorld extends AbstractComponentMBean implements IHe
 
     @Override
     public String sayHello(String name) {
-        count++;
+        count.incrementAndGet();
         return helloService.createHelloMessage(welcomeMessage, name);
     }
 

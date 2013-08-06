@@ -17,6 +17,7 @@
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
 import java.lang.management.ManagementFactory;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -30,8 +31,10 @@ import javax.management.ObjectName;
  * 
  */
 public abstract class AbstractComponentMBean {
-
-    private String domain;
+    
+    private static final Logger log = Logger.getLogger(AbstractComponentMBean.class.getName());
+    
+    private final String domain;
     private String name;
     private MBeanServer mbeanServer;
     private ObjectName objectName = null;
@@ -47,8 +50,7 @@ public abstract class AbstractComponentMBean {
         try {
             objectName = new ObjectName(domain, "type", name);
             mbeanServer = ManagementFactory.getPlatformMBeanServer();
-            mbeanServer.registerMBean(this, objectName);
-
+            mbeanServer.registerMBean(this, objectName);            
         } catch (Exception e) {
             throw new IllegalStateException("Error during registration of "
                 + name + " into JMX:" + e, e);
@@ -57,7 +59,7 @@ public abstract class AbstractComponentMBean {
 
     @PreDestroy
     protected void destroy() {
-        System.out.println("# << -- Destroy : " + this);
+        log.info("# << -- Destroy : " + this.name);
         try {
             mbeanServer.unregisterMBean(this.objectName);
         } catch (Exception e) {

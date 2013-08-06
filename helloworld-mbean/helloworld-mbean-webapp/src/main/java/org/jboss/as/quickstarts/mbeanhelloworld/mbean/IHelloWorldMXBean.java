@@ -23,14 +23,21 @@ package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
  * 
  */
 public interface IHelloWorldMXBean {
-    // Read only attribute
+    
+    /**
+     * Read only attribute
+     */
     long getCount();
 
-    // Read write attribute
+    /**
+     * Read write attribute
+     */
     void setWelcomeMessage(String message);
-
     String getWelcomeMessage();
 
-    // Method
+    /**
+     * Operation
+     */
     String sayHello(String name);
+    
 }
