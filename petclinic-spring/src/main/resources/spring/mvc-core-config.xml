@@ -35,7 +35,7 @@
         - POJOs labeled with the @Controller and @Service annotations are auto-detected.
     -->
     <context:component-scan
-            base-package="org.jboss.as.quickstarts.petclinic.web"/>
+            base-package="org.springframework.samples.petclinic.web"/>
 
     <mvc:annotation-driven conversion-service="conversionService"/>
 
@@ -51,7 +51,7 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
-                <bean class="org.jboss.as.quickstarts.petclinic.web.PetTypeFormatter"/>
+                <bean class="org.springframework.samples.petclinic.web.PetTypeFormatter"/>
             </set>
         </property>
     </bean>
