@@ -26,11 +26,14 @@ public class CdiExtensionDroolsTest {
 
     @Deployment(testable = false)
     public static Archive<?> getDeployment() {
-        MavenDependencyResolver resolver = DependencyResolvers.use(
-            MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+         File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
+            "org.apache.deltaspike.core:deltaspike-core-api",
+            "org.apache.deltaspike.core:deltaspike-core-impl",
+            "org.drools:knowledge-api",
+            "org.drools:drools-core",
+            "org.drools:drools-compiler").withTransitivity().asFile();
 
-        Archive<?> archive = ShrinkWrap
-            .create(WebArchive.class, "test.war")
+        Archive<?> archive = ShrinkWrap.create(WebArchive.class, "test.war")
             .addPackages(true, DroolsExtension.class.getPackage(),
                 LineItem.class.getPackage())
             .addAsWebResource("index.xhtml")
@@ -39,15 +42,9 @@ public class CdiExtensionDroolsTest {
             .addAsWebInfResource(
                 new StringAsset("<faces-config version=\"2.0\"/>"),
                 "faces-config.xml")
-            .addAsResource("SimpleRule.drl", "SimpleRule.drl")
+            .addAsResource("SimpleRule.drl")
             .addAsServiceProvider(Extension.class, DroolsExtension.class)
-            .addAsLibraries(
-                resolver.artifacts(
-                    "org.apache.deltaspike.core:deltaspike-core-api",
-                    "org.apache.deltaspike.core:deltaspike-core-impl",
-                    "org.drools:knowledge-api",
-                    "org.drools:drools-core",
-                    "org.drools:drools-compiler").resolveAsFiles());
+            .addAsLibraries(libs);
         return archive;
     }
 

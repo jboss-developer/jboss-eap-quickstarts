@@ -15,7 +15,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jboss.as.quickstarts</groupId>
-	<artifactId>jboss-as-cdi-add-interceptor-binding</artifactId>
+	<artifactId>jboss-as-cdi-portable-extension-drools</artifactId>
 	<version>7.1.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>JBoss AS Quickstarts: CDI Portable Extension, add an interceptor binding</name>
