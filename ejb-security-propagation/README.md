@@ -45,16 +45,20 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
-Configure Components
+Configure H2 database server
 -------------------------
+
 
  *  Add an Application User
 
 This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: [Add an Application User](../README.md#add-an-application-user)
 
-That user is necessary for the server-one (where the ejb client is deployed) establish a trusted communication channel to server-two (where the EJB is deployed).
+The standard user and password is:
 
-The last line shows the secret value we are going to use.  
+        Username : quickstartUser
+        Password : quickstartPwd1!
+
+That user is necessary for the server-one (where the ejb client is deployed) establish a trusted communication channel to server-two (where the EJB is deployed).
 
  * Configure the H2 Network Server
  
@@ -67,14 +71,23 @@ Start the H2 network server on background
 Create the table structure and input some data
 
     $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.RunScript -url jdbc:h2:tcp://localhost/qs_ejb -user sa -script ejb/src/main/resources/import.sql
+
+
+Configure server components
+-------------------------
+
+The configuration can be performed by a jboss-cli script or (if you prefer) to manually update host.xml and domain.xml. If you prefer the scripted way, go to section "Automatic domain configuration"
+Continue reading if you prefer to manually update xml files and better understand each setting.
   
  * Configure server groups
 
-Open host.xml, go to the servers section. For the server-two, rename the group name from main-server-group to main-server-group-2. Save it. The result should be:
+If JBoss is running, stop it.
+
+Open host.xml, go to the servers section. For the server-two, associate the server-group to "other-server-group". Save it. The result should be:
 
         <server name="server-one" group="main-server-group">
         </server>
-        <server name="server-two" group="main-server-group-2" auto-start="true">
+        <server name="server-two" group="other-server-group" auto-start="true">
             <socket-bindings port-offset="150"/>
         </server>
 
@@ -84,19 +97,16 @@ Open host.xml, add the following security realm, after "ApplicationRealm"
 
         <security-realm name="ejb-remote-call">
             <server-identities>
-                <secret value="QGFkbWluMTIz"/>
+                <secret value="cXVpY2tzdGFydFB3ZDEh"/>
             </server-identities>
         </security-realm> 
 
-`QGFkbWluMTIz` is the base64 format for @admin123 password. You can also generate it with "echo -n @admin123 | base64"
- 
-Open domain.xml, go to the profiles section, duplicate "full" profile, and name it as "full-2". 
+`cXVpY2tzdGFydFB3ZDEh` is the base64 format for `quickstartPwd1!` password. You can also generate it with `echo -n 'quickstartPwd1!' | base64`
 
-Go to server-groups section, duplicate main-server-group and name it main-server-group-2 and associates it with full-2 profile.
 
  * Configure the server profiles
 
-Go to "full-sockets" socket binding group, add the following outbound-socket-binding
+Open domain.xml, go to "full-sockets" socket binding group, add the following outbound-socket-binding
 
         <outbound-socket-binding name="srv2srv-ejb-socket">
             <remote-destination host="localhost" port="4597"/>
@@ -117,7 +127,7 @@ Go to "remoting" subsystem of "full" profile and add the relevant section as sho
         </subsystem>
 
 
-Add the datasource SecurityPropagationDS to the full and full-2 profiles. 
+Add the datasource SecurityPropagationDS to the full and full-ha profiles. 
 It is used in the security module to authenticates the user stored in the H2 database.
 
     <datasource jta="false" jndi-name="java:jboss/datasources/SecurityPropagationDS" pool-name="SecurityPropagationDS" enabled="true" use-ccm="false">
@@ -155,11 +165,11 @@ This security domain is used only for the web application (EJB client).
         </authentication>
     </security-domain>
 
-Add the following security-propagation-quickstart login-module in the security-domain subsystem of full-2 profile.
+Add the following security-propagation-quickstart login-module in the security-domain subsystem of full-ha profile.
 
     <security-domain name="security-propagation-quickstart" cache-type="default">
         <authentication>
-            <login-module code="org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule" flag="optional">
+            <login-module code="org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule" flag="optional" module="org.jboss.as.quickstarts.ejb_security">
                 <module-option name="password-stacking" value="useFirstPass"/>
             </login-module>
             <login-module code="Remoting" flag="optional">
@@ -174,7 +184,7 @@ Add the following security-propagation-quickstart login-module in the security-d
         </authentication>
     </security-domain>
     
-The security-propagation-quickstart for the full-2 profile contains additional login-modules as they are necessary for the security context propagation.
+The security-propagation-quickstart for the full-ha profile contains additional login-modules as they are necessary for the security context propagation.
 
 Now you must generate the ejb-propagation-interceptor.jar file and add it as a module
 
@@ -221,11 +231,22 @@ Start JBoss Enterprise Application Platform 6.1
 
 Start JBoss EAP 6.1 as ./domain.sh you must see there are two server process as seen with: ps -ef|grep Server:server
 
+
+Automatic domain configuration
+-------------------------
+
+Open a new command line, navigate to the root directory of this quickstart, and run the following command:
+ 
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        
+   This script configures and starts multiple servers needed to run this quickstart. You should see "outcome" => "success" for all of the commands. 
+
+
 Deploy the Quickstart
 -------------------------
 
 1. cd $JB_HOME/bin
-2. $JB_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-as-propagation-ejb.jar --server-groups=main-server-group-2"
+2. $JB_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-as-propagation-ejb.jar  --server-groups=other-server-group"
 3. $JB_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-as-propagation-web.war --server-groups=main-server-group"
 
 Access the application
