@@ -15,10 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -31,35 +29,30 @@ limitations under the License.
  -->
 <body>
 
-	<h1>EJB invoker for multiple server in a Domain</h1>
-	<div id="container">
-		<h:form id="response">
-			<h:panelGrid columns="2">
-				<h:outputLabel>Response:  </h:outputLabel>
-				<h:outputLabel value="#{invocation.result}" />
-			</h:panelGrid>
-		</h:form>
-		<br />
-		<br />
-		<h:form id="invokeForm">
-			<h:panelGrid columns="3">
-				<h:outputLabel>Text:</h:outputLabel>
-				<h:inputText value="#{invocation.text}" />
-				<h:commandButton id="clear" value="ClearForm"
-					action="#{jsfController.initForm()}" />
-			</h:panelGrid>
-			<h:panelGrid columns="1">
-        <h:commandButton id="mainEjb" value="Invoke local MainApp"
-          action="#{jsfController.callEJBMainLocal()}" />
-        <h:commandButton id="main34Ejb" value="Invoke local MainEjbClient34App"
-          action="#{jsfController.callEJBClient34MainLocal()}" />
-				<h:commandButton id="oneEjb" value="Invoke remote AppOne"
-					action="#{jsfController.callEJBAppOneRemote()}" />
-				<h:commandButton id="twoEjb" value="Invoke remote AppTwo"
-					action="#{jsfController.callEJBAppTwoRemote()}" />
-			</h:panelGrid>
-		</h:form>
-	</div>
+    <h1>EJB invoker for multiple server in a Domain</h1>
+    <div id="container">
+        <h:form id="response">
+            <h:panelGrid columns="2">
+                <h:outputLabel>Response:  </h:outputLabel>
+                <h:outputLabel value="#{invocation.result}" />
+            </h:panelGrid>
+        </h:form>
+        <br /> <br />
+        <h:form id="invokeForm">
+            <h:panelGrid columns="3">
+                <h:outputLabel>Text:</h:outputLabel>
+                <h:inputText value="#{invocation.text}" />
+                <h:commandButton id="clear" value="ClearForm" action="#{jsfController.initForm()}" />
+            </h:panelGrid>
+            <h:panelGrid columns="1">
+                <h:commandButton id="mainEjb" value="Invoke local MainApp" action="#{jsfController.callEJBMainLocal()}" />
+                <h:commandButton id="main34Ejb" value="Invoke local MainEjbClient34App"
+                    action="#{jsfController.callEJBClient34MainLocal()}" />
+                <h:commandButton id="oneEjb" value="Invoke remote AppOne" action="#{jsfController.callEJBAppOneRemote()}" />
+                <h:commandButton id="twoEjb" value="Invoke remote AppTwo" action="#{jsfController.callEJBAppTwoRemote()}" />
+            </h:panelGrid>
+        </h:form>
+    </div>
 
 </body>
 </html>

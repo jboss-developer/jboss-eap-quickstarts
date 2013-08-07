@@ -10,59 +10,59 @@
   OF ANY KIND, either express or implied. See the License for the specific 
   language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-ejb-multi-server-appTwo</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
-  </parent>
-  <artifactId>jboss-as-ejb-multi-server-appTwo-ear</artifactId>
-  <packaging>ear</packaging>
-  <name>JBoss EAP Quickstart: ejb-multi-server - app-two - ear</name>
+    <parent>
+        <groupId>org.jboss.as.quickstarts</groupId>
+        <artifactId>jboss-as-ejb-multi-server-appTwo</artifactId>
+        <version>7.1.2-SNAPSHOT</version>
+    </parent>
+    <artifactId>jboss-as-ejb-multi-server-appTwo-ear</artifactId>
+    <packaging>ear</packaging>
+    <name>JBoss EAP Quickstart: ejb-multi-server - app-two - ear</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jboss.as.quickstarts</groupId>
-      <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
-      <type>ejb</type>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.as</groupId>
-      <artifactId>jboss-as-ejb-client-bom</artifactId>
-      <scope>provided</scope>
-      <type>pom</type>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.as.quickstarts</groupId>
+            <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
+            <type>ejb</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <scope>provided</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-ear-plugin</artifactId>
-        <version>${ear.plugin.version}</version>
-        <configuration>
-          <displayName>Application Two</displayName>
-          <description>A simple quickstart application to demonstrate the
-            server-server communication</description>
-          <version>6</version>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>${ear.plugin.version}</version>
+                <configuration>
+                    <displayName>Application Two</displayName>
+                    <description>A simple quickstart application to demonstrate the
+                        server-server communication</description>
+                    <version>6</version>
           <!-- it work also without a application.xml but this is to demonstrate 
             how to use it and activate the jarModule in it -->
-          <generateApplicationXml>true</generateApplicationXml>
-          <modules>
-            <ejbModule>
-              <groupId>org.jboss.as.quickstarts</groupId>
-              <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
-              <bundleFileName>ejb.jar</bundleFileName>
-            </ejbModule>
-          </modules>
-          <archive>
-            <addMavenDescriptor>false</addMavenDescriptor>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-    <finalName>apptwo</finalName>
-  </build>
+                    <generateApplicationXml>true</generateApplicationXml>
+                    <modules>
+                        <ejbModule>
+                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
+                            <bundleFileName>ejb.jar</bundleFileName>
+                        </ejbModule>
+                    </modules>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>apptwo</finalName>
+    </build>
 </project>

@@ -25,7 +25,7 @@
         <version>7.1.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>ejb-throws-exception-ear</artifactId>
+    <artifactId>jboss-as-ejb-throws-exception-ear</artifactId>
     <packaging>ear</packaging>
 
     <name>JBoss EAP Quickstart: ejb-throws-exception - ear</name>

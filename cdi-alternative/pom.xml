@@ -25,7 +25,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>cdi-alternative</artifactId>
+    <artifactId>jboss-as-cdi-alternative</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-alternative</name>

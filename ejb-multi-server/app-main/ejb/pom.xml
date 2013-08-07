@@ -10,65 +10,65 @@
   OF ANY KIND, either express or implied. See the License for the specific 
   language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
-  </parent>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jboss.as.quickstarts</groupId>
+        <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
+        <version>7.1.2-SNAPSHOT</version>
+    </parent>
 
 
-  <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
+    <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
 
-  <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ejb</name>
-  <url>http://maven.apache.org</url>
-  <packaging>ejb</packaging>
+    <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ejb</name>
+    <url>http://maven.apache.org</url>
+    <packaging>ejb</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jboss.as</groupId>
-      <artifactId>jboss-as-ejb-client-bom</artifactId>
-      <type>pom</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.as.quickstarts</groupId>
-      <artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as.quickstarts</groupId>
+            <artifactId>
         jboss-as-ejb-multi-server-appOne-ejb
       </artifactId>
-      <version>${project.version}</version>
-      <type>ejb-client</type>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.as.quickstarts</groupId>
-      <artifactId>
+            <version>${project.version}</version>
+            <type>ejb-client</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as.quickstarts</groupId>
+            <artifactId>
         jboss-as-ejb-multi-server-appTwo-ejb
       </artifactId>
-      <version>${project.version}</version>
-      <type>ejb-client</type>
-    </dependency>
-  </dependencies>
+            <version>${project.version}</version>
+            <type>ejb-client</type>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>  <!-- must include ejb-plugin to change the EJB version from 2.1 to 3.1 -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-ejb-plugin</artifactId>
-        <version>${ejb.plugin.version}</version>
-        <configuration>
-          <ejbVersion>3.1</ejbVersion>
-          <generateClient>true</generateClient>
-          <archive>
-            <addMavenDescriptor>false</addMavenDescriptor>
+    <build>
+        <plugins>
+            <plugin>  <!-- must include ejb-plugin to change the EJB version from 2.1 to 3.1 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${ejb.plugin.version}</version>
+                <configuration>
+                    <ejbVersion>3.1</ejbVersion>
+                    <generateClient>true</generateClient>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
             <!-- this dependency must be set because of the access to the scoped context inside the MainEjbClient34AppBean -->
-            <manifestEntries>
-              <Dependencies>org.jboss.xnio</Dependencies>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-    <finalName>ejb</finalName>
-  </build>
+                        <manifestEntries>
+                            <Dependencies>org.jboss.xnio</Dependencies>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>ejb</finalName>
+    </build>
 </project>

@@ -7,101 +7,101 @@
   ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
   the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
-  </parent>
-  <artifactId>jboss-as-ejb-multi-server-appMain-ear</artifactId>
-  <packaging>ear</packaging>
-  <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ear</name>
-  <description>Create the deployable main-app archive
+    <parent>
+        <groupId>org.jboss.as.quickstarts</groupId>
+        <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
+        <version>7.1.2-SNAPSHOT</version>
+    </parent>
+    <artifactId>jboss-as-ejb-multi-server-appMain-ear</artifactId>
+    <packaging>ear</packaging>
+    <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ear</name>
+    <description>Create the deployable main-app archive
      Include the EJB and WEB application together with the necessary API libraries
      of the sub applications appOne and appTwo.
   </description>
-  
 
-  <dependencies>
+
+    <dependencies>
   <!-- add the EJB and WEB project as dependency to include it in the EAR -->
-    <dependency>
-      <groupId>org.jboss.as.quickstarts</groupId>
-      <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
-      <type>ejb</type>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.as.quickstarts</groupId>
-      <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
-      <type>war</type>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.as</groupId>
-      <artifactId>jboss-as-ejb-client-bom</artifactId>
-      <scope>provided</scope>
-      <type>pom</type>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>org.jboss.as.quickstarts</groupId>
+            <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
+            <type>ejb</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as.quickstarts</groupId>
+            <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <scope>provided</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-ear-plugin</artifactId>
-        <version>${ear.plugin.version}</version>
-        <configuration>
-          <displayName>Application Main</displayName>
-          <description>A simple quickstart application to demonstrate the
-            server-server communication</description>
-          <version>6</version>
-          <generateApplicationXml>true</generateApplicationXml>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>${ear.plugin.version}</version>
+                <configuration>
+                    <displayName>Application Main</displayName>
+                    <description>A simple quickstart application to demonstrate the
+                        server-server communication</description>
+                    <version>6</version>
+                    <generateApplicationXml>true</generateApplicationXml>
           <!-- must start in order to ensure that the reference to MainApp is found in the JsfController -->
-          <initializeInOrder>true</initializeInOrder>
-          <modules>
-            <ejbModule>
-              <groupId>org.jboss.as.quickstarts</groupId>
-              <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
-              <bundleFileName>ejb.jar</bundleFileName>
-            </ejbModule>
-            <webModule>
-              <groupId>org.jboss.as.quickstarts</groupId>
-              <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
-              <bundleFileName>jsf.war</bundleFileName>
-              <contextRoot>/multi-server-MainApp</contextRoot>
-            </webModule>
+                    <initializeInOrder>true</initializeInOrder>
+                    <modules>
+                        <ejbModule>
+                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
+                            <bundleFileName>ejb.jar</bundleFileName>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
+                            <bundleFileName>jsf.war</bundleFileName>
+                            <contextRoot>/multi-server-MainApp</contextRoot>
+                        </webModule>
             <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
-            <ejbClientModule>
-              <groupId>org.jboss.as.quickstarts</groupId>
-              <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
-              <bundleDir>lib</bundleDir>
-            </ejbClientModule>
-            <ejbClientModule>
-              <groupId>org.jboss.as.quickstarts</groupId>
-              <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
-              <bundleDir>lib</bundleDir>
-            </ejbClientModule>
-          </modules>
-          <archive>
-            <addMavenDescriptor>false</addMavenDescriptor>
-          </archive>
-        </configuration>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>src/main/resources/META-INF</directory>
+                        <ejbClientModule>
+                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
+                            <bundleDir>lib</bundleDir>
+                        </ejbClientModule>
+                        <ejbClientModule>
+                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
+                            <bundleDir>lib</bundleDir>
+                        </ejbClientModule>
+                    </modules>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources/META-INF</directory>
         <!--  add the client configuration containing the remote-connections and cluster definition
               which is used by the MainApp bean.
          -->
-        <includes>
-          <include>jboss-ejb-client.xml</include>
-        </includes>
-        <targetPath>META-INF</targetPath>
-      </resource>
-    </resources>
+                <includes>
+                    <include>jboss-ejb-client.xml</include>
+                </includes>
+                <targetPath>META-INF</targetPath>
+            </resource>
+        </resources>
     <!-- define the name for the deployable archive instead of using the default name with the version -->
-    <finalName>appmain</finalName>
-  </build>
+        <finalName>appmain</finalName>
+    </build>
 </project>
