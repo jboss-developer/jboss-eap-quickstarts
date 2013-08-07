@@ -35,16 +35,16 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @ExamplePartialBeanBinding
 public abstract class ExamplePartialBeanAbstractClass {
-	/**
-	 * This abstract method will be provided by the InvocationHandler's invoke
-	 * method.
-	 */
-	public abstract String sayHello(String hello);
-	
-	/**
-	 * In this case, the concrete implementation below will be called.
-	 */
-	public String otherHey (String hello) {
-		return "Other: " + hello;
-	}
+    /**
+     * This abstract method will be provided by the InvocationHandler's invoke
+     * method.
+     */
+    public abstract String sayHello(String hello);
+    
+    /**
+     * In this case, the concrete implementation below will be called.
+     */
+    public String otherHey (String hello) {
+        return "Other: " + hello;
+    }
 }

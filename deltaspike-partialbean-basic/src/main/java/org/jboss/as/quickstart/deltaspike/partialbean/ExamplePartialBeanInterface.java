@@ -29,5 +29,5 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @ExamplePartialBeanBinding
 public interface ExamplePartialBeanInterface {
-	String sayHello(String hello);
+    String sayHello(String hello);
 }

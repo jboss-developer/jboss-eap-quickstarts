@@ -30,6 +30,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QueryMethod {
-	public String value();
-	public boolean singleResult() default false;
+    public String value();
+    public boolean singleResult() default false;
 }

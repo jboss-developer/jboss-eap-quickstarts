@@ -9,22 +9,21 @@
     License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
     OF ANY KIND, either express or implied. See the License for the specific 
     language governing permissions and limitations under the License. -->
-<persistence version="2.0"
-   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-   <persistence-unit name="primary">
+    <persistence-unit name="primary">
       <!-- We use a different datasource for tests, so as to not overwrite 
          production data. This is an unmanaged data source, backed by H2, an in memory 
          database. Production applications should use a managed datasource. -->
       <!-- The datasource is deployed as WEB-INF/test-ds.xml, 
          you can find it in the source at src/test/resources/test-ds.xml -->
-      <jta-data-source>java:jboss/datasources/DeltaSpikePartialBeanAdvancedTestDS</jta-data-source>
-      <properties>
+        <jta-data-source>java:jboss/datasources/DeltaSpikePartialBeanAdvancedTestDS</jta-data-source>
+        <properties>
          <!-- Properties for Hibernate -->
-         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-         <property name="hibernate.show_sql" value="false" />
-      </properties>
-   </persistence-unit>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="false" />
+        </properties>
+    </persistence-unit>
 </persistence>

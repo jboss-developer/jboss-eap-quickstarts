@@ -34,34 +34,34 @@ import javax.persistence.Query;
 @RequestScoped
 @QueryServiceBinding
 public class QueryServicePartialBean implements InvocationHandler {
-	@Inject
-	private EntityManager em;
-	
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		QueryMethod qMethod = method.getAnnotation(QueryMethod.class);
-		if (qMethod == null) {
-			throw new IllegalStateException("Method (" + method.getName() + ")called with no @QueryMethod annotation!");
-		}
-		
-		String query = qMethod.value();
-		boolean singleResult = qMethod.singleResult();
-		
-		Query q = em.createQuery(query);
-		int idx = 1;
-		// Attach all method parameters as query parameters
-		if (args != null) {
-    		for (Object arg : args) {
-    			q.setParameter(idx, arg);
-    			idx++;
-    		}
-		}
-		if (singleResult) {
-			// return a single result if this was requested in the annotation
-			return q.getSingleResult();
-		} else {
-			// otherwise, return the full list
-			return q.getResultList();
-		}
-	}
+    @Inject
+    private EntityManager em;
+    
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        QueryMethod qMethod = method.getAnnotation(QueryMethod.class);
+        if (qMethod == null) {
+            throw new IllegalStateException("Method (" + method.getName() + ")called with no @QueryMethod annotation!");
+        }
+        
+        String query = qMethod.value();
+        boolean singleResult = qMethod.singleResult();
+        
+        Query q = em.createQuery(query);
+        int idx = 1;
+        // Attach all method parameters as query parameters
+        if (args != null) {
+            for (Object arg : args) {
+                q.setParameter(idx, arg);
+                idx++;
+            }
+        }
+        if (singleResult) {
+            // return a single result if this was requested in the annotation
+            return q.getSingleResult();
+        } else {
+            // otherwise, return the full list
+            return q.getResultList();
+        }
+    }
 }
