@@ -32,29 +32,29 @@ import org.jboss.as.quickstart.deltaspike.partialbeanadvanced.model.Person;
 @RequestScoped
 @QueryServiceBinding
 public interface PersonQueryService {
-	/**
-	 * Returns all person entries in the Person table
-	 */
-	@QueryMethod("select p from Person p")
-	public List<Person> findAll();
-	
-	/**
-	 * Returns all person entries in the Person table, sorted
-	 * by person.name
-	 */
-	@QueryMethod("select p from Person p order by p.name")
-	public List<Person> findAllSortedByName();
-	
-	/**
-	 * Returns the person entry with the given nick
-	 */
-	@QueryMethod(value = "select p from Person p where p.nick = ?", singleResult=true)
-	public Person findPersonByNick(String nick);
-	
-	/**
-	 * Returns all person entries in the Person table, filtered
-	 * by person.name
-	 */
-	@QueryMethod("select p from Person p where p.name = ?")
-	public List<Person> findByName(String name);
+    /**
+     * Returns all person entries in the Person table
+     */
+    @QueryMethod("select p from Person p")
+    public List<Person> findAll();
+    
+    /**
+     * Returns all person entries in the Person table, sorted
+     * by person.name
+     */
+    @QueryMethod("select p from Person p order by p.name")
+    public List<Person> findAllSortedByName();
+    
+    /**
+     * Returns the person entry with the given nick
+     */
+    @QueryMethod(value = "select p from Person p where p.nick = ?", singleResult=true)
+    public Person findPersonByNick(String nick);
+    
+    /**
+     * Returns all person entries in the Person table, filtered
+     * by person.name
+     */
+    @QueryMethod("select p from Person p where p.name = ?")
+    public List<Person> findByName(String name);
 }

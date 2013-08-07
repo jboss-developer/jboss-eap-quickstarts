@@ -49,7 +49,7 @@ import org.jboss.logging.Logger;
 public class MainEjbClient34AppBean implements MainApp {
   private static final Logger LOGGER = Logger.getLogger(MainEjbClient34AppBean.class);
   @Resource
-  SessionContext context;
+SessionContext context;
 
   @Override
   public String getJBossNodeName() {

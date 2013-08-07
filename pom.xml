@@ -189,6 +189,7 @@
                 <module>helloworld-gwt</module>
                 <module>helloworld-html5</module>
                 <module>helloworld-jms</module>
+                <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
                 <module>helloworld-rs</module>
@@ -292,6 +293,7 @@
                 </property>
             </activation>
             <modules>
+                <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
                 <module>jta-crash-rec</module>
             </modules>
