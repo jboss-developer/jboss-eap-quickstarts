@@ -42,7 +42,7 @@
             <h:message for="name" errorClass="invalid"/>
 
             <h:outputLabel for="email" value="Email:"/>
-            <h:inputText id="email" value="#{newMember.email}"/>
+            <h:inputText id="email" value="#{newMember.emailAsString}"/>
             <h:message for="email" errorClass="invalid"/>
 
             <h:outputLabel for="phoneNumber" value="Phone #:"/>
@@ -77,7 +77,7 @@
             </h:column>
          <h:column>
             <f:facet name="header">Email</f:facet>
-                #{_member.email}
+                #{_member.emailAsString}
             </h:column>
          <h:column>
             <f:facet name="header">Phone #</f:facet>

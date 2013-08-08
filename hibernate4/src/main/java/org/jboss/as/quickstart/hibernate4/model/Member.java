@@ -29,9 +29,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
 /*The Model uses JPA Entity as well as Hibernate Validators
  * 
  */
@@ -53,9 +50,8 @@ public class Member implements Serializable {
 
     /** using hibernate4 validators **/
     @NotNull
-    @NotEmpty
-    @Email
-    private String email;
+    //@Type(type="org.jboss.as.quickstart.hibernate4.util.EmailAddressType")
+    private EmailAddress email;
 
     @NotNull
     @Size(min = 9, max = 12)
@@ -81,12 +77,20 @@ public class Member implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
+    public EmailAddress getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(EmailAddress email) {
         this.email = email;
+    }
+    
+    public String getEmailAsString() {
+    	return email == null ? null : email.getValue();
+    }
+    
+    public void setEmailAsString(String v) {
+    	email = EmailAddress.valueOf(v);
     }
 
     public String getPhoneNumber() {
