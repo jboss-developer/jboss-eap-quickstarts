@@ -4,7 +4,7 @@ Author: Ken Krebs, Juergen Hoeller, Rob Harrop, Costin Leau, Sam Brannen, Scott 
 Level: Advanced
 Technologies: JPA 2.0, Junit, JMX, Spring MVC Annotations, Spring Data, JSP, webjars, and Dandellion
 Summary: An example that incorporates multiple technologies in JBoss Enterprise Application Platform 6 or JBoss AS 7.
-Target Product: EAP
+Target Product: WFK
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
