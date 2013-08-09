@@ -1,10 +1,10 @@
 kitchensink-spring-springmvctest: Kitchensink SrpingMVCTest Example using Spring 3.2
 =============================================================================
-Author: Marius Bogoevici/Tejas Mehta
+Author: Marius Bogoevici, Tejas Mehta
 Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit
 Summary: An example that incorporates multiple technologies
-Target Product: EAP
+Target Product: WFK
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
