@@ -218,17 +218,7 @@
                 <module>mail</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
-                <module>picketlink-authentication-http-basic</module>
-                <module>picketlink-authentication-http-digest</module>
                 <module>petclinic-spring</module>
-                <module>picketlink-authentication-idm-jsf</module>
-                <module>picketlink-authentication-idm-multi-tenancy</module>
-                <module>picketlink-authentication-jsf</module>
-                <module>picketlink-authentication-rs-endpoint</module>
-                <module>picketlink-authentication-two-factor</module>
-                <module>picketlink-authorization-idm-jpa</module>
-                <module>picketlink-authorization-rs-rbac</module>
-                <module>picketlink-deltaspike-authorization</module>
                 <module>richfaces-quickstarts/helloworld-rf</module>
                 <module>richfaces-quickstarts/kitchensink-rf</module>
                 <module>richfaces-quickstarts/richfaces-validation</module>
