@@ -1,0 +1,15 @@
+# Batch script to remove the Facebook configuration
+batch
+
+# Rmove the Facebook sytem-properties
+/system-property=FB_CLIENT_ID:remove
+/system-property=FB_CLIENT_SECRET:remove
+/system-property=FB_CLIENT_RETURN_URL:remove
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+:reload
+
+
