@@ -35,12 +35,6 @@ public class ExcludeExtensionDeactivator implements ClassDeactivator {
 
     private static final long serialVersionUID = 1L;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.deltaspike.core.spi.activation.ClassDeactivator#isActivated(java.lang.Class)
-     */
-    @Override
     public Boolean isActivated(Class<? extends Deactivatable> targetClass) {
         //Deactivate ExcludeExtension
         if (ExcludeExtension.class.equals(targetClass)) {

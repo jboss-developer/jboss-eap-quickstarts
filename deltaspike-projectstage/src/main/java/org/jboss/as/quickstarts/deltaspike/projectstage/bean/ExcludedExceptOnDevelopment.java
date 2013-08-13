@@ -28,12 +28,6 @@ import org.apache.deltaspike.core.api.projectstage.ProjectStage.Development;
 @Exclude(exceptIfProjectStage = Development.class)
 public class ExcludedExceptOnDevelopment implements MessageProvider {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.as.quickstarts.deltaspike.projectstage.controller.bean.MyBean#message()
-     */
-    @Override
     public String message() {
         return "I should ALWAYS be available if the project stage is DEVELOPMENT";
     }
