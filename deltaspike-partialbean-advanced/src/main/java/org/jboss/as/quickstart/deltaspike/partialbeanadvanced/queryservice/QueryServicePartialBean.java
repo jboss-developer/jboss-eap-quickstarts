@@ -34,10 +34,10 @@ import javax.persistence.Query;
 @RequestScoped
 @QueryServiceBinding
 public class QueryServicePartialBean implements InvocationHandler {
+    
     @Inject
     private EntityManager em;
     
-    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         QueryMethod qMethod = method.getAnnotation(QueryMethod.class);
         if (qMethod == null) {
