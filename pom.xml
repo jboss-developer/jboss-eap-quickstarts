@@ -227,6 +227,7 @@
                 <module>picketlink-authentication-rs-endpoint</module>
                 <module>picketlink-authentication-two-factor</module>
                 <module>picketlink-authorization-idm-jpa</module>
+                <module>picketlink-authorization-idm-ldap</module>
                 <module>picketlink-authorization-rs-rbac</module>
                 <module>picketlink-deltaspike-authorization</module>
                 <module>richfaces-quickstarts/helloworld-rf</module>
