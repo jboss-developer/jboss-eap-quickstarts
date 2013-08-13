@@ -27,12 +27,6 @@ import org.apache.deltaspike.core.api.exclude.Exclude;
 @Exclude
 public class MyExcludedBean implements MessageProvider {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.as.quickstarts.deltaspike.projectstage.controller.bean.MyBean#message()
-     */
-    @Override
     public String message() {
         return "I should NEVER be available";
     }

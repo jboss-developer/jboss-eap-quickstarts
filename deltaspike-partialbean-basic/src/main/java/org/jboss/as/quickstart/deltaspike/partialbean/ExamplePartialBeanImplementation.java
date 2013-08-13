@@ -34,6 +34,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ExamplePartialBeanBinding
 @ApplicationScoped
 public class ExamplePartialBeanImplementation implements InvocationHandler {
+
     /**
      * In our example, this method will be invoked when the "sayHello" method is called.
      * 
@@ -41,7 +42,6 @@ public class ExamplePartialBeanImplementation implements InvocationHandler {
      * @param method The method being invoked (sayHello in this QuickStart)
      * @param args The arguments being passed in to the invoked method
      */
-    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         return "Hello " + args[0];
     }

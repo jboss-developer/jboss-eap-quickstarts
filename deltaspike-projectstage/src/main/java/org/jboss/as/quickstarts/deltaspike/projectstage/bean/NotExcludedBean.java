@@ -24,12 +24,6 @@ package org.jboss.as.quickstarts.deltaspike.projectstage.bean;
  */
 public class NotExcludedBean implements MessageProvider {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.as.quickstarts.deltaspike.projectstage.controller.bean.MyBean#message()
-     */
-    @Override
     public String message() {
         return "I should ALWAYS be available";
     }
