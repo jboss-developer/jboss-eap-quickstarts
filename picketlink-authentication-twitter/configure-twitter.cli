@@ -1,0 +1,17 @@
+# Batch script to configure the Twitter application
+batch
+
+# Configure the Twitter App information
+### NOTE: Be sure to replace YOUR_CLIENT_ID, YOUR_CLIENT_SECRET_CODE, and YOUR_RETURN_URL 
+###       with the values provided when you registered as a Twitter developer.
+/system-property=TWIT_CLIENT_ID:add(value="YOUR_CLIENT_ID")
+/system-property=TWIT_CLIENT_SECRET:add(value="YOUR_CLIENT_SECRET_CODE")
+/system-property=TWIT_RETURN_URL:add(value="YOUR_RETURN_URL")
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+:reload
+
+
