@@ -45,20 +45,24 @@ We suggest you approach the quickstarts as follows:
 * If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you are comfortable with those, move on to the **Advanced** quickstarts.
 * Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.
 
-Checking out the quickstart source
+Check Out the Quickstart Source
 ----------------------------------
 
-The quickstarts are spread across a number of git repositories, and assimilated in this quickstarts project as git sub modules.  To clone the git repository, use the command: 
+Some quickstarts in this project are examples that originate from multiple external Git repositories and are then combined in this project as Git submodules. These quickstarts do not fit the standard pattern of the other quickstarts and may require you to install additional software or follow more complex setup and testing procedures.
 
-            git clone --recursive git@github.com:jboss-jdf/jboss-as-quickstart.git
+Git submodules allow you clone another repository as a subdirectory in your project, but keep the source and commits separate. Use following Git commands to fetch the data from the submodules into this project.
 
-If you've previously cloned this quickstarts repository, you can update that clone with the git submodules by executing the command:
+1. To clone this Git repository, use the following command:
 
-            git submodule update --init
+        git clone --recursive git@github.com:jboss-jdf/jboss-as-quickstart.git
+   _Note: This command creates the directories for the submodules, but does not download the data._
+2. After you clone the repository, use the following command to initialize the and fetch data from the submodule project:
 
-Submodules can then be updated with the command:
+        git submodule update --init
+3. To refresh the submodule with any updates to the external project, run the following command:
 
-            git submodule update
+        git submodule update
+
 
 System Requirements
 -------------------
