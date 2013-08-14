@@ -31,7 +31,7 @@ body {
   border-left: 5px solid #8c8f91;
   border-right: 5px solid #8c8f91;
   border-bottom: 25px solid #8c8f91;
-  width: 865px; /* subtract 40px from banner width for padding */
+  width: 80%; /* subtract 40px from banner width for padding */
   background: #FFFFFF;
   background-image: url(../gfx/headerbkg.png);
   background-repeat: repeat-x;
@@ -40,12 +40,12 @@ body {
 }
 #content {
   float: left;
-  width: 500px;
+  width: 90%;
   margin: 20px;
 }
 #aside {
   font-size: 0.9em;
-  width: 275px;
+  width: 15%px;
   float: left;
   margin: 20px 0px;
   border: 1px solid #D5D5D5;
@@ -236,3 +236,5 @@ padding: 20px;
     color: #F90;
     background-color: #FFF;
 }
+
+td a{width:100%;display:block;}

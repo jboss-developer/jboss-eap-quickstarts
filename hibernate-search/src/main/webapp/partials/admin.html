@@ -8,7 +8,7 @@
 		</thead>
 		<tbody>
 			<tr data-id="{{feed.id}}" ng-repeat="feed in feeds">
-				<td width="60%">{{feed.url}}</td>
+				<td width="60%"><a href="{{feed.url}}">{{feed.url}}</a></td>
 				<td width="40%">{{feed.title}}</td>
 				<!-- <td>
 					<button ng-click="editFeed(feed)">Edit</button>

@@ -18,20 +18,27 @@ import java.util.concurrent.TimeUnit;
 @javax.servlet.annotation.WebListener
 public class SessionListener implements ServletContextListener {
     private ScheduledExecutorService scheduler;
+    private static String doSchedule = System.getProperty("DO_SCHEDULE");
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Context destroyed!");
-        scheduler.shutdownNow();
+        System.out.println("Context destroyed! and doSchedule"+doSchedule);
+        if(doSchedule!=null && doSchedule.equals("true")){
+        	scheduler.shutdownNow();
+        }
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Context created!");
-        FeedService feedService = new FeedService();
-        feedService.getFeedHandler().doIndex();
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(new ReaderTask(), 0, 2, TimeUnit.MINUTES);
+        System.out.println("Context created! and doSchedule"+doSchedule);
+        if(doSchedule!=null && doSchedule.equals("true")){
+        	FeedService feedService = new FeedService();
+            feedService.getFeedHandler().doIndex();
+            scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.scheduleAtFixedRate(new ReaderTask(), 0, 2, TimeUnit.MINUTES);
+        }
+        
+        
     }
 
 

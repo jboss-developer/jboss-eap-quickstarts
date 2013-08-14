@@ -27,8 +27,16 @@ function AdminCtrl($scope ,Feed) {
     //$scope.feeds = Feed.query();
 
     var createFeed = function (newFeed) {
-        newFeed.$save();
-        $scope.feeds.push(newFeed);
+        newFeed.$save({},
+        		  // success handler
+        		  function() {
+        			$scope.feeds.push(newFeed);
+        		    alert("Successfully added");	    
+        		  },
+        		  // error handler
+        		  function() {
+          		    alert("Invalid URL");
+          		  }); 
     };
 
     var updateFeed = function(feed) {

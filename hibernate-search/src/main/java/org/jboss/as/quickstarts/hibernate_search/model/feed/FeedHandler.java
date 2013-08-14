@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class FeedHandler {
 
-    private static int MAX_ROWS = 20;
+    private static int MAX_ROWS = 50;
     //private InfinispanFeedServiceHandler infinispanFeedServiceHandler = null;
 
     public FeedHandler() {
@@ -205,10 +205,10 @@ public class FeedHandler {
         List<FeedEntry> feedEntryList = null;
         try {
             transaction = session.beginTransaction();
-            String hql = "from FeedEntry feedEntry where feedEntry.feedId = :theFeedId";
+            String hql = "from FeedEntry feedEntry where feedEntry.feedId = :theFeedId order by feedentryid desc";
             Query query = session.createQuery(hql);
             query.setInteger("theFeedId", feedId);
-            query.setMaxResults(MAX_ROWS);
+            //query.setMaxResults(MAX_ROWS);
             feedEntryList = query.list();
             transaction.commit();
         } catch (HibernateException e) {
@@ -217,7 +217,13 @@ public class FeedHandler {
         } finally {
             session.close();
         }
-        return feedEntryList;
+        if(feedEntryList!=null && feedEntryList.size()> MAX_ROWS){
+        	return feedEntryList.subList(0, MAX_ROWS);
+        }else if(feedEntryList!=null &&  feedEntryList.size()>0){
+        	return feedEntryList.subList(0, feedEntryList.size());
+        }else{
+        	return feedEntryList;
+        }
     }
 
     /**
@@ -281,9 +287,9 @@ public class FeedHandler {
             tx.commit();*/
 
             tx = session.beginTransaction();
-            String hql = "from FeedEntry";
+            String hql = "from FeedEntry order by feedentryid desc";
             Query query = session.createQuery(hql);
-            query.setMaxResults(MAX_ROWS);
+            //query.setMaxResults(MAX_ROWS);
             feedEntries = query.list();
             tx.commit();
         }catch (HibernateException e) {
@@ -292,7 +298,13 @@ public class FeedHandler {
         }finally {
             session.close();
         }
-        return feedEntries;
+        if(feedEntries!=null && feedEntries.size()> MAX_ROWS){
+        	return feedEntries.subList(0, MAX_ROWS);
+        }else if(feedEntries!=null &&  feedEntries.size()>0){
+        	return feedEntries.subList(0, feedEntries.size());
+        }else{
+        	return feedEntries;
+        }
     }
 
     public void doIndex() {

@@ -17,8 +17,8 @@
 		<property name="hibernate.connection.pool_size">10</property>
 		<property name="show_sql">false</property>
 		<property name="dialect">${connection.dialect}</property>
-		<property name="hibernate.hbm2ddl.auto">update</property> 
-		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property>
+		<!-- <property name="hibernate.hbm2ddl.auto">create-drop</property> 
+		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property> -->
 
 		<!--<property name="hibernate.search.default.directory_provider">filesystem</property> 
 			<property name="hibernate.search.default.indexBase">C:\lucene\indexes</property> -->
@@ -26,7 +26,7 @@
 		<property name="hibernate.search.default.directory_provider">infinispan</property>
 		<property name="hibernate.search.lucene_version">LUCENE_35</property>
 		<property name="hibernate.search.infinispan.configuration_resourcename">
-			lucene-demo-cache-config.xml
+			${infinispan.configuration_resourcename}
 		</property>
 		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
 
