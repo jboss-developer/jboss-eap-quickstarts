@@ -1,0 +1,56 @@
+import org.jboss.as.quickstarts.model.LineItem
+dialect "mvel" 
+
+
+# In Drools' philosophy the world is a whole of facts
+# that interact each other by rules.
+# Our little world is a whole of LineItems 
+# that are modified by rules based on total amount of their values.
+# We have three rules to define the discount value
+# related to three situations:
+# total amount < 100 --> no dicount
+# total amount > 100 --> discount of 10%
+# total amount > 200 --> discount of 20%.
+# These rules modify the discount value of every facts (LineItem).
+# In order to optimize the rule engine, these rules are in the same activation group: 
+# only one is activated in the same grup and the others are no more checked.
+
+
+rule "NormalRule" 
+activation-group "discount"
+ when
+       $lineItem:LineItem( discount == 0.1 || discount == 0.2, value > 0, inBasket == true );	
+       $total : Number( doubleValue <= 100 )
+             from accumulate( LineItem( $value : value > 0 && inBasket==true),
+                              sum( $value ) )				         
+	then
+      $lineItem.discount =  0.0
+				        
+end
+
+
+rule "SilverRule"
+activation-group "discount" 
+ when
+       $lineItem:LineItem( discount == 0.0 || discount == 0.2, value > 0, inBasket == true );	
+       $total : Number( doubleValue > 100,  doubleValue < 200 )
+             from accumulate( LineItem( $value : value > 0 && inBasket==true),
+                              sum( $value ) )				         
+	then
+       $lineItem.discount =  0.1
+	 
+				        
+end
+
+
+rule "GoldenRule" 
+activation-group "discount"
+  when
+       $lineItem:LineItem( discount == 0.0 || discount == 0.1, value > 0, inBasket == true);	
+       $total : Number( doubleValue >= 200 )
+             from accumulate( LineItem( $value : value > 0 && inBasket==true),
+                              sum( $value ) )				         
+	then
+       $lineItem.discount =  0.2
+				        
+end
