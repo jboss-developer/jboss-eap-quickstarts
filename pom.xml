@@ -217,6 +217,7 @@
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>numberguess</module>
+                <module>negotiation-toolkit</module>
                 <module>payment-cdi-event</module>
                 <module>picketlink-authentication-http-basic</module>
                 <module>picketlink-authentication-http-digest</module>
