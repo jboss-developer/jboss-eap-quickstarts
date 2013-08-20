@@ -156,6 +156,7 @@
                     Application Platform or JBoss AS -->
                 <module>bean-validation</module>
                 <module>bmt</module>
+                <module>booking-mvc-spring</module>
                 <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>

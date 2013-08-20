@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2002-2013 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+      	http://www.springframework.org/schema/webflow
+      	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_USER"/>
+
+    <input name="hotelId" required="true"/>
+
+    <on-start>
+        <evaluate expression="bookingService.createBooking(hotelId, currentUser.name)" result="flowScope.booking"/>
+    </on-start>
+
+    <view-state id="enterBookingDetails" model="booking">
+        <binder>
+            <binding property="checkinDate"/>
+            <binding property="checkoutDate"/>
+            <binding property="beds"/>
+            <binding property="smoking"/>
+            <binding property="creditCard"/>
+            <binding property="creditCardName"/>
+            <binding property="creditCardExpiryMonth"/>
+            <binding property="creditCardExpiryYear"/>
+            <binding property="amenities"/>
+        </binder>
+        <on-render>
+            <render fragments="body"/>
+        </on-render>
+        <transition on="proceed" to="reviewBooking"/>
+        <transition on="cancel" to="cancel" bind="false"/>
+    </view-state>
+
+    <view-state id="reviewBooking" model="booking">
+        <on-render>
+            <render fragments="body"/>
+        </on-render>
+        <transition on="confirm" to="bookingConfirmed">
+            <evaluate expression="bookingService.persistBooking(booking)"/>
+        </transition>
+        <transition on="revise" to="enterBookingDetails"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+
+    <end-state id="bookingConfirmed">
+        <output name="confirmed" value="'Your booking is confirmed, you can book another hotel by searching again.'"/>
+    </end-state>
+
+    <end-state id="cancel"/>
+
+</flow>

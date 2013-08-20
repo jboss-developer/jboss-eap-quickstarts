@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2002-2013 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!-- Configure Spring Security -->
+    <security:http auto-config="true" use-expressions="true">
+        <security:form-login login-page="/login" login-processing-url="/loginProcess"
+                             default-target-url="/hotels/search" authentication-failure-url="/login?login_error=1"/>
+        <security:logout logout-url="/logout" logout-success-url="/logoutSuccess"/>
+    </security:http>
+
+    <!--
+        Define local authentication provider, a real app would use an external provider (JDBC, LDAP, CAS, etc)
+
+        usernames/passwords are:
+            keith/melbourne
+            erwin/leuven
+            jeremy/atlanta
+            scott/rochester
+    -->
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:password-encoder hash="md5"/>
+            <security:user-service>
+                <security:user name="keith" password="417c7382b16c395bc25b5da1398cf076"
+                               authorities="ROLE_USER, ROLE_SUPERVISOR"/>
+                <security:user name="erwin" password="12430911a8af075c6f41c6976af22b09"
+                               authorities="ROLE_USER, ROLE_SUPERVISOR"/>
+                <security:user name="jeremy" password="57c6cbff0d421449be820763f03139eb" authorities="ROLE_USER"/>
+                <security:user name="scott" password="942f2339bf50796de535a384f0d1af3e" authorities="ROLE_USER"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

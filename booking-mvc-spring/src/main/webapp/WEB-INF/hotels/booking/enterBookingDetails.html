@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!--
+Copyright 2002-2013 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- This <head> section is only used for static prototyping purposes. At runtime, -->
+    <!-- Tiles will only use the body fragment defined with tiles:fragment="content",  -->
+    <!-- as specified at the corresponding views.xml file.                             -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <title>Spring Travel: Spring MVC and Web Flow Reference Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" media="screen, projection"
+          href="../../../styles/blueprint/screen.css"/>
+
+    <link rel="stylesheet" type="text/css" media="print"
+          href="../../../styles/blueprint/print.css"/>
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" type="text/css" media="screen, projection"
+          href="../../../styles/blueprint/ie.css"/>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="../../../styles/booking.css"/>
+
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+    <!-- Some styles and scripts are served from spring-js-resources-{ver}.jar at -->
+    <!-- runtime. Therefore not available for static prototyping. See the         -->
+    <!-- layouts/standard.html template file for detail.                          -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
+</head>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- START of the content to be included in the execution result.  -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- Only the markup inside this <body> would be required in this  -->
+<!-- template if no static prototyping was intended.               -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<body tiles:fragment="content">
+
+
+<div id="bookingForm">
+
+<div class="span-5">
+
+    <h3 th:text="${booking.hotel.name}">The Herb Plaza</h3>
+
+    <address th:object="${booking.hotel}">
+        <span th:text="*{address}">Thyme Square, 13</span>
+        <br/>
+        <span th:text="*{city}">Icetown</span>,
+        <span th:text="*{state}">North Pole</span>,
+        <span th:text="*{zip}">0W</span>
+        <br/>
+        <span th:text="*{country}">Earth</span>
+    </address>
+
+    <p>
+        Nightly rate: <span th:text="${booking.hotel.price}">400.00</span>
+    </p>
+
+</div>
+
+<div class="span-12">
+
+    <form id="booking" action="#" th:object="${booking}" th:action="${flowExecutionUrl}" method="post">
+
+        <div class="error" th:if="${#fields.hasErrors('*')}">
+                <span th:each="err : ${#fields.errors('*')}">
+                  <span th:text="${err}">Input is incorrect</span><br/>
+                </span>
+        </div>
+
+        <fieldset>
+            <legend>Book Hotel</legend>
+            <div>
+                <div class="span-4">
+                    <label for="checkinDate">Check In:</label>
+                </div>
+                <div class="span-7 last">
+                    <p><input type="text" th:field="*{checkinDate}"/></p>
+                    <script type="text/javascript">
+                        // <![CDATA[
+                        Spring.addDecoration(new Spring.ElementDecoration({
+                            elementId: "checkinDate",
+                            widgetType: "dijit.form.DateTextBox",
+                            widgetAttrs: { datePattern: "MM-dd-yyyy", required: true }}));
+                        // ]]>
+                    </script>
+
+                </div>
+            </div>
+            <div>
+                <div class="span-4">
+                    <label for="checkoutDate">Check Out:</label>
+                </div>
+                <div class="span-7 last">
+                    <p><input type="text" th:field="*{checkoutDate}"/></p>
+                    <script type="text/javascript">
+                        // <![CDATA[
+                        Spring.addDecoration(new Spring.ElementDecoration({
+                            elementId: "checkoutDate",
+                            widgetType: "dijit.form.DateTextBox",
+                            widgetAttrs: { datePattern: "MM-dd-yyyy", required: true }}));
+                        // ]]>
+                    </script>
+                </div>
+            </div>
+            <div>
+                <div class="span-4">
+                    <label for="beds">Room Preference:</label>
+                </div>
+                <div class="span-7 last">
+                    <p>
+                        <select th:field="*{beds}">
+                            <option label="One king-size bed" value="1"/>
+                            <option label="Two double beds" value="2"/>
+                            <option label="Three beds" value="3"/>
+                        </select>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="label span-4">
+                    Smoking Preference:
+                </div>
+                <div id="radio" class="span-7 last">
+                    <p>
+                        <input type="radio" id="smoking" th:field="*{smoking}" value="true"/><label for="smoking">Smoking</label>
+                        <input type="radio" id="non-smoking" th:field="*{smoking}" value="false"/><label
+                            for="non-smoking">Non Smoking</label>
+                    </p>
+                    <script type="text/javascript">
+                        // <![CDATA[
+                        Spring.addDecoration(new Spring.ElementDecoration({
+                            elementId: 'smoking',
+                            widgetType: "dijit.form.RadioButton",
+                            widgetModule: "dijit.form.CheckBox",
+                            widgetAttrs: { value: "true" }
+                        }));
+                        Spring.addDecoration(new Spring.ElementDecoration({
+                            elementId: 'non-smoking',
+                            widgetType: "dijit.form.RadioButton",
+                            widgetModule: "dijit.form.CheckBox",
+                            widgetAttrs: { value: "false" }
+                        }));
+                        // ]]>
+                    </script>
+                </div>
+            </div>
+            <div>
+                <div class="label span-4">
+                    Amenities:
+                </div>
+                <div id="amenities" class="span-7 last">
+                    <p>
+                        <input type="checkbox" th:field="*{amenities}" value="OCEAN_VIEW"/><label
+                            th:for="${#ids.prev('amenities')}">Ocean View</label>
+                        <br/>
+                        <input type="checkbox" th:field="*{amenities}" value="LATE_CHECKOUT"/><label
+                            th:for="${#ids.prev('amenities')}">Late Checkout</label>
+                        <br/>
+                        <input type="checkbox" th:field="*{amenities}" value="MINIBAR"/><label
+                            th:for="${#ids.prev('amenities')}">Minibar</label>
+                    </p>
+                    <script type="text/javascript">
+                        // <![CDATA[
+                        dojo.query("#amenities input[type='checkbox']").forEach(function (element) {
+                            Spring.addDecoration(new Spring.ElementDecoration({
+                                elementId: element.id,
+                                widgetType: "dijit.form.CheckBox",
+                                widgetAttrs: { checked: element.checked }
+                            }));
+                        });
+                        // ]]>
+                    </script>
+                </div>
+            </div>
+            <div>
+                <div class="span-4">
+                    <label for="creditCard">Credit Card #:</label>
+                </div>
+                <div class="span-7 last">
+                    <p><input type="text" th:field="*{creditCard}"/></p>
+                    <script type="text/javascript">
+                        // <![CDATA[
+                        Spring.addDecoration(new Spring.ElementDecoration({
+                            elementId: "creditCard",
+                            widgetType: "dijit.form.ValidationTextBox",
+                            widgetAttrs: { required: true, invalidMessage: "A 16-digit credit card number is required.",
+                                regExp: "[0-9]{16}"  }}));
+                        // ]]>
+                    </script>
+                </div>
+            </div>
+            <div>
+                <div class="span-4">
+                    <label for="creditCardName">Credit Card Name:</label>
+                </div>
+                <div class="span-7 last">
+                    <p><input type="text" th:field="*{creditCardName}" maxlength="40"/></p>
+                    <script type="text/javascript">
+                        // <![CDATA[
+                        Spring.addDecoration(new Spring.ElementDecoration({
+                            elementId: "creditCardName",
+                            widgetType: "dijit.form.ValidationTextBox",
+                            widgetAttrs: { required: true }}));
+                        // ]]>
+                    </script>
+                </div>
+            </div>
+            <div>
+                <div class="span-4">
+                    <label for="creditCardExpiryMonth">Expiration Date:</label>
+                </div>
+                <div class="span-7 last">
+                    <p>
+                        <select th:field="*{creditCardExpiryMonth}">
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
+                        </select>
+                        <select th:field="*{creditCardExpiryYear}">
+                            <option value="1">2008</option>
+                            <option value="2">2009</option>
+                            <option value="3">2010</option>
+                            <option value="4">2011</option>
+                            <option value="5">2012</option>
+                        </select>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <p>
+                    <button type="submit" id="proceed" name="_eventId_proceed">Proceed</button>
+                    <button type="submit" name="_eventId_cancel">Cancel</button>
+                </p>
+                <script type="text/javascript">
+                    // <![CDATA[
+                    Spring.addDecoration(new Spring.ValidateAllDecoration({elementId: 'proceed', event: 'onclick'}));
+                    Spring.addDecoration(new Spring.AjaxEventDecoration({elementId: 'proceed', event: 'onclick', formId: 'booking'}));
+                    // ]]>
+                </script>
+            </div>
+        </fieldset>
+
+    </form>
+
+</div>
+
+</div>
+
+
+</body>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- END of the content to be included in the execution result -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</html>

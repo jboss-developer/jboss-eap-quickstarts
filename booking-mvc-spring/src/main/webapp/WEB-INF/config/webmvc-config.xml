@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2002-2013 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <!-- Enables controllers mapped with @RequestMapping annotations, formatting annotations @NumberFormat @DateTimeFormat, and JSR 303 style validation -->
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/web-resources/"/>
+    <mvc:default-servlet-handler/>
+
+    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking". -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="order" value="-1"/>
+        <property name="flowRegistry" ref="flowRegistry"/>
+    </bean>
+
+    <!-- Map paths directly to view names without controller processing. Use the view-name attribute if necessary: by convention the view name equals the path without the leading slash -->
+    <mvc:view-controller path="/" view-name="intro"/>
+    <mvc:view-controller path="/login"/>
+    <mvc:view-controller path="/logoutSuccess"/>
+
+    <!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="flowExecutor"/>
+        <!-- Removed as property is not present in the release version of Spring, only in snapshot versions. See CHANGES.md -->
+        <!--<property name="saveOutputToFlashScopeOnRedirect" value="true"/>-->
+    </bean>
+
+    <!-- Custom FlowHandler for the hotel booking flow -->
+    <bean name="hotels/booking" class="org.springframework.webflow.samples.booking.BookingFlowHandler"/>
+
+    <!-- Thymeleaf template resolver -->
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="templateMode" value="HTML5"/>
+    </bean>
+
+    <!-- Thymeleaf Template Engine -->
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+        <property name="additionalDialects">
+            <set>
+                <bean class="org.thymeleaf.extras.tiles2.dialect.TilesDialect"/>
+                <bean class="org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect"/>
+                <bean class="org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect"/>
+            </set>
+        </property>
+    </bean>
+
+    <!-- Resolves logical view names returned by Controllers to Tiles; a view name to resolve is treated as the name of a tiles definition -->
+    <bean id="tilesViewResolver" class="org.thymeleaf.spring3.view.AjaxThymeleafViewResolver">
+        <property name="viewClass" value="org.thymeleaf.extras.tiles2.spring.web.view.FlowAjaxThymeleafTilesView"/>
+        <property name="templateEngine" ref="templateEngine"/>
+    </bean>
+
+    <!-- Configures the Tiles layout system using a specific thymeleaf-enabled Tiles Configurer -->
+    <bean id="tilesConfigurer" class="org.thymeleaf.extras.tiles2.spring.web.configurer.ThymeleafTilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/**/views.xml</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
