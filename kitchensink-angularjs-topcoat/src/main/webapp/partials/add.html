@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!-- This is a partial, and is templated by AngularJS -->
+
+<ng-include src="'partials/header.html'"></ng-include>
+<!-- Standard HTML form, with the submit function bound to the register() function defined in the the controller -->
+    <form id="reg" ng-submit="register()">
+        <fieldset>
+            <legend>Register a member:</legend>
+            <!-- Each input is bound to a property on the prototype newMember object -->
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name"  ng-model="newMember.name" placeholder="Your Name" required autofocus class="topcoat-text-input"/>
+                <span class="error" ng-show="errors.name">{{errors.name}}</span>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" ng-model="newMember.email" placeholder="Your Email" required class="topcoat-text-input"/>
+                <span class="error" ng-show="errors.email">{{errors.email}}</span>
+            </div>
+            <div>
+                <label for="phoneNumber">Phone #:</label>
+                <input type="tel" name="phoneNumber" id="phoneNumber" ng-model="newMember.phoneNumber" pattern="[0-9]{10,12}" placeholder="Your Phone #" required class="topcoat-text-input"/>
+                <span class="error" ng-show="errors.phoneNumber">{{errors.phoneNumber}}</span>
+            </div>
+            
+            <!-- We output a list of success messages (appropriately styled!) for the form. -->
+            <ul ng-hide="!successMessages" class="success messages">
+                <li ng-repeat="message in successMessages">{{message}}</li>
+            </ul>
+
+            <!-- Output the list of error messages if any. -->
+            <ul ng-hide="!errorMessages" class="error messages">
+                <li ng-repeat="message in errorMessages">{{message}}</li>
+            </ul>
+
+            <!-- There are two buttons, the default submit action (which is bound for the whole form), and a reset button, that clears the form. -->
+            <div>
+                <input type="submit" id="register" value="Register" class="topcoat-button" />
+                <input type="button" ng-click="reset()" name="cancel"
+                    id="cancel" value="Cancel" class="topcoat-button"/>
+            </div>
+        </fieldset>
+    </form>
+<ng-include src="'partials/buttons.html'"></ng-include>
