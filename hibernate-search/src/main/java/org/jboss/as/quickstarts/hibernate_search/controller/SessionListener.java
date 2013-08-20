@@ -23,20 +23,20 @@ public class SessionListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         System.out.println("Context destroyed! and doSchedule"+doSchedule);
-        if(doSchedule!=null && doSchedule.equals("true")){
+        //if(doSchedule!=null && doSchedule.equals("true")){
         	scheduler.shutdownNow();
-        }
+        //}
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Context created! and doSchedule"+doSchedule);
-        if(doSchedule!=null && doSchedule.equals("true")){
+        //if(doSchedule!=null && doSchedule.equals("true")){
         	FeedService feedService = new FeedService();
             feedService.getFeedHandler().doIndex();
             scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleAtFixedRate(new ReaderTask(), 0, 2, TimeUnit.MINUTES);
-        }
+        //}
         
         
     }

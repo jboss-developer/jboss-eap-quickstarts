@@ -23,5 +23,6 @@ public class ReaderTask implements Runnable{
     public void run() {
         System.out.println("ReaderTask.run"+new Date());
         feedService.reedAllFeeds();
+        feedService.getFeedHandler().doIndex();
     }
 }

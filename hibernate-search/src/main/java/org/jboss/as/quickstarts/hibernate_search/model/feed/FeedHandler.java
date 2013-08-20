@@ -1,5 +1,6 @@
 package org.jboss.as.quickstarts.hibernate_search.model.feed;
 
+import org.hibernate.CacheMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,7 +11,6 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.util.HibernateUtil;
-import org.jboss.as.quickstarts.hibernate_search.temp.infinispan.InfinispanFeedServiceHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +39,10 @@ public class FeedHandler {
      * @param feed
      */
     public Integer addFeed(Feed feed){
+    	if(feed.getDescription()!=null && feed.getDescription().length()> 4500){
+    		feed.setDescription(feed.getDescription().substring(0,4500));
+    	}
+    	
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         Integer feedId = null;
@@ -131,6 +135,10 @@ public class FeedHandler {
      * @param feedEntry
      */
     public Integer addFeedEntry(FeedEntry feedEntry){
+    	if(feedEntry.getDescription()!=null && feedEntry.getDescription().length()> 4500){
+    		feedEntry.setDescription(feedEntry.getDescription().substring(0,4500));
+    	}
+    	
         //infinispanFeedServiceHandler.getInfinispanFeedService().insertNewFeedEntry(feedEntry);
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -312,7 +320,8 @@ public class FeedHandler {
         Session session = HibernateUtil.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         try {
-            fullTextSession.createIndexer().startAndWait();
+            //fullTextSession.createIndexer().startAndWait();
+            fullTextSession.createIndexer().batchSizeToLoadObjects(25).cacheMode(CacheMode.NORMAL).threadsToLoadObjects(5).threadsForIndexWriter(3).startAndWait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

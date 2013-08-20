@@ -31,6 +31,17 @@
 		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
 
 		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
+		
+		
+<!-- If using Hibernate, add to your hibernate.cfg.xml -->
+<!-- <property name="hibernate.cache.region.factory_class">org.hibernate.cache.infinispan.JndiInfinispanRegionFactory</property> -->
+<!-- <property name="hibernate.cache.infinispan.cachemanager">java:CacheManager/entity</property> -->
+		
+		<!-- <property name="hibernate.search.infinispan.cachemanager_jndiname">java:jboss/infinispan/HibernateSearch</property> -->
+		<property name="hibernate.search.infinispan.configuration_resourcename">hibernatesearch-infinispan.xml</property>
+        <property name="hibernate.search.infinispan.chunk_size">40960</property>
+        <property name="hibernate.search.default.exclusive_index_use">true</property>
+		
 		<!-- <property name="annotatedClasses"> &lt;!&ndash;<list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt; 
 			&lt;!&ndash;</list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data</value>&ndash;&gt; 
 			</property> -->
