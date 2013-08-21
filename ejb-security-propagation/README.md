@@ -64,21 +64,102 @@ That user is necessary for the server-one (where the ejb client is deployed) est
  
 Start the H2 network server on background
 
-    $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.Server -tcp -baseDir $HOME &
+    $JAVA_HOME/bin/java -classpath $JBOSS_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.Server -tcp -baseDir $HOME &
 
   It should listen to 9092 port.
 
 Create the table structure and input some data
 
-    $JAVA_HOME/bin/java -classpath $JB_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.RunScript -url jdbc:h2:tcp://localhost/qs_ejb -user sa -script ejb/src/main/resources/import.sql
+    $JAVA_HOME/bin/java -classpath $JBOSS_HOME/modules/system/layers/base/com/h2database/h2/main/h2-1.3.168-redhat-2.jar org.h2.tools.RunScript -url jdbc:h2:tcp://localhost/qs_ejb -user sa -script ejb/src/main/resources/import.sql
 
 
-Configure server components
+Configure the JBoss Enterprise Application Platform 6.1 server
 -------------------------
 
-The configuration can be performed by a jboss-cli script or (if you prefer) to manually update host.xml and domain.xml. If you prefer the scripted way, go to section "Automatic domain configuration"
-Continue reading if you prefer to manually update xml files and better understand each setting.
-  
+#### Configure the Server by Running the JBoss CLI Script
+
+1. Backup the file: `$JBOSS_HOME/domain/configuration/domain.xml` and `$JBOSS_HOME/domain/configuration/host.xml` 
+
+2. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+
+        For Linux:  $JBOSS_HOME/bin/domain.sh 
+        For Windows:  %JBOSS_HOME%\bin\domain.bat
+
+you should see two server process as seen with: ps -ef|grep Server:server
+
+3. Backup the file: `$JBOSS_HOME/domain/configuration/domain.xml` and `$JBOSS_HOME/domain/configuration/host.xml`
+
+4. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        $JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        
+   This script configures and starts multiple servers needed to run this quickstart. You should see "outcome" => "success" for all of the commands. 
+
+
+#### Configure the Server by Running the JBoss CLI Interactively
+
+1. Backup the file: `$JBOSS_HOME/domain/configuration/domain.xml` and `$JBOSS_HOME/domain/configuration/host.xml` 
+
+2. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+
+        For Linux:  $JBOSS_HOME/bin/domain.sh 
+        For Windows:  %JBOSS_HOME%\bin\domain.bat
+
+you should see two server process as seen with: ps -ef|grep Server:server
+
+3. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        $JBOSS_HOME/bin/jboss-cli.sh --connect 
+
+4. At the prompt, enter the following series of commands:
+
+First stop the default servers, block until the server is down
+
+        /host=master/server-config=server-one:stop(blocking=true)
+        /host=master/server-config=server-two:stop(blocking=true)
+
+Remove server-two from host master, and add again associated to "other-server-group"
+        /host=master/server-config=server-two:remove()
+        /host=master/server-config=server-two:add(auto-start=true, group="other-server-group",socket-binding-port-offset=150)
+
+Add the security realms with the secret (password base64) values for the server communication
+        /host=master/core-service=management/security-realm=ejb-remote-call:add()
+        /host=master/core-service=management/security-realm=ejb-remote-call/server-identity=secret:add(value="cXVpY2tzdGFydFB3ZDEh")
+
+Add the socket binding for connection from server-one to server-two
+        /socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=srv2srv-ejb-socket:add(host=localhost,port=4597)
+
+        /profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:add(outbound-socket-binding-ref=srv2srv-ejb-socket, security-realm=ejb-remote-call, username="quickstartUser")
+        /profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection/property=SASL_POLICY_NOANONYMOUS:add(value=false)
+        /profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection/property=SSL_ENABLED:add(value=false)
+
+Add the datasource to full profile
+        /profile=full/subsystem=datasources/data-source=SecurityPropagationDS:add(connection-url="jdbc:h2:tcp://localhost/qs_ejb",jta=false,jndi-name="java:jboss/datasources/SecurityPropagationDS", use-ccm=false,driver-class="org.h2.Driver", driver-name="h2",user-name="sa")
+
+Add the datasource to full-ha profile
+        /profile=full-ha/subsystem=datasources/data-source=SecurityPropagationDS:add(connection-url="jdbc:h2:tcp://localhost/qs_ejb",jta=false,jndi-name="java:jboss/datasources/SecurityPropagationDS", use-ccm=false,driver-class="org.h2.Driver", driver-name="h2",user-name="sa")
+
+Add the security domain to full profile
+        /profile=full/subsystem=security/security-domain=security-propagation-quickstart:add(cache-type=default)
+        /profile=full/subsystem=security/security-domain=security-propagation-quickstart/authentication=classic:add(login-modules=[{code=>"Database", flag=>required, module-options=>{"dsJndiName"=>"java:jboss/datasources/SecurityPropagationDS","principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?","rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?"}}])
+
+Add the security domain to full-ha profile
+        /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:add(cache-type=default)
+        /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart/authentication=classic:add(login-modules=[{"code"=>"org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule", flag=>optional, module=>"org.jboss.as.quickstarts.ejb_security", "module-options"=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Remoting", flag=>optional, module-options=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Database", flag=>required, module-options=>{"dsJndiName"=>"java:jboss/datasources/SecurityPropagationDS","principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?","rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?","password-stacking"=>"useFirstPass"}}])
+
+Start servers
+        /host=master/server-config=server-one:start(blocking=true)
+        /host=master/server-config=server-two:start(blocking=true)
+
+
+#### Configure the Server by Manually Editing the Server Configuration File
+
+
+1. If it is running, stop the JBoss Enterprise Application Platform 6
+2. Backup the file: `$JBOSS_HOME/domain/configuration/domain.xml` and `$JBOSS_HOME/domain/configuration/host.xml` 
+3. Open the file: `$JBOSS_HOME/domain/configuration/domain.xml`
+4. Make the additions described below.
+
  * Configure server groups
 
 If JBoss is running, stop it.
@@ -188,9 +269,9 @@ The security-propagation-quickstart for the full-ha profile contains additional 
 
 Now you must generate the ejb-propagation-interceptor.jar file and add it as a module
 
-    mkdir -p $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+    mkdir -p $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
-Add the following module.xml to $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+Add the following module.xml to $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
     <module xmlns="urn:jboss:module:1.1" name="org.jboss.as.quickstarts.ejb_security">
     
@@ -223,31 +304,21 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 3. Copy the interceptor module
 
-        cp interceptor-module/target/ejb-propagation-interceptor.jar $JB_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+        cp interceptor-module/target/ejb-propagation-interceptor.jar $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
 
 Start JBoss Enterprise Application Platform 6.1
 -------------------------
 
-Start JBoss EAP 6.1 as ./domain.sh you must see there are two server process as seen with: ps -ef|grep Server:server
 
-
-Automatic domain configuration
--------------------------
-
-Open a new command line, navigate to the root directory of this quickstart, and run the following command:
- 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
-        
-   This script configures and starts multiple servers needed to run this quickstart. You should see "outcome" => "success" for all of the commands. 
 
 
 Deploy the Quickstart
 -------------------------
 
-1. cd $JB_HOME/bin
-2. $JB_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-as-propagation-ejb.jar  --server-groups=other-server-group"
-3. $JB_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-as-propagation-web.war --server-groups=main-server-group"
+1. cd $JBOSS_HOME/bin
+2. $JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-as-propagation-ejb.jar  --server-groups=other-server-group"
+3. $JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-as-propagation-web.war --server-groups=main-server-group"
 
 Access the application
 ---------------------
@@ -297,6 +368,23 @@ The server-two log should displays
 The user is authenticated to the servlet (security domain security-propagation-quickstart), before the EJB call, EJB client interceptor sends the credentials to the target JBoss server.
 On the EJB side, the EJB server interceptor receives the credential, switches the EJB authenticated user from "quickstartUser" to "admin", the security-propagation-quickstart security domain calls DelegationLoginModule that checks the credential received from EJB server interceptor and grants access. 
 
+
+Undeploy the Archive
+--------------------
+
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. When you are finished testing, type this command to undeploy the archive:
+
+        $JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-propagation-web.war --all-relevant-server-groups "
+        $JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-propagation-ejb.jar --all-relevant-server-groups "
+
+
+Remove the Security Domain Configuration
+--------------------
+
+1. If it is running, stop the JBoss Enterprise Application Platform 6.1
+2. Replace the `$JBOSS_HOME/domain/configuration/domain.xml` and `$JBOSS_HOME/domain/configuration/host.xml` file with the back-up copy of the file.
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
