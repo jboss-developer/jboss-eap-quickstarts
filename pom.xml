@@ -235,6 +235,20 @@
                 <module>wicket-war</module>
                 <module>xml-dom4j</module>
                 <module>xml-jaxp</module>
+                <module>picketlink-quickstarts/picketlink-authentication-form</module>
+                <module>picketlink-quickstarts/picketlink-authentication-http-basic</module>
+                <module>picketlink-quickstarts/picketlink-authentication-http-client-cert</module>
+                <module>picketlink-quickstarts/picketlink-authentication-http-digest</module>
+                <module>picketlink-quickstarts/picketlink-authentication-idm-jsf</module>
+                <module>picketlink-quickstarts/picketlink-authentication-idm-multi-tenancy</module>
+                <module>picketlink-quickstarts/picketlink-authentication-jsf</module>
+                <module>picketlink-quickstarts/picketlink-authentication-recaptcha</module>
+                <module>picketlink-quickstarts/picketlink-authentication-rs-endpoint</module>
+                <module>picketlink-quickstarts/picketlink-authentication-two-factor</module>
+                <module>picketlink-quickstarts/picketlink-authorization-idm-jpa</module>
+                <module>picketlink-quickstarts/picketlink-authorization-idm-ldap</module>
+                <module>picketlink-quickstarts/picketlink-authorization-rs-rbac</module>
+                <module>picketlink-quickstarts/picketlink-deltaspike-authorization</module>
             </modules>
         </profile>
         <profile>

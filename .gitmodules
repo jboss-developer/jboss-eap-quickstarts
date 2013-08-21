@@ -7,3 +7,6 @@
 [submodule "jdg-quickstarts"]
 	path = jdg-quickstarts
 	url = https://github.com/infinispan/jdg-quickstart.git
+[submodule "picketlink-quickstarts"]
+	path = picketlink-quickstarts
+	url = git@github.com:picketlink/picketlink-quickstarts.git
