@@ -29,7 +29,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.jboss.as.quickstarts.petclinic" level="debug"/>
+    <logger name="org.springframework.samples.petclinic" level="debug"/>
 
     <logger name="org.springframework.web.servlet.view" level="debug"/>
 

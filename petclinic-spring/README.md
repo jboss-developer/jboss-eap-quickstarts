@@ -4,12 +4,14 @@ Author: Ken Krebs, Juergen Hoeller, Rob Harrop, Costin Leau, Sam Brannen, Scott 
 Level: Advanced
 Technologies: JPA 2.0, Junit, JMX, Spring MVC Annotations, Spring Data, JSP, webjars, and Dandellion
 Summary: An example that incorporates multiple technologies in JBoss Enterprise Application Platform 6 or JBoss AS 7.
-Target Product: EAP
+Target Product: WFK
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
 _This quickstart shows how to run the [Spring PetClinic](<http://static.springsource.org/docs/petclinic.html>) Application in JBoss Enterprise Application Platform and Wildfly. The only modification needed to get the Spring PetClinic to work is the addtion of the `webapp/WEB-INF/jboss-deployment-structure.xml` file. This file specifies which modules to include or exclude when building the application. In this case, we exclude Hibernate libraries since the application uses Spring Data JPA. Additionally, this is only required when using the spring-data-jpa profile, see `webapp/WEB-INF/web.xml`._
+
+For detailed explanation of the changes made to adapt the Quickstart to JBOSS see: [CHANGES.md](CHANGES.md)
 
 PetClinic features alternative DAO implementations and application
 configurations for JDBC, JPA, and Spring Data JPA, with HSQLDB and MySQL as
@@ -35,8 +37,6 @@ Those local strategies allow for working with any locally defined DataSource. Th
 _Note that the sample configurations for JDBC, JPA, and Spring Data JPA configure
 a BasicDataSource from the Apache Commons DBCP project for connection
 pooling. See `datasource-config.xml`._
-
-_Note: This quickstart is adapted from Spring Source <https://github.com/SpringSource/spring-petclinic> to work with JBoss/Wildfly. The main addition to get it to work is in `webapp/WEB-INF/jboss-deployment-structure.xml`. The file specifies which modules to exclude and which to include._
 
 System requirements
 -------------------

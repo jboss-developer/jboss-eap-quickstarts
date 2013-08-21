@@ -130,7 +130,7 @@ Now that you have confirmed it is working you can migrate the quickstart source.
         cd kitchensinkangularjs
         git rm -r src pom.xml
 
-Copy the source for the wsat-simple quickstart into this new git repo:
+Copy the source for the kitchensink-angularjs quickstart into this new git repo:
 
         cp -r <quickstarts>/kitchensink-angularjs/src .
         cp <quickstarts>/kitchensink-angularjs/pom.xml .

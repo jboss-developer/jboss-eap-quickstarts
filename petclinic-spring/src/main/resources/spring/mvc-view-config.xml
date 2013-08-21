@@ -64,7 +64,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     </bean>
 
     <!-- Renders an Atom feed of the visits. Used by the BeanNameViewResolver  -->
-    <bean id="vets/vetList.atom" class="org.jboss.as.quickstarts.petclinic.web.VetsAtomView"/>
+    <bean id="vets/vetList.atom" class="org.springframework.samples.petclinic.web.VetsAtomView"/>
 
     <!-- Renders an XML view. Used by the BeanNameViewResolver  -->
     <bean id="vets/vetList.xml" class="org.springframework.web.servlet.view.xml.MarshallingView">
@@ -73,7 +73,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <oxm:jaxb2-marshaller id="marshaller">
         <!-- Object-XML mapping declared using annotations inside 'Vets' -->
-        <oxm:class-to-be-bound name="org.jboss.as.quickstarts.petclinic.domain.Vets"/>
+        <oxm:class-to-be-bound name="org.springframework.samples.petclinic.model.Vets"/>
     </oxm:jaxb2-marshaller>
 
 </beans>

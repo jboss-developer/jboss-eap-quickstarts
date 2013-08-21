@@ -4,7 +4,7 @@ Author: Marius Bogoevici
 Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit
 Summary: An example that incorporates multiple technologies
-Target Product: EAP
+Target Product: WFK
 Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!-- This is a partial, and is templated by AngularJS -->
+
+<ng-include src="'partials/header.html'"></ng-include>
+<div class="content">
+	<div class="right refresh">
+		<!-- The table has a button to manually refresh the values, in case, for example, someone else adds a member -->
+
+		<i class="topcoat-icon-button"><span ng-click="refresh()"
+			name="refresh" id="refresh" value=""
+			class="topcoat-icon refresh-icon" /></span></i>
+	</div>
+	<!-- If there are no members registered, instead of showing the table, we show a simple message. -->
+	<em ng-show="members.length == 0">No registered members.</em>
+	<div ng-hide="members.length == 0" class="grid">
+		<!-- The table is built using the AngularJS repeat function, iterating over the members variable, and ordering by the property specified in the orderBy variable -->
+		<div ng-repeat="member in members | orderBy:orderBy" class="entry">
+			<div class="row">
+				<div class="label">Id</div>
+				<div class="value">{{member.id}}</div>
+			</div>
+			<div class="row">
+				<div class="label">Name</div>
+				<div class="value">{{member.name}}</div>
+			</div>
+			<div class="row">
+				<div class="label">Email</div>
+				<div class="value">{{member.email}}</div>
+			</div>
+			<div class="row">
+				<div class="label">Phone #</div>
+				<div class="value">{{member.phoneNumber}}</div>
+			</div>
+			<div class="row">
+				<div class="label">REST URL</div>
+				<div class="value">
+					<a href="rest/members/{{member.id}}">/rest/members/{{member.id}}</a>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			REST URL for all members: <a href="rest/members">/rest/members</a>
+		</div>
+	</div>
+</div>
+<ng-include src="'partials/buttons.html'"></ng-include>

@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>bean-validation</artifactId>
+    <artifactId>jboss-as-bean-validation</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
