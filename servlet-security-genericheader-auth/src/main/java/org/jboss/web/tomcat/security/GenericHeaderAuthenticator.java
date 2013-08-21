@@ -51,8 +51,6 @@ import org.jboss.security.plugins.HostThreadLocal;
 public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
     protected static Logger log = Logger.getLogger(GenericHeaderAuthenticator.class);
 
-    protected boolean trace = log.isTraceEnabled();
-
     // JBAS-4804: GenericHeaderAuthenticator injection of ssoid and
     // sessioncookie name.
     private String httpHeaderForSSOAuth = null;
@@ -139,8 +137,7 @@ public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            if (trace)
-                log.trace("Already authenticated '" + principal.getName() + "'");
+            log.trace("Already authenticated '" + principal.getName() + "'");
             return true;
         }
 
@@ -183,8 +180,7 @@ public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
         try {
             ids = this.getIdentityHeaderId();
         } catch (JMException e) {
-            if (trace)
-                log.trace("getUserId exception", e);
+            log.trace("getUserId exception", e);
         }
         if (ids == null || ids.length() == 0)
             throw new IllegalStateException(
@@ -196,8 +192,7 @@ public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
             if (ssoid != null)
                 break;
         }
-        if (trace)
-            log.trace("SSOID-" + ssoid);
+        log.trace("SSOID-" + ssoid);
         return ssoid;
     }
 
@@ -218,8 +213,7 @@ public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
             ids = this.getSessionCookieId();
             log.trace("Session Cookie Ids=" + ids);
         } catch (JMException e) {
-            if (trace)
-                log.trace("checkSessionCookie exception", e);
+            log.trace("checkSessionCookie exception", e);
         }
         if (ids == null || ids.length() == 0)
             throw new IllegalStateException(
@@ -232,8 +226,7 @@ public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
             if (val != null)
                 return val;
         }
-        if (trace)
-            log.trace("Session Cookie not found");
+        log.trace("Session Cookie not found");
         return null;
     }
 
@@ -281,8 +274,7 @@ public class GenericHeaderAuthenticator extends ExtendedFormAuthenticator {
             log.trace("Matching cookieToken:" + token + " with cookie name="
                     + cookie.getName());
             if (token.equals(cookie.getName())) {
-                if (trace)
-                    log.trace("Cookie-" + token + " value=" + cookie.getValue());
+                log.trace("Cookie-" + token + " value=" + cookie.getValue());
                 return cookie.getValue();
             }
         }

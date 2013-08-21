@@ -67,6 +67,7 @@
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
+        <version.xnio>3.0.7.GA</version.xnio>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -97,6 +98,12 @@
                 <artifactId>jboss-as-web</artifactId>
                 <version>${version.jboss.as}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.xnio</groupId>
+                <artifactId>xnio-api</artifactId>
+                <version>${version.xnio}</version>
+                <scope>test</scope>
+        </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -111,12 +118,6 @@
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-web</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.xnio</groupId>
-            <artifactId>xnio-api</artifactId>
-            <version>3.0.7.GA</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- Testing dependencies and arquillian -->
@@ -133,6 +134,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>

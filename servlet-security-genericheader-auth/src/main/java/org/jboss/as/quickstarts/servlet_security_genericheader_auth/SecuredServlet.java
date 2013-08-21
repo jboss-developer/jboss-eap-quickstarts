@@ -34,6 +34,9 @@ import org.jboss.logging.Logger;
  * A simple secured Servlet. Upon successful authentication and authorization
  * the Servlet will print details of the user and authentication. Servlet
  * security is implemented using annotations.
+ *
+ * NOTE: This simply exists as an example of a servlet secured by this code.
+ *    This servlet would not be used in an actual production situation.
  * 
  * @author Sherif Makary
  * 
