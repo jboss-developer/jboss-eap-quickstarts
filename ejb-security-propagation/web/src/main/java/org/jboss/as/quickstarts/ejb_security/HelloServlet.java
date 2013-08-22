@@ -63,8 +63,7 @@ public class HelloServlet extends HttpServlet {
      * Servlet entry point method which calls helloEJB.getSecurityInfo()
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
         String principal = null;
         String authType = null;
