@@ -18,7 +18,7 @@
 <module xmlns="urn:jboss:module:1.1" name="org.jboss.as.quickstarts.ejb_security">
 
     <resources>
-        <resource-root path="ejb-propagation-interceptor.jar" />
+        <resource-root path="jboss-as-ejb-security-propagation-interceptor.jar" />
     </resources>
 
     <dependencies>

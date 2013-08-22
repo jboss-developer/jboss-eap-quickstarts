@@ -321,7 +321,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 3. Type the following command to copy the interceptor JAR to the server's `module/` directory structure:
 
-        cp interceptor-module/target/ejb-propagation-interceptor.jar $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+        cp interceptor-module/target/jboss-as-ejb-security-propagation-interceptor.jar $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
 
 4. If JBoss is running, restart it, so the module can be loaded.
 
@@ -342,7 +342,7 @@ Deploy the Quickstart
 2. Type the following commands to deploy the quickstart:
 
         $JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-as-propagation-ejb.jar  --server-groups=other-server-group"
-        $JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-as-propagation-web.war --server-groups=main-server-group"
+        $JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-as-ejb-security-propagation-web.war --server-groups=main-server-group"
 
 Access the application
 ---------------------
@@ -353,7 +353,7 @@ Access the application
 
 2. When you deploy EJB it shows the JNDI names for HelloEJB and SecuredEJB.
 
-3. Access `http://localhost:8080/jboss-as-propagation-web/hello` 
+3. Access `http://localhost:8080/jboss-as-ejb-security-propagation-web/hello` 
 
     It displays a message "Successfully called Hello EJB", showing the remote access is working. This is a non-protected servlet that calls a non-protected EJB. The response is:
 
@@ -368,7 +368,7 @@ Access the application
         [Server:server-one] >>>>>>>>>>>> principal: null
         [Server:server-two]  ==> EJB principal: anonymous
 
-4. Now access the application at the following URL: `http://localhost:8080/jboss-as-propagation-web/secure_ejb`
+4. Now access the application at the following URL: `http://localhost:8080/jboss-as-ejb-security-propagation-web/secure_ejb`
 
    This time, it prompts for a user and password. Enter:
 
@@ -402,7 +402,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        $JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-propagation-web.war --all-relevant-server-groups "
+        $JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-ejb-security-propagation-web.war --all-relevant-server-groups "
         $JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-propagation-ejb.jar --all-relevant-server-groups "
 
 
@@ -415,8 +415,8 @@ You can remove the security domain configuration by manually restoring the back-
 1. If it is running, stop the JBoss Enterprise Application Platform 6.1
 2. Replace the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files.
 
-        JBOSS_HOME/domain/configuration/domain.xml
-        JBOSS_HOME/domain/configuration/host.xml
+        $JBOSS_HOME/domain/configuration/domain.xml
+        $JBOSS_HOME/domain/configuration/host.xml
 
 1. If it is running, stop the JBoss Enterprise Application Platform 6.1
 2. Replace the `$JBOSS_HOME/domain/configuration/domain.xml` and `$JBOSS_HOME/domain/configuration/host.xml` file with the back-up copy of the file.
