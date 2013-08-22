@@ -349,7 +349,7 @@ Access the application
 
 1. When you deploy the quickstart (or start the server-one after deployment) it should display in server-one log the registration for the ClientSecurityInterceptor as
 
-    >>>>>>>>>> ClientSecurityInterceptor Constructor
+        >>>>>>>>>> ClientSecurityInterceptor Constructor
 
 2. When you deploy EJB it shows the JNDI names for HelloEJB and SecuredEJB.
 
