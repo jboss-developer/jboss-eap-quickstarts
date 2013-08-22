@@ -66,6 +66,10 @@ img {
 	margin: 8%;
 	text-align: left;
 	background: #595b5b;
+	color: white;
+	padding-left: 5px;
+	padding-right: 8px;
+	padding-top: 18px;
 }
 
 .centerize {
@@ -163,3 +167,14 @@ fieldset .error {
 	margin-bottom: 2px;
 }
 
+a:link {
+	color: #339900;
+}
+
+a:visited {
+	color: #cc3300;
+}
+
+a:active {
+	color: #3300cc
+}
