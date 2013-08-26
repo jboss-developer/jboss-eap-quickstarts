@@ -44,7 +44,7 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
@@ -328,16 +328,6 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Force Java 6 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.maven.compiler}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
             <!-- Deployent on AS from console -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>

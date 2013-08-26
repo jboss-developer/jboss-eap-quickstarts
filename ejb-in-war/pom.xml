@@ -42,7 +42,7 @@
 
         <!-- JBoss dependency versions -->
         
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
@@ -53,7 +53,6 @@
         <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -150,16 +149,6 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-                annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

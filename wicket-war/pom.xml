@@ -58,7 +58,6 @@
         <version.net.ftlines.wicket-cdi>6.0</version.net.ftlines.wicket-cdi>
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -200,15 +199,6 @@
                     <fileNames>
                         <fileName>target/${build.finalName}.war</fileName>
                     </fileNames>
-                </configuration>
-            </plugin>
-            <!-- Enforces Java 1.6 compatibility and activates annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>

@@ -52,7 +52,7 @@
             maven repository. -->
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
@@ -93,7 +93,7 @@
         <!-- other plugin versions -->
         <version.bundle.plugin>2.3.4</version.bundle.plugin>
         <version.clean.plugin>2.4.1</version.clean.plugin>
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.ear.plugin>2.6</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>

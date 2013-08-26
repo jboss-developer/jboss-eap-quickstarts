@@ -60,12 +60,12 @@
         <jboss.spec.jboss.javaee>3.0.2.Final</jboss.spec.jboss.javaee>
 
     <!-- other plugin versions -->
+        <version.compiler.plugin>3.1</version.compiler.plugin>
 
     <!-- maven-compiler-plugin -->
-        <compiler.plugin.version>2.5.1</compiler.plugin.version>
-    <!-- Enforce Java 1.6 -->
-        <compiler.target>1.6</compiler.target>
-        <compiler.source>1.6</compiler.source>
+            <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
 
         <exec.plugin.version>1.2.1</exec.plugin.version>
         <dependency.plugin.version>2.1</dependency.plugin.version>
@@ -104,14 +104,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler.plugin.version}</version>
-                <configuration>
-                    <source>${compiler.source}</source>
-                    <target>${compiler.target}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
