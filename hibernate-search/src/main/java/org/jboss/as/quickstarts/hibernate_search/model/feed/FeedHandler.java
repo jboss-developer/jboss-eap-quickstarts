@@ -320,8 +320,8 @@ public class FeedHandler {
         Session session = HibernateUtil.getSessionFactory().openSession();
         FullTextSession fullTextSession = Search.getFullTextSession(session);
         try {
-            //fullTextSession.createIndexer().startAndWait();
-            fullTextSession.createIndexer().batchSizeToLoadObjects(25).cacheMode(CacheMode.NORMAL).threadsToLoadObjects(5).threadsForIndexWriter(3).startAndWait();
+            fullTextSession.createIndexer().startAndWait();
+            //fullTextSession.createIndexer().batchSizeToLoadObjects(25).cacheMode(CacheMode.NORMAL).threadsToLoadObjects(5).threadsForIndexWriter(3).startAndWait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

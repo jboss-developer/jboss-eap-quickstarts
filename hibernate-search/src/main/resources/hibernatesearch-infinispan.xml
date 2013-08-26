@@ -14,7 +14,7 @@
     the CacheManager across applications -->
         <globalJmxStatistics
                 enabled="true"
-                cacheManagerName="HibernateSearch"
+                cacheManagerName="jboss-as7-quickstart"
                 allowDuplicateDomains="true" />
 
         <!-- If the transport is omitted, there is no way to create distributed or clustered

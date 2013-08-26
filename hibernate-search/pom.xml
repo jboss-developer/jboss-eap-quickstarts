@@ -262,6 +262,9 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<!-- <webResources> <resource> <directory>src/main/resources</directory> 
 						<filtering>true</filtering> </resource> </webResources> -->
+				    <manifestEntries>
+                     <Dependencies>org.infinispan export</Dependencies>
+                  </manifestEntries>
 				</configuration>
 			</plugin>
 			<!-- JBoss AS plugin to deploy war -->
@@ -311,6 +314,7 @@
 		<profile>
 			<id>default-local</id>
 			<activation>
+			    <activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<!-- <connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
