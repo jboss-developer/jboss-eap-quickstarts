@@ -44,7 +44,7 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
@@ -61,8 +61,13 @@
             maven repository. -->
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
+
     </properties>
 
     <dependencyManagement>

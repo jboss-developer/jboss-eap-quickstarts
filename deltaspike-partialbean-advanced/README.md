@@ -5,6 +5,7 @@ Level: Advanced
 Technologies: CDI, DeltaSpike
 Summary: Demonstrates a partial bean providing a dynamic implementation of a generic Entity Query service
 Target Product: WFK
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
