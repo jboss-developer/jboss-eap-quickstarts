@@ -17,11 +17,9 @@
 		<property name="hibernate.connection.pool_size">10</property>
 		<property name="show_sql">false</property>
 		<property name="dialect">${connection.dialect}</property>
-		<!-- <property name="hibernate.hbm2ddl.auto">create-drop</property> 
-		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property> -->
-
-		<!--<property name="hibernate.search.default.directory_provider">filesystem</property> 
-			<property name="hibernate.search.default.indexBase">C:\lucene\indexes</property> -->
+		<property name="hibernate.hbm2ddl.auto">${hbm2ddl_mode}</property> 
+		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property>
+		<!-- <property name="show_sql">true</property> -->
 
 		<property name="hibernate.search.default.directory_provider">infinispan</property>
 		<property name="hibernate.search.lucene_version">LUCENE_35</property>
@@ -29,18 +27,10 @@
 			${infinispan.configuration_resourcename}
 		</property> -->
 		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
-
 		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
-		
-		
-<!-- If using Hibernate, add to your hibernate.cfg.xml -->
-<!-- <property name="hibernate.cache.region.factory_class">org.hibernate.cache.infinispan.JndiInfinispanRegionFactory</property> -->
- <property name="hibernate.cache.infinispan.cachemanager">ejb</property> 
-		
-		<!-- <property name="hibernate.search.infinispan.cachemanager_jndiname">java:jboss/infinispan/HibernateSearch</property> -->
-		<!-- <property name="hibernate.search.infinispan.configuration_resourcename">hibernatesearch-infinispan.xml</property> -->
+ 	    <property name="hibernate.cache.infinispan.cachemanager">jbossashibernatesearch</property> 
         <property name="hibernate.search.infinispan.chunk_size">40960</property>
-        <property name="hibernate.search.default.exclusive_index_use">true</property>
+        <property name="hibernate.search.default.exclusive_index_use">false</property>
 		
 		<!-- <property name="annotatedClasses"> &lt;!&ndash;<list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt; 
 			&lt;!&ndash;</list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data</value>&ndash;&gt; 

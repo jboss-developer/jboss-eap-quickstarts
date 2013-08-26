@@ -246,22 +246,12 @@
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 
-			<!-- <plugin> <artifactId>maven-resources-plugin</artifactId> <version>${version.resources.plugin}</version> 
-				<executions> <execution> <id>copy-resources</id> here the phase you need 
-				<phase>package</phase> <goals> <goal>copy-resources</goal> </goals> <configuration> 
-				<outputDirectory>${basedir}/target/jboss-as-hibernate-search/WEB-INF/classes</outputDirectory> 
-				<resources> <resource> <directory>src/main/resources</directory> <filtering>true</filtering> 
-				</resource> </resources> </configuration> </execution> </executions> </plugin> -->
-
-
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${version.war.plugin}</version>
 				<configuration>
 					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<!-- <webResources> <resource> <directory>src/main/resources</directory> 
-						<filtering>true</filtering> </resource> </webResources> -->
 				    <manifestEntries>
                      <Dependencies>org.infinispan export</Dependencies>
                   </manifestEntries>
@@ -293,7 +283,7 @@
 							<server-group>main-server-group</server-group>
 						</server-groups>
 						<profiles>
-							<profile>full</profile>
+							<profile>full-ha</profile>
 						</profiles>
 					</domain>
 					<hostname>127.0.0.1</hostname>
@@ -328,6 +318,7 @@
 				<connection.password>postgres</connection.password>
 				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
 				<infinispan.configuration_resourcename>lucene-demo-cache-config.xml</infinispan.configuration_resourcename>
+				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
 			</properties>
 		</profile>
 		<profile>
@@ -347,6 +338,7 @@
 				<connection.password>postgres</connection.password>
 				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
 				<infinispan.configuration_resourcename>hibernatesearch-infinispan.xml</infinispan.configuration_resourcename>
+				<hbm2ddl_mode>update</hbm2ddl_mode>
 			</properties>
 		</profile>
 		<profile>
