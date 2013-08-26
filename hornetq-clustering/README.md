@@ -41,6 +41,23 @@ Configure and Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Se
 
 You can choose to deploy and run this quickstart in a managed domain or on a standalone server. The sections below describe how to configure and start the server for both modes. 
 
+_NOTE - Before you begin:_
+
+1. If it is running, stop the JBoss server.
+
+2. If you plan to test using a standalone server, backup the file:
+
+        $JBOSS_HOME/domain/configuration/standalone-full.xml
+
+
+3. If you plan to test using a managed domain, backup the following files:
+
+        $JBOSS_HOME/domain/configuration/domain.xml
+        $JBOSS_HOME/domain/configuration/host.xml
+
+After you have completed testing this quickstart, you can replace these files to restore the server to its original configuration.
+
+You can configure the server by running the install-domain.cli script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
 
 ### Configure and Start JBoss Enterprise Application Platform 6 or JBoss AS 7 in Domain Mode
 
@@ -150,4 +167,12 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
+
+Remove the Server Configuration
+--------------------
+
+1. Stop the JBoss server.
+2. If you were running in standalone mode, copy the backed up standalone-full.xml file into the $JBOSS_HOME/domain/configuration/ directory.
+3. If you were running in a managed domain, copy the backed up domain.xml and host.xml configuration files into the $JBOSS_HOME/domain/configuration/ directory.
+
 
