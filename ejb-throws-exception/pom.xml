@@ -57,7 +57,7 @@
         <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom>> -->
 
         <!-- JBoss dependency versions -->
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <version.jboss.as>7.2.0.Final</version.jboss.as>
 
