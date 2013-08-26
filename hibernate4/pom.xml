@@ -60,7 +60,7 @@
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->

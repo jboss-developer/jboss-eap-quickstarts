@@ -93,7 +93,7 @@
         <!-- other plugin versions -->
         <version.bundle.plugin>2.3.4</version.bundle.plugin>
         <version.clean.plugin>2.4.1</version.clean.plugin>
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.ear.plugin>2.6</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>

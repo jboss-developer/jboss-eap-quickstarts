@@ -55,7 +55,7 @@
         <!-- <version.jboss.bom>1.0.2.Final-redhat-1</version.jboss.bom>> -->
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 

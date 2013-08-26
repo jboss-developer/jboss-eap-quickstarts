@@ -45,7 +45,7 @@
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
 
         <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import. -->
         <jboss.bom.version>1.0.7.CR8</jboss.bom.version>

@@ -53,7 +53,7 @@
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.jar.plugin>2.2</version.jar.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>
 
