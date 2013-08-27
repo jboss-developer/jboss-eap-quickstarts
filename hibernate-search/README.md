@@ -87,12 +87,15 @@ Access the application (For quickstarts that have a UI component)
 ---------------------
  
 Standalone  mode
+
 	Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-hibernate-search>
 
 Domain  mode
+
 	Access the running application in a browser at the following URLs
-	* <http://localhost:8080/jboss-as-hibernate-search>
-	* <http://localhost:8080+<port_offset>/jboss-as-hibernate-search>
+	
+		* <http://localhost:8080/jboss-as-hibernate-search>
+		* <http://localhost:<port_of_other_instances>/jboss-as-hibernate-search>
 	
 
 	Use case 1:  Submit feed

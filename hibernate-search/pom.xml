@@ -401,7 +401,8 @@
 				<connection.username>adminTbacVWR</connection.username>
 				<connection.password>AmZU9nwk8FMa</connection.password>
 				<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect>
-
+				<infinispan.configuration_resourcename>lucene-demo-cache-config.xml</infinispan.configuration_resourcename>
+				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
 
 				<!-- <connection.url>jdbc:postgresql://jbossashibernatesearch-tharinduj.rhcloud.com:5432/jbossashibernatesearch</connection.url> 
 					<connection.driver_class>org.postgresql.Driver</connection.driver_class> 
@@ -417,6 +418,28 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<build>
 				<plugins>
+				    <!-- JBoss AS plugin to deploy war -->
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>7.4.Final</version>
+						<configuration>
+						    <hostname>localhost</hostname>
+							<port>9999</port>
+							<execute-commands>
+								<batch>true</batch>
+								<commands>
+									<command>/system-property=DO_SCHEDULE:add(value=true)</command>
+								</commands>
+							</execute-commands>
+							<address>subsystem=infinispan,cache-container=jboss-as-hibernate-search</address>
+							<properties>
+								<default-cache>jboss-as-hibernate-search-cache</default-cache>
+								<cache>!![{"mode" => "LOCAL", "name" =>
+									"jbossashibernatesearch-cache"}]</cache>
+							</properties>
+						</configuration>
+					</plugin>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
 						<version>${version.war.plugin}</version>
