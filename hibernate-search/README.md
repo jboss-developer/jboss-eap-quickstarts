@@ -61,20 +61,39 @@ Build and Deploy the Quickstart
 
 Following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. Type this command to build and deploy the archive:
+Standalone  mode configuration
 
-        mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-hibernate-search.war` to the running instance of the server.
+	1. Make sure you have started the JBoss Server in `standalone` mode as described above. 
+	2. Create system-property called `DO_SCHEDULE` in `standalone` mode
+	3. Open a command line and navigate to the root directory of this quickstart.
+	4. Type this command to build and deploy the archive:
+	
+	        mvn clean package jboss-as:deploy
+	5. This will deploy `target/jboss-as-hibernate-search.war` to the running instance of the server.
+
+
+Domain  mode configuration
+
+	1. Make sure you have started the JBoss Server in `domain` mode as described above. 
+	2. Create system-property called `DO_SCHEDULE` in `domain` mode in only master server
+	3. Open a command line and navigate to the root directory of this quickstart.
+	4. Type this command to build and deploy the archive:
+	
+	        mvn clean package jboss-as:deploy -Pdefault-cluster
+	5. This will deploy `target/jboss-as-hibernate-search.war` to the running domain instance of the server.
 
 
 Access the application (For quickstarts that have a UI component)
 ---------------------
  
+Standalone  mode
+	Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-hibernate-search>
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-hibernate-search>
-
+Domain  mode
+	Access the running application in a browser at the following URLs
+	* <http://localhost:8080/jboss-as-hibernate-search>
+	* <http://localhost:8080+<port_offset>/jboss-as-hibernate-search>
+	
 
 	Use case 1:  Submit feed
 
@@ -103,29 +122,6 @@ Contributor: For example:
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
-
-
-Run the Arquillian Tests (For quickstarts that contain Arquillian tests)
--------------------------
-
-Contributor: For example: 
-
-This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
-
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. Type the following command to run the test goal with the following profile activated:
-
-        mvn clean test -Parq-jbossas-remote 
-
-Contributor: The quickstart README should show what to expect from the the tests
-
-* Copy and paste output from the JUnit tests to show what to expect in the console from the tests.
-
-* Copy and paste log messages output by the application to show what to expect in the server log when running the tests.
-
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse

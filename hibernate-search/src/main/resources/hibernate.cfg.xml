@@ -28,7 +28,7 @@
 		</property> -->
 		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
 		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
- 	    <property name="hibernate.cache.infinispan.cachemanager">jbossashibernatesearch</property> 
+ 	    <property name="hibernate.cache.infinispan.cachemanager">jboss-as-hibernate-search</property> 
         <property name="hibernate.search.infinispan.chunk_size">40960</property>
         <property name="hibernate.search.default.exclusive_index_use">false</property>
 		
