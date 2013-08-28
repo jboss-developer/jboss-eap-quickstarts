@@ -108,15 +108,13 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler.plugin.version}</version>
+                <version>${version.compiler.plugin}</version>
                 <configuration>
-                    <source>${compiler.source}</source>
-                    <target>${compiler.target}</target>
-        <!-- Setup the compiler plugin to use the endorsed directory containing
-             the jar for javax.annotation.* classes. Remember that we setup this folder
-             via the maven-dependency-plugin configuration, above.
-             See JsfController.java for more details.
-         -->
+                    <!-- Setup the compiler plugin to use the endorsed directory containing
+                         the jar for javax.annotation.* classes. Remember that we setup this folder
+                         via the maven-dependency-plugin configuration, above.
+                         See JsfController.java for more details.
+                     -->
                     <compilerArgument>-Djava.endorsed.dirs=${project.build.directory}/endorsed</compilerArgument>
                 </configuration>
             </plugin>

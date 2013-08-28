@@ -51,7 +51,7 @@
 
         <!-- JBoss dependency versions -->
         
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         
         <version.jboss.as>7.2.0.Final</version.jboss.as>
         <!-- Alternatively, comment out the above line, and un-comment the 
@@ -68,7 +68,6 @@
         <!-- <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-3</version.jboss.spec.javaee.6.0> -->
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 

@@ -57,7 +57,6 @@
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -96,16 +95,6 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- Maven compiler plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>

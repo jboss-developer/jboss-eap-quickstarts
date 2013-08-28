@@ -69,16 +69,6 @@
                     <skip>false</skip>
                 </configuration>
             </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-                annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

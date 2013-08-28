@@ -23,7 +23,7 @@
     <artifactId>jboss-as-servlet-security-genericheader-auth</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: Generic Header Authenticator</name>
+    <name>JBoss EAP Quickstart: servlet-security-genericheader-auth</name>
     <description>Generic Header Authenticator: Demonstrates how to authenticate via an externally provided request header</description>
 
     <url>http://jboss.org/jbossas</url>
@@ -44,7 +44,7 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
@@ -59,7 +59,6 @@
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.xnio>3.0.7.GA</version.xnio>
@@ -158,16 +157,6 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-                annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

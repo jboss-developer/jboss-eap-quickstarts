@@ -66,16 +66,6 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Enforce Java 1.6 -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-
             <!-- Add the maven exec plugin to allow us to run a java program 
                 via maven -->
             <plugin>
