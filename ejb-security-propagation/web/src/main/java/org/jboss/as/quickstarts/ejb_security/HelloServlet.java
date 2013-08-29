@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
 
+import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,9 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A simple secured Servlet which calls a secured EJB. Upon successful
- * authentication and authorization the EJB will return the principal's name.
- * Servlet security is implemented using annotations.
+ * A simple Servlet which calls a non-secured EJB. It's only purpose is to call a remote EJB
+ * and test the server-to-server communication.
  * 
  * @author <a href="mailto:claudio@redhat.com">Claudio Miranda</a>
  * 
@@ -43,7 +42,8 @@ public class HelloServlet extends HttpServlet {
 
     private static String PAGE_HEADER = "<html><head><title>hello</title></head><body>";
     private static String PAGE_FOOTER = "</body></html>";
-    // Inject the Secured EJB
+    
+    @EJB(lookup="ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb_security.Hello")
     private Hello helloEJB;
 
     Object lookup(String s) {
@@ -69,9 +69,9 @@ public class HelloServlet extends HttpServlet {
         String authType = null;
         String remoteUser = null;
 
-        Object o = lookup("ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb_security.Hello");
-        System.out.println("ejb: " + o);
-        helloEJB = (Hello) o;
+//        Object o = lookup("ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb_security.Hello");
+//        System.out.println("ejb: " + o);
+//        helloEJB = (Hello) o;
 
         // Get security principal
         principal = helloEJB.getSecurityInfo();

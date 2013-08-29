@@ -33,6 +33,7 @@ import org.jboss.security.SecurityContext;
 
 /**
  * The server side security interceptor responsible for handling any security identity propagated from the client.
+ * This interceptor is configured in jboss-ejb3.xml of the application package.
  * 
  * @author <a href="mailto:darran.lofthouse@jboss.com">Darran Lofthouse</a>
  */

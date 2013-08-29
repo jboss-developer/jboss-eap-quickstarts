@@ -15,15 +15,22 @@
  limitations under the License.
  -->
 
-<module xmlns="urn:jboss:module:1.1" name="org.jboss.as.quickstarts.ejb_security">
+<module xmlns="urn:jboss:module:1.1" name="org.jboss.as.quickstarts.ejb.security.propagation">
 
     <resources>
         <resource-root path="jboss-as-ejb-security-propagation-interceptor.jar" />
     </resources>
 
     <dependencies>
+        <!--  see java code for details of the internal java objects used.  -->
+        
+        <!--  required to get the Connection object -->
         <module name="org.jboss.remoting3" />
+        
+        <!--  required to get the RealmUser object -->
         <module name="org.jboss.as.domain-management" />
+        
+        <!-- required to get the SubjectUserInfo object  -->
         <module name="org.jboss.as.controller" />
         <module name="javaee.api" />
         <module name="org.jboss.logging" />

@@ -21,27 +21,21 @@ import java.io.PrintWriter;
 import java.util.Properties;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
 import javax.servlet.annotation.ServletSecurity;
-import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.as.quickstarts.ejb_security_interceptors.ClientSecurityInterceptor;
-import org.jboss.ejb.client.EJBClientContext;
-import org.jboss.ejb.client.EJBClientContextListener;
-
 
 /**
  * A simple secured Servlet which calls a secured EJB. Upon successful authentication and authorization the
- * EJB will return the principal's name. Servlet security is implemented using annotations.
+ * EJB will return the principal's name. Servlet security is declared in deployment descriptors.
  * 
  * @author <a href="mailto:claudio@redhat.com">Claudio Miranda</a>
  * 
@@ -50,13 +44,13 @@ import org.jboss.ejb.client.EJBClientContextListener;
 @WebServlet("/secure_ejb")
 @ServletSecurity(@HttpConstraint(rolesAllowed = {"admin"}))
 @RolesAllowed("admin")
-//@SecurityDomain("security-propagation-quickstart")
 public class SecuredEJBServlet extends HttpServlet {
 
     private static String PAGE_HEADER = "<html><head><title>ejb-security-propagation</title></head><body>";
 
     private static String PAGE_FOOTER = "</body></html>";
 
+    @EJB(lookup="ejb:/jboss-as-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb_security.Secured")
     private Secured securedEJB;
 
     Object lookup(String s) {
@@ -82,9 +76,9 @@ public class SecuredEJBServlet extends HttpServlet {
         String authType = null;
         String remoteUser = null;
 
-        Object o = lookup("ejb:/jboss-as-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb_security.Secured");
-        System.out.println("ejb: " + o);
-        securedEJB = (Secured) o;
+//        Object o = lookup("ejb:/jboss-as-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb_security.Secured");
+//        System.out.println("ejb: " + o);
+//        securedEJB = (Secured) o;
 
         // Get security principal
         principal = securedEJB.getSecurityInfo();

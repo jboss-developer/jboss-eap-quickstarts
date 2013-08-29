@@ -18,5 +18,4 @@
 
 <jboss-web>
    <security-domain>security-propagation-quickstart</security-domain>
-   <disable-audit>true</disable-audit>
 </jboss-web>

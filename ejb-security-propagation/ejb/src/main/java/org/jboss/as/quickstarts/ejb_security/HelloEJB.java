@@ -34,7 +34,7 @@ public class HelloEJB {
     @Resource
     private SessionContext ctx;
     
-    static Logger LOG = Logger.getLogger(Hello.class.getName());
+    private static Logger LOG = Logger.getLogger(Hello.class.getName());
 
     /**
      * Secured EJB method using security annotations

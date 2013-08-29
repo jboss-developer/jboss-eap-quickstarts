@@ -302,11 +302,11 @@ Now you must generate the `ejb-propagation-interceptor.jar` file and add it as a
 
 1. Create the directory structure in the JBoss server `modules` directory:
 
-        mkdir -p $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+        mkdir -p $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb/security/propagation/main
 
 2. Navigate to the root directory of this quickstart and copy the `module.xml` file to the server's `module/` directory structure:
 
-        cp interceptor-module/module.xml $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main/
+        cp interceptor-module/module.xml $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb/security/propagation/main/
  
    
 Build the Quickstart
@@ -321,7 +321,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 3. Type the following command to copy the interceptor JAR to the server's `module/` directory structure:
 
-        cp interceptor-module/target/jboss-as-ejb-security-propagation-interceptor.jar $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb_security/main
+        cp interceptor-module/target/jboss-as-ejb-security-propagation-interceptor.jar $JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb/security/propagation/main
 
 4. If JBoss is running, restart it, so the module can be loaded.
 

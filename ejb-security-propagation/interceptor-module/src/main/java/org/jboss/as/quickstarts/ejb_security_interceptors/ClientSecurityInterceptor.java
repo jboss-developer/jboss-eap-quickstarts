@@ -30,7 +30,7 @@ import org.jboss.logging.Logger;
  */
 public class ClientSecurityInterceptor implements EJBClientInterceptor {
     
-    static Logger LOG = Logger.getLogger(ClientSecurityInterceptor.class);
+    private static Logger LOG = Logger.getLogger(ClientSecurityInterceptor.class);
     
     public ClientSecurityInterceptor() {
         LOG.info(">>>>>>>>>> ClientSecurityInterceptor Constructor");
@@ -39,7 +39,7 @@ public class ClientSecurityInterceptor implements EJBClientInterceptor {
 
     public void handleInvocation(EJBClientInvocationContext context) throws Exception {
         Principal currentPrincipal = SecurityActions.securityContextGetPrincipal();
-        LOG.info(">>>>>>>>>>>> principal: " + currentPrincipal);
+        LOG.info(">>>>>>>>>>>> Authenticated principal in EJB Client: " + currentPrincipal);
         if (currentPrincipal != null) {
             Map<String, Object> contextData = context.getContextData();
             contextData.put(ServerSecurityInterceptor.DELEGATED_USER_KEY, currentPrincipal.getName());

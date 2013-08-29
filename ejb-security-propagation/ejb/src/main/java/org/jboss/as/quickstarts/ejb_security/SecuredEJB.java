@@ -38,10 +38,9 @@ import org.jboss.ejb3.annotation.SecurityDomain;
 /**
  * 
  * Annotate this EJB for authorization. 
- * Allow only those in the "guest" role.
+ * Allow only those in the "admin" role.
  * For EJB authorization, you must also specify the security domain. 
- * This example uses the "other" security domain which is provided 
- * by default in the standalone.xml file.
+ * This example uses the "security-propagation-quickstart" security domain.
  *
  */
 @Stateless
@@ -55,7 +54,7 @@ public class SecuredEJB {
     @Resource
     private SessionContext ctx;
     
-    static Logger LOG = Logger.getLogger(SecuredEJB.class.getName());
+    private static Logger LOG = Logger.getLogger(SecuredEJB.class.getName());
 
     /**
      * Secured EJB method using security annotations

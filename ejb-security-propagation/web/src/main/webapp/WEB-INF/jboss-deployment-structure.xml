@@ -19,7 +19,7 @@
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
         <dependencies>
-            <module name="org.jboss.as.quickstarts.ejb_security"  />
+            <module name="org.jboss.as.quickstarts.ejb.security.propagation"  />
             <module name="org.jboss.xnio"  />
             <module name="org.jboss.logging" />
             <module name="org.jboss.ejb-client" />

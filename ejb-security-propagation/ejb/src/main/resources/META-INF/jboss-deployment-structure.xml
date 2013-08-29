@@ -19,7 +19,7 @@
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
         <dependencies>
-            <module name="org.jboss.as.quickstarts.ejb_security" export="true" annotations="true"/>
+            <module name="org.jboss.as.quickstarts.ejb.security.propagation" export="true" annotations="true"/>
             <module name="javax.api" />
         </dependencies>
     </deployment>
