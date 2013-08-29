@@ -54,20 +54,6 @@ public class SecuredEJBServlet extends HttpServlet {
 
     @EJB(lookup="ejb:/jboss-as-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb.security.propagation.Secured")
     private Secured securedEJB;
-
-    Object lookup(String s) {
-        Object o = null;
-        try {
-            Properties props = new Properties();
-            props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-            Context ctx = new InitialContext(props);
-            o = ctx.lookup(s);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return o;
-    }
-   
    /**
     * Servlet entry point method which calls securedEJB.getSecurityInfo()
     */
@@ -77,10 +63,6 @@ public class SecuredEJBServlet extends HttpServlet {
         String principal = null;
         String authType = null;
         String remoteUser = null;
-
-//        Object o = lookup("ejb:/jboss-as-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb_security.Secured");
-//        System.out.println("ejb: " + o);
-//        securedEJB = (Secured) o;
 
         // Get security principal
         principal = securedEJB.getSecurityInfo();

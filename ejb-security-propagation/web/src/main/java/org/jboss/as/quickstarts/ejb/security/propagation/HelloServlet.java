@@ -48,19 +48,6 @@ public class HelloServlet extends HttpServlet {
     @EJB(lookup="ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb.security.propagation.Hello")
     private Hello helloEJB;
 
-    Object lookup(String s) {
-        Object o = null;
-        try {
-            Properties props = new Properties();
-            props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-            Context ctx = new InitialContext(props);
-            o = ctx.lookup(s);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return o;
-    }
-
     /**
      * Servlet entry point method which calls helloEJB.getSecurityInfo()
      */
@@ -70,10 +57,6 @@ public class HelloServlet extends HttpServlet {
         String principal = null;
         String authType = null;
         String remoteUser = null;
-
-//        Object o = lookup("ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb_security.Hello");
-//        System.out.println("ejb: " + o);
-//        helloEJB = (Hello) o;
 
         // Get security principal
         principal = helloEJB.getSecurityInfo();
