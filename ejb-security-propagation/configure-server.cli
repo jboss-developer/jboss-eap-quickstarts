@@ -1,0 +1,41 @@
+# stop the preconfigured server for the domain
+batch
+
+# first stop the default servers, block until the server is down
+/host=master/server-config=server-one:stop(blocking=true)
+/host=master/server-config=server-two:stop(blocking=true)
+
+# remove server-two from host master, and add again associated to "other-server-group"
+/host=master/server-config=server-two:remove()
+/host=master/server-config=server-two:add(auto-start=true, group="other-server-group",socket-binding-port-offset=150)
+
+# add the security realms with the secret (password base64) values for the server communication
+/host=master/core-service=management/security-realm=ejb-remote-call:add()
+/host=master/core-service=management/security-realm=ejb-remote-call/server-identity=secret:add(value="cXVpY2tzdGFydFB3ZDEh")
+
+# add the socket binding for connection from server-one to server-two
+/socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=srv2srv-ejb-socket:add(host=localhost,port=4597)
+
+/profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:add(outbound-socket-binding-ref=srv2srv-ejb-socket, security-realm=ejb-remote-call, username="quickstartUser")
+/profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection/property=SASL_POLICY_NOANONYMOUS:add(value=false)
+/profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection/property=SSL_ENABLED:add(value=false)
+
+# add the datasource to full profile
+/profile=full/subsystem=datasources/data-source=SecurityPropagationDS:add(connection-url="jdbc:h2:tcp://localhost/qs_ejb",jta=false,jndi-name="java:jboss/datasources/SecurityPropagationDS", use-ccm=false,driver-class="org.h2.Driver", driver-name="h2",user-name="sa")
+
+# add the datasource to full-ha profile
+/profile=full-ha/subsystem=datasources/data-source=SecurityPropagationDS:add(connection-url="jdbc:h2:tcp://localhost/qs_ejb",jta=false,jndi-name="java:jboss/datasources/SecurityPropagationDS", use-ccm=false,driver-class="org.h2.Driver", driver-name="h2",user-name="sa")
+
+# add the security domain to full profile
+/profile=full/subsystem=security/security-domain=security-propagation-quickstart:add(cache-type=default)
+/profile=full/subsystem=security/security-domain=security-propagation-quickstart/authentication=classic:add(login-modules=[{code=>"Database", flag=>required, module-options=>{"dsJndiName"=>"java:jboss/datasources/SecurityPropagationDS","principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?","rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?"}}])
+
+# add the security domain to full-ha profile
+/profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:add(cache-type=default)
+/profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart/authentication=classic:add(login-modules=[{"code"=>"org.jboss.as.quickstarts.ejb.security.interceptors.DelegationLoginModule", flag=>optional, module=>"org.jboss.as.quickstarts.ejb.security.propagation", "module-options"=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Remoting", flag=>optional, module-options=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Database", flag=>required, module-options=>{"dsJndiName"=>"java:jboss/datasources/SecurityPropagationDS","principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?","rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?","password-stacking"=>"useFirstPass"}}])
+
+run-batch
+
+# start servers
+/host=master/server-config=server-one:start(blocking=true)
+/host=master/server-config=server-two:start(blocking=true)
