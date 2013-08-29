@@ -52,7 +52,7 @@
             maven repository. -->
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
@@ -93,7 +93,7 @@
         <!-- other plugin versions -->
         <version.bundle.plugin>2.3.4</version.bundle.plugin>
         <version.clean.plugin>2.4.1</version.clean.plugin>
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.ear.plugin>2.6</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>
@@ -121,8 +121,8 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
                 <configuration>
                     <header>${basedir}/dist/license.txt</header>
                     <aggregate>true</aggregate>
@@ -130,6 +130,28 @@
                     <excludes>
                         <exclude>target/**</exclude>
                         <exclude>.clover/**</exclude>
+                        <exclude>**/*.sql</exclude>
+                        <exclude>**/LICENSE*</exclude>
+                        <exclude>>**/license*</exclude>
+                        <!-- Exclude submodules -->
+                        <exclude>jdg-quickstarts/**</exclude>
+                        <exclude>jpp-quickstarts/**</exclude>
+                        <exclude>picketlink-quickstarts/**</exclude>
+                        <exclude>richfaces-quickstarts/**</exclude>
+                        <!-- Exclude specific Quickstarts -->
+                        <exclude>petclinic-spring/**</exclude>
+                        <!-- Javascrip Libraries -->
+                        <exclude>**/jquery*</exclude>
+                        <exclude>**/angular*</exclude>
+                        <exclude>**/qunit*</exclude>
+                        <exclude>**/backbone*</exclude>
+                        <exclude>**/lodash*</exclude>
+                        <exclude>**/modernizr*</exclude>
+                        <exclude>**/yepnope*</exclude>
+                        <exclude>**/mobile-nav*</exclude>
+                        <!--Other libraries -->
+                        <exclude>**/*glyphicons*/**</exclude>
+                        <exclude>**/*cordova*/**</exclude>
                     </excludes>
                     <encoding>UTF-8</encoding>
                     <headerDefinitions>
@@ -182,6 +204,7 @@
                 <module>ejb-security-interceptors</module>
                 <module>ejb-security-propagation</module>
                 <module>ejb-throws-exception</module>
+                <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
                 <module>greeter</module>
                 <module>greeter-spring</module>
@@ -219,23 +242,14 @@
                 <module>mail</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
-                <module>picketlink-authentication-http-basic</module>
-                <module>picketlink-authentication-http-digest</module>
                 <module>petclinic-spring</module>
-                <module>picketlink-authentication-idm-jsf</module>
-                <module>picketlink-authentication-idm-multi-tenancy</module>
-                <module>picketlink-authentication-jsf</module>
-                <module>picketlink-authentication-rs-endpoint</module>
-                <module>picketlink-authentication-two-factor</module>
-                <module>picketlink-authorization-idm-jpa</module>
-                <module>picketlink-authorization-rs-rbac</module>
-                <module>picketlink-deltaspike-authorization</module>
                 <module>richfaces-quickstarts/helloworld-rf</module>
                 <module>richfaces-quickstarts/kitchensink-rf</module>
                 <module>richfaces-quickstarts/richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>servlet-security-genericheader-auth</module>
                 <module>shopping-cart</module>
                 <module>shrinkwrap-resolver</module>
                 <module>tasks</module>
@@ -246,6 +260,20 @@
                 <module>wicket-war</module>
                 <module>xml-dom4j</module>
                 <module>xml-jaxp</module>
+                <module>picketlink-quickstarts/picketlink-authentication-form</module>
+                <module>picketlink-quickstarts/picketlink-authentication-http-basic</module>
+                <module>picketlink-quickstarts/picketlink-authentication-http-client-cert</module>
+                <module>picketlink-quickstarts/picketlink-authentication-http-digest</module>
+                <module>picketlink-quickstarts/picketlink-authentication-idm-jsf</module>
+                <module>picketlink-quickstarts/picketlink-authentication-idm-multi-tenancy</module>
+                <module>picketlink-quickstarts/picketlink-authentication-jsf</module>
+                <module>picketlink-quickstarts/picketlink-authentication-recaptcha</module>
+                <module>picketlink-quickstarts/picketlink-authentication-rs-endpoint</module>
+                <module>picketlink-quickstarts/picketlink-authentication-two-factor</module>
+                <module>picketlink-quickstarts/picketlink-authorization-idm-jpa</module>
+                <module>picketlink-quickstarts/picketlink-authorization-idm-ldap</module>
+                <module>picketlink-quickstarts/picketlink-authorization-rs-rbac</module>
+                <module>picketlink-quickstarts/picketlink-deltaspike-authorization</module>
             </modules>
         </profile>
         <profile>
@@ -280,6 +308,7 @@
                 <module>inter-app</module>                
                 <module>ejb-security-plus</module>
                 <module>jpp-quickstarts</module>
+                <module>servlet-security-genericheader-auth</module>
             </modules>
         </profile>
         <profile>

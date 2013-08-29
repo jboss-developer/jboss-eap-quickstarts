@@ -70,15 +70,6 @@
         <!-- Specify the artifact name -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Enforce Java 1.6 -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <!-- must include ejb-plugin to change the EJB version from 
                     2.1 to 3.0 -->

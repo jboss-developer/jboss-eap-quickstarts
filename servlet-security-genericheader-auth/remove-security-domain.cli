@@ -1,0 +1,11 @@
+# Batch jboss-cli script to remove the GenericHeaderAuth security domain
+
+# Start the batch process
+batch
+
+# Remove the security domain
+/subsystem=security/security-domain=GenericHeaderAuth:remove
+
+# Excecute the batch commands
+run-batch
+

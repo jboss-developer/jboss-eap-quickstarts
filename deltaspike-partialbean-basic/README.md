@@ -5,6 +5,7 @@ Level: Advanced
 Technologies: CDI, DeltaSpike
 Summary: Demonstrates a class providing a dynamic implementation of a DeltaSpike Partial Bean
 Target Product: WFK
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 
 What is it?
 -----------
