@@ -161,8 +161,8 @@
                     <ejbVersion>3.0</ejbVersion>
                     <generateClient>true</generateClient>
                     <clientIncludes>
-                        <clientInclude>org/jboss/as/quickstarts/ejb_security/Secured.class</clientInclude>
-                        <clientInclude>org/jboss/as/quickstarts/ejb_security/Hello.class</clientInclude>
+                        <clientInclude>org/jboss/as/quickstarts/ejb/security/propagation/Secured.class</clientInclude>
+                        <clientInclude>org/jboss/as/quickstarts/ejb/security/propagation/Hello.class</clientInclude>
                     </clientIncludes> 
                 </configuration>
             </plugin>

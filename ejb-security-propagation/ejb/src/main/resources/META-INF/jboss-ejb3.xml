@@ -29,7 +29,7 @@
     <ci:container-interceptors>
         <interceptor-binding>
             <ejb-name>SecuredEJB</ejb-name>
-            <interceptor-class>org.jboss.as.quickstarts.ejb_security_interceptors.ServerSecurityInterceptor</interceptor-class>
+            <interceptor-class>org.jboss.as.quickstarts.ejb.security.interceptors.ServerSecurityInterceptor</interceptor-class>
         </interceptor-binding>
     </ci:container-interceptors>
 </assembly-descriptor>

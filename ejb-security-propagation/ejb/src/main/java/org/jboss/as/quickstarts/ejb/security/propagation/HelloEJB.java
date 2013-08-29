@@ -15,46 +15,26 @@
  * limitations under the License.
  */
 
-package org.jboss.as.quickstarts.ejb_security;
+
+package org.jboss.as.quickstarts.ejb.security.propagation;
 
 import java.security.Principal;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Remote;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
-import org.jboss.ejb3.annotation.SecurityDomain;
-
-/**
- * Simple secured EJB using EJB security annotations
- * 
-* @author <a href="mailto:claudio@redhat.com">Claudio Miranda</a>
- * 
- */
-/**
- * 
- * Annotate this EJB for authorization. 
- * Allow only those in the "admin" role.
- * For EJB authorization, you must also specify the security domain. 
- * This example uses the "security-propagation-quickstart" security domain.
- *
- */
 @Stateless
-@Remote(Secured.class)
-@RolesAllowed({ "admin" })
-@DeclareRoles("admin")
-@SecurityDomain("security-propagation-quickstart")
-public class SecuredEJB {
+@Remote(Hello.class)
+public class HelloEJB {
 
     // Inject the Session Context
     @Resource
     private SessionContext ctx;
     
-    private static Logger LOG = Logger.getLogger(SecuredEJB.class.getName());
+    private static Logger LOG = Logger.getLogger(Hello.class.getName());
 
     /**
      * Secured EJB method using security annotations
@@ -62,7 +42,7 @@ public class SecuredEJB {
     public String getSecurityInfo() {
         // Session context injected using the resource annotation
         Principal principal = ctx.getCallerPrincipal();
-        LOG.fine("==> EJB principal: " + principal);
+        LOG.info("==> EJB principal: " + principal);
         return principal.toString();
     }
 }

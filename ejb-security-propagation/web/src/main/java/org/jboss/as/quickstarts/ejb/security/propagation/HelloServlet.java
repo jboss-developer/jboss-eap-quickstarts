@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.ejb_security;
+package org.jboss.as.quickstarts.ejb.security.propagation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +28,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.jboss.as.quickstarts.ejb.security.propagation.Hello;
 
 /**
  * A simple Servlet which calls a non-secured EJB. It's only purpose is to call a remote EJB
@@ -43,7 +45,7 @@ public class HelloServlet extends HttpServlet {
     private static String PAGE_HEADER = "<html><head><title>hello</title></head><body>";
     private static String PAGE_FOOTER = "</body></html>";
     
-    @EJB(lookup="ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb_security.Hello")
+    @EJB(lookup="ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb.security.propagation.Hello")
     private Hello helloEJB;
 
     Object lookup(String s) {

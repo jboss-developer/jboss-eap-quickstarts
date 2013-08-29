@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.jboss.as.quickstarts.ejb_security;
+package org.jboss.as.quickstarts.ejb.security.propagation;
 /**
  * Interface to the unsecure hello EJB.
  * 

@@ -16,33 +16,19 @@
  */
 
 
-package org.jboss.as.quickstarts.ejb_security;
+package org.jboss.as.quickstarts.ejb.security.propagation;
 
-import java.security.Principal;
-import java.util.logging.Logger;
-
-import javax.annotation.Resource;
-import javax.ejb.Remote;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-
-@Stateless
-@Remote(Hello.class)
-public class HelloEJB {
-
-    // Inject the Session Context
-    @Resource
-    private SessionContext ctx;
-    
-    private static Logger LOG = Logger.getLogger(Hello.class.getName());
+/**
+ * Interface to the secure EJB.
+ * 
+ * @author <a href="mailto:claudio@redhat.com">Claudio Miranda</a>
+ * 
+ */
+public interface Secured {
 
     /**
-     * Secured EJB method using security annotations
+     * @return prints the SessionContext.getCallerPrincipal().toString()
      */
-    public String getSecurityInfo() {
-        // Session context injected using the resource annotation
-        Principal principal = ctx.getCallerPrincipal();
-        LOG.info("==> EJB principal: " + principal);
-        return principal.toString();
-    }
+    public String getSecurityInfo();
+
 }

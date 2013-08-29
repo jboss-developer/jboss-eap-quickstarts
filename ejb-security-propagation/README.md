@@ -170,7 +170,7 @@ _NOTE - Before you begin:_
 * Add the security domain to full-ha profile
 
         /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:add(cache-type=default)
-        /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart/authentication=classic:add(login-modules=[{"code"=>"org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule", flag=>optional, module=>"org.jboss.as.quickstarts.ejb_security", "module-options"=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Remoting", flag=>optional, module-options=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Database", flag=>required, module-options=>{"dsJndiName"=>"java:jboss/datasources/SecurityPropagationDS","principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?","rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?","password-stacking"=>"useFirstPass"}}])
+        /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart/authentication=classic:add(login-modules=[{"code"=>"org.jboss.as.quickstarts.ejb.security.interceptors.DelegationLoginModule", flag=>optional, module=>"org.jboss.as.quickstarts.ejb.security.propagation", "module-options"=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Remoting", flag=>optional, module-options=>{"password-stacking"=>"useFirstPass"}},{"code"=>"Database", flag=>required, module-options=>{"dsJndiName"=>"java:jboss/datasources/SecurityPropagationDS","principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?","rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?","password-stacking"=>"useFirstPass"}}])
 
 * Start servers
 
@@ -278,7 +278,7 @@ This security domain is used only for the web application (EJB client).
 
         <security-domain name="security-propagation-quickstart" cache-type="default">
             <authentication>
-                <login-module code="org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule" flag="optional" module="org.jboss.as.quickstarts.ejb_security">
+                <login-module code="org.jboss.as.quickstarts.ejb.security.interceptors.DelegationLoginModule" flag="optional" module="org.jboss.as.quickstarts.ejb.security.propagation">
                     <module-option name="password-stacking" value="useFirstPass"/>
                 </login-module>
                 <login-module code="Remoting" flag="optional">
@@ -364,7 +364,7 @@ Access the application
 
    The revelant section of the log shows:
 
-        [Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='HelloEJB', view='interface org.jboss.as.quickstarts.ejb_security.Hello'}
+        [Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='HelloEJB', view='interface org.jboss.as.quickstarts.ejb.security.propagation.Hello'}
         [Server:server-one] >>>>>>>>>>>> principal: null
         [Server:server-two]  ==> EJB principal: anonymous
 
@@ -384,7 +384,7 @@ Access the application
 
    The revelant section of the `server-two` log shows:
 
-        [Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='SecuredEJB', view='interface org.jboss.as.quickstarts.ejb_security.Secured'}
+        [Server:server-one] ejb: Proxy for remote EJB StatelessEJBLocator{appName='', moduleName='jboss-as-propagation-ejb', distinctName='', beanName='SecuredEJB', view='interface org.jboss.as.quickstarts.ejb.security.propagation.Secured'}
         [Server:server-one] >>>>>>>>>>>> principal: admin
         [Server:server-two] >>>>>>>>>> contextData {TestDelegationUser=admin}
         [Server:server-two] >>>>>>>>>>>>> Switch users 
