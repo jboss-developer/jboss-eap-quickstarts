@@ -47,7 +47,7 @@
         <!-- JBoss AS plugin for deployment -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
+        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
         <!-- maven-compiler-plugin -->
