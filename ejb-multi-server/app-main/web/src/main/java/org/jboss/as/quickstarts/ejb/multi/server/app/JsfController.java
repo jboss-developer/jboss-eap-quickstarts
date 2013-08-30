@@ -32,8 +32,8 @@ import org.jboss.logging.Logger;
  */
 @Model
 public class JsfController {
-  private static final Logger LOOGER = Logger.getLogger(JsfController.class);
-  private EjbInvocation invocation;
+    private static final Logger LOOGER = Logger.getLogger(JsfController.class);
+    private EjbInvocation invocation;
 
   /**
    * Inject the 'standard' bean.<br/>
@@ -42,15 +42,15 @@ public class JsfController {
    * the name and interface as shown here to specify which exact reference should be injected.<br/>
    * The beanInterface and the mappedName can be used in this case, but it is not necessary if the beanName is unique and implement only one interface.
    */
-  @EJB(beanName = "MainAppBean", beanInterface = MainApp.class)
-  MainApp mainApp;
+    @EJB(beanName = "MainAppBean", beanInterface = MainApp.class)
+    MainApp mainApp;
 
   /**
    * Inject a different bean implementation of the same interface.<br/>
    * Or use the @Resource annotation with the lookup name only.
    */
-  @Resource(mappedName = "ejb:appmain/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
-  MainApp mainEjbClient34App;
+    @Resource(mappedName = "ejb:appmain/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
+    MainApp mainEjbClient34App;
 
   /**
    * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource.<br/>
@@ -59,47 +59,47 @@ public class JsfController {
    * Therefore a fix/workaround is necessary to be able to compile.
    * See <a href="http://jaitechwriteups.blogspot.co.uk/2011/02/resource-and-new-lookup-attribute-how.html">Jaikiran's technical blog<a> 
    */
-  @Resource(lookup = "ejb:appone/ejb//AppOneBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppOne")
-  AppOne oneApp;
+    @Resource(lookup = "ejb:appone/ejb//AppOneBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppOne")
+    AppOne oneApp;
 
   /**
    * Injection with @EJB is not possible for a foreign application in a different server. For this we can use @Resource.
    * Here, we use <code>mappedName</code>, which was available prior to Java EE 6, to avoid compilation errors.
    */
-  @Resource(mappedName = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
-  AppTwo twoApp;
+    @Resource(mappedName = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
+    AppTwo twoApp;
 
   /**
    * Initialize the controller.
    */
-  @PostConstruct
-  public void initForm() {
-    this.invocation = new EjbInvocation();
-  }
+    @PostConstruct
+    public void initForm() {
+        this.invocation = new EjbInvocation();
+    }
 
-  @Produces
-  @Named
-  public EjbInvocation getInvocation() {
-    return this.invocation;
-  }
+    @Produces
+    @Named
+    public EjbInvocation getInvocation() {
+        return this.invocation;
+    }
 
-  public void callEJBMainLocal() {
-    LOOGER.info("Try to invoke the local MainApp to log the given text and get the invocation results. Proxy=" + mainApp);
-    this.invocation.setResult(mainApp.invokeAll(this.invocation.getText()));
-  }
+    public void callEJBMainLocal() {
+        LOOGER.info("Try to invoke the local MainApp to log the given text and get the invocation results. Proxy=" + mainApp);
+        this.invocation.setResult(mainApp.invokeAll(this.invocation.getText()));
+    }
 
-  public void callEJBClient34MainLocal() {
-    LOOGER.info("Try to invoke the local MainEjbClient34App to log the given text and get the invocation results. Proxy=" + mainEjbClient34App);
-    this.invocation.setResult(mainEjbClient34App.invokeAll(this.invocation.getText()));
-  }
+    public void callEJBClient34MainLocal() {
+        LOOGER.info("Try to invoke the local MainEjbClient34App to log the given text and get the invocation results. Proxy=" + mainEjbClient34App);
+        this.invocation.setResult(mainEjbClient34App.invokeAll(this.invocation.getText()));
+    }
 
-  public void callEJBAppOneRemote() {
-    LOOGER.info("Try to invoke the remote AppOne to log the given text and get the invocation results. Proxy=" + oneApp);
-    this.invocation.setResult(oneApp.invoke(this.invocation.getText()));
-  }
+    public void callEJBAppOneRemote() {
+        LOOGER.info("Try to invoke the remote AppOne to log the given text and get the invocation results. Proxy=" + oneApp);
+        this.invocation.setResult(oneApp.invoke(this.invocation.getText()));
+    }
 
-  public void callEJBAppTwoRemote() {
-    LOOGER.info("Try to invoke the remote AppTwo to log the given text and get the invocation results. Proxy=" + twoApp);
-    this.invocation.setResult(twoApp.invoke(this.invocation.getText()));
-  }
+    public void callEJBAppTwoRemote() {
+        LOOGER.info("Try to invoke the remote AppTwo to log the given text and get the invocation results. Proxy=" + twoApp);
+        this.invocation.setResult(twoApp.invoke(this.invocation.getText()));
+    }
 }

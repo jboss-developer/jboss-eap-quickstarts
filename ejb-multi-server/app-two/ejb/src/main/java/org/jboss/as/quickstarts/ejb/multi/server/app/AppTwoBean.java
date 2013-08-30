@@ -34,30 +34,30 @@ import org.jboss.logging.Logger;
  */
 @SecurityDomain(value = "other")
 public @Stateless class AppTwoBean implements AppTwo {
-  private static final Logger LOGGER = Logger.getLogger(AppTwoBean.class);
+    private static final Logger LOGGER = Logger.getLogger(AppTwoBean.class);
 
-  @Resource
-  SessionContext context;
+    @Resource
+    SessionContext context;
 
-  @Override
-  public String getJBossNodeName() {
-    return System.getProperty("jboss.node.name");
-  }
+    @Override
+    public String getJBossNodeName() {
+        return System.getProperty("jboss.node.name");
+    }
 
-  @Override
-  public String invoke(String text) {
-    Principal caller = context.getCallerPrincipal();
-    LOGGER.info("[" + caller.getName() + "] " + text);
-    return "app2[" + caller.getName() + "]@" + getJBossNodeName();
-  }
+    @Override
+    public String invoke(String text) {
+        Principal caller = context.getCallerPrincipal();
+        LOGGER.info("[" + caller.getName() + "] " + text);
+        return "app2[" + caller.getName() + "]@" + getJBossNodeName();
+    }
 
-  @Override
-  @RolesAllowed({ "AppTwo", "Intern" })
-  public String invokeSecured(String text) {
-    Principal caller = context.getCallerPrincipal();
-    LOGGER.info("Secured invocation [" + caller.getName() + "] " + text);
-    LOGGER.info("Is in Role AppTwo=" + context.isCallerInRole("AppTwo") + " Intern=" + context.isCallerInRole("Intern"));
-    return "app2[" + caller.getName() + "]@" + getJBossNodeName();
-  }
+    @Override
+    @RolesAllowed({ "AppTwo", "Intern" })
+    public String invokeSecured(String text) {
+        Principal caller = context.getCallerPrincipal();
+        LOGGER.info("Secured invocation [" + caller.getName() + "] " + text);
+        LOGGER.info("Is in Role AppTwo=" + context.isCallerInRole("AppTwo") + " Intern=" + context.isCallerInRole("Intern"));
+        return "app2[" + caller.getName() + "]@" + getJBossNodeName();
+    }
 
 }
