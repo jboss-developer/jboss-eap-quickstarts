@@ -200,9 +200,7 @@
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
-                <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
-                <module>ejb-security-propagation</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
@@ -303,10 +301,11 @@
             </activation>
             <modules>
                 <module>cluster-ha-singleton</module>
+                <module>ejb-security-plus</module>
+                <module>ejb-security-propagation</module>
+                <module>inter-app</module>                
                 <module>jax-rs-client</module>
                 <module>jts</module>
-                <module>inter-app</module>                
-                <module>ejb-security-plus</module>
                 <module>jpp-quickstarts</module>
                 <module>servlet-security-genericheader-auth</module>
             </modules>
