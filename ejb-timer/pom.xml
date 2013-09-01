@@ -24,7 +24,7 @@
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: EJB Timer</name>
+    <name>JBoss AS Quickstarts: ejb-timer</name>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

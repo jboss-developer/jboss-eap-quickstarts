@@ -32,12 +32,12 @@ public interface AppOne {
    * @param text Simple text written to to the logfile to identify the invocation
    * @return app1[&lt;PrincipalName&gt;]@&lt;jboss.node.name&gt;
    */
-  String invoke(String text);
+    String invoke(String text);
 
   /**
    * @return The property of jboss.node.name, pattern &lt;host&gt;:&lt;server&gt;
    */
-  String getJBossNodeName();
+    String getJBossNodeName();
 
   /**
    * Secured invocation for Roles ( AppOne, Intern ). See {@link #invoke(String)}
@@ -45,5 +45,5 @@ public interface AppOne {
    * @param text Simple text written to to the logfile to identify the invocation
    * @return app1[&lt;PrincipalName&gt;]@&lt;jboss.node.name&gt;
    */
-  String invokeSecured(String text);
+    String invokeSecured(String text);
 }

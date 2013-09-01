@@ -37,7 +37,13 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
+    <modules>
+        <module>app-one</module>
+        <module>app-two</module>
+        <module>app-main</module>
+        <module>app-web</module>
+        <module>client</module>
+    </modules>
     <properties>
     <!-- Explicitly declaring the source encoding eliminates the following 
       message: -->
@@ -46,18 +52,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- JBoss dependency versions -->
-        <jboss.as.plugin.version>7.3.Final</jboss.as.plugin.version>
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
     <!-- Define the version of the JBoss BOMs we want to import. The 
        JBoss BOMs specify tested stacks. -->
-        <jboss.bom.version>1.0.0.Final</jboss.bom.version>
     <!-- Alternatively, comment out the above line, and un-comment the 
        line below to use version 1.0.0.Final-redhat-1 which is a release certified 
        to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
        maven repository. -->
     <!-- <jboss.bom.version>1.0.0.Final-redhat-1</jboss.bom.version>> -->
-        <jboss.client.bom.version>7.1.1.Final</jboss.client.bom.version>
+        <version.jboss.as>7.1.1.Final</version.jboss.as>
 
-        <jboss.spec.jboss.javaee>3.0.2.Final</jboss.spec.jboss.javaee>
+        <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
 
     <!-- other plugin versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
@@ -88,14 +93,14 @@
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${jboss.spec.jboss.javaee}</version>
+                <version>${version.jboss.spec.javaee.6.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.as</groupId>
                 <artifactId>jboss-as-ejb-client-bom</artifactId>
-                <version>${jboss.client.bom.version}</version>
+                <version>${version.jboss.as}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -107,7 +112,7 @@
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${jboss.as.plugin.version}</version>
+                <version>${version.jboss.maven.plugin}</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -120,12 +125,5 @@
         </plugins>
     </build>
 
-    <modules>
-        <module>app-one</module>
-        <module>app-two</module>
-        <module>app-main</module>
-        <module>app-web</module>
-        <module>client</module>
-    </modules>
 </project>
 
