@@ -31,8 +31,13 @@
      Include the EJB and WEB application together with the necessary API libraries
      of the sub applications appOne and appTwo.
   </description>
-
-
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
     <dependencies>
   <!-- add the EJB and WEB project as dependency to include it in the EAR -->
         <dependency>
@@ -111,6 +116,6 @@
             </resource>
         </resources>
     <!-- define the name for the deployable archive instead of using the default name with the version -->
-        <finalName>appmain</finalName>
+        <finalName>${project.parent.artifactId}</finalName>
     </build>
 </project>

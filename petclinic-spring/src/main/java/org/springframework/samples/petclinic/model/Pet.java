@@ -26,7 +26,7 @@ import java.util.*;
 
 /**
  * Simple business object representing a pet.
- *
+ * 
  * @author Ken Krebs
  * @author Juergen Hoeller
  * @author Sam Brannen
@@ -50,7 +50,6 @@ public class Pet extends NamedEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
-
 
     public void setBirthDate(DateTime birthDate) {
         this.birthDate = birthDate;

@@ -27,7 +27,13 @@
     <artifactId>jboss-as-ejb-multi-server-appOne-ear</artifactId>
     <packaging>ear</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-one - ear</name>
-
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
     <dependencies>
         <dependency>
             <groupId>org.jboss.as.quickstarts</groupId>
@@ -69,6 +75,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>appone</finalName>
+        <finalName>${project.parent.artifactId}</finalName>
     </build>
 </project>

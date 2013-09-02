@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Spring Data JPA specialization of the {@link PetRepository} interface
- *
+ * 
  * @author Michael Isvy
  * @since 15.1.2013
  */

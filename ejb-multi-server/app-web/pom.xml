@@ -23,7 +23,13 @@
         <artifactId>jboss-as-ejb-multi-server</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
-
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
 
     <artifactId>jboss-as-ejb-multi-server-appWeb</artifactId>
 
@@ -92,6 +98,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>appweb</finalName>
+        <finalName>${project.artifactId}</finalName>
     </build>
 </project>

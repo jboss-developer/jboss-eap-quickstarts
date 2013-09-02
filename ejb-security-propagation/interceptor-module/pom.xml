@@ -42,7 +42,7 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- <version.jboss.as>7.2.0.Alpha1-SNAPSHOT</version.jboss.as> -->
         <!-- Alternatively, comment out the above line, and un-comment the line 
