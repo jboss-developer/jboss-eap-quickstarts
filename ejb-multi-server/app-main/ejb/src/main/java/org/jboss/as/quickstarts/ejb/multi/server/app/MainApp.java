@@ -27,8 +27,8 @@ public interface MainApp {
    * @param text This text will be logged in the main-application
    * @return A simple text representation of the call stack and the destination servers
    */
-  String invokeAll(String text);
+    String invokeAll(String text);
 
-  String getJBossNodeName();
+    String getJBossNodeName();
 
 }

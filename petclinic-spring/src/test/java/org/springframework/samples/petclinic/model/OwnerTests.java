@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNull;
 
 /**
  * JUnit test for the {@link Owner} class.
- *
+ * 
  * @author Ken Krebs
  */
 public class OwnerTests {

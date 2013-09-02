@@ -39,112 +39,120 @@ import org.jboss.logging.Logger;
  */
 @Stateless
 public class MainAppBean implements MainApp {
-  private static final Logger LOGGER = Logger.getLogger(MainAppBean.class);
-  @Resource
-  SessionContext context;
+    private static final Logger LOGGER = Logger.getLogger(MainAppBean.class);
+    @Resource
+    SessionContext context;
 
   /**
    * The context to invoke foreign EJB's as the SessionContext can not be used for that.
    */
-  private InitialContext iCtx;
+    private InitialContext iCtx;
 
-  @EJB(lookup = "ejb:appone/ejb//AppOneBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppOne")
-  AppOne appOneProxy;
-  @EJB(lookup = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
-  AppTwo appTwoProxy;
+    @EJB(lookup = "ejb:appone/ejb//AppOneBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppOne")
+    AppOne appOneProxy;
+    @EJB(lookup = "ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo")
+    AppTwo appTwoProxy;
 
   /**
    * Initialize and store the context for the EJB invocations.
    */
-  @PostConstruct
-  public void init() {
-    try {
-      final Hashtable<String, String> p = new Hashtable<String, String>();
-      p.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-      this.iCtx = new InitialContext(p);
-    } catch (NamingException e) {
-      throw new RuntimeException("Could not initialize context", e);
+    @PostConstruct
+    public void init() {
+        try {
+            final Hashtable<String, String> p = new Hashtable<String, String>();
+            p.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+            this.iCtx = new InitialContext(p);
+        }catch (NamingException e) {
+            throw new RuntimeException("Could not initialize context", e);
+        }
     }
-  }
 
-  @Override
-  public String getJBossNodeName() {
-    return System.getProperty("jboss.node.name");
-  }
+    @Override
+    public String getJBossNodeName() {
+        return System.getProperty("jboss.node.name");
+    }
 
-  @Override
-  public String invokeAll(String text) {
-    Principal caller = context.getCallerPrincipal();
-    LOGGER.info("[" + caller.getName() + "] " + text);
-    final StringBuilder result = new StringBuilder("MainApp[" + caller.getName() + "]@" + System.getProperty("jboss.node.name"));
+    @Override
+    public String invokeAll(String text) {
+        Principal caller = context.getCallerPrincipal();
+        LOGGER.info("[" + caller.getName() + "] " + text);
+        final StringBuilder result = new StringBuilder("MainApp[" + caller.getName() + "]@" + System.getProperty("jboss.node.name"));
 
     // Call AppOne with the direct ejb: naming
-    try {
-      result.append("  >  [ " + invokeAppOne(text));
-    } catch (Exception e) {
-      LOGGER.error("Could not invoke AppOne", e);
+        try {
+            result.append("  >  [ " + invokeAppOne(text));
+        }catch (Exception e) {
+            LOGGER.error("Could not invoke AppOne", e);
+        }
+
+        String lookup = "";
+       // Call AppTwo with the direct ejb: naming
+        try {
+            lookup = "ejb:apptwo/ejb//AppTwoBean!" + AppTwo.class.getName();
+            result.append(" > " + invokeAppTwo(lookup, text));
+            LOGGER.info("Invoke '" + lookup + " OK");
+        }catch (Exception e) {
+            LOGGER.error("Could not invoke apptwo '" + lookup + "'", e);
+        }
+
+        // Call AppTwo by using the local alias configured in
+        // META-INF/ejb-jar.xml
+        try {
+            lookup = "java:comp/env/AppTwoAlias";
+            result.append(" ; " + invokeAppTwo(lookup, text));
+            LOGGER.info("Invoke '" + lookup + " OK");
+        }catch (Exception e) {
+            LOGGER.error("Could not invoke apptwo '" + lookup + "'", e);
+        }
+
+        result.append(" ]");
+
+        return result.toString();
     }
 
-    String lookup = "";
-    // Call AppTwo with the direct ejb: naming
-    try {
-      lookup = "ejb:apptwo/ejb//AppTwoBean!" + AppTwo.class.getName();
-      result.append(" > " + invokeAppTwo(lookup, text));
-      LOGGER.info("Invoke '" + lookup + " OK");
-    } catch (Exception e) {
-      LOGGER.error("Could not invoke apptwo '" + lookup + "'", e);
+     /**
+     * The application one can only be called with the standard naming, there is
+     * no alias.
+     * 
+     * @param text
+     *            Simple text for logging in the target servers logfile
+     * @return A text with server details for demonstration
+     */
+    private String invokeAppOne(String text) {
+        try {
+            // invoke on the bean
+            final String appOneResult = this.appOneProxy.invoke(text);
+
+            LOGGER.info("AppOne return : " + appOneResult);
+            return appOneResult;
+        }catch (Exception e) {
+            throw new RuntimeException("Could not invoke appOne", e);
+        }
     }
 
-    // Call AppTwo by using the local alias configured in META-INF/ejb-jar.xml
-    try {
-      lookup = "java:comp/env/AppTwoAlias";
-      result.append(" ; " + invokeAppTwo(lookup, text));
-      LOGGER.info("Invoke '" + lookup + " OK");
-    } catch (Exception e) {
-      LOGGER.error("Could not invoke apptwo '" + lookup + "'", e);
+    /**
+    * The application two can be called via lookup.
+    * <ul>
+    * <li>with the standard naming
+    * <i>ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts
+    * .ejb.multi.server.app.AppTwo</i></li>
+    * <li><i>java:global/AliasAppTwo</i> the alias provided by the server
+    * configuration <b>this is not recommended</b></li>
+    * <li><i>java:comp/env/AppTwoAlias</i> the local alias provided by the
+    * ejb-jar.xml configuration</li>
+    * </ul>
+    * 
+    * @param text
+    *            Simple text for logging in the target servers logfile
+    * @return A text with server details for demonstration
+    */
+    private String invokeAppTwo(String lookup, String text) throws NamingException {
+        final AppTwo bean = (AppTwo) iCtx.lookup(lookup);
+
+        // invoke on the bean
+        final String appTwoResult = bean.invoke(text);
+
+        LOGGER.info("AppTwo return : " + appTwoResult);
+        return appTwoResult;
     }
-
-    result.append(" ]");
-
-    return result.toString();
-  }
-
-  /**
-   * The application one can only be called with the standard naming, there is no alias.
-   * 
-   * @param text Simple text for logging in the target servers logfile
-   * @return A text with server details for demonstration
-   */
-  private String invokeAppOne(String text) {
-    try {
-      // invoke on the bean
-      final String appOneResult = this.appOneProxy.invoke(text);
-
-      LOGGER.info("AppOne return : " + appOneResult);
-      return appOneResult;
-    } catch (Exception e) {
-      throw new RuntimeException("Could not invoke appOne", e);
-    }
-  }
-
-  /**
-   * The application two can be called via lookup.
-   * <ul>
-   * <li>with the standard naming <i>ejb:apptwo/ejb//AppTwoBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo</i></li>
-   * <li><i>java:global/AliasAppTwo</i> the alias provided by the server configuration <b>this is not recommended</b></li>
-   * <li><i>java:comp/env/AppTwoAlias</i> the local alias provided by the ejb-jar.xml configuration</li>
-   * </ul>
-   * 
-   * @param text Simple text for logging in the target servers logfile
-   * @return A text with server details for demonstration
-   */
-  private String invokeAppTwo(String lookup, String text) throws NamingException {
-    final AppTwo bean = (AppTwo) iCtx.lookup(lookup);
-
-    // invoke on the bean
-    final String appTwoResult = bean.invoke(text);
-
-    LOGGER.info("AppTwo return : " + appTwoResult);
-    return appTwoResult;
-  }
 }

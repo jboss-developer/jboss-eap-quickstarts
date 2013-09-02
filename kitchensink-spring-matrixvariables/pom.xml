@@ -23,7 +23,7 @@
     <artifactId>jboss-as-kitchensink-spring-matrixvariables</artifactId>
     <packaging>war</packaging>
     <version>7.1.2-SNAPSHOT</version>
-    <name>JBoss EAP Quickstart: kitchensink-spring-matrixvariables</name>
+    <name>JBoss WFK Quickstart: kitchensink-spring-matrixvariables</name>
     <description>Getting Started with Spring on JBoss with Spring 3.2 Matrix Variables</description>
 
     <url>http://jboss.org/jbossas</url>

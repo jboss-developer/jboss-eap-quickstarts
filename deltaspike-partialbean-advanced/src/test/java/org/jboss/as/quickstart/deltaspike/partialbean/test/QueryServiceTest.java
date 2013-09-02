@@ -68,11 +68,11 @@ public class QueryServiceTest {
 
     // sorted list of all Person entries in the default sql
     private Person[] allPerson = new Person[] {
-            new Person("lightguard_jp", "Jason Porter"),
-            new Person("mbg", "Marius Bogoevici"),
-            new Person("pmuir", "Pete Muir"),
-            new Person("rbenevides", "Rafael Benevides"),
-            new Person("sgilda", "Sande Gilda")
+        new Person("lightguard_jp", "Jason Porter"),
+        new Person("mbg", "Marius Bogoevici"),
+        new Person("pmuir", "Pete Muir"),
+        new Person("rbenevides", "Rafael Benevides"),
+        new Person("sgilda", "Sande Gilda")
     };
     
     @Inject
