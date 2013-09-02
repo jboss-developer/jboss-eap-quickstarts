@@ -75,6 +75,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.parent.artifactId}</finalName>
+        <finalName>appone</finalName>
     </build>
 </project>

@@ -116,6 +116,6 @@
             </resource>
         </resources>
     <!-- define the name for the deployable archive instead of using the default name with the version -->
-        <finalName>${project.parent.artifactId}</finalName>
+        <finalName>appmain</finalName>
     </build>
 </project>

@@ -98,6 +98,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>appweb</finalName>
     </build>
 </project>
