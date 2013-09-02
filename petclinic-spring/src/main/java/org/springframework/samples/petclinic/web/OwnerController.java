@@ -41,7 +41,6 @@ public class OwnerController {
 
     private final ClinicService clinicService;
 
-
     @Autowired
     public OwnerController(ClinicService clinicService) {
         this.clinicService = clinicService;
@@ -122,7 +121,7 @@ public class OwnerController {
 
     /**
      * Custom handler for displaying an owner.
-     *
+     * 
      * @param ownerId the ID of the owner to display
      * @return a ModelMap with the model attributes for the view
      */

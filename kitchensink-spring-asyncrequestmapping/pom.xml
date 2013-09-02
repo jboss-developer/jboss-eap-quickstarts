@@ -23,7 +23,7 @@
     <artifactId>jboss-as-kitchensink-spring-asyncrequestmapping</artifactId>
     <packaging>war</packaging>
     <version>7.1.2-SNAPSHOT</version>
-    <name>JBoss EAP Quickstart: kitchensink-spring-asyncrequestmapping</name>
+    <name>JBoss WFK Quickstart: kitchensink-spring-asyncrequestmapping</name>
     <description>Getting Started with Spring on JBoss with Spring 3.2 using AsyncRequests</description>
 
     <url>http://jboss.org/jbossas</url>

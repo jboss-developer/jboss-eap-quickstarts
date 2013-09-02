@@ -23,8 +23,8 @@ import java.sql.SQLException;
 import java.util.Date;
 
 /**
- * {@link ParameterizedRowMapper} implementation mapping data from a {@link ResultSet} to the corresponding properties
- * of the {@link JdbcPet} class.
+ * {@link ParameterizedRowMapper} implementation mapping data from a {@link ResultSet} to the corresponding properties of the
+ * {@link JdbcPet} class.
  */
 class JdbcPetRowMapper implements ParameterizedRowMapper<JdbcPet> {
 

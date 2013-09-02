@@ -24,9 +24,9 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.util.StopWatch;
 
 /**
- * Simple aspect that monitors call count and call invocation time. It uses JMX annotations and therefore can be
- * monitored using any JMX console such as the jConsole
- *
+ * Simple aspect that monitors call count and call invocation time. It uses JMX annotations and therefore can be monitored using
+ * any JMX console such as the jConsole
+ * 
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Michael Isvy
@@ -41,7 +41,6 @@ public class CallMonitoringAspect {
     private int callCount = 0;
 
     private long accumulatedCallTime = 0;
-
 
     @ManagedAttribute
     public void setEnabled(boolean enabled) {
@@ -68,7 +67,6 @@ public class CallMonitoringAspect {
     public long getCallTime() {
         return (this.callCount > 0 ? this.accumulatedCallTime / this.callCount : 0);
     }
-
 
     @Around("within(@org.springframework.stereotype.Repository *)")
     public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {

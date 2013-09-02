@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * JPA implementation of the {@link PetRepository} interface.
- *
+ * 
  * @author Mike Keith
  * @author Rod Johnson
  * @author Sam Brannen
@@ -53,11 +53,11 @@ public class JpaPetRepositoryImpl implements PetRepository {
     @Override
     public void save(Pet pet) {
         if (pet.getId() == null) {
-    		this.em.persist(pet);     		
-    	}
-    	else {
-    		this.em.merge(pet);    
-    	}
+            this.em.persist(pet);
+        }
+        else {
+            this.em.merge(pet);
+        }
     }
 
 }

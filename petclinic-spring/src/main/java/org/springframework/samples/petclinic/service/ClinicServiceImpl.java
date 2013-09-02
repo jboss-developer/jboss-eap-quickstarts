@@ -29,9 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 /**
- * Mostly used as a facade for all Petclinic controllers
- * Also a placeholder for @Transactional and @Cacheable annotations
- *
+ * Mostly used as a facade for all Petclinic controllers Also a placeholder for @Transactional and @Cacheable annotations
+ * 
  * @author Michael Isvy
  */
 @Service
@@ -74,13 +73,11 @@ public class ClinicServiceImpl implements ClinicService {
         ownerRepository.save(owner);
     }
 
-
     @Override
     @Transactional
     public void saveVisit(Visit visit) throws DataAccessException {
         visitRepository.save(visit);
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -100,6 +97,5 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Vet> findVets() throws DataAccessException {
         return vetRepository.findAll();
     }
-
 
 }

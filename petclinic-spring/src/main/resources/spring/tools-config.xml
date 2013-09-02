@@ -17,12 +17,10 @@
 <!--
 Application context definition for PetClinic on JPA.
 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:cache="http://www.springframework.org/schema/cache"
-       xsi:schemaLocation="http://www.springframework.org/schema/aop
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xsi:schemaLocation="http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop.xsd
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -37,27 +35,27 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         Note that we can dependency inject this bean like any other bean.
     -->
     <aop:aspectj-autoproxy>
-        <aop:include name="callMonitor"/>
+        <aop:include name="callMonitor" />
     </aop:aspectj-autoproxy>
 
     <!-- Call monitoring aspect that monitors call count and call invocation time -->
-    <bean id="callMonitor" class="org.springframework.samples.petclinic.util.CallMonitoringAspect"/>
+    <bean id="callMonitor" class="org.springframework.samples.petclinic.util.CallMonitoringAspect" />
 
     <!--
         Exporter that exposes the CallMonitoringAspect via JMX,
         based on the @ManagedResource, @ManagedAttribute, and @ManagedOperation annotations.
     -->
-    <context:mbean-export/>
+    <context:mbean-export />
 
     <!-- enables scanning for @Cacheable annotation -->
-    <cache:annotation-driven/>
+    <cache:annotation-driven />
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="ehcache"/>
+        <property name="cacheManager" ref="ehcache" />
     </bean>
 
     <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:cache/ehcache.xml"/>
+        <property name="configLocation" value="classpath:cache/ehcache.xml" />
     </bean>
 
 
