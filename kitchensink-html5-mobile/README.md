@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, HTML5, REST
 Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
 Target Product: WFK
-Source: https://github.com/jboss-jdf/jboss-as-quickstart
+Source: <https://github.com/jboss-jdf/jboss-as-quickstart>
 
 What is it?
 -----------
