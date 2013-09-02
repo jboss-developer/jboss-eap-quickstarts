@@ -40,7 +40,7 @@ import java.util.Map;
 
 /**
  * A simple JDBC-based implementation of the {@link OwnerRepository} interface.
- *
+ * 
  * @author Ken Krebs
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -59,39 +59,37 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     @Autowired
     public JdbcOwnerRepositoryImpl(DataSource dataSource, NamedParameterJdbcTemplate namedParameterJdbcTemplate,
-                                   VisitRepository visitRepository) {
+        VisitRepository visitRepository) {
 
         this.insertOwner = new SimpleJdbcInsert(dataSource)
-                .withTableName("owners")
-                .usingGeneratedKeyColumns("id");
+            .withTableName("owners")
+            .usingGeneratedKeyColumns("id");
 
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         this.visitRepository = visitRepository;
     }
 
-
     /**
-     * Loads {@link Owner Owners} from the data store by last name, returning all owners whose last name <i>starts</i> with
-     * the given name; also loads the {@link Pet Pets} and {@link Visit Visits} for the corresponding owners, if not
-     * already loaded.
+     * Loads {@link Owner Owners} from the data store by last name, returning all owners whose last name <i>starts</i> with the
+     * given name; also loads the {@link Pet Pets} and {@link Visit Visits} for the corresponding owners, if not already loaded.
      */
     @Override
     public Collection<Owner> findByLastName(String lastName) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("lastName", lastName + "%");
         List<Owner> owners = this.namedParameterJdbcTemplate.query(
-                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
-                params,
-                ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
-        );
+            "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
+            params,
+            ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
+            );
         loadOwnersPetsAndVisits(owners);
         return owners;
     }
 
     /**
-     * Loads the {@link Owner} with the supplied <code>id</code>; also loads the {@link Pet Pets} and {@link Visit Visits}
-     * for the corresponding owner, if not already loaded.
+     * Loads the {@link Owner} with the supplied <code>id</code>; also loads the {@link Pet Pets} and {@link Visit Visits} for
+     * the corresponding owner, if not already loaded.
      */
     @Override
     public Owner findById(int id) throws DataAccessException {
@@ -100,10 +98,10 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("id", id);
             owner = this.namedParameterJdbcTemplate.queryForObject(
-                    "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE id= :id",
-                    params,
-                    ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
-            );
+                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE id= :id",
+                params,
+                ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
+                );
         } catch (EmptyResultDataAccessException ex) {
             throw new ObjectRetrievalFailureException(Owner.class, id);
         }
@@ -115,10 +113,10 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", owner.getId().intValue());
         final List<JdbcPet> pets = this.namedParameterJdbcTemplate.query(
-                "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE owner_id=:id",
-                params,
-                new JdbcPetRowMapper()
-        );
+            "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE owner_id=:id",
+            params,
+            new JdbcPetRowMapper()
+            );
         for (JdbcPet pet : pets) {
             owner.addPet(pet);
             pet.setType(EntityUtils.getById(getPetTypes(), PetType.class, pet.getTypeId()));
@@ -137,21 +135,21 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             owner.setId(newKey.intValue());
         } else {
             this.namedParameterJdbcTemplate.update(
-                    "UPDATE owners SET first_name=:firstName, last_name=:lastName, address=:address, " +
-                            "city=:city, telephone=:telephone WHERE id=:id",
-                    parameterSource);
+                "UPDATE owners SET first_name=:firstName, last_name=:lastName, address=:address, " +
+                    "city=:city, telephone=:telephone WHERE id=:id",
+                parameterSource);
         }
     }
 
     public Collection<PetType> getPetTypes() throws DataAccessException {
         return this.namedParameterJdbcTemplate.query(
-                "SELECT id, name FROM types ORDER BY name", new HashMap<String, Object>(),
-                ParameterizedBeanPropertyRowMapper.newInstance(PetType.class));
+            "SELECT id, name FROM types ORDER BY name", new HashMap<String, Object>(),
+            ParameterizedBeanPropertyRowMapper.newInstance(PetType.class));
     }
 
     /**
      * Loads the {@link Pet} and {@link Visit} data for the supplied {@link List} of {@link Owner Owners}.
-     *
+     * 
      * @param owners the list of owners for whom the pet and visit data should be loaded
      * @see #loadPetsAndVisits(Owner)
      */
@@ -160,6 +158,5 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             loadPetsAndVisits(owner);
         }
     }
-
 
 }

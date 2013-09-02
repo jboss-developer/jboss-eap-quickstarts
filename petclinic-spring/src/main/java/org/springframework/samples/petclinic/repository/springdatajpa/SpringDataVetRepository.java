@@ -21,7 +21,7 @@ import org.springframework.data.repository.Repository;
 
 /**
  * Spring Data JPA specialization of the {@link VetRepository} interface
- *
+ * 
  * @author Michael Isvy
  * @since 15.1.2013
  */

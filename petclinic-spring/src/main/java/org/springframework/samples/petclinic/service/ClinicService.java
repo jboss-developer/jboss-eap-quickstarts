@@ -20,10 +20,9 @@ import org.springframework.dao.DataAccessException;
 
 import java.util.Collection;
 
-
 /**
  * Mostly used as a facade for all Petclinic controllers
- *
+ * 
  * @author Michael Isvy
  */
 public interface ClinicService {

@@ -26,7 +26,7 @@ import java.util.Collection;
 
 /**
  * JPA implementation of the {@link VetRepository} interface.
- *
+ * 
  * @author Mike Keith
  * @author Rod Johnson
  * @author Sam Brannen
@@ -38,7 +38,6 @@ public class JpaVetRepositoryImpl implements VetRepository {
 
     @PersistenceContext
     private EntityManager em;
-
 
     @Override
     @Cacheable(value = "vets")

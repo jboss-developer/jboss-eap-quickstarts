@@ -13,7 +13,7 @@ What is it?
 
 This quickstart demonstrates communication between applications deployed to different servers. Each application is deployed as an EAR and contains a simple EJB3.1 bean. The only function of each bean is to log the invocation.
 
-This example cosists of the following Maven projects, each with a shared parent:
+This example consists of the following Maven projects, each with a shared parent:
 
 | **Sub-project** | **Description** |
 |:-----------|:-----------|
