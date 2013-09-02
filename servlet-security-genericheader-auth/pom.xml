@@ -59,7 +59,7 @@
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- other plugin versions -->
-        <version.war.plugin>2.2</version.war.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.xnio>3.0.7.GA</version.xnio>
 

@@ -59,7 +59,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
 
         <!-- other plugin versions -->
-        <version.war.plugin>2.2</version.war.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- m2e settings -->
         <m2e.jpa.activation>false</m2e.jpa.activation>

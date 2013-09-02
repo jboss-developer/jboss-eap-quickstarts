@@ -55,7 +55,7 @@
         <version.log4j>1.2.16</version.log4j>
 
         <!-- Other plugin versions -->
-        <version.war.plugin>2.2</version.war.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
