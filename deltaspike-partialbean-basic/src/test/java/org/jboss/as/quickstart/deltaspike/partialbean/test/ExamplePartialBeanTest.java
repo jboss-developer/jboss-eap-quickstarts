@@ -78,7 +78,7 @@ public class ExamplePartialBeanTest {
      */
     @Test
     public void testInvocationHandlerAbstractClassInvocationHandlerMethod() {
-      String resultFromAbstractClass = examplePartialBeanAbstractClass.sayHello("abstractclass");
+        String resultFromAbstractClass = examplePartialBeanAbstractClass.sayHello("abstractclass");
         assertEquals("Hello abstractclass", resultFromAbstractClass);
     }
     /**
@@ -90,7 +90,7 @@ public class ExamplePartialBeanTest {
      */
     @Test
     public void testInvocationHandlerAbstractClassInvocationConcreteMethod() {
-      String resultFromAbstractClassConcreteMethod = examplePartialBeanAbstractClass.otherHey("concretemethod");
+        String resultFromAbstractClassConcreteMethod = examplePartialBeanAbstractClass.otherHey("concretemethod");
         assertEquals("Other: concretemethod", resultFromAbstractClassConcreteMethod);
     }
 }
