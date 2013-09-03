@@ -19,7 +19,7 @@
    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
-   <groupId>org.jboss.as.quickstarts</groupId>
+   <groupId>org.jboss.quickstarts.eap</groupId>
    <artifactId>jboss-as-ejb-remote-client</artifactId>
    <version>7.1.2-SNAPSHOT</version>
    <packaging>jar</packaging>
@@ -117,7 +117,7 @@
 
        <!-- We depend on the EJB remote business interfaces  of this application -->
        <dependency>
-          <groupId>org.jboss.as.quickstarts</groupId>
+          <groupId>org.jboss.quickstarts.eap</groupId>
           <artifactId>jboss-as-ejb-remote-server-side</artifactId>
           <type>ejb-client</type>
          <version>${project.version}</version>

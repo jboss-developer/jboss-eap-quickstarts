@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-wicket-ear-parent</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -61,7 +61,7 @@
 
         <!-- EJB JAR. -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-wicket-ear-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>

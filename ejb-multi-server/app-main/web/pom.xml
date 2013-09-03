@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -45,7 +45,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
         jboss-as-ejb-multi-server-appMain-ejb
       </artifactId>
@@ -54,7 +54,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
         jboss-as-ejb-multi-server-appOne-ejb
       </artifactId>
@@ -63,7 +63,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
         jboss-as-ejb-multi-server-appTwo-ejb
       </artifactId>
@@ -88,6 +88,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -137,6 +138,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>${project.artifactId}</finalName>
     </build>
 </project>

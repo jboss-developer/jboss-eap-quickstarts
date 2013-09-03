@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-shrinkwrap-resolver</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -53,6 +53,8 @@
             work with JBoss EAP 6. It requires you have access to the JBoss EAP 6
             maven repository. -->
         <!-- <version.jboss.bom>1.0.2.Final-redhat-1</version.jboss.bom>> -->
+
+        <version.org.apache.commons.commons-lang3>3.1</version.org.apache.commons.commons-lang3>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -175,7 +177,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.1</version>
+            <version>${version.org.apache.commons.commons-lang3}</version>
         </dependency>
 
         <!-- Deltaspike API. We use compile scope as we need it to compile the project against the API -->

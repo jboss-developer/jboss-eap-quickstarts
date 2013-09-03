@@ -20,7 +20,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-cdi-portable-extension</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>

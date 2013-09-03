@@ -33,7 +33,7 @@
     </licenses>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-multi-server</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>

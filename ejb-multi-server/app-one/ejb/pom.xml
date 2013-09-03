@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-multi-server-appOne</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -57,6 +57,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>  <!--  must include ejb-plugin to change the EJB version from 2.1 to 3.1 -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -81,6 +82,5 @@
                 <targetPath>META-INF</targetPath>
             </resource>
         </resources>
-        <finalName>ejb</finalName>
-    </build>
+     </build>
 </project>

@@ -19,12 +19,12 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-ejb-timer</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>JBoss EAP Quickstarts: ejb-timer</name>
+    <name>JBoss EAP Quickstart: ejb-timer</name>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -115,7 +115,7 @@
                 <version>${version.jboss.maven.plugin}</version>
                 <configuration>
                     <fileNames>
-                        <fileName>target/${build.finalName}.war</fileName>
+                        <fileName>target/${project.build.finalName}.war</fileName>
                     </fileNames>
                 </configuration>
             </plugin>

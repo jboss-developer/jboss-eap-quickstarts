@@ -24,7 +24,7 @@
     <packaging>war</packaging>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-jts-parent</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -41,7 +41,7 @@
     <dependencies>
         <!-- Import the client stub for the application-component-2 -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-jts-application-component-2</artifactId>
             <classifier>client</classifier>
         </dependency>

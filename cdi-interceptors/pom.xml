@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-cdi-interceptors</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -50,6 +50,10 @@
 
         <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import. -->
         <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+
+        <!-- other plugin versions -->
+        <version.surefire.plugin>2.10</version.surefire.plugin>
+
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -199,6 +203,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -210,6 +215,7 @@
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
+                        <version>${version.jboss.maven.plugin}</version>
                     </plugin>
                 </plugins>
             </build>

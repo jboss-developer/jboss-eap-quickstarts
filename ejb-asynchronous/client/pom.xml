@@ -25,7 +25,7 @@
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-asynchronous</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -71,7 +71,7 @@
         
         <!-- Import the client API of the EJB project -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-ejb-asynchronous-ejb</artifactId>
             <type>ejb-client</type>
         </dependency>
