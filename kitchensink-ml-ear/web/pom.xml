@@ -21,7 +21,7 @@
 
     <parent>
         <artifactId>jboss-as-kitchensink-ml-ear</artifactId>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
 
@@ -43,7 +43,7 @@
 
         <!-- Dependency on the EJB module so we can use it's services if needed -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-kitchensink-ml-ear-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>

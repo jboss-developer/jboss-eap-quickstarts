@@ -22,7 +22,7 @@
     <artifactId>jboss-as-cluster-ha-singleton-service</artifactId>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-cluster-ha-singleton</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>

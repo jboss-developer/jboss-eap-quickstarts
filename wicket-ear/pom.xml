@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-wicket-ear-parent</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -109,7 +109,7 @@
 
             <!-- EJB JAR module. -->
             <dependency>
-                <groupId>org.jboss.as.quickstarts</groupId>
+                <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-as-wicket-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
@@ -117,7 +117,7 @@
 
             <!-- WAR module. -->
             <dependency>
-                <groupId>org.jboss.as.quickstarts</groupId>
+                <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-as-wicket-ear-war</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>

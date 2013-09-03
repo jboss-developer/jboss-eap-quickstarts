@@ -25,7 +25,7 @@
     <packaging>ejb</packaging>
     
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-asynchronous</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>

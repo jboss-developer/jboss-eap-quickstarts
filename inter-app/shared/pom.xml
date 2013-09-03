@@ -25,7 +25,7 @@
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-inter-app-parent</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>

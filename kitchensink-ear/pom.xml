@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <name>JBoss EAP Quickstart: kitchensink-ear</name>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-kitchensink-ear</artifactId>
     <version>7.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -65,7 +65,7 @@
         <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
 
         <!-- other plugin versions -->
-        <version.ear.plugin>2.6</version.ear.plugin>
+        <version.ear.plugin>2.8</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -81,7 +81,7 @@
             <!-- Define the version of the EJB jar so that we don't need 
                 to repeat ourselves in every module -->
             <dependency>
-                <groupId>org.jboss.as.quickstarts</groupId>
+                <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-as-kitchensink-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
@@ -90,7 +90,7 @@
             <!-- Define the version of the WAR so that we don't need to repeat 
                 ourselves in every module -->
             <dependency>
-                <groupId>org.jboss.as.quickstarts</groupId>
+                <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-as-kitchensink-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>

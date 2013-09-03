@@ -26,7 +26,7 @@
 
     <parent>
         <artifactId>jboss-as-ejb-in-ear</artifactId>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
 
@@ -48,7 +48,7 @@
 
         <!-- Import the ejb project so that the JSF managed bean can use the EJB -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>

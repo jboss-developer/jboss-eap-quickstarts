@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -41,13 +41,13 @@
     <dependencies>
   <!-- add the EJB and WEB project as dependency to include it in the EAR -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
             <type>ejb</type>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
             <type>war</type>
             <version>${project.version}</version>
@@ -61,6 +61,8 @@
     </dependencies>
 
     <build>
+        <!-- define the name for the deployable archive instead of using the default name with the version -->
+        <finalName>${project.parent.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
@@ -75,24 +77,24 @@
                     <initializeInOrder>true</initializeInOrder>
                     <modules>
                         <ejbModule>
-                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <groupId>org.jboss.quickstarts.eap</groupId>
                             <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
                             <bundleFileName>ejb.jar</bundleFileName>
                         </ejbModule>
                         <webModule>
-                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <groupId>org.jboss.quickstarts.eap</groupId>
                             <artifactId>jboss-as-ejb-multi-server-appMain-web</artifactId>
                             <bundleFileName>jsf.war</bundleFileName>
                             <contextRoot>/multi-server-MainApp</contextRoot>
                         </webModule>
             <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
                         <ejbClientModule>
-                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <groupId>org.jboss.quickstarts.eap</groupId>
                             <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbClientModule>
                         <ejbClientModule>
-                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <groupId>org.jboss.quickstarts.eap</groupId>
                             <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbClientModule>
@@ -115,7 +117,5 @@
                 <targetPath>META-INF</targetPath>
             </resource>
         </resources>
-    <!-- define the name for the deployable archive instead of using the default name with the version -->
-        <finalName>appmain</finalName>
     </build>
 </project>

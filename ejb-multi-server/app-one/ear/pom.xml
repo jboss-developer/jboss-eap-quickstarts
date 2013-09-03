@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-multi-server-appOne</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
@@ -36,7 +36,7 @@
     </licenses>
     <dependencies>
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
             <type>ejb</type>
             <version>${project.version}</version>
@@ -50,6 +50,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.parent.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
@@ -64,7 +65,7 @@
                     <generateApplicationXml>true</generateApplicationXml>
                     <modules>
                         <ejbModule>
-                            <groupId>org.jboss.as.quickstarts</groupId>
+                            <groupId>org.jboss.quickstarts.eap</groupId>
                             <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
                             <bundleFileName>ejb.jar</bundleFileName>
                         </ejbModule>
@@ -75,6 +76,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>appone</finalName>
     </build>
 </project>
