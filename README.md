@@ -91,9 +91,11 @@ Configure Maven
 
 Maven configuration is dependent on whether you are using the JBoss Enterprise Application Platform 6 product version of the quickstarts or the JBoss AS7 community version of the quickstarts.
 
+_Note:_ If you forked and cloned quickstarts from Github or downloaded the quickstarts zip file from the JBoss Developer Framework [Quickstarts: Get Started](http://www.jboss.org/jdf/quickstarts/get-started/) page, you are using the community version of the quickstarts and can skip this step. See [Configure Maven for JBoss AS 7](#configure-maven-for-jboss-as-7) below for details.
+
 ### Configure Maven for JBoss Enterprise Application Platform 6
 
-If you are using the JBoss Enterprise Application Platform 6 distribution, you need to download and configure the Maven repository.
+If you are using the JBoss Enterprise Application Platform 6 distribution, downloaded from the [Customer Portal](https://access.redhat.com/jbossnetwork/), you need to download and configure the Maven repository.
 
 1. Download the JBoss Enterprise Application Platform 6 Maven repository distribution ZIP and unzip it into a directory of your choice.
 
