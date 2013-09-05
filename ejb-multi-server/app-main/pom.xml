@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-ejb-multi-server-appMain</artifactId>
+    <artifactId>jboss-as-ejb-multi-server-app-main</artifactId>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-main</name>
     <description>ejb-multi-server: Main application for the scenario
      The project builds the EJB and WEB component of the main application

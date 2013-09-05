@@ -31,7 +31,7 @@
         </license>
     </licenses>
 
-    <artifactId>jboss-as-ejb-multi-server-appWeb</artifactId>
+    <artifactId>jboss-as-ejb-multi-server-app-web</artifactId>
 
     <name>JBoss EAP Quickstart: ejb-multi-server - app-web</name>
     <description>A simple web application, which contains a simple Servlet,
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
-        jboss-as-ejb-multi-server-appMain-ejb
+        jboss-as-ejb-multi-server-app-main-ejb
       </artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
-        jboss-as-ejb-multi-server-appOne-ejb
+        jboss-as-ejb-multi-server-app-one-ejb
       </artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
-        jboss-as-ejb-multi-server-appTwo-ejb
+        jboss-as-ejb-multi-server-app-two-ejb
       </artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>

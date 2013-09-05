@@ -59,11 +59,24 @@ The CLI scripts provided with this quickstart target JBoss Enterprise Applicatio
 4. Save the file.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 Server
+Back Up the JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 Server Configuration Files
+-----------------------------
+_NOTE - Before you begin:_
+
+1. If it is running, stop the JBoss Enterprise Application Platform 6.x server.
+2. Backup the following files, replacing JBOSS_HOME with the path to your server: 
+
+        JBOSS_HOME/domain/configuration/domain.xml
+        JBOSS_HOME/domain/configuration/host.xml
+        
+3. After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
+
+
+Start JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 Server
 ---------------------------
 
 
-1. Unzip or install a fresh JBoss Enterprise Application Platform 6 or JBoss AS 7 instance.
+1. Unzip or install a fresh JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 instance.
 2. Open a command line and navigate to the root of the server directory. Start the server using the following command:
 
         bin/domain.sh    
@@ -201,7 +214,7 @@ An example how to access EJB's from a separate instance which only contains a we
 _NOTE : If a version from JBoss EAP6.1 is used, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
 
 
-Undeploy the Archive
+Undeploy the Archives
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
@@ -209,6 +222,16 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+
+
+Remove the Server Domain Configuration
+--------------------
+
+You can remove the domain configuration by manually restoring the back-up copies the configuration files. 
+
+### Remove the Server Domain Configuration Manually           
+1. If it is running, stop the JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 server.
+2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
 
 
 

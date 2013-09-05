@@ -21,10 +21,10 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-ejb-multi-server-appTwo</artifactId>
+        <artifactId>jboss-as-ejb-multi-server-app-two</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-as-ejb-multi-server-appTwo-ear</artifactId>
+    <artifactId>jboss-as-ejb-multi-server-app-two-ear</artifactId>
     <packaging>ear</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-two - ear</name>
     <licenses>
@@ -38,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
+            <artifactId>jboss-as-ejb-multi-server-app-two-ejb</artifactId>
             <type>ejb</type>
             <version>${project.version}</version>
         </dependency>
@@ -67,7 +67,7 @@
                     <modules>
                         <ejbModule>
                             <groupId>org.jboss.quickstarts.eap</groupId>
-                            <artifactId>jboss-as-ejb-multi-server-appTwo-ejb</artifactId>
+                            <artifactId>jboss-as-ejb-multi-server-app-two-ejb</artifactId>
                             <bundleFileName>ejb.jar</bundleFileName>
                         </ejbModule>
                     </modules>
