@@ -416,6 +416,27 @@ You can remove the security domain configuration by manually restoring the back-
 2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
 
 
+### Remove the Security Domain Configuration by Running the JBoss CLI Script
+
+1. Start the JBoss Enterprise Application Platform 6 Server by typing the following: 
+
+        For Linux:   JBOSS_HOME/bin/domain.sh
+        For Windows: JBOSS_HOME\bin\domain.bat
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
+This script removes the server configuration that was done by the `configure-server.cli` script. You should see the following result when you run the script:
+
+        #1 /profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:remove
+        #2 /socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=srv2srv-ejb-socket:remove
+        #3 /profile=full/subsystem=datasources/data-source=SecurityPropagationDS:remove
+        #4 /profile=full-ha/subsystem=datasources/data-source=SecurityPropagationDS:remove
+        #5 /host=master/core-service=management/security-realm=ejb-remote-call:remove
+        #6 /profile=full/subsystem=security/security-domain=security-propagation-quickstart:remove
+        #7 /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:remove
+        The batch executed successfully.
+3. Restart the JBoss Enterprise Application Platform 6.1 server, as described above, for the changes to take effect.
+
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 
