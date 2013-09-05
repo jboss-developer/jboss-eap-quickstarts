@@ -41,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-ejb-multi-server-appMain-ejb</artifactId>
+            <artifactId>jboss-as-ejb-multi-server-app-main-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>

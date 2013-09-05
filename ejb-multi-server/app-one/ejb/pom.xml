@@ -20,12 +20,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-ejb-multi-server-appOne</artifactId>
+        <artifactId>jboss-as-ejb-multi-server-app-one</artifactId>
         <version>7.1.2-SNAPSHOT</version>
     </parent>
 
 
-    <artifactId>jboss-as-ejb-multi-server-appOne-ejb</artifactId>
+    <artifactId>jboss-as-ejb-multi-server-app-one-ejb</artifactId>
 
     <name>JBoss EAP Quickstart: ejb-multi-server - app-one - ejb</name>
     <url>http://maven.apache.org</url>
