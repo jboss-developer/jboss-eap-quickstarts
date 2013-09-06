@@ -10,7 +10,12 @@ Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
 What is it?
 -----------
 
-This is a simple JSF 2.0 example based on the `hibernate4` quickstart. Its purpose is to demonstrate how you can use Hibernate 3 in your application.
+_Note: Hibernate 3.x is not a supported configuration in JBoss Enterprise Application Platform 6 or JBoss AS 7._
+
+The sole purpose of this quickstart is to help you understand the changes needed to move your application from 
+Hibernate 3.x to Hibernate 4. This quickstart has the same functionality as the `hibernate4` quickstart 
+but uses the Hibernate 3 libraries. Compare this quickstart to the `hibernate4` quickstart to see the 
+code and class differences between Hibernate 3 and Hibernate 4. 
 
 This quickstart, like the `log4j` quickstart, demonstrates how to define a module dependency. However, this quickstart goes beyond that and also demonstrates the following:
  
@@ -18,8 +23,6 @@ This quickstart, like the `log4j` quickstart, demonstrates how to define a modul
 * Module exclusion and inclusion - This example demonstrates how to control class loading using *dependencies* and *exclusions* in the *jboss-deployment-structure.xml* file. For more information about this file, please refer to <https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile>
 * Persistence configuration - Configuration is required to tell the container how to load JPA/Hibernate.
  
-You can compare this quickstart to the `hibernate4` quickstart to see the code differences between Hibernate 3 and Hibernate 4.
-
 
 System requirements
 -------------------
