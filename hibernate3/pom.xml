@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-hibernate3</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: hibernate3</name>
     <description>JBoss EAP Quickstart: Hibernate 3</description>

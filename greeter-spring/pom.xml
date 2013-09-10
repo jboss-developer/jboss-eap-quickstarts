@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-greeter-spring</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: greeter-spring</name>
     <description>JBoss WFK Quickstart: Greeter Spring</description>
@@ -47,7 +47,7 @@
         <!-- JBoss AS plugin for deployment -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+        <version.jboss.bom.wfk>1.0.7.Final</version.jboss.bom.wfk>
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -72,7 +72,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.wfk}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -80,7 +80,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-spring</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.wfk}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

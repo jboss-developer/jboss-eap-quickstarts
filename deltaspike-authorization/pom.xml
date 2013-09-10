@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-deltaspike-authorization</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-authorization</name>
     <description>DeltaSpike Authorization: shows a custom authorization example using security binding types from DeltaSpike</description>
@@ -47,12 +47,12 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+        <version.jboss.bom.wfk>1.0.7.Final</version.jboss.bom.wfk>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
+        <!-- <version.jboss.bom.wfk>1.0.4.Final-redhat-4</version.jboss.bom.wfk> -->
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -74,7 +74,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-deltaspike</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.wfk}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
