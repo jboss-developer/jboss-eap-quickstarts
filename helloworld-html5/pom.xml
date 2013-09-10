@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-helloworld-html5</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: helloworld-html5</name>
     <description>JBoss WFK Quickstart: HTML5 + REST Helloworld</description>
@@ -41,6 +41,14 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
+        <version.jboss.bom.eap>6.2.0-redhat-1</version.jboss.bom.eap>
+        <!-- Alternatively, comment out the above line, and un-comment the 
+            line below to use version 1.0.4.Final-redhat-4 which is a release certified 
+            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
+            maven repository. -->
+        <!-- <version.jboss.bom.eap>1.0.4.Final-redhat-4</version.jboss.bom.eap> -->
+
         <!-- JBoss dependency versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
@@ -50,14 +58,6 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
-
-        <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
-        <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-4 which is a release certified 
-            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
-            maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
 
     </properties>
 
@@ -73,9 +73,9 @@
             version of JUnit and TestNG recommended for use with Arquillian.
             see https://github.com/jboss/jboss-bom/tree/master/jboss-javaee-6.0-with-tools -->
             <dependency>
-                <groupId>org.jboss.bom</groupId>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
