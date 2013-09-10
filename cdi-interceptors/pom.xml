@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-cdi-interceptors</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-interceptors</name>
     <description>JBoss EAP Quickstart: CDI-Interceptors</description>
@@ -49,7 +49,7 @@
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import. -->
-        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+        <version.jboss.bom.eap>1.0.7.Final</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -72,7 +72,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -85,7 +85,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

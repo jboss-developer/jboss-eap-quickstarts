@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-payment-cdi-event</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: payment-cdi-event</name>
     <description>JBoss EAP Quickstart: CDI Event</description>
@@ -47,12 +47,12 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+        <version.jboss.bom.eap>1.0.7.Final</version.jboss.bom.eap>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
+        <!-- <version.jboss.bom.eap>1.0.4.Final-redhat-4</version.jboss.bom.eap> -->
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
         <!-- Alternatively, comment out the above line, and un-comment the 
@@ -89,7 +89,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
