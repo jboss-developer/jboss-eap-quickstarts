@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-deltaspike-exception-handling</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-exception-handling</name>
     <description>DeltaSpike Exception Handling: Exception being handled by different handlers and purpose</description>

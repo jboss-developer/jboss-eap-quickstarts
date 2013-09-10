@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.sandbox</groupId>
     <artifactId>jboss-as-kitchensink-angularjs-topcoat</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1</version>
     <packaging>war</packaging>
     <name>JBoss Sandbox Quickstart: kitchensink-angularjs-topcoat</name>
     <description>A starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6, generated from the jboss-javaee6-webapp archetype, using AngularJS and Topcoat for the view</description>

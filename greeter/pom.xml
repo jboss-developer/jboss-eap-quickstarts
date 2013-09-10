@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-greeter</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: greeter</name>
     <description>JBoss EAP Quickstart: Greeter</description>

@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-kitchensink-backbone</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: kitchensink-backbone</name>
     <description>A Backbone.js and Java EE 6 HTML5 mobile web application for use with JBoss.</description>
