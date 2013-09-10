@@ -22,7 +22,7 @@
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-as-kitchensink-spring-basic</artifactId>
     <packaging>war</packaging>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>2.4.0-redhat-SNAPSHOT</version>
     <name>JBoss WFK Quickstart: kitchensink-spring-basic</name>
     <description>Getting Started with Spring on JBoss</description>
 

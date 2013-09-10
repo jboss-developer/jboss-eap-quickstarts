@@ -22,7 +22,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-cdi-veto</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-veto</name>
     <description>CDI Veto: An example of a Portable Extension and some of the APIs / SPIs of CDI demonstrating veto</description>

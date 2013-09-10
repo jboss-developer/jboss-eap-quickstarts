@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-cmt</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1</version>
     <name>JBoss EAP Quickstart: cmt</name>
     <description>CMT: Using transactions managed by the container</description>
     <packaging>war</packaging>

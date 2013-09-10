@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-ejb-throws-exception</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-1</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-throws-exception</name>
     <description>JBoss EAP Quickstart: EJB throws exception, caught by web layer</description>
