@@ -51,12 +51,24 @@ Modify the CLI Scripts (if you are running JBoss Enterprise Application Platform
 
 The CLI scripts provided with this quickstart target JBoss Enterprise Application Platform 6.1. If you are running older versions of the server, JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, you must modify the scripts to work against these servers.
 
+**Modify the Install-Domain Script:**
+
 1. Open the `install-domain.cli` file located in the root of this quickstart folder for editing.
 2. Find the lines that contain the following text:
 
         *** NOTE: If you are running JBoss
 3. Follow the _Note_ instructions to comment or uncomment the lines in the file.
 4. Save the file.
+
+**Modify the Remove-Configuration Script:**
+
+1. Open the `remove-configuration.cli` file located in the root of this quickstart folder for editing.
+2. Find the lines that contain the following text:
+
+        *** NOTE: If you are running JBoss
+3. Follow the _Note_ instructions to comment or uncomment the lines in the file.
+4. Save the file.
+
 
 
 Back Up the JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 Server Configuration Files
@@ -80,7 +92,11 @@ Start JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 Server
 2. Open a command line and navigate to the root of the server directory. Start the server using the following command:
 
         bin/domain.sh    
-3. Open a new command line, navigate to the root directory of this quickstart, and run the following command:
+
+Configure the JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 Server
+---------------------------
+
+   Open a new command line, navigate to the root directory of this quickstart, and run the following command:
  
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
         
@@ -227,14 +243,24 @@ Undeploy the Archives
 Remove the Server Domain Configuration
 --------------------
 
-You can remove the domain configuration by manually restoring the back-up copies the configuration files. 
+You can remove the domain configuration by manually restoring the back-up copies the configuration files or by running the JBoss CLI Script. 
 
 ### Remove the Server Domain Configuration Manually           
 1. If it is running, stop the JBoss Enterprise Application Platform 6.x or JBoss AS 7.1 server.
 2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
 
+### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
+1. Start the JBoss Enterprise Application Platform 6.x Server by typing the following: 
 
+        For Linux:   JBOSS_HOME/bin/domain.sh
+        For Windows: JBOSS_HOME\bin\domain.bat
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.  Again, if you are running older versions of the server, JBoss Enterprise Application Platform 6.0 or JBoss AS 7.1, you must modify the scripts to work against these servers.
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
+This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
+
+        The batch executed successfully.
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
