@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-ejb-multi-server</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server</name>
     <description>ejb-multi-server: An example that demonstrates multiple applications deployed on different servers.
@@ -64,6 +64,9 @@
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
 
+    <!-- other versions -->
+        <version.jboss.ejb.client>1.0.10.Final</version.jboss.ejb.client>
+        
     <!-- other plugin versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
 

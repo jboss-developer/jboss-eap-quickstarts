@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-ejb-in-ear</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: ejb-in-ear</name>
     <description>JBoss EAP Quickstart: EJB and War in an Root pom</description>
     <packaging>pom</packaging>

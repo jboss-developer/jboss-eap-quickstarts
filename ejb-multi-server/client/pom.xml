@@ -35,7 +35,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-multi-server</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -99,7 +99,7 @@
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
-            <version>1.0.10.Final</version>
+            <version>${version.jboss.ejb.client}</version>
         </dependency>
     </dependencies>
 

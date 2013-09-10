@@ -22,7 +22,7 @@
     <parent>
         <artifactId>jboss-as-kitchensink-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <version>7.1.2-SNAPSHOT</version>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
     <artifactId>jboss-as-kitchensink-ear-ear</artifactId>

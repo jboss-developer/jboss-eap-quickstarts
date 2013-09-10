@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-as-ejb-throws-exception</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
     <artifactId>jboss-as-ejb-throws-exception-ejb-api</artifactId>

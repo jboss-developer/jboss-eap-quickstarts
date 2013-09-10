@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-cluster-ha-singleton</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: cluster-ha-singleton</name>
     <description>JBoss EAP Quickstart: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB</description>
