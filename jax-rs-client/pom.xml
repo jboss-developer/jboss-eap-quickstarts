@@ -37,7 +37,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <version.org.jboss.resteasy>2.3.6.Final-redhat-1</version.org.jboss.resteasy>
+        <version.org.jboss.resteasy>2.3.7.Final</version.org.jboss.resteasy>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <!-- <version.org.jboss.bom>1.0.4.Final</version.org.jboss.bom> -->
