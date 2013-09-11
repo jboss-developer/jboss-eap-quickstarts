@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-wsba-coordinator-completion-simple</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: wsba-coordinator-completion-simple</name>
     <description>JBoss EAP Quickstart: Simple WS-BA with Coordinator Driven Completion</description>
@@ -47,12 +47,12 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.Final</version.jboss.bom>
+        <version.jboss.bom.eap>6.2.0-redhat-1</version.jboss.bom.eap>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
+        <!-- <version.jboss.bom.eap>1.0.4.Final-redhat-4</version.jboss.bom.eap> -->
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -77,9 +77,9 @@
                 (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras 
                 tools for your project, such as Arquillian for testing) -->
             <dependency>
-                <groupId>org.jboss.bom</groupId>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -88,9 +88,9 @@
                 extra transactions APIS for your project, that are not included in the Java 
                 EE 6 API. -->
             <dependency>
-                <groupId>org.jboss.bom</groupId>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-transactions</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

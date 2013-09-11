@@ -23,7 +23,7 @@
     <name>JBoss EAP Quickstart: jax-rs-client</name>
     <description>jax-rs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
     <artifactId>jboss-as-jax-rs-client</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
 
 
     <url>http://jboss.org/jbossas</url>
@@ -46,12 +46,12 @@
         <!-- JBoss dependency versions -->
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
+        <version.jboss.bom.eap>1.0.7.CR8</version.jboss.bom.eap>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
+        <!-- <version.jboss.bom.eap>1.0.4.Final-redhat-4</version.jboss.bom.eap> -->
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
@@ -68,9 +68,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.bom</groupId>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

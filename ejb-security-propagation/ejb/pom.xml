@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-as-ejb-security-propagation-ejb</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-security-propagation - ejb</name>
     <description>JBoss AS Quickstarts: EJB Security Propagation - EJB</description>
