@@ -134,6 +134,7 @@ General Guidelines
 
 * If the quickstart persists to a database, you must use a unique datasource JNDI name and connection URL for the application and for any Arquillian tests that it provides. Do not use the JNDI name `java:jboss/datasources/ExampleDS`. Failure to use unique names can result in a `DuplicateServiceException` when more than one quickstart is deployed to the same server.
 
+* If possible, create a cheat sheet for the quickstart to guide users and developers through the example. See the [Quickstart Cheat Sheet Contributing Guide](#quickstart-cheat-sheet-contributing-guide) for more information.
 
 Kitchensink variants
 --------------------
@@ -281,3 +282,64 @@ License Information and Contributor Agreement
       See the License for the specific language governing permissions and
       limitations under the License.
       --%>
+      
+
+Quickstart Cheat Sheet Contributing Guide
+==============================
+
+
+Purpose of the Cheat Sheets
+--------------------------
+
+- Cheat sheets function as a tutorial and provide a step by step guide through a quickstart. 
+- They provide a way to step through and explain the code in an interactive way.
+- They can provide an in-depth analysis of specific sections of code.
+
+
+Basic Steps to Create a Cheat Sheet
+-----------
+
+You can create a cheat sheet using the Eclipse Wizard or you can copy and modify an existing cheat sheet from another quickstart. This section describes how to create a cheat sheet using the Eclipse wizard.
+
+_Note: Be sure your project folder is located outside of the Eclipse workspace before you begin this process._
+
+1.  Import your quickstart into JBoss Developer Studio (JDBS) .
+    1.  From the menu, choose `File` --> `Import` --> `Maven` --> `Existing Maven Projects`, then click `Next`.
+    2.  Navigate to your quickstart, select it, then click `OK`.
+    3.  Click `Finish`.
+2.  Create the cheat sheet.
+    1.  From the menu, choose `File` --> `New` --> `Other` --> `User Assistance` --> `Cheat Sheet`, then click `Next`.
+    2.  Select the quickstart folder, give it a name 'cheatsheet.xml', and choose `Simple Cheat Sheet`.
+    3. Click `Finish`.
+3.  Populate the cheatsheet with useful information to help a user understand the quickstart.
+    1.  Modify the title, for example: `helloworld`
+    2.  Add an introduction, for example: `This quickstart demonstrates the use of CDI 1.0 and Servlet 3.0. It is a simple application that can be used to verify the JBoss EAP server is configured and running correctly.`
+    3.  Add an `item` for each file or class you want to describe. 
+        *  This is dependent on the quickstart features you plan to demonstrate.
+        *  Provide a good description.
+        *  Add subitems to describe code sections and provide the line numbers that are referenced.
+5. Test your cheat sheet by opening it in JDBS.
+    1.  Go through each step and make sure the descriptions are valid.
+    2.  Click on each link to make sure it opens the file and highlights the correct lines of code.
+4. When you finish testing the cheat sheet, rename the file from `cheatsheet.xml` to `.cheatsheet.xml` and make sure it is located in the root directory of the quickstart.
+
+
+General Guidelines
+------------------
+
+* If your project folder is located in the Eclipse workspace when you generate your cheat sheet using the Eclipse wizard, it will generate an invalid project name and attempts to open source code will fail. Be sure your project folder is located outside the Eclipse workspace before you begin.
+* The cheat sheet should be created in the root of the quickstart directory and named `.cheatsheet.xml`. Eclipse will not let you name the file with a leading '.', so you will need to rename it after it is created.
+* Use the replaceable value `${currentProject}` to avoid hard-coding the project path. This ensures that if the quickstart folder is moved, the cheat sheet will work as expected.
+* Do not use the `<action>` tag if it can be avoided. It is more fragile than the `<command>` tag, which uses parameters names instead of indexes.
+* Try to highlight the most important features and code for the quickstart. Pay particular attention to areas that might confuse developers. Cheat sheets require that users execute or skip each step, so you don't want to bore developers with the code that has no impact on the purpose of the quickstart.
+
+Find Help
+------------------
+
+You can find additional help at the following locations:
+
+* [Eclipse Help: Cheat sheets](http://help.eclipse.org/kepler/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fua_cheatsheet.htm&resultof=%22cheat%22%20%22sheet%22%20)
+* [Recommended Work Flow for Cheat Sheet Development](http://www.eclipse.org/pde/pde-ui/articles/cheat_sheet_dev_workflow/)
+* [Max's cheat sheet example](https://github.com/maxandersen/cheatsheet-helloworld)
+
+
