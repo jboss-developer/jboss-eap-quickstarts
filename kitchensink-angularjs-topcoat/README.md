@@ -107,13 +107,13 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6.0` for quickstarts running on JBoss Enterprise Application Platform 6, or `jbossas-7` for quickstarts running on JBoss AS 7:
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform 6, or `jbossas-7` for quickstarts running on JBoss AS 7:
 
     rhc app create -a kitchensinkangularjstopcoat -t APPLICATION_TYPE
 
 _NOTE_: The domain name for this application will be `kitchensinkangularjstopcoat-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
-This command creates an OpenShift application called `kitchensinkangularjstopcoat` and will run the application inside the `jbosseap-6.0`  or `jbossas-7` container. You should see some output similar to the following:
+This command creates an OpenShift application called `kitchensinkangularjstopcoat` and will run the application inside the `jbosseap-6`  or `jbossas-7` container. You should see some output similar to the following:
 
         Application Options
         -------------------
