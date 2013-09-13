@@ -21,11 +21,11 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-shoppingcart-parent</artifactId>
+        <artifactId>jboss-shopping-cart-parent</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-shoppingcart-client</artifactId>
+    <artifactId>jboss-shopping-cart-client</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: shopping-cart - client</name>
 
@@ -42,7 +42,7 @@
         <!-- We depend on the server side EJBs of this application -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-shoppingcart-server</artifactId>
+            <artifactId>jboss-shopping-cart-server</artifactId>
         </dependency>
 
         <!-- JBoss EJB client stack. We use runtime scope because the EJB 

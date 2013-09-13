@@ -20,12 +20,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-as-kitchensink-ml-ear</artifactId>
+        <artifactId>jboss-kitchensink-ml-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-kitchensink-ml-ear-ejb</artifactId>
+    <artifactId>jboss-kitchensink-ml-ear-ejb</artifactId>
     <packaging>ejb</packaging>
 
     <name>JBoss EAP Quickstart: kitchensink-ml-ear - ejb</name>

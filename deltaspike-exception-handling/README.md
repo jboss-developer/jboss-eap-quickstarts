@@ -60,13 +60,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-ds-exception-handling.war` to the running instance of the server.
+4. This will deploy `target/jboss-deltaspike-exception-handling.war` to the running instance of the server.
  
 
 Access the application 
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-ds-exception-handling>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-deltaspike-exception-handling>
 
 You will be presented with a form that contains two buttons. One button throws the exception `MyException`. The other button throws the exception `MyOtherException`.
 

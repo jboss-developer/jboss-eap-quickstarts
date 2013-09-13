@@ -21,11 +21,11 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-wicket-ear-parent</artifactId>
+        <artifactId>jboss-wicket-ear-parent</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-wicket-ear-ejb</artifactId>
+    <artifactId>jboss-wicket-ear-ejb</artifactId>
     <packaging>ejb</packaging>
 
     <name>JBoss EAP Quickstart: wicket-ear - ejb</name>

@@ -59,7 +59,7 @@ Developers should be familiar with the concepts introduced in the following quic
 
 IMPORTANT: This quickstart depends on the deployment of the `jts` quickstart for its test. Before running this quickstart, see the [jts README](../jts/README.md) file for details on how to deploy it.
 
-You can verify the deployment of the `jts` quickstart by accessing the following URL:  <http://localhost:8080/jboss-as-jts-application-component-1/>.
+You can verify the deployment of the `jts` quickstart by accessing the following URL:  <http://localhost:8080/jboss-jts-application-component-1/>.
 
 
 Clear the Transaction ObjectStore
@@ -106,7 +106,7 @@ Test the Application
         Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
         Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
 
-4. Access the application at the following URL: <http://localhost:8080/jboss-as-jts-application-component-1/>
+4. Access the application at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>
     * When you enter a name and click to "add" that customer, you will see the following in the application server 1 console:
 
             15:46:55,070 INFO  [org.jboss.ejb.client] (http-localhost-127.0.0.1-8080-1) JBoss EJB Client version 1.0.0.Beta12
@@ -264,6 +264,6 @@ Test the Application
                                 `-- ArjunaTransactionImple
                                     `-- ServerTransaction
 
-7. After recovery is complete, access the application URL <http://localhost:8080/jboss-as-jts-application-component-1/customers.jsf>. The user you created should now appear in the list.
+7. After recovery is complete, access the application URL <http://localhost:8080/jboss-jts-application-component-1/customers.jsf>. The user you created should now appear in the list.
 
 8. Do NOT forget to [disable the Byteman script](../README.md#disable-the-byteman-script) by restoring the backup server configuration file. The Byteman rule must be removed to ensure that your application server will be able to commit 2PC transactions!

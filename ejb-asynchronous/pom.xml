@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-ejb-asynchronous</artifactId>
+    <artifactId>jboss-ejb-asynchronous</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-asynchronous</name>
@@ -105,7 +105,7 @@
                 ejb jar -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-ejb-asynchronous-ejb</artifactId>
+                <artifactId>jboss-ejb-asynchronous-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb-client</type>
             </dependency>

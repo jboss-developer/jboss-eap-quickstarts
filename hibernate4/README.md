@@ -80,13 +80,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-hibernate4.war` to the running instance of the server.
+4. This will deploy `target/jboss-hibernate4.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-hibernate4/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-hibernate4/>.
 
 
 Undeploy the Archive

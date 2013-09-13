@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-greeter-spring</artifactId>
+    <artifactId>jboss-greeter-spring</artifactId>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: greeter-spring</name>

@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-bmt</artifactId>
+    <artifactId>jboss-bmt</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: bmt</name>

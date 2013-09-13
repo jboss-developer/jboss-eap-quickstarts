@@ -17,12 +17,12 @@ This quickstart is based on the `ejb-security-interceptors` and `servlet-securit
 * The security context authenticated on the first server is propagated to the second server. 
 * The security domain on both servers uses the same database login module.
 
-The web application `jboss-as-ejb-security-propagation-web` is deployed to `server-one`. It has two servlets:
+The web application `jboss-ejb-security-propagation-web` is deployed to `server-one`. It has two servlets:
 
 1. HelloServlet: An unsecured servlet that makes a remote EJB call to the unsecured `HelloEJB`/
 2. SecuredEJBServlet: A protected servlet that makes a remote EJB call to `SecuredEJB`, protected with the same security domains as `SecuredEJBServlet`.
 
-The `jboss-as-ejb-security-propagation-ejb` EJB is deployed to `server-two`.
+The `jboss-ejb-security-propagation-ejb` EJB is deployed to `server-two`.
 
 The root `pom.xml` builds each of the subprojects in an appropriate order.
 
@@ -321,7 +321,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 3. Type the following command to copy the interceptor JAR to the server's `module/` directory structure, replacing JBOSS_HOME with the path to your server:
 
-        cp interceptor-module/target/jboss-as-ejb-security-propagation-interceptor.jar JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb/security/propagation/main
+        cp interceptor-module/target/jboss-ejb-security-propagation-interceptor.jar JBOSS_HOME/modules/system/layers/base/org/jboss/as/quickstarts/ejb/security/propagation/main
 
 4. If JBoss is running, restart it, so the module can be loaded.
 
@@ -341,8 +341,8 @@ Deploy the Quickstart
 1. Open a command line and navigate to the to the root directory of this quickstart.
 2. Type the following commands to deploy the quickstart, replacing JBOSS_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-as-propagation-ejb.jar  --server-groups=other-server-group"
-        JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-as-ejb-security-propagation-web.war --server-groups=main-server-group"
+        JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-ejb-propagation-ejb.jar  --server-groups=other-server-group"
+        JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-ejb-security-propagation-web.war --server-groups=main-server-group"
 
 Access the application
 ---------------------
@@ -353,7 +353,7 @@ Access the application
 
 2. When you deploy EJB it shows the JNDI names for HelloEJB and SecuredEJB.
 
-3. Access the application at the following URL: <http://localhost:8080/jboss-as-ejb-security-propagation-web/hello>
+3. Access the application at the following URL: <http://localhost:8080/jboss-ejb-security-propagation-web/hello>
 
     It displays a message "Successfully called Hello EJB", showing the remote access is working. This is a non-protected servlet that calls a non-protected EJB. The response is:
 
@@ -368,7 +368,7 @@ Access the application
         [Server:server-one] >>>>>>>>>>>> principal: null
         [Server:server-two]  ==> EJB principal: anonymous
 
-4. Now access the application at the following URL: <http://localhost:8080/jboss-as-ejb-security-propagation-web/secure_ejb>
+4. Now access the application at the following URL: <http://localhost:8080/jboss-ejb-security-propagation-web/secure_ejb>
 
    This time, it prompts for a user and password. Enter:
 
@@ -402,7 +402,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive, replacing JBOSS_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-ejb-security-propagation-web.war --all-relevant-server-groups "
+        JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-ejb-security-propagation-web.war --all-relevant-server-groups "
         JBOSS_HOME/bin/jboss-cli.sh --connect --command="undeploy jboss-as-propagation-ejb.jar --all-relevant-server-groups "
 
 

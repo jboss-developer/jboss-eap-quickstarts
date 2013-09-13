@@ -21,7 +21,7 @@ Contributor: This is where you provide an overview of what the quickstart demons
  * What are the technologies demonstrated by the quickstart?
  * What does it do when you run it?
 
-You should include any information that would help the user understand the quickstart.  
+You should include any information that would help the user understand the quickstart.
 
 If possible, give an overview, including any code they should look at to understand how it works..
 
@@ -88,7 +88,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-QUICKSTART_NAME.war` (or `target/jboss-as-QUICKSTART_NAME.ear`) to the running instance of the server.
+4. This will deploy `target/jboss-QUICKSTART_NAME.war` (or `target/jboss-QUICKSTART_NAME.ear`) to the running instance of the server.
  
 Contributor: Be sure to replace the QUICKSTART_NAME. If this quickstart requires different or additional instructions, be sure to modify or add those instructions here.
 
@@ -98,7 +98,7 @@ Access the application (For quickstarts that have a UI component)
 
 Contributor: Provide the URL to access the running application. Be sure to make the URL a hyperlink as below, substituting the your quickstart name for the QUICKSTART_NAME. 
 
-        Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-QUICKSTART_NAME>
+        Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-QUICKSTART_NAME>
 
 
 Contributor: Briefly describe what you will see when you access the application. For example: 

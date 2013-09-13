@@ -18,7 +18,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-petclinic-spring</artifactId>
+    <artifactId>jboss-petclinic-spring</artifactId>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: petclinic-spring</name>

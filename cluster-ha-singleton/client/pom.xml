@@ -19,11 +19,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-cluster-ha-singleton-client</artifactId>
+    <artifactId>jboss-cluster-ha-singleton-client</artifactId>
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-cluster-ha-singleton</artifactId>
+        <artifactId>jboss-cluster-ha-singleton</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
@@ -41,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-cluster-ha-singleton-service</artifactId>
+            <artifactId>jboss-cluster-ha-singleton-service</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>

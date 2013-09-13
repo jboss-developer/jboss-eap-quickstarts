@@ -53,7 +53,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-helloworld-mdb.war` to the running instance of the server. Look at the JBoss Application Server console or Server log and you should see log messages corresponding to the deployment of the message-driven beans and the JMS destinations:
+4. This will deploy `target/jboss-helloworld-mdb.war` to the running instance of the server. Look at the JBoss Application Server console or Server log and you should see log messages corresponding to the deployment of the message-driven beans and the JMS destinations:
 
         14:11:01,020 INFO org.hornetq.core.server.impl.HornetQServerImpl trying to deploy queue jms.queue.HELLOWORLDMDBQueue
         14:11:01,029 INFO org.jboss.as.messaging JBAS011601: Bound messaging object to jndi name java:/queue/HELLOWORLDMDBQueue
@@ -65,9 +65,9 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-helloworld-mdb/> and will send some messages to the queue.
+The application will be running at the following URL: <http://localhost:8080/jboss-helloworld-mdb/> and will send some messages to the queue.
 
-To send messages to the topic, use the following URL: <http://localhost:8080/jboss-as-helloworld-mdb/HelloWorldMDBServletClient?topic>
+To send messages to the topic, use the following URL: <http://localhost:8080/jboss-helloworld-mdb/HelloWorldMDBServletClient?topic>
 
 Investigate the Server Console Output
 -------------------------

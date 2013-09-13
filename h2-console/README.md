@@ -34,7 +34,7 @@ Prerequisites
 
 This quickstart depends on the deployment of the 'greeter' quickstart. Before running this quickstart, see the [greeter README](../greeter/README.md) file for details on how to deploy it.
 
-You can verify the deployment of the `greeter` quickstart by accessing the following URL: <http://localhost:8080/jboss-as-greeter> 
+You can verify the deployment of the `greeter` quickstart by accessing the following URL: <http://localhost:8080/jboss-greeter> 
 
 Note: Unlike most of the quickstarts, this one requires JBoss AS 7.1.x or later.
 

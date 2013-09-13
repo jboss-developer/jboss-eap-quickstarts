@@ -20,12 +20,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-as-kitchensink-ml-ear</artifactId>
+        <artifactId>jboss-kitchensink-ml-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-kitchensink-ml-ear-ear</artifactId>
+    <artifactId>jboss-kitchensink-ml-ear-ear</artifactId>
     <packaging>ear</packaging>
 
     <name>JBoss EAP Quickstart: kitchensink-ml-ear - ear</name>
@@ -44,12 +44,12 @@
         <!-- Depend on the ejb module and war so that we can package them -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-kitchensink-ml-ear-web</artifactId>
+            <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-kitchensink-ml-ear-ejb</artifactId>
+            <artifactId>jboss-kitchensink-ml-ear-ejb</artifactId>
             <type>ejb</type>
         </dependency>
     </dependencies>
@@ -69,14 +69,14 @@
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
-                        <!-- Default context root of the web app is /jboss-as-kitchensink-ml-ear-web. 
+                        <!-- Default context root of the web app is /jboss-kitchensink-ml-ear-web. 
                         If a custom context root is needed, uncomment the following snippet to
                         register our War as a web module and set the contextRoot property -->
                         <!--
                         <webModule>
                             <groupId>org.jboss.quickstarts.eap</groupId>
-                            <artifactId>jboss-as-kitchensink-ml-ear-web</artifactId>
-                            <contextRoot>/jboss-as-kitchensink-ml-ear</contextRoot>
+                            <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
+                            <contextRoot>/jboss-kitchensink-ml-ear</contextRoot>
                         </webModule>
                         -->
                     </modules>

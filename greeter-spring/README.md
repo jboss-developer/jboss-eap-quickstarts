@@ -70,7 +70,7 @@ If you don't have maven configured you can manually copy target/greeter-spring.w
 Access the application
 ----------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-greeter-spring>
+The application will be running at the following URL: <http://localhost:8080/jboss-greeter-spring>
 
 Undeploy the Archive
 ---------------------

@@ -304,7 +304,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 		mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-ejb-security-interceptors.jar` to the running instance of the server.
+4. This will deploy `target/jboss-ejb-security-interceptors.jar` to the running instance of the server.
 
 
 Run the client

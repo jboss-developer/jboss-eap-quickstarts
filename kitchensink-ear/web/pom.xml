@@ -20,12 +20,12 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <artifactId>jboss-as-kitchensink-ear</artifactId>
+      <artifactId>jboss-kitchensink-ear</artifactId>
       <groupId>org.jboss.quickstarts.eap</groupId>
       <version>6.2.0-redhat-SNAPSHOT</version>
    </parent>
 
-   <artifactId>jboss-as-kitchensink-ear-web</artifactId>
+   <artifactId>jboss-kitchensink-ear-web</artifactId>
    <packaging>war</packaging>
 
    <name>JBoss EAP Quickstart: kitchensink-ear - web</name>
@@ -44,7 +44,7 @@
       <!-- Dependency on the EJB module so we can use it's services if needed -->
       <dependency>
          <groupId>org.jboss.quickstarts.eap</groupId>
-         <artifactId>jboss-as-kitchensink-ear-ejb</artifactId>
+         <artifactId>jboss-kitchensink-ear-ejb</artifactId>
          <type>ejb</type>
          <scope>provided</scope>
       </dependency>

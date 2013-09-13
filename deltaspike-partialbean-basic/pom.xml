@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-deltaspike-partialbean-basic</artifactId>
+    <artifactId>jboss-deltaspike-partialbean-basic</artifactId>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-partialbean-basic</name>

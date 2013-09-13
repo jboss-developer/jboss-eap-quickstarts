@@ -13,7 +13,7 @@ What is it?
 This example demonstrates the use of *CDI 1.0* and *JAX-RS* in *JBoss AS 7* or *JBoss Enterprise Application Platform 6* with a GWT front-end client.
 GWT is basically a typesafe, statically checked programming model for producing HTML5+CSS3+JavaScript front-ends. In this example, we use RESTful services on the backend.
 
-You can test the REST endpoint at the URL http://localhost:8080/jboss-as-helloworld-gwt/hello/json/David
+You can test the REST endpoint at the URL http://localhost:8080/jboss-helloworld-gwt/hello/json/David
 
 System requirements
 -------------------
@@ -50,13 +50,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-helloworld-gwt.war` to the running instance of the server.
+4. This will deploy `target/jboss-helloworld-gwt.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL:  <http://localhost:8080/jboss-as-helloworld-gwt/>.
+The application will be running at the following URL:  <http://localhost:8080/jboss-helloworld-gwt/>.
 
 
 Undeploy the Archive

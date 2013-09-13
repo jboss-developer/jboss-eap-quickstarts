@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>jboss-as-jts-application-component-2</artifactId>
+    <artifactId>jboss-jts-application-component-2</artifactId>
     <name>JBoss EAP Quickstart: jts - application-component-2</name>
     <description>Using CMT with JTS</description>
     <packaging>jar</packaging>
@@ -26,7 +26,7 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-jts-parent</artifactId>
+        <artifactId>jboss-jts-parent</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 

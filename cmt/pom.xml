@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-cmt</artifactId>
+    <artifactId>jboss-cmt</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: cmt</name>
     <description>CMT: Using transactions managed by the container</description>

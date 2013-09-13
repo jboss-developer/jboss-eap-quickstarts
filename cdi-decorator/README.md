@@ -57,7 +57,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-cdi-decorator>.
+The application will be running at the following URL <http://localhost:8080/jboss-cdi-decorator>.
 
 You can specify decorator of the bean in the WEB-INF/beans.xml file by doing one of the following:
 

@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-inter-app-parent</artifactId>
+    <artifactId>jboss-inter-app-parent</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: inter-app</name>
@@ -92,7 +92,7 @@
                 reference it in both appA and appB easily -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-inter-app-shared</artifactId>
+                <artifactId>jboss-inter-app-shared</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

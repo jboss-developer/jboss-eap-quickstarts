@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-helloworld-mbean</artifactId>
+        <artifactId>jboss-helloworld-mbean</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-as-helloworld-mbean-service</artifactId>
+    <artifactId>jboss-helloworld-mbean-service</artifactId>
     <packaging>jboss-sar</packaging>
 
     <name>JBoss EAP Quickstart: helloworld-mbean - helloworld-mbean-service</name>

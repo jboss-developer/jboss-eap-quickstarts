@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-kitchensink-html5-mobile</artifactId>
+    <artifactId>jboss-kitchensink-html5-mobile</artifactId>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
 

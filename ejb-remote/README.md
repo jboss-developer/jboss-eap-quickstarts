@@ -68,7 +68,7 @@ Since this quickstart builds two separate components, you can not use the standa
         For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
             mvn clean install        
-    * Deploy the EJB JAR to your server. This maven goal will deploy `server-side/target/jboss-as-ejb-remote-app.jar`. You can check the JBoss server console to see information messages regarding the deployment.
+    * Deploy the EJB JAR to your server. This maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss server console to see information messages regarding the deployment.
 
             mvn jboss-as:deploy
 4. Build and run the client application
@@ -149,7 +149,7 @@ The remote client application can also be built as a standalone executable JAR w
       
 4. You can then run the executable JAR using `java -jar`:
       
-        java -jar target/jboss-as-quickstarts-ejb-remote-client-7.0.2-SNAPSHOT-jar-with-dependencies.jar
+        java -jar target/jboss-ejb-remote-client-with-dependencies.jar
 
 
 Undeploy the Archive

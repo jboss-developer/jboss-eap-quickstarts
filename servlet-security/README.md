@@ -150,12 +150,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-servlet-security.war` to the running instance of the server.
+4. This will deploy `target/jboss-servlet-security.war` to the running instance of the server.
 
 Access the Application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-servlet-security/>.
+The application will be running at the following URL <http://localhost:8080/jboss-servlet-security/>.
 
 When you access the application, you should get a browser login challenge. 
 

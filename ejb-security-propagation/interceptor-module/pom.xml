@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-ejb-security-propagation-interceptor</artifactId>
+    <artifactId>jboss-ejb-security-propagation-interceptor</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: ejb-security-propagation - interceptor-module</name>

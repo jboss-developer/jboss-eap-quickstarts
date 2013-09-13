@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-shoppingcart-parent</artifactId>
+    <artifactId>jboss-shopping-cart-parent</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: shopping-cart</name>
@@ -94,7 +94,7 @@
             <!-- We depend on the server side EJBs of this application -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-shoppingcart-server</artifactId>
+                <artifactId>jboss-shopping-cart-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             

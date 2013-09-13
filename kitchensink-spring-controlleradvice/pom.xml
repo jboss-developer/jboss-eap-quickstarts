@@ -20,7 +20,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-kitchensink-spring-controlleradvice</artifactId>
+    <artifactId>jboss-kitchensink-spring-controlleradvice</artifactId>
     <packaging>war</packaging>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <name>JBoss WFK Quickstart: kitchensink-spring-controlleradvice</name>

@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-cdi-portable-extension</artifactId>
+    <artifactId>jboss-cdi-portable-extension</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-portable-extension</name>

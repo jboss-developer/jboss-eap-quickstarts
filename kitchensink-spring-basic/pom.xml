@@ -20,7 +20,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-kitchensink-spring-basic</artifactId>
+    <artifactId>jboss-kitchensink-spring-basic</artifactId>
     <packaging>war</packaging>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <name>JBoss WFK Quickstart: kitchensink-spring-basic</name>
