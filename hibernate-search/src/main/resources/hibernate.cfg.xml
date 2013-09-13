@@ -23,12 +23,18 @@
 
 		<property name="hibernate.search.default.directory_provider">infinispan</property>
 		<property name="hibernate.search.lucene_version">LUCENE_35</property>
+		
 		<!-- <property name="hibernate.search.infinispan.configuration_resourcename">
 			${infinispan.configuration_resourcename}
 		</property> -->
+		
+		
 		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
 		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
- 	    <property name="hibernate.cache.infinispan.cachemanager">jboss-as-hibernate-search</property> 
+ 	    <!-- <property name="hibernate.cache.infinispan.cachemanager">jboss-as-hibernate-search</property> -->
+ 	    
+ 	    <property name="hibernate.cache.infinispan.cachemanager">local-remote</property>
+ 	     
         <property name="hibernate.search.infinispan.chunk_size">40960</property>
         <property name="hibernate.search.default.exclusive_index_use">false</property>
 		

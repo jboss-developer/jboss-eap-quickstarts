@@ -59,6 +59,8 @@
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<maven.compiler.source>1.6</maven.compiler.source>
+		
+		<infinispan.version>5.3.0.Beta1</infinispan.version>
 	</properties>
 
 	<dependencyManagement>
@@ -228,11 +230,15 @@
 			<version>4.1.1.Final</version>
 		</dependency>
 
-
+		<dependency>
+           <groupId>org.infinispan</groupId>
+           <artifactId>infinispan-core</artifactId>
+           <version>${infinispan.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-lucene-directory</artifactId>
-			<version>5.3.0.Beta1</version>
+			<version>${infinispan.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -316,7 +322,8 @@
 				<connection.username>tharindudb</connection.username>
 				<connection.password>postgres</connection.password>
 				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
-				<infinispan.configuration_resourcename>lucene-demo-cache-config.xml</infinispan.configuration_resourcename>
+				<!-- <infinispan.configuration_resourcename>lucene-demo-cache-config.xml</infinispan.configuration_resourcename> -->
+				<infinispan.configuration_resourcename>remote-infinispan-configs.xml</infinispan.configuration_resourcename>
 				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
 			</properties>
 			<build>
