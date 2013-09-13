@@ -90,13 +90,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-jta-crash-rec.war` to the running instance of the server.
+4. This will deploy `target/jboss-jta-crash-rec.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-jta-crash-rec/XA>. 
+The application will be running at the following URL: <http://localhost:8080/jboss-jta-crash-rec/XA>. 
 
 
 Test the application
@@ -120,7 +120,7 @@ Test the application
             For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byteman.jar=script:C:\PATH_TO_QUICKSTARTS\jta-crash-rec\src\main\scripts\xa.btm %JAVA_OPTS%
     * [Start the JBoss server](#start-the-jboss-server) as instructed above.
 
-5. Once you complete step 4, you are ready to create a _recovery record_. Go to the application URL <http://localhost:8080/jboss-as-jta-crash-rec/XA> and insert another row into the database. At this point, Byteman halts the application server. 
+5. Once you complete step 4, you are ready to create a _recovery record_. Go to the application URL <http://localhost:8080/jboss-jta-crash-rec/XA> and insert another row into the database. At this point, Byteman halts the application server. 
 
 6. If you want to verify the database insert was committed but that message delivery is still pending, you can use an SQL client such as the H2 database console tool. Issue a query to show that the value is present but does not contain the message added by the consumer (*" updated via JMS"*). Here is how you can do it using H2:
     * Start the H2 console by typing:

@@ -57,12 +57,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `helloworld-mbean-webapp\target\jboss-as-helloworld-mbean-webapp.war` and `helloworld-mbean-service\target\jboss-as-helloworld-mbean-service.sar` to the running instance of the server.
+4. This will deploy `helloworld-mbean-webapp\target\jboss-helloworld-mbean-webapp.war` and `helloworld-mbean-service\target\jboss-helloworld-mbean-service.sar` to the running instance of the server.
 
 
 Access and Test the MBeans  
 --------------------------
-This quickstart differs from the other quickstarts in that it uses 'JConsole' to access and test the quickstart rather than access an URL in the browser. If you do access http://localhost:8080/jboss-as-helloworld-mbean-webapp/, you will see a screen shot image of the JConsole application,
+This quickstart differs from the other quickstarts in that it uses 'JConsole' to access and test the quickstart rather than access an URL in the browser. If you do access http://localhost:8080/jboss-helloworld-mbean-webapp/, you will see a screen shot image of the JConsole application,
 
 The following sections describe how to use 'JConsole' to inspect and test the MBeans. 
 

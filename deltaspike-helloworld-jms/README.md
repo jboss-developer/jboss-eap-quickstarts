@@ -122,12 +122,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-deltaspike-helloworld-jms.war` to the running instance of the server.
+4. This will deploy `target/jboss-deltaspike-helloworld-jms.war` to the running instance of the server.
 
 Access the application
 ----------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-deltaspike-helloworld-jms/>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-deltaspike-helloworld-jms/>
 
 1. You are presented with a simple form that has some values already filled.
 2. Click on `Send Messages` button.

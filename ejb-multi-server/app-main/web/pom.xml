@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-ejb-multi-server-app-main</artifactId>
+        <artifactId>jboss-ejb-multi-server-app-main</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
     <licenses>
@@ -31,7 +31,7 @@
         </license>
     </licenses>
 
-    <artifactId>jboss-as-ejb-multi-server-app-main-web</artifactId>
+    <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
 
     <name>JBoss EAP Quickstart: ejb-multi-server - app-main - web</name>
     <url>http://maven.apache.org</url>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
-        jboss-as-ejb-multi-server-app-main-ejb
+        jboss-ejb-multi-server-app-main-ejb
       </artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
-        jboss-as-ejb-multi-server-app-one-ejb
+        jboss-ejb-multi-server-app-one-ejb
       </artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>
-        jboss-as-ejb-multi-server-app-two-ejb
+        jboss-ejb-multi-server-app-two-ejb
       </artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>

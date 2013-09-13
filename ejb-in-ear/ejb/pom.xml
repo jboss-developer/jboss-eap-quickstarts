@@ -25,12 +25,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-as-ejb-in-ear</artifactId>
+        <artifactId>jboss-ejb-in-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
+    <artifactId>jboss-ejb-in-ear-ejb</artifactId>
     <name>JBoss EAP Quickstart: ejb-in-ear - ejb</name>
     <description>JBoss EAP Quickstart: EJB and War in an Ear - EJB</description>
 

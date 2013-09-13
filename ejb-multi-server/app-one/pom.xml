@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-ejb-multi-server-app-one</artifactId>
+    <artifactId>jboss-ejb-multi-server-app-one</artifactId>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-one</name>
     <description>ejb-multi-server: Application one for the scenario</description>
     <packaging>pom</packaging>
@@ -34,7 +34,7 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-ejb-multi-server</artifactId>
+        <artifactId>jboss-ejb-multi-server</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 

@@ -54,13 +54,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-cdi-stereotype.war` to the running instance of the server.
+4. This will deploy `target/jboss-cdi-stereotype.war` to the running instance of the server.
  
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-cdi-stereotype>
+The application will be running at the following URL <http://localhost:8080/jboss-cdi-stereotype>
 
 You can now comment out classes in the WEB-INF/beans.xlm file to disable one or both of the interceptors or alternative stereotype and view the results.
 

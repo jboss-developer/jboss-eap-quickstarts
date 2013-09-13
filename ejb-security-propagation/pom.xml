@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-ejb-security-propagation-parent</artifactId>
+    <artifactId>jboss-ejb-security-propagation-parent</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts: Parent for EJB Security propagation</name>

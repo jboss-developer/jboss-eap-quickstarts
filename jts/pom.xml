@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-jts-parent</artifactId>
+    <artifactId>jboss-jts-parent</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: jts</name>
     <description>Using CMT with JTS</description>
@@ -85,7 +85,7 @@
             <!-- Client stub for the application-component-2 -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-jts-application-component-2</artifactId>
+                <artifactId>jboss-jts-application-component-2</artifactId>
                 <version>${project.version}</version>
                 <classifier>client</classifier>
             </dependency>

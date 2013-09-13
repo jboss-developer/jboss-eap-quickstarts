@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-ejb-in-ear</artifactId>
+    <artifactId>jboss-ejb-in-ear</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: ejb-in-ear</name>
     <description>JBoss EAP Quickstart: EJB and War in an Root pom</description>
@@ -81,7 +81,7 @@
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
+                <artifactId>jboss-ejb-in-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
@@ -90,7 +90,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-ejb-in-ear-web</artifactId>
+                <artifactId>jboss-ejb-in-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

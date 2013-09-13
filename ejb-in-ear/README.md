@@ -66,14 +66,14 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-ejb-in-ear.ear` to the running instance of the server.
+4. This will deploy `target/jboss-ejb-in-ear.ear` to the running instance of the server.
 
  
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-in-ear>.
+The application will be running at the following URL <http://localhost:8080/jboss-ejb-in-ear>.
 
 Enter a name in the input field and click the _Greet_ button to see the response.
 

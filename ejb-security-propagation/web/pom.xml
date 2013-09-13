@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-ejb-security-propagation-web</artifactId>
+    <artifactId>jboss-ejb-security-propagation-web</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: ejb-security-propagation - web</name>
@@ -121,14 +121,14 @@
         
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-ejb-security-propagation-ejb</artifactId>
+            <artifactId>jboss-ejb-security-propagation-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
         
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-ejb-security-propagation-interceptor</artifactId>
+            <artifactId>jboss-ejb-security-propagation-interceptor</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

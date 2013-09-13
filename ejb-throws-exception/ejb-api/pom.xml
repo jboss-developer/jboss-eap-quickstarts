@@ -21,11 +21,11 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-ejb-throws-exception</artifactId>
+        <artifactId>jboss-ejb-throws-exception</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-ejb-throws-exception-ejb-api</artifactId>
+    <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
     <packaging>jar</packaging>
 
     <name>JBoss EAP Quickstart: ejb-throws-exception - ejb-api</name>

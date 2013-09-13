@@ -21,11 +21,11 @@
 
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-shoppingcart-parent</artifactId>
+        <artifactId>jboss-shopping-cart-parent</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-shoppingcart-server</artifactId>
+    <artifactId>jboss-shopping-cart-server</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: shopping-cart - server</name>
 

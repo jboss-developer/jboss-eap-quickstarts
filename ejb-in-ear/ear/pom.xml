@@ -25,12 +25,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-as-ejb-in-ear</artifactId>
+        <artifactId>jboss-ejb-in-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-ejb-in-ear-ear</artifactId>
+    <artifactId>jboss-ejb-in-ear-ear</artifactId>
     <packaging>ear</packaging>
 
     <name>JBoss EAP Quickstart: ejb-in-ear - ear</name>
@@ -48,12 +48,12 @@
         <!-- Dependencies on the ejb and web modules so that they can be found by the ear plugin -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-ejb-in-ear-web</artifactId>
+            <artifactId>jboss-ejb-in-ear-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
+            <artifactId>jboss-ejb-in-ear-ejb</artifactId>
             <type>ejb</type>
         </dependency>
     </dependencies>
@@ -75,13 +75,13 @@
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
-                    <!-- Default context root of the web app is /jboss-as-ejb-in-ear-web. 
+                    <!-- Default context root of the web app is /jboss-ejb-in-ear-web. 
                         If a custom context root is needed, uncomment the following snippet to
                         register our War as a web module and set the contextRoot property -->
                         <webModule>
                             <groupId>org.jboss.quickstarts.eap</groupId>
-                            <artifactId>jboss-as-ejb-in-ear-web</artifactId>
-                            <contextRoot>/jboss-as-ejb-in-ear</contextRoot>
+                            <artifactId>jboss-ejb-in-ear-web</artifactId>
+                            <contextRoot>/jboss-ejb-in-ear</contextRoot>
                         </webModule>
                     </modules>
                     <fileNameMapping>no-version</fileNameMapping>

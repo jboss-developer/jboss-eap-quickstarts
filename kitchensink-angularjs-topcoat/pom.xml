@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.sandbox</groupId>
-    <artifactId>jboss-as-kitchensink-angularjs-topcoat</artifactId>
+    <artifactId>jboss-kitchensink-angularjs-topcoat</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss Sandbox Quickstart: kitchensink-angularjs-topcoat</name>

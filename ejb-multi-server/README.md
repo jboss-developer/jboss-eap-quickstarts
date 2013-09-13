@@ -170,7 +170,7 @@ Also the client show how to invoke an EJB by using the scoped-context introduced
     
     The invocation of `appTwo` throws a  `java.lang.reflect.InvocationTargetException` since the secured method is called and there is no Role for the user defined.  You get a `BUILD FAILURE` and the client outputs the following information:
 
-        [ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:1.2.1:java (default-cli) on project jboss-as-ejb-multi-server-client: An exception occured while executing the Java class. null: InvocationTargetException: JBAS014502: Invocation on method: public abstract java.lang.String org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo.invokeSecured(java.lang.String) of bean: AppTwoBean is not allowed -> [Help 1]
+        [ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:1.2.1:java (default-cli) on project jboss-ejb-multi-server-client: An exception occured while executing the Java class. null: InvocationTargetException: JBAS014502: Invocation on method: public abstract java.lang.String org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo.invokeSecured(java.lang.String) of bean: AppTwoBean is not allowed -> [Help 1]
 
     Update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`. 
     * If you are running JBoss EAP 6.1, you can issue the following commmands. 
@@ -191,7 +191,7 @@ Also the client show how to invoke an EJB by using the scoped-context introduced
 
 5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace $JBOSS_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
-      java -cp $JBOSS_HOME/bin/client/jboss-client.jar:../../../ejb-multi-server/jboss-as-quickstart/ejb-multi-server/app-main/ejb/target/ejb-client.jar:../../../ejb-multi-server/jboss-as-quickstart/ejb-multi-server/app-two/ejb/target/ejb-client.jar:client/target/jboss-as-ejb-multi-server-client-7.1.2-SNAPSHOT.jar org.jboss.as.quickstarts.ejb.multi.server.Client
+      java -cp $JBOSS_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
 
 
 _NOTE:_

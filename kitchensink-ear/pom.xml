@@ -20,7 +20,7 @@
     <name>JBoss EAP Quickstart: kitchensink-ear</name>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-kitchensink-ear</artifactId>
+    <artifactId>jboss-kitchensink-ear</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -82,7 +82,7 @@
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-kitchensink-ear-ejb</artifactId>
+                <artifactId>jboss-kitchensink-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
@@ -91,7 +91,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-as-kitchensink-ear-web</artifactId>
+                <artifactId>jboss-kitchensink-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

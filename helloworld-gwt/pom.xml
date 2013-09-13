@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
-    <artifactId>jboss-as-helloworld-gwt</artifactId>
+    <artifactId>jboss-helloworld-gwt</artifactId>
     <version>2.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: helloworld-gwt</name>
@@ -170,7 +170,7 @@
                       mode) to not start the default server (embedded jetty), but to download the 
                       HTML host page from the configured runTarget. -->
                     <noServer>true</noServer>
-                    <runTarget>http://localhost:8080/jboss-as-helloworld-gwt/HelloWorldApp.html</runTarget>
+                    <runTarget>http://localhost:8080/jboss-helloworld-gwt/HelloWorldApp.html</runTarget>
                 </configuration>
                 <executions>
                     <execution>

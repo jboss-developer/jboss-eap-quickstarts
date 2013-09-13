@@ -47,13 +47,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-cdi-injection.war` to the running instance of the server.
+4. This will deploy `target/jboss-cdi-injection.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-cdi-injection/>.
+The application will be running at the following URL <http://localhost:8080/jboss-cdi-injection/>.
 
 
 Undeploy the Archive

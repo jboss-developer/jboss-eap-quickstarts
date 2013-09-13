@@ -61,13 +61,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-wicket-ear.ear` to the running instance of the server.
+4. This will deploy `target/jboss-wicket-ear.ear` to the running instance of the server.
 
 
 Access the application 
 ----------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-wicket-ear-war/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-wicket-ear-war/>.
 
  * You will see a page with a table listing the existing Contact entities. Initially, this table is empty.
  * Click on the _Insert a new Constact_ link to add a new contact.

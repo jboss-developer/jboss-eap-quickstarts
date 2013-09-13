@@ -24,7 +24,7 @@
         <relativePath/>
     </parent>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-as-quickstarts-dist</artifactId>
+    <artifactId>jboss-quickstarts-dist</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts Distribution</name>

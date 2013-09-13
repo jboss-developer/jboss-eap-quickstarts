@@ -61,13 +61,13 @@ complete instructions and additional options._
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-kitchensink-backbone.war` to the running instance of the server.
+4. This will deploy `target/jboss-kitchensink-backbone.war` to the running instance of the server.
 
 
 Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-kitchensink-backbone/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-kitchensink-backbone/>.
 
 
 Undeploy the Archive

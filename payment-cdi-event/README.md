@@ -73,13 +73,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-payment-cdi-event.war` to the running instance of the server.
+4. This will deploy `target/jboss-payment-cdi-event.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-payment-cdi-event/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-payment-cdi-event/>.
 
 
 Undeploy the Archive

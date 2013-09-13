@@ -17,9 +17,9 @@ CDI only provides intra-applicaion injection (i.e within a top level deployment,
 
 In all, the project has three modules:
 
-* `jboss-as-inter-app-shared.jar` - this module contains the interfaces which define the contract between the beans exposed by the wars. It is deployed as a module
-* `jboss-as-inter-app-A.war` - the first war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB
-* `jboss-as-inter-app-B.war` - the second war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA
+* `jboss-inter-app-shared.jar` - this module contains the interfaces which define the contract between the beans exposed by the wars. It is deployed as a module
+* `jboss-inter-app-A.war` - the first war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB
+* `jboss-inter-app-B.war` - the second war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA
 
 System requirements
 -------------------
@@ -54,7 +54,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `shared/target/jboss-as-inter-app-shared.jar`, `appA/target/jboss-as-inter-app-A.war` and `appB/target/jboss-as-inter-app-B.war` to the running instance of the server.
+4. This will deploy `shared/target/jboss-inter-app-shared.jar`, `appA/target/jboss-inter-app-A.war` and `appB/target/jboss-inter-app-B.war` to the running instance of the server.
 
 Access the application (For quickstarts that have a UI component)
 ---------------------
@@ -62,8 +62,8 @@ Access the application (For quickstarts that have a UI component)
 
 Access the running application in a browser at the following URLs:
 
-* <http://localhost:8080/jboss-as-inter-app-A>
-* <http://localhost:8080/jboss-as-inter-app-B>
+* <http://localhost:8080/jboss-inter-app-A>
+* <http://localhost:8080/jboss-inter-app-B>
 
 You are presented with a form that allows you to set the value on the bean in the other application, as well as display of the value on this application's bean. Enter a new value and press "Update and Send!" to update the value on the other application. Do the same on the other application, and hit the button again on the first application. You should see the values shared between the applications.
 

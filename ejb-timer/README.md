@@ -54,7 +54,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
 
-This will deploy `target/jboss-as-ejb-timer.war` to the running instance of the server.  
+This will deploy `target/jboss-ejb-timer.war` to the running instance of the server.  
 To undeploy, use
 
         mvn jboss-as:undeploy

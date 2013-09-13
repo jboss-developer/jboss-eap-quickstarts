@@ -19,14 +19,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-ejb-asynchronous-ejb</artifactId>
+    <artifactId>jboss-ejb-asynchronous-ejb</artifactId>
     <name>JBoss EAP Quickstart: ejb-asynchronous - ejb</name>
-    <description>jboss-as-ejb-asynchronous: The application jar with an asynchronous EJB and a second EJB to demonstrate how an EJB can be used asynchronous</description>
+    <description>jboss-ejb-asynchronous: The application jar with an asynchronous EJB and a second EJB to demonstrate how an EJB can be used asynchronous</description>
     <packaging>ejb</packaging>
     
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-as-ejb-asynchronous</artifactId>
+        <artifactId>jboss-ejb-asynchronous</artifactId>
         <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
