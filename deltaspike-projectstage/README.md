@@ -64,12 +64,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-deltaspike-projectstage.war` to the running instance of the server.
+4. This will deploy `target/jboss-deltaspike-projectstage.war` to the running instance of the server.
 
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-deltaspike-projectstage>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-deltaspike-projectstage>
 
 You be presented with a simple page that shows the current project stage: *Staging*. You will se also the *List of available CDI instances for MyBean* table with two available implementations.
 
@@ -77,7 +77,7 @@ Edit the file `src/main/resources/META-INF/apache-deltaspike.properties` and cha
 
         mvn clean package jboss-as:deploy
 
-Access the application again at the same URL:  <http://localhost:8080/jboss-as-deltaspike-projectstage>
+Access the application again at the same URL:  <http://localhost:8080/jboss-deltaspike-projectstage>
 
 Look at *List of available CDI instances for MyBean* table and realize that the available implementations has changed.
         

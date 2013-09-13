@@ -52,12 +52,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean package jboss-as:deploy
-4. This will deploy `target/jboss-as-deltaspike-beanmanagerprovider.war` to the running instance of the server.
+4. This will deploy `target/jboss-deltaspike-beanmanagerprovider.war` to the running instance of the server.
  
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-deltaspike-beanmanagerprovider>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-deltaspike-beanmanagerprovider>
 
 You are presented with a simple form to insert, edit, or remove contacts.
 
