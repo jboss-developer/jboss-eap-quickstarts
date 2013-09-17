@@ -25,8 +25,6 @@
         <relativePath />
     </parent>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <!-- groupId for WFK quickstarts:
-    <groupId>org.jboss.quickstarts.eap</groupId> -->
     
     <artifactId>jboss-as-quickstarts-parent</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
@@ -67,9 +65,6 @@
             maven repository. -->
         <!-- <version.jboss.bom.eap>1.0.4.Final-redhat-4</version.jboss.bom.eap> -->
 
-        <!-- Version of JBoss BOM for WFK:
-        <version.jboss.bom.wfk>2.4.0-redhat-1</version.jboss.bom.wfk>        -->
-
         <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0> 
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 3.0.2.Final-redhat-3 which is a release certified 
@@ -85,9 +80,7 @@
         <!-- This is used in the hibernate-3 quickstart and requires the Hibernate 3 libraries -->
         <!-- <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator> -->
         <version.org.hibernate.validator>3.1.0.GA</version.org.hibernate.validator>
-                
-        <version.org.richfaces>4.3.2.Final</version.org.richfaces>
-        
+                        
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
         <version.dom4j>1.6</version.dom4j>
@@ -189,7 +182,6 @@
                     Application Platform or JBoss AS -->
                 <module>bean-validation</module>
                 <module>bmt</module>
-                <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>
                 <module>cdi-interceptors</module>
@@ -197,15 +189,6 @@
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
-                <module>deltaspike-authorization</module>
-                <module>deltaspike-beanbuilder</module>
-                <module>deltaspike-beanmanagerprovider</module>
-                <module>deltaspike-deactivatable</module>
-                <module>deltaspike-exception-handling</module>
-                <module>deltaspike-helloworld-jms</module>
-                <module>deltaspike-partialbean-basic</module>
-                <module>deltaspike-partialbean-advanced</module>
-                <module>deltaspike-projectstage</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
@@ -217,11 +200,7 @@
                 <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
                 <module>greeter</module>
-                <module>greeter-spring</module>
                 <module>helloworld</module>
-                <module>helloworld-errai</module>
-                <module>helloworld-gwt</module>
-                <module>helloworld-html5</module>
                 <module>helloworld-jms</module>
                 <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
@@ -233,36 +212,21 @@
                 <module>hibernate4</module>
                 <module>jdg-quickstarts</module>
                 <module>kitchensink</module>
-                <module>kitchensink-angularjs</module>
-                <module>kitchensink-angularjs-topcoat</module>
-                <module>kitchensink-backbone</module>
-                <module>kitchensink-deltaspike</module>
                 <module>kitchensink-ear</module>
-                <module>kitchensink-html5-mobile</module>
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
-                <module>kitchensink-spring-asyncrequestmapping</module>
-                <module>kitchensink-spring-basic</module>
-                <module>kitchensink-spring-controlleradvice</module>
-                <module>kitchensink-spring-matrixvariables</module>
-                <module>kitchensink-spring-springmvctest</module>
                 <module>log4j</module>
                 <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
-                <module>petclinic-spring</module>
-                <module>richfaces-quickstarts/helloworld-rf</module>
-                <module>richfaces-quickstarts/kitchensink-rf</module>
-                <module>richfaces-quickstarts/richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
                 <module>servlet-security-genericheader-auth</module>
                 <module>shopping-cart</module>
-                <module>shrinkwrap-resolver</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>
@@ -366,7 +330,6 @@
             <modules>
                 <module>forge-from-scratch</module>
                 <module>h2-console</module>
-                <module>kitchensink-cordova</module>
                 <module>jts-distributed-crash-rec</module>
             </modules>
         </profile>
