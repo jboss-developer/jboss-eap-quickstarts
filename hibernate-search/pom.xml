@@ -38,7 +38,7 @@
 
 		<!-- JBoss dependency versions -->
 
-		<version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+		<version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
 		<version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
 		<!-- Alternatively, comment out the above line, and un-comment the line 
@@ -58,9 +58,13 @@
 
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.source>1.6</maven.compiler.source>			
 		
+		<!--infinispan version -->
 		<infinispan.version>5.3.0.Beta1</infinispan.version>
+		
+		<!-- Other dependency versions -->
+        <version.log4j>1.2.16</version.log4j>
 	</properties>
 
 	<dependencyManagement>
@@ -95,6 +99,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			
+			<!-- Define Log4j dependency and its version -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -153,31 +164,33 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Import the EJB API, we use provided scope as the API is included in 
-			JBoss AS 7 -->
-		<!--<dependency> <groupId>org.jboss.spec.javax.ejb</groupId> <artifactId>jboss-ejb-api_3.1_spec</artifactId> 
-			<scope>provided</scope> </dependency> -->
-
 		<!--Import dependencies to hibernate packages(eg. hibernate-core) depending 
 			on features you want to use like Hibernate Session used in the quickstart -->
 		<!--please note that scope is provided as these jars are shipped with as7 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<!--<scope>provided</scope> -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
-			<!--<scope>provided</scope> -->
+		</dependency>
+		
+		<!-- Additional Analyzers: -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-analyzers</artifactId>
+			<!-- <version>4.1.1.Final</version> -->
+		</dependency>
+		<!-- Infinispan integration: -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-infinispan</artifactId>
+			<!-- <version>4.1.1.Final</version> -->
 		</dependency>
 
-		<!--<dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-annotations</artifactId> 
-			&lt;!&ndash;<version>${hibernate-core-version}</version>&ndash;&gt; </dependency> -->
-
-		<!-- Import the RESTEASY API, we don't use provided scope as the I am not 
-			sure this API is included in JBoss AS 7 -->
+		<!-- Import the RESTEASY API this is the core library -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
@@ -198,48 +211,51 @@
 			<version>2.3.1.GA</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
+		<!-- ROME is a set of Atom/RSS Java utilities that make it easy to work in Java with most syndication formats. -->
 		<dependency>
 			<groupId>net.java.dev.rome</groupId>
 			<artifactId>rome</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 
+		<!-- MySql for Java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.6</version>
 		</dependency>
-
+		
+		<!-- Postgresql for Java-->
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
 		</dependency>
-
-		<!-- Additional Analyzers: -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search-analyzers</artifactId>
-			<version>4.1.1.Final</version>
-		</dependency>
-		<!-- Infinispan integration: -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search-infinispan</artifactId>
-			<version>4.1.1.Final</version>
-		</dependency>
+		
+		<!-- Infinispan core module -->
 
 		<dependency>
            <groupId>org.infinispan</groupId>
            <artifactId>infinispan-core</artifactId>
            <version>${infinispan.version}</version>
         </dependency>
+        
+		<!-- Infinispan lucene directory -->
+        
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-lucene-directory</artifactId>
 			<version>${infinispan.version}</version>
 		</dependency>
+		
+		 <!-- Import the LOG4J , we use provided scope as the API is included in 
+             JBoss AS 7. Dependency in explicitly defined in jboss-deployment-structure.xml -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 	</dependencies>
 
@@ -263,12 +279,6 @@
 					</manifestEntries>
 				</configuration>
 			</plugin>
-			<!-- JBoss AS plugin to deploy war -->
-			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>${version.jboss.maven.plugin}</version>
-			</plugin>
 			<!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation 
 				processors -->
 			<plugin>
@@ -279,23 +289,6 @@
 					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.4.Final</version>
-				<configuration>
-					<domain>
-						<server-groups>
-							<server-group>main-server-group</server-group>
-						</server-groups>
-						<profiles>
-							<profile>full-ha</profile>
-						</profiles>
-					</domain>
-					<hostname>127.0.0.1</hostname>
-					<port>9999</port>
-				</configuration>
-			</plugin> -->
 		</plugins>
 		<resources>
 			<resource>
@@ -305,25 +298,35 @@
 		</resources>
 	</build>
 
-
+	<!--  All three profiles mentioned below has property values and they are used in hibernate.cfg.xml-->
 	<profiles>
 		<profile>
+		    <!-- When Wildifly is run in standalone the 'default-local' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any standalone mode specific customization your app 
+				will need. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>default-local</id>
 			<activation>
+			    <!-- This profile will be by default made to active -->
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<!-- <connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
+				<!-- Used for MySQL connection -->
+				<!--
+					<connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
 					<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class> 
-					<connection.username>root</connection.username> <connection.password>root123</connection.password> 
-					<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect> -->
+					<connection.username>root</connection.username> 
+					<connection.password>root123</connection.password> 
+					<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect> 
+				 -->
+				<!-- Used for Postgresql connection -->
 				<connection.url>jdbc:postgresql://localhost/jbossashibernatesearch</connection.url>
 				<connection.driver_class>org.postgresql.Driver</connection.driver_class>
 				<connection.username>tharindudb</connection.username>
 				<connection.password>postgres</connection.password>
 				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
-				<!-- <infinispan.configuration_resourcename>lucene-demo-cache-config.xml</infinispan.configuration_resourcename> -->
-				<infinispan.configuration_resourcename>remote-infinispan-configs.xml</infinispan.configuration_resourcename>
+				<!-- Change this property if you want to keep the existing data -->
 				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
 			</properties>
 			<build>
@@ -332,44 +335,53 @@
 					<plugin>
 						<groupId>org.jboss.as.plugins</groupId>
 						<artifactId>jboss-as-maven-plugin</artifactId>
-						<version>7.4.Final</version>
-						<configuration>
-						    <!-- <hostname>localhost</hostname>
+						<version>${version.jboss.maven.plugin}</version>
+						<!-- <configuration>
+						    <hostname>localhost</hostname>
 							<port>9999</port>
-							<execute-commands>
-								<batch>true</batch>
-								<commands>
-									<command>/system-property=DO_SCHEDULE_START:add(value=true)</command>
-								</commands>
-							</execute-commands> -->
+							<username>tharinduj</username>  
+                    		<password>jboss@2013</password>  
+                    		Create a system-property DO_SCHEDULE in wildifly
+							
+						    Cache jboss-as-hibernate-search will be used to store indexes
+						    Can define this in standalone.xml also
 							<address>subsystem=infinispan,cache-container=jboss-as-hibernate-search</address>
 							<properties>
 								<default-cache>jboss-as-hibernate-search-cache</default-cache>
 								<cache>!![{"mode" => "LOCAL", "name" =>
-									"jbossashibernatesearch-cache"}]</cache>
+									"jboss-as-hibernate-search-cache"}]</cache>
 							</properties>
-						</configuration>
+						</configuration> -->
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 		<profile>
+		    <!-- When Wildifly is run in domain the 'default-cluster' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any domain mode specific customization your app 
+				will need. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>default-cluster</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<!-- <connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
+				<!-- Used for MySQL connection -->
+				<!--
+					<connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
 					<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class> 
-					<connection.username>root</connection.username> <connection.password>root123</connection.password> 
-					<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect> -->
-
+					<connection.username>root</connection.username> 
+					<connection.password>root123</connection.password> 
+					<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect> 
+				 -->
+				<!-- Used for Postgresql connection -->
 				<connection.url>jdbc:postgresql://localhost/jbossashibernatesearch</connection.url>
 				<connection.driver_class>org.postgresql.Driver</connection.driver_class>
 				<connection.username>tharindudb</connection.username>
 				<connection.password>postgres</connection.password>
 				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
-				<infinispan.configuration_resourcename>hibernatesearch-infinispan.xml</infinispan.configuration_resourcename>
+				<!--  deploy the application in standalone mode once to create the database or manually create database tables--> 
 				<hbm2ddl_mode>update</hbm2ddl_mode>
 			</properties>
 			<build>
@@ -378,63 +390,67 @@
                <plugin>
                   <groupId>org.jboss.as.plugins</groupId>
                   <artifactId>jboss-as-maven-plugin</artifactId>
-                  <version>7.4.Final</version>
+                  <version>${version.jboss.maven.plugin}</version>
                   <configuration>
+                      <!-- Need to create a system-property DO_SCHEDULE in only one instance on wildifly-->
                       <domain>
 						<server-groups>
+						    <!-- Use this server group add add servers to this group -->
 							<server-group>main-server-group</server-group>
 						</server-groups>
 						<profiles>
 							<profile>full-ha</profile>
 						</profiles>
 					</domain>
-					<hostname>127.0.0.1</hostname>
+					<!-- <hostname>127.0.0.1</hostname>
 					<port>9999</port>
+					Cache jboss-as-hibernate-search will be used to store indexes in domain mode 
                      <address>subsystem=infinispan,cache-container=jboss-as-hibernate-search</address>
                      <properties>
                         <default-cache>jboss-as-hibernate-search-cache</default-cache>
                         <cache>!![{"mode" => "DISTRIBUTED", "name" => "jboss-as-hibernate-search-cache", "start" => "EAGER", "mode" => "SYNC", "owners" => "1"}]</cache>
-                     </properties>
+                     </properties> -->
                   </configuration>
                </plugin>
             </plugins>
          </build>
 		</profile>
 		<profile>
-			<id>openshift</id>
-			<properties>
-				<connection.url>jdbc:mysql://127.2.16.2:3306/jbossashibernatesearch</connection.url>
-				<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class>
-				<connection.username>adminTbacVWR</connection.username>
-				<connection.password>AmZU9nwk8FMa</connection.password>
-				<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect>
-				<infinispan.configuration_resourcename>lucene-demo-cache-config.xml</infinispan.configuration_resourcename>
-				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
-
-				<!-- <connection.url>jdbc:postgresql://jbossashibernatesearch-tharinduj.rhcloud.com:5432/jbossashibernatesearch</connection.url> 
-					<connection.driver_class>org.postgresql.Driver</connection.driver_class> 
-					<connection.username>adminTbacVWR</connection.username> <connection.postgres>AmZU9nwk8FMa</connection.postgres> 
-					<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect> -->
-			</properties>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
+		    <!-- When built in OpenShift the 'openshift' profile will be used when 
 				invoking mvn. -->
 			<!-- Use this profile for any OpenShift specific customization your app 
 				will need. -->
 			<!-- By default that is to put the resulting archive into the 'deployments' 
 				folder. -->
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<connection.url>jdbc:mysql://127.2.16.2:3306/jbossashibernatesearch</connection.url>
+				<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class>
+				<connection.username>adminTbacVWR</connection.username>
+				<connection.password>AmZU9nwk8FMa</connection.password>
+				<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect>
+				<!-- Change this property if you want to keep the existing data -->
+				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
+			</properties>
+			
 			<build>
 				<plugins>
 				    <!-- JBoss AS plugin to deploy war -->
 					<plugin>
 						<groupId>org.jboss.as.plugins</groupId>
 						<artifactId>jboss-as-maven-plugin</artifactId>
-						<version>7.4.Final</version>
-						<configuration>
+						<version>${version.jboss.maven.plugin}</version>
+						<!-- <configuration>
 						    <hostname>localhost</hostname>
 							<port>9999</port>
 							<execute-commands>
 								<batch>true</batch>
+								Need to create a system-property DO_SCHEDULE in wildifly
+								Can create this following https://community.jboss.org/wiki/JBossAS7SystemProperties 
 								<commands>
 									<command>/system-property=DO_SCHEDULE:add(value=true)</command>
 								</commands>
@@ -443,9 +459,9 @@
 							<properties>
 								<default-cache>jboss-as-hibernate-search-cache</default-cache>
 								<cache>!![{"mode" => "LOCAL", "name" =>
-									"jbossashibernatesearch-cache"}]</cache>
+									"jboss-as-hibernate-search-cache"}]</cache>
 							</properties>
-						</configuration>
+						</configuration> -->
 					</plugin>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>

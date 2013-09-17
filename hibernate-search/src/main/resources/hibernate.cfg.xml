@@ -3,6 +3,7 @@
         "-//Hibernate/Hibernate Configuration DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
+<!-- Form the values from profiles in the pom.xml some configuration variables are initialised -->
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">
@@ -18,31 +19,25 @@
 		<property name="show_sql">false</property>
 		<property name="dialect">${connection.dialect}</property>
 		<property name="hibernate.hbm2ddl.auto">${hbm2ddl_mode}</property> 
+		<!-- use the jbossashibernatesearch.sql as a alter script and initialise the table values -->
 		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property>
 		<!-- <property name="show_sql">true</property> -->
 
 		<property name="hibernate.search.default.directory_provider">infinispan</property>
 		<property name="hibernate.search.lucene_version">LUCENE_35</property>
 		
-		<!-- <property name="hibernate.search.infinispan.configuration_resourcename">
-			${infinispan.configuration_resourcename}
-		</property> -->
-		
-		
 		<property name="hibernate.search.analyzer">org.apache.lucene.analysis.standard.StandardAnalyzer</property>
 		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
- 	    <!-- <property name="hibernate.cache.infinispan.cachemanager">jboss-as-hibernate-search</property> -->
  	    
- 	    <property name="hibernate.cache.infinispan.cachemanager">local-remote</property>
+		<!-- use jboss-as-hibernate-search for following property when used in openshift,domain and standalone mode-->
+ 	    <!-- <property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/jboss-as-hibernate-search</property> -->
+		<property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/local-remote</property>
+
+ 	    <!-- use local-remote for following property when used in domain moed with hotrod server-->
+ 	    <!-- <property name="hibernate.cache.infinispan.cachemanager">local-remote</property> -->
  	     
         <property name="hibernate.search.infinispan.chunk_size">40960</property>
         <property name="hibernate.search.default.exclusive_index_use">false</property>
-		
-		<!-- <property name="annotatedClasses"> &lt;!&ndash;<list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean</value>&ndash;&gt; 
-			&lt;!&ndash;</list>&ndash;&gt; &lt;!&ndash;<value>org.jboss.as.quickstarts.hibernate_search.model.data</value>&ndash;&gt; 
-			</property> -->
-		<!-- Mapping files -->
-		<!--<mapping resource="user.hbm.xml"></mapping> -->
 
 	</session-factory>
 </hibernate-configuration>
