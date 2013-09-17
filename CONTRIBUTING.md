@@ -108,6 +108,38 @@ General Guidelines
 
 * The `<artifactId>` in the quickstart `pom.xml` file should follow the template: `jboss-<target-product>-<quickstart-name>`. For example, the `<artifactId>` for the `greeter` quickstart in the AS 7 project is `jboss-as-greeter`. The `<artifactId>` for `errors` quickstart in the Fuse project is `jboss-fuse-errors`.
 
+* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](developer.github.io). To access these artifacts, you must add the following profile to your `settings.xml` file.
+
+        <profile>
+            <id>jboss-developer-repository</id>
+            <repositories>
+                <repository>
+                    <id>jboss-developer-repository</id>
+                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                    <releases>
+                       <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                      <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>jboss-developer-plugin-repository</id>
+                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                    <releases>
+                      <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                      <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+    Then add `<activeProfile>jboss-developer-repository</activeProfile>` to the `<activeProfiles>` section of the file.
+    
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 
 * The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-jdf/jboss-as-quickstart/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
@@ -139,7 +171,7 @@ General Guidelines
 Kitchensink variants
 --------------------
 
-  There are multiple quickstarts based on the kitchensink example.  Each showcases different technologies and techniques including pure EE6, JSF, HTML5, and GWT.  
+  There are multiple quickstarts based on the kitchensink example.  Each showcases different technologies and techniques including pure EE6, JSF, HTML5, and GWT.
 
   If you wish to contribute a kitchensink variant is it important that you follow the look and feel of the original so that useful comparisons can be made.  This does not mean that variants can not expand, and showcase additional functionality.  Multiple variants already do that.  These include mobile interfaces, push updates, and more.
 
@@ -147,11 +179,11 @@ Kitchensink variants
 
   * Follow the primary layout, style, and graphics of the original.
 
-  * Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.  
-     * How projects use that space is up to them, but options include plain text, bullet points, etc....  
+  * Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.
+     * How projects use that space is up to them, but options include plain text, bullet points, etc....
 
-  * Projects can have their logo in the left side of the banner.  
-    * The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...  
+  * Projects can have their logo in the left side of the banner.
+    * The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...
        * This should be below any AS/EAP link areas.
 
     If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
@@ -303,18 +335,28 @@ You can create a cheat sheet using the Eclipse Wizard or you can copy and modify
 
 _Note: Be sure your project folder is located outside of the Eclipse workspace before you begin this process._
 
-1.  Import your quickstart into JBoss Developer Studio (JDBS) .
+1.  Import your quickstart into JBoss Developer Studio (JDBS)
     1.  From the menu, choose `File` --> `Import` --> `Maven` --> `Existing Maven Projects`, then click `Next`.
     2.  Navigate to your quickstart, select it, then click `OK`.
     3.  Click `Finish`.
 2.  Create the cheat sheet.
-    1.  From the menu, choose `File` --> `New` --> `Other` --> `User Assistance` --> `Cheat Sheet`, then click `Next`.
-    2.  Select the quickstart folder, give it a name 'cheatsheet.xml', and choose `Simple Cheat Sheet`.
-    3. Click `Finish`.
+    1.  Select the imported quickstart project.
+    2.  From the menu, choose `File` --> `New` --> `Other` --> `User Assistance` --> `Cheat Sheet`, then click `Next`.
+    3.  Select the quickstart folder, give it a name 'cheatsheet.xml', and choose `Simple Cheat Sheet`.
+    4.  Click `Finish`. When it prompts you to open the cheatsheet for the quickstart project, click `Yes`.
 3.  Populate the cheatsheet with useful information to help a user understand the quickstart.
-    1.  Modify the title, for example: `helloworld`
-    2.  Add an introduction, for example: `This quickstart demonstrates the use of CDI 1.0 and Servlet 3.0. It is a simple application that can be used to verify the JBoss EAP server is configured and running correctly.`
-    3.  Add an `item` for each file or class you want to describe. 
+    1.  Expand the `Title` in the content section on the left. 
+    2.  Select the `Title` field and modify it to something useful, for example: `helloworld`
+    3.  Select the `intro` field and add introduction text to the `Body`, for example: `This quickstart demonstrates the use of CDI 1.0 and Servlet 3.0. It is a simple application that can be used to verify the JBoss EAP server is configured and running correctly.`
+    4.  Select `item`, then under `Command`, click `browse` and select 'Get current project' under `Uncategorized`. This adds the following XML to the cheat sheet: 
+    
+            <command 
+            required="true" 
+            returns="currentProject"
+            serialization="org.jboss.tools.project.examples.cheatsheet.getProjectForCheatsheet"/>
+    This command allows you to use the variable `${currentProject}` instead of a hard-coded path name and ensures your cheat sheet will work regardless of the project location.
+         
+    5.  Add an `item` for each file or class you want to describe. 
         *  This is dependent on the quickstart features you plan to demonstrate.
         *  Provide a good description.
         *  Add subitems to describe code sections and provide the line numbers that are referenced.
@@ -329,7 +371,7 @@ General Guidelines
 
 * If your project folder is located in the Eclipse workspace when you generate your cheat sheet using the Eclipse wizard, it will generate an invalid project name and attempts to open source code will fail. Be sure your project folder is located outside the Eclipse workspace before you begin.
 * The cheat sheet should be created in the root of the quickstart directory and named `.cheatsheet.xml`. Eclipse will not let you name the file with a leading '.', so you will need to rename it after it is created.
-* Use the replaceable value `${currentProject}` to avoid hard-coding the project path. This ensures that if the quickstart folder is moved, the cheat sheet will work as expected.
+* Make sure you add the 'Get current project' command and use the replaceable `${currentProject}`  value to avoid hard-coding the project path. This ensures that if the quickstart folder is moved, the cheat sheet will work as expected.
 * Do not use the `<action>` tag if it can be avoided. It is more fragile than the `<command>` tag, which uses parameters names instead of indexes.
 * Try to highlight the most important features and code for the quickstart. Pay particular attention to areas that might confuse developers. Cheat sheets require that users execute or skip each step, so you don't want to bore developers with the code that has no impact on the purpose of the quickstart.
 

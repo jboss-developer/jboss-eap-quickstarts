@@ -89,33 +89,51 @@ To run these quickstarts with the provided build scripts, you need the following
 Configure Maven
 ---------------
 
-Maven configuration is dependent on whether you are using the JBoss Enterprise Application Platform 6 product version of the quickstarts or the JBoss AS7 community version of the quickstarts.
+### Configure Maven to Build and Deploy the Quickstarts
 
-_Note:_ If you forked and cloned quickstarts from Github or downloaded the quickstarts zip file from the JBoss Developer Framework [Quickstarts: Get Started](http://www.jboss.org/jdf/quickstarts/get-started/) page, you are using the community version of the quickstarts and can skip this step. See [Configure Maven for JBoss AS 7](#configure-maven-for-jboss-as-7) below for details.
+The quickstarts use artifacts located in the JBoss Developer repository. You must configure Maven to use that repository before you build and deploy the quickstarts. 
 
-### Configure Maven for JBoss Enterprise Application Platform 6
+1. Locate the Maven install directory for your operating system. It is usually installed in `${user.home}/.m2/`. 
 
-If you are using the JBoss Enterprise Application Platform 6 distribution, downloaded from the [Customer Portal](https://access.redhat.com/jbossnetwork/), you need to download and configure the Maven repository.
+            For Linux or Mac:   ~/.m2/
+            For Windows: \Documents and Settings\USER_NAME\.m2\  -or-  \Users\USER_NAME\.m2\
 
-1. Download the JBoss Enterprise Application Platform 6 Maven repository distribution ZIP and unzip it into a directory of your choice.
+2. If you have an existing `settings.xml` file, rename it so you can restore it later.
 
-2. Modify the `example-settings.xml` file located in the root of your quickstarts folder. 
-    * Replace all instances of `path/to/jboss-eap/repo` within `file:///path/to/jboss-eap/repo` with the fully qualified path to the Maven repository you unzipped in the previous step.
-    * Be sure to use 3 forward slashes after `file:`: 2 for the protocol and 1 for the fully qualified path. For example:
+            For Linux or Mac:  mv ~/.m2/settings.xml ~/.m2/settings-backup.xml
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\settings.xml" settings-backup.xml
+                    -or- ren "\Users\USER_NAME\.m2\settings.xml" settings-backup.xml
+                   
+3. If you have an existing `repository/` directory, rename it so you can restore it later. For example
 
-            file:///home/username/Quickstarts/jboss-eap-6.0-quickstarts
-3. Configure the Maven user settings. 
-    * Look for the `settings.xml` file in the `${user.home}/.m2/` directory. For example:
+            For Linux or Mac:  mv ~/.m2/repository/ ~/.m2/repository-backup/
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\repository\" repository-backup
+                    -or- ren "\Users\USER_NAME\.m2\repository\" repository-backup
+4. Copy the `settings.xml` file from the root of the quickstarts directory to your Maven install directory.
+ 
+            For Linux or Mac:  cp QUICKSTART_HOME/settings.xml  ~/.m2/settings.xml
+            For Windows: cp QUICKSTART_HOME/settings.xml \Documents and Settings\USER_NAME\.m2\settings.xml 
+                    -or- cp QUICKSTART_HOME/settings.xml \Users\USER_NAME\.m2\settings.xml
+            
+### Restore Your Maven Configuration When You Finish Testing the Quickstarts
 
-            For Linux or Mac:   ~/.m2/settings.xml
-            For Windows: \Documents and Settings\USER_NAME\.m2\settings.xml or \Users\USER_NAME\.m2\settings.xml
-    * If you have an existing `settings.xml` file, modify it with the configuration information from the `example-settings.xml` file.
-    * If there is no `settings.xml` file, copy the modified `example-settings.xml` file to the `m2` directory for your operating system and rename it to `settings.xml`.
+1. Locate the Maven install directory for your operating system. It is usually installed in `${user.home}/.m2/`. 
 
+            For Linux or Mac:   ~/.m2/
+            For Windows: \Documents and Settings\USER_NAME\.m2\  -or-  \Users\USER_NAME\.m2\
 
-### Configure Maven for JBoss AS 7
+2. Restore the `settings.xml` file/
 
-If you are using the JBoss AS 7 Quickstart distribution, most of the community artifacts are available in the Maven central repository or the JBoss Public repository, so no additional configuration is needed.
+            For Linux or Mac:  mv ~/.m2/settings-backup.xml ~/.m2/settings.xml
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\settings-backup.xml" settings.xml
+                    -or- ren "\Users\USER_NAME\.m2\settings-backup.xml" settings.xml
+                   
+3. Restore the `repository/` directory
+
+            For Linux or Mac:  mv ~/.m2/repository-backup/ ~/.m2/repository/
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\repository-backup\" repository
+                    -or- ren "\Users\USER_NAME\.m2\repository\" repository-backup
+            
 
 ### Maven Profiles
 
