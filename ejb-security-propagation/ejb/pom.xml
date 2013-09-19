@@ -46,18 +46,9 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <!-- <version.jboss.as>7.2.0.Alpha1-SNAPSHOT</version.jboss.as> -->
-        <!-- Alternatively, comment out the above line, and un-comment the line 
-            below to use version 7.1.1.Final which is a release certified to work with 
-            JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven repository. -->
-        <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as>
+        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
-        <!-- Alternatively, comment out the above line, and un-comment the line 
-            below to use version 3.0.2.Final-redhat-1 which is a release certified to 
-            work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven 
-            repository. -->
-        <!-- <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-3</version.jboss.spec.javaee.6.0> -->
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>

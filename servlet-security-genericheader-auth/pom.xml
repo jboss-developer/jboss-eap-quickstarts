@@ -48,15 +48,9 @@
 
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-redhat-1</version.jboss.bom.eap>
-        <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-1 which is a release certified 
-            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
-            maven repository. -->
-        <!-- <version.jboss.bom.eap>1.0.4.Final-redhat-1</version.jboss.bom.eap> -->
+        <version.jboss.bom.eap>6.2.0-build-3</version.jboss.bom.eap>
 
-        <version.jboss.as>7.2.0.Final</version.jboss.as>
-        <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
+        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
