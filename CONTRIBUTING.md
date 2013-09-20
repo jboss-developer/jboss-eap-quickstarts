@@ -360,10 +360,12 @@ _Note: Be sure your project folder is located outside of the Eclipse workspace b
         *  This is dependent on the quickstart features you plan to demonstrate.
         *  Provide a good description.
         *  Add subitems to describe code sections and provide the line numbers that are referenced.
-5. Test your cheat sheet by opening it in JDBS.
+4. Test your cheat sheet by opening it in JDBS.
     1.  Go through each step and make sure the descriptions are valid.
     2.  Click on each link to make sure it opens the file and highlights the correct lines of code.
-4. When you finish testing the cheat sheet, rename the file from `cheatsheet.xml` to `.cheatsheet.xml` and make sure it is located in the root directory of the quickstart.
+5. When you finish testing the cheat sheet, rename the file from `cheatsheet.xml` to `.cheatsheet.xml` and make sure it is located in the root directory of the quickstart.
+6. Add the `.cheatsheet.xml` file using `git add`, commit the change, push it to your forked repository, and issue a pull.
+7. If your cheat sheet is for the quickstart based on an archetype, it will automatically generate the cheat sheet for the archetype. However, you must add an `<include>.cheatsheet.*</include>` to the fileset for the root directory in the corresponding archetype's `archetype-metadata.xml` file. See the `jboss-javaee6-webapp-archetype` archetype for an example.
 
 
 General Guidelines
