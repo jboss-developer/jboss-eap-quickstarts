@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example that incorporates multiple technologies
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 
 What is it?
 -----------
