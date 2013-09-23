@@ -258,4 +258,4 @@ When you are finished with the application you can destroy it as follows:
         rhc app destroy -a jbossashibernatesearch
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
-* To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a jbossashibernatesearch_TO_DESTROY`
+* To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a jbossashibernatesearch`
