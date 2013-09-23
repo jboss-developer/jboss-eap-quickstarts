@@ -64,7 +64,15 @@ Following build command assumes you have configured your Maven user settings. If
 Standalone  mode configuration
 
 	1. Make sure you have started the JBoss Server in `standalone` mode as described above. 
-	2. Create system-property called `DO_SCHEDULE` in `standalone` mode
+	2. Create cache-container called `jboss-as-hibernate-search` in `standalone.xml` 
+		<cache-container name="jboss-as-hibernate-search" aliases="standard-local-cache" 
+ 			default-cache="jboss-as-hibernate-search" 
+			jndi-name="java:jboss/infinispan/container/jboss-as-hibernate-search" 
+			module="org.jboss.as.clustering.web.infinispan">
+                	<local-cache name="jboss-as-hibernate-search" batching="true">
+                    		<file-store passivation="false" purge="false"/>
+                	</local-cache>
+            </cache-container>
 	3. Open a command line and navigate to the root directory of this quickstart.
 	4. Type this command to build and deploy the archive:
 	
@@ -75,12 +83,20 @@ Standalone  mode configuration
 Domain  mode configuration
 
 	1. Make sure you have started the JBoss Server in `domain` mode as described above. 
-	2. Create system-property called `DO_SCHEDULE` in `domain` mode in only master server
-	3. Open a command line and navigate to the root directory of this quickstart.
-	4. Type this command to build and deploy the archive:
+	2. Create system-property called `DO_NOT_SCHEDULE` in `domain` mode in other instance other than master server
+	3. Create cache-container called `jboss-as-hibernate-search` in `domain.xml` 
+		<cache-container name="jboss-as-hibernate-search" aliases="standard-domain-cache" 
+			default-cache="jboss-as-hibernate-search" 
+			jndi-name="java:jboss/infinispan/container/jboss-as-hibernate-search" 
+			module="org.jboss.as.clustering.web.infinispan">
+                    <distributed-cache name="jboss-as-hibernate-search" mode="SYNC"/>
+                </cache-container>
+
+	4. Open a command line and navigate to the root directory of this quickstart.
+	5. Type this command to build and deploy the archive:
 	
 	        mvn clean package jboss-as:deploy -Pdefault-cluster
-	5. This will deploy `target/jboss-as-hibernate-search.war` to the running domain instance of the server.
+	6. This will deploy `target/jboss-as-hibernate-search.war` to the running domain instance of the server.
 
 
 Access the application (For quickstarts that have a UI component)
