@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, Arquillian, Shrinkwrap
 Summary: Demonstrate usage of some Shrinkwrap resolver use cases
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 
 What is it?
