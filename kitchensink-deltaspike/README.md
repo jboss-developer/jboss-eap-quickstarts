@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, JSF, JPA, JPA, JAX-RS, BV, DeltaSpike
 Summary: A version of kitchensink that uses DeltaSpike @Transactional
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------
