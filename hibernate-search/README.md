@@ -84,7 +84,7 @@ Domain  mode configuration
 
 	1. Make sure you have started the JBoss Server in `domain` mode as described above. 
 	2. Create system-property called `DO_NOT_SCHEDULE` in `domain` mode in other instance other than master server
-	3. Create cache-container called `jboss-as-hibernate-search` in `domain.xml` 
+	3. Create cache-container called `jboss-as-hibernate-search` in `domain.xml` in the profile where the application is deployed
 		<cache-container name="jboss-as-hibernate-search" aliases="standard-domain-cache" 
 			default-cache="jboss-as-hibernate-search" 
 			jndi-name="java:jboss/infinispan/container/jboss-as-hibernate-search" 
@@ -97,6 +97,36 @@ Domain  mode configuration
 	
 	        mvn clean package jboss-as:deploy -Pdefault-cluster
 	6. This will deploy `target/jboss-as-hibernate-search.war` to the running domain instance of the server.
+
+Additional configuration required to store the indexes in remote cache in Infinispan Server and Domain mode in Jboss
+
+	1. Make sure you have started the JBoss Server in `domain` mode as described above. 
+	2. Create system-property called `DO_NOT_SCHEDULE` in `domain` mode in other instance other than master server
+	3. Create cache-container called `jboss-as-hibernate-search` in `domain.xml` in the profile where the application is deployed and add below socket binding also
+		<cache-container name="jboss-as-hibernate-search" aliases="jboss-as-hibernate-search" 
+			default-cache="jboss-as-hibernate-search" 
+			jndi-name="java:jboss/infinispan/container/jboss-as-hibernate-search" 
+			module="org.jboss.as.clustering.web.infinispan">
+                    <transport lock-timeout="60000"/>
+                    <invalidation-cache name="clustered" mode="ASYNC" batching="true">
+                        <remote-store shared="true" passivation="false" purge="false">
+                            <remote-server outbound-socket-binding="remote-store-hotrod-server"/>
+                        </remote-store>
+                    </invalidation-cache>
+                </cache-container>
+
+		<outbound-socket-binding name="remote-store-hotrod-server">
+                	<remote-destination host="localhost" port="<inifinispan-port>"/>
+            	</outbound-socket-binding>
+
+	4. Open a command line and navigate to the root directory of this quickstart.
+	5. Start the Infinispan standalone instance to form a remote storage cluster
+	5. Type this command to build and deploy the archive:
+	
+	        mvn clean package jboss-as:deploy -Pdefault-cluster
+	6. This will deploy `target/jboss-as-hibernate-search.war` to the running domain instance of the server.
+	
+
 
 
 Access the application (For quickstarts that have a UI component)
