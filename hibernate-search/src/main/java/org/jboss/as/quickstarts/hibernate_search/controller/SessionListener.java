@@ -27,25 +27,38 @@ import org.apache.log4j.Logger;
 import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedService;
 import org.jboss.as.quickstarts.hibernate_search.model.task.ReaderTask;
 
+/**
+ * This will initialize when the application starts
+ * @author Tharindu Jayasuriya
+ *
+ */
 @javax.servlet.annotation.WebListener
 public class SessionListener implements ServletContextListener {
 	private static final Logger log4jLogger = Logger
 			.getLogger(SessionListener.class);
 	private ScheduledExecutorService scheduler;
-	private static String doSchedule = System.getProperty("DO_SCHEDULE");
+	private static String doNotSchedule = System.getProperty("DO_NOT_SCHEDULE");
 
+	/**
+	 * Scheduler will be stopped when the application is destroyed
+	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		log4jLogger.info("Context destroyed! and doSchedule:" + doSchedule);
-		if (doSchedule != null && doSchedule.equals("true")) {
+		log4jLogger.info("Context destroyed! and doNotSchedule:" + doNotSchedule);
+		if (doNotSchedule == null || doNotSchedule.equals("false")) {
 			scheduler.shutdownNow();
 		}
 	}
 
+	/**
+	 * Scheduler will initialize when the application starts, In order to 
+	 * see work the application in clustered mode all the other instance except 
+	 * master instance should define "DO_NOT_SCHEDULE" system property 
+	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		log4jLogger.info("Context created! and doSchedule:" + doSchedule);
-		if (doSchedule != null && doSchedule.equals("true")) {
+		log4jLogger.info("Context created! and doSchedule:" + doNotSchedule);
+		if (doNotSchedule == null || doNotSchedule.equals("false")) {
 			FeedService feedService = new FeedService();
 			feedService.getFeedHandler().doIndex();
 			scheduler = Executors.newSingleThreadScheduledExecutor();

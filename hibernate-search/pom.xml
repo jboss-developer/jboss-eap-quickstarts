@@ -37,7 +37,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- JBoss dependency versions -->
-
 		<version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
 		<version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
@@ -181,13 +180,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-analyzers</artifactId>
-			<!-- <version>4.1.1.Final</version> -->
 		</dependency>
 		<!-- Infinispan integration: -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-infinispan</artifactId>
-			<!-- <version>4.1.1.Final</version> -->
 		</dependency>
 
 		<!-- Import the RESTEASY API this is the core library -->
@@ -249,8 +246,7 @@
 			<version>${infinispan.version}</version>
 		</dependency>
 		
-		 <!-- Import the LOG4J , we use provided scope as the API is included in 
-             JBoss AS 7. Dependency in explicitly defined in jboss-deployment-structure.xml -->
+		 <!-- Import the LOG4J , we use provided scope as the API is included in JBoss AS 7.-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -258,8 +254,6 @@
         </dependency>
 
 	</dependencies>
-
-
 
 	<build>
 
@@ -290,6 +284,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<!-- This is required to replace the variable in hibernate.cfg.xml  -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -309,7 +304,7 @@
 			<id>default-local</id>
 			<activation>
 			    <!-- This profile will be by default made to active -->
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- Used for MySQL connection -->
@@ -336,22 +331,6 @@
 						<groupId>org.jboss.as.plugins</groupId>
 						<artifactId>jboss-as-maven-plugin</artifactId>
 						<version>${version.jboss.maven.plugin}</version>
-						<!-- <configuration>
-						    <hostname>localhost</hostname>
-							<port>9999</port>
-							<username>tharinduj</username>  
-                    		<password>jboss@2013</password>  
-                    		Create a system-property DO_SCHEDULE in wildifly
-							
-						    Cache jboss-as-hibernate-search will be used to store indexes
-						    Can define this in standalone.xml also
-							<address>subsystem=infinispan,cache-container=jboss-as-hibernate-search</address>
-							<properties>
-								<default-cache>jboss-as-hibernate-search-cache</default-cache>
-								<cache>!![{"mode" => "LOCAL", "name" =>
-									"jboss-as-hibernate-search-cache"}]</cache>
-							</properties>
-						</configuration> -->
 					</plugin>
 				</plugins>
 			</build>
@@ -364,7 +343,7 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>default-cluster</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<!-- Used for MySQL connection -->
@@ -381,7 +360,7 @@
 				<connection.username>tharindudb</connection.username>
 				<connection.password>postgres</connection.password>
 				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
-				<!--  deploy the application in standalone mode once to create the database or manually create database tables--> 
+				<!--  deploy the application in standalone mode once to create the database--> 
 				<hbm2ddl_mode>update</hbm2ddl_mode>
 			</properties>
 			<build>
@@ -392,24 +371,17 @@
                   <artifactId>jboss-as-maven-plugin</artifactId>
                   <version>${version.jboss.maven.plugin}</version>
                   <configuration>
-                      <!-- Need to create a system-property DO_SCHEDULE in only one instance on wildifly-->
+                      <!-- Need to create a system-property DO_NOT_SCHEDULE in all the other instances on wildifly except master which needs scheduling-->
                       <domain>
 						<server-groups>
 						    <!-- Use this server group add add servers to this group -->
 							<server-group>main-server-group</server-group>
 						</server-groups>
 						<profiles>
+						    <!-- Mention this profile and assign servers to this profile, use the same to create named caches -->
 							<profile>full-ha</profile>
 						</profiles>
 					</domain>
-					<!-- <hostname>127.0.0.1</hostname>
-					<port>9999</port>
-					Cache jboss-as-hibernate-search will be used to store indexes in domain mode 
-                     <address>subsystem=infinispan,cache-container=jboss-as-hibernate-search</address>
-                     <properties>
-                        <default-cache>jboss-as-hibernate-search-cache</default-cache>
-                        <cache>!![{"mode" => "DISTRIBUTED", "name" => "jboss-as-hibernate-search-cache", "start" => "EAGER", "mode" => "SYNC", "owners" => "1"}]</cache>
-                     </properties> -->
                   </configuration>
                </plugin>
             </plugins>
@@ -444,24 +416,6 @@
 						<groupId>org.jboss.as.plugins</groupId>
 						<artifactId>jboss-as-maven-plugin</artifactId>
 						<version>${version.jboss.maven.plugin}</version>
-						<!-- <configuration>
-						    <hostname>localhost</hostname>
-							<port>9999</port>
-							<execute-commands>
-								<batch>true</batch>
-								Need to create a system-property DO_SCHEDULE in wildifly
-								Can create this following https://community.jboss.org/wiki/JBossAS7SystemProperties 
-								<commands>
-									<command>/system-property=DO_SCHEDULE:add(value=true)</command>
-								</commands>
-							</execute-commands>
-							<address>subsystem=infinispan,cache-container=jboss-as-hibernate-search</address>
-							<properties>
-								<default-cache>jboss-as-hibernate-search-cache</default-cache>
-								<cache>!![{"mode" => "LOCAL", "name" =>
-									"jboss-as-hibernate-search-cache"}]</cache>
-							</properties>
-						</configuration> -->
 					</plugin>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
@@ -475,8 +429,5 @@
 			</build>
 		</profile>
 	</profiles>
-
-
-
 </project>
 

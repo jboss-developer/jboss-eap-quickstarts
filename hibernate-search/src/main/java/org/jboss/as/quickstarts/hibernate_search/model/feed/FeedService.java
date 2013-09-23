@@ -16,7 +16,6 @@
  */
 package org.jboss.as.quickstarts.hibernate_search.model.feed;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +27,11 @@ import org.apache.log4j.Logger;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 
+/**
+ * Feed related services are done here
+ * @author Tharindu Jayasuriya
+ *
+ */
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 public class FeedService {
@@ -90,17 +94,13 @@ public class FeedService {
 		for (Iterator i = feedList.iterator(); i.hasNext();) {
 			Feed feed = (Feed) i.next();
 			Feed updatedFeed = feedProcessor.processFeed(feed.getUrl());
-			// List<FeedEntry> feedEntryList =
-			// feedHandler.getFeedEntryList(feed.getId());
 			List<FeedEntry> feedEntryList = updatedFeed.getFeedEntryList();
 			for (Iterator j = feedEntryList.iterator(); j.hasNext();) {
 				FeedEntry feedEntry = (FeedEntry) j.next();
 				if (!feedHandler.checkFeedEntry(feedEntry.getTitle())) {
 					feedEntry.setFeedId(feed.getId());
 					feedHandler.addFeedEntry(feedEntry);
-				} else {
-					// log4jLogger.info("duplicate found not updating");
-				}
+				} 
 			}
 		}
 	}

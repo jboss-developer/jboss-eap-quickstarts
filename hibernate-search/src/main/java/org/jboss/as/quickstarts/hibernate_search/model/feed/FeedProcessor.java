@@ -33,6 +33,11 @@ import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+/**
+ * From the feed url feed and content of the feed is extracted
+ * @author Tharindu Jayasuriya
+ *
+ */
 public class FeedProcessor {
 	private static final Logger log4jLogger = Logger.getLogger(FeedProcessor.class);
 

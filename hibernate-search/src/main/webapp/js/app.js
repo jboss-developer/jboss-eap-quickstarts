@@ -9,5 +9,6 @@ angular.module('feedApp', ['feedAppFilters', 'feedAppServices']).
       when('/search', {templateUrl: 'partials/feed-search.html',   controller: FeedListCtrl}).
       when('/feeds/:id', {templateUrl: 'partials/feed-detail.html', controller: FeedDetailCtrl}).
       when('/admin', {templateUrl: 'partials/admin.html', controller: AdminCtrl}).
+      when('/contact', {templateUrl: 'partials/contact.html', controller: FeedListCtrl}).
       otherwise({redirectTo: '/feeds'});
 }]);

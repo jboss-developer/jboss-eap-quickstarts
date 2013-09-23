@@ -22,9 +22,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * User: tharinduj This is the sequence generating table that is required for
- * auto increment for table column Required for MySQL with Hibernate to do this
- * way
+ * This entity represent the sequence values that is required for
+ * auto increment values of the primary keys of other tables
+ * @author Tharindu Jayasuriya
+ *
  */
 @Entity
 @Table(name = "SEQUENCE_TABLE")

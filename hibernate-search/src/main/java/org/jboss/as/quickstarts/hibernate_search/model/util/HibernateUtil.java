@@ -21,12 +21,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.data.SequenceBean;
-import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedProcessor;
 
+/**
+ * Initialize the SessionFactory
+ * @author Tharindu Jayasuriya
+ *
+ */
 public class HibernateUtil {
 	private static final Logger log4jLogger = Logger.getLogger(HibernateUtil.class);
 	private static final SessionFactory sessionFactory;
-
+    
+	/**
+	 * 
+	 */
 	static {
 		try {
 
@@ -36,14 +43,8 @@ public class HibernateUtil {
 					.addAnnotatedClass(SequenceBean.class)
 					.addAnnotatedClass(FeedEntry.class).configure();
 			sessionFactory = cfg.buildSessionFactory();
-			// sessionFactory = new
-			// Configuration().configure().buildSessionFactory();
-			// sessionFactory = new
-			// AnnotationConfiguration().configure().buildSessionFactory();//Annotation
-			// Configuration
-
 		} catch (Throwable ex) {
-			System.err.println("Initial SessionFactory creation failed." + ex);
+			log4jLogger.error("Initial SessionFactory creation failed." + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
 	}

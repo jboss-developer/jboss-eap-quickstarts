@@ -1,4 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
+<!-- JBoss, Home of Professional Open Source Copyright 2013, Red Hat, Inc. 
+	and/or its affiliates, and individual contributors by the @authors tag. See 
+	the copyright.txt in the distribution for a full listing of individual contributors. 
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+	use this file except in compliance with the License. You may obtain a copy 
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
@@ -19,7 +29,7 @@
 		<property name="show_sql">false</property>
 		<property name="dialect">${connection.dialect}</property>
 		<property name="hibernate.hbm2ddl.auto">${hbm2ddl_mode}</property> 
-		<!-- use the jbossashibernatesearch.sql as a alter script and initialise the table values -->
+		<!-- use the jbossashibernatesearch.sql as a alter script and initialise the table values and increase the column sizes that suits the example-->
 		<property name="hibernate.hbm2ddl.import_files">jbossashibernatesearch.sql</property>
 		<!-- <property name="show_sql">true</property> -->
 
@@ -30,12 +40,10 @@
 		<property name="key2StringMapperClass">org.infinispan.lucene.LuceneKey2StringMapper</property>
  	    
 		<!-- use jboss-as-hibernate-search for following property when used in openshift,domain and standalone mode-->
- 	    <!-- <property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/jboss-as-hibernate-search</property> -->
-		<property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/local-remote</property>
+ 	    <property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/jboss-as-hibernate-search</property>
+		<!-- use local-remote for following property when used in domain moed with hotrod server-->
+		<!-- <property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/local-remote</property> -->
 
- 	    <!-- use local-remote for following property when used in domain moed with hotrod server-->
- 	    <!-- <property name="hibernate.cache.infinispan.cachemanager">local-remote</property> -->
- 	     
         <property name="hibernate.search.infinispan.chunk_size">40960</property>
         <property name="hibernate.search.default.exclusive_index_use">false</property>
 

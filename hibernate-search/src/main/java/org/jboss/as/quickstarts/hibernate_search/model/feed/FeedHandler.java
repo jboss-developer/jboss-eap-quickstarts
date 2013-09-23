@@ -29,19 +29,21 @@ import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
-import org.jboss.as.quickstarts.hibernate_search.controller.SessionListener;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
 import org.jboss.as.quickstarts.hibernate_search.model.util.HibernateUtil;
 
+/**
+ * Feed Handler used to add/edit/delete Feeds and Contents of the Feed 
+ * @author Tharindu Jayasuriya
+ *
+ */
 public class FeedHandler {
 	private static final Logger log4jLogger = Logger.getLogger(FeedHandler.class);
 	private static int MAX_ROWS = 50;
 
-	// private InfinispanFeedServiceHandler infinispanFeedServiceHandler = null;
 
 	public FeedHandler() {
-		// infinispanFeedServiceHandler = new InfinispanFeedServiceHandler();
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class FeedHandler {
 	}
 
 	/**
-	 * Edit Feed to the database
+	 * Edit Feed in the database
 	 * 
 	 * @param feed
 	 */
@@ -109,7 +111,6 @@ public class FeedHandler {
 		Integer feedId = null;
 		try {
 			tx = session.beginTransaction();
-			// Feed feedFromDb = (Feed)session.get(Feed.class, feed.getId());
 			session.update(feed);
 			tx.commit();
 		} catch (HibernateException e) {
@@ -123,7 +124,7 @@ public class FeedHandler {
 	}
 
 	/**
-	 * Delete Feed to the database
+	 * Delete Feed in the database
 	 * 
 	 * @param feed
 	 */
@@ -133,7 +134,6 @@ public class FeedHandler {
 		Integer feedId = null;
 		try {
 			tx = session.beginTransaction();
-			// Feed feedFromDb = (Feed)session.get(Feed.class, feed.getId());
 			session.delete(feed);
 			tx.commit();
 		} catch (HibernateException e) {
@@ -157,8 +157,6 @@ public class FeedHandler {
 			feedEntry.setDescription(feedEntry.getDescription().substring(0,
 					4500));
 		}
-
-		// infinispanFeedServiceHandler.getInfinispanFeedService().insertNewFeedEntry(feedEntry);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		Integer feedId = null;
@@ -200,7 +198,7 @@ public class FeedHandler {
 	}
 
 	/**
-	 * Check the existance of the feed in the database
+	 * Check the existence of the feed in the database
 	 * 
 	 * @param feedEntryTitle
 	 */
@@ -238,7 +236,6 @@ public class FeedHandler {
 			String hql = "from FeedEntry feedEntry where feedEntry.feedId = :theFeedId order by feedentryid desc";
 			Query query = session.createQuery(hql);
 			query.setInteger("theFeedId", feedId);
-			// query.setMaxResults(MAX_ROWS);
 			feedEntryList = query.list();
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -257,7 +254,7 @@ public class FeedHandler {
 	}
 
 	/**
-	 * Check the existance of the feed url in the database
+	 * Check the existence of the feed url in the database
 	 * 
 	 * @param feedUrl
 	 */
@@ -305,23 +302,18 @@ public class FeedHandler {
 		return feed;
 	}
 
+	/**
+	 * Get all feed entries
+	 * @return
+	 */
 	public Collection<FeedEntry> getFeedEntries() {
 		List<FeedEntry> feedEntries = new ArrayList<FeedEntry>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
-			/*
-			 * tx = session.beginTransaction(); List feedData =
-			 * session.createQuery("from FeedEntry").list(); for (Iterator
-			 * iterator = feedData.iterator(); iterator.hasNext();){ FeedEntry
-			 * feed = (FeedEntry) iterator.next(); feedEntries.add(feed); }
-			 * tx.commit();
-			 */
-
 			tx = session.beginTransaction();
 			String hql = "from FeedEntry order by feedentryid desc";
 			Query query = session.createQuery(hql);
-			// query.setMaxResults(MAX_ROWS);
 			feedEntries = query.list();
 			tx.commit();
 		} catch (HibernateException e) {
@@ -340,22 +332,27 @@ public class FeedHandler {
 		}
 	}
 
+	/**
+	 * This will index the Feed data
+	 */
 	public void doIndex() {
-		System.out
-				.println("######################################FeedHandler.doIndex");
+		log4jLogger.info("######################################FeedHandler.doIndex");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		FullTextSession fullTextSession = Search.getFullTextSession(session);
 		try {
 			fullTextSession.createIndexer().startAndWait();
-			// fullTextSession.createIndexer().batchSizeToLoadObjects(25).cacheMode(CacheMode.NORMAL).threadsToLoadObjects(5).threadsForIndexWriter(3).startAndWait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		fullTextSession.close();
 	}
 
+	/**
+	 * This will query the indexes created on defined attributes
+	 * @param queryString
+	 * @return
+	 */
 	public List<FeedEntry> searchFeeds(String queryString) {
-		// infinispanFeedServiceHandler.getInfinispanFeedService().doQuery(queryString);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		FullTextSession fullTextSession = Search.getFullTextSession(session);
 
@@ -370,9 +367,7 @@ public class FeedHandler {
 				.createFullTextQuery(luceneQuery, FeedEntry.class);
 
 		List<FeedEntry> contactList = fullTextQuery.list();
-
 		fullTextSession.close();
-
 		return contactList;
 	}
 }

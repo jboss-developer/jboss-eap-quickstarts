@@ -32,6 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+/**
+ * This entity represent the Feed
+ * @author Tharindu Jayasuriya
+ *
+ */
 @Entity
 @XmlRootElement
 @Table(name = "Feed", uniqueConstraints = @UniqueConstraint(columnNames = "id"))

@@ -31,9 +31,12 @@ import javax.ws.rs.Produces;
 import org.apache.log4j.Logger;
 import org.jboss.as.quickstarts.hibernate_search.model.data.Feed;
 import org.jboss.as.quickstarts.hibernate_search.model.data.FeedEntry;
-import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedProcessor;
 import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedService;
-
+/**
+ * Rest services are handled here
+ * @author Tharindu Jayasuriya
+ *
+ */
 @Path("/feedReader")
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
@@ -45,21 +48,34 @@ public class FeedReaderService {
 	public FeedReaderService() {
 		feedService = new FeedService();
 	}
-
+    /**
+     * Get all the feeds
+     * @return
+     */
 	@GET
 	@Path("/feeds")
 	public Collection<Feed> getFeeds() {
 		log4jLogger.info("FeedReaderService.getFeeds");
 		return feedService.getFeedHandler().listAllFeeds();
 	}
-
+    
+	/**
+	 * Get specific feed
+	 * @param id
+	 * @return
+	 */
 	@GET
 	@Path("/feeds/{id}")
 	public Feed getFeed(@PathParam("id") Integer id) {
 		log4jLogger.info("FeedReaderService.getFeed" + id);
 		return feedService.getFeedHandler().getFeed(id);
 	}
-
+    
+	/**
+	 * Add new feed
+	 * @param feed
+	 * @return
+	 */
 	@POST
 	@Path("/feeds")
 	public Feed addFeed(Feed feed) {
@@ -68,7 +84,12 @@ public class FeedReaderService {
 		feedService.getFeedHandler().addFeed(feed);
 		return feed;
 	}
-
+    
+	/**
+	 * Update the feed
+	 * @param feedIn
+	 * @return
+	 */
 	@PUT
 	@Path("/feeds")
 	public Feed updateFeed(Feed feedIn) {
@@ -78,7 +99,12 @@ public class FeedReaderService {
 		feedService.getFeedHandler().editFeed(feed);
 		return feed;
 	}
-
+    
+	/**
+	 * Delete the feed
+	 * @param feedIn
+	 * @return
+	 */
 	@DELETE
 	@Path("/feeds")
 	public Feed removeFeed(Feed feedIn) {
@@ -87,7 +113,12 @@ public class FeedReaderService {
 		feedService.getFeedHandler().deleteFeed(feed);
 		return feed;
 	}
-
+   
+	/**
+	 * Search the feed data
+	 * @param text
+	 * @return
+	 */
 	@GET
 	@Path("/feeds/search/{text}")
 	public Collection<FeedEntry> searchFeeds(@PathParam("text") String text) {
@@ -95,7 +126,11 @@ public class FeedReaderService {
 		Collection<FeedEntry> feedEntries = feedService.searchFeeds(text);
 		return feedEntries;
 	}
-
+   
+	/**
+	 * Get all feed entries
+	 * @return
+	 */
 	@GET
 	@Path("/feedEntries")
 	public Collection<FeedEntry> getFeedEntries() {
@@ -104,7 +139,12 @@ public class FeedReaderService {
 				.getFeedEntries();
 		return feedEntries;
 	}
-
+    
+	/**
+	 * Get specific feed entry
+	 * @param id
+	 * @return
+	 */
 	@GET
 	@Path("/feedEntries/{id}")
 	public Collection<FeedEntry> getFeedEntries(@PathParam("id") Integer id) {

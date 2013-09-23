@@ -19,9 +19,13 @@ package org.jboss.as.quickstarts.hibernate_search.model.task;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedProcessor;
 import org.jboss.as.quickstarts.hibernate_search.model.feed.FeedService;
 
+/**
+ * Reads Feeds and Index data
+ * @author Tharindu Jayasuriya
+ *
+ */
 public class ReaderTask implements Runnable {
 	private static final Logger log4jLogger = Logger.getLogger(ReaderTask.class);
 	private FeedService feedService = null;
@@ -29,7 +33,10 @@ public class ReaderTask implements Runnable {
 	public ReaderTask() {
 		feedService = new FeedService();
 	}
-
+ 
+	/**
+	 * 
+	 */
 	@Override
 	public void run() {
 		log4jLogger.info("ReaderTask.run" + new Date());
