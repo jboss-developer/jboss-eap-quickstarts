@@ -6,7 +6,7 @@ Technologies: JSF, CDI, Deltaspike
 Summary: Demonstrate the creation of a custom authorization example using @SecurityBindingType from DeltaSpike
 Prerequisites: 
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------

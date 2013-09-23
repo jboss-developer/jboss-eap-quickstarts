@@ -6,7 +6,7 @@ Technologies: CDI, JSF, DeltaSpike
 Summary: Exception being handled by different handlers and purpose
 Prerequisites: 
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------

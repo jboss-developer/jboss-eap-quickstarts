@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JMS, CDI, DeltaSpike
 Summary: Demonstrates a JMS client using DeltaSpike configuration properties
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------

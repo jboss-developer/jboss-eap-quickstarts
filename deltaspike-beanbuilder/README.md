@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: CDI, DeltaSpike
 Summary: Shows how to create new beans using DeltaSpike utilities.
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------

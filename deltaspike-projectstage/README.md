@@ -6,7 +6,7 @@ Technologies: JSF, CDI, Deltaspike
 Summary: Demonstrate usage of DeltaSpike project stage and shows usage of a conditional @Exclude
 Prerequisites: 
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------
