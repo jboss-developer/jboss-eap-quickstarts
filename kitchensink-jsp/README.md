@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JSP
 Summary: Based on kitchensink, but uses a JSP for the user interface
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

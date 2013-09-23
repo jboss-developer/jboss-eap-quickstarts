@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI
 Summary: Demonstrates the use of CDI Decorator where the bean is can be decorated.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

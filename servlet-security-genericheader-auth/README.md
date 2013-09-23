@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Servlet, JAAS
 Summary: Demonstrates the use a custom authenticator to enable support for header-based authentication
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI
 Summary: Demonstrates the use of CDI 1.0 Injection and Qualifiers with JSF as the front-end client.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

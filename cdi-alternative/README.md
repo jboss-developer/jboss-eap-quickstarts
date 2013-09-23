@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, Servlet, JSP
 Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment 
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

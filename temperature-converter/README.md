@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: EJB
 Summary: Demonstrates a stateless session bean 
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Forge
 Summary: Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

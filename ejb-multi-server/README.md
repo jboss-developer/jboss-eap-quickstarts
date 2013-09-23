@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, EAR
 Summary: EJB applications deployed to different servers that communicate via EJB remote calls
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 
 What is it?

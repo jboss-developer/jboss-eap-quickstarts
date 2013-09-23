@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, Container Managed Transactions (CMT)
 Summary: EJB that demonstrates container-managed transactions (CMT)
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 ## What is it?
 

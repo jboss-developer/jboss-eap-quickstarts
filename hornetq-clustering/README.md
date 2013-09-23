@@ -1,13 +1,12 @@
 hornetq-clustering: HornetQ Demonstrating using Clustering
 ============================================================
-Author: Jess Sightler  
-Level: Intermediate  
-Technologies: JMS, MDB, HornetQ  
-Summary: Demonstrates the use of HornetQ Clustering  
-Prerequisites: helloworld-mdb  
-Target Product: EAP  
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>  
-
+Author: Jess Sightler
+Level: Intermediate
+Technologies: JMS, MDB, HornetQ
+Summary: Demonstrates the use of HornetQ Clustering
+Prerequisites: helloworld-mdb
+Target Product: EAP
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 

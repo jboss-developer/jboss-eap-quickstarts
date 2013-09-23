@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Servlets, Security
 Summary: Security context propagation between JBoss server instances, when using EJB calls. 
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

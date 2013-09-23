@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, EAR
 Summary: Shows how to handle Exceptions across JARs in an EAR
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
