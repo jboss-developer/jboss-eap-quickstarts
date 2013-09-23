@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: EJB 3.1 Timer
 Summary: Demonstrates how to use EJB 3.1 Timer (@Schedule and @Timeout) with the JBoss AS server.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

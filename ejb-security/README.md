@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, Security
 Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

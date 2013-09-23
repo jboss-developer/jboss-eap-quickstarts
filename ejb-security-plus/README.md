@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Security
 Summary: Demonstrates how interceptors can be used to supply additional information to be used for authentication before EJB calls.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

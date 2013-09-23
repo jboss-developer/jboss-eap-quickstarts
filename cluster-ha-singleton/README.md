@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, HASingleton, JNDI
 Summary: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

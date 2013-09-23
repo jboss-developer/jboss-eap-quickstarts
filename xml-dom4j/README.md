@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: DOM4J, Servlet, JSF
 Summary: Demonstrates how to upload an XML file and parse it using 3rd party XML parsing libraries
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

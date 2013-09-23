@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, JMX and MBean
 Summary: Demonstrates the use of CDI 1.0 and MBean
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JPA,JSF,EJB
 Summary: Demonstrates using cdi-interceptors for logging and auditing
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

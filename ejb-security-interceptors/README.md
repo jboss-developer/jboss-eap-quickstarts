@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Security
 Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

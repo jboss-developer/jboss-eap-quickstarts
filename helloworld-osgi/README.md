@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: OSGi
 Summary: Shows how to create and deploy a simple OSGi Bundle
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

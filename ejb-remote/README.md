@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB
 Summary: Shows how to access an EJB from a remote Java client program using JNDI
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------

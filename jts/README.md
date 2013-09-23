@@ -6,7 +6,7 @@ Technologies: JTS
 Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions
 Prerequisites: cmt
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 
 What is it?

@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, JSF, WAR
 Summary: Packages an EJB JAR in a WAR
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
