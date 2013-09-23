@@ -53,7 +53,7 @@ Start JBoss Enterprise Application Platform 6 or JBoss AS 7
 
       `--server-config=../../docs/examples/configs/standalone-xts.xml`
 
-Contributor: If the server is started in a different manner than above, give the specific instructions.
+If the server is started in a different manner than above, give the specific instructions.
 
 
 Build and Deploy the Quickstart
@@ -164,8 +164,6 @@ Domain  mode
 Undeploy the Archive
 --------------------
 
-Contributor: For example: 
-
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
@@ -175,14 +173,11 @@ Contributor: For example:
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-Contributor: For example: 
 
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 Debug the Application
 ------------------------------------
-
-Contributor: For example: 
 
 If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 
@@ -231,7 +226,10 @@ Copy the source for the hibernate-search quickstart into this new git repository
 
 ### Configure the OpenShift Server
 
-Contributor: Here you describe any modifications needed for the `.openshift/config/standalone.xml` file. See other quickstart README.md files for examples.
+   Create below Cartridges
+   	1. JBoss Application Server 7
+   	2. PostgreSQL Database 8.4 or MySQL Database 5.1
+   	3. Modify the pom.xml with correct database configurations
 
 ### Deploy the OpenShift Application
 
