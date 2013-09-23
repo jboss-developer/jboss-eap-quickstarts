@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, DeltaSpike
 Summary: Creating a basic CDI extension to automatically add an interceptor binding
 Target Product: WFK
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------
