@@ -54,9 +54,9 @@
     <!-- JBoss dependency versions -->
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
-        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
+        <version.jboss.as>7.3.0.Final-redhat-5</version.jboss.as>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-5</version.jboss.spec.javaee.6.0>
 
     <!-- other versions -->
         <version.jboss.ejb.client>1.0.10.Final</version.jboss.ejb.client>

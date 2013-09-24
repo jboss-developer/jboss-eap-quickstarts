@@ -45,7 +45,7 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
+        <version.jboss.as>7.3.0.Final-redhat-5</version.jboss.as>
 
         <!-- other plugin versions -->
         <version.jar.plugin>2.2</version.jar.plugin>
