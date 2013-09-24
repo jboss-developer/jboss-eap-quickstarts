@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This quickstart is based upon the kitchensink example, but demonstrates how to use Hibernate ORM 4 over JPA in JBoss Enterprise Application Platform 6 or JBoss AS 7.
+This quickstart is based upon the kitchensink example, but demonstrates how to use Hibernate ORM 4 over JPA in Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
 This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 , Hibernate-Core and Hibernate Bean Validation.  It includes a persistence unit associated with Hibernate session and some sample persistence and transaction code to help you with database access in enterprise Java. 
 
@@ -22,7 +22,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
  
 Configure Maven
@@ -34,9 +34,9 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Add the Correct Dependencies
 ---------------------------
 
-JBoss Enterprise Application Platform 6 and JBoss AS 7 both provide Hibernate 3, Hibernate 4, and JPA support. 
+JBoss EAP 6.1 provides Hibernate 4 and JPA support. 
 
-If you use Hibernate 4 packaged within JBoss Enterprise Application Platform 6 or JBoss AS 7, you will need to first import the JPA API.
+If you use Hibernate 4 packaged within Red Hat JBoss EAP 6.1 or later, you will need to first import the JPA API.
 
 This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
 
@@ -56,10 +56,10 @@ For example:
          </exclusions>
       </dependency>
 
-Please note that if you are working with Hibernate 3, the process is different. You will need to bundle the jars since JBoss Enterprise Application Platform 6 and JBoss AS 7 do not ship with Hibernate 3. Refer to the `hibernate3` quickstart for details on how to bundle the JARs.
+Please note that if you are working with Hibernate 3, the process is different. You will need to bundle the jars since JBoss EAP 6 does not ship with Hibernate 3. Refer to the `hibernate3` quickstart for details on how to bundle the JARs.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss EAP 6.1 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

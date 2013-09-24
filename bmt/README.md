@@ -12,13 +12,13 @@ What is it?
 
 On occasion, the application developer requires finer grained control over the lifecycle of JTA transactions and JPA Entity Managers than the defaults provided by the Java EE container. This example shows how the developer can override these defaults and take control of aspects of the lifecycle of JPA and transactions.
 
-This example demonstrates how to manually manage transaction demarcation while accessing JPA entities in JBoss Enterprise Application Platform 6 or JBoss AS 7.
+This example demonstrates how to manually manage transaction demarcation while accessing JPA entities in Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
 When you run this example, you will be provided with a `Use bean managed Entity Managers` checkbox.
 * If you check the checkbox, it shows the developer responsibilities when injecting an Entity Manager into a managed (stateless) bean.
 * If you uncheck the checkbox, shows the developer responsibilities when using JPA and transactions with an unmanaged component.
 
-JBoss Enterprise Application Platform 6 and JBoss AS 7 ship with H2, an in-memory database written in Java. This example shows how to transactionally insert key value pairs into the H2 database and demonstrates the requirements on the developer with respect to the JPA Entity Manager.
+JBoss EAP 6.1 ships with H2, an in-memory database written in Java. This example shows how to transactionally insert key value pairs into the H2 database and demonstrates the requirements on the developer with respect to the JPA Entity Manager.
 
 _NOTE: A Java EE container is designed with robustness in mind, so you should carefully analyse the scaleabiltiy, concurrency and performance needs of you application before taking advantage of these techniques in your own applications._
 
@@ -28,7 +28,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
  
 Configure Maven
@@ -37,7 +37,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss EAP 6.1 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

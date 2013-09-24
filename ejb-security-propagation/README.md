@@ -180,7 +180,7 @@ _NOTE - Before you begin:_
 
 #### Configure the Server by Manually Editing the Server Configuration File
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6.1
+1. If it is running, stop the JBoss EAP 6.1 server.
 2. Backup the following files, replacing JBOSS_HOME with the path to your server: 
 
         JBOSS_HOME/domain/configuration/domain.xml
@@ -190,7 +190,7 @@ _NOTE - Before you begin:_
 
 #####  Manually Configure the Server Groups
 
-1. If JBoss is running, stop it.
+1. If it is running, stop the JBoss EAP 6.1 server.
 2. Open the `host.xml` file and find the 'servers' section. For the `server-two`, associate the server-group to "other-server-group". Save it. The result should be:
 
         <server name="server-one" group="main-server-group">
@@ -325,7 +325,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. If JBoss is running, restart it, so the module can be loaded.
 
-Start JBoss Enterprise Application Platform 6.1
+Start JBoss EAP 6.1
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -412,13 +412,13 @@ Remove the Security Domain Configuration
 You can remove the security domain configuration by manually restoring the back-up copy the configuration file. 
 
 ### Remove the Security Domain Configuration Manually           
-1. If it is running, stop the JBoss Enterprise Application Platform 6.1
+1. If it is running, stop the JBoss EAP 6.1 server.
 2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
 
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 Server by typing the following: 
+1. Start the JBoss EAP 6.1 Server by typing the following: 
 
         For Linux:   JBOSS_HOME/bin/domain.sh
         For Windows: JBOSS_HOME\bin\domain.bat
@@ -435,7 +435,7 @@ This script removes the server configuration that was done by the `configure-ser
         #6 /profile=full/subsystem=security/security-domain=security-propagation-quickstart:remove
         #7 /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:remove
         The batch executed successfully.
-3. Restart the JBoss Enterprise Application Platform 6.1 server, as described above, for the changes to take effect.
+3. Restart the JBoss EAP 6.1 server, as described above, for the changes to take effect.
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------

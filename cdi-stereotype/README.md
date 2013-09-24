@@ -24,8 +24,8 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.01 or higher. 
-Note: The quickstart does not work on JBoss 7.1.1, since it includes old weld libraries. To run it successfully at JBoss AS 7 use should upgrade weld libraries.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or higher. 
+
  
 Configure Maven
 ---------------
@@ -33,7 +33,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6.01 or higher with the Web Profile
+Start JBoss EAP 6.1 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

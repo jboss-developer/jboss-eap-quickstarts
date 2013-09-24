@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the deployment of an *EJB 3.1* bean bundled in a war archive for deployment to *JBoss Enterprise Application Platform 6* or *JBoss AS 7*. The project also includes a set of Aquillian tests for the managed bean and EJB.
+This example demonstrates the deployment of an *EJB 3.1* bean bundled in a war archive for deployment to *Red Hat JBoss Enterprise Application Platform 6.1* or later. The project also includes a set of Aquillian tests for the managed bean and EJB.
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
 
@@ -25,7 +25,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
 
 Configure Maven 
@@ -34,7 +34,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss EAP 6.1 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

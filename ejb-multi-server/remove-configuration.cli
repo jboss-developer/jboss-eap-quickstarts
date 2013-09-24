@@ -62,15 +62,10 @@ batch
 /server-group=main-server-group/jvm=default:add()
 
 
-#  *** NOTE: If you are running JBoss AS 7.1.1, remove the comment on the following command ***
-#/server-group=other-server-group:add(profile=full-ha,socket-binding-group=ha-sockets)
-
-#  *** NOTE: If you are running JBoss AS 7.1.1, comment the following command ***
 /server-group=other-server-group:add(profile=full-ha,socket-binding-group=full-ha-sockets)
 
 /server-group=other-server-group/jvm=default:add()
 
-#  *** NOTE: If you are running JBoss AS 7.1.1, comment the following commands ***
 /server-group=main-server-group/jvm=default:write-attribute(name=heap-size, value=1303m)  
 /server-group=main-server-group/jvm=default:write-attribute(name=max-heap-size, value=1303m)
 /server-group=other-server-group/jvm=default:write-attribute(name=heap-size, value=1303m)  
@@ -78,12 +73,6 @@ batch
 /server-group=main-server-group/jvm=default:write-attribute(name=heap-size, value=1303m)  
 /server-group=main-server-group/jvm=default:write-attribute(name=max-permgen-size, value=256m)
 /server-group=other-server-group/jvm=default:write-attribute(name=max-permgen-size, value=256m)
-
-#  *** NOTE: If you are running JBoss AS 7.1.1, remove the comments on the following # commands ***
-#/server-group=main-server-group/jvm=default:write-attribute(name=heap-size, value=64m)  
-#/server-group=main-server-group/jvm=default:write-attribute(name=max-heap-size, value=512m)
-#/server-group=other-server-group/jvm=default:write-attribute(name=heap-size, value=64m)  
-#/server-group=other-server-group/jvm=default:write-attribute(name=max-heap-size, value=512m)
 
 # Add the default server-configs back to the profile
 /host=master/server-config=server-one:add(group=main-server-group)

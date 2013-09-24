@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *JAX-RS* in *JBoss AS 7* or *JBoss Enterprise Application Platform 6*.
+This example demonstrates the use of *CDI 1.0* and *JAX-RS* in *Red Hat JBoss Enterprise Application Platform 6.1* or later.
 
 
 System requirements
@@ -18,7 +18,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1.
 
  
 Configure Maven
@@ -27,7 +27,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss EAP 6.1 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -94,13 +94,13 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform 6, or `jbossas-7` for quickstarts running on JBoss AS 7:
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP 6.1:
 
     rhc app create -a helloworldrs -t APPLICATION_TYPE
 
 _NOTE_: The domain name for this application will be `helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
-This command creates an OpenShift application named `helloworldrs` and will run the application inside the `jbosseap-6`  or `jbossas-7` container. You should see some output similar to the following:
+This command creates an OpenShift application named `helloworldrs` and will run the application inside the `jbosseap-6` container. You should see some output similar to the following:
 
     Creating application: helloworldrs
     Now your new domain name is being propagated worldwide (this might take a minute)...
