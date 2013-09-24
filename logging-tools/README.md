@@ -22,7 +22,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on *Red Hat JBoss Enterprise Application Platform 6.1*. 
 
 
 Configure Maven
@@ -37,7 +37,7 @@ Configure the JBoss Server to Start With a Different Locale (Optional)
 To start the JBoss server with a different locale than the system default:
 
 1. Make a backup copy of the `JBOSS_HOME/bin/standalone.conf` file.
-2. Edit the file and append commands to set the JVM parameters for the required country and language.  
+2. Edit the file and append commands to set the JVM parameters for the required country and language.
    Eg. Germany and German, `DE` and `de`.
     
         JAVA_OPTS="$JAVA_OPTS -Duser.country=DE"
@@ -49,7 +49,7 @@ To start the JBoss server with a different locale than the system default:
    Refer to <http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale>
       
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start JBoss EAP 6.1 with the Web Profile
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
