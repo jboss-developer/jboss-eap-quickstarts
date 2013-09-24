@@ -329,7 +329,7 @@ Start JBoss EAP 6.1
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile. Be sure to replace JBOSS_HOME with the path to your server.
+2. The following shows the command line to start the server. Be sure to replace JBOSS_HOME with the path to your server.
 
         For Linux:   JBOSS_HOME/bin/domain.sh
         For Windows: JBOSS_HOME\bin\domain.bat

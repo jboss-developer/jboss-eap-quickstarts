@@ -92,7 +92,7 @@ This script adds the `servlet-security-quickstart` domain to the `security` subs
 
 ### Configure the Security Domain Using the JBoss CLI Interactively
 
-1. Start the JBoss EAP 6.1 server with the web profile by typing the following: 
+1. Start the JBoss EAP 6.1 server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat 
@@ -129,11 +129,11 @@ This script adds the `servlet-security-quickstart` domain to the `security` subs
 Please note that the security domain name `servlet-security-quickstart` must match the one defined in the `/src/main/webapp/WEB-INF/jboss-web.xml` file.
 
 
-Start JBoss EAP 6.1 with the Web Profile
+Start JBoss EAP 6.1
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat

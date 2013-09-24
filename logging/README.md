@@ -34,10 +34,10 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 
 Start the JBoss Server
 -------------------------
-Start JBoss EAP 6.1 with the Web Profile
+Start JBoss EAP 6.1
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -191,7 +191,7 @@ You should see the following result when you run the script:
 
 #### Configure Logging by Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss EAP 6.1 server with the web profile by typing the following: 
+1. Start the JBoss EAP 6.1 server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat 

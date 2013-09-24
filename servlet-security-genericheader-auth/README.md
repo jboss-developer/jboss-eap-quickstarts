@@ -109,11 +109,11 @@ This script adds the `GenericHeaderAuth` domain to the `security` subsystem in t
         </security-domain>
 
 
-Start JBoss EAP 6.1 with the Web Profile
+Start JBoss EAP 6.1
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat

@@ -170,12 +170,12 @@ The JBoss server can be started a few different ways.
 
 The README for each quickstart will specify which configuration is required to run the example.
 
-#### Start the JBoss Server with the Web Profile
+#### Start the JBoss Server
 
-To start JBoss EAP 6.1 with the Web Profile:
+To start JBoss EAP 6.1:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the JBoss server with the web profile:
+2. The following shows the command line to start the JBoss server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
