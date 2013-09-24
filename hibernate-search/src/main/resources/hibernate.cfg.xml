@@ -41,7 +41,7 @@
  	    
 		<!-- use jboss-as-hibernate-search for following property when used in openshift,domain and standalone mode-->
  	    <property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/jboss-as-hibernate-search</property>
-		<!-- use local-remote for following property when used in domain moed with hotrod server-->
+		<!-- use local-remote for following property when used in domain mode with hotrod server-->
 		<!-- <property name="hibernate.cache.default.infinispan.cachemanager_jndiname">java:jboss/infinispan/container/local-remote</property> -->
 
         <property name="hibernate.search.infinispan.chunk_size">40960</property>
