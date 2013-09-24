@@ -225,15 +225,9 @@ Copy the source for the hibernate-search quickstart into this new git repository
 
 ### Configure your application on OpenShift
 
-<<<<<<< HEAD
    Add the following cartridges to your OpenShift application
    	1. JBoss Application Server 7
    	2. PostgreSQL Database 8.4 
-=======
-   Create below Cartridges
-   	1. JBoss Application Server 7
-   	2. PostgreSQL Database 8.4 or MySQL Database 5.1
->>>>>>> branch 'master' of https://github.com/tharinduj/jboss-as-quickstart.git
    	3. Modify the pom.xml with correct database configurations
 
 ### Deploy the Application on OpenShift
