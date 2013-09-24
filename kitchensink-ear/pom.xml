@@ -56,7 +56,7 @@
             line below to use version 7.1.1.Final-redhat-1 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <version.org.jboss.as>7.3.0.Final-redhat-4</version.org.jboss.as>
+        <version.org.jboss.as>7.3.0.Final-redhat-5</version.org.jboss.as>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
