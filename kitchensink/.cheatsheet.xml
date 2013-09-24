@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?> 
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
@@ -14,7 +15,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<?xml version="1.0" encoding="UTF-8"?> 
 <cheatsheet title="CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian: Kitchensink quickstart">
   <intro>
     <description>
