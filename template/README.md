@@ -65,7 +65,7 @@ Start JBoss EAP 6.1
 
 Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:
 
- * Start JBoss EAP 6.1 with the Web Profile
+ * Start JBoss EAP 6.1
 
  * Start JBoss EAP 6.1 with the Full Profile
 

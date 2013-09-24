@@ -75,11 +75,11 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 _NOTE: If you are using JBoss EAP 6.1, you can not append the path to the Maven settings on the Forge command line. You must configure the Maven user settings as noted in step 4 of the instructions._
 
 
-Start JBoss EAP 6.1 with the Web Profile
+Start JBoss EAP 6.1
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
