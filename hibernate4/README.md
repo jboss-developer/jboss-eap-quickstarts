@@ -59,11 +59,11 @@ For example:
 Please note that if you are working with Hibernate 3, the process is different. You will need to bundle the jars since JBoss EAP 6 does not ship with Hibernate 3. Refer to the `hibernate3` quickstart for details on how to bundle the JARs.
 
 
-Start JBoss EAP 6.1 with the Web Profile
+Start JBoss EAP 6.1
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
