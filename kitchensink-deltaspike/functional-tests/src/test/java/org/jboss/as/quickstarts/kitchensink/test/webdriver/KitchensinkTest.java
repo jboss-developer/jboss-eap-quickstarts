@@ -42,9 +42,9 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * This class provides Arquillian-related infrastructure and functional tests afterwards.
- *
+ * 
  * @author <a href="mailto:smikloso@redhat.com">Stefan Miklosovic</a>
- *
+ * 
  */
 @RunWith(Arquillian.class)
 public class KitchensinkTest {
@@ -68,7 +68,7 @@ public class KitchensinkTest {
 
     /**
      * Creates deployment which is sent to the container upon test's start.
-     *
+     * 
      * @return war file which is deployed while testing, the whole application in our case
      */
     @Deployment(testable = false)
@@ -183,7 +183,7 @@ public class KitchensinkTest {
         assertTrue(contains(INVALID, "size must be between 1 and 25"));
         assertTrue(contains(INVALID, "may not be empty"));
         assertTrue(contains(INVALID, "numeric value out of bounds (<12 digits>.<0 digits> expected)") ||
-                   contains(INVALID, "size must be between 10 and 12"));
+            contains(INVALID, "size must be between 10 and 12"));
 
         assertTrue(!condition(REGISTERED_MESSAGE).isPresent().apply(browser));
     }
@@ -257,8 +257,8 @@ public class KitchensinkTest {
         Graphene.guardHttp(REGISTRATION_FORM).submit();
 
         // Both validators make sense here
-        assertTrue(contains(INVALID, "numeric value out of bounds (<12 digits>.<0 digits> expected)") || 
-                   contains(INVALID, "size must be between 10 and 12"));
+        assertTrue(contains(INVALID, "numeric value out of bounds (<12 digits>.<0 digits> expected)") ||
+            contains(INVALID, "size must be between 10 and 12"));
     }
 
     @Test
@@ -315,7 +315,7 @@ public class KitchensinkTest {
 
     /**
      * This helper method sets values into the according input fields.
-     *
+     * 
      * @param name name to set into the name input field
      * @param email email to set into the email input field
      * @param phone phone to set into the phone input field
@@ -333,7 +333,7 @@ public class KitchensinkTest {
 
     /**
      * Helper method which checks if some list of WebElemets contains an element which holds some particular message.
-     *
+     * 
      * @param elements list of elements to check the existence of a message of
      * @param message
      * @return true if list of elemets contains the message, false otherwise
@@ -346,13 +346,14 @@ public class KitchensinkTest {
         }
         return false;
     }
-    
+
     /**
      * Helper method to create conditions on WebElements
+     * 
      * @param element
      * @return
      */
     private WebElementConditionFactory condition(WebElement element) {
-       return new WebElementConditionFactory(element);
+        return new WebElementConditionFactory(element);
     }
 }
