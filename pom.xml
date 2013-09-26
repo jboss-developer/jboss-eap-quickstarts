@@ -118,8 +118,6 @@
                         <exclude>**/LICENSE*</exclude>
                         <exclude>>**/license*</exclude>
                         <!-- Exclude submodules -->
-                        <exclude>jdg-quickstarts/**</exclude>
-                        <exclude>jpp-quickstarts/**</exclude>
                         <exclude>picketlink-quickstarts/**</exclude>
                         <!-- Exclude specific Quickstarts -->
                         <exclude>petclinic-spring/**</exclude>
@@ -189,7 +187,6 @@
                 <module>helloworld-ws</module>
                 <module>hibernate3</module>
                 <module>hibernate4</module>
-                <module>jdg-quickstarts</module>
                 <module>kitchensink</module>
                 <module>kitchensink-ear</module>
                 <module>kitchensink-jsp</module>
@@ -262,7 +259,6 @@
                 <module>inter-app</module>                
                 <module>jax-rs-client</module>
                 <module>jts</module>
-                <module>jpp-quickstarts</module>
                 <module>servlet-security-genericheader-auth</module>
             </modules>
         </profile>
