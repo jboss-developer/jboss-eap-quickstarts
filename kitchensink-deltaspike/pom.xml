@@ -47,7 +47,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
         <version.jboss.bom.wfk>2.4.0-build-5</version.jboss.bom.wfk>
-        <version.jboss.bom.eap>6.2.0-build-4</version.jboss.bom.eap>
+        <version.jboss.bom.eap>1.0.7.Final</version.jboss.bom.eap>
         
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -77,7 +77,7 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
+                <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
