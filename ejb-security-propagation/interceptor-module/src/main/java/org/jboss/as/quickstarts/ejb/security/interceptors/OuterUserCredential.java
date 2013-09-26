@@ -16,7 +16,7 @@
  */
 package org.jboss.as.quickstarts.ejb.security.interceptors;
 
-import org.jboss.as.domain.management.security.RealmUser;
+import org.jboss.as.core.security.RealmUser;
 
 /**
  * A wrapper around the user for the Connection to act as a Credential.

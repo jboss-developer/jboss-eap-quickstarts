@@ -255,8 +255,8 @@
             </activation>
             <modules>
                 <module>cluster-ha-singleton</module>
-                <!--<module>ejb-security-plus</module>-->
-                <!--<module>ejb-security-propagation</module>-->
+                <module>ejb-security-plus</module>
+                <module>ejb-security-propagation</module>
                 <module>inter-app</module>                
                 <module>jax-rs-client</module>
                 <module>jts</module>
