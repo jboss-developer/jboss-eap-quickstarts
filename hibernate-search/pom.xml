@@ -19,15 +19,14 @@
 	<packaging>war</packaging>
 	<name>JBoss AS Quickstarts: hibernate-search</name>
 	<description>hibernate-search: Demonstrates doing a full text search of your entities</description>
-
-	<url>http://jboss.org/jbossas</url>
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<distribution>repo</distribution>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-		</license>
-	</licenses>
+	<url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
 
 	<properties>
 		<!-- Explicitly declaring the source encoding eliminates the following 
@@ -400,11 +399,11 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<connection.url>jdbc:mysql://127.2.16.2:3306/jbossashibernatesearch</connection.url>
-				<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class>
+				<connection.url>jdbc:postgresql://202.148.162.37/jbossashibernatesearch</connection.url>
+				<connection.driver_class>org.postgresql.Driver</connection.driver_class>
 				<connection.username>adminTbacVWR</connection.username>
 				<connection.password>AmZU9nwk8FMa</connection.password>
-				<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect>
+				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
 				<!-- Change this property if you want to keep the existing data -->
 				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
 			</properties>
