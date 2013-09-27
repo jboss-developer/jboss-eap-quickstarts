@@ -1,3 +1,12 @@
+[submodule "richfaces-quickstarts"]
+	path = richfaces-quickstarts
+	url = git@github.com:richfaces/jdf-quickstarts.git
+[submodule "jpp-quickstarts"]
+	path = jpp-quickstarts
+	url = https://github.com/gatein/gatein-portal-quickstart.git
+[submodule "jdg-quickstarts"]
+	path = jdg-quickstarts
+	url = https://github.com/infinispan/jdg-quickstart.git
 [submodule "picketlink-quickstarts"]
 	path = picketlink-quickstarts
-	url = git@github.com:picketlink/picketlink-eap-quickstarts.git
+	url = git@github.com:picketlink/picketlink-quickstarts.git
