@@ -61,36 +61,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>set-jboss-application-user</id>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${env.JBOSS_HOME}/standalone/configuration</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/test/resources</directory>
-                                    <excludes>
-                                        <exclude>arquillian.xml</exclude>
-                                    </excludes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
