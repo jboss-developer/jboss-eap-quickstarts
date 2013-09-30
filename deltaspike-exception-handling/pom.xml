@@ -51,13 +51,11 @@
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
-
+        
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
 
-		<!-- maven-war-plugin -->
-		<version.war.plugin>2.1.1</version.war.plugin>
 
     </properties>
 
@@ -147,8 +145,8 @@
         </plugins>
     </build>
 
-	<profiles>
-    	<profile>
+    <profiles>
+        <profile>
             <!-- When built in OpenShift the 'openshift' profile will be 
                 used when invoking mvn. -->
             <!-- Use this profile for any OpenShift specific customization 
