@@ -78,6 +78,33 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
+    <profile>
+        <id>jboss-developer-repository</id>
+        <repositories>
+            <repository>
+                <id>jboss-developer-repository</id>
+                <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+                <releases>
+                   <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                  <enabled>false</enabled>
+                </snapshots>
+            </repository>
+        </repositories>
+        <pluginRepositories>
+            <pluginRepository>
+                <id>jboss-developer-plugin-repository</id>
+                <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+                <releases>
+                  <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                  <enabled>false</enabled>
+                </snapshots>
+            </pluginRepository>
+        </pluginRepositories>
+    </profile>
 
   </profiles>
 
@@ -85,6 +112,7 @@
     <!-- Optionally, make the repositories active by default -->
     <activeProfile>jboss-ga-repository</activeProfile>
     <activeProfile>jboss-earlyaccess-repository</activeProfile>
+    <activeProfile>jboss-developer-repository</activeProfile>
   </activeProfiles>
 
 </settings>
