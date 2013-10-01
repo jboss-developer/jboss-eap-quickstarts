@@ -42,11 +42,11 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
-Back Up the JBoss EAP 6.1 Server Configuration Files
+Back Up the JBoss EAP Server Configuration Files
 -----------------------------
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss EAP server.
 2. Backup the following files, replacing JBOSS_HOME with the path to your server: 
 
         JBOSS_HOME/domain/configuration/domain.xml
@@ -55,16 +55,16 @@ _NOTE - Before you begin:_
 3. After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
 
 
-Start JBoss EAP 6.1 Server
+Start JBoss EAP Server
 ---------------------------
 
 
-1. Unzip or install a fresh JBoss EAP 6.1 instance.
+1. Unzip or install a fresh JBoss EAP instance.
 2. Open a command line and navigate to the root of the server directory. Start the server using the following command:
 
         bin/domain.sh    
 
-Configure the JBoss EAP 6.1 Server
+Configure the JBoss EAP Server
 ---------------------------
 
    Open a new command line, navigate to the root directory of this quickstart, and run the following command:
@@ -85,7 +85,7 @@ The following users must be added to the `ApplicationRealm` to run this quicksta
 | quickuser1 | ApplicationRealm | quick123+ | _leave blank for none_ |
 | quickuser2 | ApplicationRealm | quick+123 | _leave blank for none_ |
 
-If you are running JBoss Enterprise Application Platform 6.1, you can add the users using the following commands:
+Add the users using the following commands:
 
         bin/add-user.sh -a -u quickuser -p quick-123 --silent
         bin/add-user.sh -a -u quickuser1 -p quick123+ --silent
@@ -119,7 +119,7 @@ Access the Remote Client Application
 ---------------------
 
 This example will show how the EJB can be invoked from a remote standalone application.
-Also the client show how to invoke an EJB by using the scoped-context introduced with EAP6.1 to invoke the EJB without properties file by pass all necessary parameter to the InitialContext.
+Also the client show how to invoke an EJB by using the scoped-context introduced with EAP6.1 or later to invoke the EJB without properties file by pass all necessary parameter to the InitialContext.
 
 1. Make sure that the deployments are successful as described above.
 2. Navigate to the quickstart `client/` subdirectory.
@@ -163,7 +163,7 @@ Also the client show how to invoke an EJB by using the scoped-context introduced
 _NOTE:_
  
 * _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
-* _A new feature in JBoss Enterprise Platform 6.1 will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
+* _A new feature in JBoss Enterprise Platform 6.1 and later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
 
 
 Access the JSF application inside the main-application
@@ -179,8 +179,6 @@ The JSF example shows different annotations to inject the EJB. Also how to handl
 _NOTE :_
 
 * _If you try to invoke `MainEjbClient34App` you need to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`._
-* _Remember that the scoped-client will be implemented at first with EAP6.1 and will not work before._
-
 
 Access the Servlet application deployed as a WAR inside a minimal server
 ---------------------
@@ -191,7 +189,7 @@ An example how to access EJB's from a separate instance which only contains a we
 2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/appweb/>
 3. The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful
 
-_NOTE : If a version from JBoss EAP6.1 is used, a new feature will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
+_NOTE : A new feature in EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
 
 
 Undeploy the Archives
@@ -210,14 +208,14 @@ Remove the Server Domain Configuration
 You can remove the domain configuration by manually restoring the back-up copies the configuration files or by running the JBoss CLI Script. 
 
 ### Remove the Server Domain Configuration Manually           
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss EAP server.
 2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
 _Note: This script returns the server to a default configuration and the result may not match the server configuration prior to testing this quickstart. If you were not running with the default configuration before testing this quickstart, you should follow the intructions above to manually restore the configuration to its previous state._
 
-1. Start the JBoss EAP 6.1erver by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:   JBOSS_HOME/bin/domain.sh
         For Windows: JBOSS_HOME\bin\domain.bat
