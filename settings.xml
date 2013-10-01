@@ -84,7 +84,7 @@
   <activeProfiles>
     <!-- Optionally, make the repositories active by default -->
     <activeProfile>jboss-ga-repository</activeProfile>
-    <!-- <activeProfile>jboss-earlyaccess-repository</activeProfile-->
+    <activeProfile>jboss-earlyaccess-repository</activeProfile>
   </activeProfiles>
 
 </settings>
