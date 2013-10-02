@@ -5,6 +5,7 @@ Level: Beginner
 Technologies: CDI, HTML5, REST
 Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
 Target Product: WFK
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 
 What is it?
@@ -14,14 +15,14 @@ This is your project! It's a deployable Maven 3 project to help you get your foo
 
 This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
 
-What is a modern web application without mobile web support? This application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile  version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance  improvements needed to get you started with mobile web development on JBoss.  
+What is a modern web application without mobile web support? This application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile  version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance  improvements needed to get you started with mobile web development on JBoss.
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.4.
 
-The application this project produces is designed to be run on JBoss AS 7 or JBoss Enterprise Application Platform 6.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors will vary slightly (ex. validations) based on browser support, especially IE 9.
 
@@ -29,40 +30,65 @@ Mobile web support is limited to Android and iOS devices.  It should run on HP, 
  
 With the prerequisites out of the way, you're ready to build and deploy.
 
-Deploying the application
--------------------------
 
-### Deploying locally
- 
-First you need to start the JBoss container. To do this, run
-  
-    $JBOSS_HOME/bin/standalone.sh
-  
-or if you are using windows
- 
-    $JBOSS_HOME/bin/standalone.bat
-    
-Note: Adding "-b 0.0.0.0" to the above commands will allow external clients (phones, tablets, desktops, etc...) connect through your local network.
+Configure Maven
+---------------
 
-For example
+If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
-    $JBOSS_HOME/bin/standalone.sh -b 0.0.0.0 
 
-To deploy the application, you first need to produce the archive to deploy using the following Maven goal:
+Start the JBoss Server
+-----------------------
 
-    mvn package
+1. Open a command line and navigate to the root of the JBoss server directory.
+2. The following shows the command line to start the server with the default profile:
 
-You can now deploy the artifact by executing the following command:
+        For Linux:   JBOSS_HOME/bin/standalone.sh
+        For Windows: JBOSS_HOME\bin\standalone.bat
 
-    mvn jboss-as:deploy
+   Note: Adding "-b 0.0.0.0" to the above commands will allow external clients (phones, tablets, desktops, etc...) connect through your local network.
+
+   For example
+
+        For Linux:   JBOSS_HOME/bin/standalone.sh -b 0.0.0.0
+        For Windows: JBOSS_HOME\bin\standalone.bat -b 0.0.0.0
+
+
+Build and Deploy the Quickstart
+-------------------------------
+
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to build and deploy the archive:
+
+        mvn clean package jboss-as:deploy
+
+4. This deploys `target/jboss-kitchensink-html5-mobile.war` to the running instance of the server.
+
+
+Access the application
+----------------------
+
+Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-kitchensink-html5-mobile/>.
+
 
 The client application will be running at the following URL <http://localhost:8080/jboss-kitchensink-html5-mobile/>.
 
-To undeploy run this command:
+Undeploy the Archive
+--------------------
 
-    mvn jboss-as:undeploy
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. When you are finished testing, type this command to undeploy the archive:
 
-You can also start the JBoss container and deploy the project using JBoss Tools. See the [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications") for more information.
+        mvn jboss-as:undeploy
+
+
+Run the Quickstart in JBoss Developer Studio or Eclipse
+-------------------------------------
+
+You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
 
 ### Deploying to OpenShift
 
