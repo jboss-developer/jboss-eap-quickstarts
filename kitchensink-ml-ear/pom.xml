@@ -53,7 +53,7 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>6.2.0-build-SNAPSHOT</version.jboss.bom.eap>
 
-        <version.jboss.as>7.3.0.Final-redhat-6</version.jboss.as>
+        <version.jboss.as>7.3.0.Final-redhat-7</version.jboss.as>
 
         <!-- other plugin versions -->
         <version.ear.plugin>2.8</version.ear.plugin>
