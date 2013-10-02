@@ -5,21 +5,22 @@ Level: Intermediate
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example that incorporates multiple technologies
 Target Product: WFK
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 6 on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 6 with Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
 This project is setup to allow you to create a compliant Java EE 6 application using CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.4.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -28,7 +29,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -106,13 +107,13 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform 6, or `jbossas-7` for quickstarts running on JBoss AS 7:
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform 6.1 or later:
 
     rhc app create -a kitchensinkangularjs -t APPLICATION_TYPE
 
 _NOTE_: The domain name for this application will be `kitchensinkangularjs-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
 
-This command creates an OpenShift application called `kitchensinkangularjs` and will run the application inside the `jbosseap-6`  or `jbossas-7` container. You should see some output similar to the following:
+This command creates an OpenShift application called `kitchensinkangularjs` and will run the application inside the `jbosseap-6` container. You should see some output similar to the following:
 
     Creating application: kitchensinkangularjs
     Now your new domain name is being propagated worldwide (this might take a minute)...
@@ -144,7 +145,7 @@ You can now deploy the changes to your OpenShift application using git as follow
         git commit -m "kitchensink-angularjs quickstart on OpenShift"
         git push
 
-OpenShift will build the application using Maven, and deploy it to JBoss AS 7. If successful, you should see output similar to:
+OpenShift will build the application using Maven, and deploy it to the JBoss server. If successful, you should see output similar to:
 
     remote: [INFO] ------------------------------------------------------------------------
     remote: [INFO] BUILD SUCCESS
@@ -154,8 +155,8 @@ OpenShift will build the application using Maven, and deploy it to JBoss AS 7. I
     remote: [INFO] Final Memory: 8M/168M
     remote: [INFO] ------------------------------------------------------------------------
     remote: Running .openshift/action_hooks/build
-    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/kitchensinkangularjs/jbossas-7/standalone/tmp/vfs
-    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/kitchensinkangularjs/jbossas-7/standalone/tmp/work
+    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/kitchensinkangularjs/jbosseap-6/standalone/tmp/vfs
+    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/kitchensinkangularjs/jbosseap-6/standalone/tmp/work
     remote: Running .openshift/action_hooks/deploy
     remote: Starting application...
     remote: Done
