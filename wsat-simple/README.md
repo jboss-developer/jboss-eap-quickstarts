@@ -5,12 +5,13 @@ Level: Intermediate
 Technologies: WS-AT, JAX-WS
 Summary: Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates the deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive for deployment to  *Red Hat JBoss Enterprise Application Platform 6.1* or later.
+This example demonstrates the deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive for deployment to Red Hat JBoss Enterprise Application Platform.
 
 The Web service is offered by a Restaurant for making bookings. The Service allows bookings to be made within an Atomic Transaction.
 
@@ -44,9 +45,9 @@ There is another test that shows what happens if the client decides to rollback 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -55,7 +56,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1 with the Custom Options
+Start the JBoss Server with the Custom Options
 ----------------------
 
 First, edit the log level to reduce the amount of log output. This should make it easier to read the logs produced by this example. To do this add the
@@ -65,7 +66,7 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
             <level name="WARN"/>
         </logger>         
 
-Next you need to start JBoss EAP 6.1 with the XTS sub system enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBossAS:
+Next you need to start JBoss EAP with the XTS sub system enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBossAS:
 
         For Linux:     ./bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml
         For Windows:   \bin\standalone.bat --server-config=..\..\docs\examples\configs\standalone-xts.xml
@@ -146,7 +147,7 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP 6.1:
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP:
 
     rhc app create -a wsatsimple -t APPLICATION_TYPE
 
@@ -222,7 +223,7 @@ You can now deploy the changes to your OpenShift application using git as follow
         git commit -m "wsat-simple quickstart on OpenShift"
         git push
 
-OpenShift will build the application using Maven, and deploy it to JBoss EAP 6.1. If successful, you should see output similar to:
+OpenShift will build the application using Maven, and deploy it to JBoss EA. If successful, you should see output similar to:
 
     remote: [INFO] ------------------------------------------------------------------------
     remote: [INFO] BUILD SUCCESS

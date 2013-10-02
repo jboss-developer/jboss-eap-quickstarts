@@ -5,6 +5,7 @@ Level: Advanced
 Technologies: EJB, EAR
 Summary: EJB applications deployed to different servers that communicate via EJB remote calls
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 
@@ -31,9 +32,9 @@ The server configuration is done using CLI batch scripts located in the root of 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -118,8 +119,8 @@ _NOTE: If ERRORs appear in the server.log when the installing or deploying the q
 Access the Remote Client Application
 ---------------------
 
-This example will show how the EJB can be invoked from a remote standalone application.
-Also the client show how to invoke an EJB by using the scoped-context introduced with EAP6.1 or later to invoke the EJB without properties file by pass all necessary parameter to the InitialContext.
+This example shows how to invoke an EJB from a remote standalone application. 
+It also demonstrates how to invoke an EJB from a client using a scoped-context rather than a properties file containing the parameters required by the InitialContext. 
 
 1. Make sure that the deployments are successful as described above.
 2. Navigate to the quickstart `client/` subdirectory.
@@ -163,7 +164,7 @@ Also the client show how to invoke an EJB by using the scoped-context introduced
 _NOTE:_
  
 * _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
-* _A new feature in JBoss Enterprise Platform 6.1 and later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
+* _A new feature introduced in JBoss EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
 
 
 Access the JSF application inside the main-application
@@ -189,7 +190,7 @@ An example how to access EJB's from a separate instance which only contains a we
 2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/appweb/>
 3. The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful
 
-_NOTE : A new feature in EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation._
+_NOTE : A new feature in EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation.  See the install-domain.cli script._
 
 
 Undeploy the Archives

@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: EJB, Container Managed Transactions (CMT)
 Summary: EJB that demonstrates container-managed transactions (CMT)
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 ## What is it?
@@ -45,9 +46,9 @@ The available options for this annotation are as follows:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -67,7 +68,7 @@ _Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASE
 2. [Add the PostgreSQL Module](../README.md#add-the-postgresql-module-to-the-jboss-server) to the JBoss server `modules/` directory.
 3. [Add the PostgreSQL driver](../README.md#add-the-postgresql-driver-configuration-to-the-jboss-server) to the JBoss server configuration file.
 
-Start JBoss EAP 6.1 with the Full Profile
+Start the JBoss Server with the Full Profile
 ---------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

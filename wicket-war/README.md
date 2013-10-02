@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: Apache Wicket, JPA
 Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration packaged as a WAR
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -24,9 +25,9 @@ This is a WAR version.
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -35,7 +36,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

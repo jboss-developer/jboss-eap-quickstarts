@@ -5,6 +5,7 @@ Level: Beginner
 Technologies: H2
 Summary: Shows how to use the H2 console with JBoss AS
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -12,15 +13,15 @@ What is it?
 
 JBoss AS bundles H2 as an in-memory, in-process database. H2 is written in Java so can run on any platform JBoss AS runs.
 
-This is quickstart shows you how to use the H2 console with JBoss Enterprise Platform 6.1 or later. It uses the `greeter` quickstart as a GUI for entering data.
+This is quickstart shows you how to use the H2 console with Red Hat JBoss Enterprise Application Platform. It uses the `greeter` quickstart as a GUI for entering data.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
  
 
 Configure Maven
@@ -40,7 +41,7 @@ You can verify the deployment of the `greeter` quickstart by accessing the follo
 Deploy the H2 Console
 ------------------------
 
-This quickstart comes bundled with a version of the H2 Console built for JBoss EAP 6.1. The changes that have been made to the stock console are described below. 
+This quickstart comes bundled with a version of the H2 Console built for JBoss EAP. The changes that have been made to the stock console are described below. 
 
 Deploy the console by copying the `QUICKSTART_HOME/h2-console/h2console.war` to the `$JBOSS_HOME/standalone/deployments` directory. 
 
@@ -68,8 +69,8 @@ Take a look at the data added by the `greeter` application. Run the following SQ
 You should see the two users seeded by the `greeter` quickstart, plus any users you added when testing that application.
 
 
-Changes to the H2 Console for JBoss EAP 6.1
+Changes to the H2 Console for JBoss EAP
 ----------------------------------------
 
-To make the H2 console run on JBoss EAP 6.1, the H2 libraries were removed from the WAR and a dependency on the H2 module was added to the META-INF/MANIFEST.MF fle. The rebuilt console is provided with this quickstart.
+To make the H2 console run on JBoss EAP, the H2 libraries were removed from the WAR and a dependency on the H2 module was added to the META-INF/MANIFEST.MF fle. The rebuilt console is provided with this quickstart.
 

@@ -5,12 +5,13 @@ Level: Intermediate
 Technologies: Servlet, Security
 Summary: Demonstrates how to use Java EE declarative security to control access to Servlet 3
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform 6.1 or later.
+This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform.
 
 When you deploy this example, two users are automatically created for you: user `quickstartUser` with password `quickstartPwd1!` and user `guest` with password `guest`. This data is located in the `src/main/resources/import.sql` file. 
 
@@ -37,9 +38,9 @@ Please note the allowed user role `quickstarts` in the annotation -`@RolesAllowe
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -70,13 +71,13 @@ This quickstart authenticates users using a simple database setup. The datasourc
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 #### Configure the Security Domain by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
@@ -92,7 +93,7 @@ This script adds the `servlet-security-quickstart` domain to the `security` subs
 
 ### Configure the Security Domain Using the JBoss CLI Interactively
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat 
@@ -111,7 +112,7 @@ This script adds the `servlet-security-quickstart` domain to the `security` subs
 
 ### Configure the Security Domain by Manually Editing the Server Configuration File
 
-1.  If it is running, stop the JBoss EAP 6.1 server.
+1.  If it is running, stop the JBoss server.
 2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
 3.  Open the `JBOSS_HOME/standalone/configuration/standalone.xml` file in an editor and locate the subsystem `urn:jboss:domain:security`. 
 4.  Add the following XML to the :
@@ -129,7 +130,7 @@ This script adds the `servlet-security-quickstart` domain to the `security` subs
 Please note that the security domain name `servlet-security-quickstart` must match the one defined in the `/src/main/webapp/WEB-INF/jboss-web.xml` file.
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -193,7 +194,7 @@ You can remove the security domain configuration by running the  `remove-securit
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -208,7 +209,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 
 ### Remove the Security Domain Configuration Manually
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 

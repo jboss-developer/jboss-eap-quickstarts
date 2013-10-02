@@ -5,12 +5,13 @@ Level: Intermediate
 Technologies: JMS, EJB, MDB
 Summary: Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates the use of *JMS 1.1* and *EJB 3.1 Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform 6.1 or later..
+This example demonstrates the use of *JMS 1.1* and *EJB 3.1 Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform.
 
 This project creates two JMS resources:
 
@@ -21,9 +22,9 @@ This project creates two JMS resources:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -32,7 +33,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1 with the Full Profile
+Start the JBoss Server with the Full Profile
 ---------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -114,7 +115,7 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform 6.1:
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform:
 
     rhc app create -a hellworldmdb -t APPLICATION_TYPE
 

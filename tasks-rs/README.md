@@ -6,6 +6,7 @@ Technologies: JPA, JAX-RS
 Summary: Demonstrates how to use JAX-RS and JPA together
 Prerequisites: tasks
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -23,9 +24,9 @@ The application manages User and Task JPA entities. A user represents an authent
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -41,7 +42,7 @@ Add an Application User
 This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#add-an-application-user).  After following these instructions. you should have created a user called `quickstartUser` with password `quickstartPwd1!`, belonging to the `guest` role.
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

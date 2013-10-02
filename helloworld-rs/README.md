@@ -5,20 +5,21 @@ Level: Intermediate
 Technologies: CDI, JAX-RS
 Summary: Demonstrates the use of CDI 1.0 and JAX-RS
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *JAX-RS* in *Red Hat JBoss Enterprise Application Platform 6.1* or later.
+This example demonstrates the use of *CDI 1.0* and *JAX-RS* in Red Hat JBoss Enterprise Application Platform.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -27,7 +28,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -94,7 +95,7 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP 6.1:
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP:
 
     rhc app create -a helloworldrs -t APPLICATION_TYPE
 
