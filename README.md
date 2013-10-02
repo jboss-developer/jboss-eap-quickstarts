@@ -28,7 +28,7 @@ Be sure to read this entire document before you attempt to work with the quickst
 Available Quickstarts
 ---------------------
 
-The following is a list of the currently available quickstarts. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.
+The list of all currently available quickstarts can be found here: <http://site-jdf.rhcloud.com/quickstarts/get-started/>. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.
 
 Some quickstarts are designed to enhance or extend other quickstarts. These are noted in the **Prerequisites** column. If a quickstart lists prerequisites, those must be installed or deployed before working with the quickstart.
 
@@ -66,6 +66,8 @@ Git submodules allow you clone another repository as a subdirectory in your proj
 
 System Requirements
 -------------------
+
+The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
 To run these quickstarts with the provided build scripts, you need the following:
 

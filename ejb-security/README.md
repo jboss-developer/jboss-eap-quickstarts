@@ -5,12 +5,13 @@ Level: Intermediate
 Technologies: EJB, Security
 Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates the use of Java EE declarative security to control access to Servlets and EJBs in *Red Hat JBoss Enterprise Application Platform 6.1*.
+This example demonstrates the use of Java EE declarative security to control access to Servlets and EJBs in Red Hat JBoss Enterprise Application Platform.
 
 This quickstart takes the following steps to implement EJB security:
 
@@ -38,9 +39,9 @@ This quickstart takes the following steps to implement EJB security:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -61,7 +62,7 @@ After you add the default `quickstartUser`, use the same steps to add a second a
         Roles:    app-user
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
