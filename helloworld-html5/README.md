@@ -5,12 +5,13 @@ Level: Beginner
 Technologies: CDI, JAX-RS, HTML5
 Summary: Basic HTML5 |Demonstrates the use of CDI 1.0 and JAX-RS using the HTML5 architecture and RESTful services on the backend
 Target Product: WFK
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *JAX-RS* in *JBoss AS 7* using the HTML5 + REST architecture.
+This example demonstrates the use of *CDI 1.0* and *JAX-RS* in Red Hat JBoss Enterprise Application Platform 6.1 or later using the HTML5 + REST architecture.
 
 The application is basically a smart, HTML5+CSS3+JavaScript front-end using RESTful services on the backend.
 
@@ -23,10 +24,9 @@ The example can be deployed using Maven from the command line or from Eclipse us
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven
-3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.4.
 
-The application this project produces is designed to be run on JBoss AS 7 or JBoss Enterprise Application Platform 6.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ is required.
 
@@ -38,7 +38,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
