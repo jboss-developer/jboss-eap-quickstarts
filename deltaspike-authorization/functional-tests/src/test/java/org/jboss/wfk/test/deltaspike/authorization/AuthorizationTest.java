@@ -50,7 +50,7 @@ import org.openqa.selenium.WebElement;
 public class AuthorizationTest {
 
     private static final String USERNAME = "quickstartUser";
-    private static final String PASSWORD = "quickstartPassword";
+    private static final String PASSWORD = "quickstartPwd1!";
     private static final String LOGIN_PATH = "index.html";
     private static final String WELCOME_PATH = "welcome.jsf";
     private static final String WELCOME_HEADER = "Welcome to the restricted page!";
