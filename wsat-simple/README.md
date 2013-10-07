@@ -223,7 +223,7 @@ You can now deploy the changes to your OpenShift application using git as follow
         git commit -m "wsat-simple quickstart on OpenShift"
         git push
 
-OpenShift will build the application using Maven, and deploy it to JBoss EA. If successful, you should see output similar to:
+OpenShift will build the application using Maven, and deploy it to JBoss EAP. If successful, you should see output similar to:
 
     remote: [INFO] ------------------------------------------------------------------------
     remote: [INFO] BUILD SUCCESS
