@@ -5,6 +5,7 @@ Level: Beginner
 Technologies: JBoss Logging Tools
 Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -20,9 +21,9 @@ Instructions are included below for starting JBoss AS7/EAP6 with a different loc
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on *Red Hat JBoss Enterprise Application Platform 6.1*. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -49,7 +50,7 @@ To start the JBoss server with a different locale than the system default:
    Refer to <http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale>
       
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

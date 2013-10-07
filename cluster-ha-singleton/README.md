@@ -5,6 +5,7 @@ Level: Advanced
 Technologies: EJB, HASingleton, JNDI
 Summary: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -24,9 +25,9 @@ The root `pom.xml` builds each of the subprojects in the above order and deploys
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -37,7 +38,7 @@ You can copy or link to the Maven configuration information in the README file i
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1 with a HA profile
+Start the JBoss Server with a HA profile
 -------------------------
 
 If you run a non HA profile the singleton service will not start correctly. To run the example one instance must be started, to see the singleton behaviour at minimum two instances

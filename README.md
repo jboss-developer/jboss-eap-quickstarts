@@ -6,7 +6,7 @@ Introduction
 ------------
 
 
-These quickstarts run on Red Hat JBoss Enterprise Application Platform 6.1 or later. We recommend using the JBoss EAP 6.1 ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
+These quickstarts run on Red Hat JBoss Enterprise Application Platform 6.1 or later. We recommend using the JBoss EAP ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
 
 Be sure to read this entire document before you attempt to work with the quickstarts. It contains the following information:
 
@@ -28,7 +28,7 @@ Be sure to read this entire document before you attempt to work with the quickst
 Available Quickstarts
 ---------------------
 
-The following is a list of the currently available quickstarts. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.
+The list of all currently available quickstarts can be found here: <http://site-jdf.rhcloud.com/quickstarts/get-started/>. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.
 
 Some quickstarts are designed to enhance or extend other quickstarts. These are noted in the **Prerequisites** column. If a quickstart lists prerequisites, those must be installed or deployed before working with the quickstart.
 
@@ -67,6 +67,8 @@ Git submodules allow you clone another repository as a subdirectory in your proj
 System Requirements
 -------------------
 
+The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
 To run these quickstarts with the provided build scripts, you need the following:
 
 1. Java 1.6, to run JBoss AS and Maven. You can choose from the following:
@@ -80,7 +82,7 @@ To run these quickstarts with the provided build scripts, you need the following
 
             mvn --version 
 
-3. The JBoss EAP 6.1 distribution ZIP.
+3. The JBoss EAP distribution ZIP.
     * For information on how to install and run JBoss, refer to the product documentation.
 
 4. You can also use [JBoss Developer Studio or Eclipse](#use-jBoss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
@@ -114,8 +116,8 @@ _Note: If you do not wish to configure the Maven settings, you must pass the con
 4. Copy the `settings.xml` file from the root of the quickstarts directory to your Maven install directory.
  
             For Linux or Mac:  cp QUICKSTART_HOME/settings.xml  ~/.m2/settings.xml
-            For Windows: cp QUICKSTART_HOME/settings.xml \Documents and Settings\USER_NAME\.m2\settings.xml 
-                    -or- cp QUICKSTART_HOME/settings.xml \Users\USER_NAME\.m2\settings.xml
+            For Windows: copy QUICKSTART_HOME/settings.xml \Documents and Settings\USER_NAME\.m2\settings.xml 
+                    -or- copy QUICKSTART_HOME/settings.xml \Users\USER_NAME\.m2\settings.xml
 
 ### Restore Your Maven Configuration When You Finish Testing the Quickstarts
 
@@ -160,19 +162,19 @@ The root folder of each individual quickstart contains a README file with specif
 
 ### Start the JBoss Server
 
-Before you deploy a quickstart, in most cases you need a running JBoss EAP 6.1 server. A few of the Arquillian tests do not require a running server. This will be noted in the README for that quickstart. 
+Before you deploy a quickstart, in most cases you need a running JBoss EAP server. A few of the Arquillian tests do not require a running server. This will be noted in the README for that quickstart. 
 
 The JBoss server can be started a few different ways.
 
-* [Start the JBoss Server With the _web_ profile](#start-the-jboss-server-with-the-web-profile): This is the default configuration. It defines minimal subsystems and services.
+* [Start the Default JBoss Server](#start-the-default-jboss-server): This is the default configuration. It defines minimal subsystems and services.
 * [Start the JBoss Server with the _full_ profile](#start-the-jboss-server-with-the-full-profile): This profile configures many of the commonly used subsystems and services.
 * [Start the JBoss Server with a custom configuration](#start-the-jboss-server-with-custom-configuration-options): Custom configuration parameters can be specified on the command line when starting the server.
 
 The README for each quickstart will specify which configuration is required to run the example.
 
-#### Start the JBoss Server
+#### Start the Default JBoss Server
 
-To start JBoss EAP 6.1:
+To start JBoss EAP:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server:
@@ -182,7 +184,7 @@ To start JBoss EAP 6.1:
 
 #### Start the JBoss Server with the Full Profile
 
-To start JBoss EAP 6.1 with the Full Profile:
+To start JBoss EAP with the Full Profile:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server with the full profile:
@@ -192,7 +194,7 @@ To start JBoss EAP 6.1 with the Full Profile:
 
 #### Start the JBoss Server with Custom Configuration Options
 
-To start JBoss EAP 6.1 with custom configuration options:
+To start JBoss EAP with custom configuration options:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server. Replace the CUSTOM_OPTIONS with the custom optional parameters specified in the quickstart.
@@ -265,47 +267,49 @@ To undeploy any quickstarts that fail due to complex dependencies, follow the un
 ### Run the Arquillian Tests
 ----------------------------
 
-Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests require the use of a container. 
+Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests an application on a real server, not just in a mocked environment.
 
-You can run these tests using either a remote or managed container. The quickstart README should tell you what you should expect to see in the console output and server log when you run the test.
+You can either start the server yourself or let Arquillian manage its lifecycle during the testing. The individual quickstart README should tell you what to expect in the console output and the server log when you run the test.
 
 
-1. Test the quickstart on a Remote Server
-    * A remote container requires you start the JBoss EAP 6.1 server before running the test. [Start the JBoss server](#start-the-jboss-server) as described in the quickstart README file.
+1. Test the quickstart on a remote server
+    * Arquillian's remote container adapter expects a JBoss server instance to be already started prior to the test execution. You must [Start the JBoss server](#start-the-jboss-server) as described in the quickstart README file.
+    * If you need to run the tests on a JBoss server running on a machine other than localhost, you can configure this, along with other options, in the `src/test/resources/arquillian.xml` file using the following properties:
+        
+            <container qualifier="jboss" default="true">
+                <configuration>
+                    <property name="managementAddress">myhost.example.com</property>
+                    <property name="managementPort">9999</property>
+                    <property name="username">customAdminUser</property>
+                    <property name="password">myPassword</property>
+                </configuration>
+            </container>    
     * Run the test goal with the following profile activated:
 
-            mvn clean test -Parq-jbossas-remote 
-2. Test the quickstart on Managed Server
+            mvn clean test -Parq-jbossas-remote     
+2. Test the quickstart on a managed server
 
-    _Note: This test requires that your server is not running. Arquillian will start the container for you, however, you must first let it know where to find the remote JBoss container._
-    * Open the test/resources/arquillian.xml file located in the quickstart directory. 
-    * Find the configuration for the remote JBoss container. It should look like this:
+    Arquillian's managed container adapter requires that your server is not running as it will start the container for you. However, you must first let it know where to find the JBoss server directory. The simplest way to do this is to set the `JBOSS_HOME` environment variable to the full path to your JBoss server directory. Alternatively, you can set the path in the `jbossHome` property in the Arquillian configuration file.
+    * Open the `src/test/resources/arquillian.xml` file located in the quickstart directory.
+    * Find the configuration for the JBoss container. It should look like this:
 
-            <!-- Example configuration for a remote JBoss EAP 6.1 instance -->
+            <!-- Example configuration for a managed/remote JBoss AS 7 instance -->
             <container qualifier="jboss" default="true">
-                <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
+                <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
                 <!--<configuration> -->
                 <!--<property name="jbossHome">/path/to/jboss/as</property> -->
                 <!--</configuration> -->
-            </container>
-    * Remove the comments from the `<configuration>` elements.
-
-            <!-- Example configuration for a remote JBoss EAP 6.1 instance -->
-            <container qualifier="jboss" default="true">
-                <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
-                <configuration>
-                    <property name="jbossHome">/path/to/jboss/as</property>
-                </configuration>
-            </container>
-    * Find the "jbossHome" property and replace the "/path/to/jboss/as" value with the actual path to your JBoss EAP 6.1 server.
+            </container>           
+    * Uncomment the `configuration` element, find the `jbossHome` property and replace the "/path/to/jboss/as" value with the actual path to your JBoss EAP server.
     * Run the test goal with the following profile activated:
 
             mvn clean test -Parq-jbossas-managed
 
+
 Use JBoss Developer Studio or Eclipse to Run the Quickstarts
 ------------------------------------------------------------
 
-You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the [JBoss Enterprise Application Platform 6.1 Development Guide](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/) or [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
+You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the [JBoss Enterprise Application Platform Development Guide](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/) or [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
 
 
 Optional Components
@@ -321,7 +325,7 @@ The following components are needed for only a small subset of the quickstarts. 
 
 ### Add a Management or Application User
 
-By default, JBoss EAP 6.1 is now distributed with security enabled for the management interfaces. A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. A script is provided in the `JBOSS_HOME/bin` directory for that purpose.
+By default, JBoss EAP is now distributed with security enabled for the management interfaces. A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. A script is provided in the `JBOSS_HOME/bin` directory for that purpose.
 
 The following procedures describe how to add a user with the appropriate permissions to run the quickstarts that depend on them.
 
@@ -538,14 +542,14 @@ You can configure the driver by running the `configure-postgresql.cli` script pr
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP 6.1 Server.
+1. If it is running, stop the JBoss EAP server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3. After you have completed testing the quickstarts, you can replace this file to restore the server to its original configuration.
 
  
 ##### Configure the Driver By Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -561,7 +565,7 @@ This script adds the PostgreSQL driver to the datasources subsystem in the serve
 
 ##### Configure the Driver Using the JBoss CLI Interactively
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -572,11 +576,13 @@ This script adds the PostgreSQL driver to the datasources subsystem in the serve
 3. At the prompt, type the following:
 
         [standalone@localhost:9999 /] /subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+4. Tell the server to reload the configuration:
 
+         [standalone@localhost:9999 /] :reload
 
 ##### Configure the Driver By Manually Editing the Configuration File
 
-1.  If it is running, stop the JBoss EAP 6.1 Server.
+1.  If it is running, stop the JBoss EAP server.
 2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3.  Open the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file in an editor and locate the subsystem `urn:jboss:domain:datasources:1.0`. 
 4.  Add the following driver to the `<drivers>` section that subsystem. You may need to merge with other drivers in that section:
@@ -592,7 +598,7 @@ When you are done testing the quickstarts, you can remove the PostgreSQL configu
 
 ##### Remove the PostgreSQL Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -607,7 +613,7 @@ This script removes PostgreSQL from the `datasources` subsystem in the server co
 
 
 ##### Remove the PostgreSQL Configuration Manually
-1. If it is running, stop the JBoss EAP 6.1 Server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 

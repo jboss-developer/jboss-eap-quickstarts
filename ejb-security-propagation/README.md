@@ -5,6 +5,7 @@ Level: Advanced
 Technologies: EJB, Servlets, Security
 Summary: Security context propagation between JBoss server instances, when using EJB calls. 
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -28,24 +29,19 @@ The root `pom.xml` builds each of the subprojects in an appropriate order.
 
 This quickstart runs in a managed domain and uses the `domain.xml` and `host.xml`. 
 
-_Note: JBoss EAP 6.1 or later is necessary to work with this quickstart._
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1 or later.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
  
 Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
-Prerequisites
--------------
-
-_Note_: Unlike most of the quickstarts, this one requires JBoss Enterprise Application Platform 6.1.
 
 Add an Application User
 ----------------
@@ -76,14 +72,14 @@ Configure H2 database server
         For Windows:  %JAVA_HOME%\bin\java -classpath JBOSS_HOME\modules\system\layers\base\com\h2database\h2\main\h2-1.3.168-redhat-2.jar org.h2.tools.RunScript -url jdbc:h2:tcp://localhost/qs_ejb -user sa -script ejb\src\main\resources\import.sql
 
 
-Configure the JBoss Enterprise Application Platform 6.1 server
+Configure the JBoss EAP server
 -------------------------
 
 You can configure the server by running the  `configure-server.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6.1 server.
+1. If it is running, stop the JBoss EAP server.
 2. Backup the following files, replacing JBOSS_HOME with the path to your server.: 
 
         JBOSS_HOME/domain/configuration/domain.xml
@@ -94,7 +90,7 @@ _NOTE - Before you begin:_
 
 #### Configure the Server by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6.1 Server by typing the following command, replacing JBOSS_HOME with the path to your server. 
+1. Start the JBoss EAP server by typing the following command, replacing JBOSS_HOME with the path to your server. 
 
         For Linux:  JBOSS_HOME/bin/domain.sh 
         For Windows:  JBOSS_HOME\bin\domain.bat
@@ -114,12 +110,12 @@ _NOTE - Before you begin:_
 
 #### Configure the Server by Running the JBoss CLI Interactively
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6.1 server.
+1. If it is running, stop the JBoss EAP server.
 2. Backup the following files, replacing JBOSS_HOME with the path to your server: 
 
         JBOSS_HOME/domain/configuration/domain.xml
         JBOSS_HOME/domain/configuration/host.xml
-3. Start the JBoss Enterprise Application Platform 6 Server by typing the following: 
+3. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/domain.sh 
         For Windows:  JBOSS_HOME\bin\domain.bat
@@ -180,7 +176,7 @@ _NOTE - Before you begin:_
 
 #### Configure the Server by Manually Editing the Server Configuration File
 
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Backup the following files, replacing JBOSS_HOME with the path to your server: 
 
         JBOSS_HOME/domain/configuration/domain.xml
@@ -190,7 +186,7 @@ _NOTE - Before you begin:_
 
 #####  Manually Configure the Server Groups
 
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Open the `host.xml` file and find the 'servers' section. For the `server-two`, associate the server-group to "other-server-group". Save it. The result should be:
 
         <server name="server-one" group="main-server-group">
@@ -325,7 +321,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. If JBoss is running, restart it, so the module can be loaded.
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -412,13 +408,13 @@ Remove the Security Domain Configuration
 You can remove the security domain configuration by manually restoring the back-up copy the configuration file. 
 
 ### Remove the Security Domain Configuration Manually           
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
 
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 Server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:   JBOSS_HOME/bin/domain.sh
         For Windows: JBOSS_HOME\bin\domain.bat
@@ -435,7 +431,7 @@ This script removes the server configuration that was done by the `configure-ser
         #6 /profile=full/subsystem=security/security-domain=security-propagation-quickstart:remove
         #7 /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:remove
         The batch executed successfully.
-3. Restart the JBoss EAP 6.1 server, as described above, for the changes to take effect.
+3. Restart the JBoss server, as described above, for the changes to take effect.
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------

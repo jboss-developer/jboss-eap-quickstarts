@@ -5,26 +5,27 @@ Level: Intermediate
 Technologies: JMS
 Summary: Demonstrates the use of a standalone (Java SE) JMS client
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This quickstart demonstrates the use of external JMS clients with Red Hat JBoss Enterprise Application Platform 6.1 or later.
+This quickstart demonstrates the use of external JMS clients with Red Hat JBoss Enterprise Application Platform.
 
 It contains the following:
 
-1. A message producer that sends messages to a JMS destination deployed to a JBoss EAP 6.1 server.
+1. A message producer that sends messages to a JMS destination deployed to a JBoss server.
 
-2. A message consumer that receives message from a JMS destination deployed to a JBoss EAP 6.1 server. 
+2. A message consumer that receives message from a JMS destination deployed to a JBoss server. 
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -45,13 +46,13 @@ You must first add the JMS `test` queue to the application server configuration 
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 #### Configure JMS by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -67,7 +68,7 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 
 #### Configure JMS Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -81,7 +82,7 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 
 #### Configure JMS by Manually Editing the Server Configuration File
 
-1.  If it is running, stop the JBoss EAP 6.1 server.
+1.  If it is running, stop the JBoss server.
 2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3.  Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml
 4.  Add the JMS `test` queue as follows:
@@ -99,7 +100,7 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
     * Save the changes and close the file.
 
 
-Start JBoss EAP 6.1 with the Full Profile
+Start the JBoss Server with the Full Profile
 ---------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -214,7 +215,7 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 ### Remove the JMS Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -229,7 +230,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 
 ### Remove the JMS Configuration Manually
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 

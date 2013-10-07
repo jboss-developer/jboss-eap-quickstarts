@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: Servlet, JAAS
 Summary: Demonstrates the use a custom authenticator to enable support for header-based authentication
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -27,10 +28,9 @@ on the `SecuredServlet` sample.
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better and Maven 3.0 or better.
+The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1. 
-
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later and Maven 3.0 or later.
 
 Configure Maven
 ---------------
@@ -38,26 +38,22 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Prerequisites
--------------
-
-_Note_: Unlike most of the quickstarts, this one must be run against JBoss Enterprise Application Platform 6.1.
 
 
-Configure the JBoss EAP Platform 6.1 Server
+Configure the JBoss EAP Server
 ---------------
 
 This quickstart requires a custom security `GenericHeaderAuth` domain be enabled in order to trust the remote proxy server's username header.
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP 6.1 server.
+1. If it is running, stop the JBoss server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 #### Configure the Security Domain by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -75,7 +71,7 @@ This script adds the `GenericHeaderAuth` domain to the `security` subsystem in t
 
 ### Configure the Security Domain Using the JBoss CLI Interactively
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -94,7 +90,7 @@ This script adds the `GenericHeaderAuth` domain to the `security` subsystem in t
 
 ### Configure the Security Domain by Manually Editing the Server Configuration File
 
-1.  If it is running, stop the JBoss EAP 6.1 server.
+1.  If it is running, stop the JBoss server.
 2.  Make sure you have backed up the `JBOSS_HOME/standalone/configuration/standalone.xml` file as noted in the beginning of this section.
 3.  Open the `JBOSS_HOME/standalone/configuration/standalone.xml` file in an editor and locate the subsystem `urn:jboss:domain:security`. 
 4.  Add the following XML just before the `</security-domains>` tag:
@@ -109,7 +105,7 @@ This script adds the `GenericHeaderAuth` domain to the `security` subsystem in t
         </security-domain>
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -183,7 +179,7 @@ You can remove the security domain configuration by running the  `remove-securit
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss EAP 6.1 server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -198,7 +194,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 
 ### Remove the Security Domain Configuration Manually
-1. If it is running, stop the JBoss EAP 6.1 Server.
+1. If it is running, stop the JBoss server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 

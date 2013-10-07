@@ -5,13 +5,14 @@ Level: Beginner
 Technologies: EJB
 Summary: Demonstrates a stateless session bean 
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
 This example demonstrates the use of an *EJB 3.1 Stateless Session Bean* and *CDI* to access it via a *JSF*.
-Deployment occurs via a war archive for deployment to *Red Hat JBoss Enterprise Application Platform 6.1* or later.
+Deployment occurs via a war archive for deployment to Red Hat JBoss Enterprise Application Platform.
 
 These are the steps that occur:
 
@@ -25,9 +26,9 @@ These are the steps that occur:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -36,7 +37,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

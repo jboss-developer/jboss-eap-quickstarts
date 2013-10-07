@@ -6,6 +6,7 @@ Technologies: (list technologies used here)
 Summary: (a brief description of the quickstart to appear in the table )
 Prerequisites: (list any quickstarts that must be deployed prior to running this one)
 Target Product: (EAP, WFK, JDG, etc)
+Product Versions: (EAP 6.1, EAP 6.2, etc)
 Source: (The URL for the repository that is the source of record for this quickstart)
 
 
@@ -31,9 +32,9 @@ System requirements
 
 Contributor: For example: 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -60,16 +61,16 @@ Contributor: If your quickstart requires any additional components, decribe how 
  * This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Install and Configure Byteman](../README.md#install-and-configure-byteman)
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:
 
- * Start JBoss EAP 6.1
+ * Start the JBoss Server
 
- * Start JBoss EAP 6.1 with the Full Profile
+ * Start the JBoss Server with the Full Profile
 
- * Start JBoss EAP 6.1 with Custom Options. You will need to provide the argument string to pass on the command line, for example: 
+ * Start the JBoss Server with Custom Options. You will need to provide the argument string to pass on the command line, for example: 
 
       `--server-config=../../docs/examples/configs/standalone-xts.xml`
 

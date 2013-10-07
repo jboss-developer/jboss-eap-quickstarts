@@ -5,12 +5,13 @@ Level: Advanced
 Technologies: EJB, CDI, JSF
 Summary: Shows how to communicate between two applications using EJB and CDI
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This quickstart shows you how to easily communicate between two modular deployments to Red Hat JBoss Enterprise Application Platform 6.1 or later. Two wars, with a shared API jar, are deployed to the app server. EJB is used to provide inter-application communication, with EJB beans alised to CDI beans, making the inter-application communication transparent to clients of the bean.
+This quickstart shows you how to easily communicate between two modular deployments to Red Hat JBoss Enterprise Application Platform. Two wars, with a shared API jar, are deployed to the app server. EJB is used to provide inter-application communication, with EJB beans alised to CDI beans, making the inter-application communication transparent to clients of the bean.
 
 CDI only provides intra-applicaion injection (i.e within a top level deployment, ear, war, jar etc). This improves performance of the application server, as to satisfy an injection point all possible candidates have to be scanned / analyzed. If inter-app injection was supported by CDI, performance would scale according to the number of deployments you have (the more deployments in the running system, the slower the deployment). Java EE injection uses unique JNDI names for the wiring, so each injection point is O(1). The approach shown here combines the two approaches such that you limit the name based wiring to one location in your code, and the main consumers of components can use CDI injection to reference these name wired components. For the name approach to work though, you still need to publish instances, and EJB singletons allow you to do that with just one extra annotation.
 
@@ -24,9 +25,9 @@ In all, the project has three modules:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -34,7 +35,7 @@ Configure Maven
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
