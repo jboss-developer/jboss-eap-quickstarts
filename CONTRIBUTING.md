@@ -20,17 +20,17 @@ If you don't have the Git client (`git`), get it from: <http://git-scm.com/>
 
 Here are the steps in detail:
 
-1. [Fork](https://github.com/jboss-jdf/jboss-as-quickstart/fork_select) the project. This creates a the project in your own Git with the default remote name 'origin'.
+1. [Fork](https://github.com/jboss-developer/jboss-eap-quickstarts/fork_select) the project. This creates a the project in your own Git with the default remote name 'origin'.
 
 2. Clone your fork. This creates and populates a directory in your local file system.
 
-        git clone git@github.com:<your-username>/jboss-as-quickstart.git
+        git clone https://github.com/<your-username>/jboss-eap-quickstarts.git
 
-3. Change to the `jboss-as-quickstart` directory.
+3. Change to the `jboss-eap-quickstarts` directory.
 
 4. Add the remote `upstream` repository so you can fetch any changes to the original forked repository.
 
-        git remote add upstream git@github.com:jboss-jdf/jboss-as-quickstart.git
+        git remote add upstream https://github.com/jboss-developer/jboss-eap-quickstarts.git
 
 5. Get the latest files from the `upstream` repository.
 
