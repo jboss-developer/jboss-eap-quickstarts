@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: CDI
 Summary: Creating a basic CDI extension to demonstrate vetoing beans.
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -16,7 +17,7 @@ InjectionTarget SPI classes of CDI to demonstrate removing a bean from CDI's kno
 correctly injecting JPA entities in your application.
 
 A Portable Extension is a user extension to Java EE 6 or above which is tailored to a specific
-use case which will run on any Java EE 6 or higher implementation. This may be something that the
+use case which will run on any Java EE 6 or later implementation. This may be something that the
 specifications don't support just yet, but could be implemented via a portable extension such as
 type-safe messages or external configuration of beans.
 
@@ -29,9 +30,9 @@ correctly.
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -39,7 +40,7 @@ Configure Maven
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

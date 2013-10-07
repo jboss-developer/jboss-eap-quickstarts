@@ -5,12 +5,13 @@ Level: Intermediate
 Technologies: EAR
 Summary: A localized version of kitchensink-ear
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform. 
 
 This project is setup to allow you to create a _localized_ Java EE 6 compliant application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. A localized application is one that supports multiple languages. That is what the _-ml_ suffix denotes in the quickstart name `kitchensink-ml-ear`. This quickstart also includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
@@ -94,10 +95,9 @@ How you set your browser preferred locale depends on the browser and version you
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
  
 Configure Maven
 ---------------
@@ -105,7 +105,7 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

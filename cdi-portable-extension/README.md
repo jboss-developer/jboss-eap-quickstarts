@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: CDI
 Summary: Creating a basic CDI extension to provide injection of fields from an XML file.
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
@@ -15,7 +16,7 @@ to complete that task. This particular extension explores the ProcessInjectionTa
 InjectionTarget spi classes of CDI. To demonstrate a possible way to seed data into beans.
 
 A Portable Extension is essentially an extension to Java EE 6+ which is tailored to a specific
-use case which will run on any Java EE 6 or higher implementation. There may be something that the
+use case which will run on any Java EE 6 or later implementation. There may be something that the
 specifications don't support just yet, but could be implemented via a portable extension such as
 type safe messages or external configuration of beans.
 
@@ -28,9 +29,9 @@ correctly.
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
-
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -40,7 +41,7 @@ Contributor: You can copy or link to the Maven configuration information in the 
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
-Start JBoss EAP 6.1
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.

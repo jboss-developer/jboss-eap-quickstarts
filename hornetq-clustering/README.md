@@ -6,6 +6,7 @@ Technologies: JMS, MDB, HornetQ
 Summary: Demonstrates the use of HornetQ Clustering
 Prerequisites: helloworld-mdb
 Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
@@ -17,6 +18,7 @@ System requirements
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
  
 Configure Maven
 ---------------
@@ -35,7 +37,7 @@ Type this command to build the WAR archive:
 
 See the helloworld-mdb [README](../helloworld-mdb/README.md) for further information about this quickstart.
 
-Configure and Start the JBoss EAP 6.1 server
+Configure and Start the JBoss server
 ---------------
 
 You can choose to deploy and run this quickstart in a managed domain or on a standalone server. The sections below describe how to configure and start the server for both modes. 
@@ -58,7 +60,7 @@ After you have completed testing this quickstart, you can replace these files to
 
 You can configure the server by running the install-domain.cli script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
 
-### Configure and Start JBoss EAP 6.1 in Domain Mode
+### Configure and Start the JBoss Server in Domain Mode
 
 #### Start the server in domain mode.
 1. Open a command line and navigate to the root of the JBoss server directory.
@@ -88,7 +90,7 @@ configures HornetQ Clustering for testing this quickstart. You will note it does
    You should see "outcome" => "success" for all of the commands.
 
 
-### Configure and Start JBoss EAP 6.1 in Standalone Mode
+### Configure and Start the JBoss Server in Standalone Mode
 
 If you choose to use standalone servers rather than domain mode, you will need two instances of the application server. Application
 server 2 must be started with a port offset parameter provided to the startup script as "-Djboss.socket.binding.port-offset=100". 
@@ -124,7 +126,7 @@ Since both application servers must be configured in the same way, you must conf
 
 After you have successfully configured the server, make a copy of this JBoss directory structure to use for the second server.
 
-#### Start the JBoss EAP 6.1 Standalone Servers
+#### Start the JBoss EAP Standalone Servers with the Full Profile
 
 If you are using Linux:
 
