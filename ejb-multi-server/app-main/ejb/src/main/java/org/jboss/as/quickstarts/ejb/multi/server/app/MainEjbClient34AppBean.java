@@ -113,7 +113,7 @@ public class MainEjbClient34AppBean implements MainApp {
         // 'outbound-connection' and also did not use the
         // jboss-ejb-client.xml.
             iCtx = new InitialContext(ejbClientContextProps);
-            final AppOne bean = (AppOne) iCtx.lookup("ejb:jboss-as-ejb-multi-server-app-one/ejb//AppOneBean!" + AppOne.class.getName());
+            final AppOne bean = (AppOne) iCtx.lookup("ejb:jboss-ejb-multi-server-app-one/ejb//AppOneBean!" + AppOne.class.getName());
 
             StringBuffer result = new StringBuffer("{");
             for (int i = 0; i < 8; i++) {
@@ -189,7 +189,7 @@ public class MainEjbClient34AppBean implements MainApp {
         Context iCtxA = null;
         try {
             iCtxA = new InitialContext(ejbClientContextProps);
-            beanA = (AppTwo) iCtxA.lookup("ejb:jboss-as-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
+            beanA = (AppTwo) iCtxA.lookup("ejb:jboss-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
         } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoA')");}
 
         // change the necessary properties to call the other server
@@ -200,7 +200,7 @@ public class MainEjbClient34AppBean implements MainApp {
         Context iCtxB = null;
         try {
             iCtxB = new InitialContext(ejbClientContextProps);
-            beanB = (AppTwo) iCtxB.lookup("ejb:jboss-as-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
+            beanB = (AppTwo) iCtxB.lookup("ejb:jboss-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
         } catch (NamingException e) {
             LOGGER.error("Could not create InitialContext('appTwoB')");
         }
