@@ -87,7 +87,6 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <configuration>
-                    <filename>${project.artifactId}.ear</filename>
                     <skip>false</skip>
                 </configuration>
             </plugin>

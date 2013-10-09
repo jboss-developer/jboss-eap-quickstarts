@@ -1,0 +1,303 @@
+<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="ejbsecurityplus-using-client-and-server-side-interceptors-to-supply-additional-information-for-authentication-before-ejb-calls" class="anchor" href="#ejbsecurityplus-using-client-and-server-side-interceptors-to-supply-additional-information-for-authentication-before-ejb-calls"><span class="anchor-icon"></span></a>ejb-security-plus:  Using client and server side interceptors to supply additional information for authentication before EJB calls.</h1>
+
+<p>Author: Darran Lofthouse
+Level: Advanced
+Technologies: EJB, Security
+Summary: Demonstrates how interceptors can be used to supply additional information to be used for authentication before EJB calls.
+Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a></p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>By default, when you make a remote call to an EJB deployed to the application server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. The authentication at the connection level is dependent on the capabilities of the underlying SASL mechanisms.</p>
+
+<p>Rather than writing custom SASL mechanisms or combining multiple parameters into one this quickstart demonstrates how username / password authentication can be used to open the connection to the server and subsequently supply an additional security token for authentication before the EJB invocation. This is achieved with the addition of the following three components: </p>
+
+<ol>
+<li>A client side interceptor to pass the additional token to the remote server.</li>
+<li>A server side interceptor to receive the security token and ensure this is passes to the JAAS domain for verification.</li>
+<li>A JAAS LoginModule to perform authentication taking into account the authenticated user of the connection and the additional security token.</li>
+</ol>
+
+<p>The quickstart then makes use of a single remote EJB, <code>SecuredEJB</code> to verify that the propagation and verification of the security token is correct and a <code>RemoteClient</code> standalone client. </p>
+
+<h3><a id="securedejb" class="anchor" href="#securedejb"><span class="anchor-icon"></span></a>SecuredEJB</h3>
+
+<p>For this quickstart the <code>SecuredEJB</code> only has the following method: -</p>
+<div class="highlight"><pre><span class="n">String</span> <span class="nf">getPrincipalInformation</span><span class="p">();</span>
+</pre></div>
+<p>This method is used to confirm the identity of the authenticated user, on the client side changing either the users password or the additional authentication token will cause access to this method to be unavailable.  The output from a successfull call to this method will typically look like: -</p>
+<div class="highlight"><pre><span class="k">[Principal={quickstartUser}]</span>
+</pre></div>
+<h3><a id="remoteclient" class="anchor" href="#remoteclient"><span class="anchor-icon"></span></a>RemoteClient</h3>
+
+<p>Finally there is the <code>RemoteClient</code> stand-alone client. The client demonstrates how a Principal with a custom credential can be set using the <code>SecurityContextAssociation</code> and how this can subsequently be used by a <code>CallbackHandler</code> for the username/password authentication required for the SASL authentication and subsequently how the additional token can be picked up by a client side interceptor and passed to the server with the invocation.</p>
+
+<h2><a id="note-on-ejb-client-interceptors" class="anchor" href="#note-on-ejb-client-interceptors"><span class="anchor-icon"></span></a>Note on EJB client interceptors</h2>
+
+<p>Red Hat JBoss Enterprise Application Platform allows client side interceptors for EJB invocations. Such interceptors are expected to implement the <code>org.jboss.ejb.client.EJBClientInterceptor</code> interface. User applications can then plug in such interceptors in the &lsquo;EJBClientContext&rsquo; either programatically or through the ServiceLoader mechanism.</p>
+
+<ul>
+<li>The programmatic way involves calling the <code>org.jboss.ejb.client.EJBClientContext.registerInterceptor(int order, EJBClientInterceptor interceptor)</code> API and passing the &lsquo;order&rsquo; and the &lsquo;interceptor&rsquo; instance. The &lsquo;order&rsquo; is used to decide where exactly in the client interceptor chain, this &lsquo;interceptor&rsquo; is going to be placed.</li>
+<li>The ServiceLoader mechanism is an alternate approach which involves creating a <code>META-INF/services/org.jboss.ejb.client.EJBClientInterceptor</code> file and placing/packaging it in the classpath of the client application. The rules for such a file are dictated by the <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">Java ServiceLoader Mechanism</a>. This file is expected to contain in each separate line the fully qualified class name of the EJB client interceptor implementation, which is expected to be available in the classpath. EJB client interceptors added via the ServiceLoader mechanism are added to the end of the client interceptor chain, in the order they were found in the classpath.</li>
+</ul>
+
+<p>This quickstart uses the ServiceLoader mechanism for registering the EJB client interceptor and places the <code>META-INF/services/org.jboss.ejb.client.EJBClientInterceptor</code> in the classpath, with the following content:</p>
+<div class="highlight"><pre><span class="cp"># EJB client interceptor(s) that will be added to the end of the interceptor chain during an invocation</span>
+<span class="cp"># on EJB. If these interceptors are to be added at a specific position, other than last, then use the</span>
+<span class="cp"># programmatic API in the application to register it explicitly to the EJBClientContext</span>
+
+<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb_security_plus</span><span class="p">.</span><span class="n">ClientSecurityInterceptor</span>
+</pre></div>
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#configure-maven">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="prerequisites" class="anchor" href="#prerequisites"><span class="anchor-icon"></span></a>Prerequisites</h2>
+
+<p>This quickstart uses the default standalone configuration plus the modifications described here.</p>
+
+<p>It is recommended that you test this approach in a separate and clean environment before you attempt to port the changes in your own environment.</p>
+
+<h2><a id="configure-the-jboss-server" class="anchor" href="#configure-the-jboss-server"><span class="anchor-icon"></span></a>Configure the JBoss server</h2>
+
+<p>These steps asume that you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.</p>
+
+<p>You can configure the security domain by running the  <code>configure-security-domain.cli</code> script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file. The three different approaches are described below. Whichever approach you choose, it must be completed before deploying the quickstart.</p>
+
+<p>After the server is configured you will then need to define four user accounts, this can be achieved either by using the add-user tool included with the server or by copying and pasting the appropriate entries into the properties files.  Both of these approaches are described below and whichever approach is chosen it must be completed before running the quickstart - the users can be added before or after starting the server.</p>
+
+<p><em>NOTE - Before you begin:</em></p>
+
+<ol>
+<li>If it is running, stop the JBoss server.</li>
+<li>Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ol>
+
+<h4><a id="configure-the-security-domain-by-running-the-jboss-cli-script" class="anchor" href="#configure-the-security-domain-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Configure the Security Domain by Running the JBoss CLI Script</h4>
+
+<ol>
+<li><p>Start the JBoss server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+<li><p>Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
+</pre></div>
+<p>This script adds the <code>quickstart-domain</code> domain to the <code>security</code> subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="cp">#1 /subsystem=security/security-domain=quickstart-domain:add(cache-type=default)</span>
+<span class="cp">#2 /subsystem=security/security-domain=quickstart-domain/authentication=classic:add</span>
+<span class="cp">#3 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=DelegationLoginModule:add(code=org.jboss.as.quickstarts.ejb_security_plus.SaslPlusLoginModule,flag=optional,module-options={password-stacking=useFirstPass})</span>
+<span class="cp">#4 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=RealmDirect:add(code=RealmDirect,flag=required,module-options={password-stacking=useFirstPass})</span>
+<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="configure-the-security-domain-using-the-jboss-cli-interactively" class="anchor" href="#configure-the-security-domain-using-the-jboss-cli-interactively"><span class="anchor-icon"></span></a>Configure the Security Domain Using the JBoss CLI Interactively</h3>
+
+<ol>
+<li><p>Start the JBoss server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+<li><p>To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span>
+</pre></div></li>
+<li><p>Add a new security realm that is used by the quickstart. For this scenario the Remoting login module is no longer used, instead a custom module <code>SaslPlusLoginModule</code> is used instead to perform authentication based on the authenticated user of the connection AND the supplied authentication token.  The <code>RealmDirect</code> login module is last in the configuration so that roles can be loaded after the user has been verified. At the prompt, enter the following series of commands:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">standalone</span><span class="err">@</span><span class="n">localhost</span><span class="o">:</span><span class="mi">9999</span> <span class="o">/</span><span class="p">]</span> <span class="p">.</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">cache</span><span class="o">-</span><span class="n">type</span><span class="o">=</span><span class="k">default</span><span class="p">)</span>
+<span class="p">[</span><span class="n">standalone</span><span class="err">@</span><span class="n">localhost</span><span class="o">:</span><span class="mi">9999</span> <span class="o">/</span><span class="p">]</span> <span class="p">.</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="o">=</span><span class="n">classic</span><span class="o">:</span><span class="n">add</span>
+<span class="p">[</span><span class="n">standalone</span><span class="err">@</span><span class="n">localhost</span><span class="o">:</span><span class="mi">9999</span> <span class="o">/</span><span class="p">]</span> <span class="p">.</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="o">=</span><span class="n">classic</span><span class="o">/</span><span class="n">login</span><span class="o">-</span><span class="n">module</span><span class="o">=</span><span class="n">DelegationLoginModule</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb_security_plus</span><span class="p">.</span><span class="n">SaslPlusLoginModule</span><span class="p">,</span><span class="n">flag</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span><span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="n">password</span><span class="o">-</span><span class="n">stacking</span><span class="o">=</span><span class="n">useFirstPass</span><span class="p">})</span>    
+<span class="p">[</span><span class="n">standalone</span><span class="err">@</span><span class="n">localhost</span><span class="o">:</span><span class="mi">9999</span> <span class="o">/</span><span class="p">]</span> <span class="p">.</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">quickstart</span><span class="o">-</span><span class="n">domain</span><span class="o">/</span><span class="n">authentication</span><span class="o">=</span><span class="n">classic</span><span class="o">/</span><span class="n">login</span><span class="o">-</span><span class="n">module</span><span class="o">=</span><span class="n">RealmDirect</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">RealmDirect</span><span class="p">,</span><span class="n">flag</span><span class="o">=</span><span class="n">required</span><span class="p">,</span><span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="n">password</span><span class="o">-</span><span class="n">stacking</span><span class="o">=</span><span class="n">useFirstPass</span><span class="p">})</span>
+
+<span class="p">[</span><span class="n">standalone</span><span class="err">@</span><span class="n">localhost</span><span class="o">:</span><span class="mi">9999</span> <span class="o">/</span><span class="p">]</span> <span class="o">:</span><span class="n">reload</span>
+</pre></div></li>
+</ol>
+
+<p>Finally, restart the server to pick up these changes.</p>
+
+<h3><a id="configure-the-security-domain-by-manually-editing-the-server-configuration-file" class="anchor" href="#configure-the-security-domain-by-manually-editing-the-server-configuration-file"><span class="anchor-icon"></span></a>Configure the Security Domain by Manually Editing the Server Configuration File</h3>
+
+<ol>
+<li> If it is running, stop the JBoss server.</li>
+<li> Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone.xml</code></li>
+<li> Open the file: <code>JBOSS_HOME/standalone/configuration/standalone.xml</code></li>
+<li> Make the additions described below.</li>
+</ol>
+
+<p>The EJB side of this quickstart makes use of a new security domain called <code>quickstart-domain</code>, which delegates to the <code>ApplicationRealm</code>. In order to support identity switching we use the <code>SaslPlusLoginModule</code> from this quickstart.</p>
+<div class="highlight"><pre><span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;quickstart-domain&quot;</span> <span class="na">cache-type=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;authentication&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;org.jboss.as.quickstarts.ejb_security_plus.SaslPlusLoginModule&quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;RealmDirect&quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+    <span class="nt">&lt;/authentication&gt;</span>
+<span class="nt">&lt;/security-domain&gt;</span>
+</pre></div>
+<p>This login module MUST be before the existing <code>RealmDirect</code> login module, this means that the <code>SaslPlusLoginModule</code> can perform the verification of the remote user whilst the <code>RealmDirect</code> login module can load the users roles.</p>
+
+<p>If this approach is used and the majority of requests will involve an identity switch, then it is recommended to have this module as the first module in the list. However, if the majority of requests will run as the connection user with occasional switches, it is recommended to place the <code>Remoting</code> login module first and this one second.</p>
+
+<p>This login module will load the properties file <code>additional-secret.properties</code> from the deployment. The location of this properties file can be overridden with the module-option <code>additionalSecretProperties</code>.</p>
+
+<p>At runtime, this login module is used to obtain the current user from the Remoting connection and verify that an additional supplied authentication token matches the value for that user in the properties file.</p>
+
+<p>For this quickstart we use the following entry: </p>
+<div class="highlight"><pre><span class="n">quickstartUser</span><span class="o">=</span><span class="mf">7f</span><span class="mi">5</span><span class="n">cc521</span><span class="o">-</span><span class="mi">5061</span><span class="o">-</span><span class="mi">4</span><span class="n">a5b</span><span class="o">-</span><span class="n">b814</span><span class="o">-</span><span class="n">bdc37f021acc</span>
+</pre></div>
+<p>This means that for quickstartUser to be able to call the EJB the specified authentication token must also be supplied with the request.</p>
+
+<h2><a id="add-the-application-users" class="anchor" href="#add-the-application-users"><span class="anchor-icon"></span></a>Add the Application Users</h2>
+
+<p>This quickstart is built around the default <code>ApplicationRealm</code> as configured in the JBoss server distribution. Using the add-user utility script, you must add the following user to the <code>ApplicationRealm</code>:</p>
+
+<table><thead>
+<tr>
+<th align="left"><strong>UserName</strong></th>
+<th align="left"><strong>Realm</strong></th>
+<th align="left"><strong>Password</strong></th>
+<th align="left"><strong>Roles</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">quickstartUser</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">quiskstartPwd1!</td>
+<td align="left">User</td>
+</tr>
+</tbody></table>
+
+<p>This user is used to both connect to the server and is used for the actual EJB invocation.</p>
+
+<p>For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="../README.html#add-an-application-user">Add User</a>.</p>
+
+<h3><a id="add-users-manually" class="anchor" href="#add-users-manually"><span class="anchor-icon"></span></a>Add Users Manually</h3>
+
+<p>Alternatively you can edit the properties file for the users and manually add the required entry:</p>
+
+<ol>
+<li><p>Add the user accounts by editing the file <code>{jboss.home}/standalone/configuration/application-users.properties</code> and pasting in the following line:</p>
+<div class="highlight"><pre><span class="n">quickstartUser</span><span class="o">=</span><span class="n">c2d60ae3c894489fa59196c192e351ca</span>
+</pre></div></li>
+<li><p>Add the users roles by editing the file {jboss.home}/standalone/configuration/application-roles.properties and pasting in the following line: -</p>
+<div class="highlight"><pre><span class="n">quickstartUser</span><span class="o">=</span><span class="n">User</span>
+</pre></div></li>
+</ol>
+
+<p>The application server checks the properties files for modifications at runtime so there is no need to restart the server after changing these files.</p>
+
+<h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-ejb-security-plus.jar</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="run-the-client" class="anchor" href="#run-the-client"><span class="anchor-icon"></span></a>Run the client</h2>
+
+<p>The step here assumes you have already successfully deployed the EJB to the server in the previous step and that your command prompt is still in the same folder.</p>
+
+<ol>
+<li><p>Type this command to execute the client:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">exec</span><span class="o">:</span><span class="n">exec</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
+
+<p>When you run the <code>mvn exec:exec</code> command, you see the following output.</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
+<span class="p">[</span><span class="n">Principal</span><span class="o">=</span><span class="p">{</span><span class="n">quickstartUser</span><span class="p">}]</span>
+<span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
+</pre></div>
+<p>This output is only displayed when the client has supplied the correct username, password and authentication token combination.</p>
+
+<h2><a id="rerun-the-client" class="anchor" href="#rerun-the-client"><span class="anchor-icon"></span></a>Re-Run the client</h2>
+
+<p>You can edit the class <code>RemoteClient</code> and update any one of username, password or authentication token.</p>
+
+<ol>
+<li><p>Type this command to execute the client:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">compile</span> <span class="n">exec</span><span class="o">:</span><span class="n">exec</span>
+</pre></div></li>
+</ol>
+
+<p>At this point instead of the message shown above you should see a failure.</p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="remove-the-security-domain-configuration" class="anchor" href="#remove-the-security-domain-configuration"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration</h2>
+
+<p>You can remove the security domain configuration by running the  <code>remove-security-domain.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. </p>
+
+<h3><a id="remove-the-security-domain-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-security-domain-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration by Running the JBoss CLI Script</h3>
+
+<ol>
+<li><p>Start the JBoss server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+<li><p>Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
+</pre></div>
+<p>This script removes the <code>test</code> queue from the <code>messaging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="cp">#1 /subsystem=security/security-domain=quickstart-domain:remove</span>
+<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="remove-the-security-domain-configuration-manually" class="anchor" href="#remove-the-security-domain-configuration-manually"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration Manually</h3>
+
+<ol>
+<li>If it is running, stop the JBoss server.</li>
+<li>Replace the <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>
