@@ -27,6 +27,7 @@ import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.as.quickstarts.tasksrs.model.*;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
@@ -61,6 +62,7 @@ public class TaskDaoTest {
     }
 
     @Test
+    @InSequence(1)
     public void user_should_be_created_with_one_task_attached() throws Exception {
         // given
         User user = new User("New user");
@@ -78,6 +80,7 @@ public class TaskDaoTest {
     }
 
     @Test
+    @InSequence(2)
     public void all_tasks_should_be_obtained_from_detachedUser() {
         // when
         List<Task> userTasks = taskDao.getAll(detachedUser);
@@ -87,6 +90,7 @@ public class TaskDaoTest {
     }
 
     @Test
+    @InSequence(3)
     public void range_of_tasks_should_be_provided_by_taskDao() {
         // when
         List<Task> headOfTasks = taskDao.getRange(detachedUser, 0, 1);
@@ -100,6 +104,7 @@ public class TaskDaoTest {
     }
 
     @Test
+    @InSequence(4)
     public void taskDao_should_provide_basic_case_insensitive_full_text_search() {
         // given
         String taskTitlePart = "FIRST";
@@ -113,6 +118,7 @@ public class TaskDaoTest {
     }
 
     @Test
+    @InSequence(5)
     public void taskDao_should_remove_task_from_detachedUser() {
         // given
         Task task = new Task();

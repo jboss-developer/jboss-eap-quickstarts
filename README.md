@@ -213,7 +213,7 @@ In some cases, you may want to build the application to test for compile errors 
 1. Open a command line and navigate to the root directory of the quickstart you want to build.
 2. Use this command if you only want to build the archive, but not deploy it:
 
-            mvn clean package
+            mvn clean install
 
 #### Build and Deploy the Quickstart Archive
 
@@ -221,7 +221,7 @@ In some cases, you may want to build the application to test for compile errors 
 2. Open a command line and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
-            mvn clean package jboss-as:deploy
+            mvn clean install jboss-as:deploy
 
 #### Undeploy an Archive
 
