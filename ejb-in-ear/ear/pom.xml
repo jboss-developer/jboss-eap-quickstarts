@@ -93,7 +93,6 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
                 <configuration>
-                    <filename>${project.artifactId}.ear</filename>
                     <skip>false</skip>
                 </configuration>
             </plugin>

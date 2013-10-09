@@ -33,7 +33,7 @@ IMPORTANT: This quickstart depends on the deployment of the `helloworld-mdb` qui
 Open a command line and navigate to the root directory of the helloworld-mdb quickstart.
 Type this command to build the WAR archive:
 
-        mvn clean package
+        mvn clean install
 
 See the helloworld-mdb [README](../helloworld-mdb/README.md) for further information about this quickstart.
 

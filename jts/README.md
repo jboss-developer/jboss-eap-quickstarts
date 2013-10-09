@@ -199,7 +199,7 @@ Since this quickstart builds two separate components, you can not use the standa
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
 4. This will deploy `application-component-1/target/jboss-jts-application-component-1.war` and `application-component-2/target/jboss-jts-application-component-2.jar` to the running instance of the server.
 
