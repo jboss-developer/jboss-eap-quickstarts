@@ -169,7 +169,7 @@ This quickstart is built around the default `ApplicationRealm` as configured in 
 
 | **UserName** | **Realm** | **Password** | **Roles** |
 |:-----------|:-----------|:-----------|:-----------|
-| quickstartUser| ApplicationRealm | quiskstartPwd1!| User |
+| quickstartUser| ApplicationRealm | quickstartPwd1!| User |
 
 This user is used to both connect to the server and is used for the actual EJB invocation.
 
