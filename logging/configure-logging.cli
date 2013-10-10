@@ -26,8 +26,9 @@ batch
 # Run the batch commands
 run-batch
 
+
 # Start batching commands
-batch 
+# batch 
 
 # Assign the handlers for our quickstart class
 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="TRACE_QS_ASYNC") 
@@ -35,10 +36,10 @@ batch
 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="INFO_QS_ASYNC") 
 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="WARN_QS_ASYNC")
 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="ERROR_QS_ASYNC")
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="FATAL_QS_ASYNC") 
+#/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="FATAL_QS_ASYNC") 
 
 # Run the batch commands
-run-batch
+# run-batch
 
 # Reload the server configuration
 :reload
