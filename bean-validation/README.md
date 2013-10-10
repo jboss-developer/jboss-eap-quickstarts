@@ -15,6 +15,7 @@ This project demonstrates how to use CDI 1.0, JPA 2.0 and Bean Validation 1.0. I
 
 This quickstart does not contain a user interface layer. The purpose of this project is to show you how to test bean validation with Arquillian. If you want to see an example of how to test bean validation with a user interface, look at the [kitchensink](../kitchensink/README.md) example.
 
+_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 System requirements
 -------------------

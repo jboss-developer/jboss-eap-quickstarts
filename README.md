@@ -34,6 +34,8 @@ Some quickstarts are designed to enhance or extend other quickstarts. These are 
 
 Quickstarts with tutorials in the [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications") are noted with two asterisks ( ** ) following the quickstart name. 
 
+_Note: Some of these quickstart use the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+
 [TOC-quickstart]
 
 Suggested Approach to the Quickstarts

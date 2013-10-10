@@ -17,6 +17,7 @@ This project is setup to allow you to create a compliant Java EE 6 application u
 
 You can compare this quickstart to the `hibernate3` quickstart to see the code differences between Hibernate 3 and Hibernate 4.
 
+ _Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 System requirements
 -------------------
