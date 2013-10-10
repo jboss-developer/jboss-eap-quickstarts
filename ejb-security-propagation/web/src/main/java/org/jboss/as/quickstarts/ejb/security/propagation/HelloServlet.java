@@ -45,7 +45,7 @@ public class HelloServlet extends HttpServlet {
     private static String PAGE_HEADER = "<html><head><title>hello</title></head><body>";
     private static String PAGE_FOOTER = "</body></html>";
     
-    @EJB(lookup="ejb:/jboss-as-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb.security.propagation.Hello")
+    @EJB(lookup="ejb:/jboss-propagation-ejb/HelloEJB!org.jboss.as.quickstarts.ejb.security.propagation.Hello")
     private Hello helloEJB;
 
     /**

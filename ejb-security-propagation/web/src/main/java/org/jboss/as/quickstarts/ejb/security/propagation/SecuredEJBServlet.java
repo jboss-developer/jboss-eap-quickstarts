@@ -52,7 +52,7 @@ public class SecuredEJBServlet extends HttpServlet {
 
     private static String PAGE_FOOTER = "</body></html>";
 
-    @EJB(lookup="ejb:/jboss-as-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb.security.propagation.Secured")
+    @EJB(lookup="ejb:/jboss-propagation-ejb/SecuredEJB!org.jboss.as.quickstarts.ejb.security.propagation.Secured")
     private Secured securedEJB;
    /**
     * Servlet entry point method which calls securedEJB.getSecurityInfo()
