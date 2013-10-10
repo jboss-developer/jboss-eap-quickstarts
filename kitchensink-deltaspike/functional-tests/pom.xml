@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.as.quickstarts.wfk</groupId>
     <artifactId>jboss-kitchensink-deltaspike-test-webdriver</artifactId>
-    <version>2.4.0-redhat-SNAPSHOT</version>
+    <version>2.4.0-build-SNAPSHOT</version>
     <name>JBoss AS Quickstarts: Kitchensink test via WebDriver with Arquillian</name>
     <description>This project tests a starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6 by WebDriver</description>
 
