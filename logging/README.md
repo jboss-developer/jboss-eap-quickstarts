@@ -98,7 +98,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_WARN.properties=autoFlush,fileName
             handler.FILE_QS_WARN.autoFlush=true
             handler.FILE_QS_WARN.fileName=${org.jboss.boot.log.file:quickstart_warn.log}
-            handler.FILE_QS_WARN.formatter=PATTERN
+            handler.FILE_QS_WARN.formatter=FILE
 
             ##### New file handler config for quickstart example errors
             handler.FILE_QS_ERROR=org.jboss.logmanager.handlers.FileHandler
@@ -106,7 +106,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_ERROR.properties=autoFlush,fileName
             handler.FILE_QS_ERROR.autoFlush=true
             handler.FILE_QS_ERROR.fileName=${org.jboss.boot.log.file:quickstart_error.log}
-            handler.FILE_QS_ERROR.formatter=PATTERN
+            handler.FILE_QS_ERROR.formatter=FILE
 
             ##### New file handler config for quickstart example info messages
             handler.FILE_QS_INFO=org.jboss.logmanager.handlers.FileHandler
@@ -114,7 +114,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_INFO.properties=autoFlush,fileName
             handler.FILE_QS_INFO.autoFlush=true
             handler.FILE_QS_INFO.fileName=${org.jboss.boot.log.file:quickstart_info.log}
-            handler.FILE_QS_INFO.formatter=PATTERN
+            handler.FILE_QS_INFO.formatter=FILE
 
             ##### New file handler config for quickstart example debug messages
             handler.FILE_QS_DEBUG=org.jboss.logmanager.handlers.FileHandler
@@ -122,7 +122,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_DEBUG.properties=autoFlush,fileName
             handler.FILE_QS_DEBUG.autoFlush=true
             handler.FILE_QS_DEBUG.fileName=${org.jboss.boot.log.file:quickstart_debug.log}
-            handler.FILE_QS_DEBUG.formatter=PATTERN
+            handler.FILE_QS_DEBUG.formatter=FILE
 
             ##### New file handler config for quickstart example trace messages
             handler.FILE_QS_TRACE=org.jboss.logmanager.handlers.FileHandler
@@ -130,7 +130,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_TRACE.properties=autoFlush,fileName
             handler.FILE_QS_TRACE.autoFlush=true
             handler.FILE_QS_TRACE.fileName=${org.jboss.boot.log.file:quickstart_trace.log}
-            handler.FILE_QS_TRACE.formatter=PATTERN
+            handler.FILE_QS_TRACE.formatter=FILE
 
             ##### New file handler config for quickstart example fatal messages
             handler.FILE_QS_FATAL=org.jboss.logmanager.handlers.FileHandler
@@ -138,7 +138,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_FATAL.properties=autoFlush,fileName
             handler.FILE_QS_FATAL.autoFlush=true
             handler.FILE_QS_FATAL.fileName=${org.jboss.boot.log.file:quickstart_fatal.log}
-            handler.FILE_QS_FATAL.formatter=PATTERN
+            handler.FILE_QS_FATAL.formatter=FILE
 
     The quickstart distribution also includes a `logging-properties.txt` file containing these configuration lines.
 
