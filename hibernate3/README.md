@@ -32,7 +32,8 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
- 
+_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+  
 Configure Maven
 ---------------
 
