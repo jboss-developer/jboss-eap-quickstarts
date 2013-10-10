@@ -29,6 +29,7 @@ The root `pom.xml` builds each of the subprojects in an appropriate order.
 
 This quickstart runs in a managed domain and uses the `domain.xml` and `host.xml`. 
 
+_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example database that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 System requirements
 -------------------
@@ -337,7 +338,7 @@ Deploy the Quickstart
 1. Open a command line and navigate to the to the root directory of this quickstart.
 2. Type the following commands to deploy the quickstart, replacing JBOSS_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-ejb-propagation-ejb.jar  --server-groups=other-server-group"
+        JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy ejb/target/jboss-ejb-security-propagation-ejb.jar  --server-groups=other-server-group"
         JBOSS_HOME/bin/jboss-cli.sh --connect --command="deploy web/target/jboss-ejb-security-propagation-web.war --server-groups=main-server-group"
 
 Access the application
