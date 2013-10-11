@@ -6,13 +6,14 @@ Technologies: JAX-RS
 Summary: Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS
 Prerequisites: helloworld-rs
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
 This example demonstrates an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses *CDI 1.0* and *JAX-RS* 
-in *JBoss Enterprise Application Platform 6* or *JBoss AS 7*.  
+in Red Hat JBoss Enterprise Application Platform.
 
 This client "calls" the HelloWorld JAX-RS Web Service that was created in the `helloworld-rs` quickstart. See the **Prerequisite** section below for details on how to build and deploy the `helloworld-rs` quickstart.
 
@@ -20,9 +21,9 @@ This client "calls" the HelloWorld JAX-RS Web Service that was created in the `h
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -38,8 +39,8 @@ IMPORTANT: This quickstart depends on the deployment of the 'helloworld-rs' quic
 
 You can verify the deployment of the `helloworld-rs` quickstart by accessing the following content:
 
-* The *XML* content can be viewed by accessing the following URL: <http://localhost:8080/jboss-as-helloworld-rs/rest/xml> 
-* The *JSON* content can be viewed by accessing this URL: <http://localhost:8080/jboss-as-helloworld-rs/rest/json>
+* The *XML* content can be viewed by accessing the following URL: <http://localhost:8080/jboss-helloworld-rs/rest/xml> 
+* The *JSON* content can be viewed by accessing this URL: <http://localhost:8080/jboss-helloworld-rs/rest/json>
 
 
 
@@ -65,7 +66,7 @@ This command will compile the example and execute a test to make two separate re
 should see the following if the execution is successful:
 
         ===============================================
-        URL: http://localhost:8080/jboss-as-helloworld-rs/rest/xml
+        URL: http://localhost:8080/jboss-helloworld-rs/rest/xml
         MediaType: application/xml
 
         *** Response from Server ***
@@ -74,7 +75,7 @@ should see the following if the execution is successful:
     
         ===============================================
         ===============================================
-        URL: http://localhost:8080/jboss-as-helloworld-rs/rest/json
+        URL: http://localhost:8080/jboss-helloworld-rs/rest/json
         MediaType: application/json
 
         *** Response from Server ***

@@ -1,4 +1,4 @@
-JBoss AS Quickstarts
+Red Hat JBoss Enterprise Application Platform (EAP) Quickstarts
 ====================
 Summary: The quickstarts demonstrate Java EE 6 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
 
@@ -6,7 +6,7 @@ Introduction
 ------------
 
 
-These quickstarts run on both JBoss Enterprise Application Platform 6 and JBoss AS 7. If you want to run the quickstarts on JBoss Enterprise Application Platform 6, we recommend using the JBoss Enterprise Application Platform 6 ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
+These quickstarts run on Red Hat JBoss Enterprise Application Platform 6.1 or later. We recommend using the JBoss EAP ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
 
 Be sure to read this entire document before you attempt to work with the quickstarts. It contains the following information:
 
@@ -28,11 +28,13 @@ Be sure to read this entire document before you attempt to work with the quickst
 Available Quickstarts
 ---------------------
 
-The following is a list of the currently available quickstarts. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.
+The list of all currently available quickstarts can be found here: <http://site-jdf.rhcloud.com/quickstarts/get-started/>. The table lists each quickstart name, the technologies it demonstrates, gives a brief description of the quickstart, and the level of experience required to set it up. For more detailed information about a quickstart, click on the quickstart name.
 
 Some quickstarts are designed to enhance or extend other quickstarts. These are noted in the **Prerequisites** column. If a quickstart lists prerequisites, those must be installed or deployed before working with the quickstart.
 
 Quickstarts with tutorials in the [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications") are noted with two asterisks ( ** ) following the quickstart name. 
+
+_Note: Some of these quickstart use the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 [TOC-quickstart]
 
@@ -45,9 +47,29 @@ We suggest you approach the quickstarts as follows:
 * If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you are comfortable with those, move on to the **Advanced** quickstarts.
 * Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.
 
+Check Out the Quickstart Source
+----------------------------------
+
+Some quickstarts in this project are examples that originate from multiple external Git repositories and are then combined in this project as Git submodules. These quickstarts do not fit the standard pattern of the other quickstarts and may require you to install additional software or follow more complex setup and testing procedures.
+
+Git submodules allow you clone another repository as a subdirectory in your project, but keep the source and commits separate. Use following Git commands to fetch the data from the submodules into this project.
+
+1. To clone this Git repository, use the following command:
+
+        git clone --recursive git@github.com:jboss-jdf/jboss-as-quickstart.git
+   _Note: This command creates the directories for the submodules, but does not download the data._
+2. After you clone the repository, use the following command to initialize the and fetch data from the submodule project:
+
+        git submodule update --init
+3. To refresh the submodule with any updates to the external project, run the following command:
+
+        git submodule update
+
 
 System Requirements
 -------------------
+
+The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
 To run these quickstarts with the provided build scripts, you need the following:
 
@@ -62,7 +84,7 @@ To run these quickstarts with the provided build scripts, you need the following
 
             mvn --version 
 
-3. The JBoss Enterprise Application Platform 6 distribution ZIP or the JBoss AS 7 distribution ZIP.
+3. The JBoss EAP distribution ZIP.
     * For information on how to install and run JBoss, refer to the product documentation.
 
 4. You can also use [JBoss Developer Studio or Eclipse](#use-jBoss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
@@ -71,37 +93,59 @@ To run these quickstarts with the provided build scripts, you need the following
 Configure Maven
 ---------------
 
-Maven configuration is dependent on whether you are using the JBoss Enterprise Application Platform 6 product version of the quickstarts or the JBoss AS7 community version of the quickstarts.
+### Configure Maven to Build and Deploy the Quickstarts
 
-### Configure Maven for JBoss Enterprise Application Platform 6
+The quickstarts use artifacts located in the JBoss Developer repository. You must configure Maven to use that repository before you build and deploy the quickstarts. 
 
-If you are using the JBoss Enterprise Application Platform 6 distribution, you need to download and configure the Maven repository.
+_Note: If you do not wish to configure the Maven settings, you must pass the configuration setting on every Maven command as follows: ` -s QUICKSTART_HOME/settings.xml`_
 
-1. Download the JBoss Enterprise Application Platform 6 Maven repository distribution ZIP and unzip it into a directory of your choice.
+1. Locate the Maven install directory for your operating system. It is usually installed in `${user.home}/.m2/`. 
 
-2. Modify the `example-settings.xml` file located in the root of your quickstarts folder. 
-    * Replace all instances of `path/to/jboss-eap/repo` within `file:///path/to/jboss-eap/repo` with the fully qualified path to the Maven repository you unzipped in the previous step.
-    * Be sure to use 3 forward slashes after `file:`: 2 for the protocol and 1 for the fully qualified path. For example:
+            For Linux or Mac:   ~/.m2/
+            For Windows: \Documents and Settings\USER_NAME\.m2\  -or-  \Users\USER_NAME\.m2\
 
-            file:///home/username/Quickstarts/jboss-eap-6.0-quickstarts
-3. Configure the Maven user settings. 
-    * Look for the `settings.xml` file in the `${user.home}/.m2/` directory. For example:
+2. If you have an existing `settings.xml` file, rename it so you can restore it later.
 
-            For Linux or Mac:   ~/.m2/settings.xml
-            For Windows: \Documents and Settings\USER_NAME\.m2\settings.xml or \Users\USER_NAME\.m2\settings.xml
-    * If you have an existing `settings.xml` file, modify it with the configuration information from the `example-settings.xml` file.
-    * If there is no `settings.xml` file, copy the modified `example-settings.xml` file to the `m2` directory for your operating system and rename it to `settings.xml`.
+            For Linux or Mac:  mv ~/.m2/settings.xml ~/.m2/settings-backup.xml
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\settings.xml" settings-backup.xml
+                    -or- ren "\Users\USER_NAME\.m2\settings.xml" settings-backup.xml
+                   
+3. If you have an existing `repository/` directory, rename it so you can restore it later. For example
 
+            For Linux or Mac:  mv ~/.m2/repository/ ~/.m2/repository-backup/
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\repository\" repository-backup
+                    -or- ren "\Users\USER_NAME\.m2\repository\" repository-backup
+4. Copy the `settings.xml` file from the root of the quickstarts directory to your Maven install directory.
+ 
+            For Linux or Mac:  cp QUICKSTART_HOME/settings.xml  ~/.m2/settings.xml
+            For Windows: copy QUICKSTART_HOME/settings.xml \Documents and Settings\USER_NAME\.m2\settings.xml 
+                    -or- copy QUICKSTART_HOME/settings.xml \Users\USER_NAME\.m2\settings.xml
 
-### Configure Maven for JBoss AS 7
+### Restore Your Maven Configuration When You Finish Testing the Quickstarts
 
-If you are using the JBoss AS 7 Quickstart distribution, most of the community artifacts are available in the Maven central repository or the JBoss Public repository, so no additional configuration is needed.
+1. Locate the Maven install directory for your operating system. It is usually installed in `${user.home}/.m2/`. 
+
+            For Linux or Mac:   ~/.m2/
+            For Windows: \Documents and Settings\USER_NAME\.m2\  -or-  \Users\USER_NAME\.m2\
+
+2. Restore the `settings.xml` file/
+
+            For Linux or Mac:  mv ~/.m2/settings-backup.xml ~/.m2/settings.xml
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\settings-backup.xml" settings.xml
+                    -or- ren "\Users\USER_NAME\.m2\settings-backup.xml" settings.xml
+                   
+3. Restore the `repository/` directory
+
+            For Linux or Mac:  mv ~/.m2/repository-backup/ ~/.m2/repository/
+            For Windows: ren "\Documents and Settings\USER_NAME\.m2\repository-backup\" repository
+                    -or- ren "\Users\USER_NAME\.m2\repository\" repository-backup
+            
 
 ### Maven Profiles
 
 Profiles are used by Maven to customize the build environment. The `pom.xml` in the root of the quickstart directory defines the following profiles:
 
-* The `default` profile defines the list of modules or quickstarts that require nothing but JBoss Enterprise Application Platform or JBoss AS .
+* The `default` profile defines the list of modules or quickstarts that require nothing but JBoss Enterprise Application Platform.
 * The `requires-postgres` profile lists the quickstarts that require PostgreSQL to be running when the quickstart is deployed.
 * The `complex-dependency` profile lists quickstarts that require manual configuration that can not be automated.
 * The `requires-full` profile lists quickstarts the require you start the JBoss server using the full profile.
@@ -120,29 +164,29 @@ The root folder of each individual quickstart contains a README file with specif
 
 ### Start the JBoss Server
 
-Before you deploy a quickstart, in most cases you need a running JBoss Enterprise Application Platform 6 or JBoss AS 7server. A few of the Arquillian tests do not require a running server. This will be noted in the README for that quickstart. 
+Before you deploy a quickstart, in most cases you need a running JBoss EAP server. A few of the Arquillian tests do not require a running server. This will be noted in the README for that quickstart. 
 
 The JBoss server can be started a few different ways.
 
-* [Start the JBoss Server With the _web_ profile](#start-the-jboss-server-with-the-web-profile): This is the default configuration. It defines minimal subsystems and services.
+* [Start the Default JBoss Server](#start-the-default-jboss-server): This is the default configuration. It defines minimal subsystems and services.
 * [Start the JBoss Server with the _full_ profile](#start-the-jboss-server-with-the-full-profile): This profile configures many of the commonly used subsystems and services.
 * [Start the JBoss Server with a custom configuration](#start-the-jboss-server-with-custom-configuration-options): Custom configuration parameters can be specified on the command line when starting the server.
 
 The README for each quickstart will specify which configuration is required to run the example.
 
-#### Start the JBoss Server with the Web Profile
+#### Start the Default JBoss Server
 
-To start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile:
+To start JBoss EAP:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the JBoss server with the web profile:
+2. The following shows the command line to start the JBoss server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
 
 #### Start the JBoss Server with the Full Profile
 
-To start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Profile:
+To start JBoss EAP with the Full Profile:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server with the full profile:
@@ -152,7 +196,7 @@ To start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Full Pro
 
 #### Start the JBoss Server with Custom Configuration Options
 
-To start JBoss Enterprise Application Platform 6 or JBoss AS 7 with custom configuration options:
+To start JBoss EAP with custom configuration options:
 
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server. Replace the CUSTOM_OPTIONS with the custom optional parameters specified in the quickstart.
@@ -171,7 +215,7 @@ In some cases, you may want to build the application to test for compile errors 
 1. Open a command line and navigate to the root directory of the quickstart you want to build.
 2. Use this command if you only want to build the archive, but not deploy it:
 
-            mvn clean package
+            mvn clean install
 
 #### Build and Deploy the Quickstart Archive
 
@@ -179,7 +223,7 @@ In some cases, you may want to build the application to test for compile errors 
 2. Open a command line and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
-            mvn clean package jboss-as:deploy
+            mvn clean install jboss-as:deploy
 
 #### Undeploy an Archive
 
@@ -202,8 +246,8 @@ To build the quickstarts:
 
 _Note_: If you see a `java.lang.OutOfMemoryError: PermGen space` error when you run this command, increase the memory by typing the following command for your operating system, then try the above command again.
 
-        For Linux:   export MAVEN_OPTS=-Xmx512m
-        For Windows: SET MAVEN_OPTS=-Xmx512m
+        For Linux:   export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
+        For Windows: SET MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
 
 
 ### Undeploy the Deployed Quickstarts with One Command
@@ -225,47 +269,49 @@ To undeploy any quickstarts that fail due to complex dependencies, follow the un
 ### Run the Arquillian Tests
 ----------------------------
 
-Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests require the use of a container. 
+Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests an application on a real server, not just in a mocked environment.
 
-You can run these tests using either a remote or managed container. The quickstart README should tell you what you should expect to see in the console output and server log when you run the test.
+You can either start the server yourself or let Arquillian manage its lifecycle during the testing. The individual quickstart README should tell you what to expect in the console output and the server log when you run the test.
 
 
-1. Test the quickstart on a Remote Server
-    * A remote container requires you start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server before running the test. [Start the JBoss server](#start-the-jboss-server) as described in the quickstart README file.
+1. Test the quickstart on a remote server
+    * Arquillian's remote container adapter expects a JBoss server instance to be already started prior to the test execution. You must [Start the JBoss server](#start-the-jboss-server) as described in the quickstart README file.
+    * If you need to run the tests on a JBoss server running on a machine other than localhost, you can configure this, along with other options, in the `src/test/resources/arquillian.xml` file using the following properties:
+        
+            <container qualifier="jboss" default="true">
+                <configuration>
+                    <property name="managementAddress">myhost.example.com</property>
+                    <property name="managementPort">9999</property>
+                    <property name="username">customAdminUser</property>
+                    <property name="password">myPassword</property>
+                </configuration>
+            </container>    
     * Run the test goal with the following profile activated:
 
-            mvn clean test -Parq-jbossas-remote 
-2. Test the quickstart on Managed Server
+            mvn clean test -Parq-jbossas-remote     
+2. Test the quickstart on a managed server
 
-    _Note: This test requires that your server is not running. Arquillian will start the container for you, however, you must first let it know where to find the remote JBoss container._
-    * Open the test/resources/arquillian.xml file located in the quickstart directory. 
-    * Find the configuration for the remote JBoss container. It should look like this:
+    Arquillian's managed container adapter requires that your server is not running as it will start the container for you. However, you must first let it know where to find the JBoss server directory. The simplest way to do this is to set the `JBOSS_HOME` environment variable to the full path to your JBoss server directory. Alternatively, you can set the path in the `jbossHome` property in the Arquillian configuration file.
+    * Open the `src/test/resources/arquillian.xml` file located in the quickstart directory.
+    * Find the configuration for the JBoss container. It should look like this:
 
-            <!-- Example configuration for a remote JBoss Enterprise Application Platform 6 or AS 7 instance -->
+            <!-- Example configuration for a managed/remote JBoss AS 7 instance -->
             <container qualifier="jboss" default="true">
-                <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
+                <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
                 <!--<configuration> -->
                 <!--<property name="jbossHome">/path/to/jboss/as</property> -->
                 <!--</configuration> -->
-            </container>
-    * Remove the comments from the `<configuration>` elements.
-
-            <!-- Example configuration for a remote JBoss Enterprise Application Platform 6 or AS 7 instance -->
-            <container qualifier="jboss" default="true">
-                <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
-                <configuration>
-                    <property name="jbossHome">/path/to/jboss/as</property>
-                </configuration>
-            </container>
-    * Find the "jbossHome" property and replace the "/path/to/jboss/as" value with the actual path to your JBoss Enterprise Application Platform 6 or JBoss AS 7 server.
+            </container>           
+    * Uncomment the `configuration` element, find the `jbossHome` property and replace the "/path/to/jboss/as" value with the actual path to your JBoss EAP server.
     * Run the test goal with the following profile activated:
 
             mvn clean test -Parq-jbossas-managed
 
+
 Use JBoss Developer Studio or Eclipse to Run the Quickstarts
 ------------------------------------------------------------
 
-You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the [JBoss Enterprise Application Platform 6 Development Guide](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/) or [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
+You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the [JBoss Enterprise Application Platform Development Guide](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/) or [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
 
 
 Optional Components
@@ -281,7 +327,7 @@ The following components are needed for only a small subset of the quickstarts. 
 
 ### Add a Management or Application User
 
-By default, JBoss Enterprise Application Platform 6 and JBoss AS 7 are now distributed with security enabled for the management interfaces. A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. A script is provided in the `JBOSS_HOME/bin` directory for that purpose.
+By default, JBoss EAP is now distributed with security enabled for the management interfaces. A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. A script is provided in the `JBOSS_HOME/bin` directory for that purpose.
 
 The following procedures describe how to add a user with the appropriate permissions to run the quickstarts that depend on them.
 
@@ -498,14 +544,14 @@ You can configure the driver by running the `configure-postgresql.cli` script pr
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss EAP server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3. After you have completed testing the quickstarts, you can replace this file to restore the server to its original configuration.
 
  
 ##### Configure the Driver By Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -521,7 +567,7 @@ This script adds the PostgreSQL driver to the datasources subsystem in the serve
 
 ##### Configure the Driver Using the JBoss CLI Interactively
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -532,11 +578,13 @@ This script adds the PostgreSQL driver to the datasources subsystem in the serve
 3. At the prompt, type the following:
 
         [standalone@localhost:9999 /] /subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+4. Tell the server to reload the configuration:
 
+         [standalone@localhost:9999 /] :reload
 
 ##### Configure the Driver By Manually Editing the Configuration File
 
-1.  If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1.  If it is running, stop the JBoss EAP server.
 2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3.  Open the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file in an editor and locate the subsystem `urn:jboss:domain:datasources:1.0`. 
 4.  Add the following driver to the `<drivers>` section that subsystem. You may need to merge with other drivers in that section:
@@ -552,7 +600,7 @@ When you are done testing the quickstarts, you can remove the PostgreSQL configu
 
 ##### Remove the PostgreSQL Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -567,7 +615,7 @@ This script removes PostgreSQL from the `datasources` subsystem in the server co
 
 
 ##### Remove the PostgreSQL Configuration Manually
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 

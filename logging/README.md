@@ -6,12 +6,13 @@ Technologies: Logging
 Summary: Demonstrates how to set various application logging levels
 Prerequisites: None
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This example demonstrates how to set up and log different levels of information in JBoss Enterprise Application Platform 6 and JBoss AS 7. An example of asynchronous logging is also included in the configuration examples.
+This example demonstrates how to set up and log different levels of information in Red Hat JBoss Enterprise Application Platform. An example of asynchronous logging is also included in the configuration examples.
 
 This quickstart contains just one class file and one JSP file. When you access the application, it fires off the logging information.
 
@@ -21,9 +22,9 @@ To better visualize how the logging configuration works, you first deploy and ac
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -34,10 +35,10 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 
 Start the JBoss Server
 -------------------------
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -52,15 +53,15 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
-4. This deploys `target/jboss-as-logging.war` to the running instance of the server.
+4. This deploys `target/jboss-logging.war` to the running instance of the server.
  
  
 Access the application 
 ---------------------
 
-The application is running at the following URL: <http://localhost:8080/jboss-as-logging/>.
+The application is running at the following URL: <http://localhost:8080/jboss-logging/>.
 
 
 Check the Server Logs
@@ -98,7 +99,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_WARN.properties=autoFlush,fileName
             handler.FILE_QS_WARN.autoFlush=true
             handler.FILE_QS_WARN.fileName=${org.jboss.boot.log.file:quickstart_warn.log}
-            handler.FILE_QS_WARN.formatter=PATTERN
+            handler.FILE_QS_WARN.formatter=FILE
 
             ##### New file handler config for quickstart example errors
             handler.FILE_QS_ERROR=org.jboss.logmanager.handlers.FileHandler
@@ -106,7 +107,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_ERROR.properties=autoFlush,fileName
             handler.FILE_QS_ERROR.autoFlush=true
             handler.FILE_QS_ERROR.fileName=${org.jboss.boot.log.file:quickstart_error.log}
-            handler.FILE_QS_ERROR.formatter=PATTERN
+            handler.FILE_QS_ERROR.formatter=FILE
 
             ##### New file handler config for quickstart example info messages
             handler.FILE_QS_INFO=org.jboss.logmanager.handlers.FileHandler
@@ -114,7 +115,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_INFO.properties=autoFlush,fileName
             handler.FILE_QS_INFO.autoFlush=true
             handler.FILE_QS_INFO.fileName=${org.jboss.boot.log.file:quickstart_info.log}
-            handler.FILE_QS_INFO.formatter=PATTERN
+            handler.FILE_QS_INFO.formatter=FILE
 
             ##### New file handler config for quickstart example debug messages
             handler.FILE_QS_DEBUG=org.jboss.logmanager.handlers.FileHandler
@@ -122,7 +123,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_DEBUG.properties=autoFlush,fileName
             handler.FILE_QS_DEBUG.autoFlush=true
             handler.FILE_QS_DEBUG.fileName=${org.jboss.boot.log.file:quickstart_debug.log}
-            handler.FILE_QS_DEBUG.formatter=PATTERN
+            handler.FILE_QS_DEBUG.formatter=FILE
 
             ##### New file handler config for quickstart example trace messages
             handler.FILE_QS_TRACE=org.jboss.logmanager.handlers.FileHandler
@@ -130,7 +131,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_TRACE.properties=autoFlush,fileName
             handler.FILE_QS_TRACE.autoFlush=true
             handler.FILE_QS_TRACE.fileName=${org.jboss.boot.log.file:quickstart_trace.log}
-            handler.FILE_QS_TRACE.formatter=PATTERN
+            handler.FILE_QS_TRACE.formatter=FILE
 
             ##### New file handler config for quickstart example fatal messages
             handler.FILE_QS_FATAL=org.jboss.logmanager.handlers.FileHandler
@@ -138,7 +139,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_FATAL.properties=autoFlush,fileName
             handler.FILE_QS_FATAL.autoFlush=true
             handler.FILE_QS_FATAL.fileName=${org.jboss.boot.log.file:quickstart_fatal.log}
-            handler.FILE_QS_FATAL.formatter=PATTERN
+            handler.FILE_QS_FATAL.formatter=FILE
 
     The quickstart distribution also includes a `logging-properties.txt` file containing these configuration lines.
 
@@ -148,14 +149,14 @@ You can configure logging by running the `configure-logging.cli` script provided
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 
 #### Configure Logging by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
@@ -191,7 +192,7 @@ You should see the following result when you run the script:
 
 #### Configure Logging by Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the web profile by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat 
@@ -227,7 +228,7 @@ You should see the following result when you run the script:
 
 ####  Configure Logging by Manually Editing the Server Configuration File
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
 3. Open the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
 4. Locate the `logging` subsystem, identified by `<subsystem xmlns="urn:jboss:domain:logging:1.1">` in the file. Copy the following XML before the ending `</subsystem>` element.
@@ -380,7 +381,7 @@ Remove the Logging Configuration
 
 ### Restore the Logging Properties File
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss server.
 2. Replace the `JBOSS_HOME/standalone/configuration/logging.properties` file with the back-up copy of the file.
 
 ### Remove the Server Logging Configuration
@@ -389,7 +390,7 @@ You can remove the logging configuration by running the  `remove-logging.cli` sc
 
 #### Remove the Logging Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server by typing the following: 
+1. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -416,7 +417,7 @@ This script removes the log and file handlers from the `logging` subsystem in th
 
 
 #### Remove the Logging Configuration Manually
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 

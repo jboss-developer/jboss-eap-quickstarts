@@ -5,12 +5,18 @@ Level: Intermediate
 Technologies: Hibernate 3
 Summary: Example that uses Hibernate 3 for database access. Compare the code in this quickstart to the _hibernate4_ quickstart to see the changes needed to upgrade to Hibernate 4.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This is a simple JSF 2.0 example based on the `hibernate4` quickstart. Its purpose is to demonstrate how you can use Hibernate 3 in your application.
+_Note: Hibernate 3.x is not a supported configuration in Red Hat JBoss Enterprise Application Platform 6.1 or later._
+
+The sole purpose of this quickstart is to help you understand the changes needed to move your application from 
+Hibernate 3.x to Hibernate 4. This quickstart has the same functionality as the `hibernate4` quickstart 
+but uses the Hibernate 3 libraries. Compare this quickstart to the `hibernate4` quickstart to see the 
+code and class differences between Hibernate 3 and Hibernate 4. 
 
 This quickstart, like the `log4j` quickstart, demonstrates how to define a module dependency. However, this quickstart goes beyond that and also demonstrates the following:
  
@@ -18,28 +24,27 @@ This quickstart, like the `log4j` quickstart, demonstrates how to define a modul
 * Module exclusion and inclusion - This example demonstrates how to control class loading using *dependencies* and *exclusions* in the *jboss-deployment-structure.xml* file. For more information about this file, please refer to <https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile>
 * Persistence configuration - Configuration is required to tell the container how to load JPA/Hibernate.
  
-You can compare this quickstart to the `hibernate4` quickstart to see the code differences between Hibernate 3 and Hibernate 4.
-
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
- 
+_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+  
 Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -54,15 +59,15 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
-4. This will deploy `target/jboss-as-hibernate3.war` to the running instance of the server.
+4. This will deploy `target/jboss-hibernate3.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-hibernate3/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-hibernate3/>.
 
 
 Undeploy the Archive

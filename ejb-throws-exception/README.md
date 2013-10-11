@@ -5,7 +5,8 @@ Level: Intermediate
 Technologies: EJB, EAR
 Summary: Shows how to handle Exceptions across JARs in an EAR
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
@@ -26,7 +27,7 @@ The root `pom.xml` builds each of the subprojects in the above order and deploys
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
 
-1. A JSF page (http://localhost:8080/jboss-as-ejb-throws-exception-web/) asks for the user name.
+1. A JSF page (http://localhost:8080/jboss-ejb-throws-exception-web/) asks for the user name.
 2. On clicking `Say Hello`, the value of the `Name` input text is sent to a managed bean named `GreeterBean`.
 3. On setting the name, the `Greeter` invokes the `GreeterEJB`, which was injected to the managed bean. Notice the field annotated with `@EJB`.
 4. The EJB responds with `Hello <name>` or throws an Exception if the name is empty or null.
@@ -36,9 +37,9 @@ The example follows the common "Hello World" pattern. These are the steps that o
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 
 Configure Maven 
@@ -47,11 +48,11 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -66,16 +67,16 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
-4. This will deploy `target/jboss-as-ejb-in-ear.ear` to the running instance of the server.
+4. This will deploy `target/jboss-ejb-in-ear.ear` to the running instance of the server.
 
  
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-as-ejb-throws-exception-web/>.
+The application will be running at the following URL <http://localhost:8080/jboss-ejb-throws-exception-web/>.
 
 Enter a name in the input field `Name` and click the `Say Hello` button to see the response.
 

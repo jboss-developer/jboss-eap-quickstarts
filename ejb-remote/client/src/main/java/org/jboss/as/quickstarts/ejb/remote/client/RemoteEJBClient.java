@@ -128,7 +128,7 @@ public class RemoteEJBClient {
         // the whole package name.
 
         // let's do the lookup
-        return (RemoteCalculator) context.lookup("ejb:/jboss-as-ejb-remote-server-side/CalculatorBean!"
+        return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/CalculatorBean!"
                 + RemoteCalculator.class.getName());
     }
 
@@ -162,7 +162,7 @@ public class RemoteEJBClient {
         // the whole package name.
 
         // let's do the lookup
-        return (RemoteCounter) context.lookup("ejb:/jboss-as-ejb-remote-server-side/CounterBean!"
+        return (RemoteCounter) context.lookup("ejb:/jboss-ejb-remote-server-side/CounterBean!"
                 + RemoteCounter.class.getName() + "?stateful");
     }
 }

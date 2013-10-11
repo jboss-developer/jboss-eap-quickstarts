@@ -40,6 +40,7 @@ import javax.persistence.PersistenceContextType;
  * 
  */
 @Stateful
+@RequestScoped
 public class Resources {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -57,7 +58,6 @@ public class Resources {
     }
 
     @Produces
-    @RequestScoped
     public FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
     }

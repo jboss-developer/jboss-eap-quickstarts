@@ -1,0 +1,433 @@
+<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="ejbsecuritypropagation-ejb-security-propagation-across-servers" class="anchor" href="#ejbsecuritypropagation-ejb-security-propagation-across-servers"><span class="anchor-icon"></span></a>ejb-security-propagation: EJB security propagation across servers</h1>
+
+<p>Author: Claudio Miranda <a href="mailto:claudio@redhat.com">claudio@redhat.com</a>
+Level: Advanced
+Technologies: EJB, Servlets, Security
+Summary: Security context propagation between JBoss server instances, when using EJB calls. 
+Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a></p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This quickstart is based on the <code>ejb-security-interceptors</code> and <code>servlet-security</code> quickstarts, but was enhanced to demonstrate EJB security propagation across servers. The following is a general overview of this example:</p>
+
+<ul>
+<li>An EJB client, protected by the &ldquo;security-propagation-quickstart&rdquo; security domain, is deployed to the first server. </li>
+<li>It calls the <code>SecuredEJB</code>, also protected by the &ldquo;security-propagation-quickstart&rdquo; security domain, that is deployed on a secondary server. </li>
+<li>The security context authenticated on the first server is propagated to the second server. </li>
+<li>The security domain on both servers uses the same database login module.</li>
+</ul>
+
+<p>The web application <code>jboss-ejb-security-propagation-web</code> is deployed to <code>server-one</code>. It has two servlets:</p>
+
+<ol>
+<li>HelloServlet: An unsecured servlet that makes a remote EJB call to the unsecured <code>HelloEJB</code>/</li>
+<li>SecuredEJBServlet: A protected servlet that makes a remote EJB call to <code>SecuredEJB</code>, protected with the same security domains as <code>SecuredEJBServlet</code>.</li>
+</ol>
+
+<p>The <code>jboss-ejb-security-propagation-ejb</code> EJB is deployed to <code>server-two</code>.</p>
+
+<p>The root <code>pom.xml</code> builds each of the subprojects in an appropriate order.</p>
+
+<p>This quickstart runs in a managed domain and uses the <code>domain.xml</code> and <code>host.xml</code>. </p>
+
+<p><em>Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example database that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1 or later.</p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="add-an-application-user" class="anchor" href="#add-an-application-user"><span class="anchor-icon"></span></a>Add an Application User</h2>
+
+<p>This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: <a href="../README.html#add-an-application-user">Add an Application User</a></p>
+
+<p>The standard user and password is:</p>
+<div class="highlight"><pre>    <span class="n">Username</span> <span class="o">:</span> <span class="n">quickstartUser</span>
+    <span class="n">Password</span> <span class="o">:</span> <span class="n">quickstartPwd1</span><span class="o">!</span>
+</pre></div>
+<p>This user is necessary for <code>server-one</code>, where the EJB client is deployed, to establish a trusted communication channel to <code>server-two</code>, where the EJB is deployed.</p>
+
+<h2><a id="configure-h2-database-server" class="anchor" href="#configure-h2-database-server"><span class="anchor-icon"></span></a>Configure H2 database server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>Start the H2 network server in the background. Be sure to replace JBOSS_HOME with the path to your server.</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">java</span> <span class="o">-</span><span class="n">classpath</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">layers</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">h2database</span><span class="o">/</span><span class="n">h2</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">h2</span><span class="o">-</span><span class="mf">1.3.168</span><span class="o">-</span><span class="n">redhat</span><span class="o">-</span><span class="mf">2.</span><span class="n">jar</span> <span class="n">org</span><span class="p">.</span><span class="n">h2</span><span class="p">.</span><span class="n">tools</span><span class="p">.</span><span class="n">Server</span> <span class="o">-</span><span class="n">tcp</span> <span class="o">-</span><span class="n">baseDir</span> <span class="err">$</span><span class="n">HOME</span> <span class="o">&amp;</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="o">%</span><span class="n">JAVA_HOME</span><span class="o">%</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">java</span> <span class="o">-</span><span class="n">classpath</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">modules</span><span class="err">\</span><span class="n">system</span><span class="err">\</span><span class="n">layers</span><span class="err">\</span><span class="n">base</span><span class="err">\</span><span class="n">com</span><span class="err">\</span><span class="n">h2database</span><span class="err">\</span><span class="n">h2</span><span class="err">\</span><span class="n">main</span><span class="err">\</span><span class="n">h2</span><span class="o">-</span><span class="mf">1.3.168</span><span class="o">-</span><span class="n">redhat</span><span class="o">-</span><span class="mf">2.</span><span class="n">jar</span> <span class="n">org</span><span class="p">.</span><span class="n">h2</span><span class="p">.</span><span class="n">tools</span><span class="p">.</span><span class="n">Server</span> <span class="o">-</span><span class="n">tcp</span> <span class="o">-</span><span class="n">baseDir</span> <span class="o">%</span><span class="n">HOMEPATH</span><span class="o">%</span> <span class="o">&amp;</span>
+</pre></div>
+<p>It should listen on 9092 port.</p></li>
+<li><p>Open another command line and navigate to the root directory of this quickstart. You must be in this directory to access the <code>import.sql</code> script file.</p></li>
+<li><p>Create the table structure and input some data. Be sure to replace JBOSS_HOME with the path to your server.</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="err">$</span><span class="n">JAVA_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">java</span> <span class="o">-</span><span class="n">classpath</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">layers</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">com</span><span class="o">/</span><span class="n">h2database</span><span class="o">/</span><span class="n">h2</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">h2</span><span class="o">-</span><span class="mf">1.3.168</span><span class="o">-</span><span class="n">redhat</span><span class="o">-</span><span class="mf">2.</span><span class="n">jar</span> <span class="n">org</span><span class="p">.</span><span class="n">h2</span><span class="p">.</span><span class="n">tools</span><span class="p">.</span><span class="n">RunScript</span> <span class="o">-</span><span class="n">url</span> <span class="n">jdbc</span><span class="o">:</span><span class="n">h2</span><span class="o">:</span><span class="n">tcp</span><span class="o">:</span><span class="c1">//localhost/qs_ejb -user sa -script ejb/src/main/resources/import.sql</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="o">%</span><span class="n">JAVA_HOME</span><span class="o">%</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">java</span> <span class="o">-</span><span class="n">classpath</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">modules</span><span class="err">\</span><span class="n">system</span><span class="err">\</span><span class="n">layers</span><span class="err">\</span><span class="n">base</span><span class="err">\</span><span class="n">com</span><span class="err">\</span><span class="n">h2database</span><span class="err">\</span><span class="n">h2</span><span class="err">\</span><span class="n">main</span><span class="err">\</span><span class="n">h2</span><span class="o">-</span><span class="mf">1.3.168</span><span class="o">-</span><span class="n">redhat</span><span class="o">-</span><span class="mf">2.</span><span class="n">jar</span> <span class="n">org</span><span class="p">.</span><span class="n">h2</span><span class="p">.</span><span class="n">tools</span><span class="p">.</span><span class="n">RunScript</span> <span class="o">-</span><span class="n">url</span> <span class="n">jdbc</span><span class="o">:</span><span class="n">h2</span><span class="o">:</span><span class="n">tcp</span><span class="o">:</span><span class="c1">//localhost/qs_ejb -user sa -script ejb\src\main\resources\import.sql</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP server</h2>
+
+<p>You can configure the server by running the  <code>configure-server.cli</code> script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.</p>
+
+<p><em>NOTE - Before you begin:</em></p>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li><p>Backup the following files, replacing JBOSS_HOME with the path to your server.: </p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
+</pre></div></li>
+<li><p>After you have completed testing this quickstart, you can replace these files to restore the server to its original configuration.</p></li>
+</ol>
+
+<h4><a id="configure-the-server-by-running-the-jboss-cli-script" class="anchor" href="#configure-the-server-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Configure the Server by Running the JBoss CLI Script</h4>
+
+<ol>
+<li><p>Start the JBoss EAP server by typing the following command, replacing JBOSS_HOME with the path to your server. </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
+</pre></div>
+<p>You should see two server processes when you execute the following command: <code>ps -ef|grep Server:server</code></p></li>
+<li><p>Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">server</span><span class="p">.</span><span class="n">cli</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">server</span><span class="p">.</span><span class="n">cli</span>
+</pre></div>
+<p>This script configures and starts multiple servers needed to run this quickstart. You should see the script commands echoed, followed by:</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h4><a id="configure-the-server-by-running-the-jboss-cli-interactively" class="anchor" href="#configure-the-server-by-running-the-jboss-cli-interactively"><span class="anchor-icon"></span></a>Configure the Server by Running the JBoss CLI Interactively</h4>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li><p>Backup the following files, replacing JBOSS_HOME with the path to your server: </p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
+</pre></div></li>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
+</pre></div>
+<p>You should see two server processes when you execute the following command: <code>ps -ef|grep Server:server</code></p></li>
+<li><p>Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> 
+</pre></div></li>
+<li><p>At the prompt, enter the following series of commands:</p></li>
+</ol>
+
+<ul>
+<li><p>First stop the default servers, block until the server is down</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">server</span><span class="o">-</span><span class="n">one</span><span class="o">:</span><span class="n">stop</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
+<span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="o">:</span><span class="n">stop</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Remove server-two from host master, and add again associated to &ldquo;other-server-group&rdquo;</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="o">:</span><span class="n">remove</span><span class="p">()</span>
+<span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="k">auto</span><span class="o">-</span><span class="n">start</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s">&quot;other-server-group&quot;</span><span class="p">,</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="o">-</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Add the security realms with the secret (password base64) values for the server communication</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">core</span><span class="o">-</span><span class="n">service</span><span class="o">=</span><span class="n">management</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">realm</span><span class="o">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">remote</span><span class="o">-</span><span class="n">call</span><span class="o">:</span><span class="n">add</span><span class="p">()</span>
+<span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">core</span><span class="o">-</span><span class="n">service</span><span class="o">=</span><span class="n">management</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">realm</span><span class="o">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">remote</span><span class="o">-</span><span class="n">call</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">identity</span><span class="o">=</span><span class="n">secret</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;cXVpY2tzdGFydFB3ZDEh&quot;</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Add the socket binding for connection from server-one to server-two</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="o">-</span><span class="n">group</span><span class="o">=</span><span class="n">full</span><span class="o">-</span><span class="n">sockets</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">destination</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="o">=</span><span class="n">srv2srv</span><span class="o">-</span><span class="n">ejb</span><span class="o">-</span><span class="n">socket</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">localhost</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">4597</span><span class="p">)</span>
+
+<span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">remoting</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">outbound</span><span class="o">-</span><span class="n">socket</span><span class="o">-</span><span class="n">binding</span><span class="o">-</span><span class="n">ref</span><span class="o">=</span><span class="n">srv2srv</span><span class="o">-</span><span class="n">ejb</span><span class="o">-</span><span class="n">socket</span><span class="p">,</span> <span class="n">security</span><span class="o">-</span><span class="n">realm</span><span class="o">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">remote</span><span class="o">-</span><span class="n">call</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s">&quot;quickstartUser&quot;</span><span class="p">)</span>
+<span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">remoting</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">/</span><span class="n">property</span><span class="o">=</span><span class="n">SASL_POLICY_NOANONYMOUS</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="nb">false</span><span class="p">)</span>
+<span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">remoting</span><span class="o">/</span><span class="n">remote</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">=</span><span class="n">ejb</span><span class="o">-</span><span class="n">outbound</span><span class="o">-</span><span class="n">connection</span><span class="o">/</span><span class="n">property</span><span class="o">=</span><span class="n">SSL_ENABLED</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="nb">false</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Add the datasource to full profile</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">datasources</span><span class="o">/</span><span class="n">data</span><span class="o">-</span><span class="n">source</span><span class="o">=</span><span class="n">SecurityPropagationDS</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">connection</span><span class="o">-</span><span class="n">url</span><span class="o">=</span><span class="s">&quot;jdbc:h2:tcp://localhost/qs_ejb&quot;</span><span class="p">,</span><span class="n">jta</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span><span class="n">jndi</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span><span class="p">,</span> <span class="n">use</span><span class="o">-</span><span class="n">ccm</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span><span class="n">driver</span><span class="o">-</span><span class="n">class</span><span class="o">=</span><span class="s">&quot;org.h2.Driver&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;h2&quot;</span><span class="p">,</span><span class="n">user</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;sa&quot;</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Add the datasource to full-ha profile</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">datasources</span><span class="o">/</span><span class="n">data</span><span class="o">-</span><span class="n">source</span><span class="o">=</span><span class="n">SecurityPropagationDS</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">connection</span><span class="o">-</span><span class="n">url</span><span class="o">=</span><span class="s">&quot;jdbc:h2:tcp://localhost/qs_ejb&quot;</span><span class="p">,</span><span class="n">jta</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span><span class="n">jndi</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span><span class="p">,</span> <span class="n">use</span><span class="o">-</span><span class="n">ccm</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span><span class="n">driver</span><span class="o">-</span><span class="n">class</span><span class="o">=</span><span class="s">&quot;org.h2.Driver&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;h2&quot;</span><span class="p">,</span><span class="n">user</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;sa&quot;</span><span class="p">)</span>
+</pre></div></li>
+<li><p>Add the security domain to full profile</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">security</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">quickstart</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">cache</span><span class="o">-</span><span class="n">type</span><span class="o">=</span><span class="k">default</span><span class="p">)</span>
+<span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">security</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">quickstart</span><span class="o">/</span><span class="n">authentication</span><span class="o">=</span><span class="n">classic</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">login</span><span class="o">-</span><span class="n">modules</span><span class="o">=</span><span class="p">[{</span><span class="n">code</span><span class="o">=&gt;</span><span class="s">&quot;Database&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=&gt;</span><span class="n">required</span><span class="p">,</span> <span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="o">=&gt;</span><span class="p">{</span><span class="s">&quot;dsJndiName&quot;</span><span class="o">=&gt;</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span><span class="p">,</span><span class="s">&quot;principalsQuery&quot;</span><span class="o">=&gt;</span><span class="s">&quot;SELECT PASSWORD FROM USERS WHERE USERNAME = ?&quot;</span><span class="p">,</span><span class="s">&quot;rolesQuery&quot;</span><span class="o">=&gt;</span><span class="s">&quot;SELECT R.NAME, &#39;Roles&#39; FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?&quot;</span><span class="p">}}])</span>
+</pre></div></li>
+<li><p>Add the security domain to full-ha profile</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">security</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">quickstart</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">cache</span><span class="o">-</span><span class="n">type</span><span class="o">=</span><span class="k">default</span><span class="p">)</span>
+<span class="o">/</span><span class="n">profile</span><span class="o">=</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">security</span><span class="o">/</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="o">=</span><span class="n">security</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">quickstart</span><span class="o">/</span><span class="n">authentication</span><span class="o">=</span><span class="n">classic</span><span class="o">:</span><span class="n">add</span><span class="p">(</span><span class="n">login</span><span class="o">-</span><span class="n">modules</span><span class="o">=</span><span class="p">[{</span><span class="s">&quot;code&quot;</span><span class="o">=&gt;</span><span class="s">&quot;org.jboss.as.quickstarts.ejb.security.interceptors.DelegationLoginModule&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=&gt;</span><span class="n">optional</span><span class="p">,</span> <span class="n">module</span><span class="o">=&gt;</span><span class="s">&quot;org.jboss.as.quickstarts.ejb.security.propagation&quot;</span><span class="p">,</span> <span class="s">&quot;module-options&quot;</span><span class="o">=&gt;</span><span class="p">{</span><span class="s">&quot;password-stacking&quot;</span><span class="o">=&gt;</span><span class="s">&quot;useFirstPass&quot;</span><span class="p">}},{</span><span class="s">&quot;code&quot;</span><span class="o">=&gt;</span><span class="s">&quot;Remoting&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=&gt;</span><span class="n">optional</span><span class="p">,</span> <span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="o">=&gt;</span><span class="p">{</span><span class="s">&quot;password-stacking&quot;</span><span class="o">=&gt;</span><span class="s">&quot;useFirstPass&quot;</span><span class="p">}},{</span><span class="s">&quot;code&quot;</span><span class="o">=&gt;</span><span class="s">&quot;Database&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=&gt;</span><span class="n">required</span><span class="p">,</span> <span class="n">module</span><span class="o">-</span><span class="n">options</span><span class="o">=&gt;</span><span class="p">{</span><span class="s">&quot;dsJndiName&quot;</span><span class="o">=&gt;</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span><span class="p">,</span><span class="s">&quot;principalsQuery&quot;</span><span class="o">=&gt;</span><span class="s">&quot;SELECT PASSWORD FROM USERS WHERE USERNAME = ?&quot;</span><span class="p">,</span><span class="s">&quot;rolesQuery&quot;</span><span class="o">=&gt;</span><span class="s">&quot;SELECT R.NAME, &#39;Roles&#39; FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?&quot;</span><span class="p">,</span><span class="s">&quot;password-stacking&quot;</span><span class="o">=&gt;</span><span class="s">&quot;useFirstPass&quot;</span><span class="p">}}])</span>
+</pre></div></li>
+<li><p>Start servers</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">server</span><span class="o">-</span><span class="n">one</span><span class="o">:</span><span class="n">start</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
+<span class="o">/</span><span class="n">host</span><span class="o">=</span><span class="n">master</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="o">:</span><span class="n">start</span><span class="p">(</span><span class="n">blocking</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
+</pre></div></li>
+</ul>
+
+<h4><a id="configure-the-server-by-manually-editing-the-server-configuration-file" class="anchor" href="#configure-the-server-by-manually-editing-the-server-configuration-file"><span class="anchor-icon"></span></a>Configure the Server by Manually Editing the Server Configuration File</h4>
+
+<ol>
+<li>If it is running, stop the JBoss server.</li>
+<li><p>Backup the following files, replacing JBOSS_HOME with the path to your server: </p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
+</pre></div></li>
+<li><p>Open the file: <code>JBOSS_HOME/domain/configuration/domain.xml</code></p></li>
+<li><p>Make the additions described below.</p></li>
+</ol>
+
+<h5><a id="manually-configure-the-server-groups" class="anchor" href="#manually-configure-the-server-groups"><span class="anchor-icon"></span></a>Manually Configure the Server Groups</h5>
+
+<ol>
+<li>If it is running, stop the JBoss server.</li>
+<li><p>Open the <code>host.xml</code> file and find the &lsquo;servers&rsquo; section. For the <code>server-two</code>, associate the server-group to &ldquo;other-server-group&rdquo;. Save it. The result should be:</p>
+<div class="highlight"><pre><span class="nt">&lt;server</span> <span class="na">name=</span><span class="s">&quot;server-one&quot;</span> <span class="na">group=</span><span class="s">&quot;main-server-group&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;server</span> <span class="na">name=</span><span class="s">&quot;server-two&quot;</span> <span class="na">group=</span><span class="s">&quot;other-server-group&quot;</span> <span class="na">auto-start=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;socket-bindings</span> <span class="na">port-offset=</span><span class="s">&quot;150&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/server&gt;</span>
+</pre></div></li>
+</ol>
+
+<h5><a id="manually-configure-the-jboss-client-to-jboss-server-authentication" class="anchor" href="#manually-configure-the-jboss-client-to-jboss-server-authentication"><span class="anchor-icon"></span></a>Manually Configure the JBoss Client to JBoss Server Authentication</h5>
+
+<ol>
+<li>Open host.xml and find the &lsquo;security-realm&rsquo; section.</li>
+<li><p>Add the following security realm, after &ldquo;ApplicationRealm&rdquo;</p>
+<div class="highlight"><pre><span class="nt">&lt;security-realm</span> <span class="na">name=</span><span class="s">&quot;ejb-remote-call&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;server-identities&gt;</span>
+        <span class="nt">&lt;secret</span> <span class="na">value=</span><span class="s">&quot;cXVpY2tzdGFydFB3ZDEh&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/server-identities&gt;</span>
+<span class="nt">&lt;/security-realm&gt;</span> 
+
+`cXVpY2tzdGFydFB3ZDEh` is the base64 format for `quickstartPwd1!` password. You can also generate it with `echo -n &#39;quickstartPwd1!&#39; | base64`
+</pre></div></li>
+</ol>
+
+<h5><a id="manually-configure-the-server-profiles" class="anchor" href="#manually-configure-the-server-profiles"><span class="anchor-icon"></span></a>Manually Configure the Server Profiles</h5>
+
+<ol>
+<li>Open the <code>domain.xml</code> file and find the &ldquo;full-sockets&rdquo; socket binding group.</li>
+<li><p>Add the following outbound-socket-binding</p>
+<div class="highlight"><pre><span class="nt">&lt;outbound-socket-binding</span> <span class="na">name=</span><span class="s">&quot;srv2srv-ejb-socket&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;remote-destination</span> <span class="na">host=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;4597&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/outbound-socket-binding&gt;</span> 
+</pre></div></li>
+<li><p>Find the &ldquo;remoting&rdquo; subsystem of &ldquo;full&rdquo; profile and add the relevant section as show below</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:remoting:1.1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;connector</span> <span class="na">name=</span><span class="s">&quot;remoting-connector&quot;</span> <span class="na">socket-binding=</span><span class="s">&quot;remoting&quot;</span> <span class="na">security-realm=</span><span class="s">&quot;ApplicationRealm&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;outbound-connections&gt;</span>
+        <span class="nt">&lt;remote-outbound-connection</span> <span class="na">name=</span><span class="s">&quot;ejb-outbound-connection&quot;</span> <span class="na">outbound-socket-binding-ref=</span><span class="s">&quot;srv2srv-ejb-socket&quot;</span> <span class="na">username=</span><span class="s">&quot;quickstartUser&quot;</span> <span class="na">security-realm=</span><span class="s">&quot;ejb-remote-call&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;properties&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;SSL_ENABLED&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;SASL_POLICY_NOANONYMOUS&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/properties&gt;</span>
+        <span class="nt">&lt;/remote-outbound-connection&gt;</span>
+    <span class="nt">&lt;/outbound-connections&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></li>
+<li><p>Add the datasource <code>SecurityPropagationDS</code> to the full&quot; and full-ha&quot; profiles. 
+It is used in the security module to authenticates the user stored in the H2 database.</p>
+<div class="highlight"><pre><span class="nt">&lt;datasource</span> <span class="na">jta=</span><span class="s">&quot;false&quot;</span> <span class="na">jndi-name=</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span> <span class="na">pool-name=</span><span class="s">&quot;SecurityPropagationDS&quot;</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">use-ccm=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;connection-url&gt;</span>jdbc:h2:tcp://localhost/qs_ejb<span class="nt">&lt;/connection-url&gt;</span>
+    <span class="nt">&lt;driver-class&gt;</span>org.h2.Driver<span class="nt">&lt;/driver-class&gt;</span>
+    <span class="nt">&lt;driver&gt;</span>h2<span class="nt">&lt;/driver&gt;</span>
+    <span class="nt">&lt;pool&gt;</span>
+        <span class="nt">&lt;min-pool-size&gt;</span>1<span class="nt">&lt;/min-pool-size&gt;</span>
+        <span class="nt">&lt;max-pool-size&gt;</span>5<span class="nt">&lt;/max-pool-size&gt;</span>
+    <span class="nt">&lt;/pool&gt;</span>
+    <span class="nt">&lt;security&gt;</span>
+        <span class="nt">&lt;user-name&gt;</span>sa<span class="nt">&lt;/user-name&gt;</span>
+        <span class="nt">&lt;password&gt;&lt;/password&gt;</span>
+    <span class="nt">&lt;/security&gt;</span>
+    <span class="nt">&lt;validation&gt;</span>
+        <span class="nt">&lt;validate-on-match&gt;</span>false<span class="nt">&lt;/validate-on-match&gt;</span>
+        <span class="nt">&lt;background-validation&gt;</span>false<span class="nt">&lt;/background-validation&gt;</span>
+    <span class="nt">&lt;/validation&gt;</span>
+    <span class="nt">&lt;statement&gt;</span>
+        <span class="nt">&lt;share-prepared-statements&gt;</span>false<span class="nt">&lt;/share-prepared-statements&gt;</span>
+    <span class="nt">&lt;/statement&gt;</span>
+<span class="nt">&lt;/datasource&gt;</span> 
+</pre></div></li>
+<li><p>Add the <code>security-propagation-quickstart</code> login-module in the security-domain subsystem of full profile.
+This security domain is used only for the web application (EJB client).</p>
+<div class="highlight"><pre><span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;security-propagation-quickstart&quot;</span> <span class="na">cache-type=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;authentication&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;Database&quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;dsJndiName&quot;</span> <span class="na">value=</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;principalsQuery&quot;</span> <span class="na">value=</span><span class="s">&quot;SELECT PASSWORD FROM USERS WHERE USERNAME = ?&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;rolesQuery&quot;</span> <span class="na">value=</span><span class="s">&quot;SELECT R.NAME, &#39;Roles&#39; FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+    <span class="nt">&lt;/authentication&gt;</span>
+<span class="nt">&lt;/security-domain&gt;</span>
+</pre></div></li>
+<li><p>Add the following <code>security-propagation-quickstart</code> login-module in the security-domain subsystem of full-ha profile.</p>
+<div class="highlight"><pre><span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;security-propagation-quickstart&quot;</span> <span class="na">cache-type=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;authentication&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;org.jboss.as.quickstarts.ejb.security.interceptors.DelegationLoginModule&quot;</span> <span class="na">flag=</span><span class="s">&quot;optional&quot;</span> <span class="na">module=</span><span class="s">&quot;org.jboss.as.quickstarts.ejb.security.propagation&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;Remoting&quot;</span> <span class="na">flag=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+        <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;Database&quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;dsJndiName&quot;</span> <span class="na">value=</span><span class="s">&quot;java:jboss/datasources/SecurityPropagationDS&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;principalsQuery&quot;</span> <span class="na">value=</span><span class="s">&quot;SELECT PASSWORD FROM USERS WHERE USERNAME = ?&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;rolesQuery&quot;</span> <span class="na">value=</span><span class="s">&quot;SELECT R.NAME, &#39;Roles&#39; FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;password-stacking&quot;</span> <span class="na">value=</span><span class="s">&quot;useFirstPass&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/login-module&gt;</span>
+    <span class="nt">&lt;/authentication&gt;</span>
+<span class="nt">&lt;/security-domain&gt;</span>
+
+The security-propagation-quickstart for the full-ha profile contains additional login-modules as they are necessary for the security context propagation.
+</pre></div></li>
+</ol>
+
+<h2><a id="create-the-module-for-the-ejbpropagationinterceptorjar" class="anchor" href="#create-the-module-for-the-ejbpropagationinterceptorjar"><span class="anchor-icon"></span></a>Create the Module for the ejb-propagation-interceptor.jar</h2>
+
+<p>Now you must generate the <code>ejb-propagation-interceptor.jar</code> file and add it as a module to the JBoss server.</p>
+
+<ol>
+<li><p>Create the directory structure in the JBoss server <code>modules</code> directory. Be sure to replace JBOSS_HOME with the path to your server.</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">layers</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">ejb</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">propagation</span><span class="o">/</span><span class="n">main</span>
+</pre></div></li>
+<li><p>Navigate to the root directory of this quickstart and copy the <code>module.xml</code> file to the server&rsquo;s <code>module/</code> directory structure:</p>
+<div class="highlight"><pre><span class="n">cp</span> <span class="n">interceptor</span><span class="o">-</span><span class="n">module</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">xml</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">layers</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">ejb</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">propagation</span><span class="o">/</span><span class="n">main</span><span class="o">/</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-the-quickstart" class="anchor" href="#build-the-quickstart"><span class="anchor-icon"></span></a>Build the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span>
+</pre></div></li>
+<li><p>Type the following command to copy the interceptor JAR to the server&rsquo;s <code>module/</code> directory structure, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">cp</span> <span class="n">interceptor</span><span class="o">-</span><span class="n">module</span><span class="o">/</span><span class="n">target</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">ejb</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">interceptor</span><span class="p">.</span><span class="n">jar</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">layers</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">ejb</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">propagation</span><span class="o">/</span><span class="n">main</span>
+</pre></div></li>
+<li><p>If JBoss is running, restart it, so the module can be loaded.</p></li>
+</ol>
+
+<h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server. Be sure to replace JBOSS_HOME with the path to your server.</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
+</pre></div>
+<p>You should see two server processes when you execute the following command: <code>ps -ef|grep Server:server</code></p></li>
+</ol>
+
+<h2><a id="deploy-the-quickstart" class="anchor" href="#deploy-the-quickstart"><span class="anchor-icon"></span></a>Deploy the Quickstart</h2>
+
+<ol>
+<li>Open a command line and navigate to the to the root directory of this quickstart.</li>
+<li><p>Type the following commands to deploy the quickstart, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">command</span><span class="o">=</span><span class="s">&quot;deploy ejb/target/jboss-ejb-security-propagation-ejb.jar  --server-groups=other-server-group&quot;</span>
+<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">command</span><span class="o">=</span><span class="s">&quot;deploy web/target/jboss-ejb-security-propagation-web.war --server-groups=main-server-group&quot;</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the application</h2>
+
+<ol>
+<li><p>When you deploy the quickstart (or start the server-one after deployment) it should display in server-one log the registration for the ClientSecurityInterceptor as</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">ClientSecurityInterceptor</span> <span class="n">Constructor</span>
+</pre></div></li>
+<li><p>When you deploy EJB it shows the JNDI names for HelloEJB and SecuredEJB.</p></li>
+<li><p>Access the application at the following URL: <a href="http://localhost:8080/jboss-ejb-security-propagation-web/hello">http://localhost:8080/jboss-ejb-security-propagation-web/hello</a></p>
+
+<p>It displays a message &ldquo;Successfully called Hello EJB&rdquo;, showing the remote access is working. This is a non-protected servlet that calls a non-protected EJB. The response is:</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">response</span> <span class="n">is</span>
+<span class="n">Hello</span> <span class="n">Principal</span> <span class="o">:</span> <span class="n">anonymous</span>
+<span class="n">Hello</span> <span class="n">Remote</span> <span class="n">User</span> <span class="o">:</span> <span class="n">null</span>
+<span class="n">Hello</span> <span class="n">Authentication</span> <span class="n">Type</span> <span class="o">:</span> <span class="n">null</span>
+</pre></div>
+<p>The revelant section of the server log shows:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">one</span><span class="p">]</span> <span class="n">ejb</span><span class="o">:</span> <span class="n">Proxy</span> <span class="k">for</span> <span class="n">remote</span> <span class="n">EJB</span> <span class="n">StatelessEJBLocator</span><span class="p">{</span><span class="n">appName</span><span class="o">=</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">moduleName</span><span class="o">=</span><span class="err">&#39;</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">ejb</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">distinctName</span><span class="o">=</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">beanName</span><span class="o">=</span><span class="err">&#39;</span><span class="n">HelloEJB</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="err">&#39;</span><span class="n">interface</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb</span><span class="p">.</span><span class="n">security</span><span class="p">.</span><span class="n">propagation</span><span class="p">.</span><span class="n">Hello</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">one</span><span class="p">]</span> <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">principal</span><span class="o">:</span> <span class="n">null</span>
+<span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="p">]</span>  <span class="o">==&gt;</span> <span class="n">EJB</span> <span class="n">principal</span><span class="o">:</span> <span class="n">anonymous</span>
+</pre></div></li>
+<li><p>Now access the application at the following URL: <a href="http://localhost:8080/jboss-ejb-security-propagation-web/secure_ejb">http://localhost:8080/jboss-ejb-security-propagation-web/secure_ejb</a></p>
+
+<p>This time, it prompts for a user and password. Enter:</p>
+<div class="highlight"><pre><span class="n">user</span>    <span class="o">:</span> <span class="n">admin</span>
+<span class="n">password</span><span class="o">:</span> <span class="n">admin123</span> 
+</pre></div>
+<p>The browser displays:</p>
+<div class="highlight"><pre><span class="n">Successfully</span> <span class="n">called</span> <span class="n">Secured</span> <span class="n">EJB</span>
+<span class="n">Principal</span> <span class="o">:</span> <span class="n">admin</span>
+<span class="n">Remote</span> <span class="n">User</span> <span class="o">:</span> <span class="n">admin</span>
+<span class="n">Authentication</span> <span class="n">Type</span> <span class="o">:</span> <span class="n">BASIC</span>
+</pre></div>
+<p>The revelant section of the <code>server-two</code> log shows:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">one</span><span class="p">]</span> <span class="n">ejb</span><span class="o">:</span> <span class="n">Proxy</span> <span class="k">for</span> <span class="n">remote</span> <span class="n">EJB</span> <span class="n">StatelessEJBLocator</span><span class="p">{</span><span class="n">appName</span><span class="o">=</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">moduleName</span><span class="o">=</span><span class="err">&#39;</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">propagation</span><span class="o">-</span><span class="n">ejb</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">distinctName</span><span class="o">=</span><span class="err">&#39;&#39;</span><span class="p">,</span> <span class="n">beanName</span><span class="o">=</span><span class="err">&#39;</span><span class="n">SecuredEJB</span><span class="err">&#39;</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="err">&#39;</span><span class="n">interface</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb</span><span class="p">.</span><span class="n">security</span><span class="p">.</span><span class="n">propagation</span><span class="p">.</span><span class="n">Secured</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">one</span><span class="p">]</span> <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">principal</span><span class="o">:</span> <span class="n">admin</span>
+<span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="p">]</span> <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">contextData</span> <span class="p">{</span><span class="n">TestDelegationUser</span><span class="o">=</span><span class="n">admin</span><span class="p">}</span>
+<span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="p">]</span> <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">Switch</span> <span class="n">users</span> 
+<span class="p">[</span><span class="n">Server</span><span class="o">:</span><span class="n">server</span><span class="o">-</span><span class="n">two</span><span class="p">]</span> <span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">delegationAcceptable</span><span class="o">:</span> <span class="n">admin</span>
+</pre></div>
+<p>The user is authenticated to the servlet in the &ldquo;security-propagation-quickstart&rdquo; security domain, before the EJB call. The EJB client interceptor sends the credentials to the target JBoss server.</p>
+
+<p>On the EJB side, the EJB server interceptor receives the credential, switches the EJB authenticated user from &ldquo;quickstartUser&rdquo; to &ldquo;admin&rdquo;, the &ldquo;security-propagation-quickstart&rdquo; security domain calls <code>DelegationLoginModule</code> that checks the credential received from EJB server interceptor and grants access. </p></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">command</span><span class="o">=</span><span class="s">&quot;undeploy jboss-ejb-security-propagation-web.war --all-relevant-server-groups &quot;</span>
+<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">command</span><span class="o">=</span><span class="s">&quot;undeploy jboss-as-propagation-ejb.jar --all-relevant-server-groups &quot;</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="remove-the-security-domain-configuration" class="anchor" href="#remove-the-security-domain-configuration"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration</h2>
+
+<p>You can remove the security domain configuration by manually restoring the back-up copy the configuration file. </p>
+
+<h3><a id="remove-the-security-domain-configuration-manually" class="anchor" href="#remove-the-security-domain-configuration-manually"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration Manually</h3>
+
+<ol>
+<li>If it is running, stop the JBoss server.</li>
+<li>Restore the <code>JBOSS_HOME/domain/configuration/domain.xml</code> and <code>JBOSS_HOME/domain/configuration/host.xml</code> files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.</li>
+</ol>
+
+<h3><a id="remove-the-security-domain-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-security-domain-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration by Running the JBoss CLI Script</h3>
+
+<ol>
+<li><p>Start the JBoss server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+<li><p>Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">configuration</span><span class="p">.</span><span class="n">cli</span> 
+</pre></div>
+<p>This script removes the server configuration that was done by the <code>configure-server.cli</code> script. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="cp">#1 /profile=full/subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:remove</span>
+<span class="cp">#2 /socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=srv2srv-ejb-socket:remove</span>
+<span class="cp">#3 /profile=full/subsystem=datasources/data-source=SecurityPropagationDS:remove</span>
+<span class="cp">#4 /profile=full-ha/subsystem=datasources/data-source=SecurityPropagationDS:remove</span>
+<span class="cp">#5 /host=master/core-service=management/security-realm=ejb-remote-call:remove</span>
+<span class="cp">#6 /profile=full/subsystem=security/security-domain=security-propagation-quickstart:remove</span>
+<span class="cp">#7 /profile=full-ha/subsystem=security/security-domain=security-propagation-quickstart:remove</span>
+<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+</pre></div></li>
+<li><p>Restart the JBoss server, as described above, for the changes to take effect.</p></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>

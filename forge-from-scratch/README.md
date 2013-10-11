@@ -5,7 +5,8 @@ Level: Intermediate
 Technologies: Forge
 Summary: Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2, Forge 1.0.0.Final
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
@@ -19,19 +20,20 @@ But that is not all! You can use Forge on your new or existing projects to conti
 System requirements
 -------------------
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, and an JBoss Developer Studio 5 or JBoss Forge version 1.0.0.Final (or higher).
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, and a JBoss Developer Studio 5 or JBoss Forge version 1.0.0.Final (or later).
 
-### JBoss Enterprise Application Platform 6
 
-If you are using JBoss Enterprise Application Platform 6, Forge is available in JBoss Developer Studio 5. 
+### JBoss Developer Studio 5
+
+Forge is available in JBoss Developer Studio 5. 
 
 To show the Forge Console, navigate to _Window -> Show View -> Other_, locate _Forge Console_ and click _OK_. Then click the _Start_ button in top right corner of the view.
 
-### JBoss AS 7
+### JBoss Enterprise Application Platform
 
-If you are using JBoss AS 7, you should install JBoss Forge version 1.0.0.Final or higher. Follow the instructions at [Installing Forge](https://docs.jboss.org/author/display/FORGE/Installation).
+If you do not plan to use JBoss Developer Studio, you should install JBoss Forge version 1.0.0.Final or later. Follow the instructions at [Installing Forge](https://docs.jboss.org/author/display/FORGE/Installation).
 
 Open a command line and navigate to the root directory of this quickstart. 
 
@@ -71,14 +73,12 @@ Configure Maven
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts. 
 
-_NOTE: If you are using JBoss Enterprise Application Platform 6, you can not append the path to the Maven settings on the Forge command line. You must configure the Maven user settings as noted in step 4 of the instructions._
 
-
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat

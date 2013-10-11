@@ -5,7 +5,8 @@ Level: Advanced
 Technologies: EJB 
 Summary: Demonstrates asynchronous EJB invocations.
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
@@ -23,9 +24,9 @@ The root `pom.xml` builds each of the submodules in the above order and deploys 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -36,12 +37,16 @@ You can copy or link to the Maven configuration information in the README file i
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7
+
+Start the JBoss Server
 -------------------------
 
-Start a server instance
+1. Open a command line and navigate to the root of the JBoss server directory.
+2. The following shows the command line to start the server:
 
-    bin/standalone.sh
+         For Linux:   JBOSS_HOME/bin/standalone.sh
+         For Windows: JBOSS_HOME\bin\standalone.bat
+
 
 Build and Deploy the Quickstart
 -------------------------
@@ -53,7 +58,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
-4. This will deploy `service/target/jboss-as-ejb-asynchronous.jar` to the running instance of the server.
+4. This will deploy `service/target/jboss-ejb-asynchronous.jar` to the running instance of the server.
  
 Check whether the application is deployed successfully.
 

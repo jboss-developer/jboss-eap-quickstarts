@@ -19,15 +19,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-ejb-asynchronous-client</artifactId>
+    <artifactId>jboss-ejb-asynchronous-client</artifactId>
 
-    <name>JBoss AS Quickstarts: Asynchronous method invocations on an EJB - Service EJB client</name>
+    <name>JBoss EAP Quickstart: ejb-asynchronous - client</name>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
-        <artifactId>jboss-as-ejb-asynchronous</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-ejb-asynchronous</artifactId>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
     <licenses>
@@ -71,8 +71,8 @@
         
         <!-- Import the client API of the EJB project -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
-            <artifactId>jboss-as-ejb-asynchronous-ejb</artifactId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-ejb-asynchronous-ejb</artifactId>
             <type>ejb-client</type>
         </dependency>
         

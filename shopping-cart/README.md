@@ -5,7 +5,8 @@ Level: Intermediate
 Technologies: EJB
 Summary: Demonstrates a stateful session bean
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
@@ -25,9 +26,9 @@ The shopping-cart application consists of the following:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -36,11 +37,11 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -54,25 +55,14 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the `shopping-cart` quickstart directory
 3. To build both the server component and the remote client program, deploy the server module, change into the examples shopping-cart directory and type the following:
 
-    For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-        mvn clean install jboss-as:deploy -s PATH_TO_QUICKSTARTS/example-settings.xml
-    For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
-
         mvn clean install jboss-as:deploy 
-4. This maven goal will deploy `server/target/jboss-as-shoppingcart-server.jar`. You can check the Application Server console to see information messages regarding the deployment.
+4. This maven goal will deploy `server/target/jboss-shopping-cart-server.jar`. You can check the Application Server console to see information messages regarding the deployment.
 
 
 Run the Client Application
 ------------------------
 
 Now start a client that will access the beans you just deployed:
-
-    For JBoss Enterprise Application Platform 6 (Maven user settings NOT configured): 
-
-        mvn exec:java -f client/pom.xml -s PATH_TO_QUICKSTARTS/example-settings.xml
-
-    For JBoss AS 7 or JBoss Enterprise Application Platform 6 (Maven user settings configured): 
 
         mvn exec:java -f client/pom.xml 
 
@@ -122,16 +112,16 @@ On the client console, you should see output similar to:
 
 On the server console, you should see output similar to:
 
-    18:22:06,896 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named ShoppingCartBean in deployment unit deployment "jboss-as-shoppingcart-server.jar" are as follows:
+    18:22:06,896 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named ShoppingCartBean in deployment unit deployment "jboss-shopping-cart-server.jar" are as follows:
 
-    	java:global/jboss-as-shoppingcart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
-    	java:app/jboss-as-shoppingcart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
+    	java:global/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
+    	java:app/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
     	java:module/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
-    	java:global/jboss-as-shoppingcart-server/ShoppingCartBean
-    	java:app/jboss-as-shoppingcart-server/ShoppingCartBean
+    	java:global/jboss-shopping-cart-server/ShoppingCartBean
+    	java:app/jboss-shopping-cart-server/ShoppingCartBean
     	java:module/ShoppingCartBean
 
-    18:22:07,865 INFO  [org.jboss.as.server] (management-handler-threads - 2) JBAS018559: Deployed "jboss-as-shoppingcart-server.jar"
+    18:22:07,865 INFO  [org.jboss.as.server] (management-handler-threads - 2) JBAS018559: Deployed "jboss-shopping-cart-server.jar"
     18:29:53,757 INFO  [stdout] (pool-9-thread-8) implementing checkout() left as exercise for the reader!
     18:29:53,794 INFO  [org.jboss.as.ejb3] (pool-9-thread-8) JBAS014101: Failed to find {[-22, 53, -53, 71, 41, 47, 72, -112, -113, -93, -43, -23, -2, -49, 119, 40]} in cache
     18:29:53,798 ERROR [org.jboss.ejb3.invocation] (pool-9-thread-9) JBAS014134: EJB Invocation failed on component ShoppingCartBean for method public abstract java.util.HashMap org.jboss.as.quickstarts.sfsb.ShoppingCart.getCartContents(): javax.ejb.NoSuchEJBException: Could not find SFSB ShoppingCartBean

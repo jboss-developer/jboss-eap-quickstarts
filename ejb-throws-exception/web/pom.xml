@@ -20,15 +20,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
-        <artifactId>jboss-as-ejb-throws-exception</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-ejb-throws-exception</artifactId>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-ejb-throws-exception-web</artifactId>
+    <artifactId>jboss-ejb-throws-exception-web</artifactId>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: EJB throws exception (WAR)</name>
+    <name>JBoss EAP Quickstart: ejb-throws-exception - web</name>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
@@ -44,8 +44,8 @@
         <!-- Dependency on the EJB module so we can use it's services if 
             needed -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
-            <artifactId>jboss-as-ejb-throws-exception-ejb</artifactId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-ejb-throws-exception-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>

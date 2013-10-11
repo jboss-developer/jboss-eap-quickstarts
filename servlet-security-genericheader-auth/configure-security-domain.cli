@@ -1,0 +1,14 @@
+# Batch jboss-cli script to configure the GenericHeaderAuth security domain
+
+# Start the batch process
+batch
+
+# Create and configure the security domain
+/subsystem=security/security-domain=GenericHeaderAuth:add
+/subsystem=security/security-domain=GenericHeaderAuth/authentication=classic:add(login-modules=[{"code" => "org.jboss.security.auth.spi.RemoteHostTrustLoginModule", "flag" => "required", "module-options" => [("trustedHosts" => "127.0.0.1"), ("roles" => "guest"),]}])
+
+# Excecute the batch commands
+run-batch
+
+:reload
+

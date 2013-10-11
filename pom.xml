@@ -24,11 +24,14 @@
         <version>8</version>
         <relativePath />
     </parent>
-    <groupId>org.jboss.as.quickstarts</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
+    
     <artifactId>jboss-as-quickstarts-parent</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <version>6.2.0-redhat-SNAPSHOT</version>
+    <!-- version for WFK quickstarts:
+    <groupId>2.4.0-redhat-SNAPSHOT</groupId> -->
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts Parent</name>
+    <name>JBoss Quickstart: Parent</name>
     <description>JBoss AS Quickstarts Parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 
@@ -45,29 +48,14 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.as>7.2.0.Final</version.jboss.as>
-        <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 7.2.0.Final-redhat-8 which is a release certified 
-            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
-            maven repository. -->
-        <!-- <version.jboss.as>7.2.0.Final-redhat-8</version.jboss.as> -->
+        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
 
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.6.Final</version.jboss.bom>
-        <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 1.0.4.Final-redhat-4 which is a release certified 
-            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
-            maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
+        <version.jboss.bom.eap>6.2.0-build-4</version.jboss.bom.eap>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0> 
-        <!-- Alternatively, comment out the above line, and un-comment the 
-            line below to use version 3.0.2.Final-redhat-3 which is a release certified 
-            to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
-            maven repository. -->
-        <!-- <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-3</version.jboss.spec.javaee.6.0> -->
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
 
         <version.org.hibernate3.commons.annotations>3.2.0.Final</version.org.hibernate3.commons.annotations>
         <version.org.hibernate>3.6.8.Final</version.org.hibernate>
@@ -77,28 +65,23 @@
         <!-- This is used in the hibernate-3 quickstart and requires the Hibernate 3 libraries -->
         <!-- <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator> -->
         <version.org.hibernate.validator>3.1.0.GA</version.org.hibernate.validator>
-                
-        <version.org.richfaces>4.2.0.Final</version.org.richfaces>
-        
+                        
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
         <version.dom4j>1.6</version.dom4j>
         <version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
         <version.log4j>1.2.16</version.log4j>
-        <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>
-        <version.org.apache.wicket>1.5.5</version.org.apache.wicket>
-        <version.net.ftlines.wicket-cdi>1.2</version.net.ftlines.wicket-cdi>
-        <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>
+        <version.org.apache.wicket>6.9.1</version.org.apache.wicket>
+        <version.net.ftlines.wicket-cdi>6.0</version.net.ftlines.wicket-cdi>
 
         <!-- other plugin versions -->
         <version.bundle.plugin>2.3.4</version.bundle.plugin>
-        <version.clean.plugin>2.4.1</version.clean.plugin>
-        <version.compiler.plugin>2.3.1</version.compiler.plugin>
-        <version.ear.plugin>2.6</version.ear.plugin>
+        <version.com.mycyla.license>2.5</version.com.mycyla.license>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
+        <version.ear.plugin>2.8</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>
         <version.jar.plugin>2.2</version.jar.plugin>
-        <version.org.codehaus.mojo.gwt.maven.plugin>2.4.0</version.org.codehaus.mojo.gwt.maven.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -121,8 +104,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${version.com.mycyla.license}</version>
                 <configuration>
                     <header>${basedir}/dist/license.txt</header>
                     <aggregate>true</aggregate>
@@ -130,6 +114,23 @@
                     <excludes>
                         <exclude>target/**</exclude>
                         <exclude>.clover/**</exclude>
+                        <exclude>**/*.sql</exclude>
+                        <exclude>**/LICENSE*</exclude>
+                        <exclude>>**/license*</exclude>
+                        <!-- Exclude specific Quickstarts -->
+                        <exclude>petclinic-spring/**</exclude>
+                        <!-- Javascrip Libraries -->
+                        <exclude>**/jquery*</exclude>
+                        <exclude>**/angular*</exclude>
+                        <exclude>**/qunit*</exclude>
+                        <exclude>**/backbone*</exclude>
+                        <exclude>**/lodash*</exclude>
+                        <exclude>**/modernizr*</exclude>
+                        <exclude>**/yepnope*</exclude>
+                        <exclude>**/mobile-nav*</exclude>
+                        <!--Other libraries -->
+                        <exclude>**/*glyphicons*/**</exclude>
+                        <exclude>**/*cordova*/**</exclude>
                     </excludes>
                     <encoding>UTF-8</encoding>
                     <headerDefinitions>
@@ -156,9 +157,6 @@
                     Application Platform or JBoss AS -->
                 <module>bean-validation</module>
                 <module>bmt</module>
-                <module>carmart</module>
-                <module>carmart-tx</module>
-                <module>cdi-add-interceptor-binding</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>
                 <module>cdi-interceptors</module>
@@ -166,73 +164,43 @@
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
-                <module>deltaspike-authorization</module>
-                <module>deltaspike-beanbuilder</module>
-                <module>deltaspike-beanmanagerprovider</module>
-                <module>deltaspike-deactivatable</module>
-                <module>deltaspike-exception-handling</module>
-                <module>deltaspike-helloworld-jms</module>
-                <module>deltaspike-projectstage</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
-                <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
+                <module>ejb-security-plus</module>
                 <module>ejb-throws-exception</module>
+                <module>ejb-timer</module>
+                <module>ejb-multi-server</module>
                 <module>greeter</module>
-                <module>greeter-spring</module>
                 <module>helloworld</module>
-                <module>helloworld-errai</module>
-                <module>helloworld-gwt</module>
-                <module>helloworld-html5</module>
-                <module>helloworld-jdg</module>
                 <module>helloworld-jms</module>
+                <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
                 <module>helloworld-osgi</module>
-                <module>helloworld-rf</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
                 <module>hibernate3</module>
                 <module>hibernate4</module>
-                <module>hotrod-endpoint</module>
                 <module>kitchensink</module>
-                <module>kitchensink-angularjs</module>
-                <module>kitchensink-backbone</module>
-                <module>kitchensink-deltaspike</module>
                 <module>kitchensink-ear</module>
-                <module>kitchensink-html5-mobile</module>
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
-                <module>kitchensink-rf</module>
-                <module>kitchensink-spring</module>
                 <module>log4j</module>
                 <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
-                <module>memcached-endpoint</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
-                <module>picketlink-authentication-http-basic</module>
-                <module>picketlink-authentication-http-digest</module>
-                <module>picketlink-authentication-idm-jsf</module>
-                <module>picketlink-authentication-idm-multi-tenancy</module>
-                <module>picketlink-authentication-jsf</module>
-                <module>picketlink-authentication-rs-endpoint</module>
-                <module>picketlink-authentication-two-factor</module>
-                <module>picketlink-authorization-idm-jpa</module>
-                <module>picketlink-authorization-rs-rbac</module>
-                <module>picketlink-deltaspike-authorization</module>
-                <module>rest-endpoint</module>
-                <module>richfaces-validation</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>servlet-security-genericheader-auth</module>
                 <module>shopping-cart</module>
-                <module>shrinkwrap-resolver</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>
@@ -270,10 +238,12 @@
             </activation>
             <modules>
                 <module>cluster-ha-singleton</module>
+                <module>ejb-security-plus</module>
+                <module>ejb-security-propagation</module>
+                <module>inter-app</module>                
                 <module>jax-rs-client</module>
                 <module>jts</module>
-                <module>inter-app</module>                
-                <module>ejb-security-plus</module>
+                <module>servlet-security-genericheader-auth</module>
             </modules>
         </profile>
         <profile>
@@ -288,6 +258,7 @@
                 </property>
             </activation>
             <modules>
+                <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
                 <module>jta-crash-rec</module>
             </modules>
@@ -318,7 +289,6 @@
             <modules>
                 <module>forge-from-scratch</module>
                 <module>h2-console</module>
-                <module>kitchensink-cordova</module>
                 <module>jts-distributed-crash-rec</module>
             </modules>
         </profile>

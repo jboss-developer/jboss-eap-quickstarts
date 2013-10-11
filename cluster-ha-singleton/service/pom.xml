@@ -19,15 +19,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-cluster-ha-singleton-service</artifactId>
+    <artifactId>jboss-cluster-ha-singleton-service</artifactId>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
-        <artifactId>jboss-as-cluster-ha-singleton</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-cluster-ha-singleton</artifactId>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <name>JBoss AS Quickstarts: SingletonService (service)</name>
+    <name>JBoss EAP Quickstart: cluster-ha-singleton-service</name>
     <packaging>ejb</packaging>
 
     <licenses>
@@ -70,15 +70,6 @@
         <!-- Specify the artifact name -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Enforce Java 1.6 -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.source}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <!-- must include ejb-plugin to change the EJB version from 
                     2.1 to 3.0 -->
@@ -109,7 +100,7 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <configuration>
                     <skip>false</skip>
-                    <filename>jboss-as-cluster-ha-singleton-service.jar</filename>
+                    <filename>jboss-cluster-ha-singleton-service.jar</filename>
                 </configuration>
             </plugin>
 

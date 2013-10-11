@@ -23,9 +23,9 @@
         <version>6-beta-2</version>
         <relativePath/>
     </parent>
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-quickstarts-dist</artifactId>
-    <version>7.1.2-SNAPSHOT</version>
+    <groupId>org.jboss.quickstarts.eap</groupId>
+    <artifactId>jboss-quickstarts-dist</artifactId>
+    <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts Distribution</name>
     <description>JBoss AS Quickstarts Distribution</description>

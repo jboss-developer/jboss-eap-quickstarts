@@ -19,15 +19,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jboss-as-inter-app-shared</artifactId>
+    <artifactId>jboss-inter-app-shared</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: Inter-application (Shared API jar)</name>
+    <name>JBoss EAP Quickstart: inter-app-shared</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
-        <artifactId>jboss-as-inter-app-parent</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-inter-app-parent</artifactId>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
     <licenses>
@@ -57,16 +57,6 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-                annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -20,14 +20,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.as.quickstarts</groupId>
-        <artifactId>jboss-as-shoppingcart-parent</artifactId>
-        <version>7.1.2-SNAPSHOT</version>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-shopping-cart-parent</artifactId>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-shoppingcart-server</artifactId>
+    <artifactId>jboss-shopping-cart-server</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss AS Quickstarts: Shopping Cart Server Module</name>
+    <name>JBoss EAP Quickstart: shopping-cart - server</name>
 
     <licenses>
         <license>
@@ -67,16 +67,6 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <configuration>
                     <skip>false</skip>
-                </configuration>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
-                annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>

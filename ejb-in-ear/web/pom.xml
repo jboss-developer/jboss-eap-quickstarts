@@ -25,16 +25,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-as-ejb-in-ear</artifactId>
-        <groupId>org.jboss.as.quickstarts</groupId>
-        <version>7.1.2-SNAPSHOT</version>
+        <artifactId>jboss-ejb-in-ear</artifactId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <version>6.2.0-redhat-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jboss-as-ejb-in-ear-web</artifactId>
+    <artifactId>jboss-ejb-in-ear-web</artifactId>
     <packaging>war</packaging>
 
-    <name>JBoss AS Quickstarts: EJB and War in an Ear - WEB</name>
-    <description>JBoss AS Quickstarts: EJB and War in an Ear - WEB</description>
+    <name>JBoss EAP Quickstart: ejb-in-ear - web</name>
+    <description>JBoss EAP Quickstart: EJB and War in an Ear - WEB</description>
 
     <licenses>
         <license>
@@ -48,8 +48,8 @@
 
         <!-- Import the ejb project so that the JSF managed bean can use the EJB -->
         <dependency>
-            <groupId>org.jboss.as.quickstarts</groupId>
-            <artifactId>jboss-as-ejb-in-ear-ejb</artifactId>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-ejb-in-ear-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>

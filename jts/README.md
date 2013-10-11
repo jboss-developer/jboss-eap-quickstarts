@@ -6,7 +6,8 @@ Technologies: JTS
 Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions
 Prerequisites: cmt
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 
 What is it?
@@ -45,9 +46,9 @@ After users complete this quickstart, they are invited to run through the follow
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
 Configure Maven
 ---------------
@@ -88,13 +89,13 @@ You can configure the server by running the  `configure-jts-transactions.cli` sc
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server.
+1. If it is running, stop the JBoss server.
 2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 #### Modify the Server Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
+1. Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
         For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
         For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID
@@ -113,7 +114,7 @@ This script configures the server to use jts transaction processing. You should 
 
 #### Modify the Server Configuration Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
+1. Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
@@ -129,6 +130,8 @@ This script configures the server to use jts transaction processing. You should 
 
         /subsystem=transactions/:write-attribute(name=jts,value=true)
         /subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
+        
+        :reload
 4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
 
 #### Modify the Server Configuration Manually
@@ -170,10 +173,10 @@ Make a copy of this JBoss directory structure to use for the second server.
     * [Add the PostgreSQL driver](../README.md#add-the-postgresql-driver-configuration-to-the-jboss-server) to the Application 1 server configuration file.
 
 
-Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers
+Start the JBoss servers
 -------------------------
 
-Start the the two JBoss Enterprise Application Platform 6 or JBoss AS 7 Servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
+Start the the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
 If you are using Linux:
 
@@ -196,14 +199,14 @@ Since this quickstart builds two separate components, you can not use the standa
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
-4. This will deploy `application-component-1/target/jboss-as-jts-application-component-1.war` and `application-component-2/target/jboss-as-jts-application-component-2.jar` to the running instance of the server.
+4. This will deploy `application-component-1/target/jboss-jts-application-component-1.war` and `application-component-2/target/jboss-jts-application-component-2.jar` to the running instance of the server.
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-jts-application-component-1/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>.
 
 When you enter a name and click to "Add" that customer, you will see the following in the application server 1 console:
     
@@ -239,7 +242,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 ### Remove the JTS Server Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile.
+1. Start the JBoss server with the full profile.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -258,7 +261,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 ### Remove the JTS Server Configuration using the JBoss CLI Tool
 
-1. Start the JBoss Enterprise Application Platform 6 or JBoss AS 7 Server with the full profile.
+1. Start the JBoss server with the full profile.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -272,6 +275,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
         /subsystem=jacorb/:undefine-attribute(name=name)
         /subsystem=transactions/:undefine-attribute(name=jts)
         /subsystem=transactions/:undefine-attribute(name=node-identifier)
+        :reload
 
 ### Remove the JTS Server Configuration Manually
 

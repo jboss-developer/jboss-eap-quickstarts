@@ -5,24 +5,26 @@ Level: Intermediate
 Technologies: Hibernate 4
 Summary: This quickstart performs the same functions as the _hibernate3_ quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the _hibernate3_ quickstart to see the changes needed to run with Hibernate 4..
 Target Product: EAP
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart/>
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
 
-This quickstart is based upon the kitchensink example, but demonstrates how to use Hibernate ORM 4 over JPA in JBoss Enterprise Application Platform 6 or JBoss AS 7.
+This quickstart is based upon the kitchensink example, but demonstrates how to use Hibernate ORM 4 over JPA in Red Hat JBoss Enterprise Application Platform.
 
 This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 , Hibernate-Core and Hibernate Bean Validation.  It includes a persistence unit associated with Hibernate session and some sample persistence and transaction code to help you with database access in enterprise Java. 
 
 You can compare this quickstart to the `hibernate3` quickstart to see the code differences between Hibernate 3 and Hibernate 4.
 
+ _Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -34,9 +36,9 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Add the Correct Dependencies
 ---------------------------
 
-JBoss Enterprise Application Platform 6 and JBoss AS 7 both provide Hibernate 3, Hibernate 4, and JPA support. 
+JBoss EAP provides Hibernate 4 and JPA support. 
 
-If you use Hibernate 4 packaged within JBoss Enterprise Application Platform 6 or JBoss AS 7, you will need to first import the JPA API.
+If you use Hibernate 4 packaged within Red Hat JBoss EAP, you will need to first import the JPA API.
 
 This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
 
@@ -56,14 +58,14 @@ For example:
          </exclusions>
       </dependency>
 
-Please note that if you are working with Hibernate 3, the process is different. You will need to bundle the jars since JBoss Enterprise Application Platform 6 and JBoss AS 7 do not ship with Hibernate 3. Refer to the `hibernate3` quickstart for details on how to bundle the JARs.
+Please note that if you are working with Hibernate 3, the process is different. You will need to bundle the jars since JBoss EAP 6 does not ship with Hibernate 3. Refer to the `hibernate3` quickstart for details on how to bundle the JARs.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7 with the Web Profile
+Start the JBoss Server
 -------------------------
 
 1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -78,15 +80,15 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
-4. This will deploy `target/jboss-as-hibernate4.war` to the running instance of the server.
+4. This will deploy `target/jboss-hibernate4.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-as-hibernate4/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-hibernate4/>.
 
 
 Undeploy the Archive
