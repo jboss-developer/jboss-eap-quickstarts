@@ -1,21 +1,19 @@
--- phpMyAdmin SQL Dump
--- version 3.5.8.1
--- http://www.phpmyadmin.net
 --
--- Host: 127.2.16.2:3306
--- Generation Time: Jul 24, 2013 at 06:07 PM
--- Server version: 5.1.69
--- PHP Version: 5.3.3
-
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
+-- JBoss, Home of Professional Open Source
+-- Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+-- contributors by the @authors tag. See the copyright.txt in the
+-- distribution for a full listing of individual contributors.
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+-- http://www.apache.org/licenses/LICENSE-2.0
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
 --
 -- Database: `jbossashibernatesearch`
 --
@@ -97,7 +95,3 @@ INSERT INTO feed (id, author, copyright, description, link, title, url) VALUES (
 INSERT INTO feed (id, author, copyright, description, link, title, url) VALUES (5, NULL, NULL, 'Latest cricket news from around the cricketing world', 'http://sports.ndtv.com', 'Cricket - News | NDTVSports.com', 'http://feeds.feedburner.com/ndtv/qJNd');
 INSERT INTO feed (id, author, copyright, description, link, title, url) VALUES (6, NULL, NULL, 'Latest cricket news from around the cricketing world', 'http://sports.ndtv.com', 'Cricket - News | NDTVSports.com', 'http://feeds.feedburner.com/ndtv/qJNd?format=xml');
 INSERT INTO feed (id, author, copyright, description, link, title, url) VALUES (7, NULL, NULL, 'The Latest Soccer News from around the globe.', 'http://www.soccernews.com', 'SoccerNews.com - The Latest Soccer & Transfer News ', 'http://feeds.feedburner.com/soccernewsfeed?format=xml');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
