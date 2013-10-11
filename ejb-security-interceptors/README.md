@@ -21,6 +21,8 @@ Rather than open multiple client connections, this quickstart offers an alternat
  
 The quickstart then makes use of two EJBs, `SecuredEJB` and `IntermediateEJB`, to verify that the propagation and identity switching is correct and a `RemoteClient` standalone client. 
 
+_Note: This quickstart uses two classes, org.jboss.as.controller.security.SubjectUserInfo and org.jboss.as.domain.management.security.RealmUser, that are part of the JBoss EAP private API. A public API will become available in the EAP 6.3 release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle._
+
 ### SecuredEJB
 
 The `SecuredEJB` has three methods: 

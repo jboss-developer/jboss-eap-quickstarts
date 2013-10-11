@@ -24,7 +24,9 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.resource.spi.IllegalStateException;
 
+// The following class is part of the JBoss private API and will be deprecated in the next release.
 import org.jboss.as.controller.security.SubjectUserInfo;
+// The following class is part of the JBoss private API and will be deprecated in the next release.
 import org.jboss.as.domain.management.security.RealmUser;
 import org.jboss.logging.Logger;
 import org.jboss.remoting3.Connection;
