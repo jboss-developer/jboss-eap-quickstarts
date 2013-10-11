@@ -21,6 +21,8 @@ When you run this example, you will be provided with a `Use bean managed Entity 
 
 JBoss EAP ships with H2, an in-memory database written in Java. This example shows how to transactionally insert key value pairs into the H2 database and demonstrates the requirements on the developer with respect to the JPA Entity Manager.
 
+_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+
 _NOTE: A Java EE container is designed with robustness in mind, so you should carefully analyse the scaleabiltiy, concurrency and performance needs of you application before taking advantage of these techniques in your own applications._
 
 
