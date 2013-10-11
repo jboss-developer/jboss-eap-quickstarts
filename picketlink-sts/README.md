@@ -1,7 +1,13 @@
-PicketLink Federation: WS-Trust Security Token Service 
+picketlink-sts: PicketLink Federation: WS-Trust Security Token Service 
 ======================================================
+Author: Peter Skopek
+Level: Advanced
+Technologies: WS-Trust, SAML
+Summary: This project is an implementation of a WS-Trust Security Token Service.
+Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
  
-This project is an implementation of a WS-Trust Security Token Service.
 
 System requirements
 -------------------
@@ -17,8 +23,8 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Additional configuration options
---------------------------------
+Additional PicketLink STS configuration options
+-----------------------------------------------
 
 Application is preconfigured to use "picketlink-sts" security domain with user.properties and roles.properties files.
 This is not suitable for production use. Change application security according to your organization standards.
@@ -40,5 +46,23 @@ Configure the Security Domain Using the JBoss CLI
 
    In case running controller on different host use --controller=host:port.
 
+
+Build and Deploy PicketLink STS
+-------------------------------
+
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+
+1. Make sure you have started the JBoss Server as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Type this command to build and deploy the archive:
+
+        mvn clean install jboss-as:deploy
+4. This will deploy `target/picketlink-sts.war` to the running instance of the server.
+
+
+Further actions
+---------------
+
+This quickstart is just a service application for another applications you can use. See more examples in [PicketLink project documemntation.](http://docs.jboss.org/picketlink/2/2.1.7.Final/reference/html/ch01.html#sid-819345). You can take a look for more applications to play with at [PicketLink Quickstarts.](https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts)
 
 
