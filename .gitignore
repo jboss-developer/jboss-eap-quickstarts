@@ -32,4 +32,5 @@ bin
 .clover
 *.swp
 !/wicket-war/src/main/resources/META-INF/MANIFEST.MF
-
+build
+*.class

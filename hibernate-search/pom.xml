@@ -1,0 +1,432 @@
+<?xml version="1.0"?>
+<!-- JBoss, Home of Professional Open Source Copyright 2013, Red Hat, Inc. 
+	and/or its affiliates, and individual contributors by the @authors tag. See 
+	the copyright.txt in the distribution for a full listing of individual contributors. 
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+	use this file except in compliance with the License. You may obtain a copy 
+	of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jboss.as.quickstarts</groupId>
+	<artifactId>jboss-as-hibernate-search</artifactId>
+	<version>7.1.2-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>JBoss AS Quickstarts: hibernate-search</name>
+	<description>hibernate-search: Demonstrates doing a full text search of your entities</description>
+	<url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+	<properties>
+		<!-- Explicitly declaring the source encoding eliminates the following 
+			message: -->
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+			resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- JBoss dependency versions -->
+		<version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+
+		<version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
+		<!-- Alternatively, comment out the above line, and un-comment the line 
+			below to use version 3.0.2.Final-redhat-3 which is a release certified to 
+			work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 maven 
+			repository. -->
+		<!-- <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-3</version.jboss.spec.javaee.6.0> -->
+
+		<!-- Define the version of the JBoss BOMs we want to import to specify 
+			tested stacks. -->
+		<version.jboss.bom>1.0.6.Final</version.jboss.bom>
+
+		<!-- other plugin versions -->
+		<version.compiler.plugin>2.3.1</version.compiler.plugin>
+		<version.resources.plugin>2.6</version.resources.plugin>
+		<version.war.plugin>2.1.1</version.war.plugin>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>			
+		
+		<!--infinispan version -->
+		<infinispan.version>5.3.0.Beta1</infinispan.version>
+		
+		<!-- Other dependency versions -->
+        <version.log4j>1.2.16</version.log4j>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any 
+				dependencies from org.jboss.spec will have their version defined by this 
+				BOM -->
+			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
+				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				of artifacts. We use this here so that we always get the correct versions 
+				of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as 
+				the JBoss stack of the Java EE 6 APIs). You can actually use this stack with 
+				any version of JBoss AS that implements Java EE 6, not just JBoss AS 7! -->
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>${version.jboss.spec.javaee.6.0}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
+				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				of artifacts. We use this here so that we always get the correct versions 
+				of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack (you 
+				can read this as the JBoss stack of the Java EE Web Profile 6 APIs with extras 
+				from the Hibernate family of projects) -->
+			<dependency>
+				<groupId>org.jboss.bom</groupId>
+				<artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+				<version>${version.jboss.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<!-- Define Log4j dependency and its version -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- Import the CDI API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the Common Annotations API (JSR-250), we use provided scope 
+			as the API is included in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.annotation</groupId>
+			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the JAX-RS API, we use provided scope as the API is included 
+			in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the JSF API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<!--<dependency> <groupId>org.jboss.spec.javax.faces</groupId> <artifactId>jboss-jsf-api_2.1_spec</artifactId> 
+			<scope>provided</scope> </dependency> -->
+
+		<!-- Import the JPA API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<!--<scope>provided</scope> -->
+		</dependency>
+
+		<!-- Import the JPA API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.transaction</groupId>
+			<artifactId>jboss-transaction-api_1.1_spec</artifactId>
+			<!--<scope>provided</scope> -->
+		</dependency>
+
+		<!-- Import the SERVLET API, we use provided scope as the API is included 
+			in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet</groupId>
+			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--Import dependencies to hibernate packages(eg. hibernate-core) depending 
+			on features you want to use like Hibernate Session used in the quickstart -->
+		<!--please note that scope is provided as these jars are shipped with as7 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+		</dependency>
+		
+		<!-- Additional Analyzers: -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-analyzers</artifactId>
+		</dependency>
+		<!-- Infinispan integration: -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-infinispan</artifactId>
+		</dependency>
+
+		<!-- Import the RESTEASY API this is the core library -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>2.3.1.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JAXB support -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>2.3.1.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- multipart/form-data and multipart/mixed support -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-multipart-provider</artifactId>
+			<version>2.3.1.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- ROME is a set of Atom/RSS Java utilities that make it easy to work in Java with most syndication formats. -->
+		<dependency>
+			<groupId>net.java.dev.rome</groupId>
+			<artifactId>rome</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<!-- MySql for Java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+		
+		<!-- Postgresql for Java-->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+		
+		<!-- Infinispan core module -->
+
+		<dependency>
+           <groupId>org.infinispan</groupId>
+           <artifactId>infinispan-core</artifactId>
+           <version>${infinispan.version}</version>
+        </dependency>
+        
+		<!-- Infinispan lucene directory -->
+        
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-lucene-directory</artifactId>
+			<version>${infinispan.version}</version>
+		</dependency>
+		
+		 <!-- Import the LOG4J , we use provided scope as the API is included in JBoss AS 7.-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+	</dependencies>
+
+	<build>
+
+		<!-- Set the name of the war, used as the context root when the app is 
+			deployed -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${version.war.plugin}</version>
+				<configuration>
+					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<manifestEntries>
+						<Dependencies>org.infinispan export</Dependencies>
+					</manifestEntries>
+				</configuration>
+			</plugin>
+			<!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation 
+				processors -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler.plugin}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- This is required to replace the variable in hibernate.cfg.xml  -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<!--  All three profiles mentioned below has property values and they are used in hibernate.cfg.xml-->
+	<profiles>
+		<profile>
+		    <!-- When Wildifly is run in standalone the 'default-local' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any standalone mode specific customization your app 
+				will need. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>default-local</id>
+			<activation>
+			    <!-- This profile will be by default made to active -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Used for MySQL connection -->
+				<!--
+					<connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
+					<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class> 
+					<connection.username>root</connection.username> 
+					<connection.password>root123</connection.password> 
+					<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect> 
+				 -->
+				<!-- Used for Postgresql connection -->
+				<connection.url>jdbc:postgresql://localhost/jbossashibernatesearch</connection.url>
+				<connection.driver_class>org.postgresql.Driver</connection.driver_class>
+				<connection.username>tharindudb</connection.username>
+				<connection.password>postgres</connection.password>
+				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
+				<!-- Change this property if you want to keep the existing data -->
+				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
+			</properties>
+			<build>
+				<plugins>
+					<!-- JBoss AS plugin to deploy war -->
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>${version.jboss.maven.plugin}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+		    <!-- When Wildifly is run in domain the 'default-cluster' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any domain mode specific customization your app 
+				will need. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>default-cluster</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Used for MySQL connection -->
+				<!--
+					<connection.url>jdbc:mysql://127.0.0.1:3306/qsdb</connection.url> 
+					<connection.driver_class>com.mysql.jdbc.Driver</connection.driver_class> 
+					<connection.username>root</connection.username> 
+					<connection.password>root123</connection.password> 
+					<connection.dialect>org.hibernate.dialect.MySQLDialect</connection.dialect> 
+				 -->
+				<!-- Used for Postgresql connection -->
+				<connection.url>jdbc:postgresql://localhost/jbossashibernatesearch</connection.url>
+				<connection.driver_class>org.postgresql.Driver</connection.driver_class>
+				<connection.username>tharindudb</connection.username>
+				<connection.password>postgres</connection.password>
+				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
+				<!--  deploy the application in standalone mode once to create the database--> 
+				<hbm2ddl_mode>update</hbm2ddl_mode>
+			</properties>
+			<build>
+            <plugins>
+               <!-- JBoss AS plugin to deploy war -->
+               <plugin>
+                  <groupId>org.jboss.as.plugins</groupId>
+                  <artifactId>jboss-as-maven-plugin</artifactId>
+                  <version>${version.jboss.maven.plugin}</version>
+                  <configuration>
+                      <!-- Need to create a system-property DO_NOT_SCHEDULE in all the other instances on wildifly except master which needs scheduling-->
+                      <domain>
+						<server-groups>
+						    <!-- Use this server group add add servers to this group -->
+							<server-group>main-server-group</server-group>
+						</server-groups>
+						<profiles>
+						    <!-- Mention this profile and assign servers to this profile, use the same to create named caches -->
+							<profile>full-ha</profile>
+						</profiles>
+					</domain>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+		</profile>
+		<profile>
+		    <!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<connection.url>jdbc:postgresql://202.148.162.37/jbossashibernatesearch</connection.url>
+				<connection.driver_class>org.postgresql.Driver</connection.driver_class>
+				<connection.username>adminTbacVWR</connection.username>
+				<connection.password>AmZU9nwk8FMa</connection.password>
+				<connection.dialect>org.hibernate.dialect.PostgreSQLDialect</connection.dialect>
+				<!-- Change this property if you want to keep the existing data -->
+				<hbm2ddl_mode>create-drop</hbm2ddl_mode>
+			</properties>
+			
+			<build>
+				<plugins>
+				    <!-- JBoss AS plugin to deploy war -->
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>${version.jboss.maven.plugin}</version>
+					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>${version.war.plugin}</version>
+						<configuration>
+							<outputDirectory>deployments</outputDirectory>
+							<warName>ROOT</warName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
+
