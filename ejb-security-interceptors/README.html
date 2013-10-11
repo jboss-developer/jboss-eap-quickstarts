@@ -23,6 +23,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The quickstart then makes use of two EJBs, <code>SecuredEJB</code> and <code>IntermediateEJB</code>, to verify that the propagation and identity switching is correct and a <code>RemoteClient</code> standalone client. </p>
 
+<p><em>Note: This quickstart uses two classes, org.jboss.as.controller.security.SubjectUserInfo and org.jboss.as.domain.management.security.RealmUser, that are part of the JBoss EAP private API. A public API will become available in the EAP 6.3 release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle.</em></p>
+
 <h3><a id="securedejb" class="anchor" href="#securedejb"><span class="anchor-icon"></span></a>SecuredEJB</h3>
 
 <p>The <code>SecuredEJB</code> has three methods: </p>
