@@ -16,6 +16,7 @@
  */
 package org.jboss.as.quickstarts.ejb_security_interceptors;
 
+// The following class is part of the JBoss private API and will be deprecated in the next release.
 import org.jboss.as.domain.management.security.RealmUser;
 
 /**
