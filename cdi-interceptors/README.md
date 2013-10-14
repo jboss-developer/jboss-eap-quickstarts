@@ -50,13 +50,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean install jboss-as:deploy
 
-4. This will deploy `target/cdi-interceptors.war` to the running instance of the server.
+4. This will deploy `target/jboss-cdi-interceptors.war` to the running instance of the server.
  
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-cdi-interceptors>.
+The application will be running at the following URL: <http://localhost:8080/jboss-cdi-interceptors>.
 
 You can now comment out classes in the WEB-INF/beans.xlm file to disable one or both of the interceptors and view the results.
 
