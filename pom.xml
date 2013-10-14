@@ -169,8 +169,6 @@
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
-                <module>ejb-security-interceptors</module>
-                <module>ejb-security-plus</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
@@ -191,7 +189,6 @@
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
                 <module>log4j</module>
-                <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>numberguess</module>
@@ -238,8 +235,6 @@
             </activation>
             <modules>
                 <module>cluster-ha-singleton</module>
-                <module>ejb-security-plus</module>
-                <module>ejb-security-propagation</module>
                 <module>inter-app</module>                
                 <module>jax-rs-client</module>
                 <module>jts</module>
