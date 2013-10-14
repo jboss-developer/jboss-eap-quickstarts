@@ -48,12 +48,12 @@ To enable an interceptor, you must add the interceptor class to the WEB-INF/bean
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
 </pre></div></li>
-<li><p>This will deploy <code>target/cdi-interceptors.war</code> to the running instance of the server.</p></li>
+<li><p>This will deploy <code>target/jboss-cdi-interceptors.war</code> to the running instance of the server.</p></li>
 </ol>
 
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
 
-<p>The application will be running at the following URL <a href="http://localhost:8080/jboss-cdi-interceptors">http://localhost:8080/jboss-cdi-interceptors</a>.</p>
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-cdi-interceptors">http://localhost:8080/jboss-cdi-interceptors</a>.</p>
 
 <p>You can now comment out classes in the WEB-INF/beans.xlm file to disable one or both of the interceptors and view the results.</p>
 
