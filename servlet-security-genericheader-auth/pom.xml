@@ -47,7 +47,7 @@
 
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-5</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.2.0-build-6</version.jboss.bom.eap>
 
         <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
 
