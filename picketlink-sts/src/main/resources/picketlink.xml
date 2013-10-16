@@ -1,0 +1,44 @@
+  <!--
+   JBoss, Home of Professional Open Source
+   Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+   contributors by the @authors tag. See the copyright.txt in the 
+   distribution for a full listing of individual contributors.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+   http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,  
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   -->
+
+<PicketLinkSTS xmlns="urn:picketlink:identity-federation:config:1.0"
+ STSName="PicketLinkSTS" TokenTimeout="7200" EncryptToken="false">
+ <KeyProvider
+  ClassName="org.picketlink.identity.federation.core.impl.KeyStoreKeyManager">
+  <Auth Key="KeyStoreURL" Value="sts_keystore.jks" />
+  <Auth Key="KeyStorePass" Value="testpass" />
+  <Auth Key="SigningKeyAlias" Value="sts" />
+  <Auth Key="SigningKeyPass" Value="keypass" />
+  <ValidatingAlias Key="http://services.testcorp.org/provider1"
+   Value="service1" />
+ </KeyProvider>
+ <TokenProviders>
+  <TokenProvider
+   ProviderClass="org.picketlink.identity.federation.core.wstrust.plugins.saml.SAML11TokenProvider"
+   TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1"
+   TokenElement="Assertion" TokenElementNS="urn:oasis:names:tc:SAML:1.0:assertion" />
+  <TokenProvider
+   ProviderClass="org.picketlink.identity.federation.core.wstrust.plugins.saml.SAML20TokenProvider"
+   TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
+   TokenElement="Assertion" TokenElementNS="urn:oasis:names:tc:SAML:2.0:assertion" />
+ </TokenProviders>
+ <ServiceProviders>
+  <ServiceProvider Endpoint="http://services.testcorp.org/provider1"
+   TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
+   TruststoreAlias="service1" />
+ </ServiceProviders>
+</PicketLinkSTS>
