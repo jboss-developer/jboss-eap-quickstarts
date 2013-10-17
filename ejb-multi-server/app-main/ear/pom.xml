@@ -85,7 +85,6 @@
                             <groupId>org.jboss.quickstarts.eap</groupId>
                             <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
                             <bundleFileName>jsf.war</bundleFileName>
-                            <contextRoot>/multi-server-MainApp</contextRoot>
                         </webModule>
             <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
                         <ejbClientModule>

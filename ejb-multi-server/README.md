@@ -43,6 +43,26 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
 
 
+Add the Application Users
+---------------
+
+The following users must be added to the `ApplicationRealm` to run this quickstart. Be sure to use the names and passwords specified in the table as they are required to run this example.
+
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickuser| ApplicationRealm | quick-123 | _leave blank for none_ |
+| quickuser1 | ApplicationRealm | quick123+ | _leave blank for none_ |
+| quickuser2 | ApplicationRealm | quick+123 | _leave blank for none_ |
+
+Add the users using the following commands:
+
+        bin/add-user.sh -a -u quickuser -p quick-123 --silent
+        bin/add-user.sh -a -u quickuser1 -p quick123+ --silent
+        bin/add-user.sh -a -u quickuser2 -p quick+123 --silent
+
+If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
+
+
 Back Up the JBoss EAP Server Configuration Files
 -----------------------------
 _NOTE - Before you begin:_
@@ -73,26 +93,6 @@ Configure the JBoss EAP Server
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
         
    This script configures and starts multiple servers needed to run this quickstart. You should see "outcome" => "success" for all of the commands. 
-
-
-Add the Application Users
----------------
-
-The following users must be added to the `ApplicationRealm` to run this quickstart. Be sure to use the names and passwords specified in the table as they are required to run this example.
-
-| **UserName** | **Realm** | **Password** | **Roles** |
-|:-----------|:-----------|:-----------|:-----------|
-| quickuser| ApplicationRealm | quick-123 | _leave blank for none_ |
-| quickuser1 | ApplicationRealm | quick123+ | _leave blank for none_ |
-| quickuser2 | ApplicationRealm | quick+123 | _leave blank for none_ |
-
-Add the users using the following commands:
-
-        bin/add-user.sh -a -u quickuser -p quick-123 --silent
-        bin/add-user.sh -a -u quickuser1 -p quick123+ --silent
-        bin/add-user.sh -a -u quickuser2 -p quick+123 --silent
-
-If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
 
 
 Build and Deploy the Quickstart
@@ -173,7 +173,7 @@ Access the JSF application inside the main-application
 The JSF example shows different annotations to inject the EJB. Also how to handle the annotation if different beans implement the same interface and therefore the container is not able to decide which bean needs to be injected without additional informations.
 
 1. Make sure that the deployments are successful as described above.
-2. Use a browser to access the JSF application at the following URL: <http://localhost:8080/multi-server-MainApp/>
+2. Use a browser to access the JSF application at the following URL: <http://localhost:8080/jboss-ejb-multi-server-app-main-web/>
 3. Insert a message in the Text input and invoke the different methods. The result is shown in the browser.
 4. See server logfiles and find your given message logged as INFO.
 
@@ -187,7 +187,7 @@ Access the Servlet application deployed as a WAR inside a minimal server
 An example how to access EJB's from a separate instance which only contains a web application.
 
 1. Make sure that the deployments are successful as described above.
-2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/appweb/>
+2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/jboss-ejb-multi-server-app-web/>
 3. The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful
 
 _NOTE : A new feature in EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation.  See the install-domain.cli script._
