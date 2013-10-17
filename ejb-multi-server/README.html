@@ -53,35 +53,6 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>If you have not yet done so, you must <a href="../README.html#mavenconfiguration">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2><a id="back-up-the-jboss-eap-server-configuration-files" class="anchor" href="#back-up-the-jboss-eap-server-configuration-files"><span class="anchor-icon"></span></a>Back Up the JBoss EAP Server Configuration Files</h2>
-
-<p><em>NOTE - Before you begin:</em></p>
-
-<ol>
-<li>If it is running, stop the JBoss EAP server.</li>
-<li><p>Backup the following files, replacing JBOSS_HOME with the path to your server: </p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
-<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
-</pre></div></li>
-<li><p>After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.</p></li>
-</ol>
-
-<h2><a id="start-jboss-eap-server" class="anchor" href="#start-jboss-eap-server"><span class="anchor-icon"></span></a>Start JBoss EAP Server</h2>
-
-<ol>
-<li>Unzip or install a fresh JBoss EAP instance.</li>
-<li><p>Open a command line and navigate to the root of the server directory. Start the server using the following command:</p>
-<div class="highlight"><pre><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>    
-</pre></div></li>
-</ol>
-
-<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
-
-<p>Open a new command line, navigate to the root directory of this quickstart, and run the following command:</p>
-<div class="highlight"><pre>    <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">install</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
-</pre></div>
-<p>This script configures and starts multiple servers needed to run this quickstart. You should see &ldquo;outcome&rdquo; =&gt; &ldquo;success&rdquo; for all of the commands. </p>
-
 <h2><a id="add-the-application-users" class="anchor" href="#add-the-application-users"><span class="anchor-icon"></span></a>Add the Application Users</h2>
 
 <p>The following users must be added to the <code>ApplicationRealm</code> to run this quickstart. Be sure to use the names and passwords specified in the table as they are required to run this example.</p>
@@ -120,6 +91,35 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
     <span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="n">quickuser2</span> <span class="o">-</span><span class="n">p</span> <span class="n">quick</span><span class="o">+</span><span class="mi">123</span> <span class="o">--</span><span class="n">silent</span>
 </pre></div>
 <p>If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="../README.html#addapplicationuser">Add User</a>.</p>
+
+<h2><a id="back-up-the-jboss-eap-server-configuration-files" class="anchor" href="#back-up-the-jboss-eap-server-configuration-files"><span class="anchor-icon"></span></a>Back Up the JBoss EAP Server Configuration Files</h2>
+
+<p><em>NOTE - Before you begin:</em></p>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li><p>Backup the following files, replacing JBOSS_HOME with the path to your server: </p>
+<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
+</pre></div></li>
+<li><p>After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.</p></li>
+</ol>
+
+<h2><a id="start-jboss-eap-server" class="anchor" href="#start-jboss-eap-server"><span class="anchor-icon"></span></a>Start JBoss EAP Server</h2>
+
+<ol>
+<li>Unzip or install a fresh JBoss EAP instance.</li>
+<li><p>Open a command line and navigate to the root of the server directory. Start the server using the following command:</p>
+<div class="highlight"><pre><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>    
+</pre></div></li>
+</ol>
+
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
+
+<p>Open a new command line, navigate to the root directory of this quickstart, and run the following command:</p>
+<div class="highlight"><pre>    <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">install</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
+</pre></div>
+<p>This script configures and starts multiple servers needed to run this quickstart. You should see &ldquo;outcome&rdquo; =&gt; &ldquo;success&rdquo; for all of the commands. </p>
 
 <h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
 
@@ -189,7 +189,7 @@ After that the invocation will be successful. The log output of the <code>appTwo
 
 <ol>
 <li>Make sure that the deployments are successful as described above.</li>
-<li>Use a browser to access the JSF application at the following URL: <a href="http://localhost:8080/multi-server-MainApp/">http://localhost:8080/multi-server-MainApp/</a></li>
+<li>Use a browser to access the JSF application at the following URL: <a href="http://localhost:8080/jboss-ejb-multi-server-app-main-web/">http://localhost:8080/jboss-ejb-multi-server-app-main-web/</a></li>
 <li>Insert a message in the Text input and invoke the different methods. The result is shown in the browser.</li>
 <li>See server logfiles and find your given message logged as INFO.</li>
 </ol>
@@ -206,7 +206,7 @@ After that the invocation will be successful. The log output of the <code>appTwo
 
 <ol>
 <li>Make sure that the deployments are successful as described above.</li>
-<li>Use a browser to access the Servlet at the following URL: <a href="http://localhost:8380/appweb/">http://localhost:8380/appweb/</a></li>
+<li>Use a browser to access the Servlet at the following URL: <a href="http://localhost:8380/jboss-ejb-multi-server-app-web/">http://localhost:8380/jboss-ejb-multi-server-app-web/</a></li>
 <li>The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful</li>
 </ol>
 
