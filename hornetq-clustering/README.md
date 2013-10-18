@@ -48,7 +48,7 @@ _NOTE - Before you begin:_
 
 2. If you plan to test using a standalone server, backup the file:
 
-        $JBOSS_HOME/standalone/configuration/standalone-full.xml
+        $JBOSS_HOME/standalone/configuration/standalone-full-ha.xml
 
 
 3. If you plan to test using a managed domain, backup the following files:
@@ -126,26 +126,32 @@ Since both application servers must be configured in the same way, you must conf
 
 After you have successfully configured the server, make a copy of this JBoss directory structure to use for the second server.
 
+Make sure to remove the following directories from the cloned instance:
+
+ - JBOSS_HOME_SERVER_2/standalone/data/messagingbindings
+ - JBOSS_HOME_SERVER_2/standalone/data/messagingjournal
+ - JBOSS_HOME_SERVER_2/standalone/data/messaginglargemessages
+
 #### Start the JBoss EAP Standalone Servers with the Full Profile
 
 If you are using Linux:
 
-        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full-ha.xml
+        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
 
 If you are using Windows:
 
-        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full-ha.xml
+        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:9080/jboss-helloworld-mdb/HelloWorldMDBServletClient>. 
+The application will be running at the following URL: <http://localhost:8080/jboss-helloworld-mdb/HelloWorldMDBServletClient>. 
 
 It will send some messages to the queue. 
 
-To send messages to the topic, use the following URL: <http://localhost:9080/jboss-helloworld-mdb/HelloWorldMDBServletClient?topic>
+To send messages to the topic, use the following URL: <http://localhost:8080/jboss-helloworld-mdb/HelloWorldMDBServletClient?topic>
 
 Investigate the Server Console Output
 -------------------------
@@ -173,7 +179,7 @@ Remove the Server Configuration
 --------------------
 
 1. Stop the JBoss server.
-2. If you were running in standalone mode, copy the backed up standalone-full.xml file into the $JBOSS_HOME/domain/configuration/ directory.
+2. If you were running in standalone mode, copy the backed up standalone-full-ha.xml file into the $JBOSS_HOME/domain/configuration/ directory.
 3. If you were running in a managed domain, copy the backed up domain.xml and host.xml configuration files into the $JBOSS_HOME/domain/configuration/ directory.
 
 
