@@ -48,7 +48,7 @@ _NOTE - Before you begin:_
 
 2. If you plan to test using a standalone server, backup the file:
 
-        $JBOSS_HOME/domain/configuration/standalone-full.xml
+        $JBOSS_HOME/standalone/configuration/standalone-full.xml
 
 
 3. If you plan to test using a managed domain, backup the following files:
