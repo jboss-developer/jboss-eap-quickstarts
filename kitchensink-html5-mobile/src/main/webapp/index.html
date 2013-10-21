@@ -49,7 +49,8 @@
     <!-- <script type="text/javascript" src="js/app.min.js"></script> -->
 
     <script type="text/javascript">
-        if(Modernizr.mq( "only all and (max-width: 640px)" )) {
+        if (Modernizr.mq("only all and (max-width: 800px ) and (orientation: portrait)") ||
+            Modernizr.mq("only all and (max-width: 1280px ) and (orientation: landscape)")) {
             // Minification - See Readme for details
             // For minification comment out this line
             $('head').append('<link rel="stylesheet" href="css/jquery.mobile-1.3.2.css"/>');
@@ -321,8 +322,9 @@
 <script type="text/template" id="member-tmpl">
     <% var addHeader = true;
     _.each(members, function(member) {
-    if ( Modernizr.mq( "only all and (max-width: 640px)" ) ) {
-    addHeader = true;
+    if (Modernizr.mq("only all and (max-width: 800px ) and (orientation: portrait)") ||
+        Modernizr.mq("only all and (max-width: 1280px ) and (orientation: landscape)")) {
+        addHeader = true;
     }
     %>
     <div class="row member">
