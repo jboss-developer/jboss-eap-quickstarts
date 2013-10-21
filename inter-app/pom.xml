@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-inter-app-parent</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.2.0.Beta1</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: inter-app</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>

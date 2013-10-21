@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-QUICKSTART_NAME</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.2.0.Beta1</version>
     <packaging>war</packaging>
     <name>JBoss PRODUCT_TYPE Quickstart: QUICKSTART_NAME-OPTIONAL_SUBFOLDER_NAME</name>
     <description>QUICKSTART_NAME: A short description of this quickstart</description>

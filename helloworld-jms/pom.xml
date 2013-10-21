@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-helloworld-jms</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.2.0.Beta1</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: helloworld-jms</name>
     <description>helloworld-jms: Helloworld JMS external producer/consumer client</description>
@@ -45,7 +45,7 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.as>7.3.0.Final-redhat-SNAPSHOT</version.jboss.as>
+        <version.jboss.as>7.3.0.Final-redhat-8</version.jboss.as>
 
         <!-- other plugin versions -->
         <version.jar.plugin>2.2</version.jar.plugin>

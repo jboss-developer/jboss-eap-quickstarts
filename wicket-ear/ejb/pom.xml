@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-wicket-ear-parent</artifactId>
-        <version>6.2.0-redhat-SNAPSHOT</version>
+        <version>6.2.0.Beta1</version>
     </parent>
 
     <artifactId>jboss-wicket-ear-ejb</artifactId>

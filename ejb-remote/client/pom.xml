@@ -21,7 +21,7 @@
 
    <groupId>org.jboss.quickstarts.eap</groupId>
    <artifactId>jboss-ejb-remote-client</artifactId>
-   <version>6.2.0-redhat-SNAPSHOT</version>
+   <version>6.2.0.Beta1</version>
    <packaging>jar</packaging>
    <name>JBoss EAP Quickstart: ejb-remote - client</name>
    <description>JBoss EAP Quickstart: ejb-remote-client</description>
@@ -46,7 +46,7 @@
 
        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.as>7.3.0.Final-redhat-SNAPSHOT</version.jboss.as>
+        <version.jboss.as>7.3.0.Final-redhat-8</version.jboss.as>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-5</version.jboss.spec.javaee.6.0>
 

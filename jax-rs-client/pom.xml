@@ -23,7 +23,7 @@
     <name>JBoss EAP Quickstart: jax-rs-client</name>
     <description>jax-rs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
     <artifactId>jboss-jax-rs-client</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.2.0.Beta1</version>
 
 
     <url>http://jboss.org/jbossas</url>
@@ -46,7 +46,7 @@
         <!-- JBoss dependency versions -->
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.2.0.Beta1</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
