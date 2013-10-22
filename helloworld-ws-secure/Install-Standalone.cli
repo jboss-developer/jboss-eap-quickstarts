@@ -1,0 +1,5 @@
+
+#Create a new secure connector and call it https
+/subsystem=web/connector=HTTPS/:add(socket-binding=https,scheme=https,protocol=HTTP/1.1,secure=true)
+
+/subsystem=web/connector=HTTPS/ssl=configuration:add(name=https,certificate-key-file="${jboss.server.config.dir}/server.keystore",password=mykeystorepass, key-alias=jboss)
