@@ -90,7 +90,7 @@ Next, let's take a look at the JSF view the user sees. As usual, we use a templa
 <h:body>
     <div id="container">
         <div class="dualbrand">
-            <img src="resources/gfx/dualbrand_logo.png" />
+            <img src="resources/gfx/rhjb_eap_logo.png" />
         </div>
         <div id="content">
             <ui:insert name="content">                               <2>

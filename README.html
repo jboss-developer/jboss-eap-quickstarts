@@ -108,25 +108,6 @@
 <li>Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.</li>
 </ul>
 
-<h2><a id="check-out-the-quickstart-source" class="anchor" href="#check-out-the-quickstart-source"><span class="anchor-icon"></span></a>Check Out the Quickstart Source</h2>
-
-<p>Some quickstarts in this project are examples that originate from multiple external Git repositories and are then combined in this project as Git submodules. These quickstarts do not fit the standard pattern of the other quickstarts and may require you to install additional software or follow more complex setup and testing procedures.</p>
-
-<p>Git submodules allow you clone another repository as a subdirectory in your project, but keep the source and commits separate. Use following Git commands to fetch the data from the submodules into this project.</p>
-
-<ol>
-<li><p>To clone this Git repository, use the following command:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recursive</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="n">jboss</span><span class="o">-</span><span class="n">jdf</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">git</span>
-</pre></div>
-<p><em>Note: This command creates the directories for the submodules, but does not download the data.</em></p></li>
-<li><p>After you clone the repository, use the following command to initialize the and fetch data from the submodule project:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span>
-</pre></div></li>
-<li><p>To refresh the submodule with any updates to the external project, run the following command:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span>
-</pre></div></li>
-</ol>
-
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System Requirements</h2>
 
 <p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
@@ -380,7 +361,7 @@
 <ul>
 <li>Open the <code>src/test/resources/arquillian.xml</code> file located in the quickstart directory.</li>
 <li><p>Find the configuration for the JBoss container. It should look like this:</p>
-<div class="highlight"><pre><span class="c">&lt;!-- Example configuration for a managed/remote JBoss AS 7 instance --&gt;</span>
+<div class="highlight"><pre><span class="c">&lt;!-- Example configuration for a managed/remote JBoss EAP 6 instance --&gt;</span>
 <span class="nt">&lt;container</span> <span class="na">qualifier=</span><span class="s">&quot;jboss&quot;</span> <span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
     <span class="c">&lt;!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property --&gt;</span>
     <span class="c">&lt;!--&lt;configuration&gt; --&gt;</span>
