@@ -1,0 +1,177 @@
+<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="kitchensinkangularjs-shows-how-to-use-angularjs-with-jaxrs-and-java-ee-on-jboss" class="anchor" href="#kitchensinkangularjs-shows-how-to-use-angularjs-with-jaxrs-and-java-ee-on-jboss"><span class="anchor-icon"></span></a>kitchensink-angularjs: Shows how to use AngularJS with JAX-RS and Java EE on JBoss</h1>
+
+<p>Author: Pete Muir
+Level: Intermediate
+Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV
+Summary: An example that incorporates multiple technologies
+Target Product: WFK
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
+Source: <a href="https://github.com/jboss-developer/jboss-wfk-quickstarts">https://github.com/jboss-developer/jboss-wfk-quickstarts</a></p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 6 with Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
+
+<p>This project is setup to allow you to create a compliant Java EE 6 application using CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. </p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.4.</p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#configure-maven">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-kitchensink-angularjs.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-kitchensink-angularjs/">http://localhost:8080/jboss-kitchensink-angularjs/</a>.</p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-arquillian-tests-" class="anchor" href="#run-the-arquillian-tests-"><span class="anchor-icon"></span></a>Run the Arquillian Tests </h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. </p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#run-the-arquillian-tests">Run the Arquillian Tests</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span> 
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div>
+<h2><a id="build-and-deploy-the-quickstart-to-openshift" class="anchor" href="#build-and-deploy-the-quickstart-to-openshift"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart - to OpenShift</h2>
+
+<h3><a id="create-an-openshift-express-account-and-domain" class="anchor" href="#create-an-openshift-express-account-and-domain"><span class="anchor-icon"></span></a>Create an OpenShift Express Account and Domain</h3>
+
+<p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://www.openshift.com/get-started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
+
+<h3><a id="create-the-openshift-application" class="anchor" href="#create-the-openshift-application"><span class="anchor-icon"></span></a>Create the OpenShift Application</h3>
+
+<p>Note that we use the <code>jboss-as-quickstart@jboss.org</code> user for these examples. You need to substitute it with your own user name.</p>
+
+<p>Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with <code>jbosseap-6</code> for quickstarts running on JBoss Enterprise Application Platform 6.1 or later:</p>
+<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">kitchensinkangularjs</span> <span class="o">-</span><span class="n">t</span> <span class="n">APPLICATION_TYPE</span>
+</pre></div>
+<p><em>NOTE</em>: The domain name for this application will be <code>kitchensinkangularjs-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
+
+<p>This command creates an OpenShift application called <code>kitchensinkangularjs</code> and will run the application inside the <code>jbosseap-6</code> container. You should see some output similar to the following:</p>
+<div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="o">:</span> <span class="n">kitchensinkangularjs</span>
+<span class="n">Now</span> <span class="n">your</span> <span class="n">new</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">is</span> <span class="n">being</span> <span class="n">propagated</span> <span class="n">worldwide</span> <span class="p">(</span><span class="n">this</span> <span class="n">might</span> <span class="n">take</span> <span class="n">a</span> <span class="n">minute</span><span class="p">)...</span>
+<span class="nl">Warning:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="n">the</span> <span class="n">RSA</span> <span class="n">host</span> <span class="n">key</span> <span class="k">for</span> <span class="n">IP</span> <span class="n">address</span> <span class="err">&#39;</span><span class="mf">23.20.102.147</span><span class="err">&#39;</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
+<span class="n">Confirming</span> <span class="n">application</span> <span class="err">&#39;</span><span class="n">kitchensinkangularjs</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">available</span><span class="o">:</span>  <span class="n">Success</span><span class="o">!</span>
+
+<span class="n">kitchensinkangularjs</span> <span class="n">published</span><span class="o">:</span>  <span class="n">http</span><span class="o">:</span><span class="c1">//kitchensinkangularjs-quickstart.rhcloud.com/</span>
+<span class="n">git</span> <span class="n">url</span><span class="o">:</span>  <span class="n">ssh</span><span class="o">:</span><span class="c1">//76f095330e3f49af97a52e513a9c966b@kitchensinkangularjs-quickstart.rhcloud.com/~/git/kitchensinkangularjs.git/</span>
+<span class="n">Successfully</span> <span class="n">created</span> <span class="n">application</span><span class="o">:</span> <span class="n">kitchensinkangularjs</span>
+</pre></div>
+<h3><a id="migrate-the-quickstart-source" class="anchor" href="#migrate-the-quickstart-source"><span class="anchor-icon"></span></a>Migrate the Quickstart Source</h3>
+
+<p>Now that you have confirmed it is working you can migrate the quickstart source. You do not need the generated default application, so navigate to the new git repository directory and tell git to remove the source and pom files:</p>
+<div class="highlight"><pre>    <span class="n">cd</span> <span class="n">kitchensinkangularjs</span>
+    <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>
+<p>Copy the source for the kitchensink-angularjs quickstart into this new git repo:</p>
+<div class="highlight"><pre>    <span class="nx">cp</span> <span class="na">-r</span> <span class="o">&lt;</span><span class="nx">quickstarts</span><span class="o">&gt;/</span><span class="nx">kitchensink</span><span class="na">-angularjs</span><span class="p">/</span><span class="nb">src</span> <span class="nx">.</span>
+    <span class="nx">cp</span> <span class="o">&lt;</span><span class="nx">quickstarts</span><span class="o">&gt;/</span><span class="nx">kitchensink</span><span class="na">-angularjs</span><span class="p">/</span><span class="nx">pom.xml</span> <span class="nx">.</span>
+</pre></div>
+<h3><a id="deploy-the-openshift-application" class="anchor" href="#deploy-the-openshift-application"><span class="anchor-icon"></span></a>Deploy the OpenShift Application</h3>
+
+<p>You can now deploy the changes to your OpenShift application using git as follows:</p>
+<div class="highlight"><pre>    <span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;kitchensink-angularjs quickstart on OpenShift&quot;</span>
+    <span class="n">git</span> <span class="n">push</span>
+</pre></div>
+<p>OpenShift will build the application using Maven, and deploy it to the JBoss server. If successful, you should see output similar to:</p>
+<div class="highlight"><pre><span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
+<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">BUILD</span> <span class="n">SUCCESS</span>
+<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
+<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Total</span> <span class="n">time</span><span class="o">:</span> <span class="mf">19.991</span><span class="n">s</span>
+<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Finished</span> <span class="n">at</span><span class="o">:</span> <span class="n">Wed</span> <span class="n">Mar</span> <span class="mo">07</span> <span class="mi">12</span><span class="o">:</span><span class="mi">48</span><span class="o">:</span><span class="mi">15</span> <span class="n">EST</span> <span class="mi">2012</span>
+<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Final</span> <span class="n">Memory</span><span class="o">:</span> <span class="mi">8</span><span class="n">M</span><span class="o">/</span><span class="mi">168</span><span class="n">M</span>
+<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
+<span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">build</span>
+<span class="nl">remote:</span> <span class="n">Emptying</span> <span class="n">tmp</span> <span class="n">dir</span><span class="o">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libra</span><span class="o">/</span><span class="mf">1e63</span><span class="n">c17c2dd94a329f21555a33dc617d</span><span class="o">/</span><span class="n">kitchensinkangularjs</span><span class="o">/</span><span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">vfs</span>
+<span class="nl">remote:</span> <span class="n">Emptying</span> <span class="n">tmp</span> <span class="n">dir</span><span class="o">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libra</span><span class="o">/</span><span class="mf">1e63</span><span class="n">c17c2dd94a329f21555a33dc617d</span><span class="o">/</span><span class="n">kitchensinkangularjs</span><span class="o">/</span><span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">work</span>
+<span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">deploy</span>
+<span class="nl">remote:</span> <span class="n">Starting</span> <span class="n">application</span><span class="p">...</span>
+<span class="nl">remote:</span> <span class="n">Done</span>
+<span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">post_deploy</span>
+<span class="n">To</span> <span class="n">ssh</span><span class="o">:</span><span class="c1">//1e63c17c2dd94a329f21555a33dc617d@kitchensinkangularjs-quickstart.rhcloud.com/~/git/kitchensinkangularjs.git/</span>
+   <span class="n">e6f80bd</span><span class="p">.</span><span class="mf">.63504</span><span class="n">b9</span>  <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+</pre></div>
+<p>Note that the <code>openshift</code> profile in the <code>pom.xml</code> file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the <code>deployments</code> directory and deployed without a context path.</p>
+
+<h3><a id="test-the-openshift-application" class="anchor" href="#test-the-openshift-application"><span class="anchor-icon"></span></a>Test the OpenShift Application</h3>
+
+<p>Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">kitchensinkangularjs</span>
+</pre></div>
+<p>Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
+<div class="highlight"><pre><span class="nl">http:</span><span class="c1">//kitchensinkangularjs-quickstart.rhcloud.com/</span>
+</pre></div>
+<p>You should now be able to interact with the application in a similar mannor as when you deployed it locally.</p>
+
+<p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
+
+<h3><a id="destroy-the-openshift-application" class="anchor" href="#destroy-the-openshift-application"><span class="anchor-icon"></span></a>Destroy the OpenShift Application</h3>
+
+<p>When you are finished with the application you can destroy it as follows:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">kitchensinkangularjs</span>
+</pre></div>
+<p>To view the list of your current OpenShift applications, type:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">domain</span>
+</pre></div>
+<p><em>Note</em>: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the <code>rhc app create</code> command returns an error indicating you have reached that limit, you must destroy an existing application before you continue.</p>
+
+<ul>
+<li>To view the list of your OpenShift applications, type: <code>rhc domain show</code></li>
+<li>To destroy an existing application, type the following, substituting the application name you want to destroy: <code>rhc app destroy -a APPLICATION_NAME_TO_DESTROY</code></li>
+</ul>
+</body></html>
