@@ -44,7 +44,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
-        <version.jboss.bom.eap>1.0.7.Final</version.jboss.bom.eap>
+        <version.jboss.bom.eap>1.0.4.Final-redhat-9</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
