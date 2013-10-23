@@ -27,7 +27,7 @@
     <!-- Force the use of the Servlet 3.0 protocol with all containers, as it is the most mature -->
     <!-- defaultProtocol type="Local" / -->
 
-    <!-- Example configuration for a remote JBoss AS 7 instance -->
+    <!-- Example configuration for a remote JBoss EAP 6 instance -->
     <container qualifier="jboss" default="true">
         <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
         <!-- <configuration>                                                                            -->
