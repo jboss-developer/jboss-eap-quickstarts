@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<cheatsheet title="CDI + HTML5 + REST: Kitchensink HTML5 Mobile quickstart">
+  <intro>
+    <description>
+      This quickstart shows how to develop an HTML5 based desktop movile web application with Java EE 6 on JBoss Enterprise Application Platform 6.1 or later. This project is setup to allow you to create a basic Java EE 6 application using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0, and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
+      <br/><br/>
+      <b>HTML5 + REST</b>
+      <br/><br/>
+      This uses a pure HTML client that interacts with with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
+      <br/><br/>
+      <b>JAX-RS: The Java API for RESTful Web Services</b>
+      <br/><br/>
+      JAX-RS is a new specification in Java EE 6. It allows application developers to easily expose Java services as RESTful web services.
+      <br/><br/>
+      <b>Mobile Web Support</b>
+      <br/><br/>
+      his application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile  version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance  improvements needed to get you started with mobile web development on JBoss.
+      <br/><br/>
+      <b>Bean Validation</b>
+      <br/><br/>
+      Bean Validation is a new specification in Java EE 6, inspired by Hibernate Validator. It allows application developers to specify constraints once (often in their domain model), and have them applied in all layers of the application, protecting data and giving useful feedback to users.
+      <br/><br/>
+    </description>
+  </intro>
+  <item
+    skip="false"
+    title="The kitchensink-html5-mobile example in depth">
+    <description>
+      The kitchensink-html5-mobile application shows off a number of Java EE technologies such as HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0, Bean Validation 1.0, and Arquillian. 
+      <br/><br/>
+      Let&apos;s start by looking at the necessary deployment descriptors. 
+      NOT SURE WHAT YOU WANT TO DO HERE
+    </description> 
+    <command
+    required="true"
+    returns="currentProject"
+    serialization="org.jboss.tools.project.examples.cheatsheet.getProjectForCheatsheet"/>
+  </item>
+  
+  <item
+    skip="true"
+    title="MemberService.java">
+    <description>
+      Next, let&apos;s take a look the <b>MemberService</b> class:
+    </description>
+    <subitem
+            label="Talk about the annotations..."
+            skip="true">
+    <command
+      required="false"
+      serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/html5_mobile/rest/MemberService.java,fromLine=90,toLine=92)"/>
+    </subitem>
+    <subitem
+            label="Talk about other stuff ... "
+            skip="true">
+      <command
+        required="false"
+        serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/html5_mobile/rest/MemberService.java,fromLine=1,toLine=1)"/>
+    </subitem>
+  
+  </item>
+
+  <item
+    skip="true"
+    title="index.html">
+    <description>
+    Next, let&apos;s take a look the <b>index.html</b> file:
+    </description>
+    <subitem
+          label="We have a common header section that contains our logo. "
+          skip="true">
+      <command
+      required="false"
+      serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.html,fromLine=144,toLine=149)"/>
+    </subitem>
+    <subitem
+          label="The content section ...YOU MAY WANT TO BREAK THIS DOWN INTO MULTIPLE SUBITEMS"
+          
+          skip="true">
+      <command
+        required="false"
+        serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.html,fromLine=152,toLine=181)"/>
+    </subitem>
+    <subitem
+            label="and a common footer... "
+            skip="true">
+        <command
+      required="false"
+      serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.html,fromLine=188,toLine=192)"/>
+    </subitem>
+      <subitem
+              label="Describe more important lines in the file. "
+              skip="true">
+          <command
+        required="false"
+        serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.html,fromLine=1,toLine=1)"/>
+     </subitem>
+  </item>
+ 
+  <item
+    skip="true"
+    title="Create your own application ">
+    <description>
+      What we didn&apos;t tell you about the <b>kitchensink-html5-mobile quickstart</b> is that it is generated from a Maven archetype. 
+      Using this archetype offers you the perfect opportunity to generate your own project.
+      <br/><br/>
+      In order to perform that, you should select <b>Help&gt;JBoss Central</b> and click the <b>HTML5 Project</b> wizard.
+      <br/>
+      You will get a brand new project with the same functionality as <b>kitchensink-html5-mobile</b>, 
+      but customized with your details.
+    </description>
+  </item>
+  
+</cheatsheet>
