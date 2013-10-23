@@ -22,12 +22,8 @@
     <artifactId>jboss-picketlink-sts</artifactId>
     <version>6.2.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>PicketLink Federation: WS-Trust Security Token Service</name>
-    <description>
-       This project is an implementation of a WS-Trust Security Token Service. 
-       This is just webapp that materializes STS service, actual code could be found at PicketLink Federation project
-       at https://github.com/picketlink2/federation.
-    </description>
+    <name>JBoss EAP Quickstart: picketlink-sts</name>
+    <description>This project is an implementation of a WS-Trust Security Token Service.</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
