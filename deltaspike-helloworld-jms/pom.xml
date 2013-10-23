@@ -69,8 +69,8 @@
                 of artifacts. We use this here so that we always get the correct versions 
                 of artifacts. Here we use the jboss-javaee-6.0-with-deltaspike stack (you 
                 can read this as the JBoss stack of the Java EE 6 APIs). You can actually 
-                use this stack with any version of JBoss AS that implements Java EE 6, not 
-                just JBoss AS 7! -->
+                use this stack with any version of JBoss that implements Java EE 6, not 
+                just JBoss EAP 6! -->
             <dependency>
                 <groupId>org.jboss.bom.wfk</groupId>
                 <artifactId>jboss-javaee-6.0-with-deltaspike</artifactId>
@@ -99,7 +99,7 @@
         </dependency>
        
         <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -107,7 +107,7 @@
         </dependency>
        
         <!-- Import the JSF API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.1_spec</artifactId>

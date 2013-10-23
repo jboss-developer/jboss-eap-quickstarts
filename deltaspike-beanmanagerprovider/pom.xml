@@ -66,14 +66,14 @@
             <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
                 Any dependencies from org.jboss.spec will have their version defined by this 
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including 
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-                a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack 
-                (you can read this as the JBoss stack of the Java EE 6 APIs with Hibernate) 
-                and jboss-javaee-6.0-with-deltaspike with extras from the DeltaSpike project. 
-                You can actually use this stack with any version of JBoss AS that implements 
-                Java EE 6, not just JBoss AS 7! -->
+             <!-- JBoss distributes a complete set of Java EE 6 APIs including 
+                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
+                 a collection) of artifacts. We use this here so that we always get the correct 
+                 versions of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack 
+                 (you can read this as the JBoss stack of the Java EE 6 APIs with Hibernate) 
+                 and jboss-javaee-6.0-with-deltaspike with extras from the DeltaSpike project. 
+                 You can actually use this stack with any version of JBoss that implements 
+                 Java EE 6, not just JBoss EAP 6! -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
@@ -94,7 +94,7 @@
     <dependencies>
 
         <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -102,7 +102,7 @@
         </dependency>
 
         <!-- Import the JSF API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.1_spec</artifactId>
@@ -110,7 +110,7 @@
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -118,7 +118,7 @@
         </dependency>
 
         <!-- Import the EJB API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
@@ -126,7 +126,7 @@
         </dependency>
 
         <!-- Import the Hibernate implementation of Bean Validation API, 
-            we use provided scope as the API is included in JBoss AS 7 -->
+            we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
