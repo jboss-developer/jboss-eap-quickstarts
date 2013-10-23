@@ -47,24 +47,6 @@ We suggest you approach the quickstarts as follows:
 * If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you are comfortable with those, move on to the **Advanced** quickstarts.
 * Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.
 
-Check Out the Quickstart Source
-----------------------------------
-
-Some quickstarts in this project are examples that originate from multiple external Git repositories and are then combined in this project as Git submodules. These quickstarts do not fit the standard pattern of the other quickstarts and may require you to install additional software or follow more complex setup and testing procedures.
-
-Git submodules allow you clone another repository as a subdirectory in your project, but keep the source and commits separate. Use following Git commands to fetch the data from the submodules into this project.
-
-1. To clone this Git repository, use the following command:
-
-        git clone --recursive git@github.com:jboss-jdf/jboss-as-quickstart.git
-   _Note: This command creates the directories for the submodules, but does not download the data._
-2. After you clone the repository, use the following command to initialize the and fetch data from the submodule project:
-
-        git submodule update --init
-3. To refresh the submodule with any updates to the external project, run the following command:
-
-        git submodule update
-
 
 System Requirements
 -------------------
@@ -295,7 +277,7 @@ You can either start the server yourself or let Arquillian manage its lifecycle 
     * Open the `src/test/resources/arquillian.xml` file located in the quickstart directory.
     * Find the configuration for the JBoss container. It should look like this:
 
-            <!-- Example configuration for a managed/remote JBoss AS 7 instance -->
+            <!-- Example configuration for a managed/remote JBoss EAP 6 instance -->
             <container qualifier="jboss" default="true">
                 <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
                 <!--<configuration> -->
