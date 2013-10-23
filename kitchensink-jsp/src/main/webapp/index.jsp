@@ -47,7 +47,7 @@
             <p>Learn more about JBoss Enterprise Application
                 Platform 6.</p>
             <ul>
-               <li><a href="https://access.redhat.com/knowledge/docs/JBoss_Enterprise_Application_Platform/">Documentation</a></li>
+               <li><a href="https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/">Documentation</a></li>
                <li><a href="http://red.ht/jbeap-6">Product Information</a></li>
             </ul>
 
