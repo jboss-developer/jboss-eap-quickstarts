@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="deltaspikebeanmanagerprovider-shows-how-to-use-deltaspike-beanmanagerprovider-to-access-cdi-in-a-entitylistener" class="anchor" href="#deltaspikebeanmanagerprovider-shows-how-to-use-deltaspike-beanmanagerprovider-to-access-cdi-in-a-entitylistener"><span class="anchor-icon"></span></a>deltaspike-beanmanagerprovider: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener</h1>
+
+<p>Author: Rafael Benevides
+Level: Intermediate
+Technologies: CDI, Deltaspike, JPA, JSF
+Summary: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener
+Prerequisites: 
+Target Product: WFK
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
+Source: <a href="https://github.com/jboss-developer/jboss-wfk-quickstarts/">https://github.com/jboss-developer/jboss-wfk-quickstarts/</a></p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This project demonstrates the use of DeltaSpike&rsquo;s BeanManagerProvider.  </p>
+
+<p><code>BeanmanagerProvider</code> provides access to the <code>BeanManager</code> by registering the current <code>BeanManager</code> during the startup. This is really handy if you like to access CDI functionality from places where no CDI based injection is available. If a simple but manual bean-lookup is needed, it&rsquo;s easier to use the <code>BeanProvider</code> instead. </p>
+
+<p>This projects uses an EntityListener to create audit records. EntityListeners aren&rsquo;t managed by CDI, so you can&rsquo;t inject dependencies. In this project we used <code>BeanManagerProvider</code> to get a reference to a Stateless EJB that is responsible to persist the audit records.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.4.</p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="../README.html#configure-maven">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss server directory.</li>
+<li><p>The following shows the command line to start the server with the web profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-deltaspike-beanmanagerprovider.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the application</h2>
+
+<p>Access the running application in a browser at the following URL:  <a href="http://localhost:8080/jboss-deltaspike-beanmanagerprovider">http://localhost:8080/jboss-deltaspike-beanmanagerprovider</a></p>
+
+<p>You are presented with a simple form to insert, edit, or remove contacts.</p>
+
+<ul>
+<li>To insert a new contact, click the <code>New Contact</code> button. Complete the form fields and then click the <code>Save</code> button.</li>
+<li>To modify an existing contact, find the name in the <em>All Contacts</em> table and click the <code>Select for edit</code> button. The <em>Contacts</em> form fields are populated with the contact data. Modify the data and then click the <code>Save</code> button.</li>
+<li>To remove a contact, find the name in the <em>All Contacts</em> table and click the <code>Remove</code> button. A dialog appears asking &lsquo;Do you want to remove this record?&rsquo;. Click the <code>OK</code> button to remove the contact.</li>
+</ul>
+
+<p>When you insert a contact, notice that both the <em>All Contacts</em> and <em>Audit Records</em> tables are updated.
+When you edit a contact, notice that the <em>Audit Records</em> table is updated with the new contact data.</p>
+
+<p>Continue to insert, edit, or remove contacts to see registration of audit records.</p>
+
+<p><em>NOTE: To fire the update audit, you must change one of the contact fields</em></p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-arquillian-functional-tests" class="anchor" href="#run-the-arquillian-functional-tests"><span class="anchor-icon"></span></a>Run the Arquillian Functional Tests</h2>
+
+<p>This quickstart provides Arquillian functional tests. They are located under the directory &ldquo;functional-tests&rdquo;. Functional tests verify that your application behaves correctly from the user&rsquo;s point of view - simulating clicking around the page as a normal user would do.</p>
+
+<p>To run these tests, you must build the main project as described above.</p>
+
+<ol>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Build the quickstart WAR using the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span>
+</pre></div></li>
+<li><p>Navigate to the functional-tests/ directory in this quickstart.</p></li>
+<li><p>If you have a running instance of the JBoss Server, as described above, run the remote tests by typing the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">verify</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">remote</span>
+</pre></div></li>
+<li><p>If you prefer to run the functional tests using managed instance of the JBoss server, meaning the tests will start the server for you, type the following command:</p></li>
+</ol>
+
+<p><em>NOTE: For this to work, Arquillian needs to know the location of the JBoss server. This can be declared through the <code>JBOSS_HOME</code> environment variable or the <code>jbossHome</code> property in <code>arquillian.xml</code>. See <a href="../README.html#run-the-arquillian-tests">Run the Arquillian Tests</a> for complete instructions and additional options.</em></p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">clean</span> <span class="n">verify</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">jbossas</span><span class="o">-</span><span class="n">managed</span>
+</pre></div>
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="../README.html#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>
