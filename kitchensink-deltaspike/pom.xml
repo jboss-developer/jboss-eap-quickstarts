@@ -24,7 +24,7 @@
     <version>2.4.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: kitchensink-deltaspike</name>
-    <description>A starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6, generated from the jboss-javaee6-webapp archetype</description>
+    <description>A starter Java EE 6 webapp project for use on JBoss EAP 6, generated from the jboss-javaee6-webapp archetype</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
@@ -96,10 +96,10 @@
     <dependencies>
 
         <!-- First declare the APIs we depend on and need for compilation. 
-            All of them are provided by JBoss AS 7 -->
+            All of them are provided by JBoss EAP 6 -->
 
         <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -107,7 +107,7 @@
         </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
@@ -115,7 +115,7 @@
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -124,7 +124,7 @@
 
         <!-- JSR-303 (Bean Validation) Implementation -->
         <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss AS 7 -->
+        <!-- Hibernate Validator is shipped in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -138,7 +138,7 @@
         </dependency>
 
         <!-- Import the JSF API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.1_spec</artifactId>
@@ -146,7 +146,7 @@
         </dependency>
 
         <!-- The DeltaSpike libraries, we use compile scope as these are
-             not provided by JBoss AS 7, and need to be packaged in the application -->
+             not provided by JBoss EAP 6, and need to be packaged in the application -->
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-jpa-module-api</artifactId>
