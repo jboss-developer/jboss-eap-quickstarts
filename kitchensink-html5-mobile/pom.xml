@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
@@ -38,7 +38,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>1.0.7.Final</version.jboss.bom.eap>
+        <version.jboss.bom.eap>1.0.4.Final-redhat-9</version.jboss.bom.eap>
         <version.jboss.bom.wfk>2.4.0-build-5</version.jboss.bom.wfk>
 
         <!-- Other dependency versions -->
@@ -275,7 +275,7 @@
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
-                                                <ignore></ignore>
+                                                <ignore/>
                                             </action>
                                         </pluginExecution>
                                     </pluginExecutions>
