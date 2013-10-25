@@ -69,7 +69,7 @@ To run these quickstarts with the provided build scripts, you need the following
 3. The JBoss EAP distribution ZIP.
     * For information on how to install and run JBoss, refer to the product documentation.
 
-4. You can also use [JBoss Developer Studio or Eclipse](#use-jBoss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
+4. You can also use [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
 
 
 Configure Maven
