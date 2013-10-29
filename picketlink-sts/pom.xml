@@ -88,6 +88,12 @@
             <groupId>org.picketlink</groupId>
             <artifactId>picketlink-core</artifactId>
             <scope>provided</scope>
+            <exclusions>
+              <exclusion>
+                <groupId>org.jboss.security</groupId>
+                <artifactId>jbossxacml</artifactId>
+              </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
