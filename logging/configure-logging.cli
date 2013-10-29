@@ -21,25 +21,8 @@ batch
 
 # Create the logger for our quickstart class
 ### NOTE: To view different logging levels, change the level below from TRACE to DEBUG, INFO, WARN, ERROR, or FATAL, then access the application.
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE)
+/subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE,handlers=[TRACE_QS_ASYNC,DEBUG_QS_ASYNC,INFO_QS_ASYNC,WARN_QS_ASYNC,ERROR_QS_ASYNC,FATAL_QS_ASYNC])
+
 
 # Run the batch commands
 run-batch
-
-# Start batching commands
-batch 
-
-# Assign the handlers for our quickstart class
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="TRACE_QS_ASYNC") 
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="DEBUG_QS_ASYNC") 
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="INFO_QS_ASYNC") 
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="WARN_QS_ASYNC")
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="ERROR_QS_ASYNC")
-/subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="FATAL_QS_ASYNC") 
-
-# Run the batch commands
-run-batch
-
-# Reload the server configuration
-:reload
-

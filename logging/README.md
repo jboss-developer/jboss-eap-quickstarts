@@ -178,16 +178,8 @@ You should see the following result when you run the script:
         #10 /subsystem=logging/async-handler=WARN_QS_ASYNC:add(level=WARN,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_WARN"])
         #11 /subsystem=logging/async-handler=ERROR_QS_ASYNC:add(level=ERROR,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_ERROR"])
         #12 /subsystem=logging/async-handler=FATAL_QS_ASYNC:add(level=FATAL,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_FATAL"])
-        #13 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE)
-        The batch executed successfully.
-        #1 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="TRACE_QS_ASYNC")
-        #2 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="DEBUG_QS_ASYNC")
-        #3 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="INFO_QS_ASYNC")
-        #4 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="WARN_QS_ASYNC")
-        #5 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="ERROR_QS_ASYNC")
-        #6 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="FATAL_QS_ASYNC")
-        The batch executed successfully.
-        {"outcome" => "success"}
+        #13 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE,handlers=[TRACE_QS_ASYNC,DEBUG_QS_ASYNC,INFO_QS_ASYNC,WARN_QS_ASYNC,ERROR_QS_ASYNC,FATAL_QS_ASYNC])
+        The batch executed successfully
 
 
 #### Configure Logging by Using the JBoss CLI Tool Interactively
@@ -216,14 +208,7 @@ You should see the following result when you run the script:
         /subsystem=logging/async-handler=ERROR_QS_ASYNC:add(level=ERROR,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_ERROR"]) 
         /subsystem=logging/async-handler=FATAL_QS_ASYNC:add(level=FATAL,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_FATAL"]) 
 
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE)
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="TRACE_QS_ASYNC") 
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="DEBUG_QS_ASYNC") 
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="INFO_QS_ASYNC") 
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="WARN_QS_ASYNC")
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="ERROR_QS_ASYNC")
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:assign-handler(name="FATAL_QS_ASYNC") 
-        :reload
+        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE,handlers=[TRACE_QS_ASYNC,DEBUG_QS_ASYNC,INFO_QS_ASYNC,WARN_QS_ASYNC,ERROR_QS_ASYNC,FATAL_QS_ASYNC])
 
 
 ####  Configure Logging by Manually Editing the Server Configuration File
