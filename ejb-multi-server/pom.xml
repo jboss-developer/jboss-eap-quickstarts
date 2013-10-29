@@ -56,7 +56,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         <version.jboss.as>7.3.0.Final-redhat-SNAPSHOT</version.jboss.as>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-5</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-6</version.jboss.spec.javaee.6.0>
 
     <!-- other versions -->
         <version.jboss.ejb.client>1.0.23.Final-redhat-1</version.jboss.ejb.client>
