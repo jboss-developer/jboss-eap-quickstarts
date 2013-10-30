@@ -394,3 +394,48 @@ You can find additional help at the following locations:
 * [Max's cheat sheet example](https://github.com/maxandersen/cheatsheet-helloworld)
 
 
+Copy a Quickstart to Another Repository and Preserve Its History
+==============================
+
+1. In the source repository that currently contains the quickstarts, for example `jboss-eap-quickstarts`, create a branch for each quickstart you want to move. For example:
+
+        git fetch upstream
+        git checkout -b <source_branch_name> upstream/master
+
+2. To extract only one quickstart, in each source branch, run: 
+
+        git filter-branch --subdirectory-filter <quickstart_name> -- --all
+3. The previous step places the quickstart at the root of the tree. You need to create a directory using the quickstart name and move the files under it. To accomplish that task, in each source branch, run:
+    
+        git filter-branch --tree-filter '(ls -A; mkdir <quickstart_name>; echo <quickstart_name>) | xargs mv'
+4. Push each branch up to your own GitHub repository to make merging into the destination repository easy.
+
+        git push <your_remote_source_github> HEAD
+5. Navigate to the target directory that does not yet contain the quickstarts, for example, `jboss-sandbox-quickstarts`. 
+
+6. Add the source GitHub repository as a remote to the local target destination repository.
+
+        git remote add <your_remote_source_github> https://github.com/<your_remote_source_github>/jboss-eap-quickstarts.git
+7. Create a branch, into which you will merge the quickstarts.
+
+        git fetch upstream
+        git checkout -b <target_branch_name> upstream/master 
+8. For each quickstart source branch you want to merge, run:
+
+        git merge -s ours --no-commit <your_remote_source_github>/<source_branch_name>
+        git read-tree --prefix=<quickstart_name> -u <your_remote_source_github>/<source_branch_name>
+        git commit -m "Merge <quickstart_name> to XXX."
+9. Now, rebase out the merges. Run:
+ 
+        git rebase upstream/master
+10. This should succeed with no problems as you are merging into new subdirectories.
+
+11. This process leaves your GitHub repository with a lot of unwanted junk in it, so you need to do some cleaning up! Run:
+
+        git gc --prune=all
+12. Now push this branch to your target GitHub:
+
+        git push <your_remote_target_github> HEAD
+13. Verify that it looks correct and send a pull request.
+
+14. Remove the quickstarts from the source repository if they are no longer needed.
