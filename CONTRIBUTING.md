@@ -108,38 +108,44 @@ General Guidelines
 
 * The `<artifactId>` in the quickstart `pom.xml` file should follow the template: `jboss-<target-product>-<quickstart-name>`. For example, the `<artifactId>` for the `greeter` quickstart in the EAP project is `jboss-as-greeter`. The `<artifactId>` for `errors` quickstart in the Fuse project is `jboss-fuse-errors`.
 
-* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](http://jboss-developer.github.io/temp-maven-repo/). To access these artifacts, you must add the following profile to your `settings.xml` file.
+* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](http://jboss-developer.github.io/temp-maven-repo/). 
+   To access these artifacts, do one of the following:
 
-        <profile>
-            <id>jboss-developer-repository</id>
-            <repositories>
-                <repository>
-                    <id>jboss-developer-repository</id>
-                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
-                    <releases>
-                       <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                      <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>jboss-developer-plugin-repository</id>
-                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
-                    <releases>
-                      <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                      <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
+        * You can simply copy the `contributor-settings.xml` located in the root of the quickstart to your `${user.home}/.m2/` and rename it to `settings.xml`. 
+        
+        * Or, if you prefer to manually edit the settings, copy the following profile to your `settings.xml` file.
 
-    Then add `<activeProfile>jboss-developer-repository</activeProfile>` to the `<activeProfiles>` section of the file.
-    
+              <profile>
+                  <id>jboss-developer-repository</id>
+                  <repositories>
+                      <repository>
+                          <id>jboss-developer-repository</id>
+                          <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                          <releases>
+                             <enabled>true</enabled>
+                          </releases>
+                          <snapshots>
+                            <enabled>false</enabled>
+                          </snapshots>
+                      </repository>
+                  </repositories>
+                  <pluginRepositories>
+                      <pluginRepository>
+                          <id>jboss-developer-plugin-repository</id>
+                          <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                          <releases>
+                            <enabled>true</enabled>
+                          </releases>
+                          <snapshots>
+                            <enabled>false</enabled>
+                          </snapshots>
+                      </pluginRepository>
+                  </pluginRepositories>
+              </profile>
+
+            Then add `<activeProfile>jboss-developer-repository</activeProfile>` to the `<activeProfiles>` section of the file.
+  _Note: Regardless of the method you choose to configure your Maven settings, you must also delete the existing `${user.home}/.m2/repository/`._
+  
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 
 * The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-jdf/jboss-as-quickstart/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
