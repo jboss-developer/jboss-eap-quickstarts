@@ -23,11 +23,33 @@ This quickstart is just a service application for use by other applications. It 
 
 PicketLink also supports different token providers, which means you can provide your own custom security tokens.
 
-
 See more examples in [PicketLink project documentation.](http://docs.jboss.org/picketlink/2/2.1.7.Final/reference/html/ch01.html#sid-819345). 
 Additional PicketLink quickstarts can be found here: [PicketLink Quickstarts](https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts).
 
 For more information about PicketLink STS, see the [PicketLink Security Token Server Documentation](https://docs.jboss.org/author/display/PLINK/Security+Token+Server+%28STS%29).
+
+How to use ?
+------------
+
+By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:
+
+    Users: /src/main/resources/users.properties
+    Roles: /src/main/resources/roles.properties
+
+The WSDL for the STS is available at the following url: <http://localhost:8080/picketlink-sts?wsdl/>.
+
+From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope 
+asking the STS to issue a SAML v2.0 Assertion:
+
+    <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:picketlink:identity-federation:sts">
+        <soap:Header/>
+        <soap:Body>
+            <wst:RequestSecurityToken xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
+                <wst:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0</wst:TokenType>
+                <wst:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</wst:RequestType>
+            </wst:RequestSecurityToken>
+        </soap:Body>
+    </soap:Envelope>
 
 System requirements
 -------------------
