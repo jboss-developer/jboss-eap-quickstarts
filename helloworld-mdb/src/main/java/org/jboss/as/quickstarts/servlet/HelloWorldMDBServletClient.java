@@ -69,7 +69,7 @@ public class HelloWorldMDBServletClient extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         Connection connection = null;
-        out.write("<h1>Quickstart: Example demonstrates the use of <strong>JMS 1.1</strong> and <strong>EJB 3.1 Message-Driven Bean</strong> in JBoss Enterprise Application 6 or JBoss AS 7.1.0.</h1>");
+        out.write("<h1>Quickstart: This example demonstrates the use of <strong>JMS 1.1</strong> and <strong>EJB 3.1 Message-Driven Bean</strong> in JBoss Enterprise Application 6.</h1>");
         try {
             Destination destination;
             if (req.getParameterMap().keySet().contains("topic")) {

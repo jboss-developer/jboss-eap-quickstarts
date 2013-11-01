@@ -32,7 +32,7 @@ import org.jboss.logging.Logger;
  * </p>
  * <p>
  * If the security-domain is removed the secured method can be invoked from every user. The shown principal user is 'anonymous'
- * instead of the original logged in user (AS 7.1, 7.2 and EAP6.0)
+ * instead of the original logged in user.
  * </p>
  * 
  * <p>
