@@ -24,10 +24,10 @@ Maven 3, to build and deploy the quickstarts::
 Make sure you have:
 
 The JBoss Enterprise Application Platform 6 runtime::
-  TODO
+  link:http://www.jboss.org/products/eap/[Red Hat JBoss Products]
 
 The JBoss Enterprise Application Platform 6 quickstarts::
-  TODO
+  link:http://www.jboss.org/jdf/quickstarts/get-started/[Quickstarts: Get Started]
 
 If you wish to use the examples from an IDE, we recommend using JBoss Developer Studio, or Eclipse with JBoss Tools.
 
