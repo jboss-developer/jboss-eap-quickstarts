@@ -84,14 +84,14 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6/JBoss AS 7 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6/JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>

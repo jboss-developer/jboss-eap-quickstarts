@@ -72,7 +72,7 @@
                 versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack 
                 (you can read this as the JBoss stack of the Java EE 6 APIs with tools). 
                 You can actually use this stack with any version of JBoss AS that implements 
-                Java EE 6, not just JBoss AS 7! -->
+                Java EE 6, not just JBoss EAP 6! -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
@@ -95,7 +95,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
