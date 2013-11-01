@@ -34,7 +34,7 @@
     </licenses>
 
     <description>
-        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss AS 7.
+        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss EAP 6.
         EAR with EJB JAR and WAR version.
     </description>
 

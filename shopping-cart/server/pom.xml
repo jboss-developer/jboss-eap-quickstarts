@@ -40,7 +40,7 @@
     <dependencies>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided 
-            scope as the API is included in JBoss AS 7 -->
+            scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.1_spec</artifactId>
@@ -48,7 +48,7 @@
         </dependency>
 
         <!-- Import the EJB 3.1 API, we use provided scope as the API is 
-            included in JBoss AS 7 -->
+            included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>

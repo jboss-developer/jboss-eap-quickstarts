@@ -39,7 +39,7 @@
 
     <dependencies>
 
-        <!-- "provided" scope used for API's included in JBoss AS 7. -->
+        <!-- "provided" scope used for API's included in JBoss EAP 6. -->
 
         <!-- Import the Common Annotations API (JSR-250). -->
         <dependency>
