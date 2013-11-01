@@ -1,4 +1,4 @@
-CDI + JPA + EJB + JTA + JSF: Greeter quickstart
+CDI + JPA + EJB + JTA + JSF -- Greeter quickstart
 ===============================================
 :Author: Pete Muir
 

@@ -1,4 +1,4 @@
-OSGi: Helloworld OSGi quickstart
+OSGi -- Helloworld OSGi quickstart
 ================================
 :Author: Pete Muir
 
