@@ -10,8 +10,8 @@ This quickstart shows you how to create and deploy a simple OSGi Bundle.
 [TIP]
 .What is OSGi?
 ========================================================================
-OSGi is a new feature to JBoss Enterprise Application Platform (Tech 
-Preview) and JBoss AS 7. It provides standards-based modularity and 
+OSGi is a new feature to JBoss Enterprise Application Platform 6. 
+It provides standards-based modularity and 
 micro-services as defined in the OSGi 4.2 Core Specifications. You can 
 deploy OSGi bundles directly into the server.
 
@@ -74,12 +74,12 @@ Now, let's look at the pom.xml , where we create the bundle:
              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts</groupId>
-    <artifactId>jboss-as-helloworld-osgi</artifactId>
+    <groupId>org.jboss.eap.quickstarts</groupId>
+    <artifactId>jboss-helloworld-osgi</artifactId>
     <version>7.1.1.Final</version>
     <packaging>bundle</packaging>                                    <1>
-    <name>JBoss AS Quickstarts: Helloworld OSGi</name>
-    <description>JBoss AS Quickstarts: Helloworld OSGi</description>
+    <name>JBoss EAP Quickstarts: Helloworld OSGi</name>
+    <description>JBoss EAP Quickstarts: Helloworld OSGi</description>
 
     <url>http://jboss.org/jbossas/osgi</url>
     <licenses>
@@ -185,11 +185,11 @@ Now, let's look at the pom.xml , where we create the bundle:
 ------------------------------------------------------------------------
 <1> The packaging of the maven module is set to bundle . This instructs maven and the maven-bundle-plugin to create an OSGi bundle. 
 <2> Since the activator uses an OSGi interface, these are provided through the OSGi interfaces artifact.
-<3> Use the provided scope for dependencies that are either provided by the OSGi framework (i.e. JBoss Enterprise Application Platform 6 or JBoss AS 7) itself or for dependencies that are provided through separate bundles. 
+<3> Use the provided scope for dependencies that are either provided by the OSGi framework (i.e. JBoss Enterprise Application Platform 6) itself or for dependencies that are provided through separate bundles. 
 <4> The maven-bundle-plugin is used to create a bundle.  You can configure it create import and export statements, and to specify the activator in use. You can read more about the link:http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html[OSGi Bundle Maven Plugin] on the Apache Felix site.
 <5> We can use the jboss-as Maven plugin to deploy the bundle to the server as usual.
 
-As you can see, using OSGi with JBoss Enterprise Application Platform 6 and JBoss AS 7 is pretty easy!
+As you can see, using OSGi with JBoss Enterprise Application Platform 6 is pretty easy!
 
 
 Creating a new OSGi bundle using Eclipse
@@ -223,5 +223,5 @@ When you are finished making changes you can export your OSGi bundle so that it 
 
 image:gfx/Export.png[]
 
-You have now created an OSGi Bundle, and the JAR can be found in the plugins directory of the location specified in the screen above. You can deploy it to the server using any of the standard deployment mechanisms described in the link:http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/index.html[Administration and Configuration Guide for JBoss Enterprise Application Platform 6] or the link:http://docs.jboss.org/author/display/AS71/Getting+Started+Guide[JBoss AS 7 Getting Started Guide].
+You have now created an OSGi Bundle, and the JAR can be found in the plugins directory of the location specified in the screen above. You can deploy it to the server using any of the standard deployment mechanisms described in the link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide for JBoss Enterprise Application Platform 6].
 
