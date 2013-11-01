@@ -1,4 +1,4 @@
-CDI + JSF: Numberguess quickstart
+CDI + JSF -- Numberguess quickstart
 =================================
 :Author: Pete Muir
 

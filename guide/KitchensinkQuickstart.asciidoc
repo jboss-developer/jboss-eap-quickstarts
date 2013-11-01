@@ -1,4 +1,4 @@
-CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian: Kitchensink quickstart
+CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian -- Kitchensink quickstart
 =====================================================================================
 :Author: Pete Muir
 

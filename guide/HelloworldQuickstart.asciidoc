@@ -1,4 +1,4 @@
-CDI + Servlet: Helloworld quickstart
+CDI + Servlet -- Helloworld quickstart
 ====================================
 :Author: Pete Muir
 
