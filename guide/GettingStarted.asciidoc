@@ -1,5 +1,4 @@
-Getting started with JBoss Enterprise Application Platform 6
-=============================================================
+= Getting started with JBoss Enterprise Application Platform 6
 :Author: Pete Muir
 
 [[GettingStarted-]]
@@ -53,8 +52,7 @@ server. We use this throughout the quickstarts.
 ========================================================================
 
 
-Installing and starting the JBoss server on Linux, Unix or Mac OS X
--------------------------------------------------------------------
+== Installing and starting the JBoss server on Linux, Unix or Mac OS X
 [[GettingStarted-on_linux]]
 
 First, let's verify that verify that both Java and Maven are correctly 
@@ -94,8 +92,7 @@ link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_P
 ========================================================================
 
 
-Installing and starting the JBoss server on Windows
----------------------------------------------------
+== Installing and starting the JBoss server on Windows
 [[GettingStarted-on_windows]]
 
 
@@ -131,8 +128,7 @@ link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_P
 ========================================================================
 
 
-Starting the JBoss server from JBDS or Eclipse with JBoss Tools
----------------------------------------------------------------
+== Starting the JBoss server from JBDS or Eclipse with JBoss Tools
 [[GettingStarted-with_jboss_tools]]
 
 You may choose to use JBoss Developer Studio, or Eclipse with JBoss Tools, rather than the command line to run JBoss Enterprise Application Platform 6 and to deploy the quickstarts. If you don't wish to use Eclipse, you should skip this section.
@@ -185,8 +181,7 @@ image:gfx/Eclipse_Server_Start_2.jpg[]
 That's it, we now have the server up and running in Eclipse!
 
 
-Importing the quickstarts into Eclipse
---------------------------------------
+== Importing the quickstarts into Eclipse
 [[GettingStarted-importing_quickstarts_into_eclipse]]
 
 In order to import the quickstarts into Eclipse, you will need m2eclipse installed. If you have JBoss Developer Studio, then m2eclipse is already installed.
@@ -214,8 +209,7 @@ image:gfx/Import_Quickstarts_5.jpg[]
 It will take a short time to import the projects, as Maven needs to download the project's dependencies from remote repositories.
 
 
-Managing JBoss Enterprise Application Platform 6
-------------------------------------------------
+== Managing JBoss Enterprise Application Platform 6
 
 Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss Enterprise Application Platform 6. Detailed information can be found in the link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide for JBoss Enterprise Application Platform 6].
 

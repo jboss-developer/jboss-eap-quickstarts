@@ -1,5 +1,4 @@
-CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian -- Kitchensink quickstart
-=====================================================================================
+= CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian -- Kitchensink quickstart
 :Author: Pete Muir
 
 [[KitchensinkQuickstart-]]
@@ -46,8 +45,7 @@ some changes, it's pretty easy:
 
 It's time to pull the covers back and dive into the internals of the application.
 
-Deploying the Kitchensink quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools
-----------------------------------------------------------------------------------------------
+== Deploying the Kitchensink quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools
 
 You may choose to deploy the quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools. You'll need to have JBoss Enterprise Application Platform 6 started in the IDE (as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse,Importing the quickstarts into Eclipse>>).
 
@@ -64,8 +62,7 @@ You should see the server start up (unless you already started it in  <<GettingS
 image:gfx/Eclipse_KitchenSink_Deploy_3.jpg[]
 
 
-The kitchensink quickstart in depth
------------------------------------
+== The kitchensink quickstart in depth
 
 The kitchensink application shows off a number of Java EE technologies such as CDI, JSF, EJB, JTA, JAX-RS and Arquillian. It does this by providing a member registration database, available via JSF and JAX-RS.
 
@@ -688,8 +685,7 @@ public class MemberResourceRESTService {
 <12> We then handle any remaining issues with validating the object, which are raised when the object is persisted
 
 
-Arquillian
-~~~~~~~~~~
+=== Arquillian
 
 If you've been following along with the Test Driven Development craze of the past few years, you're probably getting a bit nervous by now, wondering how on earth you are going to test your application. Lucky for you, the Arquillian project is here to help!
 
