@@ -1,5 +1,4 @@
-CDI + JPA + EJB + JTA + JSF -- Greeter quickstart
-===============================================
+= CDI + JPA + EJB + JTA + JSF -- Greeter quickstart
 :Author: Pete Muir
 
 [[GreeterQuickstart-]]
@@ -28,8 +27,7 @@ image:gfx/Eclipse_Greeter_Deploy_3.png[]
 To use the application, visit http://localhost:8080/jboss-greeter/.
 
 [[greeter_in_depth]]
-The greeter quickstart in depth
--------------------------------
+== The greeter quickstart in depth
 
 In the quickstart, all users are stored in an H2 database (an in-memory, embedded database provided out of the box in JBoss Enterprise Application Platform 6). Each user is stored as an entity, and entities are mapped to the database using JPA. By default, transactions are managed manually, using the JTA API. Optionally, you can use EJB to manage transactions (we'll look at how to enable that later). We need a transaction in progress in order to read and write any entities.
 
