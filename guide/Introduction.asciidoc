@@ -1,5 +1,4 @@
-Introduction
-============
+= Introduction
 :Author: Pete Muir
 
 This guide will walk you through installing and starting up JBoss Enterprise Application Platform 6. It will then introduce key features of the Java EE 6 (Web Profile) programming model, of which JBoss EAP 6 is a certified implementation.
@@ -40,8 +39,7 @@ JBoss Enterprise Application Platform 6 comes with a series of quickstarts aimed
 [start=5]
 . <<HelloworldOSGiQuickstart-, OSGi Helloworld Quickstart>>. If you want to get started with OSGi, check out this quickstart.
 
-Downloading the quickstarts
----------------------------
+== Downloading the quickstarts
 
 The quickstarts are are available for download from link:http://www.jboss.org/jdf/quickstarts/get-started[JBoss Developer Framework]. Make sure you download the latest zip! 
 

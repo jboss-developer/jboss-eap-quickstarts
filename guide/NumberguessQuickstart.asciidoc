@@ -1,5 +1,4 @@
-CDI + JSF -- Numberguess quickstart
-=================================
+= CDI + JSF -- Numberguess quickstart
 :Author: Pete Muir
 
 [[NumberguessQuickstart-]]
@@ -29,8 +28,7 @@ some changes, it's pretty easy:
 It's time to pull the covers back and dive into the internals of the quickstart.
 
 
-Deploying the Numberguess quickstart using Eclipse
---------------------------------------------------
+== Deploying the Numberguess quickstart using Eclipse
 
 You may choose to deploy the quickstart using Eclipse. You'll need to have JBoss Enterprise Application Platform 6 started in Eclipse as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse, Importing the quickstarts into Eclipse>>).
 
@@ -47,8 +45,7 @@ You should see the server start up (unless you already started it in <<GettingSt
 image:gfx/Eclipse_Numberguess_Deploy_3.jpg[]
 
 
-The numberguess quickstart in depth
------------------------------------
+== The numberguess quickstart in depth
 
 In the numberguess application you get 10 attempts to guess a number between 1 and 100. After each attempt, you're told whether your guess was too high or too low.
 

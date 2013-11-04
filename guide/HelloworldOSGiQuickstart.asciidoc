@@ -1,5 +1,4 @@
-OSGi -- Helloworld OSGi quickstart
-================================
+= OSGi -- Helloworld OSGi quickstart
 :Author: Pete Muir
 
 [[HelloworldOSGiQuickstart-]]
@@ -43,8 +42,7 @@ changes, it's pretty easy:
 ========================================================================
 
 
-The Helloworld OSGi quickstart in depth
----------------------------------------
+== The Helloworld OSGi quickstart in depth
 
 The OSGi Bundle has one Java Source file, the Bundle Activator:
 
@@ -192,8 +190,7 @@ Now, let's look at the pom.xml , where we create the bundle:
 As you can see, using OSGi with JBoss Enterprise Application Platform 6 is pretty easy!
 
 
-Creating a new OSGi bundle using Eclipse
-----------------------------------------
+== Creating a new OSGi bundle using Eclipse
 
 Eclipse has built-in support for creating OSGi bundles. Eclipse is built on OSGi, therefore support for developing OSGi bundles inside Eclipse is quite extensive.
 
