@@ -19,15 +19,47 @@ The STS is contacted to obtain security tokens that are used to create messages 
 The primary use of the STS is to acquire SAML tokens used to talk to the service.
 The STS also plays an important role when you need to propagate credentials between different layers, for example, the web and service layer.
 
-This quickstart is just a service application for use by other applications. It is a JAX-WS Endpoint based on PicketLink's WS-Trust implementation, which by default, allows you to issue, renew and validate SAML assertions.
-
 PicketLink also supports different token providers, which means you can provide your own custom security tokens.
 
+_Note:_ This quickstart is not a fully functional application. It is a JAX-WS Endpoint based on PicketLink's WS-Trust implementation, which by default, allows you to issue, renew and validate SAML assertions. It is a service intended to be called by other applications. 
 
-See more examples in [PicketLink project documentation.](http://docs.jboss.org/picketlink/2/2.1.7.Final/reference/html/ch01.html#sid-819345). 
-Additional PicketLink quickstarts can be found here: [PicketLink Quickstarts](https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts).
 
-For more information about PicketLink STS, see the [PicketLink Security Token Server Documentation](https://docs.jboss.org/author/display/PLINK/Security+Token+Server+%28STS%29).
+How to use this quickstart
+-----------------------------
+
+This quickstart is preconfigured to use the "picketlink-sts" security domain. By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:
+
+        Users: src/main/resources/users.properties
+        Roles: src/main/resources/roles.properties
+
+You can view the WSDL for the STS at the following URL: <http://localhost:8080/picketlink-sts?wsdl/>.
+
+From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope asking the STS to issue a SAML v2.0 Assertion:
+
+        <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:picketlink:identity-federation:sts">
+            <soap:Header/>
+            <soap:Body>
+                <wst:RequestSecurityToken xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
+                    <wst:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0</wst:TokenType>
+                    <wst:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</wst:RequestType>
+                </wst:RequestSecurityToken>
+            </soap:Body>
+        </soap:Envelope>
+
+_Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards._
+
+
+Where to Find Additional Information
+-------------------
+
+* You can find more examples in the [PicketLink project documentation](http://docs.jboss.org/picketlink/2/2.1.7.Final/reference/html/ch01.html#sid-819345). 
+
+* Additional PicketLink quickstarts can be found here: [PicketLink Quickstarts](https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts).
+
+* For more information about PicketLink STS, see the [PicketLink Security Token Server Documentation](https://docs.jboss.org/author/display/PLINK/Security+Token+Server+%28STS%29).
+
+* For more information about PicketLink see the [PicketLink Reference Documentation](http://docs.jboss.org/picketlink/2/2.1.7.Final/reference/html/).
+
 
 System requirements
 -------------------
@@ -41,15 +73,6 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
-
-
-Additional PicketLink STS configuration options
------------------------------------------------
-
-Application is preconfigured to use "picketlink-sts" security domain with user.properties and roles.properties files.
-This is not suitable for production use. Change application security according to your organization standards.
-
-For more information about PicketLink see the [PicketLink Reference Documentation](http://docs.jboss.org/picketlink/2/2.1.7.Final/reference/html/).
 
 
 Configure the JBoss Server
@@ -103,14 +126,19 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
-4. This will deploy `target/jboss-picketlink-sts.war` to the running instance of the server.
+4. This deploys `target/jboss-picketlink-sts.war` to the running instance of the server.
 
 
 Access the Application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-picketlink-sts/>.
+You can test the service using following URL: <http://localhost:8080/jboss-picketlink-sts/>.
 
+When you access the above URL, it prompts you for the username and password for the "PicketLinkSTSRealm". You can use any of the credentials defined in the `src/main/resources/users.properties` file as described in the section [How to use this quickstart](#how-to-use-this-quickstart) above. For example, you can enter `admin/admin` or `tomcat/tomcat`.
+        
+When you enter invalid credentials, the login prompt is redisplayed. 
+
+When you enter valid credentials, depending on your browser, you see a "This webpage is not found", "File not found", or similar message. This is because this application is only a service and not a fully functional application, so there is no user interface. This is the expected result.
 
 Undeploy the Archive
 --------------------
