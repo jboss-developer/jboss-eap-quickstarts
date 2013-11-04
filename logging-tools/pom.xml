@@ -66,7 +66,7 @@
                 versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
                 use this stack with any version of JBoss AS that implements Java EE 6, not
-                just JBoss AS 7! -->
+                just JBoss EAP 6! -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-logging</artifactId>
