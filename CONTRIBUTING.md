@@ -108,7 +108,8 @@ General Guidelines
 
 * The `<artifactId>` in the quickstart `pom.xml` file should follow the template: `jboss-<target-product>-<quickstart-name>`. For example, the `<artifactId>` for the `greeter` quickstart in the EAP project is `jboss-as-greeter`. The `<artifactId>` for `errors` quickstart in the Fuse project is `jboss-fuse-errors`.
 
-* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](http://jboss-developer.github.io/temp-maven-repo/). 
+* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](http://jboss-developer.github.io/temp-maven-repo/).
+
    To access these artifacts, do one of the following:
 
         * You can simply copy the `contributor-settings.xml` located in the root of the quickstart to your `${user.home}/.m2/` and rename it to `settings.xml`. 
@@ -148,7 +149,7 @@ General Guidelines
   
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 
-* The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-jdf/jboss-as-quickstart/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
+* The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-developer/jboss-eap-quickstarts/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
 
 * The sample project should be importable into JBoss Developer Studio/JBoss Tools and be deployable from there.
 
@@ -185,12 +186,12 @@ Kitchensink variants
 
   * Follow the primary layout, style, and graphics of the original.
 
-  * Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.
+  * Projects can have 3-4 lines directly under the EAP banner in the middle section to describe what makes this variant different.
      * How projects use that space is up to them, but options include plain text, bullet points, etc....
 
   * Projects can have their logo in the left side of the banner.
     * The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...
-       * This should be below any AS/EAP link areas.
+       * This should be below any EAP link areas.
 
     If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
     
@@ -439,3 +440,4 @@ Copy a Quickstart to Another Repository and Preserve Its History
 13. Verify that it looks correct and send a pull request.
 
 14. Remove the quickstarts from the source repository if they are no longer needed.
+
