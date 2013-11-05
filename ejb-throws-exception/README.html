@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
 <h1><a id="ejbthrowsexception-deployment-of-an-ear-containing-a-jsf-war-and-an-ejb-jar-that-throws-a-custom-exception" class="anchor" href="#ejbthrowsexception-deployment-of-an-ear-containing-a-jsf-war-and-an-ejb-jar-that-throws-a-custom-exception"><span class="anchor-icon"></span></a>ejb-throws-exception: Deployment of an EAR Containing a JSF WAR and an EJB JAR that throws a custom exception</h1>
 
 <p>Author: Brad Maxwell
@@ -27,7 +27,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>The example follows the common &ldquo;Hello World&rdquo; pattern. These are the steps that occur:</p>
 
 <ol>
-<li>A JSF page (http://localhost:8080/jboss-ejb-throws-exception-web/) asks for the user name.</li>
+<li>A JSF page (<a href="http://localhost:8080/jboss-ejb-throws-exception-web/">http://localhost:8080/jboss-ejb-throws-exception-web/</a>) asks for the user name.</li>
 <li>On clicking <code>Say Hello</code>, the value of the <code>Name</code> input text is sent to a managed bean named <code>GreeterBean</code>.</li>
 <li>On setting the name, the <code>Greeter</code> invokes the <code>GreeterEJB</code>, which was injected to the managed bean. Notice the field annotated with <code>@EJB</code>.</li>
 <li>The EJB responds with <code>Hello &lt;name&gt;</code> or throws an Exception if the name is empty or null.</li>
