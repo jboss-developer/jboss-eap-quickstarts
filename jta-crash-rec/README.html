@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
 <h1><a id="jtacrashrec-example-of-jta-crash-recovery" class="anchor" href="#jtacrashrec-example-of-jta-crash-recovery"><span class="anchor-icon"></span></a>jta-crash-rec: Example of JTA Crash Recovery</h1>
 
 <p>Author: Mike Musgrove
@@ -115,7 +115,7 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 <li><p><a href="#start-the-jboss-server">Start the JBoss server</a> as instructed above.</p></li>
 </ul></li>
 <li><p>Once you complete step 4, you are ready to create a <em>recovery record</em>. Go to the application URL <a href="http://localhost:8080/jboss-jta-crash-rec/XA">http://localhost:8080/jboss-jta-crash-rec/XA</a> and insert another row into the database. At this point, Byteman halts the application server. </p></li>
-<li><p>If you want to verify the database insert was committed but that message delivery is still pending, you can use an SQL client such as the H2 database console tool. Issue a query to show that the value is present but does not contain the message added by the consumer (*&ldquo; updated via JMS&rdquo;*). Here is how you can do it using H2:</p>
+<li><p>If you want to verify the database insert was committed but that message delivery is still pending, you can use an SQL client such as the H2 database console tool. Issue a query to show that the value is present but does not contain the message added by the consumer (<em>&ldquo; updated via JMS&rdquo;</em>). Here is how you can do it using H2:</p>
 
 <ul>
 <li><p>Start the H2 console by typing:</p>

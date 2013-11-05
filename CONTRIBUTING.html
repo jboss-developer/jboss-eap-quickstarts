@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>README</title><link href="https://raw.github.com/pmuir/github-flavored-markdown/gh-pages/shared/css/documentation.css" rel="stylesheet"></link><link href="https://raw.github.com/github/github-flavored-markdown/gh-pages/shared/css/pygments.css" rel="stylesheet"></link></head><body>
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
 <h1><a id="quickstarts-contributing-guide" class="anchor" href="#quickstarts-contributing-guide"><span class="anchor-icon"></span></a>Quickstarts Contributing Guide</h1>
 
 <h2><a id="purpose-of-the-quickstarts" class="anchor" href="#purpose-of-the-quickstarts"><span class="anchor-icon"></span></a>Purpose of the quickstarts</h2>
@@ -103,38 +103,46 @@ git rebase &ndash;continue</p></li>
 <span class="n">kitchensink</span><span class="o">-</span><span class="n">ear</span><span class="o">/</span><span class="n">web</span><span class="o">/</span><span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="o">==&gt;</span> <span class="err">`</span><span class="n">JBoss</span> <span class="n">EAP</span> <span class="n">Quickstart</span><span class="o">:</span> <span class="n">kitchensink</span><span class="o">-</span><span class="n">ear</span> <span class="o">-</span> <span class="n">web</span><span class="err">`</span>
 </pre></div></li>
 <li><p>The <code>&lt;artifactId&gt;</code> in the quickstart <code>pom.xml</code> file should follow the template: <code>jboss-&lt;target-product&gt;-&lt;quickstart-name&gt;</code>. For example, the <code>&lt;artifactId&gt;</code> for the <code>greeter</code> quickstart in the EAP project is <code>jboss-as-greeter</code>. The <code>&lt;artifactId&gt;</code> for <code>errors</code> quickstart in the Fuse project is <code>jboss-fuse-errors</code>.</p></li>
-<li><p>The JBoss developer Maven repository that contains newly staged artifacts is located at <a href="http://jboss-developer.github.io/temp-maven-repo/">developer.github.io</a>. To access these artifacts, you must add the following profile to your <code>settings.xml</code> file.</p>
-<div class="highlight"><pre><span class="nt">&lt;profile&gt;</span>
-    <span class="nt">&lt;id&gt;</span>jboss-developer-repository<span class="nt">&lt;/id&gt;</span>
-    <span class="nt">&lt;repositories&gt;</span>
-        <span class="nt">&lt;repository&gt;</span>
-            <span class="nt">&lt;id&gt;</span>jboss-developer-repository<span class="nt">&lt;/id&gt;</span>
-            <span class="nt">&lt;url&gt;</span> http://jboss-developer.github.io/temp-maven-repo/<span class="nt">&lt;/url&gt;</span>
-            <span class="nt">&lt;releases&gt;</span>
-               <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-            <span class="nt">&lt;/releases&gt;</span>
-            <span class="nt">&lt;snapshots&gt;</span>
-              <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-            <span class="nt">&lt;/snapshots&gt;</span>
-        <span class="nt">&lt;/repository&gt;</span>
-    <span class="nt">&lt;/repositories&gt;</span>
-    <span class="nt">&lt;pluginRepositories&gt;</span>
-        <span class="nt">&lt;pluginRepository&gt;</span>
-            <span class="nt">&lt;id&gt;</span>jboss-developer-plugin-repository<span class="nt">&lt;/id&gt;</span>
-            <span class="nt">&lt;url&gt;</span> http://jboss-developer.github.io/temp-maven-repo/<span class="nt">&lt;/url&gt;</span>
-            <span class="nt">&lt;releases&gt;</span>
-              <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-            <span class="nt">&lt;/releases&gt;</span>
-            <span class="nt">&lt;snapshots&gt;</span>
-              <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-            <span class="nt">&lt;/snapshots&gt;</span>
-        <span class="nt">&lt;/pluginRepository&gt;</span>
-    <span class="nt">&lt;/pluginRepositories&gt;</span>
-<span class="nt">&lt;/profile&gt;</span>
+<li><p>The JBoss developer Maven repository that contains newly staged artifacts is located at <a href="http://jboss-developer.github.io/temp-maven-repo/">developer.github.io</a>.</p>
+
+<p>To access these artifacts, do one of the following:</p>
+<div class="highlight"><pre>* You can simply copy the `contributor-settings.xml` located in the root of the quickstart to your `<span class="cp">${</span><span class="n">user</span><span class="o">.</span><span class="n">home</span><span class="cp">}</span>/.m2/` and rename it to `settings.xml`. 
+
+* Or, if you prefer to manually edit the settings, copy the following profile to your `settings.xml` file.
+
+      <span class="nt">&lt;profile&gt;</span>
+          <span class="nt">&lt;id&gt;</span>jboss-developer-repository<span class="nt">&lt;/id&gt;</span>
+          <span class="nt">&lt;repositories&gt;</span>
+              <span class="nt">&lt;repository&gt;</span>
+                  <span class="nt">&lt;id&gt;</span>jboss-developer-repository<span class="nt">&lt;/id&gt;</span>
+                  <span class="nt">&lt;url&gt;</span> http://jboss-developer.github.io/temp-maven-repo/<span class="nt">&lt;/url&gt;</span>
+                  <span class="nt">&lt;releases&gt;</span>
+                     <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+                  <span class="nt">&lt;/releases&gt;</span>
+                  <span class="nt">&lt;snapshots&gt;</span>
+                    <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+                  <span class="nt">&lt;/snapshots&gt;</span>
+              <span class="nt">&lt;/repository&gt;</span>
+          <span class="nt">&lt;/repositories&gt;</span>
+          <span class="nt">&lt;pluginRepositories&gt;</span>
+              <span class="nt">&lt;pluginRepository&gt;</span>
+                  <span class="nt">&lt;id&gt;</span>jboss-developer-plugin-repository<span class="nt">&lt;/id&gt;</span>
+                  <span class="nt">&lt;url&gt;</span> http://jboss-developer.github.io/temp-maven-repo/<span class="nt">&lt;/url&gt;</span>
+                  <span class="nt">&lt;releases&gt;</span>
+                    <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+                  <span class="nt">&lt;/releases&gt;</span>
+                  <span class="nt">&lt;snapshots&gt;</span>
+                    <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+                  <span class="nt">&lt;/snapshots&gt;</span>
+              <span class="nt">&lt;/pluginRepository&gt;</span>
+          <span class="nt">&lt;/pluginRepositories&gt;</span>
+      <span class="nt">&lt;/profile&gt;</span>
+
+    Then add `<span class="nt">&lt;activeProfile&gt;</span>jboss-developer-repository<span class="nt">&lt;/activeProfile&gt;</span>` to the `<span class="nt">&lt;activeProfiles&gt;</span>` section of the file.
 </pre></div>
-<p>Then add <code>&lt;activeProfile&gt;jboss-developer-repository&lt;/activeProfile&gt;</code> to the <code>&lt;activeProfiles&gt;</code> section of the file.</p></li>
+<p><em>Note: Regardless of the method you choose to configure your Maven settings, you must also delete the existing <code>${user.home}/.m2/repository/</code>.</em></p></li>
 <li><p>If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. </p></li>
-<li><p>The project must follow the structure used by existing quickstarts such as <a href="https://github.com/jboss-jdf/jboss-as-quickstart/tree/master/numberguess">numberguess</a>. A good starting point would be to copy the  <code>numberguess</code> project.</p></li>
+<li><p>The project must follow the structure used by existing quickstarts such as <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/tree/master/numberguess">numberguess</a>. A good starting point would be to copy the  <code>numberguess</code> project.</p></li>
 <li><p>The sample project should be importable into JBoss Developer Studio/JBoss Tools and be deployable from there.</p></li>
 <li><p>Maven POMs must be used. No other build system is allowed unless the purpose of the quickstart is to show another build system in use. If using Maven it should:</p>
 
@@ -168,7 +176,7 @@ git rebase &ndash;continue</p></li>
 
 <ul>
 <li><p>Follow the primary layout, style, and graphics of the original.</p></li>
-<li><p>Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.</p>
+<li><p>Projects can have 3-4 lines directly under the EAP banner in the middle section to describe what makes this variant different.</p>
 
 <ul>
 <li>How projects use that space is up to them, but options include plain text, bullet points, etc&hellip;.</li>
@@ -179,7 +187,7 @@ git rebase &ndash;continue</p></li>
 <li>The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc&hellip;
 
 <ul>
-<li>This should be below any AS/EAP link areas.</li>
+<li>This should be below any EAP link areas.</li>
 </ul></li>
 </ul>
 
@@ -325,7 +333,7 @@ git rebase &ndash;continue</p></li>
 <li> Import your quickstart into JBoss Developer Studio (JDBS)
 
 <ol>
-<li> From the menu, choose <code>File</code> &ndash;&gt; <code>Import</code> &ndash;&gt; <code>Maven</code> &ndash;&gt; <code>Existing Maven Projects</code>, then click <code>Next</code>.</li>
+<li> From the menu, choose <code>File</code> &ndash;> <code>Import</code> &ndash;> <code>Maven</code> &ndash;> <code>Existing Maven Projects</code>, then click <code>Next</code>.</li>
 <li> Navigate to your quickstart, select it, then click <code>OK</code>.</li>
 <li> Click <code>Finish</code>.</li>
 </ol></li>
@@ -333,7 +341,7 @@ git rebase &ndash;continue</p></li>
 
 <ol>
 <li> Select the imported quickstart project.</li>
-<li> From the menu, choose <code>File</code> &ndash;&gt; <code>New</code> &ndash;&gt; <code>Other</code> &ndash;&gt; <code>User Assistance</code> &ndash;&gt; <code>Cheat Sheet</code>, then click <code>Next</code>.</li>
+<li> From the menu, choose <code>File</code> &ndash;> <code>New</code> &ndash;> <code>Other</code> &ndash;> <code>User Assistance</code> &ndash;> <code>Cheat Sheet</code>, then click <code>Next</code>.</li>
 <li> Select the quickstart folder, give it a name &lsquo;cheatsheet.xml&rsquo;, and choose <code>Simple Cheat Sheet</code>.</li>
 <li> Click <code>Finish</code>. When it prompts you to open the cheatsheet for the quickstart project, click <code>Yes</code>.</li>
 </ol></li>
@@ -389,4 +397,47 @@ git rebase &ndash;continue</p></li>
 <li><a href="http://www.eclipse.org/pde/pde-ui/articles/cheat_sheet_dev_workflow/">Recommended Work Flow for Cheat Sheet Development</a></li>
 <li><a href="https://github.com/maxandersen/cheatsheet-helloworld">Max&rsquo;s cheat sheet example</a></li>
 </ul>
+
+<h1><a id="copy-a-quickstart-to-another-repository-and-preserve-its-history" class="anchor" href="#copy-a-quickstart-to-another-repository-and-preserve-its-history"><span class="anchor-icon"></span></a>Copy a Quickstart to Another Repository and Preserve Its History</h1>
+
+<ol>
+<li><p>In the source repository that currently contains the quickstarts, for example <code>jboss-eap-quickstarts</code>, create a branch for each quickstart you want to move. For example:</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">upstream</span>
+<span class="nx">git</span> <span class="nx">checkout</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">source_branch_name</span><span class="o">&gt;</span> <span class="nx">upstream</span><span class="p">/</span><span class="nx">master</span>
+</pre></div></li>
+<li><p>To extract only one quickstart, in each source branch, run: </p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nx">filter</span><span class="na">-branch</span> <span class="o">--</span><span class="nx">subdirectory</span><span class="na">-filter</span> <span class="o">&lt;</span><span class="nx">quickstart_name</span><span class="o">&gt;</span> <span class="o">--</span> <span class="o">--</span><span class="kc">all</span>
+</pre></div></li>
+<li><p>The previous step places the quickstart at the root of the tree. You need to create a directory using the quickstart name and move the files under it. To accomplish that task, in each source branch, run:</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nx">filter</span><span class="na">-branch</span> <span class="o">--</span><span class="nx">tree</span><span class="na">-filter</span> <span class="s1">&#39;(ls -A; mkdir &lt;quickstart_name&gt;; echo &lt;quickstart_name&gt;) | xargs mv&#39;</span>
+</pre></div></li>
+<li><p>Push each branch up to your own GitHub repository to make merging into the destination repository easy.</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nb">push</span> <span class="o">&lt;</span><span class="nx">your_remote_source_github</span><span class="o">&gt;</span> <span class="nb">HEAD</span>
+</pre></div></li>
+<li><p>Navigate to the target directory that does not yet contain the quickstarts, for example, <code>jboss-sandbox-quickstarts</code>. </p></li>
+<li><p>Add the source GitHub repository as a remote to the local target destination repository.</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nx">remote</span> <span class="nb">add</span> <span class="o">&lt;</span><span class="nx">your_remote_source_github</span><span class="o">&gt;</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//github.com/&lt;your_remote_source_github&gt;/jboss-eap-quickstarts.git</span>
+</pre></div></li>
+<li><p>Create a branch, into which you will merge the quickstarts.</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">upstream</span>
+<span class="nx">git</span> <span class="nx">checkout</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">target_branch_name</span><span class="o">&gt;</span> <span class="nx">upstream</span><span class="p">/</span><span class="nx">master</span> 
+</pre></div></li>
+<li><p>For each quickstart source branch you want to merge, run:</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nb">merge</span> <span class="na">-s</span> <span class="nx">ours</span> <span class="o">--</span><span class="nx">no</span><span class="na">-commit</span> <span class="o">&lt;</span><span class="nx">your_remote_source_github</span><span class="o">&gt;/&lt;</span><span class="nx">source_branch_name</span><span class="o">&gt;</span>
+<span class="nx">git</span> <span class="nb">read</span><span class="na">-tree</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=&lt;</span><span class="nx">quickstart_name</span><span class="o">&gt;</span> <span class="na">-u</span> <span class="o">&lt;</span><span class="nx">your_remote_source_github</span><span class="o">&gt;/&lt;</span><span class="nx">source_branch_name</span><span class="o">&gt;</span>
+<span class="nx">git</span> <span class="nx">commit</span> <span class="na">-m</span> <span class="s2">&quot;Merge &lt;quickstart_name&gt; to XXX.&quot;</span>
+</pre></div></li>
+<li><p>Now, rebase out the merges. Run:</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
+</pre></div></li>
+<li><p>This should succeed with no problems as you are merging into new subdirectories.</p></li>
+<li><p>This process leaves your GitHub repository with a lot of unwanted junk in it, so you need to do some cleaning up! Run:</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">gc</span> <span class="o">--</span><span class="n">prune</span><span class="o">=</span><span class="n">all</span>
+</pre></div></li>
+<li><p>Now push this branch to your target GitHub:</p>
+<div class="highlight"><pre><span class="nx">git</span> <span class="nb">push</span> <span class="o">&lt;</span><span class="nx">your_remote_target_github</span><span class="o">&gt;</span> <span class="nb">HEAD</span>
+</pre></div></li>
+<li><p>Verify that it looks correct and send a pull request.</p></li>
+<li><p>Remove the quickstarts from the source repository if they are no longer needed.</p></li>
+</ol>
 </body></html>
