@@ -1,5 +1,4 @@
-Creating your own application
-=============================
+= Creating your own application
 :Author: Pete Muir
 
 [[Archetype-]]

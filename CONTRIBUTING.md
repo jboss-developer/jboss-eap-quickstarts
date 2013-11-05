@@ -108,41 +108,48 @@ General Guidelines
 
 * The `<artifactId>` in the quickstart `pom.xml` file should follow the template: `jboss-<target-product>-<quickstart-name>`. For example, the `<artifactId>` for the `greeter` quickstart in the EAP project is `jboss-as-greeter`. The `<artifactId>` for `errors` quickstart in the Fuse project is `jboss-fuse-errors`.
 
-* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](http://jboss-developer.github.io/temp-maven-repo/). To access these artifacts, you must add the following profile to your `settings.xml` file.
+* The JBoss developer Maven repository that contains newly staged artifacts is located at [developer.github.io](http://jboss-developer.github.io/temp-maven-repo/).
 
-        <profile>
-            <id>jboss-developer-repository</id>
-            <repositories>
-                <repository>
-                    <id>jboss-developer-repository</id>
-                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
-                    <releases>
-                       <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                      <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>jboss-developer-plugin-repository</id>
-                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
-                    <releases>
-                      <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                      <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
+   To access these artifacts, do one of the following:
 
-    Then add `<activeProfile>jboss-developer-repository</activeProfile>` to the `<activeProfiles>` section of the file.
-    
+        * You can simply copy the `contributor-settings.xml` located in the root of the quickstart to your `${user.home}/.m2/` and rename it to `settings.xml`. 
+        
+        * Or, if you prefer to manually edit the settings, copy the following profile to your `settings.xml` file.
+
+              <profile>
+                  <id>jboss-developer-repository</id>
+                  <repositories>
+                      <repository>
+                          <id>jboss-developer-repository</id>
+                          <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                          <releases>
+                             <enabled>true</enabled>
+                          </releases>
+                          <snapshots>
+                            <enabled>false</enabled>
+                          </snapshots>
+                      </repository>
+                  </repositories>
+                  <pluginRepositories>
+                      <pluginRepository>
+                          <id>jboss-developer-plugin-repository</id>
+                          <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                          <releases>
+                            <enabled>true</enabled>
+                          </releases>
+                          <snapshots>
+                            <enabled>false</enabled>
+                          </snapshots>
+                      </pluginRepository>
+                  </pluginRepositories>
+              </profile>
+
+            Then add `<activeProfile>jboss-developer-repository</activeProfile>` to the `<activeProfiles>` section of the file.
+  _Note: Regardless of the method you choose to configure your Maven settings, you must also delete the existing `${user.home}/.m2/repository/`._
+  
 * If you create a quickstart that uses a database table, make sure the name you use for the table is unique across all quickstarts. 
 
-* The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-jdf/jboss-as-quickstart/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
+* The project must follow the structure used by existing quickstarts such as [numberguess](https://github.com/jboss-developer/jboss-eap-quickstarts/tree/master/numberguess). A good starting point would be to copy the  `numberguess` project.
 
 * The sample project should be importable into JBoss Developer Studio/JBoss Tools and be deployable from there.
 
@@ -179,12 +186,12 @@ Kitchensink variants
 
   * Follow the primary layout, style, and graphics of the original.
 
-  * Projects can have 3-4 lines directly under the AS/EAP banner in the middle section to describe what makes this variant different.
+  * Projects can have 3-4 lines directly under the EAP banner in the middle section to describe what makes this variant different.
      * How projects use that space is up to them, but options include plain text, bullet points, etc....
 
   * Projects can have their logo in the left side of the banner.
     * The sidebar area can contain a section with links to the related projects, wiki, tutorials, etc...
-       * This should be below any AS/EAP link areas.
+       * This should be below any EAP link areas.
 
     If appropriate for the technology the application should expose RESTful endpoints following the example of the original kitchensink quickstart.  This should also include the RESTful links in the member table.
     
@@ -387,4 +394,50 @@ You can find additional help at the following locations:
 * [Recommended Work Flow for Cheat Sheet Development](http://www.eclipse.org/pde/pde-ui/articles/cheat_sheet_dev_workflow/)
 * [Max's cheat sheet example](https://github.com/maxandersen/cheatsheet-helloworld)
 
+
+Copy a Quickstart to Another Repository and Preserve Its History
+==============================
+
+1. In the source repository that currently contains the quickstarts, for example `jboss-eap-quickstarts`, create a branch for each quickstart you want to move. For example:
+
+        git fetch upstream
+        git checkout -b <source_branch_name> upstream/master
+
+2. To extract only one quickstart, in each source branch, run: 
+
+        git filter-branch --subdirectory-filter <quickstart_name> -- --all
+3. The previous step places the quickstart at the root of the tree. You need to create a directory using the quickstart name and move the files under it. To accomplish that task, in each source branch, run:
+    
+        git filter-branch --tree-filter '(ls -A; mkdir <quickstart_name>; echo <quickstart_name>) | xargs mv'
+4. Push each branch up to your own GitHub repository to make merging into the destination repository easy.
+
+        git push <your_remote_source_github> HEAD
+5. Navigate to the target directory that does not yet contain the quickstarts, for example, `jboss-sandbox-quickstarts`. 
+
+6. Add the source GitHub repository as a remote to the local target destination repository.
+
+        git remote add <your_remote_source_github> https://github.com/<your_remote_source_github>/jboss-eap-quickstarts.git
+7. Create a branch, into which you will merge the quickstarts.
+
+        git fetch upstream
+        git checkout -b <target_branch_name> upstream/master 
+8. For each quickstart source branch you want to merge, run:
+
+        git merge -s ours --no-commit <your_remote_source_github>/<source_branch_name>
+        git read-tree --prefix=<quickstart_name> -u <your_remote_source_github>/<source_branch_name>
+        git commit -m "Merge <quickstart_name> to XXX."
+9. Now, rebase out the merges. Run:
+ 
+        git rebase upstream/master
+10. This should succeed with no problems as you are merging into new subdirectories.
+
+11. This process leaves your GitHub repository with a lot of unwanted junk in it, so you need to do some cleaning up! Run:
+
+        git gc --prune=all
+12. Now push this branch to your target GitHub:
+
+        git push <your_remote_target_github> HEAD
+13. Verify that it looks correct and send a pull request.
+
+14. Remove the quickstarts from the source repository if they are no longer needed.
 
