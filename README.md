@@ -240,8 +240,8 @@ You can undeploy quickstarts using the following procedure:
 To undeploy any quickstarts that fail due to complex dependencies, follow the undeploy procedure described in the quickstart's README file.
 
 
-### Run the Arquillian Tests
-----------------------------
+Run the Arquillian Tests
+------------------------
 
 Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests require the use of a container. 
 
