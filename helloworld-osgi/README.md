@@ -1,12 +1,12 @@
 helloworld-osgi: Helloworld Using OSGi
 ======================================
-Author: David Bosschaert
-Level: Intermediate
-Technologies: OSGi
-Summary: Shows how to create and deploy a simple OSGi Bundle
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: David Bosschaert  
+Level: Intermediate  
+Technologies: OSGi  
+Summary: Shows how to create and deploy a simple OSGi Bundle  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

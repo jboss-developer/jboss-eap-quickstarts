@@ -1,12 +1,12 @@
 ejb-in-ear: Deployment of an EAR Containing a JSF WAR and an EJB JAR
 ====================================================================
-Author: Paul Robinson
-Level: Intermediate
-Technologies: EJB, EAR
-Summary: Packages an EJB JAR and WAR in an EAR
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Paul Robinson  
+Level: Intermediate  
+Technologies: EJB, EAR  
+Summary: Packages an EJB JAR and WAR in an EAR  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

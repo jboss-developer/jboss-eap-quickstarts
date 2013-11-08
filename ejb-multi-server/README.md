@@ -1,12 +1,12 @@
 ejb-multi-server: EJB Communication Across Servers
 ======================================================
-Author: Wolf-Dieter Fink
-Level: Advanced
-Technologies: EJB, EAR
-Summary: EJB applications deployed to different servers that communicate via EJB remote calls
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Wolf-Dieter Fink  
+Level: Advanced  
+Technologies: EJB, EAR  
+Summary: EJB applications deployed to different servers that communicate via EJB remote calls  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 What is it?

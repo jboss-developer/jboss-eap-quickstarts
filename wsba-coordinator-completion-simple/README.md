@@ -1,12 +1,12 @@
 wsba-coordinator-completion-simple: Example of a WS-BA (WS Business Activity) Enabled JAX-WS Web Service
 ========================================================================================================
-Author: Paul Robinson
-Level: Intermediate
-Technologies: WS-BA, JAX-WS
-Summary:  Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a WAR archive (Participant Completion protocol)
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Paul Robinson  
+Level: Intermediate  
+Technologies: WS-BA, JAX-WS  
+Summary:  Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a WAR archive (Participant Completion protocol)  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

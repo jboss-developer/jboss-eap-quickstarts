@@ -1,12 +1,12 @@
 cdi-injection: Example Using CDI (Contexts and Dependency Injection)
 ====================================================================
-Author: Jason Porter
-Level: Beginner
-Technologies: CDI
-Summary: Demonstrates the use of CDI 1.0 Injection and Qualifiers with JSF as the front-end client.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Jason Porter  
+Level: Beginner  
+Technologies: CDI  
+Summary: Demonstrates the use of CDI 1.0 Injection and Qualifiers with JSF as the front-end client.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

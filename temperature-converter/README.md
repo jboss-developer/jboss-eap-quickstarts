@@ -1,12 +1,12 @@
 temperature-converter: Stateless Session EJB
 =================================================
-Author: Bruce Wolfe
-Level: Beginner
-Technologies: EJB
-Summary: Demonstrates a stateless session bean 
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Bruce Wolfe  
+Level: Beginner  
+Technologies: EJB  
+Summary: Demonstrates a stateless session bean   
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

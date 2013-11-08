@@ -1,12 +1,12 @@
 jboss-logging-tools: Internationalization and Localisation with JBoss Logging Tools
 ======================
-Author: Darrin Mison
-Level: Beginner
-Technologies: JBoss Logging Tools
-Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Darrin Mison  
+Level: Beginner  
+Technologies: JBoss Logging Tools  
+Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 ------------

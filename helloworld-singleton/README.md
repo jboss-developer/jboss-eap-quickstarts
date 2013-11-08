@@ -1,12 +1,12 @@
 helloworld-singleton: Helloworld Using a Singleton EJB
 ======================================================
-Author: Serge Pagop
-Level: Beginner
-Technologies: EJB, Singleton
-Summary: Demonstrates the use of an EJB 3.1 Singleton Session Bean, instantiated once, maintaining state for the life of the session
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Serge Pagop  
+Level: Beginner  
+Technologies: EJB, Singleton  
+Summary: Demonstrates the use of an EJB 3.1 Singleton Session Bean, instantiated once, maintaining state for the life of the session  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

@@ -1,12 +1,12 @@
 kitchensink-ear: Example Using Multiple Java EE 6 Technologies Deployed as an EAR
 ==============================================================================================
-Author: Pete Muir
-Level: Intermediate
-Technologies: EAR
-Summary: Based on kitchensink, but deployed as an EAR
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Pete Muir  
+Level: Intermediate  
+Technologies: EAR  
+Summary: Based on kitchensink, but deployed as an EAR  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

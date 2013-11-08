@@ -1,12 +1,12 @@
 hibernate4: How to Use Hibernate 4 in an Application
 ====================================================
-Author: Madhumita Sadhukhan
-Level: Intermediate
-Technologies: Hibernate 4
-Summary: This quickstart performs the same functions as the _hibernate3_ quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the _hibernate3_ quickstart to see the changes needed to run with Hibernate 4..
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Madhumita Sadhukhan  
+Level: Intermediate  
+Technologies: Hibernate 4  
+Summary: This quickstart performs the same functions as the _hibernate3_ quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the _hibernate3_ quickstart to see the changes needed to run with Hibernate 4.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

@@ -1,13 +1,13 @@
 jax-rs-client: External JAX-RS Client
 ======================
-Author: Blaine Mincey
-Level: Intermediate
-Technologies: JAX-RS
-Summary: Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS
-Prerequisites: helloworld-rs
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Blaine Mincey  
+Level: Intermediate  
+Technologies: JAX-RS  
+Summary: Demonstrates the use an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS  
+Prerequisites: helloworld-rs  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
