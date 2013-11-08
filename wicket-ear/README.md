@@ -1,12 +1,12 @@
 wicket-ear: Wicket Framework used in a WAR inside an EAR.
 =========================================================
-Author: Ondrej Zizka <ozizka@redhat.com>
-Level: Intermediate
-Technologies: Apache Wicket, JPA
-Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration, packaged as an EAR
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Ondrej Zizka <ozizka@redhat.com>  
+Level: Intermediate  
+Technologies: Apache Wicket, JPA  
+Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration, packaged as an EAR  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

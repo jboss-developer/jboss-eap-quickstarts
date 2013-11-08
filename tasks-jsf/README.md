@@ -1,13 +1,13 @@
 tasks-jsf: JSF, JPA quickstart
 ==============================
-Author: Lukas Fryc
-Level: Intermediate
-Technologies: JSF, JPA
-Summary: Provides a JSF 2.0 as view layer for the `tasks` quickstart
-Prerequisites: tasks
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Lukas Fryc  
+Level: Intermediate  
+Technologies: JSF, JPA  
+Summary: Provides a JSF 2.0 as view layer for the `tasks` quickstart  
+Prerequisites: tasks  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

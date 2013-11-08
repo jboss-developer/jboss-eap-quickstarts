@@ -1,12 +1,12 @@
 servlet-security:  Using Java EE Declarative Security to Control Access to Servlet 3
 ====================
-Author: Sherif F. Makary, Pedro Igor
-Level: Intermediate
-Technologies: Servlet, Security
-Summary: Demonstrates how to use Java EE declarative security to control access to Servlet 3
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Sherif F. Makary, Pedro Igor  
+Level: Intermediate  
+Technologies: Servlet, Security  
+Summary: Demonstrates how to use Java EE declarative security to control access to Servlet 3  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

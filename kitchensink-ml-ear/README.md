@@ -1,12 +1,12 @@
 kitchensink-ml-ear: Localized Example Using Multiple Java EE 6 Technologies Deployed as an EAR
 ==============================================================================================
-Author: Sande Gilda
-Level: Intermediate
-Technologies: EAR
-Summary: A localized version of kitchensink-ear
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Sande Gilda  
+Level: Intermediate  
+Technologies: EAR  
+Summary: A localized version of kitchensink-ear  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

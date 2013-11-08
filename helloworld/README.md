@@ -1,12 +1,12 @@
 helloworld: Helloworld Example
 ===============================
-Author: Pete Muir
-Level: Beginner
-Technologies: CDI, Servlet
-Summary: Basic example that can be used to verify that the server is configured and running correctly
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Pete Muir  
+Level: Beginner  
+Technologies: CDI, Servlet  
+Summary: Basic example that can be used to verify that the server is configured and running correctly  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

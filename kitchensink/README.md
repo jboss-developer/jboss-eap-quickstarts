@@ -1,12 +1,12 @@
 kitchensink: Assortment of technologies including Arquillian
 ========================
-Author: Pete Muir
-Level: Intermediate
-Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV
-Summary: An example that incorporates multiple technologies
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Pete Muir  
+Level: Intermediate  
+Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV  
+Summary: An example that incorporates multiple technologies  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

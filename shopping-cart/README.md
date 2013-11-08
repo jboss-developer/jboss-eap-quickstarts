@@ -1,12 +1,12 @@
 shopping-cart: EJB 3.1 Stateful Session Bean (SFSB) Example 
 =====================================
-Author: Serge Pagop
-Level: Intermediate
-Technologies: EJB
-Summary: Demonstrates a stateful session bean
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Serge Pagop  
+Level: Intermediate  
+Technologies: EJB  
+Summary: Demonstrates a stateful session bean  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

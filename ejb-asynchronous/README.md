@@ -1,12 +1,12 @@
 ejb-asynchronous:  An application with an EJB with asynchronous methods to demonstrate how it works
 ======================================================
-Author: Wolf-Dieter Fink
-Level: Advanced
-Technologies: EJB 
-Summary: Demonstrates asynchronous EJB invocations.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Wolf-Dieter Fink  
+Level: Advanced  
+Technologies: EJB  
+Summary: Demonstrates asynchronous EJB invocations.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

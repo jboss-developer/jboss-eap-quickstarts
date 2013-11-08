@@ -1,13 +1,13 @@
 tasks-rs: JAX-RS, JPA quickstart
 ==============================
-Author: Mike Musgrove
-Level: Intermediate
-Technologies: JPA, JAX-RS
-Summary: Demonstrates how to use JAX-RS and JPA together
-Prerequisites: tasks
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Mike Musgrove  
+Level: Intermediate  
+Technologies: JPA, JAX-RS  
+Summary: Demonstrates how to use JAX-RS and JPA together  
+Prerequisites: tasks  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

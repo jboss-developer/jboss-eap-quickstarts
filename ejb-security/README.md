@@ -1,12 +1,12 @@
 ejb-security:  Using Java EE Declarative Security to Control Access to EJB 3
 ====================
-Author: Sherif F. Makary
-Level: Intermediate
-Technologies: EJB, Security
-Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Sherif F. Makary  
+Level: Intermediate  
+Technologies: EJB, Security  
+Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
