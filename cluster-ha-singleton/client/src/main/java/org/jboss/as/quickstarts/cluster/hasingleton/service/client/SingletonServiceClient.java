@@ -45,7 +45,7 @@ public class SingletonServiceClient {
         final Hashtable<String, String> jndiProperties = new Hashtable<String, String>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
-        String lookupName = "ejb:/jboss-as-cluster-ha-singleton-service/ServiceAccessBean!" + ServiceAccess.class.getName();
+        String lookupName = "ejb:/jboss-cluster-ha-singleton-service/ServiceAccessBean!" + ServiceAccess.class.getName();
         System.out.println("Lookup Bean name is " + lookupName);
         accessBean = (ServiceAccess) context.lookup(lookupName);
     }
