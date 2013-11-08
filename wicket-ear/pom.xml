@@ -57,7 +57,6 @@
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-6</version.jboss.spec.javaee.6.0>
 
         <!-- Other dependency versions -->
-        <version.org.apache.wicket>6.9.1</version.org.apache.wicket>
         <version.net.ftlines.wicket-cdi>6.0</version.net.ftlines.wicket-cdi>
 
         <!-- other plugin versions -->
@@ -86,13 +85,6 @@
                 <version>${version.jboss.spec.javaee.6.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Wicket -->
-            <dependency>
-                <groupId>org.apache.wicket</groupId>
-                <artifactId>wicket-core</artifactId>
-                <version>${version.org.apache.wicket}</version>
             </dependency>
 
             <!-- Wicket Java EE integration. -->
