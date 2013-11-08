@@ -123,10 +123,6 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
-                <configuration>
-                    <username>admin</username>
-                    <password>admin</password>
-                </configuration>
             </plugin>
         </plugins>
     </build>
