@@ -1,12 +1,12 @@
 log4j: How to Define a Module Dependency and Use log4j in an Application
 =======================================================================
-Author: Bartosz Baranowski
-Level: Beginner
-Technologies: JBoss Modules
-Summary: Demonstrates how to use modules to control class loading for 3rd party logging frameworks
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Bartosz Baranowski  
+Level: Beginner  
+Technologies: JBoss Modules  
+Summary: Demonstrates how to use modules to control class loading for 3rd party logging frameworks  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

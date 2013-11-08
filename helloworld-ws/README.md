@@ -1,12 +1,12 @@
 helloworld-ws: Hello World JAX-WS Web Service
 ==================================================
-Author: Lee Newson
-Level: Beginner
-Technologies: JAX-WS
-Summary: Deployment of a basic JAX-WS Web service bundled in a WAR archive
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Lee Newson  
+Level: Beginner  
+Technologies: JAX-WS  
+Summary: Deployment of a basic JAX-WS Web service bundled in a WAR archive  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

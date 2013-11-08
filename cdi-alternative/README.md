@@ -1,12 +1,12 @@
 cdi-alternative: Demostrates CDI Alternatives
 ======================================================
-Author: Nevin Zhu
-Level: Intermediate
-Technologies: CDI, Servlet, JSP
-Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment 
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Nevin Zhu  
+Level: Intermediate  
+Technologies: CDI, Servlet, JSP  
+Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment   
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

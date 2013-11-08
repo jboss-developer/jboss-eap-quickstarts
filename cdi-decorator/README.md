@@ -1,12 +1,12 @@
 cdi-decorator: Demostrates CDI Decorator
 ======================================================
-Author: Ievgen Shulga
-Level: Intermediate
-Technologies: CDI
-Summary: Demonstrates the use of CDI Decorator where the bean is can be decorated.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Ievgen Shulga  
+Level: Intermediate  
+Technologies: CDI  
+Summary: Demonstrates the use of CDI Decorator where the bean is can be decorated.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

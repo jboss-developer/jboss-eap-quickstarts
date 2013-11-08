@@ -1,12 +1,12 @@
 forge-from-scratch: Example Showing How Forge Can Generate an Application From Scratch
 ======================================================================================
-Author: Lincoln Baxter
-Level: Intermediate
-Technologies: Forge
-Summary: Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2, Forge 1.0.0.Final
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Lincoln Baxter  
+Level: Intermediate  
+Technologies: Forge  
+Summary: Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2, Forge 1.0.0.Final  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

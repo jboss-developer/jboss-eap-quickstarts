@@ -1,12 +1,12 @@
 inter-app: Shows how to communicate between two applications using EJB and CDI 
 ==============================================================================
-Author: Pete Muir
-Level: Advanced
-Technologies: EJB, CDI, JSF
-Summary: Shows how to communicate between two applications using EJB and CDI
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Pete Muir  
+Level: Advanced  
+Technologies: EJB, CDI, JSF  
+Summary: Shows how to communicate between two applications using EJB and CDI  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

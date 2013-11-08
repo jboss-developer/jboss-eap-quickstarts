@@ -1,12 +1,12 @@
 cdi-veto: An example of a Portable Extension and some of the APIs / SPIs of CDI to veto beans.
 ======================================================
-Author: Jason Porter
-Level: Intermediate
-Technologies: CDI
-Summary: Creating a basic CDI extension to demonstrate vetoing beans.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Jason Porter  
+Level: Intermediate  
+Technologies: CDI  
+Summary: Creating a basic CDI extension to demonstrate vetoing beans.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

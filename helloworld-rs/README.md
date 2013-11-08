@@ -1,12 +1,12 @@
 helloworld-rs: Helloworld Using JAX-RS (Java API for RESTful Web Services)
 ==========================================================================
-Author: Gustavo A. Brey, Gaston Coco
-Level: Intermediate
-Technologies: CDI, JAX-RS
-Summary: Demonstrates the use of CDI 1.0 and JAX-RS
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Gustavo A. Brey, Gaston Coco  
+Level: Intermediate  
+Technologies: CDI, JAX-RS  
+Summary: Demonstrates the use of CDI 1.0 and JAX-RS  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

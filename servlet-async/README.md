@@ -1,12 +1,12 @@
 servlet-async: How to Write an Asynchronous Servlet
 ===================================================
-Author: Christian Sadilek
-Level: Intermediate
-Technologies: Servlet, CDI, EJB
-Summary: Demonstrates CDI, plus asynchronous Servlets and EJBs
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Christian Sadilek  
+Level: Intermediate  
+Technologies: Servlet, CDI, EJB  
+Summary: Demonstrates CDI, plus asynchronous Servlets and EJBs  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

@@ -1,12 +1,12 @@
 jta-crash-rec: Example of JTA Crash Recovery
 =============================
-Author: Mike Musgrove
-Level: Advanced
-Technologies: JTA, Crash Recovery
-Summary: Uses Java Transaction API and JBoss Transactions to demonstrate recovery of a crashed transaction
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Mike Musgrove  
+Level: Advanced  
+Technologies: JTA, Crash Recovery  
+Summary: Uses Java Transaction API and JBoss Transactions to demonstrate recovery of a crashed transaction  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

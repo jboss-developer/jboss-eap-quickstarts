@@ -1,12 +1,12 @@
 helloworld-mdb: Helloword Using an MDB (Message-Driven Bean)
 ============================================================
-Author: Serge Pagop, Andy Taylor, Jeff Mesnil
-Level: Intermediate
-Technologies: JMS, EJB, MDB
-Summary: Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Serge Pagop, Andy Taylor, Jeff Mesnil  
+Level: Intermediate  
+Technologies: JMS, EJB, MDB  
+Summary: Demonstrates the use of JMS 1.1 and EJB 3.1 Message-Driven Bean  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
