@@ -1,23 +1,26 @@
 QUICKSTART_NAME: Brief Description of the Quickstart
 ======================================================
-Author: YOUR_NAME and optional CONTACT_INFO
-Level: [one of the following: Beginner, Intermediate, or Advanced]
-Technologies: (list technologies used here)
-Summary: (a brief description of the quickstart to appear in the table )
-Prerequisites: (list any quickstarts that must be deployed prior to running this one)
-Target Product: (EAP, WFK, JDG, etc)
-Product Versions: (EAP 6.1, EAP 6.2, etc)
-Source: (The URL for the repository that is the source of record for this quickstart)
+Author: YOUR_NAME and optional CONTACT_INFO  
+Level: [one of the following: Beginner, Intermediate, or Advanced]  
+Technologies: (list technologies used here)  
+Summary: (a brief description of the quickstart to appear in the table )  
+Prerequisites: (list any quickstarts that must be deployed prior to running this one)  
+Target Product: (EAP, WFK, JDG, etc)  
+Product Versions: (EAP 6.1, EAP 6.2, etc)  
+Source: (The URL for the repository that is the source of record for this quickstart)  
 
 
-_This file is meant to serve as a template or guideline for your own quickstart README.md file. Be sure to replace QUICKSTART_NAME and YOUR_NAME, with the appropriate values._
+_NOTE: This file is meant to serve as a template or guideline for your own quickstart README.md file:_
 
-Contributor instructions are prefixed with 'Contributor: '
+* _The first lines in the file after the quickstart name and description (Author:, Level:, etc.) are metadata tags used by the [JDF site](http://www.jboss.org/jdf/quickstarts/get-started/). Make sure you include 2 spaces at the end of each line so they also render correctly when rendered as HTML files._
+* _Be sure to replace the `QUICKSTART_NAME` and `YOUR_NAME` variables in your `README` file with the appropriate values._
+* _Contributor instructions are prefixed with 'Contributor: '. These are instructions are meant only to help you and you should NOT include them in your README file!_
+* _Review the other quickstart `README` files if you need help with formatting or content._
 
 What is it?
 -----------
 
-Contributor: This is where you provide an overview of what the quickstart demonstrates. For example:
+_Contributor: This is where you provide an overview of what the quickstart demonstrates. For example:_
 
  * What are the technologies demonstrated by the quickstart?
  * What does it do when you run it?
@@ -30,7 +33,7 @@ If possible, give an overview, including any code they should look at to underst
 System requirements
 -------------------
 
-Contributor: For example: 
+_Contributor: For example:_
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
@@ -40,7 +43,7 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.
 Configure Maven
 ---------------
 
-Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
+_Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:_
 
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
@@ -48,7 +51,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Configure Optional Components
 -------------------------
 
-Contributor: If your quickstart requires any additional components, decribe how to set them up here. If your quickstart requires a secured user, PostgreSQL, or Byteman, you can link to the instructions in the README file located in the root folder of the quickstart directory. Here are some examples:
+_Contributor: If your quickstart requires any additional components, decribe how to set them up here. If your quickstart requires a secured user, PostgreSQL, or Byteman, you can link to the instructions in the README file located in the root folder of the quickstart directory. Here are some examples:_
 
  * This quickstart uses a secured management interface and requires that you create a management (or application) user to access the running application. Instructions to set up a Management (or Application) user can be found here: 
 
@@ -64,7 +67,7 @@ Contributor: If your quickstart requires any additional components, decribe how 
 Start the JBoss Server
 -------------------------
 
-Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:
+_Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:_
 
  * Start the JBoss Server
 
@@ -74,13 +77,13 @@ Contributor: Does this quickstart require one or more running servers? If so, yo
 
       `--server-config=../../docs/examples/configs/standalone-xts.xml`
 
-Contributor: If the server is started in a different manner than above, give the specific instructions.
+_Contributor: If the server is started in a different manner than above, give the specific instructions._
 
 
 Build and Deploy the Quickstart
 -------------------------
 
-Contributor: If the quickstart is built and deployed using the standard Maven commands, "mvn install package" and "mvn jboss-as:deploy", copy the following:
+_Contributor: If the quickstart is built and deployed using the standard Maven commands, "mvn install package" and "mvn jboss-as:deploy", copy the following:_
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
@@ -91,18 +94,18 @@ _NOTE: The following build command assumes you have configured your Maven user s
         mvn clean install jboss-as:deploy
 4. This will deploy `target/jboss-QUICKSTART_NAME.war` (or `target/jboss-QUICKSTART_NAME.ear`) to the running instance of the server.
  
-Contributor: Be sure to replace the QUICKSTART_NAME. If this quickstart requires different or additional instructions, be sure to modify or add those instructions here.
+_Contributor: Be sure to replace the `QUICKSTART_NAME`. If this quickstart requires different or additional instructions, be sure to modify or add those instructions here._
 
 
 Access the application (For quickstarts that have a UI component)
 ---------------------
 
-Contributor: Provide the URL to access the running application. Be sure to make the URL a hyperlink as below, substituting the your quickstart name for the QUICKSTART_NAME. 
+_Contributor: Provide the URL to access the running application. Be sure to make the URL a hyperlink as below, substituting the your quickstart name for the `QUICKSTART_NAME`._ 
 
         Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-QUICKSTART_NAME>
 
 
-Contributor: Briefly describe what you will see when you access the application. For example: 
+_Contributor: Briefly describe what you will see when you access the application. For example:_
 
         You will be presented with a simple form for adding key/value pairs and a checkbox to indicate whether the updates should be executed using an unmanaged component. 
 
@@ -113,13 +116,13 @@ Contributor: Briefly describe what you will see when you access the application.
     
         To add or update the value of a key, enter a key and value input boxe and click the submit button to see the results.
 
-Contributor: Add any information that will help them run and understand your quickstart.
+_Contributor: Add any information that will help them run and understand your quickstart._
 
 
 Undeploy the Archive
 --------------------
 
-Contributor: For example: 
+_Contributor: For example:_
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -131,7 +134,7 @@ Contributor: For example:
 Run the Arquillian Tests (For quickstarts that contain Arquillian tests)
 -------------------------
 
-Contributor: For example: 
+_Contributor: For example:_
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
@@ -143,7 +146,7 @@ _NOTE: The following commands assume you have configured your Maven user setting
 
         mvn clean test -Parq-jbossas-remote 
 
-Contributor: The quickstart README should show what to expect from the the tests
+_Contributor: The quickstart README should show what to expect from the the tests._
 
 * Copy and paste output from the JUnit tests to show what to expect in the console from the tests.
 
@@ -153,14 +156,15 @@ Contributor: The quickstart README should show what to expect from the the tests
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-Contributor: For example: 
+
+_Contributor: For example:_
 
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 Debug the Application
 ------------------------------------
 
-Contributor: For example: 
+_Contributor: For example:_
 
 If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 
@@ -172,7 +176,7 @@ If you want to debug the source code or look at the Javadocs of any library in t
 Build and Deploy the Quickstart - to OpenShift
 -------------------------
 
-Contributor: If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process. Be sure to note:
+_Contributor: If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process. Be sure to note:_
 
 * APPLICATION_NAME should be replaced with a variation of the quickstart name, for example: myquickstart
 * QUICKSTART_NAME should be replaced with your quickstart name, for example:  my-quickstart
@@ -216,7 +220,7 @@ Copy the source for the QUICKSTART_NAME quickstart into this new git repository:
 
 ### Configure the OpenShift Server
 
-Contributor: Here you describe any modifications needed for the `.openshift/config/standalone.xml` file. See other quickstart README.md files for examples.
+_Contributor: Here you describe any modifications needed for the `.openshift/config/standalone.xml` file. See other quickstart README.md files for examples._
 
 ### Deploy the OpenShift Application
 

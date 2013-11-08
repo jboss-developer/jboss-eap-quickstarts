@@ -1,12 +1,12 @@
 wsat-simple: WS-AT (WS-AtomicTransaction) - Simple
 ==================================================
-Author: Paul Robinson
-Level: Intermediate
-Technologies: WS-AT, JAX-WS
-Summary: Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Paul Robinson  
+Level: Intermediate  
+Technologies: WS-AT, JAX-WS  
+Summary: Deployment of a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service bundled in a WAR archive  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

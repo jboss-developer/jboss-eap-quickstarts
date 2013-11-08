@@ -1,12 +1,12 @@
 ejb-in-war: Deployment of a WAR Containing an EJB
 =================================================
-Author: Paul Robinson
-Level: Intermediate
-Technologies: EJB, JSF, WAR
-Summary: Packages an EJB JAR in a WAR
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Paul Robinson  
+Level: Intermediate  
+Technologies: EJB, JSF, WAR  
+Summary: Packages an EJB JAR in a WAR  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

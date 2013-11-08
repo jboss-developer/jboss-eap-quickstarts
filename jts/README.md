@@ -1,13 +1,13 @@
 jts: Java Transaction Service - Distributed EJB Transactions Across Multiple Containers 
 ======================================================================================
-Author: Tom Jenkinson
-Level: Intermediate
-Technologies: JTS
-Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions
-Prerequisites: cmt
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Tom Jenkinson  
+Level: Intermediate  
+Technologies: JTS  
+Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions  
+Prerequisites: cmt  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 What is it?

@@ -1,12 +1,12 @@
 ejb-security-interceptors:  Using client and server side interceptors to switch the identity for an EJB call.
 ====================
-Author: Darran Lofthouse
-Level: Advanced
-Technologies: EJB, Security
-Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Darran Lofthouse  
+Level: Advanced  
+Technologies: EJB, Security  
+Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

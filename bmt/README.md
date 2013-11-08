@@ -1,12 +1,12 @@
 bmt: Bean Managed Transactions - Stepping Outside the Container (with JPA and JTA)
 =================================================================================
-Author: Mike Musgrove
-Level: Intermediate
-Technologies: EJB, Bean Managed Transactions (BMT)
-Summary: EJB that demonstrates bean-managed transactions (BMT)
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Mike Musgrove  
+Level: Intermediate  
+Technologies: EJB, Bean Managed Transactions (BMT)  
+Summary: EJB that demonstrates bean-managed transactions (BMT)  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

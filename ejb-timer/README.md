@@ -1,12 +1,12 @@
 ejb-timer: EJB Timers example - @Schedule and @Timeout
 ===========================================
-Author: Ondrej Zizka <ozizka@redhat.com>
-Level: Beginner
-Technologies: EJB 3.1 Timer
-Summary: Demonstrates how to use EJB 3.1 Timer (@Schedule and @Timeout) with the JBoss AS server.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Ondrej Zizka <ozizka@redhat.com>  
+Level: Beginner  
+Technologies: EJB 3.1 Timer  
+Summary: Demonstrates how to use EJB 3.1 Timer (@Schedule and @Timeout) with the JBoss AS server.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

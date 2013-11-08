@@ -1,12 +1,12 @@
 cmt: Container Managed Transactions - Example Using Transactions That Are Managed by the Container 
 ==================================================================================================
-Author: Tom Jenkinson
-Level: Intermediate
-Technologies: EJB, Container Managed Transactions (CMT)
-Summary: EJB that demonstrates container-managed transactions (CMT)
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Tom Jenkinson  
+Level: Intermediate  
+Technologies: EJB, Container Managed Transactions (CMT)  
+Summary: EJB that demonstrates container-managed transactions (CMT)  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

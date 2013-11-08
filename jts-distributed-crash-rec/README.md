@@ -1,13 +1,13 @@
 jts-distributed-crash-rec: JTS and distributed crash recovery 
 =============================================================
-Author: Tom Jenkinson
-Level: Advanced
-Technologies: JTS
-Summary: Demonstrates recovery of distributed crashed components
-Prerequisites: jts
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Tom Jenkinson  
+Level: Advanced  
+Technologies: JTS  
+Summary: Demonstrates recovery of distributed crashed components  
+Prerequisites: jts  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

@@ -1,12 +1,12 @@
 picketlink-sts: PicketLink Federation: WS-Trust Security Token Service 
 ======================================================
-Author: Peter Skopek
-Level: Advanced
-Technologies: WS-Trust, SAML
-Summary: This project is an implementation of a WS-Trust Security Token Service.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Peter Skopek  
+Level: Advanced  
+Technologies: WS-Trust, SAML  
+Summary: This project is an implementation of a WS-Trust Security Token Service.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
  
 What is it?
 -----------

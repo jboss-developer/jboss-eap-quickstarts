@@ -1,12 +1,12 @@
 ejb-remote: Remote EJB Client Example
 =====================================
-Author: Jaikiran Pai, Mike Musgrove
-Level: Intermediate
-Technologies: EJB
-Summary: Shows how to access an EJB from a remote Java client program using JNDI
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Jaikiran Pai, Mike Musgrove  
+Level: Intermediate  
+Technologies: EJB  
+Summary: Shows how to access an EJB from a remote Java client program using JNDI  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

@@ -1,12 +1,12 @@
 hibernate3: How to Use  Hibernate 3 in an Application
 =====================================================
-Author: Bartosz Baranowski 
-Level: Intermediate
-Technologies: Hibernate 3
-Summary: Example that uses Hibernate 3 for database access. Compare the code in this quickstart to the _hibernate4_ quickstart to see the changes needed to upgrade to Hibernate 4.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Bartosz Baranowski   
+Level: Intermediate  
+Technologies: Hibernate 3  
+Summary: Example that uses Hibernate 3 for database access. Compare the code in this quickstart to the _hibernate4_ quickstart to see the changes needed to upgrade to Hibernate 4.  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

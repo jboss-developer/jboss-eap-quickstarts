@@ -1,12 +1,12 @@
 h2-console: Example Using the H2 Console with JBoss
 ===================================================
-Author: Pete Muir
-Level: Beginner
-Technologies: H2
-Summary: Shows how to use the H2 console with JBoss AS
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Pete Muir  
+Level: Beginner  
+Technologies: H2  
+Summary: Shows how to use the H2 console with JBoss AS  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

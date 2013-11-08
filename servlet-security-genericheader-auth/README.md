@@ -1,12 +1,12 @@
 servlet-security-genericheader-auth:  Authenticate via external SSO system using HTTP request headers
 ====================
-Author: Gary Lamperillo, Jesse Sightler
-Level: Intermediate
-Technologies: Servlet, JAAS
-Summary: Demonstrates the use a custom authenticator to enable support for header-based authentication
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Gary Lamperillo, Jesse Sightler  
+Level: Intermediate  
+Technologies: Servlet, JAAS  
+Summary: Demonstrates the use a custom authenticator to enable support for header-based authentication  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
