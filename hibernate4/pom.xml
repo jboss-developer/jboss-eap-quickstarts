@@ -151,6 +151,12 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <scope>provided</scope>
+            <exclusions>
+              <exclusion>
+                <groupId>xml-resolver</groupId>
+                <artifactId>xml-resolver</artifactId>
+              </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
