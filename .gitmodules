@@ -9,4 +9,4 @@
 	url = https://github.com/infinispan/jdg-quickstart.git
 [submodule "picketlink-quickstarts"]
 	path = picketlink-quickstarts
-	url = git@github.com:picketlink/picketlink-quickstarts.git
+	url = git@github.com:jboss-developer/jboss-picketlink-quickstarts.git
