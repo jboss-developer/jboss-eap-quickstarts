@@ -18,6 +18,8 @@ package org.jboss.as.quickstarts.client;
 
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.NoSuchEJBException;
 import javax.naming.Context;
@@ -33,6 +35,10 @@ public class Client {
     private static final String EAP = "JBoss Enterprise Application Platform 6";
 
     public static void main(String[] args) throws NamingException {
+        // avoid INFO output for the client demo
+        Logger.getLogger("org.xnio").setLevel(Level.WARNING);
+        Logger.getLogger("org.jboss.remoting").setLevel(Level.WARNING);
+        Logger.getLogger("org.jboss.ejb.client").setLevel(Level.WARNING);
 
         // Create the JNDI InitialContext, configuring it for use with JBoss EJB
         Hashtable<String, String> jndiProperties = new Hashtable<String, String>();
@@ -96,8 +102,9 @@ public class Client {
         /* Try to access the cart after checkout */
         try {
             cart.getCartContents();
+            System.err.println("ERROR: The cart should not be available after Checkout!");
         } catch (NoSuchEJBException e) {
-            System.out.println("ERROR: Cannot access cart after Checkout!");
+            System.out.println("Cart was correctly removed, as expected, after Checkout and is no longer available!");
         }
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
     }
