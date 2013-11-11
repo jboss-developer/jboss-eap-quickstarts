@@ -257,6 +257,13 @@ This quickstart is built around the default `ApplicationRealm` as configured in 
 | AppUserTwo | ApplicationRealm | AppPasswordTwo1! | User, RoleTwo |
 | AppUserThree | ApplicationRealm | AppPasswordThree1! | User, RoleOne, RoleTwo |
 
+Add the users using the following commands:
+
+        bin/add-user.sh -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+        bin/add-user.sh -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+        bin/add-user.sh -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
+        bin/add-user.sh -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+
 The first user establishes the actual connection to the server. The subsequent two users demonstrate how to switch identities on demand.  The final user can access everything but can not participate in identity switching.
 
 Also do note that within the quickstart we do not make use of the passwords for any of the 'App' users, the passwords specified for those users are a suggestion for values that will be accepted by the ass-user utility.
