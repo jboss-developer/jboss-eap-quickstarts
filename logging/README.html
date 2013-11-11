@@ -74,8 +74,10 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <ul>
 <li><p>Find the line containing:</p>
-<div class="highlight"><pre><span class="n">logger</span><span class="p">.</span><span class="n">handlers</span><span class="o">=</span><span class="kt">FILE</span><span class="p">,</span><span class="n">CONSOLE</span>
+<div class="highlight"><pre><span class="n">logger</span><span class="p">.</span><span class="n">handlers</span><span class="o">=</span><span class="n">CONSOLE</span><span class="p">,</span><span class="kt">FILE</span>
 </pre></div>
+<p><em>Note: Property value order is not guaranteed, so you may see <code>logger.handlers=FILE,CONSOLE</code> instead of the line above.</em></p>
+
 <p>Replace that line with the following:</p>
 <div class="highlight"><pre><span class="n">logger</span><span class="p">.</span><span class="n">handlers</span><span class="o">=</span><span class="kt">FILE</span><span class="p">,</span><span class="n">CONSOLE</span><span class="p">,</span><span class="n">FILE_QS_WARN</span><span class="p">,</span><span class="n">FILE_QS_ERROR</span><span class="p">,</span><span class="n">FILE_QS_INFO</span><span class="p">,</span><span class="n">FILE_QS_DEBUG</span><span class="p">,</span><span class="n">FILE_QS_TRACE</span><span class="p">,</span><span class="n">FILE_QS_FATAL</span>
 </pre></div></li>
