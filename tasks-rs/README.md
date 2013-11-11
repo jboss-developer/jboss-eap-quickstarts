@@ -121,9 +121,11 @@ To display the XML representation of the newly created resource, issue a *GET* r
 Using either of the above *GET* methods, you should see the following XML:
 
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <task id="1" ownerName="quickstartUser">
-        <title>task1</title>
-    </task>
+    <collection>
+        <task id="1" ownerName="quickstartUser">
+            <title>task1</title>
+        </task>
+    </collection>
 
 
 ### Display the XML Representation of all Tasks for a User
