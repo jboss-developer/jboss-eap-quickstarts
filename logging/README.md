@@ -85,8 +85,10 @@ To test logging the different logging levels, you must add handlers to the serve
 3. Open the `logging.properties` in an editor and find the following line:
    * Find the line containing:
 
-            logger.handlers=FILE,CONSOLE
+            logger.handlers=CONSOLE,FILE
    
+     _Note: Property value order is not guaranteed, so you may see `logger.handlers=FILE,CONSOLE` instead of the line above._
+     
      Replace that line with the following:
 
             logger.handlers=FILE,CONSOLE,FILE_QS_WARN,FILE_QS_ERROR,FILE_QS_INFO,FILE_QS_DEBUG,FILE_QS_TRACE,FILE_QS_FATAL
