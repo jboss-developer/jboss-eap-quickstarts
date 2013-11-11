@@ -71,29 +71,14 @@ Investigate the Console Output
 
 You should see the following: 
 
-1. The client sends a remote method invocation to the stateful session bean to buy two Memory sticks and one MacBook Air Laptop
-2. The client sends a remote method invocation to get the contents of the cart, and print it
-3. The client sends a remote method invocation to invoke checkout
-
-Note that the checkout will remove the SFSB. The client then sends a final remote method invocation to get the cart contents. As the bean has been removed, a `NoSuchEjbException` is thrown.
+1. The client sends a remote method invocation to the stateful session bean to buy two copies 
+of "JBoss Enterprise Application Platform 6" and one copy of "JBoss SOA Platform 6".
+2. The client sends a remote method invocation to get the contents of the cart and prints it to the console.
+3. The client sends a remote method invocation to invoke checkout. Note the `checkout()` method in the server `ShoppingCartBean` has the `@Remove` annotation. This means the container will destroy shopping cart after the call and it will no longer be available. 
+4. The client calls `getCartContents()` to make sure the shopping cart was removed after checkout. This results in a `javax.ejb.NoSuchEJBException` trace in the server, proving the cart was removed.
 
 On the client console, you should see output similar to:
 
-    Mar 23, 2012 12:59:40 PM org.jboss.ejb.client.EJBClient <clinit>
-    INFO: JBoss EJB Client version 1.0.5.Final
-    Mar 23, 2012 12:59:40 PM org.xnio.Xnio <clinit>
-    INFO: XNIO Version 3.0.3.GA
-    Mar 23, 2012 12:59:40 PM org.xnio.nio.NioXnio <clinit>
-    INFO: XNIO NIO Implementation Version 3.0.3.GA
-    Mar 23, 2012 12:59:40 PM org.jboss.remoting3.EndpointImpl <clinit>
-    INFO: JBoss Remoting version 3.2.3.GA
-    Mar 23, 2012 12:59:40 PM org.jboss.ejb.client.remoting.VersionReceiver handleMessage
-    INFO: Received server version 1 and marshalling strategies [river]
-    Mar 23, 2012 12:59:40 PM org.jboss.ejb.client.remoting.RemotingConnectionEJBReceiver associate
-    INFO: Successful version handshake completed for receiver context EJBReceiverContext{clientContext=org.jboss.ejb.client.EJBClientContext@2ad1918a, receiver=Remoting connection EJB receiver [connection=Remoting connection <6b28215d>,channel=jboss.ejb,nodename=ptarmigan]} on channel Channel ID a2f59bb1 (outbound) of Remoting connection 5caccd65 to localhost/127.0.0.1:4447
-    Mar 23, 2012 12:59:40 PM org.jboss.ejb.client.remoting.ChannelAssociation$ResponseReceiver handleMessage
-    WARN: Unsupported message received with header 0xffffffff
-    
     &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     Obtained the remote interface to the shopping cart
     Buying a "JBoss Enterprise Application Platform 6"
@@ -105,14 +90,13 @@ On the client console, you should see output similar to:
     2     JBoss Enterprise Application Platform 6
     
     Checkout
-    Mar 23, 2012 12:59:41 PM org.jboss.ejb.client.remoting.ChannelAssociation resultReady
-    INFO: Discarding result for invocation id 6 since no waiting context found
-    ERROR: Cannot access cart after Checkout!
+    Cart was correctly removed, as expected, after Checkout
     &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-On the server console, you should see output similar to:
 
-    18:22:06,896 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named ShoppingCartBean in deployment unit deployment "jboss-shopping-cart-server.jar" are as follows:
+On the server console, you should see output similar to (remember the server messages might change for different versions):
+
+    INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named ShoppingCartBean in deployment unit deployment "jboss-shopping-cart-server.jar" are as follows:
 
     	java:global/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
     	java:app/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
@@ -121,10 +105,12 @@ On the server console, you should see output similar to:
     	java:app/jboss-shopping-cart-server/ShoppingCartBean
     	java:module/ShoppingCartBean
 
-    18:22:07,865 INFO  [org.jboss.as.server] (management-handler-threads - 2) JBAS018559: Deployed "jboss-shopping-cart-server.jar"
-    18:29:53,757 INFO  [stdout] (pool-9-thread-8) implementing checkout() left as exercise for the reader!
-    18:29:53,794 INFO  [org.jboss.as.ejb3] (pool-9-thread-8) JBAS014101: Failed to find {[-22, 53, -53, 71, 41, 47, 72, -112, -113, -93, -43, -23, -2, -49, 119, 40]} in cache
-    18:29:53,798 ERROR [org.jboss.ejb3.invocation] (pool-9-thread-9) JBAS014134: EJB Invocation failed on component ShoppingCartBean for method public abstract java.util.HashMap org.jboss.as.quickstarts.sfsb.ShoppingCart.getCartContents(): javax.ejb.NoSuchEJBException: Could not find SFSB ShoppingCartBean
+    INFO  [org.jboss.as.server] (management-handler-threads - 2) JBAS018559: Deployed "jboss-shopping-cart-server.jar"
+    INFO  [stdout] (pool-9-thread-8) implementing checkout() left as exercise for the reader!
+    
+_Note_: You also see the following `EJB Invocation failed` and `NoSuchEJBException` messages in the server log. This is the expected result because method is annotated with `@Remove`. This means the next invocation after the shopping cart checkout fails because the container has destroyed the instance and it is no longer available.
+    
+    ERROR [org.jboss.as.ejb3.invocation] (EJB default - 5) JBAS014134: EJB Invocation failed on component ShoppingCartBean for method public abstract java.util.HashMap org.jboss.as.quickstarts.sfsb.ShoppingCart.getCartContents(): javax.ejb.NoSuchEJBException: JBAS014300: Could not find EJB with id {...]}
 
 
 Undeploy the Archive
