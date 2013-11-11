@@ -1,6 +1,6 @@
 ## Batch file to configure the domain for the hornetq-clustering quickstart.
 
-# - Stop the servers
+# -- Stop the currently running servers
 :stop-servers
 
 batch
@@ -25,5 +25,6 @@ deploy --server-groups=jdf-hornetq-clustering-group ../helloworld-mdb/target/jbo
 # -- Run this batch file
 run-batch
 
-# -- Restart the servers to use these changes
-:restart-servers
+# -- Start the newly defined servers
+/host=master/server-config=jdf-hornetqcluster-node1:start(blocking=true)
+/host=master/server-config=jdf-hornetqcluster-node2:start(blocking=true)
