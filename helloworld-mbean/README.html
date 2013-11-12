@@ -50,7 +50,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li>Make sure you have started the JBoss Server as described above.</li>
 <li>Open a command line and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
 </pre></div></li>
 <li><p>This will deploy <code>helloworld-mbean-webapp\target\jboss-helloworld-mbean-webapp.war</code> and <code>helloworld-mbean-service\target\jboss-helloworld-mbean-service.sar</code> to the running instance of the server.</p></li>
 </ol>
@@ -81,8 +81,12 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li>Expand <code>quickstarts</code> in the left column of the console.</li>
 <li>Under <code>quickstarts</code>, you see the 4 MBeans: <code>AnnotatedComponentHelloWorld</code>, <code>MXComponentHelloWorld</code>, <code>MXPojoHelloWorld</code>, and <code>SarMXPojoHelloWorld</code></li>
 <li>Expand each MBean and choose: <code>Operations</code> &ndash;> <code>sayHello</code>.</li>
-<li>Type your name in the (p0 String ) input text box and click the sayHello button.</li>
-<li>You will see a popup Window displaying <code>Welcome &lt;your name&gt;!</code>.</li>
+<li>Type your name in the (p0 String ) input text box and click the <code>sayHello</code> button.
+
+<ul>
+<li>For the <code>AnnotatedComponentHelloWorld</code> and <code>MXComponentHelloWorld</code> examples, you will see a popup Window displaying <code>Hello &lt;your name&gt;!</code>.</li>
+<li>For the <code>MXPojoHelloWorld</code> and <code>SarMXPojoHelloWorld</code> examples, you will see a popup Window displaying <code>Welcome &lt;your name&gt;!</code>.</li>
+</ul></li>
 </ol>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
