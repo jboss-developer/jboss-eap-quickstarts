@@ -90,7 +90,7 @@ You can use JConsole to inspect and use the MBeans :
 3. Under `quickstarts`, you see the 4 MBeans: `AnnotatedComponentHelloWorld`, `MXComponentHelloWorld`, `MXPojoHelloWorld`, and `SarMXPojoHelloWorld`
 4. Expand each MBean and choose: `Operations` --> `sayHello`.
 5. Type your name in the (p0 String ) input text box and click the sayHello button.
-6. You will see a popup Window displaying Hello `<your name>`!.
+6. You will see a popup Window displaying `Welcome <your name>!`.
 
 
 Undeploy the Archive
