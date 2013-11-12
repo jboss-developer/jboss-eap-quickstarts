@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
     EntityManager em;
 
     public User getForUsername(String username) {
-        List<User> result = em.createQuery("select u from User u where u.username = ?", User.class).setParameter(1, username)
+        List<User> result = em.createQuery("select u from User u where u.username = ?1", User.class).setParameter(1, username)
                 .getResultList();
 
         if (result.isEmpty()) {
