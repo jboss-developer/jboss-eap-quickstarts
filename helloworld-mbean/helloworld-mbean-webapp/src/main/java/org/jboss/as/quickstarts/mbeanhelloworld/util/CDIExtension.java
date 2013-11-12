@@ -41,7 +41,7 @@ public class CDIExtension implements Extension {
     public static <T> T getBean(Class<T> beanType) {
         final Bean<T> bean = (Bean<T>) beanManager.getBeans(beanType).iterator().next();
         final CreationalContext<T> ctx = beanManager.createCreationalContext(bean);
-        return (T) beanManager.getReference(bean, bean.getClass(), ctx);
+        return (T) beanManager.getReference(bean, beanType, ctx);
     }
 
     private static void setBeanManager(BeanManager beanManager) {

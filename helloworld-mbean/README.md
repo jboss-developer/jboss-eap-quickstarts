@@ -56,14 +56,14 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install jboss-as:deploy
+        mvn clean jboss-as:deploy
 
 4. This will deploy `helloworld-mbean-webapp\target\jboss-helloworld-mbean-webapp.war` and `helloworld-mbean-service\target\jboss-helloworld-mbean-service.sar` to the running instance of the server.
 
 
 Access and Test the MBeans  
 --------------------------
-This quickstart differs from the other quickstarts in that it uses 'JConsole' to access and test the quickstart rather than access an URL in the browser. If you do access http://localhost:8080/jboss-helloworld-mbean-webapp/, you will see a screen shot image of the JConsole application,
+This quickstart differs from the other quickstarts in that it uses 'JConsole' to access and test the quickstart rather than access an URL in the browser. If you do access <http://localhost:8080/jboss-helloworld-mbean-webapp/>, you will see a screen shot image of the JConsole application,
 
 The following sections describe how to use 'JConsole' to inspect and test the MBeans. 
 
@@ -89,8 +89,9 @@ You can use JConsole to inspect and use the MBeans :
 2. Expand `quickstarts` in the left column of the console.
 3. Under `quickstarts`, you see the 4 MBeans: `AnnotatedComponentHelloWorld`, `MXComponentHelloWorld`, `MXPojoHelloWorld`, and `SarMXPojoHelloWorld`
 4. Expand each MBean and choose: `Operations` --> `sayHello`.
-5. Type your name in the (p0 String ) input text box and click the sayHello button.
-6. You will see a popup Window displaying `Welcome <your name>!`.
+5. Type your name in the (p0 String ) input text box and click the `sayHello` button.
+   * For the `AnnotatedComponentHelloWorld` and `MXComponentHelloWorld` examples, you will see a popup Window displaying `Hello <your name>!`.
+   * For the `MXPojoHelloWorld` and `SarMXPojoHelloWorld` examples, you will see a popup Window displaying `Welcome <your name>!`.
 
 
 Undeploy the Archive
