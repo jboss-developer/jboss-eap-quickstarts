@@ -60,7 +60,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean install jboss-as:deploy
         
-4. This will deploy `target/jboss-cdi-alternative.ear` to the running instance of the server.
+4. This will deploy `target/jboss-cdi-alternative.war` to the running instance of the server.
 
 
 Access the application
