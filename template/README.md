@@ -171,3 +171,84 @@ If you want to debug the source code or look at the Javadocs of any library in t
     mvn dependency:sources
     mvn dependency:resolve -Dclassifier=javadoc
 
+
+
+Build and Deploy the Quickstart - to OpenShift
+-------------------------
+
+_Contributor: If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process. Be sure to note:_
+
+* APPLICATION_NAME should be replaced with a variation of the quickstart name, for example: myquickstart
+* QUICKSTART_NAME should be replaced with your quickstart name, for example:  my-quickstart
+
+### Create an OpenShift Account and Domain
+
+If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](https://openshift.redhat.com/app/login) to create the account and domain. [Get Started with OpenShift](https://openshift.redhat.com/app/getting_started) will show you how to install the OpenShift Express command line interface.
+
+### Create the OpenShift Application
+
+Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP 6.1:
+
+    rhc app create -a APPLICATION_NAME -t APPLICATION_TYPE
+
+_NOTE_: The domain name for this application will be APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
+
+This command creates an OpenShift application named  and will run the application inside the `jbosseap-6`  container. You should see some output similar to the following:
+
+    Creating application: APPLICATION_NAME
+    Now your new domain name is being propagated worldwide (this might take a minute)...
+    Warning: Permanently added 'APPLICATION_NAME-quickstart.rhcloud.com,107.22.36.32' (RSA) to the list of known hosts.
+    Confirming application 'APPLICATION_NAME' is available:  Success!
+    
+    APPLICATION_NAME published:  http://APPLICATION_NAME-quickstart.rhcloud.com/
+    git url:  ssh://b92047bdc05e46c980cc3501c3577c1e@APPLICATION_NAME-quickstart.rhcloud.com/~/git/APPLICATION_NAME.git/
+    Successfully created application: APPLICATION_NAME
+
+The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://APPLICATION_NAME-quickstart.rhcloud.com/> into a browser or use command line tools such as curl or wget.
+
+### Migrate the Quickstart Source
+
+Now that you have confirmed it is working you can migrate the quickstart source. You do not need the generated default application, so navigate to the new git repository directory and tell git to remove the source and pom files:
+
+    cd APPLICATION_NAME
+    git rm -r src pom.xml
+
+Copy the source for the QUICKSTART_NAME quickstart into this new git repository:
+
+    cp -r QUICKSTART_HOME/QUICKSTART_NAME/src .
+    cp QUICKSTART_HOME/QUICKSTART_NAME/pom.xml .
+
+### Configure the OpenShift Server
+
+_Contributor: Here you describe any modifications needed for the `.openshift/config/standalone.xml` file. See other quickstart README.md files for examples._
+
+### Deploy the OpenShift Application
+
+You can now deploy the changes to your OpenShift application using git as follows:
+
+    git add src pom.xml
+    git commit -m "QUICKSTART_NAME quickstart on OpenShift"
+    git push
+
+The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
+
+Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the war build by openshift to be copied to the `deployments` directory, and deployed without a context path.
+
+### Test the OpenShift Application
+
+When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget:
+
+* <http://APPLICATION_NAME-quickstart.rhcloud.com/> 
+
+You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+
+### Destroy the OpenShift Application
+
+When you are finished with the application you can destroy it as follows:
+
+        rhc app destroy -a APPLICATION_NAME
+
+_Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must destroy an existing application before you continue. 
+
+* To view the list of your OpenShift applications, type: `rhc domain show`
+* To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
