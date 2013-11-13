@@ -95,4 +95,102 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
     <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div>
+<h2><a id="build-and-deploy-the-quickstart-to-openshift" class="anchor" href="#build-and-deploy-the-quickstart-to-openshift"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart - to OpenShift</h2>
+
+<h3><a id="create-an-openshift-express-account-and-domain" class="anchor" href="#create-an-openshift-express-account-and-domain"><span class="anchor-icon"></span></a>Create an OpenShift Express Account and Domain</h3>
+
+<p>If you do not yet have an OpenShift account and domain, <a href="https://openshift.redhat.com/app/login">Sign in to OpenShift</a> to create the account and domain. <a href="https://openshift.redhat.com/app/getting_started">Get Started with OpenShift</a> will show you how to install the OpenShift Express command line interface.</p>
+
+<h3><a id="create-the-openshift-application" class="anchor" href="#create-the-openshift-application"><span class="anchor-icon"></span></a>Create the OpenShift Application</h3>
+
+<p>Note that we use the <code>jboss-as-quickstart@jboss.org</code> user for these examples. You need to substitute it with your own user name.</p>
+
+<p>Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with <code>jbosseap-6</code> for quickstarts running on JBoss EAP 6:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span> <span class="o">-</span><span class="n">t</span> <span class="n">APPLICATION_TYPE</span>
+</pre></div>
+<p><em>NOTE</em>: The domain name for this application will be <code>helloworldws-YOUR_DOMAIN_NAME.rhcloud.com</code>. Here we use the <em>quickstart</em> domain. You will need to replace it with your own OpenShift domain name.</p>
+
+<p>This command creates an OpenShift application called <code>helloworldws</code> and will run the application inside a <code>jbossas-7</code> or a <code>jbosseap-6</code> container. You should see some output similar to the following:</p>
+<div class="highlight"><pre><span class="n">Creating</span> <span class="n">application</span><span class="o">:</span> <span class="n">helloworldws</span>
+<span class="n">Now</span> <span class="n">your</span> <span class="n">new</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">is</span> <span class="n">being</span> <span class="n">propagated</span> <span class="n">worldwide</span> <span class="p">(</span><span class="n">this</span> <span class="n">might</span> <span class="n">take</span> <span class="n">a</span> <span class="n">minute</span><span class="p">)...</span>
+<span class="nl">Warning:</span> <span class="n">Permanently</span> <span class="n">added</span> <span class="err">&#39;</span><span class="n">helloworldws</span><span class="o">-</span><span class="n">quickstart</span><span class="p">.</span><span class="n">rhcloud</span><span class="p">.</span><span class="n">com</span><span class="p">,</span><span class="mf">107.22.36.32</span><span class="err">&#39;</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span> <span class="n">to</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">known</span> <span class="n">hosts</span><span class="p">.</span>
+<span class="n">Confirming</span> <span class="n">application</span> <span class="err">&#39;</span><span class="n">helloworldws</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">available</span><span class="o">:</span>  <span class="n">Success</span><span class="o">!</span>
+
+<span class="n">helloworldws</span> <span class="n">published</span><span class="o">:</span>  <span class="n">http</span><span class="o">:</span><span class="c1">//helloworldws-quickstart.rhcloud.com/</span>
+<span class="n">git</span> <span class="n">url</span><span class="o">:</span>  <span class="n">ssh</span><span class="o">:</span><span class="c1">//b92047bdc05e46c980cc3501c3577c1e@helloworldws-quickstart.rhcloud.com/~/git/helloworldws.git/</span>
+<span class="n">Successfully</span> <span class="n">created</span> <span class="n">application</span><span class="o">:</span> <span class="n">helloworldws</span>
+</pre></div>
+<p>The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <a href="http://helloworldws-quickstart.rhcloud.com/">http://helloworldws-quickstart.rhcloud.com/</a> into a browser or use command line tools such as curl or wget.</p>
+
+<h3><a id="migrate-the-quickstart-source" class="anchor" href="#migrate-the-quickstart-source"><span class="anchor-icon"></span></a>Migrate the Quickstart Source</h3>
+
+<p>Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repository and tell git to remove the source files and pom:</p>
+<div class="highlight"><pre>    <span class="n">cd</span> <span class="n">helloworldws</span>
+    <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>
+<p>Copy the source for the <code>helloworld-ws</code> quickstart into this new git repository:</p>
+<div class="highlight"><pre>    <span class="nx">cp</span> <span class="na">-r</span> <span class="o">&lt;</span><span class="nx">quickstarts</span><span class="o">&gt;/</span><span class="nx">helloworld</span><span class="na">-ws</span><span class="p">/</span><span class="nb">src</span> <span class="nx">.</span>
+    <span class="nx">cp</span> <span class="o">&lt;</span><span class="nx">quickstarts</span><span class="o">&gt;/</span><span class="nx">helloworld</span><span class="na">-ws</span><span class="p">/</span><span class="nx">pom.xml</span> <span class="nx">.</span>
+</pre></div>
+<h3><a id="configure-the-openshift-server" class="anchor" href="#configure-the-openshift-server"><span class="anchor-icon"></span></a>Configure the OpenShift Server</h3>
+
+<p>Openshift does not have Web services setup by default, so we need to modify the server configuration. To do this open <code>.openshift/config/standalone.xml</code> (this file may be hidden) in an editor and make the following additions:</p>
+
+<ol>
+<li><p>If the webservices subsystem is not configured as below under the <code>&lt;profile&gt;</code> element, copy the following and replace the webservices subsystem to enable and configure Web Services:</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modify</span><span class="err">-wsdl-address</span><span class="nt">&gt;</span>true<span class="nt">&lt;/modify-wsdl-address&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_APP_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-port</span><span class="nt">&gt;</span>80<span class="nt">&lt;/wsdl-port&gt;</span>
+    <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Standard-Endpoint-Config&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Recording-Endpoint-Config&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;pre</span><span class="err">-handler-chain</span> <span class="na">name=</span><span class="s">&quot;recording-handlers&quot;</span> <span class="na">protocol-bindings=</span><span class="s">&quot;##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;RecordingHandler&quot;</span> <span class="na">class=</span><span class="s">&quot;org.jboss.ws.common.invocation.RecordingServerHandler&quot;/</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/pre-handler-chain&gt;</span>
+    <span class="nt">&lt;/endpoint-config&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="deploy-the-openshift-application" class="anchor" href="#deploy-the-openshift-application"><span class="anchor-icon"></span></a>Deploy the OpenShift Application</h3>
+
+<p>You can now deploy the changes to your OpenShift application using git as follows:</p>
+<div class="highlight"><pre>    <span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;helloworld-ws quickstart on OpenShift&quot;</span>
+    <span class="n">git</span> <span class="n">push</span>
+</pre></div>
+<p>The final push command triggers the OpenShift infrastructure to build and deploy the changes. </p>
+
+<p>Note that the <code>openshift</code> profile in <code>pom.xml</code> is activated by OpenShift, and causes the war build by openshift to be copied to the <code>deployments</code> directory, and deployed to the &ldquo;jboss-helloworld-ws&rdquo; context path.</p>
+
+<h3><a id="access-the-openshift-application" class="anchor" href="#access-the-openshift-application"><span class="anchor-icon"></span></a>Access the OpenShift Application</h3>
+
+<p>Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+</pre></div>
+<p>Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
+<div class="highlight"><pre><span class="nl">http:</span><span class="c1">//helloworldws-quickstart.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl</span>
+</pre></div>
+<p>If the application has run successfully you should see some output in the browser.</p>
+
+<p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
+
+<h3><a id="run-the-remote-client-tests-against-openshift" class="anchor" href="#run-the-remote-client-tests-against-openshift"><span class="anchor-icon"></span></a>Run the Remote Client Tests against Openshift</h3>
+
+<p>This quickstart provides tests that can be run remotely. By default, these tests are configured to be skipped as the tests require the application to be running remotely. </p>
+
+<p><em>NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line..</em></p>
+
+<ol>
+<li>Make sure you have deployed the Application to Openshift as described above.</li>
+<li><p>Type the following command to run the test goal with the following profile activated and the URL of the deployed Application:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Pjbossas</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">Dremote</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">url</span><span class="o">=</span><span class="n">http</span><span class="o">:</span><span class="c1">//helloworldws-quickstart.rhcloud.com/</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="destroy-the-openshift-application" class="anchor" href="#destroy-the-openshift-application"><span class="anchor-icon"></span></a>Destroy the OpenShift Application</h3>
+
+<p>When you are finished with the application you can destroy it as follows:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
 </pre></div></body></html>
