@@ -36,9 +36,11 @@ Here are the steps in detail:
 
         git fetch upstream
 
-6. Create a new topic branch to contain your new quickstart, features, changes, or fixes using the `git checkout -b  <topic-branch-name> upstream/master` command. For example:
+6. Create a new topic branch to contain your new quickstart, features, changes, or fixes using the `git checkout -b  <topic-branch-name> upstream/master` command. If you are fixing a Bugzilla or JIRA, it is a good practice to use the number in the branch name. For new quickstarts or other fixes, try to use a good description for the branch name. For example:
 
-        git checkout -b helloworld-fix upstream/master
+        git checkout -b Bz-98765432 upstream/master
+        git checkout -b JDF-9876543 upstream/master
+        git checkout -b add-xyz-quickstart upstream/master
 
 7. Contribute new code or make changes to existing files. Make sure that you follow the [General Guidelines](#general-guidelines) below.
 
