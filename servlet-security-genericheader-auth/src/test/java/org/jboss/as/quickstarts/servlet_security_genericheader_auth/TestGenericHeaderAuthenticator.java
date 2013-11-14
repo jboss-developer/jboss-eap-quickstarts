@@ -57,7 +57,7 @@ public class TestGenericHeaderAuthenticator {
     /**
      * The name of the WAR Archive that will be used by Arquillian to deploy the application.
      */
-    private static final String APP_NAME = "jboss-as-servlet-security-genericheader-auth";
+    private static final String APP_NAME = "jboss-servlet-security-genericheader-auth";
 
     /**
      * Properties file location
