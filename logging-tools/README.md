@@ -15,7 +15,7 @@ This quick start demonstrates the use of JBoss Logging Tools to create internati
 
 Once the quick start is deployed you can access it using URLs documented below.
 
-Instructions are included below for starting JBoss AS7/EAP6 with a different locale than the system default.
+Instructions are included below for starting JBoss EAP with a different locale than the system default.
 
 
 System requirements
