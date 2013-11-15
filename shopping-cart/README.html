@@ -65,8 +65,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>You should see the following: </p>
 
 <ol>
-<li>The client sends a remote method invocation to the stateful session bean to buy two copies 
-of &ldquo;JBoss Enterprise Application Platform 6&rdquo; and one copy of &ldquo;JBoss SOA Platform 6&rdquo;.</li>
+<li>The client sends a remote method invocation to the stateful session bean to buy two &ldquo;JBoss Enterprise Application Platform 6&rdquo; subscriptions and one &ldquo;JBoss SOA Platform 6&rdquo; subscription.</li>
 <li>The client sends a remote method invocation to get the contents of the cart and prints it to the console.</li>
 <li>The client sends a remote method invocation to invoke checkout. Note the <code>checkout()</code> method in the server <code>ShoppingCartBean</code> has the <code>@Remove</code> annotation. This means the container will destroy shopping cart after the call and it will no longer be available. </li>
 <li>The client calls <code>getCartContents()</code> to make sure the shopping cart was removed after checkout. This results in a <code>javax.ejb.NoSuchEJBException</code> trace in the server, proving the cart was removed.</li>
