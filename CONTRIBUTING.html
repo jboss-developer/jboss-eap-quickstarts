@@ -29,8 +29,10 @@
 <li><p>Get the latest files from the <code>upstream</code> repository.</p>
 <div class="highlight"><pre><span class="n">git</span> <span class="n">fetch</span> <span class="n">upstream</span>
 </pre></div></li>
-<li><p>Create a new topic branch to contain your new quickstart, features, changes, or fixes using the <code>git checkout -b  &lt;topic-branch-name&gt; upstream/master</code> command. For example:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">helloworld</span><span class="o">-</span><span class="n">fix</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
+<li><p>Create a new topic branch to contain your new quickstart, features, changes, or fixes using the <code>git checkout -b  &lt;topic-branch-name&gt; upstream/master</code> command. If you are fixing a Bugzilla or JIRA, it is a good practice to use the number in the branch name. For new quickstarts or other fixes, try to use a good description for the branch name. For example:</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">Bz</span><span class="o">-</span><span class="mi">98765432</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">JDF</span><span class="o">-</span><span class="mi">9876543</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">add</span><span class="o">-</span><span class="n">xyz</span><span class="o">-</span><span class="n">quickstart</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
 </pre></div></li>
 <li><p>Contribute new code or make changes to existing files. Make sure that you follow the <a href="#general-guidelines">General Guidelines</a> below.</p></li>
 <li><p>To verify if your code followed the General Guidelines you can run <a href="http://www.jboss.org/jdf/quickstarts/qstools/">QS Tools</a> on your project.</p>
