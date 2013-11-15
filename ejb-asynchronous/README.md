@@ -89,9 +89,12 @@ Access the application
 
           action 'fireAndForget' finished
 
-_NOTE: In AS7.1.1.Final there is a bug that an ERROR will be logged that the result can not be written._
+_NOTE: In EAP 6.2, you may see the following errors in the server log after the client tests successfully complete. This is due to an issue with the server opening the outputstream and you can ignore the errors._
 
-
+        JBAS014249: Error invoking method public abstract void org.jboss.as.quickstarts.ejb.asynchronous.AsynchronousAccess.fireAndForget(long) on bean named AsynchronousAccessBean for appname  modulename jboss-ejb-asynchronous-ejb distinctname : java.lang.NullPointerException
+        
+        JBAS014250: Could not write method invocation failure for method public abstract void org.jboss.as.quickstarts.ejb.asynchronous.AsynchronousAccess.fireAndForget(long) on bean named AsynchronousAccessBean for appname  modulename jboss-ejb-asynchronous-ejb distinctname  due to: java.io.IOException: JBAS014560: Could not open message outputstream for writing to Channel
+        
 Undeploy the Archive
 --------------------
 
