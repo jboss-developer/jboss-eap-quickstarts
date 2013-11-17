@@ -93,12 +93,12 @@ To make this quickstart more interesting, deploy the RESTful service to OpenShif
 Build and Deploy the Quickstart - to OpenShift
 -------------------------
 
-_IMPORTANT_: This quickstart depends on the deployment of the `helloworld-rs` quickstart to OpenShift for its test. Follow the instructions [Build and Deploy the Quickstart - to OpenShift](../helloworld-rs/README.md#build-and-deploy-the-quickstart-to-openshift) in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step "Destroy the OpenShift Application".
+_IMPORTANT_: This quickstart depends on the deployment of the `helloworld-rs` quickstart to OpenShift for its test. Follow the instructions [Build and Deploy the Quickstart - to OpenShift](../helloworld-rs/README.md#build-and-deploy-the-quickstart-to-openshift) in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step "Delete the OpenShift Application".
 
-As it says in the helloworld-rs instructions, you can verify the deployment of the `helloworld-rs` quickstart by accessing the following content. Be sure to replace the `quickstart` in the URL with your domain name.
+As it says in the `helloworld-rs` instructions, you can verify the deployment of the `helloworld-rs` quickstart by accessing the following content. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your domain name.
 
-* <http://helloworldrs-quickstart.rhcloud.com/rest/xml> if you want *xml* or
-* <http://helloworldrs-quickstart.rhcloud.com/rest/json> if you want *json*
+* <http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml> if you want *xml* or
+* <http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json> if you want *json*
 
 
 ### Modify the jax-rs-client quickstart pom.xml
@@ -107,15 +107,15 @@ Now that you have deployed the application, it is time to make changes to the ja
 
 1. Open a shell command prompt and navigate to the `QUICKSTART_HOME/jax-rs-client/` directory.
 2. Make a backup copy of the `pom.xml` file.
-3. Open the `pom.xml` file in an editor and modify the `xmlUrl` and `jsonUrl` property values as follows. Be sure to replace the `quickstart` in the URL with your domain name.
+3. Open the `pom.xml` file in an editor and modify the `xmlUrl` and `jsonUrl` property values as follows. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift domain name.
 
         <property>
             <name>xmlUrl</name>
-            <value>http://helloworldrs-quickstart.rhcloud.com/rest/xml</value>
+            <value>http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml</value>
         </property>
         <property>
             <name>jsonUrl</name>
-            <value>http://helloworldrs-quickstart.rhcloud.com/rest/json</value>
+            <value>http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json</value>
         </property>
 
 
@@ -128,7 +128,7 @@ Type the following command to run the jax-rs-client:
 This command will compile the example and execute a test to make two separate requests to the Web Service.  Towards the end of the Maven build output, you should see the following if the execution is successful:
 
         ===============================================
-        URL: http://helloworldrs-quickstart.rhcloud.com/rest/xml
+        URL: http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml
         MediaType: application/xml
 
         *** Response from Server ***
@@ -137,7 +137,7 @@ This command will compile the example and execute a test to make two separate re
 
         ===============================================
         ===============================================
-        URL: http://helloworldrs-quickstart.rhcloud.com/rest/json
+        URL: http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json
         MediaType: application/json
 
         *** Response from Server ***
@@ -148,13 +148,14 @@ This command will compile the example and execute a test to make two separate re
 
 When you are finished testing, restore the `pom.xml` file to the previous version if you want to test locally.
 
-### Destroy the OpenShift Application
+### Delete the OpenShift Application
 
-When you are finished with the application you can destroy it as follows:
+When you are finished with the application you can delete it from OpenShift as follows:
 
-        rhc app destroy -a helloworldrs
+        rhc app-delete -a helloworldrs
 
-_Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must destroy an existing application before you continue. 
+_Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must delete an existing application before you continue. 
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
-* To destroy an existing application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
+* To delete an application from OpenShift, type the following, substituting the application name you want to delete: `rhc app-delete -a APPLICATION_NAME_TO_DELETE`
+
