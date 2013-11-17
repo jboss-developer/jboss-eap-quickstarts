@@ -115,24 +115,40 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss Enterprise Application Platform:
+Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
 
-    rhc app create -a hellworldmdb -t APPLICATION_TYPE
+Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
-The domain name for this application will be `helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
+    rhc app create -a hellworldmdb -t jbosseap-6
+
+The domain name for this application will be `helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 This command creates an OpenShift application called `helloworldmdb` and will run the application inside the `jbosseap-6`. You should see some output similar to the following:
 
-    Creating application: helloworldmdb
-    Now your new domain name is being propagated worldwide (this might take a minute)...
-    Warning: Permanently added 'helloworldmdb-quickstart.rhcloud.com,107.22.36.32' (RSA) to the list of known hosts.
-    Confirming application 'helloworldmdb' is available:  Success!
-    
-    helloworldmdb published:  http://helloworldmdb-quickstart.rhcloud.com/
-    git url:  ssh://b92047bdc05e46c980cc3501c3577c1e@helloworldmdb-quickstart.rhcloud.com/~/git/helloworldmdb.git/
-    Successfully created application: helloworldmdb
+    Application Options
+    -------------------
+      Namespace:  YOUR_DOMAIN_NAME
+      Cartridges: jbosseap-6 (addtl. costs may apply)
+      Gear Size:  default
+      Scaling:    no
 
-The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldmdb-quickstart.rhcloud.com/> into a browser or use command line tools such as curl or wget. Be sure to replace the `quickstart` in the URL with your domain name.
+    Creating application 'helloworldmdb' ... done
+
+    Waiting for your DNS name to be available ... done
+
+    Cloning into 'helloworldmdb'...
+    Warning: Permanently added the RSA host key for IP address '54.237.58.0' to the list of known hosts.
+
+    Your application 'helloworldmdb' is now available.
+
+      URL:        http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/
+      SSH to:     52864af85973ca430200006f@helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com
+      Git remote: ssh://52864af85973ca430200006f@helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/~/git/helloworldmdb.git/
+      Cloned to:  CURRENT_DIRECTORY/helloworldmdb
+
+    Run 'rhc show-app helloworldmdb' for more details about your app.
+
+The create command creates a git repository in the current directory with the same name as the application, in this case, `helloworldmdb`. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/> into a browser or use command line tools such as curl or wget. Be sure to replace `YOUR_DOMAIN_NAME` with your OpenShift account domain name.
         
 
 ### Migrate the Quickstart Source
@@ -161,14 +177,14 @@ You can now deploy the changes to your OpenShift application using git as follow
 
 The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
 
-Note that the `openshift` profile in the `pom.xml` file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the `deployments` directory and deployed without a context path.
+Note that the `openshift` profile in the `pom.xml` file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the `deployments/` directory and deployed without a context path.
 
 ### Test the OpenShift Application
 
-When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `quickstart` in the URL with your domain name.
+When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
-* <http://helloworldmdb-quickstart.rhcloud.com/> to send messages to the queue
-* <http://helloworldmdb-quickstart.rhcloud.com/HelloWorldMDBServletClient?topic> to send messages to the topic
+* <http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/> to send messages to the queue
+* <http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/HelloWorldMDBServletClient?topic> to send messages to the topic
 
 If the application has run succesfully you should see some output in the browser.
 
@@ -187,13 +203,14 @@ This will show the tail of the servers log which should show something like the 
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
-### Destroy the OpenShift Application
+### Delete the OpenShift Application
 
-When you are finished with the application you can destroy it as follows:
+When you are finished with the application you can delete it from OpenShift it as follows:
 
-        rhc app destroy -a helloworldmdb
+        rhc app-delete -a helloworldmdb
         
-_Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must destroy an existing application before you continue. 
+_Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must delete an existing application before you continue. 
 
 * To view the list of your OpenShift applications, type: `rhc domain show`
-* To destroy an application, type the following, substituting the application name you want to destroy: `rhc app destroy -a APPLICATION_NAME_TO_DESTROY`
+* To delete an application from OpenShift, type the following, substituting the application name you want to delete: `rhc app-delete -a APPLICATION_NAME_TO_DELETE`
+

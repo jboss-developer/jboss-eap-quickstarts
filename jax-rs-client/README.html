@@ -81,13 +81,13 @@ should see the following if the execution is successful:</p>
 
 <h2><a id="build-and-deploy-the-quickstart-to-openshift" class="anchor" href="#build-and-deploy-the-quickstart-to-openshift"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart - to OpenShift</h2>
 
-<p><em>IMPORTANT</em>: This quickstart depends on the deployment of the <code>helloworld-rs</code> quickstart to OpenShift for its test. Follow the instructions <a href="../helloworld-rs/README.html#build-and-deploy-the-quickstart-to-openshift">Build and Deploy the Quickstart - to OpenShift</a> in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step &ldquo;Destroy the OpenShift Application&rdquo;.</p>
+<p><em>IMPORTANT</em>: This quickstart depends on the deployment of the <code>helloworld-rs</code> quickstart to OpenShift for its test. Follow the instructions <a href="../helloworld-rs/README.html#build-and-deploy-the-quickstart-to-openshift">Build and Deploy the Quickstart - to OpenShift</a> in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step &ldquo;Delete the OpenShift Application&rdquo;.</p>
 
-<p>As it says in the helloworld-rs instructions, you can verify the deployment of the <code>helloworld-rs</code> quickstart by accessing the following content. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
+<p>As it says in the <code>helloworld-rs</code> instructions, you can verify the deployment of the <code>helloworld-rs</code> quickstart by accessing the following content. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your domain name.</p>
 
 <ul>
-<li><a href="http://helloworldrs-quickstart.rhcloud.com/rest/xml">http://helloworldrs-quickstart.rhcloud.com/rest/xml</a> if you want <em>xml</em> or</li>
-<li><a href="http://helloworldrs-quickstart.rhcloud.com/rest/json">http://helloworldrs-quickstart.rhcloud.com/rest/json</a> if you want <em>json</em></li>
+<li><a href="http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml">http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml</a> if you want <em>xml</em> or</li>
+<li><a href="http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json">http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json</a> if you want <em>json</em></li>
 </ul>
 
 <h3><a id="modify-the-jaxrsclient-quickstart-pomxml" class="anchor" href="#modify-the-jaxrsclient-quickstart-pomxml"><span class="anchor-icon"></span></a>Modify the jax-rs-client quickstart pom.xml</h3>
@@ -97,14 +97,14 @@ should see the following if the execution is successful:</p>
 <ol>
 <li>Open a shell command prompt and navigate to the <code>QUICKSTART_HOME/jax-rs-client/</code> directory.</li>
 <li>Make a backup copy of the <code>pom.xml</code> file.</li>
-<li><p>Open the <code>pom.xml</code> file in an editor and modify the <code>xmlUrl</code> and <code>jsonUrl</code> property values as follows. Be sure to replace the <code>quickstart</code> in the URL with your domain name.</p>
+<li><p>Open the <code>pom.xml</code> file in an editor and modify the <code>xmlUrl</code> and <code>jsonUrl</code> property values as follows. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your OpenShift domain name.</p>
 <div class="highlight"><pre><span class="nt">&lt;property&gt;</span>
     <span class="nt">&lt;name&gt;</span>xmlUrl<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;value&gt;</span>http://helloworldrs-quickstart.rhcloud.com/rest/xml<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;value&gt;</span>http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml<span class="nt">&lt;/value&gt;</span>
 <span class="nt">&lt;/property&gt;</span>
 <span class="nt">&lt;property&gt;</span>
     <span class="nt">&lt;name&gt;</span>jsonUrl<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;value&gt;</span>http://helloworldrs-quickstart.rhcloud.com/rest/json<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;value&gt;</span>http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json<span class="nt">&lt;/value&gt;</span>
 <span class="nt">&lt;/property&gt;</span>
 </pre></div></li>
 </ol>
@@ -116,7 +116,7 @@ should see the following if the execution is successful:</p>
 </pre></div>
 <p>This command will compile the example and execute a test to make two separate requests to the Web Service.  Towards the end of the Maven build output, you should see the following if the execution is successful:</p>
 <div class="highlight"><pre>    <span class="o">===============================================</span>
-    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//helloworldrs-quickstart.rhcloud.com/rest/xml</span>
+    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml</span>
     <span class="nx">MediaType</span><span class="p">:</span> <span class="nx">application</span><span class="p">/</span><span class="nb">xml</span>
 
     <span class="o">***</span> <span class="nb">Response</span> <span class="nb">from</span> <span class="nx">Server</span> <span class="o">***</span>
@@ -125,7 +125,7 @@ should see the following if the execution is successful:</p>
 
     <span class="o">===============================================</span>
     <span class="o">===============================================</span>
-    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//helloworldrs-quickstart.rhcloud.com/rest/json</span>
+    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json</span>
     <span class="nx">MediaType</span><span class="p">:</span> <span class="nx">application</span><span class="p">/</span><span class="nx">json</span>
 
     <span class="o">***</span> <span class="nb">Response</span> <span class="nb">from</span> <span class="nx">Server</span> <span class="o">***</span>
@@ -136,15 +136,15 @@ should see the following if the execution is successful:</p>
 </pre></div>
 <p>When you are finished testing, restore the <code>pom.xml</code> file to the previous version if you want to test locally.</p>
 
-<h3><a id="destroy-the-openshift-application" class="anchor" href="#destroy-the-openshift-application"><span class="anchor-icon"></span></a>Destroy the OpenShift Application</h3>
+<h3><a id="delete-the-openshift-application" class="anchor" href="#delete-the-openshift-application"><span class="anchor-icon"></span></a>Delete the OpenShift Application</h3>
 
-<p>When you are finished with the application you can destroy it as follows:</p>
-<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">destroy</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldrs</span>
+<p>When you are finished with the application you can delete it from OpenShift as follows:</p>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span><span class="o">-</span><span class="n">delete</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldrs</span>
 </pre></div>
-<p><em>Note</em>: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the <code>rhc app create</code> command returns an error indicating you have reached that limit, you must destroy an existing application before you continue. </p>
+<p><em>Note</em>: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the <code>rhc app create</code> command returns an error indicating you have reached that limit, you must delete an existing application before you continue. </p>
 
 <ul>
 <li>To view the list of your OpenShift applications, type: <code>rhc domain show</code></li>
-<li>To destroy an existing application, type the following, substituting the application name you want to destroy: <code>rhc app destroy -a APPLICATION_NAME_TO_DESTROY</code></li>
+<li>To delete an application from OpenShift, type the following, substituting the application name you want to delete: <code>rhc app-delete -a APPLICATION_NAME_TO_DELETE</code></li>
 </ul>
 </body></html>

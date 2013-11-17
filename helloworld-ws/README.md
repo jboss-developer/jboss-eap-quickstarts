@@ -118,44 +118,59 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
+Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command, replacing APPLICATION_TYPE with `jbosseap-6` for quickstarts running on JBoss EAP 6:
+Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
-        rhc app create -a helloworldws -t APPLICATION_TYPE
+    rhc app create -a helloworldws -t jbosseap-6
 
-_NOTE_: The domain name for this application will be `helloworldws-YOUR_DOMAIN_NAME.rhcloud.com`. Here we use the _quickstart_ domain. You will need to replace it with your own OpenShift domain name.
+_NOTE_: The domain name for this application will be `helloworldws-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
-This command creates an OpenShift application called `helloworldws` and will run the application inside a `jbossas-7` or a `jbosseap-6` container. You should see some output similar to the following:
+This command creates an OpenShift application called `helloworldws` and will run the application inside the `jbosseap-6` container. You should see some output similar to the following:
 
-    Creating application: helloworldws
-    Now your new domain name is being propagated worldwide (this might take a minute)...
-    Warning: Permanently added 'helloworldws-quickstart.rhcloud.com,107.22.36.32' (RSA) to the list of known hosts.
-    Confirming application 'helloworldws' is available:  Success!
-    
-    helloworldws published:  http://helloworldws-quickstart.rhcloud.com/
-    git url:  ssh://b92047bdc05e46c980cc3501c3577c1e@helloworldws-quickstart.rhcloud.com/~/git/helloworldws.git/
-    Successfully created application: helloworldws
+    Application Options
+    -------------------
+      Namespace:  YOUR_DOMAIN_NAME
+      Cartridges: jbosseap-6 (addtl. costs may apply)
+      Gear Size:  default
+      Scaling:    no
 
-The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldws-quickstart.rhcloud.com/> into a browser or use command line tools such as curl or wget.
+    Creating application 'helloworldws' ... done
+
+    Waiting for your DNS name to be available ... done
+
+    Cloning into 'helloworldws'...
+    Warning: Permanently added the RSA host key for IP address '54.237.58.0' to the list of known hosts.
+
+    Your application 'helloworldws' is now available.
+
+      URL:        http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/
+      SSH to:     52864af85973ca430200006f@helloworldws-YOUR_DOMAIN_NAME.rhcloud.com
+      Git remote: ssh://52864af85973ca430200006f@helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/~/git/helloworldws.git/
+      Cloned to:  CURRENT_DIRECTORY/helloworldws
+
+    Run 'rhc show-app helloworldws' for more details about your app.
+
+The create command creates a git repository in the current directory with the same name as the application, in this case, `helloworldws`. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/> into a browser or use command line tools such as curl or wget. Be sure to replace `YOUR_DOMAIN_NAME` with your OpenShift account domain name.
 
 ### Migrate the Quickstart Source
 
-Now that you have confirmed it is working you can now migrate the quickstart source. You no longer need the default application so change directory into the new git repository and tell git to remove the source files and pom:
+Now that you have confirmed it is working you can now migrate the quickstart source and POM file. You no longer need the default application, so change directory into the new git repository and tell git to remove the source and pom files:
 
-        cd helloworldws
-        git rm -r src pom.xml
+    cd helloworldws
+    git rm -r src pom.xml
 
-Copy the source for the `helloworld-ws` quickstart into this new git repository:
+Copy the source and POM file for the `helloworld-ws` quickstart into this new git repository:
 
-        cp -r <quickstarts>/helloworld-ws/src .
-        cp <quickstarts>/helloworld-ws/pom.xml .
+    cp -r QUICKSTART_HOME/helloworld-ws/src .
+    cp QUICKSTART_HOME/helloworld-ws/pom.xml .
         
 ### Configure the OpenShift Server
 
-Openshift does not have Web services setup by default, so we need to modify the server configuration. To do this open `.openshift/config/standalone.xml` (this file may be hidden) in an editor and make the following additions:
+Verify that Openshift has Web services configured by default. To do this: 
 
-1. If the webservices subsystem is not configured as below under the `<profile>` element, copy the following and replace the webservices subsystem to enable and configure Web Services:
+1. Open the hidden `.openshift/config/standalone.xml` file in an editor. 
+2. If the `webservices` subsystem is not configured as below under the `<profile>` element, copy the following and replace the `webservices` subsystem to enable and configure Web Services:
         
         <subsystem xmlns="urn:jboss:domain:webservices:1.1">
             <modify-wsdl-address>true</modify-wsdl-address>
@@ -173,25 +188,25 @@ Openshift does not have Web services setup by default, so we need to modify the 
 
 You can now deploy the changes to your OpenShift application using git as follows:
 
-        git add src pom.xml
-        git commit -m "helloworld-ws quickstart on OpenShift"
-        git push
+    git add src pom.xml
+    git commit -m "helloworld-ws quickstart on OpenShift"
+    git push
 
 The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
 
-Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the war build by openshift to be copied to the `deployments` directory, and deployed to the "jboss-helloworld-ws" context path.
+Note that the `openshift` profile in `pom.xml` file is activated by OpenShift and causes the WAR built by openshift to be copied to the `deployments/` directory and deployed to the "jboss-helloworld-ws" context path.
 
 ### Access the OpenShift Application
 
 Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
 
-        rhc app tail -a helloworldws
+    rhc app tail -a helloworldws
 
-Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `quickstart` in the URL with your domain name.
+Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
-    http://helloworldws-quickstart.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl
+    http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl
 
-If the application has run successfully you should see some output in the browser.
+If the application has run successfully you should see the WSDL output in the browser.
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
@@ -202,13 +217,18 @@ This quickstart provides tests that can be run remotely. By default, these tests
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line.._
 
 1. Make sure you have deployed the Application to Openshift as described above.
-2. Type the following command to run the test goal with the following profile activated and the URL of the deployed Application:
+2. Type the following command to run the test goal with the following profile activated and the URL of the deployed Application. Be sure to replaces `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name:
 
-		mvn clean test -Pjbossas-remote -Dremote.server.url=http://helloworldws-quickstart.rhcloud.com/
+		mvn clean test -Pjbossas-remote -Dremote.server.url=http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/
 
-### Destroy the OpenShift Application
+### Delete the OpenShift Application
 
-When you are finished with the application you can destroy it as follows:
+When you are finished with the application you can delete it from OpenShift as follows:
 
-        rhc app destroy -a helloworldws
+    rhc app-delete -a helloworldws
+
+_Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must delete an existing application before you continue. 
+
+* To view the list of your OpenShift applications, type: `rhc domain show`
+* To delete an application from OpenShift, type the following, substituting the application name you want to delete: `rhc app-delete -a APPLICATION_NAME_TO_DELETE`
 
