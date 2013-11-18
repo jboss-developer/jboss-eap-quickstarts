@@ -28,11 +28,9 @@
     
     <artifactId>jboss-as-quickstarts-parent</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
-    <!-- version for WFK quickstarts:
-    <groupId>2.4.0-redhat-SNAPSHOT</groupId> -->
     <packaging>pom</packaging>
     <name>JBoss Quickstart: Parent</name>
-    <description>JBoss AS Quickstarts Parent</description>
+    <description>JBoss EAP Quickstarts Parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 
     <licenses>
