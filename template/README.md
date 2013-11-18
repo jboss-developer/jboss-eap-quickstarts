@@ -176,7 +176,7 @@ If you want to debug the source code or look at the Javadocs of any library in t
 Build and Deploy the Quickstart - to OpenShift
 -------------------------
 
-_Contributor: If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process. Be sure to note:_
+_Contributor: If the quickstart deploys to OpenShift, you can use the following template a starting point to describe the process. Be sure to replace the following variables as noted below:_
 
 * APPLICATION_NAME should be replaced with a variation of the quickstart name, for example: myquickstart
 * QUICKSTART_NAME should be replaced with your quickstart name, for example:  my-quickstart
@@ -220,7 +220,7 @@ This command creates an OpenShift application named APPLICATION_NAME and will ru
 
     Run 'rhc show-app APPLICATION_NAME' for more details about your app.
 
-The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://APPLICATION_NAME-quickstart.rhcloud.com/> into a browser or use command line tools such as curl or wget. Be sure to replace `YOUR_DOMAIN_NAME` with your OpenShift account domain name.
+The create command creates a git repository in the current directory with the same name as the application. Notice that the output also reports the URL at which the application can be accessed. Make sure it is available by typing the published url <http://APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com/> into a browser or use command line tools such as curl or wget. Be sure to replace `YOUR_DOMAIN_NAME` with your OpenShift account domain name.
 
 ### Migrate the Quickstart Source
 
@@ -252,7 +252,7 @@ Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and ca
 
 ### Test the OpenShift Application
 
-When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget:
+When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
 * <http://APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com/> 
 
