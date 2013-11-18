@@ -138,7 +138,9 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the Application 
 ---------------------
 
-You can test the service using using mvn exec:java or executing provided Java class org.jboss.as.quickstarts.picketlink.WSTrustClientExample.
+You can test the service using using 
+    mvn exec:java 
+or executing provided Java class org.jboss.as.quickstarts.picketlink.WSTrustClientExample.
 If all works as expected you will see assertion from PicketLink STS dumped on the screen. Check line starting with "<saml:Assertion ...".
 
 
