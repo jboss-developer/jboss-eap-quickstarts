@@ -163,7 +163,7 @@ Undeploy and Remove the Security Domain Configuration
 
 ### Undeploy and Remove the Security Domain Using the JBoss CLI 
 
-You can undeploy the quickstart and remove the security domain using the provided 
+You can undeploy the quickstart and remove the security domain configuration in one easy step using the `undeploy-and-remove-security-domain.cli` script located in the root directory of this quickstart.
 
 1. Open a new command line, navigate to the root directory of this quickstart.
 2. Run the following command, replacing JBOSS_HOME with the path to your server:
