@@ -51,7 +51,7 @@
 
     <build>
         <plugins>
-            <!-- This jar is deployed to JBoss AS as a JBoss Module, which 
+            <!-- This jar is deployed to JBoss EAP as a JBoss Module, which 
                 we can depend on from other deployments -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>

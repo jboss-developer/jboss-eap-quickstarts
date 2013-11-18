@@ -171,8 +171,8 @@
         </profile>
         <profile>
             <!-- An optional Arquillian testing profile that 
-                executes tests in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, 
+                executes tests in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, 
                 and execute the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
@@ -186,7 +186,7 @@
         </profile>
         <profile>
             <!-- An optional Arquillian testing profile that 
-                executes tests in a remote JBoss AS instance -->
+                executes tests in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>
