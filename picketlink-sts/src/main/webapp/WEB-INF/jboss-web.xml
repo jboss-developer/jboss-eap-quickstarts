@@ -17,5 +17,6 @@
  -->
 
 <jboss-web>
+  <context-root>/picketlink-sts</context-root>
   <security-domain>picketlink-sts</security-domain>
 </jboss-web>
