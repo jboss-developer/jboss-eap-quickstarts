@@ -46,6 +46,12 @@ From a JAX-WS perspective, you can use any tool you want to start using the STS.
             </soap:Body>
         </soap:Envelope>
 
+There is a simple example of WS-Trush client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run:
+
+      mvn exec:java 
+
+Assertion from PicketLink STS is dumped on the screen. Check line starting with "<saml:Assertion ...".
+
 _Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards._
 
 
@@ -132,13 +138,9 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the Application 
 ---------------------
 
-You can test the service using following URL: <http://localhost:8080/jboss-picketlink-sts/>.
+You can test the service using using mvn exec:java or executing provided Java class org.jboss.as.quickstarts.picketlink.WSTrustClientExample.
+If all works as expected you will see assertion from PicketLink STS dumped on the screen. Check line starting with "<saml:Assertion ...".
 
-When you access the above URL, it prompts you for the username and password for the "PicketLinkSTSRealm". You can use any of the credentials defined in the `src/main/resources/users.properties` file as described in the section [How to use this quickstart](#how-to-use-this-quickstart) above. For example, you can enter `admin/admin` or `tomcat/tomcat`.
-        
-When you enter invalid credentials, the login prompt is redisplayed. 
-
-When you enter valid credentials, depending on your browser, you see a "This webpage is not found", "File not found", or similar message. This is because this application is only a service and not a fully functional application, so there is no user interface. This is the expected result.
 
 Undeploy the Archive
 --------------------
