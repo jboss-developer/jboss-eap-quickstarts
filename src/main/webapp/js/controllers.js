@@ -18,7 +18,7 @@ function MembersCtrl($scope, $http, Members) {
 
     // Define a refresh function, that updates the data from the REST service
     $scope.refresh = function() {
-        $scope.members = Members.query();
+        $scope.members = Members.query({time: new Date().getTime()});
     };
 
     // Define a reset function, that clears the prototype newMember object, and
