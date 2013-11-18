@@ -146,8 +146,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss
-                AS container -->
+            <!-- The JBoss AS plugin deploys your war to a local JBoss EAP container -->
             <!-- To use, run: mvn package jboss-as:deploy -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
@@ -181,8 +180,8 @@
         </profile>
         <profile>
             <!-- An optional Arquillian testing profile that executes tests
-                in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute
+                in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
@@ -197,7 +196,7 @@
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests
-                in a remote JBoss AS instance -->
+                in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

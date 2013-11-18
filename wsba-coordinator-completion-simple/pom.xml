@@ -146,7 +146,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- JBoss AS deployment disabled, as this is a test-only example! -->
+            <!-- JBoss EAP deployment disabled, as this is a test-only example! -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
@@ -182,8 +182,8 @@
         </profile>
         <profile>
             <!-- An optional Arquillian testing profile that executes tests 
-                in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute 
+                in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute 
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
@@ -199,7 +199,7 @@
         <profile>
 
             <!-- An optional Arquillian testing profile that executes tests 
-                in a remote JBoss AS instance -->
+                in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

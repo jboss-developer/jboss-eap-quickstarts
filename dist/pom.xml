@@ -27,8 +27,8 @@
     <artifactId>jboss-eap-quickstarts-dist</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss AS Quickstarts Distribution</name>
-    <description>JBoss AS Quickstarts Distribution</description>
+    <name>JBoss EAP Quickstarts Distribution</name>
+    <description>JBoss EAP Quickstarts Distribution</description>
     <url>https://github.com/jboss-developer/jboss-eap-quickstarts</url>
 
     <licenses>
