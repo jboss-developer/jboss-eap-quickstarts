@@ -46,6 +46,8 @@ From a JAX-WS perspective, you can use any tool you want to start using the STS.
             </soap:Body>
         </soap:Envelope>
 
+There is a simple example of WS-Trush client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled "Access the Application".
+
 _Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards._
 
 
@@ -100,10 +102,13 @@ _NOTE - Before you begin:_
         --controller=HOST_NAME:PORT_NUMBER
    You should see the following result when you run the script:
    
-          #1 /subsystem=security/security-domain=picketlink-sts:add
-          #2 /subsystem=security/security-domain=picketlink-sts/authentication=classic:add(  login-modules=[  {  "code" => "UsersRoles ",  "flag" => "required",  "module-options" => [  "usersProperties"=>"users.properties",  "rolesProperties"=>"roles.properties"  ]  }  ]  )
-          The batch executed successfully
+        #1 /subsystem=security/security-domain=picketlink-sts:add
+        #2 /subsystem=security/security-domain=picketlink-sts/authentication=classic:add(  login-modules=[  {  "code" => "UsersRoles ",  "flag" => "required",  "module-options" => [  "usersProperties"=>"users.properties",  "rolesProperties"=>"roles.properties"  ]  }  ]  )
+        The batch executed successfully
 
+   The batch file also restarts the server.
+   
+   
 Start the JBoss Server
 -------------------------
 
@@ -132,29 +137,53 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the Application 
 ---------------------
 
-You can test the service using following URL: <http://localhost:8080/jboss-picketlink-sts/>.
+You can test the service as follows:
 
-When you access the above URL, it prompts you for the username and password for the "PicketLinkSTSRealm". You can use any of the credentials defined in the `src/main/resources/users.properties` file as described in the section [How to use this quickstart](#how-to-use-this-quickstart) above. For example, you can enter `admin/admin` or `tomcat/tomcat`.
-        
-When you enter invalid credentials, the login prompt is redisplayed. 
+1. Open a command line and navigate to the root directory of this quickstart.
+2. Type the following command:
 
-When you enter valid credentials, depending on your browser, you see a "This webpage is not found", "File not found", or similar message. This is because this application is only a service and not a fully functional application, so there is no user interface. This is the expected result.
+        mvn exec:java
+3. You should see a `<saml:Assertion` assertion from PicketLink STS along with a `BUILD SUCCESS` printed to the console. 
 
-Undeploy the Archive
---------------------
+        Invoking token service to get SAML assertion for user:UserA with password:PassA
+        SAML assertion for user:UserA successfully obtained!
+        <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="ID_79157aa6-38ab-4e5e-a562-78bade9ffb82" IssueInstant="2013-11-18T18:19:35.955Z" Version="2.0"><saml:Issuer>PicketLinkSTS</saml:Issuer><dsig:Signature xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"><dsig:SignedInfo><dsig:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments"/><dsig:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsig:Reference URI="#ID_79157aa6-38ab-4e5e-a562-78bade9ffb82"><dsig:Transforms><dsig:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><dsig:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></dsig:Transforms><dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsig:DigestValue>7LaVacKTsP6wnuNlsQ6KASNDgdE=</dsig:DigestValue></dsig:Reference></dsig:SignedInfo><dsig:SignatureValue>jiyC63KG65d019PY7ThZzyojiU6iJMAr9N39uqrPr3HBGPfW7JjwFH9tahsFKjgoQQH7ToRLKZJKvm12TmDured+s+5VyI+Py6TsDiaQCRnNSeARvYdXFwNCA1D8Sx0xDkXKWpgB3YZenBV6U0IZtmAa5CxXFKmdqxEzHweAPq0=</dsig:SignatureValue><dsig:KeyInfo><dsig:KeyValue><dsig:RSAKeyValue><dsig:Modulus>suGIyhVTbFvDwZdx8Av62zmP+aGOlsBN8WUE3eEEcDtOIZgO78SImMQGwB2C0eIVMhiLRzVPqoW1dCPAveTm653zHOmubaps1fY0lLJDSZbTbhjeYhoQmmaBro/tDpVw5lKJns2qVnMuRK19ju2dxpKwlYGGtrP5VQv00dfNPbs=</dsig:Modulus><dsig:Exponent>AQAB</dsig:Exponent></dsig:RSAKeyValue></dsig:KeyValue></dsig:KeyInfo></dsig:Signature><saml:Subject><saml:NameID NameQualifier="urn:picketlink:identity-federation">UserA</saml:NameID><saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"/></saml:Subject><saml:Conditions NotBefore="2013-11-18T18:19:35.955Z" NotOnOrAfter="2013-11-18T20:19:35.955Z"/><saml:AuthnStatement AuthnInstant="2013-11-18T18:19:35.955Z"><saml:AuthnContext><saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:cm:bearer</saml:AuthnContextClassRef></saml:AuthnContext></saml:AuthnStatement></saml:Assertion>
+        [INFO] ------------------------------------------------------------------------
+        [INFO] BUILD SUCCESS
+        [INFO] ------------------------------------------------------------------------
+        [INFO] Total time: 1.404s
+        [INFO] Finished at: Mon Nov 18 13:19:36 EST 2013
+        [INFO] Final Memory: 7M/146M
+        [INFO] ------------------------------------------------------------------------
+
+
+
+Undeploy and Remove the Security Domain Configuration
+----------------------------------------
+
+### Undeploy and Remove the Security Domain Using the JBoss CLI 
+
+You can undeploy the quickstart and remove the security domain using the provided 
+
+1. Open a new command line, navigate to the root directory of this quickstart.
+2. Run the following command, replacing JBOSS_HOME with the path to your server:
+
+        For Linux: JBOSS_HOME/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
+        For Windows: JBOSS_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
+   You should see the following result when you run the script:
+   
+        {"outcome" => "success"}
+
+### Undeploy the quickstart and Remove the Security Domain Manually
+
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
-
-
-Remove the Security Domain Configuration 
-----------------------------------------
-
-1. If it is running, stop the JBoss server.
-2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+4. Stop the JBoss server.
+5. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
