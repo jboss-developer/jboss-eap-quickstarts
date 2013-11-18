@@ -47,6 +47,10 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
+        <!-- other plugin versions -->
+        <version.war.plugin>2.1.1</version.war.plugin>
+        <version.exec.plugin>1.2.1</version.exec.plugin>
+
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -103,13 +107,45 @@
                          is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-war-plugin</artifactId>
+              <version>${version.war.plugin}</version>
+              <configuration>
+                <packagingExcludes>WEB-INF/classes/org/jboss/**</packagingExcludes>
+              </configuration>
+            </plugin>
+
             <!-- JBoss AS plugin to deploy war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
             </plugin>
+            
+            <!-- exec maven plugin to execute client to show how to get security token from PicketLink STS  -->
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+                <version>${version.exec.plugin}</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>java</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <classpathScope>test</classpathScope>
+                <mainClass>org.jboss.as.quickstarts.picketlink.WSTrustClientExample</mainClass>
+                <executable>java</executable>
+                <arguments>
+                  <argument>UserA</argument>
+                  <argument>PassA</argument>
+                </arguments>
+              </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>

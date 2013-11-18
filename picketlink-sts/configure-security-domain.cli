@@ -20,3 +20,5 @@ batch
 # execute batch
 run-batch
 
+/:shutdown(restart=true)
+
