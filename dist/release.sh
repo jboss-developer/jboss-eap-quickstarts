@@ -67,29 +67,37 @@ notify_email()
 
 release()
 {
+   BRANCH=$(parse_git_branch)
+   git checkout -b $RELEASEVERSION
    echo "Regenerating html from markdown"
    $DIR/release-utils.sh -m
    echo "Releasing JBoss AS Quickstarts version $RELEASEVERSION"
    $DIR/release-utils.sh -u -o $SNAPSHOTVERSION -n $RELEASEVERSION
+   echo "Removing unnecessary files"
+   git rm --cached -r dist/
+   git rm --cached -r template/
    git commit -a -m "Prepare for $RELEASEVERSION release"
-   git tag -a $RELEASEVERSION -m "Tag $RELEASEVERSION"
-   git branch $RELEASEVERSION tags/$RELEASEVERSION
-   $DIR/release-utils.sh -u -o $RELEASEVERSION -n $NEWSNAPSHOTVERSION
-   git commit -a -m "Prepare for development of $NEWSNAPSHOTVERSION"
-   echo "Building Distribution zip"
-   BRANCH=$(parse_git_branch)
-   git checkout $RELEASEVERSION
+   echo "Creating tag for $RELEASEVERSION"
+   git tag $RELEASEVERSION 
    mvn clean install -f $DIR/pom.xml
+   echo "Your zip file was generated at $DIR/target/jboss-eap-quickstarts-$RELEASEVERSION-dist.zip"
+   $DIR/release-utils.sh -u -o $RELEASEVERSION -n $NEWSNAPSHOTVERSION
+   echo "Adding unnecessary files again..."
+   git add dist/
+   git add template/
+   git commit -a -m "Prepare for development of $NEWSNAPSHOTVERSION"
    git checkout $BRANCH
-   echo "Uploading distribution to http://download.jboss.org/jbossas/$MAJOR_VERSION.$MINOR_VERSION/jboss-as-$RELEASEVERSION/jboss-as-quickstarts-$RELEASEVERSION-dist.zip"
-   rsync -Pv --protocol=28 $DIR/target/jboss-as-quickstarts-$RELEASEVERSION-dist.zip jbossas@filemgmt.jboss.org:downloads_htdocs/jbossas/$MAJOR_VERSION.$MINOR_VERSION/jboss-as-$RELEASEVERSION/
+   #echo "Building Distribution zip"
+   #git checkout $RELEASEVERSION
+   #echo "Uploading distribution to http://download.jboss.org/jbossas/$MAJOR_VERSION.$MINOR_VERSION/jboss-as-$RELEASEVERSION/jboss-eap-quickstarts-$RELEASEVERSION-dist.zip"
+   #rsync -Pv --protocol=28 $DIR/target/jboss-eap-quickstarts-$RELEASEVERSION-dist.zip jbossas@filemgmt.jboss.org:downloads_htdocs/jbossas/$MAJOR_VERSION.$MINOR_VERSION/jboss-eap-$RELEASEVERSION/
    read -p "Do you want to send release notifcations to $EAP_EMAIL_TO[y/N]?" yn
    case $yn in
        [Yy]* ) notify_email;;
-       * ) exit;
    esac
    echo "Don't forget to push the tag and the branch"
-   echo "   git push --tags upstream refs/heads/$RELEASEVERSION"
+   #echo "   git push --tags upstream refs/heads/$RELEASEVERSION master"
+   echo "   git push --tags upstream $BRANCH"
 }
 
 parse_git_branch() {

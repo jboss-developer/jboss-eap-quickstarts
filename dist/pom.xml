@@ -24,12 +24,12 @@
         <relativePath/>
     </parent>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-quickstarts-dist</artifactId>
+    <artifactId>jboss-eap-quickstarts-dist</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss AS Quickstarts Distribution</name>
     <description>JBoss AS Quickstarts Distribution</description>
-    <url>http://github.com/jbossas/quickstart</url>
+    <url>https://github.com/jboss-developer/jboss-eap-quickstarts</url>
 
     <licenses>
         <license>
@@ -54,7 +54,7 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/assembly.xml</descriptor>
                             </descriptors>
-                            <finalName>jboss-as-quickstarts-${project.version}</finalName>
+                            <finalName>jboss-eap-quickstarts-${project.version}</finalName>
                         </configuration>
                     </execution>
                 </executions>
