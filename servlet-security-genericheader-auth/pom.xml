@@ -71,8 +71,8 @@
                 a collection) of artifacts. We use this here so that we always get the correct 
                 versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack 
                 (you can read this as the JBoss stack of the Java EE 6 APIs with tools). 
-                You can actually use this stack with any version of JBoss AS that implements 
-                Java EE 6, not just JBoss AS 7! -->
+                You can actually use this stack with any version of JBoss EAP that implements 
+                Java EE 6, not just JBoss EAP 6! -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
@@ -95,7 +95,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
@@ -145,7 +145,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- JBoss EAP plugin to deploy war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
@@ -173,8 +173,8 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The JBoss AS plugin deploys your war to a local 
-                        JBoss AS container -->
+                    <!-- The JBoss EAP plugin deploys your war to a local 
+                        JBoss EAP container -->
                     <!-- To use, set the JBOSS_HOME environment variable 
                         and run: mvn package jboss-as:deploy -->
                     <plugin>
@@ -188,8 +188,8 @@
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests 
-                in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute 
+                in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute 
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
@@ -204,7 +204,7 @@
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests 
-                in a remote JBoss AS instance -->
+                in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

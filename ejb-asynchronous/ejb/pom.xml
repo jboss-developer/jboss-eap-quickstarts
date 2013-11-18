@@ -64,7 +64,7 @@
                 </configuration>
             </plugin>
             
-            <!-- JBoss AS plugin to deploy jar -->
+            <!-- JBoss EAP plugin to deploy jar -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

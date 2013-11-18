@@ -51,7 +51,7 @@
         </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
@@ -59,7 +59,7 @@
         </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -67,7 +67,7 @@
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
+            in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>

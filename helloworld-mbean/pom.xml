@@ -84,14 +84,14 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6/JBoss AS 7 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6/JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
@@ -157,7 +157,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
+                    <!-- The JBoss EAP plugin deploys your war to a local JBoss EAP container -->
                     <!-- To use, set the JBOSS_HOME environment variable and run: mvn package jboss-as:deploy -->
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
@@ -169,8 +169,8 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute the test, shutting it down when done -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
             <dependencies>
@@ -183,7 +183,7 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss AS instance -->
+            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

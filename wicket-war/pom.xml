@@ -34,7 +34,7 @@
     </licenses>
 
     <description>
-        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss AS 7.
+        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss EAP 6.
         WAR version (everything in a single .war file).
     </description>
 
@@ -92,7 +92,7 @@
     <!-- Dependencies. -->
 
     <dependencies>
-        <!-- "provided" scope used for API's included in JBoss AS 7. -->
+        <!-- "provided" scope used for API's included in JBoss EAP 6. -->
 
         <!-- Import the CDI API. -->
         <dependency>
@@ -171,7 +171,7 @@
         </testResources>
 
         <plugins>
-            <!-- JBoss AS plugin to deploy the war -->
+            <!-- JBoss EAP plugin to deploy the war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
