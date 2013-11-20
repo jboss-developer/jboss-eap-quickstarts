@@ -136,9 +136,9 @@ The remote client application can also be built as a standalone executable JAR w
 
         mvn clean assembly:assembly
       
-4. You can then run the executable JAR using `java -jar`:
+4. You can then run the executable JAR using the `java -jar` command. You will see the same console output as above.
       
-        java -jar target/jboss-ejb-remote-client-with-dependencies.jar
+        java -jar target/jboss-ejb-remote-client-jar-with-dependencies.jar 
 
 
 Undeploy the Archive
