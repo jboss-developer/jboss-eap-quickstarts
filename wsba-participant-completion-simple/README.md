@@ -89,10 +89,11 @@ _NOTE: The following commands assume you have configured your Maven user setting
         mvn clean test -Parq-jbossas-remote 
 
 
-Investigate the Console Output
+Investigate the Server Log
 ----------------------------
 
-The following expected output should appear. The output explains what actually went on when these tests ran.
+The following messages should appear in the server log. Note there may be other log messages interlaced between these. The messages trace the steps taken by the tests.
+
 
 Test success:
 
