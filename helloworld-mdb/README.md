@@ -190,7 +190,7 @@ If the application has run succesfully you should see some output in the browser
 
 Now you can look at the output of the server by running the following command:
 
-    rhc app status -a helloworldmdb
+    rhc tail -a helloworldmdb
 
 This will show the tail of the servers log which should show something like the following.
 
