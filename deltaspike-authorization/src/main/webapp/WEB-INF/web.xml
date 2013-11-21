@@ -25,6 +25,16 @@
         <location>/error.jsf</location>
     </error-page>
 
+  <!-- The following security-constraint allows the browser to search for the 
+    favicon.ico in web root directory. -->
+ 	<security-constraint>
+		<display-name>free resource</display-name>
+		<web-resource-collection>
+			<web-resource-name>favorite icon</web-resource-name>
+			<url-pattern>/favicon.ico</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+
     <!-- Apply security to all pages -->
     <security-constraint>
         <display-name>secure resource</display-name>
