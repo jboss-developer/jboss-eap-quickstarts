@@ -119,7 +119,7 @@ Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute i
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
-    rhc app create -a hellworldmdb -t jbosseap-6
+    rhc app create -a helloworldmdb -t jbosseap-6
 
 The domain name for this application will be `helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
