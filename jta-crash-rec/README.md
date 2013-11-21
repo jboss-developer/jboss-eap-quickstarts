@@ -139,7 +139,7 @@ Test the application
     * Once you are logged in enter the following query to see that the pair you entered is present but does not contain *"updated via JMS"*.
 
             select * from kvpair
-    * Log out of the H2 console. H2 is limited to one connection and the application will need it from this point forward.
+    * Log out of the H2 console and be sure to close out the command line. H2 is limited to one connection and the application will need it from this point forward.
     * If you are using the default file based transaction logging store, there will be a record in the file system corresponding to the pending transaction. 
 
         * Open a command line and navigate to the `$JBOSS_HOME` directory
@@ -151,7 +151,7 @@ Test the application
                 0_ffff7f000001_-7f1cf331_4f0b0ad4_15
         * After recovery, log records are normally deleted automatically. However, logs may remain in the case where the Transaction Manager (TM) commit request was received and acted upon by a resource, but the TM crashed before it had time to clean up the logs of that resource.    
 7. To observe XA recovery
-    * Stop the H2 console to close the database connections. Otherwise, you may see messages like the following when you start your server: 
+    * Stop the H2 console and exit the command line to close the database connections. Otherwise, you may see messages like the following when you start your server: 
 
             `Database may be already in use: "Locked by another process"`
     * [Disable the Byteman script](../README.md#disable-the-byteman-script) by restoring the backup server configuration file.
