@@ -59,7 +59,7 @@ Investigate the Server Console Output
 
 Look in the JBoss Application Server console or Server log and you should see the following message:
 
-    `Hello AS7 World!!`
+    `Hello World!!`
 
 
 Undeploy the Archive
