@@ -34,7 +34,7 @@
     </licenses>
 
     <description>
-        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss AS 7.
+        A sample JAVA EE 6 project demonstrating how to use Wicket Framework with JBoss EAP 6.
         EAR with EJB JAR and WAR version.
     </description>
 
@@ -115,8 +115,7 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- The JBoss AS plugin deploys your ear to a local JBoss 
-                    AS container -->
+                <!-- The JBoss EAP plugin deploys your ear to a local JBoss EAP container -->
                 <!-- Due to Maven's lack of intelligence with EARs we need 
                     to configure the jboss-as maven plugin to skip deployment for all modules. 
                     We then enable it specifically in the ear module. -->

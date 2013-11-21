@@ -99,7 +99,7 @@
         </dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
-            as the API is included in JBoss AS 7 -->
+            as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.1_spec</artifactId>
@@ -107,7 +107,7 @@
         </dependency>
         
         <!-- Import the Servlet API, we use provided scope
-            as the API is included in JBoss AS 7 -->
+            as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
@@ -121,7 +121,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -145,7 +145,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- JBoss AS deployment disabled, as this is a test-only example! -->
+            <!-- JBoss EAP deployment disabled, as this is a test-only example! -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
@@ -180,8 +180,8 @@
             </build>
         </profile>
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in your JBoss AS instance. -->
-            <!-- This profile will start a new JBoss AS instance, and execute the test, shutting it down when done. -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance. -->
+            <!-- This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done. -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
             <dependencies>
@@ -196,7 +196,7 @@
         <profile>
 
             <!-- An optional Arquillian testing profile that executes tests
-                 in a remote JBoss AS instance -->
+                 in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

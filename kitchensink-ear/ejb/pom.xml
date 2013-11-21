@@ -42,23 +42,23 @@
     <dependencies>
 
         <!-- Declare the APIs we depend on and need for compilation. All of 
-            them are provided by JBoss AS 7 -->
+            them are provided by JBoss EAP 6 -->
 
-        <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the EJB API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the JPA API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -67,7 +67,7 @@
 
         <!-- JSR-303 (Bean Validation) Implementation -->
         <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss AS 7 -->
+        <!-- Hibernate Validator is shipped in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -138,8 +138,8 @@
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests 
-                in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute 
+                in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute 
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
@@ -154,7 +154,7 @@
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests 
-                in a remote JBoss AS instance -->
+                in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

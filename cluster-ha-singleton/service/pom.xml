@@ -41,24 +41,24 @@
     <!-- As this is deployed as a jar, there is no need to mark dependencies 
         as provided, as they won't be packaged anyway -->
     <dependencies>
-        <!-- Import MSC, to allow us to write JBoss AS services -->
+        <!-- Import MSC, to allow us to write JBoss EAP services -->
         <dependency>
             <groupId>org.jboss.msc</groupId>
             <artifactId>jboss-msc</artifactId>
         </dependency>
         <!-- Import the EJB 3.1 API, we use provided scope because we aren't 
-            to use the version in JBoss AS -->
+            to use the version in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
         </dependency>
         <!-- Import the JSR-250 API, we use provided scope because we aren't 
-            to use the version in JBoss AS -->
+            to use the version in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.1_spec</artifactId>
         </dependency>
-        <!-- Import JBoss AS Clustering Singleton, to allow us to create 
+        <!-- Import JBoss EAP Clustering Singleton, to allow us to create 
             a singleton service -->
         <dependency>
             <groupId>org.jboss.as</groupId>
@@ -94,7 +94,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy jar -->
+            <!-- JBoss EAP plugin to deploy jar -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

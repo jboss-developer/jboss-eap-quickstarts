@@ -89,7 +89,7 @@
         </resources>
 
         <plugins>
-            <!-- Skip JBoss AS plugin - only applicable for the EAR package. -->
+            <!-- Skip JBoss EAP plugin - only applicable for the EAR package. -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

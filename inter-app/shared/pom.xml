@@ -40,7 +40,7 @@
 
     <dependencies>
 
-        <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the EJB API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
@@ -51,7 +51,7 @@
 
     <build>
         <plugins>
-            <!-- This jar is deployed to JBoss AS as a JBoss Module, which 
+            <!-- This jar is deployed to JBoss EAP as a JBoss Module, which 
                 we can depend on from other deployments -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>

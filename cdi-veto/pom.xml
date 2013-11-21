@@ -66,8 +66,7 @@
                  a collection) of artifacts. We use this here so that we always get the correct
                  versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
                  read this as the JBoss stack of the Java EE 6 APIs). You can actually
-                 use this stack with any version of JBoss AS that implements Java EE 6, not
-                 just JBoss AS 7! -->
+                 use this stack with any version of JBoss EAP that implements Java EE 6. -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
@@ -79,14 +78,14 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided scope as the API is included in JBoss AS 7 -->
+        <!-- Import the Common Annotations API (JSR-250), we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.1_spec</artifactId>
@@ -133,7 +132,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- JBoss EAP plugin to deploy war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
@@ -160,7 +159,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
+                    <!-- The JBoss EAP plugin deploys your war to a local JBoss EAP container -->
                     <!-- To use, set the JBOSS_HOME environment variable and run: mvn package jboss-as:deploy -->
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
@@ -173,8 +172,8 @@
 
         <profile>
 
-            <!-- An optional Arquillian testing profile that executes tests in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute the test, shutting it down when done -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
             <dependencies>
@@ -187,7 +186,7 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss AS instance -->
+            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
             <dependencies>

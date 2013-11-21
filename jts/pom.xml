@@ -90,8 +90,7 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- The JBoss AS plugin deploys your war to a local JBoss 
-                    AS container -->
+                <!-- The JBoss EAP plugin deploys your war to a local JBoss EAP container -->
                 <!-- To use, set the JBOSS_HOME environment variable and 
                     run: mvn package jboss-as:deploy -->
                 <plugin>
@@ -103,7 +102,7 @@
         </pluginManagement>
 
         <plugins>
-            <!-- Disable the JBoss AS Plugin for this POM artifact -->
+            <!-- Disable the JBoss EAP Plugin for this POM artifact -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
