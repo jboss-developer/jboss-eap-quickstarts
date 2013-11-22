@@ -309,13 +309,19 @@ The following components are needed for only a small subset of the quickstarts. 
 
 ### Add a Management or Application User
 
-By default, JBoss EAP is now distributed with security enabled for the management interfaces. A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. A script is provided in the `JBOSS_HOME/bin` directory for that purpose.
+By default, JBoss EAP is now distributed with security enabled for the management interfaces. 
+A few of the quickstarts use these management interfaces and require that you create a management or application user to access the running application. 
+An `add-user` script is provided in the `JBOSS_HOME/bin` directory for that purpose. 
+You can run the script interactively or you can pass arguments on the command line.
 
 The following procedures describe how to add a user with the appropriate permissions to run the quickstarts that depend on them.
 
-
 #### Add a Management User
-1. Open a command line
+
+You can choose to run the script interactively or you can pass arguments on the command line.
+
+##### Add a Management User Interactively
+1. Open a command line.
 2. Type the command for your operating system
 
         For Linux:   JBOSS_HOME/bin/add-user.sh
@@ -328,22 +334,34 @@ The following procedures describe how to add a user with the appropriate permiss
         b) Application User (application-users.properties)
         (a):
 
-    At the prompt, press enter to use the default Management User
+    At the prompt, press enter to use the default Management User.
 4. You should see the following response:
 
         Enter the details of the new user to add.
-        Realm (ManagementRealm) : 
-
-    If the quickstart README specifies a realm, type it here. Otherwise, press enter to use the default `ManagementRealm`. 
-5. When prompted, enter the following
+        Using realm 'ManagementRealm' as discovered from the existing property files.
+        Username :
+5. Enter the Username and, at the next prompt, enter the Password.
  
         Username : admin
         Password : (choose a password for the admin user)
-    Repeat the password
-6. Choose yes for the remaining promts.
+    Repeat the password.
+6. At the next prompt, you will be asked "What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[ ]: ". Leave it blank and press enter.
+7. Choose yes for the remaining prompts.
 
+##### Add a Management User Passing Arguments on the Command Line
+
+If you prefer, you can create the management user non-interactively by passing each argument on the command line. 
+
+For example, to add the Management User `admin` in the default `ManagementRealm` realm with password `adminPass1!`, type the following:
+
+        For Linux:   JBOSS_HOME/bin/add-user.sh -u 'admin' - p 'adminPass1!'
+        For Windows: JBOSS_HOME\bin\add-user.bat -u 'admin' - p 'adminPass1!'
 
 #### Add an Application User
+
+You can choose to run the script interactively or you can pass arguments on the command line.
+
+##### Add an Application User Interactively 
 
 1. Open a command line
 2. Type the command for your operating system
@@ -358,18 +376,28 @@ The following procedures describe how to add a user with the appropriate permiss
         b) Application User (application-users.properties)
         (a):
 
-    At the prompt, type:  b
+    At the prompt, type:  `b`
 4. You should see the following response:
 
         Enter the details of the new user to add.
-        Realm (ApplicationRealm) : 
+        Using realm 'ApplicationRealm' as discovered from the existing property files.
+        Username :
 
-    If the quickstart README specifies a realm, type it here. Otherwise, press enter to use the default `ApplicationRealm`. 
-5. When prompted, enter the the Username and Passord. If the quickstart README specifies a Username and Password, enter them here. Otherwise, use the default Username `quickstartUser` and Password `quickstartPwd1!`.
+5. Enter the the Username and at the next prompt, enter the Password. If the quickstart README specifies a Username and Password, enter them here. Otherwise, use the default Username `quickstartUser` and Password `quickstartPwd1!`.
  
         Username : quickstartUser
         Password : quickstartPwd1!
-6. At the next prompt, you will be asked "What roles do you want this user to belong to?". If the quickstart README specifies a role to use, enter that here. Otherwise, type the role: `guest`
+6. At the next prompt, you will be asked "What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]: ". If the quickstart README specifies the groups to use, enter that here. Otherwise, type the group: `guest`
+
+#### Add an Application User Passing Arguments on the Command Line
+
+If you prefer, you can create the application user non-interactively by passing each argument on the command line. 
+
+For example, to add the Application User `quickstartUser` in the `ApplicationRealm` realm with password `quickstartPwd1!` in group `guest`, type the following:
+
+        For Linux:   JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' - p 'quickstartPwd1!' -g 'guest'
+        For Windows: JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' - p 'quickstartPwd1!' -g 'guest'
+
 
 
 ### Install and Configure the PostgreSQL Database
