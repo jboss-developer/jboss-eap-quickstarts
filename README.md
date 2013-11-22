@@ -354,8 +354,8 @@ If you prefer, you can create the management user non-interactively by passing e
 
 For example, to add the Management User `admin` in the default `ManagementRealm` realm with password `adminPass1!`, type the following:
 
-        For Linux:   JBOSS_HOME/bin/add-user.sh -u 'admin' - p 'adminPass1!'
-        For Windows: JBOSS_HOME\bin\add-user.bat -u 'admin' - p 'adminPass1!'
+        For Linux:   JBOSS_HOME/bin/add-user.sh -u 'admin' -p 'adminPass1!'
+        For Windows: JBOSS_HOME\bin\add-user.bat -u 'admin' -p 'adminPass1!'
 
 #### Add an Application User
 
@@ -395,8 +395,8 @@ If you prefer, you can create the application user non-interactively by passing 
 
 For example, to add the Application User `quickstartUser` in the `ApplicationRealm` realm with password `quickstartPwd1!` in group `guest`, type the following:
 
-        For Linux:   JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' - p 'quickstartPwd1!' -g 'guest'
-        For Windows: JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' - p 'quickstartPwd1!' -g 'guest'
+        For Linux:   JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+        For Windows: JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
 
 
 
