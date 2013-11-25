@@ -29,7 +29,7 @@ The STS also plays an important role when you need to propagate credentials betw
 <div class="highlight"><pre>    <span class="nl">Users:</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">users</span><span class="p">.</span><span class="n">properties</span>
     <span class="nl">Roles:</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">roles</span><span class="p">.</span><span class="n">properties</span>
 </pre></div>
-<p>You can view the WSDL for the STS at the following URL: <a href="http://localhost:8080/picketlink-sts?wsdl/">http://localhost:8080/picketlink-sts?wsdl/</a>.</p>
+<p>You can view the WSDL for the STS at the following URL: <a href="http://localhost:8080/picketlink-sts?wsdl">http://localhost:8080/picketlink-sts?wsdl</a>.</p>
 
 <p>From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope asking the STS to issue a SAML v2.0 Assertion:</p>
 <div class="highlight"><pre>    <span class="nt">&lt;soap:Envelope</span> <span class="na">xmlns:soap=</span><span class="s">&quot;http://www.w3.org/2003/05/soap-envelope&quot;</span> <span class="na">xmlns:urn=</span><span class="s">&quot;urn:picketlink:identity-federation:sts&quot;</span><span class="nt">&gt;</span>
