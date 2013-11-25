@@ -130,7 +130,7 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- The JBoss EAP plugin deploys your ear to a local JBoss EAP container -->
+                <!-- The JBoss AS plugin deploys your ear to a local JBoss EAP container -->
                 <!-- Due to Maven's lack of intelligence with EARs we need 
                     to configure the jboss-as maven plugin to skip deployment for all modules. 
                     We then enable it specifically in the ear module. -->

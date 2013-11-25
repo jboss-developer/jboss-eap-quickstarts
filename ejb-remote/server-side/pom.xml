@@ -96,7 +96,7 @@
         <!-- Set the name of the deployment -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- JBoss EAP plugin to deploy the application -->
+            <!-- JBoss AS plugin to deploy the application -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

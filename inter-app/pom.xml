@@ -98,7 +98,7 @@
             is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Disable JBoss EAP plugin, as nothing to deploy -->
+            <!-- Disable JBoss AS plugin, as nothing to deploy -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

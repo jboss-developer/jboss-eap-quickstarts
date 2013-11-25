@@ -145,7 +145,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- JBoss EAP plugin to deploy war -->
+            <!-- JBoss AS plugin to deploy war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
@@ -173,7 +173,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The JBoss EAP plugin deploys your war to a local 
+                    <!-- The JBoss AS plugin deploys your war to a local 
                         JBoss EAP container -->
                     <!-- To use, set the JBOSS_HOME environment variable 
                         and run: mvn package jboss-as:deploy -->

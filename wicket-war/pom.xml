@@ -171,7 +171,7 @@
         </testResources>
 
         <plugins>
-            <!-- JBoss EAP plugin to deploy the war -->
+            <!-- JBoss AS plugin to deploy the war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

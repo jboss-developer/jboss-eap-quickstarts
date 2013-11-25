@@ -71,7 +71,7 @@
             name given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- The JBoss EAP plugin deploys your war to a local JBoss EAP container -->
+            <!-- The JBoss AS plugin deploys your war to a local JBoss EAP container -->
             <!-- To use, set the JBOSS_HOME environment variable and run: 
                 mvn package jboss-as:deploy -->
             <plugin>

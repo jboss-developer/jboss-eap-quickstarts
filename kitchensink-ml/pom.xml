@@ -226,7 +226,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The JBoss EAP plugin deploys your war to a local JBoss EAP 
+            <!-- The JBoss AS plugin deploys your war to a local JBoss EAP 
                 container -->
             <!-- To use, run: mvn package jboss-as:deploy -->
             <plugin>
