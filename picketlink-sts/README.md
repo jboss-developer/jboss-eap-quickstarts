@@ -32,7 +32,7 @@ This quickstart is preconfigured to use the "picketlink-sts" security domain. By
         Users: src/main/resources/users.properties
         Roles: src/main/resources/roles.properties
 
-You can view the WSDL for the STS at the following URL: <http://localhost:8080/picketlink-sts?wsdl/>.
+You can view the WSDL for the STS at the following URL: <http://localhost:8080/picketlink-sts?wsdl>.
 
 From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope asking the STS to issue a SAML v2.0 Assertion:
 

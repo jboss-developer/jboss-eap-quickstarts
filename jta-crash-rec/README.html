@@ -130,7 +130,7 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 <li><p>Once you are logged in enter the following query to see that the pair you entered is present but does not contain <em>&ldquo;updated via JMS&rdquo;</em>.</p>
 <div class="highlight"><pre><span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">kvpair</span>
 </pre></div></li>
-<li><p>Log out of the H2 console. H2 is limited to one connection and the application will need it from this point forward.</p></li>
+<li><p>Log out of the H2 console and be sure to close out the command line. H2 is limited to one connection and the application will need it from this point forward.</p></li>
 <li><p>If you are using the default file based transaction logging store, there will be a record in the file system corresponding to the pending transaction. </p>
 
 <ul>
@@ -147,7 +147,7 @@ For Windows: JAVA_OPTS=%JAVA_OPTS% -javaagent:C:PATH_TO_BYTEMAN_DOWNLOAD\lib\byt
 <li><p>To observe XA recovery</p>
 
 <ul>
-<li><p>Stop the H2 console to close the database connections. Otherwise, you may see messages like the following when you start your server: </p>
+<li><p>Stop the H2 console and exit the command line to close the database connections. Otherwise, you may see messages like the following when you start your server: </p>
 <div class="highlight"><pre><span class="err">`</span><span class="n">Database</span> <span class="n">may</span> <span class="n">be</span> <span class="n">already</span> <span class="n">in</span> <span class="n">use</span><span class="o">:</span> <span class="s">&quot;Locked by another process&quot;</span><span class="err">`</span>
 </pre></div></li>
 <li><p><a href="../README.html#disable-the-byteman-script">Disable the Byteman script</a> by restoring the backup server configuration file.</p></li>
