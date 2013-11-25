@@ -190,7 +190,7 @@
                 </configuration>
             </plugin>
 
-                <!-- JBoss EAP plugin to deploy war -->
+                <!-- JBoss AS plugin to deploy war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>

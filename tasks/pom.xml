@@ -141,9 +141,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
             </plugin>
-            <!-- The JBoss EAP plugin deploys your war to a local JBoss EAP 
+            <!-- The JBoss AS plugin deploys your war to a local JBoss EAP 
                 container -->
-            <!-- As this project has tests only, so we disable the JBoss EAP plugin, 
+            <!-- As this project has tests only, so we disable the JBoss AS plugin, 
                 this allows us to continue to use the standard deployment commands 
                 without error. -->
             <plugin>

@@ -82,7 +82,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Enable JBoss EAP plugin - only applicable for the EAR package. -->
+            <!-- Enable JBoss AS plugin - only applicable for the EAR package. -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
