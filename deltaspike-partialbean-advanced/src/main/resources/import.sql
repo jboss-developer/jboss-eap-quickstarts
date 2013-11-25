@@ -15,6 +15,9 @@
 -- limitations under the License.
 --
 
+-- This script initializes the database by creating tables and inserting data
+-- Use only for a proof of concept
+
 -- You can use this file to load seed data into the database using SQL statements
 insert into person (nick, name) values ('pmuir', 'Pete Muir')
 insert into person (nick, name) values ('rbenevides', 'Rafael Benevides')
