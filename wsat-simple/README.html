@@ -204,7 +204,7 @@ Run &#39;rhc show-app wsatsimple&#39; for more details about your app.
     <span class="nt">&lt;/endpoint-config&gt;</span>
 <span class="nt">&lt;/subsystem&gt;</span>
 <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:xts:1.0&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;xts</span><span class="err">-environment</span> <span class="na">url=</span><span class="s">&quot;http://</span><span class="cp">${</span><span class="n">OPENSHIFT_INTERNAL_IP</span><span class="cp">}</span><span class="s">:8080/ws-c11/ActivationService&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xts</span><span class="err">-environment</span> <span class="na">url=</span><span class="s">&quot;http://</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_INTERNAL_IP</span><span class="cp">}</span><span class="s">:8080/ws-c11/ActivationService&quot;/</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/subsystem&gt;</span>
 </pre></div></li>
 <li><p>To reduce the amount of logging and make it easier to read the logs produced by this quickstart, edit the log level by adding the following block just below the other blocks:</p>
