@@ -222,7 +222,7 @@ Openshift does not have Web services or WS-AT enabled by default, so we need to 
             </endpoint-config>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:xts:1.0">
-            <xts-environment url="http://${OPENSHIFT_INTERNAL_IP}:8080/ws-c11/ActivationService"/>
+            <xts-environment url="http://${env.OPENSHIFT_INTERNAL_IP}:8080/ws-c11/ActivationService"/>
         </subsystem>
 5. To reduce the amount of logging and make it easier to read the logs produced by this quickstart, edit the log level by adding the following block just below the other blocks:
 
