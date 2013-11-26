@@ -221,10 +221,12 @@ Openshift does not have Web services or WS-AT enabled by default, so we need to 
                 </pre-handler-chain>
             </endpoint-config>
         </subsystem>
+5. If the `xts` subsystem is not configured under the `<profile>` element, copy the following under the `<profile>` element to enable and configure XTS:
+
         <subsystem xmlns="urn:jboss:domain:xts:1.0">
             <xts-environment url="http://${env.OPENSHIFT_INTERNAL_IP}:8080/ws-c11/ActivationService"/>
         </subsystem>
-5. To reduce the amount of logging and make it easier to read the logs produced by this quickstart, edit the log level by adding the following block just below the other blocks:
+6. To reduce the amount of logging and make it easier to read the logs produced by this quickstart, edit the log level by adding the following block just below the other blocks:
 
         <logger category="org.apache.cxf.service.factory.ReflectionServiceFactoryBean">
             <level name="WARN"/>
