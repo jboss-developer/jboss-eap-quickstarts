@@ -37,7 +37,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>jboss-ejb-multi-server-app-two-ejb</artifactId>
             <type>ejb</type>
             <version>${project.version}</version>
@@ -66,7 +66,7 @@
                     <generateApplicationXml>true</generateApplicationXml>
                     <modules>
                         <ejbModule>
-                            <groupId>org.jboss.quickstarts.eap</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>jboss-ejb-multi-server-app-two-ejb</artifactId>
                             <bundleFileName>ejb.jar</bundleFileName>
                         </ejbModule>

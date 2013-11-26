@@ -45,18 +45,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>
-        jboss-ejb-multi-server-app-one-ejb
-      </artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jboss-ejb-multi-server-app-one-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>
-        jboss-ejb-multi-server-app-two-ejb
-      </artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jboss-ejb-multi-server-app-two-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
