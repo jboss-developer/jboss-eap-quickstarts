@@ -182,7 +182,7 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <h3><a id="access-the-openshift-application" class="anchor" href="#access-the-openshift-application"><span class="anchor-icon"></span></a>Access the OpenShift Application</h3>
 
 <p>Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+<div class="highlight"><pre><span class="n">rhc</span> <span class="n">tail</span> <span class="n">helloworldws</span>
 </pre></div>
 <p>Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your OpenShift account domain name.</p>
 <div class="highlight"><pre><span class="nl">http:</span><span class="c1">//helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl</span>
