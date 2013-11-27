@@ -21,9 +21,9 @@ This example demonstrates the basics of implementing a WS-AT enabled Web service
 2. It also does not utilize a transactional back end resource.
 3. Only one Web service participates in the protocol. As WS-AT is a 2PC coordination protocol, it is best suited to multi-participant scenarios.
 
-For a more complete example, please see the XTS demonstrator application that ships with the JBossTS project: http://www.jboss.org/jbosstm.
+For a more complete example, please see the XTS demonstrator application that ships with the Narayana project: http://www.jboss.org/narayana.
 
-It is also assumed that you have an understanding of WS-AtomicTransaction. For more details, read the XTS documentation that ships with the JBossTS project, which can be downloaded here: http://www.jboss.org/jbosstm/downloads/JBOSSTS_4_16_0_Final
+It is also assumed that you have an understanding of WS-AtomicTransaction. For more details, read the XTS documentation that ships with the Narayana project, which can be downloaded here: http://www.jboss.org/narayana/documentation/4_17_4_Final.
 
 The application consists of a single JAX-WS web service that is deployed within a WAR archive. It is tested with a JBoss Arquillian enabled JUnit test.
 
