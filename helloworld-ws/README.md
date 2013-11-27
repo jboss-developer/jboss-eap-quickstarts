@@ -200,7 +200,7 @@ Note that the `openshift` profile in `pom.xml` file is activated by OpenShift an
 
 Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
 
-    rhc app tail -a helloworldws
+    rhc tail helloworldws
 
 Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
