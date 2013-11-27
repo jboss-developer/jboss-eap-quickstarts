@@ -94,13 +94,20 @@ public class WSATSimpleServletClient extends HttpServlet {
             System.out.println("[CLIENT] committing Atomic Transaction (This will cause the AT to complete successfully)");
             ut.commit();
 
-            out.write("<p><i>Go to your JBoss Application Server console or Server log to see the result of the transaction</i></p>");
+            out.write("<p><b>Transaction succeeded!</b></p>");
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            out.write("<p><b>Transaction failed with the following error:</b></p>");
+            out.write("<p><blockquote>");
+            out.write(e.toString());
+            out.write("</blockquote></p>");
         } finally {
             rollbackIfActive(ut);
             client.reset();
+
+            out.write("<p><i>Go to your JBoss Application Server console or Server log to see the detailed result of the transaction.</i></p>");
         }
     }
 
