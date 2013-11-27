@@ -46,7 +46,7 @@ From a JAX-WS perspective, you can use any tool you want to start using the STS.
             </soap:Body>
         </soap:Envelope>
 
-There is a simple example of WS-Trush client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled "Access the Application".
+There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled "Access the Application".
 
 _Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards._
 
