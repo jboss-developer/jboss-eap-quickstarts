@@ -167,6 +167,14 @@ Test the application
         This is normal. What actually happened is that the first resource (JTACrashRecQuickstartDS) committed before the JBoss server was halted in step 5. The transaction logs are only updated/deleted after the outcome of the transaction is determined. If the transaction manager did update the log as each participant (database and JMS queue) completed then throughput would suffer. Notice you do not get a similar message for the JMS resource since that is the resource that recovered and the log record was updated to reflect this change. You need to manually remove the record for the first participant if you know which one is which or, if you are using the community version of the JBoss server, then you can also inspect the transaction logs using a JMX browser. For the demo it is simplest to delete the records from the file system, however, *be wary of doing this on a production system*.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+
 Undeploy the Archive
 --------------------
 

@@ -75,3 +75,12 @@ Changes to the H2 Console for JBoss EAP
 
 To make the H2 console run on JBoss EAP, the H2 libraries were removed from the WAR and a dependency on the H2 module was added to the META-INF/MANIFEST.MF fle. The rebuilt console is provided with this quickstart.
 
+
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warnings in the server log. You can ignore this warning.
+
+        JBAS018568: Deployment "deployment.h2console.war" is using an unsupported module ("com.h2database.h2:main") which may be changed or removed in future versions without notice.
+
+

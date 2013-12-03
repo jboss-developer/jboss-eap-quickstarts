@@ -82,6 +82,17 @@ Undeploy the Archive
         mvn jboss-as:undeploy
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warnings and errors in the server log. Hibernate attempts to drop the table and constraints before they are created because the `hibernate.hbm2ddl.auto` value is set to `create-drop`. You can ignore these warnings and errors.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+        HHH000389: Unsuccessful: drop sequence hibernate_sequence
+        Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
+
+
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 

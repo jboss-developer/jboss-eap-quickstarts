@@ -91,6 +91,14 @@ Access the application
 The application will be running at the following URL: <http://localhost:8080/jboss-hibernate4/>.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+
 Undeploy the Archive
 --------------------
 
