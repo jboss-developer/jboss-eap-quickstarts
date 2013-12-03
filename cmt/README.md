@@ -105,6 +105,15 @@ After a user is successfully added to the database, a message is produced contai
     Received Message: Created invoice for customer named:  Tom
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following errors in the server log. Hibernate attempts to drop the table and constraints before they are created because the `hibernate.hbm2ddl.auto` value is set to `create-drop`. You can ignore these errors.
+
+        HHH000389: Unsuccessful: drop sequence hibernate_sequence
+        Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
+
+
 Undeploy the Archive
 --------------------
 

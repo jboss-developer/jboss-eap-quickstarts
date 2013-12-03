@@ -95,6 +95,14 @@ In the server log you'll see a few lines similar to
 That will let you know the extension is working. To really see what's going on and understand this example, please read the source and the tests.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)

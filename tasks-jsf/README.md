@@ -69,6 +69,17 @@ Access the application
 The application will be running at the following URL <http://localhost:8080/jboss-tasks-jsf>.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warnings and errors in the server log. Hibernate attempts to drop the table and constraints before they are created because the `hibernate.hbm2ddl.auto` value is set to `create-drop`. You can ignore these warnings and errors.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+        HHH000389: Unsuccessful: alter table Task drop constraint FK_kxfu633bvt1sptgbnkxkrr3qf
+        Table "TASK" not found; SQL statement: alter table Task drop constraint FK_kxfu633bvt1sptgbnkxkrr3qf [42102-168]
+
+
 Undeploy the Archive
 --------------------
 

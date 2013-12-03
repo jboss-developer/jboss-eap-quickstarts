@@ -74,6 +74,14 @@ The application will be running at the following URL: <http://localhost:8080/jbo
  * Click on the _Insert a new Constact_ link to add a new contact.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+
 Undeploy the Archive
 --------------------
 

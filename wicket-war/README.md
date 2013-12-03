@@ -70,6 +70,14 @@ Access the running application in a browser at the following URL:  <http://local
 You will see a page with a table listing user entities. Initially, this table is empty.  By clicking a link, you can add more users.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
+
 Undeploy the Archive
 --------------------
 

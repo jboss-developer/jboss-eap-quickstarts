@@ -75,6 +75,13 @@ You will be presented with a simple form for adding key/value pairs and a checkb
 2. To add or update the value of a key fill in the key and value input boxes. 
 3. Press the submit button to see the results.
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+        HHH000431: Unable to determine H2 database version, certain features may not work
+
 
 Undeploy the Archive
 --------------------
