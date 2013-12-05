@@ -50,6 +50,7 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
+    
     <!-- Configure the JBoss Early Access Maven repository -->
     <profile>
       <id>jboss-earlyaccess-repository</id>
@@ -78,32 +79,34 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
+    
     <!-- Configure the JBoss Developer Temporary Maven repository -->
     <profile>
-        <repositories>
-            <repository>
-                <id>jboss-developer-repository</id>
-                <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-                <releases>
-                   <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                  <enabled>false</enabled>
-                </snapshots>
-            </repository>
-        </repositories>
-        <pluginRepositories>
-            <pluginRepository>
-                <id>jboss-developer-plugin-repository</id>
-                <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-                <releases>
-                  <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                  <enabled>false</enabled>
-                </snapshots>
-            </pluginRepository>
-        </pluginRepositories>
+      <id>jboss-developer-repository</id>
+      <repositories>
+        <repository>
+          <id>jboss-developer-repository</id>
+          <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-developer-plugin-repository</id>
+          <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
     </profile>
 
   </profiles>
