@@ -41,13 +41,13 @@
     <dependencies>
   <!-- add the EJB and WEB project as dependency to include it in the EAR -->
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
             <type>ejb</type>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
             <type>war</type>
             <version>${project.version}</version>
@@ -77,23 +77,23 @@
                     <initializeInOrder>true</initializeInOrder>
                     <modules>
                         <ejbModule>
-                            <groupId>org.jboss.quickstarts.eap</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
                             <bundleFileName>ejb.jar</bundleFileName>
                         </ejbModule>
                         <webModule>
-                            <groupId>org.jboss.quickstarts.eap</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
                             <bundleFileName>jsf.war</bundleFileName>
                         </webModule>
             <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
                         <ejbClientModule>
-                            <groupId>org.jboss.quickstarts.eap</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>jboss-ejb-multi-server-app-one-ejb</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbClientModule>
                         <ejbClientModule>
-                            <groupId>org.jboss.quickstarts.eap</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>jboss-ejb-multi-server-app-two-ejb</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbClientModule>
