@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-jts-parent</artifactId>
-        <version>6.2.0-redhat-SNAPSHOT</version>
+        <version>6.2.0.GA</version>
     </parent>
 
     <url>http://jboss.org/jbossas</url>

@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-jta-crash-rec</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.2.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: jta-crash-rec</name>
 
@@ -45,7 +45,7 @@
         
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.as>7.3.0.Final-redhat-SNAPSHOT</version.jboss.as>
+        <version.jboss.as>7.3.0.Final-redhat-14</version.jboss.as>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-7</version.jboss.spec.javaee.6.0>
 

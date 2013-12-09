@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-ejb-multi-server-app-main</artifactId>
-        <version>6.2.0-redhat-SNAPSHOT</version>
+        <version>6.2.0.GA</version>
     </parent>
     <licenses>
         <license>
