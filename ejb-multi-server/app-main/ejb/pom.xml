@@ -70,7 +70,7 @@
                     <generateClient>true</generateClient>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
-            <!-- this dependency must be set because of the access to the scoped context inside the MainEjbClient34AppBean -->
+                        <!-- this dependency must be set because of the access to the scoped context inside the MainAppSContextBean -->
                         <manifestEntries>
                             <Dependencies>org.jboss.xnio</Dependencies>
                         </manifestEntries>

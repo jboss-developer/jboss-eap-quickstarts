@@ -38,7 +38,7 @@ public class JsfController {
   /**
    * Inject the 'standard' bean.<br/>
    * The simple @EJB injection is valid only if the MainApp is unique within the same application EAR archive.
-   * Since there is a MainEjbClient34AppBean using same interface, we can use this @EJB approach and specify
+   * Since there is a MainAppSContextBean using same interface, we can use this @EJB approach and specify
    * the name and interface as shown here to specify which exact reference should be injected.<br/>
    * The beanInterface and the mappedName can be used in this case, but it is not necessary if the beanName is unique and implement only one interface.
    */
@@ -49,8 +49,8 @@ public class JsfController {
    * Inject a different bean implementation of the same interface.<br/>
    * Or use the @Resource annotation with the lookup name only.
    */
-    @Resource(mappedName = "ejb:jboss-ejb-multi-server-app-main/ejb/MainEjbClient34AppBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
-    MainApp mainEjbClient34App;
+    @Resource(mappedName = "ejb:jboss-ejb-multi-server-app-main/ejb/MainAppSContextBean!org.jboss.as.quickstarts.ejb.multi.server.app.MainApp")
+    MainApp mainAppScopedContext;
 
   /**
    * Injection with @EJB is not possible for foreign application in a different server. For this we can use @Resource.<br/>
@@ -88,9 +88,9 @@ public class JsfController {
         this.invocation.setResult(mainApp.invokeAll(this.invocation.getText()));
     }
 
-    public void callEJBClient34MainLocal() {
-        LOOGER.info("Try to invoke the local MainEjbClient34App to log the given text and get the invocation results. Proxy=" + mainEjbClient34App);
-        this.invocation.setResult(mainEjbClient34App.invokeAll(this.invocation.getText()));
+    public void callEJBMainScopedContextLocal() {
+        LOOGER.info("Try to invoke the local MainAppSContext to log the given text and get the invocation results. Proxy=" + mainAppScopedContext);
+        this.invocation.setResult(mainAppScopedContext.invokeAll(this.invocation.getText()));
     }
 
     public void callEJBAppOneRemote() {
