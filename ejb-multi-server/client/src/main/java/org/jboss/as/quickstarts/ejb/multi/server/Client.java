@@ -36,7 +36,7 @@ import org.jboss.ejb.client.remoting.ConfigBasedEJBClientContextSelector;
  * A simple standalone application which uses the JBoss API to invoke the MainApp demonstration Bean.
  * </p>
  * <p>
- * With the boolean property <i>UseEjbClient34</i> the basic example or the example with the scoped-environment will be called.
+ * With the boolean property <i>UseScopedContext</i> the basic example or the example with the scoped-environment will be called.
  * </p>
  * 
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
@@ -68,8 +68,8 @@ public class Client {
         props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         InitialContext context = new InitialContext(props);
 
-        final boolean useScopedExample = Boolean.getBoolean("UseEjbClient34");
-        final String rcal = "ejb:jboss-ejb-multi-server-app-main/ejb//" + (useScopedExample ? "MainEjbClient34AppBean" : "MainAppBean") + "!" + MainApp.class.getName();
+        final boolean useScopedExample = Boolean.getBoolean("UseScopedContext");
+        final String rcal = "ejb:jboss-ejb-multi-server-app-main/ejb//" + (useScopedExample ? "MainAppSContextBean" : "MainAppBean") + "!" + MainApp.class.getName();
         final MainApp remote = (MainApp) context.lookup(rcal);
         final String result = remote.invokeAll("Client call at "+new Date());
 
