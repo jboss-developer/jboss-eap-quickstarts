@@ -31,7 +31,7 @@ Prerequisites
 
 **IMPORTANT:** This quickstart depends on the deployment of the `helloworld-mdb` quickstart WAR for its tests. Before you continue, you must build the `helloworld-mdb` quickstart WAR.
 
-Open a command line and navigate to the root directory of the helloworld-mdb quickstart.
+Open a command prompt and navigate to the root directory of the helloworld-mdb quickstart.
 Type this command to build the WAR archive:
 
         mvn clean install
@@ -66,7 +66,7 @@ After you have completed testing this quickstart, you can replace these files to
 You configure the server by running the install-domain.cli script provided in the root directory of this quickstart.
 
 #### Start the server in domain mode.
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server in domain mode:
 
         For Linux:   JBOSS_HOME/bin/domain.sh
@@ -86,7 +86,7 @@ You configure the server by running the install-domain.cli script provided in th
     _NOTE: If your `helloworld-mdb` quickstart is not located at the same level in the file structure as this quickstart, you
     must modify its path in this script. Find the 'NOTE:' in the file for instructions._
 
-2. Open a command line, navigate to the root directory of this quickstart, and run the following command to run the script:
+2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
         
@@ -103,7 +103,7 @@ Since both application servers must be configured in the same way, you must conf
 
 #### Start the Server in Standalone Mode using the Full HA Profile.
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server with the full-ha profile. This profile supports clustering/HA
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full-ha.xml
@@ -121,7 +121,7 @@ Since both application servers must be configured in the same way, you must conf
     
     _NOTE: If your `helloworld-mdb` quickstart is not located at the same level in the file structure as this quickstart, you
     must modify its path in this script. Find the 'NOTE:' in the file for instructions._
-2. Open a command line, navigate to the root directory of this quickstart, and run the following command to run the script:
+2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-standalone.cli
         
@@ -193,7 +193,7 @@ When you are finished testing, use the following instructions to undeploy the qu
 ### Undeploy the quickstart in Domain Mode
 
 1. Make sure you have started the JBoss Server in domain mode as described above.
-3. Open a command line, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
+3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
 
@@ -201,7 +201,7 @@ When you are finished testing, use the following instructions to undeploy the qu
 ### Undeploy the quickstart in Standalone Mode
 
 1. Make sure you have started the JBoss Server in standalone mode as described above.
-3. Open a command line, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
+3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
 
@@ -229,7 +229,7 @@ _Note: This script returns the server to a default configuration and the result 
 
         For Linux:   JBOSS_HOME/bin/domain.sh
         For Windows: JBOSS_HOME\bin\domain.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-domain.cli 
    This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
@@ -260,7 +260,7 @@ _Note: This script returns the server to a default configuration and the result 
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full-ha.xml
         For Windows: JBOSS_HOME\bin\domain.bat -c standalone-full-ha.xml
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
 This script removes the server configuration that was done by the `install-standalone.cli` script. You should see the following result following the script commands:

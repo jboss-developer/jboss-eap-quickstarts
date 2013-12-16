@@ -68,7 +68,7 @@ Clear the Transaction ObjectStore
 
 Make sure there is no transaction objectstore data left after testing this or any of the other quickstarts. If you are using the default file based transaction logging store:
 
-1. Open a command line and type the following:
+1. Open a command prompt and type the following:
 
         ls $JBOSS_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
 2. If this directory exists and contains any files, delete them before starting the server:

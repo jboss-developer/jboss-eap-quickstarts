@@ -62,7 +62,7 @@ To run these quickstarts with the provided build scripts, you need the following
 
 2. Maven 3.0.0 or newer, to build and deploy the examples
     * If you have not yet installed Maven, see the [Maven Getting Started Guide](http://maven.apache.org/guides/getting-started/index.html) for details.
-    * If you have installed Maven, you can check the version by typing the following in a command line:
+    * If you have installed Maven, you can check the version by typing the following in a command prompt:
 
             mvn --version 
 
@@ -428,21 +428,21 @@ Use the following steps to install and configure PostgreSQL on Linux. You can do
 1. Install PostgreSQL
     * The yum install instructions for PostgreSQL can be found here: <http://yum.postgresql.org/howtoyum.php/>
     * Download the repository RPM from here: <http://yum.postgresql.org/repopackages.php/>
-    * To install PostgreSQL, in a command line type `sudo rpm -ivh RPM_FILE_NAME`, where RPM_FILE_NAME is the name of the downloaded repository RPM file, for example:
+    * To install PostgreSQL, in a command prompt type `sudo rpm -ivh RPM_FILE_NAME`, where RPM_FILE_NAME is the name of the downloaded repository RPM file, for example:
 
             sudo rpm -ivh pgdg-fedora92-9.2-5.noarch.rpm
     * Edit your distributions package manager definitions to exclude PostgreSQL. See the "important note" on <http://yum.postgresql.org/howtoyum.php/> for details on how to exclude install-and-configure-the-postgresql-database packages from the repository of the distribution.
-    * Install _postgresql92_ and _postgres92-server_ by typing the following in a command line:
+    * Install _postgresql92_ and _postgres92-server_ by typing the following in a command prompt:
 
             sudo yum install postgresql92 postgresql92-server
 2. Set a password for the _postgres_ user
-    * In a command line, login as root and set the postgres password by typing the following commands: 
+    * In a command prompt, login as root and set the postgres password by typing the following commands: 
 
             su
             passwd postgres
     * Choose a password
 3. Configure the test database
-    * In a command line, login as the _postgres_ user, navigate to the postgres directory, and initialize the database by typing:
+    * In a command prompt, login as the _postgres_ user, navigate to the postgres directory, and initialize the database by typing:
 
             su postgres
             cd /usr/pgsql-9.2/bin/
@@ -456,10 +456,10 @@ Use the following steps to install and configure PostgreSQL on Linux. You can do
             max_connections = 10
 
 4. Start the database server 
-    * In the same command line, type the following:
+    * In the same command prompt, type the following:
 
             ./postgres -D /var/lib/pgsql/9.2/data
-    * Note, this command does not release the command line. In the next step you need to open a new command line.
+    * Note, this command does not release the command prompt. In the next step you need to open a new command prompt.
 5.  Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)
     * Open a new command prompt and login again as the _postgres_ user, navigate to the postgres directory, and create the  database by typing the following:
 

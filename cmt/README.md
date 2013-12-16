@@ -72,7 +72,7 @@ _Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASE
 Start the JBoss Server with the Full Profile
 ---------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
@@ -86,7 +86,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 
 1. Make sure you have started the JBoss Server with the PostgreSQL driver
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
@@ -118,7 +118,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy

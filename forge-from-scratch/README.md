@@ -35,7 +35,7 @@ To show the Forge Console, navigate to _Window -> Show View -> Other_, locate _F
 
 If you do not plan to use JBoss Developer Studio, you should install JBoss Forge version 1.0.0.Final or later. Follow the instructions at [Installing Forge](https://docs.jboss.org/author/display/FORGE/Installation).
 
-Open a command line and navigate to the root directory of this quickstart. 
+Open a command prompt and navigate to the root directory of this quickstart. 
 
 Launch Forge by typing the following command:
 
@@ -77,7 +77,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Start the JBoss Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh

@@ -55,7 +55,7 @@ Clear the Transaction ObjectStore
 
 Make sure there is no transaction objectstore data left after testing this or any of the other quickstarts. If you are using the default file based transaction logging store:
 
-1. Open a command line and type the following:
+1. Open a command prompt and type the following:
 
         ls $JBOSS_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
 2. If this directory exists and contains any files, delete them before starting the server:
@@ -75,7 +75,7 @@ Start the JBoss Server
 
 Start the JBoss Server with the Full Profile
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
@@ -88,7 +88,7 @@ Build and Deploy the Quickstart
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
@@ -139,10 +139,10 @@ Test the application
     * Once you are logged in enter the following query to see that the pair you entered is present but does not contain *"updated via JMS"*.
 
             select * from kvpair
-    * Log out of the H2 console and be sure to close out the command line. H2 is limited to one connection and the application will need it from this point forward.
+    * Log out of the H2 console and be sure to close out the command prompt. H2 is limited to one connection and the application will need it from this point forward.
     * If you are using the default file based transaction logging store, there will be a record in the file system corresponding to the pending transaction. 
 
-        * Open a command line and navigate to the `$JBOSS_HOME` directory
+        * Open a command prompt and navigate to the `$JBOSS_HOME` directory
         * List the contents of the following directory:
 
                 ls $JBOSS_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
@@ -151,7 +151,7 @@ Test the application
                 0_ffff7f000001_-7f1cf331_4f0b0ad4_15
         * After recovery, log records are normally deleted automatically. However, logs may remain in the case where the Transaction Manager (TM) commit request was received and acted upon by a resource, but the TM crashed before it had time to clean up the logs of that resource.    
 7. To observe XA recovery
-    * Stop the H2 console and exit the command line to close the database connections. Otherwise, you may see messages like the following when you start your server: 
+    * Stop the H2 console and exit the command prompt to close the database connections. Otherwise, you may see messages like the following when you start your server: 
 
             `Database may be already in use: "Locked by another process"`
     * [Disable the Byteman script](../README.md#disable-the-byteman-script) by restoring the backup server configuration file.
@@ -179,7 +179,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
