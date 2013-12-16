@@ -162,7 +162,7 @@ The README for each quickstart will specify which configuration is required to r
 
 To start JBoss EAP:
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -172,7 +172,7 @@ To start JBoss EAP:
 
 To start JBoss EAP with the Full Profile:
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
@@ -182,7 +182,7 @@ To start JBoss EAP with the Full Profile:
 
 To start JBoss EAP with custom configuration options:
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the JBoss server. Replace the CUSTOM_OPTIONS with the custom optional parameters specified in the quickstart.
 
         For Linux:   JBOSS_HOME/bin/standalone.sh CUSTOM_OPTIONS
@@ -196,7 +196,7 @@ See the README file in each individual quickstart folder for specific details an
 
 In some cases, you may want to build the application to test for compile errors or view the contents of the archive. 
 
-1. Open a command line and navigate to the root directory of the quickstart you want to build.
+1. Open a command prompt and navigate to the root directory of the quickstart you want to build.
 2. Use this command if you only want to build the archive, but not deploy it:
 
             mvn clean install
@@ -204,7 +204,7 @@ In some cases, you may want to build the application to test for compile errors 
 #### Build and Deploy the Quickstart Archive
 
 1. Make sure you [start the JBoss server](#start-the-jboss-server) as described in the README.
-2. Open a command line and navigate to the root directory of the quickstart you want to run.
+2. Open a command prompt and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
             mvn clean install jboss-as:deploy
@@ -223,7 +223,7 @@ You can verify the quickstarts build using one command. However, quickstarts tha
 To build the quickstarts:
 
 1. Do not start the JBoss server.
-2. Open a command line and navigate to the root directory of the quickstarts.
+2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to build the quickstarts that do not have complex dependencies:
 
             mvn clean install '-Pdefault,!complex-dependencies'
@@ -242,7 +242,7 @@ To undeploy the quickstarts from the root of the quickstart folder, you must pas
 You can undeploy quickstarts using the following procedure:
 
 1. Start the JBoss server.
-2. Open a command line and navigate to the root directory of the quickstarts.
+2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to undeploy any deployed quickstarts:
 
             mvn jboss-as:undeploy -fae
@@ -320,10 +320,23 @@ The following procedures describe how to add a user with the appropriate permiss
 
 #### Add a Management User
 
-You can choose to run the script interactively or you can pass arguments on the command line.
+You can pass arguments on the command line or you can run the script interactively.
+
+##### Add a Management User Passing Arguments on the Command Line
+
+You can create the management user non-interactively by passing each argument on the command line. 
+
+For example, to add the Management User `admin` in the default `ManagementRealm` realm with password `adminPass1!`, 
+open a command prompt and type the following:
+
+        For Linux:   JBOSS_HOME/bin/add-user.sh -u 'admin' -p 'adminPass1!'
+        For Windows: JBOSS_HOME\bin\add-user.bat -u 'admin' -p 'adminPass1!'
 
 ##### Add a Management User Interactively
-1. Open a command line.
+
+If you prefer, you can create the management user interactively. 
+
+1. Open a command prompt.
 2. Type the command for your operating system
 
         For Linux:   JBOSS_HOME/bin/add-user.sh
@@ -350,22 +363,26 @@ You can choose to run the script interactively or you can pass arguments on the 
 6. At the next prompt, you will be asked "What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[ ]: ". Leave it blank and press enter.
 7. Choose yes for the remaining prompts.
 
-##### Add a Management User Passing Arguments on the Command Line
-
-If you prefer, you can create the management user non-interactively by passing each argument on the command line. 
-
-For example, to add the Management User `admin` in the default `ManagementRealm` realm with password `adminPass1!`, type the following:
-
-        For Linux:   JBOSS_HOME/bin/add-user.sh -u 'admin' -p 'adminPass1!'
-        For Windows: JBOSS_HOME\bin\add-user.bat -u 'admin' -p 'adminPass1!'
-
 #### Add an Application User
 
-You can choose to run the script interactively or you can pass arguments on the command line.
+You can pass arguments on the command line or you can run the script interactively.
+
+#### Add an Application User Passing Arguments on the Command Line
+
+You can create the application user non-interactively by passing each argument on the command line. 
+
+The default application user for the quickstarts is `quickstartUser`, in the `ApplicationRealm` realm, with password `quickstartPwd1!`, and belonging to group `guest`. 
+To add the default application user, open a command prompt and type the following:
+
+        For Linux:   JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+        For Windows: JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+
 
 ##### Add an Application User Interactively 
 
-1. Open a command line
+If you prefer, you can create the application user interactively. 
+
+1. Open a command prompt.
 2. Type the command for your operating system
 
         For Linux:   JBOSS_HOME/bin/add-user.sh
@@ -390,15 +407,6 @@ You can choose to run the script interactively or you can pass arguments on the 
         Username : quickstartUser
         Password : quickstartPwd1!
 6. At the next prompt, you will be asked "What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]: ". If the quickstart README specifies the groups to use, enter that here. Otherwise, type the group: `guest`
-
-#### Add an Application User Passing Arguments on the Command Line
-
-If you prefer, you can create the application user non-interactively by passing each argument on the command line. 
-
-For example, to add the Application User `quickstartUser` in the `ApplicationRealm` realm with password `quickstartPwd1!` in group `guest`, type the following:
-
-        For Linux:   JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
-        For Windows: JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
 
 
 
@@ -453,7 +461,7 @@ Use the following steps to install and configure PostgreSQL on Linux. You can do
             ./postgres -D /var/lib/pgsql/9.2/data
     * Note, this command does not release the command line. In the next step you need to open a new command line.
 5.  Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)
-    * Open a new command line and login again as the _postgres_ user, navigate to the postgres directory, and create the  database by typing the following:
+    * Open a new command prompt and login again as the _postgres_ user, navigate to the postgres directory, and create the  database by typing the following:
 
             su postgres
             cd /usr/pgsql-9.2/bin/
@@ -509,7 +517,7 @@ Use the following steps to install and configure PostgreSQL on Windows:
     * Right click -> Stop Service
     * Right click -> Start Service
 4.   Create a database for the quickstart (as noted above, replace QUICKSTART_DATABASENAME with the name provided in the particular quickstart)
-    * Open a command line
+    * Open a command prompt and type the following:
 
             cd C:\Program Files\PostgreSQL\9.2\bin\
             createdb.exe -U postgres QUICKSTART_DATABASENAME
@@ -518,7 +526,7 @@ Use the following steps to install and configure PostgreSQL on Windows:
 #### Create a Database User
 
 1.  Make sure the PostgreSQL bin directory is in your PATH. 
-    * Open a command line and change to the root directory
+    * Open a command prompt and change to the root directory
             psql
     * If you see an error that 'psql' is not a recognized command, you need to add the PostgreSQL bin directory to your PATH environment variable. 
 2.  As the _postgres_ user, start the PostgreSQL interactive terminal by typing the following command:
@@ -567,7 +575,7 @@ _NOTE - Before you begin:_
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command line, navigate to the root directory of the quickstarts, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of the quickstarts, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-postgresql.cli 
 This script adds the PostgreSQL driver to the datasources subsystem in the server configuration. You should see the following result when you run the script:
@@ -583,7 +591,7 @@ This script adds the PostgreSQL driver to the datasources subsystem in the serve
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
@@ -616,7 +624,7 @@ When you are done testing the quickstarts, you can remove the PostgreSQL configu
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-postgresql.cli 
 This script removes PostgreSQL from the `datasources` subsystem in the server configuration. You should see the following result when you run the script:
@@ -649,7 +657,7 @@ _Byteman_ is a tool which simplifies tracing and testing of Java programs. Bytem
 
 1. Download Byteman from <http://www.jboss.org/byteman/downloads/>
 2. Extract the ZIP file to a directory of your choice.
-3. By default, the Byteman download provides unrestricted permissions to _others_ which can cause a problem when running Ruby commands for the OpenShift quickstarts. To restrict the permissions to _others_, open a command line and type the followinge:
+3. By default, the Byteman download provides unrestricted permissions to _others_ which can cause a problem when running Ruby commands for the OpenShift quickstarts. To restrict the permissions to _others_, open a command prompt and type the followinge:
 
         cd byteman-download-2.0.0/
         chmod -R o-rwx byteman-download-2.0.0/

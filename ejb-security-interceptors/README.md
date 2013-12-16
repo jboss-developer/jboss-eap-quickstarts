@@ -257,18 +257,27 @@ This quickstart is built around the default `ApplicationRealm` as configured in 
 | AppUserTwo | ApplicationRealm | AppPasswordTwo1! | User, RoleTwo |
 | AppUserThree | ApplicationRealm | AppPasswordThree1! | User, RoleOne, RoleTwo |
 
-Add the users using the following commands:
+To add the users, open a command prompt and type the following commands:
 
-        bin/add-user.sh -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
-        bin/add-user.sh -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
-        bin/add-user.sh -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
-        bin/add-user.sh -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+        For Linux:
+          JBOSS_HOME/bin/add-user.sh -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+          JBOSS_HOME/bin/add-user.sh -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+          JBOSS_HOME/bin/add-user.sh -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
+          JBOSS_HOME/bin/add-user.sh -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+
+        For Windows:
+          JBOSS_HOME\bin\add-user.bat -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+          JBOSS_HOME\bin\add-user.bat -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+          JBOSS_HOME\bin\add-user.bat -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
+          JBOSS_HOME\bin\add-user.bat -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
 
 The first user establishes the actual connection to the server. The subsequent two users demonstrate how to switch identities on demand.  The final user can access everything but can not participate in identity switching.
 
 Also do note that within the quickstart we do not make use of the passwords for any of the 'App' users, the passwords specified for those users are a suggestion for values that will be accepted by the ass-user utility.
 
+If you prefer, you can use the add-user utility interactively. 
 For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](../README.md#add-an-application-user).
+
 
 ### Add Users Manually
 
@@ -294,7 +303,7 @@ The application server checks the properties files for modifications at runtime 
 Start the JBoss Server 
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
 		For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -307,7 +316,7 @@ Build and Deploy the Quickstart
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
 		mvn clean install jboss-as:deploy
@@ -491,7 +500,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
 		mvn jboss-as:undeploy
