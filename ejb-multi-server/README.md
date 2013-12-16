@@ -54,13 +54,19 @@ The following users must be added to the `ApplicationRealm` to run this quicksta
 | quickuser1 | ApplicationRealm | quick123+ | _leave blank for none_ |
 | quickuser2 | ApplicationRealm | quick+123 | _leave blank for none_ |
 
-Add the users using the following commands:
+To add the users, open a command prompt and type the following commands:
 
-        bin/add-user.sh -a -u quickuser -p quick-123 --silent
-        bin/add-user.sh -a -u quickuser1 -p quick123+ --silent
-        bin/add-user.sh -a -u quickuser2 -p quick+123 --silent
+        For Linux:
+            JBOSS_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+            JBOSS_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+
+            JBOSS_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123
 
-If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
+        For Windows:
+            JBOSS_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+            JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
+            JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
+
+If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](../README.md#add-an-application-user).
 
 
 Back Up the JBoss EAP Server Configuration Files
@@ -81,7 +87,7 @@ Start JBoss EAP Server
 
 
 1. Unzip or install a fresh JBoss EAP instance.
-2. Open a command line and navigate to the root of the server directory. Start the server using the following command:
+2. Open a command prompt and navigate to the root of the server directory. Start the server using the following command:
 
         bin/domain.sh    
 
@@ -101,7 +107,7 @@ Build and Deploy the Quickstart
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
 
 1. Make sure you have started and configured the JBoss Server successful as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build the artifacts:
 
         mvn clean install
@@ -144,10 +150,16 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 
         [ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:1.2.1:java (default-cli) on project jboss-ejb-multi-server-client: An exception occured while executing the Java class. null: InvocationTargetException: JBAS014502: Invocation on method: public abstract java.lang.String org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo.invokeSecured(java.lang.String) of bean: AppTwoBean is not allowed -> [Help 1]
 
-    Update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`. 
+    Update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`.
+    To update the roles, open a command prompt and type the following commands:
 
-              bin/add-user.sh -a -u quickuser1 -p quick123+ --silent --role Intern
-              bin/add-user.sh -a -u quickuser2 -p quick+123 --silent --role AppTwo
+        For Linux:
+              JBOSS_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ --role Intern
+              JBOSS_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 --role AppTwo
+
+        For Windows:
+              JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ --role Intern
+              JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 --role AppTwo
 
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
@@ -197,7 +209,7 @@ Undeploy the Archives
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli

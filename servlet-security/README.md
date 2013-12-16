@@ -62,7 +62,18 @@ Using the add-user utility script, you must add the following users to the `Appl
 
 The first application user has access rights to the application. The second application user is not authorized to access the application.
 
-For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#add-an-application-user).
+To add the application users, open a command prompt and type the following commands:
+
+        For Linux:        
+          JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+          JBOSS_HOME/bin/add-user.sh -a -u 'guest' -p 'guestPwd1!' -g 'notauthorized'
+
+        For Windows: 
+          JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+          JBOSS_HOME\bin\add-user.bat -a -u 'guest' -p 'guestPwd1!' -g 'notauthorized'
+
+If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](../README.md#add-an-application-user).
 
 
 Define a Security Domain Using the Database JAAS Login Module
@@ -82,7 +93,7 @@ _NOTE - Before you begin:_
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 This script adds the `servlet-security-quickstart` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
@@ -98,7 +109,7 @@ This script adds the `servlet-security-quickstart` domain to the `security` subs
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat 
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
@@ -134,7 +145,7 @@ Please note that the security domain name `servlet-security-quickstart` must mat
 Start the JBoss Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -147,7 +158,7 @@ Build and Deploy the Quickstart
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
@@ -190,7 +201,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
@@ -207,7 +218,7 @@ You can remove the security domain configuration by running the  `remove-securit
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:

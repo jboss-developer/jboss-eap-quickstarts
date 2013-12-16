@@ -36,7 +36,20 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 
 Add an Application User
 ----------------
-This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: [Add an Application User](../README.md#add-an-application-user)
+
+This quickstart uses secured management interfaces and requires that you create the following application user to access the running application. 
+
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickstartUser| ApplicationRealm | quickstartPwd!!| guest |
+
+To add the application user, open a command prompt and type the following command:
+
+        For Linux:   JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+        For Windows: JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+
+If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](../README.md#add-an-application-user).
 
 
 Configure the JBoss Enterprise Application Platform 6 server
@@ -103,7 +116,7 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 Start the JBoss Server with the Full Profile
 ---------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
@@ -117,7 +130,7 @@ To run the quickstart from the command line:
 
 1. Make sure you have started the JBoss server. See the instructions in the previous section.
 
-2. Open a command line and navigate to the root of the helloworld-jms quickstart directory:
+2. Open a command prompt and navigate to the root of the helloworld-jms quickstart directory:
 
         cd PATH_TO_QUICKSTARTS/helloworld-jms
 
@@ -202,7 +215,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy

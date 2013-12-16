@@ -40,7 +40,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#mavenconfig
 Start the JBoss Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -53,7 +53,7 @@ Build and Deploy the Quickstart
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command propmt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean jboss-as:deploy
@@ -70,7 +70,7 @@ The following sections describe how to use 'JConsole' to inspect and test the MB
 Start JConsole
 --------------
 
-To connect to the JBoss server using jconsole, open a command line and type the following command :
+To connect to the JBoss server using jconsole, open a command prompt and type the following command :
 
         For Linux:   JDK_HOME/bin/jconsole
         For Windows: JDK_HOME\bin\jconsole.exe
@@ -98,7 +98,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
