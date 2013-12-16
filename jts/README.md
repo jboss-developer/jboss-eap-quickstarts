@@ -99,7 +99,7 @@ _NOTE - Before you begin:_
 
         For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
         For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
 This script configures the server to use jts transaction processing. You should see the following result when you run the script:
@@ -118,7 +118,7 @@ This script configures the server to use jts transaction processing. You should 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
@@ -196,7 +196,7 @@ Since this quickstart builds two separate components, you can not use the standa
 
 
 1. Make sure you have started the JBoss server with the PostgreSQL driver
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
@@ -227,7 +227,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn package jboss-as:undeploy
@@ -246,7 +246,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
@@ -265,7 +265,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect

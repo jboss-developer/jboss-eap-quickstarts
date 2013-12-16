@@ -40,7 +40,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Start the JBoss Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -52,7 +52,7 @@ Build and Deploy the Quickstart
 
 1. Make sure you have started the JBoss server. See the instructions in the previous section.
 
-2. Open a command line and navigate to the `shopping-cart` quickstart directory
+2. Open a command prompt and navigate to the `shopping-cart` quickstart directory
 3. To build both the server component and the remote client program, deploy the server module, change into the examples shopping-cart directory and type the following:
 
         mvn clean install jboss-as:deploy 
@@ -116,7 +116,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy

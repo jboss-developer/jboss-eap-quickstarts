@@ -104,7 +104,7 @@ _NOTE - Before you begin:_
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 This script adds the `quickstart-domain` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
@@ -129,7 +129,7 @@ This script adds the `quickstart-domain` domain to the `security` subsystem in t
 
 		For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
 		For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
     
 		For Linux: bin/jboss-cli.sh --connect
 		For Windows: bin\jboss-cli.bat --connect
@@ -517,7 +517,7 @@ You can remove the security domain configuration by running the  `remove-securit
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:

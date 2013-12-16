@@ -42,7 +42,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Start the JBoss Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -55,7 +55,7 @@ Build and Deploy the Quickstart
 Since this quickstart builds two separate components, you can not use the standard *Build and Deploy* commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.
 
 1. Make sure you have started the JBoss server. See the instructions in the previous section.
-2. Open a command line and navigate to the ejb-remote quickstart directory
+2. Open a command prompt and navigate to the ejb-remote quickstart directory
 3. Build and install the server side component:
     * Navigate to the server-side subdirectory:
 
@@ -129,7 +129,7 @@ Build and Run The Quickstart as an Executable JAR
 
 The remote client application can also be built as a standalone executable JAR with all of its dependencies.
 
-1. Open a command line and navigate to the ejb-remote/client quickstart directory
+1. Open a command prompt and navigate to the ejb-remote/client quickstart directory
 
         cd client
 2. Type the following in the command line:

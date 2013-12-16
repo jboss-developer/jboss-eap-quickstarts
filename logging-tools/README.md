@@ -53,7 +53,7 @@ To start the JBoss server with a different locale than the system default:
 Start the JBoss Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -67,7 +67,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
@@ -134,7 +134,7 @@ Undeploy the Archive
 --------------------
 
 1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy

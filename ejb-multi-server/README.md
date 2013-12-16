@@ -94,7 +94,7 @@ Start JBoss EAP Server
 Configure the JBoss EAP Server
 ---------------------------
 
-   Open a new command line, navigate to the root directory of this quickstart, and run the following command:
+   Open a new command prompt, navigate to the root directory of this quickstart, and run the following command:
  
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
         
@@ -112,7 +112,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean install
         
-4. Open a new command line and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
+4. Open a new command prompt and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
        
@@ -232,7 +232,7 @@ _Note: This script returns the server to a default configuration and the result 
 
         For Linux:   JBOSS_HOME/bin/domain.sh
         For Windows: JBOSS_HOME\bin\domain.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
 This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
