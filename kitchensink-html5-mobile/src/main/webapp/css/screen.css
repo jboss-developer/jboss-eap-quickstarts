@@ -18,21 +18,63 @@
 body {
     margin: 0;
     padding: 0;
-    font-size: 0.8em;
     color: #363636;
+    font-family: Verdana, sans-serif;
+}
+
+p {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+a {
+    color: #369;
+    text-decoration: none;
 }
 
 code {
     font-size: 1.1em;
 }
 
-a {
-    text-decoration: none;
-}
-
 a:hover {
     color: #369;
     text-decoration: underline;
+}
+
+legend {
+    color: #111111;
+    font-weight: bold;
+}
+
+article > div[data-role="content"] {
+    /* Center the content */
+    margin: 0 auto;
+}
+
+article .wrap {
+    /* Set a background and border for the content to set it apart */
+    background: #cccccc;
+    border: 1px solid #aaaaaa;
+    border-radius: 8px;
+    /* Set padding so the edges are flush */
+    padding: 1em;
+    /* Set shadow */
+    -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:    4px 4px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow:         4px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.mobileicon {
+    float: right;
+    padding: 0 10px 0 10px;
+}
+
+/* Header and footer styles */
+
+.header_logo{
+    float: left;
+    margin-top: 3px;
+    margin-left: 8px;
 }
 
 /* Member registration styles */
@@ -46,36 +88,161 @@ span.success {
    color: green;
 }
 
-/* Member table styles */
-#members {
-    display: table;
-    width: 100%;
-}
-
-#members .row {
-    display: table-row;
-}
-
-#members .row .col {
-    display: table-cell;
-    width: auto;
-    border: 1px solid #ccc;
-}
-
-#members .head {
-    color: #FFFFFF;
-    background-color: #000000;
-    padding: 1px 5px;
-    border-bottom: 1px solid #ccc;
-}
-
-#members .data {
-    padding: 1px 5px;
-    font-size: 11px;
-}
-
 .member-foot {
     clear: both;
-    height: 20px;
+    height: 2em;
     font-weight: bold;
+    padding-top: 3em;
+}
+
+#member-art .ui-content .ui-btn {
+    float: right;
+}
+
+#refreshButton {
+    margin-top: 4em;
+}
+
+/* override default jquery mobile styles
+ * This was necessary because the current jQuery Mobile Themeroller seems to
+ * have a bug that will not allow editing the default theme and any theme it
+ * generates is not compatible with 1.0.1
+ */
+.ui-bar-a {
+    background: #71A1D0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #81B9EF), to( #6088B0));
+    background-image: -webkit-linear-gradient( #81B9EF, #6088B0);
+    background-image: -moz-linear-gradient( #81B9EF, #6088B0);
+    background-image: -ms-linear-gradient( #81B9EF, #6088B0);
+    background-image: -o-linear-gradient( #81B9EF, #6088B0);
+    background-image: linear-gradient( #81B9EF, #6088B0);
+}
+
+.ui-body-a .ui-link {
+    color: #E25027;
+    font-weight: bold;
+}
+
+.ui-body-a .ui-link:visited, .ui-body-a .ui-link:hover {
+    color: #E25027;
+}
+
+.ui-btn-active {
+    border: 1px solid #155678;
+    background: #71A1D0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #71A1D0), to( #71A1D0));
+    background-image: -webkit-linear-gradient( #71A1D0, #71A1D0);
+    background-image: -moz-linear-gradient( #71A1D0, #71A1D0);
+    background-image: -ms-linear-gradient( #71A1D0, #71A1D0);
+    background-image: -o-linear-gradient( #71A1D0, #71A1D0);
+    background-image: linear-gradient( #71A1D0, #71A1D0);
+}
+
+.ui-btn-up-a {
+    border: 1px solid #155678;
+    background: #3E73A8;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #3E73A8), to( #3E73A8));
+    background-image: -webkit-linear-gradient( #3E73A8, #3E73A8);
+    background-image: -moz-linear-gradient( #3E73A8, #3E73A8);
+    background-image: -ms-linear-gradient( #3E73A8, #3E73A8);
+    background-image: -o-linear-gradient( #3E73A8, #3E73A8);
+    background-image: linear-gradient( #3E73A8, #3E73A8);
+}
+
+.ui-btn-hover-a {
+    border: 1px solid #155678;
+    background: #E25027;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #E25027), to( #E25027));
+    background-image: -webkit-linear-gradient( #E25027, #E25027);
+    background-image: -moz-linear-gradient( #E25027, #E25027);
+    background-image: -ms-linear-gradient( #E25027, #E25027);
+    background-image: -o-linear-gradient( #E25027, #E25027);
+    background-image: linear-gradient( #E25027, #E25027);
+}
+
+.ui-btn-hover-a, .ui-btn-hover-a .ui-btn-inner .ui-btn-text {
+    color: #FFF;
+}
+
+.ui-body-a, .ui-dialog.ui-overlay-a {
+    color: #333;
+    text-shadow: none;
+    background: #F0F0F0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #EEE), to( #DDD));
+    background-image: -webkit-linear-gradient( #EEE, #DDD);
+    background-image: -moz-linear-gradient( #EEE, #DDD);
+    background-image: -ms-linear-gradient( #EEE, #DDD);
+    background-image: -o-linear-gradient( #EEE, #DDD);
+    background-image: linear-gradient( #EEE, #DDD);
+}
+
+.app-responsive .ui-block-a,
+.app-responsive .ui-block-b,
+.app-responsive .ui-block-c,
+.app-responsive .ui-block-d,
+.app-responsive .ui-block-e {
+    width: 100%;
+    float:none;
+}
+
+/* preset breakpoint to switch to stacked grid styles and responsive tables below 40em (640px) */
+@media all and (min-width: 40em) {
+    .app-responsive .ui-block-a,
+    .app-responsive .ui-block-b,
+    .app-responsive .ui-block-c,
+    .app-responsive .ui-block-d,
+    .app-responsive .ui-block-e {
+        width: 49.95%;
+        float:left;
+    }
+
+    /* Show the table header rows and set all cells to display: table-cell */
+    .app-responsive td,
+    .app-responsive th,
+    .app-responsive tbody th,
+    .app-responsive tbody td,
+    .app-responsive thead td,
+    .app-responsive thead th {
+        display: table-cell;
+        margin: 0;
+    }
+    /* Hide the labels in each cell */
+    .app-responsive td .ui-table-cell-label,
+    .app-responsive th .ui-table-cell-label {
+        display: none;
+    }
+}
+
+/* Set a larger max-width and add more padding as the display size increases. */
+@media all and (min-width: 40em) {
+    article > div[data-role="content"] {
+        /* Set a max-width */
+        max-width: 38em;
+    }
+    article .wrap {
+        /* Adding padding */
+        padding: 1em;
+    }
+}
+
+@media all and (min-width: 50em) {
+    article > div[data-role="content"] {
+        /* Set a max-width */
+        max-width: 46em;
+    }
+    article .wrap {
+        /* Adding padding */
+        padding: 2em;
+    }
+}
+
+@media all and (min-width: 60em) {
+    article > div[data-role="content"] {
+        /* Set a max-width */
+        max-width: 54em;
+    }
+    article .wrap {
+        /* Adding padding */
+        padding: 3em;
+    }
 }

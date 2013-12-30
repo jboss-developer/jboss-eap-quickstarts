@@ -30,7 +30,8 @@ function updateMemberTable() {
         url: "rest/members",
         cache: false,
         success: function(data) {
-            $('#members').empty().append(buildMemberRows(data));
+            $( "#members" ).empty().append(buildMemberRows(data));
+            $( "#member-table" ).table( "refresh" );
         },
         error: function(error) {
             //console.log("error updating table -" + error.status);

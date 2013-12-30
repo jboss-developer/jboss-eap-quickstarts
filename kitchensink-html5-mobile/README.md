@@ -72,8 +72,6 @@ Access the application
 Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-kitchensink-html5-mobile/>.
 
 
-The client application will be running at the following URL <http://localhost:8080/jboss-kitchensink-html5-mobile/>.
-
 Undeploy the Archive
 --------------------
 
@@ -133,7 +131,7 @@ QUnit is a JavaScript unit testing framework used and built by jQuery. Because J
 
 Executing QUnit test cases is quite easy. Simply load the following HTML file in the browser you want to test.
 
-        QUICKSTART_HOME/contacts-mobile-basic/src/test/qunit/index.html
+        QUICKSTART_HOME/kitchensink-html5-mobile/src/test/qunit/index.html
 
 You can also display the QUnit tests using the Eclipse built-in browser.
 

@@ -23,13 +23,8 @@
         <js>/js/app.js</js>
     </group>
 
-    <group name="m.screen.min">
+    <group name="screen.min">
         <css>/css/screen.css</css>
-        <css>/css/m.screen.css</css>
     </group>
 
-    <group name="d.screen.min">
-        <css>/css/screen.css</css>
-        <css>/css/d.screen.css</css>
-    </group>
 </groups>
