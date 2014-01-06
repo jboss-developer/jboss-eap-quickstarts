@@ -19,6 +19,7 @@ package org.jboss.as.quickstarts.cmt.ejb;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -42,16 +43,26 @@ public class CustomerManagerEJB {
     private EntityManager entityManager;
 
     @Inject
+    private LogMessageManagerEJB logMessageManager;
+
+    @Inject
     private InvoiceManagerEJB invoiceManager;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createCustomer(String name) throws RemoteException, JMSException {
+        logMessageManager.logCreateCustomer(name);
 
         Customer c1 = new Customer();
         c1.setName(name);
         entityManager.persist(c1);
 
         invoiceManager.createInvoice(name);
+        
+        // Just to show that the above message is not delivered when we cause an
+        // EJBException after the fact but before the transaction is committed
+        if (name.toLowerCase().startsWith("p")) {
+            throw new EJBException("We don't want customers who's name start with a 'p'!");
+        }
     }
 
     /**
