@@ -25,7 +25,7 @@
     </div>
 
     <!-- Standard HTML form, with the submit function bound to the register() function defined in the the controller -->
-    <form id="reg" ng-submit="register()">
+    <form name="regForm" ng-submit="register()">
         <h2>Member Registration</h2>
         <fieldset>
             <legend>Register a member:</legend>
@@ -33,16 +33,21 @@
             <div>
                 <label for="name">Name:</label>
                 <input type="text" name="name" id="name"  ng-model="newMember.name" placeholder="Your Name" required autofocus/>
+                <span class="error" ng-show="regForm.name.$error.required">required</span>
                 <span class="error" ng-show="errors.name">{{errors.name}}</span>
             </div>
             <div>
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" ng-model="newMember.email" placeholder="Your Email" required/>
+                <span class="error" ng-show="regForm.email.$error.required">required</span>
+                <span class="error" ng-show="regForm.email.$error.email">not a valid email</span>
                 <span class="error" ng-show="errors.email">{{errors.email}}</span>
             </div>
             <div>
                 <label for="phoneNumber">Phone #:</label>
-                <input type="tel" name="phoneNumber" id="phoneNumber" ng-model="newMember.phoneNumber" pattern="[0-9]{10,12}" placeholder="Your Phone #" required/>
+                <input type="tel" name="phoneNumber" id="phoneNumber" ng-model="newMember.phoneNumber" ng-pattern="/^[0-9]{10,12}$/" placeholder="Your Phone #" required/>
+                <span class="error" ng-show="regForm.phoneNumber.$error.required">required</span>
+                <span class="error" ng-show="regForm.phoneNumber.$error.pattern">must be between 10 and 12 digits</span>
                 <span class="error" ng-show="errors.phoneNumber">{{errors.phoneNumber}}</span>
             </div>
             
@@ -58,7 +63,7 @@
 
             <!-- There are two buttons, the default submit action (which is bound for the whole form), and a reset button, that clears the form. -->
             <div>
-                <input type="submit" id="register" value="Register" />
+                <input type="submit" ng-disabled="regForm.$invalid" id="register" value="Register" />
                 <input type="button" ng-click="reset()" name="cancel"
                     id="cancel" value="Cancel" />
             </div>
