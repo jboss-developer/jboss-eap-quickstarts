@@ -56,11 +56,11 @@ public class JmsClientController {
     private String passwordConfig;
 
     @Inject
-    @ConfigProperty(name = "connection.factory", defaultValue = "jms/RemoteConnectionFactory")
+    @ConfigProperty(name = "connection.factory", defaultValue = "ConnectionFactory")
     private String connectionFactoryConfig;
 
     @Inject
-    @ConfigProperty(name = "destination", defaultValue = "jms/queue/test")
+    @ConfigProperty(name = "destination", defaultValue = "queue/test")
     private String destinationConfig;
 
     @Inject
@@ -103,7 +103,7 @@ public class JmsClientController {
     }
 
     // Set up all the default values
-    private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
+    private static final String URL_PKG_PREFIXES = "org.jboss.as.naming.interfaces:org.jboss.ejb.client.naming";
     private static final String PROVIDER_URL = "remote://localhost:4447";
 
     public void executeJMSClient() throws Exception {
@@ -114,7 +114,7 @@ public class JmsClientController {
         try {
             // Set up the context for the JNDI lookup
             final Properties env = new Properties();
-            env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
+            env.put(Context.URL_PKG_PREFIXES, URL_PKG_PREFIXES);
             env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, PROVIDER_URL));
             env.put(Context.SECURITY_PRINCIPAL, usernameConfig);
             env.put(Context.SECURITY_CREDENTIALS, passwordConfig);
