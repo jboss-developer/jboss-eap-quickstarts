@@ -203,7 +203,7 @@ To access these artifacts, do one of the following:
             <repositories>
                 <repository>
                     <id>jboss-developer-repository</id>
-                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                    <url>http://jboss-developer.github.io/temp-maven-repo/</url>
                     <releases>
                        <enabled>true</enabled>
                     </releases>
@@ -215,7 +215,7 @@ To access these artifacts, do one of the following:
             <pluginRepositories>
                 <pluginRepository>
                     <id>jboss-developer-plugin-repository</id>
-                    <url> http://jboss-developer.github.io/temp-maven-repo/</url>
+                    <url>http://jboss-developer.github.io/temp-maven-repo/</url>
                     <releases>
                       <enabled>true</enabled>
                     </releases>
@@ -504,7 +504,7 @@ _Note: The following substitution variables are used in these instructions:_
                 </pluginRepositories>
             </profile>
             
-            <activeProfile>jboss-developer-repository</activeProfile> 
+            <activeProfile>jboss-developer-repository</activeProfile>
     * If it needs to use a local repository, you must upload the repository to OpenShift `file:///${HOME}/app-root/data/` directory, and specify the URL in the `settings.xml` file relative to that location. You must use the `${HOME}` environment variable in the URL. For example:
     
             <profile>
@@ -512,7 +512,7 @@ _Note: The following substitution variables are used in these instructions:_
                 <repositories>
                     <repository>
                         <id>jboss-620GA-repository</id>
-                        <url>file:///${HOME}/app-root/data/jboss-eap-6.2.0.GA-maven-repository/</url> 
+                        <url>file:///${HOME}/app-root/data/jboss-eap-6.2.0.GA-maven-repository/</url>
                         <releases>
                            <enabled>true</enabled>
                         </releases>
@@ -535,7 +535,7 @@ _Note: The following substitution variables are used in these instructions:_
                 </pluginRepositories>
             </profile>
             
-            <activeProfile>jboss-620GA-repository</activeProfile> 
+            <activeProfile>jboss-620GA-repository</activeProfile>
 3. Upload your `settings.xml` file to the OpenShift application `app-root/data/` directory using the 'SSH to' URL displayed when you created the application. For example:
 
         $ scp <SETTINGS_DIRECTORY>/settings.xml APPLICATION_UUID@YOUR_APP_NAME-YOUR_ACCOUNT_NAME.rhcloud.com:app-root/data
