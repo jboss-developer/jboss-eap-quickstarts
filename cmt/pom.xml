@@ -110,6 +110,14 @@
             <artifactId>javax.inject</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- Needed for running tests (you may also use TestNG) -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
