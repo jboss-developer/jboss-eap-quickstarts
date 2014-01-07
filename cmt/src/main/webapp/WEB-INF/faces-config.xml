@@ -32,6 +32,12 @@
       <to-view-id>/duplicate.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-action>#{customerManager.addCustomer(name)}</from-action>
+      <from-outcome>customerInvalidName</from-outcome>
+      <to-view-id>/invalidName.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 
 </faces-config>
