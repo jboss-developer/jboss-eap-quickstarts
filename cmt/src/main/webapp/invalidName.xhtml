@@ -22,20 +22,10 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="content">
-		<h:messages />
-		<h:form id="addCustomerForm">
-			<h:panelGrid columns="3">
-				<h:outputLabel for="name">Name:</h:outputLabel>
-				<h:inputText value="#{name}" />
-				<h:commandButton id="add" value="Add"
-					action="#{customerManager.addCustomer(name)}">
-				</h:commandButton>
-			</h:panelGrid>
-		</h:form>
-		<ul>
-			<li><h:link outcome="/customers.xhtml">List customers</h:link></li>
-			<li><h:link outcome="/logMessages.xhtml">List log messages</h:link></li>
-		</ul>
+		<Count />
+		<h1>Name of the customer is invalid</h1>
+		<h:outputText value="Name of the customer is invalid: #{name}" />
+		<h:link outcome="/addCustomer.xhtml">Go back</h:link>
 	</ui:define>
 </ui:composition>
 </html>
