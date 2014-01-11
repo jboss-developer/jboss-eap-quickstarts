@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
-    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
 
@@ -16,14 +16,14 @@
     limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-cmt</artifactId>
     <version>6.2.0-redhat-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cmt</name>
     <description>CMT: Using transactions managed by the container</description>
-    <packaging>war</packaging>
-
     <url>http://jboss.org/jbossas</url>
     <licenses>
         <license>
@@ -32,7 +32,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
@@ -54,7 +53,6 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <!-- JBoss distributes a complete set of Java EE 6 APIs including 
@@ -72,7 +70,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <!-- Import the JPA API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
@@ -119,7 +116,6 @@
         </dependency>
 
     </dependencies>
-
     <build>
         <!-- Maven will append the version to the finalName (which is the 
             name given to the generated war, and hence the context root) -->
