@@ -9,7 +9,7 @@ batch
 /subsystem=jacorb:write-attribute(name=root-context,value=${jboss.node.name}/Naming/root)
 
 /subsystem=transactions/:write-attribute(name=jts,value=true)
-/subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id}
+/subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
 
 # Run the batch commands
 run-batch
