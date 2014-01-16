@@ -79,8 +79,6 @@ Configure the Logging Quickstart Log File Handlers
 
 To test logging the different logging levels, you must add handlers to the server `logging.properties` file and configure the server to use them. 
 
-### Add File Handlers to the Server Log Properties File
-
 1. Stop the application server.
 2. Create a backup of the `logging.properties` file located in the `JBOSS_HOME/standalone/configuration` directory.
 3. Open the `logging.properties` in an editor and find the following line:
@@ -145,27 +143,25 @@ To test logging the different logging levels, you must add handlers to the serve
 
     The quickstart distribution also includes a `logging-properties.txt` file containing these configuration lines.
 
-### Configure the Server to Use the New Logging Handlers
+Configure the JBoss Server
+---------------------------
 
-You can configure logging by running the `configure-logging.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file. The three different approaches are described below. 
+You configure server logging by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-logging.cli` script provided in the root directory of this quickstart.
 
-_NOTE - Before you begin:_
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss server.
+    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-1. If it is running, stop the JBoss server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-
-
-#### Configure Logging by Running the JBoss CLI Script
-
-1. Start the JBoss server by typing the following: 
+2. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+3. Review the `configure-logging.cli` file in the root of this quickstart directory. This script configures the logging subsytem in the server configuration file. It configures the periodic rotating file handlers corresponding to those added to the logging properties file, configures the async handlers, creates the logger for our quickstart class and sets the level to TRACE, and assigns the async handlers for our quickstart class. 
+ 
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
    
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-logging.cli
-This script configures the logging subsytem in the server configuration file. It configures the periodic rotating file handlers corresponding to those added to the logging properties file, configures the async handlers, creates the logger for our quickstart class and sets the level to TRACE, and assigns the async handlers for our quickstart class. 
 You should see the following result when you run the script:
 
         #1 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.trace.log", "relative-to"=>"jboss.server.log.dir"})
@@ -184,41 +180,12 @@ You should see the following result when you run the script:
         The batch executed successfully
 
 
-#### Configure Logging by Using the JBoss CLI Tool Interactively
+Review the Modified Server Configuration
+-----------------------------------
 
-1. Start the JBoss server by typing the following: 
+If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
 
-        For Linux:  JBOSS_HOME/bin/standalone.sh 
-        For Windows:  JBOSS_HOME\bin\standalone.bat 
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
-    
-        For Linux: bin/jboss-cli.sh --connect
-        For Windows: bin\jboss-cli.bat --connect
-3. At the prompt, type each of the following commands. After each one, you should see a response with the first line `"outcome" => "success"`.
-
-        /subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.trace.log", "relative-to"=>"jboss.server.log.dir"})
-        /subsystem=logging/periodic-rotating-file-handler=FILE_QS_DEBUG:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.debug.log", "relative-to"=>"jboss.server.log.dir"})
-        /subsystem=logging/periodic-rotating-file-handler=FILE_QS_INFO:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.info.log", "relative-to"=>"jboss.server.log.dir"})
-        /subsystem=logging/periodic-rotating-file-handler=FILE_QS_WARN:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.warn.log", "relative-to"=>"jboss.server.log.dir"})
-        /subsystem=logging/periodic-rotating-file-handler=FILE_QS_ERROR:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.error.log", "relative-to"=>"jboss.server.log.dir"})
-        /subsystem=logging/periodic-rotating-file-handler=FILE_QS_FATAL:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.fatal.log", "relative-to"=>"jboss.server.log.dir"})
-
-        /subsystem=logging/async-handler=TRACE_QS_ASYNC:add(level=TRACE,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_TRACE"]) 
-        /subsystem=logging/async-handler=DEBUG_QS_ASYNC:add(level=DEBUG,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_DEBUG"]) 
-        /subsystem=logging/async-handler=INFO_QS_ASYNC:add(level=INFO,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_INFO"]) 
-        /subsystem=logging/async-handler=WARN_QS_ASYNC:add(level=WARN,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_WARN"]) 
-        /subsystem=logging/async-handler=ERROR_QS_ASYNC:add(level=ERROR,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_ERROR"]) 
-        /subsystem=logging/async-handler=FATAL_QS_ASYNC:add(level=FATAL,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_FATAL"]) 
-
-        /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE,handlers=[TRACE_QS_ASYNC,DEBUG_QS_ASYNC,INFO_QS_ASYNC,WARN_QS_ASYNC,ERROR_QS_ASYNC,FATAL_QS_ASYNC])
-
-
-####  Configure Logging by Manually Editing the Server Configuration File
-
-1. If it is running, stop the JBoss server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-3. Open the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-4. Locate the `logging` subsystem, identified by `<subsystem xmlns="urn:jboss:domain:logging:1.1">` in the file. Copy the following XML before the ending `</subsystem>` element.
+The following XML was added to the end of the the `logging` subsystem.
 
         <!-- EXAMPLE ASYNCHRONOUS LOGGER CONFIGURATION FOR QUICKSTART, NOTE IT LOGS TO FILES AS DEFINED BELOW -->
         <!-- Configure the logging async handlers -->
@@ -313,7 +280,9 @@ You should see the following result when you run the script:
             </handlers>
         </logger>
 
-###  Restart the Server and Test
+
+Test the New Logging Configuration
+-------------------------
 
 1. If your server is not started (i.e. you didn't use one of the CLI routes), then [Start the server](#start-the-jboss-server).
 2. [Build and deploy the quickstart](#build-and-deploy-the-quickstart).

@@ -80,22 +80,23 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Configure the JBoss Server
 -------------------------------------------------
 
-_NOTE - Before you begin:_
+You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart. 
 
-1. If it is running, stop the JBoss server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss server.
+    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-### Configure the Security Domain Using the JBoss CLI 
-
-1. Start the JBoss server by typing the following:
+2. Start the JBoss server by typing the following:
 
         For Linux:  JBOSS_HOME/bin/standalone.sh
         For Windows:  JBOSS_HOME\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `picketlink-sts` security domain to the `security` subsystem in the server configuration and configures authentication access.
 
-        For Linux: JBOSS_HOME/bin/jboss-cli.sh --file=configure-security-domain.cli 
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --file=configure-security-domain.cli 
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        For Linux: JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli 
+        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli 
 
    If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:
 
@@ -108,7 +109,23 @@ _NOTE - Before you begin:_
 
    The batch file also restarts the server.
    
+Review the Modified Server Configuration
+-----------------------------------
+
+If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+
+The following `picketlink-sts` security-domain was added to the `security` subsystem.
    
+   
+        <security-domain name="picketlink-sts">
+            <authentication>
+                <login-module code="UsersRoles " flag="required">
+                    <module-option name="usersProperties" value="users.properties"/>
+                    <module-option name="rolesProperties" value="roles.properties"/>
+                </login-module>
+            </authentication>
+        </security-domain>
+
 Start the JBoss Server
 -------------------------
 
@@ -133,6 +150,11 @@ _NOTE: The following build command assumes you have configured your Maven user s
         mvn clean install jboss-as:deploy
 4. This deploys `target/jboss-picketlink-sts.war` to the running instance of the server.
 
+
+Review the Modified Server Configuration
+-----------------------------------
+
+If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
 
 Access the Application 
 ---------------------

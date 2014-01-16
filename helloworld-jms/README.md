@@ -52,66 +52,46 @@ If you prefer, you can use the add-user utility interactively.
 For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](../README.md#add-an-application-user).
 
 
-Configure the JBoss Enterprise Application Platform 6 server
+Configure the JBoss Server
 ---------------------------
 
-You must first add the JMS `test` queue to the application server configuration file. You can configure JMS by running the  `configure-jms.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
+You configure the the JMS `test` queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-jms.cli` script provided in the root directory of this quickstart. 
 
-_NOTE - Before you begin:_
-
-1. If it is running, stop the JBoss server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-
-#### Configure JMS by Running the JBoss CLI Script
-
-1. Start the JBoss server by typing the following: 
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss server.
+    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+2. Start the JBoss server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+3. Review the `configure-jms.cli` file in the root of this quickstart directory. This script adds the `test` queue to the `messaging` subsystem in the server configuration file.
+
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
-This script adds the `test` queue to the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
+You should see the following result when you run the script:
 
         #1 jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
         The batch executed successfully.
         {"outcome" => "success"}
 
 
-#### Configure JMS Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss server by typing the following: 
+Review the Modified Server Configuration
+-----------------------------------
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
-    
-        For Linux: bin/jboss-cli.sh --connect
-        For Windows: bin\jboss-cli.bat --connect
-3. At the prompt, type the following:
+If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
 
-        [standalone@localhost:9999 /] jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
+The following `testQueue` jms-queue was configured in a new `<jms-destinations>` element under the hornetq-server section of the `messaging` subsystem.
 
-#### Configure JMS by Manually Editing the Server Configuration File
-
-1.  If it is running, stop the JBoss server.
-2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
-3.  Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml
-4.  Add the JMS `test` queue as follows:
-    * Find the messaging subsystem:
-
-            <subsystem xmlns="urn:jboss:domain:messaging:1.1">
-    * Scroll to the end of this section and add the following XML after the `</jms-connection-factories>` end tag but before the `</hornetq-server>` element:
-
-                <jms-destinations>
-                    <jms-queue name="testQueue">
-                        <entry name="queue/test"/>
-                        <entry name="java:jboss/exported/jms/queue/test"/>
-                    </jms-queue>
-                </jms-destinations>
-    * Save the changes and close the file.
-
+      <jms-destinations>
+          <jms-queue name="testQueue">
+              <entry name="queue/test"/>
+              <entry name="java:jboss/exported/jms/queue/test"/>
+          </jms-queue>
+      </jms-destinations>
+ 
 
 Start the JBoss Server with the Full Profile
 ---------------
@@ -136,7 +116,7 @@ To run the quickstart from the command line:
 
 3. Type the following command to compile and execute the quickstart:
 
-            mvn clean compile exec:java
+        mvn clean compile exec:java
 
  
 Investigate the Console Output

@@ -83,26 +83,23 @@ For this example, you will need two instances of the application server, with a 
 
 Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. 
 
-### Modify the Server Configuration file. 
+### Configure the First Server 
 
-You can configure the server by running the  `configure-jts-transactions.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
+You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-transactions.cli` script provided in the root directory of this quickstart. 
 
-_NOTE - Before you begin:_
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss server.
+    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+2. Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID_1` with a node identifier that is unique to both servers.
 
-1. If it is running, stop the JBoss server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-
-#### Modify the Server Configuration by Running the JBoss CLI Script
-
-1. Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
-
-        For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
-        For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+3. Review the `configure--jts-transactions.cli` file in the root of this quickstart directory. This script configures the server to use jts transaction processing.
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
-This script configures the server to use jts transaction processing. You should see the following result when you run the script:
+ You should see the following result when you run the script:
 
         #1 /subsystem=jacorb:write-attribute(name=transactions,value=on)
         #2 /subsystem=jacorb:write-attribute(name=name,value=${jboss.node.name})
@@ -112,54 +109,36 @@ This script configures the server to use jts transaction processing. You should 
         The batch executed successfully.
         {"outcome" => "success"}
 
-#### Modify the Server Configuration Using the JBoss CLI Tool Interactively
+_NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
 
-1. Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
-    
-        For Linux: bin/jboss-cli.sh --connect
-        For Windows: bin\jboss-cli.bat --connect
-3. At the prompt, type the following exactly as it appears. The server will replace ${jboss.node.name} with the actual node name and will replace ${jboss.tx.node.id} with the unique node ID value you passed as a parameter on the server start command line.
+### Review the Modified Server Configuration
 
-        /subsystem=jacorb/:write-attribute(name=transactions,value=on)
-        /subsystem=jacorb:write-attribute(name=name,value=${jboss.node.name})
-        /subsystem=jacorb:write-attribute(name=root-context,value=${jboss.node.name}/Naming/root)
+If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
 
-        /subsystem=transactions/:write-attribute(name=jts,value=true)
-        /subsystem=transactions/:write-attribute(name=node-identifier,value=${jboss.tx.node.id})
+1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `jacorb` subsystem to enable JTS. A naming root is also added to the subsystem.
+
+        <subsystem xmlns="urn:jboss:domain:jacorb:1.3">
+            <orb name="$" socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
+                <initializers security="identity" transactions="on"/>
+            </orb>
+            <naming root-context="$/Naming/root"/>
+        </subsystem>
+
+2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
+
+        <subsystem xmlns="urn:jboss:domain:transactions:1.4">
+            <core-environment node-identifier="${jboss.tx.node.id}">
+                <process-id>
+                    <uuid/>
+                </process-id>
+            </core-environment>
+            <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
+            <coordinator-environment default-timeout="300"/>
+            <jts/>
+        </subsystem>
         
-        :reload
-4. _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
-
-#### Modify the Server Configuration Manually
-
-1. Make a backup copy of the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file.
-2. Open the file JBOSS_HOME/standalone/configuration/standalone-full.xml
-3. Enable JTS as follows:
-    * Find the orb subsystem and change the configuration to:
-
-            <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
-                <orb>
-                    <initializers security="on" transactions="on"/>
-                </orb>
-            </subsystem>
-            <subsystem xmlns="urn:jboss:domain:jacorb:1.1">
-                <orb name="${jboss.node.name}">
-                    <initializers security="on" transactions="on"/>
-                </orb>
-                <naming root-context="${jboss.node.name}/Naming/root"/>
-            </subsystem>
-    * Find the transaction subsystem and append the `<jts/>` element:
-
-            <subsystem xmlns="urn:jboss:domain:transactions:1.2">
-                <core-environment node-identifier="${jboss.tx.node.id}">
-                <!-- LEAVE EXISTING CONFIG AND APPEND THE FOLLOWING -->
-                <jts/>
-            </subsystem>
-4.  _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
+_NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
   
 ### Clone the JBOSS_HOME Directory     
 
@@ -167,26 +146,26 @@ Make a copy of this JBoss directory structure to use for the second server.
 
 ### Configure Server1 to use PostgreSQL
 
-2. Application server 1 must be configured to use PostgreSQL as per the instructions in [Install and Configure the PostgreSQL Database] (../README.md#install-and-configure-the-postgresql-database).
+Application server 1 must be now configured to use PostgreSQL. Follow the instructions in the README file at the root of the quickstarts directory to [Install and Configure the PostgreSQL Database] (../README.md#install-and-configure-the-postgresql-database).
     * Be sure to start the PostgreSQL database.
     * [Add the PostgreSQL Module](../README.md#add-the-postgresql-module-to-the-jboss-server) to the Application 1 server `modules/` directory.
     * [Add the PostgreSQL driver](../README.md#add-the-postgresql-driver-configuration-to-the-jboss-server) to the Application 1 server configuration file.
 
 
-Start the JBoss servers
+Start the JBoss Servers
 -------------------------
 
 Start the the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
 If you are using Linux:
 
-        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
-        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID -Djboss.socket.binding.port-offset=100
+        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID
-        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID -Djboss.socket.binding.port-offset=100
+        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart
