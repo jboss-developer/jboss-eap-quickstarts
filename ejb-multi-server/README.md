@@ -66,7 +66,7 @@ To add the users, open a command prompt and type the following commands:
             JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
             JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
 
-If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](../README.md#add-an-application-user).
+If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 
 Configure the JBoss EAP Server

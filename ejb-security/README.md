@@ -53,7 +53,7 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Add the Application Users
 ---------------
 
-This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](../README.md#add-an-application-user)
+This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user)
 
 After you add the default `quickstartUser`, use the same steps to add a second application user who is not in the `guest` role and therefore is not authorized to access the application. 
 
