@@ -64,12 +64,12 @@ Developers should be familiar with the concepts introduced in the _cmt_ quicksta
 This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL are below.
 
 
-Install the PostgreSQL Database
--------------------------------
+Configure the PostgreSQL Database for Use with this Quickstart
+--------------------------------------------------
 
-This quickstart requires the PostgreSQL database. Instructions to install an configure PostgreSQL can be found here: [Install and Configure the PostgreSQL Database](../README.md#install-and-configure-the-postgresql-database)
+This quickstart requires the PostgreSQL database. Instructions to install and configure PostgreSQL can be found here: [Download and Install PostgreSQL](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#download-and-install-postgresql)
 
-_Note_: For the purpose of this quickstart, replace the word QUICKSTART_DATABASENAME with `jts-quickstart-database` in the PostgreSQL instructions.
+_Note_: For the purpose of this quickstart, replace the word `QUICKSTART_DATABASE_NAME` with `jts-quickstart-database` in the PostgreSQL instructions.
 
 Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
 
@@ -146,10 +146,11 @@ Make a copy of this JBoss directory structure to use for the second server.
 
 ### Configure Server1 to use PostgreSQL
 
-Application server 1 must be now configured to use PostgreSQL. Follow the instructions in the README file at the root of the quickstarts directory to [Install and Configure the PostgreSQL Database] (../README.md#install-and-configure-the-postgresql-database).
-    * Be sure to start the PostgreSQL database.
-    * [Add the PostgreSQL Module](../README.md#add-the-postgresql-module-to-the-jboss-server) to the Application 1 server `modules/` directory.
-    * [Add the PostgreSQL driver](../README.md#add-the-postgresql-driver-configuration-to-the-jboss-server) to the Application 1 server configuration file.
+Application server 1 must be now configured to use PostgreSQL.
+
+1. Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
+2. Follow the instructions to [Add the PostgreSQL Module to the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#add-the-postgresql-module-to-the-jboss-eap-server) to the server 1 install only.
+3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-jboss-server) for the server 1 configuration.
 
 
 Start the JBoss Servers
