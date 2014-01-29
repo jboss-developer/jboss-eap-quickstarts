@@ -44,7 +44,9 @@ System requirements
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.4.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 7.0 or later and Maven 3.0 or later.
+
+_Note: Unlike the other quickstarts, the source for this example is taken directly from the Spring samples repository and does not compile with Java 6.0._
 
 Configure Maven  
 ---------------
