@@ -90,12 +90,14 @@ Run the Quickstart in JBoss Developer Studio or Eclipse
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
-### Deploying to OpenShift
+Build and Deploy the Quickstart - to OpenShift
+-------------------------------------
 
 You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
 
+
 Minification
-============================
+-----------------
 
 By default, the project uses the [wro4j](http://code.google.com/p/wro4j/) plugin, which provides the ability to concatenate, validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.
 
@@ -115,8 +117,8 @@ OR
     #With Tests
     mvn clean package jboss-as:deploy -Pminify,arq-jbossas-remote
  
-Running the Arquillian tests
-============================
+Run the Arquillian tests
+-------------------------------------
 
 By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires the use of a container. You can activate this test by selecting one of the container configuration provided  for JBoss.
 
@@ -124,17 +126,22 @@ To run the test in JBoss, first start the container instance. Then, run the test
 
     mvn clean test -Parq-jbossas-remote
 
-Running the QUnit tests
-============================
+Run the QUnit tests
+-------------------------------------
 
-QUnit is a JavaScript unit testing framework used and built by jQuery. This application includes a set of QUnit tests in order to verify JavaScript that is core to this HTML5 application. Executing QUnit test cases is quite easy. First, make sure the server is running and the project has been deployed as some of the tests will be testing the functionality of the services. Then, simply load the following HTML in the browser you wish to test.
+QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of an HTML5 application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. 
 
-    <project-root>/src/test/qunit/index.html
+Executing QUnit test cases is quite easy. Simply load the following HTML file in the browser you want to test.
 
-For more information on QUnit tests see http://docs.jquery.com/QUnit
+        QUICKSTART_HOME/contacts-mobile-basic/src/test/qunit/index.html
 
-Importing the project into an IDE
-=================================
+You can also display the QUnit tests using the Eclipse built-in browser.
+
+For more information on QUnit tests see <http://docs.jquery.com/QUnit>
+
+
+Import the Project into an IDE
+-------------------------------------
 
 If you created the project using the Maven archetype wizard in your IDE (Eclipse, NetBeans or IntelliJ IDEA), then there is nothing to do. You should already have an IDE project.
 
@@ -142,8 +149,8 @@ Detailed instructions for using Eclipse / JBoss Tools with are provided in the [
 
 If you created the project from the command line using archetype:generate, then you need to import the project into your IDE. If you are using NetBeans 6.8 or IntelliJ IDEA 9, then all you have to do is open the project as an existing project. Both of these IDEs recognize Maven projects natively.
 
-Downloading the sources and Javadocs
-====================================
+Debug the Application
+-------------------------------------
 
 If you want to be able to debug into the source code or look at the Javadocs of any library in the project, you can run either of the following two commands to pull them into your local repository. The IDE should then detect them.
 
