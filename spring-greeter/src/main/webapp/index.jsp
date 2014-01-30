@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<%--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
@@ -14,14 +13,10 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
--->
-<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:2.0">
-    <deployment>
-        <dependencies>
-            <module name="org.apache.log4j" slot="main" export="true"/>
-        </dependencies>
-        <exclusions>
-            <module name="org.hibernate"/>
-        </exclusions>
-    </deployment>
-</jboss-deployment-structure>
+--%>
+<html>
+<body>
+<h2>
+<meta HTTP-EQUIV="REFRESH" content="0; url=app/greet"></h2>
+</body>
+</html>

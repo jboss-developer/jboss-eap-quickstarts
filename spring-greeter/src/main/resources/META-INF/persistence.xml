@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
@@ -15,13 +14,21 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:2.0">
-    <deployment>
-        <dependencies>
-            <module name="org.apache.log4j" slot="main" export="true"/>
-        </dependencies>
-        <exclusions>
-            <module name="org.hibernate"/>
-        </exclusions>
-    </deployment>
-</jboss-deployment-structure>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="helloPU" transaction-type="JTA">
+        <!--
+            Using the example datasource set up by JBoss EAP 6
+            For your application, set up a managed datasource and
+            use that instead
+        -->
+        <jta-data-source>java:jboss/datasources/GreeterSpringQuickstartDS</jta-data-source>
+
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
