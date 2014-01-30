@@ -15,13 +15,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:2.0">
-    <deployment>
-        <dependencies>
-            <module name="org.apache.log4j" slot="main" export="true"/>
-        </dependencies>
-        <exclusions>
-            <module name="org.hibernate"/>
-        </exclusions>
-    </deployment>
-</jboss-deployment-structure>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>org.jboss.as.quickstarts.kitchensink.spring.basic.model.Member</class>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
