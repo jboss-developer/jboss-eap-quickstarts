@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-cdi-add-interceptor-binding</artifactId>
-    <version>2.4.0-build-SNAPSHOT</version>
+    <version>2.5.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: cdi-add-interceptor-binding</name>
     <description>CDI Portable Extension, add an interceptor binding: An example of a Portable Extension and some of the APIs / SPIs of CDI</description>
