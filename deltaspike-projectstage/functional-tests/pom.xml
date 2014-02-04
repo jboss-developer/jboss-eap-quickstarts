@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.as.quickstarts.wfk</groupId>
     <artifactId>deltaspike-projectstage-test-webdriver</artifactId>
-    <version>2.4.0-build-SNAPSHOT</version>
+    <version>2.5.0-build-SNAPSHOT</version>
     <name>JBoss WFK Quickstart: deltaspike-projectstage test via WebDriver with Arquillian</name>
 
     <url>http://jboss.org/jbossas</url>

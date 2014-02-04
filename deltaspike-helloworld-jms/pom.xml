@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-deltaspike-helloworld-jms</artifactId>
-    <version>2.4.0-build-SNAPSHOT</version>
+    <version>2.5.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-helloworld-jms</name>
     <description>deltaspike-helloworld-jms: Helloworld JMS producer/consumer client with DeltaSpike property configuration</description>

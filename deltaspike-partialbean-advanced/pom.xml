@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-deltaspike-partialbean-advanced</artifactId>
-    <version>2.4.0-build-SNAPSHOT</version>
+    <version>2.5.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-partialbean-advanced</name>
     <description>DeltaSpike PartialBean: Demonstrates a more advanced usage scenario involving the DeltaSpike Partial Bean module</description>
