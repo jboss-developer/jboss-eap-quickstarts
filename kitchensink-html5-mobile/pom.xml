@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-kitchensink-html5-mobile</artifactId>
-    <version>2.4.0-build-SNAPSHOT</version>
+    <version>2.5.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss WFK Quickstart: kitchensink-html5-mobile</name>
