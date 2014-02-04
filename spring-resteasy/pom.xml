@@ -51,7 +51,7 @@
         
 <!--         AT the moment this app does NOT work with Spring 4, so we are keeping it on Spring 3.2.x. I believe there is
              a bug in the Spring code.  Further testing is needed. -->
-        <version.jboss.bom.wfk>2.4.0-build-5</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.5.0-build-1</version.jboss.bom.wfk>
 
         <!-- Other dependency versions -->
 <!--         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents> -->

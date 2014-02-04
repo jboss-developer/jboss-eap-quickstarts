@@ -40,7 +40,7 @@
 
 		<!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
 		<jboss.bom.wfk.version>2.5.0-build-1</jboss.bom.wfk.version>
-		<jboss.bom.eap.version>1.0.4.Final-redhat-9</jboss.bom.eap.version>
+		<jboss.bom.eap.version>6.2.0.GA</jboss.bom.eap.version>
 
 		<!-- Generic properties -->
 		<java.version>1.6</java.version>
@@ -404,7 +404,7 @@
 		<dependencies>
 			<!-- JBoss Boms -->
 			<dependency>
-				<groupId>org.jboss.bom</groupId>
+				<groupId>org.jboss.bom.eap</groupId>
 				<artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
 				<version>${jboss.bom.eap.version}</version>
 				<type>pom</type>
