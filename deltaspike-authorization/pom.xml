@@ -47,7 +47,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.wfk>2.4.0-build-5</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.5.0-build-1</version.jboss.bom.wfk>
         
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
