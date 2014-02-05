@@ -1,0 +1,15 @@
+[submodule "jdg-quickstarts"]
+	path = jdg-quickstarts
+	url = https://github.com/jboss-developer/jboss-jdg-quickstarts.git
+[submodule "wfk-quickstarts"]
+	path = wfk-quickstarts
+	url = https://github.com/jboss-developer/jboss-wfk-quickstarts.git
+[submodule "portal-quickstarts"]
+	path = portal-quickstarts
+	url = https://github.com/jboss-developer/jboss-portal-quickstarts.git
+[submodule "on-quickstarts"]
+	path = on-quickstarts
+	url = https://github.com/jboss-developer/jboss-on-quickstarts.git
+[submodule "picketlink-quickstarts"]
+	path = picketlink-quickstarts
+	url = https://github.com/jboss-developer/jboss-picketlink-quickstarts.git
