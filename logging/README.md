@@ -33,12 +33,11 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
-Start the JBoss Server
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server:
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+2. The following shows the command line to start the JBoss EAP server with the default profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -284,7 +283,7 @@ The following XML was added to the end of the the `logging` subsystem.
 Test the New Logging Configuration
 -------------------------
 
-1. If your server is not started (i.e. you didn't use one of the CLI routes), then [Start the server](#start-the-jboss-server).
+1. If your server is not started (i.e. you didn't use one of the CLI routes), then [Start the JBoss EAP server](#start-the-jboss-eap-server).
 2. [Build and deploy the quickstart](#build-and-deploy-the-quickstart).
 3. [Access the application](#access-the-application).
 
