@@ -19,7 +19,7 @@ Be sure to read this entire document before you attempt to work with the quickst
 
 * [Run the Quickstarts](#run-the-quickstarts): General instructions for building, deploying, and running the quickstarts.
 
-* [Run the Arquillian Tests](#run-the-arquillian-tests): How to run the Arquillian tests provided by some of the quickstarts.
+* [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests): How to run the Arquillian tests provided by some of the quickstarts.
 
 * [Optional Components](#optional-components): How to install and configure optional components required by some of the quickstarts.
 
@@ -203,49 +203,6 @@ You can undeploy quickstarts using the following procedure:
             mvn jboss-as:undeploy -fae
 
 To undeploy any quickstarts that fail due to complex dependencies, follow the undeploy procedure described in the quickstart's README file.
-
-
-Run the Arquillian Tests
-------------------------
-
-Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests an application on a real server, not just in a mocked environment.
-
-You can either start the server yourself or let Arquillian manage its lifecycle during the testing. The individual quickstart README should tell you what to expect in the console output and the server log when you run the test.
-
-_Note:_ If you do not configure the Maven settings as described here, [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts), you must pass the configuration setting on every Maven command as follows: ` -s QUICKSTART_HOME/settings.xml`
-
-1. Test the quickstart on a remote server
-    * Arquillian's remote container adapter expects a JBoss server instance to be already started prior to the test execution. You must [Start the JBoss server](#start-the-jboss-server) as described in the quickstart README file.
-    * If you need to run the tests on a JBoss server running on a machine other than localhost, you can configure this, along with other options, in the `src/test/resources/arquillian.xml` file using the following properties:
-        
-            <container qualifier="jboss" default="true">
-                <configuration>
-                    <property name="managementAddress">myhost.example.com</property>
-                    <property name="managementPort">9999</property>
-                    <property name="username">customAdminUser</property>
-                    <property name="password">myPassword</property>
-                </configuration>
-            </container>    
-    * Run the test goal with the following profile activated:
-
-            mvn clean test -Parq-jbossas-remote     
-2. Test the quickstart on a managed server
-
-    Arquillian's managed container adapter requires that your server is not running as it will start the container for you. However, you must first let it know where to find the JBoss server directory. The simplest way to do this is to set the `JBOSS_HOME` environment variable to the full path to your JBoss server directory. Alternatively, you can set the path in the `jbossHome` property in the Arquillian configuration file.
-    * Open the `src/test/resources/arquillian.xml` file located in the quickstart directory.
-    * Find the configuration for the JBoss container. It should look like this:
-
-            <!-- Example configuration for a managed/remote JBoss EAP 6 instance -->
-            <container qualifier="jboss" default="true">
-                <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
-                <!--<configuration> -->
-                <!--<property name="jbossHome">/path/to/jboss/as</property> -->
-                <!--</configuration> -->
-            </container>           
-    * Uncomment the `configuration` element, find the `jbossHome` property and replace the "/path/to/jboss/as" value with the actual path to your JBoss EAP server.
-    * Run the test goal with the following profile activated:
-
-            mvn clean test -Parq-jbossas-managed
 
 
 Use JBoss Developer Studio or Eclipse to Run the Quickstarts
