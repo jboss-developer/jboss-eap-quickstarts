@@ -22,7 +22,7 @@ This quickstart shows how to atomically update multiple resources within one tra
 
 The relational database table in this example contains two columns that represent a "key" / "value" pair. The application presents an HTML form containing two input text boxes and allows you to create, update, delete or list these pairs. When you add or update a "key" / "value" pair, the quickstart starts a transaction, updates the database table, produces a JMS message containing the update, and then commits the transaction. If all goes well, eventually the consumer gets the message and generates a database update, setting the "value" corresponding to the "key" to something that indicates it was changed by the message consumer.
 
-In this example, you halt the JBoss server in the middle of an XA transaction after the database modification has been committed, but before the JMS producer is committed. You can verify that the transaction was started, then restart the JBoss server to complete the transaction. You then verify that everything is in a consistent state.
+In this example, you halt the JBoss server in the middle of an XA transaction after the database modification has been committed, but before the JMS producer is committed. You can verify that the transaction was started, then restart the JBoss EAP server to complete the transaction. You then verify that everything is in a consistent state.
 
 JBoss EAP ships with H2, an in-memory database written in Java. In this example, we use H2 for the database. Although H2 XA support is not recommended for production systems, the example does illustrate the general steps you need to perform for any datasource vendor. This example provides its own H2 XA datasource configuration. It is defined in the `jta-crash-rec-ds.xml` file in the WEB-INF folder of the WAR archive. 
 
@@ -57,13 +57,13 @@ Configure the JBoss server
 _NOTE_: The _Byteman_ scripts only work in JTA mode. They do not work in JTS mode. If you have configured the server for a quickstart that uses JTS, you must follow the quickstart instructions to remove the JTS configuration from the JBoss server before making the following changes. Otherwise _Byteman_ will not halt the server. 
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 ---------------
 
-Start the JBoss Server with the Full Profile
+Start the JBoss EAP Server with the Full Profile
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the full profile:
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+2. The following shows the command line to start the JBoss EAP server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
         For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
@@ -112,7 +112,7 @@ Test the application
         For Windows: 
         
              JAVA_OPTS=%JAVA_OPTS% -javaagent:C:BYTEMAN_HOME\lib\byteman.jar=script:C:\QUICKSTART_HOME\jta-crash-rec\src\main\scripts\xa.btm %JAVA_OPTS%
-    * [Start the JBoss server](#start-the-jboss-server) as instructed above.
+    * [Start the JBoss EAP server](#start-the-jboss-eap-server) as instructed above.
     
 5. Once you complete step 4, you are ready to create a _recovery record_. Go to the application URL <http://localhost:8080/jboss-jta-crash-rec/XA> and insert another row into the database. At this point, Byteman halts the application server. 
 
@@ -146,7 +146,7 @@ Test the application
 
             `Database may be already in use: "Locked by another process"`
     * [Disable the Byteman script](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#disable-the-byteman-script) by restoring the backup server configuration file.
-    * [Start the JBoss server](#start-the-jboss-server) as instructed above.
+    * [Start the JBoss EAP server](#start-the-jboss-eap-server) as instructed above.
     * Load the web interface to the application 
     * By the time the JBoss server is ready, the transaction should have recovered.
     * A message is printed on the JBoss server console when the consumer has completed the update. Look for a line that reads 'JTA Crash Record Quickstart: key value pair updated via JMS'.

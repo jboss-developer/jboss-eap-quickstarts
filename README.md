@@ -76,51 +76,9 @@ Run the Quickstarts
 
 The root folder of each individual quickstart contains a README file with specific details on how to build and run the example. In most cases you do the following:
 
-* [Start the JBoss server](#start-the-jboss-server)
+* [Start the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.md#start-the-jboss-eap-server)
 * [Build and deploy the quickstarts](#build-and-deploy-the-quickstarts)
 
-
-### Start the JBoss Server
-
-Before you deploy a quickstart using the Maven command line tool, in most cases you need a running JBoss EAP server. A few of the Arquillian tests do not require a running server. This will be noted in the README for that quickstart. 
-
-The JBoss server can be started a few different ways.
-
-* [Start the Default JBoss Server](#start-the-default-jboss-server): This is the default configuration. It defines minimal subsystems and services.
-* [Start the JBoss Server with the _full_ profile](#start-the-jboss-server-with-the-full-profile): This profile configures many of the commonly used subsystems and services.
-* [Start the JBoss Server with a custom configuration](#start-the-jboss-server-with-custom-configuration-options): Custom configuration parameters can be specified on the command line when starting the server.
-
-The README for each quickstart will specify which configuration is required to run the example.
-
-#### Start the Default JBoss Server
-
-To start JBoss EAP:
-
-1. Open a command prompt and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the JBoss server:
-
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
-
-#### Start the JBoss Server with the Full Profile
-
-To start JBoss EAP with the Full Profile:
-
-1. Open a command prompt and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the JBoss server with the full profile:
-
-        For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
-
-#### Start the JBoss Server with Custom Configuration Options
-
-To start JBoss EAP with custom configuration options:
-
-1. Open a command prompt and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the JBoss server. Replace the CUSTOM_OPTIONS with the custom optional parameters specified in the quickstart.
-
-        For Linux:   JBOSS_HOME/bin/standalone.sh CUSTOM_OPTIONS
-        For Windows: JBOSS_HOME\bin\standalone.bat CUSTOM_OPTIONS
            
 ### Build and Deploy the Quickstarts
 
@@ -146,7 +104,7 @@ In most cases, you can use the following steps to build the application to test 
 
 In most cases, you can use the following steps to build and deploy the application. See the specific quickstart README file for complete details.
 
-1. Make sure you [start the JBoss server](#start-the-jboss-server) as described in the README.
+1. Make sure you start the JBoss EAP server as described in the quickstart README file.
 2. Open a command prompt and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
@@ -171,7 +129,7 @@ You can verify the quickstarts build using one command. However, quickstarts tha
 
 To build the quickstarts:
 
-1. Do not start the JBoss server.
+1. Do not start the JBoss EAP server.
 2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to build the quickstarts that do not have complex dependencies:
 
@@ -196,7 +154,7 @@ To undeploy the quickstarts from the root of the quickstart folder, you must pas
 
 You can undeploy quickstarts using the following procedure:
 
-1. Start the JBoss server.
+1. Start the JBoss EAP server.
 2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to undeploy any deployed quickstarts:
 
