@@ -99,19 +99,19 @@
                 <artifactId>commons-logging</artifactId>
                 <version>${version.commons.logging}</version>
             </dependency>
-	        
-	        <!-- Spring -->
-<!-- 	        <dependency> -->
-<!-- 	            <groupId>org.springframework</groupId> -->
-<!-- 	            <artifactId>spring-context</artifactId> -->
-<!-- 	            <version>${version.springframework}</version> -->
-<!-- 	        </dependency> -->
-<!-- 	        <dependency> -->
-<!-- 	            <groupId>org.springframework</groupId> -->
-<!-- 	            <artifactId>spring-web</artifactId> -->
-<!-- 	            <version>${version.springframework}</version> -->
-<!-- 	        </dependency> -->
-	        
+            
+            <!-- Spring -->
+<!--             <dependency> -->
+<!--                 <groupId>org.springframework</groupId> -->
+<!--                 <artifactId>spring-context</artifactId> -->
+<!--                 <version>${version.springframework}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.springframework</groupId> -->
+<!--                 <artifactId>spring-web</artifactId> -->
+<!--                 <version>${version.springframework}</version> -->
+<!--             </dependency> -->
+            
         </dependencies>
     </dependencyManagement>
 
@@ -217,14 +217,14 @@
             </activation>
             <build>
                 <plugins>
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-surefire-plugin</artifactId>
-		                <version>${version.surefire.plugin}</version>
-		                <configuration>
-		                    <skip>true</skip>
-		                </configuration>
-		            </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -234,26 +234,23 @@
             <id>rest-test</id>
             <build>
                 <plugins>
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-surefire-plugin</artifactId>
-		                <version>${version.surefire.plugin}</version>
-<!-- 		                <configuration> -->
-<!-- 		                    <skip>true</skip> -->
-<!-- 		                </configuration> -->
-		                <executions>
-		                    <execution>
-		                        <id>surefire-it</id>
-		                        <phase>integration-test</phase>
-		                        <goals>
-		                            <goal>test</goal>
-		                        </goals>
-		                        <configuration>
-		                            <skip>false</skip>
-		                        </configuration>
-		                    </execution>
-		                </executions>
-		            </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.surefire.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>surefire-it</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>false</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
