@@ -21,6 +21,8 @@ The example is composed of 2 maven projects with a shared parent. The projects a
 
 The root `pom.xml` builds each of the subprojects in the above order and deploys the archive to the server.
 
+_Note: This quickstart uses two classes, org.jboss.as.server.CurrentServiceContainer and org.jboss.as.clustering.singleton.SingletonService, that are part of the JBoss EAP private API. A public API will become available in the EAP 6.3 release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle._
+
 
 System requirements
 -------------------
