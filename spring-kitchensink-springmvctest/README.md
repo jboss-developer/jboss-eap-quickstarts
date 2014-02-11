@@ -1,11 +1,11 @@
-spring-kitchensink-springmvctest: Kitchensink SrpingMVCTest Example using Spring 3.2
+spring-kitchensink-springmvctest: Kitchensink SrpingMVCTest Example using Spring 4.0
 ====================================================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
 Summary: An example that incorporates multiple technologies  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.4  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?
@@ -15,14 +15,15 @@ What is it?
 This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with 
 Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
-This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 3.2. It 
+This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
 * This module adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the mvc aspect of the application.
 
 * By using `@WebAppConfiguration` and `@ContextConfiguration` we tell Spring the configuration files we would like the tests to use.
 
-* In `jboss-as-spring-mvc-context.xml` `<context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.basic.controller"/>` and `<mvc:annotation-driven/>` are used to register both the non-rest and rest controllers.
+* In `jboss-as-spring-mvc-context.xml` `<context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.springmvctest.controller"/>` 
+and `<mvc:annotation-driven/>` are used to register both the non-rest and rest controllers.
 
 * The controllers map the respective urls to methods using `@RequestMapping(url)`.
 
@@ -34,7 +35,7 @@ System Requirements
 -------------------
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
-later with the Red Hat JBoss Web Framework Kit (WFK) 2.4.
+later with the Red Hat JBoss Web Framework Kit (WFK) 2.5.
 
 To run the quickstart with the provided build script, you need the following:
 
@@ -72,7 +73,9 @@ Start the JBoss Server
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include 
+Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) 
+for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -101,7 +104,8 @@ Undeploy the Archive
 Run the Arquillian Functional Tests
 -----------------------------------
 
-This quickstart provides Arquillian functional tests as well. They are located under the directory "functional-tests". Functional tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
+This quickstart provides Arquillian functional tests as well. They are located under the directory "functional-tests". Functional 
+tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
 
 To run these tests, you must build the main project as described above.
 
@@ -115,16 +119,20 @@ To run these tests, you must build the main project as described above.
 
         mvn clean verify -Parq-jbossas-remote
 
-5. If you prefer to run the functional tests using managed instance of the JBoss server, meaning the tests will start the server for you, type fhe following command:
+5. If you prefer to run the functional tests using managed instance of the JBoss server, meaning the tests will start the 
+server for you, type the following command:
 
         mvn clean verify -Parq-jbossas-managed
 
 Run the Arquillian Tests 
 -------------------------
 
-This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
+This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require 
+the use of a container. 
 
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven 
+setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete 
+instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
