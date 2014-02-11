@@ -64,6 +64,13 @@
         <dependencies>
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <scope>import</scope>
