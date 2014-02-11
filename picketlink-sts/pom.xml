@@ -73,10 +73,19 @@
                 <scope>import</scope>
             </dependency>
             
-            <!-- JBoss EAP supported artifacts BOM -->  
+            <!-- Security dependency management -->  
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-security</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Logging dependency management -->
+            <dependency>
+                <groupId>org.jboss.bom.eap</groupId>
+                <artifactId>jboss-javaee-6.0-with-logging</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -87,6 +96,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.picketlink</groupId>
             <artifactId>picketlink-federation</artifactId>
