@@ -15,16 +15,15 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-spring-kitchensink-basic</artifactId>
     <version>2.5.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
-    
+
     <name>JBoss WFK Quickstart: spring-kitchensink-basic</name>
     <description>Getting Started with Spring on JBoss</description>
 
@@ -117,6 +116,12 @@
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
                 <version>${version.cglib}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.objectweb.asm</groupId>
+                        <artifactId>asm</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Add H2 dependency for embedded testing database -->
