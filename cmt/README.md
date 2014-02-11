@@ -105,6 +105,11 @@ After a user is successfully added to the database, a message is produced contai
 
     Received Message: Created invoice for customer named:  Tom
 
+When the same customer name is given, a duplicate warning is given and no JMS-message is send to cause the above message.
+
+The customer name should match: letter & '-', else an error is given. This is to show that a 'LogMessage' entity is still stored in the database thanks to the ```@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)```
+that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated with. 
+ 
 
 Server Log: Expected warnings and errors
 -----------------------------------

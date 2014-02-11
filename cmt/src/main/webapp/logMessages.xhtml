@@ -22,10 +22,23 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="content">
-		<Count />
-		<h1>Customer Already Existed</h1>
-		<h:outputText value="Customer already existed: #{name}" />
-		<h:link outcome="/addCustomer.xhtml">Go back</h:link>
+		<h:messages />
+		<h1>List of log-messages</h1>
+		<h:dataTable value="#{logMessageManager.logMessages}" var="lm">
+			<h:column>
+				<f:facet name="header">
+               Message
+            </f:facet>
+				<h:outputText value="#{lm.message}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+               Id
+            </f:facet>
+				<h:outputText value="#{lm.id}" />
+			</h:column>
+		</h:dataTable>
+		<a href="javascript:history.back(-1)">Go Back</a>
 	</ui:define>
 </ui:composition>
 </html>

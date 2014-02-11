@@ -17,7 +17,6 @@
 package org.jboss.as.quickstarts.cmt.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
@@ -29,34 +28,18 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
-import org.jboss.as.quickstarts.cmt.ejb.CustomerManagerEJB;
-import org.jboss.as.quickstarts.cmt.model.Customer;
+import org.jboss.as.quickstarts.cmt.ejb.LogMessageManagerEJB;
+import org.jboss.as.quickstarts.cmt.model.LogMessage;
 
-@Named("customerManager")
+@Named("logMessageManager")
 @RequestScoped
-public class CustomerManager {
-    private Logger logger = Logger.getLogger(CustomerManager.class.getName());
-
+public class LogMessageManager {
     @Inject
-    private CustomerManagerEJB customerManager;
+    private LogMessageManagerEJB logMessageManager;
 
-    public List<Customer> getCustomers() throws SecurityException, IllegalStateException, NamingException,
-        NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
-        return customerManager.listCustomers();
-    }
-
-    public String addCustomer(String name) {
-        try {
-            customerManager.createCustomer(name);
-            return "customerAdded";
-        } catch (Exception e) {
-            if (e.getMessage().contains("Invalid name")) {
-                logger.warning("Invalid name: " + e.getMessage());
-                return "customerInvalidName";
-            }
-            logger.warning("Caught a duplicate: " + e.getMessage());
-            // Transaction will be marked rollback only anyway utx.rollback();
-            return "customerDuplicate";
-        }
+    public List<LogMessage> getLogMessages() throws SecurityException, IllegalStateException,
+        NamingException, NotSupportedException, SystemException, RollbackException,
+        HeuristicMixedException, HeuristicRollbackException {
+        return logMessageManager.listLogMessages();
     }
 }
