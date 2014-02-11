@@ -19,11 +19,9 @@ package org.jboss.as.quickstarts.cmt.ejb;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
@@ -34,44 +32,27 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
-import org.jboss.as.quickstarts.cmt.model.Customer;
+import org.jboss.as.quickstarts.cmt.model.LogMessage;
 
 @Stateless
-public class CustomerManagerEJB {
-
+public class LogMessageManagerEJB {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Inject
-    private LogMessageManagerEJB logMessageManager;
-
-    @Inject
-    private InvoiceManagerEJB invoiceManager;
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createCustomer(String name) throws RemoteException, JMSException {
-        logMessageManager.logCreateCustomer(name);
-
-        Customer c1 = new Customer();
-        c1.setName(name);
-        entityManager.persist(c1);
-
-        invoiceManager.createInvoice(name);
-
-        // It could be done before all the 'storing' but this is just to show that
-        // the invoice is not delivered when we cause an EJBException
-        // after the fact but before the transaction is committed.
-        if (!nameIsValid(name)) {
-            throw new EJBException("Invalid name: customer names should only contain letters & '-'");
-        }
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void logCreateCustomer(String name) throws RemoteException, JMSException {
+        LogMessage lm = new LogMessage();
+        lm.setMessage("Attempt to create record for customer: '" + name + "'");
+        entityManager.persist(lm);
     }
 
-    static boolean nameIsValid(String name) {
-        return name.matches("[\\p{L}-]+");
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void blaMethod() throws RemoteException, JMSException {
+        logCreateCustomer("Niks");
     }
 
     /**
-     * List all the customers.
+     * List all the log-messages.
      * 
      * @return
      * @throws NamingException
@@ -85,7 +66,7 @@ public class CustomerManagerEJB {
      */
     @TransactionAttribute(TransactionAttributeType.NEVER)
     @SuppressWarnings("unchecked")
-    public List<Customer> listCustomers() {
-        return entityManager.createQuery("select c from Customer c").getResultList();
+    public List<LogMessage> listLogMessages() {
+        return entityManager.createQuery("select lm from LogMessage lm").getResultList();
     }
 }

@@ -25,14 +25,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Customer")
-public class Customer implements Serializable {
+@Table(name = "LogMessage")
+public class LogMessage implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
     private int id;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private String message;
 
     public int getId() {
         return id;
@@ -42,11 +44,11 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMessage(String name) {
+        this.message = name;
     }
 }

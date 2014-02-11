@@ -14,39 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.cmt.model;
+package org.jboss.as.quickstarts.cmt.ejb;
 
-import java.io.Serializable;
+import static org.junit.Assert.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.junit.Test;
 
-@Entity
-@Table(name = "Customer")
-public class Customer implements Serializable {
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @Column(unique = true, nullable = false)
-    private String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+public class CustomerManagerEJBTest {
+    @Test
+    public void testNameIsValid() {
+        assertTrue(CustomerManagerEJB.nameIsValid("Jan"));
+        assertFalse(CustomerManagerEJB.nameIsValid("Jan1"));
+        assertTrue(CustomerManagerEJB.nameIsValid("Jan-Piet"));
+        assertFalse(CustomerManagerEJB.nameIsValid("Jan_Piet"));
+        assertTrue(CustomerManagerEJB.nameIsValid("gefräßig"));
     }
 }
