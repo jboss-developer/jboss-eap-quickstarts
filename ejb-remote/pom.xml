@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-remote-parent</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.3.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-remote</name>
 

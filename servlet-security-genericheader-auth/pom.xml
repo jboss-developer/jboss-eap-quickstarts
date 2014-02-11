@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-servlet-security-genericheader-auth</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.3.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: servlet-security-genericheader-auth</name>
     <description>Generic Header Authenticator: Demonstrates how to authenticate via an externally provided request header</description>
@@ -47,9 +47,9 @@
 
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.3.0-build-SNAPSHOT</version.jboss.bom.eap>
 
-        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
+        <version.jboss.as>7.4.0.Final-redhat-SNAPSHOT</version.jboss.as>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>

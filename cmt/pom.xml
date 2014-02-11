@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-cmt</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.3.0-redhat-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: cmt</name>
     <description>CMT: Using transactions managed by the container</description>
     <packaging>war</packaging>
@@ -45,7 +45,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.3.0-build-SNAPSHOT</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>

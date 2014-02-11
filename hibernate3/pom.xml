@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-hibernate3</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.3.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: hibernate3</name>
     <description>JBoss EAP Quickstart: Hibernate 3</description>
@@ -45,7 +45,7 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-7</version.jboss.spec.javaee.6.0>
 
         <version.org.hibernate3.commons.annotations>3.2.0.Final</version.org.hibernate3.commons.annotations>
         <version.org.hibernate>3.6.8.Final</version.org.hibernate>
