@@ -26,7 +26,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-cdi-alternative</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.3.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-alternative</name>
     <description>JBoss EAP Quickstart: CDI Alternative</description>

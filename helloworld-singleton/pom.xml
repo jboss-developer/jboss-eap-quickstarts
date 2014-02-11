@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-helloworld-singleton</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.3.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld-singleton</name>
     <description>JBoss EAP Quickstart: Helloworld Singleton Session Bean with JSF 2.0 as client</description>
