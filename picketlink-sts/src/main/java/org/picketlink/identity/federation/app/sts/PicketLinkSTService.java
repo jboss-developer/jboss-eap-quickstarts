@@ -22,7 +22,7 @@ import javax.xml.ws.ServiceMode;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.WebServiceProvider;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.picketlink.identity.federation.core.wstrust.PicketLinkSTS;
 
 /**
@@ -36,7 +36,7 @@ import org.picketlink.identity.federation.core.wstrust.PicketLinkSTS;
 @WebServiceProvider(serviceName = "PicketLinkSTS", portName = "PicketLinkSTSPort", targetNamespace = "urn:picketlink:identity-federation:sts", wsdlLocation = "WEB-INF/wsdl/PicketLinkSTS.wsdl")
 @ServiceMode(value = Service.Mode.MESSAGE)
 public class PicketLinkSTService extends PicketLinkSTS {
-    private static Logger log = Logger.getLogger(PicketLinkSTService.class);
+    private static Logger log = Logger.getLogger(PicketLinkSTService.class.getName());
 
     @Resource
     public void setWSC(WebServiceContext wctx) {
