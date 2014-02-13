@@ -51,7 +51,7 @@
         
 <!--         AT the moment this app does NOT work with Spring 4, so we are keeping it on Spring 3.2.x. I believe there is
              a bug in the Spring code.  Further testing is needed. -->
-        <version.jboss.bom.wfk>2.5.0-build-2</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.5.0-build-3</version.jboss.bom.wfk>
 
         <!-- Other dependency versions -->
 <!--         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents> -->
@@ -59,7 +59,7 @@
         <version.commons.logging>1.1.1</version.commons.logging>
 
         <!-- RESTEasy Version -->
-        <version.springframework>3.2.7.RELEASE</version.springframework>
+<!--         <version.springframework>3.2.7.RELEASE</version.springframework> -->
 
         <!-- Maven Plugin Versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
@@ -168,12 +168,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${version.springframework}</version>
+<!--             <version>${version.springframework}</version> -->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${version.springframework}</version>
+<!--             <version>${version.springframework}</version> -->
         </dependency>
         
         <!-- Bring in the Servlet jars to avoid errors while compiling with jdt. -->
