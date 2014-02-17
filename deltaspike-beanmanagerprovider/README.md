@@ -6,7 +6,7 @@ Technologies: CDI, Deltaspike, JPA, JSF
 Summary: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener
 Prerequisites: 
 Target Product: WFK
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?
@@ -22,7 +22,7 @@ This projects uses an EntityListener to create audit records. EntityListeners ar
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.4.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.5.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
