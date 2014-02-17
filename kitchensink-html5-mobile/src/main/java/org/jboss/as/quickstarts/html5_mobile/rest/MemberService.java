@@ -75,12 +75,12 @@ public class MemberService {
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Member lookupMemberById(@PathParam("id") long id) {
+    public Response lookupMemberById(@PathParam("id") long id) {
         Member member = repository.findById(id);
         if (member == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return member;
+        return Response.ok(member).build();
     }
 
     /**
