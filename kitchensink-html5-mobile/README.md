@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, HTML5, REST
 Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
 Target Product: WFK
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 
 What is it?
@@ -20,7 +20,7 @@ What is a modern web application without mobile web support? This application al
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.4.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.5.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
