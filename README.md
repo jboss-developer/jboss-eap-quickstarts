@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example that incorporates multiple technologies
 Target Product: WFK
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.4
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 
 What is it?
@@ -18,7 +18,7 @@ This project is setup to allow you to create a compliant Java EE 6 application u
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.4.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.5.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
