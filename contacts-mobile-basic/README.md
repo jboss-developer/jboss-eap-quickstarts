@@ -204,17 +204,19 @@ Run the QUnit tests
 
 QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of this HTML5 
 application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. Executing 
-QUnit test cases are quite easy. Simply load the following HTML in the browser you wish to test.
+QUnit test cases are quite easy. 
+
+
+Simply load the following HTML in the browser you wish to test.
 
         QUICKSTART_HOME/contacts-mobile-basic/src/test/qunit/index.html
 
-Browsers:
+_Note:_ If you use **Chrome**, some date tests fail. These are false failures and are known issues with Chrome. FireFox, Safari, and IE run the tests correctly. 
 
-* You can also display the tests using the Eclipse built-in browser.
-* If you use Chrome there will be a false failure on the date tests.
-* IE, FireFox, and Safari run the tests correctly. 
+You can also display the tests using the Eclipse built-in browser.
 
 For more information on QUnit tests see http://docs.jquery.com/QUnit
+
 
 Import the Project into an IDE
 =================================
