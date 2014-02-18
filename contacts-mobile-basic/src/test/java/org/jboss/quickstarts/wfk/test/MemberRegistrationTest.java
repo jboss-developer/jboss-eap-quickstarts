@@ -19,7 +19,7 @@ package org.jboss.quickstarts.wfk.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -39,6 +39,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jboss.quickstarts.wfk.model.Member;
+import org.jboss.quickstarts.wfk.util.ConvertDate;
 import org.jboss.quickstarts.wfk.util.Resources;
 
 /**
@@ -48,22 +49,24 @@ import org.jboss.quickstarts.wfk.util.Resources;
  */
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
+	
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap
             .create(WebArchive.class, "test.war")
             .addClasses(Member.class, MemberService.class, MemberRepository.class, MemberRegistration.class,
-                Resources.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+                ConvertDate.class, Resources.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource("arquillian-ds.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Inject
     MemberService memberRegistration;
-
+    
     @Inject
     Logger log;
     
-    private Date date = Date.valueOf("1985-10-10");
+    //Set millis 498484800000 from 1985-10-10T12:00:00.000Z
+    private Date date = new Date(498484800000L);
 
     @Test
     @InSequence(1)
