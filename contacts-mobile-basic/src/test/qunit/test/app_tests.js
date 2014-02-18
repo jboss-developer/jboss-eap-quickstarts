@@ -84,10 +84,10 @@ test('should be able to fill in the edit form with values', 5, function() {
         '</form>'
     );
     
-	var contacts = {email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "1231231231", birthDate:'1966-01-03'};
+	var contacts = {email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "1231231231", birthDate:'1966-01-03T12:00:00.000Z'};
 	APPMODULE.app.buildContactDetail(contacts);
 	strictEqual($('#contacts-edit-input-firstName').val(), 'Jane', 'Expected to find Jane in the first name field.');
-	strictEqual($('#contacts-edit-input-lastName').val(),  'Doe', 'Expected to find Jane in the last name field.');
+	strictEqual($('#contacts-edit-input-lastName').val(),  'Doe', 'Expected to find Doe in the last name field.');
 	strictEqual($('#contacts-edit-input-tel').val(),       '1231231231', 'Expected to find 1231231231 in the phone number field.');
 	strictEqual($('#contacts-edit-input-email').val(),     'jane.doe@company.com', 'Expected to find jane.doe@company.com in the email field.');
 	strictEqual($('#contacts-edit-input-date').val(),      '1966-01-03', 'Expected to find 1966-01-03 in the birthdate field.');
