@@ -43,6 +43,12 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
+Start with a Clean JBoss EAP Install
+--------------------------------------
+
+It is important to start with a clean version of JBoss EAP before testing this quickstart. Be sure to unzip or install a fresh JBoss EAP instance. 
+
+
 Add the Application Users
 ---------------
 
@@ -74,26 +80,28 @@ Configure the JBoss EAP Server
 
 You configure the domain server by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `install-domain.cli` script provided in the root directory of this quickstart. 
 
-1. Unzip or install a fresh JBoss EAP instance. It is important to start with a clean version of JBoss EAP before testing this quickstart.
+1. Start with a fresh instance of the JBoss EAP as noted above under [Start with a Clean JBoss EAP Install](#start-with-a-clean-jboss-eap-install).
 
-2. Before you begin, back up your server configuration files.
+2. Be sure you add the required users as specified above under [Add the Application Users](#add-the-application-users). 
+
+3. Before you begin, back up your server configuration files.
     * If it is running, stop the JBoss EAP server.
     * Backup the following files, replacing JBOSS_HOME with the path to your server: 
 
             JBOSS_HOME/domain/configuration/domain.xml
             JBOSS_HOME/domain/configuration/host.xml        
     * After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
-3.  Start the JBoss EAP server 
+4.  Start the JBoss EAP server 
     * Open a command prompt and navigate to the root of the server directory. 
     * Start the server using the following command:
 
             bin/domain.sh    
-4. Review the `install-domain.cli` file in the root of this quickstart directory. This script configures and starts multiple servers needed to run this quickstart. 
+5. Review the `install-domain.cli` file in the root of this quickstart directory. This script configures and starts multiple servers needed to run this quickstart. 
 
-5. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
  
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
-You should see the following result when you run the script:
+     You should see the following result when you run the script:
 
         #1 /host=master/server-config=server-one:stop(blocking=true)
         #2 /host=master/server-config=server-two:stop(blocking=true)
