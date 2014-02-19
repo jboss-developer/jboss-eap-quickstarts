@@ -27,6 +27,7 @@ APPMODULE.namespace('APPMODULE.submissions.deleteContact');
 $(document).ready(function() {
     //Initialize the vars in the beginning so that you will always have access to them.
     var getCurrentTime = APPMODULE.util.getCurrentTime,
+        restEndpoint = APPMODULE.app.restEndpoint,
         run;
 
     /**
@@ -117,7 +118,7 @@ $(document).ready(function() {
                  *   complete, the callback is fired immediately.)
                  */
                 var jqxhr = $.ajax({
-                    url: 'rest/members',
+                    url: restEndpoint,
                     contentType: "application/json",
                     dataType: "json",
                     data: memberData,
@@ -271,7 +272,7 @@ $(document).ready(function() {
                  *   complete, the callback is fired immediately.)
                  */
                 var jqxhr = $.ajax({
-                    url: 'rest/members',
+                    url: restEndpoint,
                     contentType: "application/json",
                     dataType: "json",
                     data: memberData,
@@ -390,7 +391,7 @@ $(document).ready(function() {
              *   complete, the callback is fired immediately.)
              */
             var jqxhr = $.ajax({
-                url: 'rest/members',
+                url: restEndpoint,
                 contentType: "application/json",
                 dataType: "json",
                 data: memberData,

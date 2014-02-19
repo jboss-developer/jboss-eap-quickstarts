@@ -19,6 +19,9 @@ APPMODULE.namespace('APPMODULE.app.getContacts');
 APPMODULE.namespace('APPMODULE.app.buildContactList');
 APPMODULE.namespace('APPMODULE.app.getContactById');
 APPMODULE.namespace('APPMODULE.app.buildContactDetail');
+APPMODULE.namespace('APPMODULE.app.restEndpoint');
+
+APPMODULE.app.restEndpoint = 'rest/members';
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 
@@ -36,7 +39,8 @@ APPMODULE.namespace('APPMODULE.app.buildContactDetail');
  */
 $( document ).on( "pageinit", function(mainEvent) {
     //Initialize the vars in the beginning so that you will always have access to them.
-    var getCurrentTime = APPMODULE.util.getCurrentTime;
+    var getCurrentTime = APPMODULE.util.getCurrentTime,
+        restEndpoint = APPMODULE.app.restEndpoint;
     
     console.log(getCurrentTime() + " [js/app.js] (document -> pageinit) - start");
     
@@ -66,7 +70,7 @@ $( document ).on( "pageinit", function(mainEvent) {
     APPMODULE.app.getContacts = function () {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - start");
         var jqxhr = $.ajax({
-            url: 'rest/members',
+            url: restEndpoint,
             cache: false,
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
@@ -183,7 +187,7 @@ $( document ).on( "pageinit", function(mainEvent) {
         console.log(getCurrentTime() + " [js/app.js] (getContactById) - contactID = " + contactID);
     
         var jqxhr = $.ajax({
-            url: 'rest/members/' + contactID.toString(),
+            url: restEndpoint + "/" + contactID.toString(),
             cache: false,
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
