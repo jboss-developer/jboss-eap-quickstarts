@@ -1,5 +1,6 @@
---JBoss, Home of Professional Open Source
--- Copyright 2012, Red Hat, Inc. and/or its affiliates, and individual
+--
+-- JBoss, Home of Professional Open Source
+-- Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
 -- contributors by the @authors tag. See the copyright.txt in the
 -- distribution for a full listing of individual contributors.
 --
@@ -12,6 +13,7 @@
 -- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
+--
 
 -- This script initializes the database by creating tables and inserting data
 -- Use only for a proof of concept
