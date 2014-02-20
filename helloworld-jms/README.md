@@ -103,7 +103,7 @@ Start the JBoss Server with the Full Profile
         For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
 
 
-Build and Deploy the Quickstart
+Build and Execute the Quickstart
 -------------------------
 
 To run the quickstart from the command line:
@@ -189,16 +189,6 @@ The example provides for a certain amount of customization for the `mvn:exec` pl
 	  This property allows configuration of the JNDI directory used to lookup the JMS destination. This is useful when the client resides on another host. 
 
     Default: `"localhost"`
-
-
-Undeploy the Archive
---------------------
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command prompt and navigate to the root directory of this quickstart.
-3. When you are finished testing, type this command to undeploy the archive:
-
-        mvn jboss-as:undeploy
 
 
 Remove the JMS Configuration
