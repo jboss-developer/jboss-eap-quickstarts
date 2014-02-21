@@ -19,25 +19,26 @@ package org.jboss.as.quickstarts.kitchensink.test;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.quickstarts.kitchensink.test.page.MembersTablePageFragment;
+import org.jboss.as.quickstarts.kitchensink.test.page.RegistrationFormPageFragment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import javax.swing.*;
 import java.net.URL;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static junit.framework.Assert.assertFalse;
 
 /**
  * Kitchensink Spring ControllerAdvice quickstart functional test
@@ -47,6 +48,13 @@ import static org.jboss.arquillian.graphene.Graphene.waitModel;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class KitchensinkSpringControllerAdviceTest {
+
+
+    @FindBy(id = "reg")
+    RegistrationFormPageFragment form;
+
+    @FindByJQuery("table.simpletablestyle:first")
+    MembersTablePageFragment table;
 
     /**
      * Injects browser to our test.
@@ -61,12 +69,6 @@ public class KitchensinkSpringControllerAdviceTest {
     URL contextPath;
 
     /**
-     * Injects JavascriptExecutor for executing javascript on opened page
-     */
-    @ArquillianResource
-    JavascriptExecutor javascript;
-
-    /**
      * Creates deployment which is sent to the container upon test's start.
      *
      * @return war file which is deployed while testing, the whole application in our case
@@ -76,77 +78,6 @@ public class KitchensinkSpringControllerAdviceTest {
         return Deployments.kitchensink();
     }
 
-    /**
-     * Locator for name field
-     */
-    @FindBy(id = "name")
-    WebElement nameField;
-
-    /**
-     * Locator for email field
-     */
-    @FindBy(id = "email")
-    WebElement emailField;
-
-    /**
-     * Locator for phone number field
-     */
-    @FindBy(id = "phoneNumber")
-    WebElement phoneField;
-
-    /**
-     * Locator for date picker
-     */
-    @FindBy(id = "datepicker")
-    WebElement datePicker;
-
-    /**
-     * Locator for registration button
-     */
-    @FindByJQuery("input.register")
-    WebElement registerButton;
-
-    /**
-     * Locator for rows of the members table
-     */
-    @FindByJQuery("table.simpletablestyle:first tbody tr")
-    List<WebElement> tableMembersRows;
-
-    /**
-     * Locator for columns of the first row of the members table
-     */
-    @FindByJQuery("table.simpletablestyle:first tbody tr:first td")
-    List<WebElement> tableMembersRowColumns;
-
-    /**
-     * Locator for name field validation message
-     */
-    @FindBy(id = "name.errors")
-    WebElement nameErrorMessage;
-
-    /**
-     * Locator for email field validation message
-     */
-    @FindBy(id = "email.errors")
-    WebElement emailErrorMessage;
-
-    /**
-     * Locator for phone number field validation message
-     */
-    @FindBy(id = "phoneNumber.errors")
-    WebElement phoneErrorMessage;
-
-    /**
-     * Locator for date validation message
-     */
-    @FindBy(id = "date.errors")
-    WebElement dateErrorMessage;
-
-    /**
-     * Locator for today's date in the date picker
-     */
-    @FindByJQuery("a.ui-state-highlight")
-    WebElement today;
 
     /**
      * Name of the member to register in the right format.
@@ -199,118 +130,83 @@ public class KitchensinkSpringControllerAdviceTest {
      */
     private static final String PHONE_FORMAT_BAD_TOO_SHORT = "123456789";
 
+    @Before
+    public void loadPage() {
+        browser.get(contextPath.toString());
+        form.waitUntilPresent();
+    }
+
     @Test
     @InSequence(1)
     public void testEmptyRegistration() {
-        browser.get(contextPath.toString());
-        guardHttp(registerButton).click();
-        assertTrue("Name validation message should be present", nameErrorMessage.isDisplayed());
-        assertTrue("Email validation message should be present", emailErrorMessage.isDisplayed());
-        assertTrue("PhoneNumber validation message should be present", phoneErrorMessage.isDisplayed());
-        assertTrue("Date validation message should be present", dateErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member("", "", ""), false);
+        assertFalse("Name validation message should be present", form.getNameValidation().isEmpty());
+        assertFalse("Email validation message should be present", form.getEmailValidation().isEmpty());
+        assertFalse("PhoneNumber validation message should be present", form.getPhoneValidation().isEmpty());
+        assertFalse("Date validation message should be present", form.getDateValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(2)
     public void testRegistrationWithBadNameFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_BAD, EMAIL_FORMAT_OK, PHONE_FORMAT_OK, true);
-        guardHttp(registerButton).click();
-        assertTrue("Name validation message should be present", nameErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_BAD, EMAIL_FORMAT_OK, PHONE_FORMAT_OK), true);
+        assertFalse("Name validation message should be present", form.getNameValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_TOO_LONG, EMAIL_FORMAT_OK, PHONE_FORMAT_OK, true);
-        guardHttp(registerButton).click();
-        assertTrue("Name validation message should be present", nameErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_TOO_LONG, EMAIL_FORMAT_OK, PHONE_FORMAT_OK), true);
+        assertFalse("Name validation message should be present", form.getNameValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(3)
     public void testRegistrationWithBadEmailFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_1, PHONE_FORMAT_OK, true);
-        guardHttp(registerButton).click();
-        assertTrue(emailErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_1, PHONE_FORMAT_OK), true);
+        assertFalse(form.getEmailValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_2, PHONE_FORMAT_OK, true);
-        guardHttp(registerButton).click();
-        assertTrue(emailErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_2, PHONE_FORMAT_OK), true);
+        assertFalse(form.getEmailValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(4)
     public void testRegistrationWithBadPhoneFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS, true);
-        guardHttp(registerButton).click();
-        assertTrue(phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS), true);
+        assertFalse(form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT, true);
-        guardHttp(registerButton).click();
-        assertTrue(phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT), true);
+        assertFalse(form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG, true);
-        guardHttp(registerButton).click();
-        assertTrue(phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG), true);
+        assertFalse(form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(5)
     public void testRegistrationWithoutDate() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK, false);
-        guardHttp(registerButton).click();
-        assertTrue(dateErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK), false);
+        assertFalse(form.getDateValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(6)
     public void testRegularRegistration() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK, true);
-        guardHttp(registerButton).click();
+        Member newMember = new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
+        form.register(newMember, true);
 
-        assertEquals(2, tableMembersRows.size());
-        assertEquals(6, tableMembersRowColumns.size());
-
-        assertTrue((tableMembersRowColumns.get(1)).getText().equals(NAME_FORMAT_OK));
-        assertTrue((tableMembersRowColumns.get(2)).getText().equals(EMAIL_FORMAT_OK));
-        assertTrue((tableMembersRowColumns.get(3)).getText().equals(PHONE_FORMAT_OK));
-    }
-
-    /**
-     * This helper method sets values into the according input fields.
-     *
-     * @param name     name to set into the name input field
-     * @param email    email to set into the email input field
-     * @param phone    phone to set into the phone input field
-     * @param fillDate specifies whether the registration date will be set
-     */
-    private void setInputFields(String name, String email, String phone, boolean fillDate) {
-        nameField.clear();
-        nameField.sendKeys(name);
-        emailField.clear();
-        emailField.sendKeys(email);
-        phoneField.clear();
-        phoneField.sendKeys(phone);
-        if (fillDate) {
-            javascript.executeScript("document.getElementById('datepicker').focus()");
-            waitModel().until().element(today).is().present();
-            today.click();
-            javascript.executeScript("document.getElementById('datepicker').blur()");
-        }
+        assertEquals(2, table.getMemberCount());
+        assertEquals(newMember, table.getLatestMember());
     }
 
 }
