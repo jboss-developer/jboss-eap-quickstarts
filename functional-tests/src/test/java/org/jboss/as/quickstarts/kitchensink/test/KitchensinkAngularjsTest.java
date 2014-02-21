@@ -19,24 +19,23 @@ package org.jboss.as.quickstarts.kitchensink.test;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.quickstarts.kitchensink.test.page.MembersTablePageFragment;
+import org.jboss.as.quickstarts.kitchensink.test.page.RegistrationFormPageFragment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.net.URL;
-import java.util.List;
 
-import static junit.framework.Assert.*;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Kitchensink Angular.js quickstart functional test
@@ -46,6 +45,18 @@ import static org.jboss.arquillian.graphene.Graphene.waitModel;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class KitchensinkAngularjsTest {
+
+    /**
+     * Locator for registration form page fragment
+     */
+    @FindBy(name = "regForm")
+    RegistrationFormPageFragment form;
+
+    /**
+     * Locator for members table page fragment
+     */
+    @FindByJQuery("table")
+    MembersTablePageFragment table;
 
     /**
      * Injects browser to our test.
@@ -60,12 +71,6 @@ public class KitchensinkAngularjsTest {
     URL contextPath;
 
     /**
-     * Injects JavascriptExecutor for executing javascript on opened page
-     */
-    @ArquillianResource
-    JavascriptExecutor javascript;
-
-    /**
      * Creates deployment which is sent to the container upon test's start.
      *
      * @return war file which is deployed while testing, the whole application in our case
@@ -74,60 +79,6 @@ public class KitchensinkAngularjsTest {
     public static WebArchive deployment() {
         return Deployments.kitchensink();
     }
-
-    /**
-     * Locator for name field
-     */
-    @FindBy(id = "name")
-    WebElement nameField;
-
-    /**
-     * Locator for email field
-     */
-    @FindBy(id = "email")
-    WebElement emailField;
-
-    /**
-     * Locator for phone number field
-     */
-    @FindBy(id = "phoneNumber")
-    WebElement phoneField;
-
-    /**
-     * Locator for registration button
-     */
-    @FindBy(id = "register")
-    WebElement registerButton;
-
-    /**
-     * Locator for registration success message
-     */
-    @FindByJQuery("ul.success li:first")
-    WebElement registeredMessageSuccess;
-
-    /**
-     * Locator for rows of the members table
-     */
-    @FindByJQuery("table tr.ng-scope")
-    List<WebElement> tableMembersRows;
-
-    /**
-     * Locator for columns of the first row of the members table
-     */
-    @FindByJQuery("table tr.ng-scope:first td")
-    List<WebElement> tableMembersRowColumns;
-
-    /**
-     * Locator for name field validation message
-     */
-    @FindByJQuery("span[ng-show='errors.name']")
-    WebElement nameErrorMessage;
-
-    /**
-     * Locator for registration form
-     */
-    @FindBy(id = "reg")
-    WebElement registrationForm;
 
     /**
      * Name of the member to register in the right format.
@@ -150,14 +101,9 @@ public class KitchensinkAngularjsTest {
     private static final String EMAIL_FORMAT_OK = "john@doe.com";
 
     /**
-     * E-mail of the member to register in the bad format - #1.
+     * E-mail of the member to register in the bad format.
      */
-    private static final String EMAIL_FORMAT_BAD_1 = "joe";
-
-    /**
-     * E-mail of the member to register in the bad format - #2.
-     */
-    private static final String EMAIL_FORMAT_BAD_2 = "john@doe.com ";
+    private static final String EMAIL_FORMAT_BAD = "joe";
 
     /**
      * Phone number of the member to register in the right format.
@@ -181,6 +127,12 @@ public class KitchensinkAngularjsTest {
     private static final String PHONE_FORMAT_BAD_TOO_SHORT = "123456789";
 
 
+    @Before
+    public void loadPage() {
+        browser.get(contextPath.toString());
+        form.waitUntilPresent();
+    }
+
     /**
      * This method tests there is no new member in the registration table when
      * all three input fields are empty.
@@ -188,9 +140,8 @@ public class KitchensinkAngularjsTest {
     @Test
     @InSequence(1)
     public void testEmptyRegistration() {
-        browser.get(contextPath.toString());
-        registerButton.click();
-        assertTrue(new WebElementConditionFactory(registeredMessageSuccess).not().isPresent().apply(browser));
+        form.register(new Member("", "", ""), false);
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     /**
@@ -200,19 +151,14 @@ public class KitchensinkAngularjsTest {
     @Test
     @InSequence(2)
     public void testRegistrationWithBadNameFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_BAD, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
-        registerButton.click();
-        waitModel().until("Name validation message should be present").element(nameErrorMessage).is().visible();
-        assertTrue(new WebElementConditionFactory(registeredMessageSuccess).not().isPresent().apply(browser));
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_BAD, EMAIL_FORMAT_OK, PHONE_FORMAT_OK), false);
+        form.waitForNameValidation();
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_TOO_LONG, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
-        registerButton.click();
-        waitModel().until("Name validation message should be present").element(nameErrorMessage).is().visible();
-        assertTrue(new WebElementConditionFactory(registeredMessageSuccess).not().isPresent().apply(browser));
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_TOO_LONG, EMAIL_FORMAT_OK, PHONE_FORMAT_OK), false);
+        form.waitForNameValidation();
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     /**
@@ -222,18 +168,8 @@ public class KitchensinkAngularjsTest {
     @Test
     @InSequence(3)
     public void testRegistrationWithBadEmailFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_1, PHONE_FORMAT_OK);
-        assertFalse(isValid(emailField));
-
-//        ARQGRA-331 - Graphene guards do not work with AngularJS
-//        guardNoRequest(registerButton).click();
-//        assertTrue(element(registeredMessageSuccess).not().isPresent().apply(browser));
-//        assertEquals("Member should not be registered", 1, tableMembersRows.size());
-
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_2, PHONE_FORMAT_OK);
-        assertFalse(isValid(emailField));
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_BAD, PHONE_FORMAT_OK), false);
+        assertFalse(form.emailValidity());
     }
 
     /**
@@ -244,16 +180,16 @@ public class KitchensinkAngularjsTest {
     @InSequence(4)
     public void testRegistrationWithBadPhoneFormat() {
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS);
-        assertFalse(isValid(phoneField));
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS), false);
+        assertFalse(form.phoneValidity());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT);
-        assertFalse(isValid(phoneField));
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT), false);
+        assertFalse(form.phoneValidity());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG);
-        assertFalse(isValid(phoneField));
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG), false);
+        assertFalse(form.phoneValidity());
     }
 
     /**
@@ -262,45 +198,13 @@ public class KitchensinkAngularjsTest {
     @Test
     @InSequence(5)
     public void testRegularRegistration() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
-        assertTrue(isValid(registrationForm));
-        registerButton.click();
+        Member newMember = new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
 
-        waitModel().until().element(registeredMessageSuccess).is().visible();
+        form.register(newMember, true);
+        table.waitForNewMember(newMember);
 
-        assertEquals(2, tableMembersRows.size());
-        assertEquals(5, tableMembersRowColumns.size());
-
-        assertTrue((tableMembersRowColumns.get(1)).getText().equals(NAME_FORMAT_OK));
-        assertTrue((tableMembersRowColumns.get(2)).getText().equals(EMAIL_FORMAT_OK));
-        assertTrue((tableMembersRowColumns.get(3)).getText().equals(PHONE_FORMAT_OK));
-    }
-
-    /**
-     * This helper method sets values into the according input fields.
-     *
-     * @param name  name to set into the name input field
-     * @param email email to set into the email input field
-     * @param phone phone to set into the phone input field
-     */
-    private void setInputFields(String name, String email, String phone) {
-        nameField.clear();
-        nameField.sendKeys(name);
-        emailField.clear();
-        emailField.sendKeys(email);
-        phoneField.clear();
-        phoneField.sendKeys(phone);
-    }
-
-    /**
-     * Helper method for executing checkValidity() javascript method from HTML5 form validation API
-     *
-     * @param element Element to be checked
-     * @return Element validity
-     */
-    private boolean isValid(WebElement element) {
-        return (Boolean) javascript.executeScript("return arguments[0].checkValidity()", element);
+        assertEquals(2, table.getMemberCount());
+        assertEquals(newMember, table.getLatestMember());
     }
 
 }
