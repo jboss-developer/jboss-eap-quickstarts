@@ -16,21 +16,16 @@
  */
 package org.jboss.wfk.test.deltaspike.beanmanagerprovider;
 
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.net.URL;
-import java.util.List;
-
+import com.google.common.base.Predicate;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,13 +33,15 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import com.google.common.base.Predicate;
-import java.io.File;
-import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.openqa.selenium.support.FindBy;
+
+import java.io.File;
+import java.net.URL;
+import java.util.List;
+
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.*;
 
 /**
  * Tests DeltaSpike BeanManagerProvider
@@ -66,6 +63,9 @@ public class BeanManagerProviderTest {
 
     @FindByJQuery("ul li:contains('Can't create contact:')")
     WebElement MSG_CONTACT_ERROR;
+
+    @FindBy(id = "j_idt9")
+    WebElement INPUT_FORM;
 
     @FindByJQuery("input[id*='inputnameValue']")
     WebElement INPUT_NAME;
@@ -127,7 +127,7 @@ public class BeanManagerProviderTest {
 
     @Before
     public void beforeTest() {
-        driver.navigate().to(contextPath);
+        driver.get(contextPath.toString());
     }
 
     @Test
@@ -155,6 +155,8 @@ public class BeanManagerProviderTest {
         enterContact("", "", PHONE_LONG, BTN_SAVE);
 
         // Make sure the page is loaded
+        waitModel().until().element(MSG_BV_NAME).text().contains(ERR_VALUE_REQUIRED);
+        waitModel().until().element(MSG_BV_EMAIL).text().contains(ERR_VALUE_REQUIRED);
         waitModel().until(new Predicate<WebDriver>() {
             @Override
             public boolean apply(WebDriver input) {
@@ -180,8 +182,7 @@ public class BeanManagerProviderTest {
 
     @Test
     @InSequence(5)
-    public void testUpdateContact() throws InterruptedException {
-        Thread.sleep(1000);
+    public void testUpdateContact() {
         tableRowSelectForEdit(1);
         enterContact(NAME2, null, PHONE2, BTN_SAVE);
 
@@ -193,7 +194,6 @@ public class BeanManagerProviderTest {
     @Test
     @InSequence(6)
     public void testDeleteContact() throws InterruptedException {
-        Thread.sleep(1000);
         tableRowRemove(1);
 
         assertTrue(MSG_CONTACT_REMOVED.isDisplayed());
@@ -215,6 +215,7 @@ public class BeanManagerProviderTest {
     }
 
     private void tableRowRemove(int rowIndex) throws InterruptedException {
+        waitModel().until("Table with contacts should be present").element(TABLE_CONTACTS).is().present();
         int contactId = Integer.parseInt(TABLE_CONTACTS.findElement(By.xpath(String.format("tr[%d]/td[1]", rowIndex + 1))).getText().trim());
         TABLE_CONTACTS.findElement(By.xpath(String.format("tr[%d]/td/input[@value='Remove']", rowIndex + 1))).click();
 
@@ -227,10 +228,12 @@ public class BeanManagerProviderTest {
     }
 
     private void tableRowSelectForEdit(int rowIndex) {
+        waitModel().until("Table with contacts should be present").element(TABLE_CONTACTS).is().present();
         guardHttp(TABLE_CONTACTS.findElement(By.xpath(String.format("//tr[%d]/td/input[@value='Select for edit']", rowIndex + 1)))).click();
     }
 
     private void enterContact(String name, String email, String phone, WebElement button) {
+        waitModel().until("Input form should be present").element(INPUT_FORM).is().present();
         if (name != null) {
             INPUT_NAME.clear();
             INPUT_NAME.sendKeys(name);
