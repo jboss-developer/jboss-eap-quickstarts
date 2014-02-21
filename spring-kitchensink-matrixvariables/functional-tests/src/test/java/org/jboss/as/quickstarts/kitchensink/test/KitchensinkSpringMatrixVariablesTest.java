@@ -23,19 +23,21 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.as.quickstarts.kitchensink.test.page.FilterPageFragment;
+import org.jboss.as.quickstarts.kitchensink.test.page.MembersTablePageFragment;
+import org.jboss.as.quickstarts.kitchensink.test.page.RegistrationFormPageFragment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.net.URL;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Kitchensink Spring Matrix Variables quickstart functional test
@@ -45,6 +47,15 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class KitchensinkSpringMatrixVariablesTest {
+
+    @FindBy(id = "reg")
+    RegistrationFormPageFragment form;
+
+    @FindByJQuery("table.simpletablestyle:first")
+    MembersTablePageFragment table;
+
+    @FindBy(id = "filter")
+    FilterPageFragment filter;
 
     /**
      * Injects browser to our test.
@@ -67,60 +78,6 @@ public class KitchensinkSpringMatrixVariablesTest {
     public static WebArchive deployment() {
         return Deployments.kitchensink();
     }
-
-    /**
-     * Locator for name field
-     */
-    @FindBy(id = "name")
-    WebElement nameField;
-
-    /**
-     * Locator for email field
-     */
-    @FindBy(id = "email")
-    WebElement emailField;
-
-    /**
-     * Locator for phone number field
-     */
-    @FindBy(id = "phoneNumber")
-    WebElement phoneField;
-
-    /**
-     * Locator for registration button
-     */
-    @FindByJQuery("input.register")
-    WebElement registerButton;
-
-    /**
-     * Locator for rows of the members table
-     */
-    @FindByJQuery("table.simpletablestyle:first tbody tr")
-    List<WebElement> tableMembersRows;
-
-    /**
-     * Locator for columns of the first row of the members table
-     */
-    @FindByJQuery("table.simpletablestyle:first tbody tr:first td")
-    List<WebElement> tableMembersRowColumns;
-
-    /**
-     * Locator for name field validation message
-     */
-    @FindBy(id = "name.errors")
-    WebElement nameErrorMessage;
-
-    /**
-     * Locator for email field validation message
-     */
-    @FindBy(id = "email.errors")
-    WebElement emailErrorMessage;
-
-    /**
-     * Locator for phone number field validation message
-     */
-    @FindBy(id = "phoneNumber.errors")
-    WebElement phoneErrorMessage;
 
     /**
      * Name of the member to register in the right format.
@@ -173,100 +130,127 @@ public class KitchensinkSpringMatrixVariablesTest {
      */
     private static final String PHONE_FORMAT_BAD_TOO_SHORT = "123456789";
 
+    /**
+     * Name of the default member.
+     */
+    private static final String DEFAULT_NAME = "John Smith";
+
+    /**
+     * E-mail of the default member.
+     */
+    private static final String DEFAULT_EMAIL = "john.smith@mailinator.com";
+
+    /**
+     * Phone number of the default member.
+     */
+    private static final String DEFAULT_PHONE = "2125551212";
+
+
+    @Before
+    public void loadPage() {
+        browser.get(contextPath.toString());
+        form.waitUntilPresent();
+    }
+
     @Test
     @InSequence(1)
     public void testEmptyRegistration() {
-        browser.get(contextPath.toString());
-        guardHttp(registerButton).click();
-        assertTrue("Name validation message should be present", nameErrorMessage.isDisplayed());
-        assertTrue("Email validation message should be present", emailErrorMessage.isDisplayed());
-        assertTrue("PhoneNumber validation message should be present", phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member("", "", ""));
+        assertNotNull("Name validation message should be present", form.getNameValidation().isEmpty());
+        assertNotNull("Email validation message should be present", form.getEmailValidation().isEmpty());
+        assertNotNull("PhoneNumber validation message should be present", form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(2)
     public void testRegistrationWithBadNameFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_BAD, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
-        guardHttp(registerButton).click();
-        assertTrue("Name validation message should be present", nameErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_BAD, EMAIL_FORMAT_OK, PHONE_FORMAT_OK));
+        assertNotNull("Name validation message should be present", form.getNameValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_TOO_LONG, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
-        guardHttp(registerButton).click();
-        assertTrue("Name validation message should be present", nameErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_TOO_LONG, EMAIL_FORMAT_OK, PHONE_FORMAT_OK));
+        assertNotNull("Name validation message should be present", form.getNameValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(3)
     public void testRegistrationWithBadEmailFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_1, PHONE_FORMAT_OK);
-        guardHttp(registerButton).click();
-        assertTrue(emailErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_1, PHONE_FORMAT_OK));
+        assertNotNull(form.getEmailValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_2, PHONE_FORMAT_OK);
-        guardHttp(registerButton).click();
-        assertTrue(emailErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_BAD_2, PHONE_FORMAT_OK));
+        assertNotNull(form.getEmailValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(4)
     public void testRegistrationWithBadPhoneFormat() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS);
-        guardHttp(registerButton).click();
-        assertTrue(phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS));
+        assertNotNull(form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT);
-        guardHttp(registerButton).click();
-        assertTrue(phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT));
+        assertNotNull(form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
 
         browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG);
-        guardHttp(registerButton).click();
-        assertTrue(phoneErrorMessage.isDisplayed());
-        assertEquals("Member should not be registered", 1, tableMembersRows.size());
+        form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG));
+        assertNotNull(form.getPhoneValidation().isEmpty());
+        assertEquals("Member should not be registered", 1, table.getMemberCount());
     }
 
     @Test
     @InSequence(5)
     public void testRegularRegistration() {
-        browser.get(contextPath.toString());
-        setInputFields(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
-        guardHttp(registerButton).click();
+        Member newMember = new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
+        form.register(newMember);
 
-        assertEquals(2, tableMembersRows.size());
-        assertEquals(5, tableMembersRowColumns.size());
-
-        assertTrue((tableMembersRowColumns.get(1)).getText().equals(NAME_FORMAT_OK));
-        assertTrue((tableMembersRowColumns.get(2)).getText().equals(EMAIL_FORMAT_OK));
-        assertTrue((tableMembersRowColumns.get(3)).getText().equals(PHONE_FORMAT_OK));
+        assertEquals(2, table.getMemberCount());
+        assertEquals(newMember, table.getLatestMember());
     }
 
-    /**
-     * This helper method sets values into the according input fields.
-     *
-     * @param name  name to set into the name input field
-     * @param email email to set into the email input field
-     * @param phone phone to set into the phone input field
-     */
-    private void setInputFields(String name, String email, String phone) {
-        nameField.clear();
-        nameField.sendKeys(name);
-        emailField.clear();
-        emailField.sendKeys(email);
-        phoneField.clear();
-        phoneField.sendKeys(phone);
+    @Test
+    @InSequence(6)
+    public void testFilter() {
+        Member defaultMember = new Member(DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_PHONE);
+        Member addedMember = new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_OK);
+
+        filter.filterName(defaultMember.getName());
+        Assert.assertEquals(1, table.getMemberCount());
+        Assert.assertTrue(table.containsMember(defaultMember));
+        Assert.assertFalse(table.containsMember(addedMember));
+
+        filter.filterEmail(addedMember.getEmail());
+        Assert.assertEquals(1, table.getMemberCount());
+        Assert.assertFalse(table.containsMember(defaultMember));
+        Assert.assertTrue(table.containsMember(addedMember));
+
+        filter.filterName("John");
+        Assert.assertEquals(2, table.getMemberCount());
+        Assert.assertTrue(table.containsMember(defaultMember));
+        Assert.assertTrue(table.containsMember(addedMember));
+
+        filter.filter("John", "john");
+        Assert.assertEquals(2, table.getMemberCount());
+        Assert.assertTrue(table.containsMember(defaultMember));
+        Assert.assertTrue(table.containsMember(addedMember));
+
+        filter.filter(defaultMember.getName(), "john");
+        Assert.assertEquals(1, table.getMemberCount());
+        Assert.assertTrue(table.containsMember(defaultMember));
+        Assert.assertFalse(table.containsMember(addedMember));
+
+        filter.clear();
+        Assert.assertEquals(2, table.getMemberCount());
+        Assert.assertTrue(table.containsMember(defaultMember));
+        Assert.assertTrue(table.containsMember(addedMember));
     }
 
 }
