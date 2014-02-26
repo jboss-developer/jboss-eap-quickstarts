@@ -11,7 +11,6 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-
 This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with 
 Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
@@ -30,6 +29,7 @@ and `<mvc:annotation-driven/>` are used to register both the non-rest and rest c
 * To return JSON, the rest controller uses `@ResponseBody`.
 
 * The datasource and entitymanager are retrieved via JNDI.
+
 
 System Requirements
 -------------------
@@ -82,7 +82,7 @@ for complete instructions and additional options._
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
-        
+
 4. This will deploy `target/jboss-spring-kitchensink-springmvctest.war` to the running instance of the server.
 
 
@@ -101,11 +101,13 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
+
 Run the Arquillian Functional Tests
 -----------------------------------
 
-This quickstart provides Arquillian functional tests as well. They are located under the directory "functional-tests". Functional 
-tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
+This quickstart provides Arquillian functional tests as well. They are located in the functional-tests/ subdirectory under 
+the root directory of this quickstart. Functional tests verify that your application behaves correctly from the user's point 
+of view. The tests open a browser instance, simulate clicking around the page as a normal user would do, and then close the browser instance.
 
 To run these tests, you must build the main project as described above.
 
@@ -123,23 +125,6 @@ To run these tests, you must build the main project as described above.
 server for you, type the following command:
 
         mvn clean verify -Parq-jbossas-managed
-
-Run the Arquillian Tests 
--------------------------
-
-This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require 
-the use of a container. 
-
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven 
-setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete 
-instructions and additional options._
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. Type the following command to run the test goal with the following profile activated:
-
-        mvn clean test -Parq-jbossas-remote 
-
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
