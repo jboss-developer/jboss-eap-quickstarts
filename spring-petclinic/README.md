@@ -127,6 +127,7 @@ server for you, type the following command:
 
         mvn clean verify -Parq-jbossas-managed
 
+_Note:_ The spring-petclinic quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------------------------
