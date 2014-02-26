@@ -17,6 +17,7 @@
 package org.jboss.as.quickstarts.bean_validation.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-//@Entity declares the class as an entity (i.e. a persistent POJO class)
+/*@Entity declares the class as an entity (i.e. a persistent POJO class) */
 @Entity
 /*
  * @Table annotation specifies the primary table for the annotated entity. Additional tables may be specified using
@@ -45,7 +46,7 @@ public class Member implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
 
-    // @Id declares the identifier property of the entity.
+    /* @Id declares the identifier property of the entity.*/
     @Id
     /*
      * @GeneratedValue Provides for the specification of generation strategies for the values of primary keys. The
@@ -55,7 +56,7 @@ public class Member implements Serializable {
     @GeneratedValue
     private Long id;
 
-    // The value of the field or property must not be null.
+    /* The value of the field or property must not be null. */
     @NotNull
     /*
      * The size of the field or property is evaluated and must match the specified boundaries.If the field or property is a
@@ -69,7 +70,7 @@ public class Member implements Serializable {
     private String name;
 
     @NotNull
-    // Asserts that the annotated string, collection, map or array is not null or empty.
+    /* Asserts that the annotated string, collection, map or array is not null or empty. */
     @NotEmpty
     @Email
     private String email;
@@ -104,7 +105,7 @@ public class Member implements Serializable {
     @NotNull
     // The value of the field or property must be an integer value greater than or equal to the number in the value element.
     @Min(10)
-    private Date minQuantity;
+    private int minQuantity;
 
     public Long getId() {
         return id;
