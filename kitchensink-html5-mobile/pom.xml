@@ -26,7 +26,7 @@
     <name>JBoss WFK Quickstart: kitchensink-html5-mobile</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
 
-    <url>http://jboss.org/aerogear</url>
+    <url>http://jboss.org/jdf</url>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following message: -->

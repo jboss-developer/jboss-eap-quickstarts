@@ -65,8 +65,7 @@ article .wrap {
 }
 
 .mobileicon {
-    float: right;
-    padding: 0 10px 0 10px;
+    padding: 10px;
 }
 
 /* Header and footer styles */
