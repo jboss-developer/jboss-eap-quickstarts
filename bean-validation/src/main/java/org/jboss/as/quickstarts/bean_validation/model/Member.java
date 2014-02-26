@@ -46,7 +46,7 @@ public class Member implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
 
-    /* @Id declares the identifier property of the entity.*/
+    /* @Id declares the identifier property of the entity. */
     @Id
     /*
      * @GeneratedValue Provides for the specification of generation strategies for the values of primary keys. The
@@ -82,6 +82,10 @@ public class Member implements Serializable {
      * integral digits for the number, and the fraction element specifies the maximum fractional digits for the number.
      */
     @Digits(fraction = 0, integer = 12)
+    /*
+     * @Column is used to specify a mapped column for a persistent property or field. If no Column annotation is specified, the
+     * default values are applied.
+     */
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -89,22 +93,26 @@ public class Member implements Serializable {
     @NotEmpty
     // The value of the field or property must be a date in the past.
     @Past
+    @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
     @NotNull
     @NotEmpty
     // The value of the field or property must be a date in the future.
     @Future
+    @Column(name = "event_date")
     private Date eventDate;
 
     @NotNull
     // The value of the field or property must be an integer value lower than or equal to the number in the value element.
     @Max(10)
+    @Column(name = "max_quantity")
     private int maxQuantity;
 
     @NotNull
     // The value of the field or property must be an integer value greater than or equal to the number in the value element.
     @Min(10)
+    @Column(name = "min_quantity")
     private int minQuantity;
 
     public Long getId() {
