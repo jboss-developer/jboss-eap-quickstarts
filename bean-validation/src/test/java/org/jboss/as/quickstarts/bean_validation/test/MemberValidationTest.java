@@ -88,7 +88,7 @@ public class MemberValidationTest {
         Member member = new Member();
         Set<ConstraintViolation<Member>> violations = validator.validate(member);
 
-        Assert.assertEquals("Four violations were found", 4, violations.size());
+        Assert.assertEquals("Eight violations were found", 8, violations.size());
     }
 
     /**
