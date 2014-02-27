@@ -53,13 +53,27 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Add the Application Users
 ---------------
 
-This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user)
+Using the add-user utility script, you must add the following users to the `ApplicationRealm`:
 
-After you add the default `quickstartUser`, use the same steps to add a second application user who is not in the `guest` role and therefore is not authorized to access the application. 
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickstartUser| ApplicationRealm | quickstartPwd1!| guest |
+| user1 | ApplicationRealm | password1! | app-user |
 
-        Username: user1
-        Password: password1!
-        Roles:    app-user
+The first application user has access rights to the application. The second application user is not authorized to access the application.
+
+To add the application users, open a command prompt and type the following commands:
+
+        For Linux:        
+          JBOSS_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+          JBOSS_HOME/bin/add-user.sh -a -u 'user1' -p 'password1!' -g 'app-user'
+
+        For Windows: 
+          JBOSS_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+          JBOSS_HOME\bin\add-user.bat -a -u 'user1' -p 'password1!' -g 'app-user'
+
+If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 
 Start the JBoss Server
