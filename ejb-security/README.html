@@ -48,13 +48,44 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="add-the-application-users" class="anchor" href="#add-the-application-users"><span class="anchor-icon"></span></a>Add the Application Users</h2>
 
-<p>This quickstart uses a secured management interface and requires that you create an application user to access the running application. Instructions to set up an Application user can be found here:  <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a></p>
+<p>Using the add-user utility script, you must add the following users to the <code>ApplicationRealm</code>:</p>
 
-<p>After you add the default <code>quickstartUser</code>, use the same steps to add a second application user who is not in the <code>guest</code> role and therefore is not authorized to access the application. </p>
-<div class="highlight"><pre>    <span class="nl">Username:</span> <span class="n">user1</span>
-    <span class="nl">Password:</span> <span class="n">password1</span><span class="o">!</span>
-    <span class="nl">Roles:</span>    <span class="n">app</span><span class="o">-</span><span class="n">user</span>
+<table><thead>
+<tr>
+<th align="left"><strong>UserName</strong></th>
+<th align="left"><strong>Realm</strong></th>
+<th align="left"><strong>Password</strong></th>
+<th align="left"><strong>Roles</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">quickstartUser</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">quickstartPwd1!</td>
+<td align="left">guest</td>
+</tr>
+<tr>
+<td align="left">user1</td>
+<td align="left">ApplicationRealm</td>
+<td align="left">password1!</td>
+<td align="left">app-user</td>
+</tr>
+</tbody></table>
+
+<p>The first application user has access rights to the application. The second application user is not authorized to access the application.</p>
+
+<p>To add the application users, open a command prompt and type the following commands:</p>
+<div class="highlight"><pre>    <span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>        
+      <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">quickstartUser</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">quickstartPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">guest</span><span class="err">&#39;</span>
+      <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">user1</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">password1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">app</span><span class="o">-</span><span class="n">user</span><span class="err">&#39;</span>
+
+    <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> 
+      <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">bat</span>  <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">quickstartUser</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">quickstartPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">guest</span><span class="err">&#39;</span>
+      <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">user1</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">password1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">app</span><span class="o">-</span><span class="n">user</span><span class="err">&#39;</span>
 </pre></div>
+<p>If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+
 <h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
 
 <ol>
