@@ -1,12 +1,12 @@
 kitchensink-html5-mobile: Example Application Using Multiple HTML5, Mobile & JAX-RS Technologies 
 =========================================================================================================
-Author: Jay Balunas
-Level: Beginner 
-Technologies: CDI, HTML5, REST
-Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers
-Target Product: WFK
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
+Author: Jay Balunas  
+Level: Beginner   
+Technologies: CDI, HTML5, REST  
+Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers  
+Target Product: WFK  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
 
 What is it?
 -----------
@@ -37,10 +37,10 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -----------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command line and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the default profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -57,7 +57,7 @@ Start the JBoss Server
 Build and Deploy the Quickstart
 -------------------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -75,7 +75,7 @@ Access the running client application in a browser at the following URL: <http:/
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
