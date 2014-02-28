@@ -1,12 +1,12 @@
 deltaspike-helloworld-jms: HelloWorld JMS Example Using DeltaSpike Configuration Properties
 ======================
-Author: Weston Price, Rafael Benevides
-Level: Intermediate
-Technologies: JMS, CDI, DeltaSpike
-Summary: Demonstrates a JMS client using DeltaSpike configuration properties
-Target Product: WFK
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
+Author: Weston Price, Rafael Benevides  
+Level: Intermediate  
+Technologies: JMS, CDI, DeltaSpike  
+Summary: Demonstrates a JMS client using DeltaSpike configuration properties  
+Target Product: WFK  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?
 -----------
@@ -38,7 +38,7 @@ Add an Application User
 This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: [Add an Application User](../README.md#add-an-application-user)
 
 
-Configure the JBoss Server
+Configure the JBoss EAP Server
 ---------------------------
 
 You must first add the JMS `test` queue to the application server configuration file. You can configure JMS by running the  `configure-jms.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
@@ -51,7 +51,7 @@ _NOTE - Before you begin:_
 
 #### Configure JMS by Running the JBoss CLI Script
 
-1. Start the JBoss server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -67,7 +67,7 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 
 #### Configure JMS Using the JBoss CLI Tool Interactively
 
-1. Start the JBoss server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -82,7 +82,7 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 
 #### Configure JMS by Manually Editing the Server Configuration File
 
-1.  If it is running, stop the JBoss server.
+1.  If it is running, stop the JBoss EAP server.
 2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
 3.  Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml
 4.  Add the JMS `test` queue as follows:
@@ -97,13 +97,13 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
                         <entry name="java:jboss/exported/jms/queue/test"/>
                     </jms-queue>
                 </jms-destinations>
-    * Save the changes and close the file.  
+    * Save the changes and close the file.
 
 
-Start the JBoss Server with the Full Profile
+Start the JBoss EAP Server with the Full Profile
 ---------------------------------------------------------------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command line and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
@@ -115,7 +115,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -156,7 +156,7 @@ The configuration is injected by using the `@ConfigProperty` annotation
         @ConfigProperty(name = "username", defaultValue = "quickstartUser")
         private String usernameConfig;
         
-The following properties can be configured:        
+The following properties can be configured:
 
 * `username`
    
@@ -205,7 +205,7 @@ You can overwrite these properties by adding the value that you want on file `sr
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -219,7 +219,7 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 #### Remove the JMS Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -234,7 +234,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 
 #### Remove the JMS Configuration Manually
-1. If it is running, stop the JBoss server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 Run the Arquillian Functional Tests
@@ -250,13 +250,13 @@ To run these tests, you must build the main project as described above.
         mvn clean package
 
 3. Navigate to the functional-tests/ directory in this quickstart.
-4. If you have a running instance of the JBoss Server, as described above, run the remote tests by typing the following command:
+4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
 
         mvn clean verify -Parq-jbossas-remote
 
-5. If you prefer to run the functional tests using managed instance of the JBoss server, meaning the tests will start the server for you, type the following command:
+5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
 
-_NOTE: For this to work, Arquillian needs to know the location of the JBoss server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
+_NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
 
         mvn clean verify -Parq-jbossas-managed
 
