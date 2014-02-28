@@ -1,12 +1,12 @@
 shrinkwrap-resolver: Demonstrate usage of Shrinkwrap resolver
 ==============================================================
-Author: Rafael Benevides
-Level: Beginner
-Technologies: CDI, Arquillian, Shrinkwrap
-Summary: Demonstrate usage of some Shrinkwrap resolver use cases
-Target Product: WFK
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
+Author: Rafael Benevides  
+Level: Intermediate  
+Technologies: CDI, Arquillian, Shrinkwrap  
+Summary: Demonstrate usage of some Shrinkwrap resolver use cases  
+Target Product: WFK  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 
 What is it?
@@ -20,7 +20,7 @@ This quickstart demonstrate various use cases for ShrinkWrap Resolver. This Quic
 
 * ShrinkwrapResolveGAVWithoutTransitiveDepsTest
   - resolve an artifact via G:A:V without transitive dependencies
-  - return resolution results as single java.io.File
+  - return resolution result as single java.io.File
   
 * ShrinkwrapImportFromPomTest
   - loading pom.xml from file activating and deactivating profiles
@@ -49,11 +49,11 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server with the web profile:
+1. Open a command line and navigate to the root of the JBoss EAP directory.
+2. The following shows the command line to start the server with the default profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
         For Windows: JBOSS_HOME\bin\standalone.bat
@@ -65,11 +65,15 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-remote 
+        mvn clean test -Parq-jbossas-remote
+
+_NOTE: If you use the Maven settings command line argument with this quickstart, you need to pass an additional argument to allow ShrinkWrap Resolver to function properly:_
+
+    mvn clean test -Parq-jbossas-remote -s /path/to/custom/settings.xml -Dorg.apache.maven.user-settings=/path/to/custom/settings.xml
 
 Run tests from JBDS
 -----------------------
