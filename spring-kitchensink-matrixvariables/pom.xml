@@ -48,7 +48,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.wfk>2.5.0-build-3</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.5.0-build-5</version.jboss.bom.wfk>
         <version.jboss.bom.eap>6.2.0.GA</version.jboss.bom.eap>
 
         <!-- maven-compiler-plugin -->
@@ -124,7 +124,6 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${version.h2db}</version>
-                <scope>test</scope>
             </dependency>
 
             <!-- Add JSON dependency, specified in jboss-deployment-structure.xml -->
@@ -132,19 +131,16 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
                 <version>${version.jackson}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-core-asl</artifactId>
                 <version>${version.jackson}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>${version.slf4j}</version>
-                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -293,19 +289,16 @@
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-core-asl</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
