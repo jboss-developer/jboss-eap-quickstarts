@@ -122,7 +122,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>Start the JBoss EAP server </p>
 
 <ul>
-<li>Open a command prompt and navigate to the root of the server directory. </li>
+<li>Open a command prompt and navigate to the root of the EAP directory. </li>
 <li><p>Start the server using the following command:</p>
 <div class="highlight"><pre><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>    
 </pre></div></li>
@@ -244,7 +244,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#buildanddeploy">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
 <ol>
-<li>Make sure you have started and configured the JBoss Server successful as described above.</li>
+<li>Make sure you have started and configured the JBoss EAP server successfully   as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build the artifacts:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span>
@@ -350,7 +350,7 @@ After that the invocation will be successful. The log output of the <code>appTwo
 <h2><a id="undeploy-the-archives" class="anchor" href="#undeploy-the-archives"><span class="anchor-icon"></span></a>Undeploy the Archives</h2>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>

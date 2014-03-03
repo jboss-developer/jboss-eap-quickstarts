@@ -15,9 +15,9 @@ This quickstart demonstrates the use of external JMS clients with Red Hat JBoss 
 
 It contains the following:
 
-1. A message producer that sends messages to a JMS destination deployed to a JBoss server.
+1. A message producer that sends messages to a JMS destination deployed to a JBoss EAP server.
 
-2. A message consumer that receives message from a JMS destination deployed to a JBoss server. 
+2. A message consumer that receives message from a JMS destination deployed to a JBoss EAP server. 
 
 
 System requirements
@@ -52,16 +52,16 @@ If you prefer, you can use the add-user utility interactively.
 For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 
-Configure the JBoss Server
+Configure the JBoss EAP Server
 ---------------------------
 
 You configure the the JMS `test` queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-jms.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss server.
+    * If it is running, stop the JBoss EAP server.
     * Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-2. Start the JBoss server by typing the following: 
+2. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -81,7 +81,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
 
 The following `testQueue` jms-queue was configured in a new `<jms-destinations>` element under the hornetq-server section of the `messaging` subsystem.
 
@@ -93,10 +93,10 @@ The following `testQueue` jms-queue was configured in a new `<jms-destinations>`
       </jms-destinations>
  
 
-Start the JBoss Server with the Full Profile
+Start the JBoss EAP Server with the Full Profile
 ---------------
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full profile:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
@@ -108,7 +108,7 @@ Build and Execute the Quickstart
 
 To run the quickstart from the command line:
 
-1. Make sure you have started the JBoss server. See the instructions in the previous section.
+1. Make sure you have started the JBoss EAP server. See the instructions in the previous section.
 
 2. Open a command prompt and navigate to the root of the helloworld-jms quickstart directory:
 
@@ -198,7 +198,7 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 ### Remove the JMS Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -213,7 +213,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 
 ### Remove the JMS Configuration Manually
-1. If it is running, stop the JBoss server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 

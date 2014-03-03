@@ -73,10 +73,10 @@ _Note_: For the purpose of this quickstart, replace the word `QUICKSTART_DATABAS
 
 Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
 
-Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss server.
+Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss EAP server.
 
 
-Configure the JBoss Servers
+Configure the JBoss EAP Servers
 ---------------------------
 
 For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as "-Djboss.socket.binding.port-offset=100". 
@@ -88,10 +88,10 @@ Since both application servers must be configured in the same way, you must conf
 You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-transactions.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss server.
+    * If it is running, stop the JBoss EAP server.
     * Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-2. Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID_1` with a node identifier that is unique to both servers.
+2. Start the JBoss EAP server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID_1` with a node identifier that is unique to both servers.
 
         For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
         For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
@@ -109,12 +109,12 @@ You configure the security domain by running JBoss CLI commands. For your conven
         The batch executed successfully.
         {"outcome" => "success"}
 
-_NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
+_NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss EAP Server](#remove-the-jts-configuration-from-the-jboss-eap-server).
 
 
 ### Review the Modified Server Configuration
 
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
 
 1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `jacorb` subsystem to enable JTS. A naming root is also added to the subsystem.
 
@@ -138,11 +138,11 @@ If you want to review and understand newly added XML configuration, stop the JBo
             <jts/>
         </subsystem>
         
-_NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss Server](#remove-the-jts-configuration-from-the-jboss-server).
+_NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss EAP Server](#remove-the-jts-configuration-from-the-jboss-eap-server).
   
 ### Clone the JBOSS_HOME Directory     
 
-Make a copy of this JBoss directory structure to use for the second server.
+Make a copy of this JBoss EAP directory structure to use for the second server.
 
 ### Configure Server1 to use PostgreSQL
 
@@ -150,10 +150,10 @@ Application server 1 must be now configured to use PostgreSQL.
 
 1. Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
 2. Follow the instructions to [Add the PostgreSQL Module to the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#add-the-postgresql-module-to-the-jboss-eap-server) to the server 1 install only.
-3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-jboss-server) for the server 1 configuration.
+3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-jboss-eap-server) for the server 1 configuration.
 
 
-Start the JBoss Servers
+Start the JBoss EAP Servers
 -------------------------
 
 Start the the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
@@ -175,7 +175,7 @@ Build and Deploy the Quickstart
 Since this quickstart builds two separate components, you can not use the standard *Build and Deploy* commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.
 
 
-1. Make sure you have started the JBoss server with the PostgreSQL driver
+1. Make sure you have started the JBoss EAP server with the PostgreSQL driver
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -206,14 +206,14 @@ The web page will also change and show you the new list of customers.
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn package jboss-as:undeploy
 
 
-Remove the JTS Configuration from the JBoss Server
+Remove the JTS Configuration from the JBoss EAP Server
 ---------------------------
 
 You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts. 
@@ -222,7 +222,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 ### Remove the JTS Server Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss server with the full profile.
+1. Start the JBoss EAP server with the full profile.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
@@ -241,7 +241,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 ### Remove the JTS Server Configuration using the JBoss CLI Tool
 
-1. Start the JBoss server with the full profile.
+1. Start the JBoss EAP server with the full profile.
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml

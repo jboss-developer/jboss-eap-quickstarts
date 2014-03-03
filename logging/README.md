@@ -48,7 +48,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -142,17 +142,17 @@ To test logging the different logging levels, you must add handlers to the serve
 
     The quickstart distribution also includes a `logging-properties.txt` file containing these configuration lines.
 
-Configure the JBoss Server
+Configure the JBoss EAP Server
 ---------------------------
 
 You configure server logging by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-logging.cli` script provided in the root directory of this quickstart.
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss server.
+    * If it is running, stop the JBoss EAP server.
     * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-2. Start the JBoss server by typing the following: 
+2. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
@@ -182,7 +182,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
 
 The following XML was added to the end of the the `logging` subsystem.
 
@@ -324,7 +324,7 @@ from TRACE to DEBUG, INFO, WARN, ERROR, or FATAL, then access the application.
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -336,7 +336,7 @@ Remove the Logging Configuration
 
 ### Restore the Logging Properties File
 
-1. If it is running, stop the JBoss server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/logging.properties` file with the back-up copy of the file.
 
 ### Remove the Server Logging Configuration
@@ -345,7 +345,7 @@ You can remove the logging configuration by running the  `remove-logging.cli` sc
 
 #### Remove the Logging Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -372,7 +372,7 @@ This script removes the log and file handlers from the `logging` subsystem in th
 
 
 #### Remove the Logging Configuration Manually
-1. If it is running, stop the JBoss server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 

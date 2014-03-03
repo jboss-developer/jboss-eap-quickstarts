@@ -64,16 +64,16 @@ _Contributor: If your quickstart requires any additional components, decribe how
  * This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Configure Byteman for Use with the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#configure-byteman-for-use-with-the-quickstarts)
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
 
 _Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory:_
 
- * Start the JBoss Server
+ * Start the JBoss EAP Server
 
- * Start the JBoss Server with the Full Profile
+ * Start the JBoss EAP Server with the Full Profile
 
- * Start the JBoss Server with Custom Options. You will need to provide the argument string to pass on the command line, for example: 
+ * Start the JBoss EAP Server with Custom Options. You will need to provide the argument string to pass on the command line, for example: 
 
       `--server-config=../../docs/examples/configs/standalone-xts.xml`
 
@@ -87,7 +87,7 @@ _Contributor: If the quickstart is built and deployed using the standard Maven c
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -124,7 +124,7 @@ Undeploy the Archive
 
 _Contributor: For example:_
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -140,7 +140,7 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 

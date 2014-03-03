@@ -24,7 +24,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The relational database table in this example contains two columns that represent a &ldquo;key&rdquo; / &ldquo;value&rdquo; pair. The application presents an HTML form containing two input text boxes and allows you to create, update, delete or list these pairs. When you add or update a &ldquo;key&rdquo; / &ldquo;value&rdquo; pair, the quickstart starts a transaction, updates the database table, produces a JMS message containing the update, and then commits the transaction. If all goes well, eventually the consumer gets the message and generates a database update, setting the &ldquo;value&rdquo; corresponding to the &ldquo;key&rdquo; to something that indicates it was changed by the message consumer.</p>
 
-<p>In this example, you halt the JBoss server in the middle of an XA transaction after the database modification has been committed, but before the JMS producer is committed. You can verify that the transaction was started, then restart the JBoss EAP server to complete the transaction. You then verify that everything is in a consistent state.</p>
+<p>In this example, you halt the JBoss EAP server in the middle of an XA transaction after the database modification has been committed, but before the JMS producer is committed. You can verify that the transaction was started, then restart the JBoss EAP server to complete the transaction. You then verify that everything is in a consistent state.</p>
 
 <p>JBoss EAP ships with H2, an in-memory database written in Java. In this example, we use H2 for the database. Although H2 XA support is not recommended for production systems, the example does illustrate the general steps you need to perform for any datasource vendor. This example provides its own H2 XA datasource configuration. It is defined in the <code>jta-crash-rec-ds.xml</code> file in the WEB-INF folder of the WAR archive. </p>
 
@@ -46,9 +46,9 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>Follow the instructions here to download and configure <em>Byteman</em>: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#download-and-configure-byteman">Download and Configure Byteman</a></p>
 
-<h2><a id="configure-the-jboss-server" class="anchor" href="#configure-the-jboss-server"><span class="anchor-icon"></span></a>Configure the JBoss server</h2>
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
 
-<p><em>NOTE</em>: The <em>Byteman</em> scripts only work in JTA mode. They do not work in JTS mode. If you have configured the server for a quickstart that uses JTS, you must follow the quickstart instructions to remove the JTS configuration from the JBoss server before making the following changes. Otherwise <em>Byteman</em> will not halt the server. </p>
+<p><em>NOTE</em>: The <em>Byteman</em> scripts only work in JTA mode. They do not work in JTS mode. If you have configured the server for a quickstart that uses JTS, you must follow the quickstart instructions to remove the JTS configuration from the JBoss EAP server before making the following changes. Otherwise <em>Byteman</em> will not halt the server. </p>
 
 <h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
 
@@ -67,7 +67,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
@@ -94,7 +94,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>To demonstrate XA recovery, you must enable the Byteman tool to terminate the application server while <em>phase 2</em> is running as follows:</p>
 
 <ul>
-<li>Stop the JBoss server.</li>
+<li>Stop the JBoss EAP server.</li>
 <li>Follow the instructions here to clear the transaction objectstore remaining from any previous tests: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#clear-the-transaction-objectstore">Clear the Transaction ObjectStore</a></li>
 <li><p>The following line of text must be appended to the server configuration file using the instructions located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#use-byteman-to-halt-the-application">Use Byteman to Halt the Application</a></p>
 
@@ -145,13 +145,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#disable-the-byteman-script">Disable the Byteman script</a> by restoring the backup server configuration file.</p></li>
 <li><p><a href="#start-the-jboss-eap-server">Start the JBoss EAP server</a> as instructed above.</p></li>
 <li><p>Load the web interface to the application </p></li>
-<li><p>By the time the JBoss server is ready, the transaction should have recovered.</p></li>
-<li><p>A message is printed on the JBoss server console when the consumer has completed the update. Look for a line that reads &lsquo;JTA Crash Record Quickstart: key value pair updated via JMS&rsquo;.</p></li>
+<li><p>By the time the JBoss EAP server is ready, the transaction should have recovered.</p></li>
+<li><p>A message is printed on the JBoss EAP server console when the consumer has completed the update. Look for a line that reads &lsquo;JTA Crash Record Quickstart: key value pair updated via JMS&rsquo;.</p></li>
 <li><p>Check that the row you inserted in step 4 now contains the text <em>&ldquo;updated via JMS&rdquo;</em>, showing that the JMS message was recovered successfully. Use the application URL to perform this check.</p></li>
 <li><p>You will most likely see the following message on the console. </p>
 <div class="highlight"><pre><span class="n">ARJUNA016038</span><span class="o">:</span> <span class="n">No</span> <span class="n">XAResource</span> <span class="n">to</span> <span class="n">recover</span> <span class="o">...</span> <span class="n">eis_name</span><span class="o">=...</span><span class="n">JTACrashRecQuickstartDS</span> <span class="n">during</span> <span class="n">recovery</span>
 </pre></div>
-<p>This is normal. What actually happened is that the first resource (JTACrashRecQuickstartDS) committed before the JBoss server was halted in step 5. The transaction logs are only updated/deleted after the outcome of the transaction is determined. If the transaction manager did update the log as each participant (database and JMS queue) completed then throughput would suffer. Notice you do not get a similar message for the JMS resource since that is the resource that recovered and the log record was updated to reflect this change. You need to manually remove the record for the first participant if you know which one is which or, if you are using the community version of the JBoss server, then you can also inspect the transaction logs using a JMX browser. For the demo it is simplest to delete the records from the file system, however, <em>be wary of doing this on a production system</em>.</p></li>
+<p>This is normal. What actually happened is that the first resource (JTACrashRecQuickstartDS) committed before the JBoss EAP server was halted in step 5. The transaction logs are only updated/deleted after the outcome of the transaction is determined. If the transaction manager did update the log as each participant (database and JMS queue) completed then throughput would suffer. Notice you do not get a similar message for the JMS resource since that is the resource that recovered and the log record was updated to reflect this change. You need to manually remove the record for the first participant if you know which one is which or, if you are using the community version of the JBoss EAP server, then you can also inspect the transaction logs using a JMX browser. For the demo it is simplest to delete the records from the file system, however, <em>be wary of doing this on a production system</em>.</p></li>
 </ul></li>
 <li><p>Do NOT forget to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#disable-the-byteman-script">Disable the Byteman script</a> by restoring the backup server configuration file. The Byteman rule must be removed to ensure that your application server will be able to commit 2PC transactions!</p></li>
 </ol>
@@ -164,7 +164,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>

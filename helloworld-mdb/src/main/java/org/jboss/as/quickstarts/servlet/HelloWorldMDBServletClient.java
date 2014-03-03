@@ -69,7 +69,7 @@ public class HelloWorldMDBServletClient extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         Connection connection = null;
-        out.write("<h1>Quickstart: This example demonstrates the use of <strong>JMS 1.1</strong> and <strong>EJB 3.1 Message-Driven Bean</strong> in JBoss Enterprise Application 6.</h1>");
+        out.write("<h1>Quickstart: This example demonstrates the use of <strong>JMS 1.1</strong> and <strong>EJB 3.1 Message-Driven Bean</strong> in JBoss Enterprise Application Platform 6.</h1>");
         try {
             Destination destination;
             if (req.getParameterMap().keySet().contains("topic")) {
@@ -89,13 +89,13 @@ public class HelloWorldMDBServletClient extends HttpServlet {
                 messageProducer.send(message);
                 out.write("Message (" + i + "): " + message.getText() + "</br>");
             }
-            out.write("<p><i>Go to your JBoss Application Server console or Server log to see the result of messages processing</i></p>");
+            out.write("<p><i>Go to your JBoss EAP server console or log to see the result of messages processing</i></p>");
 
         } catch (JMSException e) {
             e.printStackTrace();
             out.write("<h2>A problem occurred during the delivery of this message</h2>");
             out.write("</br>");
-            out.write("<p><i>Go your the JBoss Application Server console or Server log to see the error stack trace</i></p>");
+            out.write("<p><i>Go your the JBoss EAP server console or log to see the error stack trace</i></p>");
         } finally {
             if (connection != null) {
                 try {

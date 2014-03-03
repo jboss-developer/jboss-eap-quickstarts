@@ -16,8 +16,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>It contains the following:</p>
 
 <ol>
-<li><p>A message producer that sends messages to a JMS destination deployed to a JBoss server.</p></li>
-<li><p>A message consumer that receives message from a JMS destination deployed to a JBoss server. </p></li>
+<li><p>A message producer that sends messages to a JMS destination deployed to a JBoss EAP server.</p></li>
+<li><p>A message consumer that receives message from a JMS destination deployed to a JBoss EAP server. </p></li>
 </ol>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
@@ -57,7 +57,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>If you prefer, you can use the add-user utility interactively. 
 For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
 
-<h2><a id="configure-the-jboss-server" class="anchor" href="#configure-the-jboss-server"><span class="anchor-icon"></span></a>Configure the JBoss Server</h2>
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
 
 <p>You configure the the JMS <code>test</code> queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-jms.cli</code> script provided in the root directory of this quickstart. </p>
 
@@ -65,11 +65,11 @@ For an example of how to use the add-user utility, see instructions in the root 
 <li>Before you begin, back up your server configuration file
 
 <ul>
-<li>If it is running, stop the JBoss server.</li>
+<li>If it is running, stop the JBoss EAP server.</li>
 <li>Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code></li>
 <li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
 </ul></li>
-<li><p>Start the JBoss server by typing the following: </p>
+<li><p>Start the JBoss EAP server by typing the following: </p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
@@ -86,7 +86,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 
 <h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss server and open the  <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file. </p>
 
 <p>The following <code>testQueue</code> jms-queue was configured in a new <code>&lt;jms-destinations&gt;</code> element under the hornetq-server section of the <code>messaging</code> subsystem.</p>
 <div class="highlight"><pre>  <span class="nt">&lt;jms-destinations&gt;</span>
@@ -96,10 +96,10 @@ For an example of how to use the add-user utility, see instructions in the root 
       <span class="nt">&lt;/jms-queue&gt;</span>
   <span class="nt">&lt;/jms-destinations&gt;</span>
 </pre></div>
-<h2><a id="start-the-jboss-server-with-the-full-profile" class="anchor" href="#start-the-jboss-server-with-the-full-profile"><span class="anchor-icon"></span></a>Start the JBoss Server with the Full Profile</h2>
+<h2><a id="start-the-jboss-eap-server-with-the-full-profile" class="anchor" href="#start-the-jboss-eap-server-with-the-full-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Server with the Full Profile</h2>
 
 <ol>
-<li>Open a command prompt and navigate to the root of the JBoss server directory.</li>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server with the full profile:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
@@ -111,7 +111,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <p>To run the quickstart from the command line:</p>
 
 <ol>
-<li><p>Make sure you have started the JBoss server. See the instructions in the previous section.</p></li>
+<li><p>Make sure you have started the JBoss EAP server. See the instructions in the previous section.</p></li>
 <li><p>Open a command prompt and navigate to the root of the helloworld-jms quickstart directory:</p>
 <div class="highlight"><pre><span class="n">cd</span> <span class="n">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">jms</span>
 </pre></div></li>
@@ -189,7 +189,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <h3><a id="remove-the-jms-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-jms-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the JMS Configuration by Running the JBoss CLI Script</h3>
 
 <ol>
-<li><p>Start the JBoss server by typing the following: </p>
+<li><p>Start the JBoss EAP server by typing the following: </p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
@@ -206,7 +206,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <h3><a id="remove-the-jms-configuration-manually" class="anchor" href="#remove-the-jms-configuration-manually"><span class="anchor-icon"></span></a>Remove the JMS Configuration Manually</h3>
 
 <ol>
-<li>If it is running, stop the JBoss server.</li>
+<li>If it is running, stop the JBoss EAP server.</li>
 <li>Replace the <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file with the back-up copy of the file.</li>
 </ol>
 

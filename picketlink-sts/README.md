@@ -77,17 +77,17 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-Configure the JBoss Server
+Configure the JBoss EAP Server
 -------------------------------------------------
 
 You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss server.
+    * If it is running, stop the JBoss EAP server.
     * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-2. Start the JBoss server by typing the following:
+2. Start the JBoss EAP server by typing the following:
 
         For Linux:  JBOSS_HOME/bin/standalone.sh
         For Windows:  JBOSS_HOME\bin\standalone.bat
@@ -112,7 +112,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
 
 The following `picketlink-sts` security-domain was added to the `security` subsystem.
    
@@ -126,12 +126,12 @@ The following `picketlink-sts` security-domain was added to the `security` subsy
             </authentication>
         </security-domain>
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
 
 If you do not have a running server:
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -143,7 +143,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -154,7 +154,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
 
 Access the Application 
 ---------------------
@@ -199,12 +199,12 @@ You can undeploy the quickstart and remove the security domain configuration in 
 ### Undeploy the quickstart and Remove the Security Domain Manually
 
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
-4. Stop the JBoss server.
+4. Stop the JBoss EAP server.
 5. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
