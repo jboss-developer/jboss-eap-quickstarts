@@ -47,7 +47,7 @@ You can choose to deploy and run this quickstart in a managed domain or on a sta
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss server.
+1. If it is running, stop the JBoss EAP server.
 
 2. If you plan to test using a standalone server, backup the file:
 
@@ -67,7 +67,7 @@ After you have completed testing this quickstart, you can replace these files to
 You configure the server by running the install-domain.cli script provided in the root directory of this quickstart.
 
 #### Start the server in domain mode.
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server in domain mode:
 
         For Linux:   JBOSS_HOME/bin/domain.sh
@@ -104,7 +104,7 @@ Since both application servers must be configured in the same way, you must conf
 
 #### Start the Server in Standalone Mode using the Full HA Profile.
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full-ha profile. This profile supports clustering/HA
 
         For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full-ha.xml
@@ -128,12 +128,12 @@ Since both application servers must be configured in the same way, you must conf
         
    You should see "outcome" => "success" for all of the commands.
 
-#### Clone the JBOSS_HOME Directory     
+#### Clone the JBoss EAP Directory     
 
-After you have successfully configured the server, you must make a copy of this JBoss directory structure to use for the second server.
+After you have successfully configured the server, you must make a copy of this JBoss EAP directory structure to use for the second server.
 
 1. Stop the server.
-2. Make a copy of this JBoss directory structure to use for the second server.
+2. Make a copy of this JBoss EAP directory structure to use for the second server.
 3. Remove the following directories from the cloned instance:
 
         JBOSS_HOME_SERVER_2/standalone/data/messagingbindings
@@ -176,7 +176,7 @@ To send messages to the topic, use the following URL: <http://localhost:8080/jbo
 Investigate the Server Console Output
 -------------------------
 
-Look at the JBoss Application Server console or Server log and you should see log messages like the following:
+Look at the JBoss EAP server console or log and you should see log messages like the following:
 
         [Server:jdf-hornetqcluster-node1] 16:34:41,165 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (HornetQ-client-global-threads-1067469862)) Received Message from queue: This is message 1
         [Server:jdf-hornetqcluster-node1] 16:34:41,274 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (HornetQ-client-global-threads-1067469862)) Received Message from queue: This is message 3
@@ -193,7 +193,7 @@ When you are finished testing, use the following instructions to undeploy the qu
 
 ### Undeploy the quickstart in Domain Mode
 
-1. Make sure you have started the JBoss Server in domain mode as described above.
+1. Make sure you have started the JBoss EAP server in domain mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
@@ -201,7 +201,7 @@ When you are finished testing, use the following instructions to undeploy the qu
         
 ### Undeploy the quickstart in Standalone Mode
 
-1. Make sure you have started the JBoss Server in standalone mode as described above.
+1. Make sure you have started the JBoss EAP server in standalone mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
@@ -268,7 +268,7 @@ This script removes the server configuration that was done by the `install-stand
 
         The batch executed successfully.
 
-### Delete the Cloned Standalone Server Directory
+### Delete the Cloned Standalone JBoss EAP Directory
 
 1. If it is running, stop the second instance of the JBoss EAP server.
 2. Delete the cloned directory.
