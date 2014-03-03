@@ -70,9 +70,9 @@ following ways:</p>
 
 <p>Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</p>
 
-<p>Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss server.</p>
+<p>Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss EAP server.</p>
 
-<h2><a id="configure-the-jboss-servers" class="anchor" href="#configure-the-jboss-servers"><span class="anchor-icon"></span></a>Configure the JBoss Servers</h2>
+<h2><a id="configure-the-jboss-eap-servers" class="anchor" href="#configure-the-jboss-eap-servers"><span class="anchor-icon"></span></a>Configure the JBoss EAP Servers</h2>
 
 <p>For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as &ldquo;-Djboss.socket.binding.port-offset=100&rdquo;. </p>
 
@@ -86,11 +86,11 @@ following ways:</p>
 <li>Before you begin, back up your server configuration file
 
 <ul>
-<li>If it is running, stop the JBoss server.</li>
+<li>If it is running, stop the JBoss EAP server.</li>
 <li>Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code></li>
 <li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
 </ul></li>
-<li><p>Start the JBoss server with the full profile, passing a unique node ID by typing the following command. Be sure to replace <code>UNIQUE_NODE_ID_1</code> with a node identifier that is unique to both servers.</p>
+<li><p>Start the JBoss EAP server with the full profile, passing a unique node ID by typing the following command. Be sure to replace <code>UNIQUE_NODE_ID_1</code> with a node identifier that is unique to both servers.</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID_1</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>  <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">tx</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">UNIQUE_NODE_ID_1</span>
 </pre></div></li>
@@ -109,11 +109,11 @@ The batch executed successfully.
 </pre></div></li>
 </ol>
 
-<p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-server">Remove the JTS Configuration from the JBoss Server</a>.</p>
+<p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-eap-server">Remove the JTS Configuration from the JBoss EAP Server</a>.</p>
 
 <h3><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h3>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss server and open the  <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone-full.xml</code> file. </p>
 
 <ol>
 <li><p>The orb initializers <code>transactions</code> attribute is changed from &ldquo;spec&rdquo; to &ldquo;on&rdquo; in the  <code>jacorb</code> subsystem to enable JTS. A naming root is also added to the subsystem.</p>
@@ -138,11 +138,11 @@ The batch executed successfully.
 </pre></div></li>
 </ol>
 
-<p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-server">Remove the JTS Configuration from the JBoss Server</a>.</p>
+<p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-eap-server">Remove the JTS Configuration from the JBoss EAP Server</a>.</p>
 
 <h3><a id="clone-the-jbosshome-directory" class="anchor" href="#clone-the-jbosshome-directory"><span class="anchor-icon"></span></a>Clone the JBOSS_HOME Directory</h3>
 
-<p>Make a copy of this JBoss directory structure to use for the second server.</p>
+<p>Make a copy of this JBoss EAP directory structure to use for the second server.</p>
 
 <h3><a id="configure-server1-to-use-postgresql" class="anchor" href="#configure-server1-to-use-postgresql"><span class="anchor-icon"></span></a>Configure Server1 to use PostgreSQL</h3>
 
@@ -151,10 +151,10 @@ The batch executed successfully.
 <ol>
 <li>Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</li>
 <li>Follow the instructions to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#add-the-postgresql-module-to-the-jboss-eap-server">Add the PostgreSQL Module to the JBoss EAP Server</a> to the server 1 install only.</li>
-<li>Follow the instructions to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-jboss-server">Configure the PostgreSQL Driver in the JBoss Server</a> for the server 1 configuration.</li>
+<li>Follow the instructions to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-jboss-eap-server">Configure the PostgreSQL Driver in the JBoss EAP Server</a> for the server 1 configuration.</li>
 </ol>
 
-<h2><a id="start-the-jboss-servers" class="anchor" href="#start-the-jboss-servers"><span class="anchor-icon"></span></a>Start the JBoss Servers</h2>
+<h2><a id="start-the-jboss-eap-servers" class="anchor" href="#start-the-jboss-eap-servers"><span class="anchor-icon"></span></a>Start the JBoss EAP Servers</h2>
 
 <p>Start the the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace <code>UNIQUE_NODE_ID</code> with a node identifier that is unique to both servers.</p>
 
@@ -171,7 +171,7 @@ The batch executed successfully.
 <p>Since this quickstart builds two separate components, you can not use the standard <em>Build and Deploy</em> commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.</p>
 
 <ol>
-<li>Make sure you have started the JBoss server with the PostgreSQL driver</li>
+<li>Make sure you have started the JBoss EAP server with the PostgreSQL driver</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
@@ -198,14 +198,14 @@ The batch executed successfully.
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">package</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
 </pre></div></li>
 </ol>
 
-<h2><a id="remove-the-jts-configuration-from-the-jboss-server" class="anchor" href="#remove-the-jts-configuration-from-the-jboss-server"><span class="anchor-icon"></span></a>Remove the JTS Configuration from the JBoss Server</h2>
+<h2><a id="remove-the-jts-configuration-from-the-jboss-eap-server" class="anchor" href="#remove-the-jts-configuration-from-the-jboss-eap-server"><span class="anchor-icon"></span></a>Remove the JTS Configuration from the JBoss EAP Server</h2>
 
 <p>You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts. </p>
 
@@ -214,7 +214,7 @@ The batch executed successfully.
 <h3><a id="remove-the-jts-server-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-jts-server-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the JTS Server Configuration by Running the JBoss CLI Script</h3>
 
 <ol>
-<li><p>Start the JBoss server with the full profile.</p>
+<li><p>Start the JBoss EAP server with the full profile.</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
@@ -234,7 +234,7 @@ The batch executed successfully.
 <h3><a id="remove-the-jts-server-configuration-using-the-jboss-cli-tool" class="anchor" href="#remove-the-jts-server-configuration-using-the-jboss-cli-tool"><span class="anchor-icon"></span></a>Remove the JTS Server Configuration using the JBoss CLI Tool</h3>
 
 <ol>
-<li><p>Start the JBoss server with the full profile.</p>
+<li><p>Start the JBoss EAP server with the full profile.</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>

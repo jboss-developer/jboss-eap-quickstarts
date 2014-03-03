@@ -22,12 +22,12 @@ Apart from that, this quickstart works the same as the `jts` quickstart and if t
 
 As an overview, the sequence of events to expect:
 
-1. Configure and start two JBoss servers.
+1. Configure and start two JBoss EAP servers.
 2. Build and deploy the two application components.
 3. Open a web browser and attempt to invoice two customers as with the `jts` quickstart.
-4. JBoss server 1 will run through a two-phase commit (2PC), preparing the resources in JBoss server 1 and JBoss server 2. JBoss server 1 will then crash before it can call commit.
+4. JBoss EAP server 1 will run through a two-phase commit (2PC), preparing the resources in JBoss EAP server 1 and JBoss EAP server 2. JBoss EAP server 1 will then crash before it can call commit.
 5. The user is invited to inspect the content of the transaction objectstore.
-6. JBoss server 1 should be restarted. It will then recover the "invoices" delivered to the MDBs, just as it does in the _jts_ quickstart
+6. JBoss EAP server 1 should be restarted. It will then recover the "invoices" delivered to the MDBs, just as it does in the _jts_ quickstart
 
 
 System requirements
@@ -70,8 +70,8 @@ Test the Application
 
 1. If you have not yet done so, configure the two application servers and deploy the `jts` quickstart. Follow the instructions in the [jts README](../jts/README.md) file.
 
-2. Configure _Byteman_ to halt JBoss server 1
-    * Stop both JBoss servers.
+2. Configure _Byteman_ to halt JBoss EAP server 1
+    * Stop both JBoss EAP servers.
     * Follow the instructions here to clear the transaction objectstore remaining from any previous tests: [Clear the Transaction ObjectStore](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#clear-the-transaction-objectstore)
     * The following 2 lines of text must be appended to the server configuration file for server 1 only using the instructions located here: [Use Byteman to Halt the Application](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#use-byteman-to-halt-the-application)
 
@@ -85,7 +85,7 @@ Test the Application
              JAVA_OPTS=%JAVA_OPTS% -javaagent:C:BYTEMAN_HOME\lib\byteman.jar=script:C:\QUICKSTART_HOME\jts-distributed-crash-rec\byteman-scripts\failAfterPrepare.btm %JAVA_OPTS%
              JAVA_OPTS=%JAVA_OPTS% -Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=org.jboss.byteman -Dorg.jboss.byteman.verbose=true 
 
-3. Start both of the JBoss servers
+3. Start both of the JBoss EAP servers
 
     If you are using Linux:
 
@@ -109,7 +109,7 @@ Test the Application
             15:46:55,667 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) Installed rule using default helper : Fail 2PC after prepare
             15:46:55,668 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) Fail 2PC after prepare execute
             15:46:55,669 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
-    * NOTE: Until you restart JBoss server 1, you will see several error messages in JBoss server 2. These are to be expected:
+    * NOTE: Until you restart JBoss EAP server 1, you will see several error messages in JBoss EAP server 2. These are to be expected:
 
             15:46:55,044 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta12
             15:49:06,579 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
@@ -171,7 +171,7 @@ Test the Application
 
             12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta11
             12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:HornetQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
-    * NOTE: You will also get several stack traces in JBoss server 1 console during recovery, these are to be expected as not all resources are available at all stages of recovery.
+    * NOTE: You will also get several stack traces in JBoss EAP server 1 console during recovery, these are to be expected as not all resources are available at all stages of recovery.
 
             15:55:41,706 WARN  [com.arjuna.ats.jts] (Thread-84) ARJUNA022223: ExtendedResourceRecord.topLevelCommit caught exception: org.omg.CORBA.OBJECT_NOT_EXIST: Server-side Exception: unknown oid
                 at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [:1.6.0_22]
@@ -216,7 +216,7 @@ Test the Application
                 at com.arjuna.ats.internal.jts.recovery.transactions.TopLevelTransactionRecoveryModule.periodicWorkSecondPass(TopLevelTransactionRecoveryModule.java:81) [jbossjts-4.16.1.Final.jar:]
                 at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [jbossjts-4.16.1.Final.jar:]
                 at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-4.16.1.Final.jar:]
-    * The easiest way to check when JBoss server 1 is recovered is to look in the object store and check that all the records are now cleaned up. The records that should be cleared are the ones in the defaultStore/CosTransactions/XAResourceRecord and defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple. 
+    * The easiest way to check when JBoss EAP server 1 is recovered is to look in the object store and check that all the records are now cleaned up. The records that should be cleared are the ones in the defaultStore/CosTransactions/XAResourceRecord and defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple. 
     * Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator and that is to be expected. Run:
 
             tree server*/standalone/data/tx-object-store

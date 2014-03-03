@@ -86,7 +86,7 @@ It is recommended that you test this approach in a separate and clean environmen
 Add the Application Users
 ---------------
 
-This quickstart uses secured management interfaces and is built around the default `ApplicationRealm` as configured in the JBoss EAP server distribution.  You must create the following application users to access the running application:
+This quickstart uses secured management interfaces and is built around the default `ApplicationRealm` as configured in the JBoss EAP distribution.  You must create the following application users to access the running application:
 
 | **UserName** | **Realm** | **Password** | **Roles** |
 |:-----------|:-----------|:-----------|:-----------|
@@ -117,7 +117,7 @@ If you prefer, you can use the add-user utility interactively.
 For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 
-Configure the JBoss Server
+Configure the JBoss EAP Server
 ---------------------------
 
 These steps assume you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.
@@ -125,11 +125,11 @@ These steps assume you are running the server in standalone mode and using the d
 You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss server.
+    * If it is running, stop the JBoss EAP server.
     * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-2. Start the JBoss server by typing the following: 
+2. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME/bin/standalone.sh 
         For Windows:  JBOSS_HOME\bin\standalone.bat
@@ -157,7 +157,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
 
 1. The following `quickstart-domain` security-domain was added to the `security` subsystem.
 
@@ -225,10 +225,10 @@ If you want to review and understand newly added XML configuration, stop the JBo
 
 
 
-Start the JBoss Server 
+Start the JBoss EAP Server 
 -------------------------
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
 		For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -240,7 +240,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -399,7 +399,7 @@ When you run the `mvn exec:exec` command, you see the following output.
 Investigate the Server Console Output
 ----------------------------
 
-Look at the JBoss Application Server console or Server log and you should see exceptions (the stacktraces were not included here) in the log like the following:
+Look at the JBoss EAP server console or log and you should see exceptions (the stacktraces were not included here) in the log like the following:
 
     09:16:01,133 ERROR [org.jboss.as.ejb3.invocation] (EJB default - 6) JBAS014134: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: JBAS014502: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
     09:16:01,198 ERROR [org.jboss.as.ejb3.invocation] (EJB default - 9) JBAS014134: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: JBAS014502: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
@@ -424,7 +424,7 @@ Look at the JBoss Application Server console or Server log and you should see ex
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -438,7 +438,7 @@ You can remove the security domain configuration by running the  `remove-securit
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss server by typing the following: 
+1. Start the JBoss EAP server by typing the following: 
 
         For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
@@ -456,7 +456,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 
 ### Remove the Security Domain Configuration Manually
-1. If it is running, stop the JBoss server.
+1. If it is running, stop the JBoss EAP server.
 2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 

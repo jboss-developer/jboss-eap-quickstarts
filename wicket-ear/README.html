@@ -4,14 +4,14 @@
 <p>Author: Ondrej Zizka <a href="mailto:ozizka@redhat.com">ozizka@redhat.com</a><br/>
 Level: Intermediate<br/>
 Technologies: Apache Wicket, JPA<br/>
-Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration, packaged as an EAR<br/>
+Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss EAP server using the Wicket-Stuff Java EE integration, packaged as an EAR<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>This is an example of how to use Wicket Framework 1.5 with JBoss AS, leveraging features of Java EE 6, using the Wicket-Stuff Java EE integration.</p>
+<p>This is an example of how to use Wicket Framework 1.5 with JBoss EAP, leveraging features of Java EE 6, using the Wicket-Stuff Java EE integration.</p>
 
 <p>Features used:</p>
 
@@ -37,10 +37,10 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
 
 <ol>
-<li>Open a command prompt and navigate to the root of the JBoss server directory.</li>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
@@ -52,7 +52,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
@@ -77,7 +77,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>

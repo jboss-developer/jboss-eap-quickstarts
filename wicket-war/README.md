@@ -3,7 +3,7 @@ wicket-war: Wicket Framework used in a WAR.
 Author: Ondrej Zizka <ozizka@redhat.com>  
 Level: Intermediate  
 Technologies: Apache Wicket, JPA  
-Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss server using the Wicket-Stuff Java EE integration packaged as a WAR  
+Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss EAP server using the Wicket-Stuff Java EE integration packaged as a WAR  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is an example of how to use Wicket Framework 1.5 with JBoss AS, leveraging features of Java EE 6, using the Wicket-Stuff Java EE integration.
+This is an example of how to use Wicket Framework 1.5 with JBoss EAP, leveraging features of Java EE 6, using the Wicket-Stuff Java EE integration.
 
 Features used:
 
@@ -36,10 +36,10 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -52,7 +52,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -81,7 +81,7 @@ _Note:_ You will see the following warning in the server log. You can ignore thi
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 

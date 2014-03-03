@@ -37,7 +37,7 @@ to be a cluster wide singleton service.</p>
 
 <p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2><a id="start-the-jboss-server-with-a-ha-profile" class="anchor" href="#start-the-jboss-server-with-a-ha-profile"><span class="anchor-icon"></span></a>Start the JBoss Server with a HA profile</h2>
+<h2><a id="start-the-jboss-eap-server-with-a-ha-profile" class="anchor" href="#start-the-jboss-eap-server-with-a-ha-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Server with a HA profile</h2>
 
 <p>If you run a non HA profile the singleton service will not start correctly. To run the example one instance must be started, to see the singleton behaviour at minimum two instances
 should be started.</p>
@@ -49,7 +49,7 @@ should be started.</p>
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
@@ -92,7 +92,7 @@ should be started.</p>
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>

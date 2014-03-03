@@ -92,7 +92,7 @@ You configure the domain server by running JBoss CLI commands. For your convenie
             JBOSS_HOME/domain/configuration/host.xml        
     * After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
 4.  Start the JBoss EAP server 
-    * Open a command prompt and navigate to the root of the server directory. 
+    * Open a command prompt and navigate to the root of the EAP directory. 
     * Start the server using the following command:
 
             bin/domain.sh    
@@ -216,7 +216,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete instructions and additional options._
 
-1. Make sure you have started and configured the JBoss Server successful as described above.
+1. Make sure you have started and configured the JBoss EAP server successfully   as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build the artifacts:
 
@@ -323,7 +323,7 @@ _NOTE : A new feature in EAP 6.1 or later will deny the invocation of unsecured 
 Undeploy the Archives
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 

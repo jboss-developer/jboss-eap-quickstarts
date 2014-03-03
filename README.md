@@ -54,7 +54,7 @@ The applications these projects produce are designed to be run on Red Hat JBoss 
 
 To run these quickstarts with the provided build scripts, you need the following:
 
-1. Java 1.6, to run JBoss AS and Maven. You can choose from the following:
+1. Java 1.6, to run JBoss EAP and Maven. You can choose from the following:
     * OpenJDK
     * Oracle Java SE
     * Oracle JRockit

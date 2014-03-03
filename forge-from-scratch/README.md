@@ -74,10 +74,10 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts. 
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -87,7 +87,7 @@ Start the JBoss Server
 Deploy and test the newly generated application
 ---------------------------
 
-Make sure you have started the JBoss server. See the instructions in the previous section.
+Make sure you have started the JBoss EAP server. See the instructions in the previous section.
 
 1. Build the application:
 
@@ -113,7 +113,7 @@ Make sure you have started the JBoss server. See the instructions in the previou
 
     Be sure to replace `YOUR_PROJECT_NAME` with the name of the project you chose when running the script.
 
-6. When you are ready to undeploy from JBoss AS, run this command:
+6. When you are ready to undeploy from JBoss EAP, run this command:
 
         forge> as7 undeploy
 

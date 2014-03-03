@@ -81,7 +81,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="add-the-application-users" class="anchor" href="#add-the-application-users"><span class="anchor-icon"></span></a>Add the Application Users</h2>
 
-<p>This quickstart uses secured management interfaces and is built around the default <code>ApplicationRealm</code> as configured in the JBoss EAP server distribution.  You must create the following application users to access the running application:</p>
+<p>This quickstart uses secured management interfaces and is built around the default <code>ApplicationRealm</code> as configured in the JBoss EAP distribution.  You must create the following application users to access the running application:</p>
 
 <table><thead>
 <tr>
@@ -137,7 +137,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>If you prefer, you can use the add-user utility interactively. 
 For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
 
-<h2><a id="configure-the-jboss-server" class="anchor" href="#configure-the-jboss-server"><span class="anchor-icon"></span></a>Configure the JBoss Server</h2>
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
 
 <p>These steps assume you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.</p>
 
@@ -147,11 +147,11 @@ For an example of how to use the add-user utility, see instructions in the root 
 <li><p>Before you begin, back up your server configuration file</p>
 
 <ul>
-<li>If it is running, stop the JBoss server.</li>
+<li>If it is running, stop the JBoss EAP server.</li>
 <li>Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone.xml</code></li>
 <li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
 </ul></li>
-<li><p>Start the JBoss server by typing the following: </p>
+<li><p>Start the JBoss EAP server by typing the following: </p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> 
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
@@ -177,7 +177,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 
 <h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
 <ol>
 <li><p>The following <code>quickstart-domain</code> security-domain was added to the <code>security</code> subsystem.</p>
@@ -241,10 +241,10 @@ For an example of how to use the add-user utility, see instructions in the root 
 </pre></div></li>
 </ol>
 
-<h2><a id="start-the-jboss-server-" class="anchor" href="#start-the-jboss-server-"><span class="anchor-icon"></span></a>Start the JBoss Server </h2>
+<h2><a id="start-the-jboss-eap-server-" class="anchor" href="#start-the-jboss-eap-server-"><span class="anchor-icon"></span></a>Start the JBoss EAP Server </h2>
 
 <ol>
-<li>Open a command prompt and navigate to the root of the JBoss server directory.</li>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
@@ -256,7 +256,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
@@ -410,7 +410,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 </pre></div>
 <h2><a id="investigate-the-server-console-output" class="anchor" href="#investigate-the-server-console-output"><span class="anchor-icon"></span></a>Investigate the Server Console Output</h2>
 
-<p>Look at the JBoss Application Server console or Server log and you should see exceptions (the stacktraces were not included here) in the log like the following:</p>
+<p>Look at the JBoss EAP server console or log and you should see exceptions (the stacktraces were not included here) in the log like the following:</p>
 <div class="highlight"><pre><span class="mi">09</span><span class="o">:</span><span class="mi">16</span><span class="o">:</span><span class="mi">01</span><span class="o">,</span><span class="mi">133</span> <span class="n">ERROR</span> <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">ejb3</span><span class="o">.</span><span class="na">invocation</span><span class="o">]</span> <span class="o">(</span><span class="n">EJB</span> <span class="k">default</span> <span class="o">-</span> <span class="mi">6</span><span class="o">)</span> <span class="n">JBAS014134</span><span class="o">:</span> <span class="n">EJB</span> <span class="n">Invocation</span> <span class="n">failed</span> <span class="n">on</span> <span class="n">component</span> <span class="n">SecuredEJB</span> <span class="k">for</span> <span class="n">method</span> <span class="kd">public</span> <span class="n">abstract</span> <span class="n">boolean</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">ejb_security_interceptors</span><span class="o">.</span><span class="na">SecuredEJBRemote</span><span class="o">.</span><span class="na">roleOneMethod</span><span class="o">():</span> <span class="n">javax</span><span class="o">.</span><span class="na">ejb</span><span class="o">.</span><span class="na">EJBAccessException</span><span class="o">:</span> <span class="n">JBAS014502</span><span class="o">:</span> <span class="n">Invocation</span> <span class="n">on</span> <span class="n">method</span><span class="o">:</span> <span class="kd">public</span> <span class="n">abstract</span> <span class="n">boolean</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">ejb_security_interceptors</span><span class="o">.</span><span class="na">SecuredEJBRemote</span><span class="o">.</span><span class="na">roleOneMethod</span><span class="o">()</span> <span class="n">of</span> <span class="n">bean</span><span class="o">:</span> <span class="n">SecuredEJB</span> <span class="k">is</span> <span class="n">not</span> <span class="n">allowed</span>
 <span class="mi">09</span><span class="o">:</span><span class="mi">16</span><span class="o">:</span><span class="mi">01</span><span class="o">,</span><span class="mi">198</span> <span class="n">ERROR</span> <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">ejb3</span><span class="o">.</span><span class="na">invocation</span><span class="o">]</span> <span class="o">(</span><span class="n">EJB</span> <span class="k">default</span> <span class="o">-</span> <span class="mi">9</span><span class="o">)</span> <span class="n">JBAS014134</span><span class="o">:</span> <span class="n">EJB</span> <span class="n">Invocation</span> <span class="n">failed</span> <span class="n">on</span> <span class="n">component</span> <span class="n">SecuredEJB</span> <span class="k">for</span> <span class="n">method</span> <span class="kd">public</span> <span class="n">abstract</span> <span class="n">boolean</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">ejb_security_interceptors</span><span class="o">.</span><span class="na">SecuredEJBRemote</span><span class="o">.</span><span class="na">roleTwoMethod</span><span class="o">():</span> <span class="n">javax</span><span class="o">.</span><span class="na">ejb</span><span class="o">.</span><span class="na">EJBAccessException</span><span class="o">:</span> <span class="n">JBAS014502</span><span class="o">:</span> <span class="n">Invocation</span> <span class="n">on</span> <span class="n">method</span><span class="o">:</span> <span class="kd">public</span> <span class="n">abstract</span> <span class="n">boolean</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">ejb_security_interceptors</span><span class="o">.</span><span class="na">SecuredEJBRemote</span><span class="o">.</span><span class="na">roleTwoMethod</span><span class="o">()</span> <span class="n">of</span> <span class="n">bean</span><span class="o">:</span> <span class="n">SecuredEJB</span> <span class="k">is</span> <span class="n">not</span> <span class="n">allowed</span>
 <span class="mi">09</span><span class="o">:</span><span class="mi">16</span><span class="o">:</span><span class="mi">01</span><span class="o">,</span><span class="mi">215</span> <span class="n">ERROR</span> <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">ejb3</span><span class="o">.</span><span class="na">invocation</span><span class="o">]</span> <span class="o">(</span><span class="n">EJB</span> <span class="k">default</span> <span class="o">-</span> <span class="mi">4</span><span class="o">)</span> <span class="n">JBAS014134</span><span class="o">:</span> <span class="n">EJB</span> <span class="n">Invocation</span> <span class="n">failed</span> <span class="n">on</span> <span class="n">component</span> <span class="n">SecuredEJB</span> <span class="k">for</span> <span class="n">method</span> <span class="kd">public</span> <span class="n">abstract</span> <span class="n">boolean</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">ejb_security_interceptors</span><span class="o">.</span><span class="na">SecuredEJBRemote</span><span class="o">.</span><span class="na">roleOneMethod</span><span class="o">():</span> <span class="n">javax</span><span class="o">.</span><span class="na">ejb</span><span class="o">.</span><span class="na">EJBAccessException</span><span class="o">:</span> <span class="n">JBAS014502</span><span class="o">:</span> <span class="n">Invocation</span> <span class="n">on</span> <span class="n">method</span><span class="o">:</span> <span class="kd">public</span> <span class="n">abstract</span> <span class="n">boolean</span> <span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">ejb_security_interceptors</span><span class="o">.</span><span class="na">SecuredEJBRemote</span><span class="o">.</span><span class="na">roleOneMethod</span><span class="o">()</span> <span class="n">of</span> <span class="n">bean</span><span class="o">:</span> <span class="n">SecuredEJB</span> <span class="k">is</span> <span class="n">not</span> <span class="n">allowed</span>
@@ -433,7 +433,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
@@ -447,7 +447,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <h3><a id="remove-the-security-domain-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-security-domain-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration by Running the JBoss CLI Script</h3>
 
 <ol>
-<li><p>Start the JBoss server by typing the following: </p>
+<li><p>Start the JBoss EAP server by typing the following: </p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
@@ -467,7 +467,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <h3><a id="remove-the-security-domain-configuration-manually" class="anchor" href="#remove-the-security-domain-configuration-manually"><span class="anchor-icon"></span></a>Remove the Security Domain Configuration Manually</h3>
 
 <ol>
-<li>If it is running, stop the JBoss server.</li>
+<li>If it is running, stop the JBoss EAP server.</li>
 <li>Replace the <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
 </ol>
 

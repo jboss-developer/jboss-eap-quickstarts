@@ -65,7 +65,7 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
 
-<h2><a id="configure-the-jboss-server" class="anchor" href="#configure-the-jboss-server"><span class="anchor-icon"></span></a>Configure the JBoss Server</h2>
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
 
 <p>You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-security-domain.cli</code> script provided in the root directory of this quickstart. </p>
 
@@ -73,11 +73,11 @@ The STS also plays an important role when you need to propagate credentials betw
 <li><p>Before you begin, back up your server configuration file</p>
 
 <ul>
-<li>If it is running, stop the JBoss server.</li>
+<li>If it is running, stop the JBoss EAP server.</li>
 <li>Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone.xml</code></li>
 <li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
 </ul></li>
-<li><p>Start the JBoss server by typing the following:</p>
+<li><p>Start the JBoss EAP server by typing the following:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
@@ -99,7 +99,7 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
 <p>The following <code>picketlink-sts</code> security-domain was added to the <code>security</code> subsystem.</p>
 <div class="highlight"><pre>    <span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;picketlink-sts&quot;</span><span class="nt">&gt;</span>
@@ -111,12 +111,12 @@ The STS also plays an important role when you need to propagate credentials betw
         <span class="nt">&lt;/authentication&gt;</span>
     <span class="nt">&lt;/security-domain&gt;</span>
 </pre></div>
-<h2><a id="start-the-jboss-server" class="anchor" href="#start-the-jboss-server"><span class="anchor-icon"></span></a>Start the JBoss Server</h2>
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
 
 <p>If you do not have a running server:</p>
 
 <ol>
-<li>Open a command prompt and navigate to the root of the JBoss server directory.</li>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
@@ -128,7 +128,7 @@ The STS also plays an important role when you need to propagate credentials betw
 <p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
@@ -138,7 +138,7 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <h2><a id="review-the-modified-server-configuration_1" class="anchor" href="#review-the-modified-server-configuration_1"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the Application </h2>
 
@@ -183,12 +183,12 @@ The STS also plays an important role when you need to propagate credentials betw
 <h3><a id="undeploy-the-quickstart-and-remove-the-security-domain-manually" class="anchor" href="#undeploy-the-quickstart-and-remove-the-security-domain-manually"><span class="anchor-icon"></span></a>Undeploy the quickstart and Remove the Security Domain Manually</h3>
 
 <ol>
-<li>Make sure you have started the JBoss Server as described above.</li>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
 <li>Open a command prompt and navigate to the root directory of this quickstart.</li>
 <li><p>When you are finished testing, type this command to undeploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
 </pre></div></li>
-<li><p>Stop the JBoss server.</p></li>
+<li><p>Stop the JBoss EAP server.</p></li>
 <li><p>Replace the <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</p></li>
 </ol>
 

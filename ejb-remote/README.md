@@ -39,10 +39,10 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-Start the JBoss Server
+Start the JBoss EAP Server
 -------------------------
 
-1. Open a command prompt and navigate to the root of the JBoss server directory.
+1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
         For Linux:   JBOSS_HOME/bin/standalone.sh
@@ -54,7 +54,7 @@ Build and Deploy the Quickstart
 
 Since this quickstart builds two separate components, you can not use the standard *Build and Deploy* commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.
 
-1. Make sure you have started the JBoss server. See the instructions in the previous section.
+1. Make sure you have started the JBoss EAP server. See the instructions in the previous section.
 2. Open a command prompt and navigate to the ejb-remote quickstart directory
 3. Build and install the server side component:
     * Navigate to the server-side subdirectory:
@@ -63,7 +63,7 @@ Since this quickstart builds two separate components, you can not use the standa
     * Build the EJB and client interfaces JARs and install them in your local Maven repository.
 
             mvn clean install        
-    * Deploy the EJB JAR to your server. This maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss server console to see information messages regarding the deployment.
+    * Deploy the EJB JAR to your server. This maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss EAP server console to see information messages regarding the deployment.
 
             mvn jboss-as:deploy
 4. Build and run the client application
@@ -144,7 +144,7 @@ The remote client application can also be built as a standalone executable JAR w
 Undeploy the Archive
 --------------------
 
-To undeploy the server side component from the JBoss server:
+To undeploy the server side component from the JBoss EAP server:
 
 1. Navigate to the server-side subdirectory:
 
