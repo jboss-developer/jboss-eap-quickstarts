@@ -3,7 +3,7 @@ h2-console: Example Using the H2 Console with JBoss
 Author: Pete Muir  
 Level: Beginner  
 Technologies: H2  
-Summary: Shows how to use the H2 console with JBoss AS  
+Summary: Shows how to use the H2 console with JBoss EAP  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-JBoss AS bundles H2 as an in-memory, in-process database. H2 is written in Java so can run on any platform JBoss AS runs.
+JBoss EAP bundles H2 as an in-memory, in-process database. H2 is written in Java so can run on any platform JBoss EAP runs.
 
 This is quickstart shows you how to use the H2 console with Red Hat JBoss Enterprise Application Platform. It uses the `greeter` quickstart as a GUI for entering data.
 
