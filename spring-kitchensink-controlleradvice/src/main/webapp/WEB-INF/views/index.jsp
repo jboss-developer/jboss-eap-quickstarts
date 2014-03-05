@@ -21,7 +21,7 @@
 <html>
 
 <head>
-    <title>Spring MVC Starter Application</title>
+    <title>SpringMVC Controller Advice Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/static/resources/css/screen.css"/>"/>
     <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
@@ -36,7 +36,7 @@
         <h1>Welcome to JBoss!</h1>
 
         <div>
-            <p>You have successfully deployed a Spring MVC web application which showcases the use of @ControllerAdvice.</p>
+            <p>You have successfully deployed a SpringMVC web application which showcases the use of @ControllerAdvice.</p>
         </div>
 
         <form:form commandName="newMember" id="reg">

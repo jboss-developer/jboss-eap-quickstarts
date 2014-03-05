@@ -20,7 +20,7 @@
 <html>
 
 <head>
-    <title>Spring MVC Starter Application</title>
+    <title>SpringMVC Matrix Variables Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/static/resources/css/screen.css"/>"/>
 </head>
@@ -34,7 +34,7 @@
         <h1>Welcome to JBoss!</h1>
 
         <div>
-            <p>You have successfully deployed a Spring MVC web application which showcases Spring's support for matrix
+            <p>You have successfully deployed a SpringMVC web application which showcases Spring's support for matrix
                 variables.</p>
         </div>
 
