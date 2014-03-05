@@ -10,21 +10,26 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 
 What is it?  
 -----------
-_This quickstart shows how to run the [Spring PetClinic](<http://github.com/spring-projects/spring-petclinic>) Application 
-in JBoss Enterprise Application Platform and Wildfly. The only modification needed to get the Spring PetClinic to work is 
-the addition of the `webapp/WEB-INF/jboss-deployment-structure.xml` file. This file specifies which modules to include or 
-exclude when building the application. In this case, we exclude Hibernate libraries since the application uses Spring Data 
-JPA. Additionally, this is only required when using the spring-data-jpa profile, see `resources/spring/business-config.xml`._
+This quickstart shows how to run the [Spring PetClinic](<http://github.com/spring-projects/spring-petclinic>) Application 
+in Red Hat JBoss Enterprise Application Platform with the use of Red Hat JBoss EAP & WFK BOMs (_for the best compatibility_). One of the major 
+changes is the use of the `webapp/WEB-INF/jboss-deployment-structure.xml` file. This file specifies which modules 
+to include or exclude when building the application. In this case, we exclude Hibernate libraries since the application 
+uses Spring Data JPA. Additionally, this is only required when using the spring-data-jpa profile, see `resources/spring/business-config.xml`.
 
-For detailed explanation of the changes made to adapt the Quickstart to JBOSS see: [CHANGES.md](CHANGES.md)
+For detailed explanation of the changes made to adapt the Quickstart to Red Hat JBoss Enterprise Application Platform see: [CHANGES.md](CHANGES.md)
 
 PetClinic features alternative DAO implementations and application configurations for JDBC, JPA, and Spring Data JPA, with 
-HSQLDB and MySQL as target databases. The default PetClinic configuration is JDBC on HSQLDB. See `src/main/resources/spring/data-access.properties` 
-as well as `webapp/WEB_INF/web.xml` and `src/main/resources/spring/business-config.xml` for details. A simple comment change 
-in `data-access.properties` switches between the data access strategies.
+HSQLDB and MySQL as target databases. The default PetClinic configuration is JDBC on HSQLDB.  
+
+* The `src/main/resources/spring/business-config.xml` pulls in `src/main/resources/spring/data-access.properties` to set 
+the JDBC-related settings for the JPA EntityManager definition. 
+    * A simple comment change in `data-access.properties` switches between the data access strategies. 
+* In `webapp/WEB_INF/web.xml` the `<param-name>spring.profiles.active</param-name>` using `<param-value>jpa</param-value>` 
+(_as the default_) refers to the bean to be used in `src/main/resources/spring/business-config.xml`. 
+    * Setting the `<param-value>` to `jdbc`, `jpa`, or `spring-data-jpa` is all that is needed to change the DAO implementation.
 
 All versions of PetClinic also demonstrate JMX support via the use of `<context:mbean-export/>` in `resources/spring/tools-config.xml` 
-for exporting MBeans. The `CallMonitorAspect.java` is exposed using Spring's `@ManagedResource` and `@ManagedOperation`
+for exporting MBeans. The `CallMonitoringAspect.java` is exposed using Spring's `@ManagedResource` and `@ManagedOperation`
 annotations and with `@Around` annotation we add monitoring around all `org.springframework.stereotype.Repository *` functions. 
 You can start up the JDK's JConsole to manage the exported bean.
 
