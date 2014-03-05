@@ -20,7 +20,7 @@
 <html>
 
 <head>
-    <title>Spring MVC Starter Application</title>
+    <title>SpringMVC Asynchronous Mapping Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/static/resources/css/screen.css"/>"/>
 </head>

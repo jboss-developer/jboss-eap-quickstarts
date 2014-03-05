@@ -20,7 +20,7 @@
 <html>
 
 <head>
-    <title>Spring MVC Starter Application</title>
+    <title>SpringMVC Starter Application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="<c:url value="/static/resources/css/screen.css"/>"/>
 </head>
@@ -34,7 +34,7 @@
         <h1>Welcome to JBoss!</h1>
 
         <div>
-            <p>You have successfully deployed a basic Spring MVC web application.</p>
+            <p>You have successfully deployed a basic SpringMVC web application.</p>
         </div>
 
         <form:form commandName="newMember" id="reg">
