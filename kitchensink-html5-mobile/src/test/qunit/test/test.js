@@ -101,7 +101,7 @@ asyncTest('Register a member with a duplicate email', function() {
     setTimeout(function() {
         // Execute assertions
         equal(options.data, JSON.stringify(memberData));
-        equal($('form span').get(0).outerHTML, '<span class="invalid">Email taken</span>');
+        equal($('form span').html(), 'Email taken');
         start();
     }, 1000);
 });
