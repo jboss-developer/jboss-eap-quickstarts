@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Security  
 Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
+Product Versions: EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
@@ -21,7 +21,7 @@ Rather than open multiple client connections, this quickstart offers an alternat
  
 The quickstart then makes use of two EJBs, `SecuredEJB` and `IntermediateEJB`, to verify that the propagation and identity switching is correct and a `RemoteClient` standalone client. 
 
-_Note: This quickstart uses two classes, org.jboss.as.controller.security.SubjectUserInfo and org.jboss.as.domain.management.security.RealmUser, that are part of the JBoss EAP private API. A public API will become available in the EAP 6.3 release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle._
+_Note:  A previous version of this quickstart had been making use of internal classes, this quickstart has now been updated to make use a new API available from EAP 6.3_
 
 ### SecuredEJB
 
@@ -67,7 +67,7 @@ This quickstart uses the ServiceLoader mechanism for registering the EJB client 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.3 or later. 
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
@@ -140,19 +140,11 @@ You configure the security domain by running JBoss CLI commands. For your conven
         EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 You should see the following result when you run the script:
 
-        #1 /subsystem=security/security-domain=quickstart-domain:add(cache-type=default)
-        #2 /subsystem=security/security-domain=quickstart-domain/authentication=classic:add
-        #3 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=DelegationLoginModule:add(code=org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule,flag=optional,module-options={password-stacking=useFirstPass})
-        #4 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=Remoting:add(code=Remoting,flag=optional,module-options={password-stacking=useFirstPass})
-        #5 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=RealmDirect:add(code=RealmDirect,flag=required,module-options={password-stacking=useFirstPass})
-        #6 /core-service=management/security-realm=ejb-outbound-realm:add
-        #7 /core-service=management/security-realm=ejb-outbound-realm/server-identity=secret:add(value="Q29ubmVjdGlvblBhc3N3b3JkMSE=")
-        #8 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=ejb-outbound:add(host=localhost,port=4447)
-        #9 /subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:add(outbound-socket-binding-ref=ejb-outbound,username=ConnectionUser,security-realm=ejb-outbound-realm)
-        #10 /subsystem=remoting/remote-outbound-connection=ejb-outbound-connection/property=SSL_ENABLED:add(value=false)
-        The batch executed successfully.
-        {"outcome" => "success"}
-
+        The batch executed successfully
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 
 Review the Modified Server Configuration
 -----------------------------------
@@ -262,7 +254,7 @@ The step here assumes you have already successfully deployed the EJBs to the ser
 Investigate the Console Output
 ----------------------------
 
-When you run the `mvn exec:exec` command, you see the following output.
+When you run the `mvn exec:exec` command, you see the following output. Note there may be other log messages interspersed between these. 
 
     -------------------------------------------------
     * * About to perform test as ConnectionUser * *
@@ -395,6 +387,7 @@ When you run the `mvn exec:exec` command, you see the following output.
     -------------------------------------------------
     Call as 'AppUserThree' correctly rejected.
 
+    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 Investigate the Server Console Output
 ----------------------------
