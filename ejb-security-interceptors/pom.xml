@@ -46,6 +46,7 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
+        <version.security.api>7.4.0.build-1</version.security.api>
         <version.jboss.as>7.4.0.Final-redhat-SNAPSHOT</version.jboss.as>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-8</version.jboss.spec.javaee.6.0>
@@ -88,7 +89,34 @@
 
         <dependency>
             <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-security</artifactId>
+            <artifactId>jboss-as-security-api</artifactId>
+            <version>${version.security.api}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-build-config</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-security</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency> 
+        <dependency>
+            <groupId>org.picketbox</groupId>
+            <artifactId>picketbox</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-core-security-api</artifactId>
+            <version>${version.security.api}</version>
+            <exclusions>
+                    <exclusion>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-build-config</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
           <!-- Import the CDI API, we use provided scope as the API is included in 
@@ -127,6 +155,13 @@
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
+        </dependency>
+
+          <!--  Contains SASL mechanisms to authenticate to server. -->
+        <dependency>
+            <groupId>org.jboss.sasl</groupId>
+            <artifactId>jboss-sasl</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
           <!-- client communications with the server use XNIO -->
