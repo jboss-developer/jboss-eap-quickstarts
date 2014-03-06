@@ -27,12 +27,29 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * 
+ * @author Joshua Wilson
+ *
+ */
 @Path("/")
 public class HelloSpringResource {
     
     @Autowired
     GreetingBean greetingBean;
+    
+    /**
+     * Create a default REST endpoint that directs the user to use the /hello endpoint.
+     * 
+     * @return html
+     */
+    @GET
+    @Produces("text/html")
+    public Response getDefault() {
+        String msg = "Hello. <br> Please try <a href='http://localhost:8080/jboss-spring-resteasy/hello?name=yourname'>jboss-spring-resteasy/hello?name=yourname</a>" ;
+        System.out.println("getDefault()");
+        return Response.ok(msg).build();
+    }
     
     @GET  
     @Path("hello")
@@ -50,7 +67,7 @@ public class HelloSpringResource {
         System.out.println("getBasic()");
         return "basic";
     }
-
+    
     @PUT
     @Path("basic")
     @Consumes("text/plain")
