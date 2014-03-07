@@ -118,12 +118,12 @@ If you want to debug the source code or look at the Javadocs of any library in t
     mvn dependency:resolve -Dclassifier=javadoc
 
 
-Build and Deploy the Quickstart - to OpenShift
+Build and Deploy the Quickstart to OpenShift
 -------------------------
 
-### Create an OpenShift Express Account and Domain
+### Create an OpenShift Online Account and Domain
 
-If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](https://openshift.redhat.com/app/login) to create the account and domain. [Get Started with OpenShift](https://www.openshift.com/get-started) will show you how to install the OpenShift Express command line interface.
+If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](https://openshift.redhat.com/app/login) to create the account and domain. [Get Started with OpenShift](https://www.openshift.com/get-started) will show you how to install the OpenShift Online command line interface.
 ### Create the OpenShift Application
 
 Note that we use the `jboss-as-quickstart@jboss.org` user for these examples. You need to substitute it with your own user name.
