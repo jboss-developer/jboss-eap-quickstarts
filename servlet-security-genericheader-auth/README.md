@@ -62,8 +62,6 @@ _NOTE - Before you begin:_
         For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
 This script adds the `GenericHeaderAuth` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
 
-        #1 /subsystem=security/security-domain=GenericHeaderAuth:add
-        #2 /subsystem=security/security-domain=GenericHeaderAuth/authentication=classic:add(login-modules=[{"code" => "org.jboss.security.auth.spi.RemoteHostTrustLoginModule", "flag" => "required", "module-options" => [("trustedHosts" => "127.0.0.1"), ("roles" => "guest"),]}])
         The batch executed successfully
         {"outcome" => "success"}
 
@@ -182,9 +180,8 @@ You can remove the security domain configuration by running the  `remove-securit
         For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        #1 /subsystem=security/security-domain=GenericHeaderAuth:remove
         The batch executed successfully
-
+        {"outcome" => "success"}
 
 ### Remove the Security Domain Configuration Manually
 1. If it is running, stop the JBoss EAP server.

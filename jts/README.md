@@ -101,11 +101,6 @@ You configure the security domain by running JBoss CLI commands. For your conven
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
  You should see the following result when you run the script:
 
-        #1 /subsystem=jacorb:write-attribute(name=transactions,value=on)
-        #2 /subsystem=jacorb:write-attribute(name=name,value=${jboss.node.name})
-        #3 /subsystem=jacorb:write-attribute(name=root-context,value=${jboss.node.name}/Naming/root)
-        #4 /subsystem=transactions:write-attribute(name=jts,value=true)
-        #5 /subsystem=transactions:write-attribute(name=node-identifier,value=${jboss.tx.node.id}
         The batch executed successfully.
         {"outcome" => "success"}
 
@@ -231,10 +226,6 @@ You can modify the server configuration by running the `remove-jts-transactions.
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        #1 /subsystem=jacorb:write-attribute(name=transactions,value=spec)
-        #2 /subsystem=jacorb:undefine-attribute(name=name)
-        #3 /subsystem=transactions:undefine-attribute(name=jts)
-        #4 /subsystem=transactions:undefine-attribute(name=node-identifier)
         The batch executed successfully.
         {"outcome" => "success"}
 
