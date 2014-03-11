@@ -163,20 +163,8 @@ You configure server logging by running JBoss CLI commands. For your convenience
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-logging.cli
 You should see the following result when you run the script:
 
-        #1 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.trace.log", "relative-to"=>"jboss.server.log.dir"})
-        #2 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_DEBUG:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.debug.log", "relative-to"=>"jboss.server.log.dir"})
-        #3 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_INFO:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.info.log", "relative-to"=>"jboss.server.log.dir"})
-        #4 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_WARN:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.warn.log", "relative-to"=>"jboss.server.log.dir"})
-        #5 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_ERROR:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.error.log", "relative-to"=>"jboss.server.log.dir"})
-        #6 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_FATAL:add(suffix=".yyyy.MM.dd", file={"path"=>"quickstart.fatal.log", "relative-to"=>"jboss.server.log.dir"})
-        #7 /subsystem=logging/async-handler=TRACE_QS_ASYNC:add(level=TRACE,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_TRACE"])
-        #8 /subsystem=logging/async-handler=DEBUG_QS_ASYNC:add(level=DEBUG,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_DEBUG"])
-        #9 /subsystem=logging/async-handler=INFO_QS_ASYNC:add(level=INFO,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_INFO"])
-        #10 /subsystem=logging/async-handler=WARN_QS_ASYNC:add(level=WARN,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_WARN"])
-        #11 /subsystem=logging/async-handler=ERROR_QS_ASYNC:add(level=ERROR,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_ERROR"])
-        #12 /subsystem=logging/async-handler=FATAL_QS_ASYNC:add(level=FATAL,queue-length=1024,overflow-action=BLOCK,subhandlers=["FILE_QS_FATAL"])
-        #13 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE,handlers=[TRACE_QS_ASYNC,DEBUG_QS_ASYNC,INFO_QS_ASYNC,WARN_QS_ASYNC,ERROR_QS_ASYNC,FATAL_QS_ASYNC])
         The batch executed successfully
+        {"outcome" => "success"}
 
 
 Review the Modified Server Configuration
@@ -354,19 +342,6 @@ You can remove the logging configuration by running the  `remove-logging.cli` sc
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-logging.cli 
 This script removes the log and file handlers from the `logging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        #1 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:remove
-        #2 /subsystem=logging/async-handler=TRACE_QS_ASYNC:remove
-        #3 /subsystem=logging/async-handler=DEBUG_QS_ASYNC:remove
-        #4 /subsystem=logging/async-handler=INFO_QS_ASYNC:remove
-        #5 /subsystem=logging/async-handler=WARN_QS_ASYNC:remove
-        #6 /subsystem=logging/async-handler=ERROR_QS_ASYNC:remove
-        #7 /subsystem=logging/async-handler=FATAL_QS_ASYNC:remove
-        #8 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE:remove
-        #9 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_DEBUG:remove
-        #10 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_INFO:remove
-        #11 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_WARN:remove
-        #12 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_ERROR:remove
-        #13 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_FATAL:remove
         The batch executed successfully.
         {"outcome" => "success"}
 
