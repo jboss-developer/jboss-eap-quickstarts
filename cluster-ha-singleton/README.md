@@ -43,11 +43,19 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Start the JBoss EAP Server with a HA profile
 -------------------------
 
-If you run a non HA profile the singleton service will not start correctly. To run the example one instance must be started, to see the singleton behaviour at minimum two instances
-should be started.
+If you run a non HA profile, the singleton service will not start correctly. To run the example, you must start one instance of the server. To see the singleton behavior, you must start a minimum two instances of the server. 
 
-    Start server one : standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
-    Start server two : standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
+Start the servers with the HA provile, passing a unique node ID by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
+
+If you are using Linux:
+
+        Server 1: JBOSS_HOME_SERVER_1/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
+        Server 2: JBOSS_HOME_SERVER_1/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
+
+If you are using Windows
+
+        Server 1: JBOSS_HOME_SERVER_1\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
+        Server 2: JBOSS_HOME_SERVER_1\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart
