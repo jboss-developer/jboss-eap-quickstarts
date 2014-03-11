@@ -99,8 +99,6 @@ You can configure the security domain by running JBoss CLI commands. For your co
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 You should see the following result when you run the script:
 
-        #1 /subsystem=security/security-domain=servlet-security-quickstart:add(cache-type=default)
-        #2 /subsystem=security/security-domain=servlet-security-quickstart/authentication=classic:add(login-modules=[{"code"=>"Database", "flag"=>"required", "module-options"=>[("dsJndiName"=>"java:jboss/datasources/ServletSecurityDS"),("principalsQuery"=>"SELECT PASSWORD FROM USERS WHERE USERNAME = ?"), ("rolesQuery"=>"SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?")]}])
         The batch executed successfully.
         {"outcome" => "success"}
 
@@ -206,7 +204,6 @@ You can remove the security domain configuration by running the  `remove-securit
         JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        #1 /subsystem=security/security-domain=quickstart-domain:remove
         The batch executed successfully.
         {"outcome" => "success"}
 

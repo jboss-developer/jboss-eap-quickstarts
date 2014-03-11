@@ -103,9 +103,8 @@ You configure the security domain by running JBoss CLI commands. For your conven
         --controller=HOST_NAME:PORT_NUMBER
    You should see the following result when you run the script:
    
-        #1 /subsystem=security/security-domain=picketlink-sts:add
-        #2 /subsystem=security/security-domain=picketlink-sts/authentication=classic:add(  login-modules=[  {  "code" => "UsersRoles ",  "flag" => "required",  "module-options" => [  "usersProperties"=>"users.properties",  "rolesProperties"=>"roles.properties"  ]  }  ]  )
         The batch executed successfully
+        {"outcome" => "success"}
 
    The batch file also restarts the server.
    
@@ -194,6 +193,7 @@ You can undeploy the quickstart and remove the security domain configuration in 
         For Windows: JBOSS_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
    You should see the following result when you run the script:
    
+        The batch executed successfully
         {"outcome" => "success"}
 
 ### Undeploy the quickstart and Remove the Security Domain Manually
