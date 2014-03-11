@@ -67,21 +67,17 @@ _NOTE: The following commands assume you have configured your Maven user setting
 Investigate the Console Output
 ----------------------------
 
-Run the tests via Maven (or your IDE) and examine the console output during the test phase.
-
-You'll see four tests run:
+Maven prints summary of the 4 performed tests to the console.
 
     -------------------------------------------------------
      T E S T S
     -------------------------------------------------------
+    Running org.jboss.as.quickstart.cdi.veto.test.InjectionWithoutVetoExtensionWithManagerTest
+    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.492 sec
     Running org.jboss.as.quickstart.cdi.veto.test.InjectionWithVetoExtensionAndManagerTest
-    log4j:WARN No appenders could be found for logger (org.jboss.logging).
-    log4j:WARN Please initialize the log4j system properly.
     Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.988 sec
     Running org.jboss.as.quickstart.cdi.veto.test.InjectionWithVetoExtensionWithoutManagerTest
     Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.093 sec
-    Running org.jboss.as.quickstart.cdi.veto.test.InjectionWithoutVetoExtensionWithManagerTest
-    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.492 sec
 
     Results :
 
