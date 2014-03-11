@@ -38,8 +38,6 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-
-
 Configure the JBoss EAP Server
 ---------------
 
@@ -132,17 +130,12 @@ _NOTE: The following commands assume you have configured your Maven user setting
 Investigate the Console Output
 ----------------------------
 
-
-### Maven
-
-Maven prints summary of performed tests into the console:
+Maven prints summary of the 1 performed test to the console.
 
    -------------------------------------------------------
      T E S T S
     -------------------------------------------------------
     Running org.jboss.as.quickstart.deltaspike.beanbuilder.test.ByIdExtensionTest
-    log4j:WARN No appenders could be found for logger (org.jboss.logging).
-    log4j:WARN Please initialize the log4j system properly.
     Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.641 sec
     
     Results :

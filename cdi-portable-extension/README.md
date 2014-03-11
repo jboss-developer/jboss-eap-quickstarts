@@ -77,17 +77,12 @@ To run the tests, right click on the project or individual classes and select Ru
 Investigate the Console Output
 ----------------------------
 
-
-### Maven
-
-Maven prints summary of performed tests into the console:
+Maven prints summary of the 2 performed tests to the console.
 
     -------------------------------------------------------
      T E S T S
     -------------------------------------------------------
     Running org.jboss.as.quickstart.cdi.extension.test.CreatureExtensionTest
-    log4j:WARN No appenders could be found for logger (org.jboss.logging).
-    log4j:WARN Please initialize the log4j system properly.
     Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.87 sec
 
     Results :
