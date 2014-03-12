@@ -57,9 +57,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="check-the-server-logs" class="anchor" href="#check-the-server-logs"><span class="anchor-icon"></span></a>Check the Server Logs</h2>
 
-<p>The log files are located in the <code>JBOSS_HOME/standalone/log</code> log directory. At this point you should see the following standard log files that are produced by the application server:</p>
-<div class="highlight"><pre>    <span class="o">*</span> <span class="err">`</span><span class="n">server</span><span class="p">.</span><span class="n">log</span><span class="err">`</span> <span class="o">-</span> <span class="n">a</span> <span class="n">standard</span> <span class="n">log</span> <span class="n">files</span> <span class="n">produced</span> <span class="n">by</span> <span class="n">the</span> <span class="n">application</span> <span class="n">server</span>
-    <span class="o">*</span> <span class="err">`</span><span class="n">boot</span><span class="p">.</span><span class="n">log</span><span class="err">`</span> <span class="o">-</span> <span class="n">a</span> <span class="n">standard</span> <span class="n">log</span> <span class="n">files</span> <span class="n">produced</span> <span class="n">by</span> <span class="n">the</span> <span class="n">application</span> <span class="n">server</span>
+<p>The log files are located in the <code>JBOSS_HOME/standalone/log</code> log directory. At this point you should see the following standard log file that is produced by the application server:</p>
+<div class="highlight"><pre>    <span class="o">*</span> <span class="err">`</span><span class="n">server</span><span class="p">.</span><span class="n">log</span><span class="err">`</span>
 </pre></div>
 <h2><a id="configure-the-logging-quickstart-log-file-handlers" class="anchor" href="#configure-the-logging-quickstart-log-file-handlers"><span class="anchor-icon"></span></a>Configure the Logging Quickstart Log File Handlers</h2>
 
@@ -85,7 +84,7 @@ handler.FILE_QS_WARN=org.jboss.logmanager.handlers.FileHandler
 handler.FILE_QS_WARN.level=WARN
 handler.FILE_QS_WARN.properties=autoFlush,fileName
 handler.FILE_QS_WARN.autoFlush=true
-handler.FILE_QS_WARN.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">boot</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_warn</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
+handler.FILE_QS_WARN.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_warn</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
 handler.FILE_QS_WARN.formatter=FILE
 
 ##### New file handler config for quickstart example errors
@@ -93,7 +92,7 @@ handler.FILE_QS_ERROR=org.jboss.logmanager.handlers.FileHandler
 handler.FILE_QS_ERROR.level=ERROR
 handler.FILE_QS_ERROR.properties=autoFlush,fileName
 handler.FILE_QS_ERROR.autoFlush=true
-handler.FILE_QS_ERROR.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">boot</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_error</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
+handler.FILE_QS_ERROR.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_error</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
 handler.FILE_QS_ERROR.formatter=FILE
 
 ##### New file handler config for quickstart example info messages
@@ -101,7 +100,7 @@ handler.FILE_QS_INFO=org.jboss.logmanager.handlers.FileHandler
 handler.FILE_QS_INFO.level=INFO
 handler.FILE_QS_INFO.properties=autoFlush,fileName
 handler.FILE_QS_INFO.autoFlush=true
-handler.FILE_QS_INFO.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">boot</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_info</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
+handler.FILE_QS_INFO.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_info</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
 handler.FILE_QS_INFO.formatter=FILE
 
 ##### New file handler config for quickstart example debug messages
@@ -109,7 +108,7 @@ handler.FILE_QS_DEBUG=org.jboss.logmanager.handlers.FileHandler
 handler.FILE_QS_DEBUG.level=DEBUG
 handler.FILE_QS_DEBUG.properties=autoFlush,fileName
 handler.FILE_QS_DEBUG.autoFlush=true
-handler.FILE_QS_DEBUG.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">boot</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_debug</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
+handler.FILE_QS_DEBUG.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_debug</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
 handler.FILE_QS_DEBUG.formatter=FILE
 
 ##### New file handler config for quickstart example trace messages
@@ -117,7 +116,7 @@ handler.FILE_QS_TRACE=org.jboss.logmanager.handlers.FileHandler
 handler.FILE_QS_TRACE.level=TRACE
 handler.FILE_QS_TRACE.properties=autoFlush,fileName
 handler.FILE_QS_TRACE.autoFlush=true
-handler.FILE_QS_TRACE.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">boot</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_trace</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
+handler.FILE_QS_TRACE.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_trace</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
 handler.FILE_QS_TRACE.formatter=FILE
 
 ##### New file handler config for quickstart example fatal messages
@@ -125,7 +124,7 @@ handler.FILE_QS_FATAL=org.jboss.logmanager.handlers.FileHandler
 handler.FILE_QS_FATAL.level=FATAL
 handler.FILE_QS_FATAL.properties=autoFlush,fileName
 handler.FILE_QS_FATAL.autoFlush=true
-handler.FILE_QS_FATAL.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">boot</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_fatal</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
+handler.FILE_QS_FATAL.fileName=<span class="cp">${</span><span class="n">org</span><span class="o">.</span><span class="n">jboss</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">file</span><span class="p">:</span><span class="n">quickstart_fatal</span><span class="o">.</span><span class="n">log</span><span class="cp">}</span>
 handler.FILE_QS_FATAL.formatter=FILE
 </pre></div></li>
 </ul>
@@ -154,20 +153,7 @@ handler.FILE_QS_FATAL.formatter=FILE
 <div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">logging</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="cp">#1 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE:add(suffix=&quot;.yyyy.MM.dd&quot;, file={&quot;path&quot;=&gt;&quot;quickstart.trace.log&quot;, &quot;relative-to&quot;=&gt;&quot;jboss.server.log.dir&quot;})</span>
-<span class="cp">#2 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_DEBUG:add(suffix=&quot;.yyyy.MM.dd&quot;, file={&quot;path&quot;=&gt;&quot;quickstart.debug.log&quot;, &quot;relative-to&quot;=&gt;&quot;jboss.server.log.dir&quot;})</span>
-<span class="cp">#3 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_INFO:add(suffix=&quot;.yyyy.MM.dd&quot;, file={&quot;path&quot;=&gt;&quot;quickstart.info.log&quot;, &quot;relative-to&quot;=&gt;&quot;jboss.server.log.dir&quot;})</span>
-<span class="cp">#4 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_WARN:add(suffix=&quot;.yyyy.MM.dd&quot;, file={&quot;path&quot;=&gt;&quot;quickstart.warn.log&quot;, &quot;relative-to&quot;=&gt;&quot;jboss.server.log.dir&quot;})</span>
-<span class="cp">#5 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_ERROR:add(suffix=&quot;.yyyy.MM.dd&quot;, file={&quot;path&quot;=&gt;&quot;quickstart.error.log&quot;, &quot;relative-to&quot;=&gt;&quot;jboss.server.log.dir&quot;})</span>
-<span class="cp">#6 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_FATAL:add(suffix=&quot;.yyyy.MM.dd&quot;, file={&quot;path&quot;=&gt;&quot;quickstart.fatal.log&quot;, &quot;relative-to&quot;=&gt;&quot;jboss.server.log.dir&quot;})</span>
-<span class="cp">#7 /subsystem=logging/async-handler=TRACE_QS_ASYNC:add(level=TRACE,queue-length=1024,overflow-action=BLOCK,subhandlers=[&quot;FILE_QS_TRACE&quot;])</span>
-<span class="cp">#8 /subsystem=logging/async-handler=DEBUG_QS_ASYNC:add(level=DEBUG,queue-length=1024,overflow-action=BLOCK,subhandlers=[&quot;FILE_QS_DEBUG&quot;])</span>
-<span class="cp">#9 /subsystem=logging/async-handler=INFO_QS_ASYNC:add(level=INFO,queue-length=1024,overflow-action=BLOCK,subhandlers=[&quot;FILE_QS_INFO&quot;])</span>
-<span class="cp">#10 /subsystem=logging/async-handler=WARN_QS_ASYNC:add(level=WARN,queue-length=1024,overflow-action=BLOCK,subhandlers=[&quot;FILE_QS_WARN&quot;])</span>
-<span class="cp">#11 /subsystem=logging/async-handler=ERROR_QS_ASYNC:add(level=ERROR,queue-length=1024,overflow-action=BLOCK,subhandlers=[&quot;FILE_QS_ERROR&quot;])</span>
-<span class="cp">#12 /subsystem=logging/async-handler=FATAL_QS_ASYNC:add(level=FATAL,queue-length=1024,overflow-action=BLOCK,subhandlers=[&quot;FILE_QS_FATAL&quot;])</span>
-<span class="cp">#13 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:add(level=TRACE,handlers=[TRACE_QS_ASYNC,DEBUG_QS_ASYNC,INFO_QS_ASYNC,WARN_QS_ASYNC,ERROR_QS_ASYNC,FATAL_QS_ASYNC])</span>
-<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span>
 </pre></div></li>
 </ol>
 
@@ -282,11 +268,10 @@ handler.FILE_QS_FATAL.formatter=FILE
 <p>The log files are located in the <code>JBOSS_HOME/standalone/log</code> log directory. You should now see 8 log files.</p>
 
 <ul>
-<li><p>The following logs are standard log files produced by the application server:</p>
+<li><p>The following log is the standard log file produced by the application server:</p>
 
 <ul>
-<li><code>server.log</code> - a standard log files produced by the application server</li>
-<li><code>boot.log</code> - a standard log files produced by the application server</li>
+<li><code>server.log</code> </li>
 </ul></li>
 <li><p>The following logs are produced by the quickstart. They are listed in hierarchical order from the largest file containing the most messages to the smallest file containing the least messages. </p>
 
@@ -352,20 +337,7 @@ from TRACE to DEBUG, INFO, WARN, ERROR, or FATAL, then access the application.</
 <div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">logging</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
 <p>This script removes the log and file handlers from the <code>logging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="cp">#1 /subsystem=logging/logger=org.jboss.as.quickstarts.logging:remove</span>
-<span class="cp">#2 /subsystem=logging/async-handler=TRACE_QS_ASYNC:remove</span>
-<span class="cp">#3 /subsystem=logging/async-handler=DEBUG_QS_ASYNC:remove</span>
-<span class="cp">#4 /subsystem=logging/async-handler=INFO_QS_ASYNC:remove</span>
-<span class="cp">#5 /subsystem=logging/async-handler=WARN_QS_ASYNC:remove</span>
-<span class="cp">#6 /subsystem=logging/async-handler=ERROR_QS_ASYNC:remove</span>
-<span class="cp">#7 /subsystem=logging/async-handler=FATAL_QS_ASYNC:remove</span>
-<span class="cp">#8 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE:remove</span>
-<span class="cp">#9 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_DEBUG:remove</span>
-<span class="cp">#10 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_INFO:remove</span>
-<span class="cp">#11 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_WARN:remove</span>
-<span class="cp">#12 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_ERROR:remove</span>
-<span class="cp">#13 /subsystem=logging/periodic-rotating-file-handler=FILE_QS_FATAL:remove</span>
-<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
 <span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
 </pre></div></li>
 </ol>
