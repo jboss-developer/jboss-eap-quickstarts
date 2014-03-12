@@ -76,8 +76,8 @@ Start the JBoss EAP Server with the Full Profile
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full profile:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
+        For Linux:   EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows: EAP_HOME\bin\standalone.bat -c standalone-full.xml
  
 
 Build and Deploy the Quickstart

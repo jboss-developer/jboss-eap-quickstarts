@@ -98,16 +98,16 @@ This quickstart uses secured management interfaces and is built around the defau
 To add the users, open a command prompt and type the following commands:
 
         For Linux:
-          JBOSS_HOME/bin/add-user.sh -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
-          JBOSS_HOME/bin/add-user.sh -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
-          JBOSS_HOME/bin/add-user.sh -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
-          JBOSS_HOME/bin/add-user.sh -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+          EAP_HOME/bin/add-user.sh -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+          EAP_HOME/bin/add-user.sh -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+          EAP_HOME/bin/add-user.sh -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
+          EAP_HOME/bin/add-user.sh -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
 
         For Windows:
-          JBOSS_HOME\bin\add-user.bat -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
-          JBOSS_HOME\bin\add-user.bat -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
-          JBOSS_HOME\bin\add-user.bat -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
-          JBOSS_HOME\bin\add-user.bat -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+          EAP_HOME\bin\add-user.bat -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+          EAP_HOME\bin\add-user.bat -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+          EAP_HOME\bin\add-user.bat -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo' 
+          EAP_HOME\bin\add-user.bat -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
 
 The first user establishes the actual connection to the server. The subsequent two users demonstrate how to switch identities on demand. The final user can access everything but can not participate in identity switching.
 
@@ -126,18 +126,18 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME/bin/standalone.sh 
-        For Windows:  JBOSS_HOME\bin\standalone.bat
+        For Linux:  EAP_HOME/bin/standalone.sh 
+        For Windows:  EAP_HOME\bin\standalone.bat
 3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `quickstart-domain` domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.
 
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 You should see the following result when you run the script:
 
         #1 /subsystem=security/security-domain=quickstart-domain:add(cache-type=default)
@@ -157,7 +157,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
 1. The following `quickstart-domain` security-domain was added to the `security` subsystem.
 
@@ -231,8 +231,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-		For Linux:   JBOSS_HOME/bin/standalone.sh
-		For Windows: JBOSS_HOME\bin\standalone.bat
+		For Linux:   EAP_HOME/bin/standalone.sh
+		For Windows: EAP_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -440,11 +440,11 @@ You can remove the security domain configuration by running the  `remove-securit
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
+        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 /subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:remove
@@ -457,7 +457,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 ### Remove the Security Domain Configuration Manually
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+2. Replace the `EAP_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 
