@@ -15,7 +15,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The example uses the default Mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25.</p>
 
-<p>The configuration of the mail provider is found in the <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> if you are running a standalone server or in the <code>JBOSS_HOME/domain/configuration/domain.xml</code> file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:</p>
+<p>The configuration of the mail provider is found in the <code>EAP_HOME/standalone/configuration/standalone.xml</code> if you are running a standalone server or in the <code>EAP_HOME/domain/configuration/domain.xml</code> file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:</p>
 <div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:mail:1.0&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;mail-session</span> <span class="na">jndi-name=</span><span class="s">&quot;java:jboss/mail/Default&quot;</span> <span class="nt">&gt;</span>
         <span class="nt">&lt;smtp-server</span> <span class="na">address=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;25&quot;</span><span class="nt">/&gt;</span>
@@ -48,8 +48,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <ol>
 <li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
 </ol>
 

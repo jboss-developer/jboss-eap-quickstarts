@@ -74,17 +74,17 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <ul>
 <li>If it is running, stop the JBoss EAP server.</li>
-<li>Backup the file: <code>JBOSS_HOME/standalone/configuration/standalone.xml</code></li>
+<li>Backup the file: <code>EAP_HOME/standalone/configuration/standalone.xml</code></li>
 <li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
 </ul></li>
 <li><p>Start the JBoss EAP server by typing the following:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
 <li><p>Review the <code>configure-security-domain.cli</code> file in the root of this quickstart directory. This script adds the <code>picketlink-sts</code> security domain to the <code>security</code> subsystem in the server configuration and configures authentication access.</p></li>
-<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
 <p>If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:</p>
 <div class="highlight"><pre><span class="o">--</span><span class="n">controller</span><span class="o">=</span><span class="n">HOST_NAME</span><span class="o">:</span><span class="n">PORT_NUMBER</span>
@@ -98,7 +98,7 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>EAP_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
 <p>The following <code>picketlink-sts</code> security-domain was added to the <code>security</code> subsystem.</p>
 <div class="highlight"><pre>    <span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;picketlink-sts&quot;</span><span class="nt">&gt;</span>
@@ -117,8 +117,8 @@ The STS also plays an important role when you need to propagate credentials betw
 <ol>
 <li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
 </ol>
 
@@ -137,7 +137,7 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <h2><a id="review-the-modified-server-configuration_1" class="anchor" href="#review-the-modified-server-configuration_1"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file. </p>
+<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>EAP_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the Application </h2>
 
@@ -177,9 +177,9 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <ol>
 <li>Open a new command prompt, navigate to the root directory of this quickstart.</li>
-<li><p>Run the following command, replacing JBOSS_HOME with the path to your server:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
+<li><p>Run the following command, replacing EAP_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
 <div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span>
@@ -196,7 +196,7 @@ The STS also plays an important role when you need to propagate credentials betw
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
 </pre></div></li>
 <li><p>Stop the JBoss EAP server.</p></li>
-<li><p>Replace the <code>JBOSS_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</p></li>
+<li><p>Replace the <code>EAP_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</p></li>
 </ol>
 
 <h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
