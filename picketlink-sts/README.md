@@ -177,6 +177,13 @@ You can test the service as follows:
         [INFO] Final Memory: 7M/146M
         [INFO] ------------------------------------------------------------------------
 
+_Note:_: You also see the following warnings in the server log. These warnings are expected because the quickstart does not provide a configuration that persists tokens. 
+
+        15:09:12,825 INFO  [org.picketlink.common] (http-/127.0.0.1:8080-4) Loading STS configuration
+        15:09:12,855 WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Security Token registry option not specified: Issued Tokens will not be persisted!
+        15:09:12,861 WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Security Token registry option not specified: Issued Tokens will not be persisted!
+        15:09:12,865 INFO  [org.picketlink.common] (http-/127.0.0.1:8080-4) picketlink-sts.xml configuration file loaded
+        15:09:12,869 WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Lifetime has not been specified. Using the default timeout value.
 
 
 Undeploy and Remove the Security Domain Configuration
