@@ -39,8 +39,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the JBoss EAP server with the default profile:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -66,7 +66,7 @@ The application is running at the following URL: <http://localhost:8080/jboss-lo
 Check the Server Logs
 ---------------------
 
-The log files are located in the `JBOSS_HOME/standalone/log` log directory. At this point you should see the following standard log file that is produced by the application server:
+The log files are located in the `EAP_HOME/standalone/log` log directory. At this point you should see the following standard log file that is produced by the application server:
 
         * `server.log`
 
@@ -78,7 +78,7 @@ Configure the Logging Quickstart Log File Handlers
 To test logging the different logging levels, you must add handlers to the server `logging.properties` file and configure the server to use them. 
 
 1. Stop the application server.
-2. Create a backup of the `logging.properties` file located in the `JBOSS_HOME/standalone/configuration` directory.
+2. Create a backup of the `logging.properties` file located in the `EAP_HOME/standalone/configuration` directory.
 3. Open the `logging.properties` in an editor and find the following line:
    * Find the line containing:
 
@@ -148,18 +148,18 @@ You configure server logging by running JBoss CLI commands. For your convenience
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME/bin/standalone.sh 
-        For Windows:  JBOSS_HOME\bin\standalone.bat
+        For Linux:  EAP_HOME/bin/standalone.sh 
+        For Windows:  EAP_HOME\bin\standalone.bat
 3. Review the `configure-logging.cli` file in the root of this quickstart directory. This script configures the logging subsytem in the server configuration file. It configures the periodic rotating file handlers corresponding to those added to the logging properties file, configures the async handlers, creates the logger for our quickstart class and sets the level to TRACE, and assigns the async handlers for our quickstart class. 
  
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
    
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-logging.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=configure-logging.cli
 You should see the following result when you run the script:
 
         The batch executed successfully
@@ -168,7 +168,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
 The following XML was added to the end of the the `logging` subsystem.
 
@@ -277,7 +277,7 @@ Test the New Logging Configuration
 Recheck the Server Logs
 ---------------------
 
-The log files are located in the `JBOSS_HOME/standalone/log` log directory. You should now see 8 log files.
+The log files are located in the `EAP_HOME/standalone/log` log directory. You should now see 8 log files.
 
 * The following log is the standard log file produced by the application server:
     * `server.log` 
@@ -322,7 +322,7 @@ Remove the Logging Configuration
 ### Restore the Logging Properties File
 
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `JBOSS_HOME/standalone/configuration/logging.properties` file with the back-up copy of the file.
+2. Replace the `EAP_HOME/standalone/configuration/logging.properties` file with the back-up copy of the file.
 
 ### Remove the Server Logging Configuration
 
@@ -332,11 +332,11 @@ You can remove the logging configuration by running the  `remove-logging.cli` sc
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-logging.cli 
+        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-logging.cli 
 This script removes the log and file handlers from the `logging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -345,7 +345,7 @@ This script removes the log and file handlers from the `logging` subsystem in th
 
 #### Remove the Logging Configuration Manually
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+2. Replace the `EAP_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 

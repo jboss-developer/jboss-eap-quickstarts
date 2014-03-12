@@ -43,11 +43,11 @@ Type this command to build the WAR archive:</p>
 <ol>
 <li><p>If it is running, stop the JBoss EAP server.</p></li>
 <li><p>If you plan to test using a standalone server, backup the file:</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
 <li><p>If you plan to test using a managed domain, backup the following files:</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
-<span class="err">$</span><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">EAP_HOME</span><span class="o">/</span><span class="n">domain</span><span class="o">/</span><span class="n">configuration</span><span class="o">/</span><span class="n">host</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
 </ol>
 
@@ -62,8 +62,8 @@ Type this command to build the WAR archive:</p>
 <ol>
 <li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server in domain mode:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
 </ol>
 
@@ -84,7 +84,7 @@ Type this command to build the WAR archive:</p>
 <p><em>NOTE: If your <code>helloworld-mdb</code> quickstart is not located at the same level in the file structure as this quickstart, you
 must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file for instructions.</em></p></li>
 <li><p>Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">install</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">install</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see &ldquo;outcome&rdquo; =&gt; &ldquo;success&rdquo; for all of the commands.</p></li>
 <li><p>Restart the server in domain mode as described above.</p></li>
@@ -102,8 +102,8 @@ server 2 must be started with a port offset parameter provided to the startup sc
 <ol>
 <li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
 <li><p>The following shows the command line to start the server with the full-ha profile. This profile supports clustering/HA</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
 </ol>
 
@@ -123,7 +123,7 @@ server 2 must be started with a port offset parameter provided to the startup sc
 <p><em>NOTE: If your <code>helloworld-mdb</code> quickstart is not located at the same level in the file structure as this quickstart, you
 must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file for instructions.</em></p></li>
 <li><p>Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">install</span><span class="o">-</span><span class="n">standalone</span><span class="p">.</span><span class="n">cli</span>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">install</span><span class="o">-</span><span class="n">standalone</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see &ldquo;outcome&rdquo; =&gt; &ldquo;success&rdquo; for all of the commands.</p></li>
 </ol>
@@ -136,21 +136,21 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 <li>Stop the server.</li>
 <li>Make a copy of this JBoss EAP directory structure to use for the second server.</li>
 <li><p>Remove the following directories from the cloned instance:</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME_SERVER_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">messagingbindings</span>
-<span class="n">JBOSS_HOME_SERVER_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">messagingjournal</span>
-<span class="n">JBOSS_HOME_SERVER_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">messaginglargemessages</span>
+<div class="highlight"><pre><span class="n">EAP_HOME_SERVER_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">messagingbindings</span>
+<span class="n">EAP_HOME_SERVER_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">messagingjournal</span>
+<span class="n">EAP_HOME_SERVER_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">messaginglargemessages</span>
 </pre></div></li>
 </ol>
 
 <h4><a id="start-the-jboss-eap-standalone-servers-with-the-full-ha-profile" class="anchor" href="#start-the-jboss-eap-standalone-servers-with-the-full-ha-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Standalone Servers with the Full HA Profile</h4>
 
 <p>If you are using Linux:</p>
-<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
-    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_2</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
+<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">EAP_HOME_SERVER_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">EAP_HOME_SERVER_2</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
 </pre></div>
 <p>If you are using Windows:</p>
-<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
-    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">JBOSS_HOME_SERVER_2</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
+<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">EAP_HOME_SERVER_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">EAP_HOME_SERVER_2</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
 </pre></div>
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
 
@@ -190,7 +190,7 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 <ol>
 <li>Make sure you have started the JBoss EAP server in domain mode as described above.</li>
 <li><p>Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
 </pre></div></li>
 </ol>
 
@@ -199,7 +199,7 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 <ol>
 <li>Make sure you have started the JBoss EAP server in standalone mode as described above.</li>
 <li><p>Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">standalone</span><span class="p">.</span><span class="n">cli</span>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">standalone</span><span class="p">.</span><span class="n">cli</span>
 </pre></div></li>
 </ol>
 
@@ -215,7 +215,7 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 
 <ol>
 <li>If it is running, stop the JBoss EAP server.</li>
-<li>Restore the <code>JBOSS_HOME/domain/configuration/domain.xml</code> and <code>JBOSS_HOME/domain/configuration/host.xml</code> files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.</li>
+<li>Restore the <code>EAP_HOME/domain/configuration/domain.xml</code> and <code>EAP_HOME/domain/configuration/host.xml</code> files with the back-up copies of the files. Be sure to replace EAP_HOME with the path to your server.</li>
 </ol>
 
 <h4><a id="remove-the-domain-server-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-domain-server-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Domain Server Configuration by Running the JBoss CLI Script</h4>
@@ -224,11 +224,11 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 
 <ol>
 <li><p>Start the JBoss EAP server by typing the following: </p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
-<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.</p>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
 <p>This script removes the server configuration that was done by the <code>install-domain.cli</code> script. You should see the following result following the script commands:</p>
 <div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
@@ -249,7 +249,7 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 
 <ol>
 <li>If it is running, stop the JBoss EAP server.</li>
-<li>Restore the <code>JBOSS_HOME/standalone/configuration/standalone-full-ha.xml</code> file with the back-up copies of the file. Be sure to replace JBOSS_HOME with the path to your server.</li>
+<li>Restore the <code>EAP_HOME/standalone/configuration/standalone-full-ha.xml</code> file with the back-up copies of the file. Be sure to replace EAP_HOME with the path to your server.</li>
 </ol>
 
 <h4><a id="remove-the-standalone-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-standalone-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Standalone Configuration by Running the JBoss CLI Script</h4>
@@ -258,11 +258,11 @@ must modify its path in this script. Find the &lsquo;NOTE:&rsquo; in the file fo
 
 <ol>
 <li><p>Start the JBoss EAP server by typing the following: </p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">domain</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span>
 </pre></div></li>
-<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.</p>
-<div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">standalone</span><span class="p">.</span><span class="n">cli</span> 
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.</p>
+<div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">standalone</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
 <p>This script removes the server configuration that was done by the <code>install-standalone.cli</code> script. You should see the following result following the script commands:</p>
 <div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>

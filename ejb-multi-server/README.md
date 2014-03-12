@@ -63,14 +63,14 @@ The following users must be added to the `ApplicationRealm` to run this quicksta
 To add the users, open a command prompt and type the following commands:
 
         For Linux:
-            JBOSS_HOME/bin/add-user.sh -a -u quickuser -p quick-123
-            JBOSS_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+
-            JBOSS_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123
+            EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+            EAP_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+
+            EAP_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123
 
         For Windows:
-            JBOSS_HOME\bin\add-user.bat -a -u quickuser -p quick-123
-            JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
-            JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
+            EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+            EAP_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
+            EAP_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
 
 If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
@@ -86,10 +86,10 @@ You configure the domain server by running JBoss CLI commands. For your convenie
 
 3. Before you begin, back up your server configuration files.
     * If it is running, stop the JBoss EAP server.
-    * Backup the following files, replacing JBOSS_HOME with the path to your server: 
+    * Backup the following files, replacing EAP_HOME with the path to your server: 
 
-            JBOSS_HOME/domain/configuration/domain.xml
-            JBOSS_HOME/domain/configuration/host.xml        
+            EAP_HOME/domain/configuration/domain.xml
+            EAP_HOME/domain/configuration/host.xml        
     * After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
 4.  Start the JBoss EAP server 
     * Open a command prompt and navigate to the root of the EAP directory. 
@@ -98,9 +98,9 @@ You configure the domain server by running JBoss CLI commands. For your convenie
             bin/domain.sh    
 5. Review the `install-domain.cli` file in the root of this quickstart directory. This script configures and starts multiple servers needed to run this quickstart. 
 
-6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
  
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
      You should see the following result when you run the script:
 
         The batch executed successfully
@@ -124,7 +124,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
         
 4. Open a new command prompt and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
        
     This will deploy the app-*.ear files to different server-groups of the running domain.
 
@@ -164,12 +164,12 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
     To update the roles, open a command prompt and type the following commands:
 
         For Linux:
-              JBOSS_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ --role Intern
-              JBOSS_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 --role AppTwo
+              EAP_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ --role Intern
+              EAP_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 --role AppTwo
 
         For Windows:
-              JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ --role Intern
-              JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 --role AppTwo
+              EAP_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ --role Intern
+              EAP_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 --role AppTwo
 
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
@@ -183,9 +183,9 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
         * The clustered view is created using `quickuser2`. This takes some time, but once it takes effect, all calls are load-balanced.
     * The calls to the 'AppTwo' bean in `app-two` are made using two different scoped-context settings and both are used alternately 7 times. This means the servers `app-twoA` and `app-twoB` are called alternately seven times each.
 
-5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace $JBOSS_HOME with your current installation path. The output should be similar to the previous mvn executions.
+5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
-        java -cp $JBOSS_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
+        java -cp EAP_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
 
 
 _NOTE:_
@@ -227,7 +227,7 @@ Undeploy the Archives
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
 
 
 Remove the Server Domain Configuration
@@ -237,7 +237,7 @@ You can remove the domain configuration by manually restoring the back-up copies
 
 ### Remove the Server Domain Configuration Manually           
 1. If it is running, stop the JBoss EAP server.
-2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
+2. Restore the `EAP_HOME/domain/configuration/domain.xml` and `EAP_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace EAP_HOME with the path to your server.
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
@@ -245,11 +245,11 @@ _Note: This script returns the server to a default configuration and the result 
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:   JBOSS_HOME/bin/domain.sh
-        For Windows: JBOSS_HOME\bin\domain.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
+        For Linux:   EAP_HOME/bin/domain.sh
+        For Windows: EAP_HOME\bin\domain.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
+        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
 This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.

@@ -44,7 +44,7 @@ Deploy the H2 Console
 
 This quickstart comes bundled with a version of the H2 Console built for JBoss EAP. The changes that have been made to the stock console are described below. 
 
-Deploy the console by copying the `QUICKSTART_HOME/h2-console/h2console.war` to the `$JBOSS_HOME/standalone/deployments` directory. 
+Deploy the console by copying the `QUICKSTART_HOME/h2-console/h2console.war` to the `EAP_HOME/standalone/deployments` directory. 
 
 
 Access the H2 Console 
