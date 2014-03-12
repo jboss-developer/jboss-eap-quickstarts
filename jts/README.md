@@ -89,16 +89,16 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 2. Start the JBoss EAP server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID_1` with a node identifier that is unique to both servers.
 
-        For Linux:  JBOSS_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        For Windows:  JBOSS_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
 3. Review the `configure--jts-transactions.cli` file in the root of this quickstart directory. This script configures the server to use jts transaction processing.
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
  You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -109,7 +109,7 @@ _NOTE:_ When you have completed testing this quickstart, it is important to [Rem
 
 ### Review the Modified Server Configuration
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone-full.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone-full.xml` file. 
 
 1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `jacorb` subsystem to enable JTS. A naming root is also added to the subsystem.
 
@@ -135,7 +135,7 @@ If you want to review and understand newly added XML configuration, stop the JBo
         
 _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss EAP Server](#remove-the-jts-configuration-from-the-jboss-eap-server).
   
-### Clone the JBOSS_HOME Directory     
+### Clone the EAP_HOME Directory     
 
 Make a copy of this JBoss EAP directory structure to use for the second server.
 
@@ -155,13 +155,13 @@ Start the the two JBoss EAP servers with the full profile, passing a unique node
 
 If you are using Linux:
 
-        Server 1: JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: JBOSS_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: JBOSS_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart
@@ -219,11 +219,11 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
+        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -234,9 +234,9 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
@@ -251,8 +251,8 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 ### Remove the JTS Server Configuration Manually
 
 1. Stop the server.
-2. If you backed up the JBOSS_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
-3. If you did not make a backup copy, open the file JBOSS_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
+2. If you backed up the EAP_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
+3. If you did not make a backup copy, open the file EAP_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
 
     * Find the orb subsystem and change the configuration back to:
 

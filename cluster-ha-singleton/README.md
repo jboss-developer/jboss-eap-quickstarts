@@ -49,13 +49,13 @@ Start the servers with the HA provile, passing a unique node ID by typing the fo
 
 If you are using Linux:
 
-        Server 1: JBOSS_HOME_SERVER_1/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
-        Server 2: JBOSS_HOME_SERVER_1/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_SERVER_1/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
+        Server 2: EAP_HOME_SERVER_2/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: JBOSS_HOME_SERVER_1\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
-        Server 2: JBOSS_HOME_SERVER_1\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_SERVER_1\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=nodeOne
+        Server 2: EAP_HOME_SERVER_2\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=nodeTwo -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart

@@ -46,20 +46,20 @@ This quickstart requires a custom security `GenericHeaderAuth` domain be enabled
 _NOTE - Before you begin:_
 
 1. If it is running, stop the JBoss EAP server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+2. Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 #### Configure the Security Domain by Running the JBoss CLI Script
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
 
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        For Linux:   JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
+        For Linux:   EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
 This script adds the `GenericHeaderAuth` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
 
         The batch executed successfully
@@ -69,9 +69,9 @@ This script adds the `GenericHeaderAuth` domain to the `security` subsystem in t
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the JBOSS_HOME directory, and type the following:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
@@ -87,8 +87,8 @@ This script adds the `GenericHeaderAuth` domain to the `security` subsystem in t
 ### Configure the Security Domain by Manually Editing the Server Configuration File
 
 1.  If it is running, stop the JBoss EAP server.
-2.  Make sure you have backed up the `JBOSS_HOME/standalone/configuration/standalone.xml` file as noted in the beginning of this section.
-3.  Open the `JBOSS_HOME/standalone/configuration/standalone.xml` file in an editor and locate the subsystem `urn:jboss:domain:security`. 
+2.  Make sure you have backed up the `EAP_HOME/standalone/configuration/standalone.xml` file as noted in the beginning of this section.
+3.  Open the `EAP_HOME/standalone/configuration/standalone.xml` file in an editor and locate the subsystem `urn:jboss:domain:security`. 
 4.  Add the following XML just before the `</security-domains>` tag:
 
         <security-domain name="GenericHeaderAuth">
@@ -107,8 +107,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
 
 Run the Arquillian Tests
@@ -172,12 +172,12 @@ You can remove the security domain configuration by running the  `remove-securit
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        For Linux:   JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli
+        For Linux:   EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully
@@ -185,7 +185,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 ### Remove the Security Domain Configuration Manually
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+2. Replace the `EAP_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 
