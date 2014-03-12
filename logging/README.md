@@ -66,10 +66,9 @@ The application is running at the following URL: <http://localhost:8080/jboss-lo
 Check the Server Logs
 ---------------------
 
-The log files are located in the `JBOSS_HOME/standalone/log` log directory. At this point you should see the following standard log files that are produced by the application server:
+The log files are located in the `JBOSS_HOME/standalone/log` log directory. At this point you should see the following standard log file that is produced by the application server:
 
-        * `server.log` - a standard log files produced by the application server
-        * `boot.log` - a standard log files produced by the application server
+        * `server.log`
 
 
 
@@ -97,7 +96,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_WARN.level=WARN
             handler.FILE_QS_WARN.properties=autoFlush,fileName
             handler.FILE_QS_WARN.autoFlush=true
-            handler.FILE_QS_WARN.fileName=${org.jboss.boot.log.file:quickstart_warn.log}
+            handler.FILE_QS_WARN.fileName=${org.jboss.server.log.file:quickstart_warn.log}
             handler.FILE_QS_WARN.formatter=FILE
 
             ##### New file handler config for quickstart example errors
@@ -105,7 +104,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_ERROR.level=ERROR
             handler.FILE_QS_ERROR.properties=autoFlush,fileName
             handler.FILE_QS_ERROR.autoFlush=true
-            handler.FILE_QS_ERROR.fileName=${org.jboss.boot.log.file:quickstart_error.log}
+            handler.FILE_QS_ERROR.fileName=${org.jboss.server.log.file:quickstart_error.log}
             handler.FILE_QS_ERROR.formatter=FILE
 
             ##### New file handler config for quickstart example info messages
@@ -113,7 +112,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_INFO.level=INFO
             handler.FILE_QS_INFO.properties=autoFlush,fileName
             handler.FILE_QS_INFO.autoFlush=true
-            handler.FILE_QS_INFO.fileName=${org.jboss.boot.log.file:quickstart_info.log}
+            handler.FILE_QS_INFO.fileName=${org.jboss.server.log.file:quickstart_info.log}
             handler.FILE_QS_INFO.formatter=FILE
 
             ##### New file handler config for quickstart example debug messages
@@ -121,7 +120,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_DEBUG.level=DEBUG
             handler.FILE_QS_DEBUG.properties=autoFlush,fileName
             handler.FILE_QS_DEBUG.autoFlush=true
-            handler.FILE_QS_DEBUG.fileName=${org.jboss.boot.log.file:quickstart_debug.log}
+            handler.FILE_QS_DEBUG.fileName=${org.jboss.server.log.file:quickstart_debug.log}
             handler.FILE_QS_DEBUG.formatter=FILE
 
             ##### New file handler config for quickstart example trace messages
@@ -129,7 +128,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_TRACE.level=TRACE
             handler.FILE_QS_TRACE.properties=autoFlush,fileName
             handler.FILE_QS_TRACE.autoFlush=true
-            handler.FILE_QS_TRACE.fileName=${org.jboss.boot.log.file:quickstart_trace.log}
+            handler.FILE_QS_TRACE.fileName=${org.jboss.server.log.file:quickstart_trace.log}
             handler.FILE_QS_TRACE.formatter=FILE
 
             ##### New file handler config for quickstart example fatal messages
@@ -137,7 +136,7 @@ To test logging the different logging levels, you must add handlers to the serve
             handler.FILE_QS_FATAL.level=FATAL
             handler.FILE_QS_FATAL.properties=autoFlush,fileName
             handler.FILE_QS_FATAL.autoFlush=true
-            handler.FILE_QS_FATAL.fileName=${org.jboss.boot.log.file:quickstart_fatal.log}
+            handler.FILE_QS_FATAL.fileName=${org.jboss.server.log.file:quickstart_fatal.log}
             handler.FILE_QS_FATAL.formatter=FILE
 
     The quickstart distribution also includes a `logging-properties.txt` file containing these configuration lines.
@@ -164,7 +163,6 @@ You configure server logging by running JBoss CLI commands. For your convenience
 You should see the following result when you run the script:
 
         The batch executed successfully
-        {"outcome" => "success"}
 
 
 Review the Modified Server Configuration
@@ -281,10 +279,9 @@ Recheck the Server Logs
 
 The log files are located in the `JBOSS_HOME/standalone/log` log directory. You should now see 8 log files.
 
-* The following logs are standard log files produced by the application server:
-    * `server.log` - a standard log files produced by the application server
-    * `boot.log` - a standard log files produced by the application server
-
+* The following log is the standard log file produced by the application server:
+    * `server.log` 
+    
 * The following logs are produced by the quickstart. They are listed in hierarchical order from the largest file containing the most messages to the smallest file containing the least messages. 
     * `quickstart.trace.log`
     * `quickstart.debug.log`
