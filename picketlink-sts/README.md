@@ -84,19 +84,19 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 2. Start the JBoss EAP server by typing the following:
 
-        For Linux:  JBOSS_HOME/bin/standalone.sh
-        For Windows:  JBOSS_HOME\bin\standalone.bat
+        For Linux:  EAP_HOME/bin/standalone.sh
+        For Windows:  EAP_HOME\bin\standalone.bat
 3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `picketlink-sts` security domain to the `security` subsystem in the server configuration and configures authentication access.
 
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        For Linux: JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli 
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli 
 
    If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:
 
@@ -111,7 +111,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
 The following `picketlink-sts` security-domain was added to the `security` subsystem.
    
@@ -133,8 +133,8 @@ If you do not have a running server:
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -153,7 +153,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file. 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
 Access the Application 
 ---------------------
@@ -194,10 +194,10 @@ Undeploy and Remove the Security Domain Configuration
 You can undeploy the quickstart and remove the security domain configuration in one easy step using the `undeploy-and-remove-security-domain.cli` script located in the root directory of this quickstart.
 
 1. Open a new command prompt, navigate to the root directory of this quickstart.
-2. Run the following command, replacing JBOSS_HOME with the path to your server:
+2. Run the following command, replacing EAP_HOME with the path to your server:
 
-        For Linux: JBOSS_HOME/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
    You should see the following result when you run the script:
    
         The batch executed successfully
@@ -212,7 +212,7 @@ You can undeploy the quickstart and remove the security domain configuration in 
 
         mvn jboss-as:undeploy
 4. Stop the JBoss EAP server.
-5. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+5. Replace the `EAP_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse

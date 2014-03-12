@@ -37,7 +37,7 @@ Configure the JBoss EAP Server to Start With a Different Locale (Optional)
 
 To start the JBoss EAP server with a different locale than the system default:
 
-1. Make a backup copy of the `JBOSS_HOME/bin/standalone.conf` file.
+1. Make a backup copy of the `EAP_HOME/bin/standalone.conf` file.
 2. Edit the file and append commands to set the JVM parameters for the required country and language.
    Eg. Germany and German, `DE` and `de`.
     
@@ -56,8 +56,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
  
 Build and Deploy the Quickstart

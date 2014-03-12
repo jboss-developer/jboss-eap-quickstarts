@@ -15,7 +15,7 @@ This example demonstrates sending email with the use of *CDI 1.0* and *JSF 2.0* 
 
 The example uses the default Mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25.
 
-The configuration of the mail provider is found in the `JBOSS_HOME/standalone/configuration/standalone.xml` if you are running a standalone server or in the `JBOSS_HOME/domain/configuration/domain.xml` file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:
+The configuration of the mail provider is found in the `EAP_HOME/standalone/configuration/standalone.xml` if you are running a standalone server or in the `EAP_HOME/domain/configuration/domain.xml` file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:
 
     <subsystem xmlns="urn:jboss:domain:mail:1.0">
         <mail-session jndi-name="java:jboss/mail/Default" >
@@ -54,8 +54,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
  
 Build and Deploy the Quickstart

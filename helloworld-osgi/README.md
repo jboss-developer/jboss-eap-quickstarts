@@ -36,8 +36,8 @@ Start the JBoss EAP Server with the OSGi Profile
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the OSGi profile:
         
-            For Linux:   JBOSS_HOME/bin/standalone.sh  -c standalone-osgi.xml
-            For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-osgi.xml
+            For Linux:   EAP_HOME/bin/standalone.sh  -c standalone-osgi.xml
+            For Windows: EAP_HOME\bin\standalone.bat -c standalone-osgi.xml
 
 
 Build and Deploy the Quickstart
