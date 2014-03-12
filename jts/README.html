@@ -99,13 +99,8 @@ following ways:</p>
 <div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">jts</span><span class="o">-</span><span class="n">transactions</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
-<div class="highlight"><pre>#1 /subsystem=jacorb:write-attribute(name=transactions,value=on)
-#2 /subsystem=jacorb:write-attribute(name=name,value=<span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="cp">}</span>)
-#3 /subsystem=jacorb:write-attribute(name=root-context,value=<span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="cp">}</span>/Naming/root)
-#4 /subsystem=transactions:write-attribute(name=jts,value=true)
-#5 /subsystem=transactions:write-attribute(name=node-identifier,value=<span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span>
-The batch executed successfully.
-{&quot;outcome&quot; =&gt; &quot;success&quot;}
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
 </pre></div></li>
 </ol>
 
@@ -222,11 +217,7 @@ The batch executed successfully.
 <div class="highlight"><pre><span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">jts</span><span class="o">-</span><span class="n">transactions</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
 <p>This script removes the <code>test</code> queue from the <code>messaging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="cp">#1 /subsystem=jacorb:write-attribute(name=transactions,value=spec)</span>
-<span class="cp">#2 /subsystem=jacorb:undefine-attribute(name=name)</span>
-<span class="cp">#3 /subsystem=transactions:undefine-attribute(name=jts)</span>
-<span class="cp">#4 /subsystem=transactions:undefine-attribute(name=node-identifier)</span>
-<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
 <span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
 </pre></div></li>
 </ol>
