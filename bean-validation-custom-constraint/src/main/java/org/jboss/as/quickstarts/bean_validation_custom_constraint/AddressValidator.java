@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.bean_validation_customConstraint;
+package org.jboss.as.quickstarts.bean_validation_custom_constraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import org.jboss.as.quickstarts.bean_validation_customConstraint.MyAddress;
+import org.jboss.as.quickstarts.bean_validation_custom_constraint.PersonAddress;
 
-public class AddressValidator implements ConstraintValidator<Address, MyAddress> {
+public class AddressValidator implements ConstraintValidator<Address, PersonAddress> {
 
     public void initialize(Address constraintAnnotation) {
     }
@@ -31,13 +31,19 @@ public class AddressValidator implements ConstraintValidator<Address, MyAddress>
      * 3. Pin code in the address should be of atleast 6 characters. 
      * 4. The country in the address should be of atleast 4 characters.
      */
-    public boolean isValid(MyAddress value, ConstraintValidatorContext context) {
+    public boolean isValid(PersonAddress value, ConstraintValidatorContext context) {
         if (value == null) {
             return false;
         }
 
         if (value.getCity() == null || value.getCountry() == null || value.getLocality() == null
             || value.getPinCode() == null || value.getState() == null || value.getStreetAddress() == null) {
+            return false;
+        }
+
+        if (value.getCity().isEmpty()
+            || value.getCountry().isEmpty() || value.getLocality().isEmpty()
+            || value.getPinCode().isEmpty() || value.getState().isEmpty() || value.getStreetAddress().isEmpty()) {
             return false;
         }
 

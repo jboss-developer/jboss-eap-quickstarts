@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.bean_validation_customConstraint;
+package org.jboss.as.quickstarts.bean_validation_custom_constraint;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

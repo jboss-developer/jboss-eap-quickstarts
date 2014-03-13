@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.bean_validation_customConstraint;
+package org.jboss.as.quickstarts.bean_validation_custom_constraint;
 
 import java.util.Set;
 
@@ -53,8 +53,7 @@ public class MyPersonTest {
      */
     @Deployment
     public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(MyPerson.class)
-            .addClasses(MyAddress.class).addClasses(Address.class).addClasses(AddressValidator.class)
+        return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(Person.class, PersonAddress.class, Address.class, AddressValidator.class)
             // enable JPA
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             // add sample data
@@ -85,10 +84,10 @@ public class MyPersonTest {
     @Test
     public void testRegisterEmptyPerson() {
 
-        MyPerson person = new MyPerson();
-        Set<ConstraintViolation<MyPerson>> violations = validator.validate(person);
+        Person person = new Person();
+        Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
-        Assert.assertEquals("Five violations were found", 5, violations.size());
+        Assert.assertEquals("Four violations were found", 4, violations.size());
     }
 
     /**
@@ -96,7 +95,7 @@ public class MyPersonTest {
      */
     @Test
     public void testCorrectAddress() {
-        Set<ConstraintViolation<MyPerson>> violations = validator.validate(createValidPerson());
+        Set<ConstraintViolation<Person>> violations = validator.validate(createValidPerson());
 
         Assert.assertEquals("No violations were found", 0, violations.size());
     }
@@ -106,9 +105,9 @@ public class MyPersonTest {
      */
     @Test
     public void testFirstNameNullViolation() {
-        MyPerson person = createValidPerson();
+        Person person = createValidPerson();
         person.setFirstName(null);
-        Set<ConstraintViolation<MyPerson>> violations = validator.validate(person);
+        Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
         Assert.assertEquals("One violation was found", 1, violations.size());
         Assert.assertEquals("First Name was invalid", "must be not null", violations.iterator().next()
@@ -120,9 +119,9 @@ public class MyPersonTest {
      */
     @Test
     public void testFirstNameSizeViolation() {
-        MyPerson person = createValidPerson();
+        Person person = createValidPerson();
         person.setFirstName("Lee");
-        Set<ConstraintViolation<MyPerson>> violations = validator.validate(person);
+        Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
         Assert.assertEquals("One violation was found", 1, violations.size());
         Assert.assertEquals("First Name was invalid", "size must be at least four characters", violations.iterator().next()
@@ -135,39 +134,39 @@ public class MyPersonTest {
      */
     @Test
     public void testAddressViolation() {
-        MyPerson person = createValidPerson();
+        Person person = createValidPerson();
         // setting address itself as null
-        person.setAddress(null);
+        person.setPersonAddress(null);
         validateAddressConstraints(person);
 
         // One of the address field is null.
-        person.getAddress().setCity(null);
+        person.getPersonAddress().setCity(null);
         validateAddressConstraints(person);
 
         // Setting pin code less than 6 characters.
-        person.getAddress().setPinCode("123");
-        person.getAddress().setCity("Auckland");
+        person.getPersonAddress().setPinCode("123");
+        person.getPersonAddress().setCity("Auckland");
         validateAddressConstraints(person);
 
         // Setting country name with less than 4 characters
-        person.getAddress().setPinCode("123456");
-        person.getAddress().setCountry("RIO");
+        person.getPersonAddress().setPinCode("123456");
+        person.getPersonAddress().setCountry("RIO");
         validateAddressConstraints(person);
 
     }
 
-    private void validateAddressConstraints(MyPerson person) {
-        Set<ConstraintViolation<MyPerson>> violations = validator.validate(person);
+    private void validateAddressConstraints(Person person) {
+        Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
-        for (ConstraintViolation<MyPerson> violation : violations) {
+        for (ConstraintViolation<Person> violation : violations) {
             Assert.assertEquals("One violation was found", 1, violations.size());
             Assert.assertEquals("Address Field  was invalid", violation.getInvalidValue(), violation.getMessage());
         }
     }
 
-    private MyPerson createValidPerson() {
-        MyAddress address = new MyAddress("#12, 4th Main", "XYZ Layout", "Bangalore", "Karnataka", "India", "56004554");
-        MyPerson person = new MyPerson("John", "Smith", address);
+    private Person createValidPerson() {
+        PersonAddress address = new PersonAddress("#12, 4th Main", "XYZ Layout", "Bangalore", "Karnataka", "India", "56004554");
+        Person person = new Person("John", "Smith", address);
         return person;
     }
 }

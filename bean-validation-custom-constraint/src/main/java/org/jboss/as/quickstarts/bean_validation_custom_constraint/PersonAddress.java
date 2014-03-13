@@ -14,12 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.bean_validation_customConstraint;
+package org.jboss.as.quickstarts.bean_validation_custom_constraint;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-@Table(name = "PERSON_BEAN_VALIDATION_ADDRESS")
-public class MyAddress {
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+@Entity
+@Table(name = "person_address")
+public class PersonAddress implements Serializable{
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name="person_id", unique=true, nullable=false)
+    @GeneratedValue(generator="generator")
+    @GenericGenerator(name="generator", strategy="foreign", parameters= @Parameter(name="property", value="person"))
+    private Long personId;
 
     private String streetAddress;
     private String locality;
@@ -27,8 +50,16 @@ public class MyAddress {
     private String state;
     private String country;
     private String pinCode;
+    
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Person person;
+    
+    public PersonAddress () {
+        
+    }
 
-    public MyAddress(String streetAddress, String locality, String city, String state, String country, String pinCode) {
+    public PersonAddress(String streetAddress, String locality, String city, String state, String country, String pinCode) {
         this.streetAddress = streetAddress;
         this.locality = locality;
         this.city = city;
@@ -36,7 +67,27 @@ public class MyAddress {
         this.country = country;
         this.pinCode = pinCode;
     }
-    
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+
+    public Person getPerson() {
+        return person;
+    }
+
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+
     public String getStreetAddress() {
         return streetAddress;
     }
