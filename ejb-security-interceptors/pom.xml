@@ -46,7 +46,8 @@
 
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.as>7.4.0.build-1</version.jboss.as>
+        <version.security.api>7.4.0.build-1</version.security.api>
+        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
 
@@ -89,6 +90,7 @@
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-security-api</artifactId>
+            <version>${version.security.api}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jboss.as</groupId>
@@ -108,6 +110,7 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-core-security-api</artifactId>
+            <version>${version.security.api}</version>
             <exclusions>
                     <exclusion>
                     <groupId>org.jboss.as</groupId>
