@@ -66,7 +66,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Start the JBoss EAP Server
 ----------------------
 
-Next you need to start JBoss EAP with the XTS sub system enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBossAS:
+Next you need to start JBoss EAP with the XTS subsystem enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBossAS:
 
         For Linux:     ./bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml | egrep "started|stdout"
         For Windows:   \bin\standalone.bat --server-config=..\..\docs\examples\configs\standalone-xts.xml | egrep "started|stdout"
@@ -87,6 +87,14 @@ _NOTE: The following commands assume you have configured your Maven user setting
 3. Type the following command to run the test goal with the following profile activated:
 
         mvn clean test -Parq-jbossas-remote 
+
+_Note: You see the following warning when you run the Arquillian tests in remote mode._
+
+      WARNING: Configuration contain properties not supported by the backing object org.jboss.as.arquillian.container.remote.RemoteContainerConfiguration
+      Unused property entries: {serverConfig=../../docs/examples/configs/standalone-xts.xml}
+      Supported property names: [managementPort, username, managementAddress, password]
+
+_This is because, in remote mode, you are responsible for starting the server with the XTS subsystem enabled. When you run the Arquillian tests in managed mode, the container uses the `serverConfig` property defined in the `arquillian.xml` file to start the server with the XTS subsystem enabled._
 
 
 Investigate the Server Log
