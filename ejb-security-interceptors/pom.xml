@@ -157,6 +157,13 @@
             <artifactId>jboss-ejb-client</artifactId>
         </dependency>
 
+          <!--  Contains SASL mechanisms to authenticate to server. -->
+        <dependency>
+            <groupId>org.jboss.sasl</groupId>
+            <artifactId>jboss-sasl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
           <!-- client communications with the server use XNIO -->
         <dependency>
             <groupId>org.jboss.xnio</groupId>
