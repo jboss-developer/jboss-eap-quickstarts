@@ -6,7 +6,7 @@ Level: Advanced<br/>
 Technologies: EJB, Security<br/>
 Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.<br/>
 Target Product: EAP<br/>
-Product Versions: EAP 6.1, EAP 6.2<br/>
+Product Versions: EAP 6.3<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
@@ -23,7 +23,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The quickstart then makes use of two EJBs, <code>SecuredEJB</code> and <code>IntermediateEJB</code>, to verify that the propagation and identity switching is correct and a <code>RemoteClient</code> standalone client. </p>
 
-<p><em>Note: This quickstart uses two classes, org.jboss.as.controller.security.SubjectUserInfo and org.jboss.as.domain.management.security.RealmUser, that are part of the JBoss EAP private API. A public API will become available in the EAP 6.3 release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle.</em></p>
+<p><em>Note:  A previous version of this quickstart had been making use of internal classes, this quickstart has now been updated to make use a new API available from EAP 6.3</em></p>
 
 <h3><a id="securedejb" class="anchor" href="#securedejb"><span class="anchor-icon"></span></a>SecuredEJB</h3>
 
@@ -65,7 +65,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 </pre></div>
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.3 or later. </p>
 
 <p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
 
@@ -160,18 +160,11 @@ For an example of how to use the add-user utility, see instructions in the root 
 <div class="highlight"><pre><span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="cp">#1 /subsystem=security/security-domain=quickstart-domain:add(cache-type=default)</span>
-<span class="cp">#2 /subsystem=security/security-domain=quickstart-domain/authentication=classic:add</span>
-<span class="cp">#3 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=DelegationLoginModule:add(code=org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule,flag=optional,module-options={password-stacking=useFirstPass})</span>
-<span class="cp">#4 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=Remoting:add(code=Remoting,flag=optional,module-options={password-stacking=useFirstPass})</span>
-<span class="cp">#5 /subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=RealmDirect:add(code=RealmDirect,flag=required,module-options={password-stacking=useFirstPass})</span>
-<span class="cp">#6 /core-service=management/security-realm=ejb-outbound-realm:add</span>
-<span class="cp">#7 /core-service=management/security-realm=ejb-outbound-realm/server-identity=secret:add(value=&quot;Q29ubmVjdGlvblBhc3N3b3JkMSE=&quot;)</span>
-<span class="cp">#8 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=ejb-outbound:add(host=localhost,port=4447)</span>
-<span class="cp">#9 /subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:add(outbound-socket-binding-ref=ejb-outbound,username=ConnectionUser,security-realm=ejb-outbound-realm)</span>
-<span class="cp">#10 /subsystem=remoting/remote-outbound-connection=ejb-outbound-connection/property=SSL_ENABLED:add(value=false)</span>
-<span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
-<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span>
+<span class="p">{</span>
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;result&quot;</span> <span class="o">=&gt;</span> <span class="n">undefined</span>
+<span class="p">}</span>
 </pre></div></li>
 </ol>
 
@@ -276,7 +269,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 
 <h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
 
-<p>When you run the <code>mvn exec:exec</code> command, you see the following output.</p>
+<p>When you run the <code>mvn exec:exec</code> command, you see the following output. Note there may be other log messages interspersed between these. </p>
 <div class="highlight"><pre><span class="o">-------------------------------------------------</span>
 <span class="o">*</span> <span class="o">*</span> <span class="n">About</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">test</span> <span class="n">as</span> <span class="n">ConnectionUser</span> <span class="o">*</span> <span class="o">*</span>
 
@@ -407,6 +400,8 @@ For an example of how to use the add-user utility, see instructions in the root 
 
 <span class="o">-------------------------------------------------</span>
 <span class="n">Call</span> <span class="n">as</span> <span class="err">&#39;</span><span class="n">AppUserThree</span><span class="err">&#39;</span> <span class="n">correctly</span> <span class="n">rejected</span><span class="p">.</span>
+
+<span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
 </pre></div>
 <h2><a id="investigate-the-server-console-output" class="anchor" href="#investigate-the-server-console-output"><span class="anchor-icon"></span></a>Investigate the Server Console Output</h2>
 
