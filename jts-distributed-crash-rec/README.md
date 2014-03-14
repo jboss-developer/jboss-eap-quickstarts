@@ -89,13 +89,13 @@ Test the Application
 
     If you are using Linux:
 
-        Server 1: EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        Server 2: EAP_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml
+        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=100
 
     If you are using Windows
 
-        Server 1: EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-        Server 2: EAP_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml
+        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
 
 4. Access the application at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>
     * When you enter a name and click to "add" that customer, you will see the following in the application server 1 console:

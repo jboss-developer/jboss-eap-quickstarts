@@ -63,8 +63,8 @@ You configure the the JMS `test` queue by running JBoss CLI commands. For your c
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
 3. Review the `configure-jms.cli` file in the root of this quickstart directory. This script adds the `test` queue to the `messaging` subsystem in the server configuration file.
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
@@ -199,8 +199,8 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
         EAP_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
