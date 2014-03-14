@@ -221,7 +221,6 @@
         </profile>
 
         <profile>
-
             <!-- An optional Arquillian testing profile that executes tests
                 in your JBoss EAP instance -->
             <!-- This profile will start a new JBoss EAP instance, and execute the

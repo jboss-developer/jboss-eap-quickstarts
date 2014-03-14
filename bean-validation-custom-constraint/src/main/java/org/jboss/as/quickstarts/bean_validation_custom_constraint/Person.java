@@ -60,7 +60,7 @@ public class Person implements Serializable {
     private PersonAddress personAddress;
 
     public Person() {
-
+        
     }
 
     public Person(String firstName, String lastName, PersonAddress address) {

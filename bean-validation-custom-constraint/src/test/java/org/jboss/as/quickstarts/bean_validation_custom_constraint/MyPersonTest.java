@@ -24,6 +24,10 @@ import javax.validation.Validator;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.as.quickstarts.bean_validation_custom_constraint.Address;
+import org.jboss.as.quickstarts.bean_validation_custom_constraint.AddressValidator;
+import org.jboss.as.quickstarts.bean_validation_custom_constraint.Person;
+import org.jboss.as.quickstarts.bean_validation_custom_constraint.PersonAddress;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -87,7 +91,7 @@ public class MyPersonTest {
         Person person = new Person();
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
-        Assert.assertEquals("Four violations were found", 4, violations.size());
+        Assert.assertEquals("Three violations were found", "Name and Address fields must not be null/empty", violations.iterator().next().getInvalidValue());
     }
 
     /**
@@ -110,8 +114,7 @@ public class MyPersonTest {
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
         Assert.assertEquals("One violation was found", 1, violations.size());
-        Assert.assertEquals("First Name was invalid", "must be not null", violations.iterator().next()
-            .getMessage());
+        Assert.assertEquals("First Name was invalid", violations.iterator().next().getMessage(), violations.iterator().next().getInvalidValue());
     }
 
     /**
@@ -124,13 +127,11 @@ public class MyPersonTest {
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
 
         Assert.assertEquals("One violation was found", 1, violations.size());
-        Assert.assertEquals("First Name was invalid", "size must be at least four characters", violations.iterator().next()
-            .getMessage());
+        Assert.assertEquals("First Name was invalid", violations.iterator().next().getMessage(), violations.iterator().next().getInvalidValue().toString().length());
     }
 
     /**
-     * Validating the model data which has incorrect values. 
-     * Tests {@code @Address} constraint
+     * Validating the model data which has incorrect values. Tests {@code @Address} constraint
      */
     @Test
     public void testAddressViolation() {
@@ -160,7 +161,7 @@ public class MyPersonTest {
 
         for (ConstraintViolation<Person> violation : violations) {
             Assert.assertEquals("One violation was found", 1, violations.size());
-            Assert.assertEquals("Address Field  was invalid", violation.getInvalidValue(), violation.getMessage());
+            Assert.assertEquals("Address Field  was invalid", violation.getMessage(), violation.getInvalidValue());
         }
     }
 

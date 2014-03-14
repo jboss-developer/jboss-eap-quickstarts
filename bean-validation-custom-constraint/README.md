@@ -6,7 +6,7 @@ Technologies: Bean Validation, JPA
 Summary: Shows how to use Arquillian to test Bean Validation using custom constraints 
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2  
-Source: <https://github.com/girirajsharma/jboss-developer/jboss-eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------

@@ -33,7 +33,7 @@ import javax.validation.Payload;
 public @interface Address {
 
     // The message to return when the instance of MyAddress fails the validation.
-    String message() default "One or more Address Fields may be null or violating character limit constraints";
+    String message() default "Address Fields must not be null/empty and obey character limit constraints";
 
     Class<?>[] groups() default {};
 

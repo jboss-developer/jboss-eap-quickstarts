@@ -16,5 +16,5 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements 
-insert into person(id, firstName, lastName, address_id) values (0, 'John', 'Smith', 0)
-insert into person_address(address_id, streetAddress, locality, city, state, country, pincode) values (0, '#12, 4th Main', 'XYZ Layout', 'Bangalore', 'Karnataka', 'India', '56004554')
+insert into person(person_id, firstName, lastName) values (0, 'John', 'Smith')
+insert into person_address(person_id, streetAddress, locality, city, state, country, pincode) values (0, '#12, 4th Main', 'XYZ Layout', 'Bangalore', 'Karnataka', 'India', '56004554')

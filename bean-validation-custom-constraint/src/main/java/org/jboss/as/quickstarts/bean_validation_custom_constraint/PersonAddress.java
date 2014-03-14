@@ -33,9 +33,6 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "person_address")
 public class PersonAddress implements Serializable{
     
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     @Id
