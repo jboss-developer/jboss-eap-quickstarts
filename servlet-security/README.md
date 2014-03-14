@@ -197,8 +197,8 @@ You can remove the security domain configuration by running the  `remove-securit
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
+        For Linux:  EAP_HOME/bin/standalone.sh
+        For Windows:  EAP_HOME\bin\standalone.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
         EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
