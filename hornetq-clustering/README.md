@@ -107,8 +107,8 @@ Since both application servers must be configured in the same way, you must conf
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full-ha profile. This profile supports clustering/HA
 
-        For Linux:   EAP_HOME/bin/standalone.sh -c standalone-full-ha.xml
-        For Windows: EAP_HOME\bin\standalone.bat -c standalone-full-ha.xml
+        For Linux:   EAP_HOME_1/bin/standalone.sh -c standalone-full-ha.xml
+        For Windows: EAP_HOME_1\bin\standalone.bat -c standalone-full-ha.xml
 
 
 #### Configure the Standalone Server and Deploy the Quickstart Using the JBoss CLI
@@ -124,7 +124,7 @@ Since both application servers must be configured in the same way, you must conf
     must modify its path in this script. Find the 'NOTE:' in the file for instructions._
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=install-standalone.cli
+        EAP_HOME_1/bin/jboss-cli.sh --connect --file=install-standalone.cli
         
    You should see "outcome" => "success" for all of the commands.
 
@@ -136,21 +136,21 @@ After you have successfully configured the server, you must make a copy of this 
 2. Make a copy of this JBoss EAP directory structure to use for the second server.
 3. Remove the following directories from the cloned instance:
 
-        EAP_HOME_SERVER_2/standalone/data/messagingbindings
-        EAP_HOME_SERVER_2/standalone/data/messagingjournal
-        EAP_HOME_SERVER_2/standalone/data/messaginglargemessages
+        EAP_HOME_2/standalone/data/messagingbindings
+        EAP_HOME_2/standalone/data/messagingjournal
+        EAP_HOME_2/standalone/data/messaginglargemessages
 
 #### Start the JBoss EAP Standalone Servers with the Full HA Profile
 
 If you are using Linux:
 
-        Server 1: EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full-ha.xml
-        Server 2: EAP_HOME_SERVER_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full-ha.xml
+        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
 
 If you are using Windows:
 
-        Server 1: EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full-ha.xml
-        Server 2: EAP_HOME_SERVER_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full-ha.xml
+        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
 
 
 Access the application 
@@ -204,7 +204,7 @@ When you are finished testing, use the following instructions to undeploy the qu
 1. Make sure you have started the JBoss EAP server in standalone mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
+        EAP_HOME_1/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
 
 
 
@@ -250,8 +250,8 @@ You can remove the domain configuration by manually restoring the back-up copies
 
 _Note: This method ensures the server is restored to its prior configuration._
 
-1. If it is running, stop the JBoss EAP server.
-2. Restore the `EAP_HOME/standalone/configuration/standalone-full-ha.xml` file with the back-up copies of the file. Be sure to replace EAP_HOME with the path to your server.
+1. If they are running, stop both JBoss EAP servers.
+2. Restore the `EAP_HOME_1/standalone/configuration/standalone-full-ha.xml` file with the back-up copies of the file. Be sure to replace EAP_HOME_1 with the path to your server.
 
 #### Remove the Standalone Configuration by Running the JBoss CLI Script
 
@@ -259,11 +259,11 @@ _Note: This script returns the server to a default configuration and the result 
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:   EAP_HOME/bin/standalone.sh -c standalone-full-ha.xml
-        For Windows: EAP_HOME\bin\domain.bat -c standalone-full-ha.xml
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.
+        For Linux:   EAP_HOME_1/bin/standalone.sh -c standalone-full-ha.xml
+        For Windows: EAP_HOME_1\bin\domain.bat -c standalone-full-ha.xml
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME_1 with the path to your server.
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
+        EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
 This script removes the server configuration that was done by the `install-standalone.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.

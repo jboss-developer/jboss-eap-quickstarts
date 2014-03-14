@@ -155,13 +155,13 @@ Start the the two JBoss EAP servers with the full profile, passing a unique node
 
 If you are using Linux:
 
-        Server 1: EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_SERVER_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_SERVER_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart
@@ -219,11 +219,11 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP_HOME_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME_1\bin\standalone.bat -c standalone-full.xml
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
+        EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -234,12 +234,12 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP_HOME_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME_1\bin\standalone.bat -c standalone-full.xml
 2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP_HOME directory, and type the following:
     
-        For Linux: bin/jboss-cli.sh --connect
-        For Windows: bin\jboss-cli.bat --connect
+        For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect
+        For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect
 3. At the prompt, type the following:
 
         /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
