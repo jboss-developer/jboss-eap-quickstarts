@@ -188,11 +188,16 @@ When the push command returns you can test the application by getting the follow
 
 If the application has run succesfully you should see some output in the browser.
 
+You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+
+
+### View the JBoss EAP Server Log on OpenShift
+
 Now you can look at the output of the server by running the following command:
 
     rhc tail -a helloworldmdb
 
-This will show the tail of the servers log which should show something like the following.
+This will show the tail of the JBoss EAP server log, which should show something like the following.
 
     2012/03/02 05:52:33,065 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-0 (HornetQ-client-global-threads-1772719)) Received Message from queue: This is message 4
     2012/03/02 05:52:33,065 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-1 (HornetQ-client-global-threads-1772719)) Received Message from queue: This is message 1
@@ -200,8 +205,11 @@ This will show the tail of the servers log which should show something like the 
     2012/03/02 05:52:33,065 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-3 (HornetQ-client-global-threads-1772719)) Received Message from queue: This is message 3
     2012/03/02 05:52:33,065 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldMDB] (Thread-2 (HornetQ-client-global-threads-1772719)) Received Message from queue: This is message 2
 
+_Note:_ You may see the following error in the log:
 
-You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+        2014/03/17 07:50:36,231 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 4) JBAS014613: Operation ("read-resource") failed - address: ([("subsystem" => "deployment-scanner")]) - failure description: "JBAS014807: Management resource '[(\"subsystem\" => \"deployment-scanner\")]' not found"
+
+This is a benign error that occurs when the status of the deployment is checked too early in the process. This process is retried, so you can safely ignore this error.
 
 ### Delete the OpenShift Application
 
