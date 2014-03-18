@@ -174,7 +174,7 @@ Verify that Openshift has Web services configured by default. To do this:
         
         <subsystem xmlns="urn:jboss:domain:webservices:1.1">
             <modify-wsdl-address>true</modify-wsdl-address>
-            <wsdl-host>${env.OPENSHIFT_APP_DNS}</wsdl-host>
+            <wsdl-host>${env.OPENSHIFT_GEAR_DNS}</wsdl-host>
             <wsdl-port>80</wsdl-port>
             <endpoint-config name="Standard-Endpoint-Config"/>
             <endpoint-config name="Recording-Endpoint-Config">
@@ -198,10 +198,6 @@ Note that the `openshift` profile in `pom.xml` file is activated by OpenShift an
 
 ### Access the OpenShift Application
 
-Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
-
-    rhc tail helloworldws
-
 Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
     http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl
@@ -209,6 +205,20 @@ Once the application is deployed, you can test the application by accessing the 
 If the application has run successfully you should see the WSDL output in the browser.
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+
+### View the JBoss EAP Server Log on OpenShift
+
+Now you can look at the output of the server by running the following command:
+
+    rhc tail -a helloworldws
+
+This will show the tail of the JBoss EAP server log.
+
+_Note:_ You may see the following error in the log:
+
+        2014/03/17 07:50:36,231 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 4) JBAS014613: Operation ("read-resource") failed - address: ([("subsystem" => "deployment-scanner")]) - failure description: "JBAS014807: Management resource '[(\"subsystem\" => \"deployment-scanner\")]' not found"
+
+This is a benign error that occurs when the status of the deployment is checked too early in the process. This process is retried, so you can safely ignore this error.
 
 ### Run the Remote Client Tests against Openshift
 

@@ -163,6 +163,20 @@ When the push command returns you can test the application by getting the follow
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
+### View the JBoss EAP Server Log on OpenShift
+
+Now you can look at the output of the server by running the following command:
+
+    rhc tail -a helloworldrs
+
+This will show the tail of the JBoss EAP server log.
+
+_Note:_ You may see the following error in the log:
+
+        2014/03/17 07:50:36,231 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 4) JBAS014613: Operation ("read-resource") failed - address: ([("subsystem" => "deployment-scanner")]) - failure description: "JBAS014807: Management resource '[(\"subsystem\" => \"deployment-scanner\")]' not found"
+
+This is a benign error that occurs when the status of the deployment is checked too early in the process. This process is retried, so you can safely ignore this error.
+
 ### Delete the OpenShift Application
 
 If you plan to test the `jax-rs-client` quickstart on OpenShift, you may want to wait to delete this application because it is also used by that quickstart for testing. When you are finished with the application you can delete if from OpenShift as follows:

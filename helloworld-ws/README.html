@@ -156,7 +156,7 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <li><p>If the <code>webservices</code> subsystem is not configured as below under the <code>&lt;profile&gt;</code> element, copy the following and replace the <code>webservices</code> subsystem to enable and configure Web Services:</p>
 <div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.1&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;modify</span><span class="err">-wsdl-address</span><span class="nt">&gt;</span>true<span class="nt">&lt;/modify-wsdl-address&gt;</span>
-    <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_APP_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
+    <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_GEAR_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
     <span class="nt">&lt;wsdl</span><span class="err">-port</span><span class="nt">&gt;</span>80<span class="nt">&lt;/wsdl-port&gt;</span>
     <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Standard-Endpoint-Config&quot;/</span><span class="nt">&gt;</span>
     <span class="nt">&lt;endpoint</span><span class="err">-config</span> <span class="na">name=</span><span class="s">&quot;Recording-Endpoint-Config&quot;</span><span class="nt">&gt;</span>
@@ -181,15 +181,24 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 
 <h3><a id="access-the-openshift-application" class="anchor" href="#access-the-openshift-application"><span class="anchor-icon"></span></a>Access the OpenShift Application</h3>
 
-<p>Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">tail</span> <span class="n">helloworldws</span>
-</pre></div>
 <p>Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your OpenShift account domain name.</p>
 <div class="highlight"><pre><span class="nl">http:</span><span class="c1">//helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl</span>
 </pre></div>
 <p>If the application has run successfully you should see the WSDL output in the browser.</p>
 
 <p>You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.</p>
+
+<h3><a id="view-the-jboss-eap-server-log-on-openshift" class="anchor" href="#view-the-jboss-eap-server-log-on-openshift"><span class="anchor-icon"></span></a>View the JBoss EAP Server Log on OpenShift</h3>
+
+<p>Now you can look at the output of the server by running the following command:</p>
+<div class="highlight"><pre><span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+</pre></div>
+<p>This will show the tail of the JBoss EAP server log.</p>
+
+<p><em>Note:</em> You may see the following error in the log:</p>
+<div class="highlight"><pre>    <span class="mi">2014</span><span class="o">/</span><span class="mo">03</span><span class="o">/</span><span class="mi">17</span> <span class="mo">07</span><span class="o">:</span><span class="mi">50</span><span class="o">:</span><span class="mi">36</span><span class="p">,</span><span class="mi">231</span> <span class="n">ERROR</span> <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">controller</span><span class="p">.</span><span class="n">management</span><span class="o">-</span><span class="n">operation</span><span class="p">]</span> <span class="p">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="kr">thread</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="n">JBAS014613</span><span class="o">:</span> <span class="n">Operation</span> <span class="p">(</span><span class="s">&quot;read-resource&quot;</span><span class="p">)</span> <span class="n">failed</span> <span class="o">-</span> <span class="n">address</span><span class="o">:</span> <span class="p">([(</span><span class="s">&quot;subsystem&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;deployment-scanner&quot;</span><span class="p">)])</span> <span class="o">-</span> <span class="n">failure</span> <span class="n">description</span><span class="o">:</span> <span class="s">&quot;JBAS014807: Management resource &#39;[(</span><span class="se">\&quot;</span><span class="s">subsystem</span><span class="se">\&quot;</span><span class="s"> =&gt; </span><span class="se">\&quot;</span><span class="s">deployment-scanner</span><span class="se">\&quot;</span><span class="s">)]&#39; not found&quot;</span>
+</pre></div>
+<p>This is a benign error that occurs when the status of the deployment is checked too early in the process. This process is retried, so you can safely ignore this error.</p>
 
 <h3><a id="run-the-remote-client-tests-against-openshift" class="anchor" href="#run-the-remote-client-tests-against-openshift"><span class="anchor-icon"></span></a>Run the Remote Client Tests against Openshift</h3>
 
