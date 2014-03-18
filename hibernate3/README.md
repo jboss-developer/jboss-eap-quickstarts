@@ -63,6 +63,16 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-hibernate3.war` to the running instance of the server.
 
+_Note:_ You will see the following warnings in the server log. These are actually debugging messages that were fixed for Hibernate 4.x but not backported to Hibernate 3.x. You can ignore these warnings.
+
+        WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.controller
+        WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.model
+        WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.data
+        WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.util
+
+
+
+
 
 Access the application 
 ---------------------
