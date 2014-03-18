@@ -223,7 +223,7 @@ Openshift does not have Web services or WS-AT enabled by default, so we need to 
         
         <subsystem xmlns="urn:jboss:domain:webservices:1.1">
             <modify-wsdl-address>true</modify-wsdl-address>
-            <wsdl-host>${env.OPENSHIFT_APP_DNS}</wsdl-host>
+            <wsdl-host>${env.OPENSHIFT_GEAR_DNS}</wsdl-host>
             <wsdl-port>80</wsdl-port>
             <endpoint-config name="Standard-Endpoint-Config"/>
             <endpoint-config name="Recording-Endpoint-Config">
@@ -287,6 +287,20 @@ Once the app is deployed, you can test the application by accessing the followin
 If the application has run successfully you should see some output in the browser. You should also see some output on the server log, similar to the output from the "Test commit" test above.
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
+
+### View the JBoss EAP Server Log on OpenShift
+
+Now you can look at the output of the server by running the following command:
+
+    rhc tail -a wsatsimple
+
+This will show the tail of the JBoss EAP server log.
+
+_Note:_ You may see the following error in the log:
+
+        2014/03/17 07:50:36,231 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 4) JBAS014613: Operation ("read-resource") failed - address: ([("subsystem" => "deployment-scanner")]) - failure description: "JBAS014807: Management resource '[(\"subsystem\" => \"deployment-scanner\")]' not found"
+
+This is a benign error that occurs when the status of the deployment is checked too early in the process. This process is retried, so you can safely ignore this error.
 
 ### Delete the OpenShift Application
 
