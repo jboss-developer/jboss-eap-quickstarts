@@ -440,10 +440,6 @@ You can remove the security domain configuration by running the  `remove-securit
         EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        #1 /subsystem=remoting/remote-outbound-connection=ejb-outbound-connection:remove
-        #2 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=ejb-outbound:remove
-        #3 /core-service=management/security-realm=ejb-outbound-realm:remove
-        #4 /subsystem=security/security-domain=quickstart-domain:remove
         The batch executed successfully.
         {"outcome" => "success"}
 
