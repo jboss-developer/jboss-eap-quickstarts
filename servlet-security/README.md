@@ -96,7 +96,8 @@ You can configure the security domain by running JBoss CLI commands. For your co
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
 You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -201,7 +202,8 @@ You can remove the security domain configuration by running the  `remove-securit
         For Windows:  EAP_HOME\bin\standalone.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.

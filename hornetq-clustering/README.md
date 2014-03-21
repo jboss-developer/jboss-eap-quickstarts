@@ -89,7 +89,8 @@ You configure the server by running the install-domain.cli script provided in th
 
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=install-domain.cli
         
    You should see "outcome" => "success" for all of the commands.
 3. Restart the server in domain mode as described above.
@@ -124,7 +125,8 @@ Since both application servers must be configured in the same way, you must conf
     must modify its path in this script. Find the 'NOTE:' in the file for instructions._
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
-        EAP_HOME_1/bin/jboss-cli.sh --connect --file=install-standalone.cli
+        For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect --file=install-standalone.cli
+        For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect --file=install-standalone.cli
         
    You should see "outcome" => "success" for all of the commands.
 
@@ -196,7 +198,8 @@ When you are finished testing, use the following instructions to undeploy the qu
 1. Make sure you have started the JBoss EAP server in domain mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
 
         
 ### Undeploy the quickstart in Standalone Mode
@@ -204,7 +207,8 @@ When you are finished testing, use the following instructions to undeploy the qu
 1. Make sure you have started the JBoss EAP server in standalone mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
-        EAP_HOME_1/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
+        For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
+        For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect --file=undeploy-standalone.cli
 
 
 
@@ -232,7 +236,8 @@ _Note: This script returns the server to a default configuration and the result 
         For Windows: EAP_HOME\bin\domain.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-domain.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-domain.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-domain.cli 
    This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.
@@ -263,7 +268,8 @@ _Note: This script returns the server to a default configuration and the result 
         For Windows: EAP_HOME_1\bin\domain.bat -c standalone-full-ha.xml
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME_1 with the path to your server.
 
-        EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
+        For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
+        For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect --file=remove-standalone.cli 
 This script removes the server configuration that was done by the `install-standalone.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.
