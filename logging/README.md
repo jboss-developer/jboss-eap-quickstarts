@@ -159,7 +159,8 @@ You configure server logging by running JBoss CLI commands. For your convenience
  
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
    
-        EAP_HOME/bin/jboss-cli.sh --connect --file=configure-logging.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-logging.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-logging.cli
 You should see the following result when you run the script:
 
         The batch executed successfully
@@ -336,7 +337,8 @@ You can remove the logging configuration by running the  `remove-logging.cli` sc
         For Windows:  EAP_HOME\bin\standalone.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-logging.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-logging.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-logging.cli 
 This script removes the log and file handlers from the `logging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
