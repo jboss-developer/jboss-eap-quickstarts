@@ -57,7 +57,8 @@ _NOTE - Before you begin:_
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
 2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
+        For Linux: JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
+        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
 This script adds the `test` queue to the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
@@ -225,7 +226,8 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
         For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
 2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
+        For Linux: JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
+        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 jms-queue remove --queue-address=testQueue
