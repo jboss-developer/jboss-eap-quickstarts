@@ -100,7 +100,8 @@ You configure the domain server by running JBoss CLI commands. For your convenie
 
 6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
  
-        EAP_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=install-domain.cli
      You should see the following result when you run the script:
 
         The batch executed successfully
@@ -124,7 +125,8 @@ _NOTE: The following build command assumes you have configured your Maven user s
         
 4. Open a new command prompt and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=deploy-domain.cli
        
     This will deploy the app-*.ear files to different server-groups of the running domain.
 
@@ -227,7 +229,8 @@ Undeploy the Archives
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
 
 
 Remove the Server Domain Configuration
@@ -249,7 +252,8 @@ _Note: This script returns the server to a default configuration and the result 
         For Windows: EAP_HOME\bin\domain.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.
 
-        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-configuration.cli
 This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.
