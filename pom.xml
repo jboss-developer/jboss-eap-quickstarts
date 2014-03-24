@@ -153,6 +153,7 @@
             <modules>
                 <!-- All the modules that require nothing but JBoss Enterprise
                     Application Platform or JBoss EAP -->
+                <module>app-client</module>
                 <module>bean-validation</module>
                 <module>bmt</module>
                 <module>cdi-alternative</module>
