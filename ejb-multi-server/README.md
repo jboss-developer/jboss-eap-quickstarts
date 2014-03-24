@@ -256,12 +256,12 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
     To update the roles, open a command prompt and type the following commands:
 
         For Linux:
-              JBOSS_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ --role Intern
-              JBOSS_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 --role AppTwo
+              JBOSS_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ -g Intern
+              JBOSS_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 -g AppTwo
 
         For Windows:
-              JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ --role Intern
-              JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 --role AppTwo
+              JBOSS_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ -g Intern
+              JBOSS_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 -g AppTwo
 
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
