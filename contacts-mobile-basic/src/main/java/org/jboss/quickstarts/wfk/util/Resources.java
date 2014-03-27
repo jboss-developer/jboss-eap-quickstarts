@@ -38,7 +38,7 @@ import javax.persistence.PersistenceContext;
 public class Resources {
 
     @Produces
-    @PersistenceContext
+    @PersistenceContext(unitName = "contacts_pu")
     private EntityManager em;
 
     @Produces

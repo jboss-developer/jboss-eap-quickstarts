@@ -21,7 +21,7 @@ APPMODULE.namespace('APPMODULE.app.getContactById');
 APPMODULE.namespace('APPMODULE.app.buildContactDetail');
 APPMODULE.namespace('APPMODULE.app.restEndpoint');
 
-APPMODULE.app.restEndpoint = 'rest/members';
+APPMODULE.app.restEndpoint = 'rest/contacts';
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 
@@ -66,7 +66,7 @@ $( document ).on( "pageinit", function(mainEvent) {
     });
     
     // This is called on 'pagebeforeshow' above and by the APPMODULE.submissions
-    // Uses JAX-RS GET to retrieve current member list. 
+    // Uses JAX-RS GET to retrieve current contact list. 
     APPMODULE.app.getContacts = function () {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - start");
         var jqxhr = $.ajax({

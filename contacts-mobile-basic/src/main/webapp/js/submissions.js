@@ -52,7 +52,7 @@ $(document).ready(function() {
     //Initialize all the AJAX form events.
     run = function () {
         console.log(getCurrentTime() + " [js/submits.js] (run) - start");
-        //Fetches the initial member data
+        //Fetches the initial contact data
         APPMODULE.submissions.submitCreate();
         APPMODULE.submissions.submitUpdate();
         APPMODULE.submissions.deleteContact();
@@ -101,8 +101,8 @@ $(document).ready(function() {
                 // Assign the updated date/time back to the object.
                 serializedForm.birthDate = birthdate;
                 // Turn the object into a String.
-                var memberData = JSON.stringify(serializedForm);
-                console.log(getCurrentTime() + " [js/submits.js] (submitCreate - submit event) - memberData = " + memberData);
+                var contactData = JSON.stringify(serializedForm);
+                console.log(getCurrentTime() + " [js/submits.js] (submitCreate - submit event) - contactData = " + contactData);
                 
                 /* The jQuery XMLHttpRequest (jqXHR) object returned by $.ajax() as of jQuery 1.5 is a superset of
                  *   the browser's native XMLHttpRequest object. For example, it contains responseText and responseXML
@@ -120,8 +120,8 @@ $(document).ready(function() {
                 var jqxhr = $.ajax({
                     url: restEndpoint,
                     contentType: "application/json",
-                    dataType: "json",
-                    data: memberData,
+//                    dataType: "json",
+                    data: contactData,
                     type: "POST"
                 }).done(function(data, textStatus, jqXHR) {
                     console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax done");
@@ -177,12 +177,13 @@ $(document).ready(function() {
                         
                         console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - error in ajax - " +
                                 "Validation error displayed in the form for the user to fix! ");
-                    } else if (jqXHR.status === 200) {
-                        //It should not reach this error as long as the Server method returns data.
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error on 200 with error message: "
+                    } else if (jqXHR.status >= 200 && jqXHR.status < 300 || jqXHR.status === 304) {
+                        // It should not reach this error as long as the dataType: is not set. Or if it is set to something
+                        // like JSON then the Server method must return data.
+                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error on 20x with error message: "
                                 + errorThrown.message);
                         console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error because the REST service doesn't return" +
-                                "any data and this app expects data.  Fix the REST app.");
+                                "any data and this app expects data.  Fix the REST app or remove the 'dataType:' option from the AJAX call.");
                         
                         // Extract the error messages from the server.
                         var errorMsg = $.parseJSON(jqXHR.responseText);
@@ -190,7 +191,7 @@ $(document).ready(function() {
                         // Apply the error to the form.
                         APPMODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
                         
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error on 200 - " +
+                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error on 20x - " +
                                 "after displayServerSideErrors()");
                     } else {
                         console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - error in ajax" +
@@ -255,8 +256,8 @@ $(document).ready(function() {
                 // Assign the updated date/time back to the object.
                 serializedForm.birthDate = birthdate;
                 // Turn the object into a String.
-                var memberData = JSON.stringify(serializedForm);
-                console.log(getCurrentTime() + " [js/submits.js] (submitUpdate - submit event) - memberData = " + memberData);
+                var contactData = JSON.stringify(serializedForm);
+                console.log(getCurrentTime() + " [js/submits.js] (submitUpdate - submit event) - contactData = " + contactData);
                 
                 /* The jQuery XMLHttpRequest (jqXHR) object returned by $.ajax() as of jQuery 1.5 is a superset of
                  *   the browser's native XMLHttpRequest object. For example, it contains responseText and responseXML
@@ -275,7 +276,7 @@ $(document).ready(function() {
                     url: restEndpoint,
                     contentType: "application/json",
                     dataType: "json",
-                    data: memberData,
+                    data: contactData,
                     type: "PUT"
                 }).done(function(data, textStatus, jqXHR) {
                     console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax done");
@@ -328,12 +329,13 @@ $(document).ready(function() {
                         
                         console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - error in ajax - " +
                                 "Validation error displayed in the form for the user to fix! ");
-                    } else if (jqXHR.status === 200) {
-                        //It should not reach this error as long as the Server method returns data.
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error on 200 with error message: "
+                    } else if (jqXHR.status >= 200 && jqXHR.status < 300 || jqXHR.status === 304) {
+                        // It should not reach this error as long as the dataType: is not set. Or if it is set to something
+                        // like JSON then the Server method must return data.
+                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error on 20x with error message: "
                                 + errorThrown.message);
                         console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error because the REST service doesn't return" +
-                                "any data and this app expects data.  Fix the REST app.");
+                                "any data and this app expects data.  Fix the REST app or remove the 'dataType:' option from the AJAX call.");
                         
                         // Extract the error messages from the server.
                         var errorMsg = $.parseJSON(jqXHR.responseText);
@@ -341,7 +343,7 @@ $(document).ready(function() {
                         // Apply the error to the form.
                         APPMODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
                         
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error on 200 - " +
+                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error on 20x - " +
                                 "after displayServerSideErrors()");
                     } else {
                         console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - error in ajax" +
@@ -375,7 +377,7 @@ $(document).ready(function() {
             
             // Transform the form fields into JSON.
             // Must pull from the specific form so that we get the right data in case another form has data in it.
-            var memberData = JSON.stringify($("#contacts-edit-form").serializeObject());
+            var contactData = JSON.stringify($("#contacts-edit-form").serializeObject());
             
             /* The jQuery XMLHttpRequest (jqXHR) object returned by $.ajax() as of jQuery 1.5 is a superset of
              *   the browser's native XMLHttpRequest object. For example, it contains responseText and responseXML
@@ -393,8 +395,8 @@ $(document).ready(function() {
             var jqxhr = $.ajax({
                 url: restEndpoint,
                 contentType: "application/json",
-                dataType: "json",
-                data: memberData,
+//                dataType: "json",
+                data: contactData,
                 type: "DELETE"
             }).done(function(data, textStatus, jqXHR) {
                 console.log(getCurrentTime() + " [js/submits.js] (deleteContact) - ajax done");

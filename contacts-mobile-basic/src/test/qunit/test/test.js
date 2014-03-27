@@ -20,12 +20,12 @@
  */
 
 module('', {
-	setup: function() {
-		// run before
-	},
-	teardown: function() {
-		// run after
-	}
+    setup: function() {
+        // run before
+    },
+    teardown: function() {
+        // run after
+    }
 });
 
 //test('', 1, function() {
