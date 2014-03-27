@@ -32,6 +32,6 @@ LoggingExample.logInfo();
 LoggingExample.logTrace();
 LoggingExample.logWarn();
 %>
-Log Messages have been written.  Please check your console as well as <i>/JBoss_Home</i>/standalone/log for messages
+Log Messages have been written.  Please check your console as well as <i>EAP_HOME</i>/standalone/log for messages.
 </body>
 </html>
