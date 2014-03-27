@@ -20,16 +20,16 @@
  */
 
 module('Submissions', {
-	setup: function() {
-		// run before
-	},
-	teardown: function() {
-		// run after
-	}
+    setup: function() {
+        // run before
+    },
+    teardown: function() {
+        // run after
+    }
 });
 
 test('should be able to Create a new contact', 1, function() {
-	ok(true,"TODO");
+    ok(true,"TODO");
 });
 
 test('should NOT be able to Create a new contact with a duplicate email', 1, function() {
@@ -37,6 +37,6 @@ test('should NOT be able to Create a new contact with a duplicate email', 1, fun
 });
 
 //test('', 1, function() {
-//	ok(true,"TODO");
+//    ok(true,"TODO");
 //});
 

@@ -47,16 +47,16 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Arquillian.class)
 public class RESTTest {
 
-    private static final String NEW_MEMBER_FIRSTNAME = "John";
-    private static final String NEW_MEMBER_LASTNAME = "Doe";
-    private static final String NEW_MEMBER_EMAIL = "john.doe@redhat.com";
-    private static final String NEW_MEMBER_PHONE = "1970-01-01T12:00:00.000Z";
+    private static final String NEW_CONTACT_FIRSTNAME = "John";
+    private static final String NEW_CONTACT_LASTNAME = "Doe";
+    private static final String NEW_CONTACT_EMAIL = "john.doe@redhat.com";
+    private static final String NEW_CONTACT_PHONE = "1970-01-01T12:00:00.000Z";
 
-    private static final String DEFAULT_MEMBER_FIRSTNAME = "John";
-    private static final String DEFAULT_MEMBER_LASTNAME = "Smith";
-    private static final int DEFAULT_MEMBER_ID = 10001;
+    private static final String DEFAULT_CONTACT_FIRSTNAME = "John";
+    private static final String DEFAULT_CONTACT_LASTNAME = "Smith";
+    private static final int DEFAULT_CONTACT_ID = 10001;
 
-    private static final String API_PATH = "rest/members/";
+    private static final String API_PATH = "rest/contacts/";
 
     private final DefaultHttpClient httpClient = new DefaultHttpClient();
 
@@ -78,32 +78,32 @@ public class RESTTest {
 
     @Test
     @InSequence(1)
-    public void testGetMember() throws Exception {
-        HttpResponse response = httpClient.execute(new HttpGet(contextPath.toString() + API_PATH + DEFAULT_MEMBER_ID));
+    public void testGetContact() throws Exception {
+        HttpResponse response = httpClient.execute(new HttpGet(contextPath.toString() + API_PATH + DEFAULT_CONTACT_ID));
 
         assertEquals(200, response.getStatusLine().getStatusCode());
 
         String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject member = new JSONObject(responseBody);
+        JSONObject contact = new JSONObject(responseBody);
 
-        assertEquals(DEFAULT_MEMBER_ID, member.getInt("id"));
-        assertEquals(DEFAULT_MEMBER_FIRSTNAME, member.getString("firstName"));
-        assertEquals(DEFAULT_MEMBER_LASTNAME, member.getString("lastName"));
+        assertEquals(DEFAULT_CONTACT_ID, contact.getInt("id"));
+        assertEquals(DEFAULT_CONTACT_FIRSTNAME, contact.getString("firstName"));
+        assertEquals(DEFAULT_CONTACT_LASTNAME, contact.getString("lastName"));
     }
 
     @Test
     @InSequence(2)
-    public void testAddMember() throws Exception {
+    public void testAddContact() throws Exception {
         HttpPost post = new HttpPost(contextPath.toString() + API_PATH);
         post.setHeader("Content-Type", "application/json");
-        String newMemberJSON = new JSONStringer().object()
-                .key("firstName").value(NEW_MEMBER_FIRSTNAME)
-                .key("lastName").value(NEW_MEMBER_LASTNAME)
-                .key("email").value(NEW_MEMBER_EMAIL)
-                .key("phoneNumber").value(NEW_MEMBER_PHONE)
-                .key("birthDate").value(NEW_MEMBER_PHONE)
+        String newContactJSON = new JSONStringer().object()
+                .key("firstName").value(NEW_CONTACT_FIRSTNAME)
+                .key("lastName").value(NEW_CONTACT_LASTNAME)
+                .key("email").value(NEW_CONTACT_EMAIL)
+                .key("phoneNumber").value(NEW_CONTACT_PHONE)
+                .key("birthDate").value(NEW_CONTACT_PHONE)
                 .endObject().toString();
-        post.setEntity(new StringEntity(newMemberJSON));
+        post.setEntity(new StringEntity(newContactJSON));
 
         HttpResponse response = httpClient.execute(post);
 
@@ -112,19 +112,19 @@ public class RESTTest {
 
     @Test
     @InSequence(3)
-    public void testGetAllMembers() throws Exception {
+    public void testGetAllContacts() throws Exception {
         HttpResponse response = httpClient.execute(new HttpGet(contextPath.toString() + API_PATH));
         assertEquals(200, response.getStatusLine().getStatusCode());
 
         String responseBody = EntityUtils.toString(response.getEntity());
-        JSONArray members = new JSONArray(responseBody);
+        JSONArray contacts = new JSONArray(responseBody);
 
-        assertEquals(3, members.length());
+        assertEquals(3, contacts.length());
 
-        assertEquals(1, members.getJSONObject(0).getInt("id"));
-        assertEquals(NEW_MEMBER_FIRSTNAME, members.getJSONObject(0).getString("firstName"));
-        assertEquals(NEW_MEMBER_LASTNAME, members.getJSONObject(0).getString("lastName"));
-        assertEquals(NEW_MEMBER_EMAIL, members.getJSONObject(0).getString("email"));
-        assertEquals(NEW_MEMBER_PHONE, members.getJSONObject(0).getString("phoneNumber"));
+        assertEquals(1, contacts.getJSONObject(0).getInt("id"));
+        assertEquals(NEW_CONTACT_FIRSTNAME, contacts.getJSONObject(0).getString("firstName"));
+        assertEquals(NEW_CONTACT_LASTNAME, contacts.getJSONObject(0).getString("lastName"));
+        assertEquals(NEW_CONTACT_EMAIL, contacts.getJSONObject(0).getString("email"));
+        assertEquals(NEW_CONTACT_PHONE, contacts.getJSONObject(0).getString("phoneNumber"));
     }
 }

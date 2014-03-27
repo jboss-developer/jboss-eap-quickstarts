@@ -6,12 +6,12 @@ This example supports various RESTFul end points which also includes JSONP suppo
 
 By default the base URL for services is `/jboss-contacts-mobile-basic/rest`.
 
-MemberService End Points
+ContactService End Points
 ------------------------
 ##CREATE
-### Create a new member
+### Create a new contact
 
-#### /rest/members
+#### /rest/contacts
 
 * Request type: POST
 * Request type: JSON
@@ -32,8 +32,8 @@ MemberService End Points
 
 
 ##READ
-### List all members
-#### /rest/members
+### List all contacts
+#### /rest/contacts
 
 * Request type: GET
 * Return type: JSON
@@ -44,8 +44,8 @@ MemberService End Points
  {email: "john.doe@company.com", id: 15, firstName: "John", lastName: 'Doe', phoneNumber: "212-555-1212", birthDate:'1978-02-23'}]
 ```
 
-### Find a member by it's ID.
-#### /rest/members/\<id>
+### Find a contact by it's ID.
+#### /rest/contacts/\<id>
 * Request type: GET
 * Return type: JSON
 * Response example:
@@ -56,8 +56,8 @@ MemberService End Points
 
 
 ##UPDATE
-### Edit one member
-#### /rest/members
+### Edit one contact
+#### /rest/contacts
 
 * Request type: PUT
 * Return type: JSON
@@ -69,8 +69,8 @@ MemberService End Points
 
 
 ##DELETE
-### Delete one member
-#### /rest/members
+### Delete one contact
+#### /rest/contacts
 
 * Request type: DELETE
 * Return type: JSON
