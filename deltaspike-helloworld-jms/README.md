@@ -15,9 +15,9 @@ This quickstart demonstrates the use of  JMS clients with Red Hat JBoss Enterpri
 
 It contains the following:
 
-1. A message producer that sends messages to a JMS destination deployed to a Red Hat JBoss Enterprise Application Platform 6.1 or later server.
+1. A message producer that sends messages to a JMS destination deployed to a JBoss EAP 6.1 or later server.
 
-2. A message consumer that receives message from a JMS destination deployed to a Red Hat JBoss Enterprise Application Platform 6.1 or later server. 
+2. A message consumer that receives message from a JMS destination deployed to a JBoss EAP 6.1 or later server. 
 
 
 System requirements
@@ -46,19 +46,19 @@ You must first add the JMS `test` queue to the application server configuration 
 _NOTE - Before you begin:_
 
 1. If it is running, stop the JBoss EAP 6.1 server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
+2. Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
 3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
 #### Configure JMS by Running the JBoss CLI Script
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        For Linux: JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
 This script adds the `test` queue to the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
@@ -70,9 +70,9 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
+        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
+2. To start the JBoss CLI tool, open a new command line, navigate to the EAP_HOME directory, and type the following:
     
         For Linux: bin/jboss-cli.sh --connect
         For Windows: bin\jboss-cli.bat --connect
@@ -84,8 +84,8 @@ This script adds the `test` queue to the `messaging` subsystem in the server con
 #### Configure JMS by Manually Editing the Server Configuration File
 
 1.  If it is running, stop the JBoss EAP server.
-2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone-full.xml`
-3.  Open the file: JBOSS_HOME/standalone/configuration/standalone-full.xml
+2.  Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
+3.  Open the file: EAP_HOME/standalone/configuration/standalone-full.xml
 4.  Add the JMS `test` queue as follows:
     * Find the messaging subsystem:  
 
@@ -107,8 +107,8 @@ Start the JBoss EAP Server with the Full Profile
 1. Open a command line and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full profile:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows: JBOSS_HOME\bin\standalone.bat -c standalone-full.xml
+        For Linux:   EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows: EAP_HOME\bin\standalone.bat -c standalone-full.xml
 
 
 Build and Deploy the Quickstart
@@ -222,12 +222,12 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        For Linux: JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
-        For Windows: JBOSS_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 jms-queue remove --queue-address=testQueue
@@ -237,7 +237,7 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 #### Remove the JMS Configuration Manually
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `JBOSS_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
+2. Replace the `EAP_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 Run the Arquillian Functional Tests
 -----------------------------------
