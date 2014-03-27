@@ -22,17 +22,17 @@
 // ------------------------------------------------------------------------------
 
 module('Util', {
-	setup: function() {
-		// run before
-	},
-	teardown: function() {
-		// run after
-	}
+    setup: function() {
+        // run before
+    },
+    teardown: function() {
+        // run after
+    }
 });
 
 test('should be able to provide the current date', 1, function() {
-	// I'm not sure how to test this without reproducing the exact code here, then what is the point?
-	
+    // I'm not sure how to test this without reproducing the exact code here, then what is the point?
+    
     var d = new Date();
     var month = d.getMonth()+1;
     var day = d.getDate();
@@ -41,15 +41,15 @@ test('should be able to provide the current date', 1, function() {
         (month<10 ? '0' : '') + month + '-' +
         (day<10 ? '0' : '') + day;
 
-	strictEqual(APPMODULE.util.getCurrentDate(), output, 'The date was provide.');
+    strictEqual(APPMODULE.util.getCurrentDate(), output, 'The date was provide.');
 });
 
 test('should be able to provide the current time', 1, function() {
-	// I'm not sure how to test this without reproducing the exact code here, then what is the point
-	
-	// Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should 
-	//  always be different but apparently they are not. I guess both operations are done in the same millisecond. 
-	// This still may fail on a slower computer. 
+    // I'm not sure how to test this without reproducing the exact code here, then what is the point
+    
+    // Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should 
+    //  always be different but apparently they are not. I guess both operations are done in the same millisecond. 
+    // This still may fail on a slower computer. 
 
     var d = new Date();
     var hour = d.getHours();
@@ -61,16 +61,16 @@ test('should be able to provide the current time', 1, function() {
                  (min<10 ? '0' : '') + min + ":" + 
                  (sec<10 ? '0' : '') + sec + "," + 
                  (millisec<10 ? '0' : (millisec<100 ? '0' : '')) + millisec;
-	
-	strictEqual(APPMODULE.util.getCurrentTime(), output, 'The time was provide.');
+    
+    strictEqual(APPMODULE.util.getCurrentTime(), output, 'The time was provide.');
 });
 
 test('should be able to provide the current date time', 1, function() {
-	// I'm not sure how to test this without reproducing the exact code here, then what is the point
-	
-	// Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should 
-	//  always be different but apparently they are not. I guess both operations are done in the same millisecond. 
-	// This still may fail on a slower computer. 
+    // I'm not sure how to test this without reproducing the exact code here, then what is the point
+    
+    // Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should 
+    //  always be different but apparently they are not. I guess both operations are done in the same millisecond. 
+    // This still may fail on a slower computer. 
 
     var d = new Date();
     var month = d.getMonth()+1;
@@ -93,5 +93,5 @@ test('should be able to provide the current date time', 1, function() {
 });
 
 //test('', 1, function() {
-//	ok(true,"TODO");
+//    ok(true,"TODO");
 //});

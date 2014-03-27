@@ -61,10 +61,10 @@ APPMODULE.util.getCurrentDateTime = function() {
  * The database stores the Date in Milliseconds from the epoch.  We need to convert that into a readable date.
  */
 APPMODULE.util.convertUTCToDate = function(milliseconds) {
-	console.log(APPMODULE.util.getCurrentTime() + " [js/util.js] (convertUTCToDate) - milliseconds passed in = " + milliseconds);
-	var d = new Date(milliseconds);
-	console.log(APPMODULE.util.getCurrentTime() + " [js/util.js] (convertUTCToDate) - date after converting milliseconds passed in = " + d);
-	
+    console.log(APPMODULE.util.getCurrentTime() + " [js/util.js] (convertUTCToDate) - milliseconds passed in = " + milliseconds);
+    var d = new Date(milliseconds);
+    console.log(APPMODULE.util.getCurrentTime() + " [js/util.js] (convertUTCToDate) - date after converting milliseconds passed in = " + d);
+    
     var month = d.getMonth()+1;
     var day = d.getDate();
 

@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-contacts-mobile-basic</artifactId>
-    <version>2.5.0-build-SNAPSHOT</version>
+    <version>2.6.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: contacts-mobile-basic</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
@@ -45,7 +45,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>6.2.0.GA</version.jboss.bom.eap>
-        <version.jboss.bom.wfk>2.5.0-build-2</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.5.0-build-5</version.jboss.bom.wfk>
 
         <!-- Other dependency versions -->
         <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>

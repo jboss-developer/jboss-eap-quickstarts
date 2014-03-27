@@ -18,20 +18,15 @@ package org.jboss.quickstarts.wfk.util;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Logger;
-
-import javax.inject.Inject;
 
 /**
+ * A Utility class to Convert Dates between local time and GMT.
  * 
  * @author Joshua Wilson
  *
  */
 public class ConvertDate {
     
-    @Inject
-    private static Logger log;
-
     public static Date localToGMT(Date date) {
         
         Calendar calendar = Calendar.getInstance();
