@@ -1,19 +1,19 @@
-app-client: Application Client to run with the JBoss appclient container
+app-client: Application Client to run with the JBoss EAP appclient container
 ======================================================
-Author: Wolf-Dieter Fink
-Level: Intermediate
-Technologies: EJB, EAR, AppClient
-Summary: Show how to use the JBoss application client contiainer to support injection
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Author: Wolf-Dieter Fink  
+Level: Intermediate  
+Technologies: EJB, EAR, AppClient  
+Summary: Shows how to use the JBoss EAP application client container to support injection  
+Target Product: EAP  
+Product Versions: EAP 6.1, EAP 6.2  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 What is it?
 -----------
 
-This quickstart demonstrates how an application, including the client side, can be packaged according to the JavaEE specification with maven.
-The JBoss application client container can be used to start the client Main program and provide dependency injections (DI) for thea client application.
+This quickstart demonstrates how to use the JBoss EAP client container to start the client 'Main' program and provide Dependency Injections (DI) for client applications. It also shows you how to use Maven to package the application according to the JavaEE specification.
+
 
 This example consists of the following Maven projects, each with a shared parent:
 
@@ -23,7 +23,7 @@ This example consists of the following Maven projects, each with a shared parent
 | `ear` | The EAR packaging contains the server and client side.
 | `client-simple` | A simple client application for running in the application-client container to show the injection
 
-The root `pom.xml` builds each of the subprojects in an appropriate order.
+The root `pom.xml` file builds each of the subprojects in the appropriate order.
 
 
 
@@ -44,7 +44,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Add the Application Users
 ---------------
 
-The following users must only be added  to the applicaion server side if the server and the client run at different hosts. Be sure to use the names and passwords specified in the table as they are required to run this example.
+If the client and server are run on different hosts, you must add the following users to the JBoss EAP server side application. Be sure to use the names and passwords specified in the table as they are required to run this example.
 
 | **UserName** | **Realm** | **Password** | **Roles** |
 |:-----------|:-----------|:-----------|:-----------|
@@ -94,17 +94,17 @@ This example shows how to invoke an EJB from a remote standalone application.
 It also demonstrates how to invoke an EJB from a client using a scoped-context rather than a properties file containing the parameters required by the InitialContext.
 
 1. Make sure that the deployments are successful as described above.
-2. Type this command to run the application:
+2. Navigate to the root directory of this quickstart and type the command to run the application. Be sure to replace `EAP_HOME` with the path to your JBoss EAP installation.
 
         For Linux:   EAP_HOME/bin/appclient.sh ear/target/jboss-application-client.ear#simpleClient.jar
         For Windows: EAP_HOME\bin\appclient.sh ear\target\jboss-application-client.ear#simpleClient.jar
 
-    The client will output the following information provided by the applications:
+    The client will output the following information provided by the server application:
 
         [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-##) Hello from StatelessSessionBean@myhost
 
     This output shows that the `ServerApplication` is called at the jboss.node `myhost`.
-    The appclient try to connect automatically a server at the same machine.
+    The application client connected automatically a server on the same machine.
 
     Review the server log files to see the bean invocations on the server.
 
@@ -117,23 +117,23 @@ Access the Remote Client Application at different machines
 This example shows how to invoke an EJB from a remote standalone application.
 It also demonstrates how to invoke an EJB from a client using a scoped-context rather than a properties file containing the parameters required by the InitialContext.
 
-1. Install a server on different machines
-2. Add the application user as describe above
-3. Start the server at the other machine with the following command line:
+1. Install JBoss EAP on a different machine.
+2. Add the application user to JBoss EAP on the other server as described above.
+3. Start the JBoss EAP server on the other machine with the following command line:
 
-        For Linux:   EAP_HOME/bin/standalone.sh -b <your IP> -bmanagement <your IP>
-        For Windows: EAP_HOME\bin\standalone.bat -b <your IP> -bmanagement <your IP>
+        For Linux:   EAP_HOME/bin/standalone.sh -b SERVER_MACHINE_IP_ADDRESS -bmanagement SERVER_MACHINE_IP_ADDRESS
+        For Windows: EAP_HOME\bin\standalone.bat -b SERVER_MACHINE_IP_ADDRESS -bmanagement SERVER_MACHINE_IP_ADDRESS
 
 4. Type this command to deploy the artifacts on your local machine:
 
-        mvn clean install jboss-as:deploy -Djboss-as.hostname=<server IP> [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
+        mvn clean install jboss-as:deploy -Djboss-as.hostname=CLIENT_MACHINE_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
 
 5. Make sure that the deployments are successful as described above.
 6. Create a jboss-ejb-client.properties file with the following content
 
         remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
         remote.connections=default
-        remote.connection.default.host=<the server IP>
+        remote.connection.default.host=SERVER_MACHINE_IP_ADDRESS
         remote.connection.default.port=4447
         remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
         remote.connection.default.username=quickuser
