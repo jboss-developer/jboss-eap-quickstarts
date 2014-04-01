@@ -22,19 +22,24 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.as.server.ServerEnvironment;
 import org.jboss.logging.Logger;
 import org.jboss.msc.service.Service;
 import org.jboss.msc.service.ServiceName;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
-import org.jboss.msc.value.InjectedValue;
 
 
 /**
- * A service to start schedule-timer as HASingleton timer in a clustered environment.
- * The service will ensure that the timer is initialized only once in a cluster.
+ * <p>A service to start schedule-timer as HASingleton timer in a clustered environment.
+ * The {@link HATimerServiceActivator} will ensure that the timer is initialized only once in a cluster.</p>
+ * <p>
+ * The initialized timers must not persistent because it will be automatically restarted in case of a server restart
+ * and exists twice within the cluster.<br/>
+ * As this approach is no designed to interact with remote clients it is not possible to trigger reconfigurations.
+ * For this purpose it might be a solution to read the timer configuration from a datasource and create a scheduler
+ * which checks this configuration and trigger the reconfiguration.  
+ * </p>
  *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
@@ -47,18 +52,12 @@ public class HATimerService implements Service<String> {
      */
     private final AtomicBoolean started = new AtomicBoolean(false);
 
-    private String nodeName;
-
-    final InjectedValue<ServerEnvironment> env = new InjectedValue<ServerEnvironment>();
-
     /**
      * @return the name of the server node
      */
     public String getValue() throws IllegalStateException, IllegalArgumentException {
-        if (!started.get()) {
-            throw new IllegalStateException("The service '" + this.getClass().getName() + "' is not ready!");
-        }
-        return this.nodeName;
+        LOGGER.infof("%s is %s at %s", HATimerService.class.getSimpleName(), (started.get() ? "started" : "not started"), System.getProperty("jboss.node.name"));
+        return "";
     }
 
     public void start(StartContext arg0) throws StartException {
@@ -67,11 +66,10 @@ public class HATimerService implements Service<String> {
         }
         LOGGER.info("Start HASingleton timer service '" + this.getClass().getName() + "'");
 
-        this.nodeName = this.env.getValue().getNodeName();
-
+        final String node = System.getProperty("jboss.node.name");
         try {
             InitialContext ic = new InitialContext();
-            ((Scheduler) ic.lookup("global/jboss-cluster-ha-singleton-service/SchedulerBean!org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler")).initialize("HASingleton timer @" + this.nodeName + " " + new Date());
+            ((Scheduler) ic.lookup("global/jboss-cluster-ha-singleton-service/SchedulerBean!org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler")).initialize("HASingleton timer @" + node + " " + new Date());
         } catch (NamingException e) {
             throw new StartException("Could not initialize timer", e);
         }
