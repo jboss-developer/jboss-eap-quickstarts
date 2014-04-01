@@ -1,12 +1,12 @@
 app-client: Application Client to run with the JBoss EAP appclient container
 ======================================================
-Author: Wolf-Dieter Fink  
-Level: Intermediate  
-Technologies: EJB, EAR, AppClient  
-Summary: Shows how to use the JBoss EAP application client container to support injection  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Author: Wolf-Dieter Fink
+Level: Intermediate
+Technologies: EJB, EAR, AppClient
+Summary: Shows how to use the JBoss EAP application client container to support injection
+Target Product: EAP
+Product Versions: EAP 6.1, EAP 6.2
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 
 What is it?
@@ -126,7 +126,7 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 
 4. Type this command to deploy the artifacts on your local machine:
 
-        mvn clean install jboss-as:deploy -Djboss-as.hostname=CLIENT_MACHINE_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
+        mvn clean install jboss-as:deploy -Djboss-as.hostname=SERVER_MACHINE_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
 
 5. Make sure that the deployments are successful as described above.
 6. Create a jboss-ejb-client.properties file with the following content
