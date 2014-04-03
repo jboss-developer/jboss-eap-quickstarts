@@ -17,8 +17,6 @@
 package org.jboss.as.quickstarts.cluster.hasingleton.service.ejb;
 
 import org.jboss.as.clustering.singleton.SingletonService;
-import org.jboss.as.server.ServerEnvironment;
-import org.jboss.as.server.ServerEnvironmentService;
 import org.jboss.logging.Logger;
 import org.jboss.msc.service.DelegatingServiceContainer;
 import org.jboss.msc.service.ServiceActivator;
@@ -41,13 +39,12 @@ public class HATimerServiceActivator implements ServiceActivator {
         HATimerService service = new HATimerService();
         SingletonService<String> singleton = new SingletonService<String>(service, HATimerService.SINGLETON_SERVICE_NAME);
         /*
-         * We can pass a chain of election policies to the singleton, for example to tell JGroups to prefer running the singleton on a node with a
-         * particular name
+         * To pass a chain of election policies to the singleton, for example to tell JGroups to prefer running the singleton on a node with a
+         * particular name, uncomment the following line:
          */
         // singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node2/cluster")));
 
         singleton.build(new DelegatingServiceContainer(context.getServiceTarget(), context.getServiceRegistry()))
-                .addDependency(ServerEnvironmentService.SERVICE_NAME, ServerEnvironment.class, service.env)
                 .setInitialMode(ServiceController.Mode.ACTIVE)
                 .install()
         ;
