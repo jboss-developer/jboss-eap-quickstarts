@@ -27,6 +27,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -98,6 +100,7 @@ public class Contact implements Serializable {
     @NotNull
     @Past(message = "Birthdates can not be in the future. Please choose one from the past")
     @Column(name = "birth_date")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     public Long getId() {

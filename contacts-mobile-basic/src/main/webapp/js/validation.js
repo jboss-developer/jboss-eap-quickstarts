@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-APPMODULE.namespace('APPMODULE.validation.displayServerSideErrors');
-APPMODULE.namespace('APPMODULE.validation.validateName');
-APPMODULE.namespace('APPMODULE.validation.formEmail');
-APPMODULE.namespace('APPMODULE.validation.validateEmailUniqueness');
-APPMODULE.namespace('APPMODULE.validation.runFormValidators');
-APPMODULE.namespace('APPMODULE.validation.addContactsFormValidator');
-APPMODULE.namespace('APPMODULE.validation.editContactsFormValidator');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.displayServerSideErrors');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.validateName');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.formEmail');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.validateEmailUniqueness');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.runFormValidators');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.addContactsFormValidator');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.editContactsFormValidator');
 
 /**
  * jQuery Mobile and moblie devices do not currently support HTML5 form validation.  Therefore, basic things like 
@@ -41,7 +41,7 @@ APPMODULE.namespace('APPMODULE.validation.editContactsFormValidator');
  */
 $(document).ready(function() {
     //Initialize the vars in the beginning so that you will always have access to them.
-    var getCurrentTime = APPMODULE.util.getCurrentTime;
+    var getCurrentTime = CONTACTS_MODULE.util.getCurrentTime;
 
     /**
      * We try to catch the format errors while on the client but some things require a database lookup.  There is 
@@ -55,7 +55,7 @@ $(document).ready(function() {
      * @param pageID = the page the error will be displayed on
      * @param errorMsg = a JS object in JSON with the field name and the message to be displayed
      */
-    APPMODULE.validation.displayServerSideErrors = function (pageID, errorMsg) {
+    CONTACTS_MODULE.validation.displayServerSideErrors = function (pageID, errorMsg) {
         var validator = $( pageID ).validate();
         
         // Look at each error 'key' and determine where to display the message.
@@ -78,33 +78,33 @@ $(document).ready(function() {
     
     // Add a 'max' attribute to the Birth Date fields to set the maximum allowed date to today.
     $('.birthDate').attr('max', function() {
-        return APPMODULE.util.getCurrentDate();
+        return CONTACTS_MODULE.util.getCurrentDate();
     });
 
     /**
      * Check if the birthdate fits the regex pattern of YYYY-DD-MM.
      */ 
-    APPMODULE.validation.validateBirthDate = function(date) {
+    CONTACTS_MODULE.validation.validateBirthDate = function(date) {
         var parseBirthDate = /^([1-2][0,9][0-9][0-9])[-]((0([1-9])|(1[0-2])))[-]((0([1-9])|([12][0-9])|(3[01])))$/;
         return parseBirthDate.test(date);
     };
     
     // Create a custom method for the Validator to check if a 'birth date' is formatted correctly.
     $.validator.addMethod("birthdate", function(value, element) {
-        return this.optional(element) || APPMODULE.validation.validateBirthDate(value);
+        return this.optional(element) || CONTACTS_MODULE.validation.validateBirthDate(value);
     }, "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)");
     
     /**
      * Check if the name fits the regex pattern of a Alpha characters only.
      */
-    APPMODULE.validation.validateName = function(name) {
+    CONTACTS_MODULE.validation.validateName = function(name) {
         var parseName = /^([A-Za-z-']+)$/;
         return parseName.test(name);
     };
     
     // Create a custom method for the Validator to check if a 'name' is formatted correctly.
     $.validator.addMethod("personName", function(value, element) {
-        return this.optional(element) || APPMODULE.validation.validateName(value);
+        return this.optional(element) || CONTACTS_MODULE.validation.validateName(value);
     }, "Please use a name without numbers or specials.");
     
     /**
@@ -112,8 +112,8 @@ $(document).ready(function() {
      * an email that is already in use. 
      * (hint: it is only returned after the submit is fired, otherwise it is null)
      */
-    APPMODULE.validation.validateEmailUniqueness = function(email) {
-        if (APPMODULE.validation.formEmail === email){
+    CONTACTS_MODULE.validation.validateEmailUniqueness = function(email) {
+        if (CONTACTS_MODULE.validation.formEmail === email){
             return false;
         } else {
             return true;
@@ -122,17 +122,17 @@ $(document).ready(function() {
     
     // Create a custom method for the Validator to check if an email is already used.
     $.validator.addMethod("emailUnique", function(value, element) {
-        return this.optional(element) || APPMODULE.validation.validateEmailUniqueness(value);
+        return this.optional(element) || CONTACTS_MODULE.validation.validateEmailUniqueness(value);
     }, "That email is already used, please use a unique email.");
     
     /**
      *  We need a way to make apply the form validation in cases where the forms don't exist yet, like the unit tests.
      */ 
-    APPMODULE.validation.runFormValidators = function() {
+    CONTACTS_MODULE.validation.runFormValidators = function() {
         // Set up the validator for the 'add' form.
         // NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
         //       It appears that the plugin only works when it is givin only 1 form at a time. 
-        APPMODULE.validation.addContactsFormValidator = $('#contacts-add-form').validate({
+        CONTACTS_MODULE.validation.addContactsFormValidator = $('#contacts-add-form').validate({
             rules: {
                 firstName: {
                     required: true,
@@ -191,7 +191,7 @@ $(document).ready(function() {
          * NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
          *       It appears that the plugin only works when it is givin only 1 form at a time. 
          */
-        APPMODULE.validation.editContactsFormValidator = $('#contacts-edit-form').validate({
+        CONTACTS_MODULE.validation.editContactsFormValidator = $('#contacts-edit-form').validate({
             rules: {
                 firstName: {
                     required: true,
@@ -249,6 +249,6 @@ $(document).ready(function() {
     /**
      * Run the form validators.
      */
-    APPMODULE.validation.runFormValidators();
+    CONTACTS_MODULE.validation.runFormValidators();
 }); 
 

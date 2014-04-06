@@ -21,8 +21,6 @@ import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
-import org.jboss.quickstarts.wfk.util.ConvertDate;
-
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -117,21 +115,6 @@ public class ContactService {
     Contact create(Contact contact) throws ConstraintViolationException, ValidationException, Exception {
         log.info("ContactService.create() - Creating " + contact.getFirstName() + " " + contact.getLastName());
         
-        /*
-         * There is a problem with the dates as the come back from the UI. They are affected by a local vs UTC change that
-         * in some cases causes the date to lose a day every time they are saved.
-         * 
-         * The real root of the problem appears to be when a date with a time stamp in the local(which for any timezone 
-         * west of GMT will subtract at least 1 hour causing the date to be subtracted too) is saved in the H2 database,
-         * the database does not convert it to UTC it saves the local time with no timezone. To work around this we obtain
-         * the timezone offset and subtract that from the date with local time. This at least brings us closer to UTC. In order 
-         * to deal with any slight variations in the offset calculations of java we set the time of the 'Birthdate' to 
-         * 12:00.  This means that even if the time shifts one way or another it does not change the day.
-         * 
-         * If a more robust database were used this would not be a problem. Please keep this in mind if you use this code base. 
-         */
-        contact.setBirthDate(ConvertDate.localToGMT(contact.getBirthDate()));
-
         // Check to make sure the data fits with the parameters in the Contact model and passes validation.
         validator.validateContact(contact);
         
@@ -153,21 +136,6 @@ public class ContactService {
 //    Map<String, Object> update(Contact contact) throws Exception {
     Contact update(Contact contact) throws ConstraintViolationException, ValidationException, Exception {
         log.info("ContactService.update() - Updating " + contact.getFirstName() + " " + contact.getLastName());
-        
-        /*
-         * There is a problem with the dates as the come back from the UI. They are affected by a local vs UTC change that
-         * in some cases causes the date to lose a day every time they are saved.
-         * 
-         * The real root of the problem appears to be when a date with a time stamp in the local(which for any timezone 
-         * west of GMT will subtract at least 1 hour causing the date to be subtracted too) is saved in the H2 database,
-         * the database does not convert it to UTC it saves the local time with no timezone. To work around this we obtain
-         * the timezone offset and subtract that from the date with local time. This at least brings us closer to UTC. In order 
-         * to deal with any slight variations in the offset calculations of java we set the time of the 'Birthdate' to 
-         * 12:00.  This means that even if the time shifts one way or another it does not change the day.
-         * 
-         * If a more robust database were used this would not be a problem. Please keep this in mind if you use this code base. 
-         */
-        contact.setBirthDate(ConvertDate.localToGMT(contact.getBirthDate()));
         
         // Check to make sure the data fits with the parameters in the Contact model and passes validation.
         validator.validateContact(contact);
