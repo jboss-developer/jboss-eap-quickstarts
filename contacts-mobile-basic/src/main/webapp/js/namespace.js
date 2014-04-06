@@ -25,15 +25,15 @@
  * check first that it doesn't already exist, as shown in this example: 
  * 
  *         // unsafe
- *         var APPMODULE = {};
+ *         var CONTACTS_MODULE = {};
  * 
  *         // better
- *         if (typeof APPMODULE === "undefined") {
- *             var APPMODULE = {};
+ *         if (typeof CONTACTS_MODULE === "undefined") {
+ *             var CONTACTS_MODULE = {};
  *         }
  * 
  *         // or shorter
- *         var APPMODULE = APPMODULE || {};
+ *         var CONTACTS_MODULE = CONTACTS_MODULE || {};
  * 
  * The module pattern is widely used because it provides structure and helps organize your code as it grows.
  * Unlike other languages, JavaScript doesn't have special syntax for packages, but the module pattern provides 
@@ -43,15 +43,15 @@
  * @author Joshua Wilson
  */
 
-var APPMODULE = APPMODULE || {};
+var CONTACTS_MODULE = CONTACTS_MODULE || {};
 
-APPMODULE.namespace = function (ns_string) {
+CONTACTS_MODULE.namespace = function (ns_string) {
     var parts = ns_string.split('.'),
-        parent = APPMODULE,
+        parent = CONTACTS_MODULE,
         i;
     
     // Strip redundant leading global
-    if (parts[0] === "APPMODULE") {
+    if (parts[0] === "CONTACTS_MODULE") {
         parts = parts.slice(1);
     }
     

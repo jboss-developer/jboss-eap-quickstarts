@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
 Summary: A basic example of CRUD operations in a mobile only website.  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
 
 What is it?
@@ -41,6 +41,13 @@ example of this in the Edit form if you enter an email that is already in use.  
 field if that field exists.  If the field does not exist then it display it at the top. In addition, there are 
 [qunit tests](#run-the-qunit-tests) for every form of validation.  
 
+*Note: This quickstart uses the following Jackson libraries that are a part of the JBoss EAP private API.*
+
+* *org.codehaus.jackson.jackson-core-asl*
+* *org.codehaus.jackson.jackson-mapper-asl*
+
+*A public API will become available in a future EAP release and the private classes will be deprecated, but these classes 
+will be maintained and available for the duration of the EAP 6.x release cycle.*
 
 System requirements
 -------------------

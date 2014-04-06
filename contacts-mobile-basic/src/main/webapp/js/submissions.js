@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-APPMODULE.namespace('APPMODULE.submissions.submitCreate');
-APPMODULE.namespace('APPMODULE.submissions.submitUpdate');
-APPMODULE.namespace('APPMODULE.submissions.deleteContact');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.submissions.submitCreate');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.submissions.submitUpdate');
+CONTACTS_MODULE.namespace('CONTACTS_MODULE.submissions.deleteContact');
 
 /**
  * Listen for and handle the Create, Update, and Delete actions of the app.
@@ -26,8 +26,8 @@ APPMODULE.namespace('APPMODULE.submissions.deleteContact');
  */
 $(document).ready(function() {
     //Initialize the vars in the beginning so that you will always have access to them.
-    var getCurrentTime = APPMODULE.util.getCurrentTime,
-        restEndpoint = APPMODULE.app.restEndpoint,
+    var getCurrentTime = CONTACTS_MODULE.util.getCurrentTime,
+        restEndpoint = CONTACTS_MODULE.app.restEndpoint,
         run;
 
     /**
@@ -51,27 +51,27 @@ $(document).ready(function() {
     
     //Initialize all the AJAX form events.
     run = function () {
-        console.log(getCurrentTime() + " [js/submits.js] (run) - start");
+        console.log(getCurrentTime() + " [js/submissions.js] (run) - start");
         //Fetches the initial contact data
-        APPMODULE.submissions.submitCreate();
-        APPMODULE.submissions.submitUpdate();
-        APPMODULE.submissions.deleteContact();
-        console.log(getCurrentTime() + " [js/submits.js] (run) - end");
+        CONTACTS_MODULE.submissions.submitCreate();
+        CONTACTS_MODULE.submissions.submitUpdate();
+        CONTACTS_MODULE.submissions.deleteContact();
+        console.log(getCurrentTime() + " [js/submissions.js] (run) - end");
     };
     
     /**
      * Attempts to register a new contact using a JAX-RS POST.  
      */
-    APPMODULE.submissions.submitCreate = function() {
-        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - start");
+    CONTACTS_MODULE.submissions.submitCreate = function() {
+        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - start");
         
         $("#contacts-add-form").submit(function(event) {
-            console.log(getCurrentTime() + " [js/submits.js] (submitCreate - submit event) - checking if the form is valid");
+            console.log(getCurrentTime() + " [js/submissions.js] (submitCreate - submit event) - checking if the form is valid");
             // Ensure that the form has been validated.
-            APPMODULE.validation.addContactsFormValidator.form();
+            CONTACTS_MODULE.validation.addContactsFormValidator.form();
             // If there are any validation error then don't process the submit. 
-            if (APPMODULE.validation.addContactsFormValidator.valid()){
-                console.log(getCurrentTime() + " [js/submits.js] (submitCreate - submit event) - started");
+            if (CONTACTS_MODULE.validation.addContactsFormValidator.valid()){
+                console.log(getCurrentTime() + " [js/submissions.js] (submitCreate - submit event) - started");
                 event.preventDefault();
                 
                 /*
@@ -95,14 +95,10 @@ $(document).ready(function() {
                 // Transform the form fields into JSON.
                 // Must pull from the specific form so that we get the right data in case another form has data in it.
                 var serializedForm = $("#contacts-add-form").serializeObject();
-                console.log(getCurrentTime() + " [js/submits.js] (submitCreate - submit event) - serializedForm.birthDate = " + serializedForm.birthDate);
-                // Set the time to 12 so that any changes in the timezone do not change the date.
-                var birthdate = serializedForm.birthDate + "T12:00:00.000Z";
-                // Assign the updated date/time back to the object.
-                serializedForm.birthDate = birthdate;
+                console.log(getCurrentTime() + " [js/submissions.js] (submitCreate - submit event) - serializedForm.birthDate = " + serializedForm.birthDate);
                 // Turn the object into a String.
                 var contactData = JSON.stringify(serializedForm);
-                console.log(getCurrentTime() + " [js/submits.js] (submitCreate - submit event) - contactData = " + contactData);
+                console.log(getCurrentTime() + " [js/submissions.js] (submitCreate - submit event) - contactData = " + contactData);
                 
                 /* The jQuery XMLHttpRequest (jqXHR) object returned by $.ajax() as of jQuery 1.5 is a superset of
                  *   the browser's native XMLHttpRequest object. For example, it contains responseText and responseXML
@@ -124,15 +120,15 @@ $(document).ready(function() {
                     data: contactData,
                     type: "POST"
                 }).done(function(data, textStatus, jqXHR) {
-                    console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax done");
+                    console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - ajax done");
                     
                     // Reset this flag when the form passes validation. 
-                    APPMODULE.validation.formEmail = null;
+                    CONTACTS_MODULE.validation.formEmail = null;
                     
                     // Clear the form or else the next time you go to add a contact the last one will still be there.
                     $('#contacts-add-form')[0].reset();
                     
-                    // Remove any errors that are not a part of the validation system.
+                    // Remove errors display as a part of the validation system.
                     $('.invalid').remove();
                     
                     // Because we turned on the automatic page transition to catch server side error we need to do it ourselves.
@@ -144,9 +140,9 @@ $(document).ready(function() {
                     
                     // Check for server side validation errors.  This should catch the email uniqueness validation.
                     if ((jqXHR.status === 409) || (jqXHR.status === 400)) {
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - error in ajax - " +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - error in ajax - " +
                                 "Validation error updating contact! " + jqXHR.status);
-//                            console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - error in ajax" +
+//                            console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - error in ajax" +
 //                                        " - jqXHR = " + jqXHR.status +
 //                                        ", textStatus = " + textStatus +
 //                                        ", errorThrown = " + errorThrown +
@@ -165,7 +161,7 @@ $(document).ready(function() {
                                 $.each(contact, function(index, val){
                                     // This will look for an element with the name of 'email' and pull it's value.
                                     if (val.name == "email"){
-                                        APPMODULE.validation.formEmail = val.value;
+                                        CONTACTS_MODULE.validation.formEmail = val.value;
                                         return false;
                                     }
                                 });
@@ -173,28 +169,28 @@ $(document).ready(function() {
                         });
                         
                         // Apply the error to the form.
-                        APPMODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
+                        CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
                         
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - error in ajax - " +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - error in ajax - " +
                                 "Validation error displayed in the form for the user to fix! ");
                     } else if (jqXHR.status >= 200 && jqXHR.status < 300 || jqXHR.status === 304) {
                         // It should not reach this error as long as the dataType: is not set. Or if it is set to something
                         // like JSON then the Server method must return data.
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error on 20x with error message: "
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - ajax error on 20x with error message: "
                                 + errorThrown.message);
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error because the REST service doesn't return" +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - ajax error because the REST service doesn't return" +
                                 "any data and this app expects data.  Fix the REST app or remove the 'dataType:' option from the AJAX call.");
                         
                         // Extract the error messages from the server.
                         var errorMsg = $.parseJSON(jqXHR.responseText);
                         
                         // Apply the error to the form.
-                        APPMODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
+                        CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
                         
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - ajax error on 20x - " +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - ajax error on 20x - " +
                                 "after displayServerSideErrors()");
                     } else {
-                        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - error in ajax" +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - error in ajax" +
                                     " - jqXHR = " + jqXHR.status +
                                     ", textStatus = " + textStatus +
                                     ", errorThrown = " + errorThrown +
@@ -204,29 +200,29 @@ $(document).ready(function() {
                         var errorMsg = $.parseJSON(jqXHR.responseText);
                         
                         // Apply the error to the form.
-                        APPMODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
+                        CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
                     }
                 });
             }
         });
-        console.log(getCurrentTime() + " [js/submits.js] (submitCreate) - end");
+        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - end");
     };
     
 
     /**
      * Attempts to update a contact using a JAX-RS PUT.  
      */
-    APPMODULE.submissions.submitUpdate = function() {
-        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - start");
+    CONTACTS_MODULE.submissions.submitUpdate = function() {
+        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - start");
         
         $("#contacts-edit-form").submit(function(event) {
-            console.log(getCurrentTime() + " [js/submits.js] (submitUpdate - submit event) - checking if the form is valid");
+            console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate - submit event) - checking if the form is valid");
             
             // Ensure that the form has been validated.
-            APPMODULE.validation.editContactsFormValidator.form();
+            CONTACTS_MODULE.validation.editContactsFormValidator.form();
             // If there are any validation error then don't process the submit. 
-            if (APPMODULE.validation.editContactsFormValidator.valid()){
-                console.log(getCurrentTime() + " [js/submits.js] (submitUpdate - submit event) - started");
+            if (CONTACTS_MODULE.validation.editContactsFormValidator.valid()){
+                console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate - submit event) - started");
                 event.preventDefault();
                 
                 /*
@@ -250,14 +246,10 @@ $(document).ready(function() {
                 // Transform the form fields into JSON.
                 // Must pull from the specific form so that we get the right data in case another form has data in it.
                 var serializedForm = $("#contacts-edit-form").serializeObject();
-                console.log(getCurrentTime() + " [js/submits.js] (submitUpdate - submit event) - serializedForm.birthDate = " + serializedForm.birthDate);
-                // Set the time to 12 so that any changes in the timezone do not change the date.
-                var birthdate = serializedForm.birthDate + "T12:00:00.000Z";
-                // Assign the updated date/time back to the object.
-                serializedForm.birthDate = birthdate;
+                console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate - submit event) - serializedForm.birthDate = " + serializedForm.birthDate);
                 // Turn the object into a String.
                 var contactData = JSON.stringify(serializedForm);
-                console.log(getCurrentTime() + " [js/submits.js] (submitUpdate - submit event) - contactData = " + contactData);
+                console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate - submit event) - contactData = " + contactData);
                 
                 /* The jQuery XMLHttpRequest (jqXHR) object returned by $.ajax() as of jQuery 1.5 is a superset of
                  *   the browser's native XMLHttpRequest object. For example, it contains responseText and responseXML
@@ -279,12 +271,12 @@ $(document).ready(function() {
                     data: contactData,
                     type: "PUT"
                 }).done(function(data, textStatus, jqXHR) {
-                    console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax done");
+                    console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - ajax done");
                     
                     // Reset this flag when the form passes validation. 
-                    APPMODULE.validation.formEmail = null;
+                    CONTACTS_MODULE.validation.formEmail = null;
                     
-                    // Remove any errors that are not a part of the validation system.
+                    // Remove errors display as a part of the validation system.
                     $('.invalid').remove();
                     
                     // Because we turned on the automatic page transition to catch server side error we need to do it ourselves.
@@ -296,9 +288,9 @@ $(document).ready(function() {
                     
                     // Check for server side validation errors.  This should catch the email uniqueness validation.
                     if ((jqXHR.status === 409) || (jqXHR.status === 400)) {
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - error in ajax - " +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - error in ajax - " +
                                 "Validation error updating contact! " + jqXHR.status);
-//                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - error in ajax" +
+//                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - error in ajax" +
 //                                    " - jqXHR = " + jqXHR.status +
 //                                    ", textStatus = " + textStatus +
 //                                    ", errorThrown = " + errorThrown +
@@ -317,7 +309,7 @@ $(document).ready(function() {
                                 $.each(contact, function(index, val){
                                     // This will look for an element with the name of 'email' and pull it's value.
                                     if (val.name == "email"){
-                                        APPMODULE.validation.formEmail = val.value;
+                                        CONTACTS_MODULE.validation.formEmail = val.value;
                                         return false;
                                     }
                                 });
@@ -325,28 +317,28 @@ $(document).ready(function() {
                         });
                         
                         // Apply the error to the form.
-                        APPMODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
+                        CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
                         
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - error in ajax - " +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - error in ajax - " +
                                 "Validation error displayed in the form for the user to fix! ");
                     } else if (jqXHR.status >= 200 && jqXHR.status < 300 || jqXHR.status === 304) {
                         // It should not reach this error as long as the dataType: is not set. Or if it is set to something
                         // like JSON then the Server method must return data.
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error on 20x with error message: "
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - ajax error on 20x with error message: "
                                 + errorThrown.message);
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error because the REST service doesn't return" +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - ajax error because the REST service doesn't return" +
                                 "any data and this app expects data.  Fix the REST app or remove the 'dataType:' option from the AJAX call.");
                         
                         // Extract the error messages from the server.
                         var errorMsg = $.parseJSON(jqXHR.responseText);
                         
                         // Apply the error to the form.
-                        APPMODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
+                        CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
                         
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - ajax error on 20x - " +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - ajax error on 20x - " +
                                 "after displayServerSideErrors()");
                     } else {
-                        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - error in ajax" +
+                        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - error in ajax" +
                                     " - jqXHR = " + jqXHR.status +
                                     ", textStatus = " + textStatus +
                                     ", errorThrown = " + errorThrown +
@@ -356,22 +348,22 @@ $(document).ready(function() {
                         var errorMsg = $.parseJSON(jqXHR.responseText);
                         
                         // Apply the error to the form.
-                        APPMODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
+                        CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
                     }
                 });
             }
         });
-        console.log(getCurrentTime() + " [js/submits.js] (submitUpdate) - end");
+        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - end");
     };
     
     /**
      * Attempts to delete a contact using a JAX-RS DELETE.  
      */
-    APPMODULE.submissions.deleteContact = function() {
-        console.log(getCurrentTime() + " [js/submits.js] (deleteContact) - start");
+    CONTACTS_MODULE.submissions.deleteContact = function() {
+        console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - start");
         
         $("#confirm-delete-button").click(function(event) {
-            console.log(getCurrentTime() + " [js/submits.js] (deleteContact - submit event) - started");
+            console.log(getCurrentTime() + " [js/submissions.js] (deleteContact - submit event) - started");
             // You must not preventDefault on a click on a link as that will prevent it from changing pages. 
 //            event.preventDefault();
             
@@ -399,22 +391,22 @@ $(document).ready(function() {
                 data: contactData,
                 type: "DELETE"
             }).done(function(data, textStatus, jqXHR) {
-                console.log(getCurrentTime() + " [js/submits.js] (deleteContact) - ajax done");
+                console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - ajax done");
                 
                 // Reset this flag when the form passes validation. 
-                APPMODULE.validation.formEmail = null;
+                CONTACTS_MODULE.validation.formEmail = null;
                 
                 // Remove errors display as a part of the validation system. 
-                APPMODULE.validation.editContactsFormValidator.resetForm();
+                CONTACTS_MODULE.validation.editContactsFormValidator.resetForm();
                 
-                // Remove any errors that are not a part of the validation system.
+                // Remove errors display as a part of the validation system.
                 $('.invalid').remove();
                 
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 // Remove any errors that are not a part of the validation system.
                 $('.invalid').remove();
                 
-                console.log(getCurrentTime() + " [js/submits.js] (deleteContact) - error in ajax" +
+                console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - error in ajax" +
                         " - jqXHR = " + jqXHR.status +
                         ", textStatus = " + textStatus +
                         ", errorThrown = " + errorThrown +
@@ -424,10 +416,10 @@ $(document).ready(function() {
                 var errorMsg = $.parseJSON(jqXHR.responseText);
                 
                 // Apply the error to the form.
-                APPMODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
+                CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
             });
         });
-        console.log(getCurrentTime() + " [js/submits.js] (deleteContact) - end");
+        console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - end");
     };
     
     //Set up each of these event listeners.
