@@ -39,7 +39,7 @@ test('should be able to add 2 rows to both a simple list view and a detailed lis
     var contacts = [{email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "1231231231", birthDate:'1966-01-03'},
                     {email: "john.doe@company.com", id: 15, firstName: "John", lastName: 'Doe', phoneNumber: "2125551212", birthDate:'1978-02-23'}];
 
-    APPMODULE.app.buildContactList(contacts);
+    CONTACTS_MODULE.app.buildContactList(contacts);
 
     strictEqual($('.contacts-list-item').length, 2, 'Built 2 rows in the simple list view.');
     strictEqual($('.contacts-detail-list-item').length, 2, 'Built 2 rows in the detailed list view.');
@@ -48,7 +48,7 @@ test('should be able to add 2 rows to both a simple list view and a detailed lis
 test('should display nothing when no records are found. ', 1, function() {
     var contacts = [];
 
-    APPMODULE.app.buildContactList(contacts);
+    CONTACTS_MODULE.app.buildContactList(contacts);
 
     strictEqual($('.contacts-list-item').length, 0, 'Created no rows for empty contacts.');
 });
@@ -84,8 +84,8 @@ test('should be able to fill in the edit form with values', 5, function() {
         '</form>'
     );
     
-    var contacts = {email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "1231231231", birthDate:'1966-01-03T12:00:00.000Z'};
-    APPMODULE.app.buildContactDetail(contacts);
+    var contacts = {email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "1231231231", birthDate:'1966-01-03'};
+    CONTACTS_MODULE.app.buildContactDetail(contacts);
     strictEqual($('#contacts-edit-input-firstName').val(), 'Jane', 'Expected to find Jane in the first name field.');
     strictEqual($('#contacts-edit-input-lastName').val(),  'Doe', 'Expected to find Doe in the last name field.');
     strictEqual($('#contacts-edit-input-tel').val(),       '1231231231', 'Expected to find 1231231231 in the phone number field.');
@@ -129,7 +129,7 @@ test('should be able to GET a contact from the db', 1, function() {
     // It looks like the following will not work but I may yet find a way so I will keep this here for now.
     // I think to get this work you need to set the URL to the full (http://...) version and setup CORS. In addition 
     //  the Contact needs to be returned by the method.
-//    var imported = APPMODULE.app.getContactById(10001);
+//    var imported = CONTACTS_MODULE.app.getContactById(10001);
 //    deepEqual(imported, contacts, 'Expected John Smith to have been returned.');
     ok(true,"TODO");
 });
@@ -167,7 +167,7 @@ test('should be able to GET a contact from the db and fill in the edit form', 5,
 
     // It looks like the following will not work but I may yet find a way so I will keep this here for now. 
     // I think to get this work you need to set the URL to the full (http://...) version and setup CORS. In addition
-//    APPMODULE.app.getContactById(10001);
+//    CONTACTS_MODULE.app.getContactById(10001);
 //    strictEqual($('#contacts-edit-input-firstName').val(), 'John', 'Expected to find John in the first name field.');
 //    strictEqual($('#contacts-edit-input-lastName').val(),  'Smith', 'Expected to find Smith in the last name field.');
 //    strictEqual($('#contacts-edit-input-tel').val(),       '1231231231', 'Expected to find 2125551212 in the phone number field.');

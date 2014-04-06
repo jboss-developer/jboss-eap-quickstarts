@@ -19,6 +19,7 @@ package org.jboss.quickstarts.wfk.contact.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -29,19 +30,25 @@ import javax.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+
 import org.jboss.quickstarts.wfk.contact.Contact;
 import org.jboss.quickstarts.wfk.contact.ContactRepository;
 import org.jboss.quickstarts.wfk.contact.ContactRESTService;
 import org.jboss.quickstarts.wfk.contact.ContactService;
 import org.jboss.quickstarts.wfk.contact.ContactValidator;
+import org.jboss.quickstarts.wfk.util.Resources;
+
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+
+// JAX-RS 2.0 import statement
+//import javax.ws.rs.client.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.jboss.quickstarts.wfk.util.ConvertDate;
-import org.jboss.quickstarts.wfk.util.Resources;
 
 /**
  * Uses Arquilian to test the JAX-RS processing class for contact registration.
@@ -54,11 +61,24 @@ public class ContactRegistrationTest {
     
     @Deployment
     public static Archive<?> createTestArchive() {
-        return ShrinkWrap
+//        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
+//                "org.hibernate.javax.persistence:hibernate-jpa-2.0-api"
+//        ).withTransitivity().asFile();
+
+        Archive<?> archive = ShrinkWrap
             .create(WebArchive.class, "test.war")
-            .addClasses(Contact.class, ContactRESTService.class, ContactRepository.class, ContactValidator.class, ContactService.class,
-                ConvertDate.class, Resources.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource("arquillian-ds.xml").addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addClasses(Contact.class, 
+                        ContactRESTService.class, 
+                        ContactRepository.class, 
+                        ContactValidator.class, 
+                        ContactService.class, 
+                        Resources.class)
+//            .addAsLibraries(libs)
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            .addAsWebInfResource("arquillian-ds.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        
+        return archive;
     }
 
     @Inject
