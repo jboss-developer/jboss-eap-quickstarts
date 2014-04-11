@@ -70,11 +70,11 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 
 You can specify alternative versions of the bean in the WEB-INF/beans.xml file by doing one of the following:
 
-1. you can remove the '<alternatives>' tag
-2. you can change the class name.
+1. You can remove the `<alternatives>` tag
+2. You can change the class name.
 
 In this quickstart, in order to switch back to the default implementation, 
-comment the '<alternatives>' block in the WEB-INF/beans.xml file and redeploy the quickstart.
+comment the `<alternatives>` block in the WEB-INF/beans.xml file and redeploy the quickstart.
 
 Undeploy the Archive
 --------------------
