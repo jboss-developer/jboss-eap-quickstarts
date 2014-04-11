@@ -83,19 +83,7 @@ public class MyPersonTest {
      */
 
     /**
-     * Tests an invalid Person registration
-     */
-    @Test
-    public void testRegisterEmptyPerson() {
-
-        Person person = new Person();
-        Set<ConstraintViolation<Person>> violations = validator.validate(person);
-
-        Assert.assertEquals("Three violations were found", "Name and Address fields must not be null/empty", violations.iterator().next().getInvalidValue());
-    }
-
-    /**
-     * Tests a valid Person registration
+     * Tests a valid Person and correct address
      */
     @Test
     public void testCorrectAddress() {
@@ -105,53 +93,25 @@ public class MyPersonTest {
     }
 
     /**
-     * Tests {@code @NotNull} constraint
-     */
-    @Test
-    public void testFirstNameNullViolation() {
-        Person person = createValidPerson();
-        person.setFirstName(null);
-        Set<ConstraintViolation<Person>> violations = validator.validate(person);
-
-        Assert.assertEquals("One violation was found", 1, violations.size());
-        Assert.assertEquals("First Name was invalid", violations.iterator().next().getMessage(), violations.iterator().next().getInvalidValue());
-    }
-
-    /**
-     * Tests {@code @Size} constraint
-     */
-    @Test
-    public void testFirstNameSizeViolation() {
-        Person person = createValidPerson();
-        person.setFirstName("Lee");
-        Set<ConstraintViolation<Person>> violations = validator.validate(person);
-
-        Assert.assertEquals("One violation was found", 1, violations.size());
-        Assert.assertEquals("First Name was invalid", violations.iterator().next().getMessage(), violations.iterator().next().getInvalidValue().toString().length());
-    }
-
-    /**
-     * Validating the model data which has incorrect values. Tests {@code @Address} constraint
+     * Validating the model data which has correct values. Tests {@code @Address} constraint
      */
     @Test
     public void testAddressViolation() {
         Person person = createValidPerson();
-        // setting address itself as null
-        person.setPersonAddress(null);
         validateAddressConstraints(person);
 
-        // One of the address field is null.
-        person.getPersonAddress().setCity(null);
+        // Setting city field of address.
+        person.getPersonAddress().setCity("Carolina");
         validateAddressConstraints(person);
 
-        // Setting pin code less than 6 characters.
-        person.getPersonAddress().setPinCode("123");
+        // Setting pin code equal to valid length of 6 characters.
+        person.getPersonAddress().setPinCode("123456");
         person.getPersonAddress().setCity("Auckland");
         validateAddressConstraints(person);
 
-        // Setting country name with less than 4 characters
+        // Setting country name with valid length of more than 4 characters
         person.getPersonAddress().setPinCode("123456");
-        person.getPersonAddress().setCountry("RIO");
+        person.getPersonAddress().setCountry("Mexico");
         validateAddressConstraints(person);
 
     }
