@@ -20,7 +20,7 @@
 <div class="highlight"><pre> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">other</span> <span class="n">repo</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">other</span> <span class="n">repo</span> <span class="n">url</span><span class="o">&gt;</span>
 </pre></div></li>
 <li><p>Merge from the tag in the other repo that you wish to use. It is important to use a tag, to make tracking of history easier. We use a recursive merge strategy, always preferring changes from the other repo, in effect overwriting what we have locally.</p>
-<div class="highlight"><pre> <span class="nx">git</span> <span class="nb">merge</span> <span class="o">&lt;</span><span class="kt">tag</span><span class="o">&gt;</span> <span class="na">-s</span> <span class="nx">recursive</span> <span class="na">-Xtheirs</span> <span class="na">-m</span> <span class="s2">&quot;Merge &lt;Other repository name&gt; &#39;&lt;Tag&gt;&#39;&quot;</span>
+<div class="highlight"><pre> <span class="nx">git</span> <span class="nx">merge</span> <span class="o">&lt;</span><span class="kt">tag</span><span class="o">&gt;</span> <span class="na">-s</span> <span class="nx">recursive</span> <span class="na">-Xtheirs</span> <span class="na">-m</span> <span class="s2">&quot;Merge &lt;Other repository name&gt; &#39;&lt;Tag&gt;&#39;&quot;</span>
 </pre></div></li>
 <li><p>Review and push to upstream</p>
 <div class="highlight"><pre> <span class="n">git</span> <span class="n">push</span> <span class="n">upstream</span> <span class="n">HEAD</span><span class="o">:</span><span class="n">master</span>
