@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: OSGi  
 Summary: Shows how to create and deploy a simple OSGi Bundle  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
