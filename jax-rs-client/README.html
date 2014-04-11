@@ -57,23 +57,23 @@ in Red Hat JBoss Enterprise Application Platform.</p>
 
 <p>This command will compile the example and execute a test to make two separate requests to the Web Service.  Towards the end of the Maven build output, you 
 should see the following if the execution is successful:</p>
-<div class="highlight"><pre>    <span class="o">===============================================</span>
-    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//localhost:8080/jboss-helloworld-rs/rest/xml</span>
-    <span class="nx">MediaType</span><span class="p">:</span> <span class="nx">application</span><span class="p">/</span><span class="nb">xml</span>
+<div class="highlight"><pre>    ===============================================
+    URL: http://localhost:8080/jboss-helloworld-rs/rest/xml
+    MediaType: application/xml
 
-    <span class="o">***</span> <span class="nb">Response</span> <span class="nb">from</span> <span class="nx">Server</span> <span class="o">***</span>
+    *** Response from Server ***
 
-    <span class="o">&lt;</span><span class="kt">xml</span><span class="o">&gt;&lt;</span><span class="nb">result</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">!&lt;/</span><span class="nb">result</span><span class="o">&gt;&lt;/</span><span class="kt">xml</span><span class="o">&gt;</span>
+    <span class="nt">&lt;xml&gt;&lt;result&gt;</span>Hello World!<span class="nt">&lt;/result&gt;&lt;/xml&gt;</span>
 
-    <span class="o">===============================================</span>
-    <span class="o">===============================================</span>
-    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//localhost:8080/jboss-helloworld-rs/rest/json</span>
-    <span class="nx">MediaType</span><span class="p">:</span> <span class="nx">application</span><span class="p">/</span><span class="nx">json</span>
+    ===============================================
+    ===============================================
+    URL: http://localhost:8080/jboss-helloworld-rs/rest/json
+    MediaType: application/json
 
-    <span class="o">***</span> <span class="nb">Response</span> <span class="nb">from</span> <span class="nx">Server</span> <span class="o">***</span>
+    *** Response from Server ***
 
-    <span class="p">{</span><span class="s2">&quot;result&quot;</span><span class="p">:</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">}</span>
-    <span class="o">===============================================</span>
+    {&quot;result&quot;:&quot;Hello World!&quot;}
+    ===============================================
 </pre></div>
 <h2><a id="openshift" class="anchor" href="#openshift"><span class="anchor-icon"></span></a>OpenShift</h2>
 
@@ -115,24 +115,24 @@ should see the following if the execution is successful:</p>
 <div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">test</span>
 </pre></div>
 <p>This command will compile the example and execute a test to make two separate requests to the Web Service.  Towards the end of the Maven build output, you should see the following if the execution is successful:</p>
-<div class="highlight"><pre>    <span class="o">===============================================</span>
-    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml</span>
-    <span class="nx">MediaType</span><span class="p">:</span> <span class="nx">application</span><span class="p">/</span><span class="nb">xml</span>
+<div class="highlight"><pre>    ===============================================
+    URL: http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml
+    MediaType: application/xml
 
-    <span class="o">***</span> <span class="nb">Response</span> <span class="nb">from</span> <span class="nx">Server</span> <span class="o">***</span>
+    *** Response from Server ***
 
-    <span class="o">&lt;</span><span class="kt">xml</span><span class="o">&gt;&lt;</span><span class="nb">result</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">!&lt;/</span><span class="nb">result</span><span class="o">&gt;&lt;/</span><span class="kt">xml</span><span class="o">&gt;</span>
+    <span class="nt">&lt;xml&gt;&lt;result&gt;</span>Hello World!<span class="nt">&lt;/result&gt;&lt;/xml&gt;</span>
 
-    <span class="o">===============================================</span>
-    <span class="o">===============================================</span>
-    <span class="nb">URL</span><span class="p">:</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json</span>
-    <span class="nx">MediaType</span><span class="p">:</span> <span class="nx">application</span><span class="p">/</span><span class="nx">json</span>
+    ===============================================
+    ===============================================
+    URL: http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json
+    MediaType: application/json
 
-    <span class="o">***</span> <span class="nb">Response</span> <span class="nb">from</span> <span class="nx">Server</span> <span class="o">***</span>
+    *** Response from Server ***
 
-    <span class="p">{</span><span class="s2">&quot;result&quot;</span><span class="p">:</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">}</span>
+    {&quot;result&quot;:&quot;Hello World!&quot;}
 
-    <span class="o">===============================================</span>
+    ===============================================
 </pre></div>
 <p>When you are finished testing, restore the <code>pom.xml</code> file to the previous version if you want to test locally.</p>
 

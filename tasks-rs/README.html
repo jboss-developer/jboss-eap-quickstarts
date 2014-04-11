@@ -180,8 +180,8 @@ For an example of how to use the add-user utility, see instructions in the root 
 <div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">quickstartUser</span><span class="o">:</span><span class="n">quickstartPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> <span class="n">http</span><span class="o">:</span><span class="c1">//localhost:8080/jboss-tasks-rs/tasks</span>
 </pre></div>
 <p>You will see a response with an empty collection:</p>
-<div class="highlight"><pre><span class="o">&lt;?</span><span class="nt">xml</span> <span class="nt">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> <span class="nt">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span> <span class="nt">standalone</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="o">?&gt;</span>
-<span class="o">&lt;</span><span class="nt">collection</span><span class="o">/&gt;</span>
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s">&quot;1.0&quot;</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="n">standalone</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="o">?&gt;</span>
+<span class="o">&lt;</span><span class="n">collection</span><span class="o">/&gt;</span>
 </pre></div>
 <h2><a id="modify-this-quickstart-to-support-json-representations-of-tasks" class="anchor" href="#modify-this-quickstart-to-support-json-representations-of-tasks"><span class="anchor-icon"></span></a>Modify this Quickstart to Support JSON Representations of Tasks</h2>
 
@@ -189,9 +189,9 @@ For an example of how to use the add-user utility, see instructions in the root 
 
 <ol>
 <li><p>Open the file src/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.</p>
-<div class="highlight"><pre><span class="c1">// import org.codehaus.jackson.annotate.JsonIgnore;</span>
+<div class="highlight"><pre><span class="o">//</span> <span class="kn">import</span> <span class="nn">org.codehaus.jackson.annotate.JsonIgnore</span><span class="p">;</span>
 
-<span class="c1">// @JsonIgnore</span>
+<span class="o">//</span> <span class="nd">@JsonIgnore</span>
 </pre></div></li>
 <li><p>Open the file src/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the <em>GET</em> methods produce &ldquo;application/json&rdquo; as well as &ldquo;application/xml&rdquo;. Again, look for lines beginning with &ldquo;// JSON:&rdquo;.</p>
 

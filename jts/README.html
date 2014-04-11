@@ -251,17 +251,17 @@ following ways:</p>
 <li>If you backed up the EAP_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.</li>
 <li>If you did not make a backup copy, open the file EAP_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:</li>
 </ol>
-<div class="highlight"><pre><span class="o">*</span> <span class="nb">Find</span> <span class="nx">the</span> <span class="nx">orb</span> <span class="nx">subsystem</span> <span class="ow">and</span> <span class="nx">change</span> <span class="nx">the</span> <span class="nx">configuration</span> <span class="nb">back</span> <span class="k">to</span><span class="p">:</span>
+<div class="highlight"><pre>* Find the orb subsystem and change the configuration back to:
 
-        <span class="o">&lt;</span><span class="nx">subsystem</span> <span class="n">xmlns</span><span class="o">=</span><span class="s2">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="nx">orb</span><span class="o">&gt;</span>
-                <span class="o">&lt;</span><span class="nx">initializers</span> <span class="n">security</span><span class="o">=</span><span class="s2">&quot;on&quot;</span> <span class="n">transactions</span><span class="o">=</span><span class="s2">&quot;spec&quot;</span><span class="o">/&gt;</span>
-            <span class="o">&lt;/</span><span class="nx">orb</span><span class="o">&gt;</span>
-        <span class="o">&lt;/</span><span class="nx">subsystem</span><span class="o">&gt;</span>
-<span class="o">*</span> <span class="nb">Find</span> <span class="nx">the</span> <span class="nx">transaction</span> <span class="nx">subsystem</span> <span class="ow">and</span> <span class="nb">remove</span> <span class="nx">the</span> <span class="sb">`&lt;jts/&gt;`</span> <span class="nb">element</span><span class="p">:</span>
+        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.2&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;orb&gt;</span>
+                <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;on&quot;</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/orb&gt;</span>
+        <span class="nt">&lt;/subsystem&gt;</span>
+* Find the transaction subsystem and remove the `<span class="nt">&lt;jts/&gt;</span>` element:
 
-        <span class="o">&lt;</span><span class="nx">subsystem</span> <span class="n">xmlns</span><span class="o">=</span><span class="s2">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="o">&gt;</span>
-            <span class="o">&lt;!--</span> <span class="nb">REMOVE</span> <span class="nx">node</span><span class="na">-identifier</span> <span class="nx">ATTRIBUTE</span> <span class="nb">FROM</span> <span class="nx">core</span><span class="na">-environment</span> <span class="nb">ELEMENT</span> <span class="o">--&gt;</span>
-            <span class="o">&lt;!--</span> <span class="nx">LEAVE</span> <span class="nx">EXISTING</span> <span class="nx">CONFIG</span> <span class="ow">AND</span> <span class="nb">REMOVE</span> <span class="nx">THE</span> <span class="o">&lt;/</span><span class="nx">jts</span><span class="o">&gt;</span> <span class="o">--&gt;</span>
-        <span class="o">&lt;/</span><span class="nx">subsystem</span><span class="o">&gt;</span>
+        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.2&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT --&gt;</span>
+            <span class="c">&lt;!-- LEAVE EXISTING CONFIG AND REMOVE THE &lt;/jts&gt; --&gt;</span>
+        <span class="nt">&lt;/subsystem&gt;</span>
 </pre></div></body></html>
