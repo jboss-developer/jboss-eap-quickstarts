@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Apache Wicket, JPA  
 Summary: Demonstrates how to use the Wicket Framework 1.5 with the JBoss EAP server using the Wicket-Stuff Java EE integration, packaged as an EAR  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

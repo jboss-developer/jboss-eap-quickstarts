@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI  
 Summary: Creating a basic CDI extension to provide injection of fields from an XML file.  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
