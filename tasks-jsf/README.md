@@ -6,7 +6,7 @@ Technologies: JSF, JPA
 Summary: Provides a JSF 2.0 as view layer for the `tasks` quickstart  
 Prerequisites: tasks  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

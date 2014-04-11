@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, Security  
 Summary: Shows how to use Java EE Declarative Security to Control Access to EJB 3  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
