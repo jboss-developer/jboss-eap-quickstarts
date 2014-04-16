@@ -26,7 +26,7 @@
 		<h:form id="addCustomerForm">
 			<h:panelGrid columns="3">
 				<h:outputLabel for="name">Name:</h:outputLabel>
-				<h:inputText value="#{name}" />
+				<h:inputText id="name" value="#{name}" />
 				<h:commandButton id="add" value="Add"
 					action="#{customerManager.addCustomer(name)}">
 				</h:commandButton>
