@@ -94,7 +94,7 @@ Test the application
 
 1. When you access the application, you will find a web page containing two html input boxes for adding "key" / "value" pairs to a database. Instructions for using the application are shown at the top of the application web page.
 
-2. When you add a new "key" / "value" pair, the change is committed to the database and a JMS message sent. The message consumer then updates the newly inserted row by appending the text *"updated via JMS"* to the value. Since the consumer updates the row asynchronously, you may need to cick _Refresh Table_ to see the text added to the "key" / "value" pair you previously entered.
+2. When you add a new "key" / "value" pair, the change is committed to the database and a JMS message sent. The message consumer then updates the newly inserted row by appending the text *"updated via JMS"* to the value. Since the consumer updates the row asynchronously, you may need to click _Refresh Table_ to see the text added to the "key" / "value" pair you previously entered.
 
 3. When an _XA transaction_ is committed, the application server completes the transaction in two phases.
     * In phase 1 each of the resources, in this example the database and the JMS message producer, are asked to prepare to commit any changes made during the transaction. 
@@ -151,13 +151,16 @@ Test the application
     * By the time the JBoss EAP server is ready, the transaction should have recovered.
     * A message is printed on the JBoss EAP server console when the consumer has completed the update. Look for a line that reads 'JTA Crash Record Quickstart: key value pair updated via JMS'.
     * Check that the row you inserted in step 4 now contains the text *"updated via JMS"*, showing that the JMS message was recovered successfully. Use the application URL to perform this check.
-    * You will most likely see the following message on the console. 
+    * You will most likely see the following messages in the the server log. 
+    
+            WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016037: Could not find new XAResource to use for recovering non-serializable XAResource XAResourceRecord < resource:null, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:1040a11d:534ede43:1c, node_name=1, branch_uid=0:ffff7f000001:1040a11d:534ede43:20, subordinatenodename=null, eis_name=java:jboss/datasources/JTACrashRecQuickstartDS >, heuristic: TwoPhaseOutcome.FINISH_OK, product: H2/1.3.168-redhat-2 (2012-07-13), jndiName: java:jboss/datasources/JTACrashRecQuickstartDS com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@788f0ec1 >
+            WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016038: No XAResource to recover < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:1040a11d:534ede43:1c, node_name=1, branch_uid=0:ffff7f000001:1040a11d:534ede43:20, subordinatenodename=null, eis_name=java:jboss/datasources/JTACrashRecQuickstartDS >
 
-            ARJUNA016038: No XAResource to recover ... eis_name=...JTACrashRecQuickstartDS during recovery
+       This is normal. What actually happened is that the first resource (JTACrashRecQuickstartDS) committed before the JBoss EAP server was halted in step 5. The transaction logs are only updated/deleted after the outcome of the transaction is determined. If the transaction manager did update the log as each participant (database and JMS queue) completed then throughput would suffer. Notice you do not get a similar message for the JMS resource since that is the resource that recovered and the log record was updated to reflect this change. You need to manually remove the record for the first participant if you know which one is which or, if you are using the community version of the JBoss EAP server, then you can also inspect the transaction logs using a JMX browser. For the demo it is simplest to delete the records from the file system, however, *be wary of doing this on a production system*.
 
-        This is normal. What actually happened is that the first resource (JTACrashRecQuickstartDS) committed before the JBoss EAP server was halted in step 5. The transaction logs are only updated/deleted after the outcome of the transaction is determined. If the transaction manager did update the log as each participant (database and JMS queue) completed then throughput would suffer. Notice you do not get a similar message for the JMS resource since that is the resource that recovered and the log record was updated to reflect this change. You need to manually remove the record for the first participant if you know which one is which or, if you are using the community version of the JBoss EAP server, then you can also inspect the transaction logs using a JMX browser. For the demo it is simplest to delete the records from the file system, however, *be wary of doing this on a production system*.
+    
 
-7. Do NOT forget to [Disable the Byteman script](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#disable-the-byteman-script) by restoring the backup server configuration file. The Byteman rule must be removed to ensure that your application server will be able to commit 2PC transactions!
+8. Do NOT forget to [Disable the Byteman script](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#disable-the-byteman-script) by restoring the backup server configuration file. The Byteman rule must be removed to ensure that your application server will be able to commit 2PC transactions!
 
 Server Log: Expected warnings and errors
 -----------------------------------
