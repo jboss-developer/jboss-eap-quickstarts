@@ -24,7 +24,7 @@
 	<ui:define name="content">
 		<Count />
 		<h1>Name of the customer is invalid</h1>
-		<h:outputText value="Name of the customer is invalid: #{name}" />
+		<h:outputText id="message" value="Name of the customer is invalid: #{name}" />
 		<h:link outcome="/addCustomer.xhtml">Go back</h:link>
 	</ui:define>
 </ui:composition>
