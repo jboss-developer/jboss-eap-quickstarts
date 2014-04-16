@@ -23,7 +23,7 @@
 <ui:composition template="template.xhtml">
 	<ui:define name="content">
 		<h1>Customer Already Existed</h1>
-		<h:outputText value="Customer already existed: #{name}" />
+		<h:outputText id="message" value="Customer already existed: #{name}" />
 		<h:link outcome="/addCustomer.xhtml">Go back</h:link>
 	</ui:define>
 </ui:composition>
