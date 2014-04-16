@@ -64,6 +64,11 @@
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-clustering-singleton</artifactId>
         </dependency>
+        <!-- Import JBoss logging, to allow us to use logging -->
+        <dependency>
+          <groupId>org.jboss.as</groupId>
+          <artifactId>jboss-as-logging</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -88,8 +93,8 @@
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
                             <Dependencies>org.jboss.msc,
-                                org.jboss.as.clustering.singleton,
-                                org.jboss.as.server</Dependencies>
+                                org.jboss.as.clustering.singleton
+                            </Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>
