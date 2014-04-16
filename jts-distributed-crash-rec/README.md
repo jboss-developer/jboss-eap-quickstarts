@@ -121,7 +121,7 @@ If you are using Windows
             09:58:40,634 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
     * NOTE: Until you restart JBoss EAP server 1, you will see several error messages in JBoss EAP server 2. These are to be expected:
 
-            15:46:55,044 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta12
+            15:46:55,044 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.25.Final-redhat-1
             15:49:06,579 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
             15:51:19,103 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
             15:51:19,120 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $3
@@ -179,7 +179,7 @@ If you are using Windows
     _IMPORTANT: By default, the recovery process checks the transactional state every two minutes, therefore it can take a while for recovery to happen. Also recovery for each server will take place at its own recovery interval._
     * You will know when recovery is complete for server 2 as you will see the following in application-server-2 console:
 
-            12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta11
+            12:09:38,697 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.25.Final-redhat-1
             12:09:39,204 INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:HornetQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
     * NOTE: You will also get several stack traces in JBoss EAP server 1 console during recovery, these are to be expected as not all resources are available at all stages of recovery.
 
