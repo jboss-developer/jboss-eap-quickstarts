@@ -35,10 +35,6 @@
         </license>
     </licenses>
 
-    <modules>
-        <module>service</module>
-    </modules>
-
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
@@ -62,6 +58,9 @@
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
+    <modules>
+        <module>service</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
