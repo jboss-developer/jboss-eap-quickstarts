@@ -91,6 +91,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
         INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010342: nodeOne/cluster elected as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
         Only nodeOne (or even one instance) will have a message:
         INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+        
+    You also see the following warning in the server logs. As mentioned above, this quickstart accesses the class `org.jboss.as.clustering.singleton.SingletonService`, which is part of the JBoss EAP private API. This server log message provides an additional warning about the use of the private API.
+   
+        WARN  [org.jboss.as.dependency.private] (MSC service thread 1-11) JBAS018567: Deployment "deployment.jboss-cluster-ha-singleton-service.jar" is using a private module ("org.jboss.as.clustering.singleton:main") which may be changed or removed in future versions without notice.
+
+
 8. The timer on the started node will log a message every 10 seconds.
 
 
