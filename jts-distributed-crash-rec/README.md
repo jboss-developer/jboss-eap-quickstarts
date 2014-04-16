@@ -130,7 +130,7 @@ If you are using Windows
 
 5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store by typing the following in the terminal for server 1. Be sure to replace `EAP_HOME_1` with the path to the first server.
 
-        EAP_HOME_1/standalone/data/tx-object-store
+        tree EAP_HOME_1/standalone/data/tx-object-store
 
     This should display:
 
