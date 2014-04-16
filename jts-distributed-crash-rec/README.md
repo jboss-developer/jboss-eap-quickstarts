@@ -68,6 +68,13 @@ You can verify the deployment of the `jts` quickstart by accessing the following
 Test the Application
 -----------------------------------
 
+_Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP 6 server.
+
+  * `EAP_HOME` denotes the path to the original JBoss EAP 6 installation. 
+  * `EAP_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
+  * `EAP_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
+ 
+
 1. If you have not yet done so, configure the two application servers and deploy the `jts` quickstart. Follow the instructions in the [jts README](../jts/README.md) file.
 
 2. Configure _Byteman_ to halt JBoss EAP server 1
@@ -87,28 +94,31 @@ Test the Application
 
 3. Start both of the JBoss EAP servers
 
-    If you are using Linux:
+If you are using Linux:
 
-        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml
-        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
-    If you are using Windows
+If you are using Windows
 
-        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml
-        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+
 
 4. Access the application at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>
     * When you enter a name and click to "add" that customer, you will see the following in the application server 1 console:
 
-            15:46:55,070 INFO  [org.jboss.ejb.client] (http-localhost-127.0.0.1-8080-1) JBoss EJB Client version 1.0.0.Beta12
-            15:46:55,658 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) Rule.execute called for Fail 2PC after prepare_0
-            15:46:55,665 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) HelperManager.install for helper classorg.jboss.byteman.rule.helper.Helper
-            15:46:55,666 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) calling activated() for helper classorg.jboss.byteman.rule.helper.Helper
-            15:46:55,666 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) Default helper activated
-            15:46:55,667 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) calling installed(Fail 2PC after prepare) for helper classorg.jboss.byteman.rule.helper.Helper
-            15:46:55,667 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) Installed rule using default helper : Fail 2PC after prepare
-            15:46:55,668 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) Fail 2PC after prepare execute
-            15:46:55,669 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
+            09:58:20,053 WARNING [javax.enterprise.resource.webcontainer.jsf.renderkit] (http-localhost.localdomain/127.0.0.1:8080-4) Unable to find component with ID name in view.
+            09:58:40,443 INFO  [org.jboss.ejb.client] (http-localhost.localdomain/127.0.0.1:8080-6) JBoss EJB Client version 1.0.25.Final-redhat-1
+            09:58:40,628 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Rule.execute called for Fail 2PC after prepare_0
+            09:58:40,632 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) HelperManager.install for helper class org.jboss.byteman.rule.helper.Helper
+            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) calling activated() for helper class org.jboss.byteman.rule.helper.Helper
+            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Default helper activated
+            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) calling installed(Fail 2PC after prepare) for helper classorg.jboss.byteman.rule.helper.Helper
+            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Installed rule using default helper : Fail 2PC after prepare
+            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Fail 2PC after prepare execute
+            09:58:40,634 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) rule.debug{Fail 2PC after prepare} : Prepare completed
+            09:58:40,634 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
     * NOTE: Until you restart JBoss EAP server 1, you will see several error messages in JBoss EAP server 2. These are to be expected:
 
             15:46:55,044 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.0.Beta12
@@ -118,9 +128,9 @@ Test the Application
             15:53:31,638 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
             15:53:31,644 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $3
 
-5. At this point, Byteman halts or crashes server 1. You should also be able to view the contents of the object store by typing:
+5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store by typing the following in the terminal for server 1. Be sure to replace `EAP_HOME_1` with the path to the first server.
 
-        tree server*/standalone/data/tx-object-store
+        EAP_HOME_1/standalone/data/tx-object-store
 
     This should display:
 
