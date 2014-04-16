@@ -78,6 +78,14 @@ following ways:</p>
 
 <p>Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. </p>
 
+<p><em>Note:</em> This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP 6 server.</p>
+
+<ul>
+<li><code>EAP_HOME</code> denotes the path to the original JBoss EAP 6 installation. </li>
+<li><code>EAP_HOME_1</code> denotes the path to the modified JBoss EAP server 1 configuration.</li>
+<li><code>EAP_HOME_2</code> denotes the path to the modified JBoss EAP server 2 configuration.</li>
+</ul>
+
 <h3><a id="configure-the-first-server" class="anchor" href="#configure-the-first-server"><span class="anchor-icon"></span></a>Configure the First Server</h3>
 
 <p>You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-transactions.cli</code> script provided in the root directory of this quickstart. </p>
@@ -103,6 +111,7 @@ following ways:</p>
 <div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
 <span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
 </pre></div></li>
+<li><p>Stop the JBoss EAP server.</p></li>
 </ol>
 
 <p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-eap-server">Remove the JTS Configuration from the JBoss EAP Server</a>.</p>
