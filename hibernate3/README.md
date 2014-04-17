@@ -63,15 +63,22 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-hibernate3.war` to the running instance of the server.
 
-_Note:_ You will see the following warnings in the server log. These are actually debugging messages that were fixed for Hibernate 4.x but not backported to Hibernate 3.x. You can ignore these warnings.
+_Note:_ You will see the following warnings in the server log. 
+
+    These warnings are debugging messages that were fixed for Hibernate 4.x but not backported to Hibernate 3.x. You can ignore these warnings.
 
         WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.controller
         WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.model
         WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.data
         WARN  [org.hibernate.cfg.AnnotationBinder] (ServerService Thread Pool -- 155) Package not found or wo package-info.java: org.jboss.as.quickstart.hibernate3.util
 
+    These warnings result from Hibernate 3 calling private classes. As noted above, Hibernate 3 is not supported in JBoss EAP 6.1 or later. You can ignore these messages.
 
-
+        WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) JBAS018567: Deployment "deployment.jboss-hibernate3.war" is using a private module ("org.apache.commons.collections:main") which may be changed or removed in future versions without notice.
+        WARN  [org.jboss.as.dependency.unsupported] (MSC service thread 1-6) JBAS018568: Deployment "deployment.jboss-hibernate3.war" is using an unsupported module ("org.dom4j:main") which may be changed or removed in future versions without notice.
+        WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) JBAS018567: Deployment "deployment.jboss-hibernate3.war" is using a private module ("org.antlr:main") which may be changed or removed in future versions without notice.
+        WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) JBAS018567: Deployment "deployment.jboss-hibernate3.war" is using a private module ("asm.asm:main") which may be changed or removed in future versions without notice.
+        WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) JBAS018567: Deployment "deployment.jboss-hibernate3.war" is using a private module ("org.javassist:main") which may be changed or removed in future versions without notice.
 
 
 Access the application 
