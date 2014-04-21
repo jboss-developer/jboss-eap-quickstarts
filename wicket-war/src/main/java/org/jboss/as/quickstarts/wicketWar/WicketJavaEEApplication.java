@@ -16,14 +16,13 @@
  */
 package org.jboss.as.quickstarts.wicketWar;
 
-import static net.ftlines.wicket.cdi.ConversationPropagation.NONE;
-
 import javax.enterprise.inject.spi.BeanManager;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import net.ftlines.wicket.cdi.CdiConfiguration;
 
+import org.apache.wicket.cdi.CdiConfiguration;
+import org.apache.wicket.cdi.ConversationPropagation;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.jboss.as.quickstarts.wicketWar.pages.InsertContact;
@@ -54,7 +53,7 @@ public class WicketJavaEEApplication extends WebApplication {
         }
 
         // Configure CDI, disabling Conversations as we aren't using them
-        new CdiConfiguration(bm).setPropagation(NONE).configure(this);
+        new CdiConfiguration(bm).setPropagation(ConversationPropagation.NONE).configure(this);
 
         // Mount the InsertContact page at /insert
         mountPage("/insert", InsertContact.class);

@@ -57,7 +57,8 @@
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
 
         <!-- Other dependency versions -->
-        <version.net.ftlines.wicket-cdi>6.0</version.net.ftlines.wicket-cdi>
+        <version.wicket.cdi>6.14.0</version.wicket.cdi>
+        <version.seam.conversation.weld>3.0.0.Final</version.seam.conversation.weld>
 
         <!-- other plugin versions -->
         <version.ear.plugin>2.8</version.ear.plugin>
@@ -89,9 +90,16 @@
 
             <!-- Wicket Java EE integration. -->
             <dependency>
-                <groupId>net.ftlines.wicket-cdi</groupId>
+                <groupId>org.apache.wicket</groupId>
                 <artifactId>wicket-cdi</artifactId>
-                <version>${version.net.ftlines.wicket-cdi}</version>
+                <version>${version.wicket.cdi}</version>
+            </dependency>
+
+            <!-- Seam Weld integration. -->
+            <dependency>
+                <groupId>org.jboss.seam.conversation</groupId>
+                <artifactId>seam-conversation-weld</artifactId>
+               <version>${version.seam.conversation.weld}</version>
             </dependency>
 
             <!-- EJB JAR module. -->

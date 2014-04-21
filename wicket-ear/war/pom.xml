@@ -53,10 +53,16 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Wicket Java EE integration. -->
+        <!-- Wicket CDI integration. -->
         <dependency>
-            <groupId>net.ftlines.wicket-cdi</groupId>
+            <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-cdi</artifactId>
+        </dependency>
+
+        <!-- Seam Weld integration. -->
+        <dependency>
+            <groupId>org.jboss.seam.conversation</groupId>
+            <artifactId>seam-conversation-weld</artifactId>
         </dependency>
 
         <!-- EJB JAR. -->
