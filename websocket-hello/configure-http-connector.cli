@@ -1,0 +1,15 @@
+# Batch script to enable the NIO2 connector in the web subsystem of the server configuration file
+
+# Start batching commands
+batch
+
+# Configure the web http connector to use the NIO2 protocol
+/subsystem=web/connector=http/:write-attribute(name=protocol,value=org.apache.coyote.http11.Http11NioProtocol)
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+:reload
+
+
