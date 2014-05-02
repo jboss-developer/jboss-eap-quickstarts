@@ -15,7 +15,7 @@ Be sure to read this entire document before you attempt to work with the quickst
 
 * [System Requirements](#system-requirements): List of software required to run the quickstarts.
 
-* [Configure Maven]((https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts)): How to configure the Maven repository for use by the quickstarts.
+* [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts): How to configure the Maven repository for use by the quickstarts.
 
 * [Run the Quickstarts](#run-the-quickstarts): General instructions for building, deploying, and running the quickstarts.
 
