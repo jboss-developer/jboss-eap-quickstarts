@@ -292,7 +292,7 @@
             <th><%=member.id%></td>
             <td><%=member.name%></td>
             <td><a href="mailto:<%=member.email%>" class="ui-link"><%=member.email%></a></td>
-            <td><a href="tel:<%=member.phoneNumber%>" class="ui-link"><%=member.phoneNumber%></a></td>
+            <td><a href="tel:<%=member.phoneNumber%>" class="ui-link">Call</a> or <a href="sms:<%=member.phoneNumber%>" class="ui-link">SMS</a> <%=member.phoneNumber%></td>
             <td><a href="rest/members/<%=member.id%>" rel="external" target="_blank" class="resturl ui-link">JSON</a></td>
         </tr>
         <% }); %>
