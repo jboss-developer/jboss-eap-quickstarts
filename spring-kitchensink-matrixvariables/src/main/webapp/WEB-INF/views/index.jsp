@@ -154,7 +154,7 @@
         </p>
     </div>
 </div>
-<script src="resources/js/jquery/jquery-1.9.1.js"></script>
+<script src="resources/js/jquery/jquery-2.0.3.js"></script>
 <script type="text/javascript">
     $(document).ready(
         function () {
