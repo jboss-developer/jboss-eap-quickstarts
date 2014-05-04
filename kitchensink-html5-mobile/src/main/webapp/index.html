@@ -25,9 +25,9 @@
     <!-- <link rel="apple-touch-icon" href="img/"/> -->
 
     <!-- For minification, comment out this link -->
-    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css"/>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css"/>
     <!-- For minification, uncomment out this file -->
-    <!--<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css"/>-->
+    <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css"/>-->
 
     <!-- For minification, comment out this link -->
     <link rel="stylesheet" href="css/screen.css"/>
@@ -43,9 +43,9 @@
     <!--<script type="text/javascript" src="js/libs/jquery-1.9.1.min.js"></script>-->
 
     <!-- For minification, comment out this file -->
-    <script type="text/javascript" src="js/libs/jquery.mobile-1.3.2.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.mobile-1.4.2.js"></script>
     <!-- For minification, uncomment out this file -->
-    <!--<script type="text/javascript" src="js/libs/jquery.mobile-1.3.2.min.js"></script>-->
+    <!--<script type="text/javascript" src="js/libs/jquery.mobile-1.4.2.min.js"></script>-->
     
     <!-- For minification, comment out this file -->
     <script type="text/javascript" src="js/libs/lodash-2.4.1.js"></script>
@@ -117,7 +117,7 @@
 <body>
     <div id="container">
         <section>
-            <article id="intro-art" data-role="page" data-theme="a">
+            <article id="intro-art" data-role="page">
                 <!-- Header -->
                 <div data-role="header" class="header">
                      <h3>HTML5 Quickstart</h3>
@@ -157,11 +157,11 @@
                 <!-- /Footer -->
 
                 <!-- New HTML5 aside tag -->
-                <aside id="info-aside" data-role="popup" data-theme="a">
+                <aside id="info-aside" data-role="popup">
                     <!-- Header -->
                     <div data-role="header">
                         <h3>Find out more</h3>
-                        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
                     </div>
                     <!-- /Header -->
 
@@ -181,7 +181,7 @@
             </article>
 
             <!-- New HTML5 article tag -->
-            <article id="register-art" data-role="page" data-theme="a">
+            <article id="register-art" data-role="page">
                 <!-- Header -->
                 <div data-role="header" class="header">
                     <h3>HTML5 Quickstart</h3>
@@ -230,7 +230,7 @@
             </article>
 
             <!-- New HTML5 article tag -->
-            <article id="member-art" data-role="page" data-theme="a">
+            <article id="member-art" data-role="page">
                 <!-- Header -->
                 <div data-role="header" class="header" data-position="fixed">
                     <h3>HTML5 Quickstart</h3>
@@ -251,6 +251,16 @@
                                 </tr>
                             </thead>
                             <tbody id="members">
+                            <!-- This is where the list of members gets populated by the templates. This row is only
+                                here as an example of the code that will be inserted.
+                            <tr>
+                                <th>0</td>
+                                <td>John Smith</td>
+                                <td><a href="mailto:john.smith@mailinator.com" class="ui-link">john.smith@mailinator.com</a></td>
+                                <td><a href="tel:2125551212" class="ui-link">Call</a> or <a href="sms:2125551212" class="ui-link">SMS</a> 2125551212</td>
+                                <td><a href="rest/members/0" rel="external" target="_blank" class="resturl ui-link">JSON</a></td>
+                            </tr>
+                            -->
                             </tbody>
                         </table>
                         <div class="member-foot">
