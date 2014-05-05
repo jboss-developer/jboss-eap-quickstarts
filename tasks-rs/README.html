@@ -188,12 +188,12 @@ For an example of how to use the add-user utility, see instructions in the root 
 <p>JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with &ldquo;// JSON:&rdquo;:</p>
 
 <ol>
-<li><p>Open the file src/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.</p>
+<li><p>Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.</p>
 <div class="highlight"><pre><span class="o">//</span> <span class="kn">import</span> <span class="nn">org.codehaus.jackson.annotate.JsonIgnore</span><span class="p">;</span>
 
 <span class="o">//</span> <span class="nd">@JsonIgnore</span>
 </pre></div></li>
-<li><p>Open the file src/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the <em>GET</em> methods produce &ldquo;application/json&rdquo; as well as &ldquo;application/xml&rdquo;. Again, look for lines beginning with &ldquo;// JSON:&rdquo;.</p>
+<li><p>Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the <em>GET</em> methods produce &ldquo;application/json&rdquo; as well as &ldquo;application/xml&rdquo;. Again, look for lines beginning with &ldquo;// JSON:&rdquo;.</p>
 
 <ul>
 <li><p>Remove comments from these lines:</p>
@@ -213,7 +213,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 <span class="c">&lt;/dependency&gt;</span>
 <span class="c">--&gt;</span>
 </pre></div></li>
-<li><p><a href="#create-a-task">Create a Task</a> as you did in the for the XML version of this quickstart.</p></li>
+<li><p><a href="#create-a-task">Create a Task</a> as you did for the XML version of this quickstart.</p></li>
 <li><p>Rebuild and redeploy the quickstart.</p></li>
 </ol>
 
