@@ -191,13 +191,13 @@ Modify this Quickstart to Support JSON Representations of Tasks
 
 JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with "// JSON:":
 
-1. Open the file src/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.
+1. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.
 
         // import org.codehaus.jackson.annotate.JsonIgnore;
 
         // @JsonIgnore
 
-2. Open the file src/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with "// JSON:".
+2. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with "// JSON:".
     * Remove comments from these lines:
 
         //@Produces({ "application/xml", "application/json" })
@@ -215,7 +215,7 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
         </dependency>
         -->
 
-4. [Create a Task](#create-a-task) as you did in the for the XML version of this quickstart.
+4. [Create a Task](#create-a-task) as you did for the XML version of this quickstart.
 5. Rebuild and redeploy the quickstart.
 
 
