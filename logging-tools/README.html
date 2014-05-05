@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
-<h1><a id="jbossloggingtools-internationalization-and-localisation-with-jboss-logging-tools" class="anchor" href="#jbossloggingtools-internationalization-and-localisation-with-jboss-logging-tools"><span class="anchor-icon"></span></a>jboss-logging-tools: Internationalization and Localisation with JBoss Logging Tools</h1>
+<h1><a id="jbossloggingtools-internationalization-and-localization-with-jboss-logging-tools" class="anchor" href="#jbossloggingtools-internationalization-and-localization-with-jboss-logging-tools"><span class="anchor-icon"></span></a>jboss-logging-tools: Internationalization and Localization with JBoss Logging Tools</h1>
 
 <p>Author: Darrin Mison<br/>
 Level: Beginner<br/>
@@ -67,71 +67,64 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 <li><p>This will deploy <code>target/jboss-logging-tools.war</code> to the running instance of the server.</p></li>
 </ol>
 
+<p><em>Note:</em> You may see the following warnings in the server log. </p>
+<div class="highlight"><pre>    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">exceptions</span><span class="o">/</span><span class="n">GreeterExceptionBundle</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">messages</span><span class="o">/</span><span class="n">GreetingMessagesBundle</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">24</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">exceptions</span><span class="o">/</span><span class="n">DateExceptionsBundle</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">27</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">loggers</span><span class="o">/</span><span class="n">DateLogger</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">loggers</span><span class="o">/</span><span class="n">GreeterLogger</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">26</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+</pre></div>
+<p>This is due to a bug in the Maven compiler plug-in where all CompilerMessages are logged at warning or error level, even if they are not warnings or errors. A fix has been submitted but has not yet been applied. Details can be found here: <a href="http://jira.codehaus.org/browse/MCOMPILER-224">http://jira.codehaus.org/browse/MCOMPILER-224</a>.</p>
+
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
 
-<p>The application will be running at the following URLs:</p>
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-logging-tools/">http://localhost:8080/jboss-logging-tools/</a></p>
 
-<h3><a id="httplocalhost8080jbossloggingtools" class="anchor" href="#httplocalhost8080jbossloggingtools"><span class="anchor-icon"></span></a><a href="http://localhost:8080/jboss-logging-tools/">http://localhost:8080/jboss-logging-tools/</a></h3>
+<p>This landing page provides details and links to test the quickstart features. You can also directly access the following URLs.</p>
 
-<p>A landing page is found here that has a quick reference to the other URLs.</p>
-
-<h3><a id="httplocalhost8080jbossloggingtoolsrestgreetingsname39" class="anchor" href="#httplocalhost8080jbossloggingtoolsrestgreetingsname39"><span class="anchor-icon"></span></a><a href="http://localhost:8080/jboss-logging-tools/rest/greetings/&#x27;name">http://localhost:8080/jboss-logging-tools/rest/greetings/&lsquo;name</a>&rsquo;</h3>
-
-<p>Demonstrates simple use of localised messages (with parameter) and logging.</p>
-
-<p>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/Harold">http://localhost:8080/jboss-logging-tools/rest/greetings/Harold</a></p>
+<ol>
+<li><p><code>http://localhost:8080/jboss-logging-tools/rest/greetings/&#39;name&#39;</code> </p>
 
 <ul>
-<li>Returns a localised &ldquo;hello <code>name</code>&rdquo; string where <code>name</code> is the last component of the URL.</li>
-<li>Logs a localised &ldquo;Hello message sent&rdquo;</li>
-</ul>
-
-<h3><a id="httplocalhost8080jbossloggingtoolsrestgreetingslocalename39" class="anchor" href="#httplocalhost8080jbossloggingtoolsrestgreetingslocalename39"><span class="anchor-icon"></span></a><a href="http://localhost:8080/jboss-logging-tools/rest/greetings/&#x27;locale&#x27;/&#x27;name">http://localhost:8080/jboss-logging-tools/rest/greetings/&lsquo;locale&rsquo;/&lsquo;name</a>&rsquo;</h3>
-
-<p>Demonstrates how to obtain a message bundle for a specified locale and how to throw a localised exceptions. Note that the localised exception is a wrapper around <code>WebApplicationException</code>.</p>
-
-<p>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold">http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold</a></p>
-
-<ul>
-<li>Returns a localised &ldquo;hello <code>name</code>&rdquo; string where <code>name</code> is the last component of the URL and the locale used is the one supplied in the <code>locale</code> URL.</li>
-<li>Logs a localised &ldquo;Hello message sent in <code>locale</code>&rdquo; message using the JVM locale for the translation</li>
-<li><p>If the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO):</p>
-
-<ul>
-<li><p>Throws a WebApplicationException (404) using a localizable sub-class of <code>WebApplicationException</code> </p>
-
-<p>Note that WebApplicationException cannot be directly localised by JBoss Logging Tools using the <code>@Message</code> annotation due to the message parameter being ignored by <code>WebApplicationException</code>&rsquo;s constructors. Cases like this can be worked around by creating a sub-class with a constructor that does deal with the message parameter.</p></li>
+<li>Example:  <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/Harold">http://localhost:8080/jboss-logging-tools/rest/greetings/Harold</a></li>
+<li>Demonstrates simple use of localized messages (with parameter) and logging.</li>
+<li>It returns the localized &ldquo;hello <code>name</code>&rdquo; string where <code>name</code> is the last component of the URL.</li>
+<li>It also logs the localized &ldquo;Hello message sent&rdquo; in the server log.</li>
 </ul></li>
-</ul>
-
-<h3><a id="httplocalhost8080jbossloggingtoolsrestgreetingscrashme" class="anchor" href="#httplocalhost8080jbossloggingtoolsrestgreetingscrashme"><span class="anchor-icon"></span></a><a href="http://localhost:8080/jboss-logging-tools/rest/greetings/crashme">http://localhost:8080/jboss-logging-tools/rest/greetings/crashme</a></h3>
-
-<p>Demonstrates throwing a localised exception with another exception specified as the cause.  This is a completely contrived example.</p>
-
-<p>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/crashme">http://localhost:8080/jboss-logging-tools/rest/greetings/crashme</a></p>
+<li><p><code>http://localhost:8080/jboss-logging-tools/rest/greetings/&#39;locale&#39;/&#39;name&#39;</code></p>
 
 <ul>
-<li>Attempts divide by zero, catches exception and throws localised one.</li>
-</ul>
+<li>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold">http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold</a></li>
+<li>Demonstrates how to obtain a message bundle for a specified locale and how to throw a localized exceptions. Note that the localized exception is a wrapper around <code>WebApplicationException</code>.</li>
+<li>Returns a localized &ldquo;hello <code>name</code>&rdquo; string where <code>name</code> is the last component of the URL and the locale used is the one supplied in the <code>locale</code> URL.</li>
+<li>Logs a localized &ldquo;Hello message sent in <code>locale</code>&rdquo; message using the JVM locale for the translation.</li>
+<li><p>If the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO), it throws a <code>WebApplicationException</code> (404) using a localizable sub-class of <code>WebApplicationException</code>.</p>
 
-<h3><a id="httplocalhost8080jbossloggingtoolsrestdatesdaysuntiltargetdate39" class="anchor" href="#httplocalhost8080jbossloggingtoolsrestdatesdaysuntiltargetdate39"><span class="anchor-icon"></span></a><a href="http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/&#x27;targetdate">http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/&lsquo;targetdate</a>&rsquo;</h3>
-
-<p>Demonstrates how to pass parameters through to the constructor of a localised exception, and how to specify an exception as a cause of a log message.</p>
-
-<p>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2012">http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2012</a></p>
+<p>Note that <code>WebApplicationException</code> cannot be directly localized by JBoss Logging Tools using the <code>@Message</code> annotation due to the message parameter being ignored by the <code>WebApplicationException</code> constructors. Cases like this can be worked around by creating a subclass with a constructor that does deal with the message parameter.</p></li>
+</ul></li>
+<li><p><a href="http://localhost:8080/jboss-logging-tools/rest/greetings/crashme">http://localhost:8080/jboss-logging-tools/rest/greetings/crashme</a></p>
 
 <ul>
+<li>Demonstrates how to throw a localized exception with another exception specified as the cause.  This is a completely contrived example.</li>
+<li>Attempts to divide by zero, catches the exception, and throws the localized one.</li>
+</ul></li>
+<li><p><code>http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/&#39;targetdate&#39;</code></p>
+
+<ul>
+<li>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2020">http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2020</a></li>
+<li>Demonstrates how to pass parameters through to the constructor of a localized exception, and how to specify an exception as a cause of a log message. </li>
 <li>Attempts to turn the <code>targetdate</code> URL component into a date object using the format <code>dd-MM-yyyy</code></li>
 <li>Returns number of days (as an integer) until that date</li>
-<li>If the <code>targetdate</code> is invalid:
+<li>If the <code>targetdate</code> is invalid, for example, <a href="http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/31-02-2015">http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/31-02-2015</a>:
 
 <ul>
 <li>Catches the <code>ParseException</code></li>
-<li>Creates a localised <code>ParseException</code> passing values from the caught exception as parameters to it&rsquo;s constructor</li>
-<li>Logs a localised message with the localised exception as the cause</li>
-<li>Throws a <code>WebApplicationException</code>(400) with the text from the localised <code>ParseException</code></li>
+<li>Creates a localized <code>ParseException</code> passing values from the caught exception as parameters to its constructor</li>
+<li>Logs a localized message with the localized exception as the cause</li>
+<li>Throws a <code>WebApplicationException</code>(400) with the text from the localized <code>ParseException</code></li>
 </ul></li>
-</ul>
+</ul></li>
+</ol>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
