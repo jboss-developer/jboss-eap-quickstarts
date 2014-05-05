@@ -1,4 +1,4 @@
-jboss-logging-tools: Internationalization and Localisation with JBoss Logging Tools
+jboss-logging-tools: Internationalization and Localization with JBoss Logging Tools
 ======================
 Author: Darrin Mison  
 Level: Beginner  
@@ -74,60 +74,53 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-logging-tools.war` to the running instance of the server.
 
+_Note:_ You may see the following warnings in the server log. 
+
+        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/exceptions/GreeterExceptionBundle.java:[25,8] Generating translation class.
+        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/messages/GreetingMessagesBundle.java:[24,8] Generating translation class.
+        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/exceptions/DateExceptionsBundle.java:[27,8] Generating translation class.
+        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/loggers/DateLogger.java:[30,8] Generating translation class.
+        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/loggers/GreeterLogger.java:[26,8] Generating translation class.
+
+This is due to a bug in the Maven compiler plug-in where all CompilerMessages are logged at warning or error level, even if they are not warnings or errors. A fix has been submitted but has not yet been applied. Details can be found here: <http://jira.codehaus.org/browse/MCOMPILER-224>.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URLs:
+The application will be running at the following URL: <http://localhost:8080/jboss-logging-tools/>
 
-### http://localhost:8080/jboss-logging-tools/
+This landing page provides details and links to test the quickstart features. You can also directly access the following URLs.
 
-A landing page is found here that has a quick reference to the other URLs.
+1.  `http://localhost:8080/jboss-logging-tools/rest/greetings/'name'` 
+    * Example:  <http://localhost:8080/jboss-logging-tools/rest/greetings/Harold>
+    * Demonstrates simple use of localized messages (with parameter) and logging.
+    * It returns the localized "hello `name`" string where `name` is the last component of the URL.
+    * It also logs the localized "Hello message sent" in the server log.
 
-### http://localhost:8080/jboss-logging-tools/rest/greetings/'name'
-
-Demonstrates simple use of localised messages (with parameter) and logging.
-
-Example: <http://localhost:8080/jboss-logging-tools/rest/greetings/Harold>
-
-* Returns a localised "hello `name`" string where `name` is the last component of the URL.
-* Logs a localised "Hello message sent"
-
-### http://localhost:8080/jboss-logging-tools/rest/greetings/'locale'/'name'
-
-Demonstrates how to obtain a message bundle for a specified locale and how to throw a localised exceptions. Note that the localised exception is a wrapper around `WebApplicationException`.
-
-Example: <http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold>
-      
-* Returns a localised "hello `name`" string where `name` is the last component of the URL and the locale used is the one supplied in the `locale` URL.
-* Logs a localised "Hello message sent in `locale`" message using the JVM locale for the translation
-* If the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO):
-    * Throws a WebApplicationException (404) using a localizable sub-class of `WebApplicationException` 
+2. `http://localhost:8080/jboss-logging-tools/rest/greetings/'locale'/'name'`
+    * Example: <http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold>
+    * Demonstrates how to obtain a message bundle for a specified locale and how to throw a localized exceptions. Note that the localized exception is a wrapper around `WebApplicationException`.
+    * Returns a localized "hello `name`" string where `name` is the last component of the URL and the locale used is the one supplied in the `locale` URL.
+    * Logs a localized "Hello message sent in `locale`" message using the JVM locale for the translation.
+    * If the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO), it throws a `WebApplicationException` (404) using a localizable sub-class of `WebApplicationException`.
    
-      Note that WebApplicationException cannot be directly localised by JBoss Logging Tools using the `@Message` annotation due to the message parameter being ignored by `WebApplicationException`'s constructors. Cases like this can be worked around by creating a sub-class with a constructor that does deal with the message parameter.
+      Note that `WebApplicationException` cannot be directly localized by JBoss Logging Tools using the `@Message` annotation due to the message parameter being ignored by the `WebApplicationException` constructors. Cases like this can be worked around by creating a subclass with a constructor that does deal with the message parameter.
    
-### http://localhost:8080/jboss-logging-tools/rest/greetings/crashme
+3. <http://localhost:8080/jboss-logging-tools/rest/greetings/crashme>
+    * Demonstrates how to throw a localized exception with another exception specified as the cause.  This is a completely contrived example.
+    * Attempts to divide by zero, catches the exception, and throws the localized one.
    
-Demonstrates throwing a localised exception with another exception specified as the cause.  This is a completely contrived example.
-   
-Example: <http://localhost:8080/jboss-logging-tools/rest/greetings/crashme>
-   
-* Attempts divide by zero, catches exception and throws localised one.
-   
-### http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/'targetdate'
-
-Demonstrates how to pass parameters through to the constructor of a localised exception, and how to specify an exception as a cause of a log message.
-
-Example: <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2012>
-   
-* Attempts to turn the `targetdate` URL component into a date object using the format `dd-MM-yyyy`
-* Returns number of days (as an integer) until that date
-* If the `targetdate` is invalid:
-    * Catches the `ParseException`
-    * Creates a localised `ParseException` passing values from the caught exception as parameters to it's constructor
-    * Logs a localised message with the localised exception as the cause
-    * Throws a `WebApplicationException`(400) with the text from the localised `ParseException`
+4. `http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/'targetdate'`
+    * Example: <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2020>
+    * Demonstrates how to pass parameters through to the constructor of a localized exception, and how to specify an exception as a cause of a log message. 
+    * Attempts to turn the `targetdate` URL component into a date object using the format `dd-MM-yyyy`
+    * Returns number of days (as an integer) until that date
+    * If the `targetdate` is invalid, for example, <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/31-02-2015>:
+        * Catches the `ParseException`
+        * Creates a localized `ParseException` passing values from the caught exception as parameters to its constructor
+        * Logs a localized message with the localized exception as the cause
+        * Throws a `WebApplicationException`(400) with the text from the localized `ParseException`
 
 
 Undeploy the Archive
