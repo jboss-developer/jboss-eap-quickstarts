@@ -85,8 +85,17 @@ $(document).ready(function() {
      * Check if the birthdate fits the regex pattern of YYYY-DD-MM.
      */ 
     CONTACTS_MODULE.validation.validateBirthDate = function(date) {
-        var parseBirthDate = /^([1-2][0,9][0-9][0-9])[-]((0([1-9])|(1[0-2])))[-]((0([1-9])|([12][0-9])|(3[01])))$/;
-        return parseBirthDate.test(date);
+        var parseBirthDate = /^([1-2][0,9][0-9][0-9])[-](0[1-9]|1[0-2])[-](0[1-9]|[12][0-9]|3[01])$/;
+        var match = parseBirthDate.exec(date);
+        if(match) {
+            var y = parseInt(match[1], 10);
+            var m = parseInt(match[2], 10);
+            var d = parseInt(match[3], 10);
+            var date = new Date(y, m - 1, d);
+            return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+        } else {
+            return false;
+        }
     };
     
     // Create a custom method for the Validator to check if a 'birth date' is formatted correctly.
@@ -179,7 +188,7 @@ $(document).ready(function() {
                     email: "The email address must be in the format of name@company.domain."
                 },
                 birthDate: {
-                    required: "Please enter a birthdate.",
+                    required: "Please enter a valid birthdate.",
                     max: "Birthdates can not be in the future. Please choose one from the past. Unless they are a time traveler.",
                     min: "Nobody is that old. Unless they are a vampire."
                 }
