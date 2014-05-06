@@ -121,6 +121,7 @@ The app is made up of the following pages:
 * Add a new Contact
 * List/Detail view switcher, depending on what is currently displayed
 * About information
+* Theming - apply various themes (only on the List view)
 
 **Details page**
 
