@@ -30,19 +30,19 @@ CONTACTS.app.restEndpoint = 'rest/contacts';
  * The first thing you learn in jQuery is to call code inside the $(document).ready() function so everything 
  * will execute as soon as the DOM is loaded. However, in jQuery Mobile, Ajax is used to load the contents of 
  * each page into the DOM as you navigate, and the DOM ready handler only executes for the first page. 
- * To execute code whenever a new page is loaded and created, you can bind to the pageinit event. 
+ * To execute code whenever a new page is loaded and created, you can bind to the pagecreate event. 
  * 
  * 
  * These functions perform the GET. They display the list, detailed list, and fill in the update form.
  * 
  * @author Joshua Wilson
  */
-$( document ).on( "pageinit", function(mainEvent) {
+$( document ).on( "pagecreate", function(mainEvent) {
     //Initialize the vars in the beginning so that you will always have access to them.
     var getCurrentTime = CONTACTS.util.getCurrentTime,
         restEndpoint = CONTACTS.app.restEndpoint;
     
-    console.log(getCurrentTime() + " [js/app.js] (document -> pageinit) - start");
+    console.log(getCurrentTime() + " [js/app.js] (document -> pagecreate) - start");
     
     /* 
      * Make sure the Contacts list gets populated but only once.
@@ -168,7 +168,7 @@ $( document ).on( "pageinit", function(mainEvent) {
                 CONTACTS.app.getContactById($(this).attr("id").split("detail-contact-ID-").pop());
                 
                 // Turn the whole <li> into a link.
-                $.mobile.changePage("#contacts-edit-page");
+                $("body").pagecontainer("change", "#contacts-edit-page");
                 
                 event.handled = true;
                 console.log(getCurrentTime() + " [js/app.js] (li.contacts-display-listview -> on click) - end");
@@ -220,7 +220,7 @@ $( document ).on( "pageinit", function(mainEvent) {
         console.log("-----------------------------Update Page---------------------------------------");
     };
     
-    console.log(getCurrentTime() + " [js/app.js] (document -> pageinit) - end");
+    console.log(getCurrentTime() + " [js/app.js] (document -> pagecreate) - end");
 });
 
 

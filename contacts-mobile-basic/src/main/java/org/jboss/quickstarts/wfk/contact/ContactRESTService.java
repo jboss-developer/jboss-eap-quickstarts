@@ -171,7 +171,6 @@ public class ContactRESTService {
      * @param Contact
      * @return Response
      */
-    @SuppressWarnings("unused")
     @PUT
     @Path("/{id:[0-9][0-9]*}")
     public Response updateContact(@PathParam("id") long id, Contact contact) {

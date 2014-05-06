@@ -28,7 +28,7 @@ CONTACTS.namespace('CONTACTS.validation.editContactsFormValidator');
  * 
  * @author Joshua Wilson
  */
-$( document ).on( "pageinit", function(mainEvent) {
+$( document ).on( "pagecreate", function(mainEvent) {
     //Initialize the vars in the beginning so that you will always have access to them.
     var getCurrentTime = CONTACTS.util.getCurrentTime;
     

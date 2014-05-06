@@ -50,7 +50,8 @@ public class RESTTest {
     private static final String NEW_CONTACT_FIRSTNAME = "John";
     private static final String NEW_CONTACT_LASTNAME = "Doe";
     private static final String NEW_CONTACT_EMAIL = "john.doe@redhat.com";
-    private static final String NEW_CONTACT_PHONE = "1970-01-01T12:00:00.000Z";
+    private static final String NEW_CONTACT_BIRTHDATE = "1970-01-01";
+    private static final String NEW_CONTACT_PHONE = "7894561239";
 
     private static final String DEFAULT_CONTACT_FIRSTNAME = "John";
     private static final String DEFAULT_CONTACT_LASTNAME = "Smith";
@@ -101,7 +102,7 @@ public class RESTTest {
                 .key("lastName").value(NEW_CONTACT_LASTNAME)
                 .key("email").value(NEW_CONTACT_EMAIL)
                 .key("phoneNumber").value(NEW_CONTACT_PHONE)
-                .key("birthDate").value(NEW_CONTACT_PHONE)
+                .key("birthDate").value(NEW_CONTACT_BIRTHDATE)
                 .endObject().toString();
         post.setEntity(new StringEntity(newContactJSON));
 

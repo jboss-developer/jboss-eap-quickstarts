@@ -19,18 +19,26 @@
     <meta charset="ISO-8859-1">
     <title>Contacts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" type="text/css" media="all" />
-<!--     <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" type="text/css" media="all" /> -->
-<!--     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" /> -->
     
     <!-- This is the CSS for the Validation plugin. -->
     <link rel="stylesheet" href="css/app.css" type="text/css" media="all" />     
     <link rel="stylesheet" href="css/validator.css" type="text/css" media="all" />     
     
+    <!-- ThemeRoller created themes. Uncomment 1 theme and the structure css. Comment out Default or other Themes. -->
+<!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.red-hat.css" type="text/css" media="all" /> -->
+<!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.red-hat-grey.css" type="text/css" media="all" /> -->
+<!--     <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" type="text/css" media="all" /> -->
+<!--     <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" type="text/css" media="all" /> -->
+    
+    <!-- Default theme with just 2 schemes, A (light) and B (dark) -->
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" type="text/css" media="all" />
+<!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" type="text/css" media="all" /> -->
+<!--     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" /> -->
+    
     <!-- Import jQuery so that it can be used by the custom JavaScript -->
-    <script src="js/libs/jquery-1.9.1.js"></script>
-<!--     <script src="js/libs/jquery-1.9.1.min.js"></script> -->
-<!--     <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+    <script src="js/libs/jquery-2.0.3.js"></script>
+<!--     <script src="js/libs/jquery-2.0.3.min.js"></script> -->
+<!--     <script src="http://code.jquery.com/jquery-2.0.3.js"></script> -->
     
     <!-- Import the custom JavaScript -->
     <script src="js/namespace.js"></script>
@@ -39,54 +47,75 @@
     <script src="js/app.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/submissions.js"></script>
+    <script src="js/theming.js"></script>
     
     <!-- Mobile browsers do not support HTML5 form validation, this lib provides client side validation. -->
-    <script src="js/libs/jquery.validate-1.11.1.js"></script>
-<!--     <script src="js/libs/jquery.validate-1.11.1.min.js"></script> -->
-<!--     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script> -->
-    <script src="js/libs/additional-methods-1.11.1.js"></script>
-<!--     <script src="js/libs/additional-methods-1.11.1.min.js"></script> -->
-<!--     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script> -->
+    <script src="js/libs/jquery.validate-1.12.0.js"></script>
+<!--     <script src="js/libs/jquery.validate-1.12.0.min.js"></script> -->
+<!--     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.js"></script> -->
+    <script src="js/libs/additional-methods-1.12.0.js"></script>
+<!--     <script src="js/libs/additional-methods-1.12.0.min.js"></script> -->
+<!--     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.js"></script> -->
     
     <!-- Because the mobileinit event is triggered immediately, you'll need to bind your event handler 
          before jQuery Mobile is loaded. 
          Unlike other jQuery projects, such as jQuery and jQuery UI, jQuery Mobile automatically applies 
          many markup enhancements as soon as it loads (long before the document.ready event fires). 
          Therefore call the jQuery Mobile code last. -->
-    <script src="js/libs/jquery.mobile-1.3.2.js"></script>
-<!--     <script src="js/libs/jquery.mobile-1.3.2.min.js"></script> -->
-<!--     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script> -->
+    <script src="js/libs/jquery.mobile-1.4.2.js"></script>
+<!--     <script src="js/libs/jquery.mobile-1.4.2.min.js"></script> -->
+<!--     <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.js"></script> -->
     
 </head>
 <body>
     <!-- This is the main list.  It is just names. -->
     <!-- It is worth noting that in a jQuery Mobile app, only the first "page" is loaded & displayed. 
           The following/other pages will be partially loaded.  Just their "divs." -->
-    <div data-role="page" id="contacts-list-page" data-theme="b" data-url="/jboss-contacts-mobile-basic/">
+    <div data-role="page" id="contacts-list-page" class="ui-page-theme-a" data-url="/jboss-contacts-mobile-basic/">
         <div data-role="panel" id="contacts-list-page-menu-panel">
             <ul data-role="listview" id="contacts-list-page-menu-panel-listview">
                 <li><a href="#contacts-add-page">Add Contact</a></li>
                 <li><a href="#contacts-detail-list-page">Detailed List</a></li>
                 <li><a href="#about-page">About</a></li>
+                <li><a href="#contacts-theming-dialog" data-rel="popup" data-position-to="window">Themes</a></li>
             </ul>
         </div>
-        <div data-role="header" data-position="fixed" data-theme="b">
-            <a href="#contacts-list-page-menu-panel" id="contacts-list-page-menu-button" data-role="button" data-icon="bars" data-iconpos="notext" data-mini="true" data-inline="true">Menu</a>
+        <div data-role="header" data-position="fixed" >
+            <a href="#contacts-list-page-menu-panel" id="contacts-list-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>Contacts</h1>
-            <a href="#contacts-detail-list-page" id="contacts-detail-list-page-button" data-role="button" data-icon="arrow-d" data-iconpos="right" data-mini="true" data-inline="true">Details</a>
+            <a href="#contacts-detail-list-page" id="contacts-detail-list-page-button" class="ui-btn ui-corner-all ui-shadow ui-icon-arrow-d ui-btn-icon-right ui-mini ui-btn-inline">Details</a>
         </div>
-        <div data-role="content">
-            <ul data-role="listview" id="contacts-display-listview" class="sortedList" data-autodividers="true" data-filter="true">
+        <div role="main" class="ui-content">
+            <form class="ui-filterable">
+                <input id="filter-input-list-page" data-type="search">
+            </form>
+            <ul data-role="listview" id="contacts-display-listview" class="sortedList" data-autodividers="true" data-input="#filter-input-list-page">
                 <!-- The list of Contacts gets inserted here.  -->
             </ul>
         </div>
-        <div data-role="footer" data-theme="b">
+        <div data-role="footer" >
             <h4>Red Hat JBoss Quickstarts</h4>
+        </div>
+        <!-- A Theme choosing dialog. -->
+        <div data-role="popup" id="contacts-theming-dialog">
+            <div data-role="header">
+                <h1>Theming</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h3>Try out these different Themes!</h3>
+                <button id="theme-button-a" class="ui-btn ui-corner-all ui-shadow">A - Light</button>
+                <button id="theme-button-b" class="ui-btn ui-corner-all ui-shadow">B - Dark</button>
+<!--                 <button id="theme-button-c" class="ui-btn ui-corner-all ui-shadow">C</button> -->
+<!--                 <button id="theme-button-d" class="ui-btn ui-corner-all ui-shadow">D</button> -->
+<!--                 <button id="theme-button-e" class="ui-btn ui-corner-all ui-shadow">E</button> -->
+<!--                 <button id="theme-button-f" class="ui-btn ui-corner-all ui-shadow">F</button> -->
+<!--                 <button id="theme-button-g" class="ui-btn ui-corner-all ui-shadow">G</button> -->
+            </div>
         </div>
     </div>
     
     <!-- This is the detail view of the main list.  -->
-    <div data-role="page" id="contacts-detail-list-page" data-theme="b">
+    <div data-role="page" id="contacts-detail-list-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-detail-list-page-menu-panel">
             <ul data-role="listview" id="contacts-detail-list-page-menu-panel-listview">
                 <li><a href="#contacts-add-page">Add Contact</a></li>
@@ -94,24 +123,27 @@
                 <li><a href="#about-page">About</a></li>
             </ul>
         </div>
-        <div data-role="header" data-position="fixed" data-theme="b">
-            <a href="#contacts-detail-list-page-menu-panel" id="contacts-detail-list-page-menu-button" data-role="button" data-icon="bars" data-iconpos="notext">Menu</a>
+        <div data-role="header" data-position="fixed" >
+            <a href="#contacts-detail-list-page-menu-panel" id="contacts-detail-list-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>Contacts
             </h1>
-            <a href="#contacts-list-page" id="contacts-list-page-button" data-role="button" data-icon="arrow-d" data-iconpos="right" data-mini="true" data-inline="true">List</a>
+            <a href="#contacts-list-page" id="contacts-list-page-button" class="ui-btn ui-corner-all ui-shadow ui-icon-arrow-d ui-btn-icon-right ui-mini ui-btn-inline">List</a>
         </div>
-        <div data-role="content">
-            <ul data-role="listview" id="contacts-display-detail-listview" class="sortedList" data-autodividers="true" data-filter="true">
+        <div role="main" class="ui-content">
+            <form class="ui-filterable">
+                <input id="filter-input-detail-list-page" data-type="search">
+            </form>
+            <ul data-role="listview" id="contacts-display-detail-listview" class="sortedList" data-autodividers="true" data-input="#filter-input-detail-list-page">
                 <!-- The list of Contacts gets inserted here.  -->
             </ul>
         </div>
-        <div data-role="footer" data-theme="b">
+        <div data-role="footer" >
             <h4>Red Hat JBoss Quickstarts</h4>
         </div>
     </div>
     
     <!-- This is for the Info/About page. -->
-    <div data-role="page" id="about-page" data-theme="b">
+    <div data-role="page" id="about-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-about-page-menu-panel">
             <ul data-role="listview" id="contacts-about-page-menu-panel-listview">
                 <li><a href="#contacts-add-page">Add Contact</a></li>
@@ -119,12 +151,11 @@
                 <li><a href="#about-page">About</a></li>
             </ul>
         </div>
-        <div data-role="header" data-position="fixed" data-theme="b">
-            <a href="#contacts-about-page-menu-panel" id="contacts-about-page-menu-button" data-role="button" data-icon="bars" data-iconpos="notext" data-mini="true" data-inline="true">Menu</a>
-<!--             <a href="#contacts-list-page" data-role="button" data-rel="back" data-icon="back">Back</a> -->
+        <div data-role="header" data-position="fixed" >
+            <a href="#contacts-about-page-menu-panel" id="contacts-about-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>About</h1>
         </div>
-        <div data-role="content" data-theme="b">
+        <div role="main" class="ui-content" >
             <p>Learn more about JBoss Enterprise Application Platform 6.</p>
             <ul>
                 <li><a href="https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/">Documentation</a></li>
@@ -134,23 +165,21 @@
     </div>
     
     <!-- A blank form for adding a contact. -->
-    <div data-role="page" id="contacts-add-page" data-theme="b">
+    <div data-role="page" id="contacts-add-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-add-page-menu-panel">
             <ul data-role="listview" id="contacts-add-page-menu-panel-listview">
-<!--                 <li><a href="#contacts-add-page">Add Contact</a></li> -->
                 <li><a href="#contacts-list-page">List view</a></li>
                 <li><a href="#about-page">About</a></li>
             </ul>
         </div>
-        <div data-role="header" data-position="fixed" data-theme="b">
-            <a href="#contacts-add-page-menu-panel" id="contacts-add-page-menu-button" data-role="button" data-icon="bars" data-iconpos="notext" data-mini="true" data-inline="true">Menu</a>
-<!--             <a href="#contacts-list-page" id="contacts-add-back-button" data-role="button" data-rel="back" data-icon="back">Back</a> -->
+        <div data-role="header" data-position="fixed" >
+            <a href="#contacts-add-page-menu-panel" id="contacts-add-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>Add Contact</h1>
         </div>
-        <div data-role="content">
+        <div role="main" class="ui-content">
             <!-- 
                 In order to catch server side errors we need to disable the automatic page tranisition when the form is 
-                  submitted.  This is by adding data-ajax="false" to the form element.  We then manually change the page
+                  submitted.  This done is by adding data-ajax="false" to the form element.  We then manually change the page
                   in the function that handles form submission. Thus allowing us to control when the form transitions to
                   another page. 
              -->
@@ -176,27 +205,30 @@
                     <input name="birthDate" id="contacts-add-input-date" class="birthDate" data-clear-btn="true" value="" placeholder="YYYY-MM-DD" type="date" min="1900-01-01"/>
                 </div>
                 <input id="submit-add-btn" data-inline="true" type="submit" value="Save" />
-                <input id="clear-add-btn" data-inline="true" type="reset" value="Clear" data-theme="c" />
-                <input id="cancel-add-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />
+                <input id="clear-add-btn" data-inline="true" type="reset" value="Clear"  />
+                <input id="cancel-add-btn" data-inline="true" type="reset" value="Cancel"  />
             </form>
         </div>
-        <div data-role="footer" data-position="fixed" data-theme="b">
+        <div data-role="footer" data-position="fixed" >
             <fieldset class="ui-grid-b">
+                <!-- There is currently a bug in jQM 1.4.2. The CSS forces all ui-btn in a toolbar(header or footer) to be
+                     set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized. 
+                     To fix this we had to override the style with an inline style, this should be removed when the bug is fixed.-->
                 <div class="ui-block-a">
-                    <a data-role="button" onclick="$('#submit-add-btn').trigger('click');">Save</a>
+                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-b" style="display:block;" onclick="$('#submit-add-btn').trigger('click');">Save</a>
                 </div>
                 <div class="ui-block-b">
-                    <a data-role="button" onclick="$('#clear-add-btn').trigger('click');" data-theme="c">Clear</a>
+                    <a class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#clear-add-btn').trigger('click');">Clear</a>
                 </div>
-                <div class="ui-block-b">
-                    <a href="#contacts-list-page" data-role="button" onclick="$('#cancel-add-btn').trigger('click');" data-theme="c">Cancel</a>
+                <div class="ui-block-c">
+                    <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#cancel-add-btn').trigger('click');">Cancel</a>
                 </div>
             </fieldset>             
         </div>
     </div>
     
     <!-- A pre-populated form for editing a contact -->
-    <div data-role="page" id="contacts-edit-page" data-theme="b">
+    <div data-role="page" id="contacts-edit-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-edit-page-menu-panel">
             <ul data-role="listview" id="contacts-edit-page-menu-panel-listview">
                 <li><a href="#contacts-add-page">Add Contact</a></li>
@@ -204,19 +236,18 @@
                 <li><a href="#about-page">About</a></li>
             </ul>
         </div>
-        <div data-role="header" data-position="fixed" data-theme="b">
-            <a href="#contacts-edit-page-menu-panel" id="contacts-edit-page-menu-button" data-role="button" data-icon="bars" data-iconpos="notext" data-mini="true" data-inline="true">Menu</a>
-<!--             <a href="#contacts-list-page" id="contacts-edit-back-button" data-role="button" data-rel="back" data-icon="back">Back</a> -->
+        <div data-role="header" data-position="fixed" >
+            <a href="#contacts-edit-page-menu-panel" id="contacts-edit-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>Edit Contact</h1>
-            <a href="#contact-delete-dialog" id="contacts-delete-button" data-role="button" data-icon="delete" data-mini="true" data-inline="true">Delete</a>
+            <a href="#contact-delete-dialog" id="contacts-delete-button" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-mini ui-btn-inline" data-rel="popup" data-position-to="window">Delete</a>
         </div>
-        <div data-role="content">
+        <div role="main" class="ui-content">
             <!-- 
                 PUT and DELETE are not supported in an HTML form, you must use POST.  
                   Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24 
                 
                 In order to catch server side errors we need to disable the automatic page tranisition when the form is 
-                  submitted.  This is by adding data-ajax="false" to the form element.  We then manually change the page
+                  submitted.  This done is by adding data-ajax="false" to the form element.  We then manually change the page
                   in the function that handles form submission. Thus allowing us to control when the form transitions to
                   another page. 
              -->
@@ -245,39 +276,42 @@
                     <input name="id" id="contacts-edit-input-id" value="" type="hidden"/>
                 </div>
                 <input id="submit-edit-btn" data-inline="true" type="submit" value="Save" />
-                <input id="clear-edit-btn" data-inline="true" type="reset" value="Clear" data-theme="c" />
-                <input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />
+                <input id="clear-edit-btn" data-inline="true" type="reset" value="Clear"  />
+                <input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel"  />
             </form>
         </div>
-        <div data-role="footer" data-position="fixed" data-theme="b">
+        <div data-role="footer" data-position="fixed" >
             <fieldset class="ui-grid-b">
+                <!-- There is currently a bug in jQM 1.4.2. The CSS forces all ui-btn in a toolbar(header or footer) to be
+                     set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized. 
+                     To fix this we had to override the style with an inline style, this should be removed when the bug is fixed.-->
                 <div class="ui-block-a">
-                    <a data-role="button" onclick="$('#submit-edit-btn').trigger('click');">Save</a>
+                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-b" style="display:block;" onclick="$('#submit-edit-btn').trigger('click');">Save</a>
                 </div>
                 <div class="ui-block-b">
-                    <a data-role="button" onclick="$('#clear-edit-btn').trigger('click');" data-theme="c">Clear</a>
+                    <a class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#clear-edit-btn').trigger('click');">Clear</a>
                 </div>
-                <div class="ui-block-b">
-                    <a href="#contacts-list-page" data-role="button" onclick="$('#cancel-edit-btn').trigger('click');" data-theme="c">Cancel</a>
+                <div class="ui-block-c">
+                    <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#cancel-edit-btn').trigger('click');">Cancel</a>
                 </div>
             </fieldset>             
         </div>
+        <!-- A delete confirmation dialog. -->
+        <div data-role="popup" id="contact-delete-dialog" data-overlay-theme="b">
+            <div data-role="header">
+                <h1>Delete Contact</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <!-- PUT and DELETE are not supported in an HTML form.  Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24 
+                     That is why we are using a dialog with simple Yes/No.  The ID of the Contact to be deleted will programatically be 
+                     pulled in from the Update form.
+                -->
+                <h3>Are you sure you want to Delete?</h3>
+                <a href="#contacts-list-page" id="confirm-delete-button" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Yes</a>
+                <a href="#contacts-list-page" id="cancel-delete-button" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">No</a>
+            </div>
+        </div>
     </div>
     
-    <!-- A delete confirmation dialog. -->
-    <div data-role="dialog" id="contact-delete-dialog">
-        <div data-role="header">
-            <h1>Delete Contact</h1>
-        </div>
-        <div data-role="content">
-            <!-- PUT and DELETE are not supported in an HTML form.  Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24 
-                 That is why we are using a dialog with simple Yes/No.  The ID of the Contact to be deleted will programatically be 
-                 pulled in from the Update form.
-            -->
-            <h3>Are you sure you want to Delete?</h3>
-            <a href="#contacts-list-page" id="confirm-delete-button" data-role="button" data-inline="true">Yes</a>
-            <a href="#contacts-list-page" id="cancel-delete-button" data-role="button" data-inline="true">No</a>
-        </div>
-    </div>
 </body>
 </html>
