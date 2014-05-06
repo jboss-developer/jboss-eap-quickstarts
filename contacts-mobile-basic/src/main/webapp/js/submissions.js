@@ -242,7 +242,10 @@ $(document).ready(function() {
                  * Since we are manually changing the page we avoid this issue altogether.  
                  */ 
 //                $('#contacts-list-page').remove();
-                
+
+                // Obtain the contact ID, to use in constructing the REST URI.
+                var contactId = $("#contacts-edit-input-id").val();
+
                 // Transform the form fields into JSON.
                 // Must pull from the specific form so that we get the right data in case another form has data in it.
                 var serializedForm = $("#contacts-edit-form").serializeObject();
@@ -265,7 +268,7 @@ $(document).ready(function() {
                  *   complete, the callback is fired immediately.)
                  */
                 var jqxhr = $.ajax({
-                    url: restEndpoint,
+                    url: restEndpoint + "/" + contactId,
                     contentType: "application/json",
                     dataType: "json",
                     data: contactData,
@@ -366,10 +369,9 @@ $(document).ready(function() {
             console.log(getCurrentTime() + " [js/submissions.js] (deleteContact - submit event) - started");
             // You must not preventDefault on a click on a link as that will prevent it from changing pages. 
 //            event.preventDefault();
-            
-            // Transform the form fields into JSON.
-            // Must pull from the specific form so that we get the right data in case another form has data in it.
-            var contactData = JSON.stringify($("#contacts-edit-form").serializeObject());
+
+            // Obtain the contact ID, to use in constructing the REST URI.
+            var contactId = $("#contacts-edit-input-id").val();
             
             /* The jQuery XMLHttpRequest (jqXHR) object returned by $.ajax() as of jQuery 1.5 is a superset of
              *   the browser's native XMLHttpRequest object. For example, it contains responseText and responseXML
@@ -385,10 +387,8 @@ $(document).ready(function() {
              *   complete, the callback is fired immediately.)
              */
             var jqxhr = $.ajax({
-                url: restEndpoint,
+                url: restEndpoint + "/" + contactId,
                 contentType: "application/json",
-//                dataType: "json",
-                data: contactData,
                 type: "DELETE"
             }).done(function(data, textStatus, jqXHR) {
                 console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - ajax done");
