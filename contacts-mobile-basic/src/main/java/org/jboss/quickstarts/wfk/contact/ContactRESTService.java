@@ -173,12 +173,22 @@ public class ContactRESTService {
      */
     @SuppressWarnings("unused")
     @PUT
-    public Response updateContact(Contact contact) {
-        log.info("updateContact started. Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
-            + contact.getBirthDate() + " " + contact.getId());
-
+    @Path("/{id:[0-9][0-9]*}")
+    public Response updateContact(@PathParam("id") long id, Contact contact) {
         if (contact == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        log.info("updateContact started. Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
+                + contact.getBirthDate() + " " + contact.getId());
+
+        if (contact.getId() != id) {
+            // The client attempted to update the read-only Id. This is not permitted.
+            Response response = Response.status(Response.Status.CONFLICT).entity("The contact ID cannot be modified").build();
+            throw new WebApplicationException(response);
+        }
+        if (service.findById(contact.getId()) == null) {
+            // Verify if the contact exists. Return 404, if not present.
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         
         Response.ResponseBuilder builder = null;
@@ -223,16 +233,17 @@ public class ContactRESTService {
      * @return Response
      */
     @DELETE
-    public Response deleteContact(Contact contact) {
-        log.info("deleteContact started. Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
-            + contact.getBirthDate() + " " + contact.getId());
+    @Path("/{id:[0-9][0-9]*}")
+    public Response deleteContact(@PathParam("id") Long id) {
+        log.info("deleteContact started. Contact ID = " + id);
         Response.ResponseBuilder builder = null;
 
         try {
-            if (contact.getId() != null) {
+            Contact contact = service.findById(id);
+            if (contact != null) {
                 service.delete(contact);
             } else {
-                log.info("ContactRESTService - deleteContact - No ID was found so can't Delete.");
+                log.info("ContactRESTService - deleteContact - No contact with matching ID was found so can't Delete.");
                 throw new WebApplicationException(Response.Status.NOT_FOUND);
             }
 

@@ -92,7 +92,7 @@ public class ContactValidator {
         if (contact != null && id != null) {
             try {
                 contactWithID = crud.findById(id);
-                if (contactWithID.getEmail().equals(email)) {
+                if (contactWithID != null && contactWithID.getEmail().equals(email)) {
                     contact = null;
                 }
             } catch (NoResultException e) {
