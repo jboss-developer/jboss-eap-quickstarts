@@ -41,7 +41,7 @@ test('should be able to provide the current date', 1, function() {
         (month<10 ? '0' : '') + month + '-' +
         (day<10 ? '0' : '') + day;
 
-    strictEqual(CONTACTS_MODULE.util.getCurrentDate(), output, 'The date was provide.');
+    strictEqual(CONTACTS.util.getCurrentDate(), output, 'The date was provide.');
 });
 
 test('should be able to provide the current time', 1, function() {
@@ -62,7 +62,7 @@ test('should be able to provide the current time', 1, function() {
                  (sec<10 ? '0' : '') + sec + "," + 
                  (millisec<10 ? '0' : (millisec<100 ? '0' : '')) + millisec;
     
-    strictEqual(CONTACTS_MODULE.util.getCurrentTime(), output, 'The time was provide.');
+    strictEqual(CONTACTS.util.getCurrentTime(), output, 'The time was provide.');
 });
 
 test('should be able to provide the current date time', 1, function() {
@@ -89,7 +89,7 @@ test('should be able to provide the current date time', 1, function() {
                  (sec<10 ? '0' : '') + sec + "," + 
                  (millisec<10 ? '0' : (millisec<100 ? '0' : '')) + millisec;
 
-    strictEqual(CONTACTS_MODULE.util.getCurrentDateTime(), output, 'The date time was provide.');
+    strictEqual(CONTACTS.util.getCurrentDateTime(), output, 'The date time was provide.');
 });
 
 //test('', 1, function() {

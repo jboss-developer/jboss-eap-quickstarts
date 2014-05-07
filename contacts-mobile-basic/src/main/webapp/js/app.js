@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.app.getContacts');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.app.buildContactList');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.app.getContactById');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.app.buildContactDetail');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.app.restEndpoint');
+CONTACTS.namespace('CONTACTS.app.getContacts');
+CONTACTS.namespace('CONTACTS.app.buildContactList');
+CONTACTS.namespace('CONTACTS.app.getContactById');
+CONTACTS.namespace('CONTACTS.app.buildContactDetail');
+CONTACTS.namespace('CONTACTS.app.restEndpoint');
 
-CONTACTS_MODULE.app.restEndpoint = 'rest/contacts';
+CONTACTS.app.restEndpoint = 'rest/contacts';
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 
@@ -39,8 +39,8 @@ CONTACTS_MODULE.app.restEndpoint = 'rest/contacts';
  */
 $( document ).on( "pageinit", function(mainEvent) {
     //Initialize the vars in the beginning so that you will always have access to them.
-    var getCurrentTime = CONTACTS_MODULE.util.getCurrentTime,
-        restEndpoint = CONTACTS_MODULE.app.restEndpoint;
+    var getCurrentTime = CONTACTS.util.getCurrentTime,
+        restEndpoint = CONTACTS.app.restEndpoint;
     
     console.log(getCurrentTime() + " [js/app.js] (document -> pageinit) - start");
     
@@ -58,16 +58,16 @@ $( document ).on( "pageinit", function(mainEvent) {
             console.log(getCurrentTime() + " [js/app.js] (#contacts-list-page -> pagebeforeshow) - start");
             
             // Fetches the initial Contact data.
-            CONTACTS_MODULE.app.getContacts();
+            CONTACTS.app.getContacts();
             
             e.handled = true;
             console.log(getCurrentTime() + " [js/app.js] (#contacts-list-page -> pagebeforeshow) - end");
         }
     });
     
-    // This is called on 'pagebeforeshow' above and by the CONTACTS_MODULE.submissions
+    // This is called on 'pagebeforeshow' above and by the CONTACTS.submissions
     // Uses JAX-RS GET to retrieve current contact list. 
-    CONTACTS_MODULE.app.getContacts = function () {
+    CONTACTS.app.getContacts = function () {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - start");
         var jqxhr = $.ajax({
             url: restEndpoint,
@@ -75,7 +75,7 @@ $( document ).on( "pageinit", function(mainEvent) {
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
             console.log(getCurrentTime() + " [js/app.js] (getContacts) - succes on ajax call");
-            CONTACTS_MODULE.app.buildContactList(data);
+            CONTACTS.app.buildContactList(data);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             console.log(getCurrentTime() + " [js/app.js] (getContacts) - error in ajax - " +
                         " - jqXHR = " + jqXHR.status +
@@ -85,9 +85,9 @@ $( document ).on( "pageinit", function(mainEvent) {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - end");
     };
 
-    // This is called by CONTACTS_MODULE.app.getContacts.
+    // This is called by CONTACTS.app.getContacts.
     // Display contact list on page one.
-    CONTACTS_MODULE.app.buildContactList = function (contacts) {
+    CONTACTS.app.buildContactList = function (contacts) {
         console.log(getCurrentTime() + " [js/app.js] (buildContactList) - start");
         var contactList = "",
             contactDetailList = "";
@@ -153,7 +153,7 @@ $( document ).on( "pageinit", function(mainEvent) {
             if(event.handled !== true) {
                 console.log(getCurrentTime() + " [js/app.js] (.contacts-display-listview -> on click) - start");
                 
-                CONTACTS_MODULE.app.getContactById($(this).attr("id").split("list-contact-ID-").pop());
+                CONTACTS.app.getContactById($(this).attr("id").split("list-contact-ID-").pop());
                 
                 event.handled = true;
                 console.log(getCurrentTime() + " [js/app.js] (.contacts-display-listview -> on click) - end");
@@ -165,7 +165,7 @@ $( document ).on( "pageinit", function(mainEvent) {
             if(event.handled !== true) {
                 console.log(getCurrentTime() + " [js/app.js] (li.contacts-display-listview -> on click) - start");
                 
-                CONTACTS_MODULE.app.getContactById($(this).attr("id").split("detail-contact-ID-").pop());
+                CONTACTS.app.getContactById($(this).attr("id").split("detail-contact-ID-").pop());
                 
                 // Turn the whole <li> into a link.
                 $.mobile.changePage("#contacts-edit-page");
@@ -182,7 +182,7 @@ $( document ).on( "pageinit", function(mainEvent) {
     
     // This is called by the on click event list above.
     // Retrieve employee detail based on employee id.
-    CONTACTS_MODULE.app.getContactById = function (contactID) {
+    CONTACTS.app.getContactById = function (contactID) {
         console.log(getCurrentTime() + " [js/app.js] (getContactById) - start");
         console.log(getCurrentTime() + " [js/app.js] (getContactById) - contactID = " + contactID);
     
@@ -192,7 +192,7 @@ $( document ).on( "pageinit", function(mainEvent) {
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
             console.log(getCurrentTime() + " [js/app.js] (getContactById) - success on ajax call");
-            CONTACTS_MODULE.app.buildContactDetail(data);
+            CONTACTS.app.buildContactDetail(data);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             console.log(getCurrentTime() + " [js/app.js] (getContactById) - error in ajax" +
                         " - jqXHR = " + jqXHR.status +
@@ -202,9 +202,9 @@ $( document ).on( "pageinit", function(mainEvent) {
         console.log(getCurrentTime() + " [js/app.js] (getContactById) - end");
     };
     
-    // This is called by CONTACTS_MODULE.app.getContactById.
+    // This is called by CONTACTS.app.getContactById.
     // Display contact detail for editing on the Edit page.
-    CONTACTS_MODULE.app.buildContactDetail = function(contact) {
+    CONTACTS.app.buildContactDetail = function(contact) {
         console.log(getCurrentTime() + " [js/app.js] (buildContactDetail) - start");
         
         // Put each field value in the text input on the page.
