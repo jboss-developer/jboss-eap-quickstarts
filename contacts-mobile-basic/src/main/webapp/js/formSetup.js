@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.displayServerSideErrors');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.validateName');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.formEmail');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.validateEmailUniqueness');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.addContactsFormValidator');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.editContactsFormValidator');
+CONTACTS.namespace('CONTACTS.validation.displayServerSideErrors');
+CONTACTS.namespace('CONTACTS.validation.validateName');
+CONTACTS.namespace('CONTACTS.validation.formEmail');
+CONTACTS.namespace('CONTACTS.validation.validateEmailUniqueness');
+CONTACTS.namespace('CONTACTS.validation.addContactsFormValidator');
+CONTACTS.namespace('CONTACTS.validation.editContactsFormValidator');
 
 /**
  * Configure the HTML forms to hide the standard form buttons (they will be displayed in the footer). And to set up 
@@ -30,7 +30,7 @@ CONTACTS_MODULE.namespace('CONTACTS_MODULE.validation.editContactsFormValidator'
  */
 $( document ).on( "pageinit", function(mainEvent) {
     //Initialize the vars in the beginning so that you will always have access to them.
-    var getCurrentTime = CONTACTS_MODULE.util.getCurrentTime;
+    var getCurrentTime = CONTACTS.util.getCurrentTime;
     
     /* 
      * The "pagebeforeshow" event will delay this function until everything is set up.
@@ -77,11 +77,11 @@ $( document ).on( "pageinit", function(mainEvent) {
             console.log(getCurrentTime() + " [js/formSetup.js] (#clear-add-btn, #cancel-add-btn -> on click) - start");
             
             // Remove errors display as a part of the validation system. 
-            CONTACTS_MODULE.validation.addContactsFormValidator.resetForm();
+            CONTACTS.validation.addContactsFormValidator.resetForm();
             
             // Reset this flag when the form passes validation. 
             if (this.id === "cancel-add-btn") {
-                CONTACTS_MODULE.validation.formEmail = null;
+                CONTACTS.validation.formEmail = null;
             }
             
             // Remove any errors that are not a part of the validation system.
@@ -101,13 +101,13 @@ $( document ).on( "pageinit", function(mainEvent) {
             var contactID = $('input#contacts-edit-input-id').attr('value');
             
             // Remove errors display as a part of the validation system. 
-            CONTACTS_MODULE.validation.editContactsFormValidator.resetForm();
+            CONTACTS.validation.editContactsFormValidator.resetForm();
             
             // Remove any errors that are not a part of the validation system.
             $('.invalid').remove();
             
             // Since we are only "clearing" the form we need to put back the original data.
-            CONTACTS_MODULE.app.getContactById(contactID);
+            CONTACTS.app.getContactById(contactID);
             
             e.handled = true;
             console.log(getCurrentTime() + " [js/formSetup.js] (#clear-edit-btn -> on click) - end");
@@ -121,10 +121,10 @@ $( document ).on( "pageinit", function(mainEvent) {
             
             // Remove errors display as a part of the validation system. 
 //            editValidator.resetForm();
-            CONTACTS_MODULE.validation.editContactsFormValidator.resetForm();
+            CONTACTS.validation.editContactsFormValidator.resetForm();
             
             // Reset this flag when the form passes validation. 
-            CONTACTS_MODULE.validation.formEmail = null;
+            CONTACTS.validation.formEmail = null;
             
             // Remove any errors that are not a part of the validation system.
             $('.invalid').remove();

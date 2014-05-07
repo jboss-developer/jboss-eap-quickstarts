@@ -15,18 +15,18 @@
  * limitations under the License.
  */
 
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.util.getCurrentDate');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.util.getCurrentTime');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.util.getCurrentDateTime');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.util.convertMillisToDate');
-CONTACTS_MODULE.namespace('CONTACTS_MODULE.util.convertDateStringToOffsetUTC');
+CONTACTS.namespace('CONTACTS.util.getCurrentDate');
+CONTACTS.namespace('CONTACTS.util.getCurrentTime');
+CONTACTS.namespace('CONTACTS.util.getCurrentDateTime');
+CONTACTS.namespace('CONTACTS.util.convertMillisToDate');
+CONTACTS.namespace('CONTACTS.util.convertDateStringToOffsetUTC');
 
 /**
  * Abstract away generic functions that are used by all.
  * 
  * @author Joshua Wilson
  */
-CONTACTS_MODULE.util.getCurrentDate = function() {
+CONTACTS.util.getCurrentDate = function() {
     var d = new Date();
     var month = d.getMonth()+1;
     var day = d.getDate();
@@ -38,7 +38,7 @@ CONTACTS_MODULE.util.getCurrentDate = function() {
     return output;
 };
 
-CONTACTS_MODULE.util.getCurrentTime = function() {
+CONTACTS.util.getCurrentTime = function() {
     var d = new Date();
     var hour = d.getHours();
     var min = d.getMinutes();
@@ -53,18 +53,18 @@ CONTACTS_MODULE.util.getCurrentTime = function() {
     return output;
 };
 
-CONTACTS_MODULE.util.getCurrentDateTime = function() {
-    var output = CONTACTS_MODULE.util.getCurrentDate() + ' ' + CONTACTS_MODULE.util.getCurrentTime();
+CONTACTS.util.getCurrentDateTime = function() {
+    var output = CONTACTS.util.getCurrentDate() + ' ' + CONTACTS.util.getCurrentTime();
     return output;
 };
 
 /**
  * The database stores the Date in Milliseconds from the epoch.  We need to convert that into a readable date.
  */
-CONTACTS_MODULE.util.convertMillisToDate = function(milliseconds) {
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertMillisToDate) - milliseconds passed in = " + milliseconds);
+CONTACTS.util.convertMillisToDate = function(milliseconds) {
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertMillisToDate) - milliseconds passed in = " + milliseconds);
     var d = new Date(milliseconds);
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertMillisToDate) - date after converting milliseconds passed in = " + d);
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertMillisToDate) - date after converting milliseconds passed in = " + d);
     
     // Must add 1 due to zero based array of months.
     var month = d.getMonth()+1;
@@ -82,26 +82,26 @@ CONTACTS_MODULE.util.convertMillisToDate = function(milliseconds) {
  * Convert a local date String to a Date type and then apply the timezone offset to it so that it keeps the right time.
  * Without this the time stored would be as if it were recorded in UTC.
  */
-CONTACTS_MODULE.util.convertDateStringToOffsetUTC = function(utcDate) {
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date String passed in = " + utcDate);
+CONTACTS.util.convertDateStringToOffsetUTC = function(utcDate) {
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date String passed in = " + utcDate);
     
     // The date passed in is a String, this makes it a Date object/type.
     var d = new Date(utcDate);
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date after converting " +
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date after converting " +
             "String to the Date type (displayed in local time) = " + d);
     
     // Get the Timezone Offset, in minutes, from UTC to local. This will either be a negative or positive number depending 
     // on your timezone.
     var offsetInMin = d.getTimezoneOffset();
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - offset in Minutes = " + offsetInMin);
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - offset in Minutes = " + offsetInMin);
     
     // We need the Offset in Milliseconds if we are going to add it more Milliseconds.
     var offsetInMillis = offsetInMin * 60 * 1000;
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - offset in Milliseconds = " + offsetInMillis);
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - offset in Milliseconds = " + offsetInMillis);
     
     // Add the Offset to the UTC time so that we can store the actual time that was intended to be recorded.
     var offsetUTCDateTime = new Date(d.getTime() + offsetInMillis);
-    console.log(CONTACTS_MODULE.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date after applying timezone " +
+    console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date after applying timezone " +
             "offset to UTC Date (displayed in local time) = " + offsetUTCDateTime);
     
     return offsetUTCDateTime;
