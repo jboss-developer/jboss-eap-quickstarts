@@ -30,16 +30,16 @@ module('Validation', {
 
 test('should only allow names with alpha characters, an apostrophe, or a dash in them.', 8, function() {
     // well formed names
-    ok(CONTACTS_MODULE.validation.validateName('john'), 'john is well formed');
-    ok(CONTACTS_MODULE.validation.validateName('John'), 'John is well formed');
-    ok(CONTACTS_MODULE.validation.validateName('smith-jones'), 'smith-jones is well formed');
-    ok(CONTACTS_MODULE.validation.validateName("O'Maley"), "O'Maley is well formed");
+    ok(CONTACTS.validation.validateName('john'), 'john is well formed');
+    ok(CONTACTS.validation.validateName('John'), 'John is well formed');
+    ok(CONTACTS.validation.validateName('smith-jones'), 'smith-jones is well formed');
+    ok(CONTACTS.validation.validateName("O'Maley"), "O'Maley is well formed");
     
     // mal-formed names
-    ok(!CONTACTS_MODULE.validation.validateName('John Smith'), 'John Smith is not well formed. It has a space in it.');
-    ok(!CONTACTS_MODULE.validation.validateName('john3'), 'john3 is not well formed. No numbers allowed.');
-    ok(!CONTACTS_MODULE.validation.validateName('3'), '3 is not well formed. No numbers allowed.');
-    ok(!CONTACTS_MODULE.validation.validateName('john$'), 'john$ is not well formed. No specials allowed.');
+    ok(!CONTACTS.validation.validateName('John Smith'), 'John Smith is not well formed. It has a space in it.');
+    ok(!CONTACTS.validation.validateName('john3'), 'john3 is not well formed. No numbers allowed.');
+    ok(!CONTACTS.validation.validateName('3'), '3 is not well formed. No numbers allowed.');
+    ok(!CONTACTS.validation.validateName('john$'), 'john$ is not well formed. No specials allowed.');
 });
 
 
@@ -76,7 +76,7 @@ module('Validation in the Add form', {
                 '<input id="cancel-add-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />' +
             '</form>'
         );
-        CONTACTS_MODULE.validation.runFormValidators();
+        CONTACTS.validation.runFormValidators();
     },
     teardown: function() {
         // run after
@@ -85,16 +85,16 @@ module('Validation in the Add form', {
 
 test('should only allow names with alpha characters, an apostrophe, or a dash in them.', 8, function() {
     // well formed names
-    ok(CONTACTS_MODULE.validation.validateName('john'), 'john is well formed');
-    ok(CONTACTS_MODULE.validation.validateName('John'), 'John is well formed');
-    ok(CONTACTS_MODULE.validation.validateName('smith-jones'), 'smith-jones is well formed');
-    ok(CONTACTS_MODULE.validation.validateName("O'Maley"), "O'Maley is well formed");
+    ok(CONTACTS.validation.validateName('john'), 'john is well formed');
+    ok(CONTACTS.validation.validateName('John'), 'John is well formed');
+    ok(CONTACTS.validation.validateName('smith-jones'), 'smith-jones is well formed');
+    ok(CONTACTS.validation.validateName("O'Maley"), "O'Maley is well formed");
     
     // mal-formed names
-    ok(!CONTACTS_MODULE.validation.validateName('John Smith'), 'John Smith is not well formed. It has a space in it.');
-    ok(!CONTACTS_MODULE.validation.validateName('john3'), 'john3 is not well formed. No numbers allowed.');
-    ok(!CONTACTS_MODULE.validation.validateName('3'), '3 is not well formed. No numbers allowed.');
-    ok(!CONTACTS_MODULE.validation.validateName('john$'), 'john$ is not well formed. No specials allowed.');
+    ok(!CONTACTS.validation.validateName('John Smith'), 'John Smith is not well formed. It has a space in it.');
+    ok(!CONTACTS.validation.validateName('john3'), 'john3 is not well formed. No numbers allowed.');
+    ok(!CONTACTS.validation.validateName('3'), '3 is not well formed. No numbers allowed.');
+    ok(!CONTACTS.validation.validateName('john$'), 'john$ is not well formed. No specials allowed.');
 });
 
 test('should be able to programmitcally insert a first name into the first name field. This is to make sure we can run the tests.', 1, function() {
@@ -109,7 +109,7 @@ test('should display an error message in the first name field when the first nam
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please specify a first name.", 'The first name was left empty.');
 });
 
@@ -119,7 +119,7 @@ test('should display an error message in the first name field when the first nam
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please use a name without numbers or specials.", 'The first name was set to john3.');
 });
 
@@ -129,7 +129,7 @@ test('should display an error message in the first name field when the first nam
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter no more than 25 characters.", 'The first name was set to johnssssssssssssssssssssss.');
 });
 
@@ -140,7 +140,7 @@ test('should display an error message in the last name field when the last name 
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please specify a last name.", 'The last name was left empty.');
 });
 
@@ -150,7 +150,7 @@ test('should display an error message in the last name field when the last name 
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please use a name without numbers or specials.", 'The last name was set to doe3.');
 });
 
@@ -160,7 +160,7 @@ test('should display an error message in the last name field when the last name 
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter no more than 25 characters.", 'The last name was set to doesssssssssssssssssssssss.');
 });
 
@@ -171,7 +171,7 @@ test('should display an error message in the phone number field when the phone n
     $('#contacts-add-input-tel').val      ('')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter a phone number.", 'The phone number was left empty.');
 });
 
@@ -181,7 +181,7 @@ test('should display an error message in the phone number field when the phone n
     $('#contacts-add-input-tel').val      ('555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please use a standard US formats. And remember the area code and prefix may not start with 1.", 'The phone number was set to 555-1212.');
 });
 
@@ -192,7 +192,7 @@ test('should display an error message in the email field when the email is not e
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter an e-mail.", 'The email was left empty.');
 });
 
@@ -202,12 +202,12 @@ test('should display an error message in the email field when the email is not i
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "The email address must be in the format of name@company.domain.", 'The email was set to john.doe@.');
 });
 
 test('should display an error message in the email field when the email is not unique.', 1, function() {
-    CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-add-form", {email:"That email is already used, please use a unique email"});
+    CONTACTS.validation.displayServerSideErrors("#contacts-add-form", {email:"That email is already used, please use a unique email"});
     strictEqual($('label.error').text(), "That email is already used, please use a unique email", 'The email was set to john.doe@abc.com.');
 });
 
@@ -217,11 +217,11 @@ test('should continue to display an error message in the email field when the em
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-add-form", {email:"That email is already used, please use a unique email"});
-    CONTACTS_MODULE.validation.formEmail = 'john.doe@abc.com';
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.displayServerSideErrors("#contacts-add-form", {email:"That email is already used, please use a unique email"});
+    CONTACTS.validation.formEmail = 'john.doe@abc.com';
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "That email is already used, please use a unique email.", 'The email was set to john.doe@abc.com.');
-    CONTACTS_MODULE.validation.formEmail = null;
+    CONTACTS.validation.formEmail = null;
 });
 
 // Birthdate tests
@@ -231,8 +231,8 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
-    strictEqual($('label.error').text(), "Please enter a birthdate.", 'The date was left empty.');
+    CONTACTS.validation.addContactsFormValidator.form();
+    strictEqual($('label.error').text(), "Please enter a valid birthdate.", 'The date was left empty.');
 });
 
 test('should display an error message in the birth date field when the birth date is given as a future date.', 1, function() {
@@ -242,9 +242,9 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('2020-10-10')
     $('.birthDate').attr('max', function() {
-        return CONTACTS_MODULE.util.getCurrentDate();
+        return CONTACTS.util.getCurrentDate();
     });
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Birthdates can not be in the future. Please choose one from the past. Unless they are a time traveler.", 'The date was set to 2020-10-10.');
 });
 
@@ -254,7 +254,7 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1890-10-10')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Nobody is that old. Unless they are a vampire.", 'The date was set to 1890-10-10.');
 });
 
@@ -264,7 +264,7 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-add-input-tel').val      ('555-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('Oct 10, 1990')
-    CONTACTS_MODULE.validation.addContactsFormValidator.form();
+    CONTACTS.validation.addContactsFormValidator.form();
     strictEqual($('label.error').text(), "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)", 'The date was set to Oct 10, 1990.');
 });
 
@@ -302,7 +302,7 @@ module('Validation in the Edit form', {
                 '<input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />' +
             '</form>'
         );
-        CONTACTS_MODULE.validation.runFormValidators();
+        CONTACTS.validation.runFormValidators();
     },
     teardown: function() {
         // run after
@@ -316,7 +316,7 @@ test('should display an error message in the first name field when the first nam
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please specify a first name.", 'The first name was left empty.');
 });
 
@@ -326,7 +326,7 @@ test('should display an error message in the first name field when the first nam
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please use a name without numbers or specials.", 'The first name was set to john3.');
 });
 
@@ -336,7 +336,7 @@ test('should display an error message in the first name field when the first nam
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter no more than 25 characters.", 'The first name was set to johnssssssssssssssssssssss.');
 });
 
@@ -347,7 +347,7 @@ test('should display an error message in the last name field when the last name 
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please specify a last name.", 'The last name was left empty.');
 });
 
@@ -357,7 +357,7 @@ test('should display an error message in the last name field when the last name 
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please use a name without numbers or specials.", 'The last name was set to doe3.');
 });
 
@@ -367,7 +367,7 @@ test('should display an error message in the last name field when the last name 
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter no more than 25 characters.", 'The last name was set to doesssssssssssssssssssssss.');
 });
 
@@ -378,7 +378,7 @@ test('should display an error message in the phone number field when the phone n
     $('#contacts-edit-input-tel').val      ('')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter a phone number.", 'The phone number was left empty.');
 });
 
@@ -388,7 +388,7 @@ test('should display an error message in the phone number field when the phone n
     $('#contacts-edit-input-tel').val      ('555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please use a standard US formats. And remember the area code and prefix may not start with 1.", 'The phone number was set to 555-1212.');
 });
 
@@ -399,7 +399,7 @@ test('should display an error message in the email field when the email is not e
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Please enter an e-mail.", 'The email was left empty.');
 });
 
@@ -409,12 +409,12 @@ test('should display an error message in the email field when the email is not i
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "The email address must be in the format of name@company.domain.", 'The email was set to john.doe@.');
 });
 
 test('should display an error message in the email field when the email is not unique.', 1, function() {
-    CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-edit-form", {email:"That email is already used, please use a unique email"});
+    CONTACTS.validation.displayServerSideErrors("#contacts-edit-form", {email:"That email is already used, please use a unique email"});
     strictEqual($('label.error').text(), "That email is already used, please use a unique email", 'The email was set to john.doe@abc.com.');
 });
 
@@ -424,11 +424,11 @@ test('should continue to display an error message in the email field when the em
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
-    CONTACTS_MODULE.validation.displayServerSideErrors("#contacts-edit-form", {email:"That email is already used, please use a unique email"});
-    CONTACTS_MODULE.validation.formEmail = 'john.doe@abc.com';
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.displayServerSideErrors("#contacts-edit-form", {email:"That email is already used, please use a unique email"});
+    CONTACTS.validation.formEmail = 'john.doe@abc.com';
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "That email is already used, please use a unique email.", 'The email was set to john.doe@abc.com.');
-    CONTACTS_MODULE.validation.formEmail = null;
+    CONTACTS.validation.formEmail = null;
 });
 
 // Birthdate tests
@@ -438,8 +438,8 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
-    strictEqual($('label.error').text(), "Please enter a birthdate.", 'The date was left empty.');
+    CONTACTS.validation.editContactsFormValidator.form();
+    strictEqual($('label.error').text(), "Please enter a valid birthdate.", 'The date was left empty.');
 });
 
 test('should display an error message in the birth date field when the birth date is given as a future date.', 1, function() {
@@ -449,9 +449,9 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('2020-10-10')
     $('.birthDate').attr('max', function() {
-        return CONTACTS_MODULE.util.getCurrentDate();
+        return CONTACTS.util.getCurrentDate();
     });
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Birthdates can not be in the future. Please choose one from the past. Unless they are a time traveler.", 'The date was set to 2020-10-10.');
 });
 
@@ -461,7 +461,7 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1890-10-10')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Nobody is that old. Unless they are a vampire.", 'The date was set to 1890-10-10.');
 });
 
@@ -471,7 +471,7 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-edit-input-tel').val      ('555-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('Oct 10, 1990')
-    CONTACTS_MODULE.validation.editContactsFormValidator.form();
+    CONTACTS.validation.editContactsFormValidator.form();
     strictEqual($('label.error').text(), "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)", 'The date was set to Oct 10, 1990.');
 });
 
