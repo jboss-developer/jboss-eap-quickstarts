@@ -1,0 +1,15 @@
+# Batch script to restore the web http connector protocol
+
+# Start batching commands
+batch
+
+# Configure the web http connector to use the NIO2 protocol
+/subsystem=web/connector=http/:write-attribute(name=protocol,value=HTTP/1.1)
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+:reload
+
+
