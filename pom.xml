@@ -69,8 +69,6 @@
         <version.dom4j>1.6</version.dom4j>
         <version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
         <version.log4j>1.2.16</version.log4j>
-        <version.org.apache.wicket>6.9.1</version.org.apache.wicket>
-        <version.net.ftlines.wicket-cdi>6.0</version.net.ftlines.wicket-cdi>
 
         <!-- other plugin versions -->
         <version.bundle.plugin>2.3.4</version.bundle.plugin>
@@ -178,7 +176,6 @@
                 <module>helloworld-jms</module>
                 <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
-                <module>helloworld-osgi</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
@@ -206,8 +203,6 @@
                 <module>tasks-rs</module>
                 <module>temperature-converter</module>
                 <module>websocket-hello</module>
-                <module>wicket-ear</module>
-                <module>wicket-war</module>
                 <module>xml-dom4j</module>
                 <module>xml-jaxp</module>
             </modules>
