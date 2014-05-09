@@ -20,16 +20,6 @@
     <title>Contacts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <!-- This is the CSS for the Validation plugin. -->
-    <link rel="stylesheet" href="css/app.css" type="text/css" media="all" />     
-    <link rel="stylesheet" href="css/validator.css" type="text/css" media="all" />     
-    
-    <!-- ThemeRoller created themes. Uncomment 1 theme and the structure css. Comment out Default or other Themes. -->
-<!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.red-hat.css" type="text/css" media="all" /> -->
-<!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.red-hat-grey.css" type="text/css" media="all" /> -->
-<!--     <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css" type="text/css" media="all" /> -->
-<!--     <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" type="text/css" media="all" /> -->
-    
     <!-- Default theme with just 2 schemes, A (light) and B (dark) -->
     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" type="text/css" media="all" />
 <!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" type="text/css" media="all" /> -->
@@ -39,6 +29,10 @@
     <script src="js/libs/jquery-2.0.3.js"></script>
 <!--     <script src="js/libs/jquery-2.0.3.min.js"></script> -->
 <!--     <script src="http://code.jquery.com/jquery-2.0.3.js"></script> -->
+    
+    <!-- This is the CSS for the Validation plugin. -->
+    <link rel="stylesheet" href="css/app.css" type="text/css" media="all" />     
+    <link rel="stylesheet" href="css/validator.css" type="text/css" media="all" />     
     
     <!-- Import the custom JavaScript -->
     <script src="js/namespace.js"></script>
@@ -105,11 +99,6 @@
                 <h3>Try out these different Themes!</h3>
                 <button id="theme-button-a" class="ui-btn ui-corner-all ui-shadow">A - Light</button>
                 <button id="theme-button-b" class="ui-btn ui-corner-all ui-shadow">B - Dark</button>
-<!--                 <button id="theme-button-c" class="ui-btn ui-corner-all ui-shadow">C</button> -->
-<!--                 <button id="theme-button-d" class="ui-btn ui-corner-all ui-shadow">D</button> -->
-<!--                 <button id="theme-button-e" class="ui-btn ui-corner-all ui-shadow">E</button> -->
-<!--                 <button id="theme-button-f" class="ui-btn ui-corner-all ui-shadow">F</button> -->
-<!--                 <button id="theme-button-g" class="ui-btn ui-corner-all ui-shadow">G</button> -->
             </div>
         </div>
     </div>
@@ -213,15 +202,16 @@
             <fieldset class="ui-grid-b">
                 <!-- There is currently a bug in jQM 1.4.2. The CSS forces all ui-btn in a toolbar(header or footer) to be
                      set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized. 
-                     To fix this we had to override the style with an inline style, this should be removed when the bug is fixed.-->
+                     To fix this we had to override the style with a 'block-button' class referenced in app.css, this 
+                     should be removed when the bug is fixed.-->
                 <div class="ui-block-a">
-                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-b" style="display:block;" onclick="$('#submit-add-btn').trigger('click');">Save</a>
+                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-b block-button" onclick="$('#submit-add-btn').trigger('click');">Save</a>
                 </div>
                 <div class="ui-block-b">
-                    <a class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#clear-add-btn').trigger('click');">Clear</a>
+                    <a class="ui-btn ui-corner-all ui-shadow block-button" onclick="$('#clear-add-btn').trigger('click');">Clear</a>
                 </div>
                 <div class="ui-block-c">
-                    <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#cancel-add-btn').trigger('click');">Cancel</a>
+                    <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow block-button" onclick="$('#cancel-add-btn').trigger('click');">Cancel</a>
                 </div>
             </fieldset>             
         </div>
@@ -284,15 +274,16 @@
             <fieldset class="ui-grid-b">
                 <!-- There is currently a bug in jQM 1.4.2. The CSS forces all ui-btn in a toolbar(header or footer) to be
                      set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized. 
-                     To fix this we had to override the style with an inline style, this should be removed when the bug is fixed.-->
+                     To fix this we had to override the style with a 'block-button' class referenced in app.css, this 
+                     should be removed when the bug is fixed.-->
                 <div class="ui-block-a">
-                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-b" style="display:block;" onclick="$('#submit-edit-btn').trigger('click');">Save</a>
+                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-b block-button" onclick="$('#submit-edit-btn').trigger('click');">Save</a>
                 </div>
                 <div class="ui-block-b">
-                    <a class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#clear-edit-btn').trigger('click');">Clear</a>
+                    <a class="ui-btn ui-corner-all ui-shadow block-button" onclick="$('#clear-edit-btn').trigger('click');">Clear</a>
                 </div>
                 <div class="ui-block-c">
-                    <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow" style="display:block;" onclick="$('#cancel-edit-btn').trigger('click');">Cancel</a>
+                    <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow block-button" onclick="$('#cancel-edit-btn').trigger('click');">Cancel</a>
                 </div>
             </fieldset>             
         </div>
