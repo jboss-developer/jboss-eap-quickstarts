@@ -44,7 +44,8 @@ public class ContactListPage {
     private WebElement showListButton;
 
 //    @FindByJQuery("[data-type='search']")
-    @FindByJQuery("#filter-input-list-page")
+//    @FindByJQuery("#filter-form-list-page")
+    @FindByJQuery(".ui-filterable:eq(0)")
     private WebElement filterInput;
 
     public void editContact(String name) {
