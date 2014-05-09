@@ -18,3 +18,7 @@
 .detialedList {
     text-indent: 2em;
 }
+
+.ui-footer .block-button {
+    display: block;
+}
