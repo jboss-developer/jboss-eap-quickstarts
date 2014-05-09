@@ -16,7 +16,10 @@
  */
 package org.jboss.as.quickstarts.appclient.acc.client;
 
+import java.util.Arrays;
+
 import javax.ejb.EJB;
+import javax.naming.NamingException;
 
 import org.jboss.as.quickstarts.appclient.acc.client.interceptor.ClientInterceptor;
 import org.jboss.as.quickstarts.appclient.server.ejb.StatelessSession;
@@ -35,16 +38,21 @@ public class Main {
     @EJB
     private static StatelessSession slsb;
 
-    /** Creates new form NewJFrame */
-    public Main() {
+    /** no instance necessary */
+    private Main() {
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        // Show that the client is started with arguments at command line
+        LOG.info("Main started " + ( args.length != 0 ? "with" : "without") + " arguments");
+        if(args.length > 0) LOG.info("            " + Arrays.asList(args));
+
+        // add an client side interceptor to provide the client machine name to the server application
         EJBClientContext.getCurrent().registerInterceptor(0, new ClientInterceptor());
-    	LOG.info(slsb.getGreeting());
-    	slsb.invokeWithClientContext();
+        LOG.info(slsb.getGreeting());
+        slsb.invokeWithClientContext();
     }
 }

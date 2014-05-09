@@ -96,11 +96,13 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 1. Make sure that the deployments are successful as described above.
 2. Navigate to the root directory of this quickstart and type the command to run the application. Be sure to replace `EAP_HOME` with the path to your JBoss EAP installation.
 
-        For Linux:   EAP_HOME/bin/appclient.sh ear/target/jboss-application-client.ear#simpleClient.jar
-        For Windows: EAP_HOME\bin\appclient.sh ear\target\jboss-application-client.ear#simpleClient.jar
+        For Linux:   EAP_HOME/bin/appclient.sh ear/target/jboss-application-client.ear#simpleClient.jar Hello from command line
+        For Windows: EAP_HOME\bin\appclient.sh ear\target\jboss-application-client.ear#simpleClient.jar Hello from command line
 
     The client will output the following information provided by the server application:
 
+        [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-51) Main started with arguments
+        [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-51)             [Hello, from, command, line]
         [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-##) Hello from StatelessSessionBean@myhost
 
     This output shows that the `ServerApplication` is called at the jboss.node `myhost`.
@@ -141,11 +143,13 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 
 7. Type this command to run the application:
 
-        For Linux:   EAP_HOME/bin/appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear/target/jboss-application-client.ear#simpleClient.jar
-        For Windows: EAP_HOME\bin\appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-application-client.ear#simpleClient.jar
+        For Linux:   EAP_HOME/bin/appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear/target/jboss-application-client.ear#simpleClient.jar Hello from command line
+        For Windows: EAP_HOME\bin\appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-application-client.ear#simpleClient.jar Hello from command line
 
     The client will output the following information provided by the applications:
 
+        [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-51) Main started with arguments
+        [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-51)             [Hello, from, command, line]
         [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-##) Hello from StatelessSessionBean@theOtherHOST
 
     This output shows that the `ServerApplication` is called at the jboss.node `theOtherHOST`.
