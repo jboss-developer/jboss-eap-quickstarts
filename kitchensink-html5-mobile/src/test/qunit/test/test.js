@@ -76,7 +76,7 @@ asyncTest('Register a member with a duplicate email', function() {
 
     // Create necessary DOM elements
     $('<form name="reg" id="reg">' +
-        '   <div data-role="fieldcontain">' +
+        '   <div class="ui-field-contain">' +
         '       <label for="email">Email:</label>' +
         '       <input type="email" name="email" id="email" placeholder="Your Email" required/>' +
         '   </div>' +

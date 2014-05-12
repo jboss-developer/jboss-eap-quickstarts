@@ -120,12 +120,12 @@
             <article id="intro-art" data-role="page">
                 <!-- Header -->
                 <div data-role="header" class="header">
-                     <h3>HTML5 Quickstart</h3>
-                    <a href="#info-aside" data-role="button" data-icon="info" class="ui-btn-right" data-iconpos="notext" data-rel="popup" data-position-to="window">About</a>
+                    <h3>HTML5 Quickstart</h3>
+                    <a href="#info-aside" class="ui-btn ui-btn-right ui-icon-info ui-btn-icon-notext ui-corner-all" data-rel="popup" data-position-to="window">About</a>
                 </div>
                 <!-- /Header -->
 
-                <div data-role="content">
+                <div class="ui-content" role="main">
                     <div class="wrap">
                         <img src="img/rhjb_eap_logo.png" class="mobileicon"/>
                         <p>You have successfully deployed a Java EE 6 web application.</p>
@@ -161,11 +161,11 @@
                     <!-- Header -->
                     <div data-role="header">
                         <h3>Find out more</h3>
-                        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                        <a href="#" data-rel="back" class="ui-btn ui-btn-right ui-icon-delete ui-btn-icon-notext ui-corner-all">Close</a>
                     </div>
                     <!-- /Header -->
 
-                    <div data-role="content">
+                    <div class="ui-content" role="main">
                         <p>Learn more about JBoss Enterprise Application Platform 6.</p>
                         <ul>
                             <li><a href="https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/" target="_blank">Documentation</a></li>
@@ -188,27 +188,27 @@
                 </div>
                 <!-- /Header -->
 
-                <div data-role="content">
+                <div class="ui-content" role="main">
                     <div class="wrap">
                         <!-- For now mapping bean validation constraints from server side model is a manual task -->
                         <form name="reg" id="reg" data-ajax="false">
                             <fieldset>
                                 <legend>Register a member:</legend>
-                                <div data-role="fieldcontain">
+                                <div class="ui-field-contain">
                                     <label for="name">Name:</label>
                                     <input type="text" name="name" id="name" placeholder="Your Name" required autofocus/>
                                 </div>
-                                <div data-role="fieldcontain">
+                                <div class="ui-field-contain">
                                     <label for="email">Email:</label>
                                     <input type="email" name="email" id="email" placeholder="Your Email" required/>
                                 </div>
-                                <div data-role="fieldcontain">
+                                <div class="ui-field-contain">
                                     <label for="phoneNumber">Phone #:</label>
                                     <input type="tel" name="phoneNumber" id="phoneNumber" pattern="[0-9]{10,12}" placeholder="Your Phone #" required/>
                                 </div>
                                 <div id="formMsgs"></div>
                                 <div class="ui-grid-a app-responsive">
-                                    <div class="ui-block-a"><input type="submit" id="register" value="Register"/></div>
+                                    <div class="ui-block-a"><input type="submit" id="register" value="Register" data-theme="b"/></div>
                                     <div class="ui-block-b"><input type="button" name="cancel" id="cancel" value="Reset"/></div>
                                 </div>
                             </fieldset>
@@ -237,7 +237,7 @@
                 </div>
                 <!-- /Header -->
 
-                <div data-role="content">
+                <div class="ui-content" role="main">
                     <div class="wrap">
                         <button id="refreshButton" data-role="button" data-inline="true" data-icon="refresh">Refresh Members</button>
                         <table data-role="table" id="member-table" data-mode="reflow" class="app-responsive table-stroke">

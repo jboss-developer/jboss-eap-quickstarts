@@ -46,7 +46,7 @@ legend {
     font-weight: bold;
 }
 
-article > div[data-role="content"] {
+article > div.ui-content {
     /* Center the content */
     margin: 0 auto;
 }
@@ -58,10 +58,6 @@ article .wrap {
     border-radius: 8px;
     /* Set padding so the edges are flush */
     padding: 1em;
-    /* Set shadow */
-    -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow:    4px 4px 5px 0px rgba(0, 0, 0, 0.2);
-    box-shadow:         4px 4px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .mobileicon {
@@ -137,17 +133,17 @@ span.success {
     .app-responsive thead th {
         display: table-cell;
         margin: 0;
+        white-space: pre-wrap;
+        word-break: break-all;
+        word-break: break-word;
     }
     /* Hide the labels in each cell */
     .app-responsive td .ui-table-cell-label,
     .app-responsive th .ui-table-cell-label {
         display: none;
     }
-}
 
-/* Set a larger max-width and add more padding as the display size increases. */
-@media all and (min-width: 40em) {
-    article > div[data-role="content"] {
+    article > div.ui-content {
         /* Set a max-width */
         max-width: 38em;
     }
@@ -157,8 +153,9 @@ span.success {
     }
 }
 
+/* Set a larger max-width and add more padding as the display size increases. */
 @media all and (min-width: 50em) {
-    article > div[data-role="content"] {
+    article > div.ui-content {
         /* Set a max-width */
         max-width: 46em;
     }
@@ -169,7 +166,7 @@ span.success {
 }
 
 @media all and (min-width: 60em) {
-    article > div[data-role="content"] {
+    article > div.ui-content {
         /* Set a max-width */
         max-width: 54em;
     }
