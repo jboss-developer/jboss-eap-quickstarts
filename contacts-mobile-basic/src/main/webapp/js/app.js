@@ -129,7 +129,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
         } 
         else {
             console.log(getCurrentTime() + " [js/app.js] (#contacts-display-listview - !hasClass ui-listview) - append.trigger - start");
-            $('#contacts-display-listview').append(contactList).trigger('create');
+            $('#contacts-display-listview').append(contactList).enhanceWithin();
             console.log(getCurrentTime() + " [js/app.js] (#contacts-display-listview - !hasClass ui-listview) - append.trigger - end");
         }        
         
@@ -144,7 +144,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
         } 
         else {
             console.log(getCurrentTime() + " [js/app.js] (#contacts-display-detail-listview - !hasClass ui-listview) - append.trigger - start");
-            $('#contacts-display-detail-listview').append(contactDetailList).trigger('create');
+            $('#contacts-display-detail-listview').append(contactDetailList).enhanceWithin();
             console.log(getCurrentTime() + " [js/app.js] (#contacts-display-detail-listview - !hasClass ui-listview) - append.trigger - end");
         }        
         
