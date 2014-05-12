@@ -89,21 +89,20 @@ _Note:_ This quickstart README file use the following replaceable values. When y
 
         For Windows: 
         
-             JAVA_OPTS=%JAVA_OPTS% -javaagent:C:BYTEMAN_HOME\lib\byteman.jar=script:C:\QUICKSTART_HOME\jts-distributed-crash-rec\byteman-scripts\failAfterPrepare.btm %JAVA_OPTS%
-             JAVA_OPTS=%JAVA_OPTS% -Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=org.jboss.byteman -Dorg.jboss.byteman.verbose=true 
+            JAVA_OPTS=%JAVA_OPTS% -javaagent:C:BYTEMAN_HOME\lib\byteman.jar=script:C:\QUICKSTART_HOME\jts-distributed-crash-rec\byteman-scripts\failAfterPrepare.btm %JAVA_OPTS%
+            JAVA_OPTS=%JAVA_OPTS% -Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=org.jboss.byteman -Dorg.jboss.byteman.verbose=true 
 
 3. Start both of the JBoss EAP servers
 
-If you are using Linux:
+   If you are using Linux:
 
         Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
         Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
-If you are using Windows
+   If you are using Windows
 
         Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
-
+        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100 
 
 4. Access the application at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>
     * When you enter a name and click to "add" that customer, you will see the following in the application server 1 console:
@@ -128,7 +127,7 @@ If you are using Windows
             15:53:31,638 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
             15:53:31,644 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $3
 
-5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store by typing the following in the terminal for server 1. Be sure to replace `EAP_HOME_1` with the path to the first server.
+5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store for this server by typing the following in the terminal for server 1. Be sure to replace `EAP_HOME_1` with the path to the first server.
 
         tree EAP_HOME_1/standalone/data/tx-object-store
 
@@ -227,9 +226,9 @@ If you are using Windows
                 at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [jbossjts-4.16.1.Final.jar:]
                 at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-4.16.1.Final.jar:]
     * The easiest way to check when JBoss EAP server 1 is recovered is to look in the object store and check that all the records are now cleaned up. The records that should be cleared are the ones in the defaultStore/CosTransactions/XAResourceRecord and defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple. 
-    * Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator and that is to be expected. Run:
+    * Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator for server 1 and that is to be expected. Run:
 
-            tree server*/standalone/data/tx-object-store
+            tree EAP_HOME_1/standalone/data/tx-object-store
     * You should see this output:
 
             server1/standalone/data/tx-object-store
