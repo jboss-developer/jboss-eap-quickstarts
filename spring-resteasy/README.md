@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: Resteasy, Spring  
 Summary: Basic example demonstrating how a spring application can be packaged for JBoss EAP  
 Target Product: WFK  
-Product Versions: EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?
