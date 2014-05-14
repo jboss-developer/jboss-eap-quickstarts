@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, Arquillian, Shrinkwrap  
 Summary: Demonstrate usage of some Shrinkwrap resolver use cases  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 
