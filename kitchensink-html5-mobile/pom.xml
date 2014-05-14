@@ -39,7 +39,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>6.2.2.GA</version.jboss.bom.eap>
-        <version.jboss.bom.wfk>2.6.0-build-1</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
 
         <!-- Other dependency versions -->
         <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>
