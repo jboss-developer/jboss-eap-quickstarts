@@ -11,7 +11,9 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>JBoss EAP bundles H2 as an in-memory, in-process database. H2 is written in Java so can run on any platform JBoss EAP runs.</p>
+<p>JBoss EAP bundles H2 as an in-memory, in-process database. H2 is written in Java so it can run on any platform that JBoss EAP runs on.</p>
+
+<p>This quickstart comes bundled with a version of the H2 Console built for JBoss EAP. To make the H2 console run on JBoss EAP, the H2 libraries were removed from the WAR and a dependency on the H2 module was added to the <code>META-INF/MANIFEST.MF</code> file. The rebuilt console is provided in the root directory of this quickstart.</p>
 
 <p>This is quickstart shows you how to use the H2 console with Red Hat JBoss Enterprise Application Platform. It uses the <code>greeter</code> quickstart as a GUI for entering data.</p>
 
@@ -29,15 +31,26 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="prerequisites" class="anchor" href="#prerequisites"><span class="anchor-icon"></span></a>Prerequisites</h2>
 
-<p>This quickstart depends on the deployment of the &lsquo;greeter&rsquo; quickstart. Before running this quickstart, see the <a href="../greeter/README.html">greeter README</a> file for details on how to deploy it.</p>
+<p>This quickstart depends on the deployment of the <code>greeter</code> quickstart. Before running this quickstart, see the <a href="../greeter/README.html">greeter README</a> file for details on how to deploy it.</p>
 
 <p>You can verify the deployment of the <code>greeter</code> quickstart by accessing the following URL: <a href="http://localhost:8080/jboss-greeter">http://localhost:8080/jboss-greeter</a> </p>
 
 <h2><a id="deploy-the-h2-console" class="anchor" href="#deploy-the-h2-console"><span class="anchor-icon"></span></a>Deploy the H2 Console</h2>
 
-<p>This quickstart comes bundled with a version of the H2 Console built for JBoss EAP. The changes that have been made to the stock console are described below. </p>
+<p>Deploy the console by copying the <code>h2console.war</code> located in the root directory of this quickstart to the <code>EAP_HOME/standalone/deployments</code> directory. </p>
 
-<p>Deploy the console by copying the <code>QUICKSTART_HOME/h2-console/h2console.war</code> to the <code>EAP_HOME/standalone/deployments</code> directory. </p>
+<p>The path to your <code>EAP_HOME</code> depends on whether you installed JBoss EAP separately or as part of the JBoss Developer Studio installation.</p>
+
+<ul>
+<li><p>If you installed and run the JBoss EAP Server independently, the default path for <code>EAP_HOME</code> is <code>${user.home}/EAP-6.3.0</code>, so the default deployments directory would be:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">EAP</span><span class="o">-</span><span class="mf">6.3.0</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">deployments</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="s">&quot;C:\Users\USER_NAME\EAP-6.3.0\standalone\deployments&quot;</span> <span class="n">or</span> <span class="s">&quot;C:\Documents and Settings\USER_NAME\EAP-6.3.0\standalone\deployments&quot;</span>
+</pre></div></li>
+<li><p>If you installed and run the JBoss EAP Server included with JBoss Developer Studio, the default path for <code>EAP_HOME</code> is <code>${user.home}/jbdevstudio/runtimes/jboss-eap</code>, so the default deployments directory would be::</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">jbdevstudio</span><span class="o">/</span><span class="n">runtimes</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">eap</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">deployments</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="s">&quot;C:\Users\USER_NAME\jbdevstudio</span><span class="se">\r</span><span class="s">untimes\jboss-eap&quot;</span> <span class="n">or</span> <span class="s">&quot;C:\Documents and Settings\USER_NAME\jbdevstudio</span><span class="se">\r</span><span class="s">untimes\jboss-eap&quot;</span> 
+</pre></div></li>
+</ul>
 
 <h2><a id="access-the-h2-console-" class="anchor" href="#access-the-h2-console-"><span class="anchor-icon"></span></a>Access the H2 Console </h2>
 
@@ -59,10 +72,6 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <div class="highlight"><pre>    <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">users</span><span class="p">;</span>
 </pre></div>
 <p>You should see the two users seeded by the <code>greeter</code> quickstart, plus any users you added when testing that application.</p>
-
-<h2><a id="changes-to-the-h2-console-for-jboss-eap" class="anchor" href="#changes-to-the-h2-console-for-jboss-eap"><span class="anchor-icon"></span></a>Changes to the H2 Console for JBoss EAP</h2>
-
-<p>To make the H2 console run on JBoss EAP, the H2 libraries were removed from the WAR and a dependency on the H2 module was added to the META-INF/MANIFEST.MF fle. The rebuilt console is provided with this quickstart.</p>
 
 <h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
 
