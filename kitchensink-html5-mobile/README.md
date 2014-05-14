@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, HTML5, REST  
 Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
 
 What is it?
