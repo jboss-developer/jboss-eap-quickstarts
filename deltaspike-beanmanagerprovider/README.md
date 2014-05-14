@@ -6,7 +6,7 @@ Technologies: CDI, Deltaspike, JPA, JSF
 Summary: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener  
 Prerequisites:   
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?

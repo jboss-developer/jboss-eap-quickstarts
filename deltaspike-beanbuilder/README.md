@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: CDI, DeltaSpike  
 Summary: Shows how to create new beans using DeltaSpike utilities.  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?

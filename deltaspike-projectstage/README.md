@@ -6,7 +6,7 @@ Technologies: JSF, CDI, Deltaspike
 Summary: Demonstrate usage of DeltaSpike project stage and shows usage of a conditional @Exclude  
 Prerequisites:   
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?
