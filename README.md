@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV  
 Summary: An example that incorporates multiple technologies  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
+Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
 
 What is it?
