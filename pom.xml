@@ -43,47 +43,10 @@
 
     <properties>
         <!-- A base list of dependency and plugin version used in the various quick starts. -->
-
-        <!-- JBoss dependency versions -->
-
-        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
-
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-7</version.jboss.bom.eap>
-
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
-
-        <version.org.hibernate3.commons.annotations>3.2.0.Final</version.org.hibernate3.commons.annotations>
-        <version.org.hibernate>3.6.8.Final</version.org.hibernate>
-        <version.org.hibernate.em>3.6.8.Final</version.org.hibernate.em>
-        <version.org.hibernate.infinispan>3.6.8.Final</version.org.hibernate.infinispan>
-        
-        <!-- This is used in the hibernate-3 quickstart and requires the Hibernate 3 libraries -->
-        <!-- <version.org.hibernate.validator>4.2.0.Final</version.org.hibernate.validator> -->
-        <version.org.hibernate.validator>3.1.0.GA</version.org.hibernate.validator>
-                        
-        <!-- Other dependency versions -->
-        <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
-        <version.dom4j>1.6</version.dom4j>
-        <version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
-        <version.log4j>1.2.16</version.log4j>
-
         <!-- other plugin versions -->
-        <version.bundle.plugin>2.3.4</version.bundle.plugin>
         <version.com.mycyla.license>2.5</version.com.mycyla.license>
-        <version.compiler.plugin>3.1</version.compiler.plugin>
-        <version.ear.plugin>2.8</version.ear.plugin>
-        <version.ejb.plugin>2.3</version.ejb.plugin>
-        <version.exec.plugin>1.2.1</version.exec.plugin>
-        <version.jar.plugin>2.2</version.jar.plugin>
-        <version.surefire.plugin>2.10</version.surefire.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
-
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
     <build>
