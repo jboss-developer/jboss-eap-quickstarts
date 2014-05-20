@@ -48,7 +48,7 @@
 
         <version.jboss.as>7.4.0.Final-redhat-SNAPSHOT</version.jboss.as>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-11</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-12</version.jboss.spec.javaee.6.0>
 
         <!-- other plugin versions -->
         <version.exec.plugin>1.2.1</version.exec.plugin>
