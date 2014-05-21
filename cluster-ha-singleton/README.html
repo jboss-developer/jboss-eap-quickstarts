@@ -84,6 +84,9 @@ The service activates a scheduled timer, which is started only once in the clust
 <div class="highlight"><pre><span class="n">WARN</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">dependency</span><span class="p">.</span><span class="n">private</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">11</span><span class="p">)</span> <span class="n">JBAS018567</span><span class="o">:</span> <span class="n">Deployment</span> <span class="s">&quot;deployment.jboss-cluster-ha-singleton-service.jar&quot;</span> <span class="n">is</span> <span class="n">using</span> <span class="n">a</span> <span class="n">private</span> <span class="n">module</span> <span class="p">(</span><span class="s">&quot;org.jboss.as.clustering.singleton:main&quot;</span><span class="p">)</span> <span class="n">which</span> <span class="n">may</span> <span class="n">be</span> <span class="n">changed</span> <span class="n">or</span> <span class="n">removed</span> <span class="n">in</span> <span class="n">future</span> <span class="n">versions</span> <span class="n">without</span> <span class="n">notice</span><span class="p">.</span>
 </pre></div></li>
 <li><p>The timer on the started node will log a message every 10 seconds.</p></li>
+<li><p>If you prefer to use a special node, the election-policy can be used.
+In the example, the node with the name <code>node1</code> will be used as master, if it is available.
+If it has failed or shutdown, any other node will be used.</p></li>
 </ol>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
