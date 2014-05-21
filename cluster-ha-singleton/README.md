@@ -99,6 +99,10 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 8. The timer on the started node will log a message every 10 seconds.
 
+9. If you prefer to have a special node the election-policy can be used.
+   In the example the node with the name "node1" will be used as master if it is available.
+   If failed or shutdown any other node will be used.
+
 
 Undeploy the Archive
 --------------------
