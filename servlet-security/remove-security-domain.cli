@@ -1,4 +1,4 @@
-# Batch script to remove the quickstart-domain security domain from the JBoss server
+# Batch script to remove the servlet-security-quickstart domain from the JBoss server configuration file
 
 # Start batching commands
 batch
