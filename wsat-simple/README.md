@@ -276,7 +276,7 @@ Note that the `openshift` profile in the `pom.xml` file is activated by OpenShif
 
 ### Test the OpenShift Application
 
-Now you will start to tail the log files of the server. To do this run the following command, remembering to replace the application name and login id.
+Now you will start to tail the log files of the server. To do this run the following command.
 
         rhc tail wsatsimple
 
