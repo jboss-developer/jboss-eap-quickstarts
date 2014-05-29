@@ -221,7 +221,7 @@ Openshift does not have Web services or WS-AT enabled by default, so we need to 
         </subsystem>
 4. If the `webservices` subsystem is not configured under the `<profile>` element, copy the following under the `<profile>` element to enable and configure Web Services:
         
-        <subsystem xmlns="urn:jboss:domain:webservices:1.1">
+        <subsystem xmlns="urn:jboss:domain:webservices:1.2">
             <modify-wsdl-address>true</modify-wsdl-address>
             <wsdl-host>${env.OPENSHIFT_GEAR_DNS}</wsdl-host>
             <wsdl-port>80</wsdl-port>

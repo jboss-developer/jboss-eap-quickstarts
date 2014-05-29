@@ -202,7 +202,7 @@ Run &#39;rhc show-app wsatsimple&#39; for more details about your app.
 <span class="nt">&lt;/subsystem&gt;</span>
 </pre></div></li>
 <li><p>If the <code>webservices</code> subsystem is not configured under the <code>&lt;profile&gt;</code> element, copy the following under the <code>&lt;profile&gt;</code> element to enable and configure Web Services:</p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.1&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:webservices:1.2&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;modify</span><span class="err">-wsdl-address</span><span class="nt">&gt;</span>true<span class="nt">&lt;/modify-wsdl-address&gt;</span>
     <span class="nt">&lt;wsdl</span><span class="err">-host</span><span class="nt">&gt;</span><span class="cp">${</span><span class="n">env</span><span class="o">.</span><span class="n">OPENSHIFT_GEAR_DNS</span><span class="cp">}</span><span class="nt">&lt;/wsdl-host&gt;</span>
     <span class="nt">&lt;wsdl</span><span class="err">-port</span><span class="nt">&gt;</span>80<span class="nt">&lt;/wsdl-port&gt;</span>
