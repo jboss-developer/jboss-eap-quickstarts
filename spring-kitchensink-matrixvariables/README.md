@@ -17,7 +17,7 @@ Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or lat
 This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
-* This module showcases Spring 4.0's support for **Matrix Variables** in urls.
+* This module showcases Spring 4.0's support for **Matrix Variables** in urls introduced in Spring 3.2.
 
 * In `jboss-as-spring-mvc-context.xml` `<context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.matrixvariables.controller"/>` 
 and `<mvc:annotation-driven/>` are used to register both the non-rest and rest controllers.  This is how it works normally, 

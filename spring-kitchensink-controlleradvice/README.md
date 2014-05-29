@@ -17,7 +17,7 @@ Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or lat
 This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
-* This version showcases Spring 4.0's `@ControllerAdvice` used by `MemberControllerAdvice.java`.
+* This version showcases Spring 4.0's `@ControllerAdvice` introduced in Spring 3.2 used by `MemberControllerAdvice.java`.
 
 * MemberControllerAdvice uses `@ExceptionHandler`, `@InitBinder` and `@ModelAttribute` to configure global actions to be performed.
 
