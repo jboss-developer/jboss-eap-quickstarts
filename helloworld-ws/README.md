@@ -172,7 +172,7 @@ Verify that Openshift has Web services configured by default. To do this:
 1. Open the hidden `.openshift/config/standalone.xml` file in an editor. 
 2. If the `webservices` subsystem is not configured as below under the `<profile>` element, copy the following and replace the `webservices` subsystem to enable and configure Web Services:
         
-        <subsystem xmlns="urn:jboss:domain:webservices:1.1">
+        <subsystem xmlns="urn:jboss:domain:webservices:1.2">
             <modify-wsdl-address>true</modify-wsdl-address>
             <wsdl-host>${env.OPENSHIFT_GEAR_DNS}</wsdl-host>
             <wsdl-port>80</wsdl-port>
