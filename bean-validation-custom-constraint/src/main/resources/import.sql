@@ -15,5 +15,6 @@
 -- limitations under the License.
 --
 
--- You can use this file to load seed data into the database using SQL statements
-insert into MEMBER_BEAN_VALIDATION (id, name, email, phone_number, date_of_birth, event_date, min_quantity, max_quantity) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212', DATE_SUB(NOW(), INTERVAL 7 DAY), DATE_ADD(NOW(), INTERVAL 7 DAY), 15, 5) 
+-- You can use this file to load seed data into the database using SQL statements 
+insert into person(person_id, firstName, lastName) values (0, 'John', 'Smith')
+insert into person_address(person_id, streetAddress, locality, city, state, country, pincode) values (0, '#12, 4th Main', 'XYZ Layout', 'Bangalore', 'Karnataka', 'India', '56004554')

@@ -15,16 +15,17 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-bean-validation</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
-    <packaging>war</packaging>
+  <groupId>org.jboss.quickstarts.eap</groupId>
+  <artifactId>jboss-bean-validation-custom-constraint</artifactId>
+  <version>6.2.0-redhat-SNAPSHOT</version>
+  <packaging>war</packaging>
 
-    <name>JBoss EAP Quickstart: bean-validation</name>
-    <description>An Arquillian Bean Validation test example</description>
+  <name>JBoss EAP Quickstart: bean-validation-custom-constraint</name>
+    <description>An example that demonstrates Arquillian Bean Validation Custom Constraints </description>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -45,7 +46,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.1.GA</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.2.0-build-7</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -124,7 +125,14 @@
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
         </dependency>
-
+        
+        <!-- Needed for Hibernate Annotations -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
         <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
             <groupId>junit</groupId>
@@ -192,9 +200,7 @@
             <!-- Seperate profiles are provided for running all tests, including
                 Arquillian tests that execute in the specified container -->
             <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -215,13 +221,15 @@
         </profile>
 
         <profile>
-
             <!-- An optional Arquillian testing profile that executes tests
                 in your JBoss EAP instance -->
             <!-- This profile will start a new JBoss EAP instance, and execute the
                 test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>

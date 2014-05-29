@@ -16,6 +16,7 @@
  */
 package org.jboss.as.quickstarts.bean_validation.test;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -55,14 +56,14 @@ public class MemberValidationTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(Member.class)
-        // enable JPA
-                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-                // add sample data
-                .addAsResource("import.sql")
-                // enable CDI
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                // Deploy our test datasource
-                .addAsWebInfResource("test-ds.xml", "test-ds.xml");
+            // enable JPA
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            // add sample data
+            .addAsResource("import.sql")
+            // enable CDI
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+            // Deploy our test datasource
+            .addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
     // Get configured validator directly from JBoss EAP 6 environment
@@ -74,9 +75,11 @@ public class MemberValidationTest {
      * 
      * <ul>
      * <li>@NotNull</li>
-     * <li>@NotNull</li>
+     * <li>@Pattern</li>
      * <li>@Email</li>
      * <li>@Size</li>
+     * <li>@Past</li>
+     * <li>@Min</li>
      * </ul>
      */
     @Test
@@ -85,7 +88,7 @@ public class MemberValidationTest {
         Member member = new Member();
         Set<ConstraintViolation<Member>> violations = validator.validate(member);
 
-        Assert.assertEquals("Four violations were found", 4, violations.size());
+        Assert.assertEquals("Eight violations were found", 8, violations.size());
     }
 
     /**
@@ -109,7 +112,7 @@ public class MemberValidationTest {
 
         Assert.assertEquals("One violation was found", 1, violations.size());
         Assert.assertEquals("Name was invalid", "must contain only letters and spaces", violations.iterator().next()
-                .getMessage());
+            .getMessage());
     }
 
     /**
@@ -136,7 +139,39 @@ public class MemberValidationTest {
 
         Assert.assertEquals("One violation was found", 1, violations.size());
         Assert.assertEquals("Phone number was invalid", "size must be between 10 and 12", violations.iterator().next()
-                .getMessage());
+            .getMessage());
+    }
+
+    /**
+     * Tests {@code @Past} constraint
+     */
+    @Test
+    public void testDateOfBirthViolation() {
+        Member member = createValidMember();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 7);
+        member.setDateOfBirth(cal.getTime());
+
+        Set<ConstraintViolation<Member>> violations = validator.validate(member);
+
+        Assert.assertEquals("One violation was found", 1, violations.size());
+        Assert.assertEquals("DateOfBirth was invalid", "DateOfBirth must be a Past date", violations.iterator().next()
+            .getMessage());
+    }
+
+    /**
+     * Tests {@code @Min} constraint
+     */
+    @Test
+    public void testMinQuantityViolation() {
+        Member member = createValidMember();
+        member.setMinQuantity(5);
+
+        Set<ConstraintViolation<Member>> violations = validator.validate(member);
+
+        Assert.assertEquals("One violation was found", 1, violations.size());
+        Assert.assertEquals("MinQuantity was invalid", "must be an integer value greater than or equal to 10", violations.iterator().next()
+            .getMessage());
     }
 
     private Member createValidMember() {
@@ -144,6 +179,17 @@ public class MemberValidationTest {
         member.setEmail("jdoe@test.org");
         member.setName("John Doe");
         member.setPhoneNumber("1234567890");
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -7);
+        member.setDateOfBirth(cal.getTime());
+
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 7);
+        member.setEventDate(cal.getTime());
+
+        member.setMaxQuantity(5);
+        member.setMinQuantity(15);
         return member;
     }
 
