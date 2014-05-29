@@ -12,7 +12,7 @@ What is this?
 -------------
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
-later with the Red Hat JBoss Web Framework Kit (WFK) 2.5.
+later with the Red Hat JBoss Web Framework Kit (WFK) 2.6.
 
 When you deploy this example, two users are automatically created for you: emuster and jdoe. This data is located in the 
 `src/main/resources/init-db.sql` file.
@@ -42,7 +42,7 @@ System requirements
 -------------------
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
-later with the Red Hat JBoss Web Framework Kit (WFK) 2.5.
+later with the Red Hat JBoss Web Framework Kit (WFK) 2.6.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 

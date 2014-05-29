@@ -31,7 +31,7 @@ System Requirements
 -------------------
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
-later with the Red Hat JBoss Web Framework Kit (WFK) 2.5.
+later with the Red Hat JBoss Web Framework Kit (WFK) 2.6.
 
 To run the quickstart with the provided build script, you need the following:
 
