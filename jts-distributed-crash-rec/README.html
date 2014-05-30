@@ -127,7 +127,7 @@ JAVA_OPTS=&quot;-Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=or
 <div class="highlight"><pre><span class="n">tree</span> <span class="n">EAP_HOME_1</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
 </pre></div>
 <p>This should display:</p>
-<div class="highlight"><pre><span class="n">server1</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
+<div class="highlight"><pre><span class="n">EAP_HOME_1</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
 <span class="err">`</span><span class="o">--</span> <span class="n">ShadowNoFileLockStore</span>
     <span class="err">`</span><span class="o">--</span> <span class="n">defaultStore</span>
         <span class="o">|--</span> <span class="n">CosTransactions</span>
@@ -145,7 +145,12 @@ JAVA_OPTS=&quot;-Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=or
                 <span class="err">`</span><span class="o">--</span> <span class="n">TwoPhaseCoordinator</span>
                     <span class="err">`</span><span class="o">--</span> <span class="n">ArjunaTransactionImple</span>
                         <span class="err">`</span><span class="o">--</span> <span class="mi">0</span><span class="n">_ffffc0a8013c_38e104bd_4f280cdb_19</span>
-<span class="n">server2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
+</pre></div>
+<p>View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace <code>EAP_HOME_2</code> with the path to the second server.</p>
+<div class="highlight"><pre> <span class="n">tree</span> <span class="n">EAP_HOME_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
+</pre></div>
+<p>This should display:</p>
+<div class="highlight"><pre><span class="n">EAP_HOME_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
 <span class="err">`</span><span class="o">--</span> <span class="n">ShadowNoFileLockStore</span>
     <span class="err">`</span><span class="o">--</span> <span class="n">defaultStore</span>
         <span class="o">|--</span> <span class="n">CosTransactions</span>
@@ -222,9 +227,9 @@ JAVA_OPTS=&quot;-Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=or
 <li><p>The easiest way to check when JBoss EAP server 1 is recovered is to look in the object store and check that all the records are now cleaned up. The records that should be cleared are the ones in the defaultStore/CosTransactions/XAResourceRecord and defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple. </p></li>
 <li><p>Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator for server 1 and that is to be expected. Run:</p>
 <div class="highlight"><pre><span class="n">tree</span> <span class="n">EAP_HOME_1</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
-</pre></div></li>
-<li><p>You should see this output:</p>
-<div class="highlight"><pre><span class="n">server1</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
+</pre></div>
+<p>You should see this output:</p>
+<div class="highlight"><pre><span class="n">EAP_HOME_1</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
 <span class="err">`</span><span class="o">--</span> <span class="n">ShadowNoFileLockStore</span>
     <span class="err">`</span><span class="o">--</span> <span class="n">defaultStore</span>
         <span class="o">|--</span> <span class="n">CosTransactions</span>
@@ -240,7 +245,12 @@ JAVA_OPTS=&quot;-Dorg.jboss.byteman.transform.all -Djboss.modules.system.pkgs=or
             <span class="err">`</span><span class="o">--</span> <span class="n">BasicAction</span>
                 <span class="err">`</span><span class="o">--</span> <span class="n">TwoPhaseCoordinator</span>
                   <span class="err">`</span><span class="o">--</span> <span class="n">ArjunaTransactionImple</span>
-<span class="n">server2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
+</pre></div>
+<p>View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace <code>EAP_HOME_2</code> with the path to the second server.</p>
+<div class="highlight"><pre><span class="n">tree</span> <span class="n">EAP_HOME_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
+</pre></div>
+<p>This should display:</p>
+<div class="highlight"><pre><span class="n">EAP_HOME_2</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">tx</span><span class="o">-</span><span class="n">object</span><span class="o">-</span><span class="n">store</span>
 <span class="err">`</span><span class="o">--</span> <span class="n">ShadowNoFileLockStore</span>
     <span class="err">`</span><span class="o">--</span> <span class="n">defaultStore</span>
         <span class="o">|--</span> <span class="n">CosTransactions</span>

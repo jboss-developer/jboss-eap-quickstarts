@@ -133,7 +133,7 @@ _Note:_ This quickstart README file use the following replaceable values. When y
 
     This should display:
 
-        server1/standalone/data/tx-object-store
+        EAP_HOME_1/standalone/data/tx-object-store
         `-- ShadowNoFileLockStore
             `-- defaultStore
                 |-- CosTransactions
@@ -151,7 +151,14 @@ _Note:_ This quickstart README file use the following replaceable values. When y
                         `-- TwoPhaseCoordinator
                             `-- ArjunaTransactionImple
                                 `-- 0_ffffc0a8013c_38e104bd_4f280cdb_19
-        server2/standalone/data/tx-object-store
+
+   View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP_HOME_2` with the path to the second server.
+   
+         tree EAP_HOME_2/standalone/data/tx-object-store
+
+    This should display:
+
+        EAP_HOME_2/standalone/data/tx-object-store
         `-- ShadowNoFileLockStore
             `-- defaultStore
                 |-- CosTransactions
@@ -229,9 +236,10 @@ _Note:_ This quickstart README file use the following replaceable values. When y
     * Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator for server 1 and that is to be expected. Run:
 
             tree EAP_HOME_1/standalone/data/tx-object-store
-    * You should see this output:
 
-            server1/standalone/data/tx-object-store
+      You should see this output:
+
+            EAP_HOME_1/standalone/data/tx-object-store
             `-- ShadowNoFileLockStore
                 `-- defaultStore
                     |-- CosTransactions
@@ -247,7 +255,13 @@ _Note:_ This quickstart README file use the following replaceable values. When y
                         `-- BasicAction
                             `-- TwoPhaseCoordinator
                               `-- ArjunaTransactionImple
-            server2/standalone/data/tx-object-store
+      View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP_HOME_2` with the path to the second server.
+   
+            tree EAP_HOME_2/standalone/data/tx-object-store
+
+      This should display:
+
+            EAP_HOME_2/standalone/data/tx-object-store
             `-- ShadowNoFileLockStore
                 `-- defaultStore
                     |-- CosTransactions
