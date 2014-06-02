@@ -17,16 +17,20 @@
 package org.jboss.as.quickstarts.resteasyspring;
 
 import javax.ws.rs.Path;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
  */
 @Path("/")
 public class LocatingResource {
-    
+
+    @Autowired
+    HelloSpringResource helloSpringResource;
+
     @Path("locating")
     public HelloSpringResource getLocating() {
         System.out.println("Locating Resource...");
-        return new HelloSpringResource();
+        return helloSpringResource;
     }
 }
