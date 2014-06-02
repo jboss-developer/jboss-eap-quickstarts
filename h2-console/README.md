@@ -46,19 +46,7 @@ Deploy the H2 Console
 
 Deploy the console by copying the `h2console.war` located in the root directory of this quickstart to the `EAP_HOME/standalone/deployments` directory. 
 
-The path to your `EAP_HOME` depends on whether you installed JBoss EAP separately or as part of the JBoss Developer Studio installation.
-
-* If you installed and run the JBoss EAP Server independently, the default path for `EAP_HOME` is `${user.home}/EAP-6.3.0`, so the default deployments directory would be:
-
-
-        For Linux: /home/USER_NAME/EAP-6.3.0/standalone/deployments
-        For Windows: "C:\Users\USER_NAME\EAP-6.3.0\standalone\deployments" or "C:\Documents and Settings\USER_NAME\EAP-6.3.0\standalone\deployments"
-
-
-* If you installed and run the JBoss EAP Server included with JBoss Developer Studio, the default path for `EAP_HOME` is `${user.home}/jbdevstudio/runtimes/jboss-eap`, so the default deployments directory would be::
-
-        For Linux: /home/USER_NAME/jbdevstudio/runtimes/jboss-eap/standalone/deployments
-        For Windows: "C:\Users\USER_NAME\jbdevstudio\runtimes\jboss-eap" or "C:\Documents and Settings\USER_NAME\jbdevstudio\runtimes\jboss-eap" 
+The location of `EAP_HOME` depends on how you installed JBoss EAP. The install paths are described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](../README.md#use-of-eaphome-and-jbosshome-variables)
 
 
 Access the H2 Console 
