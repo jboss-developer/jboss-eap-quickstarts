@@ -54,12 +54,12 @@ public class ShrinkwrapResolveGAPCVCustomRepoWithoutCentralTest {
             "org.apache.commons:commons-lang3:jar:sources:3.1"
         };
 
-        File[] libs = Maven.
-            // Configure to use repository specified on a maven custom settings file
-            configureResolver().fromClassloaderResource("custom-settings.xml")
+        File[] libs = Maven.configureResolver()
+                // disabled Maven Central repository
+                .withMavenCentralRepo(false)
+                // use repository specified on a maven custom settings file
+                .fromClassloaderResource("custom-settings.xml")
             .resolve(deps)
-            // disabled Maven Central repository
-            .withMavenCentralRepo(false)
             .withoutTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class, "test.war")
