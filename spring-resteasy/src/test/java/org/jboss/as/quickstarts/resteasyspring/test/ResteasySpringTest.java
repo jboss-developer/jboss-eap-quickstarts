@@ -36,6 +36,15 @@ public class ResteasySpringTest
         HttpClient client = new HttpClient();
 
         {
+            GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/hello");
+            NameValuePair[] params = { new NameValuePair("name", "JBoss Developer") };
+            method.setQueryString(params);
+            int status = client.executeMethod(method);
+            Assert.assertEquals(HttpResponseCodes.SC_OK, status);
+            Assert.assertTrue(method.getResponseBodyAsString().contains("JBoss Developer"));
+            method.releaseConnection();
+        }
+        {
             GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/basic");
             int status = client.executeMethod(method);
             Assert.assertEquals(HttpResponseCodes.SC_OK, status);
@@ -59,6 +68,13 @@ public class ResteasySpringTest
             method.releaseConnection();
         }
         {
+            GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/matrixParam;param=matrix");
+            int status = client.executeMethod(method);
+            Assert.assertEquals(HttpResponseCodes.SC_OK, status);
+            Assert.assertEquals("matrix", method.getResponseBodyAsString());
+            method.releaseConnection();
+        }
+        {
             GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/uriParam/1234");
             int status = client.executeMethod(method);
             Assert.assertEquals(HttpResponseCodes.SC_OK, status);
@@ -72,6 +88,15 @@ public class ResteasySpringTest
     {
         HttpClient client = new HttpClient();
 
+        {
+            GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/locating/hello");
+            NameValuePair[] params = { new NameValuePair("name", "JBoss Developer") };
+            method.setQueryString(params);
+            int status = client.executeMethod(method);
+            Assert.assertEquals(HttpResponseCodes.SC_OK, status);
+            Assert.assertTrue(method.getResponseBodyAsString().contains("JBoss Developer"));
+            method.releaseConnection();
+        }
         {
             GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/locating/basic");
             int status = client.executeMethod(method);
@@ -93,6 +118,13 @@ public class ResteasySpringTest
             int status = client.executeMethod(method);
             Assert.assertEquals(HttpResponseCodes.SC_OK, status);
             Assert.assertEquals("hello world", method.getResponseBodyAsString());
+            method.releaseConnection();
+        }
+        {
+            GetMethod method = new GetMethod("http://localhost:8080/jboss-spring-resteasy/locating/matrixParam;param=matrix");
+            int status = client.executeMethod(method);
+            Assert.assertEquals(HttpResponseCodes.SC_OK, status);
+            Assert.assertEquals("matrix", method.getResponseBodyAsString());
             method.releaseConnection();
         }
         {
