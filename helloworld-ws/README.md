@@ -118,13 +118,11 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
+_NOTE_: The domain name for this application will be `helloworldws-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
-    rhc app create -a helloworldws -t jbosseap-6
-
-_NOTE_: The domain name for this application will be `helloworldws-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
+        rhc app create -a helloworldws -t jbosseap-6
 
 This command creates an OpenShift application called `helloworldws` and will run the application inside the `jbosseap-6` container. You should see some output similar to the following:
 
@@ -157,13 +155,13 @@ The create command creates a git repository in the current directory with the sa
 
 Now that you have confirmed it is working you can now migrate the quickstart source and POM file. You no longer need the default application, so change directory into the new git repository and tell git to remove the source and pom files:
 
-    cd helloworldws
-    git rm -r src pom.xml
+        cd helloworldws
+        git rm -r src pom.xml
 
 Copy the source and POM file for the `helloworld-ws` quickstart into this new git repository:
 
-    cp -r QUICKSTART_HOME/helloworld-ws/src .
-    cp QUICKSTART_HOME/helloworld-ws/pom.xml .
+        cp -r QUICKSTART_HOME/helloworld-ws/src .
+        cp QUICKSTART_HOME/helloworld-ws/pom.xml .
         
 ### Configure the OpenShift Server
 
@@ -188,9 +186,9 @@ Verify that Openshift has Web services configured by default. To do this:
 
 You can now deploy the changes to your OpenShift application using git as follows:
 
-    git add src pom.xml
-    git commit -m "helloworld-ws quickstart on OpenShift"
-    git push
+        git add src pom.xml
+        git commit -m "helloworld-ws quickstart on OpenShift"
+        git push
 
 The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
 
@@ -200,7 +198,7 @@ Note that the `openshift` profile in `pom.xml` file is activated by OpenShift an
 
 Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
-    http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl
+        http://helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl
 
 If the application has run successfully you should see the WSDL output in the browser.
 
@@ -210,7 +208,7 @@ You can use the OpenShift command line tools or the OpenShift web console to dis
 
 Now you can look at the output of the server by running the following command:
 
-    rhc tail -a helloworldws
+        rhc tail -a helloworldws
 
 This will show the tail of the JBoss EAP server log.
 
@@ -235,7 +233,7 @@ _NOTE: The following commands assume you have configured your Maven user setting
 
 When you are finished with the application you can delete it from OpenShift as follows:
 
-    rhc app-delete -a helloworldws
+        rhc app-delete -a helloworldws
 
 _Note_: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the `rhc app create` command returns an error indicating you have reached that limit, you must delete an existing application before you continue. 
 

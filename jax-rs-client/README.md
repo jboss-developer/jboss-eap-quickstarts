@@ -95,7 +95,7 @@ Build and Deploy the Quickstart - to OpenShift
 
 _IMPORTANT_: This quickstart depends on the deployment of the `helloworld-rs` quickstart to OpenShift for its test. Follow the instructions [Build and Deploy the Quickstart - to OpenShift](../helloworld-rs/README.md#build-and-deploy-the-quickstart-to-openshift) in the helloworld-rs README to deploy that application to OpenShift. Do NOT yet follow the step "Delete the OpenShift Application".
 
-As it says in the `helloworld-rs` instructions, you can verify the deployment of the `helloworld-rs` quickstart by accessing the following content. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your domain name.
+As it says in the `helloworld-rs` instructions, you can verify the deployment of the `helloworld-rs` quickstart by accessing the following content. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 * <http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/xml> if you want *xml* or
 * <http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json> if you want *json*

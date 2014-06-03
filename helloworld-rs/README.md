@@ -95,13 +95,11 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
+_NOTE_: The domain name for this application will be `helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
         rhc app create -a helloworldrs -t jbosseap-6
-
-_NOTE_: The domain name for this application will be `helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 This command creates an OpenShift application named `helloworldrs` and will run the application inside the `jbosseap-6` container. You should see some output similar to the following:
 
@@ -167,7 +165,7 @@ You can use the OpenShift command line tools or the OpenShift web console to dis
 
 Now you can look at the output of the server by running the following command:
 
-    rhc tail -a helloworldrs
+        rhc tail -a helloworldrs
 
 This will show the tail of the JBoss EAP server log.
 
