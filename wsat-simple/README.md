@@ -157,13 +157,11 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
+_NOTE_: The domain name for this application will be `wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
     rhc app create -a wsatsimple -t jbosseap-6
-
-_NOTE_: The domain name for this application will be `wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 This command creates an OpenShift application called `wsatsimple` and will run the application inside the `jbosseap-6` container. You should see some output similar to the following:
 
@@ -255,34 +253,30 @@ You can now deploy the changes to your OpenShift application using git as follow
 
 OpenShift will build the application using Maven, and deploy it to JBoss EAP. If successful, you should see output similar to:
 
-    remote: [INFO] ------------------------------------------------------------------------
-    remote: [INFO] BUILD SUCCESS
-    remote: [INFO] ------------------------------------------------------------------------
-    remote: [INFO] Total time: 19.991s
-    remote: [INFO] Finished at: Wed Mar 07 12:48:15 EST 2012
-    remote: [INFO] Final Memory: 8M/168M
-    remote: [INFO] ------------------------------------------------------------------------
-    remote: Running .openshift/action_hooks/build
-    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/wsatsimple/jbossas-7/standalone/tmp/vfs
-    remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/wsatsimple/jbossas-7/standalone/tmp/work
-    remote: Running .openshift/action_hooks/deploy
-    remote: Starting application...
-    remote: Done
-    remote: Running .openshift/action_hooks/post_deploy
-    To ssh://1e63c17c2dd94a329f21555a33dc617d@wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/~/git/wsatsimple.git/
-       e6f80bd..63504b9  master -> master
+        remote: [INFO] ------------------------------------------------------------------------
+        remote: [INFO] BUILD SUCCESS
+        remote: [INFO] ------------------------------------------------------------------------
+        remote: [INFO] Total time: 19.991s
+        remote: [INFO] Finished at: Wed Mar 07 12:48:15 EST 2012
+        remote: [INFO] Final Memory: 8M/168M
+        remote: [INFO] ------------------------------------------------------------------------
+        remote: Running .openshift/action_hooks/build
+        remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/wsatsimple/jbossas-7/standalone/tmp/vfs
+        remote: Emptying tmp dir: /var/lib/libra/1e63c17c2dd94a329f21555a33dc617d/wsatsimple/jbossas-7/standalone/tmp/work
+        remote: Running .openshift/action_hooks/deploy
+        remote: Starting application...
+        remote: Done
+        remote: Running .openshift/action_hooks/post_deploy
+        To ssh://1e63c17c2dd94a329f21555a33dc617d@wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/~/git/wsatsimple.git/
+           e6f80bd..63504b9  master -> master
 
 Note that the `openshift` profile in the `pom.xml` file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the `deployments/` directory and deployed without a context path.
 
 ### Test the OpenShift Application
 
-Now you will start to tail the log files of the server. To do this run the following command.
+Once the application is deployed, you can test it by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
-        rhc tail wsatsimple
-
-Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
-
-    http://wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/WSATSimpleServletClient
+        http://wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/WSATSimpleServletClient
 
 If the application has run successfully you should see some output in the browser. You should also see some output on the server log, similar to the output from the "Test commit" test above.
 
@@ -292,7 +286,7 @@ You can use the OpenShift command line tools or the OpenShift web console to dis
 
 Now you can look at the output of the server by running the following command:
 
-    rhc tail -a wsatsimple
+        rhc tail -a wsatsimple
 
 This will show the tail of the JBoss EAP server log.
 
