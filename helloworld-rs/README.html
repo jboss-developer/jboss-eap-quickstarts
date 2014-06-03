@@ -82,13 +82,11 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h3><a id="create-the-openshift-application" class="anchor" href="#create-the-openshift-application"><span class="anchor-icon"></span></a>Create the OpenShift Application</h3>
 
-<p>Note that we use <code>USER_DOMAIN_NAME</code> for these examples. You need to substitute it with your own OpenShift account user name.</p>
+<p><em>NOTE</em>: The domain name for this application will be <code>helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com</code>. In these instructions, be sure to replace all instances of <code>YOUR_DOMAIN_NAME</code> with your own OpenShift account user name.</p>
 
 <p>Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:</p>
 <div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldrs</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span>
 </pre></div>
-<p><em>NOTE</em>: The domain name for this application will be <code>helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com</code>. Be sure to replace <code>YOUR_DOMAIN_NAME</code> with your own OpenShift account user name.</p>
-
 <p>This command creates an OpenShift application named <code>helloworldrs</code> and will run the application inside the <code>jbosseap-6</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="gh">Application Options</span>
 <span class="gh">-------------------</span>
@@ -150,7 +148,7 @@ Run &#39;rhc show-app helloworldrs&#39; for more details about your app.
 <h3><a id="view-the-jboss-eap-server-log-on-openshift" class="anchor" href="#view-the-jboss-eap-server-log-on-openshift"><span class="anchor-icon"></span></a>View the JBoss EAP Server Log on OpenShift</h3>
 
 <p>Now you can look at the output of the server by running the following command:</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldrs</span>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldrs</span>
 </pre></div>
 <p>This will show the tail of the JBoss EAP server log.</p>
 

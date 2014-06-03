@@ -115,13 +115,11 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
+_NOTE_: The domain name for this application will be `helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
-    rhc app create -a helloworldmdb -t jbosseap-6
-
-The domain name for this application will be `helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
+        rhc app create -a helloworldmdb -t jbosseap-6
 
 This command creates an OpenShift application called `helloworldmdb` and will run the application inside the `jbosseap-6`. You should see some output similar to the following:
 

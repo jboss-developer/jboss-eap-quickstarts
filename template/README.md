@@ -187,13 +187,12 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 ### Create the OpenShift Application
 
-Note that we use `USER_DOMAIN_NAME` for these examples. You need to substitute it with your own OpenShift account user name.
+_NOTE_: The domain name for this application will be `APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
 
-    rhc app create -a APPLICATION_NAME -t jbosseap-6
+        rhc app create -a APPLICATION_NAME -t jbosseap-6
 
-_NOTE_: The domain name for this application will be APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com`. Be sure to replace `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
 This command creates an OpenShift application named APPLICATION_NAME and will run the application inside the `jbosseap-6`  container. You should see some output similar to the following:
 
@@ -226,13 +225,13 @@ The create command creates a git repository in the current directory with the sa
 
 Now that you have confirmed it is working you can migrate the quickstart source. You do not need the generated default application, so navigate to the new git repository directory and tell git to remove the source and pom files:
 
-    cd APPLICATION_NAME
-    git rm -r src pom.xml
+        cd APPLICATION_NAME
+        git rm -r src pom.xml
 
 Copy the source for the QUICKSTART_NAME quickstart into this new git repository:
 
-    cp -r QUICKSTART_HOME/QUICKSTART_NAME/src .
-    cp QUICKSTART_HOME/QUICKSTART_NAME/pom.xml .
+        cp -r QUICKSTART_HOME/QUICKSTART_NAME/src .
+        cp QUICKSTART_HOME/QUICKSTART_NAME/pom.xml .
 
 ### Configure the OpenShift Server
 
@@ -242,9 +241,9 @@ Copy the source for the QUICKSTART_NAME quickstart into this new git repository:
 
 You can now deploy the changes to your OpenShift application using git as follows:
 
-    git add src pom.xml
-    git commit -m "QUICKSTART_NAME quickstart on OpenShift"
-    git push
+        git add src pom.xml
+        git commit -m "QUICKSTART_NAME quickstart on OpenShift"
+        git push
 
 The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
 
@@ -254,7 +253,7 @@ Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and ca
 
 When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
-* <http://APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com/> 
+        http://APPLICATION_NAME-YOUR_DOMAIN_NAME.rhcloud.com 
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
@@ -262,7 +261,7 @@ You can use the OpenShift command line tools or the OpenShift web console to dis
 
 Now you can look at the output of the server by running the following command:
 
-    rhc tail -a APPLICATION_NAME
+        rhc tail -a APPLICATION_NAME
 
 This will show the tail of the JBoss EAP server log.
 

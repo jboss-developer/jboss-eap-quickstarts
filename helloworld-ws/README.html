@@ -104,13 +104,11 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h3><a id="create-the-openshift-application" class="anchor" href="#create-the-openshift-application"><span class="anchor-icon"></span></a>Create the OpenShift Application</h3>
 
-<p>Note that we use <code>USER_DOMAIN_NAME</code> for these examples. You need to substitute it with your own OpenShift account user name.</p>
+<p><em>NOTE</em>: The domain name for this application will be <code>helloworldws-YOUR_DOMAIN_NAME.rhcloud.com</code>. In these instructions, be sure to replace all instances of <code>YOUR_DOMAIN_NAME</code> with your own OpenShift account user name.</p>
 
 <p>Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span>
 </pre></div>
-<p><em>NOTE</em>: The domain name for this application will be <code>helloworldws-YOUR_DOMAIN_NAME.rhcloud.com</code>. Be sure to replace <code>YOUR_DOMAIN_NAME</code> with your own OpenShift account user name.</p>
-
 <p>This command creates an OpenShift application called <code>helloworldws</code> and will run the application inside the <code>jbosseap-6</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="gh">Application Options</span>
 <span class="gh">-------------------</span>
@@ -140,12 +138,12 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <h3><a id="migrate-the-quickstart-source" class="anchor" href="#migrate-the-quickstart-source"><span class="anchor-icon"></span></a>Migrate the Quickstart Source</h3>
 
 <p>Now that you have confirmed it is working you can now migrate the quickstart source and POM file. You no longer need the default application, so change directory into the new git repository and tell git to remove the source and pom files:</p>
-<div class="highlight"><pre><span class="n">cd</span> <span class="n">helloworldws</span>
-<span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+<div class="highlight"><pre>    <span class="n">cd</span> <span class="n">helloworldws</span>
+    <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
 </pre></div>
 <p>Copy the source and POM file for the <code>helloworld-ws</code> quickstart into this new git repository:</p>
-<div class="highlight"><pre><span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">src</span> <span class="p">.</span>
-<span class="n">cp</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span>
+<div class="highlight"><pre>    <span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">src</span> <span class="p">.</span>
+    <span class="n">cp</span> <span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">helloworld</span><span class="o">-</span><span class="n">ws</span><span class="o">/</span><span class="n">pom</span><span class="p">.</span><span class="n">xml</span> <span class="p">.</span>
 </pre></div>
 <h3><a id="configure-the-openshift-server" class="anchor" href="#configure-the-openshift-server"><span class="anchor-icon"></span></a>Configure the OpenShift Server</h3>
 
@@ -171,9 +169,9 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <h3><a id="deploy-the-openshift-application" class="anchor" href="#deploy-the-openshift-application"><span class="anchor-icon"></span></a>Deploy the OpenShift Application</h3>
 
 <p>You can now deploy the changes to your OpenShift application using git as follows:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;helloworld-ws quickstart on OpenShift&quot;</span>
-<span class="n">git</span> <span class="n">push</span>
+<div class="highlight"><pre>    <span class="n">git</span> <span class="n">add</span> <span class="n">src</span> <span class="n">pom</span><span class="p">.</span><span class="n">xml</span>
+    <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;helloworld-ws quickstart on OpenShift&quot;</span>
+    <span class="n">git</span> <span class="n">push</span>
 </pre></div>
 <p>The final push command triggers the OpenShift infrastructure to build and deploy the changes. </p>
 
@@ -182,7 +180,7 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <h3><a id="access-the-openshift-application" class="anchor" href="#access-the-openshift-application"><span class="anchor-icon"></span></a>Access the OpenShift Application</h3>
 
 <p>Once the application is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your OpenShift account domain name.</p>
-<div class="highlight"><pre><span class="nl">http:</span><span class="c1">//helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl</span>
+<div class="highlight"><pre>    <span class="nl">http:</span><span class="c1">//helloworldws-YOUR_DOMAIN_NAME.rhcloud.com/jboss-helloworld-ws/HelloWorldService?wsdl</span>
 </pre></div>
 <p>If the application has run successfully you should see the WSDL output in the browser.</p>
 
@@ -191,7 +189,7 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <h3><a id="view-the-jboss-eap-server-log-on-openshift" class="anchor" href="#view-the-jboss-eap-server-log-on-openshift"><span class="anchor-icon"></span></a>View the JBoss EAP Server Log on OpenShift</h3>
 
 <p>Now you can look at the output of the server by running the following command:</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
 </pre></div>
 <p>This will show the tail of the JBoss EAP server log.</p>
 
@@ -216,7 +214,7 @@ Run &#39;rhc show-app helloworldws&#39; for more details about your app.
 <h3><a id="delete-the-openshift-application" class="anchor" href="#delete-the-openshift-application"><span class="anchor-icon"></span></a>Delete the OpenShift Application</h3>
 
 <p>When you are finished with the application you can delete it from OpenShift as follows:</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span><span class="o">-</span><span class="n">delete</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">app</span><span class="o">-</span><span class="n">delete</span> <span class="o">-</span><span class="n">a</span> <span class="n">helloworldws</span>
 </pre></div>
 <p><em>Note</em>: There is a limit to the number of applications you can deploy concurrently to OpenShift. If the <code>rhc app create</code> command returns an error indicating you have reached that limit, you must delete an existing application before you continue. </p>
 
