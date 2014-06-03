@@ -142,13 +142,11 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 
 <h3><a id="create-the-openshift-application" class="anchor" href="#create-the-openshift-application"><span class="anchor-icon"></span></a>Create the OpenShift Application</h3>
 
-<p>Note that we use <code>USER_DOMAIN_NAME</code> for these examples. You need to substitute it with your own OpenShift account user name.</p>
+<p><em>NOTE</em>: The domain name for this application will be <code>wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com</code>. In these instructions, be sure to replace all instances of <code>YOUR_DOMAIN_NAME</code> with your own OpenShift account user name.</p>
 
 <p>Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:</p>
 <div class="highlight"><pre><span class="n">rhc</span> <span class="n">app</span> <span class="n">create</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span> <span class="o">-</span><span class="n">t</span> <span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span>
 </pre></div>
-<p><em>NOTE</em>: The domain name for this application will be <code>wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com</code>. Be sure to replace <code>YOUR_DOMAIN_NAME</code> with your own OpenShift account user name.</p>
-
 <p>This command creates an OpenShift application called <code>wsatsimple</code> and will run the application inside the <code>jbosseap-6</code> container. You should see some output similar to the following:</p>
 <div class="highlight"><pre><span class="gh">Application Options</span>
 <span class="gh">-------------------</span>
@@ -236,32 +234,29 @@ Run &#39;rhc show-app wsatsimple&#39; for more details about your app.
     <span class="n">git</span> <span class="n">push</span>
 </pre></div>
 <p>OpenShift will build the application using Maven, and deploy it to JBoss EAP. If successful, you should see output similar to:</p>
-<div class="highlight"><pre><span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
-<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">BUILD</span> <span class="n">SUCCESS</span>
-<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
-<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Total</span> <span class="n">time</span><span class="o">:</span> <span class="mf">19.991</span><span class="n">s</span>
-<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Finished</span> <span class="n">at</span><span class="o">:</span> <span class="n">Wed</span> <span class="n">Mar</span> <span class="mo">07</span> <span class="mi">12</span><span class="o">:</span><span class="mi">48</span><span class="o">:</span><span class="mi">15</span> <span class="n">EST</span> <span class="mi">2012</span>
-<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Final</span> <span class="n">Memory</span><span class="o">:</span> <span class="mi">8</span><span class="n">M</span><span class="o">/</span><span class="mi">168</span><span class="n">M</span>
-<span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
-<span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">build</span>
-<span class="nl">remote:</span> <span class="n">Emptying</span> <span class="n">tmp</span> <span class="n">dir</span><span class="o">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libra</span><span class="o">/</span><span class="mf">1e63</span><span class="n">c17c2dd94a329f21555a33dc617d</span><span class="o">/</span><span class="n">wsatsimple</span><span class="o">/</span><span class="n">jbossas</span><span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">vfs</span>
-<span class="nl">remote:</span> <span class="n">Emptying</span> <span class="n">tmp</span> <span class="n">dir</span><span class="o">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libra</span><span class="o">/</span><span class="mf">1e63</span><span class="n">c17c2dd94a329f21555a33dc617d</span><span class="o">/</span><span class="n">wsatsimple</span><span class="o">/</span><span class="n">jbossas</span><span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">work</span>
-<span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">deploy</span>
-<span class="nl">remote:</span> <span class="n">Starting</span> <span class="n">application</span><span class="p">...</span>
-<span class="nl">remote:</span> <span class="n">Done</span>
-<span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">post_deploy</span>
-<span class="n">To</span> <span class="n">ssh</span><span class="o">:</span><span class="c1">//1e63c17c2dd94a329f21555a33dc617d@wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/~/git/wsatsimple.git/</span>
-   <span class="n">e6f80bd</span><span class="p">.</span><span class="mf">.63504</span><span class="n">b9</span>  <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+<div class="highlight"><pre>    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
+    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">BUILD</span> <span class="n">SUCCESS</span>
+    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
+    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Total</span> <span class="n">time</span><span class="o">:</span> <span class="mf">19.991</span><span class="n">s</span>
+    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Finished</span> <span class="n">at</span><span class="o">:</span> <span class="n">Wed</span> <span class="n">Mar</span> <span class="mo">07</span> <span class="mi">12</span><span class="o">:</span><span class="mi">48</span><span class="o">:</span><span class="mi">15</span> <span class="n">EST</span> <span class="mi">2012</span>
+    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">Final</span> <span class="n">Memory</span><span class="o">:</span> <span class="mi">8</span><span class="n">M</span><span class="o">/</span><span class="mi">168</span><span class="n">M</span>
+    <span class="nl">remote:</span> <span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="o">------------------------------------------------------------------------</span>
+    <span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">build</span>
+    <span class="nl">remote:</span> <span class="n">Emptying</span> <span class="n">tmp</span> <span class="n">dir</span><span class="o">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libra</span><span class="o">/</span><span class="mf">1e63</span><span class="n">c17c2dd94a329f21555a33dc617d</span><span class="o">/</span><span class="n">wsatsimple</span><span class="o">/</span><span class="n">jbossas</span><span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">vfs</span>
+    <span class="nl">remote:</span> <span class="n">Emptying</span> <span class="n">tmp</span> <span class="n">dir</span><span class="o">:</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libra</span><span class="o">/</span><span class="mf">1e63</span><span class="n">c17c2dd94a329f21555a33dc617d</span><span class="o">/</span><span class="n">wsatsimple</span><span class="o">/</span><span class="n">jbossas</span><span class="o">-</span><span class="mi">7</span><span class="o">/</span><span class="n">standalone</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">work</span>
+    <span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">deploy</span>
+    <span class="nl">remote:</span> <span class="n">Starting</span> <span class="n">application</span><span class="p">...</span>
+    <span class="nl">remote:</span> <span class="n">Done</span>
+    <span class="nl">remote:</span> <span class="n">Running</span> <span class="p">.</span><span class="n">openshift</span><span class="o">/</span><span class="n">action_hooks</span><span class="o">/</span><span class="n">post_deploy</span>
+    <span class="n">To</span> <span class="n">ssh</span><span class="o">:</span><span class="c1">//1e63c17c2dd94a329f21555a33dc617d@wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/~/git/wsatsimple.git/</span>
+       <span class="n">e6f80bd</span><span class="p">.</span><span class="mf">.63504</span><span class="n">b9</span>  <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
 </pre></div>
 <p>Note that the <code>openshift</code> profile in the <code>pom.xml</code> file is activated by OpenShift. This causes the WAR built by OpenShift to be copied to the <code>deployments/</code> directory and deployed without a context path.</p>
 
 <h3><a id="test-the-openshift-application" class="anchor" href="#test-the-openshift-application"><span class="anchor-icon"></span></a>Test the OpenShift Application</h3>
 
-<p>Now you will start to tail the log files of the server. To do this run the following command.</p>
-<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">tail</span> <span class="n">wsatsimple</span>
-</pre></div>
-<p>Once the app is deployed, you can test the application by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your OpenShift account domain name.</p>
-<div class="highlight"><pre><span class="nl">http:</span><span class="c1">//wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/WSATSimpleServletClient</span>
+<p>Once the application is deployed, you can test it by accessing the following URL either via a browser or using tools such as curl or wget. Be sure to replace the <code>YOUR_DOMAIN_NAME</code> in the URL with your OpenShift account domain name.</p>
+<div class="highlight"><pre>    <span class="nl">http:</span><span class="c1">//wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com/WSATSimpleServletClient</span>
 </pre></div>
 <p>If the application has run successfully you should see some output in the browser. You should also see some output on the server log, similar to the output from the &ldquo;Test commit&rdquo; test above.</p>
 
@@ -270,7 +265,7 @@ Run &#39;rhc show-app wsatsimple&#39; for more details about your app.
 <h3><a id="view-the-jboss-eap-server-log-on-openshift" class="anchor" href="#view-the-jboss-eap-server-log-on-openshift"><span class="anchor-icon"></span></a>View the JBoss EAP Server Log on OpenShift</h3>
 
 <p>Now you can look at the output of the server by running the following command:</p>
-<div class="highlight"><pre><span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span>
+<div class="highlight"><pre>    <span class="n">rhc</span> <span class="n">tail</span> <span class="o">-</span><span class="n">a</span> <span class="n">wsatsimple</span>
 </pre></div>
 <p>This will show the tail of the JBoss EAP server log.</p>
 
