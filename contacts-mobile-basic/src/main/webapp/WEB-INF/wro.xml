@@ -23,13 +23,35 @@
         <js>/js/app.js</js>
     </group>
 
-    <group name="m.screen.min">
-        <css>/css/screen.css</css>
-        <css>/css/m.screen.css</css>
+    <group name="formSetup.min">
+        <js>/js/formSetup.js</js>
     </group>
 
-    <group name="d.screen.min">
-        <css>/css/screen.css</css>
-        <css>/css/d.screen.css</css>
+    <group name="namespace.min">
+        <js>/js/namespace.js</js>
+    </group>
+
+    <group name="submissions.min">
+        <js>/js/submissions.js</js>
+    </group>
+
+    <group name="theming.min">
+        <js>/js/theming.js</js>
+    </group>
+
+    <group name="util.min">
+        <js>/js/util.js</js>
+    </group>
+
+    <group name="validation.min">
+        <js>/js/validation.js</js>
+    </group>
+
+    <group name="app-style.min">
+        <css>/css/app-style.css</css>
+    </group>
+
+    <group name="validator.min">
+        <css>/css/validator.css</css>
     </group>
 </groups>

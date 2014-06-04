@@ -339,7 +339,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <targetGroups>app.min,m.screen.min,d.screen.min</targetGroups>
+                            <targetGroups>app.min,formSetup.min,namespace.min,submissions.min,theming.min,util.min,validation.min,app-style.min,validator.min</targetGroups>
                             <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/css/</cssDestinationFolder>
                             <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/js/</jsDestinationFolder>
                             <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
