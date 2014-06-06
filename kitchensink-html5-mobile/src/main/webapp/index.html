@@ -63,6 +63,24 @@
         $( document ).ready( function() {
             //setup the app after all scripts have loaded
 
+            $(function() {
+                // Enhance the footer since it is present outside the page definition and hence not enhanced automatically.
+                $( "[data-role='footer']" ).toolbar();
+                $( "[data-role='navbar']" ).navbar();
+            });
+            // Update the contents of the toolbars
+            $( document ).on( "pageshow", "[data-role='page']", function() {
+                var current = $( this ).jqmData( "title" );
+                // Remove active class from nav buttons
+                $( "[data-role='navbar'] a.ui-btn-active" ).removeClass( "ui-btn-active" );
+                // Add active class to current nav button
+                $( "[data-role='navbar'] a" ).each(function() {
+                    if ( $( this ).text() === current ) {
+                        $( this ).addClass( "ui-btn-active" );
+                    }
+                });
+            });
+
             // On browsing to the Members jQuery Mobile page, update it to show all members
             $("#member-art").on("pagebeforeshow", function() {
                 // Fetches the initial member data and populates the table using lodash templates
@@ -119,7 +137,7 @@
 <body>
     <div id="container">
         <section>
-            <article id="intro-art" data-role="page">
+            <article id="intro-art" data-role="page" data-title="Home">
                 <!-- Header -->
                 <div data-role="header" class="header">
                     <h3>HTML5 Quickstart</h3>
@@ -146,18 +164,6 @@
                     </div>
                 </div>
 
-                <!-- Footer -->
-                <div data-role="footer" data-tap-toggle="false" data-position="fixed">
-                    <div data-role="navbar">
-                        <ul>
-                            <li><a href="#intro-art" data-icon="home">Home</a></li>
-                            <li><a href="#register-art" data-icon="plus">Add a Member</a></li>
-                            <li><a href="#member-art" data-icon="grid">List Members</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /Footer -->
-
                 <!-- New HTML5 aside tag -->
                 <aside id="info-aside" data-role="popup">
                     <!-- Header -->
@@ -183,7 +189,7 @@
             </article>
 
             <!-- New HTML5 article tag -->
-            <article id="register-art" data-role="page">
+            <article id="register-art" data-role="page" data-title="Add a Member">
                 <!-- Header -->
                 <div data-role="header" class="header">
                     <h3>HTML5 Quickstart</h3>
@@ -217,22 +223,10 @@
                         </form>
                     </div>
                 </div>
-
-                <!-- Footer -->
-                <div data-role="footer" data-tap-toggle="false" data-position="fixed">
-                    <div data-role="navbar">
-                        <ul>
-                            <li><a href="#intro-art" data-icon="home">Home</a></li>
-                            <li><a href="#register-art" data-icon="plus">Add a Member</a></li>
-                            <li><a href="#member-art" data-icon="grid">List Members</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /Footer -->
             </article>
 
             <!-- New HTML5 article tag -->
-            <article id="member-art" data-role="page">
+            <article id="member-art" data-role="page" data-title="List Members">
                 <!-- Header -->
                 <div data-role="header" class="header" data-position="fixed">
                     <h3>HTML5 Quickstart</h3>
@@ -272,20 +266,19 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Footer -->
-                <div data-role="footer" data-tap-toggle="false" data-position="fixed">
-                    <div data-role="navbar">
-                        <ul>
-                            <li><a href="#intro-art" data-icon="home">Home</a></li>
-                            <li><a href="#register-art" data-icon="plus">Add a Member</a></li>
-                            <li><a href="#member-art" data-icon="grid">List Members</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /Footer -->
             </article>
 
+            <!-- Footer -->
+            <div data-role="footer" data-tap-toggle="false" data-position="fixed" data-theme="a">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#intro-art" data-icon="home" class="ui-btn-active">Home</a></li>
+                        <li><a href="#register-art" data-icon="plus">Add a Member</a></li>
+                        <li><a href="#member-art" data-icon="grid">List Members</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /Footer -->
         </section>
     </div>
     <script type="text/template" id="member-tmpl">

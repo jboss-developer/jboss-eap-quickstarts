@@ -98,6 +98,17 @@ span.success {
     margin-top: 4em;
 }
 
+/* Invert the color scheme for the persistent navbar to match iOS guidelines */
+div[data-role="navbar"] a.ui-link.ui-btn-active {
+    color: #3388cc;
+    background-color: #fff;
+    border-color: rgb(221,221,221);
+}
+div[data-role="navbar"] a.ui-link.ui-btn-active:after {
+    color: #3388cc;
+    background-color: #3388cc;
+}
+
 /* Decrease margins applied on headers */
 .ui-header .ui-title {
     margin-left: 10%;
