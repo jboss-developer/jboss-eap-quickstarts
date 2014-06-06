@@ -265,7 +265,7 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('Oct 10, 1990')
     CONTACTS.validation.addContactsFormValidator.form();
-    strictEqual($('label.error').text(), "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)", 'The date was set to Oct 10, 1990.');
+    strictEqual($('label.error').text(), "Please enter a valid birthdate.");
 });
 
 
@@ -472,7 +472,7 @@ test('should display an error message in the birth date field when the birth dat
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('Oct 10, 1990')
     CONTACTS.validation.editContactsFormValidator.form();
-    strictEqual($('label.error').text(), "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)", 'The date was set to Oct 10, 1990.');
+    strictEqual($('label.error').text(), "Please enter a valid birthdate.");
 });
 
 //test('', 1, function() {
