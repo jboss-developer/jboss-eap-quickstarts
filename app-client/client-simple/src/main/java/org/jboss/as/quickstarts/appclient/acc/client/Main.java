@@ -35,6 +35,12 @@ import org.jboss.logging.Logger;
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
     
+    /**
+     * Use field injection for the EJB reference.<br/>
+     * <b>Notice that the application-container injection only works for 
+     * static fields within the main class of the application</b><br/>
+     * See JSR316 (EE6 platform spec) chapter 5.2.5 .
+     */
     @EJB
     private static StatelessSession slsb;
 
