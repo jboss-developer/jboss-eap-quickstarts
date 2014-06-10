@@ -180,14 +180,17 @@ public class KitchensinkAngularjsTest {
     @InSequence(4)
     public void testRegistrationWithBadPhoneFormat() {
         browser.get(contextPath.toString());
+        form.waitUntilPresent();
         form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_ILLEGAL_CHARS), false);
         assertFalse(form.phoneValidity());
 
         browser.get(contextPath.toString());
+        form.waitUntilPresent();
         form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_SHORT), false);
         assertFalse(form.phoneValidity());
 
         browser.get(contextPath.toString());
+        form.waitUntilPresent();
         form.register(new Member(NAME_FORMAT_OK, EMAIL_FORMAT_OK, PHONE_FORMAT_BAD_TOO_LONG), false);
         assertFalse(form.phoneValidity());
     }
