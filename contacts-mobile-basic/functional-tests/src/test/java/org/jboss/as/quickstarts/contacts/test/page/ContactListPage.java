@@ -20,6 +20,7 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.as.quickstarts.contacts.test.Contact;
 import org.jboss.as.quickstarts.contacts.test.page.fragment.ContactListItemPageFragment;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,12 @@ public class ContactListPage {
     @FindByJQuery("ul[data-role='listview']:visible li[id*='contact']")
     private List<ContactListItemPageFragment> contacts;
 
-    @FindByJQuery("[data-role='header'] a[href='#contacts-detail-list-page']:visible")
+    @FindBy(id = "contacts-detail-list-page-button")
     private WebElement showDetailsButton;
 
-    @FindByJQuery("[data-role='header'] a[href='#contacts-list-page']:visible")
+    @FindBy(id = "contacts-list-page-button")
     private WebElement showListButton;
 
-//    @FindByJQuery("[data-type='search']")
-//    @FindByJQuery("#filter-form-list-page")
     @FindByJQuery(".ui-filterable:eq(0)")
     private WebElement filterInput;
 
