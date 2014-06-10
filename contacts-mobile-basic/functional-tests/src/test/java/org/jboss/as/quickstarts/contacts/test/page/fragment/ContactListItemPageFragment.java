@@ -22,6 +22,8 @@ import org.jboss.as.quickstarts.contacts.test.Contact;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
 /**
  * Page fragment for list items on contact list page
  *
@@ -56,6 +58,6 @@ public class ContactListItemPageFragment {
     }
 
     public void editContact() {
-        name.click();
+        guardAjax(name).click();
     }
 }
