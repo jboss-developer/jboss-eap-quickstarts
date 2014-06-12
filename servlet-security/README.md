@@ -13,7 +13,7 @@ What is it?
 
 This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform.
 
-When you deploy this example, two users are automatically created for you: user `quickstartUser` with password `quickstartPwd1!` and user `guest` with password `guest`. This data is located in the `src/main/resources/import.sql` file. 
+When you deploy this example, two users are automatically created for you: user `quickstartUser` with password `quickstartPwd1!` and user `guestPwd1!` with password `guest`. This data is located in the `src/main/resources/import.sql` file. 
 
 This quickstart takes the following steps to implement Servlet security:
 
@@ -32,7 +32,7 @@ This quickstart takes the following steps to implement Servlet security:
 5. Add a security constraint to the `WEB-INF/web.xml` .
 6. Add a security annotation to the EJB declaration.
 
-Please note the allowed user role `quickstarts` in the annotation -`@RolesAllowed`- is the same as the user role defined in step 2.
+Please note the allowed user role `quickstarts` in the annotation `@RolesAllowed` is the same as the user role defined in step 2.
 
 _Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
@@ -83,7 +83,7 @@ Review the Modified Server Configuration
 
 If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
-The following `servlet-security-quickstart` security-domain was added to the `security` subsystem.
+The following `servlet-security-quickstart` security-domain element was added to the `security` subsystem.
 
       	<security-domain name="servlet-security-quickstart" cache-type="default">
     	      <authentication>
@@ -178,7 +178,7 @@ You can remove the security domain configuration by running the  `remove-securit
 
         For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
         For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli 
-This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
+This script removes the `servlet-security-quickstart` security domain from the `security` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}

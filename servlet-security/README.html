@@ -13,7 +13,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss Enterprise Application Platform.</p>
 
-<p>When you deploy this example, two users are automatically created for you: user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> and user <code>guest</code> with password <code>guest</code>. This data is located in the <code>src/main/resources/import.sql</code> file. </p>
+<p>When you deploy this example, two users are automatically created for you: user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> and user <code>guestPwd1!</code> with password <code>guest</code>. This data is located in the <code>src/main/resources/import.sql</code> file. </p>
 
 <p>This quickstart takes the following steps to implement Servlet security:</p>
 
@@ -34,7 +34,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>Add a security annotation to the EJB declaration.</p></li>
 </ol>
 
-<p>Please note the allowed user role <code>quickstarts</code> in the annotation -<code>@RolesAllowed</code>- is the same as the user role defined in step 2.</p>
+<p>Please note the allowed user role <code>quickstarts</code> in the annotation <code>@RolesAllowed</code> is the same as the user role defined in step 2.</p>
 
 <p><em>Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
 
@@ -81,7 +81,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>EAP_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
-<p>The following <code>servlet-security-quickstart</code> security-domain was added to the <code>security</code> subsystem.</p>
+<p>The following <code>servlet-security-quickstart</code> security-domain element was added to the <code>security</code> subsystem.</p>
 <div class="highlight"><pre>    <span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;servlet-security-quickstart&quot;</span> <span class="na">cache-type=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
           <span class="nt">&lt;authentication&gt;</span>
             <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;Database&quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
@@ -167,7 +167,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
-<p>This script removes the <code>test</code> queue from the <code>messaging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
+<p>This script removes the <code>servlet-security-quickstart</code> security domain from the <code>security</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
 <div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
 <span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
 </pre></div></li>
