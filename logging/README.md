@@ -66,10 +66,10 @@ The application is running at the following URL: <http://localhost:8080/jboss-lo
 Check the Server Logs
 ---------------------
 
-The log files are located in the `EAP_HOME/standalone/log` log directory. At this point you should see the following standard log file that is produced by the application server:
+The log files are located in the `EAP_HOME/standalone/log` log directory. At this point you should see the following log files.
 
-        * `server.log`
-
+        * `server.log` - This is the standard log produced by the application server. By default, it contains all the server log messages, including the server startup messages.
+        * `gc.log.0` - This is a garbage collection log. It contains garbage collection activity and can be used for diagnostic purposes. This log can be ignored as it is not used in this quickstart.
 
 
 Configure the Logging Quickstart Log File Handlers
