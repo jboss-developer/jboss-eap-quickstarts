@@ -27,7 +27,7 @@ test('Build 2 Member Rows', function() {
 
     var html = buildMemberRows(members);
 
-    ok($(html).length == 2, 'Number of rows built: ' + length);
+    ok($(html).length == 2, 'Number of rows built: ' + $(html).length);
 });
 
 test('Build 0 member Rows', function() {
