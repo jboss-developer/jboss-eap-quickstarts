@@ -58,7 +58,7 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-cdi-interceptors>.
 
-You can now comment out classes in the WEB-INF/beans.xlm file to disable one or both of the interceptors and view the results.
+You can now comment out classes in the WEB-INF/beans.xml file to disable one or both of the interceptors and view the results.
 
 * Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor</class>` and you will no longer see the audit history on the browser page.
 * Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.LoggingInterceptor</class>` and you will no longer see the log messages in the server log.
