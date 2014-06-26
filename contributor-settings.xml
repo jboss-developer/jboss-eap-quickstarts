@@ -19,6 +19,29 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
   
+  <!-- proxies
+     This is a list of proxies which can be used on this machine to connect to the network.
+     Unless otherwise specified (by system property or command-line switch), the first proxy
+     specification in this list marked as active will be used.If you are accessing network
+     via a proxy server, Un-comment the proxy options and fill in your proxy server detail.
+   -->
+  <proxies>
+    <!-- proxy
+      Specification for one proxy, to be used in connecting to the network.
+
+    <proxy>
+      <id>optional</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username>proxyuser</</username>
+      <password>proxypass</password>
+      <host>proxy.host.net</host>
+      <port>80</port>
+      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+    </proxy>
+    -->
+  </proxies>
+    
   <profiles>
 
     <!-- Configure the JBoss GA Maven repository -->
