@@ -17,6 +17,9 @@
 package org.jboss.as.quickstarts.cluster.hasingleton.service.ejb;
 
 import org.jboss.as.clustering.singleton.SingletonService;
+import org.jboss.as.clustering.singleton.election.NamePreference;
+import org.jboss.as.clustering.singleton.election.PreferredSingletonElectionPolicy;
+import org.jboss.as.clustering.singleton.election.SimpleSingletonElectionPolicy;
 import org.jboss.logging.Logger;
 import org.jboss.msc.service.DelegatingServiceContainer;
 import org.jboss.msc.service.ServiceActivator;
@@ -28,6 +31,7 @@ import org.jboss.msc.service.ServiceController;
  * during deployment.
  *
  * @author Paul Ferraro
+ * @author Wolf-Dieter Fink
  */
 public class HATimerServiceActivator implements ServiceActivator {
     private final Logger log = Logger.getLogger(this.getClass());
@@ -39,10 +43,17 @@ public class HATimerServiceActivator implements ServiceActivator {
         HATimerService service = new HATimerService();
         SingletonService<String> singleton = new SingletonService<String>(service, HATimerService.SINGLETON_SERVICE_NAME);
         /*
-         * To pass a chain of election policies to the singleton, for example to tell JGroups to prefer running the singleton on a node with a
-         * particular name, uncomment the following line:
+         * The NamePreference is a combination of the node name (-Djboss.node.name) and the name of
+         * the configured cache "singleton". If there is more than 1 node, it is possible to add more than
+         * one name and the election will use the first available node in that list.
+         *   -  To pass a chain of election policies to the singleton and tell JGroups to run the
+         * singleton on a node with a particular name, uncomment the first line  and
+         * comment the second line below.
+         *   - To pass a list of more than one node, comment the first line and uncomment the
+         * second line below.
          */
-        // singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node2/cluster")));
+        singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node1/singleton")));
+        //singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node1/singleton"), new NamePreference("node2/singleton")));
 
         singleton.build(new DelegatingServiceContainer(context.getServiceTarget(), context.getServiceRegistry()))
                 .setInitialMode(ServiceController.Mode.ACTIVE)
