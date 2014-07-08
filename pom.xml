@@ -139,6 +139,7 @@
                 <module>helloworld-jms</module>
                 <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
+                <module>helloworld-mdb-propertysubstitution</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
@@ -217,6 +218,7 @@
             <modules>
                 <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
+                <module>helloworld-mdb-propertysubstitution</module>
                 <module>jta-crash-rec</module>
             </modules>
         </profile>
