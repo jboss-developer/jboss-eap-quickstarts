@@ -2,7 +2,7 @@ deltaspike-authorization: Demonstrate the creation of a custom authorization exa
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
-Technologies: JSF, CDI, Deltaspike  
+Technologies: JSF, CDI, Apache Deltaspike  
 Summary: Demonstrate the creation of a custom authorization example using @SecurityBindingType from DeltaSpike  
 Prerequisites:   
 Target Product: WFK  
