@@ -2,7 +2,7 @@ deltaspike-deactivatable: Demonstrate usage of Deactivatable
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
-Technologies: CDI, DeltaSpike  
+Technologies: CDI, Apache DeltaSpike  
 Summary: Demonstrate usage of Deactivatable.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
