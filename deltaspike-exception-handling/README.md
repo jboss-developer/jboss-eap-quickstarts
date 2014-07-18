@@ -2,7 +2,7 @@ deltaspike-exception-handling: An example how to use DeltaSpike exception handli
 ====================================================================================
 Author: Rafael Benevides  
 Level: Intermediate  
-Technologies: CDI, JSF, DeltaSpike  
+Technologies: CDI, JSF, Apache DeltaSpike  
 Summary: Exception being handled by different handlers and purpose  
 Prerequisites:   
 Target Product: WFK  
