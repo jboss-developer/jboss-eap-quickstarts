@@ -2,7 +2,7 @@ spring-greeter: Greeter Example using Spring 4.0
 ======================================================
 Author: Marius Bogoevici  
 Level: Beginner  
-Technologies: Spring MVC, JSP, and JPA 2.0  
+Technologies: Spring MVC, JSP, JPA 2.0  
 Summary: Demonstrates the use of JPA 2.0 and JSP in Red Hat JBoss Enterprise Application Platform 6.1 or later.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
