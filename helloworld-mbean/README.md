@@ -2,7 +2,7 @@ helloworld-mbean: Helloworld Using MBean and CDI component
 ======================================================
 Author: Lagarde Jeremie  
 Level: Intermediate  
-Technologies: CDI, JMX and MBean  
+Technologies: CDI, JMX, MBean  
 Summary: Demonstrates the use of CDI 1.0 and MBean  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
