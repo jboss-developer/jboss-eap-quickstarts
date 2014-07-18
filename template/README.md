@@ -12,7 +12,7 @@ Source: (The URL for the repository that is the source of record for this quicks
 
 _NOTE: This file is meant to serve as a template or guideline for your own quickstart README.md file:_
 
-* _The first lines in the file after the quickstart name and description (Author:, Level:, etc.) are metadata tags used by the [JDF site](http://www.jboss.org/jdf/quickstarts/get-started/). Make sure you include 2 spaces at the end of each line so they also render correctly when rendered as HTML files._
+* _The first lines in the file after the quickstart name and description (Author:, Level:, etc.) are metadata tags used by the [JBoss Developer site](http://www.jboss.org/developer-materials/#!formats=jbossdeveloper_quickstart). Make sure you include 2 spaces at the end of each line so they also render correctly when rendered as HTML files._
 * _Be sure to replace the `QUICKSTART_NAME` and `YOUR_NAME` variables in your `README` file with the appropriate values._
 * _Contributor instructions are enclosed within comments `<!-- Contributor: -->`. These instructions are only meant to help you and you should NOT include them in your README file!_
 * _Review the other quickstart `README` files if you need help with formatting or content._
