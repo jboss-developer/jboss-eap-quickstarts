@@ -2,7 +2,7 @@ deltaspike-beanbuilder: Shows how to create new beans using DeltaSpike utilities
 ======================================================
 Author: Rafael Benevides  
 Level: Advanced  
-Technologies: CDI, DeltaSpike  
+Technologies: CDI, Apache DeltaSpike  
 Summary: Shows how to create new beans using DeltaSpike utilities.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
