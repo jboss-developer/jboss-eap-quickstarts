@@ -13,7 +13,7 @@ What is it?
 
 This is your project! It's a deployable Maven 3 project to help you get your foot in the door developing HTML5 based desktop/mobile web applications with Java EE 6 on JBoss. This project is setup to allow you to create a basic Java EE 6 application using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
 
-This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
+This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
 
 What is a modern web application without mobile web support? This application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile  version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance  improvements needed to get you started with mobile web development on JBoss.
 
