@@ -61,7 +61,7 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean jboss-as:deploy
 
 4. This deploys `target/jboss-kitchensink-html5-mobile.war` to the running instance of the server.
 
@@ -108,12 +108,12 @@ Finally, wro4j runs in the compile phase so any standard build command like pack
 NOTE: You must either specify the default profile for no tests or the arquillian test profile to run tests when minifying to avoid test errors. For example:
 
     #No Tests
-    mvn clean package jboss-as:deploy -Pminify,default
+    mvn clean jboss-as:deploy -Pminify
 
 OR
 
     #With Tests
-    mvn clean package jboss-as:deploy -Pminify,arq-jbossas-remote
+    mvn clean jboss-as:deploy -Pminify,arq-jbossas-remote
  
 Run the Arquillian tests
 -------------------------------------
