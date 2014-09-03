@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-tasks-rs</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>6.3.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: tasks-rs</name>
     <description>JBoss EAP Quickstart: Tasks JSF JAX-RS</description>
@@ -43,7 +43,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.3.0-build-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.3.0.GA</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>

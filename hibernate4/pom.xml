@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-hibernate4</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>6.3.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: hibernate4</name>
     <description>JBoss EAP Quickstart: Application that uses Hibernate 4</description>
@@ -44,9 +44,9 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.3.0-build-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.3.0.GA</version.jboss.bom.eap>
 
-        <version.jboss.as>7.4.0.Final-redhat-SNAPSHOT</version.jboss.as>
+        <version.jboss.as>7.4.0.Final-redhat-19</version.jboss.as>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>

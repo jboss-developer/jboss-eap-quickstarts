@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-asynchronous</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>6.3.0.GA</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-asynchronous</name>
     <description>ejb-asynchronous: Demonstrates asynchronous method invocations on an EJB</description>
@@ -50,7 +50,7 @@
         <!-- JBoss dependency versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.jboss.as>7.4.0.Final-redhat-SNAPSHOT</version.jboss.as>
+        <version.jboss.as>7.4.0.Final-redhat-19</version.jboss.as>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-13</version.jboss.spec.javaee.6.0>
 

@@ -21,7 +21,7 @@
  
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-remote-server-side</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>6.3.0.GA</version>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-remote - server-side</name>
 

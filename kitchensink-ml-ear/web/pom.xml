@@ -22,7 +22,7 @@
     <parent>
         <artifactId>jboss-kitchensink-ml-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <version>6.3.0-redhat-SNAPSHOT</version>
+        <version>6.3.0.GA</version>
     </parent>
 
     <artifactId>jboss-kitchensink-ml-ear-web</artifactId>

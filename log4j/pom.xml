@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-log4j</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>6.3.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: log4j</name>
     <description>JBoss EAP Quickstart: Logging using Log4j</description>

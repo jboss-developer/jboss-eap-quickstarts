@@ -27,7 +27,7 @@
     <groupId>org.jboss.quickstarts.eap</groupId>
     
     <artifactId>jboss-as-quickstarts-parent</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>6.3.0.GA</version>
     <packaging>pom</packaging>
     <name>JBoss Quickstart: Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
