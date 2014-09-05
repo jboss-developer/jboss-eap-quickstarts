@@ -75,7 +75,7 @@
                         <exclude>.clover/**</exclude>
                         <exclude>**/*.sql</exclude>
                         <exclude>**/LICENSE*</exclude>
-                        <exclude>>**/license*</exclude>
+                        <exclude>**/license*</exclude>
                         <!-- Exclude specific Quickstarts -->
                         <exclude>petclinic-spring/**</exclude>
                         <!-- Javascrip Libraries -->
