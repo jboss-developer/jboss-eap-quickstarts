@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-security-interceptors</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: ejb-security-interceptors</name>
     <description>JBoss EAP Quickstart: EJB Security Interceptors</description>

@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-helloworld-mbean</artifactId>
-        <version>6.2.0-redhat-SNAPSHOT</version>
+        <version>6.4.0-redhat-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-helloworld-mbean-service</artifactId>
     <packaging>jboss-sar</packaging>

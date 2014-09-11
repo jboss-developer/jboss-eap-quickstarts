@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-kitchensink</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: kitchensink</name>
     <description>A starter Java EE 6 webapp project for use on JBoss EAP 6, generated from the jboss-javaee6-webapp archetype</description>

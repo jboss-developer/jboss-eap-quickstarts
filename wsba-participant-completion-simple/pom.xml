@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-wsba-participant-completion-simple</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: wsba-participant-completion-simple</name>
     <description>JBoss EAP Quickstart: Simple WS-BA with Participant Driven Completion</description>

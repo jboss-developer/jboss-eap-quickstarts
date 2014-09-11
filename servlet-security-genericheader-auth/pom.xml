@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-servlet-security-genericheader-auth</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: servlet-security-genericheader-auth</name>
     <description>Generic Header Authenticator: Demonstrates how to authenticate via an externally provided request header</description>
