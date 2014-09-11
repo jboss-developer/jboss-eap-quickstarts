@@ -18,11 +18,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-application-client</artifactId>
+        <artifactId>jboss-app-client</artifactId>
         <version>6.4.0-redhat-SNAPSHOT</version>
     </parent>
+    
+    <artifactId>jboss-app-client-ejb</artifactId>
+    <packaging>ejb</packaging>
+    <name>JBoss EAP Quickstart: app-client - ejb</name>
+    <url>http://maven.apache.org</url>
+    
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -30,13 +37,7 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <artifactId>jboss-application-client-ejb</artifactId>
-
-    <name>JBoss EAP Quickstart: applicationclient - server - app - ejb</name>
-    <url>http://maven.apache.org</url>
-    <packaging>ejb</packaging>
-
+ 
     <dependencies>
         <dependency>
             <groupId>org.jboss.as</groupId>
