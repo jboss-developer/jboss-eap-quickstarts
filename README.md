@@ -32,10 +32,10 @@ The quickstart README files use the *replaceable* value `EAP_HOME` to denote the
 
 * If you installed JBoss EAP using the RPM, the install directory is `/var/lib/jbossas/`.
 
-* If you used the installer to install JBoss EAP, the default path for `EAP_HOME` is `${user.home}/EAP-6.3.0`. 
+* If you used the installer to install JBoss EAP, the default path for `EAP_HOME` is `${user.home}/EAP-6.4.0`. 
 
-        For Linux: /home/USER_NAME/EAP-6.3.0/
-        For Windows: "C:\Users\USER_NAME\EAP-6.3.0\"
+        For Linux: /home/USER_NAME/EAP-6.4.0/
+        For Windows: "C:\Users\USER_NAME\EAP-6.4.0\"
 
 * If you used the JBoss Developer Studio installer to install and configure the JBoss EAP Server, the default path for `EAP_HOME` is `${user.home}/jbdevstudio/runtimes/jboss-eap`.
 
