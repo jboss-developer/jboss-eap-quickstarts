@@ -1,0 +1,123 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="forgefromscratch-example-showing-how-forge-can-generate-an-application-from-scratch" class="anchor" href="#forgefromscratch-example-showing-how-forge-can-generate-an-application-from-scratch"><span class="anchor-icon"></span></a>forge-from-scratch: Example Showing How Forge Can Generate an Application From Scratch</h1>
+
+<p>Author: Lincoln Baxter<br/>
+Level: Intermediate<br/>
+Technologies: Forge<br/>
+Summary: Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge<br/>
+Target Product: EAP<br/>
+Product Versions: EAP 6.3, JDBS 7<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This quickstart demonstrates how to create a fully <strong>Java EE compliant</strong> project using nothing but  <strong>JBoss Forge</strong>. </p>
+
+<p>Once generated, the sample project will be a standard Maven 3, Java Web project with <strong>JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.0</strong> with complete <strong>JAX-RS</strong> endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.</p>
+
+<p>But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.</p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later and JBoss Developer Studio (JDBS) 7 or greater.</p>
+
+<h2><a id="configure-maven-for-jboss-developer-studio" class="anchor" href="#configure-maven-for-jboss-developer-studio"><span class="anchor-icon"></span></a>Configure Maven for JBoss Developer Studio</h2>
+
+<p>If you have not yet done so, you must <a href="https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html-single/Getting_Started_Guide/index.html#sect-Configure_Maven_for_JBoss_Developer_Studio">Configure Maven for JBoss Developer Studio</a> before testing the quickstarts. </p>
+
+<h2><a id="run-the-quickstart-in-jboss-developer-studio" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio</h2>
+
+<p>Forge is available in JBoss Developer Studio. To run this example, we suggest you use JDBS 7 or greater.</p>
+
+<h3><a id="generate-and-build-the-application" class="anchor" href="#generate-and-build-the-application"><span class="anchor-icon"></span></a>Generate and Build the Application</h3>
+
+<ol>
+<li>Start JBoss Developer Studio.</li>
+<li>Open the <code>Forge Console</code> Window. To open it, navigate to menu item <em>Window -> Show View -> Other</em>. Locate <em>Forge -> Forge Console</em> and click <em>OK</em>. </li>
+<li>Click the <em>Start</em> button (green triangle) in top right corner of the Forge Console to start the default Forge runtime.</li>
+<li><p>In the Forge Console Window, navigate to the root directory of this quickstart.</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>QUICKSTART_HOME/forge-from-scratch/
+</pre></div></li>
+<li><p>Notice there is a file in this directory named <code>generate.fsh</code>. Run this file from the Forge console using the <code>run</code> command:</p>
+<div class="highlight"><pre><span class="nv">$ </span>run generate.fsh
+</pre></div></li>
+<li><p>You are prompted to enter the name of the new project. Type a name for the project, for example: <code>example-application</code></p>
+<div class="highlight"><pre><span class="o">?</span> <span class="p">[</span><span class="n">named</span><span class="o">=</span><span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">new</span> <span class="n">project</span> <span class="p">(</span><span class="n">of</span> <span class="n">type</span> <span class="n">java</span><span class="p">.</span><span class="n">lang</span><span class="p">.</span><span class="n">String</span><span class="p">)]</span><span class="o">:</span> <span class="n">example</span><span class="o">-</span><span class="n">application</span>
+</pre></div></li>
+<li><p>You are prompted to accept <code>QUICKSTART_HOME/forge-from-scratch/example-application</code> as the project directory. Choose <code>Y</code>:</p>
+<div class="highlight"><pre><span class="o">?</span> <span class="n">Use</span> <span class="p">[</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">username</span><span class="o">/</span><span class="n">QUICKSTART_HOME</span><span class="o">/</span><span class="n">forge</span><span class="o">-</span><span class="n">from</span><span class="o">-</span><span class="n">scratch</span><span class="o">/</span><span class="n">example</span><span class="o">-</span><span class="n">application</span><span class="p">]</span> <span class="n">as</span> <span class="n">project</span> <span class="n">directory</span><span class="o">?</span> <span class="p">[</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">]</span> <span class="n">Y</span>
+</pre></div></li>
+<li><p>At this point, Forge creates the new project and builds it. </p>
+
+<ul>
+<li>You see console messages starting with <code>***SUCCESS***</code></li>
+<li>This is followed by a dialog saying <code>User Operation is waiting for &quot;Importing Forge project&quot; to complete.</code>.</li>
+<li>Finally, you see a <code>[INFO] BUILD SUCCESS</code> message near the end of the console output.</li>
+</ul></li>
+</ol>
+
+<h3><a id="what-did-this-create" class="anchor" href="#what-did-this-create"><span class="anchor-icon"></span></a>What Did This Create?</h3>
+
+<p>This quickstart created a native Java EE 6 application. </p>
+
+<ul>
+<li>After the command completes, look in your <code>QUICKSTART_HOME/forge-from-scratch/</code> folder. You see a folder with the same name as the project name you entered in the prompt above. </li>
+<li>This project also appears in the <code>Project Explorer</code> view in JDBS. </li>
+<li>Browse through this project to see the code that was generated as a result of this command. </li>
+</ul>
+
+<p>For a full description of what was generated by running this script and details on the structure of the application, see the <a href="http://forge.jboss.org/docs/important_plugins/ui-scaffolding.html#content">Forge UI Scaffolding Guide</a></p>
+
+<h3><a id="deploy-the-generated-application" class="anchor" href="#deploy-the-generated-application"><span class="anchor-icon"></span></a>Deploy the Generated Application</h3>
+
+<ol>
+<li>If you have not yet done so, add the JBoss EAP 6.3 runtime server to JDBS. For more information, see <a href="https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html-single/Getting_Started_Guide/index.html#sect-Set_Up_the_Development_Environment">Set Up the Development Environment</a>.</li>
+<li>Right mouse on the project name and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. If you have more than one server, choose the JBoss EAP 6.3 Runtime server.</li>
+<li><p>Upon successful deployment, a <strong>Welcome to Forge Window</strong> opens with the application running at the following URL: <a href="http://localhost:8080/PROJECT_NAME/">http://localhost:8080/PROJECT_NAME/</a>, where PROJECT_NAME is the name you chose for your project. For example:</p>
+
+<p><a href="http://localhost:8080/example-application/">http://localhost:8080/example-application/</a></p></li>
+</ol>
+
+<h3><a id="access-the-running-application" class="anchor" href="#access-the-running-application"><span class="anchor-icon"></span></a>Access the Running Application</h3>
+
+<p>The application Window displays the following messages</p>
+<div class="highlight"><pre>    <span class="n">Welcome</span> <span class="n">to</span> <span class="n">Forge</span>
+
+    <span class="n">Your</span> <span class="n">application</span> <span class="n">is</span> <span class="n">running</span><span class="p">.</span> 
+</pre></div>
+<p>A list of entities is displayed on the left of the screen. When you click on an entity, you are provided with a form that allows you to:</p>
+
+<ul>
+<li>Search for an existing entity</li>
+<li>Create a new entity</li>
+<li>Edit or delete an existing entity</li>
+</ul>
+
+<p>The running application also provides links to find more information about the Forge. </p>
+
+<h2><a id="undeploy-the-application" class="anchor" href="#undeploy-the-application"><span class="anchor-icon"></span></a>Undeploy the Application</h2>
+
+<p>When you are ready to undeploy the application from JBoss EAP:</p>
+
+<ol>
+<li>Go to the JDBS <code>Servers</code> window.</li>
+<li>Expand the JBoss EAP 6.3 Server to see the list of deployed applications.</li>
+<li>Choose the project you created using this quickstart, right mouse, and choose <code>Remove</code>. </li>
+<li>Click <code>OK</code> when asked if you are sure you want to remove resource from the server.</li>
+</ol>
+
+<h2><a id="next-steps" class="anchor" href="#next-steps"><span class="anchor-icon"></span></a>Next Steps</h2>
+
+<p>Open <code>generate.fsh</code> and take a look inside! There is not much magic happening here. All of the commands used to generate this project are clearly listed just as if they were typed by your own hands.</p>
+
+<p>Play around with creating more entities, relationships, UI, and generating JAX-RS endpoints,all with just a few simple commands.</p>
+
+<h2><a id="explore-plugins-" class="anchor" href="#explore-plugins-"><span class="anchor-icon"></span></a>Explore plugins! </h2>
+
+<p>Forge has a rich plugin ecosystem. Want to deploy your application to the Cloud? Use the Forge Openshift plugin: <a href="http://github.com/forge/plugin-openshift/">http://github.com/forge/plugin-openshift/</a></p>
+
+<p>To see a full list of avaialable plugins, make sure that you have an active internet connection and type:</p>
+<div class="highlight"><pre>    <span class="n">forge</span><span class="o">&gt;</span> <span class="n">forge</span> <span class="n">find</span><span class="o">-</span><span class="n">plugin</span> <span class="o">*</span>
+</pre></div></body></html>

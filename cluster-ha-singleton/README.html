@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="clusterhasingleton-a-singletonservice-deployed-in-a-jar-started-by-singletonstartup-and-accessed-by-an-ejb" class="anchor" href="#clusterhasingleton-a-singletonservice-deployed-in-a-jar-started-by-singletonstartup-and-accessed-by-an-ejb"><span class="anchor-icon"></span></a>cluster-ha-singleton: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB</h1>
+
+<p>Author: Wolf-Dieter Fink<br/>
+Level: Advanced<br/>
+Technologies: EJB, HASingleton, JNDI<br/>
+Summary: A SingletonService deployed in a JAR started by SingletonStartup and accessed by an EJB<br/>
+Target Product: EAP<br/>
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This example demonstrates the deployment of a Service that is wrapped with the SingletonService decorator
+and used as a cluster-wide singleton service.
+The service activates a scheduled timer, which is started only once in the cluster.</p>
+
+<p>The example is composed of a Maven subproject and a parent project. The projects are as follows:</p>
+
+<ol>
+<li><code>service</code>: This subproject contains the Service and the EJB code to instantiate, start, and access the service.</li>
+<li>The root parent <code>pom.xml</code> builds the <code>service</code> subproject and deploys the archive to the server.</li>
+</ol>
+
+<p><em>Note: This quickstart uses a class, org.jboss.as.clustering.singleton.SingletonService, that is part of the JBoss EAP private API. A public API will become available in a future EAP release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle.</em></p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:</p>
+
+<p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="clone-the-eaphome-directory" class="anchor" href="#clone-the-eaphome-directory"><span class="anchor-icon"></span></a>Clone the EAP_HOME Directory</h2>
+
+<p>While you can run this example starting only one instance of the server, if you want to see the singleton behavior, you must start at least two instances of the server. Make a copy of the JBoss EAP directory structure to use for the second server.</p>
+
+<h2><a id="start-the-jboss-eap-server-with-a-ha-profile" class="anchor" href="#start-the-jboss-eap-server-with-a-ha-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Server with a HA profile</h2>
+
+<p><em>Note: You must start the server using the HA profile or the singleton service will not start correctly.</em></p>
+
+<p>Start the the two JBoss EAP servers with the HA profile, passing a unique node ID by typing the following commands. You must pass a socket binding port offset on the command to start the second server. </p>
+
+<p>If you are using Linux:</p>
+<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">EAP_HOME_1</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">standalone</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="n">nodeOne</span>
+    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">EAP_HOME_2</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">standalone</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="n">nodeTwo</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
+</pre></div>
+<p>If you are using Windows</p>
+<div class="highlight"><pre>    <span class="n">Server</span> <span class="mi">1</span><span class="o">:</span> <span class="n">EAP_HOME_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">standalone</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="n">nodeOne</span>
+    <span class="n">Server</span> <span class="mi">2</span><span class="o">:</span> <span class="n">EAP_HOME_2</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">server</span><span class="o">-</span><span class="n">config</span><span class="o">=</span><span class="n">standalone</span><span class="o">-</span><span class="n">ha</span><span class="p">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">node</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="n">nodeTwo</span> <span class="o">-</span><span class="n">Djboss</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">binding</span><span class="p">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="o">=</span><span class="mi">100</span>
+</pre></div>
+<p><em>Note: If you want to test with more than two servers, you can start additional servers by specifying a unique node name and unique port offset for each one.</em></p>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP servers as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This deploys <code>service/target/jboss-cluster-ha-singleton-service.jar</code> to the running instance of the first server.</p></li>
+<li><p>Since default socket binding port is <code>9999</code> and the second server runs at a port offset of <code>100</code>, you must pass port <code>10099</code> (9999 + 100) as an argument when you deploy to the second server. Type this command to deploy the archive to the second server. </p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">10099</span>
+</pre></div>
+<p>If the second server is on a different host, you must also pass an argument for the host name as follows:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span> <span class="p">[</span><span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">hostname</span><span class="o">=</span><span class="n">OTHERHOST</span><span class="p">]</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">10099</span>
+</pre></div>
+<p><em>Note: If you test with more than two servers, repeat the command, replacing the unique node name and unique port offset for each server.</em></p></li>
+<li><p>This deploys <code>service/target/jboss-cluster-ha-singleton-service.jar</code> to the running instance of the additional server.</p></li>
+<li><p>To verify the application deployed to each server instance, check the server logs. All instances should have the following messages:</p>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">clustering</span><span class="p">.</span><span class="n">singleton</span><span class="p">]</span> <span class="p">(</span><span class="n">SingletonService</span> <span class="n">lifecycle</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">JBAS010342</span><span class="o">:</span> <span class="n">nodeOne</span><span class="o">/</span><span class="n">cluster</span> <span class="n">elected</span> <span class="n">as</span> <span class="n">the</span> <span class="n">singleton</span> <span class="n">provider</span> <span class="n">of</span> <span class="n">the</span> <span class="n">jboss</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">ejb</span><span class="p">.</span><span class="n">ha</span><span class="p">.</span><span class="n">singleton</span> <span class="n">service</span>
+<span class="n">Only</span> <span class="n">nodeOne</span> <span class="p">(</span><span class="n">or</span> <span class="n">even</span> <span class="n">one</span> <span class="n">instance</span><span class="p">)</span> <span class="n">will</span> <span class="n">have</span> <span class="n">a</span> <span class="n">message</span><span class="o">:</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">clustering</span><span class="p">.</span><span class="n">singleton</span><span class="p">]</span> <span class="p">(</span><span class="n">SingletonService</span> <span class="n">lifecycle</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">JBAS010340</span><span class="o">:</span> <span class="n">This</span> <span class="n">node</span> <span class="n">will</span> <span class="n">now</span> <span class="n">operate</span> <span class="n">as</span> <span class="n">the</span> <span class="n">singleton</span> <span class="n">provider</span> <span class="n">of</span> <span class="n">the</span> <span class="n">jboss</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">ejb</span><span class="p">.</span><span class="n">ha</span><span class="p">.</span><span class="n">singleton</span> <span class="n">service</span>
+</pre></div>
+<p>You also see the following warning in the server logs. As mentioned above, this quickstart accesses the class <code>org.jboss.as.clustering.singleton.SingletonService</code>, which is part of the JBoss EAP private API. This server log message provides an additional warning about the use of the private API.</p>
+<div class="highlight"><pre><span class="n">WARN</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">dependency</span><span class="p">.</span><span class="n">private</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">11</span><span class="p">)</span> <span class="n">JBAS018567</span><span class="o">:</span> <span class="n">Deployment</span> <span class="s">&quot;deployment.jboss-cluster-ha-singleton-service.jar&quot;</span> <span class="n">is</span> <span class="n">using</span> <span class="n">a</span> <span class="n">private</span> <span class="n">module</span> <span class="p">(</span><span class="s">&quot;org.jboss.as.clustering.singleton:main&quot;</span><span class="p">)</span> <span class="n">which</span> <span class="n">may</span> <span class="n">be</span> <span class="n">changed</span> <span class="n">or</span> <span class="n">removed</span> <span class="n">in</span> <span class="n">future</span> <span class="n">versions</span> <span class="n">without</span> <span class="n">notice</span><span class="p">.</span>
+</pre></div></li>
+<li><p>The timer on the started node will log a message every 10 seconds.</p></li>
+<li><p>If you prefer to use a special node, the election-policy can be used.
+In the example, the node with the name <code>node1</code> will be used as master, if it is available.
+If it has failed or shutdown, any other node will be used.</p></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type the following commands to undeploy the archives:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+<span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span> <span class="p">[</span><span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">hostname</span><span class="o">=</span><span class="n">OTHERHOST</span><span class="p">]</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">10099</span>
+</pre></div></li>
+</ol>
+
+<p><em>Note: You may see the following exception when you undeploy the archive from the second server. You can ignore this message as it is expected.</em></p>
+<div class="highlight"><pre>    <span class="n">ERROR</span> <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">ejb3</span><span class="p">.</span><span class="n">invocation</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">11</span><span class="p">)</span> <span class="n">JBAS014134</span><span class="o">:</span> <span class="n">EJB</span> <span class="n">Invocation</span> <span class="n">failed</span> <span class="n">on</span> <span class="n">component</span> <span class="n">SchedulerBean</span> <span class="k">for</span> <span class="n">method</span> <span class="n">public</span> <span class="n">abstract</span> <span class="kt">void</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">cluster</span><span class="p">.</span><span class="n">hasingleton</span><span class="p">.</span><span class="n">service</span><span class="p">.</span><span class="n">ejb</span><span class="p">.</span><span class="n">Scheduler</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span><span class="o">:</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">ejb3</span><span class="p">.</span><span class="n">component</span><span class="p">.</span><span class="n">EJBComponentUnavailableException</span><span class="o">:</span> <span class="n">JBAS014559</span><span class="o">:</span> <span class="n">Invocation</span> <span class="n">cannot</span> <span class="n">proceed</span> <span class="n">as</span> <span class="n">component</span> <span class="n">is</span> <span class="n">shutting</span> <span class="n">down</span>
+</pre></div>
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div>
+<hr/>
+</body></html>

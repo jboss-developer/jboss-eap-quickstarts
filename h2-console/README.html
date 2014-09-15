@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="h2console-example-using-the-h2-console-with-jboss" class="anchor" href="#h2console-example-using-the-h2-console-with-jboss"><span class="anchor-icon"></span></a>h2-console: Example Using the H2 Console with JBoss</h1>
+
+<p>Author: Pete Muir<br/>
+Level: Beginner<br/>
+Technologies: H2<br/>
+Summary: Shows how to use the H2 console with JBoss EAP<br/>
+Target Product: EAP<br/>
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>JBoss EAP bundles H2 as an in-memory, in-process database. H2 is written in Java so it can run on any platform that JBoss EAP runs on.</p>
+
+<p>This quickstart comes bundled with a version of the H2 Console built for JBoss EAP. To make the H2 console run on JBoss EAP, the H2 libraries were removed from the WAR and a dependency on the H2 module was added to the <code>META-INF/MANIFEST.MF</code> file. The rebuilt console is provided in the root directory of this quickstart.</p>
+
+<p>This is quickstart shows you how to use the H2 console with Red Hat JBoss Enterprise Application Platform. It uses the <code>greeter</code> quickstart as a GUI for entering data.</p>
+
+<p><em>Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="prerequisites" class="anchor" href="#prerequisites"><span class="anchor-icon"></span></a>Prerequisites</h2>
+
+<p>This quickstart depends on the deployment of the <code>greeter</code> quickstart. Before running this quickstart, see the <a href="../greeter/README.html">greeter README</a> file for details on how to deploy it.</p>
+
+<p>You can verify the deployment of the <code>greeter</code> quickstart by accessing the following URL: <a href="http://localhost:8080/jboss-greeter">http://localhost:8080/jboss-greeter</a> </p>
+
+<h2><a id="deploy-the-h2-console" class="anchor" href="#deploy-the-h2-console"><span class="anchor-icon"></span></a>Deploy the H2 Console</h2>
+
+<p>Deploy the console by copying the <code>h2console.war</code> located in the root directory of this quickstart to the <code>EAP_HOME/standalone/deployments</code> directory. </p>
+
+<p>The location of <code>EAP_HOME</code> depends on how you installed JBoss EAP. The install paths are described in detail here: <a href="../README.html#use-of-eaphome-and-jbosshome-variables">Use of EAP_HOME and JBOSS_HOME Variables</a></p>
+
+<h2><a id="access-the-h2-console-" class="anchor" href="#access-the-h2-console-"><span class="anchor-icon"></span></a>Access the H2 Console </h2>
+
+<p>You can access the console at the following URL:  <a href="http://localhost:8080/h2console">http://localhost:8080/h2console</a>.</p>
+
+<p>You need to enter the JDBC URL, and credentials. To access the &ldquo;test&rdquo; database that the <code>greeter</code> quickstart uses, enter these details:</p>
+
+<ul>
+<li>JDBC URL: <code>jdbc:h2:mem:greeter-quickstart;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</code></li>
+<li>User Name: <code>sa</code></li>
+<li>Password: <code>sa</code></li>
+</ul>
+
+<p>Click on the <em>Test Connection</em> button to make sure you can connect. If you can, go ahead and click <em>Connect</em>.</p>
+
+<h2><a id="investigate-the-h2-console" class="anchor" href="#investigate-the-h2-console"><span class="anchor-icon"></span></a>Investigate the H2 Console</h2>
+
+<p>Take a look at the data added by the <code>greeter</code> application. Run the following SQL command:</p>
+<div class="highlight"><pre>    <span class="n">select</span> <span class="o">*</span> <span class="n">from</span> <span class="n">users</span><span class="p">;</span>
+</pre></div>
+<p>You should see the two users seeded by the <code>greeter</code> quickstart, plus any users you added when testing that application.</p>
+
+<h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
+
+<p><em>Note:</em> You will see the following warnings in the server log. You can ignore this warning.</p>
+<div class="highlight"><pre>    <span class="nl">JBAS018568:</span> <span class="n">Deployment</span> <span class="s">&quot;deployment.h2console.war&quot;</span> <span class="n">is</span> <span class="n">using</span> <span class="n">an</span> <span class="n">unsupported</span> <span class="n">module</span> <span class="p">(</span><span class="s">&quot;com.h2database.h2:main&quot;</span><span class="p">)</span> <span class="n">which</span> <span class="n">may</span> <span class="n">be</span> <span class="n">changed</span> <span class="n">or</span> <span class="n">removed</span> <span class="n">in</span> <span class="n">future</span> <span class="n">versions</span> <span class="n">without</span> <span class="n">notice</span><span class="p">.</span>
+</pre></div></body></html>

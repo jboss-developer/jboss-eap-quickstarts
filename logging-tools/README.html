@@ -1,0 +1,148 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="jbossloggingtools-internationalization-and-localization-with-jboss-logging-tools" class="anchor" href="#jbossloggingtools-internationalization-and-localization-with-jboss-logging-tools"><span class="anchor-icon"></span></a>jboss-logging-tools: Internationalization and Localization with JBoss Logging Tools</h1>
+
+<p>Author: Darrin Mison<br/>
+Level: Beginner<br/>
+Technologies: JBoss Logging Tools<br/>
+Summary: Demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages<br/>
+Target Product: EAP<br/>
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This quick start demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages; and then provide localizations for them. This is done using a simple JAX-RS service. Translations in French(fr-FR), German(de-DE), and Swedish (sv-SE) are provided courtesy of <a href="http://translate.google.com">http://translate.google.com</a> for demonstration. My apologies if they are less than ideal translations.</p>
+
+<p>Once the quick start is deployed you can access it using URLs documented below.</p>
+
+<p>Instructions are included below for starting JBoss EAP with a different locale than the system default.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="configure-the-jboss-eap-server-to-start-with-a-different-locale-optional" class="anchor" href="#configure-the-jboss-eap-server-to-start-with-a-different-locale-optional"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server to Start With a Different Locale (Optional)</h2>
+
+<p>To start the JBoss EAP server with a different locale than the system default:</p>
+
+<ol>
+<li>Make a backup copy of the <code>EAP_HOME/bin/standalone.conf</code> file.</li>
+<li><p>Edit the file and append commands to set the JVM parameters for the required country and language.
+Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
+<div class="highlight"><pre><span class="n">JAVA_OPTS</span><span class="o">=</span><span class="s">&quot;$JAVA_OPTS -Duser.country=DE&quot;</span>
+<span class="n">JAVA_OPTS</span><span class="o">=</span><span class="s">&quot;$JAVA_OPTS -Duser.language=de&quot;</span>
+</pre></div>
+<p>This can be done as a single line if you prefer:</p>
+<div class="highlight"><pre><span class="n">JAVA_OPTS</span><span class="o">=</span><span class="s">&quot;$JAVA_OPTS -Duser.country=DE -Duser.language=de&quot;</span>   
+</pre></div>
+<p>Refer to <a href="http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale">http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale</a></p></li>
+</ol>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-logging-tools.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<p><em>Note:</em> You may see the following warnings in the server log. </p>
+<div class="highlight"><pre>    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">exceptions</span><span class="o">/</span><span class="n">GreeterExceptionBundle</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">messages</span><span class="o">/</span><span class="n">GreetingMessagesBundle</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">24</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">exceptions</span><span class="o">/</span><span class="n">DateExceptionsBundle</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">27</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">loggers</span><span class="o">/</span><span class="n">DateLogger</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+    <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">logging</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">java</span><span class="o">/</span><span class="n">org</span><span class="o">/</span><span class="n">jboss</span><span class="o">/</span><span class="n">as</span><span class="o">/</span><span class="n">quickstarts</span><span class="o">/</span><span class="n">loggingToolsQS</span><span class="o">/</span><span class="n">loggers</span><span class="o">/</span><span class="n">GreeterLogger</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="p">[</span><span class="mi">26</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="n">Generating</span> <span class="n">translation</span> <span class="n">class</span><span class="p">.</span>
+</pre></div>
+<p>This is due to a bug in the Maven compiler plug-in where all CompilerMessages are logged at warning or error level, even if they are not warnings or errors. A fix has been submitted but has not yet been applied. Details can be found here: <a href="http://jira.codehaus.org/browse/MCOMPILER-224">http://jira.codehaus.org/browse/MCOMPILER-224</a>.</p>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-logging-tools/">http://localhost:8080/jboss-logging-tools/</a></p>
+
+<p>This landing page provides details and links to test the quickstart features. You can also directly access the following URLs.</p>
+
+<ol>
+<li><p><code>http://localhost:8080/jboss-logging-tools/rest/greetings/&#39;name&#39;</code> </p>
+
+<ul>
+<li>Example:  <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/Harold">http://localhost:8080/jboss-logging-tools/rest/greetings/Harold</a></li>
+<li>Demonstrates simple use of localized messages (with parameter) and logging.</li>
+<li>It returns the localized &ldquo;hello <code>name</code>&rdquo; string where <code>name</code> is the last component of the URL.</li>
+<li>It also logs the localized &ldquo;Hello message sent&rdquo; in the server log.</li>
+</ul></li>
+<li><p><code>http://localhost:8080/jboss-logging-tools/rest/greetings/&#39;locale&#39;/&#39;name&#39;</code></p>
+
+<ul>
+<li>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold">http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold</a></li>
+<li>Demonstrates how to obtain a message bundle for a specified locale and how to throw a localized exceptions. Note that the localized exception is a wrapper around <code>WebApplicationException</code>.</li>
+<li>Returns a localized &ldquo;hello <code>name</code>&rdquo; string where <code>name</code> is the last component of the URL and the locale used is the one supplied in the <code>locale</code> URL.</li>
+<li>Logs a localized &ldquo;Hello message sent in <code>locale</code>&rdquo; message using the JVM locale for the translation.</li>
+<li><p>If the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO), it throws a <code>WebApplicationException</code> (404) using a localizable sub-class of <code>WebApplicationException</code>.</p>
+
+<p>Note that <code>WebApplicationException</code> cannot be directly localized by JBoss Logging Tools using the <code>@Message</code> annotation due to the message parameter being ignored by the <code>WebApplicationException</code> constructors. Cases like this can be worked around by creating a subclass with a constructor that does deal with the message parameter.</p></li>
+</ul></li>
+<li><p><a href="http://localhost:8080/jboss-logging-tools/rest/greetings/crashme">http://localhost:8080/jboss-logging-tools/rest/greetings/crashme</a></p>
+
+<ul>
+<li>Demonstrates how to throw a localized exception with another exception specified as the cause.  This is a completely contrived example.</li>
+<li>Attempts to divide by zero, catches the exception, and throws the localized one.</li>
+</ul></li>
+<li><p><code>http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/&#39;targetdate&#39;</code></p>
+
+<ul>
+<li>Example: <a href="http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2020">http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2020</a></li>
+<li>Demonstrates how to pass parameters through to the constructor of a localized exception, and how to specify an exception as a cause of a log message. </li>
+<li>Attempts to turn the <code>targetdate</code> URL component into a date object using the format <code>dd-MM-yyyy</code></li>
+<li>Returns number of days (as an integer) until that date</li>
+<li>If the <code>targetdate</code> is invalid, for example, <a href="http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/31-02-2015">http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/31-02-2015</a>:
+
+<ul>
+<li>Catches the <code>ParseException</code></li>
+<li>Creates a localized <code>ParseException</code> passing values from the caught exception as parameters to its constructor</li>
+<li>Logs a localized message with the localized exception as the cause</li>
+<li>Throws a <code>WebApplicationException</code>(400) with the text from the localized <code>ParseException</code></li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>  <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+  <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>

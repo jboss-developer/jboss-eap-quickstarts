@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://www.jboss.org/jdf/stylesheets/documentation.css" rel="stylesheet"></link><link href="http://www.jboss.org/jdf/stylesheets/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="greeter-greeter-example" class="anchor" href="#greeter-greeter-example"><span class="anchor-icon"></span></a>greeter: Greeter Example</h1>
+
+<p>Author: Pete Muir<br/>
+Level: Beginner<br/>
+Technologies: CDI, JSF, JPA, EJB, JTA<br/>
+Summary: Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0<br/>
+Target Product: EAP<br/>
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This example demonstrates the use of <em>CDI 1.0</em>, <em>JPA 2.0</em>, <em>JTA 1.1</em>, <em>EJB 3.1</em> and <em>JSF 2.0</em> in Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>When you deploy this example, two users are automatically created for you:  <code>emuster</code> and <code>jdoe</code>. This data is located in the <code>src/main/resources/import.sql file</code>.</p>
+
+<p>To test this example:</p>
+
+<ol>
+<li>Enter a name in the <code>username</code> field and click on <code>Greet!</code>.</li>
+<li>If you enter a username that is not in the database, you get a message <code>No such user exists!</code>.</li>
+<li>If you enter a valid username, you get a message &ldquo;Hello, &rdquo; followed by the user&rsquo;s first and last name.</li>
+<li>To create a new user, click the <code>Add a new user</code> link. Enter the username, first name, and last name and then click <code>Add User</code>. The user is added and a message displays the new user id number.</li>
+<li>Click on the <code>Greet a user!</code> link to return to the <code>Greet!</code> page.</li>
+</ol>
+
+<p><em>Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.</p>
+
+<p>All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.</p>
+
+<h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
+
+<p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p><em>NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See <a href="../README.html#build-and-deploy-the-quickstarts">Build and Deploy the Quickstarts</a> for complete instructions and additional options.</em></p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-greeter.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-greeter">http://localhost:8080/jboss-greeter</a>. </p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
+
+<p><em>Note:</em> You will see the following warnings and errors in the server log. Hibernate attempts to drop the table and constraints before they are created because the <code>hibernate.hbm2ddl.auto</code> value is set to <code>create-drop</code>. You can ignore these warnings and errors.</p>
+<div class="highlight"><pre>    <span class="nl">HHH000431:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">determine</span> <span class="n">H2</span> <span class="n">database</span> <span class="n">version</span><span class="p">,</span> <span class="n">certain</span> <span class="n">features</span> <span class="n">may</span> <span class="n">not</span> <span class="n">work</span>
+
+    <span class="nl">HHH000389:</span> <span class="n">Unsuccessful</span><span class="o">:</span> <span class="n">drop</span> <span class="n">sequence</span> <span class="n">hibernate_sequence</span>
+    <span class="n">Sequence</span> <span class="s">&quot;HIBERNATE_SEQUENCE&quot;</span> <span class="n">not</span> <span class="n">found</span><span class="p">;</span> <span class="n">SQL</span> <span class="n">statement</span><span class="o">:</span> <span class="n">drop</span> <span class="n">sequence</span> <span class="n">hibernate_sequence</span> <span class="p">[</span><span class="mi">90036</span><span class="o">-</span><span class="mi">168</span><span class="p">]</span>
+</pre></div>
+<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>
