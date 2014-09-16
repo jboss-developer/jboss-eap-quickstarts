@@ -160,7 +160,6 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
-                <module>servlet-security-genericheader-auth</module>
                 <module>shopping-cart</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
@@ -201,7 +200,6 @@
                 <module>inter-app</module>                
                 <module>jax-rs-client</module>
                 <module>jts</module>
-                <module>servlet-security-genericheader-auth</module>
             </modules>
         </profile>
         <profile>
