@@ -52,7 +52,7 @@
         
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-7</version.jboss.spec.javaee.6.0>
 
         <!-- other plugin versions -->
         <version.ejb.plugin>2.3</version.ejb.plugin>
