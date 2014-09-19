@@ -147,7 +147,7 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
-Remstore the JBoss EAP Server Configuration
+Restore the JBoss EAP Server Configuration
 ----------------------------
 
 You can remove the server configuration by running the  `disable-mdb-property-substitution.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
