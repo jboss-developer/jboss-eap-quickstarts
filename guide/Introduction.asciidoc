@@ -35,11 +35,7 @@ JBoss Enterprise Application Platform 6 comes with a series of quickstarts aimed
 . <<GreeterQuickstart-, Greeter Quickstart>>. If you are a Java EE wizard you may wish to skip this quickstart.
 . <<KitchensinkQuickstart-, Kitchensink Quickstart>>. A great starting point for your project.
 
-*Optional*
-[start=5]
-. <<HelloworldOSGiQuickstart-, OSGi Helloworld Quickstart>>. If you want to get started with OSGi, check out this quickstart.
-
 == Downloading the quickstarts
 
-The quickstarts are are available for download from link:http://www.jboss.org/jdf/quickstarts/get-started[JBoss Developer Framework]. Make sure you download the latest zip! 
+The quickstarts are are available for download from link:http://www.jboss.org/products/eap/download/[ JBoss Developer Program Download]. Choose the Quickstarts zip! 
 
