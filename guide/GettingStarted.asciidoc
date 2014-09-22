@@ -1,4 +1,4 @@
-= Getting started with JBoss Enterprise Application Platform 6
+= Getting started with Red Hat JBoss Enterprise Application Platform 6
 :Author: Pete Muir
 
 [[GettingStarted-]]
@@ -16,28 +16,28 @@ Java 1.6, to run JBoss EAP and Maven::
 
   * link:http://openjdk.java.net/install/[OpenJDK]
   * link:http://www.oracle.com/technetwork/java/javase/index-137561.html[Oracle Java SE]
-  * link:http://download.oracle.com/docs/cd/E15289_01/doc.40/e15065/toc.htm[Oracle JRockit]
+  * link:http://docs.oracle.com/cd/E15289_01/doc.40/e15065/toc.htm[Oracle JRockit]
 Maven 3, to build and deploy the quickstarts::
   Follow the official Maven installation guide if you don't already have Maven 3 installed. You can check which version of Maven you have installed (if any) by running `mvn --version` . If you see a version newer than 3.0.0, you are ready to go. 
 
 Make sure you have:
 
-The JBoss Enterprise Application Platform 6 runtime::
-  link:http://www.jboss.org/products/eap/[Red Hat JBoss Products]
+The JBoss EAP 6 runtime::
+  Download the link:http://www.jboss.org/products/eap/download/[Installer or ZIP]
 
-The JBoss Enterprise Application Platform 6 quickstarts::
-  link:http://www.jboss.org/jdf/quickstarts/get-started/[Quickstarts: Get Started]
+The JBoss EAP 6 quickstarts::
+  Download the link:http://www.jboss.org/products/eap/download/[Quickstarts]
 
 If you wish to use the examples from an IDE, we recommend using JBoss Developer Studio, or Eclipse with JBoss Tools.
 
 JBoss Developer Studio::
-  Download JBDS from link:http://devstudio.jboss.com/download/[]. JBDS includes JBoss Enterprise Application Platform.
+  Download JBDS from link:http://www.jboss.org/products/devstudio/download/[]. JBDS includes JBoss EAP.
 Eclipse, with JBoss Tools::
   Download JBoss Tools from link:http://jboss.org/tools[]. Make sure you install m2eclipse as well.
 
 [TIP]
 ========================================================================
-JBoss Enterprise Application Platform 6 offers the 
+JBoss EAP 6 offers the 
 ability to manage multiple EAP instances from a single control point. 
 A collection of such servers are referred to as members of a "domain",
 with a single Domain Controller process acting as the management control
@@ -87,14 +87,21 @@ That's it, JBoss EAP is installed and running! Visit http://localhost:8080/ to c
 [TIP]
 ========================================================================
 You can find the server log for standalone instances in 
-`jboss-eap-6.x.x/standalone/log/server.log`. The 
-link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide for JBoss Enterprise Application Platform 6] covers more on configuring logging. 
+`jboss-eap-6.x.x/standalone/log/server.log`. The JBoss EAP 6
+link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide] covers more on configuring logging. 
 ========================================================================
 
 
 == Installing and starting the JBoss server on Windows
 [[GettingStarted-on_windows]]
 
+[TIP]
+========================================================================
+See the JBoss EAP 6 
+link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Getting Started Guide] 
+for more complete instructions to get started with JBoss EAP 6, 
+the quickstarts and JBoss Developer Studio.
+========================================================================
 
 First, let's verify that verify that both Java and Maven are correctly installed. In a Command Prompt, type:
 
@@ -106,9 +113,9 @@ You should see a version string (at least `1.6.0`) printed. If not, contact your
 
 You should see a version string (at lest `3.0.0`) printed. If not, contact the Maven community for assistance. 
 
-Next, we need to choose a location for JBoss Enterprise Application Platform 6 to live. By default, JBoss EAP 6 will be extracted into `jboss-eap-6.x.x` (where `6.x.x` matches the version you downloaded). Unzip JBoss Enterprise Application Platform using your tool of choice. 
+Next, we need to choose a location for JBoss EAP 6 to live. By default, JBoss EAP 6 will be extracted into `jboss-eap-6.x.x` (where `6.x.x` matches the version you downloaded). Unzip JBoss EAP using your tool of choice. 
 
-Finally, let's start JBoss Enterprise Application Platform in standalone mode. Locate your installation and run `standalone.bat` located in `bin`.
+Finally, let's start JBoss EAP in standalone mode. Locate your installation and run `standalone.bat` located in `bin`.
 
 
 [TIP]
@@ -117,21 +124,21 @@ If you want to stop the server, simply press Crtl-C whilst the terminal
 has focus. 
 ========================================================================
 
-That's it, JBoss Enterprise Application Platform 6 is installed and running! Visit http://localhost:8080/ to check the server has started properly. 
+That's it, JBoss EAP 6 is installed and running! Visit http://localhost:8080/ to check the server has started properly. 
 
 
 [TIP]
 ========================================================================
 You can find the server log for standalone instances in 
-`jboss-as-6.x.x/standalone/log/server.log`. The 
-link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide for JBoss Enterprise Application Platform 6] covers more on configuring logging.
+`jboss-as-6.x.x/standalone/log/server.log`. The JBoss EAP 6
+link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide] covers more on configuring logging.
 ========================================================================
 
 
 == Starting the JBoss server from JBDS or Eclipse with JBoss Tools
 [[GettingStarted-with_jboss_tools]]
 
-You may choose to use JBoss Developer Studio, or Eclipse with JBoss Tools, rather than the command line to run JBoss Enterprise Application Platform 6 and to deploy the quickstarts. If you don't wish to use Eclipse, you should skip this section.
+You may choose to use JBoss Developer Studio, or Eclipse with JBoss Tools, rather than the command line to run JBoss EAP 6 and to deploy the quickstarts. If you don't wish to use Eclipse, you should skip this section.
 
 Make sure you have installed and started JBoss Developer Studio or Eclipse. First, we need to add our JBoss EAP instance to it. First, navigate to _Preferences_:
 
@@ -209,13 +216,13 @@ image:gfx/Import_Quickstarts_5.jpg[]
 It will take a short time to import the projects, as Maven needs to download the project's dependencies from remote repositories.
 
 
-== Managing JBoss Enterprise Application Platform 6
+== Managing JBoss EAP 6
 
-Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss Enterprise Application Platform 6. Detailed information can be found in the link:https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide for JBoss Enterprise Application Platform 6].
+Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss EAP 6. Detailed information can be found in the JBoss EAP 6 link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide].
 
 When the server is running, the web management interface can be accessed at http://localhost:9990/console. You can use the web management interface to create datasources, manage deployments and configure the server. 
 
-JBoss Enterprise Application Platform 6 comes with a command line interface. To run it on Linux, Unix or Mac, execute:
+JBoss EAP 6 comes with a command line interface. To run it on Linux, Unix or Mac, execute:
 
     jboss-eap-6.x.x/bin/jboss-admin.sh --connect
 
