@@ -3,7 +3,7 @@ jboss-websocket-hello: A simple WebSocket application
 Author: Sande Gilda, Emmanuel Hugonett   
 Level: Beginner  
 Technologies: WebSocket  
-Summary: An simple example of a WebSocket application  
+Summary: A simple example of a WebSocket application  
 Target Product: EAP  
 Product Versions: EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
