@@ -26,7 +26,7 @@ Switch to the `quickstarts/kitchensink` directory and instruct Maven to build an
 
     mvn package jboss-as:deploy
 
-The quickstart uses a Maven plugin to deploy the application. The plugin requires JBoss Enterprise Application Platform 6 to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss server on Windows>>).
+The quickstart uses a Maven plug-in to deploy the application. The plug-in requires Red Hat JBoss Enterprise Application Platform 6 to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss server on Windows>>).
 
 Or you can start the server using an IDE, like Eclipse.
 
@@ -47,7 +47,7 @@ It's time to pull the covers back and dive into the internals of the application
 
 == Deploying the Kitchensink quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools
 
-You may choose to deploy the quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools. You'll need to have JBoss Enterprise Application Platform 6 started in the IDE (as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse,Importing the quickstarts into Eclipse>>).
+You may choose to deploy the quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools. You'll need to have Red Hat JBoss Enterprise Application Platform 6 started in the IDE (as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse,Importing the quickstarts into Eclipse>>).
 
 With the quickstarts imported, you can deploy the quickstart by right clicking on the `jboss-kitchensink` project, and choosing _Run As -> Run On Server_:
 
@@ -66,7 +66,7 @@ image:gfx/Eclipse_KitchenSink_Deploy_3.jpg[]
 
 The kitchensink application shows off a number of Java EE technologies such as CDI, JSF, EJB, JTA, JAX-RS and Arquillian. It does this by providing a member registration database, available via JSF and JAX-RS.
 
-As usual, let's start by looking at the necessary deployment descriptors. By now, we're very used to seeing `beans.xml` and `faces-config.xml` in `WEB-INF/` (which can be found in the `src/main/webapp` directory). Notice that, once again, we don't need a `web.xml`. There are two configuration files in `WEB-INF/classes/META-INF` (which can be found in the `src/main/resources` directory) — `persistence.xml`, which sets up JPA, and `import.sql` which Hibernate, the JPA provider in JBoss Enterprise Application Platform 6, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in <<GreeterQuickstart-,the Greeter Quickstart>>, and these are largely the same.
+As usual, let's start by looking at the necessary deployment descriptors. By now, we're very used to seeing `beans.xml` and `faces-config.xml` in `WEB-INF/` (which can be found in the `src/main/webapp` directory). Notice that, once again, we don't need a `web.xml`. There are two configuration files in `WEB-INF/classes/META-INF` (which can be found in the `src/main/resources` directory) — `persistence.xml`, which sets up JPA, and `import.sql` which Hibernate, the JPA provider in Red Hat JBoss Enterprise Application Platform 6, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in <<GreeterQuickstart-,the Greeter Quickstart>>, and these are largely the same.
 
 Next, let's take a look at the JSF view the user sees. As usual, we use a template to provide the sidebar and footer. This one lives in `src/main/webapp/WEB-INF/templates/default.xhtml`:
 
@@ -95,7 +95,7 @@ Next, let's take a look at the JSF view the user sees. As usual, we use a templa
             </ui:insert>
         </div>
         <div id="aside">                                             <3>
-            <p>Learn more about JBoss Enterprise Application
+            <p>Learn more about Red Hat JBoss Enterprise Application
                 Platform 6.</p>
             <ul>
                 <li>
@@ -419,7 +419,7 @@ public class Resources {
 <2> We expose a JDK logger for injection. In order to save a bit more boiler plate, we automatically set the logger category as the class name!
 <3> We expose the `FacesContext` via a producer method, which allows it to be injected. If we were adding tests, we could also then mock it out.
 
-If you want to define your own datasource, take a look at the link:http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/index.html[Administration and Configuration Guide for JBoss Enterprise Application Platform 6] or the link:https://docs.jboss.org/author/display/AS71/Getting+Started+Guide[Getting Started Guide].
+If you want to define your own datasource, take a look at the link:http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/index.html[Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform 6] or the link:https://docs.jboss.org/author/display/AS71/Getting+Started+Guide[Getting Started Guide].
 
 Of course, we need to allow JSF to interact with the services. The `MemberController` class is responsible for this:
 
@@ -677,7 +677,7 @@ public class MemberResourceRESTService {
 <4> CDI allows us to inject a Bean Validation `Validator` instance, which is used to validate the POSTed member before it is persisted
 <5> `MemberRegistration` is injected to allow us to alter the member database
 <6> `MemberRepository` is injected to allow us to query the member database
-<7> The `listAllMembers()` method is called when the raw endpoint is accessed and offers up a list of endpoints. Notice that the object is automatically marshalled to JSON by RESTEasy (the JAX-RS implementation included in JBoss Enterprise Application Platform 6). 
+<7> The `listAllMembers()` method is called when the raw endpoint is accessed and offers up a list of endpoints. Notice that the object is automatically marshalled to JSON by RESTEasy (the JAX-RS implementation included in Red Hat JBoss Enterprise Application Platform 6). 
 <8> The `lookupMemberById()` method is called when the endpoint is accessed with a member id parameter appended (for example `rest/members/1)`. Again, the object is automatically marshalled to JSON by RESTEasy.
 <9> `createMember()` is called when a POST is performed on the URL. Once again, the object is automatically unmarshalled from JSON.
 <10> In order to ensure that the member is valid, we call the `validateMember` method, which validates the object, and adds any constraint violations to the response. These can then be handled on the client side, and displayed to the user
@@ -689,7 +689,7 @@ public class MemberResourceRESTService {
 
 If you've been following along with the Test Driven Development craze of the past few years, you're probably getting a bit nervous by now, wondering how on earth you are going to test your application. Lucky for you, the Arquillian project is here to help!
 
-Arquillian provides all the boiler plate for running your test inside JBoss Enterprise Application Platform 6, allowing you to concentrate on testing your application. In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, to create an archive to deploy. We'll go through the testcase, and how you configure Arquillian in just a moment, but first let's run the test.
+Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform 6, allowing you to concentrate on testing your application. In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, to create an archive to deploy. We'll go through the testcase, and how you configure Arquillian in just a moment, but first let's run the test.
 
 Before we start, we need to let Arquillian know the path to our server. Open up `src/test/resources/arquillian.xml`, uncomment the `<configuration>` elements, and set the `jbossHome` property to the path to the server:
 
@@ -832,7 +832,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
 ------------------------------------------------------------------------
 
-As you can see, that didn't take too long (approximately 15s), and is great for running in your QA environment, but if you running locally, you might prefer to connect to a running server. To do that, start up JBoss Enterprise Application Platform 6 (as described in <<GettingStarted-, Getting Started with JBoss Enterprise Application Platform of JBoss EAP>>. Now, run your test, but use the `arq-jbossas-remote` profile:
+As you can see, that didn't take too long (approximately 15s), and is great for running in your QA environment, but if you running locally, you might prefer to connect to a running server. To do that, start up Red Hat JBoss Enterprise Application Platform 6 (as described in <<GettingStarted-, Getting Started with Red Hat JBoss Enterprise Application Platform of JBoss EAP>>. Now, run your test, but use the `arq-jbossas-remote` profile:
 
     mvn clean test -Parq-jbossas-remote
 

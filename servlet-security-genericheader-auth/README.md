@@ -28,7 +28,7 @@ on the `SecuredServlet` sample.
 System requirements
 -------------------
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later and Maven 3.0 or later.
 
