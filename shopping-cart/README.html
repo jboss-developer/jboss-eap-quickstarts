@@ -65,7 +65,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>You should see the following: </p>
 
 <ol>
-<li>The client sends a remote method invocation to the stateful session bean to buy two &ldquo;JBoss Enterprise Application Platform 6&rdquo; subscriptions and one &ldquo;JBoss SOA Platform 6&rdquo; subscription.</li>
+<li>The client sends a remote method invocation to the stateful session bean to buy two &ldquo;Red Hat JBoss Enterprise Application Platform 6&rdquo; subscriptions and one &ldquo;JBoss SOA Platform 6&rdquo; subscription.</li>
 <li>The client sends a remote method invocation to get the contents of the cart and prints it to the console.</li>
 <li>The client sends a remote method invocation to invoke checkout. Note the <code>checkout()</code> method in the server <code>ShoppingCartBean</code> has the <code>@Remove</code> annotation. This means the container will destroy shopping cart after the call and it will no longer be available. </li>
 <li>The client calls <code>getCartContents()</code> to make sure the shopping cart was removed after checkout. This results in a <code>javax.ejb.NoSuchEJBException</code> trace in the server, proving the cart was removed.</li>
@@ -74,13 +74,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>On the client console, you should see output similar to:</p>
 <div class="highlight"><pre><span class="o">&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;</span>
 <span class="n">Obtained</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">interface</span> <span class="n">to</span> <span class="n">the</span> <span class="n">shopping</span> <span class="n">cart</span>
-<span class="n">Buying</span> <span class="n">a</span> <span class="s">&quot;JBoss Enterprise Application Platform 6&quot;</span>
-<span class="n">Buying</span> <span class="n">another</span> <span class="s">&quot;JBoss Enterprise Application Platform 6&quot;</span>
+<span class="n">Buying</span> <span class="n">a</span> <span class="s">&quot;Red Hat JBoss Enterprise Application Platform 6&quot;</span>
+<span class="n">Buying</span> <span class="n">another</span> <span class="s">&quot;Red Hat JBoss Enterprise Application Platform 6&quot;</span>
 <span class="n">Buying</span> <span class="n">a</span> <span class="s">&quot;JBoss SOA Platform 6&quot;</span>
 
 <span class="n">Print</span> <span class="n">cart</span><span class="o">:</span>
 <span class="mi">1</span>     <span class="n">JBoss</span> <span class="n">SOA</span> <span class="n">Platform</span> <span class="mi">6</span>
-<span class="mi">2</span>     <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> <span class="mi">6</span>
+<span class="mi">2</span>     <span class="n">Red</span> <span class="n">Hat</span> <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> <span class="mi">6</span>
 
 <span class="n">Checkout</span>
 <span class="n">Cart</span> <span class="n">was</span> <span class="n">correctly</span> <span class="n">removed</span><span class="p">,</span> <span class="n">as</span> <span class="n">expected</span><span class="p">,</span> <span class="n">after</span> <span class="n">Checkout</span>
