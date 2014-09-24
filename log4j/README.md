@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JBoss Modules  
 Summary: Demonstrates how to use modules to control class loading for 3rd party logging frameworks  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

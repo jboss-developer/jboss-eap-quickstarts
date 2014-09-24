@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB  
 Summary: Demonstrates asynchronous EJB invocations.  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

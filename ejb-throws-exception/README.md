@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, EAR  
 Summary: Shows how to handle Exceptions across JARs in an EAR  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
