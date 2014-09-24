@@ -4,7 +4,7 @@
 <p>Author: Giriraj Sharma<br/>
 Level: Beginner<br/>
 Technologies: Bean Validation, JPA<br/>
-Summary: Shows how to use Arquillian to test Bean Validation using custom constraints 
+Summary: Shows how to use Arquillian to test Bean Validation using custom constraints<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
@@ -15,7 +15,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The purpose of this project is to show you how to test bean validation using custom constraints with Arquillian. In this quickstart, the personAddress field of entity Person is validated using a set of custom constraints defined in the class AddressValidator. If you want to see an example of how to test bean validation with a user interface, look at the <a href="../kitchensink/README.html">kitchensink</a> example.</p>
 
-<p><em>Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 
@@ -32,8 +32,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <ol>
 <li>Open a command prompt and navigate to the root of the JBoss server directory.</li>
 <li><p>The following shows the command line to start the server:</p>
-<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JBOSS_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
-<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JBOSS_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
 </ol>
 
@@ -77,7 +77,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 </pre></div>
 <h2><a id="test-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#test-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Test the Quickstart in JBoss Developer Studio or Eclipse</h2>
 
-<p>You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
