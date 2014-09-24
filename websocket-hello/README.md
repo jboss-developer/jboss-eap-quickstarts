@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: WebSocket  
 Summary: A simple example of a WebSocket application  
 Target Product: EAP  
-Product Versions: EAP 6.3  
+Product Versions: EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
