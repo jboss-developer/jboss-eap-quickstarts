@@ -3,7 +3,7 @@ bean-validation-custom-constraint: Bean Validation using custom constraints via 
 Author: Giriraj Sharma  
 Level: Beginner  
 Technologies: Bean Validation, JPA  
-Summary: Shows how to use Arquillian to test Bean Validation using custom constraints 
+Summary: Shows how to use Arquillian to test Bean Validation using custom constraints  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -15,7 +15,7 @@ This project demonstrates how to use CDI 1.0, JPA 2.0 and Bean Validation 1.0. B
 
 The purpose of this project is to show you how to test bean validation using custom constraints with Arquillian. In this quickstart, the personAddress field of entity Person is validated using a set of custom constraints defined in the class AddressValidator. If you want to see an example of how to test bean validation with a user interface, look at the [kitchensink](../kitchensink/README.md) example.
 
-_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 System requirements
 -------------------
@@ -37,8 +37,8 @@ Start the JBoss Server
 1. Open a command prompt and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
 
 Run the Arquillian Tests 
@@ -87,7 +87,7 @@ _Note:_ You will see the following warnings and errors in the server log. Hibern
 
 Test the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application
