@@ -6,7 +6,7 @@ Technologies: (list technologies used here)
 Summary: (a brief description of the quickstart to appear in the table )  
 Prerequisites: (list any quickstarts that must be deployed prior to running this one)  
 Target Product: (EAP, WFK, JDG, etc)  
-Product Versions: (EAP 6.1, EAP 6.2, etc)  
+Product Versions: (EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4)  
 Source: (The URL for the repository that is the source of record for this quickstart)  
 
 

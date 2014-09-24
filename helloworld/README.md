@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, Servlet  
 Summary: Basic example that can be used to verify that the server is configured and running correctly  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, EAR  
 Summary: EJB applications deployed to different servers that communicate via EJB remote calls  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 

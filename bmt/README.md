@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, Bean Managed Transactions (BMT)  
 Summary: EJB that demonstrates bean-managed transactions (BMT)  
 Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
