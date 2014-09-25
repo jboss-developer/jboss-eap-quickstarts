@@ -95,8 +95,8 @@ This example shows how to invoke an EJB from a remote standalone application on 
 1. Be sure the quickstart deployed successfully as described above.
 2. Navigate to the root directory of this quickstart and type the following command to run the application. Be sure to replace `EAP_HOME` with the path to your JBoss EAP installation.
 
-        For Linux:   EAP_HOME/bin/appclient.sh ear/target/jboss-application-client.ear#simpleClient.jar Hello from command line
-        For Windows: EAP_HOME\bin\appclient.sh ear\target\jboss-application-client.ear#simpleClient.jar Hello from command line
+        For Linux:   EAP_HOME/bin/appclient.sh ear/target/jboss-app-client.ear#simpleClient.jar Hello from command line
+        For Windows: EAP_HOME\bin\appclient.sh ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
 
 3. Review the result. The client outputs the following information provided by the server application:
 
@@ -144,8 +144,8 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 4. Be sure that the quickstart deployed successfully and the server is running on `Machine 1` as described above.
 5. Type this command to run the application:
 
-        For Linux:   EAP_HOME/bin/appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear/target/jboss-application-client.ear#simpleClient.jar Hello from command line
-        For Windows: EAP_HOME\bin\appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-application-client.ear#simpleClient.jar Hello from command line
+        For Linux:   EAP_HOME/bin/appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear/target/jboss-app-client.ear#simpleClient.jar Hello from command line
+        For Windows: EAP_HOME\bin\appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
 
 6. Review the result. The client outputs the following information, which was provided by the application:
 
