@@ -157,10 +157,10 @@ To run the tests, right click on the project or individual classes and select `R
 Debug the Application
 ------------------------------------
 
-If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
+If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
 
       mvn dependency:sources
-      mvn dependency:resolve -Dclassifier=javadoc
+     
 
 
 Remove the Security Domain Configuration
