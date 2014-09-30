@@ -33,7 +33,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <span class="n">boolean</span> <span class="nf">roleTwoMethod</span><span class="p">();</span>
 </pre></div>
 <p>The first method can be called by all users that are created in this quickstart. The purpose of this method is to return a String containing the name of the Principal that called the EJB along with the user&rsquo;s authorized role information, for example:</p>
-<div class="highlight"><pre><span class="k">[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]</span>
+<div class="highlight"><pre>    <span class="p">[</span><span class="n">Principal</span><span class="o">=</span><span class="p">{</span><span class="n">ConnectionUser</span><span class="p">},</span> <span class="n">In</span> <span class="n">role</span> <span class="p">{</span><span class="n">User</span><span class="p">}</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span> <span class="n">In</span> <span class="n">role</span> <span class="p">{</span><span class="n">RoleOne</span><span class="p">}</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span> <span class="n">In</span> <span class="n">role</span> <span class="p">{</span><span class="n">RoleTwo</span><span class="p">}</span><span class="o">=</span><span class="nb">false</span><span class="p">]</span>
 </pre></div>
 <p>The next two methods are annotated to require that the calling user is authorized for roles &lsquo;RoleOne&rsquo; and &lsquo;RoleTwo&rsquo; respectively.</p>
 
@@ -57,11 +57,11 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 </ul>
 
 <p>This quickstart uses the ServiceLoader mechanism for registering the EJB client interceptor and places the <code>META-INF/services/org.jboss.ejb.client.EJBClientInterceptor</code> in the classpath, with the following content:</p>
-<div class="highlight"><pre><span class="cp"># EJB client interceptor(s) that will be added to the end of the interceptor chain during an invocation</span>
-<span class="cp"># on EJB. If these interceptors are to be added at a specific position, other than last, then use the</span>
-<span class="cp"># programmatic API in the application to register it explicitly to the EJBClientContext</span>
+<div class="highlight"><pre>    <span class="err">#</span> <span class="n">EJB</span> <span class="n">client</span> <span class="n">interceptor</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">interceptor</span> <span class="n">chain</span> <span class="n">during</span> <span class="n">an</span> <span class="n">invocation</span>
+    <span class="err">#</span> <span class="n">on</span> <span class="n">EJB</span><span class="p">.</span> <span class="n">If</span> <span class="n">these</span> <span class="n">interceptors</span> <span class="n">are</span> <span class="n">to</span> <span class="n">be</span> <span class="n">added</span> <span class="n">at</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">position</span><span class="p">,</span> <span class="n">other</span> <span class="n">than</span> <span class="n">last</span><span class="p">,</span> <span class="n">then</span> <span class="n">use</span> <span class="n">the</span>
+    <span class="err">#</span> <span class="n">programmatic</span> <span class="n">API</span> <span class="n">in</span> <span class="n">the</span> <span class="n">application</span> <span class="n">to</span> <span class="k">register</span> <span class="n">it</span> <span class="n">explicitly</span> <span class="n">to</span> <span class="n">the</span> <span class="n">EJBClientContext</span>
 
-<span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb_security_interceptors</span><span class="p">.</span><span class="n">ClientSecurityInterceptor</span>
+    <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">ejb_security_interceptors</span><span class="p">.</span><span class="n">ClientSecurityInterceptor</span>
 </pre></div>
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 
@@ -202,14 +202,14 @@ For an example of how to use the add-user utility, see instructions in the root 
 <span class="o">*</span>           <span class="o">-</span> <span class="n">Match</span> <span class="k">for</span> <span class="n">all</span> <span class="n">users</span> <span class="n">in</span> <span class="n">all</span> <span class="n">realms</span><span class="p">.</span>
 </pre></div>
 <p>When a request is received to switch the user, the identity of the user that opened the connection is used to check the properties file for an entry. The check is performed in the order listed above until the first match is found. Once a match is found, further entries that could match are not read. The value in the properties file can either be a wildcard <code>*</code> or it can be a comma separated list of users. Be aware that in the value/mapping side there is no notion of the realm. For this quickstart we use the following entry: </p>
-<div class="highlight"><pre>  <span class="n">ConnectionUser</span><span class="err">@</span><span class="n">ApplicationRealm</span><span class="o">=</span><span class="n">AppUserOne</span><span class="p">,</span><span class="n">AppUserTwo</span>
+<div class="highlight"><pre><span class="n">ConnectionUser</span><span class="err">@</span><span class="n">ApplicationRealm</span><span class="o">=</span><span class="n">AppUserOne</span><span class="p">,</span><span class="n">AppUserTwo</span>
 </pre></div>
 <p>This means that the ConnectionUser added above can only ask that a request is executed as either AppUserOne or AppUserTwo. It is not allowed to ask to be executed as AppUserThree.</p>
 
 <p>All users are permitted to execute requests as themselves. In that case, the login module is not called. This is the default behavior that exists without the addition of the interceptors in this quickstart.</p>
 
 <p>Taking this further, the <code>DelegationLoginModule</code> can be extended to provide custom delegation checks. One thing not currently checked is if the user being switched to actually exists. If the module is extended, the following method can be overridden to provide a custom check.</p>
-<div class="highlight"><pre><span class="n">protected</span> <span class="n">boolean</span> <span class="nf">delegationAcceptable</span><span class="p">(</span><span class="n">String</span> <span class="n">requestedUser</span><span class="p">,</span> <span class="n">OuterUserCredential</span> <span class="n">connectionUser</span><span class="p">);</span>
+<div class="highlight"><pre> <span class="n">protected</span> <span class="n">boolean</span> <span class="nf">delegationAcceptable</span><span class="p">(</span><span class="n">String</span> <span class="n">requestedUser</span><span class="p">,</span> <span class="n">OuterUserCredential</span> <span class="n">connectionUser</span><span class="p">);</span>
 </pre></div>
 <p>For the purpose of the quickstart we just need an outbound connection that loops back to the same server. This will be sufficient to demonstrate the server-to-server capabilities.</p></li>
 <li><p>The following <code>ejb-outbound-realm</code> security-realm was added to the <code>management</code> security-realms. Note the Base64-encoded password is for the ConnectionUser account created above.</p>
@@ -470,7 +470,6 @@ For an example of how to use the add-user utility, see instructions in the root 
 
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
-<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
-<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
-<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
 </pre></div></body></html>

@@ -33,7 +33,7 @@ The `SecuredEJB` has three methods:
 
 The first method can be called by all users that are created in this quickstart. The purpose of this method is to return a String containing the name of the Principal that called the EJB along with the user's authorized role information, for example:
 
-	[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
+        [Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
 
 The next two methods are annotated to require that the calling user is authorized for roles 'RoleOne' and 'RoleTwo' respectively.
 
@@ -57,11 +57,11 @@ JBoss EAP allows client side interceptors for EJB invocations. Such interceptors
 
 This quickstart uses the ServiceLoader mechanism for registering the EJB client interceptor and places the `META-INF/services/org.jboss.ejb.client.EJBClientInterceptor` in the classpath, with the following content:
 
-	# EJB client interceptor(s) that will be added to the end of the interceptor chain during an invocation
-	# on EJB. If these interceptors are to be added at a specific position, other than last, then use the
-	# programmatic API in the application to register it explicitly to the EJBClientContext
+        # EJB client interceptor(s) that will be added to the end of the interceptor chain during an invocation
+        # on EJB. If these interceptors are to be added at a specific position, other than last, then use the
+        # programmatic API in the application to register it explicitly to the EJBClientContext
 
-	org.jboss.as.quickstarts.ejb_security_interceptors.ClientSecurityInterceptor
+        org.jboss.as.quickstarts.ejb_security_interceptors.ClientSecurityInterceptor
 
 
 System requirements
@@ -183,7 +183,7 @@ If you want to review and understand newly added XML configuration, stop the JBo
 
     When a request is received to switch the user, the identity of the user that opened the connection is used to check the properties file for an entry. The check is performed in the order listed above until the first match is found. Once a match is found, further entries that could match are not read. The value in the properties file can either be a wildcard `*` or it can be a comma separated list of users. Be aware that in the value/mapping side there is no notion of the realm. For this quickstart we use the following entry: 
 
-	      ConnectionUser@ApplicationRealm=AppUserOne,AppUserTwo
+        ConnectionUser@ApplicationRealm=AppUserOne,AppUserTwo
 
     This means that the ConnectionUser added above can only ask that a request is executed as either AppUserOne or AppUserTwo. It is not allowed to ask to be executed as AppUserThree.
 
@@ -191,7 +191,7 @@ If you want to review and understand newly added XML configuration, stop the JBo
 
     Taking this further, the `DelegationLoginModule` can be extended to provide custom delegation checks. One thing not currently checked is if the user being switched to actually exists. If the module is extended, the following method can be overridden to provide a custom check.
 
-      	protected boolean delegationAcceptable(String requestedUser, OuterUserCredential connectionUser);
+         protected boolean delegationAcceptable(String requestedUser, OuterUserCredential connectionUser);
 
      For the purpose of the quickstart we just need an outbound connection that loops back to the same server. This will be sufficient to demonstrate the server-to-server capabilities.
 2.  The following `ejb-outbound-realm` security-realm was added to the `management` security-realms. Note the Base64-encoded password is for the ConnectionUser account created above.
@@ -224,8 +224,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-		For Linux:   EAP_HOME/bin/standalone.sh
-		For Windows: EAP_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -237,7 +237,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-		mvn clean install jboss-as:deploy
+        mvn clean install jboss-as:deploy
 
 4. This will deploy `target/jboss-ejb-security-interceptors.jar` to the running instance of the server.
 
@@ -249,7 +249,7 @@ The step here assumes you have already successfully deployed the EJBs to the ser
 
 1.  Type this command to execute the client:
 
-		mvn exec:exec
+        mvn exec:exec
 
 
 Investigate the Console Output
@@ -422,7 +422,7 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-		mvn jboss-as:undeploy
+        mvn jboss-as:undeploy
 
 
 Remove the Security Domain Configuration
@@ -461,7 +461,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 Debug the Application
 ------------------------------------
 
-If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
+If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
 
-	mvn dependency:sources
-	mvn dependency:resolve -Dclassifier=javadoc
+        mvn dependency:sources
+
