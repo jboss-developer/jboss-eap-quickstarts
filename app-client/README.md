@@ -117,7 +117,7 @@ Access the Remote Client Application from a different machine
 
 This example shows how to invoke an EJB from a remote standalone Java EE application on a different machine. In this case, the client needs to define a properties file to define properties to connect and authenticate to the server. The properties file is passed on the command line using the "--ejb-client-properties" argument.
 
-### Configure Machine 1
+### Configure Machine_1 (Remote Server Machine)
 
 1. Install JBoss EAP on this machine.
 2. Add the application users to JBoss EAP as described above.
@@ -125,13 +125,15 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 
         For Linux:   EAP_HOME/bin/standalone.sh -b MACHINE_1_IP_ADDRESS -bmanagement MACHINE_1_IP_ADDRESS
         For Windows: EAP_HOME\bin\standalone.bat -b MACHINE_1_IP_ADDRESS -bmanagement MACHINE_1_IP_ADDRESS
+4. Download the `app-client` quickstart to this machine and deploy it as described above. 
 
 
-### Configure Machine 2
+### Configure Machine_2 (Local Client Machine)
 
-1. Install JBoss EAP and the `app-client` quickstart on this machine. There is no need to add the application users to this server.
-2. Open a command prompt and navigate to the root directory of the quickstart.
-3. Create a `jboss-ejb-client.properties` file. This file can be located anywhere in the file system, but for ease of demonstration, we create it in the root directory of this quickstart. Add the following content, replacing `MACHINE_1_IP_ADDRESS` with the IP address of `Machine 1`.
+1. Install JBoss EAP on this server. There is no need to add the application users to this server.
+2. Download the `app-client` quickstart to this machine. 
+3. Open a command prompt and navigate to the root directory of the quickstart.
+4. Create a `jboss-ejb-client.properties` file. This file can be located anywhere in the file system, but for ease of demonstration, we create it in the root directory of this quickstart. Add the following content, replacing `MACHINE_1_IP_ADDRESS` with the IP address of `Machine_1`.
 
         remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
         remote.connections=default
@@ -141,13 +143,13 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
         remote.connection.default.username=quickuser
         remote.connection.default.password=quickuser-123
 
-4. Be sure that the quickstart deployed successfully and the server is running on `Machine 1` as described above.
-5. Type this command to run the application:
+5. Be sure that the quickstart deployed successfully and the server is running on `Machine_1` as described above.
+6. Type this command to run the application:
 
         For Linux:   EAP_HOME/bin/appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear/target/jboss-app-client.ear#simpleClient.jar Hello from command line
         For Windows: EAP_HOME\bin\appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
 
-6. Review the result. The client outputs the following information, which was provided by the application:
+7. Review the result. The client outputs the following information, which was provided by the application:
 
         [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-51) Main started with arguments
         [org.jboss.as.quickstarts.appclient.acc.client.Main] (Thread-51)             [Hello, from, command, line]
@@ -155,7 +157,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 
     This output shows that the `ServerApplication` is called at the jboss.node `theOtherHOST`.
 
-7. Review the server log files to see the bean invocations on the server.
+8. Review the server log files to see the bean invocations on the server.
 
          ClientContext is here = {Client=myhost}
 
@@ -167,15 +169,12 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 Undeploy the Archives
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command prompt and navigate to the root directory of this quickstart.
-3. When you are finished testing, type this command to undeploy the archive from a local machine:
+1. Make sure you have started the JBoss Server where the quickstart is deployed as described above.
+2. Open a command prompt on that server and navigate to the root directory of this quickstart.
+3. When you are finished testing, type this command to undeploy the archive:
 
         mvn jboss-as:undeploy
         
-   Type this command to undeploy the archive from a remote machine:
-
-        mvn jboss-as:undeploy -Djboss-as.hostname=MACHINE_1_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
 
 
 
