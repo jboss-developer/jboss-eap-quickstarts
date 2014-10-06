@@ -76,6 +76,7 @@ You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
+5. Stop the JBoss EAP server.
 
 
 Review the Modified Server Configuration
@@ -194,6 +195,8 @@ This script removes the `servlet-security-quickstart` security domain from the `
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
+_NOTE:_ Be sure to configure the security domain by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
 
 
 Debug the Application

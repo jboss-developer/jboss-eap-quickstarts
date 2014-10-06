@@ -43,53 +43,37 @@ Configure the JBoss EAP Server
 
 This quickstart requires a custom security `GenericHeaderAuth` domain be enabled in order to trust the remote proxy server's username header.
 
-_NOTE - Before you begin:_
+You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart. 
 
-1. If it is running, stop the JBoss EAP server.
-2. Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss EAP server.
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-#### Configure the Security Domain by Running the JBoss CLI Script
-
-1. Start the JBoss EAP server by typing the following: 
+2. Start the JBoss EAP server by typing the following: 
 
         For Linux:  EAP_HOME/bin/standalone.sh
         For Windows:  EAP_HOME\bin\standalone.bat
+3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `quickstart-domain` domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.
 
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
         For Linux:   EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
         For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
-This script adds the `GenericHeaderAuth` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
+   This script adds the `GenericHeaderAuth` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
 
         The batch executed successfully
         {"outcome" => "success"}
+5. Stop the JBoss EAP server.
 
-### Configure the Security Domain Using the JBoss CLI Interactively
 
-1. Start the JBoss EAP server by typing the following: 
+Review the Modified Server Configuration
+-----------------------------------
 
-        For Linux:  EAP_HOME/bin/standalone.sh
-        For Windows:  EAP_HOME\bin\standalone.bat
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP_HOME directory, and type the following:
-    
-        For Linux: bin/jboss-cli.sh --connect
-        For Windows: bin\jboss-cli.bat --connect
-3. At the prompt, enter the following series of commands:
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
-        [standalone@localhost:9999 /] /subsystem=security/security-domain=GenericHeaderAuth:add
-        [standalone@localhost:9999 /] /subsystem=security/security-domain=GenericHeaderAuth/authentication=classic:add(login-modules=[{"code" => "org.jboss.security.auth.spi.RemoteHostTrustLoginModule", "flag" => "required", "module-options" => [("trustedHosts" => "127.0.0.1"), ("roles" => "guest"),]}])
-    
-    Then reload the server with this command:
-
-        [standalone@localhost:9999 /] :reload
-
-### Configure the Security Domain by Manually Editing the Server Configuration File
-
-1.  If it is running, stop the JBoss EAP server.
-2.  Make sure you have backed up the `EAP_HOME/standalone/configuration/standalone.xml` file as noted in the beginning of this section.
-3.  Open the `EAP_HOME/standalone/configuration/standalone.xml` file in an editor and locate the subsystem `urn:jboss:domain:security`. 
-4.  Add the following XML just before the `</security-domains>` tag:
+The following `GenericHeaderAuth` security-domain was added to the `security` subsystem.
 
         <security-domain name="GenericHeaderAuth">
             <authentication>

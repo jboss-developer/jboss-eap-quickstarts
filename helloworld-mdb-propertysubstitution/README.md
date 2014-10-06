@@ -61,7 +61,7 @@ You should see the following result when you run the script:
             "outcome" => "success",
             "result" => undefined
         }
-
+5. Stop the JBoss EAP server.
 
 Review the Modified Server Configuration
 -----------------------------------
@@ -179,7 +179,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 _NOTE:_
 
-* Be sure to enable MDB property substitution by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*.
+* Be sure to enable MDB property substitution by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
 * Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
 
 Debug the Application

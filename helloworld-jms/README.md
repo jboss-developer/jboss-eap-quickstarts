@@ -71,11 +71,11 @@ You configure the the JMS `test` queue by running JBoss CLI commands. For your c
 
         For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
         For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
-You should see the following result when you run the script:
+   You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
-
+5. Stop the JBoss EAP server.
 
 
 Review the Modified Server Configuration
@@ -206,7 +206,7 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
         For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
         For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
-This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
+   This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
@@ -220,6 +220,11 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
+_NOTE:_
+
+* Be sure to configure the JMS `test` queue by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
+* Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
 
 
 Debug the Application
