@@ -18,7 +18,7 @@
 <cheatsheet title="HTML5 + Mobile + JAX-RS: Kitchensink quickstart">
   <intro>
     <description>
-      This quickstart shows off HTML5 based desktop/mobile web application development with Java EE 6 on JBoss Enterprise Application Platform 6.1 or later. This project uses HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
+      This quickstart shows off HTML5 based desktop/mobile web application development with Java EE 6 on Red Hat JBoss Enterprise Application Platform 6.1 or later. This project uses HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
       <br/><br/>
       <b>HTML5</b>
       <br/><br/>
@@ -53,7 +53,7 @@
       The kitchensink-html5-mobile application shows off a number of Java EE technologies such as HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. 
       It does this by providing a member registration database, available via HTML5 and JAX-RS.
       <br/><br/>
-      As usual, let&apos;s start by looking at the necessary deployment descriptors. By now, we&apos;re very used to seeing <b>beans.xml</b> in <b>WEB-INF/</b> (which can be found in the <b>src/main/webapp</b> directory of the example). Notice that, once again, we don&apos;t need a web.xml. There are two configuration files (which can be found in the <b>src/main/resources</b> directory of the example) — <b>WEB-INF/classes/META-INF/persistence.xml</b>, which sets up JPA, and <b>WEB-INF/classes/import.sql</b> which Hibernate, the JPA provider in JBoss Enterprise Application Platform, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in The <b>greeter example in depth</b>, and these are largely the same.
+      As usual, let&apos;s start by looking at the necessary deployment descriptors. By now, we&apos;re very used to seeing <b>beans.xml</b> in <b>WEB-INF/</b> (which can be found in the <b>src/main/webapp</b> directory of the example). Notice that, once again, we don&apos;t need a web.xml. There are two configuration files (which can be found in the <b>src/main/resources</b> directory of the example) — <b>WEB-INF/classes/META-INF/persistence.xml</b>, which sets up JPA, and <b>WEB-INF/classes/import.sql</b> which Hibernate, the JPA provider in Red Hat JBoss Enterprise Application Platform, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in The <b>greeter example in depth</b>, and these are largely the same.
     </description> 
     <command
     required="true"
@@ -540,7 +540,7 @@
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/html5_mobile/util/Resources.java,fromLine=44,toLine=47)"/>
   </subitem>
   <subitem
-            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for JBoss Enterprise Application Platform 6"
+            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform 6"
             skip="true">
     <command
            required="false"
@@ -599,7 +599,7 @@
        you&apos;re probably getting a bit nervous by now, wondering how on earth you are going to test your application. 
        Lucky for you, the Arquillian project is here to help!
     <br/><br/>
-    Arquillian provides all the boiler plate for running your test inside JBoss Enterprise Application Platform 6, 
+    Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform 6, 
     allowing you to concentrate on testing your application. 
     In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, 
     to create an archive to deploy. 
