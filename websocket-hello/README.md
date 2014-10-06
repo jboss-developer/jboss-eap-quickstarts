@@ -58,7 +58,7 @@ You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
-
+5. Stop the JBoss EAP server.
 
 Start the JBoss EAP Server
 -------------------------
@@ -137,6 +137,9 @@ This script restores the http connector protocol in the web subsystem of the ser
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
+
+_NOTE:_ Be sure to enable the `NIO2` connector in the `web` subsystem by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
 
 
 Debug the Application
