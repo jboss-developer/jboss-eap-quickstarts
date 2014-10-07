@@ -41,65 +41,43 @@ This quickstart uses secured management interfaces and requires that you create 
 Configure the JBoss EAP Server
 ---------------------------
 
-You must first add the JMS `test` queue to the application server configuration file. You can configure JMS by running the  `configure-jms.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.
+You configure the JMS `test` queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-jms.cli` script provided in the root directory of this quickstart. 
 
-_NOTE - Before you begin:_
-
-1. If it is running, stop the JBoss EAP 6.1 server.
-2. Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-
-#### Configure JMS by Running the JBoss CLI Script
-
-1. Start the JBoss EAP server by typing the following: 
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss EAP server.
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+2. Start the JBoss EAP server by typing the following: 
 
         For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
         For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+3. Review the `configure-jms.cli` file in the root of this quickstart directory. This script adds the `test` queue to the `messaging` subsystem in the server configuration file.
+4. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
         For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
         For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
-This script adds the `test` queue to the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
+   This script adds the `test` queue to the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
         The batch executed successfully.
         {"outcome" => "success"}
+5. Stop the JBoss EAP server.
 
 
-#### Configure JMS Using the JBoss CLI Tool Interactively
+Review the Modified Server Configuration
+-----------------------------------
 
-1. Start the JBoss EAP server by typing the following: 
+If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone-full.xml` file. 
 
-        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command line, navigate to the EAP_HOME directory, and type the following:
-    
-        For Linux: bin/jboss-cli.sh --connect
-        For Windows: bin\jboss-cli.bat --connect
-3. At the prompt, type the following:
+The following `testQueue` jms-queue was configured in a new `<jms-destinations>` element under the hornetq-server section of the `messaging` subsystem.
 
-        [standalone@localhost:9999 /] jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported/jms/queue/test
-
-
-#### Configure JMS by Manually Editing the Server Configuration File
-
-1.  If it is running, stop the JBoss EAP server.
-2.  Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
-3.  Open the file: EAP_HOME/standalone/configuration/standalone-full.xml
-4.  Add the JMS `test` queue as follows:
-    * Find the messaging subsystem:  
-
-            <subsystem xmlns="urn:jboss:domain:messaging:1.1">
-    * Scroll to the end of this section and add the following XML after the `</jms-connection-factories>` end tag but before the `</hornetq-server>` element:
-
-                <jms-destinations>
-                    <jms-queue name="testQueue">
-                        <entry name="queue/test"/>
-                        <entry name="java:jboss/exported/jms/queue/test"/>
-                    </jms-queue>
-                </jms-destinations>
-    * Save the changes and close the file.
-
+      <jms-destinations>
+          <jms-queue name="testQueue">
+              <entry name="queue/test"/>
+              <entry name="java:jboss/exported/jms/queue/test"/>
+          </jms-queue>
+      </jms-destinations>
+ 
 
 Start the JBoss EAP Server with the Full Profile
 ---------------------------------------------------------------------------------
@@ -262,10 +240,17 @@ _NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP 
 
         mvn clean verify -Parq-jbossas-managed
 
+
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
+_NOTE:_
+
+* Be sure to configure the JMS `test` queue by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
+* Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
+
 
 Debug the Application
 ------------------------------------
