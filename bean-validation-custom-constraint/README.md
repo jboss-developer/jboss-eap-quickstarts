@@ -60,19 +60,20 @@ Investigate the Console Output
 
 When you run the tests, JUnit will present you test report summary:
 
-    Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+    Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
 If you are interested in more details, look in the `target/surefire-reports` directory. 
 
 You can also check the server console output to verify that the Arquillian tests deployed to and ran in the application server. Search for lines similar to the following ones in the server output log:
 
-    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test.war"
+    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "test.war" (runtime-name: "test.war")
     ...
-    [timestamp] INFO [org.jboss.as.server] (management-handler-threads - 1) JBAS018559: Deployed "test.war"
+    [timestamp] INFO [org.jboss.as.server] (management-handler-threads - 1) JBAS018559: Deployed "test.war" (runtime-name : "test.war")
     ...
-    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-3) Stopped deployment test.war in 48ms
+    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015877: Stopped deployment test.war (runtime-name: test.war) in 7ms
     ...
-    [timestamp] INFO [org.jboss.as.server] (management-handler-threads - 1) JBAS018558: Undeployed "test.war
+    [timestamp] INFO [org.jboss.as.server] (management-handler-thread - 2) JBAS018558: Undeployed "test.war  (runtime-name: "test.war")
+
 
 Server Log: Expected warnings and errors
 -----------------------------------
