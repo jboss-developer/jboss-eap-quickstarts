@@ -136,12 +136,11 @@ The application client connected automatically a server on the same machine.</p>
 
 <ol>
 <li>Install JBoss EAP on this machine.</li>
-<li>Add the application users to JBoss EAP as described above.</li>
-<li><p>Start the JBoss EAP server with the following command line. Be sure to replace <code>MACHINE_1_IP_ADDRESS</code> with the IP address of this machine. This argument makes the server accessible to the network. </p>
+<li>Add the application users to the JBoss EAP server on this machine as described above.</li>
+<li><p>Start the JBoss EAP server with the following command. Be sure to replace <code>MACHINE_1_IP_ADDRESS</code> with the IP address of this machine. These arguments makes the server accessible to the network. </p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">b</span> <span class="n">MACHINE_1_IP_ADDRESS</span> <span class="o">-</span><span class="n">bmanagement</span> <span class="n">MACHINE_1_IP_ADDRESS</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">b</span> <span class="n">MACHINE_1_IP_ADDRESS</span> <span class="o">-</span><span class="n">bmanagement</span> <span class="n">MACHINE_1_IP_ADDRESS</span>
 </pre></div></li>
-<li><p>Download the <code>app-client</code> quickstart to this machine and deploy it as described above. </p></li>
 </ol>
 
 <h3><a id="configure-machine2-local-client-machine" class="anchor" href="#configure-machine2-local-client-machine"><span class="anchor-icon"></span></a>Configure Machine_2 (Local Client Machine)</h3>
@@ -149,7 +148,6 @@ The application client connected automatically a server on the same machine.</p>
 <ol>
 <li>Install JBoss EAP on this server. There is no need to add the application users to this server.</li>
 <li>Download the <code>app-client</code> quickstart to this machine. </li>
-<li>Open a command prompt and navigate to the root directory of the quickstart.</li>
 <li><p>Create a <code>jboss-ejb-client.properties</code> file. This file can be located anywhere in the file system, but for ease of demonstration, we create it in the root directory of this quickstart. Add the following content, replacing <code>MACHINE_1_IP_ADDRESS</code> with the IP address of <code>Machine_1</code>.</p>
 <div class="highlight"><pre><span class="n">remote</span><span class="p">.</span><span class="n">connectionprovider</span><span class="p">.</span><span class="n">create</span><span class="p">.</span><span class="n">options</span><span class="p">.</span><span class="n">org</span><span class="p">.</span><span class="n">xnio</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">SSL_ENABLED</span><span class="o">=</span><span class="nb">false</span>
 <span class="n">remote</span><span class="p">.</span><span class="n">connections</span><span class="o">=</span><span class="k">default</span>
@@ -159,8 +157,12 @@ The application client connected automatically a server on the same machine.</p>
 <span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">username</span><span class="o">=</span><span class="n">quickuser</span>
 <span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">password</span><span class="o">=</span><span class="n">quickuser</span><span class="o">-</span><span class="mi">123</span>
 </pre></div></li>
+<li><p>Open a command prompt and navigate to the root directory of the quickstart.</p></li>
+<li><p>Deploy the <code>app-client</code> quickstart to the remote machine using the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">hostname</span><span class="o">=</span><span class="n">MACHINE_1_IP_ADDRESS</span> <span class="p">[</span><span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">9099</span><span class="p">]</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">username</span><span class="o">=</span><span class="n">admin</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">password</span><span class="o">=</span><span class="n">admin</span><span class="o">-</span><span class="mi">123</span>
+</pre></div></li>
 <li><p>Be sure that the quickstart deployed successfully and the server is running on <code>Machine_1</code> as described above.</p></li>
-<li><p>Type this command to run the application:</p>
+<li><p>Type this command to run the <code>app-client</code> application:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">appclient</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">ejb</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">properties</span><span class="o">=</span><span class="n">jboss</span><span class="o">-</span><span class="n">ejb</span><span class="o">-</span><span class="n">client</span><span class="p">.</span><span class="n">properties</span> <span class="n">ear</span><span class="o">/</span><span class="n">target</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">client</span><span class="p">.</span><span class="n">ear</span><span class="err">#</span><span class="n">simpleClient</span><span class="p">.</span><span class="n">jar</span> <span class="n">Hello</span> <span class="n">from</span> <span class="n">command</span> <span class="n">line</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">appclient</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">ejb</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">properties</span><span class="o">=</span><span class="n">jboss</span><span class="o">-</span><span class="n">ejb</span><span class="o">-</span><span class="n">client</span><span class="p">.</span><span class="n">properties</span> <span class="n">ear</span><span class="err">\</span><span class="n">target</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">app</span><span class="o">-</span><span class="n">client</span><span class="p">.</span><span class="n">ear</span><span class="err">#</span><span class="n">simpleClient</span><span class="p">.</span><span class="n">jar</span> <span class="n">Hello</span> <span class="n">from</span> <span class="n">command</span> <span class="n">line</span>
 </pre></div></li>
@@ -170,7 +172,7 @@ The application client connected automatically a server on the same machine.</p>
 <span class="cp">[</span><span class="nx">org.jboss.as.quickstarts.appclient.acc.client.Main</span><span class="cp">]</span><span class="x"> (Thread-##) Hello from StatelessSessionBean@theOtherHOST</span>
 </pre></div>
 <p>This output shows that the <code>ServerApplication</code> is called at the jboss.node <code>theOtherHOST</code>.</p></li>
-<li><p>Review the server log files to see the bean invocations on the server.</p>
+<li><p>Review the server log files on the remote machine to see the bean invocations on the server.</p>
 <div class="highlight"><pre> <span class="n">ClientContext</span> <span class="n">is</span> <span class="n">here</span> <span class="o">=</span> <span class="p">{</span><span class="n">Client</span><span class="o">=</span><span class="n">myhost</span><span class="p">}</span>
 </pre></div>
 <p>As shown above, the connected server(s) can be configured using the properties file. It is also possible to connect multiple servers
@@ -182,8 +184,11 @@ or a cluster using the same <code>jboss-ejb-client.properties</code> file.</p></
 <ol>
 <li>Make sure you have started the JBoss Server where the quickstart is deployed as described above.</li>
 <li>Open a command prompt on that server and navigate to the root directory of this quickstart.</li>
-<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<li><p>When you are finished testing, type this command to undeploy the archive from a local machine:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div>
+<p>Type this command to undeploy the archive from a remote machine:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">hostname</span><span class="o">=</span><span class="n">MACHINE_1_IP_ADDRESS</span> <span class="p">[</span><span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">9099</span><span class="p">]</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">username</span><span class="o">=</span><span class="n">admin</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">password</span><span class="o">=</span><span class="n">admin</span><span class="o">-</span><span class="mi">123</span>
 </pre></div></li>
 </ol>
 </body></html>
