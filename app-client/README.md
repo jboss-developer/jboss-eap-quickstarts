@@ -168,18 +168,28 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 
 
 
-Undeploy the Archives
+Undeploy the Archive from the Local machine
 --------------------
 
-1. Make sure you have started the JBoss Server where the quickstart is deployed as described above.
+Follow these instructions if you are testing the quickstart on the same machine.
+
+1. Make sure you have started the JBoss Server on the machine where the quickstart is deployed as described above.
 2. Open a command prompt on that server and navigate to the root directory of this quickstart.
-3. When you are finished testing, type this command to undeploy the archive from a local machine:
+3. When you are finished testing, type this command to undeploy the archive from the local machine.
 
         mvn jboss-as:undeploy
-   Type this command to undeploy the archive from a remote machine:
+        
+
+Undeploy the Archive from the Remote Machine
+--------------------
+
+Follow these instructions if you are testing the quickstart on a diffent machine.
+
+1. Make sure you have started the JBoss Server on the remote server machine, `Machine_1`, where the quickstart is deployed as described above.
+2. Open a command prompt on the local client machine, `Machine_2`, and navigate to the root directory of this quickstart.
+3. When you are finished testing, type this command to undeploy the archive from the remote server machine, `Machine_1`.
 
         mvn jboss-as:undeploy -Djboss-as.hostname=MACHINE_1_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
         
-
 
 

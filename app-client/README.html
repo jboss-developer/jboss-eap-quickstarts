@@ -179,15 +179,26 @@ The application client connected automatically a server on the same machine.</p>
 or a cluster using the same <code>jboss-ejb-client.properties</code> file.</p></li>
 </ol>
 
-<h2><a id="undeploy-the-archives" class="anchor" href="#undeploy-the-archives"><span class="anchor-icon"></span></a>Undeploy the Archives</h2>
+<h2><a id="undeploy-the-archive-from-the-local-machine" class="anchor" href="#undeploy-the-archive-from-the-local-machine"><span class="anchor-icon"></span></a>Undeploy the Archive from the Local machine</h2>
+
+<p>Follow these instructions if you are testing the quickstart on the same machine.</p>
 
 <ol>
-<li>Make sure you have started the JBoss Server where the quickstart is deployed as described above.</li>
+<li>Make sure you have started the JBoss Server on the machine where the quickstart is deployed as described above.</li>
 <li>Open a command prompt on that server and navigate to the root directory of this quickstart.</li>
-<li><p>When you are finished testing, type this command to undeploy the archive from a local machine:</p>
+<li><p>When you are finished testing, type this command to undeploy the archive from the local machine.</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span>
-</pre></div>
-<p>Type this command to undeploy the archive from a remote machine:</p>
+</pre></div></li>
+</ol>
+
+<h2><a id="undeploy-the-archive-from-the-remote-machine" class="anchor" href="#undeploy-the-archive-from-the-remote-machine"><span class="anchor-icon"></span></a>Undeploy the Archive from the Remote Machine</h2>
+
+<p>Follow these instructions if you are testing the quickstart on a diffent machine.</p>
+
+<ol>
+<li>Make sure you have started the JBoss Server on the remote server machine, <code>Machine_1</code>, where the quickstart is deployed as described above.</li>
+<li>Open a command prompt on the local client machine, <code>Machine_2</code>, and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive from the remote server machine, <code>Machine_1</code>.</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">undeploy</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">hostname</span><span class="o">=</span><span class="n">MACHINE_1_IP_ADDRESS</span> <span class="p">[</span><span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">9099</span><span class="p">]</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">username</span><span class="o">=</span><span class="n">admin</span> <span class="o">-</span><span class="n">Djboss</span><span class="o">-</span><span class="n">as</span><span class="p">.</span><span class="n">password</span><span class="o">=</span><span class="n">admin</span><span class="o">-</span><span class="mi">123</span>
 </pre></div></li>
 </ol>
