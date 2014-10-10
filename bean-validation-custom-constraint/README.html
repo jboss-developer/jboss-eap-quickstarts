@@ -54,18 +54,18 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
 
 <p>When you run the tests, JUnit will present you test report summary:</p>
-<div class="highlight"><pre><span class="n">Tests</span> <span class="n">run</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">Failures</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Errors</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Skipped</span><span class="o">:</span> <span class="mi">0</span>
+<div class="highlight"><pre><span class="n">Tests</span> <span class="n">run</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Failures</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Errors</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Skipped</span><span class="o">:</span> <span class="mi">0</span>
 </pre></div>
 <p>If you are interested in more details, look in the <code>target/surefire-reports</code> directory. </p>
 
 <p>You can also check the server console output to verify that the Arquillian tests deployed to and ran in the application server. Search for lines similar to the following ones in the server output log:</p>
-<div class="highlight"><pre><span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server.deployment</span><span class="cp">]</span><span class="x"> (MSC service thread 1-2) Starting deployment of &quot;test.war&quot;</span>
+<div class="highlight"><pre><span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server.deployment</span><span class="cp">]</span><span class="x"> (MSC service thread 1-3) JBAS015876: Starting deployment of &quot;test.war&quot; (runtime-name: &quot;test.war&quot;)</span>
 <span class="x">...</span>
-<span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server</span><span class="cp">]</span><span class="x"> (management-handler-threads - 1) JBAS018559: Deployed &quot;test.war&quot;</span>
+<span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server</span><span class="cp">]</span><span class="x"> (management-handler-threads - 1) JBAS018559: Deployed &quot;test.war&quot; (runtime-name : &quot;test.war&quot;)</span>
 <span class="x">...</span>
-<span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server.deployment</span><span class="cp">]</span><span class="x"> (MSC service thread 1-3) Stopped deployment test.war in 48ms</span>
+<span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server.deployment</span><span class="cp">]</span><span class="x"> (MSC service thread 1-1) JBAS015877: Stopped deployment test.war (runtime-name: test.war) in 7ms</span>
 <span class="x">...</span>
-<span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server</span><span class="cp">]</span><span class="x"> (management-handler-threads - 1) JBAS018558: Undeployed &quot;test.war</span>
+<span class="cp">[</span><span class="nx">timestamp</span><span class="cp">]</span><span class="x"> INFO </span><span class="cp">[</span><span class="nx">org.jboss.as.server</span><span class="cp">]</span><span class="x"> (management-handler-thread - 2) JBAS018558: Undeployed &quot;test.war  (runtime-name: &quot;test.war&quot;)</span>
 </pre></div>
 <h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
 
