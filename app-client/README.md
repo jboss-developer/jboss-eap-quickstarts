@@ -121,7 +121,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 
 1. Install JBoss EAP on this machine.
 2. Add the application users to the JBoss EAP server on this machine as described above.
-3. Start the JBoss EAP server with the following command. Be sure to replace `MACHINE_1_IP_ADDRESS` with the IP address of this machine. These arguments makes the server accessible to the network. 
+3. Start the JBoss EAP server with the following command. Be sure to replace `MACHINE_1_IP_ADDRESS` with the IP address of this machine. These arguments make the server accessible to the network. 
 
         For Linux:   EAP_HOME/bin/standalone.sh -b MACHINE_1_IP_ADDRESS -bmanagement MACHINE_1_IP_ADDRESS
         For Windows: EAP_HOME\bin\standalone.bat -b MACHINE_1_IP_ADDRESS -bmanagement MACHINE_1_IP_ADDRESS
