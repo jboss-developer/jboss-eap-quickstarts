@@ -31,7 +31,7 @@ body, table {
 
 body {
   height: 100%;
-  width: 560px;
+  width: 95%;
   position: relative;
   float: left;
   z-index: 2;
@@ -39,6 +39,10 @@ body {
 
 table {
   border-collapse: collapse;
+  margin: 0 1em;
+  table-layout: fixed;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 p {
