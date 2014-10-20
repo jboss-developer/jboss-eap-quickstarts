@@ -15,7 +15,7 @@ This example demonstrates the use of Java EE declarative security to control acc
 
 This quickstart takes the following steps to implement EJB security:
 
-1. Define the security domain. This can be done either in the `security` subsytem of the `standalone.xml` configuration file or in the `WEB-INF/jboss-web.xml` configuration file. This quickstart uses the `other` security domain which is provided by default in the `standalone.xml` file:
+1. Define the security domain. This can be done either in the `security` subsytem of the `standalone.xml` configuration file or in the `WEB-INF/jboss-web.xml` configuration file. This quickstart uses the `other` security domain, which is provided by default in the `standalone.xml` file.
 
         <security-domain name="other" cache-type="default">
             <authentication>

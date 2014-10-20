@@ -16,7 +16,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>This quickstart takes the following steps to implement EJB security:</p>
 
 <ol>
-<li><p>Define the security domain. This can be done either in the <code>security</code> subsytem of the <code>standalone.xml</code> configuration file or in the <code>WEB-INF/jboss-web.xml</code> configuration file. This quickstart uses the <code>other</code> security domain which is provided by default in the <code>standalone.xml</code> file:</p>
+<li><p>Define the security domain. This can be done either in the <code>security</code> subsytem of the <code>standalone.xml</code> configuration file or in the <code>WEB-INF/jboss-web.xml</code> configuration file. This quickstart uses the <code>other</code> security domain, which is provided by default in the <code>standalone.xml</code> file.</p>
 <div class="highlight"><pre><span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;other&quot;</span> <span class="na">cache-type=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;authentication&gt;</span>
         <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;Remoting&quot;</span> <span class="na">flag=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>
