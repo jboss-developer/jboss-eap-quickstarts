@@ -39,7 +39,31 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 
 Add an Application User
 ----------------
-This quickstart uses secured management interfaces and requires that you create an application user to access the running application. Instructions to set up the quickstart application user can be found here: [Add an Application User](../README.md#add-an-application-user)
+
+This quickstart uses secured management interfaces and requires that you create the following `quickstartUser` application user to access the running application. 
+
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickstartUser| ApplicationRealm | quickstartPwd1! | guest |
+
+To add the application user, open a command prompt and type the following commands:
+
+        For Linux:
+            EAP_HOME/bin/add-user.sh -a -u quickstartUser -p quickstartPwd1!
+
+        For Windows:
+            EAP_HOME\bin\add-user.bat -a -u quickstartUser -p quickstartPwd1!
+
+If you have not added an administrative user to your server, add the following `admin` management user. The password below is just a suggestion. If you prefer, you can choose a different administrative password.
+
+        For Linux:
+            EAP_HOME/bin/add-user.sh -u admin -p admin-123
+
+        For Windows:
+            EAP_HOME\bin\add-user.sh -u admin -p admin-123
+
+If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 
 Start the JBoss EAP Server
