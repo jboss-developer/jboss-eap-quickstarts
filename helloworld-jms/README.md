@@ -41,7 +41,7 @@ This quickstart uses secured management interfaces and requires that you create 
 
 | **UserName** | **Realm** | **Password** | **Roles** |
 |:-----------|:-----------|:-----------|:-----------|
-| quickstartUser| ApplicationRealm | quickstartPwd!!| guest |
+| quickstartUser| ApplicationRealm | quickstartPwd1!| guest |
 
 To add the application user, open a command prompt and type the following command:
 

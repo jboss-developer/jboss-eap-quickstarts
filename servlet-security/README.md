@@ -50,6 +50,33 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
+Add the Application Users
+---------------
+
+Using the add-user utility script, you must add the following users to the `ApplicationRealm`:
+
+| **UserName** | **Realm** | **Password** | **Roles** |
+|:-----------|:-----------|:-----------|:-----------|
+| quickstartUser| ApplicationRealm | quickstartPwd1!| quickstarts |
+| guest | ApplicationRealm | guestPwd1! | notauthorized |
+
+The first application user has access rights to the application. The second application user is not authorized to access the application.
+
+To add the application users, open a command prompt and type the following commands:
+
+        For Linux:        
+          EAP_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'quickstarts'
+          EAP_HOME/bin/add-user.sh -a -u 'guest' -p 'guestPwd1!' -g 'notauthorized'
+
+        For Windows: 
+          EAP_HOME\bin\add-user.bat -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'quickstarts'
+          EAP_HOME\bin\add-user.bat -a -u 'guest' -p 'guestPwd1!' -g 'notauthorized'
+
+If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
+
+
+
 Configure the JBoss EAP Server
 ---------------
 
