@@ -49,10 +49,10 @@ This quickstart uses secured management interfaces and requires that you create 
 To add the application user, open a command prompt and type the following commands:
 
         For Linux:
-            EAP_HOME/bin/add-user.sh -a -u quickstartUser -p quickstartPwd1!
+            EAP_HOME/bin/add-user.sh -a -u quickstartUser -p quickstartPwd1! -g 'guest'
 
         For Windows:
-            EAP_HOME\bin\add-user.bat -a -u quickstartUser -p quickstartPwd1!
+            EAP_HOME\bin\add-user.bat -a -u quickstartUser -p quickstartPwd1! -g 'guest'
 
 If you have not added an administrative user to your server, add the following `admin` management user. The password below is just a suggestion. If you prefer, you can choose a different administrative password.
 
