@@ -23,6 +23,8 @@ Be sure to read this entire document before you attempt to work with the quickst
 
 * [Optional Components](#optional-components): How to install and configure optional components required by some of the quickstarts.
 
+* [Contributing Guide](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONTRIBUTING.md#jboss-developer-contributing-guide): This document contains information targeted for developers who want to contribute to JBoss developer projects.
+
 Use of EAP_HOME and JBOSS_HOME Variables
 ---------------------------------
 
