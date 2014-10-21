@@ -113,14 +113,6 @@ markdown_to_html()
    output_filename=${output_filename//.MD/.html}
    $DIR/github-flavored-markdown.rb $readme > $output_filename  
 
-   # Now process the contributing markdown
-   cd $DIR/../
-   markdown_filename=CONTRIBUTING.md
-   echo "Processing $markdown_filename"
-   output_filename=${markdown_filename//.md/.html}
-   output_filename=${output_filename//.MD/.html}
-   $DIR/github-flavored-markdown.rb $markdown_filename > $output_filename  
-
    # Now process the release procedure markdown
    cd $DIR/../
    markdown_filename=RELEASE_PROCEDURE.md
