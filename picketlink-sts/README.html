@@ -99,7 +99,7 @@ The STS also plays an important role when you need to propagate credentials betw
 
 <h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>EAP_HOME/standalone/configuration/standalone.xml</code> file. </p>
+<p>After stopping the server, open the <code>EAP_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
 
 <p>The following <code>picketlink-sts</code> security-domain was added to the <code>security</code> subsystem.</p>
 <div class="highlight"><pre>    <span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;picketlink-sts&quot;</span><span class="nt">&gt;</span>
@@ -135,10 +135,6 @@ The STS also plays an important role when you need to propagate credentials betw
 </pre></div></li>
 <li><p>This deploys <code>target/jboss-picketlink-sts.war</code> to the running instance of the server.</p></li>
 </ol>
-
-<h2><a id="review-the-modified-server-configuration_1" class="anchor" href="#review-the-modified-server-configuration_1"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
-
-<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>EAP_HOME/standalone/configuration/standalone.xml</code> file. </p>
 
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the Application </h2>
 

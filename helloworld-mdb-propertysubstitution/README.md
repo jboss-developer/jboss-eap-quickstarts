@@ -66,7 +66,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone-full.xml` file. 
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
 The `<annotation-property-replacement>` attribute is set to true in the `ee` subsystem :
 

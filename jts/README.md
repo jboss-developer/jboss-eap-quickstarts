@@ -117,11 +117,11 @@ _NOTE:_ When you have completed testing this quickstart, it is important to [Rem
 
 ### Review the Modified Server Configuration
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone-full.xml` file. 
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
 1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `jacorb` subsystem to enable JTS. A naming root is also added to the subsystem.
 
-        <subsystem xmlns="urn:jboss:domain:jacorb:1.3">
+        <subsystem xmlns="urn:jboss:domain:jacorb:1.4">
             <orb name="$" socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
                 <initializers security="identity" transactions="on"/>
             </orb>
@@ -130,7 +130,7 @@ If you want to review and understand newly added XML configuration, stop the JBo
 
 2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
 
-        <subsystem xmlns="urn:jboss:domain:transactions:1.4">
+        <subsystem xmlns="urn:jboss:domain:transactions:1.5">
             <core-environment node-identifier="${jboss.tx.node.id}">
                 <process-id>
                     <uuid/>

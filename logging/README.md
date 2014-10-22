@@ -169,7 +169,7 @@ You should see the following result when you run the script:
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
 The following XML was added to the end of the the `logging` subsystem.
 

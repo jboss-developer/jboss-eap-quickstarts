@@ -81,7 +81,7 @@ You configure the the JMS `test` queue by running JBoss CLI commands. For your c
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone-full.xml` file. 
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
 The following `testQueue` jms-queue was configured in a new `<jms-destinations>` element under the hornetq-server section of the `messaging` subsystem.
 

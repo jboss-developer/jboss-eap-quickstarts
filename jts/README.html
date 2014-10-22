@@ -118,11 +118,11 @@ following ways:</p>
 
 <h3><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h3>
 
-<p>If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  <code>EAP_HOME/standalone/configuration/standalone-full.xml</code> file. </p>
+<p>After stopping the server, open the <code>EAP_HOME/standalone/configuration/standalone-full.xml</code> file and review the changes.</p>
 
 <ol>
 <li><p>The orb initializers <code>transactions</code> attribute is changed from &ldquo;spec&rdquo; to &ldquo;on&rdquo; in the  <code>jacorb</code> subsystem to enable JTS. A naming root is also added to the subsystem.</p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.3&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:jacorb:1.4&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;orb</span> <span class="na">name=</span><span class="s">&quot;$&quot;</span> <span class="na">socket-binding=</span><span class="s">&quot;jacorb&quot;</span> <span class="na">ssl-socket-binding=</span><span class="s">&quot;jacorb-ssl&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;initializers</span> <span class="na">security=</span><span class="s">&quot;identity&quot;</span> <span class="na">transactions=</span><span class="s">&quot;on&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/orb&gt;</span>
@@ -130,7 +130,7 @@ following ways:</p>
 <span class="nt">&lt;/subsystem&gt;</span>
 </pre></div></li>
 <li><p>An empty <code>&lt;jts/&gt;</code> element is added to the the end of the <code>transactions</code> subsystem to enable JTS.</p>
-<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.4&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:1.5&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;core</span><span class="err">-environment</span> <span class="na">node-identifier=</span><span class="s">&quot;</span><span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;process</span><span class="err">-id</span><span class="nt">&gt;</span>
             <span class="nt">&lt;uuid/&gt;</span>

@@ -49,7 +49,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts">https
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
 </pre></div></li>
-<li><p>Review the <code>configure-http-connector.cli</code> file in the root of this quickstart directory. This script configures the http connector in the <code>web</code> subsystem to use the NIO2 protocol.</p></li>
+<li><p>Review the <code>configure-http-connector.cli</code> file in the root of this quickstart directory. This script configures the http connector in the <code>web</code> subsystem to use the &ldquo;NIO2&rdquo; protocol.</p></li>
 <li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">http</span><span class="o">-</span><span class="n">connector</span><span class="p">.</span><span class="n">cli</span> 
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">http</span><span class="o">-</span><span class="n">connector</span><span class="p">.</span><span class="n">cli</span>
@@ -61,6 +61,19 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts">https
 <li><p>Stop the JBoss EAP server.</p></li>
 </ol>
 
+<h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
+
+<p>After stopping the server, open the <code>EAP_HOME/standalone/configuration/standalone.xml</code> file and review the changes. </p>
+
+<p>The  <code>http</code> connector in the <code>web</code> subsystem was modified to use the &ldquo;org.apache.coyote.http11.Http11NioProtocol&rdquo; protocol:</p>
+<div class="highlight"><pre>    <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:web:2.2&quot;</span> <span class="na">default-virtual-server=</span><span class="s">&quot;default-host&quot;</span> <span class="na">native=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;connector</span> <span class="na">name=</span><span class="s">&quot;http&quot;</span> <span class="na">protocol=</span><span class="s">&quot;org.apache.coyote.http11.Http11NioProtocol&quot;</span> <span class="na">scheme=</span><span class="s">&quot;http&quot;</span> <span class="na">socket-binding=</span><span class="s">&quot;http&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;virtual-server</span> <span class="na">name=</span><span class="s">&quot;default-host&quot;</span> <span class="na">enable-welcome-root=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">&quot;localhost&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">&quot;example.com&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/virtual-server&gt;</span>
+    <span class="nt">&lt;/subsystem&gt;</span>
+</pre></div>
 <h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
 
 <ol>

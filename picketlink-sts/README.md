@@ -112,7 +112,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
 The following `picketlink-sts` security-domain was added to the `security` subsystem.
    
@@ -150,11 +150,6 @@ _NOTE: The following build command assumes you have configured your Maven user s
         mvn clean install jboss-as:deploy
 4. This deploys `target/jboss-picketlink-sts.war` to the running instance of the server.
 
-
-Review the Modified Server Configuration
------------------------------------
-
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
 
 Access the Application 
 ---------------------
