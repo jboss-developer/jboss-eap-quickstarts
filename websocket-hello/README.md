@@ -48,7 +48,7 @@ Before you begin, you must enable the `NIO2` connector in the `web` subsystem of
 
         For Linux:  EAP_HOME/bin/standalone.sh
         For Windows:  EAP_HOME\bin\standalone.bat
-3. Review the `configure-http-connector.cli` file in the root of this quickstart directory. This script configures the http connector in the `web` subsystem to use the NIO2 protocol.
+3. Review the `configure-http-connector.cli` file in the root of this quickstart directory. This script configures the http connector in the `web` subsystem to use the "NIO2" protocol.
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
@@ -59,6 +59,22 @@ You should see the following result when you run the script:
         The batch executed successfully.
         {"outcome" => "success"}
 5. Stop the JBoss EAP server.
+
+Review the Modified Server Configuration
+-----------------------------------
+
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes. 
+
+The  `http` connector in the `web` subsystem was modified to use the "org.apache.coyote.http11.Http11NioProtocol" protocol:
+
+        <subsystem xmlns="urn:jboss:domain:web:2.2" default-virtual-server="default-host" native="false">
+            <connector name="http" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="http" socket-binding="http"/>
+            <virtual-server name="default-host" enable-welcome-root="true">
+            <alias name="localhost"/>
+                <alias name="example.com"/>
+            </virtual-server>
+        </subsystem>
+
 
 Start the JBoss EAP Server
 -------------------------

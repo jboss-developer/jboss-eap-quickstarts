@@ -151,7 +151,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 Review the Modified Server Configuration
 -----------------------------------
 
-If you want to review and understand newly added XML configuration, stop the JBoss EAP server and open the  `EAP_HOME/standalone/configuration/standalone.xml` file. 
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
 1. The following `quickstart-domain` security-domain was added to the `security` subsystem.
 
