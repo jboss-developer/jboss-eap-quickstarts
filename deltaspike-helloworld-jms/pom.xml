@@ -46,9 +46,9 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.7.0-redhat-1</version.jboss.bom.wfk>
 
-        <version.jboss.as>7.3.2.Final-redhat-2</version.jboss.as>
+        <version.jboss.as>7.4.1.Final-redhat-3</version.jboss.as>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
