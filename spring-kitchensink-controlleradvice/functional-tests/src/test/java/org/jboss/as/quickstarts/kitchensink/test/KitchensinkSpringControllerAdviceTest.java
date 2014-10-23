@@ -37,8 +37,8 @@ import org.openqa.selenium.support.FindBy;
 import javax.swing.*;
 import java.net.URL;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Kitchensink Spring ControllerAdvice quickstart functional test
