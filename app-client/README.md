@@ -139,7 +139,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
         remote.connection.default.port=4447
         remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
         remote.connection.default.username=quickuser
-        remote.connection.default.password=quickuser-123
+        remote.connection.default.password=quick-123
 
 4. Open a command prompt and navigate to the root directory of the quickstart.
 5. Deploy the `app-client` quickstart to the remote machine using the following command:
@@ -161,7 +161,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 
 9. Review the server log files on the remote machine to see the bean invocations on the server.
 
-         ClientContext is here = {Client=myhost}
+         ClientContext is here = {Client =myhost}
 
     As shown above, the connected server(s) can be configured using the properties file. It is also possible to connect multiple servers
     or a cluster using the same `jboss-ejb-client.properties` file.

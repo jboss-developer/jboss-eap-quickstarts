@@ -155,7 +155,7 @@ The application client connected automatically a server on the same machine.</p>
 <span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">port</span><span class="o">=</span><span class="mi">4447</span>
 <span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">connect</span><span class="p">.</span><span class="n">options</span><span class="p">.</span><span class="n">org</span><span class="p">.</span><span class="n">xnio</span><span class="p">.</span><span class="n">Options</span><span class="p">.</span><span class="n">SASL_POLICY_NOANONYMOUS</span><span class="o">=</span><span class="nb">false</span>
 <span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">username</span><span class="o">=</span><span class="n">quickuser</span>
-<span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">password</span><span class="o">=</span><span class="n">quickuser</span><span class="o">-</span><span class="mi">123</span>
+<span class="n">remote</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">password</span><span class="o">=</span><span class="n">quick</span><span class="o">-</span><span class="mi">123</span>
 </pre></div></li>
 <li><p>Open a command prompt and navigate to the root directory of the quickstart.</p></li>
 <li><p>Deploy the <code>app-client</code> quickstart to the remote machine using the following command:</p>
@@ -173,7 +173,7 @@ The application client connected automatically a server on the same machine.</p>
 </pre></div>
 <p>This output shows that the <code>ServerApplication</code> is called at the jboss.node <code>theOtherHOST</code>.</p></li>
 <li><p>Review the server log files on the remote machine to see the bean invocations on the server.</p>
-<div class="highlight"><pre> <span class="n">ClientContext</span> <span class="n">is</span> <span class="n">here</span> <span class="o">=</span> <span class="p">{</span><span class="n">Client</span><span class="o">=</span><span class="n">myhost</span><span class="p">}</span>
+<div class="highlight"><pre> <span class="n">ClientContext</span> <span class="n">is</span> <span class="n">here</span> <span class="o">=</span> <span class="p">{</span><span class="n">Client</span> <span class="o">=</span><span class="n">myhost</span><span class="p">}</span>
 </pre></div>
 <p>As shown above, the connected server(s) can be configured using the properties file. It is also possible to connect multiple servers
 or a cluster using the same <code>jboss-ejb-client.properties</code> file.</p></li>
