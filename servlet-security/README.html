@@ -18,20 +18,20 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>This quickstart takes the following steps to implement Servlet security:</p>
 
 <ol>
-<li>Define a security domain in the <code>standalone.xml</code> configuration file using the Database JAAS LoginModule.</li>
-<li><p>Add an application user with access rights to the application</p>
+<li>Defines a security domain in the <code>standalone.xml</code> configuration file using the Database JAAS LoginModule.</li>
+<li><p>Adds an application user with access rights to the application.</p>
 <div class="highlight"><pre><span class="n">User</span> <span class="n">Name</span><span class="o">:</span> <span class="n">quickstartUser</span>
 <span class="nl">Password:</span> <span class="n">quickstartPwd1</span><span class="o">!</span>
 <span class="nl">Role:</span> <span class="n">quickstarts</span>
 </pre></div></li>
-<li><p>Add another user with no access rights to the application.</p>
+<li><p>Adds another user with no access rights to the application.</p>
 <div class="highlight"><pre><span class="n">User</span> <span class="n">Name</span><span class="o">:</span> <span class="n">guest</span>
 <span class="nl">Password:</span> <span class="n">guestPwd1</span><span class="o">!</span>
 <span class="nl">Role:</span> <span class="n">notauthorized</span>
 </pre></div></li>
-<li><p>Add a security domain reference to <code>WEB-INF/jboss-web.xml</code>.</p></li>
-<li><p>Add a security constraint to the <code>WEB-INF/web.xml</code> .</p></li>
-<li><p>Add a security annotation to the EJB declaration.</p></li>
+<li><p>Adds a security domain reference to <code>WEB-INF/jboss-web.xml</code>.</p></li>
+<li><p>Adds a security constraint to the <code>WEB-INF/web.xml</code> .</p></li>
+<li><p>Adds a security annotation to the EJB declaration.</p></li>
 </ol>
 
 <p>Please note the allowed user role <code>quickstarts</code> in the annotation <code>@RolesAllowed</code> is the same as the user role defined in step 2.</p>
@@ -47,46 +47,6 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <h2><a id="configure-maven" class="anchor" href="#configure-maven"><span class="anchor-icon"></span></a>Configure Maven</h2>
 
 <p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven</a> before testing the quickstarts.</p>
-
-<h2><a id="add-the-application-users" class="anchor" href="#add-the-application-users"><span class="anchor-icon"></span></a>Add the Application Users</h2>
-
-<p>Using the add-user utility script, you must add the following users to the <code>ApplicationRealm</code>:</p>
-
-<table><thead>
-<tr>
-<th align="left"><strong>UserName</strong></th>
-<th align="left"><strong>Realm</strong></th>
-<th align="left"><strong>Password</strong></th>
-<th align="left"><strong>Roles</strong></th>
-</tr>
-</thead><tbody>
-<tr>
-<td align="left">quickstartUser</td>
-<td align="left">ApplicationRealm</td>
-<td align="left">quickstartPwd1!</td>
-<td align="left">quickstarts</td>
-</tr>
-<tr>
-<td align="left">guest</td>
-<td align="left">ApplicationRealm</td>
-<td align="left">guestPwd1!</td>
-<td align="left">notauthorized</td>
-</tr>
-</tbody></table>
-
-<p>The first application user has access rights to the application. The second application user is not authorized to access the application.</p>
-
-<p>To add the application users, open a command prompt and type the following commands:</p>
-<div class="highlight"><pre>    <span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>        
-      <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">quickstartUser</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">quickstartPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">quickstarts</span><span class="err">&#39;</span>
-      <span class="n">EAP_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">guest</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">guestPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">notauthorized</span><span class="err">&#39;</span>
-
-    <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> 
-      <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">quickstartUser</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">quickstartPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">quickstarts</span><span class="err">&#39;</span>
-      <span class="n">EAP_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">add</span><span class="o">-</span><span class="n">user</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">u</span> <span class="err">&#39;</span><span class="n">guest</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">p</span> <span class="err">&#39;</span><span class="n">guestPwd1</span><span class="o">!</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">g</span> <span class="err">&#39;</span><span class="n">notauthorized</span><span class="err">&#39;</span>
-</pre></div>
-<p>If you prefer, you can use the add-user utility interactively. 
-For an example of how to use the add-user utility, see instructions in the root README file located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
 
 <h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
 

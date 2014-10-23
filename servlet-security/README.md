@@ -17,20 +17,20 @@ When you deploy this example, two users are automatically created for you: user 
 
 This quickstart takes the following steps to implement Servlet security:
 
-1. Define a security domain in the `standalone.xml` configuration file using the Database JAAS LoginModule.
-2. Add an application user with access rights to the application
+1. Defines a security domain in the `standalone.xml` configuration file using the Database JAAS LoginModule.
+2. Adds an application user with access rights to the application.
 
         User Name: quickstartUser
         Password: quickstartPwd1!
         Role: quickstarts
-3. Add another user with no access rights to the application.
+3. Adds another user with no access rights to the application.
 
         User Name: guest
         Password: guestPwd1!
         Role: notauthorized
-4. Add a security domain reference to `WEB-INF/jboss-web.xml`.
-5. Add a security constraint to the `WEB-INF/web.xml` .
-6. Add a security annotation to the EJB declaration.
+4. Adds a security domain reference to `WEB-INF/jboss-web.xml`.
+5. Adds a security constraint to the `WEB-INF/web.xml` .
+6. Adds a security annotation to the EJB declaration.
 
 Please note the allowed user role `quickstarts` in the annotation `@RolesAllowed` is the same as the user role defined in step 2.
 
@@ -48,33 +48,6 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
-
-
-Add the Application Users
----------------
-
-Using the add-user utility script, you must add the following users to the `ApplicationRealm`:
-
-| **UserName** | **Realm** | **Password** | **Roles** |
-|:-----------|:-----------|:-----------|:-----------|
-| quickstartUser| ApplicationRealm | quickstartPwd1!| quickstarts |
-| guest | ApplicationRealm | guestPwd1! | notauthorized |
-
-The first application user has access rights to the application. The second application user is not authorized to access the application.
-
-To add the application users, open a command prompt and type the following commands:
-
-        For Linux:        
-          EAP_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'quickstarts'
-          EAP_HOME/bin/add-user.sh -a -u 'guest' -p 'guestPwd1!' -g 'notauthorized'
-
-        For Windows: 
-          EAP_HOME\bin\add-user.bat -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'quickstarts'
-          EAP_HOME\bin\add-user.bat -a -u 'guest' -p 'guestPwd1!' -g 'notauthorized'
-
-If you prefer, you can use the add-user utility interactively. 
-For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
-
 
 
 Configure the JBoss EAP Server
