@@ -26,6 +26,9 @@ function buildMemberRows(members) {
 
 /* Uses JAX-RS GET to retrieve current member list */
 function updateMemberTable() {
+    // Display the loader widget
+    $.mobile.loading("show");
+
     $.ajax({
         url: "rest/members",
         cache: false,
@@ -35,6 +38,10 @@ function updateMemberTable() {
         },
         error: function(error) {
             //console.log("error updating table -" + error.status);
+        },
+        complete: function() {
+            // Hide the loader widget
+            $.mobile.loading("hide");
         }
     });
 }
@@ -48,6 +55,9 @@ function registerMember(memberData) {
     //clear existing  msgs
     $('span.invalid').remove();
     $('span.success').remove();
+
+    // Display the loader widget
+    $.mobile.loading("show");
 
     $.ajax({
         url: 'rest/members',
@@ -79,6 +89,10 @@ function registerMember(memberData) {
                 //console.log("error - unknown server issue");
                 $('#formMsgs').append($('<span class="invalid">Unknown server error</span>'));
             }
+        },
+        complete: function() {
+            // Hide the loader widget
+            $.mobile.loading("hide");
         }
     });
 }
