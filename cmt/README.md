@@ -1,16 +1,16 @@
-cmt: Container Managed Transactions - Example Using Transactions That Are Managed by the Container 
-==================================================================================================
+cmt: Container Managed Transactions (CMT) 
+=========================================
 Author: Tom Jenkinson  
 Level: Intermediate  
 Technologies: EJB, Container Managed Transactions (CMT)  
-Summary: EJB that demonstrates container-managed transactions (CMT)  
+Summary: The `cmt` quickstart demonstrates Container-Managed Transactions (CMT), showing how to use transactions managed by the container.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 
-This quickstart demonstrates using transactions managed by the container. It is a fairly typical scenario of updating a database and sending a JMS message in the same transaction. A simple MDB is provided that prints out the message sent but this is not a transactional MDB and is purely provided for debugging purposes.
+The `cmt` quickstart demonstrates using transactions managed by the container. It is a fairly typical scenario of updating a database and sending a JMS message in the same transaction. A simple MDB is provided that prints out the message sent but this is not a transactional MDB and is purely provided for debugging purposes.
 
 Aspects touched upon in the code:
 
@@ -20,8 +20,8 @@ Aspects touched upon in the code:
 
 After users complete this quickstart, they are invited to run through the following quickstarts:
 
-1. _jts_ - The JTS quickstart builds upon this quickstart by distributing the CustomerManager and InvoiceManager
-2. _jts-distributed-crash-rec_ - The crash recovery quickstart builds upon the _jts_ quickstart by demonstrating the fault tolerance of JBossAS
+1. [jts](../jts/README.md) - The JTS quickstart builds upon this quickstart by distributing the CustomerManager and InvoiceManager
+2. [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) - The crash recovery quickstart builds upon the [jts](../jts/README.md) quickstart by demonstrating the fault tolerance of JBossAS
 
 ### What are container managed transactions?
 

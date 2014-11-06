@@ -3,7 +3,7 @@ tasks-rs: JAX-RS, JPA quickstart
 Author: Mike Musgrove  
 Level: Intermediate  
 Technologies: JPA, JAX-RS  
-Summary: Demonstrates how to use JAX-RS and JPA together  
+Summary: The `tasks-rs` quickstart demonstrates how to implement a JAX-RS service that uses JPA 2.0 persistence.  
 Prerequisites: tasks  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates how to implement a JAX-RS service that uses JPA 2.0 persistence.
+The `tasks-rs` quickstart demonstrates how to implement a JAX-RS service that uses JPA 2.0 persistence.
 
 * The client uses HTTP to interact with the service. It builds on the *tasks* quickstarts which provide simple Task management with secure login.
 

@@ -1,9 +1,9 @@
-forge-from-scratch: Example Showing How Forge Can Generate an Application From Scratch
+forge-from-scratch: Shows How Forge Can Generate an Application
 ======================================================================================
 Author: Lincoln Baxter, Matej Briškár  
 Level: Intermediate  
 Technologies: Forge  
-Summary: Demonstrates how to generate a fully Java EE compliant project using nothing but JBoss Forge  
+Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a database-enabled, Java EE (JPA, EJB 3.1, JAX-RS, JSF) Maven project.   
 Target Product: EAP  
 Product Versions: EAP 6.3, EAP 6.4, JBDS 8  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This quickstart demonstrates how to create a fully **Java EE compliant** project using nothing but  **JBoss Forge 2**. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using nothing but  **JBoss Forge 2**. 
 
 Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.0** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 

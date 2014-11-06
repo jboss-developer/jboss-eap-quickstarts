@@ -1,9 +1,9 @@
-QUICKSTART_NAME: Brief Description of the Quickstart
+QUICKSTART_NAME: Brief Description of the Quickstart (try to limit the description to 55 characters)
 ======================================================
 Author: YOUR_NAME and optional CONTACT_INFO  
 Level: [one of the following: Beginner, Intermediate, or Advanced]  
 Technologies: (list technologies used here)  
-Summary: (a brief description of the quickstart to appear in the table )  
+Summary: (A brief description of the quickstart to appear in the table and in Google search SEO results. Try to limit the description to 155 characters )  
 Prerequisites: (list any quickstarts that must be deployed prior to running this one)  
 Target Product: (EAP, WFK, JDG, etc)  
 Product Versions: (EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4)  
@@ -22,6 +22,7 @@ What is it?
 
 <!-- Contributor: This is where you provide an overview of what the quickstart demonstrates. For example: -->
 
+The `QUICKSTART_NAME` quickstart demonstrates ...
  * What are the technologies demonstrated by the quickstart?
  * What does it do when you run it?
 
@@ -247,7 +248,7 @@ You can now deploy the changes to your OpenShift application using git as follow
 
 The final push command triggers the OpenShift infrastructure to build and deploy the changes. 
 
-Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the war build by openshift to be copied to the `deployments/` directory, and deployed without a context path.
+Note that the `openshift` profile in `pom.xml` is activated by OpenShift, and causes the WAR build by openshift to be copied to the `deployments/` directory, and deployed without a context path.
 
 ### Test the OpenShift Application
 

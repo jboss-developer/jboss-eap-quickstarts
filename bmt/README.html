@@ -1,10 +1,10 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
-<h1><a id="bmt-bean-managed-transactions-stepping-outside-the-container-with-jpa-and-jta" class="anchor" href="#bmt-bean-managed-transactions-stepping-outside-the-container-with-jpa-and-jta"><span class="anchor-icon"></span></a>bmt: Bean Managed Transactions - Stepping Outside the Container (with JPA and JTA)</h1>
+<h1><a id="bmt-bean-managed-transactions-with-jpa-and-jta" class="anchor" href="#bmt-bean-managed-transactions-with-jpa-and-jta"><span class="anchor-icon"></span></a>bmt: Bean Managed Transactions with JPA and JTA</h1>
 
 <p>Author: Mike Musgrove<br/>
 Level: Intermediate<br/>
 Technologies: EJB, Bean Managed Transactions (BMT)<br/>
-Summary: EJB that demonstrates bean-managed transactions (BMT)<br/>
+Summary: The <code>bmt</code> quickstart demonstrates Bean-Managed Transactions (BMT), showing how to manually manage transaction demarcation while accessing JPA entities.<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
@@ -13,7 +13,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>On occasion, the application developer requires finer grained control over the lifecycle of JTA transactions and JPA Entity Managers than the defaults provided by the Java EE container. This example shows how the developer can override these defaults and take control of aspects of the lifecycle of JPA and transactions.</p>
 
-<p>This example demonstrates how to manually manage transaction demarcation while accessing JPA entities in Red Hat JBoss Enterprise Application Platform.</p>
+<p>The <code>bmt</code> quickstart demonstrates how to manually manage transaction demarcation while accessing JPA entities in Red Hat JBoss Enterprise Application Platform.</p>
 
 <p>When you run this example, you will be provided with a <code>Use bean managed Entity Managers</code> checkbox.
 * If you check the checkbox, it shows the developer responsibilities when injecting an Entity Manager into a managed (stateless) bean.

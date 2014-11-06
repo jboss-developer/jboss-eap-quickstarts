@@ -1,9 +1,9 @@
-tasks: Testing JPA with Arquillian
+tasks: Test JPA with Arquillian
 ==================================
 Author: Oliver Kiss, Lukas Fryc  
 Level: Intermediate  
 Technologies: JPA, Arquillian  
-Summary: Demonstrates testing JPA using Arquillian  
+Summary: The `tasks` quickstart includes a persistence unit and sample persistence code to demonstrates how to use JPA 2.0 for database access in JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates how to use JPA 2.0 in Red Hat JBoss Enterprise Application Platform. 
+The `tasks` quickstart demonstrates how to use JPA 2.0 in Red Hat JBoss Enterprise Application Platform. 
 
 It includes a persistence unit and some sample persistence code to introduce you database access in enterprise Java. 
 

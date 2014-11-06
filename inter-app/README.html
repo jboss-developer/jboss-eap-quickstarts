@@ -1,26 +1,26 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
-<h1><a id="interapp-shows-how-to-communicate-between-two-applications-using-ejb-and-cdi-" class="anchor" href="#interapp-shows-how-to-communicate-between-two-applications-using-ejb-and-cdi-"><span class="anchor-icon"></span></a>inter-app: Shows how to communicate between two applications using EJB and CDI </h1>
+<h1><a id="interapp-communicate-between-two-applications-using-ejb-and-cdi-" class="anchor" href="#interapp-communicate-between-two-applications-using-ejb-and-cdi-"><span class="anchor-icon"></span></a>inter-app: Communicate Between Two Applications Using EJB and CDI </h1>
 
 <p>Author: Pete Muir<br/>
 Level: Advanced<br/>
 Technologies: EJB, CDI, JSF<br/>
-Summary: Shows how to communicate between two applications using EJB and CDI<br/>
+Summary: The <code>inter-app</code> quickstart shows you how to use a shared API JAR and an EJB to provide inter-application communication between two WAR deployments.<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>This quickstart shows you how to easily communicate between two modular deployments to Red Hat JBoss Enterprise Application Platform. Two wars, with a shared API jar, are deployed to the app server. EJB is used to provide inter-application communication, with EJB beans alised to CDI beans, making the inter-application communication transparent to clients of the bean.</p>
+<p>The <code>inter-app</code> quickstart shows you how to easily communicate between two modular deployments to Red Hat JBoss Enterprise Application Platform. Two WARs, with a shared API JAR, are deployed to the application server. EJB is used to provide inter-application communication, with EJB beans alised to CDI beans, making the inter-application communication transparent to clients of the bean.</p>
 
-<p>CDI only provides intra-applicaion injection (i.e within a top level deployment, ear, war, jar etc). This improves performance of the application server, as to satisfy an injection point all possible candidates have to be scanned / analyzed. If inter-app injection was supported by CDI, performance would scale according to the number of deployments you have (the more deployments in the running system, the slower the deployment). Java EE injection uses unique JNDI names for the wiring, so each injection point is O(1). The approach shown here combines the two approaches such that you limit the name based wiring to one location in your code, and the main consumers of components can use CDI injection to reference these name wired components. For the name approach to work though, you still need to publish instances, and EJB singletons allow you to do that with just one extra annotation.</p>
+<p>CDI only provides intra-applicaion injection (i.e within a top level deployment, EAR, WAR, JAR etc). This improves performance of the application server, as to satisfy an injection point all possible candidates have to be scanned / analyzed. If inter-app injection was supported by CDI, performance would scale according to the number of deployments you have (the more deployments in the running system, the slower the deployment). Java EE injection uses unique JNDI names for the wiring, so each injection point is O(1). The approach shown here combines the two approaches such that you limit the name based wiring to one location in your code, and the main consumers of components can use CDI injection to reference these name wired components. For the name approach to work though, you still need to publish instances, and EJB singletons allow you to do that with just one extra annotation.</p>
 
 <p>In all, the project has three modules:</p>
 
 <ul>
-<li><code>jboss-inter-app-shared.jar</code> - this module contains the interfaces which define the contract between the beans exposed by the wars. It is deployed as a module</li>
-<li><code>jboss-inter-app-A.war</code> - the first war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB</li>
-<li><code>jboss-inter-app-B.war</code> - the second war, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA</li>
+<li><code>jboss-inter-app-shared.jar</code> - this module contains the interfaces which define the contract between the beans exposed by the WARs. It is deployed as a module</li>
+<li><code>jboss-inter-app-A.war</code> - the first WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB</li>
+<li><code>jboss-inter-app-B.war</code> - the second WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA</li>
 </ul>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>

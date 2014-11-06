@@ -1,15 +1,17 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
-<h1><a id="ejbsecurityinterceptors-using-client-and-server-side-interceptors-to-switch-the-identity-for-an-ejb-call" class="anchor" href="#ejbsecurityinterceptors-using-client-and-server-side-interceptors-to-switch-the-identity-for-an-ejb-call"><span class="anchor-icon"></span></a>ejb-security-interceptors:  Using client and server side interceptors to switch the identity for an EJB call.</h1>
+<h1><a id="ejbsecurityinterceptors-use-interceptors-to-switch-identities-for-an-ejb-call" class="anchor" href="#ejbsecurityinterceptors-use-interceptors-to-switch-identities-for-an-ejb-call"><span class="anchor-icon"></span></a>ejb-security-interceptors: Use Interceptors to Switch Identities for an EJB Call</h1>
 
 <p>Author: Darran Lofthouse<br/>
 Level: Advanced<br/>
 Technologies: EJB, Security<br/>
-Summary: Demonstrates how interceptors can be used to switch the identity for EJB calls on a call by call basis.<br/>
+Summary: The <code>ejb-security-interceptors</code> quickstart demonstrates how to use client and server side interceptors to switch the identity for an EJB call.<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.3, EAP 6.4<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>ejb-security-interceptors</code> quickstart demonstrates how to use client and server side interceptors to switch the identity for an EJB call.</p>
 
 <p>By default, when you make a remote call to an EJB deployed to the application server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. This is true for both client-to-server and server-to-server calls. If you need to use different identities from the same client, you normally need to open multiple connections to the server so that each one is authenticated as a different identity.</p>
 

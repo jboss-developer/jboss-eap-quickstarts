@@ -1,9 +1,9 @@
-jts: Java Transaction Service - Distributed EJB Transactions Across Multiple Containers 
-======================================================================================
+jts: Java Transaction Service - Distributed EJB Transactions
+============================================================
 Author: Tom Jenkinson  
 Level: Intermediate  
 Technologies: JTS  
-Summary: Uses Java Transaction Service (JTS) to coordinate distributed transactions  
+Summary: The `jts` quickstart shows how to use JTS to perform distributed transactions across multiple containers, fulfilling the properties of an ACID transaction.  
 Prerequisites: cmt  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
@@ -13,7 +13,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates how to perform distributed transactions in an application. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. 
+The `jts` quickstart demonstrates how to perform distributed transactions across multiple containers in an application. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. 
 
 ACID is a set of 4 properties that guarantee the resources are processed in the following manner:
 
@@ -25,7 +25,7 @@ ACID is a set of 4 properties that guarantee the resources are processed in the 
 
 The example uses Java Transaction Service (JTS) to propagate a transaction context across two Container-Managed Transaction (CMT) EJBs that, although deployed in separate servers, participate in the same transaction. In this example, one server processes the Customer and Account data and the other server processes the Invoice data.
 
-The code base is essentially the same as the _cmt_ quickstart, however in this case the <code>InvoiceManager</code>
+The code base is essentially the same as the [cmt](../cmt/README.md) quickstart, however in this case the <code>InvoiceManager</code>
 has been separated to a different deployment archive to demonstrate the usage of JTS. You can see the changes in the 
 following ways:
 
@@ -38,9 +38,7 @@ You will see that the `CustomerManagerEJB` uses the EJB home for the remote EJB,
 
 A simple MDB has been provided that prints out the messages sent but this is not a transactional MDB and is purely provided for debugging purposes.
 
-After users complete this quickstart, they are invited to run through the following quickstart:
-
-1. _jts-distributed-crash-rec_ - The crash recovery quickstart builds upon the _jts_ quickstart by demonstrating the fault tolerance of JBossAS.
+After  you complete this quickstart, you are invited to run through the [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) quickstart. The crash recovery quickstart builds upon this quickstart by demonstrating the fault tolerance of Red Hat JBoss Enterprise Application Platform.
 
 
 System requirements

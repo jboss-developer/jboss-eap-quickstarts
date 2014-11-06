@@ -1,9 +1,9 @@
-wsba-participant-completion-simple: Deployment of a WS-BA (WS Business Activity) - Participant Completion
-=========================================================================================================
+wsba-participant-completion-simple: Deployment of a WS-BA enabled JAX-WS Web Service
+====================================================================================
 Author: Paul Robinson  
 Level: Intermediate  
 Technologies: WS-BA, JAX-WS  
-Summary: Deployment of a WS-BA (WS-BusinessActivity) enabled JAX-WS Web service bundled in a war archive (Coordinator Completion protocol)  
+Summary: The `wsba-participant-completion-simple` quickstart deploys a WS-BA (WS Business Activity) enabled JAX-WS Web service WAR (ParticipantCompletion Protocol).  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the deployment of a WS-BA (WS Business Activity) enabled JAX-WS Web service bundled in a war archive for deployment to Red Hat JBoss Enterprise Application Platform.
+The `wsba-participant-completion-simple` quickstart demonstrates the deployment of a WS-BA (WS Business Activity) enabled JAX-WS Web service bundled in a WAR archive (ParticipantCompletion Protocol) for deployment to Red Hat JBoss Enterprise Application Platform.
 
 The Web service exposes a simple 'set' collection as a service. The Service allows items to be added to the set within a Business Activity.
 
@@ -26,7 +26,7 @@ For a more complete example, please see the XTS demonstrator application that sh
 It is also assumed tht you have an understanding of WS-BusinessActivity. For more details, read the XTS documentation
 that ships with the JBossTS project, which can be downloaded here: http://www.jboss.org/jbosstm/downloads/JBOSSTS_4_16_0_Final
 
-The application consists of a single JAX-WS web service that is deployed within a war archive. It is tested with a JBoss
+The application consists of a single JAX-WS web service that is deployed within a WAR archive. It is tested with a JBoss
 Arquillian enabled JUnit test.
 
 When running the org.jboss.as.quickstarts.wsba.participantcompletion.simple.ClientTest#testSuccess() method, the

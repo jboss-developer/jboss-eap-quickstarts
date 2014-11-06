@@ -1,19 +1,17 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
-<h1><a id="cdialternative-demostrates-cdi-alternatives" class="anchor" href="#cdialternative-demostrates-cdi-alternatives"><span class="anchor-icon"></span></a>cdi-alternative: Demostrates CDI Alternatives</h1>
+<h1><a id="cdialternative-demonstrates-cdi-alternatives" class="anchor" href="#cdialternative-demonstrates-cdi-alternatives"><span class="anchor-icon"></span></a>cdi-alternative: Demonstrates CDI Alternatives</h1>
 
 <p>Author: Nevin Zhu<br/>
 Level: Intermediate<br/>
 Technologies: CDI, Servlet, JSP<br/>
-Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment<br/>
+Summary: The <code>cdi-alternative</code> quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code.<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>When more than one version of a bean is implemented for different purposes, the ability to switch between the versions during the development phase by injecting one qualifier or another is shown in this demo.</p>
-
-<p>Instead of having to change the source code of the application, one can make the choice at deployment time by using alternatives.</p>
+<p>The <code>cdi-alternative</code> quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code. Instead, you choose the bean implementation during development by injecting a qualifier. Then at deployment time, rather than modify the source code, you choose the alternative.</p>
 
 <p>Alternatives are commonly used for purposes like the following:</p>
 

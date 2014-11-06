@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.ejbTimer;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 
@@ -28,9 +30,11 @@ import javax.ejb.Singleton;
 @Singleton
 public class ScheduleExample {
   
-    @Schedule(second="*/2", minute="*",hour="*", persistent=false)
+    @Schedule(second="*/6", minute="*",hour="*", persistent=false)
     public void doWork(){
-        System.out.println( "Hi from the EJB timer example!" );
+        Date currentTime = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+        System.out.println( "EJB timer service scheduler says the current time is: " + simpleDateFormat.format(currentTime) );
     }
     
 }

@@ -4,14 +4,14 @@
 <p>Author: Jaikiran Pai, Mike Musgrove<br/>
 Level: Intermediate<br/>
 Technologies: EJB<br/>
-Summary: Shows how to access an EJB from a remote Java client program using JNDI<br/>
+Summary: The <code>ejb-remote</code> quickstart uses <em>EJB 3.1</em> and <em>JNDI</em> to demonstrate how to access an EJB, deployed to JBoss EAP, from a remote Java client application.<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>This example shows how to access an EJB from a remote Java client application. It demonstrates the use of <em>EJB 3.1</em> and <em>JNDI</em> in Red Hat JBoss Enterprise Application Platform.</p>
+<p>The <code>ejb-remote</code> quickstart shows how to access an EJB from a remote Java client application. It demonstrates the use of <em>EJB 3.1</em> and <em>JNDI</em> in Red Hat JBoss Enterprise Application Platform.</p>
 
 <p>There are two components to this example: </p>
 
@@ -62,7 +62,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>Build the EJB and client interfaces JARs and install them in your local Maven repository.</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span>        
 </pre></div></li>
-<li><p>Deploy the EJB JAR to your server. This maven goal will deploy <code>server-side/target/jboss-ejb-remote-server-side.jar</code>. You can check the JBoss EAP server console to see information messages regarding the deployment.</p>
+<li><p>Deploy the EJB JAR to your server. This Maven goal will deploy <code>server-side/target/jboss-ejb-remote-server-side.jar</code>. You can check the JBoss EAP server console to see information messages regarding the deployment.</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
 </pre></div></li>
 </ul></li>

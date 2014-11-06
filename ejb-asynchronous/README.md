@@ -1,9 +1,9 @@
-ejb-asynchronous:  An application with an EJB with asynchronous methods to demonstrate how it works
+ejb-asynchronous: EJB with asynchronous methods
 ======================================================
 Author: Wolf-Dieter Fink  
 Level: Advanced  
 Technologies: EJB  
-Summary: Demonstrates asynchronous EJB invocations.  
+Summary: The `ejb-asynchronous` quickstart demonstrates the behavior of asynchronous EJB invocations by a deployed EJB and a remote client and how to handle errors.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,12 +11,12 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is a quickstart to demonstrate the behavior of asynchronous EJB invocations. The methods are invoked by both an EJB in the deployment and by a remote client. The quickstart also shows error handling if the asynchronous method invocation fails.
+The `ejb-asynchronous` quickstart demonstrates the behavior of asynchronous EJB invocations. The methods are invoked by both an EJB in the deployment and by a remote client. The quickstart also shows error handling if the asynchronous method invocation fails.
 
-The example is composed of 2 maven modules, each with a shared parent. The modules are as follows:
+The example is composed of 2 Maven modules, each with a shared parent. The modules are as follows:
 
 1. `ejb`: This module contains the EJB's and will be deployed to the server
-2. `client` : This module contains a remote ejb client
+2. `client` : This module contains a remote EJB client
 
 The root `pom.xml` builds each of the submodules in the above order and deploys the archive to the server.
 

@@ -1,19 +1,19 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
-<h1><a id="beanvalidationcustomconstraint-bean-validation-using-custom-constraints-via-arquillian-example" class="anchor" href="#beanvalidationcustomconstraint-bean-validation-using-custom-constraints-via-arquillian-example"><span class="anchor-icon"></span></a>bean-validation-custom-constraint: Bean Validation using custom constraints via Arquillian Example</h1>
+<h1><a id="beanvalidationcustomconstraint-bean-validation-using-custom-constraints" class="anchor" href="#beanvalidationcustomconstraint-bean-validation-using-custom-constraints"><span class="anchor-icon"></span></a>bean-validation-custom-constraint: Bean Validation Using Custom Constraints</h1>
 
 <p>Author: Giriraj Sharma<br/>
 Level: Beginner<br/>
 Technologies: Bean Validation, JPA<br/>
-Summary: Shows how to use Arquillian to test Bean Validation using custom constraints<br/>
+Summary: The <code>bean-validation-custom-constraint</code> quickstart demonstrates how to use the Bean Validation API to define custom constraints and validators.<br/>
 Target Product: EAP<br/>
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4<br/>
 Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>This project demonstrates how to use CDI 1.0, JPA 2.0 and Bean Validation 1.0. Bean Validation API allows the developers to define their own constraints by creating a new annotation and writing the validator which is used to validate the value. This quickstart will show you how to create custom constraints and then use it to validate your data. It includes a persistence unit and some sample persistence code to introduce you to database access in enterprise Java. This quickstart does not contain a user interface layer. </p>
+<p>The <code>bean-validation-custom-constraint</code> quickstart demonstrates how to use CDI 1.0, JPA 2.0 and Bean Validation 1.0. Bean Validation API allows the developers to define their own constraints by creating a new annotation and writing the validator which is used to validate the value. This quickstart will show you how to create custom constraints and then use it to validate your data. It includes a persistence unit and some sample persistence code to introduce you to database access in enterprise Java. </p>
 
-<p>The purpose of this project is to show you how to test bean validation using custom constraints with Arquillian. In this quickstart, the personAddress field of entity Person is validated using a set of custom constraints defined in the class AddressValidator. If you want to see an example of how to test bean validation with a user interface, look at the <a href="../kitchensink/README.html">kitchensink</a> example.</p>
+<p>This quickstart does not contain a user interface layer. The purpose of this project is to show you how to test bean validation using custom constraints with Arquillian. In this quickstart, the personAddress field of entity Person is validated using a set of custom constraints defined in the class AddressValidator. If you want to see an example of how to test bean validation with a user interface, look at the <a href="../kitchensink/README.html">kitchensink</a> example.</p>
 
 <p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
 

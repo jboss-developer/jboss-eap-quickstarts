@@ -1,16 +1,16 @@
-ejb-throws-exception: Deployment of an EAR Containing a JSF WAR and an EJB JAR that throws a custom exception
+ejb-throws-exception: Handle Exceptions across JARs in an EAR
 ====================================================================
 Author: Brad Maxwell  
 Level: Intermediate  
 Technologies: EJB, EAR  
-Summary: Shows how to handle Exceptions across JARs in an EAR  
+Summary: The `ejb-throws-exception` quickstart demonstrates how to throw and handle Exceptions across JARs in an EAR.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
-This example extends the `ejb-in-ear` quickstart and demonstrates how to handle Exceptions across JARs in an EAR. In this quickstart, an EJB in the EJB JAR throws a custom Exception. The web application in the client JAR catches the Exception and displays it in a nicely formatted message. The EAR contains: *JSF 2.0 WAR*, an *EJB 3.1* JAR and a client library JAR containg classes that both the WAR and EJB JAR use.
+The `ejb-throws-exception` quickstart extends the [ejb-in-ear](../ejb-in-ear/README.md) quickstart and demonstrates how to handle Exceptions across JARs in an EAR. In this quickstart, an EJB in the EJB JAR throws a custom Exception. The web application in the client JAR catches the Exception and displays it in a nicely formatted message. The EAR contains: *JSF 2.0 WAR*, an *EJB 3.1* JAR and a client library JAR containg classes that both the WAR and EJB JAR use.
 
 The example is composed of three Maven projects, each with a shared parent. The projects are as follows:
 
@@ -20,7 +20,7 @@ The example is composed of three Maven projects, each with a shared parent. The 
 
 3. `ear`: This project builds the EAR artifact and pulls in the ejb, web, and client artifacts.
 
-4. `ejb-api`: This project builds the ejb-api library artifact which is used by the ejb, web, as well as remote client artifacts. The ejb-api directory contains the EJB interfaces, custom exceptions the EJB throws and any other transfer objects which the EJB may receive or send back to the client.  The EJB interfaces, custom exceptions, and other transfer objects are split into a separate jar which is packaged in the ear/lib. This allows all sub deployments of the ear to see the classes of the ejb-api jar in their classpath.  This is also useful for remote clients.  The ejb-api jar can be distributed to a remote client and give the remote clients the classes that are needed to interact with the EJB
+4. `ejb-api`: This project builds the ejb-api library artifact which is used by the ejb, web, as well as remote client artifacts. The ejb-api directory contains the EJB interfaces, custom exceptions the EJB throws and any other transfer objects which the EJB may receive or send back to the client.  The EJB interfaces, custom exceptions, and other transfer objects are split into a separate JAR which is packaged in the ear/lib. This allows all sub deployments of the EAR to see the classes of the ejb-api JAR in the classpath.  This is also useful for remote clients.  The ejb-api JAR can be distributed to a remote client and give the remote clients the classes that are needed to interact with the EJB.
 
 The root `pom.xml` builds each of the subprojects in the above order and deploys the EAR archive to the server.
 

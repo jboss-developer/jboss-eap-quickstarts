@@ -3,7 +3,7 @@ hornetq-clustering: HornetQ Demonstrating using Clustering
 Author: Jess Sightler  
 Level: Intermediate  
 Technologies: JMS, MDB, HornetQ  
-Summary: Demonstrates the use of HornetQ Clustering  
+Summary: The `hornetq-clustering` quickstart does not contain any code and instead uses the `helloworld-mdb` quickstart to demonstrate clustering using HornetQ.  
 Prerequisites: helloworld-mdb  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the use of clustering with HornetQ. It uses the `helloworld-mdb` quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
+The `hornetq-clustering` quickstart demonstrates the use of clustering with HornetQ. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
 
 System requirements
 -------------------

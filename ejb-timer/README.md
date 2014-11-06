@@ -1,9 +1,9 @@
-ejb-timer: EJB Timers example - @Schedule and @Timeout
+ejb-timer: Example of EJB Timer Service - @Schedule and @Timeout
 ===========================================
 Author: Ondrej Zizka <ozizka@redhat.com>  
 Level: Beginner  
 Technologies: EJB 3.1 Timer  
-Summary: Demonstrates how to use EJB 3.1 Timer (@Schedule and @Timeout) with JBoss EAP.  
+Summary: The `ejb-timer` quickstart demonstrates how to use the EJB 3.1 timer service `@Schedule` and `@Timeout` annotations with JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,13 +11,13 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-Demonstrates how to use EJB 3.1 Timer (@Schedule and @Timeout) with JBoss EAP.
+The `ejb-timer` quickstart demonstrates how to use the EJB 3.1 timer service with Red Hat JBoss Enterprise Application Platform. This example creates a timer service that uses the `@Schedule` and `@Timeout` annotations. 
 
 
-Features used:
+The following EJB 3.1 Timer services are demonstrated:
 
- * Usage of `@Schedule`
- * Usage of `@Timeout`
+ * `@Schedule`: Uses this annotation to mark a method to be executed according to the calendar schedule specified in the attributes of the annotation. This example schedules a message to be printed to the server console every 6 seconds.
+ * `@Timeout`: Uses this annotation to mark a method to execute when a programmatic timer goes off. This example sets the timer to go off every 3 seconds.
  
 
 System requirements
@@ -64,18 +64,20 @@ Access the application
 This application only prints messages to stdout.
 To see it working, check the server log. You should see similar output:
 
-    ...
-    18:33:36,004 INFO  [stdout] (EJB default - 7) Hi from the EJB timer example!
-    18:33:38,003 INFO  [stdout] (EJB default - 8) Hi from the EJB timer example!
-    18:33:40,002 INFO  [stdout] (EJB default - 9) Hi from the EJB timer example!
-    18:33:42,002 INFO  [stdout] (EJB default - 10) Hi from the EJB timer example!
-    18:33:44,003 INFO  [stdout] (EJB default - 1) Hi from the EJB timer example!
-    18:33:46,004 INFO  [stdout] (EJB default - 2) Hi from the EJB timer example!
-    18:33:48,003 INFO  [stdout] (EJB default - 3) Hi from the EJB timer example!
-    ...
+      12:01:06,002 INFO  [stdout] (EJB default - 7) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:06 EST
+      12:01:12,002 INFO  [stdout] (EJB default - 6) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:12 EST
+      12:01:18,001 INFO  [stdout] (EJB default - 5) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:18 EST
+      12:01:20,002 INFO  [stdout] (EJB default - 8) EJB Timer: Info = EJB timer service timeout!
+      12:01:24,002 INFO  [stdout] (EJB default - 9) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:24 EST
+      12:01:30,002 INFO  [stdout] (EJB default - 10) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:30 EST
+      12:01:36,002 INFO  [stdout] (EJB default - 2) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:36 EST
+      12:01:40,002 INFO  [stdout] (EJB default - 1) EJB Timer: Info = EJB timer service timeout!
+      12:01:42,001 INFO  [stdout] (EJB default - 4) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:42 EST
+      12:01:48,001 INFO  [stdout] (EJB default - 3) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:48 EST
+      12:01:54,001 INFO  [stdout] (EJB default - 7) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:54 EST
+      12:02:00,001 INFO  [stdout] (EJB default - 6) EJB Timer: Info = EJB timer service timeout!
 
-The parentheses contain name of thread executing the particular invocation.
-There are pre-created threads in thread pool, and they are rotated. Hence the changing number.
+Existing threads in the thread pool handle the invocations. They are rotated and the name of the thread that handles the invocation is printed within the parenthesis `(EJB Default - #)`.
 
 
 Undeploy the Archive

@@ -1,9 +1,9 @@
-xml-dom4j: How to Upload and Parse an XML File Using a 3rd Party XML Parsing Library
+xml-dom4j: Use a 3rd Party XML Parsing Library
 ========================
 Author: Bartosz Baranowski  
 Level: Intermediate  
 Technologies: DOM4J, Servlet, JSF  
-Summary: Demonstrates how to upload an XML file and parse it using 3rd party XML parsing libraries  
+Summary: The `xml-dom4j` quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP and parse it using a 3rd party XML parsing library.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is a simple JSF 2.0, Servlet 3.0 and DOM4J example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to *JBoss EAP* and parse it using 3rd party XML parsing library.
+The `xml-dom4j` quickstart is a simple JSF 2.0, Servlet 3.0 and DOM4J example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to *Red Hat JBoss Enterprise Application Platform* and parse it using a 3rd party XML parsing library.
 
 It shows how to include 3rd part library in deployment.
  

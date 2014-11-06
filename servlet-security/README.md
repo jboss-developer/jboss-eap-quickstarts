@@ -1,9 +1,9 @@
-servlet-security:  Using Java EE Declarative Security to Control Access to Servlet 3
+servlet-security:  Using Java EE Declarative Security to Control Servlet Access
 ====================
 Author: Sherif F. Makary, Pedro Igor  
 Level: Intermediate  
 Technologies: Servlet, Security  
-Summary: Demonstrates how to use Java EE declarative security to control access to Servlet 3  
+Summary: The `servlet-security` quickstart demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the use of Java EE declarative security to control access to Servlets and Security in Red Hat JBoss Enterprise Application Platform.
+The `servlet-security` quickstart demonstrates the use of Java EE declarative security to control access to Servlets and Security in Red Hat JBoss Enterprise Application Platform.
 
 When you deploy this example, two users are automatically created for you: user `quickstartUser` with password `quickstartPwd1!` and user `guest` with password `guestPwd1!`. This data is located in the `src/main/resources/import.sql` file. 
 

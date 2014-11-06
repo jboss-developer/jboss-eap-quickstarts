@@ -1,9 +1,9 @@
-bmt: Bean Managed Transactions - Stepping Outside the Container (with JPA and JTA)
+bmt: Bean Managed Transactions with JPA and JTA
 =================================================================================
 Author: Mike Musgrove  
 Level: Intermediate  
 Technologies: EJB, Bean Managed Transactions (BMT)  
-Summary: EJB that demonstrates bean-managed transactions (BMT)  
+Summary: The `bmt` quickstart demonstrates Bean-Managed Transactions (BMT), showing how to manually manage transaction demarcation while accessing JPA entities.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -13,7 +13,7 @@ What is it?
 
 On occasion, the application developer requires finer grained control over the lifecycle of JTA transactions and JPA Entity Managers than the defaults provided by the Java EE container. This example shows how the developer can override these defaults and take control of aspects of the lifecycle of JPA and transactions.
 
-This example demonstrates how to manually manage transaction demarcation while accessing JPA entities in Red Hat JBoss Enterprise Application Platform.
+The `bmt` quickstart demonstrates how to manually manage transaction demarcation while accessing JPA entities in Red Hat JBoss Enterprise Application Platform.
 
 When you run this example, you will be provided with a `Use bean managed Entity Managers` checkbox.
 * If you check the checkbox, it shows the developer responsibilities when injecting an Entity Manager into a managed (stateless) bean.
