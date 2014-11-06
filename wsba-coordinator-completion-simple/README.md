@@ -61,7 +61,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Start the JBoss EAP Server with the Custom Options
 ----------------------
 
-Next you need to start JBoss EAP with the XTS subsystem enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBossAS:
+Next you need to start JBoss EAP with the XTS subsystem enabled. This is enabled through the optional server configuration *standalone-xts.xml*. To do this, run the following commands from the top-level directory of JBoss EAP:
 
         For Linux:     ./bin/standalone.sh --server-config=../../docs/examples/configs/standalone-xts.xml | egrep "started|stdout"
         For Windows:   \bin\standalone.bat --server-config=..\..\docs\examples\configs\standalone-xts.xml | egrep "started|stdout"
