@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <%--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
@@ -15,8 +17,9 @@
     limitations under the License.
 --%>
 <html>
+<head>
+<meta HTTP-EQUIV="REFRESH" content="0; url=app/greet">
+</head>
 <body>
-<h2>
-<meta HTTP-EQUIV="REFRESH" content="0; url=app/greet"></h2>
 </body>
 </html>
