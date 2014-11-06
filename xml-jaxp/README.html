@@ -11,9 +11,14 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>The <code>xml-jaxp</code> quickstart is a simple JSF 2.0, Servlet 3.0 and Java EE JAXP example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to <em>Red Hat JBoss Enterprise Application Platform</em> and parse it using DOM or SAX, both of which are built into Java.</p>
+<p>The <code>xml-jaxp</code> quickstart is a simple JSF 2.0, Servlet 3.0 and Java EE JAXP example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to <em>Red Hat JBoss Enterprise Application Platform</em> and parse it using DOM or SAX, both of which are built into Java. It also shows how to use modules available in JBoss EAP.</p>
 
-<p>It also shows how to use modules available in JBoss EAP.</p>
+<p>This quickstart provides an example XML schema and document file to use when testing this quickstart.</p>
+
+<ul>
+<li>The XML schema is located here: <code>QUICKSTART_HOME/src/main/resources/catalog.xsd</code> </li>
+<li>The XML document is located here: <code>QUICKSTART_home/src/main/resources/catalog.xml</code></li>
+</ul>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 
@@ -51,6 +56,28 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
 
 <p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-xml-jaxp/">http://localhost:8080/jboss-xml-jaxp/</a>.</p>
+
+<p>To test the quickstart, follow these steps.</p>
+
+<ol>
+<li>Click the <code>Browse</code> button and navigate to the <code>QUICKSTART_home/src/main/resources/catalog.xml</code> file.</li>
+<li>Click the <code>Upload</code> button. The XML file content is parsed and displayed on the page. </li>
+<li><p>You should see the following output in the server console that shows the DOMXMLParser was used:</p>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">stdout</span><span class="p">]</span> <span class="p">(</span><span class="n">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">Parsing</span> <span class="n">the</span> <span class="n">document</span> <span class="n">using</span> <span class="n">the</span> <span class="n">DOMXMLParser</span><span class="o">!</span>
+</pre></div></li>
+</ol>
+
+<p>To enable the alternative SAXXMLParser parser:</p>
+
+<ol>
+<li>Remove the comments that surround the alternate parser element in the <code>WEB-INF/beans.xml</code> file.</li>
+<li>Redeploy the application using the instructions above and access the application in a browser at the following URL:  <a href="http://localhost:8080/jboss-xml-jaxp/">http://localhost:8080/jboss-xml-jaxp/</a>.</li>
+<li>Click the <code>Browse</code> button and navigate to the <code>QUICKSTART_home/src/main/resources/catalog.xml</code> file.</li>
+<li>Click the <code>Upload</code> button. The XML file content is parsed and displayed on the page. </li>
+<li><p>You should now see following output in the server console:</p>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">stdout</span><span class="p">]</span> <span class="p">(</span><span class="n">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">Parsing</span> <span class="n">the</span> <span class="n">document</span> <span class="n">using</span> <span class="n">the</span> <span class="n">SAXXMLParser</span><span class="o">!</span>
+</pre></div></li>
+</ol>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
