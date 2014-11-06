@@ -55,6 +55,7 @@ public class DOMXMLParser extends XMLParser {
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
     DOMXMLParser() throws Exception {
+        System.out.println("Parsing the document using the DOMXMLParser!");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         /*
          * bizarrely, setValidating refers to DTD validation only, and we are using schema validation
