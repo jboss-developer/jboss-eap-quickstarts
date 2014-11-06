@@ -21,7 +21,7 @@ Aspects touched upon in the code:
 After users complete this quickstart, they are invited to run through the following quickstarts:
 
 1. [jts](../jts/README.md) - The JTS quickstart builds upon this quickstart by distributing the CustomerManager and InvoiceManager
-2. [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) - The crash recovery quickstart builds upon the [jts](../jts/README.md) quickstart by demonstrating the fault tolerance of JBossAS
+2. [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) - The crash recovery quickstart builds upon the [jts](../jts/README.md) quickstart by demonstrating the fault tolerance of JBoss EAP.
 
 ### What are container managed transactions?
 
