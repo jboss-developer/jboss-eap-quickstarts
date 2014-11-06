@@ -30,7 +30,7 @@ public class TaxImpl_2 implements Tax {
     @Override
     public String getRate() {
         // TODO Auto-generated method stub
-        return "Tax_2 Rate! To switch back to the default, go to /META-INF/beans.xml and comment out the 'alternatives' tag";
+        return "Tax_2 Rate! To switch back to the default, comment out the 'alternatives' tag in the WEB-INF/beans.xml file";
     }
 
 }
