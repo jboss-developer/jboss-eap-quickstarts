@@ -1,9 +1,9 @@
-Logging Example: Example application that sets up different logging levels
+Logging Example: Example That Sets Up Different Logging Levels
 ===============================================================
 Author: Joel Tosi  
 Level: Intermediate  
 Technologies: Logging  
-Summary: Demonstrates how to set various application logging levels  
+Summary: The `logging` quickstart demonstrates how to configure different logging levels in JBoss EAP. It also includes an asynchronous logging example.  
 Prerequisites: None  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates how to set up and log different levels of information in Red Hat JBoss Enterprise Application Platform. An example of asynchronous logging is also included in the configuration examples.
+The `logging` quickstart demonstrates how to set up and log different levels of information in Red Hat JBoss Enterprise Application Platform. An example of asynchronous logging is also included in the configuration examples.
 
 This quickstart contains just one class file and one JSP file. When you access the application, it fires off the logging information.
 

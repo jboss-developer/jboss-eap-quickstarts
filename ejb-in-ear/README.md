@@ -1,9 +1,9 @@
-ejb-in-ear: Deployment of an EAR Containing a JSF WAR and an EJB JAR
+ejb-in-ear: Deployment of an EAR Containing a JSF WAR and EJB JAR
 ====================================================================
 Author: Paul Robinson  
 Level: Intermediate  
 Technologies: EJB, EAR  
-Summary: Packages an EJB JAR and WAR in an EAR  
+Summary: The `ejb-in-ear` quickstart demonstrates how to deploy an EAR archive that contains a *JSF 2.0* WAR and an *EJB 3.1* JAR.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,18 +11,17 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the deployment of an EAR artifact. The EAR contains: *JSF 2.0* WAR and an *EJB 3.1* JAR.
+The `ejb-in-ear` quickstart demonstrates the deployment of an EAR artifact to Red Hat JBoss Enterprise Application Platform. The EAR contains: *JSF 2.0* WAR and an *EJB 3.1* JAR.
 
-The example is composed of three maven projects, each with a shared parent. The projects are as follows:
+The example is composed of three Maven projects, each with a shared parent. The projects are as follows:
 
 1. `ejb`: This project contains the EJB code and can be built independently to produce the JAR archive.
 
 2. `web`: This project contains the JSF pages and the managed bean.
 
-3. `ear`: This project builds the EAR artifact and pulls in the ejb and web artifacts.
+3. `ear`: This project builds the EAR artifact and pulls in the EJB and Web artifacts.
 
 The root `pom.xml` builds each of the subprojects in the above order and deploys the EAR archive to the server.
-
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
 

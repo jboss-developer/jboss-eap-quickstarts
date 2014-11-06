@@ -1,9 +1,9 @@
-log4j: How to Define a Module Dependency and Use log4j in an Application
-=======================================================================
+log4j: Define a Module Dependency and Use log4j in an Application
+=================================================================
 Author: Bartosz Baranowski  
 Level: Beginner  
 Technologies: JBoss Modules  
-Summary: Demonstrates how to use modules to control class loading for 3rd party logging frameworks  
+Summary: The `log4j` quickstart demonstrates how to use container defined modules to add dependencies on 3rd party libraries and limit the application package size.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This simple JSF 2.0 application shows how to use container defined modules to limit the size of the application package. It also shows how to use 
+The `log4j` quickstart is a simple JSF 2.0 application that shows how to use container defined modules to limit the size of the application package. It also shows how to use 
 common versions of certain classes at runtime.
 
 Applications must often depend on third-party libraries. By default, Java EE packages allow you to include dependencies in a deployable unit which can lead to uncontrolled growth of the deployable unit. This can be avoided by the use of container defined modules. A module is nothing more than a container managed binary dependency which is shared by all deployed applications. For more informatin on class loading and modules please refer to "About Modules and the New Modular Class Loading System used in JBoss EAP 6" in the [Development Guide for Red Hat JBoss Enterprise Application Platform](https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform).

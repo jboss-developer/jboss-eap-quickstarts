@@ -1,9 +1,9 @@
-picketlink-sts: PicketLink Federation: WS-Trust Security Token Service 
+picketlink-sts: PicketLink Federation: WS-Trust Security Token Service
 ======================================================
 Author: Peter Skopek  
 Level: Advanced  
 Technologies: WS-Trust, SAML  
-Summary: This project is an implementation of a WS-Trust Security Token Service.  
+Summary: The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).
+The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).
 
 WS-Trust extends the WS-Security specification to allow the issuance, renewal, and validation of security tokens. 
 Many WS-Trust functions center around the use of a "Security Token Service", or STS. 

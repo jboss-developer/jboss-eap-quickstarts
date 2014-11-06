@@ -1,9 +1,9 @@
-cdi-alternative: Demostrates CDI Alternatives
+cdi-alternative: Demonstrates CDI Alternatives
 ======================================================
 Author: Nevin Zhu  
 Level: Intermediate  
 Technologies: CDI, Servlet, JSP  
-Summary: Demonstrates the use of CDI Alternatives where the bean is selected during deployment   
+Summary: The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code.   
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,9 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-When more than one version of a bean is implemented for different purposes, the ability to switch between the versions during the development phase by injecting one qualifier or another is shown in this demo.
-
-Instead of having to change the source code of the application, one can make the choice at deployment time by using alternatives.
+The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code. Instead, you choose the bean implementation during development by injecting a qualifier. Then at deployment time, rather than modify the source code, you choose the alternative.
 
 Alternatives are commonly used for purposes like the following:
 

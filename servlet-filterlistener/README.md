@@ -3,7 +3,7 @@ servlet-filterlistener: How to Write Servlet Filters and Listeners
 Author: Jonathan Fuerth  
 Level: Intermediate  
 Technologies: Servlet  
-Summary: Demonstrates Servlet filters and listeners  
+Summary: The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners in an application.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is a sample project showing the use of servlet filters and listeners.
+The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners.
 
 System requirements
 -------------------

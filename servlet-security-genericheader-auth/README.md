@@ -1,9 +1,9 @@
-servlet-security-genericheader-auth:  Authenticate via external SSO system using HTTP request headers
+servlet-security-genericheader-auth:  Authenticate Via External SSO Using HTTP Request Headers
 ====================
 Author: Gary Lamperillo, Jesse Sightler  
 Level: Intermediate  
 Technologies: Servlet, JAAS  
-Summary: Demonstrates the use a custom authenticator to enable support for header-based authentication  
+Summary: The `servlet-security-genericheader-auth` quickstart demonstrates a custom authenticator to enable support for HTTP header-based authentication.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates a method for HTTP authentication based upon an HTTP header in the incoming request. A Tomcat
+The `servlet-security-genericheader-auth` quickstart demonstrates a method for HTTP authentication based upon an HTTP header in the incoming request. A Tomcat
 Valve called "GenericHeaderAuthenticator" is used to pass these credentials to JBoss. Tomcat Valves provide a 
 powerful, flexible way to insert a Java component into the request servlet container's request processing pipeline in 
 order to implement features such as this.

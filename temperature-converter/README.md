@@ -1,9 +1,9 @@
-temperature-converter: Stateless Session EJB
+temperature-converter: Stateless Session EJB (SLSB)
 =================================================
 Author: Bruce Wolfe  
 Level: Beginner  
 Technologies: EJB  
-Summary: Demonstrates a stateless session bean   
+Summary: The `temperature-converter` quickstart does temperature conversion using an *EJB 3.1 Stateless Session Bean* (SLSB), *CDI*, and a *JSF* front-end client.   
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,12 +11,12 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the use of an *EJB 3.1 Stateless Session Bean* and *CDI* to access it via a *JSF*.
-Deployment occurs via a war archive for deployment to Red Hat JBoss Enterprise Application Platform.
+The `temperature-converter` example demonstrates the use of an *EJB 3.1 Stateless Session Bean* (SLSB) and *CDI*, accessed using a *JSF*.
+It is deployed to Red Hat JBoss Enterprise Application Platform using a WAR archive.
 
-These are the steps that occur:
+The application does the following:
 
-1. The user interface is a JSF page that asks for a temperature and a scale (Fahrenheit or Celsius).
+1. The User Interface is a JSF page that asks for a temperature and a scale (Fahrenheit or Celsius).
 2. When you click on `Convert`, the temperature string is passed to the TemperatureConverter controller (managed) bean.
 3. The managed bean then invokes the `convert()` method of the injected TemperatureConvertEJB (notice the field annotated with @Inject).
 4. The response from TemperatureConvertEJB is stored in the `temperature` field of the managed bean.

@@ -1,9 +1,9 @@
-kitchensink-ml-ear: Localized Example Using Multiple Java EE 6 Technologies Deployed as an EAR
+kitchensink-ml-ear: Localized Version of the kitchensink-ear Quickstart
 ==============================================================================================
 Author: Sande Gilda  
 Level: Intermediate  
 Technologies: EAR  
-Summary: A localized version of kitchensink-ear  
+Summary: The `kitchensink-ml-ear` quickstart demonstrates localized database application, using JSF 2.0, CDI, EJB 3.1, JPA and Bean Validation, packaged as an EAR.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,11 +11,11 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform. 
+he `kitchensink-ml-ear` quickstart is a deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform. 
 
-This project is setup to allow you to create a _localized_ Java EE 6 compliant application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. A localized application is one that supports multiple languages. That is what the _-ml_ suffix denotes in the quickstart name `kitchensink-ml-ear`. This quickstart also includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
+It demonstrates how to create a _localized_ Java EE 6 compliant application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. A localized application is one that supports multiple languages. That is what the _-ml_ suffix denotes in the quickstart name _kitchensink-ml-ear_. This quickstart also includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
-This quickstart uses the `kitchensink-ear` quickstart as its starting point. It has been enhanced to provide localization of labels and messages. A user sets the preferred language choice in the browser and, if the application supports that language, the application web page is rendered in that language. For demonstration purposes, this quickstart has been tranlated into French(fr) and Spanish (es) using <http://translate.google.com>, so the translations may not be ideal.
+This quickstart uses the [kitchensink-ear](../kitchensink-ear/README.md) quickstart as its starting point. It has been enhanced to provide localization of labels and messages. A user sets the preferred language choice in the browser and, if the application supports that language, the application web page is rendered in that language. For demonstration purposes, this quickstart has been tranlated into French(fr) and Spanish (es) using <http://translate.google.com>, so the translations may not be ideal.
 
 _Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 

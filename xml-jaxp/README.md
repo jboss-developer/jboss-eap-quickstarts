@@ -1,9 +1,9 @@
-xml-jaxp: Demonstrates How to Upload and Parse an XML File Using DOM or SAX
+xml-jaxp: Upload and Parse an XML File Using DOM or SAX
 ========================
 Author: Bartosz Baranowski  
 Level: Intermediate  
 Technologies: JAXP, SAX, DOM, Servlet  
-Summary: Upload, validation and parsing of XML using SAX or DOM  
+Summary: The `xml-jaxp` quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP and validate and parse it using DOM or SAX.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is a simple JSF 2.0, Servlet 3.0 and Java EE JAXP example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to *JBoss EAP* and parse it using DOM or SAX, both of which are built in to Java.
+The `xml-jaxp` quickstart is a simple JSF 2.0, Servlet 3.0 and Java EE JAXP example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to *Red Hat JBoss Enterprise Application Platform* and parse it using DOM or SAX, both of which are built into Java.
 
 It also shows how to use modules available in JBoss EAP.
  

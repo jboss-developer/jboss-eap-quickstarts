@@ -3,7 +3,7 @@ ejb-remote: Remote EJB Client Example
 Author: Jaikiran Pai, Mike Musgrove  
 Level: Intermediate  
 Technologies: EJB  
-Summary: Shows how to access an EJB from a remote Java client program using JNDI  
+Summary: The `ejb-remote` quickstart uses *EJB 3.1* and *JNDI* to demonstrate how to access an EJB, deployed to JBoss EAP, from a remote Java client application.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example shows how to access an EJB from a remote Java client application. It demonstrates the use of *EJB 3.1* and *JNDI* in Red Hat JBoss Enterprise Application Platform.
+The `ejb-remote` quickstart shows how to access an EJB from a remote Java client application. It demonstrates the use of *EJB 3.1* and *JNDI* in Red Hat JBoss Enterprise Application Platform.
 
 There are two components to this example: 
 
@@ -63,7 +63,7 @@ Since this quickstart builds two separate components, you can not use the standa
     * Build the EJB and client interfaces JARs and install them in your local Maven repository.
 
             mvn clean install        
-    * Deploy the EJB JAR to your server. This maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss EAP server console to see information messages regarding the deployment.
+    * Deploy the EJB JAR to your server. This Maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss EAP server console to see information messages regarding the deployment.
 
             mvn jboss-as:deploy
 4. Build and run the client application

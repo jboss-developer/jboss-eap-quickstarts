@@ -3,14 +3,14 @@ cdi-decorator: Demostrates CDI Decorator
 Author: Ievgen Shulga  
 Level: Intermediate  
 Technologies: CDI  
-Summary: Demonstrates the use of CDI Decorator where the bean is can be decorated.  
+Summary: The `cdi-decorator` quickstart demonstrates the use of a CDI Decorator to intercept bean methods and modify the business logic.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
-This example demonstrates the use of CDI Decorator.
+The `cdi-decorator` quickstart demonstrates the use of CDI Decorator.
 It represents a common decorator design pattern. We take a class and we wrap decorator class around it. 
 When we call the class, we always pass through the surrounding decorator class before we reach the inner class. 
 In this example, the decorator class simply changes the staff bonus from '100' to '200' and the staff position from 'Java Developer' to 'Team Lead'. It then logs a message to the server console.

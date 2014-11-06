@@ -3,7 +3,7 @@ helloworld-mbean: Helloworld Using MBean and CDI component
 Author: Lagarde Jeremie  
 Level: Intermediate  
 Technologies: CDI, JMX, MBean  
-Summary: Demonstrates the use of CDI 1.0 and MBean  
+Summary: The `helloworld-mbean` quickstart demonstrates the use of *CDI 1.0* and *MBean* in JBoss EAP and includes JConsole instructions and Arquillian tests.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,17 +11,17 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *MBean* in  Red Hat JBoss Enterprise Application Platform. The project also includes a set of Aquillian tests for mbeans.
+The `helloworld-mbean` quickstart demonstrates the use of *CDI 1.0* and *MBean* in  Red Hat JBoss Enterprise Application Platform. The project also includes a set of Arquillian tests for MBeans.
 
-The example is composed of mbeans. They are as follows :
+The example is composed of the following MBeans:
 
-1. `AnnotatedComponentHelloWorld`: This mbean is a managed bean with '@MXBean' annotation.
+1. `AnnotatedComponentHelloWorld`: This MBean is a managed bean with '@MXBean' annotation.
 
-1. `MXComponentHelloWorld`:  This mbean is a managed bean with 'MXBean' interface.
+1. `MXComponentHelloWorld`:  This MBean is a managed bean with 'MXBean' interface.
 
-1. `MXPojoHelloWorld`:  This mbean is a pojo using MXBean interface and declared in jboss-service.xml.
+1. `MXPojoHelloWorld`:  This MBean is a pojo using MXBean interface and declared in the `jboss-service.xml` file.
 
-1. `SarMXPojoHelloWorld`:  This mbean is a pojo using MXBean interface and declared in jboss-service.xml in Sar packaging.
+1. `SarMXPojoHelloWorld`:  This MBean is a pojo using MXBean interface and declared in jboss-service.xml in SAR packaging.
 
 System requirements
 -------------------

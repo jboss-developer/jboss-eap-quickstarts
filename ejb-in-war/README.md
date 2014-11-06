@@ -3,7 +3,7 @@ ejb-in-war: Deployment of a WAR Containing an EJB
 Author: Paul Robinson  
 Level: Intermediate  
 Technologies: EJB, JSF, WAR  
-Summary: Packages an EJB JAR in a WAR  
+Summary: The `ejb-in-war` quickstart demonstrates how to package an *EJB 3.1* bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the deployment of an *EJB 3.1* bean bundled in a war archive for deployment to Red Hat JBoss Enterprise Application Platform. The project also includes a set of Aquillian tests for the managed bean and EJB.
+The `ejb-in-war` quickstart demonstrates the deployment of an *EJB 3.1* bean bundled in a WAR archive for deployment to Red Hat JBoss Enterprise Application Platform. The project also includes a set of Arquillian tests for the managed bean and EJB.
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
 

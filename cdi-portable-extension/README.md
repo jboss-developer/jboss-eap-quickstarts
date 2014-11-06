@@ -1,9 +1,9 @@
-cdi-portable-extension: An example of a Portable Extension and some of the APIs / SPIs of CDI
+cdi-portable-extension: CDI Portable Extension 
 ======================================================
 Author: Jason Porter  
 Level: Intermediate  
 Technologies: CDI  
-Summary: Creating a basic CDI extension to provide injection of fields from an XML file.  
+Summary: The `cdi-portable-extension` quickstart demonstrates a simple CDI Portable Extension that uses SPI classes to inject beans with data from an XML file.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,9 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates a simple CDI Portable Extension and some of the SPI classes used
+The `cdi-portable-extension` quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
 to complete that task. This particular extension explores the ProcessInjectionTarget and 
-InjectionTarget spi classes of CDI. To demonstrate a possible way to seed data into beans.
+InjectionTarget spi classes of CDI, to demonstrate a possible way to seed data into beans.
 
 A Portable Extension is essentially an extension to Java EE 6+ which is tailored to a specific
 use case which will run on any Java EE 6 or later implementation. There may be something that the

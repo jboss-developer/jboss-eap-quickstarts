@@ -3,7 +3,7 @@ shopping-cart: EJB 3.1 Stateful Session Bean (SFSB) Example
 Author: Serge Pagop  
 Level: Intermediate  
 Technologies: EJB  
-Summary: Demonstrates a stateful session bean  
+Summary: The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 shopping cart application that uses a stateful session bean (SFSB).   
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,9 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-In this example, you will learn how to deploy and run a simple Java EE 6 application named `shopping-cart` that uses a stateful session bean. The shopping-cart allows customers to buy, checkout and view their cart contents. 
+The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 application that uses a stateful session bean (SFSB). The application allows customers to buy, checkout, and view their cart contents. 
 
-The shopping-cart application consists of the following:
+The `shopping-cart` application consists of the following:
 
 1. A server side component:
 
@@ -56,7 +56,7 @@ Build and Deploy the Quickstart
 3. To build both the server component and the remote client program, deploy the server module, change into the examples shopping-cart directory and type the following:
 
         mvn clean install jboss-as:deploy 
-4. This maven goal will deploy `server/target/jboss-shopping-cart-server.jar`. You can check the Application Server console to see information messages regarding the deployment.
+4. This Maven goal will deploy `server/target/jboss-shopping-cart-server.jar`. You can check the Application Server console to see information messages regarding the deployment.
 
 
 Run the Client Application

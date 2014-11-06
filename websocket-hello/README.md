@@ -3,7 +3,7 @@ jboss-websocket-hello: A simple WebSocket application
 Author: Sande Gilda, Emmanuel Hugonett   
 Level: Beginner  
 Technologies: WebSocket  
-Summary: A simple example of a WebSocket application  
+Summary: The `websocket-hello` quickstart demonstrates how to create a simple WebSocket application.  
 Target Product: EAP  
 Product Versions: EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>
 What is it?
 -----------
 
-This quickstart demonstrates how to create a simple WebSocket enabled application. It consists of the following:
+The `websocket-hello` quickstart demonstrates how to create a simple WebSocket-enabled application. It consists of the following:
 
 * A JavaScript enabled WebSocket HTML client.
 * A WebSocket server endpoint that uses annotations to interact with the WebSocket events.

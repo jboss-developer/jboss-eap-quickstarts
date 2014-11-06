@@ -1,16 +1,17 @@
-cdi-interceptors: Example Using CDI-interceptors
+cdi-interceptors: Example Using CDI Interceptors
 =================================================================================
 Author: Ievgen Shulga  
 Level: Intermediate  
 Technologies: JPA,JSF,EJB  
-Summary: Demonstrates using cdi-interceptors for logging and auditing  
+Summary: The `cdi-interceptors` quickstart demonstrates how to use CDI interceptors for cross-cutting concerns such as logging and simple auditing.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
-The quickstart demonstrates using CDI interceptors for cross-cutting concerns such as logging and simple auditing. 
+
+The `cdi-interceptors` quickstart demonstrates using CDI interceptors for cross-cutting concerns such as logging and simple auditing. 
 Interceptors can be applied to any business methods or beans, simply by adding appropriate interceptor binding type annotation. The project contains EJB service that can create and retrieve object from database.
 This example demonstrates 2 interceptors: `AuditInterceptor` and `LoggingInterceptor`
 
