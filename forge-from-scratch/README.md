@@ -3,7 +3,7 @@ forge-from-scratch: Shows How Forge Can Generate an Application
 Author: Lincoln Baxter, Matej Briškár  
 Level: Intermediate  
 Technologies: Forge  
-Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a database-enabled, Java EE (JPA, EJB 3.1, JAX-RS, JSF) Maven project.   
+Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB 3.1, JAX-RS, JSF) web-enabled database application.   
 Target Product: EAP  
 Product Versions: EAP 6.3, EAP 6.4, JBDS 8  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  

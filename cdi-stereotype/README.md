@@ -3,7 +3,7 @@ cdi-stereotype: Example Using CDI Stereotype.
 Author: Ievgen Shulga  
 Level: Intermediate  
 Technologies: JPA, JSF, EJB  
-Summary: The `cdi-stereotype` quickstart demonstrates how to apply CDI stereotypes to beans to encapsulate CDI interceptor bindings and CDI alternatives.
+Summary: The `cdi-stereotype` quickstart demonstrates how to apply CDI stereotypes to beans to encapsulate CDI interceptor bindings and CDI alternatives.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
