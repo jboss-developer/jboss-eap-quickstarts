@@ -18,7 +18,6 @@ package org.jboss.as.quickstart.deltaspike.partialbeanadvanced.queryservice;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
