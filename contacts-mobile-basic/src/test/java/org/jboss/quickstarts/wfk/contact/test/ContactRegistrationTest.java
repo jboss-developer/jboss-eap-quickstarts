@@ -19,7 +19,6 @@ package org.jboss.quickstarts.wfk.contact.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -42,7 +41,6 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 
 // JAX-RS 2.0 import statement
 //import javax.ws.rs.client.*;
