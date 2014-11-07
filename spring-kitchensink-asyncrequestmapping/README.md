@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit  
 Summary: An example that incorporates multiple technologies  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, WFK 2.6  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
 What is it?
@@ -34,7 +34,7 @@ System Requirements
 -------------------
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
-later with the Red Hat JBoss Web Framework Kit (WFK) 2.6.
+later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
 To run the quickstart with the provided build script, you need the following:
 
