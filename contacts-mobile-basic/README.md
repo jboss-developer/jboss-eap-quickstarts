@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
 Summary: A basic example of CRUD operations in a mobile only website.  
 Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.6  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
 
 What is it?
@@ -53,7 +53,7 @@ System requirements
 -------------------
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
-later with the  Red Hat JBoss Web Framework Kit (WFK) 2.6.
+later with the  Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
