@@ -17,15 +17,14 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-deltaspike-partialbean-basic</artifactId>
     <version>2.7.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-partialbean-basic</name>
     <description>DeltaSpike InvocationHandler: Demonstrates the basics of using the DeltaSpike PartialBean module</description>
-
     <url>http://jboss.org/jbossas</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -33,6 +32,43 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+
+    <!-- Activate JBoss Product Maven repository.
+
+        NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
+        and is only done here to make it easier to use the quickstarts.
+
+        For more information about how to configure Maven for your application,
+        see the section entitled 'Use the Maven Repository'
+        in the Development Guide for JBoss EAP 6 located here:
+
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html-single/Development_Guide
+    -->
+    <repositories>
+        <repository>
+            <id>redhat-techpreview-all-repository</id>
+            <url>https://maven.repository.redhat.com/techpreview/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-techpreview-all-repository</id>
+            <url>https://maven.repository.redhat.com/techpreview/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
@@ -162,6 +198,7 @@
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <!-- The default profile skips all tests, though you can tune 
@@ -225,5 +262,4 @@
             </dependencies>
         </profile>
     </profiles>
-
 </project>
