@@ -3,17 +3,17 @@
 FROM jbosseapquickstarts/base:latest
 
 # Apply any updates from the filesystem since the base image was build
-WORKDIR /opt/jboss/jboss-eap-quickstarts/kitchensink
-ADD . /opt/jboss/jboss-eap-quickstarts/kitchensink
+WORKDIR /opt/jboss/jboss-eap-quickstarts/shopping-cart
+ADD . /opt/jboss/jboss-eap-quickstarts/shopping-cart
 
-# Fix permissions on jboss-eap-quickstarts/kitchensink
+# Fix permissions on jboss-eap-quickstarts/shopping-cart
 USER root
-RUN chown jboss /opt/jboss/jboss-eap-quickstarts/kitchensink
+RUN chown jboss /opt/jboss/jboss-eap-quickstarts/shopping-cart
 USER jboss
 
 # Build the quickstart
 RUN mvn clean package
 
 # Copy the created war file to the JBoss EAP deployments file, so that is deployed when JBoss EAP starts
-RUN cp target/jboss-kitchensink.war /opt/jboss/jboss-eap/standalone/deployments/
+RUN cp target/jboss-shopping-cart.war /opt/jboss/jboss-eap/standalone/deployments/
 
