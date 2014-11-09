@@ -33,3 +33,4 @@ bin
 *.swp
 !/wicket-war/src/main/resources/META-INF/MANIFEST.MF
 
+jboss-eap-6.3.0.zip

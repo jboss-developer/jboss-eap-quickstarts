@@ -190,6 +190,45 @@ Use JBoss Developer Studio or Eclipse to Run the Quickstarts
 You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, see the [JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) _Getting Started Guide_ and _Development Guide_ or [Get Started with JBoss Developer Studio](http://www.jboss.org/products/devstudio/get-started/ "Get Started with JBoss Developer Studio").
 
 
+Use Docker to run the Quickstarts
+---------------------------------
+
+Some of the quickstarts come with support for Docker, which allows you to easily run the quickstart inside a Linux container. Before you can build the Docker image for the quickstart, you must first install Docker. The way to install varies by operating system, and Docker provide [install guides](https://docs.docker.com/installation/#installation) which you should follow. The quickstarts have been tested on Docker 1.3.1.
+
+Having installed Docker (and started Boot2Docker if needed), you first need to build the base image for the quickstarts. Docker images are layered, and this base image provides common functionality shared between the quickstarts:
+
+1. Make sure you have a copy of the JBoss EAP distribution ZIP (see [System Requirements](#system-requirements)), and place it in the root directory of the quickstarts, alongside this file.
+2. Build the Docker iamge. This takes a while as we build a local maven cache which we share amongst all quickstarts.
+
+        docker build -t jbosseapquickstarts/base .
+
+Now, you can build the image and run the container for the quickstart you have chosen:
+
+1. Change to the quickstart directory. For example:
+
+        cd kitchensink
+
+2. Build the Docker image
+
+        docker build -t jbosseapquickstarts/kitchensink .
+
+3. Run the Docker container
+
+        docker run -p 808080:8080 -i -t jbosseapquickstarts/kitchensink
+        
+As we have bound port 8080 from the container to the Docker host's port 18080, we can now access the quickstart on port 18080. 
+
+For Linux, visit <http://localhost:18080/kitchenskink>. 
+
+For Windows or OS X:
+
+1. Run 
+   
+        boot2docker ip
+
+2. Copy the ip provided and visit `http://<docker host ip>:18080/kitchensink`
+
+
 Optional Components
 -------------------
 The following components are needed for only a small subset of the quickstarts. Do not install or configure them unless the quickstart requires it.
