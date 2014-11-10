@@ -1,4 +1,4 @@
-Logging Example: Example That Sets Up Different Logging Levels
+logging: Example That Sets Up Different Logging Levels
 ===============================================================
 Author: Joel Tosi  
 Level: Intermediate  
