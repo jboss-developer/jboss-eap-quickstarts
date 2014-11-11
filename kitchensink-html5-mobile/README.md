@@ -1,9 +1,9 @@
-kitchensink-html5-mobile: Example Application Using Multiple HTML5, Mobile & JAX-RS Technologies 
+kitchensink-html5-mobile: More Complex Example of HTML5, Mobile and JAX-RS 
 =========================================================================================================
 Author: Jay Balunas  
 Level: Beginner   
 Technologies: CDI, HTML5, REST  
-Summary: Based on kitchensink, but uses HTML5, making it suitable for mobile and tablet computers  
+Summary: The `kitchensink-html5-mobile` quickstart is based on `kitchensink`, but uses HTML5 and jQuery Mobile, making it suitable for mobile and tablet computers.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 What is it?
 -----------
 
-This is your project! It's a deployable Maven 3 project to help you get your foot in the door developing HTML5 based desktop/mobile web applications with Java EE 6 on JBoss. This project is setup to allow you to create a basic Java EE 6 application using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
+The `kitchensink-html5-mobile` quickstart is based on the `kitchensink` quickstart and demonstrates a Java EE 6 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA 2.0, and REST.
 
 This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
 
