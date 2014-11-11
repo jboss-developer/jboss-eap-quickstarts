@@ -1,9 +1,9 @@
-shrinkwrap-resolver: Demonstrate usage of Shrinkwrap resolver
+shrinkwrap-resolver: Demonstrates Usage of Shrinkwrap Resolver
 ==============================================================
 Author: Rafael Benevides  
 Level: Intermediate  
 Technologies: CDI, Arquillian, Shrinkwrap  
-Summary: Demonstrate usage of some Shrinkwrap resolver use cases  
+Summary: The `shrinkwrap-resolver` quickstart demonstrates 3 common use cases for ShrinkWrap Resolver.   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -16,7 +16,7 @@ With the advent of Maven and other build systems, typically thirdparty libraries
 
 That is precisely the aim of the ShrinkWrap Resolver project; it is a Java API to obtain artifacts from a repository system. 
 
-This quickstart demonstrate various use cases for ShrinkWrap Resolver. This Quickstart has 3 Test Classes that demonstrates the following Shrinkwrap use cases:
+The `shrinkwrap-resolver` quickstart demonstrates various use cases for ShrinkWrap Resolver. This Quickstart has 3 Test Classes that demonstrates the following Shrinkwrap use cases:
 
 * ShrinkwrapResolveGAVWithoutTransitiveDepsTest
   - resolve an artifact via G:A:V without transitive dependencies
