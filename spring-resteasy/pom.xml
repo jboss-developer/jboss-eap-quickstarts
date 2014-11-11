@@ -115,7 +115,7 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-spring</artifactId>
+                <artifactId>jboss-javaee-6.0-with-spring4</artifactId>
                 <version>${version.jboss.bom.wfk}</version>
                 <type>pom</type>
                 <scope>import</scope>
