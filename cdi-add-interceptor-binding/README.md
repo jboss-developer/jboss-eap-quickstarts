@@ -1,9 +1,9 @@
-cdi-add-interceptor-binding: An example of a Portable Extension and some of the APIs / SPIs of CDI
+cdi-add-interceptor-binding: CDI Interceptor Binding Portable Extension Example
 ======================================================
 Author: Pete Muir  
 Level: Intermediate  
 Technologies: CDI, DeltaSpike  
-Summary: Creating a basic CDI extension to automatically add an interceptor binding  
+Summary: The `cdi-add-interceptor-binding` quickstart demonstrates how to create a simple CDI extension to automatically add an interceptor binding to a class.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates a simple CDI Portable Extension and some of the SPI classes used
+The `cdi-add-interceptor-binding` quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
 to complete that task. This particular extension explores ProcessAnnotatedType and interceptor 
 bindings from CDI, and AnnotatedTypeBuilder from DeltaSpike. It demonstrates how
 to automatically add an interceptor binding to a class based on method parameter annotations.
