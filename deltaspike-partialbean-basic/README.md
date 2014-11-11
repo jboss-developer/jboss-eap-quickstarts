@@ -3,7 +3,7 @@ deltaspike-partialbean-basic: HelloWorld Example of the DeltaSpike PartialBean A
 Author: Jess Sightler  
 Level: Advanced  
 Technologies: CDI, DeltaSpike  
-Summary: Demonstrates a class providing a dynamic implementation of a DeltaSpike Partial Bean  
+Summary: The `deltaspike-partialbean-basic` quickstart shows use of an InvocationHandler and DeltaSpike to provide dynamic implementations of partial CDI bean.   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This quickstart demonstrates the use of an InvocationHandler to provide dynamic implementations of an interface, as well as implementations of abstract methods within an abstract class.
+The `deltaspike-partialbean-basic` quickstart demonstrates the use of an InvocationHandler to provide dynamic implementations of an interface, as well as implementations of abstract methods within an abstract class.
 
 The quickstart consists of the following classes:
 

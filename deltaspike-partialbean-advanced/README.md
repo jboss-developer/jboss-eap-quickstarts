@@ -3,7 +3,7 @@ deltaspike-partialbean-advanced: Advanced Example of DeltaSpike's Partial Bean A
 Author: Jess Sightler
 Level: Advanced
 Technologies: CDI, DeltaSpike
-Summary: Demonstrates a partial bean providing a dynamic implementation of a generic Entity Query service
+Summary: The `deltaspike-partialbean-advanced` quickstart demonstrates how to use a partial bean to provide a dynamic implementation of a generic query service.
 Target Product: WFK
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
@@ -11,9 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This quickstart demonstrates the use of a partial bean to provide dynamic implementations of an interface, and how this might be used to provide a generic query service.
+The `deltaspike-partialbean-advanced` quickstart demonstrates the use of a partial bean to provide dynamic implementations of an interface, and how this might be used to provide a generic query service.
 
-The PersonQueryService provides an example of the end user API that might be available from such a framework. Extensive code comments document the example implementation.
+The `PersonQueryService` provides an example of the end user API that might be available from such a framework. Extensive code comments document the example implementation.
 
 It does not contain any user interface; the tests must be run to verify everything is working correctly.
 

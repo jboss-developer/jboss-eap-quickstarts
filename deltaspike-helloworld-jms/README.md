@@ -1,9 +1,9 @@
-deltaspike-helloworld-jms: HelloWorld JMS Example Using DeltaSpike Configuration Properties
+deltaspike-helloworld-jms: HelloWorld JMS Using DeltaSpike Configuration Properties
 ======================
 Author: Weston Price, Rafael Benevides  
 Level: Intermediate  
 Technologies: JMS, CDI, DeltaSpike  
-Summary: Demonstrates a JMS client using DeltaSpike configuration properties  
+Summary: The `deltaspike-helloworld-jms` quickstart demonstrates how to create JMS clients using DeltaSpike configuration properties.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This quickstart demonstrates the use of  JMS clients with Red Hat JBoss Enterprise Application Platform 6.1 or later using DeltaSpike configuration properties.
+The `deltaspike-helloworld-jms` quickstart demonstrates the use of JMS clients with Red Hat JBoss Enterprise Application Platform 6.1 or later using DeltaSpike configuration properties.
 
 It contains the following:
 

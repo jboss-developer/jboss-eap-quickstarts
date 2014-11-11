@@ -1,9 +1,9 @@
-deltaspike-exception-handling: An example how to use DeltaSpike exception handling
+deltaspike-exception-handling: An Example Showing DeltaSpike Exception Handling
 ====================================================================================
 Author: Rafael Benevides  
 Level: Intermediate  
 Technologies: CDI, JSF, Apache DeltaSpike  
-Summary: Exception being handled by different handlers and purpose  
+Summary: The `deltaspike-exception-handling` quickstart demonstrates exception handling using the DeltaSpike library, which is based on the CDI eventing model.  
 Prerequisites:   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This quickstart demonstrates exception handling with Java EE and CDI using the DeltaSpike library. Exception handling is based around the CDI eventing model.
+The `deltaspike-exception-handling` quickstart demonstrates exception handling with Java EE and CDI using the DeltaSpike library. Exception handling is based around the CDI eventing model.
 
 The entire exception handling process starts with an event. This means your application is not tightly coupled to DeltaSpike, and allows for further extension. Exception handling in DeltaSpike aims to keep out of your way, and let you handle exceptions the way that makes the most sense to you. The eventing model allows for this delicate balance; firing an event is the main way to start handling an exception.
 

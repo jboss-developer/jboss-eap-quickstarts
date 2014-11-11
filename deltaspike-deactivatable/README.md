@@ -1,9 +1,10 @@
-deltaspike-deactivatable: Demonstrate usage of Deactivatable
+deltaspike-deactivatable: Example Using DeltaSpike Deactivatable
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: CDI, Apache DeltaSpike  
-Summary: Demonstrate usage of Deactivatable.  
+Summary: The `deltaspike-deactivatable` quickstart demonstrates how to use DeltaSpike `ClassDeactivator` to manually deactivate artifacts. 
+  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,9 +12,9 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-DeltaSpike allows that its artifacts can be deactivated manually (e.g. to improve the performance if a part isn't needed, to provide a custom implementation if the default implementation isn't pluggable by default or to bypass an implementation which causes an issue).
+The `deltaspike-deactivatable` quickstart demonstrates how to use DeltaSpike `ClassDeactivator` to manually deactivate artifacts. This can improve the performance if a part isn't needed,  provide a custom implementation if the default implementation isn't pluggable by default, or bypass an implementation which causes an issue.
 
-To deactivate a class you need to implement ClassDeactivator. Returning 'false' or 'true' allows to deactivate or activate the class in question. This project has a ClassDeactivator that deactivates the ExcludeExtension. If the `ExcludeExtension` is deactivated then `MyBean`, which is annotated with `@Exclude`, won't be excluded
+To deactivate a class you need to implement `ClassDeactivator`. Returning 'false' or 'true' allows to deactivate or activate the class in question. This project has a ClassDeactivator that deactivates the ExcludeExtension. If the `ExcludeExtension` is deactivated then `MyBean`, which is annotated with `@Exclude`, won't be excluded
  
 
 System requirements

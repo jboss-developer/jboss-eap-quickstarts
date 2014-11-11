@@ -1,9 +1,9 @@
-deltaspike-beanmanagerprovider: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener
+deltaspike-beanmanagerprovider: Example Using DeltaSpike BeanManagerProvider
 ======================================================
 Author: Rafael Benevides  
 Level: Intermediate  
 Technologies: CDI, Apache Deltaspike, JPA, JSF  
-Summary: Shows how to use DeltaSpike BeanManagerProvider to access CDI in a EntityListener  
+Summary: The `deltaspike-beanmanagerprovider` quickstart demonstrates the use of DeltaSpike's BeanManagerProvider to access CDI in a EntityListener.  
 Prerequisites:   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates the use of DeltaSpike's BeanManagerProvider.  
+The `deltaspike-beanmanagerprovider` quickstart demonstrates the use of DeltaSpike's BeanManagerProvider.  
 
 `BeanmanagerProvider` provides access to the `BeanManager` by registering the current `BeanManager` during the startup. This is really handy if you like to access CDI functionality from places where no CDI based injection is available. If a simple but manual bean-lookup is needed, it's easier to use the `BeanProvider` instead. 
 

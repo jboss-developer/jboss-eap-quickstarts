@@ -1,9 +1,9 @@
-deltaspike-authorization: Demonstrate the creation of a custom authorization example using @SecurityBindingType from DeltaSpike
+deltaspike-authorization: DeltaSpike @SecurityBindingType Custom Authorization
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: JSF, CDI, Apache Deltaspike  
-Summary: Demonstrate the creation of a custom authorization example using @SecurityBindingType from DeltaSpike  
+Summary: The `deltaspike-authorization` quickstart demonstrates the creation of a custom authorization example using @SecurityBindingType from DeltaSpike.  
 Prerequisites:   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
@@ -16,7 +16,7 @@ Security binding is DeltaSpike feature that restricts who can invoke a method (u
 
 To restrict who can invoke a method, we create an annotation, called a security binding type. This quickstart has two security binding types - `@AdminAllowed` and `@GuestAllowed`.
 
-The quickstart defines an `Authorizer` class that implements the restrictions for the security binding types. The authorizer is a CDI bean which defines methods (annotated with `@Secures) which perform the authorization checks for each security binding we create.
+The `deltaspike-authorization` quickstart defines an `Authorizer` class that implements the restrictions for the security binding types. The authorizer is a CDI bean which defines methods (annotated with `@Secures) which perform the authorization checks for each security binding we create.
 
 In this quickstart the `Authorizer` we delegate authentication to JAAS, but other authentication solutions could be used.
 

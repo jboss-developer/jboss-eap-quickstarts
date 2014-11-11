@@ -1,9 +1,9 @@
-deltaspike-projectstage: Demonstrate usage of DeltaSpike project stage and shows usage of a conditional @Exclude
+deltaspike-projectstage: Usage of DeltaSpike Project Stage Conditional @Exclude
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: JSF, CDI, Deltaspike  
-Summary: Demonstrate usage of DeltaSpike project stage and shows usage of a conditional @Exclude  
+Summary: The `deltaspike-projectstage` quickstart shows how to use DeltaSpike project stage to customize the implementation based on the deployment environment. 
 Prerequisites:   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
@@ -12,7 +12,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-Project stages provide a way to customize the implementation based on the type of deployment environment. For example, you may want to generate sample data for system testing, but not for production. You can create a bean that generates sample data and activate it only for project stage *SystemTest*
+The `deltaspike-projectstage` quickstart demonstrates how to use DeltaSpike project stages, for example, conditional `@Exclude`. Project stages provide a way to customize the implementation based on the type of deployment environment. For example, you may want to generate sample data for system testing, but not for production. You can create a bean that generates sample data and activate it only for project stage *SystemTest*
 
 *Besides custom project stages* it's possible to use the following pre-defined project stages:
 

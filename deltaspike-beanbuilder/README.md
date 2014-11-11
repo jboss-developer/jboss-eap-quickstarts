@@ -1,9 +1,9 @@
-deltaspike-beanbuilder: Shows how to create new beans using DeltaSpike utilities
+deltaspike-beanbuilder: Example Creating New Beans Using DeltaSpike Utilities
 ======================================================
 Author: Rafael Benevides  
 Level: Advanced  
 Technologies: CDI, Apache DeltaSpike  
-Summary: Shows how to create new beans using DeltaSpike utilities.  
+Summary: The `deltaspike-beanbuilder` quickstart demonstrates a CDI Portable Extension that uses DeltaSpike utilities to create new Beans.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates a CDI Portable Extension that uses DeltaSpike utilities to create new Beans.
+The `deltaspike-beanbuilder` quickstart demonstrates a CDI Portable Extension that uses DeltaSpike utilities to create new Beans.
 
 This extension permits the injection of JPA entities by id, without the need to query it. To achieve this, the extension observes the `ProcessInjectionTarget` event and get locates all the injection points that have requested injection by id. In `AfterBeanDiscovery` event, the extension creates `Bean` instances using the `BeanBuilder` utility. 
 
