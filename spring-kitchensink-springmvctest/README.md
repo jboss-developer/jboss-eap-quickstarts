@@ -1,9 +1,9 @@
-spring-kitchensink-springmvctest: Kitchensink SrpingMVCTest Example using Spring 4.0
+spring-kitchensink-springmvctest: Kitchensink MVC Example Using Spring 4.0
 ====================================================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: An example that incorporates multiple technologies  
+Summary: The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.0.   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,13 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with 
-Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.0. 
 
-This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
-includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
-
-* This module adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the mvc aspect of the application.
+* This module adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the MVC aspect of the application.
 
 * By using `@WebAppConfiguration` and `@ContextConfiguration` we tell Spring the configuration files we would like the tests to use.
 

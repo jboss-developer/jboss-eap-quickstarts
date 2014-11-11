@@ -3,7 +3,7 @@ spring-greeter: Greeter Example using Spring 4.0
 Author: Marius Bogoevici  
 Level: Beginner  
 Technologies: Spring MVC, JSP, JPA 2.0  
-Summary: Demonstrates the use of JPA 2.0 and JSP in Red Hat JBoss Enterprise Application Platform 6.1 or later.  
+Summary: The `spring-greeter` quickstart is based on the `greeter` quickstart, but differs in that it uses Spring MVC for Mapping GET and POST requests.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -14,10 +14,7 @@ What is this?
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
 later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
-When you deploy this example, two users are automatically created for you: emuster and jdoe. This data is located in the 
-`src/main/resources/init-db.sql` file.
-
-The `spring-greeter` differs from the standard `greeter` quickstart in that it uses Spring MVC for Mapping GET and POST request:
+The `spring-greeter` quickstart is based on the `greeter` quickstart, but differs in that it uses Spring MVC for Mapping GET and POST requests:
 
 * `<mvc:annotation-driven\>` configured in `src/main/webapp/WEB-INF/spring-mvc-context.xml` tells Spring to look for 
 `@RequestMapping` in our controllers.
@@ -28,6 +25,10 @@ Spring's XML configurations are used to get hold of the database and entity mana
 * `<tx:jta-transaction-manager/>` and `<tx:annotation-driven/>` are configured in `/src/main/webapp/WEB-INF/spring-business-context.xml`
 * Methods in UserDaoImpl are marked as `@Transactional`, which Spring, using aspect oriented programming, surrounds with 
 boilerplate code to make the methods transactional
+
+When you deploy this example, two users are automatically created for you: emuster and jdoe. This data is located in the 
+`src/main/resources/init-db.sql` file.
+
 
 To test this example:
 

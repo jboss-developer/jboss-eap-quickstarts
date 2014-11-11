@@ -3,7 +3,7 @@ spring-resteasy: Example Using Resteasy Spring Integration
 Author: Weinan Li <l.weinan@gmail.com>, Paul Gier <pgier@redhat.com>  
 Level: Beginner  
 Technologies: Resteasy, Spring  
-Summary: Basic example demonstrating how a spring application can be packaged for JBoss EAP  
+Summary: The `spring-resteasy` quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.  
 Target Product: WFK  
 Product Versions: EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This project demonstrates how to package and deploy a web application, which includes resteasy-spring integration, into 
+The `spring-resteasy` quickstart demonstrates how to package and deploy a web application, which includes resteasy-spring integration, into 
 Red Hat JBoss Enterprise Application Platform.
 
 Currently the resteasy-spring.jar is using Spring 3.0.3, as such this quickstart needs to run on some version of Spring 3.x.

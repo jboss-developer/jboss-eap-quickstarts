@@ -1,9 +1,9 @@
-spring-kitchensink-matrixvariables: Kitchensink MatrixVariables Example using Spring 4.0
+spring-kitchensink-matrixvariables: Kitchensink MatrixVariables Using Spring 4.0
 ========================================================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: An example that incorporates multiple technologies  
+Summary: The `spring-kitchensink-matrixvariables` quickstart showcases Spring 4.0's support for **Matrix Variables** in URLs that was introduced in Spring 3.2.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
