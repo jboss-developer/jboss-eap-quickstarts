@@ -1,9 +1,9 @@
-contacts-mobile-basic: Example Application Using Multiple HTML5, Mobile & JAX-RS Technologies 
-=========================================================================================================
+contacts-mobile-basic: CRUD Example Using HTML5, jQuery Mobile and JAX-RS
+======================================================================
 Author: Joshua Wilson  
 Level: Beginner  
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
-Summary: A basic example of CRUD operations in a mobile only website.  
+Summary: The `contacts-mobile-basic` quickstart demonstrates a Java EE 6 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA 2.0, and REST.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
@@ -11,8 +11,8 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 What is it?
 -----------
 
-This is your project! It's a deployable Maven 3 project to help you get your foot in the door developing HTML5 based 
-mobile web applications with Java EE 6 on JBoss. This project is setup to allow you to create a basic Java EE 6 
+The `contact-mobile-basic` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
+mobile web applications with Java EE 6 on Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 6 
 application using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a 
 persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
 
