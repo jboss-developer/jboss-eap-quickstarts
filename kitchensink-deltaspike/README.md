@@ -1,9 +1,9 @@
-kitchensink-deltaspike: Assortment of technologies including Arquillian and DeltaSpike CDI extensions
+kitchensink-deltaspike: Example Using the DeltaSpike @Transactional Annotation
 ========================
 Author: Pete Muir, Bernard Tison  
 Level: Intermediate  
 Technologies: CDI, JSF, JPA, JPA, JAX-RS, BV, DeltaSpike  
-Summary: A version of kitchensink that uses DeltaSpike @Transactional  
+Summary: The `kitchensink-deltaspike` quickstart demonstrates how to give transacational behavior to a CDI bean using the Deltaspike @Transactional Annotation.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,12 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
-
-This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, JPA 2.0 and Bean Validation 1.0. 
-
-This quickstart uses the `kitchensink` quickstart as its starting point. Rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean.
-The entity manager is managed by the application rather than the container. 
+The `kitchensink-deltaspike` quickstart is a deployable Maven 3 project that demonstrates how to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, JPA 2.0 and Bean Validation 1.0. It uses the `kitchensink` quickstart as its starting point, however, rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean. The entity manager is managed by the application rather than the container. 
 
 The DeltaSpike project (http://incubator.apache.org/deltaspike) consists of a number of portable CDI extensions that provide useful features for Java application developers.
 
