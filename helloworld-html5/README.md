@@ -1,9 +1,9 @@
-helloworld-html5: HTML5 + REST Hello World Example
+helloworld-html5: HTML5 and REST Hello World Example
 ===================
 Author: Jay Balunas, Burr Sutter, Douglas Campos, Bruno Olivera  
 Level: Beginner  
 Technologies: CDI, JAX-RS, HTML5  
-Summary: Basic HTML5 |Demonstrates the use of CDI 1.0 and JAX-RS using the HTML5 architecture and RESTful services on the backend  
+Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.0* and *JAX-RS* using the HTML5 architecture and RESTful services on the backend.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-This example demonstrates the use of *CDI 1.0* and *JAX-RS* in Red Hat JBoss Enterprise Application Platform 6.1 or later using the HTML5 + REST architecture.
+The `helloworld-html5` quickstart demonstrates the use of *CDI 1.0* and *JAX-RS* in Red Hat JBoss Enterprise Application Platform 6.1 or later using the HTML5 + REST architecture.
 
 The application is basically a smart, HTML5+CSS3+JavaScript front-end using RESTful services on the backend.
 
