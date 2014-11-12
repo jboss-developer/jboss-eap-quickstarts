@@ -1,9 +1,9 @@
-spring-kitchensink-springmvctest: Kitchensink MVC Example Using Spring 4.0
+spring-kitchensink-springmvctest: Kitchensink MVC Example Using Spring 4.x
 ====================================================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.0.   
+Summary: The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.x.   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.0. 
+The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.x. 
 
 * This module adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the MVC aspect of the application.
 
