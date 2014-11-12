@@ -2,7 +2,7 @@ payment-cdi-event: Use CDI Events to Process Debit and Credit Operations
 ========================================================================
 Author: Elvadas Nono  
 Level: Beginner  
-Technologies: CDI  
+Technologies: CDI, JSF  
 Summary: The `payment-cdi-event` quickstart demonstrates how to create credit and debit *CDI 1.0 Events* in JBoss EAP, using a JSF front-end client.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

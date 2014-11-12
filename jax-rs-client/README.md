@@ -2,7 +2,7 @@ jax-rs-client: External JAX-RS Client
 ======================
 Author: Blaine Mincey  
 Level: Intermediate  
-Technologies: JAX-RS  
+Technologies: JAX-RS, CDI  
 Summary: The `jax-rs-client` quickstart demonstrates an external JAX-RS RestEasy client, which interacts with a JAX-RS Web service that uses *CDI 1.0* and *JAX-RS*.  
 Prerequisites: helloworld-rs  
 Target Product: EAP  

@@ -2,7 +2,7 @@ cdi-interceptors: Example Using CDI Interceptors
 =================================================================================
 Author: Ievgen Shulga  
 Level: Intermediate  
-Technologies: JPA,JSF,EJB  
+Technologies: JPA, JSF, EJB  
 Summary: The `cdi-interceptors` quickstart demonstrates how to use CDI interceptors for cross-cutting concerns such as logging and simple auditing.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

@@ -2,7 +2,7 @@ cmt: Container Managed Transactions (CMT)
 =========================================
 Author: Tom Jenkinson  
 Level: Intermediate  
-Technologies: EJB, Container Managed Transactions (CMT)  
+Technologies: EJB, CMT  
 Summary: The `cmt` quickstart demonstrates Container-Managed Transactions (CMT), showing how to use transactions managed by the container.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

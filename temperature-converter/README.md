@@ -2,7 +2,7 @@ temperature-converter: Stateless Session EJB (SLSB)
 =================================================
 Author: Bruce Wolfe  
 Level: Beginner  
-Technologies: EJB  
+Technologies: CDI, JSF, SLSB EJB  
 Summary: The `temperature-converter` quickstart does temperature conversion using an *EJB 3.1 Stateless Session Bean* (SLSB), *CDI*, and a *JSF* front-end client.   
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

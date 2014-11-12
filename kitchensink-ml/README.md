@@ -2,7 +2,7 @@ kitchensink-ml: Localized Version of the kitchensink Quickstart
 ========================
 Author: Sande Gilda  
 Level: Intermediate  
-Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV  
+Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n  
 Summary: The `kitchensink-ml` quickstart demonstrates a localized Java EE 6 compliant application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

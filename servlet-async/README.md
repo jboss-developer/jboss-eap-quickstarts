@@ -2,7 +2,7 @@ servlet-async: How to Write an Asynchronous Servlet
 ===================================================
 Author: Christian Sadilek  
 Level: Intermediate  
-Technologies: Servlet, CDI, EJB  
+Technologies: Asynchronous Servlet, CDI, EJB  
 Summary: The `servlet-async` quickstart demonstrates how to use asynchronous servlets to detach long-running tasks and free up the request processing thread.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

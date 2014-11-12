@@ -2,7 +2,7 @@ mail: E-Mail Example using CDI and JSF
 ======================================
 Author: Joel Tosi  
 Level: Beginner  
-Technologies: JavaMail, JSF, CDI  
+Technologies: JavaMail, CDI, JSF  
 Summary: The `mail` quickstart demonstrates how to send email using CDI 1.0 and JSF 2.0 and the default Mail provider that ships with JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
