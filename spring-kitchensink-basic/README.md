@@ -1,9 +1,9 @@
-spring-kitchensink-basic: Kitchensink Example using Spring 4.0
+spring-kitchensink-basic: Kitchensink Example using Spring 4.x
 ==============================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: The `spring-kitchensink-basic` quickstart is an example of a Java EE 6 application using JSP, JPA 2.0 and Spring 4.0.  
+Summary: The `spring-kitchensink-basic` quickstart is an example of a Java EE 6 application using JSP, JPA 2.0 and Spring 4.x.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-The `spring-kitchensink-basic` quickstart is an example of a Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
+The `spring-kitchensink-basic` quickstart is an example of a Java EE 6 application using JSP, JPA 2.0 and Spring 4.x. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
 * In `jboss-as-spring-mvc-context.xml` `<context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.basic.controller"/>` 

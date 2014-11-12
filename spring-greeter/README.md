@@ -1,4 +1,4 @@
-spring-greeter: Greeter Example using Spring 4.0
+spring-greeter: Greeter Example using Spring 4.x
 ======================================================
 Author: Marius Bogoevici  
 Level: Beginner  

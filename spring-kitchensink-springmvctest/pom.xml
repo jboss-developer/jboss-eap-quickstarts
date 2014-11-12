@@ -115,7 +115,7 @@
                 from the Hibernate family of projects) -->
             <dependency>
                 <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-spring4</artifactId>
+                <artifactId>jboss-javaee-6.0-with-spring4.1</artifactId>
                 <version>${version.jboss.bom.wfk}</version>
                 <type>pom</type>
                 <scope>import</scope>

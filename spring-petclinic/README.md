@@ -1,4 +1,4 @@
-spring-petclinic: PetClinic Example using Spring 4.0  
+spring-petclinic: PetClinic Example using Spring 4.x  
 ======================================================
 Author: Ken Krebs, Juergen Hoeller, Rob Harrop, Costin Leau, Sam Brannen, Scott Andrews  
 Level: Advanced  

@@ -1,9 +1,9 @@
-spring-kitchensink-asyncrequestmapping: Kitchensink AsynRequestMapping Using Spring 4.0
+spring-kitchensink-asyncrequestmapping: Kitchensink AsynRequestMapping Using Spring 4.x
 ===============================================================================================  
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: The `spring-kitchensink-asyncrequestmapping` quickstart showcases the use of asynchronous requests is an example using JSP, JPA 2.0 and Spring 4.0.  
+Summary: The `spring-kitchensink-asyncrequestmapping` quickstart showcases the use of asynchronous requests is an example using JSP, JPA 2.0 and Spring 4.x.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-The `spring-kitchensink-asyncrequestmapping` quickstart is an example of a Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
+The `spring-kitchensink-asyncrequestmapping` quickstart is an example of a Java EE 6 application using JSP, JPA 2.0 and Spring 4.x. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
 * This module showcases the use of asynchronous requests in `MemberRestController.java`, introduced in the Spring 3.2. 

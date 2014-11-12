@@ -1,9 +1,9 @@
-spring-kitchensink-matrixvariables: Kitchensink MatrixVariables Using Spring 4.0
+spring-kitchensink-matrixvariables: Kitchensink MatrixVariables Using Spring 4.x
 ========================================================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: The `spring-kitchensink-matrixvariables` quickstart showcases Spring 4.0's support for **Matrix Variables** in URLs that was introduced in Spring 3.2.  
+Summary: The `spring-kitchensink-matrixvariables` quickstart showcases Spring 4.x's support for **Matrix Variables** in URLs that was introduced in Spring 3.2.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -14,10 +14,10 @@ What is it?
 This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with 
 Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
-This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.0. It 
+This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.x. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
 
-* This module showcases Spring 4.0's support for **Matrix Variables** in urls introduced in Spring 3.2.
+* This module showcases Spring 4.x's support for **Matrix Variables** in urls introduced in Spring 3.2.
 
 * In `jboss-as-spring-mvc-context.xml` `<context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.matrixvariables.controller"/>` 
 and `<mvc:annotation-driven/>` are used to register both the non-rest and rest controllers.  This is how it works normally, 
