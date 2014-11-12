@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-The `kitchensink-deltaspike` quickstart is a deployable Maven 3 project that demonstrates how to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, JPA 2.0 and Bean Validation 1.0. It uses the `kitchensink` quickstart as its starting point, however, rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean. The entity manager is managed by the application rather than the container. 
+The `kitchensink-deltaspike` quickstart is a deployable Maven 3 project that demonstrates how to create a compliant Java EE 6 application using JSF 2.1, CDI 1.0, JPA 2.0 and Bean Validation 1.0. It uses the `kitchensink` quickstart as its starting point, however, rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean. The entity manager is managed by the application rather than the container. 
 
 The DeltaSpike project (http://incubator.apache.org/deltaspike) consists of a number of portable CDI extensions that provide useful features for Java application developers.
 
