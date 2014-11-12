@@ -1,9 +1,9 @@
-spring-kitchensink-controlleradvice: Kitchensink ControllerAdvice Example using Spring 4.0
+spring-kitchensink-controlleradvice: Kitchensink ControllerAdvice Example using Spring 4.x
 ==========================================================================================
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: The `spring-kitchensink-controlleradvice` quickstart showcases Spring 4.0's `@ControllerAdvice`, which was introduced in Spring 3.2.  
+Summary: The `spring-kitchensink-controlleradvice` quickstart showcases Spring 4.x's `@ControllerAdvice`, which was introduced in Spring 3.2.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
@@ -11,9 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>
 What is it?
 -----------
 
-The `spring-kitchensink-controlleradvice` quickstart is a deployable Maven 3 project that demonstrates how to use JSP, JPA, and Spring 4.0 on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The `spring-kitchensink-controlleradvice` quickstart is a deployable Maven 3 project that demonstrates how to use JSP, JPA, and Spring 4.x on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
 
-This example showcases Spring 4.0's `@ControllerAdvice`, introduced in Spring 3.2, and used by `MemberControllerAdvice.java`.
+This example showcases Spring 4.x's `@ControllerAdvice`, introduced in Spring 3.2, and used by `MemberControllerAdvice.java`.
 
 * MemberControllerAdvice uses `@ExceptionHandler`, `@InitBinder` and `@ModelAttribute` to configure global actions to be performed.
 
