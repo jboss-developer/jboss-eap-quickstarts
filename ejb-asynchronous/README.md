@@ -2,7 +2,7 @@ ejb-asynchronous: EJB with asynchronous methods
 ======================================================
 Author: Wolf-Dieter Fink  
 Level: Advanced  
-Technologies: EJB  
+Technologies: Asynchronous EJB  
 Summary: The `ejb-asynchronous` quickstart demonstrates the behavior of asynchronous EJB invocations by a deployed EJB and a remote client and how to handle errors.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

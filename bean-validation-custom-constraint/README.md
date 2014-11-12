@@ -2,7 +2,7 @@ bean-validation-custom-constraint: Bean Validation Using Custom Constraints
 ===========================================================================
 Author: Giriraj Sharma  
 Level: Beginner  
-Technologies: Bean Validation, JPA  
+Technologies: CDI, JPA, BV  
 Summary: The `bean-validation-custom-constraint` quickstart demonstrates how to use the Bean Validation API to define custom constraints and validators.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

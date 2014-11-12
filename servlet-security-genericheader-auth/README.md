@@ -2,7 +2,7 @@ servlet-security-genericheader-auth:  Authenticate Via External SSO Using HTTP R
 ====================
 Author: Gary Lamperillo, Jesse Sightler  
 Level: Intermediate  
-Technologies: Servlet, JAAS  
+Technologies: Servlet, Security, JAAS  
 Summary: The `servlet-security-genericheader-auth` quickstart demonstrates a custom authenticator to enable support for HTTP header-based authentication.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

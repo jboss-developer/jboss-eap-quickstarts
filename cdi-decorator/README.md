@@ -2,7 +2,7 @@ cdi-decorator: Demostrates CDI Decorator
 ======================================================
 Author: Ievgen Shulga  
 Level: Intermediate  
-Technologies: CDI  
+Technologies: CDI, JSF  
 Summary: The `cdi-decorator` quickstart demonstrates the use of a CDI Decorator to intercept bean methods and modify the business logic.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

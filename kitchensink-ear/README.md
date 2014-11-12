@@ -2,7 +2,7 @@ kitchensink-ear: Using Multiple Java EE 6 Technologies Deployed as an EAR
 ==============================================================================================
 Author: Pete Muir  
 Level: Intermediate  
-Technologies: EAR  
+Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV, EAR  
 Summary: The `kitchensink-ear` quickstart demonstrates web-enabled database application, using JSF 2.0, CDI, EJB 3.1, JPA and Bean Validation, packaged as an EAR.   
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

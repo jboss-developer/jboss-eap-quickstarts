@@ -2,7 +2,7 @@ bean-validation: Bean Validation Tested Using Arquillian
 =======================================================
 Author: Karel Piwko  
 Level: Beginner  
-Technologies: Bean Validation, JPA  
+Technologies: CDI, JPA, BV  
 Summary: The `bean-validation` quickstart provides Arquillian tests to demonstrate how to use CDI 1.0, JPA 2.0 and Bean Validation 1.0.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

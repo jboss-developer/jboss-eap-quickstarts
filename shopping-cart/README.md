@@ -2,7 +2,7 @@ shopping-cart: EJB 3.1 Stateful Session Bean (SFSB) Example
 =====================================
 Author: Serge Pagop  
 Level: Intermediate  
-Technologies: EJB  
+Technologies: SFSB EJB  
 Summary: The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 shopping cart application that uses a stateful session bean (SFSB).   
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

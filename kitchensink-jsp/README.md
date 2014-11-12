@@ -2,7 +2,7 @@ kitchensink-jsp: Kitchensink with a JSP (JavaServer Pages) Front End
 ====================================================================
 Author: Elvadas Nono  
 Level: Intermediate  
-Technologies: JSP  
+Technologies: CDI, JSP, JPA, EJB, JAX-RS, BV  
 Summary: The `kitchensink-jsp` quickstart demonstrates how to use JSP 2.0, EL 2.0, JSTL 1.2, CDI 1.0, EJB 3.1, JPA 2.0, and Bean Validation 1.0 in JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

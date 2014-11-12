@@ -2,7 +2,7 @@ kitchensink-ml-ear: Localized Version of the kitchensink-ear Quickstart
 ==============================================================================================
 Author: Sande Gilda  
 Level: Intermediate  
-Technologies: EAR  
+Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV, EAR, i18n, l10n  
 Summary: The `kitchensink-ml-ear` quickstart demonstrates localized database application, using JSF 2.0, CDI, EJB 3.1, JPA and Bean Validation, packaged as an EAR.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

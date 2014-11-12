@@ -2,7 +2,7 @@ kitchensink: Assortment of technologies including Arquillian
 ========================
 Author: Pete Muir  
 Level: Intermediate  
-Technologies: CDI, JSF, JPA, EJB, JPA, JAX-RS, BV  
+Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV  
 Summary: The `kitchensink` quickstart demonstrates a Java EE 6 web-enabled database application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

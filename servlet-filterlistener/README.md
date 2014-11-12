@@ -2,7 +2,7 @@ servlet-filterlistener: How to Write Servlet Filters and Listeners
 ================================================================
 Author: Jonathan Fuerth  
 Level: Intermediate  
-Technologies: Servlet  
+Technologies: Servlet Filter, Servlet Listener  
 Summary: The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners in an application.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

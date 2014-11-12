@@ -2,7 +2,7 @@ jboss-websocket-hello: A simple WebSocket application
 ========================
 Author: Sande Gilda, Emmanuel Hugonett   
 Level: Beginner  
-Technologies: WebSocket  
+Technologies: WebSocket, CDI, JSF  
 Summary: The `websocket-hello` quickstart demonstrates how to create a simple WebSocket application.  
 Target Product: EAP  
 Product Versions: EAP 6.4  

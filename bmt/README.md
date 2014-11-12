@@ -2,7 +2,7 @@ bmt: Bean Managed Transactions with JPA and JTA
 =================================================================================
 Author: Mike Musgrove  
 Level: Intermediate  
-Technologies: EJB, Bean Managed Transactions (BMT)  
+Technologies: EJB, BMT  
 Summary: The `bmt` quickstart demonstrates Bean-Managed Transactions (BMT), showing how to manually manage transaction demarcation while accessing JPA entities.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  

@@ -2,7 +2,7 @@ jts-distributed-crash-rec: JTS and distributed crash recovery
 =============================================================
 Author: Tom Jenkinson  
 Level: Advanced  
-Technologies: JTS  
+Technologies: JTS, Crash Recovery  
 Summary: The `jts-distributed-crash-rec` quickstart uses JTS and Byteman to demonstrate distributed crash recovery across multiple application servers.  
 Prerequisites: jts  
 Target Product: EAP  
