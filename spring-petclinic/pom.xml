@@ -116,7 +116,7 @@
 		<slf4j.version>1.7.5</slf4j.version>
 
 		<!-- RSS -->
-		<rome.version>1.0</rome.version>
+		<rome.version>1.5.0</rome.version>
 
 		<!-- Test -->
 		<junit.version>4.11</junit.version>
@@ -270,7 +270,7 @@
 			</dependency>
 			<!--  used for Atom -->
 			<dependency>
-				<groupId>rome</groupId>
+				<groupId>com.rometools</groupId>
 				<artifactId>rome</artifactId>
 				<version>${rome.version}</version>
 			</dependency>
@@ -562,7 +562,7 @@
 
 		<!-- used for Atom -->
 		<dependency>
-			<groupId>rome</groupId>
+			<groupId>com.rometools</groupId>
 			<artifactId>rome</artifactId>
 		</dependency>
 		
