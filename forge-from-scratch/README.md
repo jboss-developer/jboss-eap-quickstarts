@@ -1,6 +1,6 @@
 forge-from-scratch: Shows How Forge Can Generate an Application
 ======================================================================================
-Author: Lincoln Baxter, Matej Briškár  
+Author: Lincoln Baxter, Matej Briskar  
 Level: Intermediate  
 Technologies: Forge  
 Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB 3.1, JAX-RS, JSF) web-enabled database application.   
@@ -20,7 +20,7 @@ But that is not all! You can use Forge on your new or existing projects to conti
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.3 or later.
 
 All you need to build this project is Java 7.0 (Java SDK 1.7) or later and Red Hat JBoss Developer Studio 8 or greater.
 
@@ -28,7 +28,7 @@ All you need to build this project is Java 7.0 (Java SDK 1.7) or later and Red H
 Configure Maven for JBoss Developer Studio
 ------------------------------------------
 
-If you have not yet done so, you must [Configure Maven - For Use with JBoss Developer Studiton](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-for-use-with-jboss-developer-studio) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven - For Use with JBoss Developer Studio](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-for-use-with-jboss-developer-studio) before testing the quickstarts.
 
 
 Run the Quickstart in JBoss Developer Studio
@@ -52,7 +52,7 @@ Forge is available in JBoss Developer Studio. To run this example, you must use 
     * The script issues this command: `$ project-new --named forge-example --topLevelPackage org.example;`
     * You next see the console message: `***SUCCESS*** Project named 'forge-example' has been created.`
     * This is followed by a dialog saying `User Operation is waiting for "Importing Forge project" to complete.`.
-    * After a number of `***SUCCESS***` messages, you Finally, you see a `[INFO] BUILD SUCCESS` message near the end of the console output.
+    * After a number of `***SUCCESS***` messages, you see `[INFO] BUILD SUCCESS` near the end of the console output.
 
 
 ### What Did This Create?
@@ -71,13 +71,22 @@ This quickstart created a native Java EE 6 application.
       
 ### Access the Running Application
 
-The application Window displays the following messages
-   
-        Welcome to Forge
-        
-        Your application is running. 
+The application appears in a 'Welcome to Forge' Window and displays the following:
 
-A list of entities is displayed on the left of the screen. When you click on an entity, you are provided with a form that allows you to:
+    Welcome to Forge
+        
+    Your application is running. 
+
+The following entities are displayed on the lower left side of the page:
+
+* Address
+* Customer
+* Item
+* Product Order
+* Profile
+* Zip Code
+
+When you click on an entity, you are provided with a form that allows you to:
 
 * Search for an existing entity
 * Create a new entity

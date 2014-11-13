@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
 <h1><a id="forgefromscratch-shows-how-forge-can-generate-an-application" class="anchor" href="#forgefromscratch-shows-how-forge-can-generate-an-application"><span class="anchor-icon"></span></a>forge-from-scratch: Shows How Forge Can Generate an Application</h1>
 
-<p>Author: Lincoln Baxter, Matej Briškár<br/>
+<p>Author: Lincoln Baxter, Matej Briskar<br/>
 Level: Intermediate<br/>
 Technologies: Forge<br/>
 Summary: The <code>forge-from-scratch</code> quickstart demonstrates how <em>JBoss Forge 2</em> can generate a Java EE (JPA, EJB 3.1, JAX-RS, JSF) web-enabled database application.<br/>
@@ -19,13 +19,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.3 or later.</p>
 
 <p>All you need to build this project is Java 7.0 (Java SDK 1.7) or later and Red Hat JBoss Developer Studio 8 or greater.</p>
 
 <h2><a id="configure-maven-for-jboss-developer-studio" class="anchor" href="#configure-maven-for-jboss-developer-studio"><span class="anchor-icon"></span></a>Configure Maven for JBoss Developer Studio</h2>
 
-<p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-for-use-with-jboss-developer-studio">Configure Maven - For Use with JBoss Developer Studiton</a> before testing the quickstarts.</p>
+<p>If you have not yet done so, you must <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-for-use-with-jboss-developer-studio">Configure Maven - For Use with JBoss Developer Studio</a> before testing the quickstarts.</p>
 
 <h2><a id="run-the-quickstart-in-jboss-developer-studio" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio</h2>
 
@@ -49,7 +49,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li>The script issues this command: <code>$ project-new --named forge-example --topLevelPackage org.example;</code></li>
 <li>You next see the console message: <code>***SUCCESS*** Project named &#39;forge-example&#39; has been created.</code></li>
 <li>This is followed by a dialog saying <code>User Operation is waiting for &quot;Importing Forge project&quot; to complete.</code>.</li>
-<li>After a number of <code>***SUCCESS***</code> messages, you Finally, you see a <code>[INFO] BUILD SUCCESS</code> message near the end of the console output.</li>
+<li>After a number of <code>***SUCCESS***</code> messages, you see <code>[INFO] BUILD SUCCESS</code> near the end of the console output.</li>
 </ul></li>
 </ol>
 
@@ -73,12 +73,23 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h3><a id="access-the-running-application" class="anchor" href="#access-the-running-application"><span class="anchor-icon"></span></a>Access the Running Application</h3>
 
-<p>The application Window displays the following messages</p>
-<div class="highlight"><pre>    <span class="n">Welcome</span> <span class="n">to</span> <span class="n">Forge</span>
+<p>The application appears in a &lsquo;Welcome to Forge&rsquo; Window and displays the following:</p>
+<div class="highlight"><pre><span class="n">Welcome</span> <span class="n">to</span> <span class="n">Forge</span>
 
-    <span class="n">Your</span> <span class="n">application</span> <span class="n">is</span> <span class="n">running</span><span class="p">.</span> 
+<span class="n">Your</span> <span class="n">application</span> <span class="n">is</span> <span class="n">running</span><span class="p">.</span> 
 </pre></div>
-<p>A list of entities is displayed on the left of the screen. When you click on an entity, you are provided with a form that allows you to:</p>
+<p>The following entities are displayed on the lower left side of the page:</p>
+
+<ul>
+<li>Address</li>
+<li>Customer</li>
+<li>Item</li>
+<li>Product Order</li>
+<li>Profile</li>
+<li>Zip Code</li>
+</ul>
+
+<p>When you click on an entity, you are provided with a form that allows you to:</p>
 
 <ul>
 <li>Search for an existing entity</li>
