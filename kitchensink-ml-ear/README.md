@@ -37,17 +37,17 @@ The following changes were made to the quickstart to enable it to use the browse
 
         <application>
           <locale-config>
-                <default-locale>en</default-locale>
-                <supported-locale>en-US</supported-locale>
-                <supported-locale>es</supported-locale>
-                <supported-locale>ES-FR</supported-locale>
-                <supported-locale>fr</supported-locale>
-                <supported-locale>fr-FR</supported-locale>
-            </locale-config>
-            <resource-bundle>
-                <base-name>org/jboss/as/quickstarts/kitchensink_ear/bundle/Resources</base-name>
-                <var>bundle</var>
-            </resource-bundle>
+            <default-locale>en</default-locale>
+            <supported-locale>en-US</supported-locale>
+            <supported-locale>fr</supported-locale>
+            <supported-locale>fr-FR</supported-locale>
+            <supported-locale>es</supported-locale>
+            <supported-locale>es-ES</supported-locale>
+          </locale-config>
+          <resource-bundle>
+            <base-name>org/jboss/as/quickstarts/kitchensink_ear/bundle/Resources</base-name>
+            <var>bundle</var>
+          </resource-bundle>
         </application>
         
 * The `jboss-kitchensink-ml-ear-ejb/src/main/java/org/jboss/as/quickstarts/kitchensink/model/Member.java` file was modififed to add the message key to @Pattern annotation.

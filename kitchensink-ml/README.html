@@ -33,17 +33,17 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>The following XML was added to the <code>src/main/webapp/WEB-INF/faces-config.xml</code> file. When you create a property file for a new language, you must add the supported locale to this file.</p>
 <div class="highlight"><pre><span class="nt">&lt;application&gt;</span>
   <span class="nt">&lt;locale-config&gt;</span>
-        <span class="nt">&lt;default-locale&gt;</span>en<span class="nt">&lt;/default-locale&gt;</span>
-        <span class="nt">&lt;supported-locale&gt;</span>en-US<span class="nt">&lt;/supported-locale&gt;</span>
-        <span class="nt">&lt;supported-locale&gt;</span>es<span class="nt">&lt;/supported-locale&gt;</span>
-        <span class="nt">&lt;supported-locale&gt;</span>ES-FR<span class="nt">&lt;/supported-locale&gt;</span>
-        <span class="nt">&lt;supported-locale&gt;</span>fr<span class="nt">&lt;/supported-locale&gt;</span>
-        <span class="nt">&lt;supported-locale&gt;</span>fr-FR<span class="nt">&lt;/supported-locale&gt;</span>
-    <span class="nt">&lt;/locale-config&gt;</span>
-    <span class="nt">&lt;resource-bundle&gt;</span>
-        <span class="nt">&lt;base-name&gt;</span>org/jboss/as/quickstarts/kitchensink/bundle/Resources<span class="nt">&lt;/base-name&gt;</span>
-        <span class="nt">&lt;var&gt;</span>bundle<span class="nt">&lt;/var&gt;</span>
-    <span class="nt">&lt;/resource-bundle&gt;</span>
+    <span class="nt">&lt;default-locale&gt;</span>en<span class="nt">&lt;/default-locale&gt;</span>
+    <span class="nt">&lt;supported-locale&gt;</span>en-US<span class="nt">&lt;/supported-locale&gt;</span>
+    <span class="nt">&lt;supported-locale&gt;</span>fr<span class="nt">&lt;/supported-locale&gt;</span>
+    <span class="nt">&lt;supported-locale&gt;</span>fr-FR<span class="nt">&lt;/supported-locale&gt;</span>
+    <span class="nt">&lt;supported-locale&gt;</span>es<span class="nt">&lt;/supported-locale&gt;</span>
+    <span class="nt">&lt;supported-locale&gt;</span>es-ES<span class="nt">&lt;/supported-locale&gt;</span>
+  <span class="nt">&lt;/locale-config&gt;</span>
+  <span class="nt">&lt;resource-bundle&gt;</span>
+    <span class="nt">&lt;base-name&gt;</span>org/jboss/as/quickstarts/kitchensink/bundle/Resources<span class="nt">&lt;/base-name&gt;</span>
+    <span class="nt">&lt;var&gt;</span>bundle<span class="nt">&lt;/var&gt;</span>
+  <span class="nt">&lt;/resource-bundle&gt;</span>
 <span class="nt">&lt;/application&gt;</span>
 </pre></div></li>
 <li><p>The <code>src/main/java/org/jboss/as/quickstarts/kitchensink/model/Member.java</code> file was modififed to add the message key to @Pattern annotation.</p>
