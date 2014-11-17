@@ -17,6 +17,7 @@ Once generated, the sample project will be a standard Maven 3, Java Web project 
 
 But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.
 
+
 System requirements
 -------------------
 
@@ -94,7 +95,14 @@ When you click on an entity, you are provided with a form that allows you to:
 
 The running application also provides links to find more information about the Forge. 
  
- 
+_NOTE:_ Currently there is an open Forge issue on machines running the Windows operating system where the scaffold setup fails and you see the following error messages in the console.
+
+    $ scaffold-setup --provider Faces;
+    ***ERROR*** Error while executing 'Scaffold: Setup'
+    ***ERROR*** No Facet of type [interface org.jboss.forge.addon.javaee.faces.Faces Facet] is installed.
+
+This failure prevents the application from displaying the entities and functioning correctly. The issue can be tracked here: <https://issues.jboss.org/browse/FORGE-2026>
+
 Undeploy the Application
 ------------------------
 
