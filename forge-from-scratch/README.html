@@ -99,6 +99,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The running application also provides links to find more information about the Forge. </p>
 
+<p><em>NOTE:</em> Currently there is an open Forge issue on machines running the Windows operating system where the scaffold setup fails and you see the following error messages in the console.</p>
+<div class="highlight"><pre><span class="nv">$ </span>scaffold-setup --provider Faces<span class="p">;</span>
+***ERROR*** Error <span class="k">while </span>executing <span class="s1">&#39;Scaffold: Setup&#39;</span>
+***ERROR*** No Facet of <span class="nb">type</span> <span class="o">[</span>interface org.jboss.forge.addon.javaee.faces.Faces Facet<span class="o">]</span> is installed.
+</pre></div>
+<p>This failure prevents the application from displaying the entities and functioning correctly. The issue can be tracked here: <a href="https://issues.jboss.org/browse/FORGE-2026">https://issues.jboss.org/browse/FORGE-2026</a></p>
+
 <h2><a id="undeploy-the-application" class="anchor" href="#undeploy-the-application"><span class="anchor-icon"></span></a>Undeploy the Application</h2>
 
 <p>When you are ready to undeploy the application from JBoss EAP:</p>
