@@ -18,7 +18,7 @@ The theme of this application is simple Task management with simple login. The p
 
 This sample includes a persistence unit and some sample persistence code to introduce you to database access in enterprise Java. Persistence code is covered by tests to help you write business logic without the need to use any view layer.
 
-JSF 2.0 is used to present the user two viewsL
+JSF 2.0 is used to present the user two views.
 
 * authentication form: This provides the simple login
 * task view: This view contains the task list, a task detail, and a task addition form. The task view uses AJAX.
