@@ -49,7 +49,7 @@ public class FilterExampleServlet extends HttpServlet {
         writer.println("  </form>");
 
         if (req.getParameter("userInput") != null) {
-            writer.println("  <h1>You Typed " + req.getParameter("userInput") + "</h1>");
+            writer.println("  <h1>You Typed: " + req.getParameter("userInput") + "</h1>");
         }
 
         writer.println(" </body>");

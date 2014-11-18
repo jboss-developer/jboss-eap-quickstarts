@@ -11,7 +11,14 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners.
+The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners. 
+
+This example contains the following classes:
+
+* `FilterExampleServlet`: A simple servlet that prints a form that contains an input field and a *Send* button. 
+* `VowelRemoverFilter`: A servlet filter that removes the vowels from the text entered in the form.
+* `ParameterDumpingRequestListener`: A simple servlet request listener that creates a map of the original HTTP request parameter values before the filter is applied.
+
 
 System requirements
 -------------------
@@ -55,6 +62,27 @@ Access the application
 ---------------------
 
 The application will be running at the following URL <http://localhost:8080/jboss-servlet-filterlistener/>.
+
+You are presented with a form containing an input field and a *Send* button. To test the quickstart:
+
+1. Enter some text in the field, for example: 
+
+        This is only a test!
+2. Click *Send*.
+3. The servlet filter intercepts and removes the vowels from the text entered in the form and displays: 
+
+        You Typed: Ths s nly tst!
+4. The server console displays the following log messages:
+
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been initialized. It has 0 parameters:
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter invoking filter chain...
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter done filtering request
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been destroyed
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been initialized. It has 1 parameters:
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1)   userInput=This is only a test!
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter invoking filter chain...
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter done filtering request
+        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been destroyed
 
 
 Undeploy the Archive
