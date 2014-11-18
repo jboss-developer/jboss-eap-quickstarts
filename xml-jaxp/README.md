@@ -16,7 +16,7 @@ The `xml-jaxp` quickstart is a simple JSF 2.0, Servlet 3.0 and Java EE JAXP exam
 This quickstart provides an example XML schema and document file to use when testing this quickstart.
 
 * The XML schema is located here: `QUICKSTART_HOME/src/main/resources/catalog.xsd` 
-* The XML document is located here: `QUICKSTART_home/src/main/resources/catalog.xml`
+* The XML document is located here: `QUICKSTART_HOME/src/main/resources/catalog.xml`
 
  
 System requirements
@@ -64,7 +64,7 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 
 To test the quickstart, follow these steps.
 
-1. Click the `Browse` button and navigate to the `QUICKSTART_home/src/main/resources/catalog.xml` file.
+1. Click the `Browse` button and navigate to the `QUICKSTART_HOME/src/main/resources/catalog.xml` file.
 2. Click the `Upload` button. The XML file content is parsed and displayed on the page. 
 3. You should see the following output in the server console that shows the DOMXMLParser was used:
 
@@ -74,7 +74,7 @@ To enable the alternative SAXXMLParser parser:
 
 1. Remove the comments that surround the alternate parser element in the `WEB-INF/beans.xml` file.
 2. Redeploy the application using the instructions above and access the application in a browser at the following URL:  <http://localhost:8080/jboss-xml-jaxp/>.
-3. Click the `Browse` button and navigate to the `QUICKSTART_home/src/main/resources/catalog.xml` file.
+3. Click the `Browse` button and navigate to the `QUICKSTART_HOME/src/main/resources/catalog.xml` file.
 4. Click the `Upload` button. The XML file content is parsed and displayed on the page. 
 5. You should now see following output in the server console:
 

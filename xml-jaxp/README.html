@@ -17,7 +17,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <ul>
 <li>The XML schema is located here: <code>QUICKSTART_HOME/src/main/resources/catalog.xsd</code> </li>
-<li>The XML document is located here: <code>QUICKSTART_home/src/main/resources/catalog.xml</code></li>
+<li>The XML document is located here: <code>QUICKSTART_HOME/src/main/resources/catalog.xml</code></li>
 </ul>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
@@ -60,7 +60,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>To test the quickstart, follow these steps.</p>
 
 <ol>
-<li>Click the <code>Browse</code> button and navigate to the <code>QUICKSTART_home/src/main/resources/catalog.xml</code> file.</li>
+<li>Click the <code>Browse</code> button and navigate to the <code>QUICKSTART_HOME/src/main/resources/catalog.xml</code> file.</li>
 <li>Click the <code>Upload</code> button. The XML file content is parsed and displayed on the page. </li>
 <li><p>You should see the following output in the server console that shows the DOMXMLParser was used:</p>
 <div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">stdout</span><span class="p">]</span> <span class="p">(</span><span class="n">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">Parsing</span> <span class="n">the</span> <span class="n">document</span> <span class="n">using</span> <span class="n">the</span> <span class="n">DOMXMLParser</span><span class="o">!</span>
@@ -72,7 +72,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <ol>
 <li>Remove the comments that surround the alternate parser element in the <code>WEB-INF/beans.xml</code> file.</li>
 <li>Redeploy the application using the instructions above and access the application in a browser at the following URL:  <a href="http://localhost:8080/jboss-xml-jaxp/">http://localhost:8080/jboss-xml-jaxp/</a>.</li>
-<li>Click the <code>Browse</code> button and navigate to the <code>QUICKSTART_home/src/main/resources/catalog.xml</code> file.</li>
+<li>Click the <code>Browse</code> button and navigate to the <code>QUICKSTART_HOME/src/main/resources/catalog.xml</code> file.</li>
 <li>Click the <code>Upload</code> button. The XML file content is parsed and displayed on the page. </li>
 <li><p>You should now see following output in the server console:</p>
 <div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">stdout</span><span class="p">]</span> <span class="p">(</span><span class="n">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">Parsing</span> <span class="n">the</span> <span class="n">document</span> <span class="n">using</span> <span class="n">the</span> <span class="n">SAXXMLParser</span><span class="o">!</span>
