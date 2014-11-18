@@ -69,7 +69,7 @@ You are presented with a form containing an input field and a *Send* button. To 
 
         This is only a test!
 2. Click *Send*.
-3. The servlet intercepts and removes the vowels from the text entered in the form and displays: 
+3. The servlet filter intercepts and removes the vowels from the text entered in the form and displays: 
 
         You Typed: Ths s nly tst!
 4. The server console displays the following log messages:
