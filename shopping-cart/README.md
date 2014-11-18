@@ -62,7 +62,11 @@ Build and Deploy the Quickstart
 Run the Client Application
 ------------------------
 
-Now start a client that will access the beans you just deployed:
+Now start a client that will access the beans you just deployed. 
+
+You can use the command prompt from the previous step or open a new one and navigate to the root of the `shopping-cart` quickstart directory.
+
+Type the following command:
 
         mvn exec:java -f client/pom.xml 
 
