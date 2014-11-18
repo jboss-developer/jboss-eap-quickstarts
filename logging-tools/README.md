@@ -74,16 +74,6 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 4. This will deploy `target/jboss-logging-tools.war` to the running instance of the server.
 
-_Note:_ You may see the following warnings in the server log. 
-
-        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/exceptions/GreeterExceptionBundle.java:[25,8] Generating translation class.
-        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/messages/GreetingMessagesBundle.java:[24,8] Generating translation class.
-        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/exceptions/DateExceptionsBundle.java:[27,8] Generating translation class.
-        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/loggers/DateLogger.java:[30,8] Generating translation class.
-        [WARNING] logging-tools/src/main/java/org/jboss/as/quickstarts/loggingToolsQS/loggers/GreeterLogger.java:[26,8] Generating translation class.
-
-This is due to a bug in the Maven compiler plug-in where all CompilerMessages are logged at warning or error level, even if they are not warnings or errors. A fix has been submitted but has not yet been applied. Details can be found here: <http://jira.codehaus.org/browse/MCOMPILER-224>.
-
 
 Access the application 
 ---------------------
