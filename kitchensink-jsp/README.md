@@ -2,8 +2,8 @@ kitchensink-jsp: Kitchensink with a JSP (JavaServer Pages) Front End
 ====================================================================
 Author: Elvadas Nono  
 Level: Intermediate  
-Technologies: CDI, JSP, JPA, EJB, JAX-RS, BV  
-Summary: The `kitchensink-jsp` quickstart demonstrates how to use JSP 2.0, EL 2.0, JSTL 1.2, CDI 1.0, EJB 3.1, JPA 2.0, and Bean Validation 1.0 in JBoss EAP.  
+Technologies: JSP, JSTL, CDI, JPA, EJB, JAX-RS, BV  
+Summary: The `kitchensink-jsp` quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `kitchensink-jsp` quickstart is a deployable Maven 3 project and demonstrates how to create a compliant Java EE 6 application using *JSP 2.0* *EL 2.0* *JSTL 1.2* *CDI 1.0*, *EJB 3.1*, *JPA 2.0* and Bean Validation 1.0. 
+The `kitchensink-jsp` quickstart is a deployable Maven 3 project and demonstrates how to create a compliant Java EE 6 application using JSP 2.0, EL 2.0, JSTL 1.2, CDI 1.0, EJB 3.1, JPA 2.0, and Bean Validation 1.0. 
 
 This example is based on the [kitchensink](../kitchensink/README.md) quickstart, but recreates the presentation tier using JSP and JSTL instead of JSF features. It reuses all other components from the Member Registration template. It also reuses the persistence unit and some sample persistence and transaction code to help you with database access in enterprise Java. 
 
