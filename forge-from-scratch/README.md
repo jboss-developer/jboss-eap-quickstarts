@@ -13,7 +13,7 @@ What is it?
 
 The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using nothing but  **JBoss Forge 2**. 
 
-Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.0** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
+Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.1** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 
 But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.
 

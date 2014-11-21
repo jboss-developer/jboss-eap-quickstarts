@@ -13,7 +13,7 @@ What is it?
 
 The `hibernate4` quickstart is based upon the [kitchensink](../kitchensink/README.md) example, but demonstrates how to use Hibernate Object/Relational Mapping (ORM) 4 over JPA 2.0 in Red Hat JBoss Enterprise Application Platform.
 
-This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.0, CDI 1.0, EJB 3.1, JPA 2.0 , Hibernate-Core and Hibernate Bean Validation.  It includes a persistence unit associated with Hibernate session and some sample persistence and transaction code to help you with database access in enterprise Java. 
+This project is setup to allow you to create a compliant Java EE 6 application using JSF 2.1, CDI 1.0, EJB 3.1, JPA 2.0 , Hibernate-Core and Hibernate Bean Validation.  It includes a persistence unit associated with Hibernate session and some sample persistence and transaction code to help you with database access in enterprise Java. 
 
 This quickstart performs the same functions as the [hibernate3](../hibernate3/README.md) quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the [hibernate3](../hibernate3/README.md) quickstart to see the code changes needed to run with Hibernate 4. 
 

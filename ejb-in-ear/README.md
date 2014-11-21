@@ -3,7 +3,7 @@ ejb-in-ear: Deployment of an EAR Containing a JSF WAR and EJB JAR
 Author: Paul Robinson  
 Level: Intermediate  
 Technologies: EJB, EAR  
-Summary: The `ejb-in-ear` quickstart demonstrates how to deploy an EAR archive that contains a *JSF 2.0* WAR and an *EJB 3.1* JAR.  
+Summary: The `ejb-in-ear` quickstart demonstrates how to deploy an EAR archive that contains a *JSF 2.1* WAR and an *EJB 3.1* JAR.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `ejb-in-ear` quickstart demonstrates the deployment of an EAR artifact to Red Hat JBoss Enterprise Application Platform. The EAR contains: *JSF 2.0* WAR and an *EJB 3.1* JAR.
+The `ejb-in-ear` quickstart demonstrates the deployment of an EAR artifact to Red Hat JBoss Enterprise Application Platform. The EAR contains: *JSF 2.1* WAR and an *EJB 3.1* JAR.
 
 The example is composed of three Maven projects, each with a shared parent. The projects are as follows:
 
