@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
-The `ejb-throws-exception` quickstart extends the [ejb-in-ear](../ejb-in-ear/README.md) quickstart and demonstrates how to handle Exceptions across JARs in an EAR. In this quickstart, an EJB in the EJB JAR throws a custom Exception. The web application in the client JAR catches the Exception and displays it in a nicely formatted message. The EAR contains: *JSF 2.0 WAR*, an *EJB 3.1* JAR and a client library JAR containg classes that both the WAR and EJB JAR use.
+The `ejb-throws-exception` quickstart extends the [ejb-in-ear](../ejb-in-ear/README.md) quickstart and demonstrates how to handle Exceptions across JARs in an EAR. In this quickstart, an EJB in the EJB JAR throws a custom Exception. The web application in the client JAR catches the Exception and displays it in a nicely formatted message. The EAR contains: *JSF 2.1 WAR*, an *EJB 3.1* JAR and a client library JAR containg classes that both the WAR and EJB JAR use.
 
 The example is composed of three Maven projects, each with a shared parent. The projects are as follows:
 

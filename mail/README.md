@@ -3,7 +3,7 @@ mail: E-Mail Example using CDI and JSF
 Author: Joel Tosi  
 Level: Beginner  
 Technologies: JavaMail, CDI, JSF  
-Summary: The `mail` quickstart demonstrates how to send email using CDI 1.0 and JSF 2.0 and the default Mail provider that ships with JBoss EAP.  
+Summary: The `mail` quickstart demonstrates how to send email using CDI 1.0 and JSF 2.1 and the default Mail provider that ships with JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `mail` quickstart demonstrates sending email with the use of *CDI 1.0* (Contexts and Dependency Injection) and *JSF 2.0* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
+The `mail` quickstart demonstrates sending email with the use of *CDI 1.0* (Contexts and Dependency Injection) and *JSF 2.1* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
 
 The example uses the default Mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25.
 

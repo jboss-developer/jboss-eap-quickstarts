@@ -3,7 +3,7 @@ numberguess: Example Using CDI and JSF
 Author: Pete Muir  
 Level: Beginner  
 Technologies: CDI, JSF  
-Summary: The `numberguess` quickstart demonstrates the use of *CDI 1.0*  (Contexts and Dependency Injection) and *JSF 2.0* (JavaServer Faces) in JBoss EAP.  
+Summary: The `numberguess` quickstart demonstrates the use of *CDI 1.0*  (Contexts and Dependency Injection) and *JSF 2.1* (JavaServer Faces) in JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `numberguess` quickstart demonstrates the use of *CDI 1.0*  (Contexts and Dependency Injection) and *JSF 2.0* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
+The `numberguess` quickstart demonstrates the use of *CDI 1.0*  (Contexts and Dependency Injection) and *JSF 2.1* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
 
 
 System requirements

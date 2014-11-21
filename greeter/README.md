@@ -3,7 +3,7 @@ greeter: Demonstrates CDI, JPA, JTA, EJB 3.1, and JSF
 Author: Pete Muir  
 Level: Beginner  
 Technologies: CDI, JSF, JPA, EJB, JTA  
-Summary: The `greeter` quickstart demonstrates the use of *CDI 1.0*, *JPA 2.0*, *JTA 1.1*, *EJB 3.1* and *JSF 2.0* in JBoss EAP.  
+Summary: The `greeter` quickstart demonstrates the use of *CDI 1.0*, *JPA 2.0*, *JTA 1.1*, *EJB 3.1* and *JSF 2.1* in JBoss EAP.  
 Target Product: EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `greeter` quickstart demonstrates the use of *CDI 1.0*, *JPA 2.0*, *JTA 1.1*, *EJB 3.1* and *JSF 2.0* in Red Hat JBoss Enterprise Application Platform.
+The `greeter` quickstart demonstrates the use of *CDI 1.0*, *JPA 2.0*, *JTA 1.1*, *EJB 3.1* and *JSF 2.1* in Red Hat JBoss Enterprise Application Platform.
 
 When you deploy this example, two users are automatically created for you:  `emuster` and `jdoe`. This data is located in the `src/main/resources/import.sql file`.
 
