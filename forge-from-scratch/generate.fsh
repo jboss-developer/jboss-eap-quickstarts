@@ -6,6 +6,9 @@ clear;
 # Create a new project in the current directory;
 project-new --named forge-example --topLevelPackage org.example;
 
+# Setup this project to have the necessary Java EE 6 dependencies
+javaee-setup --javaEEVersion 6
+
 #Turn our Java project into a Web project with JSF, CDI, EJB, and JPA;
 scaffold-setup --provider Faces;
 
