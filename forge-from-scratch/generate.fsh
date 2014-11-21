@@ -7,7 +7,7 @@ clear;
 project-new --named forge-example --topLevelPackage org.example;
 
 #Turn our Java project into a Web project with JSF, CDI, EJB, and JPA;
-scaffold-setup --provider Faces;
+scaffold-setup --provider Faces --facesVersion 2.1;
 
 # Enable CDI if not already done;
 cdi-setup;
