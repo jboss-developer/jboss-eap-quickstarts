@@ -44,8 +44,6 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.
 Configure Maven
 ---------------
 
-<!-- Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example: -->
-
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
