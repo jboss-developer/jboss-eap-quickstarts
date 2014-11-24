@@ -41,13 +41,10 @@ example of this in the Edit form if you enter an email that is already in use.  
 field if that field exists.  If the field does not exist then it display it at the top. In addition, there are 
 [qunit tests](#run-the-qunit-tests) for every form of validation.  
 
-*Note: This quickstart uses the following Jackson libraries that are a part of the JBoss EAP private API.*
+_Note: This quickstart uses the Jackson libraries, which are not supported for development or production use in JBoss EAP. 
+For more information, see [JBoss Enterprise Application Platform Component Details](https://access.redhat.com/articles/112673) 
+and [Does JBoss EAP support the use of Jackson libraries?](https://access.redhat.com/articles/1265083)._
 
-* *org.codehaus.jackson.jackson-core-asl*
-* *org.codehaus.jackson.jackson-mapper-asl*
-
-*A public API will become available in a future EAP release and the private classes will be deprecated, but these classes 
-will be maintained and available for the duration of the EAP 6.x release cycle.*
 
 System requirements
 -------------------
