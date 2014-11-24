@@ -16,6 +16,8 @@
  */
 
 CONTACTS.namespace('CONTACTS.validation.displayServerSideErrors');
+CONTACTS.namespace('CONTACTS.validation.validateBirthDate');
+CONTACTS.namespace('CONTACTS.validation.validatePhone');
 CONTACTS.namespace('CONTACTS.validation.validateName');
 CONTACTS.namespace('CONTACTS.validation.formEmail');
 CONTACTS.namespace('CONTACTS.validation.validateEmailUniqueness');
@@ -110,6 +112,31 @@ $(document).ready(function() {
     }, "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)");
     
     /**
+     * Check if the phone number is a valid format.
+     */
+    CONTACTS.validation.validatePhone = function(phone, divID) {
+        // Get the ID of the phoneNumber field that is being validated, either from the Add or Edit form.
+    	var tel = $(divID);
+        // Check if anything has been entered in the phone field.
+//        if ($.trim(tel.val())) {
+        	// Check if the number is valid.
+            if (tel.intlTelInput("isValidNumber")) {
+                return true;
+            } else {
+                return false;
+            }
+//        } else {
+//        	// Nothing is in the field, let the Require validation handle it. 
+//        	return true;
+//        }
+    };
+
+    // Create a custom method for the Validator to check if a 'phoneNumber' is formatted correctly.
+    $.validator.addMethod("intlTel", function(value, element, param) {
+        return this.optional(element) || CONTACTS.validation.validatePhone(value, param);
+    }, "Please use a valid phone number with county code.");
+    
+    /**
      * Check if the name fits the regex pattern of a Alpha characters only.
      */
     CONTACTS.validation.validateName = function(name) {
@@ -141,12 +168,16 @@ $(document).ready(function() {
     }, "That email is already used, please use a unique email.");
     
     /**
-     *  We need a way to make apply the form validation in cases where the forms don't exist yet, like the unit tests.
+     *  We need a way to apply the form validation in cases where the forms don't exist yet, like the unit tests.
      */ 
     CONTACTS.validation.runFormValidators = function() {
+        // Turn on the intlTelInput validation
+        $('#contacts-add-input-tel').intlTelInput();
+        $('#contacts-edit-input-tel').intlTelInput();
+
         // Set up the validator for the 'add' form.
         // NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
-        //       It appears that the plugin only works when it is givin only 1 form at a time. 
+        //       It appears that the plugin only works when it is given only 1 form at a time. 
         CONTACTS.validation.addContactsFormValidator = $('#contacts-add-form').validate({
             rules: {
                 firstName: {
@@ -163,7 +194,10 @@ $(document).ready(function() {
                 },
                 phoneNumber: {
                     required: true,
-                    phoneUS: true
+                    intlTel: {
+                    	param: "#contacts-add-input-tel"
+                    }
+//                    phoneUS: true
                 },
                 email: {
                     required: true,
@@ -186,8 +220,8 @@ $(document).ready(function() {
                     required: "Please specify a last name."
                 },
                 phoneNumber: {
-                    required: "Please enter a phone number.",
-                    phoneUS: "Please use a standard US formats. And remember the area code and prefix may not start with 1."
+                    required: "Please enter a phone number."
+//                    phoneUS: "Please use a standard US formats. And remember the area code and prefix may not start with 1."
                 },
                 email: {
                     required: "Please enter an e-mail.",
@@ -204,7 +238,7 @@ $(document).ready(function() {
         /**
          * Set up the validator for the 'edit' form.
          * NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
-         *       It appears that the plugin only works when it is givin only 1 form at a time. 
+         *       It appears that the plugin only works when it is given only 1 form at a time. 
          */
         CONTACTS.validation.editContactsFormValidator = $('#contacts-edit-form').validate({
             rules: {
@@ -222,7 +256,10 @@ $(document).ready(function() {
                 },
                 phoneNumber: {
                     required: true,
-                    phoneUS: true
+                    intlTel: {
+                    	param: "#contacts-edit-input-tel"
+                    }
+//                    phoneUS: true
                 },
                 email: {
                     required: true,
@@ -245,8 +282,8 @@ $(document).ready(function() {
                     required: "Please specify a last name."
                 },
                 phoneNumber: {
-                    required: "Please enter a phone number.",
-                    phoneUS: "Please use a standard US formats. And remember the area code and prefix may not start with 1."
+                    required: "Please enter a phone number."
+//                    phoneUS: "Please use a standard US formats. And remember the area code and prefix may not start with 1."
                 },
                 email: {
                     required: "Please enter an e-mail.",

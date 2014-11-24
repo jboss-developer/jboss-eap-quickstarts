@@ -106,7 +106,7 @@ test('should be able to programmitcally insert a first name into the first name 
 test('should display an error message in the first name field when the first name is not entered.', 1, function() {
     $('#contacts-add-input-firstName').val('')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -116,7 +116,7 @@ test('should display an error message in the first name field when the first nam
 test('should display an error message in the first name field when the first name is not well formed.', 1, function() {
     $('#contacts-add-input-firstName').val('john3')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -126,7 +126,7 @@ test('should display an error message in the first name field when the first nam
 test('should display an error message in the first name field when the first name is longer then 25 characters.', 1, function() {
     $('#contacts-add-input-firstName').val('johnssssssssssssssssssssss')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -137,7 +137,7 @@ test('should display an error message in the first name field when the first nam
 test('should display an error message in the last name field when the last name is not entered.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -147,7 +147,7 @@ test('should display an error message in the last name field when the last name 
 test('should display an error message in the last name field when the last name is not well formed.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe3')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -157,7 +157,7 @@ test('should display an error message in the last name field when the last name 
 test('should display an error message in the last name field when the last name is longer then 25 characters.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doesssssssssssssssssssssss')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -178,18 +178,18 @@ test('should display an error message in the phone number field when the phone n
 test('should display an error message in the phone number field when the phone number has anything other then digits.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-1212')
+    $('#contacts-add-input-tel').val      ('+1 555-121')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
-    strictEqual($('label.error').text(), "Please use a standard US formats. And remember the area code and prefix may not start with 1.", 'The phone number was set to 555-1212.');
+    strictEqual($('label.error').text(), "Please use a valid phone number with county code.", 'The phone number was set to 555-1212.');
 });
 
 // Email tests
 test('should display an error message in the email field when the email is not entered.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -199,7 +199,7 @@ test('should display an error message in the email field when the email is not e
 test('should display an error message in the email field when the email is not in the form of name@company.domain.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -214,7 +214,7 @@ test('should display an error message in the email field when the email is not u
 test('should continue to display an error message in the email field when the email is not unique.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1990-10-10')
     CONTACTS.validation.displayServerSideErrors("#contacts-add-form", {email:"That email is already used, please use a unique email"});
@@ -228,7 +228,7 @@ test('should continue to display an error message in the email field when the em
 test('should display an error message in the birth date field when the birth date is not entered.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -238,7 +238,7 @@ test('should display an error message in the birth date field when the birth dat
 test('should display an error message in the birth date field when the birth date is given as a future date.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('2020-10-10')
     $('.birthDate').attr('max', function() {
@@ -251,7 +251,7 @@ test('should display an error message in the birth date field when the birth dat
 test('should display an error message in the birth date field when the birth date is given as a date older then 1900.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('1890-10-10')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -261,7 +261,7 @@ test('should display an error message in the birth date field when the birth dat
 test('should display an error message in the birth date field when the birth date is not in the format of yyyy/mm/dd or yyyy-mm-dd.', 1, function() {
     $('#contacts-add-input-firstName').val('john')
     $('#contacts-add-input-lastName').val ('doe')
-    $('#contacts-add-input-tel').val      ('555-555-1212')
+    $('#contacts-add-input-tel').val      ('+1 888-555-1212')
     $('#contacts-add-input-email').val    ('john.doe@abc.com')
     $('#contacts-add-input-date').val     ('Oct 10, 1990')
     CONTACTS.validation.addContactsFormValidator.form();
@@ -313,7 +313,7 @@ module('Validation in the Edit form', {
 test('should display an error message in the first name field when the first name is not entered.', 1, function() {
     $('#contacts-edit-input-firstName').val('')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -323,7 +323,7 @@ test('should display an error message in the first name field when the first nam
 test('should display an error message in the first name field when the first name is not well formed.', 1, function() {
     $('#contacts-edit-input-firstName').val('john3')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -333,7 +333,7 @@ test('should display an error message in the first name field when the first nam
 test('should display an error message in the first name field when the first name is longer then 25 characters.', 1, function() {
     $('#contacts-edit-input-firstName').val('johnssssssssssssssssssssss')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -344,7 +344,7 @@ test('should display an error message in the first name field when the first nam
 test('should display an error message in the last name field when the last name is not entered.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -354,7 +354,7 @@ test('should display an error message in the last name field when the last name 
 test('should display an error message in the last name field when the last name is not well formed.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe3')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -364,7 +364,7 @@ test('should display an error message in the last name field when the last name 
 test('should display an error message in the last name field when the last name is longer then 25 characters.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doesssssssssssssssssssssss')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -389,14 +389,14 @@ test('should display an error message in the phone number field when the phone n
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
-    strictEqual($('label.error').text(), "Please use a standard US formats. And remember the area code and prefix may not start with 1.", 'The phone number was set to 555-1212.');
+    strictEqual($('label.error').text(), "Please use a valid phone number with county code.", 'The phone number was set to 555-1212.');
 });
 
 // Email tests
 test('should display an error message in the email field when the email is not entered.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -406,7 +406,7 @@ test('should display an error message in the email field when the email is not e
 test('should display an error message in the email field when the email is not in the form of name@company.domain.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -421,7 +421,7 @@ test('should display an error message in the email field when the email is not u
 test('should continue to display an error message in the email field when the email is not unique.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1990-10-10')
     CONTACTS.validation.displayServerSideErrors("#contacts-edit-form", {email:"That email is already used, please use a unique email"});
@@ -435,7 +435,7 @@ test('should continue to display an error message in the email field when the em
 test('should display an error message in the birth date field when the birth date is not entered.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -445,7 +445,7 @@ test('should display an error message in the birth date field when the birth dat
 test('should display an error message in the birth date field when the birth date is given as a future date.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('2020-10-10')
     $('.birthDate').attr('max', function() {
@@ -458,7 +458,7 @@ test('should display an error message in the birth date field when the birth dat
 test('should display an error message in the birth date field when the birth date is given as a date older then 1900.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('1890-10-10')
     CONTACTS.validation.editContactsFormValidator.form();
@@ -468,7 +468,7 @@ test('should display an error message in the birth date field when the birth dat
 test('should display an error message in the birth date field when the birth date is not in the format of yyyy/mm/dd or yyyy-mm-dd.', 1, function() {
     $('#contacts-edit-input-firstName').val('john')
     $('#contacts-edit-input-lastName').val ('doe')
-    $('#contacts-edit-input-tel').val      ('555-555-1212')
+    $('#contacts-edit-input-tel').val      ('+1 888-555-1212')
     $('#contacts-edit-input-email').val    ('john.doe@abc.com')
     $('#contacts-edit-input-date').val     ('Oct 10, 1990')
     CONTACTS.validation.editContactsFormValidator.form();
