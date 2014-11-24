@@ -59,7 +59,7 @@ Since this quickstart builds two separate components, you can not use the standa
 3. Build and install the server side component:
     * Navigate to the server-side subdirectory:
 
-        cd server-side
+            cd server-side
     * Build the EJB and client interfaces JARs and install them in your local Maven repository.
 
             mvn clean install        
@@ -67,7 +67,7 @@ Since this quickstart builds two separate components, you can not use the standa
 
             mvn jboss-as:deploy
 4. Build and run the client application
-    * Navigate to the server-side subdirectory:
+    * Navigate to the client-side subdirectory:
 
             cd ../client
     * Compile the client code
