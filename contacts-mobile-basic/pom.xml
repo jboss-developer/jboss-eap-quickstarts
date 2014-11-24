@@ -336,37 +336,6 @@
             </activation>
 
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                        <plugin>
-                            <groupId>org.eclipse.m2e</groupId>
-                            <artifactId>lifecycle-mapping</artifactId>
-                            <version>${version.org.eclipse.m2e}</version>
-                            <configuration>
-                                <lifecycleMappingMetadata>
-                                    <pluginExecutions>
-                                        <pluginExecution>
-                                            <pluginExecutionFilter>
-                                                <groupId>ro.isdc.wro4j</groupId>
-                                                <artifactId>
-                                                    wro4j-maven-plugin
-                                                </artifactId>
-                                                <version>${version.ro.isdc.wro4j}</version>
-                                                <goals>
-                                                    <goal>run</goal>
-                                                </goals>
-                                            </pluginExecutionFilter>
-                                            <action>
-                                                <ignore/>
-                                            </action>
-                                        </pluginExecution>
-                                    </pluginExecutions>
-                                </lifecycleMappingMetadata>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
                 <plugins>
                     <plugin>
                         <groupId>ro.isdc.wro4j</groupId>
