@@ -116,7 +116,7 @@ The first user establishes the actual connection to the server. The subsequent t
 Note that within the quickstart, we do not make use of the passwords for any of the 'App' users. The passwords specified for those users are only suggested values that meet password minimum requirements.
 
 If you prefer, you can use the add-user utility interactively. 
-For an example of how to use the add-user utility, see instructions in the root README file located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
+For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 
 Configure the JBoss EAP Server
