@@ -39,15 +39,17 @@ public class TimeoutExample {
     
     @Timeout
     public void scheduler(Timer timer) {
-        System.out.println("EJB Timer: Info = " + timer.getInfo());
+        Date currentTime = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+        System.out.println("TimeoutExample.scheduler() " + timer.getInfo() + simpleDateFormat.format(currentTime));
     }
     
     @PostConstruct
     public void initialize( InvocationContext ctx ) {
         ScheduleExpression se = new ScheduleExpression();
         // Set schedule to every 3 seconds (starting at second 0 of every minute).
-        se.hour("*").minute("*").second("0/20");
-         timerService.createCalendarTimer( se, new TimerConfig("EJB timer service timeout!", false) );
+        se.hour("*").minute("*").second("0/3");
+         timerService.createCalendarTimer( se, new TimerConfig("EJB timer service timeout at ", false) );
     }
     
     @PreDestroy
