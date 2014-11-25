@@ -55,7 +55,7 @@ For an example of how to use the add-user utility, see instructions in the root 
 Configure the JBoss EAP Server
 ---------------------------
 
-You configure the the JMS `test` queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-jms.cli` script provided in the root directory of this quickstart. 
+You configure the JMS `test` queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-jms.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
