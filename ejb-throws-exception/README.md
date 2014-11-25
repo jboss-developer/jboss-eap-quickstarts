@@ -69,7 +69,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean install jboss-as:deploy
 
-4. This will deploy `target/jboss-ejb-in-ear.ear` to the running instance of the server.
+4. This will deploy `ear/target/jboss-ejb-throws-exception.ear` to the running instance of the server.
 
  
 
