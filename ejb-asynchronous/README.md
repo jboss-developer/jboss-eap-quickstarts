@@ -56,7 +56,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 3. Type this command to build and deploy the archive:
 
         mvn clean install jboss-as:deploy
-4. This will deploy `service/target/jboss-ejb-asynchronous-ejb.jar` to the running instance of the server.
+4. This will deploy `ejb/target/jboss-ejb-asynchronous-ejb.jar` to the running instance of the server.
  
 Check whether the application is deployed successfully.
 
