@@ -67,7 +67,7 @@ Since this quickstart builds two separate components, you can not use the standa
 
             mvn jboss-as:deploy
 4. Build and run the client application
-    * Navigate to the client-side subdirectory:
+    * Navigate to the client subdirectory:
 
             cd ../client
     * Compile the client code
