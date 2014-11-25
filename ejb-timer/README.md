@@ -17,7 +17,7 @@ The `ejb-timer` quickstart demonstrates how to use the EJB 3.1 timer service wit
 The following EJB 3.1 Timer services are demonstrated:
 
  * `@Schedule`: Uses this annotation to mark a method to be executed according to the calendar schedule specified in the attributes of the annotation. This example schedules a message to be printed to the server console every 6 seconds.
- * `@Timeout`: Uses this annotation to mark a method to execute when a programmatic timer goes off. This example sets the timer to go off every 3 seconds.
+ * `@Timeout`: Uses this annotation to mark a method to execute when a programmatic timer goes off. This example sets the timer to go off every 3 seconds, at which point the method prints a message to the server console.
  
 
 System requirements
@@ -64,18 +64,22 @@ Access the application
 This application only prints messages to stdout.
 To see it working, check the server log. You should see similar output:
 
-      12:01:06,002 INFO  [stdout] (EJB default - 7) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:06 EST
-      12:01:12,002 INFO  [stdout] (EJB default - 6) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:12 EST
-      12:01:18,001 INFO  [stdout] (EJB default - 5) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:18 EST
-      12:01:20,002 INFO  [stdout] (EJB default - 8) EJB Timer: Info = EJB timer service timeout!
-      12:01:24,002 INFO  [stdout] (EJB default - 9) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:24 EST
-      12:01:30,002 INFO  [stdout] (EJB default - 10) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:30 EST
-      12:01:36,002 INFO  [stdout] (EJB default - 2) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:36 EST
-      12:01:40,002 INFO  [stdout] (EJB default - 1) EJB Timer: Info = EJB timer service timeout!
-      12:01:42,001 INFO  [stdout] (EJB default - 4) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:42 EST
-      12:01:48,001 INFO  [stdout] (EJB default - 3) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:48 EST
-      12:01:54,001 INFO  [stdout] (EJB default - 7) EJB timer service scheduler says the current time is: 2014.11.05 AD at 12:01:54 EST
-      12:02:00,001 INFO  [stdout] (EJB default - 6) EJB Timer: Info = EJB timer service timeout!
+    INFO  [stdout] (EJB default - 10) ScheduleExample.doWork() invoked at 2014.11.25 AD at 11:57:12 EST
+    INFO  [stdout] (EJB default - 2) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:12 EST
+    INFO  [stdout] (EJB default - 4) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:15 EST
+    INFO  [stdout] (EJB default - 3) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:18 EST
+    INFO  [stdout] (EJB default - 5) ScheduleExample.doWork() invoked at 2014.11.25 AD at 11:57:18 EST
+    INFO  [stdout] (EJB default - 7) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:21 EST
+    INFO  [stdout] (EJB default - 9) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:24 EST
+    INFO  [stdout] (EJB default - 6) ScheduleExample.doWork() invoked at 2014.11.25 AD at 11:57:24 EST
+    INFO  [stdout] (EJB default - 8) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:27 EST
+    INFO  [stdout] (EJB default - 1) ScheduleExample.doWork() invoked at 2014.11.25 AD at 11:57:30 EST
+    INFO  [stdout] (EJB default - 10) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:30 EST
+    INFO  [stdout] (EJB default - 2) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:33 EST
+    INFO  [stdout] (EJB default - 4) ScheduleExample.doWork() invoked at 2014.11.25 AD at 11:57:36 EST
+    INFO  [stdout] (EJB default - 3) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:36 EST
+    INFO  [stdout] (EJB default - 5) TimeoutExample.scheduler() EJB timer service timeout at 2014.11.25 AD at 11:57:39 EST
+    INFO  [stdout] (EJB default - 7) ScheduleExample.doWork() invoked at 2014.11.25 AD at 11:57:42 EST
 
 Existing threads in the thread pool handle the invocations. They are rotated and the name of the thread that handles the invocation is printed within the parenthesis `(EJB Default - #)`.
 
