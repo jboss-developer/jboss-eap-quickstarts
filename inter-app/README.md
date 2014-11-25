@@ -57,7 +57,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
         mvn clean install jboss-as:deploy
 4. This will deploy `shared/target/jboss-inter-app-shared.jar`, `appA/target/jboss-inter-app-A.war` and `appB/target/jboss-inter-app-B.war` to the running instance of the server.
 
-Access the application (For quickstarts that have a UI component)
+Access the application
 ---------------------
 
 
