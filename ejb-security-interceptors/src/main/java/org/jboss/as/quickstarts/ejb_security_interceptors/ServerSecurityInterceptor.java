@@ -48,7 +48,8 @@ public class ServerSecurityInterceptor {
         UserPrincipal connectionUser = null;
 
         Map<String, Object> contextData = invocationContext.getContextData();
-        if (contextData.containsKey(DELEGATED_USER_KEY)) {
+        if (SecurityActions.remotingContextIsSet() && contextData.containsKey(DELEGATED_USER_KEY)) {
+
             desiredUser = new SimplePrincipal((String) contextData.get(DELEGATED_USER_KEY));
 
             Collection<Principal> connectionPrincipals = SecurityActions.getConnectionPrincipals();
