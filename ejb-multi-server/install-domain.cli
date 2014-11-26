@@ -94,7 +94,9 @@ batch
 /profile=default-web/subsystem=ejb3/cache=passivating:add(passivation-store=file,aliases=["SimpleStatefulCache"])
 /profile=default-web/subsystem=ejb3/file-passivation-store=file:add
 /profile=default-web/subsystem=ejb3/service=async:add(thread-pool-name=default)
-/profile=default-web/subsystem=ejb3/service=timer-service:add(thread-pool-name=default,path=timer-service-data,relative-to=jboss.server.data.dir)
+
+/profile=default-web/subsystem=ejb3/service=timer-service:add(default-data-store="default-file-store",thread-pool-name="default")
+/profile=default-web/subsystem=ejb3/service=timer-service/file-data-store="default-file-store":add(path="timer-service-data",relative-to="jboss.server.data.dir")
 
 /profile=default-web/subsystem=ejb3/service=remote:add(connector-ref=remoting-connector,thread-pool-name=default)
 /profile=default-web/subsystem=ejb3/thread-pool=default:add(max-threads=10,keepalive-time={"time"=>"100","unit"=>"MILLISECONDS"})
