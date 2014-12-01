@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-deltaspike-deactivatable</artifactId>
-    <version>2.7.0.ER2</version>
+    <version>2.7.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: deltaspike-deactivatable</name>
     <description>DeltaSpike Deactivatable: Demonstrate usage of Deactivatable</description>
