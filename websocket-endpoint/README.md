@@ -4,7 +4,7 @@ Author: Rafael Benevides
 Level: Beginner  
 Technologies: CDI, Websocket, JSON-P  
 Summary: Shows how Websockets can be used in conjunction with JSON to broadcast information to all open websocket sessions  
-Target Product: EAP  
+Target Product: Sandbox  
 Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>   
 
 
@@ -22,9 +22,9 @@ System requirements
 -------------------
 
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or Widlfy . 
+The application this project produces is designed to be run on WidlFly . 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 7.0 (Java SDK 1.7) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -33,10 +33,10 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-Start the JBoss EAP Server
+Start the WildFly Server
 -------------------------
 
-1. Open a command line and navigate to the root of the  Wildfly directory.
+1. Open a command line and navigate to the root of the  WildFly directory.
 2. The following shows the command line to start the server with the default profile:
 
         For Linux:   WILDFLY_HOME/bin/standalone.sh
@@ -46,7 +46,7 @@ Start the JBoss EAP Server
 Build and Deploy the Quickstart
 -------------------------
 
-1. Make sure you have started the Wildfly server as described above.
+1. Make sure you have started the WildFly server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -72,7 +72,7 @@ You can restart the bidding if you click on `Reset bidding` button.
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the Wildfly server as described above.
+1. Make sure you have started the WildFly server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
