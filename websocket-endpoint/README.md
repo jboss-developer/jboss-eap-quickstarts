@@ -22,7 +22,7 @@ System requirements
 -------------------
 
 
-The application this project produces is designed to be run on WidlFly . 
+The application this project produces is designed to be run on WildFly . 
 
 All you need to build this project is Java 7.0 (Java SDK 1.7) or later, Maven 3.0 or later.
 
