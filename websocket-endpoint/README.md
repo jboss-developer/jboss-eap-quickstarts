@@ -1,9 +1,9 @@
-websocket-endpoint: Web application using Websockets and JSON-P
+websocket-endpoint: Web application using WebSockets and JSON-P
 ================================================================
 Author: Rafael Benevides  
 Level: Beginner  
-Technologies: CDI, Websocket, JSON-P  
-Summary: Shows how Websockets can be used in conjunction with JSON to broadcast information to all open websocket sessions  
+Technologies: CDI, WebSocket, JSON-P  
+Summary: Shows how WebSockets can be used in conjunction with JSON to broadcast information to all open WebSocket sessions  
 Target Product: Sandbox  
 Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>   
 
@@ -11,11 +11,11 @@ Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>
 What is it?
 -----------
 
-The `websocket-endpoint` quickstart demonstrates how to use Java API for Websockets to create server endpoints. 
+The `websocket-endpoint` quickstart demonstrates how to use the Java API for WebSockets to create server endpoints. 
 
-The `BidWebSocketEndpoint` provides the Websocket endpoint that receives `Message` instances from clients/browsers and replies with the current `Bidding` instance. The conversion from JSON content to the specific instances are made by `MessageDecoder` and `BiddingEncode` classes.
+The `BidWebSocketEndpoint` provides the WebSocket endpoint that receives `Message` instances from clients or browsers and replies with the current `Bidding` instance. The conversion from JSON content to the specific instances are made by `MessageDecoder` and `BiddingEncode` classes.
 
-Every update made on the `Bidding` are immediately propagated to all opened websocket sessions without any browser submission or ajax polling mechanism.
+Every update made on the `Bidding` are immediately propagated to all opened WebSocket sessions without any browser submission or AJAX polling mechanism.
 
 
 System requirements
