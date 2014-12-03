@@ -183,7 +183,7 @@ Note that the `openshift` profile in the `pom.xml` file is activated by OpenShif
 
 When the push command returns you can test the application by getting the following URL either via a browser or using tools such as curl or wget. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name.
 
-* <http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/> to send messages to the queue
+* <http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/HelloWorldMDBServletClient> to send messages to the queue
 * <http://helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com/HelloWorldMDBServletClient?topic> to send messages to the topic
 
 If the application has run succesfully you should see some output in the browser.
