@@ -25,7 +25,7 @@ After users complete this quickstart, they are invited to run through the follow
 
 ### What are container managed transactions?
 
-Prior to EJB, getting the right incantation to ensure sound transactional operation of the business logic was a highly specialised skill. Although this still holds true to a great extent, EJB has provided a series of improvements to to allow simplified transaction demarcation notation that is therefore easier to read and test. 
+Prior to EJB, getting the right incantation to ensure sound transactional operation of the business logic was a highly specialised skill. Although this still holds true to a great extent, EJB has provided a series of improvements to allow simplified transaction demarcation notation that is therefore easier to read and test. 
 
 With CMT, the EJB container sets the boundaries of a transaction. This differs from BMT (bean managed transactions) where the developer is responsible for initiating and completing a transaction via the methods begin, commit, rollback on a <code>javax.transaction.UserTransaction</code>.
 
@@ -37,9 +37,9 @@ The available options for this annotation are as follows:
 
 * Required - As demonstrated in the quickstart. If a transaction does not already exist, this will initiate a transaction and complete it for you, otherwise the business logic will be integrated into the existing transaction
 * RequiresNew - If there is already a transaction running, it will be suspended, the work performed within a new transaction which is completed at exit of the method and then the original transaction resumed. 
-* Mandatory - If there is no transaction running, calling a business method with is annotated with this will result in an error
+* Mandatory - If there is no transaction running, calling a business method with this annotation will result in an error
 * NotSupported - If there is a transaction running, it will be suspended and no transaction will be initiated for this business method
-* Supports - This will run the method within a transaction if a transaction exists, alternatively, if there is no transaction running the method will not be executed within the scope of a transaction 
+* Supports - This will run the method within a transaction if a transaction exists, alternatively, if there is no transaction running, the method will not be executed within the scope of a transaction 
 * Never - If the client has a transaction running and does not suspend it but calls a method annotated with Never then an EJB exception will be raised.
 
 
