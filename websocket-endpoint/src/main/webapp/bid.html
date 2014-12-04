@@ -20,7 +20,6 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/styles.css" />
 <script type="text/javascript" src="resources/js/jquery-2.0.3.min.js"></script>
-<!-- <script type="text/javascript" src="resources/js/backbone-min.js"></script> -->
 <script type="text/javascript" src="resources/js/javascript.js"></script>
 <title>Bidding</title>
 </head>
@@ -28,33 +27,31 @@
     <h2>
         <span id="title">Item</span>
     </h2>
-    <fieldset>
-        <img id="image" alt="" src="resources/gfx/redfedora1.jpg" align="left" /> 
-        <label id="statusLabel">Status: </label>
-        <span id="status">STATUS</span> 
-        <br />
-        <span id="currentPrice"></span>
-        <br />
-        <span id="secondsLeft"></span>
-        <br />
-        <label id="descriptionLabel">Description: </label><span id="description">Description</span>
-        <hr />
-        <form id="formBuyItNow">
-            <fieldset>
-                Buy it now for <span id="buyItNowPrice">1000</span> dollars. 
-                <input type="button" value="Buy It NOW!" id="buyItNowButton" onclick="sendWebSocketMessage('buyItNow')">
-            </fieldset>
-        </form>
-        <hr />
-        <form id="formBid">
-            <fieldset>
-                <label id="bidLabel">Bid:</label>
-                <input id="bidValue" type="number" min="10" max="100" required="required" maxlength="3" autofocus="autofocus" value="10"> 
-                <input type="button" value="Do a bid!" id="doBidButton" onclick="doBid()">
-                <br />
-            </fieldset>
-        </form>
-    </fieldset>
+    <img id="image" alt="" src="resources/gfx/redfedora1.jpg" align="left" /> 
+    <label id="statusLabel">Status: </label>
+    <span id="status">STATUS</span> 
+    <br />
+    <span id="currentPrice"></span>
+    <br />
+    <span id="secondsLeft"></span>
+    <br />
+    <label id="descriptionLabel">Description: </label><span id="description">Description</span>
+    <hr />
+    <form id="formBuyItNow">
+        <fieldset>
+            Buy it now for <span id="buyItNowPrice">1000</span> dollars. 
+            <input type="button" value="Buy It NOW!" id="buyItNowButton" onclick="sendWebSocketMessage('buyItNow')">
+        </fieldset>
+    </form>
+    <hr />
+    <form id="formBid">
+        <fieldset>
+            <label id="bidLabel">Bid:</label>
+            <input id="bidValue" type="number" min="10" max="100" required="required" maxlength="3" autofocus="autofocus" value="10"> 
+            <input type="button" value="Do a bid!" id="doBidButton" onclick="doBid()">
+            <br />
+        </fieldset>
+    </form>
     <hr />
     <input type="button" value="Reset bidding" onclick="sendWebSocketMessage('resetBid')">
     <h3>List of bids</h3>
