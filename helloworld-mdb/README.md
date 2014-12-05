@@ -171,7 +171,7 @@ HornetQ is enabled by default in `.openshift/config/standalone.xml`. There is no
 
 You can now deploy the changes to your OpenShift application using git as follows:
 
-    git add src pom.xml .openshift
+    git add src pom.xml
     git commit -m "helloworld-mdb quickstart on OpenShift"
     git push
 
