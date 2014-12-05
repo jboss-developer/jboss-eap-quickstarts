@@ -99,7 +99,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
         For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
         For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-3. Review the `configure--jts-transactions.cli` file in the root of this quickstart directory. This script configures the server to use jts transaction processing.
+3. Review the `configure-jts-transactions.cli` file in the root of this quickstart directory. This script configures the server to use jts transaction processing.
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
         For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
@@ -120,10 +120,10 @@ After stopping the server, open the `EAP_HOME/standalone/configuration/standalon
 1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `jacorb` subsystem to enable JTS. A naming root is also added to the subsystem.
 
         <subsystem xmlns="urn:jboss:domain:jacorb:1.4">
-            <orb name="$" socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
+            <orb name="${jboss.node.name}" socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
                 <initializers security="identity" transactions="on"/>
             </orb>
-            <naming root-context="$/Naming/root"/>
+            <naming root-context="${jboss.node.name}/Naming/root"/>
         </subsystem>
 
 2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
@@ -231,7 +231,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
         For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
         For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect --file=remove-jts-transactions.cli 
-This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
+This script removes the `test` queue from the `jacorb` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
@@ -263,14 +263,14 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
     * Find the orb subsystem and change the configuration back to:
 
-            <subsystem xmlns="urn:jboss:domain:jacorb:1.2">
+            <subsystem xmlns="urn:jboss:domain:jacorb:1.4">
                 <orb>
                     <initializers security="on" transactions="spec"/>
                 </orb>
             </subsystem>
     * Find the transaction subsystem and remove the `<jts/>` element:
 
-            <subsystem xmlns="urn:jboss:domain:transactions:1.2">
+            <subsystem xmlns="urn:jboss:domain:transactions:1.5">
                 <!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT -->
                 <!-- LEAVE EXISTING CONFIG AND REMOVE THE </jts> -->
             </subsystem>
