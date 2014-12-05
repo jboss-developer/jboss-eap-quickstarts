@@ -19,7 +19,6 @@ package org.jboss.as.quickstarts.appclient.acc.client;
 import java.util.Arrays;
 
 import javax.ejb.EJB;
-import javax.naming.NamingException;
 
 import org.jboss.as.quickstarts.appclient.acc.client.interceptor.ClientInterceptor;
 import org.jboss.as.quickstarts.appclient.server.ejb.StatelessSession;
