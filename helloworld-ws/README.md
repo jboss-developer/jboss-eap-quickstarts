@@ -85,7 +85,10 @@ Investigate the Console Output
 
 The following expected output should appear. The output shows what was said to the Web Service by the client and the responses it received.
 
-    WSDL Deployment URL: http://localhost:8080/jboss-helloworld-ws/HelloWorldService?wsdl
+    -------------------------------------------------------
+     T E S T S
+    -------------------------------------------------------
+    Running org.jboss.as.quickstarts.wshelloworld.ClientArqTest
     [Client] Requesting the WebService to say Hello.
     [WebService] Hello World!
     [Client] Requesting the WebService to say Hello to John.
