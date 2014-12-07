@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Forge  
 Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB 3.1, JAX-RS, JSF) web-enabled database application.   
 Target Product: EAP  
-Product Versions: EAP 6.3, EAP 6.4, JBDS 8  
+Product Versions: EAP 6.4, JBDS 8  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
@@ -21,7 +21,7 @@ But that is not all! You can use Forge on your new or existing projects to conti
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.3 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.4 or later.
 
 All you need to build this project is Java 7.0 (Java SDK 1.7) or later and Red Hat JBoss Developer Studio 8 or greater.
 
