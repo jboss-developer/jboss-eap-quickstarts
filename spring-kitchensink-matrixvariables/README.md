@@ -140,26 +140,6 @@ You can also start the server and deploy the quickstart from Eclipse using JBoss
 [Use JBoss Developer Studio or Eclipse to Run the Quickstart](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
-Resolve ERRORs in JBDS/Eclipse
---------------------------------
-If you only build with Maven command line, you should not see any errors. However, if you `Build` or `Build Automatically` 
-with Eclipse, you will see some errors. The following lists the errors and how to fix them.
- 
-1.  `cvc-complex-type.2.4.a: Invalid content was found starting with element 'deployment'. One of '{ear-subdeployments-isolated, deployment, sub-deployment, module}' is expected.`
-    *  Please ignore this error as it is due to a problem in the schema definition.  
-2.  `Console configuration "" does not exist.`
-    1.  Select the project 
-    2.  Select the `Project` menu, then `Properties` -&gt; `Hibernate Settings`
-        1.  Look in the combo-box below the "Default Hibernate Console configuration:" label and select a console configuration. 
-        2.  If no console configuration exists then Cancel and do the following.
-            1.  Select `Run` -&gt; `Run Configurations` 
-            2.  Under `Hibernate Console Configuration` create a new Configuration
-            3.  Enter the project name as the Name
-            4.  In the "Database connection:" combo-box select "[JPA Project Configured Connection]"
-            5.  Select `Apply`
-            6.  Return to step 1 to select the configuration you just created.
-
-
 Debug the Application
 ---------------------
 
