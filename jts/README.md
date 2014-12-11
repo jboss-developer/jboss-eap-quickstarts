@@ -229,7 +229,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
         For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
         For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect --file=remove-jts-transactions.cli 
-This script removes the `test` queue from the `jacorb` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
+This script removes the JTS configuration from the `jacorb` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
