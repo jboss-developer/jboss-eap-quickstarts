@@ -76,7 +76,7 @@ public class HelloWorldJMSTest {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File(DEPLOYMENT_WAR)).addAsWebInfResource("test-queue-hornetq-jms.xml");
+        return ShrinkWrap.createFromZipFile(WebArchive.class, new File(DEPLOYMENT_WAR));
     }
 
     @BeforeClass

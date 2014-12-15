@@ -203,6 +203,29 @@ Undeploy the Archive
 
         mvn jboss-as:undeploy
 
+Run the Arquillian Functional Tests
+-----------------------------------
+
+This quickstart provides Arquillian functional tests. They are located under the directory "functional-tests". Functional tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
+
+To run these tests, you must build the main project as described above.
+
+1. Open a command line and navigate to the root directory of this quickstart.
+2. Build the quickstart WAR using the following command:
+
+        mvn clean package
+
+3. Navigate to the functional-tests/ directory in this quickstart.
+4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
+
+        mvn clean verify -Parq-jbossas-remote
+
+5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
+
+_NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
+
+        mvn clean verify -Parq-jbossas-managed
+
 
 Remove the JMS Configuration
 ----------------------------
@@ -229,30 +252,6 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 #### Remove the JMS Configuration Manually
 1. If it is running, stop the JBoss EAP server.
 2. Replace the `EAP_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
-
-Run the Arquillian Functional Tests
------------------------------------
-
-This quickstart provides Arquillian functional tests. They are located under the directory "functional-tests". Functional tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
-
-To run these tests, you must build the main project as described above.
-
-1. Open a command line and navigate to the root directory of this quickstart.
-2. Build the quickstart WAR using the following command:
-
-        mvn clean package
-
-3. Navigate to the functional-tests/ directory in this quickstart.
-4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
-
-        mvn clean verify -Parq-jbossas-remote
-
-5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
-
-_NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
-
-        mvn clean verify -Parq-jbossas-managed
-
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
