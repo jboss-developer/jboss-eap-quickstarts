@@ -58,6 +58,9 @@ article .wrap {
     border-radius: 8px;
     /* Set padding so the edges are flush */
     padding: 1em;
+    /* Set word wrap properties to break long text into separate lines */
+    word-break: break-all;
+    white-space: normal;
 }
 
 .mobileicon {
