@@ -83,9 +83,9 @@ public class ContactsMobileBasicTest {
     private static String LAST_NAME_INVALID = "Doe11";
     private static String LAST_NAME = "Doe";
     private static String PHONE_NUMBER_INVALID = "123a";
-    private static String PHONE_NUMBER_A = "2005551111";
-    private static String PHONE_NUMBER_B = "2005552222";
-    private static String PHONE_NUMBER_C = "2005553333";
+    private static String PHONE_NUMBER_A = "+12105551111";
+    private static String PHONE_NUMBER_B = "+12105552222";
+    private static String PHONE_NUMBER_C = "+12105553333";
     private static String EMAIL_INVALID = "doe@";
     private static String EMAIL_A = "johndoe@mail.com";
     private static String EMAIL_B = "janedoe@mail.com";
