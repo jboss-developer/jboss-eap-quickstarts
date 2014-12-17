@@ -69,7 +69,34 @@ This quickstart created a native Java EE 6 application.
 1. If you have not yet done so, add the JBoss EAP 6.4 runtime server to Red Hat JBoss Developer Studio. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md).
 2. Right mouse on the project name and choose `Run As` --> `Run on Server`. If you have more than one server, choose the JBoss EAP 6.4 Runtime server.
 3. Upon successful deployment, a **Welcome to Forge Window** opens with the application running at the following URL: <http://localhost:8080/forge-example/>
-      
+    
+### Server Log: Expected warnings and errors
+
+_Note:_ You will see the following warnings and errors in the server log. This is because Hibernate attempts to drop the table and constraints before they are created without checking first to see if they exist. The issues can tracked here: <https://hibernate.atlassian.net/browse/HHH-6670> and <https://hibernate.atlassian.net/browse/HHH-9545>. You can ignore these warnings and errors.
+
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table Address drop constraint FK_f0dyx9tf7g7syfnjb8v8xq8eu
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "ADDRESS" not found; SQL statement:
+        alter table Address 
+            drop constraint FK_f0dyx9tf7g7syfnjb8v8xq8eu [42102-168]
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table Customer drop constraint FK_e6df388iyqen7rmruplyneai5
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "CUSTOMER" not found; SQL statement:
+        alter table Customer 
+            drop constraint FK_e6df388iyqen7rmruplyneai5 [42102-168]
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table Customer_Address drop constraint FK_947b0movtx9elyluipohkopd6
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "CUSTOMER_ADDRESS" not found; SQL statement:
+        alter table Customer_Address 
+            drop constraint FK_947b0movtx9elyluipohkopd6 [42102-168]
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table ProductOrder drop constraint FK_7627d9hcx95eemnuoe1i7cu1b
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "PRODUCTORDER" not found; SQL statement:
+        alter table ProductOrder 
+                drop constraint FK_7627d9hcx95eemnuoe1i7cu1b [42102-168]
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table ProductOrder_Item drop constraint FK_319ohy9ur75atyxgaoy89a9bg
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "PRODUCTORDER_ITEM" not found; SQL statement:
+        alter table ProductOrder_Item 
+                drop constraint FK_319ohy9ur75atyxgaoy89a9bg [42102-168]
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: drop sequence hibernate_sequence
+    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Sequence "HIBERNATE_SEQUENCE" not found; SQL statement:
+            
 ### Access the Running Application
 
 The application appears in a 'Welcome to Forge' Window and displays the following:
@@ -95,13 +122,6 @@ When you click on an entity, you are provided with a form that allows you to:
 
 The running application also provides links to find more information about the Forge. 
  
-_NOTE:_ Currently there is an open Forge issue on machines running the Windows operating system where the scaffold setup fails and you see the following error messages in the console.
-
-    $ scaffold-setup --provider Faces;
-    ***ERROR*** Error while executing 'Scaffold: Setup'
-    ***ERROR*** No Facet of type [interface org.jboss.forge.addon.javaee.faces.Faces Facet] is installed.
-
-This failure prevents the application from displaying the entities and functioning correctly. The issue can be tracked here: <https://issues.jboss.org/browse/FORGE-2026>
 
 Undeploy the Application
 ------------------------

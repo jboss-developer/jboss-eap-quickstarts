@@ -96,7 +96,7 @@ Server Log: Expected warnings and errors
 
 _Note:_ You will see the following warning in the server log. You can ignore this warning.
 
-        HHH000431: Unable to determine H2 database version, certain features may not work
+    HHH000431: Unable to determine H2 database version, certain features may not work
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse

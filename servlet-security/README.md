@@ -139,11 +139,11 @@ Log in using the username `quickstartUser` and password `quickstartPwd1!`. The b
 
 Now close the browser. Open a new browser and log in with username `guest` and password `guestPwd1!`. The browser will display the following error:
 
-        HTTP Status 403 - Access to the requested resource has been denied
+    HTTP Status 403 - Access to the requested resource has been denied
 
-        type Status report
-        message Access to the requested resource has been denied
-        description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
+    type Status report
+    message Access to the requested resource has been denied
+    description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
 
 
 Server Log: Expected warnings and errors
@@ -151,7 +151,7 @@ Server Log: Expected warnings and errors
 
 _Note:_ You will see the following warning in the server log. You can ignore this warning.
 
-        HHH000431: Unable to determine H2 database version, certain features may not work
+    HHH000431: Unable to determine H2 database version, certain features may not work
 
 
 Undeploy the Archive
