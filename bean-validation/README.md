@@ -77,12 +77,12 @@ You can also check the server console output to verify that the Arquillian tests
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warnings and errors in the server log. Hibernate attempts to drop the table and constraints before they are created because the `hibernate.hbm2ddl.auto` value is set to `create-drop`. You can ignore these warnings and errors.
+_Note:_ You will see the following warnings and errors in the server log. This is because Hibernate attempts to drop the table and constraints before they are created without checking first to see if they exist. The issues can tracked here: <https://hibernate.atlassian.net/browse/HHH-6670> and <https://hibernate.atlassian.net/browse/HHH-9545>. You can ignore these warnings and errors.
 
-        HHH000431: Unable to determine H2 database version, certain features may not work
+    HHH000431: Unable to determine H2 database version, certain features may not work
 
-        HHH000389: Unsuccessful: drop sequence hibernate_sequence
-        Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
+    HHH000389: Unsuccessful: drop sequence hibernate_sequence
+    Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
 
 
 Test the Quickstart in JBoss Developer Studio or Eclipse

@@ -113,10 +113,10 @@ that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated w
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following errors in the server log. Hibernate attempts to drop the table and constraints before they are created because the `hibernate.hbm2ddl.auto` value is set to `create-drop`. You can ignore these errors.
+_Note:_ You will see the following warnings and errors in the server log. This is because Hibernate attempts to drop the table and constraints before they are created without checking first to see if they exist. The issues can tracked here: <https://hibernate.atlassian.net/browse/HHH-6670> and <https://hibernate.atlassian.net/browse/HHH-9545>. You can ignore these warnings and errors.
 
-        HHH000389: Unsuccessful: drop sequence hibernate_sequence
-        Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
+    HHH000389: Unsuccessful: drop sequence hibernate_sequence
+    Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
 
 
 Undeploy the Archive
