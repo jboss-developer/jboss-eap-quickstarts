@@ -6,12 +6,7 @@ clear;
 # Create a new project in the current directory;
 project-new --named forge-example --topLevelPackage org.example;
 
-#Turn our Java project into a Web project with JSF, CDI, EJB, and JPA;
-scaffold-setup --provider Faces --facesVersion 2.1;
-
-# Enable CDI if not already done;
-cdi-setup;
-
+# Setup JPA in our project;
 jpa-setup --provider Hibernate --container JBOSS_AS7;
 
 # Create some JPA @Entities on which to base our application;
@@ -49,6 +44,12 @@ cd ../ProductOrder.java;
 jpa-new-field  --named items --type org.example.domain.Item --relationshipType Many-to-Many;
 jpa-new-field  --named shippingAddress --type org.example.domain.Address --relationshipType Many-to-One;
 cd ..;
+
+#Turn our Java project into a Web project with JSF, CDI, EJB, and JPA;
+scaffold-setup --provider Faces --facesVersion 2.1;
+
+# Enable CDI if not already done;
+cdi-setup;
 
 # Generate the UI for all of our @Entities at once;
 scaffold-generate --provider Faces --overwrite --targets org.example.domain.*;
