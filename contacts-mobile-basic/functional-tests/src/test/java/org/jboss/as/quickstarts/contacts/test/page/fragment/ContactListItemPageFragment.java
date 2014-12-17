@@ -50,7 +50,7 @@ public class ContactListItemPageFragment {
     private WebElement birthDate;
 
     public Contact getContact() {
-        return new Contact(name.getText(), phoneNumber.getText(), email.getText(), birthDate.getText());
+        return new Contact(name.getText(), phoneNumber.getText().replaceAll(" |-", ""), email.getText(), birthDate.getText());
     }
 
     public String getContactName() {
