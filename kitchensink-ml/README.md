@@ -17,6 +17,9 @@ It demonstrates how to create a _localized_ Java EE 6 compliant application usin
 
 This quickstart uses the [kitchensink](../kitchensink/README.md) quickstart as its starting point. It has been enhanced to provide localization of labels and messages. A user sets the preferred language choice in the browser and, if the application supports that language, the application web page is rendered in that language. For demonstration purposes, this quickstart has been tranlated into French(fr) and Spanish (es) using <http://translate.google.com>, so the translations may not be ideal.
 
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+  
+
 ### Localization Code Changes
 
 The following changes were made to the quickstart to enable it to use the browser preferred locale setting when displaying the web page:
@@ -90,7 +93,7 @@ The following changes were made to the quickstart to enable it to use the browse
 ### Set the Browser Preferred Locale
 
 How you set your browser preferred locale depends on the browser and version you use. Use your browser help option to search for instructions to change the preferred language setting.
-
+  
 
 
 System requirements
@@ -100,7 +103,6 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
-_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
  
 Configure Maven
 ---------------

@@ -27,6 +27,9 @@ and an Arquillian test to verify the extension is working correctly.
 This quickstart does not contain any user interface. The tests must be run to verify everything is working
 correctly.
 
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+  
+
 System requirements
 -------------------
 

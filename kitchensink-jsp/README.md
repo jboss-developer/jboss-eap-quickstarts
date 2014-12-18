@@ -15,7 +15,8 @@ The `kitchensink-jsp` quickstart is a deployable Maven 3 project and demonstrate
 
 This example is based on the [kitchensink](../kitchensink/README.md) quickstart, but recreates the presentation tier using JSP and JSTL instead of JSF features. It reuses all other components from the Member Registration template. It also reuses the persistence unit and some sample persistence and transaction code to help you with database access in enterprise Java. 
 
-_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+  
 
 System requirements
 -------------------
