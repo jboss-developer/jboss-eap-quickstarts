@@ -18,7 +18,7 @@ It includes a persistence unit and some sample persistence code to introduce you
 
 It does not contain an user interface layer. The purpose of the project is to show you how to test JPA with Arquillian.
 
-_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
 
 System requirements
 -------------------

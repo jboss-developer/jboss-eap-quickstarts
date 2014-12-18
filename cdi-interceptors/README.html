@@ -18,6 +18,8 @@ This example demonstrates 2 interceptors: <code>AuditInterceptor</code> and <cod
 <p>The quickstart defines the <code>@Audit</code> and <code>@Logging</code> interceptor binding types. The <code>AuditInterceptor</code> and <code>LoggingInterceptor</code> classes are annotated with the binding type annotation and contain a method annotated <code>@AroundInvoke</code>. If the interceptor is enabled, this method will be called when the intercepted methods are invoked. In the <code>ItemServiceBean</code> bean, notice the <code>create()</code>and <code>getList()</code> methods are annotated with the <code>@Audit</code> and <code>@Logging</code> binding types. This means the <code>aroundInvoke()</code> method in the <code>AuditInterceptor</code> and <code>LoggingInterceptor</code> classes will be called when the <code>ItemServiceBean</code> bean&rsquo;s <code>create()</code> and <code>getList()</code> methods are called, but only if that interceptor is enabled.
 To enable an interceptor, you must add the interceptor class to the WEB-INF/beans.xml descriptor file.</p>
 
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 
 <p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. </p>
