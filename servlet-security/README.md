@@ -4,8 +4,7 @@ Author: Sherif F. Makary, Pedro Igor
 Level: Intermediate  
 Technologies: Servlet, Security  
 Summary: The `servlet-security` quickstart demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss EAP.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

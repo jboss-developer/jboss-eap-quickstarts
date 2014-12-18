@@ -4,14 +4,15 @@ Author: Ievgen Shulga
 Level: Intermediate  
 Technologies: JPA, JSF, EJB  
 Summary: The `cdi-stereotype` quickstart demonstrates how to apply CDI stereotypes to beans to encapsulate CDI interceptor bindings and CDI alternatives.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `cdi-stereotype` quickstart is an extension of the [cdi-interceptors](../cdi_interceptors/README.md) quickstart and demonstrates how to use a CDI stereotype. A stereotype is an annotation, annotated `@Stereotype`, that packages several other annotations. Stereotypes allow a developer to declare common metadata for beans in a central place. 
+The `cdi-stereotype` quickstart is an extension of the [cdi-interceptors](../cdi_interceptors/README.md) quickstart and demonstrates how to use a CDI stereotype in Red Hat JBoss Enterprise Application Platform. 
+
+A stereotype is an annotation, annotated `@Stereotype`, that packages several other annotations. Stereotypes allow a developer to declare common metadata for beans in a central place. 
 
 In this example, the stereotype encapsulates the following :
 

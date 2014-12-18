@@ -5,15 +5,14 @@ Level: Intermediate
 Technologies: JTS  
 Summary: The `jts` quickstart shows how to use JTS to perform distributed transactions across multiple containers, fulfilling the properties of an ACID transaction.  
 Prerequisites: cmt  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 What is it?
 -----------
 
-The `jts` quickstart demonstrates how to perform distributed transactions across multiple containers in an application. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. 
+The `jts` quickstart demonstrates how to perform distributed transactions across multiple containers in an application deployed to Red Hat JBoss Enterprise Application Platform. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. 
 
 ACID is a set of 4 properties that guarantee the resources are processed in the following manner:
 

@@ -4,8 +4,7 @@ Author: Paul Robinson
 Level: Intermediate  
 Technologies: EJB, JSF, WAR  
 Summary: The `ejb-in-war` quickstart demonstrates how to package an *EJB 3.1* bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

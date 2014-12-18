@@ -4,16 +4,15 @@ Author: Bartosz Baranowski
 Level: Intermediate  
 Technologies: DOM4J, Servlet, JSF  
 Summary: The `xml-dom4j` quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP and parse it using a 3rd party XML parsing library.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `xml-dom4j` quickstart is a simple JSF 2.1, Servlet 3.0 and DOM4J example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to *Red Hat JBoss Enterprise Application Platform* and parse it using a 3rd party XML parsing library.
+The `xml-dom4j` quickstart is a simple DOM4J example that demonstrates how to use Servlet 3.0 and JSF 2.1 to upload an XML file to *Red Hat JBoss Enterprise Application Platform* and parse it using a 3rd party XML parsing library.
 
-It shows how to include 3rd part library in deployment.
+It also shows how to include 3rd-party library in a deployment.
  
 System requirements
 -------------------

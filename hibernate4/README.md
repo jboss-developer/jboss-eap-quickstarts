@@ -4,8 +4,7 @@ Author: Madhumita Sadhukhan
 Level: Intermediate  
 Technologies: Hibernate 4  
 Summary: The `hibernate4` quickstart demonstrates how to use Hibernate ORM 4 over JPA 2.0, using Hibernate-Core and Hibernate Bean Validation, and EJB 3.1.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

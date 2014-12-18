@@ -4,14 +4,13 @@ Author: Nevin Zhu
 Level: Intermediate  
 Technologies: CDI, Servlet, JSP  
 Summary: The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code.   
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code. Instead, you choose the bean implementation during development by injecting a qualifier. Then at deployment time, rather than modify the source code, you choose the alternative.
+The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code in Red Hat JBoss Enterprise Application Platform. Instead, you choose the bean implementation during development by injecting a qualifier. Then at deployment time, rather than modify the source code, you choose the alternative.
 
 Alternatives are commonly used for purposes like the following:
 

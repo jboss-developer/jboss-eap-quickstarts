@@ -4,14 +4,13 @@ Author: Serge Pagop
 Level: Intermediate  
 Technologies: SFSB EJB  
 Summary: The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 shopping cart application that uses a stateful session bean (SFSB).   
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 application that uses a stateful session bean (SFSB). The application allows customers to buy, checkout, and view their cart contents. 
+The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 application that uses a stateful session bean (SFSB) in Red Hat JBoss Enterprise Application Platform. The application allows customers to buy, checkout, and view their cart contents. 
 
 The `shopping-cart` application consists of the following:
 

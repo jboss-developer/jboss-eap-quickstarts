@@ -5,14 +5,13 @@ Level: Advanced
 Technologies: JTS, Crash Recovery  
 Summary: The `jts-distributed-crash-rec` quickstart uses JTS and Byteman to demonstrate distributed crash recovery across multiple application servers.  
 Prerequisites: jts  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `jts-distributed-crash-rec` quickstart demonstrates a distributed crash recovery across multiple application servers. 
+The `jts-distributed-crash-rec` quickstart demonstrates a distributed crash recovery across multiple application servers in Red Hat JBoss Enterprise Application Platform. 
 
 Crash recovery is a key feature provided by an application server and ensures an application's data consistency, even in the presence of failure. Providing reliable crash recovery helps qualify the pedigree of an application server, distributed crash recovery even more so.
 

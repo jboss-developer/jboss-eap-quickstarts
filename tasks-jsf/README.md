@@ -5,14 +5,13 @@ Level: Intermediate
 Technologies: JSF, JPA  
 Summary: The `tasks-jsf` quickstart demonstrates how to use JPA 2.0 persistence with JSF 2.1 as the view layer.  
 Prerequisites: tasks  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `tasks-jsf` quickstart demonstrates how to use JPA 2.0 persistence with JSF 2.1 as view layer. It provides a JSF front end for the [tasks](../tasks/README.md) quickstart.
+The `tasks-jsf` quickstart demonstrates how to use JPA 2.0 persistence with JSF 2.1 as view layer in an application deployed to Red Hat JBoss Enterprise Application Platform. It provides a JSF front end for the [tasks](../tasks/README.md) quickstart.
 
 The theme of this application is simple Task management with simple login. The project contains two entities - a `user` and a `task`.
 
