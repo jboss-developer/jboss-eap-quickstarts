@@ -4,8 +4,7 @@ Author: Serge Pagop
 Level: Beginner  
 Technologies: EJB, Singleton  
 Summary: The `helloworld-singleton` quickstart demonstrates an *EJB 3.1 Singleton Bean* that is instantiated once and maintains state for the life of the session.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

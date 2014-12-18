@@ -4,8 +4,7 @@ Author: Paul Robinson
 Level: Intermediate  
 Technologies: WS-BA, JAX-WS  
 Summary:  The `wsba-coordinator-completion-simple` quickstart deploys a WS-BA (WS Business Activity) enabled JAX-WS Web service WAR (CoordinatorCompletion protocol).  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

@@ -4,15 +4,15 @@ Author: Jason Porter
 Level: Intermediate  
 Technologies: CDI  
 Summary: The `cdi-veto` quickstart is a simple CDI Portable Extension that uses SPI classes to show how to remove beans and inject JPA entities into an application.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
 The `cdi-veto` quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
-to complete that task. This particular extension explores the ProcessInjectionTarget and
+to complete that task in an application deployed to Red Hat JBoss Enterprise Application Platform. 
+This particular extension explores the ProcessInjectionTarget and
 InjectionTarget SPI classes of CDI to demonstrate removing a bean from CDI's knowledge and
 correctly injecting JPA entities in your application.
 

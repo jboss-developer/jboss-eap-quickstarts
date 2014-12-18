@@ -4,14 +4,13 @@ Author: Lincoln Baxter, Matej Briskar
 Level: Intermediate  
 Technologies: Forge  
 Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB 3.1, JAX-RS, JSF) web-enabled database application.   
-Target Product: EAP  
-Product Versions: EAP 6.4, JBDS 8  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using nothing but  **JBoss Forge 2**. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 8** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 6.4** or later. 
 
 Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.1** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 

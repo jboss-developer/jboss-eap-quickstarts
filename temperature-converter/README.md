@@ -4,15 +4,13 @@ Author: Bruce Wolfe
 Level: Beginner  
 Technologies: CDI, JSF, SLSB EJB  
 Summary: The `temperature-converter` quickstart does temperature conversion using an *EJB 3.1 Stateless Session Bean* (SLSB), *CDI*, and a *JSF* front-end client.   
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `temperature-converter` example demonstrates the use of an *EJB 3.1 Stateless Session Bean* (SLSB) and *CDI*, accessed using a *JSF*.
-It is deployed to Red Hat JBoss Enterprise Application Platform using a WAR archive.
+The `temperature-converter` example demonstrates the use of an *EJB 3.1 Stateless Session Bean* (SLSB) and *CDI*, accessed using a *JSF*, and deployed to Red Hat JBoss Enterprise Application Platform using a WAR archive.
 
 The application does the following:
 

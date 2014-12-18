@@ -4,8 +4,7 @@ Author: Pete Muir
 Level: Advanced  
 Technologies: EJB, CDI, JSF  
 Summary: The `inter-app` quickstart shows you how to use a shared API JAR and an EJB to provide inter-application communication between two WAR deployments.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

@@ -4,15 +4,14 @@ Author: Gary Lamperillo, Jesse Sightler
 Level: Intermediate  
 Technologies: Servlet, Security, JAAS  
 Summary: The `servlet-security-genericheader-auth` quickstart demonstrates a custom authenticator to enable support for HTTP header-based authentication.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `servlet-security-genericheader-auth` quickstart demonstrates a method for HTTP authentication based upon an HTTP header in the incoming request. A Tomcat
-Valve called "GenericHeaderAuthenticator" is used to pass these credentials to JBoss. Tomcat Valves provide a 
+The `servlet-security-genericheader-auth` quickstart demonstrates a method for HTTP authentication based upon an HTTP header in the incoming request in Red Hat JBoss Enterprise Application Platform. 
+A Tomcat Valve called "GenericHeaderAuthenticator" is used to pass these credentials to JBoss. Tomcat Valves provide a 
 powerful, flexible way to insert a Java component into the request servlet container's request processing pipeline in 
 order to implement features such as this.
 

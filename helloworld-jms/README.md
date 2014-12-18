@@ -4,8 +4,7 @@ Author: Weston Price
 Level: Intermediate  
 Technologies: JMS  
 Summary: The `helloworld-jms` quickstart demonstrates the use of external JMS clients with JBoss EAP.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

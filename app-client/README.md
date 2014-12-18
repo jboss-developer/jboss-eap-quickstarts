@@ -4,15 +4,14 @@ Author: Wolf-Dieter Fink
 Level: Intermediate  
 Technologies: EJB, EAR, AppClient  
 Summary: The `app-client` quickstart demonstrates how to code and package a client app and use the JBoss EAP client container to start the client Main program.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 What is it?
 -----------
 
-The `app-client` quickstart demonstrates how to use the JBoss EAP client container to start the client 'Main' program and provide Dependency Injections (DI) for client applications. It also shows you how to use Maven to package the application according to the JavaEE specification.
+The `app-client` quickstart demonstrates how to use the JBoss EAP client container to start the client 'Main' program and provide Dependency Injections (DI) for client applications in Red Hat JBoss Enterprise Application Platform. It also shows you how to use Maven to package the application according to the JavaEE specification.
 
 
 This example consists of the following Maven projects, each with a shared parent:

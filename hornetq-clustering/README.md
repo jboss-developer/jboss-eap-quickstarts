@@ -5,14 +5,13 @@ Level: Intermediate
 Technologies: JMS, MDB, HornetQ  
 Summary: The `hornetq-clustering` quickstart does not contain any code and instead uses the `helloworld-mdb` quickstart to demonstrate clustering using HornetQ.  
 Prerequisites: helloworld-mdb  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `hornetq-clustering` quickstart demonstrates the use of clustering with HornetQ. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
+The `hornetq-clustering` quickstart demonstrates the use of clustering with HornetQ and Red Hat JBoss Enterprise Application Platform. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
 
 System requirements
 -------------------

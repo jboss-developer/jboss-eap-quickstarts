@@ -4,8 +4,7 @@ Author: Serge Pagop, Andy Taylor, Jeff Mesnil
 Level: Intermediate  
 Technologies: JMS, EJB, MDB  
 Summary: The `helloworld-mdb-propertysubstitution` quickstart demonstrates the use of *JMS 1.1* and *EJB 3.1 MDB*, enabling property substitution with annotations.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?

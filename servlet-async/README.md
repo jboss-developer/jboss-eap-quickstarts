@@ -4,14 +4,13 @@ Author: Christian Sadilek
 Level: Intermediate  
 Technologies: Asynchronous Servlet, CDI, EJB  
 Summary: The `servlet-async` quickstart demonstrates how to use asynchronous servlets to detach long-running tasks and free up the request processing thread.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `servlet-async` quickstart is a sample project showing the use of asynchronous servlets.
+The `servlet-async` quickstart is a sample project showing the use of asynchronous servlets in Red Hat JBoss Enterprise Application Platform.
  
 It shows how to detach the execution of a long-running task from the request processing thread, so the thread is free
 to serve other client requests. The long-running tasks are executed using a dedicated thread pool and create the

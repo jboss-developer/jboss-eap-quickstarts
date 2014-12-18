@@ -4,14 +4,13 @@ Author: Darrin Mison
 Level: Beginner  
 Technologies: JBoss Logging Tools  
 Summary: The `jboss-logging-tools` quickstart shows how to use JBoss Logging Tools to create internationalized loggers, exceptions, and messages and localize them.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 ------------
 
-The `jboss-logging-tools` quickstart demonstrates the use of JBoss Logging Tools to create internationalized loggers, exceptions, and generic messages; and then provide localizations for them. This is done using a simple JAX-RS service. Translations in French(fr-FR), German(de-DE), and Swedish (sv-SE) are provided courtesy of <http://translate.google.com> for demonstration. My apologies if they are less than ideal translations.
+The `jboss-logging-tools` quickstart demonstrates the use of JBoss Logging Tools in Red Hat JBoss Enterprise Application Platform. The logging tools create internationalized loggers, exceptions, and generic messages; and then provide localizations for them. This is done using a simple JAX-RS service. Translations in French(fr-FR), German(de-DE), and Swedish (sv-SE) are provided courtesy of <http://translate.google.com> for demonstration. My apologies if they are less than ideal translations.
 
 Once the quick start is deployed you can access it using URLs documented below.
 

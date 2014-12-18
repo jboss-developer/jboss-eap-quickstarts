@@ -4,15 +4,14 @@ Author: Wolf-Dieter Fink
 Level: Advanced  
 Technologies: EJB, HASingleton, JNDI  
 Summary: The `cluster-ha-singleton` quickstart deploys a Service, wrapped with the SingletonService decorator, and used as a cluster-wide singleton service.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
 The `cluster-ha-singleton` quickstart demonstrates the deployment of a Service that is wrapped with the 
-SingletonService decorator and used as a cluster-wide singleton service.
+SingletonService decorator and used as a cluster-wide singleton service in Red Hat JBoss Enterprise Application Platform.
 The service activates a scheduled timer, which is started only once in the cluster.
 
 The example is composed of a Maven subproject and a parent project. The projects are as follows:

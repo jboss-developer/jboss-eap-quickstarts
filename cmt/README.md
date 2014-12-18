@@ -4,13 +4,12 @@ Author: Tom Jenkinson
 Level: Intermediate  
 Technologies: EJB, CMT  
 Summary: The `cmt` quickstart demonstrates Container-Managed Transactions (CMT), showing how to use transactions managed by the container.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 
-The `cmt` quickstart demonstrates using transactions managed by the container. It is a fairly typical scenario of updating a database and sending a JMS message in the same transaction. A simple MDB is provided that prints out the message sent but this is not a transactional MDB and is purely provided for debugging purposes.
+The `cmt` quickstart demonstrates using transactions managed by the container in Red Hat JBoss Enterprise Application Platform. It is a fairly typical scenario of updating a database and sending a JMS message in the same transaction. A simple MDB is provided that prints out the message sent but this is not a transactional MDB and is purely provided for debugging purposes.
 
 Aspects touched upon in the code:
 

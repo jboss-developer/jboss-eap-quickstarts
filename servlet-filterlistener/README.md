@@ -4,14 +4,13 @@ Author: Jonathan Fuerth
 Level: Intermediate  
 Technologies: Servlet Filter, Servlet Listener  
 Summary: The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners in an application.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners. 
+The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners in Red Hat JBoss Enterprise Application Platform. 
 
 This example contains the following classes:
 

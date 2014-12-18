@@ -4,14 +4,13 @@ Author: Ondrej Zizka <ozizka@redhat.com>
 Level: Beginner  
 Technologies: EJB 3.1 Timer  
 Summary: The `ejb-timer` quickstart demonstrates how to use the EJB 3.1 timer service `@Schedule` and `@Timeout` annotations with JBoss EAP.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `ejb-timer` quickstart demonstrates how to use the EJB 3.1 timer service with Red Hat JBoss Enterprise Application Platform. This example creates a timer service that uses the `@Schedule` and `@Timeout` annotations. 
+The `ejb-timer` quickstart demonstrates how to use the EJB 3.1 timer service in Red Hat JBoss Enterprise Application Platform. This example creates a timer service that uses the `@Schedule` and `@Timeout` annotations. 
 
 
 The following EJB 3.1 Timer services are demonstrated:

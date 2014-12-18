@@ -4,8 +4,7 @@ Author: Bartosz Baranowski
 Level: Intermediate  
 Technologies: Hibernate 3  
 Summary: The `hibernate3` quickstart is provided to help you understand the changes needed to update your Hibernate 3.x application to use Hibernate 4.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
@@ -14,7 +13,7 @@ What is it?
 _Note: Hibernate 3.x is not a supported configuration in Red Hat JBoss Enterprise Application Platform 6.1 or later._
 
 The sole purpose of the `hibernate3` quickstart is to help you understand the changes needed to move your application from 
-Hibernate 3.x to Hibernate 4. This quickstart has the same functionality as the [hibernate4](../hibernate4/README.md) quickstart 
+Hibernate 3.x to Hibernate 4 in Red Hat JBoss Enterprise Application Platform. This quickstart has the same functionality as the [hibernate4](../hibernate4/README.md) quickstart 
 but uses the Hibernate 3 libraries. Compare this quickstart to the [hibernate4](../hibernate4/README.md) quickstart to see the 
 code and class differences between Hibernate 3 and Hibernate 4. 
 

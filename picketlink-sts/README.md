@@ -4,14 +4,13 @@ Author: Peter Skopek
 Level: Advanced  
 Technologies: WS-Trust, SAML  
 Summary: The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
  
 What is it?
 -----------
 
-The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).
+The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS) to Red Hat JBoss Enterprise Application Platform.
 
 WS-Trust extends the WS-Security specification to allow the issuance, renewal, and validation of security tokens. 
 Many WS-Trust functions center around the use of a "Security Token Service", or STS. 

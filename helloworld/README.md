@@ -4,14 +4,13 @@ Author: Pete Muir
 Level: Beginner  
 Technologies: CDI, Servlet  
 Summary: The `helloworld` quickstart demonstrates the use of *CDI 1.0* and *Servlet 3* and is a good starting point to verify JBoss EAP is configured correctly.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `helloworld` quickstart demonstrates the use of *CDI 1.0* and *Servlet 3* in Red Hat JBoss Enterprise Application Platform.
+The `helloworld` quickstart demonstrates the use of *CDI 1.0* and *Servlet 3* in Red Hat JBoss Enterprise Application Platform 6.
 
 
 System requirements

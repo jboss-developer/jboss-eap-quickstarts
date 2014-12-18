@@ -4,14 +4,13 @@ Author: Bartosz Baranowski
 Level: Intermediate  
 Technologies: JAXP, SAX, DOM, Servlet  
 Summary: The `xml-jaxp` quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP and validate and parse it using DOM or SAX.  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `xml-jaxp` quickstart is a simple JSF 2.1, Servlet 3.0 and Java EE JAXP example. Its purpose is to demonstrate how you can use Servlet and JSF to upload an XML file to *Red Hat JBoss Enterprise Application Platform* and parse it using DOM or SAX, both of which are built into Java. It also shows how to use modules available in JBoss EAP.
+The `xml-jaxp` quickstart is a simple Java EE JAXP example that demonstrates how to use Servlet 3.0 and JSF 2.1 to upload an XML file to *Red Hat JBoss Enterprise Application Platform* and parse it using DOM or SAX, both of which are built into Java. It also shows how to use modules available in JBoss EAP.
 
 This quickstart provides an example XML schema and document file to use when testing this quickstart.
 

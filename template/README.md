@@ -5,8 +5,7 @@ Level: [one of the following: Beginner, Intermediate, or Advanced]
 Technologies: (list technologies used here)  
 Summary: (A brief description of the quickstart to appear in the table and in Google search SEO results. Try to limit the description to 155 characters )  
 Prerequisites: (list any quickstarts that must be deployed prior to running this one)  
-Target Product: (EAP, WFK, JDG, etc)  
-Product Versions: (EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4)  
+Target Product: (JBoss EAP, JBoss Mobile, JBoss Data Grid, etc)  _Official names are here: https://mojo.redhat.com/docs/DOC-962110_
 Source: (The URL for the repository that is the source of record for this quickstart)  
 
 
@@ -20,9 +19,9 @@ _NOTE: This file is meant to serve as a template or guideline for your own quick
 What is it?
 -----------
 
-<!-- Contributor: This is where you provide an overview of what the quickstart demonstrates. For example: -->
+<!-- Contributor: This is where you provide an overview of what the quickstart demonstrates. Be sure to include the full product name on the first line. For example: -->
 
-The `QUICKSTART_NAME` quickstart demonstrates ...
+The `QUICKSTART_NAME` quickstart demonstrates ... in Red Hat JBoss Enterprise Application Platform.
  * What are the technologies demonstrated by the quickstart?
  * What does it do when you run it?
 
