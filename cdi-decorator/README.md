@@ -66,7 +66,7 @@ You can specify decorator of the bean in the WEB-INF/beans.xml file by doing one
 1. You can add a decorators tag and specify a decorator class.
 2. You can specify a different decorator class name in the decorators tag.
 
-For this example, uncomment the <decorators> tag in the WEB-INF/beans.xml file and redeploy the application. 
+For this example, uncomment the `<decorators>` tag in the WEB-INF/beans.xml file and redeploy the application. 
 When you access the application, you will see changed information from web-browser and following in the server log: `CDI decorator method was called!`
 
 In order to switch back to the default implementation, 
