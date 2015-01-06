@@ -32,6 +32,9 @@ import java.io.Serializable;
 @SessionScoped
 public class Greeter implements Serializable {
 
+    /** Default value included to remove warning. **/
+    private static final long serialVersionUID = 1L;
+
     /**
      * Injected GreeterEJB client
      */
