@@ -38,6 +38,9 @@ import org.apache.log4j.Logger;
 @Named
 public class Log4jDemo implements Serializable {
 
+    /** Default value included to remove warning. **/
+    private static final long serialVersionUID = 1L;
+
     private static final Logger log4jLogger = Logger.getLogger(Log4jDemo.class);
 
     private String text;
