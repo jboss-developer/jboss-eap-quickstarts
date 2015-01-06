@@ -24,14 +24,11 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.jboss.logging.Logger;
-import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 
 /**
  * <p>
@@ -295,6 +292,7 @@ public class MainAppSContextBean implements MainApp {
     *            Simple text which will be logged at server side.
     * @return simple collection of the returned results
     */
+    @SuppressWarnings("unused")
     private String invokeAppTwoAlternative(String text) {
         AppTwo beanA = null;
         AppTwo beanB = null;
