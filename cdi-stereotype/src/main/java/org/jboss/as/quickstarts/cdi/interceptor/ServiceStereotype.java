@@ -16,7 +16,6 @@
  */
 package org.jboss.as.quickstarts.cdi.interceptor;
 
-import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -38,7 +37,7 @@ import javax.enterprise.inject.Stereotype;
 @Audit
 @Logging
 @Retention(RUNTIME)
-@Target({ METHOD, TYPE })
+@Target(TYPE)
 public @interface ServiceStereotype {
 
 }
