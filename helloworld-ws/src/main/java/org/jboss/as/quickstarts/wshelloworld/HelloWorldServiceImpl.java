@@ -16,10 +16,16 @@
  */
 package org.jboss.as.quickstarts.wshelloworld;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 /**
  * The implementation of the HelloWorld JAX-WS Web Service.
@@ -27,7 +33,7 @@ import javax.jws.WebService;
  * @author lnewson@redhat.com
  */
 @WebService(serviceName = "HelloWorldService", portName = "HelloWorld", name = "HelloWorld", endpointInterface = "org.jboss.as.quickstarts.wshelloworld.HelloWorldService", targetNamespace = "http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld")
-public class HelloWorldServiceImpl implements HelloWorldService {
+public class HelloWorldServiceImpl implements HelloWorldService, Servlet {
 
     @Override
     public String sayHello() {
@@ -84,5 +90,35 @@ public class HelloWorldServiceImpl implements HelloWorldService {
         nameBuilder.append("!");
 
         return nameBuilder.toString();
+    }
+
+    @Override
+    public void destroy() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public ServletConfig getServletConfig() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getServletInfo() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void init(ServletConfig arg0) throws ServletException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void service(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        
     }
 }
