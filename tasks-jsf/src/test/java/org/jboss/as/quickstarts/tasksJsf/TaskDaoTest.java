@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -55,7 +56,7 @@ public class TaskDaoTest {
     @Inject
     private EntityManager em;
 
-    @Inject
+    @Inject @Named("taskDaoImpl")
     private TaskDao taskDao;
 
     private User detachedUser;
