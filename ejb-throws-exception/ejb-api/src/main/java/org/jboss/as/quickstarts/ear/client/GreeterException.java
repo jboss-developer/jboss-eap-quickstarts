@@ -22,6 +22,9 @@ package org.jboss.as.quickstarts.ear.client;
  */
 public class GreeterException extends Exception {
 
+    /** Default value included to remove warning. **/
+    private static final long serialVersionUID = 1L;
+
     /**
      * 
      */
