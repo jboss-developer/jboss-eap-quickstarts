@@ -27,9 +27,6 @@ import javax.interceptor.InvocationContext;
 import org.jboss.as.core.security.api.UserPrincipal;
 import org.jboss.as.security.api.ContextStateCache;
 import org.jboss.logging.Logger;
-import org.jboss.remoting3.Connection;
-import org.jboss.remoting3.security.UserInfo;
-import org.jboss.security.SecurityContext;
 
 /**
  * The server side security interceptor responsible for handling any security identity propagated from the client.
