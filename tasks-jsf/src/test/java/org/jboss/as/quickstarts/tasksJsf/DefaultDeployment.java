@@ -30,12 +30,22 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 public class DefaultDeployment {
 
     private static final String WEBAPP_SRC = "src/main/webapp";
+    private static final String TEST_WEBAPP_SRC = "src/test/webapp";
 
     private WebArchive webArchive;
 
     public DefaultDeployment() {
-        webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
-                new File(WEBAPP_SRC, "WEB-INF/beans.xml"));
+        this(false);
+    }
+    
+    public DefaultDeployment(boolean useAlternative) {
+    	if (useAlternative) {
+    		webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
+                    new File(TEST_WEBAPP_SRC, "WEB-INF/beans.xml"));
+    	} else {
+    		webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
+                    new File(WEBAPP_SRC, "WEB-INF/beans.xml"));
+    	}
     }
 
     public DefaultDeployment withPersistence() {
