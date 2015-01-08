@@ -43,11 +43,21 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
 </pre></div></li>
 <li><p>This will deploy <code>target/jboss-helloworld-ws.war</code> to the running instance of the server.</p></li>
+<li><p>Review the server log to see useful information about the deployed web service endpoint.</p>
+<div class="highlight"><pre><span class="n">JBWS024061</span><span class="o">:</span> <span class="n">Adding</span> <span class="n">service</span> <span class="n">endpoint</span> <span class="n">metadata</span><span class="o">:</span> <span class="n">id</span><span class="o">=</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">wshelloworld</span><span class="o">.</span><span class="na">HelloWorldServiceImpl</span>
+ <span class="n">address</span><span class="o">=</span><span class="n">http</span><span class="o">://</span><span class="n">localhost</span><span class="o">:</span><span class="mi">8080</span><span class="sr">/jboss-helloworld-ws/</span><span class="n">HelloWorldService</span>
+ <span class="n">implementor</span><span class="o">=</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">wshelloworld</span><span class="o">.</span><span class="na">HelloWorldServiceImpl</span>
+ <span class="n">serviceName</span><span class="o">={</span><span class="n">http</span><span class="o">://</span><span class="n">www</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">org</span><span class="sr">/jbossas/quickstarts/wshelloworld/</span><span class="n">HelloWorld</span><span class="o">}</span><span class="n">HelloWorldService</span>
+ <span class="n">portName</span><span class="o">={</span><span class="n">http</span><span class="o">://</span><span class="n">www</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">org</span><span class="sr">/jbossas/quickstarts/wshelloworld/</span><span class="n">HelloWorld</span><span class="o">}</span><span class="n">HelloWorld</span>
+ <span class="n">annotationWsdlLocation</span><span class="o">=</span><span class="kc">null</span>
+ <span class="n">wsdlLocationOverride</span><span class="o">=</span><span class="kc">null</span>
+ <span class="n">mtomEnabled</span><span class="o">=</span><span class="kc">false</span>
+</pre></div></li>
 </ol>
 
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
 
-<p>You can check that the Web Service is running and deployed correctly by accessing the following URL: <a href="http://localhost:8080/jboss-helloworld-ws?wsdl">http://localhost:8080/jboss-helloworld-ws?wsdl</a>. This URL will display the deployed WSDL endpoint for the Web Service.</p>
+<p>You can verify that the Web Service is running and deployed correctly by accessing the following URL: <a href="http://localhost:8080/jboss-helloworld-ws/HelloWorldService?wsdl">http://localhost:8080/jboss-helloworld-ws/HelloWorldService?wsdl</a>. This URL will display the deployed WSDL endpoint for the Web Service.</p>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 

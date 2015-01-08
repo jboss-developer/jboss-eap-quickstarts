@@ -48,11 +48,22 @@ _NOTE: The following build command assumes you have configured your Maven user s
         mvn clean install jboss-as:deploy
 
 4. This will deploy `target/jboss-helloworld-ws.war` to the running instance of the server.
+5. Review the server log to see useful information about the deployed web service endpoint.
+
+        JBWS024061: Adding service endpoint metadata: id=org.jboss.as.quickstarts.wshelloworld.HelloWorldServiceImpl
+         address=http://localhost:8080/jboss-helloworld-ws/HelloWorldService
+         implementor=org.jboss.as.quickstarts.wshelloworld.HelloWorldServiceImpl
+         serviceName={http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld}HelloWorldService
+         portName={http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld}HelloWorld
+         annotationWsdlLocation=null
+         wsdlLocationOverride=null
+         mtomEnabled=false
+
 
 Access the application 
 ---------------------
 
-You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-helloworld-ws?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+You can verify that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-helloworld-ws/HelloWorldService?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 
 Undeploy the Archive
