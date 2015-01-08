@@ -28,7 +28,6 @@ import javax.persistence.PersistenceContext;
 public class Resources {
 
     // Expose an entity manager using the resource producer pattern
-    @SuppressWarnings("unused")
     @PersistenceContext
     @Produces
     private EntityManager em;
