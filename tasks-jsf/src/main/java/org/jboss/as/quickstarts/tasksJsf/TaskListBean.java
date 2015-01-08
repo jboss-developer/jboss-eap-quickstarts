@@ -50,7 +50,7 @@ public class TaskListBean implements TaskList {
 
     private List<Task> tasks;
 
-    @Inject
+    @Inject @Named("taskDaoImpl")
     private TaskDao taskDao;
 
     @Inject

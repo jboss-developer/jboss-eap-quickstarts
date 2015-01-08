@@ -22,6 +22,7 @@ import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.inject.Named;
 
 /**
  * Provides functionality for manipulation with tasks using the persistence context from {@link Resources}.
@@ -30,6 +31,7 @@ import javax.persistence.TypedQuery;
  * @author Oliver Kiss
  * 
  */
+@Named
 @Stateful
 public class TaskDaoImpl implements TaskDao {
 

@@ -33,7 +33,7 @@ import javax.inject.Named;
 @Named
 public class TaskController {
 
-    @Inject
+    @Inject @Named("taskDaoImpl")
     private TaskDao taskDao;
 
     @Inject
