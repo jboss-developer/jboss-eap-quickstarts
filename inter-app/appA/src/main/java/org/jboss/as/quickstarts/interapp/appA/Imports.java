@@ -30,7 +30,6 @@ import org.jboss.as.quickstarts.interapp.shared.Bar;
  */
 public class Imports {
 
-    @SuppressWarnings("unused")
     @Produces
     @EJB(lookup = "java:global/jboss-inter-app-B/BarImpl!org.jboss.as.quickstarts.interapp.shared.Bar")
     private Bar bar;
