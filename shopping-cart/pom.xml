@@ -86,6 +86,7 @@
                 <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-shopping-cart-server</artifactId>
                 <version>${project.version}</version>
+                <type>ejb</type>
             </dependency>
             
             <!-- We need the EJB Client -->
