@@ -214,12 +214,26 @@ For an example of how to use the add-user utility, see the instructions located 
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<p><em>NOTE:</em></p>
+<p>This quickstart deploys and runs a differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ol>
+<li>Be sure to configure the JMS <code>test</code> queue by running the JBoss CLI commands as described in the section above entitled <em>Configure the JBoss EAP Server</em>. Stop the server at the end of that step.</li>
+<li>Configure and start the JBoss EAP server Red Hat JBoss Developer Studio:
 
 <ul>
-<li>Be sure to configure the JMS <code>test</code> queue by running the JBoss CLI commands as described in the section above entitled <em>Configure the JBoss EAP Server</em>. Stop the server at the end of that step.</li>
-<li>Within JBoss Developer Studio, be sure to define a server runtime environment that uses the <code>standalone-full.xml</code> configuration file.</li>
-</ul>
+<li>Define a server runtime environment that uses the <code>standalone-full.xml</code> configuration file.</li>
+<li>Start the server defined in the previous step.</li>
+</ul></li>
+<li><p>In JBoss Developer Studio, create a configuration for this quickstart.</p>
+
+<ul>
+<li>Right-mouse and choose <code>Run As</code> &ndash;> <code>Run Configurations...</code>.</li>
+<li><p>Click <code>New launch configuration</code> in the upper left of the window to create a new configuration. Name it &ldquo;helloworld-jms&rdquo; and enter the following for the goal:</p>
+<div class="highlight"><pre><span class="n">clean</span> <span class="n">compile</span> <span class="n">exec</span><span class="o">:</span><span class="n">java</span>
+</pre></div></li>
+<li><p>Click <code>Run</code> to run the quickstart. The output messages appear in the <code>Console</code> window.</p></li>
+</ul></li>
+</ol>
 
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 

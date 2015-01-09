@@ -220,11 +220,18 @@ Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
-_NOTE:_
+This quickstart deploys and runs a differently in JBoss Developer Studio than the other quickstarts.
 
-* Be sure to configure the JMS `test` queue by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
-* Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
+1. Be sure to configure the JMS `test` queue by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
+2. Configure and start the JBoss EAP server Red Hat JBoss Developer Studio:
+   * Define a server runtime environment that uses the `standalone-full.xml` configuration file.
+   * Start the server defined in the previous step.
+3. In JBoss Developer Studio, create a configuration for this quickstart.
+   * Right-mouse and choose `Run As` --> `Run Configurations...`.
+   * Click `New launch configuration` in the upper left of the window to create a new configuration. Name it "helloworld-jms" and enter the following for the goal:
 
+            clean compile exec:java
+  * Click `Run` to run the quickstart. The output messages appear in the `Console` window.
 
 Debug the Application
 ------------------------------------
