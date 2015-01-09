@@ -226,12 +226,7 @@ This quickstart deploys and runs a differently in JBoss Developer Studio than th
    * Define a server runtime environment that uses the `standalone-full.xml` configuration file.
    * Start the server defined in the previous step.
 2. Outside of JBoss Developer Studio, configure the JMS `test` queue by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. 
-3. In JBoss Developer Studio, create a configuration for this quickstart.
-   * Right-mouse and choose `Run As` --> `Run Configurations...`.
-   * Click `New launch configuration` in the upper left of the window to create a new configuration. Name it "helloworld-jms" and enter the following for the goal:
-
-            clean compile exec:java
-  * Click `Run` to run the quickstart. The output messages appear in the `Console` window.
+3. In JBoss Developer Studio, right-mouse and choose `Run As` --> `Java Application`. The output messages appear in the `Console` window.
 
 Debug the Application
 ------------------------------------
