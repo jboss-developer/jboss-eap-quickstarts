@@ -43,6 +43,7 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-shopping-cart-server</artifactId>
+            <type>ejb</type>
         </dependency>
 
         <!-- JBoss EJB client stack. We use runtime scope because the EJB 

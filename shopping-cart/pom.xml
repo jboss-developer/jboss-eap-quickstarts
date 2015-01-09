@@ -60,6 +60,7 @@
         <!-- other plugin versions -->
         <version.exec.plugin>1.2.1</version.exec.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -86,6 +87,7 @@
                 <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-shopping-cart-server</artifactId>
                 <version>${project.version}</version>
+                <type>ejb</type>
             </dependency>
             
             <!-- We need the EJB Client -->
