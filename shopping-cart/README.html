@@ -119,6 +119,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
+<p>This quickstart consists of multiple projects, so it deploys and runs a differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ul>
+<li>To deploy the server project, right-click on the <code>jboss-shopping-cart-server</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>.</li>
+<li>To run the client, right-click on the <code>jboss-shopping-cart-client</code> project and choose <code>Run As</code> &ndash;> <code>Java Application</code>. In the <code>Select Java Application</code> window, choose <code>Client - org.jboss.as.quickstarts.client</code> and click <code>OK</code>. The client output displays in the <code>Console</code> window.</li>
+</ul>
+
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
