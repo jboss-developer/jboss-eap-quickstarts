@@ -30,7 +30,6 @@ import org.jboss.as.quickstarts.interapp.shared.Foo;
  */
 public class Imports {
 
-    @SuppressWarnings("unused")
     @Produces
     @EJB(lookup="java:global/jboss-inter-app-A/FooImpl!org.jboss.as.quickstarts.interapp.shared.Foo")
     private Foo foo;
