@@ -16,7 +16,6 @@
  */
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.ejb.Singleton;
