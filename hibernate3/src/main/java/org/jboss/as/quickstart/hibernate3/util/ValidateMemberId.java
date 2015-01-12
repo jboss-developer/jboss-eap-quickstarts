@@ -28,6 +28,7 @@ public class ValidateMemberId implements Validator {
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object memberIdObject) throws ValidatorException {
         // The id can only contain positive long values.
         try {
+            @SuppressWarnings("unused")
             long memberId = (Long) memberIdObject;
         } catch (Exception e) {
             FacesMessage facesMessage = new FacesMessage();
