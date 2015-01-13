@@ -65,6 +65,7 @@ public class WSATSimpleServletClient extends HttpServlet {
          * Add client handler chain
          */
         BindingProvider bindingProvider = (BindingProvider) client;
+        @SuppressWarnings("rawtypes")
         List<Handler> handlers = new ArrayList<Handler>(1);
         handlers.add(new JaxWSHeaderContextProcessor());
         bindingProvider.getBinding().setHandlerChain(handlers);

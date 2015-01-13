@@ -15,13 +15,11 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<handler-chains xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-    http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/javaee_web_services_metadata_handler_2_0.xsd">
-    <handler-chain>
-        <handler>
-            <handler-name>ContextHandler</handler-name>
-            <handler-class>com.arjuna.mw.wst11.service.JaxWSHeaderContextProcessor</handler-class>
-        </handler>
-    </handler-chain>
-</handler-chains>
+<!-- This file can be an empty text file (0 bytes) -->
+<!-- We're declaring the schema to save you time if you do have to configure 
+    this in the future -->
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee 
+        http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+</beans>

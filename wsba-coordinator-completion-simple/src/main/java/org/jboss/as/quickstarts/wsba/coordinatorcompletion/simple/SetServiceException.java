@@ -23,6 +23,9 @@ package org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple;
  */
 public class SetServiceException extends Exception {
 
+    /** Default value included to remove warning. **/
+    private static final long serialVersionUID = 1L;
+
     public SetServiceException(String message, Throwable cause) {
         super(message, cause);
     }

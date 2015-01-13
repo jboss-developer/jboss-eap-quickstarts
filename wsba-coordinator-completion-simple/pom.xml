@@ -50,7 +50,6 @@
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
