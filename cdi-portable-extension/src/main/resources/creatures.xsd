@@ -23,8 +23,8 @@
             <xsd:simpleContent>
               <xsd:extension base="xsd:string">
                 <xsd:attribute type="xsd:string" name="name"/>
-                <xsd:attribute type="xsd:byte" name="initiative"/>
-                <xsd:attribute type="xsd:byte" name="hitPoints"/>
+                <xsd:attribute type="xsd:integer" name="initiative"/>
+                <xsd:attribute type="xsd:integer" name="hitPoints"/>
               </xsd:extension>
             </xsd:simpleContent>
           </xsd:complexType>
