@@ -82,6 +82,12 @@ _NOTE: The following commands assume you have configured your Maven user setting
 
         mvn clean test -Parq-jbossas-remote 
 
+4. You should see the following result.
+
+        Results :
+
+        Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
 _Note: You see the following warning when you run the Arquillian tests in remote mode._
 
       WARNING: Configuration contain properties not supported by the backing object org.jboss.as.arquillian.container.remote.RemoteContainerConfiguration
@@ -89,6 +95,8 @@ _Note: You see the following warning when you run the Arquillian tests in remote
       Supported property names: [managementPort, username, managementAddress, password]
 
 _This is because, in remote mode, you are responsible for starting the server with the XTS subsystem enabled. When you run the Arquillian tests in managed mode, the container uses the `serverConfig` property defined in the `arquillian.xml` file to start the server with the XTS subsystem enabled._
+
+
 
 
 Investigate the Server Log

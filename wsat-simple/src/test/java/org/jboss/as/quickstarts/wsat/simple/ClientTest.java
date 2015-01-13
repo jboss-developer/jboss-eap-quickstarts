@@ -19,11 +19,9 @@ package org.jboss.as.quickstarts.wsat.simple;
 import com.arjuna.mw.wst11.UserTransaction;
 import com.arjuna.mw.wst11.UserTransactionFactory;
 
-import com.arjuna.mw.wst11.client.JaxWSHeaderContextProcessor;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.wsat.simple.jaxws.RestaurantServiceAT;
-import org.jboss.as.quickstarts.wsat.simple.jaxws.RestaurantServiceATService;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -34,11 +32,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceRef;
-import javax.xml.ws.handler.Handler;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Simple set of tests for the RestaurantServiceAT

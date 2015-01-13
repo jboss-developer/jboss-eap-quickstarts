@@ -59,6 +59,7 @@ public class Client implements RestaurantServiceAT {
          * Add client handler chain
          */
         BindingProvider bindingProvider = (BindingProvider) restaurant;
+        @SuppressWarnings("rawtypes")
         List<Handler> handlers = new ArrayList<Handler>(1);
         handlers.add(new JaxWSHeaderContextProcessor());
         bindingProvider.getBinding().setHandlerChain(handlers);
