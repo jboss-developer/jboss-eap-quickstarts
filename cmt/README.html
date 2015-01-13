@@ -111,7 +111,7 @@ that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated w
 
 <p><em>Note:</em> You will see the following warnings and errors in the server log. This is because Hibernate attempts to drop the table and constraints before they are created without checking first to see if they exist. The issues can tracked here: <a href="https://hibernate.atlassian.net/browse/HHH-6670">https://hibernate.atlassian.net/browse/HHH-6670</a> and <a href="https://hibernate.atlassian.net/browse/HHH-9545">https://hibernate.atlassian.net/browse/HHH-9545</a>. You can ignore these warnings and errors.</p>
 <div class="highlight"><pre><span class="n">HHH000389</span><span class="o">:</span> <span class="n">Unsuccessful</span><span class="o">:</span> <span class="n">drop</span> <span class="n">sequence</span> <span class="n">hibernate_sequence</span>
-<span class="n">Sequence</span> <span class="s2">&quot;HIBERNATE_SEQUENCE&quot;</span> <span class="n">not</span> <span class="n">found</span><span class="o">;</span> <span class="n">SQL</span> <span class="n">statement</span><span class="o">:</span> <span class="n">drop</span> <span class="n">sequence</span> <span class="n">hibernate_sequence</span> <span class="o">[</span><span class="mi">90036</span><span class="o">-</span><span class="mi">168</span><span class="o">]</span>
+<span class="n">ERROR</span> <span class="n">Sequence</span> <span class="s2">&quot;HIBERNATE_SEQUENCE&quot;</span> <span class="n">does</span> <span class="n">not</span> <span class="n">exist</span>
 </pre></div>
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
 
