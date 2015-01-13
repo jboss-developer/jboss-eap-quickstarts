@@ -158,6 +158,24 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
+<p>This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ol>
+<li><p>Install the required Maven artifacts and and deploy the server side of the quickstart project.</p>
+
+<ul>
+<li>Right-mouse on the <code>jboss-ejb-remote-server-side</code> project and choose <code>Run As</code> &ndash;> <code>Maven Install</code>.</li>
+<li>Right-mouse on the <code>jboss-ejb-remote-server-side</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>.</li>
+</ul></li>
+<li><p>Build and run the client side of the quickstart project.</p>
+
+<ul>
+<li>Right-mouse on the <code>jboss-ejb-remote-client</code> project and choose <code>Run As</code> &ndash;> <code>Java Application</code>. </li>
+<li>In the <code>Select Java Application</code> window, choose <code>RemoteEJBClient - org.jboss.as.quickstarts.ejb.remote.client</code> and click <code>OK</code>.</li>
+<li>The client output displays in the <code>Console</code> window.</li>
+</ul></li>
+</ol>
+
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
