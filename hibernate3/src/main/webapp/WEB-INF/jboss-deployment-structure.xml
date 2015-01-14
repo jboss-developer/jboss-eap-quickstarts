@@ -14,10 +14,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://www.jboss.org/schema/jbossas 
-    http://www.jboss.org/schema/jbossas/jboss-deployment-structure-1_2.xsd">
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
         <exclusions>
             <!-- Exclude container version of hibernate. By default its version 4, we want 
