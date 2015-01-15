@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jboss-inter-app-shared</artifactId>
-    <packaging>jar</packaging>
+    <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: inter-app-shared</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
@@ -50,13 +50,26 @@
     </dependencies>
 
     <build>
+        <!-- Set the name of the deployment -->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <!-- This jar is deployed to JBoss EAP as a JBoss Module, which 
                 we can depend on from other deployments -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <configuration>
+                    <skip>false</skip>
+                    <filename>${project.build.finalName}.jar</filename>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${version.ejb.plugin}</version>
+                <configuration>
+                    <ejbVersion>3.1</ejbVersion>
+                </configuration>
             </plugin>
         </plugins>
     </build>

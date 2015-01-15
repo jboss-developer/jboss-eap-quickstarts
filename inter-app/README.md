@@ -17,7 +17,7 @@ CDI only provides intra-applicaion injection (i.e within a top level deployment,
 
 In all, the project has three modules:
 
-* `jboss-inter-app-shared.jar` - this module contains the interfaces which define the contract between the beans exposed by the WARs. It is deployed as a module
+* `jboss-inter-app-shared.jar` - this module contains the interfaces which define the contract between the beans exposed by the WARs. It is deployed as an EJB JAR module because Eclipse Web Tools Platform can not deploy simple JARs.
 * `jboss-inter-app-A.war` - the first WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB
 * `jboss-inter-app-B.war` - the second WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA
 
@@ -78,9 +78,16 @@ Undeploy the Archive
         mvn package jboss-as:undeploy
 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
+This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
+
+* Deploy the shared project first. To deploy the shared project, right-click on the `jboss-inter-app-shared` project and choose `Run As` --> `Run on Server`.
+* To deploy the appA WAR, right-click on the `jboss-inter-app-A` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
+* To deploy the appB WAR, right-click on the `jboss-inter-app-A` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
+
 
 Debug the Application
 ------------------------------------
