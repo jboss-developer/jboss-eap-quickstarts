@@ -61,6 +61,7 @@
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-inter-app-shared</artifactId>
             <scope>provided</scope>
+            <type>ejb</type>
         </dependency>
 
     </dependencies>

@@ -52,11 +52,14 @@
         <!-- JBoss dependency versions -->
         
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+
+        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
         
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-14</version.jboss.spec.javaee.6.0>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
+        <version.ejb.plugin>2.3</version.ejb.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -88,8 +91,16 @@
                 <groupId>org.jboss.quickstarts.eap</groupId>
                 <artifactId>jboss-inter-app-shared</artifactId>
                 <version>${project.version}</version>
+                <type>ejb</type>
             </dependency>
 
+            <!-- We need the EJB Client -->
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-ejb-client-bom</artifactId>
+                <version>${version.jboss.as}</version>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

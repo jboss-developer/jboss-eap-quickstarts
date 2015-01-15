@@ -17,7 +17,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>In all, the project has three modules:</p>
 
 <ul>
-<li><code>jboss-inter-app-shared.jar</code> - this module contains the interfaces which define the contract between the beans exposed by the WARs. It is deployed as a module</li>
+<li><code>jboss-inter-app-shared.jar</code> - this module contains the interfaces which define the contract between the beans exposed by the WARs. It is deployed as an EJB JAR module because Eclipse Web Tools Platform can not deploy simple JARs.</li>
 <li><code>jboss-inter-app-A.war</code> - the first WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB</li>
 <li><code>jboss-inter-app-B.war</code> - the second WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA</li>
 </ul>
@@ -76,9 +76,17 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 </pre></div></li>
 </ol>
 
-<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p>This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ul>
+<li>Deploy the shared project first. To deploy the shared project, right-click on the <code>jboss-inter-app-shared</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>.</li>
+<li>To deploy the appA WAR, right-click on the <code>jboss-inter-app-A</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running application.</li>
+<li>To deploy the appB WAR, right-click on the <code>jboss-inter-app-A</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running application.</li>
+</ul>
 
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
