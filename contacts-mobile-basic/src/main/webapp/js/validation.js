@@ -171,10 +171,9 @@ $(document).ready(function() {
      *  We need a way to apply the form validation in cases where the forms don't exist yet, like the unit tests.
      */ 
     CONTACTS.validation.runFormValidators = function() {
-        // Turn on the intlTelInput validation
-        $('#contacts-add-input-tel').intlTelInput();
-        $('#contacts-edit-input-tel').intlTelInput();
-
+        // Turn on the intl-Tel-Input validation for the Add form. Turn it on for the Edit form in the app.js buildContactDetail.
+        $('#contacts-add-input-tel').intlTelInput({nationalMode:false});
+        
         // Set up the validator for the 'add' form.
         // NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
         //       It appears that the plugin only works when it is given only 1 form at a time. 
