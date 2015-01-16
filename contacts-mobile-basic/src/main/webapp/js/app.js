@@ -207,6 +207,10 @@ $( document ).on( "pagecreate", function(mainEvent) {
     CONTACTS.app.buildContactDetail = function(contact) {
         console.log(getCurrentTime() + " [js/app.js] (buildContactDetail) - start");
         
+        // The intl-Tel-Input plugin stores the lasted used country code and uses it to predetermin the flag to be 
+        // displayed. So we remove the plugin before the data gets loaded in the Edit form and then initialize it after. 
+        $("#contacts-edit-input-tel").intlTelInput("destroy");
+        
         // Put each field value in the text input on the page.
         $('#contacts-edit-input-firstName').val(contact.firstName);
         $('#contacts-edit-input-lastName').val(contact.lastName);
@@ -214,6 +218,10 @@ $( document ).on( "pagecreate", function(mainEvent) {
         $('#contacts-edit-input-email').val(contact.email);
         $('#contacts-edit-input-date').val(contact.birthDate);
         $('#contacts-edit-input-id').val(contact.id);
+        
+        // The intl-Tel-Input plugin needs to be initialized everytime the data gets loaded into the Edit form so that 
+        // it will correctly validate it and display the correct flag.
+        $('#contacts-edit-input-tel').intlTelInput({nationalMode:false});
         
         console.log(getCurrentTime() + " [js/app.js] (buildContactDetail) - end");
         // Add in a line to visually see when we are done.
