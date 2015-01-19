@@ -112,7 +112,7 @@ If it has failed or shutdown, any other node will be used.</p></li>
 <li><p>Configure the first server instance in JBoss Developer Studio.</p>
 
 <ul>
-<li>In the <code>Server</code> tab, right-mouse and choose <code>New</code> &ndash;> <code>Server</code>.</li>
+<li>In the <code>Server</code> tab, right-click and choose <code>New</code> &ndash;> <code>Server</code>.</li>
 <li>For the <code>Server name</code>, enter &ldquo;Node1&rdquo; and click <code>Next</code>.</li>
 <li>In the <code>Create a new Server Adapter</code> dialog, choose <code>Create a new runtime (next page)</code> and click <code>Next</code>.</li>
 <li><p>In the <code>JBoss Runtime</code> dialog, enter the following information and then click <code>Next</code>.</p>
@@ -124,7 +124,7 @@ If it has failed or shutdown, any other node will be used.</p></li>
 </pre></div></li>
 <li><p>In the <code>Add and Remove</code> dialog, add the <code>jboss-as-cluster-ha-singleton-service</code> to the <code>Configured</code> list and click <code>Finished</code>.</p></li>
 <li><p>In the <code>Server</code> tab, double-click on <code>Node1</code> to open it. </p></li>
-<li><p>Click <code>Open launch configuration</code> and at the end of the <code>VM Arguments</code>, paste &ldquo;-Djboss.node.name=Node1&rdquo;, click <code>Apply</code>, and then click <code>OK</code>.</p></li>
+<li><p>Click <code>Open launch configuration</code> and at the end of the <code>VM Arguments</code>, paste &ldquo;-Djboss.node.name=Node1&rdquo; and click <code>OK</code>.</p></li>
 <li><p>In the <code>Server</code> tab, right-click on <code>Node1</code> and choose <code>Start</code>. Note the messages in the <code>Node1</code> server console indicate it is the singleton provider of the service.</p>
 <div class="highlight"><pre><span class="n">JBAS010340</span><span class="o">:</span> <span class="n">This</span> <span class="n">node</span> <span class="n">will</span> <span class="n">now</span> <span class="n">operate</span> <span class="k">as</span> <span class="n">the</span> <span class="n">singleton</span> <span class="n">provider</span> <span class="n">of</span> <span class="n">the</span> <span class="n">jboss</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">ha</span><span class="o">.</span><span class="na">singleton</span><span class="o">.</span><span class="na">timer</span> <span class="n">service</span>
 <span class="n">INFO</span>  <span class="o">[</span><span class="n">org</span><span class="o">.</span><span class="na">jboss</span><span class="o">.</span><span class="na">as</span><span class="o">.</span><span class="na">quickstarts</span><span class="o">.</span><span class="na">cluster</span><span class="o">.</span><span class="na">hasingleton</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">ejb</span><span class="o">.</span><span class="na">SchedulerBean</span><span class="o">]</span> <span class="o">(</span><span class="n">EJB</span> <span class="k">default</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="n">HASingletonTimer</span><span class="o">:</span> <span class="n">Info</span><span class="o">=</span><span class="n">HASingleton</span> <span class="n">timer</span> <span class="err">@</span><span class="n">Node1</span> <span class="n">Mon</span> <span class="n">Jan</span> <span class="mi">19</span> <span class="mi">09</span><span class="o">:</span><span class="mi">02</span><span class="o">:</span><span class="mi">36</span> <span class="n">EST</span> <span class="mi">2015</span>
@@ -134,7 +134,7 @@ If it has failed or shutdown, any other node will be used.</p></li>
 <li><p>Configure the second server instance in JBoss Developer Studio.</p>
 
 <ul>
-<li>In the <code>Server</code> tab, right-mouse and choose <code>New</code> &ndash;> <code>Server</code>.</li>
+<li>In the <code>Server</code> tab, right-click and choose <code>New</code> &ndash;> <code>Server</code>.</li>
 <li>For the <code>Server name</code>, enter &ldquo;Node2&rdquo; and click <code>Next</code>.</li>
 <li>In the <code>Create a new Server Adapter</code> dialog, choose <code>Create a new runtime (next page)</code> and click <code>Next</code>.</li>
 <li><p>In the <code>JBoss Runtime</code> dialog, enter the following information and then click <code>Next</code>.</p>
@@ -146,7 +146,7 @@ If it has failed or shutdown, any other node will be used.</p></li>
 </pre></div></li>
 <li><p>In the <code>Add and Remove</code> dialog, add the <code>jboss-as-cluster-ha-singleton-service</code> to the <code>Configured</code> list and click <code>Finished</code>.</p></li>
 <li><p>In the <code>Server</code> tab, double-click on <code>Node2</code> to open the <code>Overview</code> page. </p></li>
-<li><p>Click <code>Open launch configuration</code> and at the end of the <code>VM Arguments</code>, paste &ldquo;-Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100&rdquo;, click <code>Apply</code>, and then click <code>OK</code>.</p></li>
+<li><p>Click <code>Open launch configuration</code> and at the end of the <code>VM Arguments</code>, paste &ldquo;-Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100&rdquo; and click <code>OK</code>.</p></li>
 <li><p>Still in the <code>Overview</code> page for <code>Node2</code>, under <code>Server Ports</code>, uncheck the <code>Detect from Local Runtime</code> next to <code>Port Offset</code> and enter &ldquo;100&rdquo;. Save the changes using the menu <code>File --> Save</code></p></li>
 <li><p>In the <code>Server</code> tab, right-click on <code>Node2</code> and choose <code>Start</code>. Note the messages in the <code>Node2</code> server console indicate <code>Node1</code> is the singleton provider of the service and <code>Node1</code> continues to provide the service.</p>
 <div class="highlight"><pre><span class="n">JBAS010342</span><span class="o">:</span> <span class="n">Node1</span><span class="o">/</span><span class="n">singleton</span> <span class="n">elected</span> <span class="k">as</span> <span class="n">the</span> <span class="n">singleton</span> <span class="n">provider</span> <span class="n">of</span> <span class="n">the</span> <span class="n">jboss</span><span class="o">.</span><span class="na">quickstart</span><span class="o">.</span><span class="na">ha</span><span class="o">.</span><span class="na">singleton</span><span class="o">.</span><span class="na">timer</span> <span class="n">service</span>

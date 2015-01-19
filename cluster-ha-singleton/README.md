@@ -127,7 +127,7 @@ This quickstart is more complex than the others. It requires that you configure 
 
 1. Follow the instructions above to [Clone the EAP_HOME Directory](#clone-the-eaphome-directory).
 2. Configure the first server instance in JBoss Developer Studio.
-   * In the `Server` tab, right-mouse and choose `New` --> `Server`.
+   * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "Node1" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
@@ -139,7 +139,7 @@ This quickstart is more complex than the others. It requires that you configure 
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-as-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `Node1` to open it. 
-   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node1", click `Apply`, and then click `OK`.
+   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node1" and click `OK`.
    * In the `Server` tab, right-click on `Node1` and choose `Start`. Note the messages in the `Node1` server console indicate it is the singleton provider of the service.
    
             JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
@@ -147,7 +147,7 @@ This quickstart is more complex than the others. It requires that you configure 
             INFO  [org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @Node1 Mon Jan 19 09:02:36 EST 2015
 
 3. Configure the second server instance in JBoss Developer Studio.
-   * In the `Server` tab, right-mouse and choose `New` --> `Server`.
+   * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "Node2" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
@@ -159,7 +159,7 @@ This quickstart is more complex than the others. It requires that you configure 
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-as-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `Node2` to open the `Overview` page. 
-   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100", click `Apply`, and then click `OK`.
+   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100" and click `OK`.
    * Still in the `Overview` page for `Node2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
    * In the `Server` tab, right-click on `Node2` and choose `Start`. Note the messages in the `Node2` server console indicate `Node1` is the singleton provider of the service and `Node1` continues to provide the service.
    
