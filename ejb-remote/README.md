@@ -162,11 +162,11 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
 1. Install the required Maven artifacts and and deploy the server side of the quickstart project.
-   * Right-mouse on the `jboss-ejb-remote-server-side` project and choose `Run As` --> `Maven Install`.
-   * Right-mouse on the `jboss-ejb-remote-server-side` project and choose `Run As` --> `Run on Server`.
+   * Right-click on the `jboss-ejb-remote-server-side` project and choose `Run As` --> `Maven Install`.
+   * Right-click on the `jboss-ejb-remote-server-side` project and choose `Run As` --> `Run on Server`.
 
 2. Build and run the client side of the quickstart project.
-   * Right-mouse on the `jboss-ejb-remote-client` project and choose `Run As` --> `Java Application`. 
+   * Right-click on the `jboss-ejb-remote-client` project and choose `Run As` --> `Java Application`. 
    * In the `Select Java Application` window, choose `RemoteEJBClient - org.jboss.as.quickstarts.ejb.remote.client` and click `OK`.
    * The client output displays in the `Console` window.
 
