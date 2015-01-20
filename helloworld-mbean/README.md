@@ -107,6 +107,11 @@ Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse) 
 
+_Note:_ When you import the `helloworld-mbean` quickstart into JBoss Developer Studio, you see the following warnings for the `jboss-helloworld-mbean-webapp/src/main/webapp/META-INF/jboss-service.xml` and `/jboss-helloworld-mbean-service/src/main/resources/META-INF/jboss-service.xml` files:
+
+    No grammar constraints (DTD or XML Schema) referenced in the document. 
+    
+There is a known issue with the schema for the `jboss-service.xml` file that prevents successful validation. To prevent import errors, these files do not specify the schema location (http://www.jboss.org/schema/jbossas/jboss-service_7_0.xsd).
 
 Debug the Application
 ------------------------------------
