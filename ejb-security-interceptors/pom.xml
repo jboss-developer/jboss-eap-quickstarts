@@ -22,7 +22,7 @@
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-security-interceptors</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-security-interceptors</name>
     <description>JBoss EAP Quickstart: EJB Security Interceptors</description>
 
@@ -140,11 +140,6 @@
           <!-- Import the Servlet API, we use provided scope as the API is included 
               in JBoss EAP 6 -->
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
         </dependency>
@@ -199,10 +194,21 @@
     </dependencies>
 
     <build>
-          <!-- Set the name of the war, used as the context root when the app is 
+          <!-- Set the name of the jar, used as the context root when the app is 
               deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
+
+		<plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-ejb-plugin</artifactId>
+	        <version>2.3</version>
+	        <configuration>
+	          <!-- http://maven.apache.org/plugins/maven-ejb-plugin/ -->
+	          <ejbVersion>3.1</ejbVersion>
+	          <generateClient>true</generateClient>
+	        </configuration>
+	      </plugin>
                 <!-- Add the maven exec plugin to allow us to run a java program via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -229,7 +235,7 @@
                 </configuration>
             </plugin>
 
-                <!-- JBoss AS plugin to deploy war -->
+                <!-- JBoss AS plugin to deploy ejb -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
