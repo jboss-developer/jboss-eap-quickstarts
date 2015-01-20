@@ -22,7 +22,7 @@
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-security-interceptors</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>JBoss EAP Quickstart: ejb-security-interceptors</name>
     <description>JBoss EAP Quickstart: EJB Security Interceptors</description>
 
@@ -49,6 +49,9 @@
         <version.jboss.as>7.5.0.Final-redhat-SNAPSHOT</version.jboss.as>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-14</version.jboss.spec.javaee.6.0>
+
+        <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
+        <m2e.apt.activation>jdt_apt</m2e.apt.activation>
 
         <!-- other plugin versions -->
         <version.exec.plugin>1.2.1</version.exec.plugin>
