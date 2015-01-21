@@ -469,11 +469,8 @@ This quickstart requires that you add users, configure the JBoss EAP server, and
 2. Follow the steps above to [Configure the JBoss EAP Server](#configure-the-jboss-eap-server).
 3. To deploy the application to the JBoss EAP server, right-click and choose `Run As` --> `Run on Server`.
 4. To access the application, right-click and choose `Run As` --> `Maven Build`.
-   * Enter "ejb-security-interceptors" for the `Name`.
-   * Enter "exec:exec" for the `Goals:`.
-
-
-
+5. Enter "ejb-security-interceptors" for the `Name`, enter "exec:exec" for the `Goals:`, and click `Run`.
+6. Review the output in the console window.
 
 
 Debug the Application
