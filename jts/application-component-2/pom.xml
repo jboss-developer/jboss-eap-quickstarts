@@ -21,7 +21,7 @@
     <artifactId>jboss-jts-application-component-2</artifactId>
     <name>JBoss EAP Quickstart: jts - application-component-2</name>
     <description>Using CMT with JTS</description>
-    <packaging>jar</packaging>
+    <packaging>ejb</packaging>
 
 
     <parent>
@@ -79,6 +79,7 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <configuration>
                     <port>10099</port>
+                    <filename>${project.build.finalName}.jar</filename>
                 </configuration>
             </plugin>
             <!-- The other application-component will depend on this -->
