@@ -237,10 +237,15 @@ For an example of how to use the add-user utility, see the instructions located 
 </pre></div></li>
 </ol>
 
-<h2><a id="run-the-quickstart-in-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in JBoss Developer Studio or Eclipse</h2>
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a></p>
 
+<p>Be sure to <a href="#add-an-application-user">Add an Application User</a> as described above.</p>
+
+<p><em>Note:</em> When you deploy this quickstart, you see the following error. This is because JBoss Developer Studio automatically attempts to access the URL <a href="http://localhost:8080/jboss-tasks-rs/">http://localhost:8080/jboss-tasks-rs/</a>, however, all incoming requests are handled by the REST application. You can ignore this error.</p>
+<div class="highlight"><pre><span class="n">JBWEB000065</span><span class="o">:</span> <span class="n">HTTP</span> <span class="n">Status</span> <span class="mi">404</span> <span class="o">-</span> <span class="n">RESTEASY001185</span><span class="o">:</span> <span class="n">Could</span> <span class="n">not</span> <span class="n">find</span> <span class="n">resource</span> <span class="k">for</span> <span class="n">relative</span> <span class="o">:</span> <span class="sr">/ of full path: http://localhost:8080/jboss-tasks-rs/</span>
+</pre></div>
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
