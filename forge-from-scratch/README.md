@@ -32,7 +32,7 @@ Configure Maven for JBoss Developer Studio
 If you have not yet done so, you must [Configure Maven - For Use with JBoss Developer Studio](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-for-use-with-jboss-developer-studio) before testing the quickstarts.
 
 
-Run the Quickstart in JBoss Developer Studio
+Run the Quickstart in Red Hat JBoss Developer Studio
 --------------------------------------------
 
 Forge is available in JBoss Developer Studio. To run this example, you must use JBoss Developer Studio 8 or greater.
