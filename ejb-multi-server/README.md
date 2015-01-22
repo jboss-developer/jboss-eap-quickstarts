@@ -257,7 +257,7 @@ This script removes the server configuration that was done by the `install-domai
 
         The batch executed successfully.
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
 EJB Client (ejb-client) currently has limited support in the Eclipse Web Tools Platform (WTP). For that reason, this quickstart is not supported in Red Hat JBoss Developer Studio.

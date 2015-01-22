@@ -152,7 +152,7 @@ _NOTE: The following commands assume you have configured your Maven user setting
 
 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
 <!-- Contributor: For example: -->
