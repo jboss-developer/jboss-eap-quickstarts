@@ -245,9 +245,17 @@ Undeploy the Archive
         mvn jboss-as:undeploy
 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
+
+Be sure to [Add an Application User](#add-an-application-user) as described above.
+
+_Note:_ When you deploy this quickstart, you see the following error. This is because JBoss Developer Studio automatically attempts to access the URL <http://localhost:8080/jboss-tasks-rs/>, however, all incoming requests are handled by the REST application. You can ignore this error.
+
+    JBWEB000065: HTTP Status 404 - RESTEASY001185: Could not find resource for relative : / of full path: http://localhost:8080/jboss-tasks-rs/
+
+
 
 
 Debug the Application
