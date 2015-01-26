@@ -35,7 +35,7 @@ import javax.inject.Inject;
 public class ClientTest {
    
     private static String ManifestMF = "Manifest-Version: 1.0\n"
-          + "Dependencies: org.jboss.xts,org.jboss.jts\n";
+          + "Dependencies: org.jboss.xts\n";
    
     @Inject
     @ClientStub
