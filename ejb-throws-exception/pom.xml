@@ -34,13 +34,6 @@
         </license>
     </licenses>
 
-    <modules>
-        <module>ejb</module>
-        <module>web</module>
-        <module>ear</module>
-        <module>ejb-api</module>
-    </modules>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
@@ -71,6 +64,13 @@
         <version.javaee>6</version.javaee>
         <version.ejb>3.1</version.ejb>
     </properties>
+
+    <modules>
+        <module>ejb</module>
+        <module>web</module>
+        <module>ear</module>
+        <module>ejb-api</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>

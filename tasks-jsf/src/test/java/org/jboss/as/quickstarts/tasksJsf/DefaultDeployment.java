@@ -37,20 +37,20 @@ public class DefaultDeployment {
     public DefaultDeployment() {
         this(false);
     }
-    
+
     public DefaultDeployment(boolean useAlternative) {
-    	if (useAlternative) {
-    		webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
-                    new File(TEST_WEBAPP_SRC, "WEB-INF/beans.xml"));
-    	} else {
-    		webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
-                    new File(WEBAPP_SRC, "WEB-INF/beans.xml"));
-    	}
+        if (useAlternative) {
+            webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
+                new File(TEST_WEBAPP_SRC, "WEB-INF/beans.xml"));
+        } else {
+            webArchive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(
+                new File(WEBAPP_SRC, "WEB-INF/beans.xml"));
+        }
     }
 
     public DefaultDeployment withPersistence() {
         webArchive = webArchive.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml").addAsWebInfResource(
-                "test-ds.xml", "test-ds.xml");
+            "test-ds.xml", "test-ds.xml");
         return this;
     }
 

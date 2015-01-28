@@ -19,10 +19,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-ejb-multi-server</artifactId>
+        <version>6.4.0-redhat-SNAPSHOT</version>
+    </parent>
+
     <artifactId>jboss-ejb-multi-server-client</artifactId>
+    <packaging>jar</packaging>
 
     <name>JBoss EAP Quickstart: ejb-multi-server - client</name>
-    <packaging>jar</packaging>
 
     <licenses>
         <license>
@@ -31,12 +37,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-ejb-multi-server</artifactId>
-        <version>6.4.0-redhat-SNAPSHOT</version>
-    </parent>
 
     <dependencies>
         <dependency>

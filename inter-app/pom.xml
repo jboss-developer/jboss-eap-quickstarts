@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-inter-app-parent</artifactId>
+    <artifactId>jboss-inter-app</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: inter-app</name>
@@ -34,13 +34,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <!-- Define the three submodules this application consists of -->
-    <modules>
-        <module>shared</module>
-        <module>appA</module>
-        <module>appB</module>
-    </modules>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
@@ -65,6 +58,13 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
+
+    <!-- Define the three submodules this application consists of -->
+    <modules>
+        <module>shared</module>
+        <module>appA</module>
+        <module>appB</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
