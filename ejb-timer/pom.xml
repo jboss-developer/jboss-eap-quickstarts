@@ -25,6 +25,10 @@
     <packaging>war</packaging>
 
     <name>JBoss EAP Quickstart: ejb-timer</name>
+    <description>
+        A sample JAVA EE 6 project demonstrating how to use EJB 3.1 timer (@Schedule and @Timeout).
+    </description>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -32,11 +36,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <description>
-        A sample JAVA EE 6 project demonstrating how to use EJB 3.1 timer (@Schedule and @Timeout).
-    </description>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

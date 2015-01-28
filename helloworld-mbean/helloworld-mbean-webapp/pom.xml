@@ -23,7 +23,7 @@
         <artifactId>jboss-helloworld-mbean</artifactId>
         <version>6.4.0-redhat-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-helloworld-mbean-webapp</artifactId>
+    <artifactId>jboss-helloworld-mbean-helloworld-mbean-webapp</artifactId>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld-mbean - helloworld-mbean-webapp</name>
 

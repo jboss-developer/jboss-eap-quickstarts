@@ -18,16 +18,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>jboss-jts-application-component-1</artifactId>
-    <name>JBoss EAP Quickstart: jts - application-component-1</name>
-    <description>Using CMT with JTS</description>
-    <packaging>war</packaging>
-
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-jts-parent</artifactId>
+        <artifactId>jboss-jts</artifactId>
         <version>6.4.0-redhat-SNAPSHOT</version>
     </parent>
+
+    <artifactId>jboss-jts-application-component-1</artifactId>
+    <packaging>war</packaging>
+
+    <name>JBoss EAP Quickstart: jts - application-component-1</name>
+    <description>Using CMT with JTS</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

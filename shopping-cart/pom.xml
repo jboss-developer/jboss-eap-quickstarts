@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-shopping-cart-parent</artifactId>
+    <artifactId>jboss-shopping-cart</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: shopping-cart</name>
@@ -33,14 +33,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <!-- This quickstart consists of a server side component and a client 
-        side that accesses the server side component. Each component has its own 
-        self contain pom. -->
-    <modules>
-        <module>server</module>
-        <module>client</module>
-    </modules>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
@@ -66,6 +58,14 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
+
+    <!-- This quickstart consists of a server side component and a client 
+        side that accesses the server side component. Each component has its own 
+        self contain pom. -->
+    <modules>
+        <module>server</module>
+        <module>client</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>

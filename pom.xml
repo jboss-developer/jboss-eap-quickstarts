@@ -26,10 +26,10 @@
     </parent>
     <groupId>org.jboss.quickstarts.eap</groupId>
     
-    <artifactId>jboss-as-quickstarts-parent</artifactId>
+    <artifactId>jboss-quickstart-parent</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss Quickstart: Parent</name>
+    <name>JBoss EAP Quickstart: Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 
@@ -117,6 +117,7 @@
                     Application Platform or JBoss EAP -->
                 <module>app-client</module>
                 <module>bean-validation</module>
+                <module>bean-validation-custom-constraint</module>
                 <module>bmt</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>

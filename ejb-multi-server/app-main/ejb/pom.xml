@@ -23,6 +23,13 @@
         <artifactId>jboss-ejb-multi-server-app-main</artifactId>
         <version>6.4.0-redhat-SNAPSHOT</version>
     </parent>
+
+    <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
+    <packaging>ejb</packaging>
+
+    <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ejb</name>
+    <url>http://maven.apache.org</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -30,12 +37,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
-    <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
-
-    <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ejb</name>
-    <url>http://maven.apache.org</url>
-    <packaging>ejb</packaging>
 
     <dependencies>
         <dependency>

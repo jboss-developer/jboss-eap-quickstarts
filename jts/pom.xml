@@ -18,12 +18,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-jts-parent</artifactId>
+    <artifactId>jboss-jts</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
     <name>JBoss EAP Quickstart: jts</name>
     <description>Using CMT with JTS</description>
-    <packaging>pom</packaging>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
@@ -34,13 +36,6 @@
         </license>
     </licenses>
     
-    <modules>
-        <!-- Build module 2 first as it is the remote EJB which provides 
-            a stub for module 1 -->
-        <module>application-component-2</module>
-        <module>application-component-1</module>
-    </modules>
-
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
@@ -62,6 +57,13 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
+
+    <modules>
+        <!-- Build module 2 first as it is the remote EJB which provides 
+            a stub for module 1 -->
+        <module>application-component-2</module>
+        <module>application-component-1</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
