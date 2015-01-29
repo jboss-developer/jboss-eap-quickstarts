@@ -45,7 +45,7 @@ DBCP project for connection pooling. See `datasource-config.xml`._
 System requirements  
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or 
 later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
 All you need to build this project is Java 7.0 or later and Maven 3.0 or later.
@@ -53,10 +53,11 @@ All you need to build this project is Java 7.0 or later and Maven 3.0 or later.
 _Note: Unlike the other quickstarts, the source for this example is taken directly from the Spring samples repository and 
 does not compile with Java 6.0._
 
-Configure Maven  
+
+Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#mavenconfiguration) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
 Start the JBoss EAP Server  
@@ -73,7 +74,7 @@ Build and Deploy the Quickstart
 -------------------------
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include 
-Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#buildanddeploy) for complete 
+Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete 
 instructions and additional options._
 
 1. Make sure you have started the JBoss EAP server as described above.
@@ -134,11 +135,9 @@ server for you, type the following command:
 
 _Note:_ The spring-petclinic quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
--------------------------------------------------------
-
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see 
-[Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#useeclipse)
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
+-------------------------------------
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application

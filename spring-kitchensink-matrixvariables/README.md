@@ -12,7 +12,7 @@ What is it?
 -----------
 
 This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with 
-Java EE 6 and Spring on Red Hat JBoss Enterprise Application Platform 6.1 or later.
+Java EE 6 and Spring in Red Hat JBoss Enterprise Application Platform 6.1 or later.
 
 This project is setup to allow you to create a compliant Java EE 6 application using JSP, JPA 2.0 and Spring 4.x. It 
 includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java:
@@ -40,7 +40,7 @@ the url form: `/filter;n=Name;e=Email`.
 System Requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or 
 later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
 To run the quickstart with the provided build script, you need the following:
@@ -63,7 +63,7 @@ To run the quickstart with the provided build script, you need the following:
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
 Start the JBoss EAP Server
@@ -133,11 +133,9 @@ server for you, type the following command:
         mvn clean verify -Parq-jbossas-managed
 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
-
-You can also start the server and deploy the quickstart from Eclipse using JBoss tools. For more information, see 
-[Use JBoss Developer Studio or Eclipse to Run the Quickstart](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application
