@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>
 What is it?
 -----------
 
-The `kitchensink-html5-mobile` quickstart is based on the `kitchensink` quickstart and demonstrates a Java EE 6 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA 2.0, and REST.
+The `kitchensink-html5-mobile` quickstart is based on the `kitchensink` quickstart and demonstrates a Java EE 6 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA 2.0, and REST in Red Hat JBoss Enterprise Application Platform.
 
 This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
 
@@ -20,7 +20,7 @@ What is a modern web application without mobile web support? This application al
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
@@ -34,7 +34,7 @@ With the prerequisites out of the way, you're ready to build and deploy.
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
 Start the JBoss EAP Server
@@ -82,10 +82,10 @@ Undeploy the Archive
         mvn jboss-as:undeploy
 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Build and Deploy the Quickstart - to OpenShift
