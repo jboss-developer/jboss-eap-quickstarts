@@ -52,7 +52,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>Type this command to build and deploy the archive:</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">jboss</span><span class="o">-</span><span class="n">as</span><span class="o">:</span><span class="n">deploy</span>
 </pre></div></li>
-<li><p>This will deploy <code>shared/target/jboss-inter-app-shared.jar</code>, <code>appA/target/jboss-inter-app-A.war</code> and <code>appB/target/jboss-inter-app-B.war</code> to the running instance of the server.</p></li>
+<li><p>This will deploy <code>shared/target/jboss-inter-app-shared.jar</code>, <code>appA/target/jboss-inter-app-appA.war</code> and <code>appB/target/jboss-inter-app-appB.war</code> to the running instance of the server.</p></li>
 </ol>
 
 <h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the application</h2>
@@ -60,8 +60,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <p>Access the running application in a browser at the following URLs:</p>
 
 <ul>
-<li><a href="http://localhost:8080/jboss-inter-app-A">http://localhost:8080/jboss-inter-app-A</a></li>
-<li><a href="http://localhost:8080/jboss-inter-app-B">http://localhost:8080/jboss-inter-app-B</a></li>
+<li><a href="http://localhost:8080/jboss-inter-app-appA">http://localhost:8080/jboss-inter-app-appA</a></li>
+<li><a href="http://localhost:8080/jboss-inter-app-appB">http://localhost:8080/jboss-inter-app-appB</a></li>
 </ul>
 
 <p>You are presented with a form that allows you to set the value on the bean in the other application, as well as display of the value on this application&rsquo;s bean. Enter a new value and press &ldquo;Update and Send!&rdquo; to update the value on the other application. Do the same on the other application, and hit the button again on the first application. You should see the values shared between the applications.</p>
