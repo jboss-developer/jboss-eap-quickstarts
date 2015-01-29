@@ -12,7 +12,7 @@ What is it?
 -----------
 
 The `cdi-add-interceptor-binding` quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
-to complete that task. This particular extension explores ProcessAnnotatedType and interceptor 
+to complete that task in Red Hat JBoss Enterprise Application Platform. This particular extension explores ProcessAnnotatedType and interceptor 
 bindings from CDI, and AnnotatedTypeBuilder from DeltaSpike. It demonstrates how
 to automatically add an interceptor binding to a class based on method parameter annotations.
 
@@ -30,7 +30,7 @@ correctly.
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
@@ -38,7 +38,7 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 Start the JBoss EAP Server
 -------------------------
@@ -55,7 +55,7 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container.
 
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](../README.md#run-the-arquillian-tests) for complete instructions and additional options._
+_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -67,19 +67,16 @@ _NOTE: If you use the Maven settings command line argument with this quickstart,
 
     mvn clean test -Parq-jbossas-remote -s /path/to/custom/settings.xml -Dorg.apache.maven.user-settings=/path/to/custom/settings.xml
 
-Run tests from JBDS
------------------------
 
-To be able to run the tests from JBDS, first set the active Maven profile in project properties to be either 'arq-jbossas-managed' for running on
-managed server or 'arq-jbossas-remote' for running on remote server.
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
+-------------------------------------
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
-To run the tests, right click on the project or individual classes and select Run As --> JUnit Test in the context menu.
+Basically, you first set the active Maven profile in project properties to be either 'arq-jbossas-managed' for running on managed server or 'arq-jbossas-remote' for running on remote server. Then, to run the tests, right click on the project or individual classes and select Run As --> JUnit Test in the context menu.
 
-For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 Investigate the Console Output
 ----------------------------
-
 
 ### Maven
 
