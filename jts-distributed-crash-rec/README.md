@@ -64,6 +64,12 @@ IMPORTANT: This quickstart depends on the deployment of the `jts` quickstart for
 You can verify the deployment of the `jts` quickstart by accessing the following URL:  <http://localhost:8080/jboss-jts-application-component-1/>.
 
 
+Use of EAP_HOME
+---------------
+
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+
+
 Test the Application
 -----------------------------------
 
