@@ -16,7 +16,7 @@ Once generated, the sample project will be a standard Maven 3, Java Web project 
 
 But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.
 
-_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
 System requirements
 -------------------

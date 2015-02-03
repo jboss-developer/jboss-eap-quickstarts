@@ -27,6 +27,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><a href="../jts-distributed-crash-rec/README.html">jts-distributed-crash-rec</a> - The crash recovery quickstart builds upon the <a href="../jts/README.html">jts</a> quickstart by demonstrating the fault tolerance of JBoss EAP.</li>
 </ol>
 
+<p><em>Note: This quickstart uses a <code>*-ds.xml</code> datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP 6.4 and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the <a href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/">Administration and Configuration Guide</a> for Red Hat JBoss Enterprise Application Platform.</em></p>
+
 <h3><a id="what-are-container-managed-transactions" class="anchor" href="#what-are-container-managed-transactions"><span class="anchor-icon"></span></a>What are container managed transactions?</h3>
 
 <p>Prior to EJB, getting the right incantation to ensure sound transactional operation of the business logic was a highly specialised skill. Although this still holds true to a great extent, EJB has provided a series of improvements to allow simplified transaction demarcation notation that is therefore easier to read and test. </p>

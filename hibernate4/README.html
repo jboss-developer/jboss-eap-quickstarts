@@ -16,7 +16,9 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>This quickstart performs the same functions as the <a href="../hibernate3/README.html">hibernate3</a> quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the <a href="../hibernate3/README.html">hibernate3</a> quickstart to see the code changes needed to run with Hibernate 4. </p>
 
-<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!</em></p>
+
+<p><em>Note: This quickstart uses a <code>*-ds.xml</code> datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP 6.4 and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the <a href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/">Administration and Configuration Guide</a> for Red Hat JBoss Enterprise Application Platform.</em></p>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
 

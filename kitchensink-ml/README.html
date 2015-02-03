@@ -16,7 +16,9 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>This quickstart uses the <a href="../kitchensink/README.html">kitchensink</a> quickstart as its starting point. It has been enhanced to provide localization of labels and messages. A user sets the preferred language choice in the browser and, if the application supports that language, the application web page is rendered in that language. For demonstration purposes, this quickstart has been tranlated into French(fr) and Spanish (es) using <a href="http://translate.google.com">http://translate.google.com</a>, so the translations may not be ideal.</p>
 
-<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!</em></p>
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!</em></p>
+
+<p><em>Note: This quickstart uses a <code>*-ds.xml</code> datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP 6.4 and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the <a href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/">Administration and Configuration Guide</a> for Red Hat JBoss Enterprise Application Platform.</em></p>
 
 <h3><a id="localization-code-changes" class="anchor" href="#localization-code-changes"><span class="anchor-icon"></span></a>Localization Code Changes</h3>
 

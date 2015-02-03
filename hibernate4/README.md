@@ -16,7 +16,9 @@ This project is setup to allow you to create a compliant Java EE 6 application u
 
 This quickstart performs the same functions as the [hibernate3](../hibernate3/README.md) quickstart, but uses Hibernate 4 for database access. Compare this quickstart to the [hibernate3](../hibernate3/README.md) quickstart to see the code changes needed to run with Hibernate 4. 
 
-_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+
+_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP 6.4 and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
 
 System requirements
 -------------------
