@@ -40,12 +40,16 @@ This quickstart depends on the deployment of the `greeter` quickstart. Before ru
 You can verify the deployment of the `greeter` quickstart by accessing the following URL: <http://localhost:8080/jboss-greeter> 
 
 
+Use of EAP_HOME
+---------------
+
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+
+
 Deploy the H2 Console
 ------------------------
 
 Deploy the console by copying the `h2console.war` located in the root directory of this quickstart to the `EAP_HOME/standalone/deployments` directory. 
-
-The location of `EAP_HOME` depends on how you installed JBoss EAP. The install paths are described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](../README.md#use-of-eaphome-and-jbosshome-variables)
 
 
 Access the H2 Console 
