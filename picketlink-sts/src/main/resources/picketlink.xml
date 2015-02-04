@@ -14,30 +14,32 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<PicketLinkSTS xmlns="urn:picketlink:identity-federation:config:1.0"
- STSName="PicketLinkSTS" TokenTimeout="7200" EncryptToken="false">
- <KeyProvider
-  ClassName="org.picketlink.identity.federation.core.impl.KeyStoreKeyManager">
-  <Auth Key="KeyStoreURL" Value="sts_keystore.jks" />
-  <Auth Key="KeyStorePass" Value="testpass" />
-  <Auth Key="SigningKeyAlias" Value="sts" />
-  <Auth Key="SigningKeyPass" Value="keypass" />
-  <ValidatingAlias Key="http://services.testcorp.org/provider1"
-   Value="service1" />
- </KeyProvider>
- <TokenProviders>
-  <TokenProvider
-   ProviderClass="org.picketlink.identity.federation.core.wstrust.plugins.saml.SAML11TokenProvider"
-   TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1"
-   TokenElement="Assertion" TokenElementNS="urn:oasis:names:tc:SAML:1.0:assertion" />
-  <TokenProvider
-   ProviderClass="org.picketlink.identity.federation.core.wstrust.plugins.saml.SAML20TokenProvider"
-   TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
-   TokenElement="Assertion" TokenElementNS="urn:oasis:names:tc:SAML:2.0:assertion" />
- </TokenProviders>
- <ServiceProviders>
-  <ServiceProvider Endpoint="http://services.testcorp.org/provider1"
-   TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
-   TruststoreAlias="service1" />
- </ServiceProviders>
+<PicketLinkSTS xmlns="urn:picketlink:federation:config:2.1"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="urn:picketlink:federation:config:2.1 http://www.jboss.org/schema/jbossas/picketlink_v21.xsd"
+               STSName="PicketLinkSTS" TokenTimeout="7200" EncryptToken="false">
+    <KeyProvider
+            ClassName="org.picketlink.identity.federation.core.impl.KeyStoreKeyManager">
+        <Auth Key="KeyStoreURL" Value="sts_keystore.jks"/>
+        <Auth Key="KeyStorePass" Value="testpass"/>
+        <Auth Key="SigningKeyAlias" Value="sts"/>
+        <Auth Key="SigningKeyPass" Value="keypass"/>
+        <ValidatingAlias Key="http://services.testcorp.org/provider1"
+                         Value="service1"/>
+    </KeyProvider>
+    <TokenProviders>
+        <TokenProvider
+                ProviderClass="org.picketlink.identity.federation.core.wstrust.plugins.saml.SAML11TokenProvider"
+                TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1"
+                TokenElement="Assertion" TokenElementNS="urn:oasis:names:tc:SAML:1.0:assertion"/>
+        <TokenProvider
+                ProviderClass="org.picketlink.identity.federation.core.wstrust.plugins.saml.SAML20TokenProvider"
+                TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
+                TokenElement="Assertion" TokenElementNS="urn:oasis:names:tc:SAML:2.0:assertion"/>
+    </TokenProviders>
+    <ServiceProviders>
+        <ServiceProvider Endpoint="http://services.testcorp.org/provider1"
+                         TokenType="http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0"
+                         TruststoreAlias="service1"/>
+    </ServiceProviders>
 </PicketLinkSTS>
