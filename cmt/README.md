@@ -118,13 +118,14 @@ The customer name should match: letter & '-', else an error is given. This is to
 that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated with. 
  
 
+
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warnings and errors in the server log. This is because Hibernate attempts to drop the table and constraints before they are created without checking first to see if they exist. The issues can tracked here: <https://hibernate.atlassian.net/browse/HHH-6670> and <https://hibernate.atlassian.net/browse/HHH-9545>. You can ignore these warnings and errors.
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
 
-    HHH000389: Unsuccessful: drop sequence hibernate_sequence
-    ERROR Sequence "HIBERNATE_SEQUENCE" does not exist
+    JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
 
 
 Undeploy the Archive

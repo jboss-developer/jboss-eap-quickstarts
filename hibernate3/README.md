@@ -88,6 +88,10 @@ _Note:_ You will see the following warnings in the server log.
         WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) JBAS018567: Deployment "deployment.jboss-hibernate3.war" is using a private module ("asm.asm:main") which may be changed or removed in future versions without notice.
         WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) JBAS018567: Deployment "deployment.jboss-hibernate3.war" is using a private module ("org.javassist:main") which may be changed or removed in future versions without notice.
 
+    You will also see the following warning in the server log. You can ignore this warning.
+
+      JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
 
 Access the application 
 ---------------------
