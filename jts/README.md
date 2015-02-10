@@ -209,6 +209,14 @@ You will also see the following in application-server-2 console:
 The web page will also change and show you the new list of customers.
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+    JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
+
 Undeploy the Archive
 --------------------
 

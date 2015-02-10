@@ -86,7 +86,9 @@ You can also check the server console output to verify that the Arquillian tests
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warning in the server log. You can ignore this warning.
+_Note:_ You will see the following warnings in the server log. You can ignore these warnings.
+
+    JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
 
     HHH000431: Unable to determine H2 database version, certain features may not work
 
