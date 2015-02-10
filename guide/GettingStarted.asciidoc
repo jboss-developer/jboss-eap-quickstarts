@@ -28,10 +28,10 @@ The JBoss EAP 6 runtime::
 The JBoss EAP 6 quickstarts::
   Download the link:http://www.jboss.org/products/eap/download/[Quickstarts]
 
-If you wish to use the examples from an IDE, we recommend using JBoss Developer Studio, or Eclipse with JBoss Tools.
+If you wish to use the examples from an IDE, we recommend using Red Hat JBoss Developer Studio, or Eclipse with JBoss Tools.
 
 JBoss Developer Studio::
-  Download JBDS from link:http://www.jboss.org/products/devstudio/download/[]. JBDS includes JBoss EAP.
+  Download JBDS from link:http://www.jboss.org/products/devstudio/download/[]. JBoss Developer Studio includes JBoss EAP.
 Eclipse, with JBoss Tools::
   Download JBoss Tools from link:http://jboss.org/tools[]. Make sure you install m2eclipse as well.
 
