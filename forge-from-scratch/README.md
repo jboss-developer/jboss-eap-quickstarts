@@ -74,7 +74,6 @@ This quickstart created a native Java EE 6 application.
 
 _Note:_ You will see the following warnings in the server log. You can ignore these warnings.
 
-    JBAS010153: Node identifier property is set to the default value. Please make sure it is unique.
     HHH000059: Defining hibernate.transaction.flush_before_completion=true ignored in HEM
     HHH000431: Unable to determine H2 database version, certain features may not work
 
@@ -119,13 +118,6 @@ When you are ready to undeploy the application from JBoss EAP:
         INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018558: Undeployed "forge-example.war" (runtime-name: "forge-example.war")
 
 
-_Note:_ You can ignore the following error messages as the `hibernate-sequence` sequence does not exist.
-
-        INFO  [stdout] (ServerService Thread Pool -- 64)     drop sequence hibernate_sequence
-        ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 64) HHH000389: Unsuccessful: drop sequence hibernate_sequence
-        INFO  [stdout] (ServerService Thread Pool -- 64)     drop sequence hibernate_sequence
-        ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 64) HHH000389: Unsuccessful: drop sequence hibernate_sequence
-        ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 64) Sequence "HIBERNATE_SEQUENCE" not found; SQL statement:
  
 Next Steps
 -------
