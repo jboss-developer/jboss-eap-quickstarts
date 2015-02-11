@@ -73,8 +73,8 @@ This quickstart requires the PostgreSQL database. Instructions to install and co
 _Note_: For the purpose of this quickstart, replace the word `QUICKSTART_DATABASE_NAME` with `cmt-quickstart-database` in the PostgreSQL instructions.
 
 1. Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
-2. Follow the instructions to [Add the PostgreSQL Module to the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#add-the-postgresql-module-to-the-jboss-eap-server).
-3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-jboss-eap-server).
+2. Follow the instructions to [Add the PostgreSQL Module to the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#add-the-postgresql-module-to-the-red-hat-jboss-enterprise-application-platform-server).
+3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL.md#configure-the-postgresql-driver-in-the-red-hat-jboss-enterprise-application-platform-server).
 
 
 Start the JBoss EAP Server with the Full Profile
