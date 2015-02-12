@@ -127,12 +127,13 @@ _Note: You may see the following exception when you undeploy the archive from th
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
 
 This quickstart is more complex than the others. It requires that you configure and run two instances of the JBoss EAP server, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
-1. Follow the instructions above to [Clone the EAP_HOME Directory](#clone-the-eaphome-directory).
-2. Configure the first server instance in JBoss Developer Studio.
+1. Be sure to import the quickstart into JBoss Developer Studio. 
+2. Follow the instructions above to [Clone the EAP_HOME Directory](#clone-the-eaphome-directory).
+3. Configure the first server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "Node1" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
@@ -143,16 +144,11 @@ This quickstart is more complex than the others. It requires that you configure 
             Execution Environment: (Choose your runtime JRE if not correct)
             Configuration base directory: (This should already point to your server configuration directory)
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
-   * In the `Add and Remove` dialog, add the `jboss-as-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
+   * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `Node1` to open it. 
    * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node1" and click `OK`.
-   * In the `Server` tab, right-click on `Node1` and choose `Start`. Note the messages in the `Node1` server console indicate it is the singleton provider of the service.
    
-            JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
-            INFO  [org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @Node1 Mon Jan 19 09:02:36 EST 2015
-            INFO  [org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @Node1 Mon Jan 19 09:02:36 EST 2015
-
-3. Configure the second server instance in JBoss Developer Studio.
+4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "Node2" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
@@ -163,16 +159,24 @@ This quickstart is more complex than the others. It requires that you configure 
             Execution Environment: (Choose your runtime JRE if not correct)
             Configuration base directory: (This should already point to your cloned server configuration directory)
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
-   * In the `Add and Remove` dialog, add the `jboss-as-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
+   * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `Node2` to open the `Overview` page. 
    * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100" and click `OK`.
    * Still in the `Overview` page for `Node2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
-   * In the `Server` tab, right-click on `Node2` and choose `Start`. Note the messages in the `Node2` server console indicate `Node1` is the singleton provider of the service and `Node1` continues to provide the service.
+
+5. To deploy the cluster-ha-singleton service to `Node 1`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `Node1` and click `Finish`. Note the messages in the `Node1` server console indicate it is the singleton provider of the service.
+   
+            JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
+            JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+            INFO  [org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @Node1 Mon Jan 19 09:02:36 EST 2015
+            INFO  [org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @Node1 Mon Jan 19 09:02:36 EST 2015
+
+6. To deploy the cluster-ha-singleton service to `Node 2`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `Node2` and click `Finish`. Note the messages in the `Node2` server console indicate `Node1` is the singleton provider of the service and `Node1` continues to provide the service.
    
             JBAS010342: Node1/singleton elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
             JBAS015961: Http management interface listening on http://127.0.0.1:10090/management   
 
-4. Stop the `Node1` server and note the following message in the `Node2` server console indicating it is now the singleton provider.
+7. Stop the `Node1` server and note the following message in the `Node2` server console indicating it is now the singleton provider.
 
         JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
         INFO  [org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @Node2 Mon Jan 19 09:05:17 EST 2015
