@@ -212,10 +212,10 @@ The web page will also change and show you the new list of customers.
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warning in the server log. You can ignore this warning.
+_Note:_ You will see the following warnings in the server log. You can ignore these warnings. 
 
     JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-
+    ARJUNA022261: ServerTopLevelAction detected that the transaction was inactive
 
 Undeploy the Archive
 --------------------
