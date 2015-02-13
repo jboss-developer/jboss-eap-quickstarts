@@ -160,7 +160,16 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
-_NOTE:_ Be sure to enable the `NIO2` connector in the `web` subsystem by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
+This quickstart requires additional steps to configure the server and configure an external WebSocket enabled browser.
+
+1. Be sure to enable the `NIO2` connector in the `web` subsystem by running the JBoss CLI commands as described above in [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
+
+2. The Eclipse embedded browser does not support WebSockets, so you must configure an external browser. In JBoss Developer Studio, choose menu item `Window` --> `Web Browser` --> `Default System Browser`.
+
+3. When you deploy and run this quickstart in JBoss Developer Studio, the application opens in an external browser. 
+
+4. When you complete testing, [Remove the NIO2  HTTP Connector Configuration](#remove-the-nio2-http-connector-configuration) from the server. If you prefer, reset the `Web Browser` preference back to `Internal Web Browser`.
+
 
 
 Debug the Application
