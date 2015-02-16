@@ -14,9 +14,8 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
+<!DOCTYPE PicketLinkSTS>
 <PicketLinkSTS xmlns="urn:picketlink:federation:config:2.1"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="urn:picketlink:federation:config:2.1 http://www.jboss.org/schema/jbossas/picketlink_v21.xsd"
                STSName="PicketLinkSTS" TokenTimeout="7200" EncryptToken="false">
     <KeyProvider
             ClassName="org.picketlink.identity.federation.core.impl.KeyStoreKeyManager">
