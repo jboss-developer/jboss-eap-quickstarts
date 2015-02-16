@@ -17,7 +17,7 @@
 -->
 <jboss-ws-security xmlns="http://www.jboss.com/ws-security/config"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.jboss.com/ws-security/config http://www.jboss.com/ws-security/schema/jboss-ws-security_1_0.xsd">
+  xsi:schemaLocation="http://www.jboss.com/ws-security/config http://www.jboss.org/j2ee/schema/jboss-ws-security_1_0.xsd">
   <config>
     <requires />
   </config>

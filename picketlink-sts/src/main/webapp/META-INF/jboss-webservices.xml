@@ -14,9 +14,10 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<webservices xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee">
-  <property>
-    <name>org.jboss.ws.cxf.disableHandlerAuthChecks</name>
-    <value>true</value>
-  </property>
+<webservices xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_web_services_1.2.xsd">
+    <property>
+        <name>org.jboss.ws.cxf.disableHandlerAuthChecks</name>
+        <value>true</value>
+    </property>
 </webservices>
