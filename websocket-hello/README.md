@@ -164,9 +164,9 @@ This quickstart requires additional steps to configure the server and configure 
 
 1. Be sure to enable the `NIO2` connector in the `web` subsystem by running the JBoss CLI commands as described above in [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
 
-2. The Eclipse embedded browser does not support WebSockets, so you must configure an external browser. In JBoss Developer Studio, choose menu item `Window` --> `Web Browser` --> `Default System Browser`.
+2. The Eclipse embedded browser does not support WebSockets on all platforms. If the buttons do not function and the quickstart does not run as described above, you should switch to use an external browser. In JBoss Developer Studio, choose menu item `Window` --> `Web Browser` --> `Default System Browser`.
 
-3. When you deploy and run this quickstart in JBoss Developer Studio, the application opens in an external browser. 
+3. When you deploy and run this quickstart in JBoss Developer Studio, the application opens in the browser. 
 
 4. When you complete testing, [Remove the NIO2  HTTP Connector Configuration](#remove-the-nio2-http-connector-configuration) from the server. If you prefer, reset the `Web Browser` preference back to `Internal Web Browser`.
 
