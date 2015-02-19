@@ -143,6 +143,23 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
+This quickstart is more complex than the others. It requires that you configure the JBoss EAP server to use the *standalone-xts.xml* configuration file, which is located in an external configuration directory.
+
+1. Import the quickstart into JBoss Developer Studio. 
+2. If you have not already done so, you must configure a new JBoss EAP server to use the XTS configuration.
+   * In the `Server` tab, right-click and choose `New` --> `Server`.
+   * For the `Server name`, enter "JBoss EAP XTS Configuration" and click `Next`.
+   * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
+   * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
+   
+            Name: JBoss EAP XTS Runtime
+            Home Directory: (Browse to the server directory and select it)
+            Execution Environment: (Choose your runtime JRE if not correct)
+            Configuration base directory: (This should already point to your server configuration directory)
+            Configuration file: ../../docs/examples/configs/standalone-xts.xml
+3. Start the new `JBoss EAP XTS Configuration` server. 
+4. Right-click on the `jboss-wsat-simple` project, choose `Run As` --> `Maven build`, enter "clean test -Parq-jbossas-remote" for the `Goals:`, and click `Run` to run the Arquillian tests. The test results appear in the console.
+
 
 Debug the Application
 ------------------------------------
