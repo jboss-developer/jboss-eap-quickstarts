@@ -132,6 +132,28 @@ following logger block to the ./docs/examples/configs/standalone-xts.xml of your
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
+<p>This quickstart is more complex than the others. It requires that you configure the JBoss EAP server to use the <em>standalone-xts.xml</em> configuration file, which is located in an external configuration directory.</p>
+
+<ol>
+<li>Import the quickstart into JBoss Developer Studio. </li>
+<li><p>If you have not already done so, you must configure a new JBoss EAP server to use the XTS configuration.</p>
+
+<ul>
+<li>In the <code>Server</code> tab, right-click and choose <code>New</code> &ndash;> <code>Server</code>.</li>
+<li>For the <code>Server name</code>, enter &ldquo;JBoss EAP XTS Configuration&rdquo; and click <code>Next</code>.</li>
+<li>In the <code>Create a new Server Adapter</code> dialog, choose <code>Create a new runtime (next page)</code> and click <code>Next</code>.</li>
+<li><p>In the <code>JBoss Runtime</code> dialog, enter the following information and then click <code>Next</code>.</p>
+<div class="highlight"><pre><span class="n">Name</span><span class="o">:</span> <span class="n">JBoss</span> <span class="n">EAP</span> <span class="n">XTS</span> <span class="n">Runtime</span>
+<span class="n">Home</span> <span class="n">Directory</span><span class="o">:</span> <span class="o">(</span><span class="n">Browse</span> <span class="n">to</span> <span class="n">the</span> <span class="n">server</span> <span class="n">directory</span> <span class="n">and</span> <span class="n">select</span> <span class="n">it</span><span class="o">)</span>
+<span class="n">Execution</span> <span class="n">Environment</span><span class="o">:</span> <span class="o">(</span><span class="n">Choose</span> <span class="n">your</span> <span class="n">runtime</span> <span class="n">JRE</span> <span class="k">if</span> <span class="n">not</span> <span class="n">correct</span><span class="o">)</span>
+<span class="n">Configuration</span> <span class="n">base</span> <span class="n">directory</span><span class="o">:</span> <span class="o">(</span><span class="n">This</span> <span class="n">should</span> <span class="n">already</span> <span class="n">point</span> <span class="n">to</span> <span class="n">your</span> <span class="n">server</span> <span class="n">configuration</span> <span class="n">directory</span><span class="o">)</span>
+<span class="n">Configuration</span> <span class="n">file</span><span class="o">:</span> <span class="o">../../</span><span class="n">docs</span><span class="sr">/examples/configs/s</span><span class="n">tandalone</span><span class="o">-</span><span class="n">xts</span><span class="o">.</span><span class="na">xml</span>
+</pre></div></li>
+</ul></li>
+<li><p>Start the new <code>JBoss EAP XTS Configuration</code> server. </p></li>
+<li><p>Right-click on the <code>jboss-wsat-simple</code> project, choose <code>Run As</code> &ndash;> <code>Maven build</code>, enter &ldquo;clean test -Parq-jbossas-remote&rdquo; for the <code>Goals:</code>, and click <code>Run</code> to run the Arquillian tests. The test results appear in the console.</p></li>
+</ol>
+
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
