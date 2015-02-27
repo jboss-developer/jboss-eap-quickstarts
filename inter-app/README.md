@@ -92,8 +92,8 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
 * Deploy the shared project first. To deploy the shared project, right-click on the `jboss-inter-app-shared` project and choose `Run As` --> `Run on Server`.
-* To deploy the appA WAR, right-click on the `jboss-inter-app-A` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
-* To deploy the appB WAR, right-click on the `jboss-inter-app-A` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
+* To deploy the appA WAR, right-click on the `jboss-inter-app-appA` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
+* To deploy the appB WAR, right-click on the `jboss-inter-app-appB` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
 
 
 Debug the Application
