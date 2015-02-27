@@ -63,7 +63,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean jboss-as:deploy
 
-4. This will deploy `helloworld-mbean-webapp\target\jboss-helloworld-mbean-webapp.war` and `helloworld-mbean-service\target\jboss-helloworld-mbean-service.sar` to the running instance of the server.
+4. This will deploy `helloworld-mbean-webapp\target\jboss-helloworld-mbean-helloworld-mbean-webapp.war` and `helloworld-mbean-service\target\jboss-helloworld-mbean-helloworld-mbean-service.sar` to the running instance of the server.
 
 
 Access and Test the MBeans
