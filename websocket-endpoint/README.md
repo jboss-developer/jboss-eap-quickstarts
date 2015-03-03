@@ -3,7 +3,7 @@ websocket-endpoint: Web application using WebSockets and JSON-P
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: CDI, WebSocket, JSON-P  
-Summary: Shows how WebSockets can be used in conjunction with JSON to broadcast information to all open WebSocket sessions  
+Summary: Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in JBoss EAP.  
 Target Product: Sandbox  
 Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>   
 
@@ -11,9 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>
 What is it?
 -----------
 
-The `websocket-endpoint` quickstart demonstrates how to use the Java API for WebSockets to create server endpoints. 
+The `websocket-endpoint` quickstart demonstrates how to use Java API for WebSockets to create server endpoints in Red Hat JBoss Enterprise Application Platform. 
 
-The `BidWebSocketEndpoint` provides the WebSocket endpoint that receives `Message` instances from clients or browsers and replies with the current `Bidding` instance. The conversion from JSON content to the specific instances are made by `MessageDecoder` and `BiddingEncode` classes.
+The `BidWebSocketEndpoint` provides the WebSocket endpoint that receives `Message` instances from clients/browsers and replies with the current `Bidding` instance. The conversion from JSON content to the specific instances are made by `MessageDecoder` and `BiddingEncode` classes.
 
 Every update made on the `Bidding` are immediately propagated to all opened WebSocket sessions without any browser submission or AJAX polling mechanism.
 
@@ -31,6 +31,13 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
+
+
+Use of WILDFLY_HOME
+---------------
+
+In the following instructions, replace `WILDFLY_HOME` with the actual path to your WildFly installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+
 
 
 Start the WildFly Server
@@ -84,6 +91,7 @@ Run the Quickstart in JBoss Developer Studio or Eclipse
 
 
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+
 
 Debug the Application
 ------------------------------------
