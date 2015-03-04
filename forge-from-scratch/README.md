@@ -66,7 +66,7 @@ This quickstart created a native Java EE 6 application.
 
 ### Deploy the Generated Application
 
-1. If you have not yet done so, add the JBoss EAP 6.4 runtime server to Red Hat JBoss Developer Studio. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md).
+1. If you have not yet done so, add the JBoss EAP 6.4 runtime server to Red Hat JBoss Developer Studio. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md).
 2. Right-click on the project name and choose `Run As` --> `Run on Server`. If you have more than one server, choose the JBoss EAP 6.4 Runtime server.
 3. Upon successful deployment, a **Welcome to Forge Window** opens with the application running at the following URL: <http://localhost:8080/forge-example/>
     
