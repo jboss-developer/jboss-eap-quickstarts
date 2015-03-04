@@ -152,7 +152,7 @@ This quickstart is more complex than the others. It requires that you configure 
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "JBoss EAP XTS Configuration" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
-   * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
+   * In the `JBoss Runtime` dialog, enter the following information and then click `Finish`.
    
             Name: JBoss EAP XTS Runtime
             Home Directory: (Browse to the server directory and select it)
