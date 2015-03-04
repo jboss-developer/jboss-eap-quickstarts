@@ -160,6 +160,8 @@ _Note:_ You will see the following warnings in the server log. You can ignore th
 
     HHH000431: Unable to determine H2 database version, certain features may not work
 
+    HHH000389: Unsuccessful: drop sequence hibernate_sequence
+    Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
 
 Undeploy the Archive
 --------------------
