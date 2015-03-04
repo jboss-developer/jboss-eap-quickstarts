@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-he `kitchensink-ml-ear` quickstart is a deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform. 
+The `kitchensink-ml-ear` quickstart is a deployable Maven 3 project to help you get your foot in the door developing with Java EE 6 on Red Hat JBoss Enterprise Application Platform. 
 
 It demonstrates how to create a _localized_ Java EE 6 compliant application using JSF 2.1, CDI 1.0, JAX-RS, EJB 3.1, JPA 2.0 and Bean Validation 1.0. A localized application is one that supports multiple languages. That is what the _-ml_ suffix denotes in the quickstart name _kitchensink-ml-ear_. This quickstart also includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
