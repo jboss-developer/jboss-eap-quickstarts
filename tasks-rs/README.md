@@ -243,6 +243,9 @@ _Note:_ You will see the following warnings in the server log. You can ignore th
 
     HHH000431: Unable to determine H2 database version, certain features may not work
 
+    HHH000389: Unsuccessful: alter table Task drop constraint FK_kxfu633bvt1sptgbnkxkrr3qf
+    Table "TASK" not found; SQL statement: alter table Task drop constraint FK_kxfu633bvt1sptgbnkxkrr3qf [42102-168]
+
 
 Undeploy the Archive
 --------------------

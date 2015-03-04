@@ -122,10 +122,12 @@ that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated w
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warning in the server log. You can ignore this warning.
+_Note:_ You will see the following warnings and errors in the server log. You can ignore these warnings.
 
     JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
 
+    HHH000389: Unsuccessful: drop sequence hibernate_sequence
+    Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
 
 
 Undeploy the Archive
