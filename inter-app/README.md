@@ -89,11 +89,12 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
-This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
+This quickstart consists of multiple projects containing interdependencies on each other, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts. 
 
-* Deploy the shared project first. To deploy the shared project, right-click on the `jboss-inter-app-shared` project and choose `Run As` --> `Run on Server`.
-* To deploy the appA WAR, right-click on the `jboss-inter-app-appA` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
-* To deploy the appB WAR, right-click on the `jboss-inter-app-appB` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running application.
+1. In the `Servers` tab, right-click on the JBoss EAP server and choose `Start`.
+2. Click to multi-select the `jboss-inter-app-shared`, `jboss-inter-app-appA`, and `jboss-inter-app-appB` projects, then drag and drop them on the running JBoss EAP server. This deploys the projects to the server without opening the browser.
+3. Right-click on the `jboss-inter-app-appA` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running `appA` application.
+4. Right-click on the `jboss-inter-app-appB` project and choose `Run As` --> `Run on Server`. A browser window appears that accesses the running `appB` application.
 
 
 Debug the Application

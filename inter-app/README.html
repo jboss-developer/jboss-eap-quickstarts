@@ -84,13 +84,14 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
-<p>This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+<p>This quickstart consists of multiple projects containing interdependencies on each other, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts. </p>
 
-<ul>
-<li>Deploy the shared project first. To deploy the shared project, right-click on the <code>jboss-inter-app-shared</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>.</li>
-<li>To deploy the appA WAR, right-click on the <code>jboss-inter-app-appA</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running application.</li>
-<li>To deploy the appB WAR, right-click on the <code>jboss-inter-app-appB</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running application.</li>
-</ul>
+<ol>
+<li>In the <code>Servers</code> tab, right-click on the JBoss EAP server and choose <code>Start</code>.</li>
+<li>Click to multi-select the <code>jboss-inter-app-shared</code>, <code>jboss-inter-app-appA</code>, and <code>jboss-inter-app-appB</code> projects, then drag and drop them on the running JBoss EAP server. This deploys the projects to the server without opening the browser.</li>
+<li>Right-click on the <code>jboss-inter-app-appA</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running <code>appA</code> application.</li>
+<li>Right-click on the <code>jboss-inter-app-appB</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running <code>appB</code> application.</li>
+</ol>
 
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
