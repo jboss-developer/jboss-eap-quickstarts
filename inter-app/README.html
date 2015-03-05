@@ -88,7 +88,12 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <ol>
 <li>In the <code>Servers</code> tab, right-click on the JBoss EAP server and choose <code>Start</code>.</li>
-<li>Click to multi-select the <code>jboss-inter-app-shared</code>, <code>jboss-inter-app-appA</code>, and <code>jboss-inter-app-appB</code> projects, then drag and drop them on the running JBoss EAP server. This deploys the projects to the server without opening the browser.</li>
+<li>Deploy the projects in one of the following ways.
+
+<ul>
+<li><code>Drag and Drop</code> mode: Click to multi-select the <code>jboss-inter-app-shared</code>, <code>jboss-inter-app-appA</code>, and <code>jboss-inter-app-appB</code> projects, then drag and drop them on the running JBoss EAP server. This deploys the projects to the server without opening the browser.</li>
+<li><code>Batch</code> mode: In the <code>Servers</code> tab, right-click on the server and choose <code>Add and Remove</code>. If the <code>jboss-inter-app-shared</code>, <code>jboss-inter-app-appA</code>, and <code>jboss-inter-app-appB</code> projects are the only projects in the list, click <code>Add All</code>. Otherwise, use multi-select to select them and click <code>Add</code>. Then click <code>Finish</code>.</li>
+</ul></li>
 <li>Right-click on the <code>jboss-inter-app-appA</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running <code>appA</code> application.</li>
 <li>Right-click on the <code>jboss-inter-app-appB</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. A browser window appears that accesses the running <code>appB</code> application.</li>
 </ol>
