@@ -77,29 +77,6 @@ _Note:_ You will see the following warnings in the server log. You can ignore th
     HHH000059: Defining hibernate.transaction.flush_before_completion=true ignored in HEM
     HHH000431: Unable to determine H2 database version, certain features may not work
 
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table Address drop constraint FK_f0dyx9tf7g7syfnjb8v8xq8eu
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "ADDRESS" not found; SQL statement:
-        alter table Address 
-            drop constraint FK_f0dyx9tf7g7syfnjb8v8xq8eu [42102-168]
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table Customer drop constraint FK_e6df388iyqen7rmruplyneai5
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "CUSTOMER" not found; SQL statement:
-        alter table Customer 
-            drop constraint FK_e6df388iyqen7rmruplyneai5 [42102-168]
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table Customer_Address drop constraint FK_947b0movtx9elyluipohkopd6
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "CUSTOMER_ADDRESS" not found; SQL statement:
-        alter table Customer_Address 
-            drop constraint FK_947b0movtx9elyluipohkopd6 [42102-168]
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table ProductOrder drop constraint FK_7627d9hcx95eemnuoe1i7cu1b
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "PRODUCTORDER" not found; SQL statement:
-        alter table ProductOrder 
-                drop constraint FK_7627d9hcx95eemnuoe1i7cu1b [42102-168]
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: alter table ProductOrder_Item drop constraint FK_319ohy9ur75atyxgaoy89a9bg
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Table "PRODUCTORDER_ITEM" not found; SQL statement:
-        alter table ProductOrder_Item 
-                drop constraint FK_319ohy9ur75atyxgaoy89a9bg [42102-168]
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) HHH000389: Unsuccessful: drop sequence hibernate_sequence
-    ERROR [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 51) Sequence "HIBERNATE_SEQUENCE" not found; SQL statement:
-
            
 ### Access the Running Application
 

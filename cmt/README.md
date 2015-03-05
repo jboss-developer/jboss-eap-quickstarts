@@ -116,15 +116,16 @@ When the same customer name is given, a duplicate warning is given and no JMS-me
 
 The customer name should match: letter & '-', else an error is given. This is to show that a 'LogMessage' entity is still stored in the database thanks to the ```@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)```
 that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated with. 
- 
 
 
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warnings and errors in the server log. You can ignore these warnings.
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
 
     JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
+You also see the following errors. This is because Hibernate attempts to drop the table and constraints before they are created and without checking first to see if they exist. This issue, <https://hibernate.atlassian.net/browse/HHH-9545>, is fixed in the 4.3 version of Hibernate.  You can ignore these errors.
 
     HHH000389: Unsuccessful: drop sequence hibernate_sequence
     Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
