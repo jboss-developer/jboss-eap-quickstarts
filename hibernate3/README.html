@@ -104,6 +104,22 @@ code and class differences between Hibernate 3 and Hibernate 4. </p>
 
 <p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
 
+<p>When you import the <code>hibernate3</code> quickstart into JBoss Developer Studio, you see the following JSF Faces Config Problem warnings:</p>
+<div class="highlight"><pre>    <span class="n">validator</span><span class="o">-</span><span class="n">class</span> <span class="n">references</span> <span class="n">to</span> <span class="s">&quot;org.jboss.as.quickstart.hibernate3.util.ValidateEmail&quot;</span> <span class="n">that</span> <span class="n">does</span> <span class="n">not</span> <span class="n">extend</span> <span class="n">javax</span><span class="p">.</span><span class="n">faces</span><span class="p">.</span><span class="n">validator</span><span class="p">.</span><span class="n">Validator</span>
+    <span class="n">validator</span><span class="o">-</span><span class="n">class</span> <span class="n">references</span> <span class="n">to</span> <span class="s">&quot;org.jboss.as.quickstart.hibernate3.util.ValidateMemberId&quot;</span> <span class="n">that</span> <span class="n">does</span> <span class="n">not</span> <span class="n">extend</span> <span class="n">javax</span><span class="p">.</span><span class="n">faces</span><span class="p">.</span><span class="n">validator</span><span class="p">.</span><span class="n">Validator</span>
+    <span class="n">validator</span><span class="o">-</span><span class="n">class</span> <span class="n">references</span> <span class="n">to</span> <span class="s">&quot;org.jboss.as.quickstart.hibernate3.util.ValidateName&quot;</span> <span class="n">that</span> <span class="n">does</span> <span class="n">not</span> <span class="n">extend</span> <span class="n">javax</span><span class="p">.</span><span class="n">faces</span><span class="p">.</span><span class="n">validator</span><span class="p">.</span><span class="n">Validator</span>
+</pre></div>
+<p>This is a known JBoss Tools issue. See <a href="https://issues.jboss.org/browse/JBIDE-19403">https://issues.jboss.org/browse/JBIDE-19403</a>. Follow the steps below to resolve these warnings.</p>
+
+<ol>
+<li>Right-click on one of the warning messages in the JBoss Developer Studio <code>Problems</code> window and choose <code>Quick Fix</code>.</li>
+<li>This opens a window with the fix <code>Configure Problem Severity for preference &#39;Invalid Validator Class&#39;</code> selected. Click <code>Finish</code>.</li>
+<li>This opens the <code>Preferences</code> dialog for the <code>Faces Config</code> &ndash;> <code>Validator</code>.</li>
+<li>Change the &ldquo;Invalid validator class:&rdquo; severity from <code>Warning</code> to <code>Ignore</code> and click <code>OK</code>. </li>
+<li>You are presented with a <code>Validator Settings Changed</code> dialog. Click <code>Yes</code> to do a full rebuild.</li>
+<li>All warnings should now be resolved.</li>
+</ol>
+
 <h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
