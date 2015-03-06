@@ -112,6 +112,20 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
+When you import the `hibernate3` quickstart into JBoss Developer Studio, you see the following JSF Faces Config Problem warnings:
+
+        validator-class references to "org.jboss.as.quickstart.hibernate3.util.ValidateEmail" that does not extend javax.faces.validator.Validator
+        validator-class references to "org.jboss.as.quickstart.hibernate3.util.ValidateMemberId" that does not extend javax.faces.validator.Validator
+        validator-class references to "org.jboss.as.quickstart.hibernate3.util.ValidateName" that does not extend javax.faces.validator.Validator
+    
+This is a known JBoss Tools issue. See <https://issues.jboss.org/browse/JBIDE-19403>. Follow the steps below to resolve these warnings.
+   
+1. Right-click on one of the warning messages in the JBoss Developer Studio `Problems` window and choose `Quick Fix`.
+2. This opens a window with the fix `Configure Problem Severity for preference 'Invalid Validator Class'` selected. Click `Finish`.
+3. This opens the `Preferences` dialog for the `Faces Config` --> `Validator`.
+4. Change the "Invalid validator class:" severity from `Warning` to `Ignore` and click `OK`. 
+5. You are presented with a `Validator Settings Changed` dialog. Click `Yes` to do a full rebuild.
+6. All warnings should now be resolved.
 
 Debug the Application
 ------------------------------------
