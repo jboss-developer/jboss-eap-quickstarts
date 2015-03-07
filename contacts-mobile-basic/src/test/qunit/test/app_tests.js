@@ -79,7 +79,7 @@ test('should be able to fill in the edit form with values', 5, function() {
                 '<input name="birthDate" id="contacts-edit-input-date" class="birthDate" data-clear-btn="true" value="" type="date" min="1900-01-01"/>' +
             '</div>' +
             '<input id="submit-edit-btn" data-inline="true" type="submit" value="Save" />' +
-            '<input id="clear-edit-btn" data-inline="true" type="reset" value="Clear" data-theme="c" />' +
+            '<input id="reset-edit-btn" data-inline="true" type="reset" value="Reset" data-theme="c" />' +
             '<input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />' +
         '</form>'
     );
@@ -119,7 +119,7 @@ test('should be able to GET a contact from the db', 1, function() {
                 '<input name="birthDate" id="contacts-edit-input-date" class="birthDate" data-clear-btn="true" value="" type="date" min="1900-01-01"/>' +
             '</div>' +
             '<input id="submit-edit-btn" data-inline="true" type="submit" value="Save" />' +
-            '<input id="clear-edit-btn" data-inline="true" type="reset" value="Clear" data-theme="c" />' +
+            '<input id="reset-edit-btn" data-inline="true" type="reset" value="Reset" data-theme="c" />' +
             '<input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />' +
         '</form>'
     );

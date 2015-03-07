@@ -61,7 +61,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
             console.log(getCurrentTime() + " [js/formSetup.js] (#contacts-edit-page -> pagebeforeshow) - start");
             
             $('#submit-edit-btn').parent().hide();
-            $('#clear-edit-btn').parent().hide();
+            $('#reset-edit-btn').parent().hide();
             $('#cancel-edit-btn').parent().hide();
             
             e.handled = true;
@@ -92,10 +92,10 @@ $( document ).on( "pagecreate", function(mainEvent) {
         }
     });
     
-    // This Clear button will remove unsaved changes and validation marks while leaving you in the form.
-    $('#clear-edit-btn').on("click", function(e) {
+    // This Reset button will remove unsaved changes and validation marks while leaving you in the form.
+    $('#reset-edit-btn').on("click", function(e) {
         if(e.handled !== true) {
-            console.log(getCurrentTime() + " [js/formSetup.js] (#clear-edit-btn -> on click) - start");
+            console.log(getCurrentTime() + " [js/formSetup.js] (#reset-edit-btn -> on click) - start");
             
             // Get the contact ID before we wipe the form. 
             var contactID = $('input#contacts-edit-input-id').attr('value');
@@ -106,11 +106,11 @@ $( document ).on( "pagecreate", function(mainEvent) {
             // Remove any errors that are not a part of the validation system.
             $('.invalid').remove();
             
-            // Since we are only "clearing" the form we need to put back the original data.
+            // Since we are only "reseting" the form we need to put back the original data.
             CONTACTS.app.getContactById(contactID);
             
             e.handled = true;
-            console.log(getCurrentTime() + " [js/formSetup.js] (#clear-edit-btn -> on click) - end");
+            console.log(getCurrentTime() + " [js/formSetup.js] (#reset-edit-btn -> on click) - end");
         }
     });
     
