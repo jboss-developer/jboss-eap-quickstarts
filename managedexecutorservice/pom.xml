@@ -23,7 +23,7 @@
     <artifactId>jboss-managedexecutorservice</artifactId>
     <version>1.0.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>WildFly Quickstarts: jboss-managedexecutorservice</name>
+    <name>JBoss Sandbox Quickstart: jboss-managedexecutorservice</name>
     <description>A starter Java EE 7 webapp project for use on JBoss WildFly / WildFly, generated from the jboss-javaee6-webapp archetype</description>
 
     <url>http://wildfly.org</url>
