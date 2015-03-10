@@ -65,7 +65,7 @@ Build and Deploy the Quickstart
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080//jboss-websocket-endpoint>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-websocket-endpoint/>
 
 You're presented with a simple form that shows a bidding with the status `NOT_STARTED`. 
 
@@ -176,7 +176,7 @@ When the push command returns you can test the application by getting the follow
 
 You can use the OpenShift command line tools or the OpenShift web console to discover and control the application.
 
-### View the JBoss EAP Server Log on OpenShift
+### View the WildFly Server Log on OpenShift
 
 Now you can look at the output of the server by running the following command:
 
