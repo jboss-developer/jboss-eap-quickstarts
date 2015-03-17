@@ -2,7 +2,7 @@ deltaspike-projectstage: Usage of DeltaSpike Project Stage Conditional @Exclude
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
-Technologies: JSF, CDI, Deltaspike  
+Technologies: JSF, CDI, DeltaSpike
 Summary: The `deltaspike-projectstage` quickstart shows how to use DeltaSpike project stage to customize the implementation based on the deployment environment. 
 Prerequisites:   
 Target Product: WFK  

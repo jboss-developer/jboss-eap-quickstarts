@@ -2,7 +2,7 @@ deltaspike-exception-handling: An Example Showing DeltaSpike Exception Handling
 ====================================================================================
 Author: Rafael Benevides  
 Level: Intermediate  
-Technologies: CDI, JSF, Apache DeltaSpike  
+Technologies: CDI, JSF, DeltaSpike
 Summary: The `deltaspike-exception-handling` quickstart demonstrates exception handling using the DeltaSpike library, which is based on the CDI eventing model.  
 Prerequisites:   
 Target Product: WFK  

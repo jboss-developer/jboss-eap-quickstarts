@@ -2,7 +2,7 @@ deltaspike-beanmanagerprovider: Example Using DeltaSpike BeanManagerProvider
 ======================================================
 Author: Rafael Benevides  
 Level: Intermediate  
-Technologies: CDI, Apache Deltaspike, JPA, JSF  
+Technologies: CDI, DeltaSpike, JPA, JSF  
 Summary: The `deltaspike-beanmanagerprovider` quickstart demonstrates the use of DeltaSpike's BeanManagerProvider to access CDI in a EntityListener.  
 Prerequisites:   
 Target Product: WFK  

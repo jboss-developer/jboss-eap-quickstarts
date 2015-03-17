@@ -2,7 +2,7 @@ deltaspike-deactivatable: Example Using DeltaSpike Deactivatable
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
-Technologies: CDI, Apache DeltaSpike  
+Technologies: CDI, DeltaSpike
 Summary: The `deltaspike-deactivatable` quickstart demonstrates how to use DeltaSpike `ClassDeactivator` to manually deactivate artifacts. 
   
 Target Product: WFK  
