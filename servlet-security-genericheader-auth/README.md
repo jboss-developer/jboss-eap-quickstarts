@@ -122,7 +122,7 @@ Maven prints summary of the 1 performed test to the console.
    -------------------------------------------------------
      T E S T S
     -------------------------------------------------------
-    Running org.jboss.as.quickstart.deltaspike.beanbuilder.test.ByIdExtensionTest
+    Running org.jboss.as.quickstarts.servlet_security_genericheader_auth.TestGenericHeaderAuthenticator
     Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.641 sec
     
     Results :
