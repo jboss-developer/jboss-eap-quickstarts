@@ -2,8 +2,8 @@ deltaspike-projectstage: Usage of DeltaSpike Project Stage Conditional @Exclude
 ======================================================
 Author: Rafael Benevides  
 Level: Beginner  
-Technologies: JSF, CDI, DeltaSpike
-Summary: The `deltaspike-projectstage` quickstart shows how to use DeltaSpike project stage to customize the implementation based on the deployment environment. 
+Technologies: JSF, CDI, DeltaSpike  
+Summary: The `deltaspike-projectstage` quickstart shows how to use DeltaSpike project stage to customize the implementation based on the deployment environment.  
 Prerequisites:   
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
