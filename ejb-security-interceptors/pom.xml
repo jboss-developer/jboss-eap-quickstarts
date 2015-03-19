@@ -92,7 +92,6 @@
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-security-api</artifactId>
-            <version>${version.jboss.as}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jboss.as</groupId>
@@ -112,7 +111,6 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-core-security-api</artifactId>
-            <version>${version.jboss.as}</version>
             <exclusions>
                     <exclusion>
                     <groupId>org.jboss.as</groupId>
