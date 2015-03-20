@@ -4,9 +4,9 @@ Author: Joshua Wilson
 Level: Beginner  
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
 Summary: The `contacts-mobile-basic` quickstart demonstrates a Java EE 6 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA 2.0, and REST.  
-Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
+Target Product: JBoss EAP  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.3  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------
@@ -49,8 +49,7 @@ and [Does JBoss EAP support the use of Jackson libraries?](https://access.redhat
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or 
-later with the  Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 

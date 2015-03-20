@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contact.test;
+package org.jboss.quickstarts.contact.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -29,14 +29,12 @@ import javax.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-
-import org.jboss.quickstarts.wfk.contact.Contact;
-import org.jboss.quickstarts.wfk.contact.ContactRepository;
-import org.jboss.quickstarts.wfk.contact.ContactRESTService;
-import org.jboss.quickstarts.wfk.contact.ContactService;
-import org.jboss.quickstarts.wfk.contact.ContactValidator;
-import org.jboss.quickstarts.wfk.util.Resources;
-
+import org.jboss.quickstarts.contact.Contact;
+import org.jboss.quickstarts.contact.ContactRESTService;
+import org.jboss.quickstarts.contact.ContactRepository;
+import org.jboss.quickstarts.contact.ContactService;
+import org.jboss.quickstarts.contact.ContactValidator;
+import org.jboss.quickstarts.util.Resources;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;

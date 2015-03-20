@@ -16,12 +16,12 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.quickstarts.wfk</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-spring-petclinic</artifactId>
-    <version>2.7.0-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss WFK Quickstart: spring-petclinic</name>
-    <description>JBoss WFK Quickstart: PetClinic</description>
+    <name>JBoss EAP Quickstart: spring-petclinic</name>
+    <description>JBoss EAP Quickstart: PetClinic</description>
     <url>http://jboss.org/jbossas</url>
 
     <licenses>
@@ -76,7 +76,7 @@
 
 		<!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
 		<jboss.bom.wfk.version>2.7.0-redhat-1</jboss.bom.wfk.version>
-		<jboss.bom.eap.version>6.3.2.GA</jboss.bom.eap.version>
+        <version.jboss.bom.eap>6.3.2.GA</version.jboss.bom.eap>
 
 		<!-- Generic properties -->
 		<java.version>1.6</java.version>
@@ -153,24 +153,34 @@
 
     <dependencyManagement>
 		<dependencies>
-			<!-- JBoss Boms -->
+            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+                 Any dependencies from org.jboss.spec will have their version defined by this BOM
+
+                 JBoss distributes a complete set of Java EE 6 APIs including
+                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                 a collection) of artifacts. We use this here so that we always get the correct
+                 versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
+                 use this stack with any version of JBoss EAP that implements Java EE 6. -->
+            <dependency>
+                <groupId>org.jboss.bom.eap</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
 			<dependency>
 				<groupId>org.jboss.bom.eap</groupId>
 				<artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-				<version>${jboss.bom.eap.version}</version>
+                <version>${version.jboss.bom.eap}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
 			<dependency>
 				<groupId>org.jboss.bom.wfk</groupId>
 				<artifactId>jboss-javaee-6.0-with-spring4.1</artifactId>
-				<version>${jboss.bom.wfk.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.bom.wfk</groupId>
-				<artifactId>jboss-javaee-6.0-with-tools</artifactId>
 				<version>${jboss.bom.wfk.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
