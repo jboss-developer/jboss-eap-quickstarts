@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contact;
+package org.jboss.quickstarts.contact;
 
 import java.util.HashMap;
 import java.util.List;
@@ -211,7 +211,7 @@ public class ContactRESTService {
             Map<String, String> responseObj = new HashMap<String, String>();
             responseObj.put("email", "That email is already used, please use a unique email");
             responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
-            responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/wfk/rest/ContactRESTService.java line 242.");
+            responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/contact/ContactRESTService.java line 242.");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());

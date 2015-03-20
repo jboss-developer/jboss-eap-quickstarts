@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.as.quickstarts.wfk</groupId>
+    <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-spring-kitchensink-matrixvariables-test-webdriver</artifactId>
     <version>2.7.0-SNAPSHOT</version>
     <name>JBoss AS Quickstarts: Kitchensink test via WebDriver with Arquillian</name>
@@ -47,7 +47,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
-        <version.jboss.bom.wfk>2.7.0-redhat-1</version.jboss.bom.wfk>
+        <version.jboss.bom.eap>6.3.2.GA</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -70,10 +70,19 @@
     <dependencyManagement>
         <dependencies>
             <!-- Arquillian dependency -->
+            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+                 Any dependencies from org.jboss.spec will have their version defined by this BOM
+
+                 JBoss distributes a complete set of Java EE 6 APIs including
+                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                 a collection) of artifacts. We use this here so that we always get the correct
+                 versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
+                 use this stack with any version of JBoss EAP that implements Java EE 6. -->
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

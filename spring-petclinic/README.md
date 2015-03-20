@@ -3,15 +3,15 @@ spring-petclinic: PetClinic Example using Spring 4.x
 Author: Ken Krebs, Juergen Hoeller, Rob Harrop, Costin Leau, Sam Brannen, Scott Andrews  
 Level: Advanced  
 Technologies: JPA 2.0, Junit, JMX, Spring MVC Annotations, AOP, Spring Data, JSP, webjars, Dandellion  
-Summary: The `spring-petclinic` quickstart shows how to run the Spring PetClinic Application in JBoss EAP using the JBoss EAP and WFK BOMs.  
-Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Summary: The `spring-petclinic` quickstart shows how to run the Spring PetClinic Application in JBoss EAP using the JBoss EAP BOMs.  
+Target Product: JBoss EAP  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?  
 -----------
 The `spring-petclinic` quickstart shows how to run the [Spring PetClinic](<http://github.com/spring-projects/spring-petclinic>) Application 
-in Red Hat JBoss Enterprise Application Platform with the use of Red Hat JBoss EAP & WFK BOMs (_for the best compatibility_). One of the major 
+in Red Hat JBoss Enterprise Application Platform with the use of Red Hat JBoss EAP BOMs (_for the best compatibility_). One of the major 
 changes is the use of the `webapp/WEB-INF/jboss-deployment-structure.xml` file. This file specifies which modules 
 to include or exclude when building the application. In this case, we exclude Hibernate libraries since the application 
 uses Spring Data JPA. Additionally, this is only required when using the spring-data-jpa profile, see `resources/spring/business-config.xml`.
@@ -45,8 +45,7 @@ DBCP project for connection pooling. See `datasource-config.xml`._
 System requirements  
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or 
-later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later.
 
 All you need to build this project is Java 7.0 or later and Maven 3.0 or later.
 

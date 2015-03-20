@@ -126,6 +126,7 @@
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
+                <module>contacts-mobile-basic</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
@@ -163,6 +164,14 @@
                 <module>servlet-security</module>
                 <module>servlet-security-genericheader-auth</module>
                 <module>shopping-cart</module>
+                <module>spring-resteasy</module>
+                <module>spring-petclinic</module>
+                <module>spring-kitchensink-springmvctest</module>
+                <module>spring-kitchensink-matrixvariables</module>
+                <module>spring-kitchensink-controlleradvice</module>
+                <module>spring-kitchensink-basic</module>
+                <module>spring-kitchensink-asyncrequestmapping</module>
+                <module>spring-greeter</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>

@@ -17,12 +17,12 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.quickstarts.wfk</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-spring-greeter</artifactId>
-    <version>2.7.0-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss WFK Quickstart: spring-greeter</name>
-    <description>JBoss WFK Quickstart: Spring Greeter</description>
+    <name>JBoss EAP Quickstart: spring-greeter</name>
+    <description>JBoss EAP Quickstart: Spring Greeter</description>
     <url>http://jboss.org/jbossas</url>
 
     <licenses>
@@ -99,19 +99,16 @@
     </properties>
 
     <dependencyManagement>
-
         <dependencies>
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any
-                dependencies from org.jboss.spec will have their version defined by this
-                BOM -->
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
-                of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can read this
-                as the JBoss stack of the Java EE Web Profile 6 APIs), and we use version
-                2.0.0.Beta1 which is the latest release of the stack. You can actually use
-                this stack with any version of JBoss that implements Java EE 6, not just
-                JBoss EAP 6! -->
+            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+                 Any dependencies from org.jboss.spec will have their version defined by this BOM
+
+                 JBoss distributes a complete set of Java EE 6 APIs including
+                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                 a collection) of artifacts. We use this here so that we always get the correct
+                 versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
+                 use this stack with any version of JBoss EAP that implements Java EE 6. -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
@@ -169,8 +166,7 @@
             <artifactId>jboss-transaction-api_1.1_spec</artifactId>
         </dependency>
 
-        <!-- Import Spring dependencies, these are either from community or versions
-            certified in WFK2 -->
+        <!-- Import Spring dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
