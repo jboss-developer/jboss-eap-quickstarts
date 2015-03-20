@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.util;
+package org.jboss.quickstarts.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

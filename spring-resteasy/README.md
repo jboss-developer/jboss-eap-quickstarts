@@ -4,9 +4,9 @@ Author: Weinan Li <l.weinan@gmail.com>, Paul Gier <pgier@redhat.com>
 Level: Beginner  
 Technologies: Resteasy, Spring  
 Summary: The `spring-resteasy` quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.  
-Target Product: WFK  
-Product Versions: EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Target Product: JBoss EAP  
+Product Versions: EAP 6.2, EAP 6.3  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
