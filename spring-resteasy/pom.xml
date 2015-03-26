@@ -97,7 +97,6 @@
         <!-- Maven Plugin Versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin settings -->
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -145,6 +144,12 @@
                 <version>${version.commons.logging}</version>
             </dependency>
             
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>${version.org.apache.httpcomponents}</version>
+            </dependency>
+
             <!-- Spring -->
 <!--             <dependency> -->
 <!--                 <groupId>org.springframework</groupId> -->
@@ -205,7 +210,6 @@
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
-            <version>${version.org.apache.httpcomponents}</version>
             <scope>test</scope>
         </dependency>
         
