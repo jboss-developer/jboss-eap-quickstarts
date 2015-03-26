@@ -1,4 +1,3 @@
-package org.jboss.as.quickstarts.kitchensink.test;
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
@@ -15,6 +14,8 @@ package org.jboss.as.quickstarts.kitchensink.test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.as.quickstarts.kitchensink.test;
+
 public class Member {
     private String name;
 

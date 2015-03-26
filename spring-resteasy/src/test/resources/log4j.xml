@@ -16,7 +16,7 @@
     limitations under the License.
 -->
 <!DOCTYPE log4j:configuration SYSTEM 
-	"http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+    "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 
 <!-- ===================================================================== -->
 <!--                                                                       -->
