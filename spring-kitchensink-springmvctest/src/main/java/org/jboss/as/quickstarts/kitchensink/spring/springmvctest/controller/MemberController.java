@@ -16,6 +16,7 @@
  */
 package org.jboss.as.quickstarts.kitchensink.spring.springmvctest.controller;
 
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 
 import org.jboss.as.quickstarts.kitchensink.spring.springmvctest.data.MemberDao;
@@ -51,7 +52,12 @@ public class MemberController {
                 return "redirect:/";
             } catch (UnexpectedRollbackException e) {
                 model.addAttribute("members", memberDao.findAllOrderedByName());
-                model.addAttribute("error", e.getCause().getCause());
+                // Check the uniqueness of the email address
+                if (emailAlreadyExists(newMember.getEmail())) {
+                    model.addAttribute("error", "Unique Email Violation");
+                } else {
+                    model.addAttribute("error", e.getCause().getCause());
+                }
                 return "index";
             }
         } else {
@@ -59,4 +65,22 @@ public class MemberController {
             return "index";
         }
     }
+
+    /**
+     * Checks if a member with the same email address is already registered. This is the only way to easily capture the
+     * "@UniqueConstraint(columnNames = "email")" constraint from the Member class.
+     * 
+     * @param email The email to check
+     * @return True if the email already exists, and false otherwise
+     */
+    public boolean emailAlreadyExists(String email) {
+        Member member = null;
+        try {
+            member = memberDao.findByEmail(email);
+        } catch (NoResultException e) {
+            // ignore
+        }
+        return member != null;
+    }
+
 }
