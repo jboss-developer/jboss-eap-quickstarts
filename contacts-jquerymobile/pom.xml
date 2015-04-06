@@ -18,10 +18,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-contacts-mobile-basic</artifactId>
+    <artifactId>jboss-contacts-jquerymobile</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: contacts-mobile-basic</name>
+    <name>JBoss EAP Quickstart: contacts-jquerymobile</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
     <url>http://jboss.org/jbossas</url>
 
