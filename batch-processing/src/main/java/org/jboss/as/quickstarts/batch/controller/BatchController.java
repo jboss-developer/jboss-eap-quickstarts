@@ -56,7 +56,7 @@ public class BatchController {
     @Inject
     private Logger log;
 
-    private String fileName = "temp-file";
+    private String fileName = "temp-file.txt";
 
     private boolean generateWithError;
 
@@ -81,24 +81,25 @@ public class BatchController {
                 previousName = name;
             }
             log.info("File generated at " + tempFile);
-            facesContext.addMessage(null, new FacesMessage("File generated with " + numRecords + " records to be imported. File name: " + getFileName()));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "File generated with " + numRecords + " records to be imported. File name: " + getFileName(), null));
             if (generateWithError) {
-                facesContext.addMessage(null, new FacesMessage("Attention: This file contains duplicate records for test purpose.", null));
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Attention: This file contains duplicate records for test purpose.", null));
             }
         }
     }
-    
-    public void generateFileAndStarJob() throws IOException{
+
+    public void generateFileAndStarJob() throws IOException {
         generate();
         startImport();
     }
-    
-    public void startImport(){
+
+    public void startImport() {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         Properties jobParameters = new Properties();
         jobParameters.setProperty("fileName", getFileName());
         long execID = jobOperator.start("import-file", jobParameters);
-        facesContext.addMessage(null, new FacesMessage("New job execution #" + execID + " running. Importing file:" + getFileName()));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New job execution #" + execID + " running. Importing file:" + getFileName(), null));
     }
 
     public Set<JobData> getJobsExecution() {
@@ -146,7 +147,7 @@ public class BatchController {
         Properties jobParameters = jobOperator.getParameters(executionId);
         jobParameters.setProperty("restartedOnce", "true");
         long newExecutionId = jobOperator.restart(executionId, jobParameters);
-        facesContext.addMessage(null, new FacesMessage("Execution " + executionId + " restarted! New execution id: " + newExecutionId));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Execution " + executionId + " restarted! New execution id: " + newExecutionId, null));
     }
 
     public Integer getNumRecords() {

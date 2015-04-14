@@ -69,16 +69,16 @@ You're presented with a simple form that allows you to generate sample files to 
 
 ### Usage 1: Import the file without any errors ###
 
-Click on `Generate a new file ans start import job` button. This will generate a new file with 10 unique records to be imported. After the file is generated, the import job will start.
+Click on `Generate a new file and start import job` button. This will generate a new file with 10 unique records to be imported. After the file is generated, the import job will start.
 
-You will see a table containing information about the task that was just started. You can click on `Refresh the table` button and realize that the job was completed.
+You will see a table containing information about the task that was just started. You can click on `Update jobs list` button and realize that the job was completed.
 
 #### Investigate the Console Output ####
 
 At the logs you will see that the files with 10 records were processed using 3 records at a time. 
 
-    15:57:40,313 INFO  [org.jboss.as.quickstarts.batch.controller.BatchController] (default task-3) Starting to generate 10 in file /var/folders/j8/63sgdmbn5tqdkyw0tz6df53r0000gn/T/temp-file
-    15:57:40,315 INFO  [org.jboss.as.quickstarts.batch.controller.BatchController] (default task-3) File generated at /var/folders/j8/63sgdmbn5tqdkyw0tz6df53r0000gn/T/temp-file
+    15:57:40,313 INFO  [org.jboss.as.quickstarts.batch.controller.BatchController] (default task-3) Starting to generate 10 in file /var/folders/j8/63sgdmbn5tqdkyw0tz6df53r0000gn/T/temp-file.txt
+    15:57:40,315 INFO  [org.jboss.as.quickstarts.batch.controller.BatchController] (default task-3) File generated at /var/folders/j8/63sgdmbn5tqdkyw0tz6df53r0000gn/T/temp-file.txt
     15:57:40,404 INFO  [org.jboss.as.quickstarts.batch.job.listener.JobListener] (Batch Thread - 1) Job import-file - Execution #1 starting.
     15:57:40,468 INFO  [org.jboss.as.quickstarts.batch.job.ContactsPersister] (Batch Thread - 1) No checkpoint detected. Cleaning the Database
     15:57:40,753 INFO  [org.jboss.as.quickstarts.batch.job.ContactsFormatter] (Batch Thread - 1) Register #1 - Changing name ZIqYKITxiM -> Ziqykitxim | phone  978913851 -> (978)-913-851
@@ -106,11 +106,11 @@ At the logs you will see that the files with 10 records were processed using 3 r
 
 Now we will simulate a file with duplicate records. This will raise an exception and stop the processing. After that, we will fix the file and continue the importing where it stopped.
 
-Check the `Generate a duplicate record` checkbox and click on `Generate a new file ans start import job` button. If you click on `Refresh the table` button, you will see that the job failed with the following Exit Status: `Error : org.hibernate.exception.ConstraintViolationException: could not execute statement`. This was caused because we tried to insert a duplicate record at the Database.
+Mark the `Generate a duplicate record` checkbox and click on `Generate a new file and start import job` button. If you click on `Update jobs list` button, you will see that the job failed with the following Exit Status: `Error : org.hibernate.exception.ConstraintViolationException: could not execute statement`. This was caused because the job tried to insert a duplicate record at the Database.
 
 Now we will fix the file and restart that job execution. Uncheck the `Generate a duplicate record` checkbox and click on `Generate a new file` button. This will generate file without errors.
 
-Click on `Restart` button on the `List of Jobs` table. If you  click on `Refresh the table` button, you will realize that the job was completed.
+Click on `Restart` button on the `List of Jobs` table. If you  click on `Update jobs list` button, you will realize that the job was completed.
 
 Analyze the logs and check that the job started from the last checkpoint.
 
@@ -139,9 +139,9 @@ Analyze the logs and check that the job started from the last checkpoint.
 
 ### Usage 3: Import an error file and keep it wrong ###
 
-Check the `Generate a duplicate record` checkbox and click on `Generate a new file ans start import job` button. If you click on `Refresh the table` button, you will see that the job failed with the following Exit Status: `Error : org.hibernate.exception.ConstraintViolationException: could not execute statement`. This was caused because we tried to insert a duplicate record at the Database.
+Check the `Generate a duplicate record` checkbox and click on `Generate a new file ans start import job` button. If you click on `Update jobs list` button, you will see that the job failed with the following Exit Status: `Error : org.hibernate.exception.ConstraintViolationException: could not execute statement`. This was caused because we tried to insert a duplicate record at the Database.
 
-This time we won't generate the fixed file. Just click on `Restart` button again. If you  click on `Refresh the table` button, you will realize that the job was marked as `ABANDONED` this time because it was restarted once (Realize that there's a new parameter restartedOnce=true). This behavior was implemented at `JobListener` for demonstration purpose to avoid that a `FAILED` job that was already restarted once, to be restarted twice. 
+This time we won't generate the fixed file. Just click on `Restart` button again. If you  click on `Update jobs list` button, you will realize that the job was marked as `ABANDONED` this time because it was restarted once (Realize that there's a new parameter restartedOnce=true). This behavior was implemented at `JobListener` for demonstration purpose to avoid that a `FAILED` job that was already restarted once, to be restarted twice. 
 
 Undeploy the Archive
 --------------------
