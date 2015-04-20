@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-mail</artifactId>
-    <version>6.4.0.GA</version>
+    <version>6.4.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: mail</name>
     <description>JBoss EAP Quickstart: Mail</description>

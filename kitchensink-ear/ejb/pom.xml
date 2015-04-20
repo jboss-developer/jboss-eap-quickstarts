@@ -22,7 +22,7 @@
     <parent>
         <artifactId>jboss-kitchensink-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
-        <version>6.4.0.GA</version>
+        <version>6.4.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>jboss-kitchensink-ear-ejb</artifactId>

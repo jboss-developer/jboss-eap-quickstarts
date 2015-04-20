@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-hibernate4</artifactId>
-    <version>6.4.0.GA</version>
+    <version>6.4.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: hibernate4</name>
     <description>JBoss EAP Quickstart: Application that uses Hibernate 4</description>
