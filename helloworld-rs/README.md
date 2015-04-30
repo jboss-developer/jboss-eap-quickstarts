@@ -182,7 +182,7 @@ This is a benign error that occurs when the status of the deployment is checked 
 
 ### Delete the OpenShift Application
 
-If you plan to test the `jax-rs-client` quickstart on OpenShift, you may want to wait to delete this application because it is also used by that quickstart for testing. When you are finished with the application you can delete if from OpenShift as follows:
+If you plan to test the `resteasy-jaxrs-client` quickstart on OpenShift, you may want to wait to delete this application because it is also used by that quickstart for testing. When you are finished with the application you can delete if from OpenShift as follows:
 
         rhc app-delete -a helloworldrs
 

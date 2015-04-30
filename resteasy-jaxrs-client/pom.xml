@@ -19,11 +19,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-jax-rs-client</artifactId>
+    <artifactId>jboss-resteasy-jaxrs-client</artifactId>
     <version>6.4.0-redhat-SNAPSHOT</version>
 
-    <name>JBoss EAP Quickstart: jax-rs-client</name>
-    <description>jax-rs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
+    <name>JBoss EAP Quickstart: resteasy-jaxrs-client</name>
+    <description>resteasy-jaxrs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
 
     <url>http://jboss.org/jbossas</url>
 

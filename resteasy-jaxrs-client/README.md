@@ -1,9 +1,9 @@
-jax-rs-client: External JAX-RS Client
+resteasy-jaxrs-client: External JAX-RS Client
 ======================
 Author: Blaine Mincey  
 Level: Intermediate  
 Technologies: JAX-RS, CDI  
-Summary: The `jax-rs-client` quickstart demonstrates an external JAX-RS RestEasy client, which interacts with a JAX-RS Web service that uses *CDI 1.0* and *JAX-RS*.  
+Summary: The `resteasy-jaxrs-client` quickstart demonstrates an external JAX-RS RestEasy client, which interacts with a JAX-RS Web service that uses *CDI 1.0* and *JAX-RS*.  
 Prerequisites: helloworld-rs  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `jax-rs-client` quickstart demonstrates an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses *CDI 1.0* and *JAX-RS* 
+The `resteasy-jaxrs-client` quickstart demonstrates an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses *CDI 1.0* and *JAX-RS* 
 in Red Hat JBoss Enterprise Application Platform.
 
 This client "calls" the HelloWorld JAX-RS Web Service that was created in the [helloworld-rs](../helloworld-rs/README.md) quickstart. See the **Prerequisite** section below for details on how to build and deploy the [helloworld-rs](../helloworld-rs/README.md) quickstart.
@@ -86,7 +86,7 @@ should see the following if the execution is successful:
 OpenShift
 ---------
 
-To make this quickstart more interesting, deploy the RESTful service to OpenShift.  The following instructions will guide you as to the modifications that must be made to successfully execute the jax-rs-client against a service deployed to OpenShift.
+To make this quickstart more interesting, deploy the RESTful service to OpenShift.  The following instructions will guide you as to the modifications that must be made to successfully execute the `resteasy-jaxrs-client` against a service deployed to OpenShift.
 
 
 Build and Deploy the Quickstart - to OpenShift
@@ -100,11 +100,11 @@ As it says in the `helloworld-rs` instructions, you can verify the deployment of
 * <http://helloworldrs-YOUR_DOMAIN_NAME.rhcloud.com/rest/json> if you want *json*
 
 
-### Modify the jax-rs-client quickstart pom.xml
+### Modify the resteasy-jaxrs-client quickstart pom.xml
 
-Now that you have deployed the application, it is time to make changes to the jax-rs-client quickstart Arquillian tests. 
+Now that you have deployed the application, it is time to make changes to the `resteasy-jaxrs-client` quickstart Arquillian tests. 
 
-1. Open a shell command prompt and navigate to the `QUICKSTART_HOME/jax-rs-client/` directory.
+1. Open a shell command prompt and navigate to the `QUICKSTART_HOME/resteasy-jaxrs-client/` directory.
 2. Make a backup copy of the `pom.xml` file.
 3. Open the `pom.xml` file in an editor and modify the `xmlUrl` and `jsonUrl` property values as follows. Be sure to replace the `YOUR_DOMAIN_NAME` in the URL with your OpenShift domain name.
 
@@ -120,7 +120,7 @@ Now that you have deployed the application, it is time to make changes to the ja
 
 ### Run the Maven test
 
-Type the following command to run the jax-rs-client:
+Type the following command to run the `resteasy-jaxrs-client`:
 
         mvn test
 
