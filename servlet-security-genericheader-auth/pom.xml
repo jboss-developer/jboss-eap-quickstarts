@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-servlet-security-genericheader-auth</artifactId>
-    <version>6.4.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: servlet-security-genericheader-auth</name>
     <description>Generic Header Authenticator: Demonstrates how to authenticate via an externally provided request header</description>
@@ -43,13 +43,13 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
 
-        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
+        <version.org.wildfly>9.0.0.CR1</version.org.wildfly>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -63,27 +63,27 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
+            <!-- Define the version of JBoss' Java EE 7 APIs we want to import. 
                 Any dependencies from org.jboss.spec will have their version defined by this 
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including 
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including 
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
                 a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack 
-                (you can read this as the JBoss stack of the Java EE 6 APIs with tools). 
+                versions of artifacts. Here we use the jboss-javaee-7.0-with-tools stack 
+                (you can read this as the JBoss stack of the Java EE 7 APIs with tools). 
                 You can actually use this stack with any version of JBoss EAP that implements 
-                Java EE 6, not just JBoss EAP 6! -->
+                Java EE 7, not just JBoss EAP 7! -->
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-web</artifactId>
-                <version>${version.jboss.as}</version>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-web</artifactId>
+                <version>${version.org.wildfly}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.xnio</groupId>
@@ -98,12 +98,12 @@
         <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-web</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-web</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -148,8 +148,8 @@
             <!-- JBoss AS plugin to deploy war -->
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
             </plugin>
         </plugins>
     </build>
@@ -179,8 +179,8 @@
                         and run: mvn package jboss-as:deploy -->
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>${version.jboss.maven.plugin}</version>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>${version.wildfly.maven.plugin}</version>
                     </plugin>
                 </plugins>
             </build>

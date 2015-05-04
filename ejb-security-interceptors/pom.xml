@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-security-interceptors</artifactId>
-    <version>6.4.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-security-interceptors</name>
     <description>JBoss EAP Quickstart: EJB Security Interceptors</description>
@@ -44,13 +44,11 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <version.security.api>7.4.0.Final-redhat-19</version.security.api>
+        <version.wildfly>9.0.0.CR1</version.wildfly>
 
-        <version.jboss.as>7.2.1.Final-redhat-10</version.jboss.as>
-
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-7</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.7.0>1.0.0.Final</version.jboss.spec.javaee.7.0>
 
         <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
@@ -65,24 +63,24 @@
 
     <dependencyManagement>
         <dependencies>
-                <!-- Define the version of JBoss' Java EE 6 APIs we want to use -->
-                <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
+                <!-- Define the version of JBoss' Java EE 7 APIs we want to use -->
+                <!-- JBoss distributes a complete set of Java EE 7 APIs including a Bill
                     of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
                     of artifacts. We use this here so that we always get the correct versions
-                    of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as
-                    the JBoss stack of the Java EE 6 APIs). You can actually use this stack with
-                    any version of JBoss EAP that implements Java EE 6. -->
+                    of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as
+                    the JBoss stack of the Java EE 7 APIs). You can actually use this stack with
+                    any version of JBoss EAP that implements Java EE 7. -->
             <dependency>
                 <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss.spec.javaee.6.0}</version>
+                <artifactId>jboss-javaee-7.0</artifactId>
+                <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-ejb-client-bom</artifactId>
-                <version>${version.jboss.as}</version>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-ejb-client-bom</artifactId>
+                <version>${version.wildfly}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -92,16 +90,16 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.jboss.as</groupId>
+            <groupId>org.wildfly</groupId>
             <artifactId>jboss-as-security-api</artifactId>
             <version>${version.security.api}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.jboss.as</groupId>
+                    <groupId>org.wildfly</groupId>
                     <artifactId>jboss-as-build-config</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.jboss.as</groupId>
+                    <groupId>org.wildfly</groupId>
                     <artifactId>jboss-as-security</artifactId>
                 </exclusion>
             </exclusions>
@@ -117,7 +115,7 @@
             <version>${version.security.api}</version>
             <exclusions>
                     <exclusion>
-                    <groupId>org.jboss.as</groupId>
+                    <groupId>org.wildfly</groupId>
                     <artifactId>jboss-as-build-config</artifactId>
                 </exclusion>
             </exclusions>
@@ -134,14 +132,14 @@
               as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+            <artifactId>jboss-annotations-api_1.2_spec</artifactId>
         </dependency>
 
           <!-- Import the Servlet API, we use provided scope as the API is included
               in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
         </dependency>
 
         <dependency>
@@ -187,7 +185,7 @@
               using any direct reference to the spec API in our client code -->
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
             <scope>runtime</scope>
         </dependency>
 
@@ -237,9 +235,9 @@
 
                 <!-- JBoss AS plugin to deploy ejb -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
                    <filename>${project.build.finalName}.jar</filename>
                 </configuration>

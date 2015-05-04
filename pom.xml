@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>8</version>
+        <version>16</version>
         <relativePath />
     </parent>
     <groupId>org.jboss.quickstarts.eap</groupId>
     
     <artifactId>jboss-quickstart-parent</artifactId>
-    <version>6.4.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
@@ -43,7 +43,7 @@
 
     <properties>
         <!-- A base list of dependency and plugin version used in the various quick starts. -->
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- other plugin versions -->
         <version.com.mycyla.license>2.5</version.com.mycyla.license>
@@ -54,9 +54,9 @@
             <!-- The JBoss AS plugin deploys your apps to a local JBoss EAP container -->
             <!-- Disabling it here means that we don't try to deploy this POM! -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
                 <inherited>true</inherited>
                 <configuration>
                     <skip>true</skip>
@@ -131,7 +131,9 @@
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
-                <module>ejb-security-interceptors</module>
+                <!-- TODO: ejb-client-bom no longer contains security-api 
+                <module>ejb-security-interceptors</module> 
+                -->
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
@@ -161,7 +163,9 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <!-- TODO: needs dependency update for EAP 7/Wildfly 9 
                 <module>servlet-security-genericheader-auth</module>
+                -->
                 <module>shopping-cart</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
@@ -198,11 +202,15 @@
                 </property>
             </activation>
             <modules>
-                <module>cluster-ha-singleton</module>
+                <!-- TODO: missing deps jboss-as-clustering-singleton and jboss-as-logging 
+                <module>cluster-ha-singleton</module> 
+                -->
                 <module>inter-app</module>                
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>
+                <!-- TODO: needs dependency update for EAP 7/Wildfly 9 
                 <module>servlet-security-genericheader-auth</module>
+                -->
             </modules>
         </profile>
         <profile>

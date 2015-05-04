@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-shopping-cart</artifactId>
-        <version>6.4.0-redhat-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>jboss-shopping-cart-client</artifactId>
@@ -50,8 +50,8 @@
             client API isn't directly used in this example. We just need it in our runtime 
             classpath -->
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
             <scope>runtime</scope>
             <type>pom</type>
         </dependency>
@@ -59,7 +59,7 @@
         <!--  Import the Java EJB API, as we use exceptions from it -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
         </dependency>
 
     </dependencies>

@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-resteasy-jaxrs-client</artifactId>
-    <version>6.4.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
 
     <name>JBoss EAP Quickstart: resteasy-jaxrs-client</name>
     <description>resteasy-jaxrs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
@@ -45,10 +45,10 @@
         <!-- JBoss dependency versions -->
         
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
-        <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>
+        <version.org.apache.httpcomponents>4.3.3</version.org.apache.httpcomponents>
         <version.commons.logging>1.1.1</version.commons.logging>
 
         <!-- other plugin versions -->
@@ -63,8 +63,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <scope>import</scope>
                 <type>pom</type>
@@ -89,7 +89,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
+            <artifactId>httpclient</artifactId>
             <version>${version.org.apache.httpcomponents}</version>
         </dependency>
         <dependency>

@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-helloworld-mbean</artifactId>
-        <version>6.4.0-redhat-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-helloworld-mbean-helloworld-mbean-service</artifactId>
     <packaging>jboss-sar</packaging>
@@ -48,9 +48,9 @@
                 <extensions>true</extensions>
             </plugin>
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
                     <skip>false</skip>
                     <filename>${project.artifactId}.sar</filename>

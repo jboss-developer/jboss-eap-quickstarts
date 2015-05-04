@@ -16,10 +16,10 @@
  */
 package org.jboss.as.quickstarts.picketlink;
 
+import org.picketlink.common.exceptions.fed.WSTrustException;
+import org.picketlink.common.util.DocumentUtil;
 import org.picketlink.identity.federation.api.wstrust.WSTrustClient;
 import org.picketlink.identity.federation.api.wstrust.WSTrustClient.SecurityInfo;
-import org.picketlink.identity.federation.core.saml.v2.util.DocumentUtil;
-import org.picketlink.identity.federation.core.wstrust.WSTrustException;
 import org.picketlink.identity.federation.core.wstrust.plugins.saml.SAMLUtil;
 import org.w3c.dom.Element;
 
