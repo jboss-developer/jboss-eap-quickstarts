@@ -10,6 +10,8 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
+_NOTE: This quickstart can not yet be built in Red Hat JBoss EAP 7. It has been temporarily disabled until the API dependencies are resolved._
+
 The `servlet-security-genericheader-auth` quickstart demonstrates a method for HTTP authentication based upon an HTTP header in the incoming request in Red Hat JBoss Enterprise Application Platform. 
 A Tomcat Valve called "GenericHeaderAuthenticator" is used to pass these credentials to JBoss. Tomcat Valves provide a 
 powerful, flexible way to insert a Java component into the request servlet container's request processing pipeline in 

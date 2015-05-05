@@ -10,6 +10,8 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
+_NOTE: This quickstart can not yet be built in Red Hat JBoss EAP 7. It has been temporarily disabled until the API dependencies are resolved._
+
 The `cluster-ha-singleton` quickstart demonstrates the deployment of a Service that is wrapped with the 
 SingletonService decorator and used as a cluster-wide singleton service in Red Hat JBoss Enterprise Application Platform.
 The service activates a scheduled timer, which is started only once in the cluster.
