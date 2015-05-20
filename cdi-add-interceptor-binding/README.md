@@ -4,7 +4,7 @@ Author: Pete Muir
 Level: Intermediate  
 Technologies: CDI, DeltaSpike  
 Summary: The `cdi-add-interceptor-binding` quickstart demonstrates how to create a simple CDI extension to automatically add an interceptor binding to a class.  
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 

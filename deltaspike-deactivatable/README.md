@@ -4,7 +4,7 @@ Author: Rafael Benevides
 Level: Beginner  
 Technologies: CDI, DeltaSpike  
 Summary: The `deltaspike-deactivatable` quickstart demonstrates how to use DeltaSpike `ClassDeactivator` to manually deactivate artifacts.   
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 

@@ -120,21 +120,29 @@
                 <module>bean-validation-custom-constraint</module>
                 <module>bmt</module>
                 <module>cdi-alternative</module>
+                <module>cdi-add-interceptor-binding</module>
                 <module>cdi-decorator</module>
                 <module>cdi-interceptors</module>
                 <module>cdi-injection</module>
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
-                <module>contacts-mobile-basic</module>
+                <module>contacts-jquerymobile</module>
+                <module>deltaspike-authorization</module>
+                <module>deltaspike-beanbuilder</module>
+                <module>deltaspike-beanmanagerprovider</module>
+                <module>deltaspike-deactivatable</module>
+                <module>deltaspike-exception-handling</module>
+                <module>deltaspike-helloworld-jms</module>
+                <module>deltaspike-partialbean-advanced</module>
+                <module>deltaspike-partialbean-basic</module>
+                <module>deltaspike-projectstage</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
                 <module>ejb-remote</module>
                 <module>ejb-security</module>
-                <!-- TODO: ejb-client-bom no longer contains security-api 
-                <module>ejb-security-interceptors</module> 
-                -->
+                <module>ejb-security-interceptors</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
@@ -150,6 +158,7 @@
                 <module>hibernate3</module>
                 <module>hibernate4</module>
                 <module>kitchensink</module>
+                <module>kitchensink-deltaspike</module>
                 <module>kitchensink-ear</module>
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
@@ -164,9 +173,7 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
-                <!-- TODO: needs dependency update for EAP 7/Wildfly 9 
                 <module>servlet-security-genericheader-auth</module>
-                -->
                 <module>shopping-cart</module>
                 <module>spring-resteasy</module>
                 <module>spring-petclinic</module>

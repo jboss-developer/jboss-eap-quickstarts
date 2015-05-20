@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, JSF, DeltaSpike  
 Summary: The `deltaspike-exception-handling` quickstart demonstrates exception handling using the DeltaSpike library, which is based on the CDI eventing model.  
 Prerequisites:   
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 

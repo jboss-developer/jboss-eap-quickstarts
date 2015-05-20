@@ -4,7 +4,7 @@ Author: Rafael Benevides
 Level: Advanced  
 Technologies: CDI, DeltaSpike  
 Summary: The `deltaspike-beanbuilder` quickstart demonstrates a CDI Portable Extension that uses DeltaSpike utilities to create new Beans.  
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 

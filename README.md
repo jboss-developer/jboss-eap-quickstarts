@@ -1,6 +1,6 @@
 Red Hat JBoss Enterprise Application Platform (EAP) Quickstarts
 ====================
-Summary: The quickstarts demonstrate Java EE 6 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
+Summary: The quickstarts demonstrate Java EE 6 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.  
 
 Introduction
 ------------

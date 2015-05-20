@@ -4,7 +4,7 @@ Author: Pete Muir, Bernard Tison
 Level: Intermediate  
 Technologies: CDI, JSF, JPA, JPA, JAX-RS, BV, DeltaSpike  
 Summary: The `kitchensink-deltaspike` quickstart demonstrates how to give transacational behavior to a CDI bean using the Deltaspike @Transactional Annotation.  
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 

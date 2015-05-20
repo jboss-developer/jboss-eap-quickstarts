@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JSF, CDI, DeltaSpike  
 Summary: The `deltaspike-authorization` quickstart demonstrates the creation of a custom authorization example using @SecurityBindingType from DeltaSpike.  
 Prerequisites:   
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 

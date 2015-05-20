@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.as.quickstarts.wfk</groupId>
     <artifactId>deltaspike-exception-handling-test-webdriver</artifactId>
-    <version>2.7.0-SNAPSHOT</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <name>JBoss WFK Quickstart: deltaspike-exception-handling test via WebDriver with Arquillian</name>
 
     <url>http://jboss.org/jbossas</url>
@@ -39,7 +39,7 @@
                          resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-	    <!-- To disable warning of missing beans.xml file in JBoss Tools -->
+        <!-- To disable warning of missing beans.xml file in JBoss Tools -->
         <m2e.cdi.activation>false</m2e.cdi.activation>
 
         <!-- JBoss dependency versions -->

@@ -4,7 +4,7 @@ Author: Jess Sightler
 Level: Advanced  
 Technologies: CDI, DeltaSpike  
 Summary: The `deltaspike-partialbean-basic` quickstart shows use of an InvocationHandler and DeltaSpike to provide dynamic implementations of partial CDI bean.   
-Target Product: WFK  
+Target Product: JBoss EAP  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
 
