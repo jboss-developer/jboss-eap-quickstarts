@@ -127,7 +127,9 @@
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
+                <!-- TODO It's failing
                 <module>contacts-jquerymobile</module>
+                -->
                 <module>deltaspike-authorization</module>
                 <module>deltaspike-beanbuilder</module>
                 <module>deltaspike-beanmanagerprovider</module>
@@ -179,7 +181,9 @@
                 <module>servlet-security-genericheader-auth</module>
                 -->
                 <module>shopping-cart</module>
+                <!-- TODO needs dependency update for EAP
                 <module>spring-resteasy</module>
+                -->
                 <module>spring-petclinic</module>
                 <module>spring-kitchensink-springmvctest</module>
                 <module>spring-kitchensink-matrixvariables</module>

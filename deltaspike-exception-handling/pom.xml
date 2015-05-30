@@ -91,6 +91,10 @@
         <maven.compiler.source>1.6</maven.compiler.source>
 
 
+    
+        <!--Automatically created property by QSTools for
+        org.jboss.bom:jboss-javaee-7.0-eap-with-deltaspike BOM-->
+        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
     </properties>
 
     <dependencyManagement>
@@ -103,9 +107,9 @@
                 any version of JBoss that implements Java EE 6, not just JBoss EAP 6! -->
 
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-deltaspike</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-deltaspike</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -127,7 +131,7 @@
             in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+            <artifactId>jboss-jsf-api_2.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -150,8 +154,8 @@
         <!-- JAX RS API, we use provided scope as the API is included in 
             JBoss EAP 6 -->
         <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

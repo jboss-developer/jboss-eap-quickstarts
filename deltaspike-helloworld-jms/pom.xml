@@ -92,6 +92,10 @@
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
 
+    
+        <!--Automatically created property by QSTools for
+        org.jboss.bom:jboss-javaee-7.0-eap-with-deltaspike BOM-->
+        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
     </properties>
 
     <dependencyManagement>
@@ -106,9 +110,9 @@
                 use this stack with any version of JBoss that implements Java EE 6, not 
                 just JBoss EAP 6! -->
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-deltaspike</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-deltaspike</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

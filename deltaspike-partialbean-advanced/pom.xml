@@ -91,6 +91,13 @@
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
+    
+        <!--Automatically created property by QSTools for
+        org.jboss.bom:jboss-javaee-7.0-eap-with-deltaspike BOM-->
+        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
+        <!--Automatically created property by QSTools for
+        org.jboss.bom:jboss-javaee-7.0-eap-with-tools BOM-->
+        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
     </properties>
 
     <dependencyManagement>
@@ -104,17 +111,17 @@
                 Java EE 6, not just JBoss EAP 6! -->
 
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-deltaspike</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-deltaspike</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -136,7 +143,7 @@
             in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
             <scope>provided</scope>
         </dependency>
 

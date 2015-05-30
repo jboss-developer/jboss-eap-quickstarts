@@ -43,7 +43,7 @@
         
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <version.jboss.spec.javaee.7.0>1.0.0.Final</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.0.2.Final</version.jboss.spec.javaee.7.0>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>

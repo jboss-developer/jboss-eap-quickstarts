@@ -81,7 +81,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.wfk>2.7.0-redhat-1</version.jboss.bom.wfk>
-        <version.jboss.bom.eap>6.3.2.GA</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -110,24 +110,24 @@
                  read this as the JBoss stack of the Java EE 6 APIs). You can actually
                  use this stack with any version of JBoss EAP that implements Java EE 6. -->
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-spring4.1</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-spring4</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -188,7 +188,7 @@
         <!-- Import the JPA API using the provided scope It is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -224,11 +224,11 @@
         <!-- Bring in the Servlet jars to avoid errors while compiling with jdt. -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
-            <artifactId>jboss-jsp-api_2.2_spec</artifactId>
+            <artifactId>jboss-jsp-api_2.3_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
