@@ -86,8 +86,8 @@
         <version.jboss.as>7.4.1.Final-redhat-3</version.jboss.as>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>

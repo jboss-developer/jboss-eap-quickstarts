@@ -57,8 +57,8 @@
 
     <!-- maven-compiler-plugin -->
             <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 
         <exec.plugin.version>1.2.1</exec.plugin.version>
         <dependency.plugin.version>2.1</dependency.plugin.version>
