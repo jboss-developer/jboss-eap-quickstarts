@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-contacts-jquerymobile</artifactId>
-    <version>6.4.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: contacts-jquerymobile</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>

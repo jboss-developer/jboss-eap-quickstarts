@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-cdi-add-interceptor-binding</artifactId>
-    <version>6.4.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-add-interceptor-binding</name>
     <description>CDI Portable Extension, add an interceptor binding: An example of a Portable Extension and some of the APIs / SPIs of CDI</description>
